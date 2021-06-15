@@ -1,0 +1,11 @@
+Sage's Mania adds some random crap to Terraria.
+
+I am still a newbie modder, and this mod is still a work in progress, so a lot of stuff is broken, underpowered or non functional.
+
+Mod Plans:
+
+More items
+Sprite for the Atherian
+All Seer Boss & Town NPC
+Balance changes
+Areus Charge meter
