@@ -1,0 +1,4 @@
+displayName = Ace's Mania
+author = AceOfSpades2370
+version = 0.3.6
+homepage = https://discord.gg/nbPVYBUGvu
