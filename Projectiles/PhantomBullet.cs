@@ -11,6 +11,8 @@ namespace SagesMania.Projectiles
         public override void SetDefaults() {
             projectile.width = 2;
             projectile.height = 20;
+            projectile.damage = 300;
+            projectile.ranged = true;
 
             projectile.ranged = true;
             projectile.aiStyle = 1;

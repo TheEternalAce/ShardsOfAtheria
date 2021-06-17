@@ -10,7 +10,7 @@ namespace SagesMania.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("CO2 Cartridge");
-			Tooltip.SetDefault("Converts bullets into High Velocity Bullets");
+			Tooltip.SetDefault("Converts BBs into High Velocity Bullets");
 		}
 
 		public override void SetDefaults()
@@ -26,16 +26,6 @@ namespace SagesMania.Items.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.GetModPlayer<SMPlayer>().Co2Cartridge = true;
-		}
-
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<BB>(), 200);
-			recipe.AddIngredient(ItemID.Bottle);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
 		}
 	}
 }

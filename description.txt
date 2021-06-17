@@ -6,7 +6,13 @@ Mod Plans:
 
 More items
 Sprite for the Atherian
-All Seer Boss & Town NPC
 Balance changes
 Areus Charge meter
 New NPCs
+3 bosses
+
+0.4.1
+	Started keeping track of changes, might not be consistent.
+	Added more gem cores and recipes for previous gem cores
+	Changed Hero Gun have autofire
+	Changed Phantom Rose use sound to standard gun fire sound

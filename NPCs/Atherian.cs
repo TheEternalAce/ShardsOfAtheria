@@ -90,6 +90,8 @@ namespace SagesMania.NPCs
             {
                 case 0:
                     return "Harold";
+                case 1:
+                    return "Jordan";
                 default:
                     return "Zero";
             }

@@ -10,7 +10,7 @@ namespace SagesMania.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("BB Bottle");
-			Tooltip.SetDefault("38% chance to not consume ammo\n" +
+			Tooltip.SetDefault("5% chance to not consume ammo\n" +
 				"Fires an extra BB");
 		}
 

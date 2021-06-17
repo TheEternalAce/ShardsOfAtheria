@@ -22,7 +22,9 @@ namespace SagesMania.Items.Accessories
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			if (player.name == "Sophie")
+			if (player.name == "Sophie" || player.name == "Lilly" || player.name == "Damien"
+				|| player.name == "Ariiannah" || player.name == "Arii" || player.name == "Peter"
+				|| player.name == "Shane")
 			{
 				player.statDefense += 30;
 				player.allDamage += 0.1f;
@@ -30,6 +32,7 @@ namespace SagesMania.Items.Accessories
 				player.statLifeMax2 += 50;
 				player.statManaMax2 += 20;
 			}
+			/*
 			else if(player.name == "Lilly")
 			{
 				player.statDefense += 30;
@@ -78,6 +81,7 @@ namespace SagesMania.Items.Accessories
 				player.statLifeMax2 += 50;
 				player.statManaMax2 += 20;
 			}
+			*/
 			else
 			{
 				player.statDefense += 15;

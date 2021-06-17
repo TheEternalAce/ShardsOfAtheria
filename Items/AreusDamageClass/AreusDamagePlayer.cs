@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using SagesMania;
 
@@ -66,7 +67,7 @@ namespace SagesMania.Items.AreusDamageClass
 
 		private void UpdateResource()
 		{
-			if (player.GetModPlayer<SMPlayer>().naturalAreusRegen)
+			if (player.GetModPlayer<SMPlayer>().naturalAreusRegen == true)
 			{
 				// For our resource lets make it regen slowly over time to keep it simple, let's use exampleResourceRegenTimer to count up to whatever value we want, then increase currentResource.
 				areusResourceRegenTimer++; //Increase it by 60 per second, or 1 per tick.
@@ -81,6 +82,12 @@ namespace SagesMania.Items.AreusDamageClass
 				// Limit exampleResourceCurrent from going over the limit imposed by exampleResourceMax.
 				areusResourceCurrent = Utils.Clamp(areusResourceCurrent, 0, areusResourceMax2);
 			}
+			
+			if (areusResourceCurrent == areusResourceMax2)
+            {
+				Main.PlaySound(SoundID.DD2_BetsyScream, player.position);
+				CombatText.NewText(player.Hitbox, Color.Cyan, "Charged");
+            }
 		}
 	}
 }

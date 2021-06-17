@@ -3,77 +3,57 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Accessories
+namespace SagesMania.Items.Accessories.GemCores
 {
-    public class LivingMetal : ModItem
-    {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("Moderate increase to all stats, grants dash and immunity to knockback and certain debuffs\n" +
-                "Press Overdrive Key to activate Overdrive\n" +
-                "Overdrive doubles all damage and increases movement speed by\n" +
-                "Overdrive lasts untill you get hit or cancel the buff");
-        }
+	public class AmethystCore : ModItem
+	{
+		public override void SetStaticDefaults()
+		{
+			Tooltip.SetDefault("Gives a dash to the wearer.");
+		}
 
-        public override void SetDefaults()
-        {
-            item.width = 32;
-            item.height = 32;
-            item.accessory = true;
-            item.value = Item.sellPrice(silver: 30);
-            item.rare = ItemRarityID.Blue;
-        }
+		public override void SetDefaults()
+		{
+			item.width = 32;
+			item.height = 32;
+			item.value = Item.sellPrice(silver: 15);
+			item.rare = ItemRarityID.White;
+			item.accessory = true;
+		}
 
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.LifeCrystal, 5);
-            recipe.AddRecipeGroup("SM:SilverBars", 10);
-            recipe.AddIngredient(ItemID.SoulofNight, 5);
-            recipe.AddIngredient(ItemID.SoulofLight, 5);
+            recipe.AddIngredient(ModContent.ItemType<LesserAmethystCore>());
+            recipe.AddIngredient(ItemID.Wire, 20);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            player.statDefense += 20;
-            player.allDamage += 0.25f;
-            player.maxRunSpeed *= 2;
-            player.lifeRegen += 4;
-            player.statLifeMax2 += 100;
-            player.statManaMax2 += 40;
-            player.noKnockback = true;
-            player.buffImmune[BuffID.Bleeding] = true;
-            player.buffImmune[BuffID.Poisoned] = true;
-            player.buffImmune[BuffID.Weak] = true;
-            player.buffImmune[BuffID.WitheredWeapon] = true;
-            player.buffImmune[BuffID.Venom] = true;
-            player.GetModPlayer<SMPlayer>().livingMetal = true;
-            Lighting.AddLight(player.position, 0.5f, 0.5f, 0.5f);
+		{
+            AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
 
-            ExampleDashPlayer mp = player.GetModPlayer<ExampleDashPlayer>();
             //If the dash is not active, immediately return so we don't do any of the logic for it
             if (!mp.DashActive)
                 return;
 
-            player.eocDash = mp.DashTimer;
-            player.armorEffectDrawShadowEOCShield = true;
-
             //This is where we set the afterimage effect.  You can replace these two lines with whatever you want to happen during the dash
             //Some examples include:  spawning dust where the player is, adding buffs, making the player immune, etc.
             //Here we take advantage of "player.eocDash" and "player.armorEffectDrawShadowEOCShield" to get the Shield of Cthulhu's afterimage effect
+            player.eocDash = mp.DashTimer;
+            player.armorEffectDrawShadowEOCShield = true;
 
             //If the dash has just started, apply the dash velocity in whatever direction we wanted to dash towards
-            if (mp.DashTimer == ExampleDashPlayer.MAX_DASH_TIMER)
+            if (mp.DashTimer == AmethystDashPlayer.MAX_DASH_TIMER)
             {
                 Vector2 newVelocity = player.velocity;
 
-                if ((mp.DashDir == ExampleDashPlayer.DashLeft && player.velocity.X > -mp.DashVelocity) || (mp.DashDir == ExampleDashPlayer.DashRight && player.velocity.X < mp.DashVelocity))
+                if ((mp.DashDir == AmethystDashPlayer.DashLeft && player.velocity.X > -mp.DashVelocity) || (mp.DashDir == AmethystDashPlayer.DashRight && player.velocity.X < mp.DashVelocity))
                 {
                     //X-velocity is set here
-                    int dashDirection = mp.DashDir == ExampleDashPlayer.DashRight ? 1 : -1;
+                    int dashDirection = mp.DashDir == AmethystDashPlayer.DashRight ? 1 : -1;
                     newVelocity.X = dashDirection * mp.DashVelocity;
                 }
 
@@ -87,14 +67,14 @@ namespace SagesMania.Items.Accessories
             if (mp.DashDelay == 0)
             {
                 //The dash has ended.  Reset the fields
-                mp.DashDelay = ExampleDashPlayer.MAX_DASH_DELAY;
-                mp.DashTimer = ExampleDashPlayer.MAX_DASH_TIMER;
+                mp.DashDelay = AmethystDashPlayer.MAX_DASH_DELAY;
+                mp.DashTimer = AmethystDashPlayer.MAX_DASH_TIMER;
                 mp.DashActive = false;
             }
         }
     }
 
-    public class ExampleDashPlayer : ModPlayer
+    public class AmethystDashPlayer : ModPlayer
     {
         //These indicate what direction is what in the timer arrays used
         public static readonly int DashRight = 2;
@@ -112,7 +92,7 @@ namespace SagesMania.Items.Accessories
         //These two fields are the max values for the delay between dashes and the length of the dash in that order
         //The time is measured in frames
         public static readonly int MAX_DASH_DELAY = 50;
-        public static readonly int MAX_DASH_TIMER = 35;
+        public static readonly int MAX_DASH_TIMER = 20;
 
         public override void ResetEffects()
         {
@@ -131,7 +111,7 @@ namespace SagesMania.Items.Accessories
 
                 //Set the flag for the ExampleDashAccessory being equipped if we have it equipped OR immediately return if any of the accessories are
                 // one of the higher-priority ones
-                if (item.type == ModContent.ItemType<LivingMetal>())
+                if (item.type == ModContent.ItemType<AmethystCore>())
                     dashAccessoryEquipped = true;
                 else if (item.type == ItemID.EoCShield || item.type == ItemID.MasterNinjaGear || item.type == ItemID.Tabi)
                     return;
@@ -141,9 +121,7 @@ namespace SagesMania.Items.Accessories
             //Also return if the player is currently on a mount, since dashes on a mount look weird, or if the dash was already activated
             if (!dashAccessoryEquipped || player.setSolar || player.mount.Active || DashActive)
                 return;
-
-            //When a directional key is pressed and released, vanilla starts a 15 tick (1/4 second) timer during which a second press activates a dash
-            //If the timers are set to 15, then this is the first press just processed by the vanilla logic.  Otherwise, it's a double-tap
+            
             if (player.controlRight && player.releaseRight && player.doubleTapCardinalTimer[DashRight] < 15)
                 DashDir = DashRight;
             else if (player.controlLeft && player.releaseLeft && player.doubleTapCardinalTimer[DashLeft] < 15)
@@ -155,29 +133,6 @@ namespace SagesMania.Items.Accessories
 
             //Here you'd be able to set an effect that happens when the dash first activates
             //Some examples include:  the larger smoke effect from the Master Ninja Gear and Tabi
-        }
-    }
-    public class LivingMetalHead : EquipTexture
-    {
-        public override bool DrawHead()
-        {
-            return false;
-        }
-    }
-
-    public class LivingMetalBody : EquipTexture
-    {
-        public override bool DrawBody()
-        {
-            return false;
-        }
-    }
-
-    public class LivingMetalLegs : EquipTexture
-    {
-        public override bool DrawLegs()
-        {
-            return false;
         }
     }
 }

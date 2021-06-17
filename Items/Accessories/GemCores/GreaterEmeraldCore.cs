@@ -1,33 +1,36 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Placeable;
-using SagesMania.Tiles;
 
-namespace SagesMania.Items.Accessories
+namespace SagesMania.Items.Accessories.GemCores
 {
 	[AutoloadEquip(EquipType.Wings)]
-	public class AreusWings : ModItem
+	public class GreaterEmeraldCore : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Allows infinite flight and grants slow fall\n" +
-				"Grants immunity to Electrified");
+			Tooltip.SetDefault("Counts as wings\n" +
+				"10% increased movement speed\n" +
+				"Panic Necklace, Water Walking Boots and Flippers effects\n" +
+				"Grants flight and slowfall");
 		}
 
 		public override void SetDefaults()
 		{
-			item.width = 22;
-			item.height = 20;
-			item.value = Item.sellPrice(gold: 15);
-			item.rare = ItemRarityID.Green;
+			item.width = 32;
+			item.height = 32;
+			item.value = Item.sellPrice(silver: 15);
+			item.rare = ItemRarityID.White;
 			item.accessory = true;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.wingTimeMax = 1666666666;
-			player.buffImmune[BuffID.Electrified] = true;
+			player.maxRunSpeed += .1f;
+			player.wingTimeMax = 4 * 60;
+			player.panic = true;
+			player.waterWalk2 = true;
+			player.accFlipper = true;
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
@@ -44,15 +47,6 @@ namespace SagesMania.Items.Accessories
 		{
 			speed = 9f;
 			acceleration *= 2.5f;
-		}
-
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<AreusOreItem>(), 60);
-			recipe.AddTile(ModContent.TileType<AreusForge>());
-			recipe.SetResult(this);
-			recipe.AddRecipe();
 		}
 	}
 }

@@ -10,8 +10,7 @@ namespace SagesMania.Items.Armor
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Increases ranged damage by 10% and crit chance by 4%\n" +
-                "Also works in vanity\n" +
-                "Doesn't work properly, it is unobtainable for now");
+                "Also works in vanity");
         }
         public override void SetDefaults()
         {
@@ -19,13 +18,19 @@ namespace SagesMania.Items.Armor
             item.height = 18;
             item.rare = ItemRarityID.Orange;
             item.defense = 7;
+            item.vanity = true;
         }
         public override void UpdateEquip(Player player)
         {
             player.rangedDamage += 0.1f;
             player.rangedCrit += 4;
         }
-        /*
+
+        public override void UpdateVanity(Player player, EquipType type)
+        {
+            player.GetModPlayer<SMPlayer>().OrangeMask = true;
+        }
+        
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
@@ -35,10 +40,10 @@ namespace SagesMania.Items.Armor
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-        */
+        
         public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
         {
-            base.DrawHair(ref drawHair, ref drawAltHair);
+            drawHair = true;
         }
     }
 }

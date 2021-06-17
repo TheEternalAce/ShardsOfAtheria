@@ -38,7 +38,15 @@ namespace SagesMania.Items.AreusDamageClass
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+        public override bool CanUseItem(Player player)
+        {
 
+            if (player.GetModPlayer<AreusDamagePlayer>().areusResourceCurrent != player.GetModPlayer<AreusDamagePlayer>().areusResourceMax2)
+            {
+                return true;
+            }
+            else return false;
+        }
         public override bool UseItem(Player player)
         {
             player.GetModPlayer<AreusDamagePlayer>().areusResourceCurrent += 50;

@@ -8,6 +8,8 @@ namespace SagesMania.Projectiles
     public class HeroBullet : ModProjectile {
         public override void SetStaticDefaults()
         {
+            ProjectileID.Sets.TrailCacheLength[projectile.type] = 5;
+            ProjectileID.Sets.TrailingMode[projectile.type] = 0;
         }
 
         public override void SetDefaults() {
