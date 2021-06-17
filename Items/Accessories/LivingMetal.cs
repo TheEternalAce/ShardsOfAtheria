@@ -47,14 +47,7 @@ namespace SagesMania.Items.Accessories
             player.buffImmune[BuffID.Weak] = true;
             player.buffImmune[BuffID.WitheredWeapon] = true;
             player.buffImmune[BuffID.Venom] = true;
-            Lighting.AddLight(player.position, 0.5f, 0f, 0f);
-
-            SMPlayer p = player.GetModPlayer<SMPlayer>();
-            p.livingMetalArmor = true;
-            if (hideVisual)
-            {
-                p.livingMetalArmor = true;
-            }
+            Lighting.AddLight(player.position, 0.5f, 0.5f, 0.5f);
 
             ExampleDashPlayer mp = player.GetModPlayer<ExampleDashPlayer>();
 

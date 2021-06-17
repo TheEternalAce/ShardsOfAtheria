@@ -6,15 +6,11 @@ namespace SagesMania.Items
 {
 	public class BrokenHeroGun : ModItem
 	{
-		public override void SetStaticDefaults() 
-		{
-		}
-
 		public override void SetDefaults()
 		{
-			item.width = 34;
-			item.height = 38;
-			item.value = Item.sellPrice(gold: 1);
+			item.width = 30;
+			item.height = 20;
+			item.value = Item.sellPrice(gold: 7, silver: 50);
 			item.rare = ItemRarityID.Yellow;
 			item.maxStack = 99;
 		}

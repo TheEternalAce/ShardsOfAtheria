@@ -1,8 +1,10 @@
 ﻿using SagesMania.Items.Placeable;
 using SagesMania.Tiles;
+using SagesMania;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace SagesMania.Items.AreusDamageClass
 {
@@ -10,7 +12,7 @@ namespace SagesMania.Items.AreusDamageClass
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Gives 150 areus charge");
+            Tooltip.SetDefault("Gives 50 areus charge");
         }
         public override void SetDefaults()
         {
@@ -39,7 +41,8 @@ namespace SagesMania.Items.AreusDamageClass
 
         public override bool UseItem(Player player)
         {
-            player.GetModPlayer<AreusDamagePlayer>().areusResourceCurrent += 150;
+            player.GetModPlayer<AreusDamagePlayer>().areusResourceCurrent += 50;
+            CombatText.NewText(player.Hitbox, Color.Aqua, 50);
             return true;
         }
     }

@@ -31,7 +31,7 @@ namespace SagesMania.Items.AreusDamageClass
 			item.autoReuse = false;
 			item.crit = 21;
 			item.shoot = ModContent.ProjectileType<ElectricBlade>();
-			item.shootSpeed = 20;
+			item.shootSpeed = 10;
 			areusResourceCost = 1;
 		}
 

@@ -12,7 +12,7 @@ namespace SagesMania.Items.Weapons
 		{
 			Tooltip.SetDefault("Converts regular bullets into Chlorophyte Bullets\n" +
 				"66% chance to not consume ammo\n" +
-				"[c/960096:Now we're talkin'!]");
+				"[c/960096:''Now we're talkin'!'']");
 		}
 
 		public override void SetDefaults()
@@ -31,7 +31,7 @@ namespace SagesMania.Items.Weapons
 			item.autoReuse = true;
 			item.crit = 20;
 			item.shoot = ProjectileID.PurificationPowder;
-			item.shootSpeed = 16f;
+			item.shootSpeed = 13f;
 			item.useAmmo = AmmoID.Bullet;
 		}
 
@@ -49,6 +49,7 @@ namespace SagesMania.Items.Weapons
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ModContent.ItemType<BBGun>());
+			recipe.AddIngredient(ModContent.ItemType<BrokenHeroGun>());
 			recipe.AddIngredient(ItemID.SniperRifle);
 			recipe.AddIngredient(ItemID.FragmentVortex, 20);
 			recipe.AddIngredient(ItemID.LunarBar, 10);

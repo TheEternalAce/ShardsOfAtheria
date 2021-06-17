@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using SagesMania;
 
 namespace SagesMania.Items.AreusDamageClass
 {
@@ -28,7 +29,7 @@ namespace SagesMania.Items.AreusDamageClass
 		public int areusResourceMax2;
 		public float areusResourceRegenRate;
 		internal int areusResourceRegenTimer = 0;
-		public static readonly Color HealSreusResource = new Color(100, 150, 200); // We can use this for CombatText, if you create an item that replenishes exampleResourceCurrent.
+		public static readonly Color HealAreusResource = new Color(0, 255, 255); // We can use this for CombatText, if you create an item that replenishes exampleResourceCurrent.
 
 		/*
 		In order to make the Example Resource example straightforward, several things have been left out that would be needed for a fully functional resource similar to mana and health. 
@@ -61,6 +62,25 @@ namespace SagesMania.Items.AreusDamageClass
 			areusCrit = 0;
 			areusResourceRegenRate = 1f;
 			areusResourceMax2 = areusResourceMax;
+		}
+
+		private void UpdateResource()
+		{
+			if (player.GetModPlayer<SMPlayer>().naturalAreusRegen)
+			{
+				// For our resource lets make it regen slowly over time to keep it simple, let's use exampleResourceRegenTimer to count up to whatever value we want, then increase currentResource.
+				areusResourceRegenTimer++; //Increase it by 60 per second, or 1 per tick.
+
+				// A simple timer that goes up to 3 seconds, increases the exampleResourceCurrent by 1 and then resets back to 0.
+				if (areusResourceRegenTimer > 180 * areusResourceRegenRate)
+				{
+					areusResourceCurrent += 1;
+					areusResourceRegenTimer = 0;
+				}
+
+				// Limit exampleResourceCurrent from going over the limit imposed by exampleResourceMax.
+				areusResourceCurrent = Utils.Clamp(areusResourceCurrent, 0, areusResourceMax2);
+			}
 		}
 	}
 }

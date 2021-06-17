@@ -30,7 +30,7 @@ namespace SagesMania.Items.Weapons
 			item.autoReuse = true;
 			item.crit = 6;
 			item.shoot = ProjectileID.PurificationPowder;
-			item.shootSpeed = 16f;
+			item.shootSpeed = 13f;
 			item.useAmmo = AmmoID.Bullet;
 		}
         public override Vector2? HoldoutOffset()

@@ -1,4 +1,4 @@
-Sage's Mania adds some random crap to Terraria.
+Ace's Mania adds some random crap to Terraria.
 
 This mod is still a work in progress, so a lot of stuff is broken, underpowered or non functional.
 
@@ -9,3 +9,4 @@ Sprite for the Atherian
 All Seer Boss & Town NPC
 Balance changes
 Areus Charge meter
+New NPCs

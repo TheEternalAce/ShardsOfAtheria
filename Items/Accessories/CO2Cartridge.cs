@@ -25,8 +25,7 @@ namespace SagesMania.Items.Accessories
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			SMPlayer p = player.GetModPlayer<SMPlayer>();
-			p.Co2Cartridge = true;
+			player.GetModPlayer<SMPlayer>().Co2Cartridge = true;
 		}
 
 		public override void AddRecipes()

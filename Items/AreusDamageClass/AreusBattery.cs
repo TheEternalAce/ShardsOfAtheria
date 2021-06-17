@@ -12,7 +12,7 @@ namespace SagesMania.Items.AreusDamageClass
 		{
 			Tooltip.SetDefault("All attacks inflict Electrified\n" +
 				"Grants immunity to Electrified\n" +
-				"Increases Areus Charge by 50 and doubles Areus Charge regen rate");
+				"Increases Areus Charge by 50 and Areus Charge regenerates");
 		}
 
 		public override void SetDefaults()
@@ -26,11 +26,10 @@ namespace SagesMania.Items.AreusDamageClass
 		//these wings use the same values as the solar wings
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			SMPlayer p = player.GetModPlayer<SMPlayer>();
-			p.areusBatteryElectrify = true;
 			player.buffImmune[BuffID.Electrified] = true;
-			var modPlayer = AreusDamagePlayer.ModPlayer(player);
-			modPlayer.areusResourceMax2 += 50; // add 50 to the exampleResourceMax2, which is our max for example resource.
+			player.GetModPlayer<SMPlayer>().areusBatteryElectrify = true;
+			player.GetModPlayer<SMPlayer>().naturalAreusRegen = true;
+			player.GetModPlayer<AreusDamagePlayer>().areusResourceMax2 += 50;
 		}
 
 		public override void AddRecipes()
