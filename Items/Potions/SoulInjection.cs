@@ -12,7 +12,7 @@ namespace SagesMania.Items.Potions
 			Tooltip.SetDefault("Damages you but grants the following:\n" +
 				"Increased damage, movement speed and defense\n" +
 				"Grants life regen\n" +
-				"[c/960096:''Babe I promise, I don't do drugs!'']");
+				"[c/960096:'Babe I promise, I don't do drugs!']");
 		}
 
 		public override void SetDefaults()

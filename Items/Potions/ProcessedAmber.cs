@@ -11,7 +11,7 @@ namespace SagesMania.Items.Potions
 		public override void SetStaticDefaults() 
 		{
 			Tooltip.SetDefault("Minor improvements to all stats\n" +
-				"''Do not crush or chew, you'll break your teeth''");
+				"'Do not crush or chew, you'll break your teeth'");
 		}
 
 		public override void SetDefaults()

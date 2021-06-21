@@ -11,12 +11,14 @@ namespace SagesMania
         public static int AreusCurrency;
         public static int DryskalCurrency;
         public static ModHotKey OverdriveKey;
+        public static ModHotKey TomeKey;
 
         public override void Load()
         {
             AreusCurrency = CustomCurrencyManager.RegisterCurrency(new AreusCurrency(ModContent.ItemType<Items.AreusCoin>(), 999L));
             DryskalCurrency = CustomCurrencyManager.RegisterCurrency(new AreusCurrency(ModContent.ItemType<Items.Dryskal>(), 999L));
-            OverdriveKey = RegisterHotKey("Activate Overdrive", "F");
+            OverdriveKey = RegisterHotKey("Toggle Overdrive", "F");
+            TomeKey = RegisterHotKey("Cycle Knowledge Base", "N");
         }
         public override void AddRecipeGroups()
         {

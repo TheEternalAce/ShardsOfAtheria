@@ -55,6 +55,7 @@ namespace SagesMania.Items.Accessories.GemCores
 			player.buffImmune[BuffID.BrokenArmor] = true;
 			player.buffImmune[BuffID.Weak] = true;
 			player.noKnockback = true;
+			player.fireWalk = true;
 
 			player.buffImmune[BuffID.WitheredArmor] = true;
 			player.buffImmune[BuffID.Ichor] = true;

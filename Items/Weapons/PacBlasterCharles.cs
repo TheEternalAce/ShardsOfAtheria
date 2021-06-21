@@ -1,3 +1,4 @@
+using SagesMania.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,6 +9,7 @@ namespace SagesMania.Items.Weapons
 	{
 		public override void SetStaticDefaults() 
 		{
+			DisplayName.SetDefault("Ice Pac-Blaster");
 			Tooltip.SetDefault("''This is the greatest plaaaaaan!''\n" +
 				"A certain Root Beer addict's friend");
 		}
@@ -27,7 +29,7 @@ namespace SagesMania.Items.Weapons
 			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/BlasterShoot");
 			item.autoReuse = true;
 			item.crit = 6;
-			item.shoot = mod.ProjectileType("IcePacBlasterShot");
+			item.shoot = ModContent.ProjectileType<IcePacBlasterShot>();
 			item.shootSpeed = 16f;
 		}
 
@@ -41,18 +43,9 @@ namespace SagesMania.Items.Weapons
 			recipe.AddRecipe();
 
 			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(mod.ItemType("PacBlasterEllie"));
+			recipe.AddIngredient(ModContent.ItemType<PacBlasterEllie>());
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
-
-		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
-		{
-			// Add the Onfire buff to the NPC for 1 second when the weapon hits an NPC
-			// 60 frames = 1 second
-			target.AddBuff(BuffID.OnFire, 600);
-		}
-
-
 	}
 }

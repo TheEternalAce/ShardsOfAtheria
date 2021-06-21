@@ -12,7 +12,7 @@ namespace SagesMania.Items.Potions
 		public override void SetStaticDefaults() 
 		{
 			Tooltip.SetDefault("Gives the Infection debuff\n" +
-				"Recommended by 0 out of 10 doctors");
+				"'Recommended by 0 out of 10 doctors'");
 		}
 
 		public override void SetDefaults()

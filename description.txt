@@ -11,6 +11,21 @@ Areus Charge meter
 New NPCs
 3 bosses
 
+0.4.1.3
+	Overdrive now drains 1 life per second and keybind now toggles Overdrive
+	Infected now drains 8 life per second
+	Soul Infused increases damage by 15%
+	Added Tome Of Omniscience
+	Added Retribution Chain
+	Renamed Pac Blaster Charles to Ice Pac-Blaster and Pac Blaster Ellie to Fire Pac-Blaster
+
+0.4.1.2
+	Added after immage effect when player has 'Overdrive: ON'
+	Super Diamond Core now lets the player walk on fire blocks
+
+0.4.1.1
+	Fixed Topaz Core recipe
+
 0.4.1
 	Started keeping track of changes, might not be consistent.
 	Added more gem cores and recipes for previous gem cores

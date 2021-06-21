@@ -1,3 +1,4 @@
+using SagesMania.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,6 +9,7 @@ namespace SagesMania.Items.Weapons
 	{
 		public override void SetStaticDefaults() 
 		{
+			DisplayName.SetDefault("Fire Pac-Blaster");
 			Tooltip.SetDefault("A certain Root Beer addict's friend");
 		}
 
@@ -26,7 +28,7 @@ namespace SagesMania.Items.Weapons
 			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/BlasterShoot");
 			item.autoReuse = true;
 			item.crit = 6;
-			item.shoot = mod.ProjectileType("FirePacBlasterShot");
+			item.shoot = ModContent.ProjectileType<FirePacBlasterShot>();
 			item.shootSpeed = 20;
 		}
 
@@ -40,7 +42,7 @@ namespace SagesMania.Items.Weapons
 			recipe.AddRecipe();
 
 			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(mod.ItemType("PacBlasterCharles"));
+			recipe.AddIngredient(ModContent.ItemType<PacBlasterCharles>());
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

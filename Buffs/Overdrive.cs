@@ -15,12 +15,11 @@ namespace SagesMania.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.GetModPlayer<SMPlayer>().livingMetal)
-            {
-                player.allDamage *= 2;
-                player.moveSpeed += .5f;
-                player.armorEffectDrawShadowEOCShield = true;
-            }
+            player.allDamage *= 2;
+            player.moveSpeed += .5f;
+            player.statDefense -= 15;
+            player.GetModPlayer<SMPlayer>().Overdrive = true;
+            player.buffTime[buffIndex] = 18000;
         }
     }
 }

@@ -10,9 +10,9 @@ namespace SagesMania.Items.Potions
 		public override void SetStaticDefaults() 
 		{
 			Tooltip.SetDefault("Minor improvements to all stats\n" +
-				"[c/0000FF:''I TOLD YOU NOT TO STEAL MY BEER!'']\n" +
-				"[c/960096:''IT'S NOT BEER SIR!'']\n" +
-				"[c/0000FF:''SHUT UP!'']");
+				"[c/0000FF:'I TOLD YOU NOT TO STEAL MY BEER!']\n" +
+				"[c/960096:'IT'S NOT BEER SIR!']\n" +
+				"[c/0000FF:'SHUT UP!']");
 		}
 
 		public override void SetDefaults()

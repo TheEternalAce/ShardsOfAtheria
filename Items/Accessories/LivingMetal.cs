@@ -9,10 +9,14 @@ namespace SagesMania.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Moderate increase to all stats, grants dash and immunity to knockback and certain debuffs\n" +
-                "Press Overdrive Key to activate Overdrive\n" +
+            Tooltip.SetDefault("25% Increased damage\n" +
+                "Doubles movement speed\n" +
+                "Increased life regen\n" +
+                "Increased life by 100 and mana by 40\n" +
+                "Grants dash and immunity to knockback and certain debuffs\n" +
+                "Press Toggle Overdrive to activate or deactivate Overdrive\n" +
                 "Overdrive doubles all damage and increases movement speed by\n" +
-                "Overdrive lasts untill you get hit or cancel the buff");
+                "Overdrive lasts untill you get hit, cancel the buff or press Toggle Overdrive again");
         }
 
         public override void SetDefaults()
@@ -22,6 +26,7 @@ namespace SagesMania.Items.Accessories
             item.accessory = true;
             item.value = Item.sellPrice(silver: 30);
             item.rare = ItemRarityID.Blue;
+            item.defense = 20;
         }
 
         public override void AddRecipes()
@@ -38,9 +43,8 @@ namespace SagesMania.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.statDefense += 20;
             player.allDamage += 0.25f;
-            player.maxRunSpeed *= 2;
+            player.moveSpeed *= 2;
             player.lifeRegen += 4;
             player.statLifeMax2 += 100;
             player.statManaMax2 += 40;
