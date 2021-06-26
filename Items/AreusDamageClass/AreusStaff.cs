@@ -11,7 +11,8 @@ namespace SagesMania.Items.AreusDamageClass
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("It's magic, so it won't shock you. I think.");
+			Tooltip.SetDefault("''It's magic, so it won't shock you. I think.''\n" +
+				"WARNING: Areus charge does get used up even if the you run out of mana and still try to use this");
 		}
 
 		public override void SafeSetDefaults() 

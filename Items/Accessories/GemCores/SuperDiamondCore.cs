@@ -21,6 +21,19 @@ namespace SagesMania.Items.Accessories.GemCores
 			item.accessory = true;
 			item.defense = 15;
 		}
+
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ModContent.ItemType<GreaterDiamondCore>());
+			recipe.AddIngredient(ItemID.FragmentSolar, 5);
+			recipe.AddIngredient(ItemID.FragmentVortex, 5);
+			recipe.AddIngredient(ItemID.AnkhShield);
+			recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
+
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.npcTypeNoAggro[1] = true;

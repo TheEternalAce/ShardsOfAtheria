@@ -24,6 +24,7 @@ namespace SagesMania.Projectiles
             projectile.light = 0.5f;
             projectile.extraUpdates = 1;
             aiType = ProjectileID.Bullet;
+            drawOffsetX = -4;
         }
     }
 }

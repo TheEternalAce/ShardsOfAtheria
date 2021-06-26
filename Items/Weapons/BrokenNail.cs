@@ -12,7 +12,7 @@ namespace SagesMania.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Infected Nail"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
-            Tooltip.SetDefault("The nail wielded by a certain broken vessel.");
+            Tooltip.SetDefault("'The nail wielded by a certain broken vessel'");
         }
 
         public override void SetDefaults()

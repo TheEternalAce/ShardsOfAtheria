@@ -20,7 +20,17 @@ namespace SagesMania.Items.Accessories.GemCores
 			item.accessory = true;
 			item.defense = 15;
 		}
-        public override void UpdateAccessory(Player player, bool hideVisual)
+
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ModContent.ItemType<DiamondCore>());
+			recipe.AddIngredient(ItemID.SlimySaddle);
+			recipe.AddTile(TileID.Hellforge);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
+		public override void UpdateAccessory(Player player, bool hideVisual)
         {
 			player.npcTypeNoAggro[1] = true;
 			player.npcTypeNoAggro[16] = true;

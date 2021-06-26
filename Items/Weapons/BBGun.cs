@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Weapons.Ammo;
 
 namespace SagesMania.Items.Weapons
 {
@@ -10,8 +9,9 @@ namespace SagesMania.Items.Weapons
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("BB Gun"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
-			Tooltip.SetDefault("[c/960096:One of my favorite treasures, take care of it]");
+			DisplayName.SetDefault("BB Gun");
+			Tooltip.SetDefault("[c/960096:''One of my favorite treasures, take care of it'']\n" +
+				"[c/FF6400:Special Item]");
 		}
 
 		public override void SetDefaults() 
@@ -35,14 +35,15 @@ namespace SagesMania.Items.Weapons
 		}
         public override Vector2? HoldoutOffset()
 		{
-			return new Vector2(-8, 2);
+			return new Vector2(-24, 4);
 		}
+
 		public override void AddRecipes() 
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddRecipeGroup(RecipeGroupID.Wood, 15);
 			recipe.AddRecipeGroup("SM:CopperBars", 4);
-			recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(TileID.WorkBenches);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

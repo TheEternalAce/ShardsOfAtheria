@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SagesMania.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -64,7 +65,7 @@ namespace SagesMania.Items.Weapons
 		}
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			if (type == ProjectileID.Bullet)
+			if (type == ProjectileID.Bullet || type == ModContent.ProjectileType<BBProjectile>())
 			{
 				type = ProjectileID.ChlorophyteBullet;
 			}

@@ -1,4 +1,5 @@
 using SagesMania.Items.AreusDamageClass;
+using SagesMania.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -29,7 +30,7 @@ namespace SagesMania.Items.Weapons
 			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Slash");
 			item.autoReuse = false;
 			item.crit = 0;
-			item.shoot = mod.ProjectileType("TrueBlade");
+			item.shoot = ModContent.ProjectileType<TrueBlade>();
 			item.shootSpeed = 15;
 		}
 

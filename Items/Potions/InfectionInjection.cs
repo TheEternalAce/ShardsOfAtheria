@@ -17,12 +17,11 @@ namespace SagesMania.Items.Potions
 
 		public override void SetDefaults()
 		{
-			item.width = 20;
-			item.height = 20;
+			item.width = 48;
+			item.height = 48;
 			item.rare = ItemRarityID.Orange;
 			item.maxStack = 30;
-			item.useStyle = ItemUseStyleID.EatingUsing;
-			item.UseSound = SoundID.Item3;
+			item.useStyle = ItemUseStyleID.HoldingUp;
 			item.useTime = 15;
 			item.useAnimation = 15;
 			item.consumable = true;
@@ -39,12 +38,11 @@ namespace SagesMania.Items.Potions
 			recipe.AddTile(TileID.AlchemyTable);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-		/*
-        public override bool UseItem(Player player)
-        {
-			player.Hurt(PlayerDeathReason.ByOther(Player.), 20, 1, false, false, false, -1);
-        }
-		*/
-    }
+		}
+
+		public override void OnConsumeItem(Player player)
+		{
+			player.QuickSpawnItem(ModContent.ItemType<EmptyNeedle>());
+		}
+	}
 }

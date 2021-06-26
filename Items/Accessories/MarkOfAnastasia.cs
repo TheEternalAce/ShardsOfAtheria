@@ -8,7 +8,7 @@ namespace SagesMania.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Moderate increase to all stats.");
+			Tooltip.SetDefault("Moderate increase to all stats");
 		}
 
 		public override void SetDefaults()
@@ -18,6 +18,7 @@ namespace SagesMania.Items.Accessories
 			item.value = Item.sellPrice(silver: 15);
 			item.rare = ItemRarityID.White;
 			item.accessory = true;
+			item.expert = true;
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -32,56 +33,6 @@ namespace SagesMania.Items.Accessories
 				player.statLifeMax2 += 50;
 				player.statManaMax2 += 20;
 			}
-			/*
-			else if(player.name == "Lilly")
-			{
-				player.statDefense += 30;
-				player.allDamage += 0.1f;
-				player.maxRunSpeed += 20;
-				player.statLifeMax2 += 50;
-				player.statManaMax2 += 20;
-			}
-			else if (player.name == "Damien")
-			{
-				player.statDefense += 30;
-				player.allDamage += 0.1f;
-				player.maxRunSpeed += 20;
-				player.statLifeMax2 += 50;
-				player.statManaMax2 += 20;
-			}
-			else if (player.name == "Ariiannah")
-			{
-				player.statDefense += 30;
-				player.allDamage += 0.1f;
-				player.maxRunSpeed += 20;
-				player.statLifeMax2 += 50;
-				player.statManaMax2 += 20;
-			}
-			else if (player.name == "Arii")
-			{
-				player.statDefense += 30;
-				player.allDamage += 0.1f;
-				player.maxRunSpeed += 20;
-				player.statLifeMax2 += 50;
-				player.statManaMax2 += 20;
-			}
-			else if (player.name == "Peter")
-			{
-				player.statDefense += 30;
-				player.allDamage += 0.1f;
-				player.maxRunSpeed += 20;
-				player.statLifeMax2 += 50;
-				player.statManaMax2 += 20;
-			}
-			else if (player.name == "Shane")
-			{
-				player.statDefense += 30;
-				player.allDamage += 0.1f;
-				player.maxRunSpeed += 20;
-				player.statLifeMax2 += 50;
-				player.statManaMax2 += 20;
-			}
-			*/
 			else
 			{
 				player.statDefense += 15;

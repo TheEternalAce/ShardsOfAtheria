@@ -1,3 +1,4 @@
+using SagesMania.Items.Potions;
 using SagesMania.Projectiles;
 using Terraria;
 using Terraria.ID;
@@ -10,14 +11,17 @@ namespace SagesMania.Items.Weapons
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Fire Pac-Blaster");
-			Tooltip.SetDefault("A certain Root Beer addict's friend");
+			Tooltip.SetDefault("'Genderbent version of a certain Root Beer addict's friend'\n" +
+                "Damage scales throughout progression\n" +
+				"[c/FF6400:Special Item]");
 		}
 
 		public override void SetDefaults() 
 		{
-			item.damage = 126;
+			item.damage = 36;
 			item.magic = true;
 			item.noMelee = true;
+			item.mana = 8;
 			item.width = 32;
 			item.height = 32;
 			item.useTime = 15;
@@ -25,9 +29,9 @@ namespace SagesMania.Items.Weapons
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.knockBack = 0;
 			item.rare = ItemRarityID.Blue;
-			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/BlasterShoot");
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/PacBlasterShoot");
 			item.autoReuse = true;
-			item.crit = 6;
+			item.crit = 0;
 			item.shoot = ModContent.ProjectileType<FirePacBlasterShot>();
 			item.shootSpeed = 20;
 		}
@@ -35,32 +39,45 @@ namespace SagesMania.Items.Weapons
 		public override void AddRecipes() 
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.LunarBar, 15);
-			recipe.AddIngredient(ItemID.Ichor, 15);
-			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddIngredient(ModContent.ItemType<RootBeerCan>(), 30);
+			recipe.AddIngredient(ItemID.HellstoneBar, 10);
+			recipe.AddTile(TileID.Hellforge);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ModContent.ItemType<PacBlasterCharles>());
+			recipe.AddIngredient(ItemID.HellstoneBar, 10);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
 
-		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
 		{
-			// Add the Onfire buff to the NPC for 1 second when the weapon hits an NPC
-			// 60 frames = 1 second
-			target.AddBuff(BuffID.Frostburn, 600);
-		}
-
-		/*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			if (type == ProjectileID.Bullet) // or ProjectileID.WoodenArrowFriendly
+			if (Main.hardMode)
 			{
-				type = ProjectileID.BulletHighVelocity; // or ProjectileID.FireArrow;
+				add += .1f;
 			}
-			return true; // return true to allow tmodloader to call Projectile.NewProjectile as normal
-		}*/
+			if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+			{
+				add += .15f;
+			}
+			if (NPC.downedPlantBoss)
+			{
+				add += .15f;
+			}
+			if (NPC.downedGolemBoss)
+			{
+				add += .2f;
+			}
+			if (NPC.downedAncientCultist)
+			{
+				add += .5f;
+			}
+			if (NPC.downedMoonlord)
+			{
+				add += 1f;
+			}
+		}
 	}
 }

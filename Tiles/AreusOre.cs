@@ -26,6 +26,11 @@ namespace SagesMania.Tiles
             soundStyle = 1;
         }
 
+        public override bool CanExplode(int i, int j)
+        {
+            return false;
+        }
+
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
             r = 0f;

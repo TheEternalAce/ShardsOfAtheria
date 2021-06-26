@@ -6,16 +6,16 @@ namespace SagesMania.Items.Weapons
 {
 	public class DeathsScythe : ModItem
 	{
-        public override void SetStaticDefaults()
-        {
+		public override void SetStaticDefaults()
+		{
 			DisplayName.SetDefault("Death's Scythe");
 			Tooltip.SetDefault("[c/323232:''You cheated this in...'']\n" +
 				"[c/323232:''Congrats.'']");
 		}
 
-		public override void SetDefaults() 
+		public override void SetDefaults()
 		{
-			item.damage = 999999999;
+			item.damage = 200000;
 			item.melee = true;
 			item.width = 60;
 			item.height = 56;
@@ -41,5 +41,5 @@ namespace SagesMania.Items.Weapons
 			target.AddBuff(BuffID.Bleeding, 600);
 			target.AddBuff(BuffID.Daybreak, 600);
 		}
-    }
+	}
 }

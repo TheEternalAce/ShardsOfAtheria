@@ -29,7 +29,6 @@ namespace SagesMania.Items.Potions
 			item.useTurn = true;
 			item.buffType = ModContent.BuffType<SoulInfused>();
 			item.buffTime = (4 * 60) * 60;
-			item.healLife -= 10;
 		}
 
         public override void AddRecipes()

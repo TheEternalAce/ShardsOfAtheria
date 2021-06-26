@@ -27,7 +27,7 @@ namespace SagesMania.Items.Weapons
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.knockBack = 3.75f;
 			item.rare = ItemRarityID.Green;
-			item.UseSound = SoundID.Item11;
+			item.UseSound = SoundID.Item41;
 			item.autoReuse = true;
 			item.crit = 20;
 			item.shoot = ProjectileID.PurificationPowder;

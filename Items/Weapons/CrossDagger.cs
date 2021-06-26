@@ -1,4 +1,4 @@
-
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -21,7 +21,9 @@ namespace SagesMania.Items.Weapons
             item.useTime = 20;
             item.useAnimation = 20;
             item.useStyle = ItemUseStyleID.SwingThrow;
-            item.damage = 1;
+            item.damage = 26;
+            item.melee = true;
+            item.crit = 6;
             item.knockBack = 6;
             item.value = Item.sellPrice(gold: 10);
             item.rare = ItemRarityID.Red;
@@ -49,6 +51,7 @@ namespace SagesMania.Items.Weapons
         public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
         {
             player.statLife += 100;
+            CombatText.NewText(player.Hitbox, Color.Green, 100);
         }
     }
 }

@@ -29,8 +29,9 @@ namespace SagesMania.Items.Placeable
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.Furnace);
 			recipe.AddIngredient(ModContent.ItemType<AreusOreItem>(), 10);
+			recipe.AddRecipeGroup(RecipeGroupID.Wood, 5);
+			recipe.AddIngredient(ItemID.Torch, 5);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

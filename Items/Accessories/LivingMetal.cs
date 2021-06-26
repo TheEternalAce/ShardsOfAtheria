@@ -14,9 +14,9 @@ namespace SagesMania.Items.Accessories
                 "Increased life regen\n" +
                 "Increased life by 100 and mana by 40\n" +
                 "Grants dash and immunity to knockback and certain debuffs\n" +
-                "Press Toggle Overdrive to activate or deactivate Overdrive\n" +
+                "Press 'Toggle Overdrive' to activate or deactivate Overdrive\n" +
                 "Overdrive doubles all damage and increases movement speed by\n" +
-                "Overdrive lasts untill you get hit, cancel the buff or press Toggle Overdrive again");
+                "Overdrive lasts until you get hit or press 'Toggle Overdrive' again");
         }
 
         public override void SetDefaults()
@@ -159,29 +159,6 @@ namespace SagesMania.Items.Accessories
 
             //Here you'd be able to set an effect that happens when the dash first activates
             //Some examples include:  the larger smoke effect from the Master Ninja Gear and Tabi
-        }
-    }
-    public class LivingMetalHead : EquipTexture
-    {
-        public override bool DrawHead()
-        {
-            return false;
-        }
-    }
-
-    public class LivingMetalBody : EquipTexture
-    {
-        public override bool DrawBody()
-        {
-            return false;
-        }
-    }
-
-    public class LivingMetalLegs : EquipTexture
-    {
-        public override bool DrawLegs()
-        {
-            return false;
         }
     }
 }

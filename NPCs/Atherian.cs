@@ -48,7 +48,7 @@ namespace SagesMania.NPCs
             npc.damage = 200;
             npc.defense = 999;
             npc.lifeMax = 1000;
-            npc.HitSound = mod.GetLegacySoundSlot(SoundType.NPCHit, "Sounds/AtherianHit");
+            npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
             npc.knockBackResist = 0.5f;
             animationType = NPCID.Clothier;
@@ -190,7 +190,7 @@ namespace SagesMania.NPCs
             shop.item[nextSlot].shopSpecialCurrency = SagesMania.AreusCurrency;
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<RetributionChain>());
-            shop.item[nextSlot].shopCustomPrice = 80;
+            shop.item[nextSlot].shopCustomPrice = 256;
             shop.item[nextSlot].shopSpecialCurrency = SagesMania.AreusCurrency;
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusWings>());

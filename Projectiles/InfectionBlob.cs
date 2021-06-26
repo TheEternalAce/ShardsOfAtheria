@@ -18,7 +18,6 @@ namespace SagesMania.Projectiles
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            base.OnHitNPC(target, damage, knockback, crit);
             target.AddBuff(ModContent.BuffType<Infection>(), 10*60);
         }
     }

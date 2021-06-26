@@ -15,11 +15,10 @@ namespace SagesMania.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.maxRunSpeed = +.1f;
+            player.maxRunSpeed += .1f;
             player.nightVision = true;
             player.dangerSense = true;
             player.calmed = true;
-            player.GetModPlayer<SMPlayer>().baseExploration = true;
         }
     }
 }

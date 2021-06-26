@@ -28,6 +28,7 @@ namespace SagesMania.Items.Accessories
 		{
 			player.wingTimeMax = 1666666666;
 			player.buffImmune[BuffID.Electrified] = true;
+			player.GetModPlayer<SMPlayer>().areusWings = true;
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,

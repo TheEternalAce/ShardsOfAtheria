@@ -11,7 +11,7 @@ namespace SagesMania.Items.Accessories.GemCores
 		{
 			Tooltip.SetDefault("Counts as wings\n" +
 				"10% increased movement speed\n" +
-				"Panic Necklace, Water Walking Boots and Flippers effects\n" +
+				"Panic Necklace, Lava Waders and Flippers effects\n" +
 				"Grants flight and slowfall");
 		}
 
@@ -30,7 +30,22 @@ namespace SagesMania.Items.Accessories.GemCores
 			player.wingTimeMax = 4 * 60;
 			player.panic = true;
 			player.waterWalk2 = true;
+			player.waterWalk = true;
+			player.fireWalk = true;
+			player.lavaTime = 7 * 60;
 			player.accFlipper = true;
+		}
+
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ModContent.ItemType<EmeraldCore>());
+			recipe.AddIngredient(ItemID.SoulofFlight, 10);
+			recipe.AddIngredient(ItemID.Flipper);
+			recipe.AddIngredient(ItemID.LavaWaders);
+			recipe.AddTile(TileID.Hellforge);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,

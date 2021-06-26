@@ -10,6 +10,7 @@ namespace SagesMania.Items.Weapons.Ammo
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("BB");
+			Tooltip.SetDefault("[c/FF6400:Special Item]");
 		}
 
 		public override void SetDefaults()

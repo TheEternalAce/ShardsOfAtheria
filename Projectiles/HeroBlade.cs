@@ -6,8 +6,9 @@ namespace SagesMania.Projectiles
 {
     public class HeroBlade : ModProjectile {
         public override void SetDefaults() {
-            projectile.width = 31;
-            projectile.height = 31;
+            projectile.width = 6;
+            projectile.height = 6;
+            projectile.scale = 1.5f;
 
             projectile.aiStyle = 27;
             projectile.friendly = true;

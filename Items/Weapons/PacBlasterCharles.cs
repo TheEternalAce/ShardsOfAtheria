@@ -1,3 +1,4 @@
+using SagesMania.Items.Potions;
 using SagesMania.Projectiles;
 using Terraria;
 using Terraria.ID;
@@ -11,14 +12,17 @@ namespace SagesMania.Items.Weapons
 		{
 			DisplayName.SetDefault("Ice Pac-Blaster");
 			Tooltip.SetDefault("''This is the greatest plaaaaaan!''\n" +
-				"A certain Root Beer addict's friend");
+				"'A certain Root Beer addict's friend'\n" +
+				"Damage scales throughout progression\n" +
+				"[c/FF6400:Special Item]");
 		}
 
 		public override void SetDefaults() 
 		{
-			item.damage = 126;
+			item.damage = 40;
 			item.magic = true;
 			item.noMelee = true;
+			item.mana = 10;
 			item.width = 32;
 			item.height = 32;
 			item.useTime = 15;
@@ -26,9 +30,9 @@ namespace SagesMania.Items.Weapons
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.knockBack = 0;
 			item.rare = ItemRarityID.Blue;
-			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/BlasterShoot");
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/PacBlasterShoot");
 			item.autoReuse = true;
-			item.crit = 6;
+			item.crit = 0;
 			item.shoot = ModContent.ProjectileType<IcePacBlasterShot>();
 			item.shootSpeed = 16f;
 		}
@@ -36,16 +40,45 @@ namespace SagesMania.Items.Weapons
 		public override void AddRecipes() 
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.LunarBar, 15);
-			recipe.AddIngredient(ItemID.Ichor, 15);
-			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddIngredient(ModContent.ItemType<RootBeerCan>(), 30);
+			recipe.AddIngredient(ItemID.IceBlock, 30);
+			recipe.AddTile(TileID.Hellforge);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ModContent.ItemType<PacBlasterEllie>());
+			recipe.AddIngredient(ItemID.IceBlock, 30);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
+		}
+
+		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		{
+			if (Main.hardMode)
+			{
+				add += .1f;
+			}
+			if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+			{
+				add += .15f;
+			}
+			if (NPC.downedPlantBoss)
+			{
+				add += .15f;
+			}
+			if (NPC.downedGolemBoss)
+			{
+				add += .2f;
+			}
+			if (NPC.downedAncientCultist)
+			{
+				add += .5f;
+			}
+			if (NPC.downedMoonlord)
+			{
+				add += 1f;
+			}
 		}
 	}
 }

@@ -14,7 +14,7 @@ namespace SagesMania.Items.Accessories
 		{
 			Tooltip.SetDefault("Allows infinite flight and grants slow fall\n" +
 				"Grants immunity to Electrified\n" +
-				"All attacks inflict electrified\n" +
+				"20% increased areus damage and all attacks inflict electrified\n" +
 				"Increases Areus Charge by 50 and Areus Charge regenerates");
 		}
 
@@ -32,8 +32,10 @@ namespace SagesMania.Items.Accessories
 			player.wingTimeMax = 2000000000;
 			player.buffImmune[BuffID.Electrified] = true;
 			player.GetModPlayer<SMPlayer>().areusBatteryElectrify = true;
-			player.GetModPlayer<SMPlayer>().naturalAreusRegen = true;
+			player.GetModPlayer<SMPlayer>().areusWings = true;
+			player.GetModPlayer<AreusDamagePlayer>().naturalAreusRegen = true;
 			player.GetModPlayer<AreusDamagePlayer>().areusResourceMax2 += 100;
+			player.GetModPlayer<AreusDamagePlayer>().areusDamageMult += .1f;
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
