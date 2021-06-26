@@ -28,6 +28,7 @@ namespace SagesMania.Items.Weapons
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = false;
 			item.crit = 21;
+			item.expert = true;
 		}
 
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)

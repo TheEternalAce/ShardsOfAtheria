@@ -20,6 +20,16 @@ namespace SagesMania.Items.Accessories.GemCores
 			item.accessory = true;
 		}
 
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ModContent.ItemType<LesserRubyCore>());
+			recipe.AddRecipeGroup("SM:EvilBars", 10);
+			recipe.AddTile(TileID.Anvils);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
+
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.allDamage += .1f;

@@ -20,11 +20,21 @@ namespace SagesMania.Items.Accessories
 			item.value = Item.sellPrice(silver: 15);
 			item.rare = ItemRarityID.White;
 			item.accessory = true;
+			item.expert = true;
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.GetModPlayer<SMPlayer>().omnicientTome = true;
+		}
+
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ModContent.ItemType<UnshackledTomeOfOmniscience>());
+			recipe.AddIngredient(ItemID.Shackle, 2);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

@@ -30,7 +30,23 @@ namespace SagesMania.Items.Accessories.GemCores
 			player.wingTimeMax = 4 * 60;
 			player.panic = true;
 			player.waterWalk2 = true;
+			player.fireWalk = true;
+			player.lavaImmune = true;
+			player.lavaTime = 7 * 60;
 			player.accFlipper = true;
+		}
+
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ModContent.ItemType<EmeraldCore>());
+			recipe.AddIngredient(ItemID.SoulofFlight, 10);
+			recipe.AddIngredient(ItemID.WaterWalkingPotion, 15);
+			recipe.AddIngredient(ItemID.FlipperPotion, 15);
+			recipe.AddIngredient(ItemID.LavaWaders);
+			recipe.AddTile(TileID.Hellforge);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,

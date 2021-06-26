@@ -1,15 +1,43 @@
-Ace's Mania adds some random crap to Terraria.
+Ace's Mania is a mod that aims to bring loads of content to Terraria, hopefully soaring to great heights.
 
 This mod is still a work in progress, so a lot of stuff is broken, underpowered or non functional.
 
 Mod Plans:
 
-More items
 Sprite for the Atherian
 Balance changes
 Areus Charge meter
 New NPCs
 3 bosses
+
+0.4.2.1
+	All Amethyst Core and Greater Amethyst Core dash lenghs increased
+	More Gem Cores and made all of them obtainable
+	Areus Wings and Areus Battery properly regenerate Areus Charge
+	Areus Forge recipe changed
+	Satanlance workd as a spear properly
+	Added Prometheus and Pandora
+	Gave sprite to Spider Clock and Tome Of Omniscience
+	Added Unshackled Tome Of Omniscience and Areus Key
+	Areus Ore can no longer be destroyed by explosives
+	Phantom Rose makes same sound as the Handgun when used
+	Changed Butterfly Knife sprite
+
+0.4.2
+	Tome Of Omniscience now obtainable from BoC in Exprt mode
+	Sound plays when when Knowledge Bases are cycled
+	Knowledge Base: Exploration properly increases movement speed
+	Oversized Worm's Tooth now obtainable from EoW in Expert mode
+	Cataracnia now obtainable from EoC in Expert mode
+	Cataracnia damage reduced from 200 to 36 and Ichor debuff reduced from 10 to 1 second
+	The above items mentioned now have the 'Expert' tag
+	Orange Mask no longer doubles it's bonuses when equipped in an armor slot
+	Broken Hero gun is no longer guaranteed (25% chance to drop)
+	Overdrive now drains 6 life per second
+	Infection now drains 5 life per second
+	Added more gem cores
+	New sounds when Overdrive: ON is removed
+	Fixed name from ecnaknataS to ecnalnataS
 
 0.4.1.3
 	Overdrive now drains 1 life per second and keybind now toggles Overdrive

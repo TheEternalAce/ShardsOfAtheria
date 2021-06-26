@@ -12,6 +12,7 @@ namespace SagesMania
         public static int DryskalCurrency;
         public static ModHotKey OverdriveKey;
         public static ModHotKey TomeKey;
+        public static ModHotKey EmeraldTeleportKey;
 
         public override void Load()
         {
@@ -19,6 +20,7 @@ namespace SagesMania
             DryskalCurrency = CustomCurrencyManager.RegisterCurrency(new AreusCurrency(ModContent.ItemType<Items.Dryskal>(), 999L));
             OverdriveKey = RegisterHotKey("Toggle Overdrive", "F");
             TomeKey = RegisterHotKey("Cycle Knowledge Base", "N");
+            EmeraldTeleportKey = RegisterHotKey("Emerald Teleport", "Z");
         }
         public override void AddRecipeGroups()
         {
@@ -43,6 +45,20 @@ namespace SagesMania
             });
             RecipeGroup.RegisterGroup("SM:SilverBars", silver);
 
+            RecipeGroup evilBar = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Evil Bar", new int[]
+            {
+                ItemID.DemoniteBar,
+                ItemID.CrimtaneBar
+            });
+            RecipeGroup.RegisterGroup("SM:EvilBars", evilBar );
+
+            RecipeGroup adamantite = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Tier 3 Bar", new int[]
+            {
+                ItemID.AdamantiteBar,
+                ItemID.TitaniumBar
+            });
+            RecipeGroup.RegisterGroup("SM:AdamantiteBars", adamantite);
+
             RecipeGroup souls = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Soul", new int[]
             {
                 ItemID.SoulofFlight,
@@ -53,13 +69,6 @@ namespace SagesMania
                 ItemID.SoulofSight
             });
             RecipeGroup.RegisterGroup("SM:Souls", souls);
-
-            RecipeGroup adamantite = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Adamantite Bar", new int[]
-            {
-                ItemID.AdamantiteBar,
-                ItemID.TitaniumBar
-            });
-            RecipeGroup.RegisterGroup("SM:AdamantiteBars", adamantite);
         }
     }
 }

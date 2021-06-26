@@ -10,6 +10,7 @@ namespace SagesMania.Items.Armor
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Increases ranged damage by 10% and crit chance by 4%\n" +
+                "7 defense\n" +
                 "Also works in vanity");
         }
         public override void SetDefaults()
@@ -17,13 +18,7 @@ namespace SagesMania.Items.Armor
             item.width = 18;
             item.height = 18;
             item.rare = ItemRarityID.Orange;
-            item.defense = 7;
             item.vanity = true;
-        }
-        public override void UpdateEquip(Player player)
-        {
-            player.rangedDamage += 0.1f;
-            player.rangedCrit += 4;
         }
 
         public override void UpdateVanity(Player player, EquipType type)

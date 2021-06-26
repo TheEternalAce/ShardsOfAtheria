@@ -190,7 +190,7 @@ namespace SagesMania.NPCs
             shop.item[nextSlot].shopSpecialCurrency = SagesMania.AreusCurrency;
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<RetributionChain>());
-            shop.item[nextSlot].shopCustomPrice = 80;
+            shop.item[nextSlot].shopCustomPrice = 256;
             shop.item[nextSlot].shopSpecialCurrency = SagesMania.AreusCurrency;
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusWings>());

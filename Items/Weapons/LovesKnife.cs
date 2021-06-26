@@ -11,7 +11,7 @@ namespace SagesMania.Items.Weapons
 		{
 			DisplayName.SetDefault("Tainted Love");
 			Tooltip.SetDefault("This blade holds the corrupted love and jealousy of several souls\n" +
-				"[c/960096:''Why won't you love me!?'']");
+				"[c/960096:''She took you away from me, so I tore her away from you.'']");
 		}
 
 		public override void SetDefaults() 

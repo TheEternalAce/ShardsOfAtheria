@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SagesMania.Buffs;
 using SagesMania.Projectiles;
+using SagesMania.Projectiles.Minions;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameInput;
@@ -15,18 +16,23 @@ namespace SagesMania
         public bool BBBottle;
         public bool PhantomBulletBottle;
         public bool Co2Cartridge;
-        public bool naturalAreusRegen;
         public bool lesserSapphireCore;
         public bool sapphireCore;
         public bool superSapphireCore;
+        public bool greaterSapphireCore;
         public bool greaterRubyCore;
+        public bool superRubyCore;
         public bool OrangeMask;
         public bool Overdrive;
         public bool livingMetal;
         public bool Infected;
         public bool omnicientTome;
         public bool baseConservation;
-        public bool baseExploration;
+        public bool sapphireMinion;
+        public bool superEmeraldCore;
+        public bool areusKey;
+        public bool unshackledTome;
+        public bool megaGemCore;
 
         public int TomeKnowledge;
 
@@ -36,18 +42,23 @@ namespace SagesMania
             BBBottle = false;
             PhantomBulletBottle = false;
             Co2Cartridge = false;
-            naturalAreusRegen = false;
             lesserSapphireCore = false;
             sapphireCore = false;
             superSapphireCore = false;
+            greaterSapphireCore = false;
             greaterRubyCore = false;
+            superRubyCore = false;
             OrangeMask = false;
             livingMetal = false;
             Overdrive = false;
             Infected = false;
             omnicientTome = false;
             baseConservation = false;
-            baseExploration = false;
+            sapphireMinion = false;
+            superEmeraldCore = false;
+            areusKey = false;
+            unshackledTome = false;
+            megaGemCore = false;
         }
 
         public override void PostUpdate()
@@ -67,29 +78,42 @@ namespace SagesMania
             {
                 if (TomeKnowledge == 0)
                 {
-                    player.AddBuff(ModContent.BuffType<BaseCombat>(), 1800);
-                    player.ClearBuff(ModContent.BuffType<BaseConservation>());
-                    player.ClearBuff(ModContent.BuffType<BaseExploration>());
+                    player.AddBuff(ModContent.BuffType<BaseCombat>(), 1);
                 }
                 else if (TomeKnowledge == 1)
                 {
-                    player.AddBuff(ModContent.BuffType<BaseConservation>(), 1800);
-                    player.ClearBuff(ModContent.BuffType<BaseCombat>());
-                    player.ClearBuff(ModContent.BuffType<BaseExploration>());
+                    player.AddBuff(ModContent.BuffType<BaseConservation>(), 1);
                 }
                 else if (TomeKnowledge == 2)
                 {
-                    player.AddBuff(ModContent.BuffType<BaseExploration>(), 1800);
-                    player.ClearBuff(ModContent.BuffType<BaseCombat>());
-                    player.ClearBuff(ModContent.BuffType<BaseConservation>());
+                    player.AddBuff(ModContent.BuffType<BaseExploration>(), 1);
+                    player.AddBuff(BuffID.Mining, 1);
+                    player.AddBuff(BuffID.Builder, 1);
+                    player.AddBuff(BuffID.Shine, 1);
+                    player.AddBuff(BuffID.Hunter, 1);
                 }
             }
-            if (baseExploration)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] <= 0 && greaterSapphireCore)
             {
-                player.AddBuff(BuffID.Mining, 1);
-                player.AddBuff(BuffID.Builder, 1);
-                player.AddBuff(BuffID.Shine, 1);
-                player.AddBuff(BuffID.Hunter, 1);
+                Projectile.NewProjectile(player.position, player.velocity, ModContent.ProjectileType<SapphireSpiritMinion>(), 80, 5, player.whoAmI);
+            }
+            if (unshackledTome)
+            {
+                if (!player.GetModPlayer<SMPlayer>().areusKey)
+                {
+                    player.AddBuff(BuffID.ChaosState, 10 * 60);
+                    player.AddBuff(BuffID.Confused, 10 * 60);
+                    player.AddBuff(BuffID.ManaSickness, 10 * 60);
+                    player.AddBuff(BuffID.Poisoned, 10 * 60);
+                }
+            }
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] <= 0 && superSapphireCore)
+            {
+                Projectile.NewProjectile(player.position, player.velocity, ModContent.ProjectileType<SapphireSpiritMinion>(), 157, 5, player.whoAmI);
+            }
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] <= 0 && megaGemCore)
+            {
+                Projectile.NewProjectile(player.position, player.velocity, ModContent.ProjectileType<SapphireSpiritMinion>(), 267, 5, player.whoAmI);
             }
         }
 
@@ -139,13 +163,14 @@ namespace SagesMania
                 if (livingMetal && !player.HasBuff(ModContent.BuffType<Overdrive>()))
                 {
                     CombatText.NewText(player.Hitbox, Color.Green, "Overdrive: ON", true);
-                    Main.PlaySound(SoundID.Item4);
+                    Main.PlaySound(SoundID.Item4, player.position);
                     player.AddBuff(ModContent.BuffType<Overdrive>(), 600 * 60);
                 }
                 else
                 {
                     player.ClearBuff(ModContent.BuffType<Overdrive>());
                     CombatText.NewText(player.Hitbox, Color.Red, "Overdrive: OFF");
+                    Main.PlaySound(SoundID.NPCDeath56, player.position);
 
                 }
             }
@@ -158,6 +183,90 @@ namespace SagesMania
                         TomeKnowledge = 0;
                     }
                     else TomeKnowledge += 1;
+                    Main.PlaySound(SoundID.Item1, player.position);
+                }
+            }
+            if (SagesMania.EmeraldTeleportKey.JustPressed)
+            {
+                if (superEmeraldCore)
+                {
+                    Vector2 vector21 = default(Vector2);
+                    vector21.X = (float)Main.mouseX + Main.screenPosition.X;
+                    if (player.gravDir == 1f)
+                    {
+                        vector21.Y = (float)Main.mouseY + Main.screenPosition.Y - (float)player.height;
+                    }
+                    else
+                    {
+                        vector21.Y = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
+                    }
+                    vector21.X -= player.width / 2;
+                    if (vector21.X > 50f && vector21.X < (float)(Main.maxTilesX * 16 - 50) && vector21.Y > 50f && vector21.Y < (float)(Main.maxTilesY * 16 - 50))
+                    {
+                        int num181 = (int)(vector21.X / 16f);
+                        int num182 = (int)(vector21.Y / 16f);
+                        if ((Main.tile[num181, num182].wall != 87 || !((double)num182 > Main.worldSurface) || NPC.downedPlantBoss) && !Collision.SolidCollision(vector21, player.width, player.height))
+                        {
+                            player.Teleport(vector21, 1);
+                            NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, vector21.X, vector21.Y, 1);
+                            if (player.chaosState)
+                            {
+                                player.statLife -= player.statLifeMax2 / 7;
+                                PlayerDeathReason damageSource = PlayerDeathReason.ByOther(13);
+                                if (Main.rand.Next(2) == 0)
+                                {
+                                    damageSource = PlayerDeathReason.ByOther(player.Male ? 14 : 15);
+                                }
+                                if (player.statLife <= 0)
+                                {
+                                    player.KillMe(damageSource, 1.0, 0);
+                                }
+                                player.lifeRegenCount = 0;
+                                player.lifeRegenTime = 0;
+                            }
+                            player.AddBuff(BuffID.ChaosState, 360);
+                        }
+                    }
+                }
+                if (megaGemCore)
+                {
+                    Vector2 vector21 = default(Vector2);
+                    vector21.X = (float)Main.mouseX + Main.screenPosition.X;
+                    if (player.gravDir == 1f)
+                    {
+                        vector21.Y = (float)Main.mouseY + Main.screenPosition.Y - (float)player.height;
+                    }
+                    else
+                    {
+                        vector21.Y = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
+                    }
+                    vector21.X -= player.width / 2;
+                    if (vector21.X > 50f && vector21.X < (float)(Main.maxTilesX * 16 - 50) && vector21.Y > 50f && vector21.Y < (float)(Main.maxTilesY * 16 - 50))
+                    {
+                        int num181 = (int)(vector21.X / 16f);
+                        int num182 = (int)(vector21.Y / 16f);
+                        if ((Main.tile[num181, num182].wall != 87 || !((double)num182 > Main.worldSurface) || NPC.downedPlantBoss) && !Collision.SolidCollision(vector21, player.width, player.height))
+                        {
+                            player.Teleport(vector21, 1);
+                            NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, player.whoAmI, vector21.X, vector21.Y, 1);
+                            if (player.chaosState)
+                            {
+                                player.statLife -= player.statLifeMax2 / 7;
+                                PlayerDeathReason damageSource = PlayerDeathReason.ByOther(13);
+                                if (Main.rand.Next(2) == 0)
+                                {
+                                    damageSource = PlayerDeathReason.ByOther(player.Male ? 14 : 15);
+                                }
+                                if (player.statLife <= 0)
+                                {
+                                    player.KillMe(damageSource, 1.0, 0);
+                                }
+                                player.lifeRegenCount = 0;
+                                player.lifeRegenTime = 0;
+                            }
+                            player.AddBuff(BuffID.ChaosState, 360);
+                        }
+                    }
                 }
             }
         }
@@ -171,6 +280,18 @@ namespace SagesMania
             if (greaterRubyCore)
             {
                 target.AddBuff(BuffID.OnFire, 10 * 60);
+            }
+            if (greaterRubyCore)
+            {
+                target.AddBuff(BuffID.CursedInferno, 10 * 60);
+                target.AddBuff(BuffID.Ichor, 10 * 60);
+            }
+            if (megaGemCore)
+            {
+                target.AddBuff(BuffID.Daybreak, 10 * 60);
+                target.AddBuff(BuffID.BetsysCurse, 10 * 60);
+                player.AddBuff(BuffID.Ironskin, 10 * 60);
+                player.AddBuff(BuffID.Endurance, 10 * 60);
             }
         }
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
@@ -197,7 +318,14 @@ namespace SagesMania
                 player.immuneTime = 30;
                 return false;
             }
-            if (superSapphireCore && Main.rand.NextFloat() < 0.2f)
+            if (superSapphireCore && Main.rand.NextFloat() < 0.15f)
+            {
+                CombatText.NewText(player.Hitbox, Color.RoyalBlue, "Dodge!", true);
+                player.immune = true;
+                player.immuneTime = 30;
+                return false;
+            }
+            if (megaGemCore && Main.rand.NextFloat() < 0.2f)
             {
                 CombatText.NewText(player.Hitbox, Color.RoyalBlue, "Dodge!", true);
                 player.immune = true;
@@ -213,6 +341,12 @@ namespace SagesMania
             {
                 player.ClearBuff(ModContent.BuffType<Overdrive>());
                 CombatText.NewText(player.Hitbox, Color.Red, "Overdrive: BREAK", true);
+                Main.PlaySound(SoundID.NPCDeath44, player.position);
+            }
+            if (megaGemCore)
+            {
+                player.AddBuff(BuffID.Rage, 10 * 60);
+                player.AddBuff(BuffID.Wrath, 10 * 60);
             }
         }
 
@@ -227,7 +361,7 @@ namespace SagesMania
                 }
                 player.lifeRegenTime = 0;
                 // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 8 life lost per second.
-                player.lifeRegen -= 2;
+                player.lifeRegen -= 12;
             }
             if (Infected)
             {
@@ -238,7 +372,7 @@ namespace SagesMania
                 }
                 player.lifeRegenTime = 0;
                 // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 8 life lost per second.
-                player.lifeRegen -= 16;
+                player.lifeRegen -= 10;
             }
         }
 

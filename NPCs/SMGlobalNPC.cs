@@ -18,7 +18,7 @@ namespace SagesMania.NPCs
 		}
         public override void NPCLoot(NPC npc)
         {
-			if (npc.type == NPCID.Mothron)
+			if (npc.type == NPCID.Mothron && Main.rand.NextFloat() < 0.25f)
 			{
 				Item.NewItem(npc.getRect(), ModContent.ItemType<BrokenHeroGun>());
 			}

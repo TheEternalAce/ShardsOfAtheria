@@ -11,7 +11,7 @@ namespace SagesMania.Items.Weapons
 	{
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("ecnaknataS");
+			DisplayName.SetDefault("ecnalnataS");
 			Tooltip.SetDefault("You feel like you can do anything\n" +
 				"''!!!SOAHC SOAHC''");
 		}
@@ -32,7 +32,7 @@ namespace SagesMania.Items.Weapons
 			item.autoReuse = false;
 			item.crit = 100;
 			item.shoot = ModContent.ProjectileType<SatanlanceProjectile>();
-			item.shootSpeed = 20;
+			item.shootSpeed = 5.2f;
 			item.noMelee = true;
 			item.noUseGraphic = true;
 			item.autoReuse = true;
@@ -53,5 +53,9 @@ namespace SagesMania.Items.Weapons
 			// 60 frames = 1 second
 			target.AddBuff(BuffID.Electrified, 600);
 		}
-	}
+        public override bool CanUseItem(Player player)
+		{
+			return player.ownedProjectileCounts[item.shoot] < 1;
+		}
+    }
 }

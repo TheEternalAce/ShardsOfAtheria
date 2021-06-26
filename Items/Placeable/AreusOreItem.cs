@@ -27,6 +27,7 @@ namespace SagesMania.Items.Placeable
 			item.useAnimation = 10;
 			item.createTile = ModContent.TileType<AreusOre>();
 			item.autoReuse = true;
+			item.useTurn = true;
 		}
 
         public override void UpdateInventory(Player player)

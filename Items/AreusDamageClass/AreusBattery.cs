@@ -10,7 +10,7 @@ namespace SagesMania.Items.AreusDamageClass
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("All attacks inflict Electrified\n" +
+			Tooltip.SetDefault("10% increased areus damage and all attacks inflict Electrified\n" +
 				"Grants immunity to Electrified\n" +
 				"Increases Areus Charge by 50 and Areus Charge regenerates");
 		}
@@ -28,8 +28,9 @@ namespace SagesMania.Items.AreusDamageClass
 		{
 			player.buffImmune[BuffID.Electrified] = true;
 			player.GetModPlayer<SMPlayer>().areusBatteryElectrify = true;
-			player.GetModPlayer<SMPlayer>().naturalAreusRegen = true;
+			player.GetModPlayer<AreusDamagePlayer>().naturalAreusRegen = true;
 			player.GetModPlayer<AreusDamagePlayer>().areusResourceMax2 += 50;
+			player.GetModPlayer<AreusDamagePlayer>().areusDamageMult += .1f;
 		}
 
 		public override void AddRecipes()

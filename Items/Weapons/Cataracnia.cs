@@ -15,7 +15,7 @@ namespace SagesMania.Items.Weapons
 
 		public override void SetDefaults() 
 		{
-			item.damage = 200;
+			item.damage = 36;
 			item.melee = true;
 			item.width = 64;
 			item.height = 76;
@@ -28,23 +28,14 @@ namespace SagesMania.Items.Weapons
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = false;
 			item.crit = 21;
-		}
-
-		public override void AddRecipes() 
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.LunarBar, 15);
-			recipe.AddIngredient(ItemID.EoCShield, 2);
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			item.expert = true;
 		}
 
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
 		{
 			// Add the Onfire buff to the NPC for 1 second when the weapon hits an NPC
 			// 60 frames = 1 second
-			target.AddBuff(BuffID.Ichor, 600);
+			target.AddBuff(BuffID.Ichor, 60);
             target.AddBuff(BuffID.Blackout, 3600);
 			player.AddBuff(BuffID.Shine, 18000);
 			player.AddBuff(BuffID.NightOwl, 18000);

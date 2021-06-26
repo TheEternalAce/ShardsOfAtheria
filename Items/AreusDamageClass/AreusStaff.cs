@@ -11,7 +11,7 @@ namespace SagesMania.Items.AreusDamageClass
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("It's magic, so it won't shock you. I think.");
+			Tooltip.SetDefault("''It's magic, so it won't shock you. I think.''");
 		}
 
 		public override void SafeSetDefaults() 
