@@ -5,6 +5,7 @@ using Terraria.World.Generation;
 using System.Collections.Generic;
 using Terraria.GameContent.Generation;
 using SagesMania.Tiles;
+using Terraria.ModLoader.IO;
 
 namespace SagesMania
 {

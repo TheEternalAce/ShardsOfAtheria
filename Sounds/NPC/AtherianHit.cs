@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Terraria.ModLoader;
 
-namespace SagesMania.Sounds.Item
+namespace SagesMania.Sounds.NPC
 {
-	public class BBGunShoot : ModSound
+	public class AtherianHit : ModSound
 	{
 		public override SoundEffectInstance PlaySound(ref SoundEffectInstance soundInstance, float volume, float pan, SoundType type)
 		{

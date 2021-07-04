@@ -11,6 +11,7 @@ namespace SagesMania.Items.Accessories.GemCores
 		{
 			Tooltip.SetDefault("Counts as wings\n" +
 				"10% increased movement speed\n" +
+				"Increased Jump height\n" +
 				"Panic Neclace effect\n" +
 				"Grants flight and slowfall");
 		}
@@ -39,6 +40,7 @@ namespace SagesMania.Items.Accessories.GemCores
 			player.maxRunSpeed += .1f;
 			player.wingTimeMax = 2 * 60;
 			player.panic = true;
+			player.jumpBoost = true;
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,

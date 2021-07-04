@@ -11,7 +11,7 @@ namespace SagesMania.Items.Accessories.GemCores
 		{
 			Tooltip.SetDefault("Counts as wings\n" +
 				"15% increased movement speed\n" +
-				"Panic Necklace, Lava Waders and Flippers effects\n" +
+				"Bundle of Balloons, Panic Necklace, Frostspark Boots, Lava Waders and Flippers effects\n" +
 				"Allows teleportation on press of 'Emerald Teleport' and immune to cold debuffs\n" +
 				"Grants flight and slowfall");
 		}
@@ -27,7 +27,6 @@ namespace SagesMania.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.maxRunSpeed += .1f;
 			player.wingTimeMax = 4 * 60;
 			player.panic = true;
 			player.waterWalk2 = true;
@@ -35,6 +34,14 @@ namespace SagesMania.Items.Accessories.GemCores
 			player.fireWalk = true;
 			player.lavaTime = 7 * 60;
 			player.accFlipper = true;
+			player.accRunSpeed = 6.75f;
+			player.rocketBoots = 3;
+			player.moveSpeed += 0.08f;
+			player.iceSkate = true;
+			player.doubleJumpCloud = true;
+			player.doubleJumpBlizzard = true;
+			player.doubleJumpSandstorm = true;
+			player.jumpBoost = true;
 			player.GetModPlayer<SMPlayer>().superEmeraldCore = true;
 		}
 
@@ -44,7 +51,8 @@ namespace SagesMania.Items.Accessories.GemCores
 			recipe.AddIngredient(ModContent.ItemType<GreaterEmeraldCore>());
 			recipe.AddIngredient(ItemID.FragmentNebula, 5);
 			recipe.AddIngredient(ItemID.FragmentStardust, 5);
-			recipe.AddIngredient(ItemID.WingsNebula);
+			recipe.AddIngredient(ItemID.FrostsparkBoots);
+			recipe.AddIngredient(ItemID.BundleofBalloons);
 			recipe.AddTile(TileID.Hellforge);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

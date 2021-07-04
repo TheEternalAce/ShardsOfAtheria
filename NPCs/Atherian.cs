@@ -47,8 +47,8 @@ namespace SagesMania.NPCs
             npc.aiStyle = 7;
             npc.damage = 200;
             npc.defense = 999;
-            npc.lifeMax = 1000;
-            npc.HitSound = SoundID.NPCHit1;
+            npc.lifeMax = 9000;
+            npc.HitSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/NPC/AtherianHit");
             npc.DeathSound = SoundID.NPCDeath1;
             npc.knockBackResist = 0.5f;
             animationType = NPCID.Clothier;

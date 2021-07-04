@@ -1,5 +1,6 @@
 ﻿using SagesMania.Items;
 using SagesMania.Items.Accessories;
+using SagesMania.Items.Weapons;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -31,8 +32,12 @@ namespace SagesMania.NPCs
 			if (npc.type == NPCID.Mothron && Main.rand.NextFloat() < 0.25f)
 			{
 				Item.NewItem(npc.getRect(), ModContent.ItemType<BrokenHeroGun>());
-			}
-		}
+            }
+            if (npc.type == NPCID.MartianSaucerCore && Main.rand.NextFloat() < 0.25f)
+            {
+                Item.NewItem(npc.getRect(), ModContent.ItemType<ReactorMeltdown>());
+            }
+        }
 
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {

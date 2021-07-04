@@ -4,11 +4,31 @@ This mod is still a work in progress, so a lot of stuff is broken, underpowered 
 
 Mod Plans:
 
-Some Yoyos
 Sprite for the Atherian
 Balance changes
 New NPCs
-3 bosses
+4 bosses
+
+0.4.5.2
+	Super Sapphire Core now gives additional minion slots
+	Reduced Heart Break duration when struk by an enemy
+	Heart Break only occurs when Cross Dagger or Wand Of Healing is in inventory
+	Heart Break time does not get reset when hit again
+	Super Emerald Core and Mega Gem Core allows all double jumps and sprinting
+	Super Amethyst Core and Mega Gem Core allows vertical dash
+	Mega Gem Core grants immunity to Heart Break
+	All Emerald Cores increase jump height
+	Lesser Emerald Core no longer gives flight
+	Resprited Living Metal, Overdrive and Overheat
+	Living Metal general overhaul
+
+0.4.5.1
+	Added Reactor Meltdown and Draco Pellet
+	Hécate II, L-CAR 9, Demon Claw, and Hidden Blade now have a sell value of 5 gold
+	Areus Forge now also acts as a Adamantite/Titanium forge
+	Cross Dagger, Wand of Healing and Living Metal's Overdrive rework
+	Added /toggleFlight command, for those that want an extra challenge
+	Changed Atherian hit sound
 
 0.4.5
 	Added Example Block and Wall, Zenova and Lost Nail

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SagesMania.Buffs;
+using SagesMania.Items.Accessories;
 using SagesMania.Projectiles;
 using SagesMania.Projectiles.Minions;
 using Terraria;
@@ -7,6 +8,7 @@ using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace SagesMania
 {
@@ -26,6 +28,7 @@ namespace SagesMania
         public bool OrangeMask;
         public bool Overdrive;
         public bool livingMetal;
+        public bool megamerged;
         public bool Infected;
         public bool omnicientTome;
         public bool baseConservation;
@@ -37,12 +40,17 @@ namespace SagesMania
         public bool shadowBrand;
         public bool hallowedSeal;
         public bool zenovaJavelin;
+        public bool heartBreak;
+        public bool overheat;
+        public bool sMHealingItem;
 
         Vector2 recentPos;
 
         public int TomeKnowledge;
         public int shadowBrandToggled;
         public int gravToggle;
+        public int flightToggle;
+        public int megamergeToggle;
 
         public override void ResetEffects()
         {
@@ -71,6 +79,31 @@ namespace SagesMania
             shadowBrand = false;
             hallowedSeal = false;
             zenovaJavelin = false;
+            heartBreak = false;
+            overheat = false;
+            sMHealingItem = false;
+            megamerged = false;
+        }
+
+        public override TagCompound Save()
+        {
+            return new TagCompound {
+				// {"somethingelse", somethingelse}, // To save more data, add additional lines
+				{"TomeKnowledge", TomeKnowledge},
+                {"shadowBrandToggled", shadowBrandToggled},
+                {"gravToggle", gravToggle},
+				{"flightToggle", flightToggle},
+				{"megamergeToggle", megamergeToggle}
+            };
+        }
+
+        public override void Load(TagCompound tag)
+        {
+            TomeKnowledge = tag.GetInt("TomeKnowledge");
+            shadowBrandToggled = tag.GetInt("shadowBrandToggled");
+            gravToggle = tag.GetInt("gravToggle");
+            flightToggle = tag.GetInt("flightToggle");
+            megamergeToggle = tag.GetInt("megamergeToggle");
         }
 
         public override void PostUpdate()
@@ -132,10 +165,17 @@ namespace SagesMania
             {
                 Projectile.NewProjectile(player.position, player.velocity, ModContent.ProjectileType<SapphireSpiritMinion>(), 267, 5, player.whoAmI);
             }
-            if (megaGemCore || areusWings)
+            if (flightToggle == 1)
+            {
+                player.wingTime = 0;
+                player.rocketTime = 0;
+            }
+            else if (megaGemCore || areusWings)
             {
                 if (player.wingTime == 0)
                     player.wingTime = 100;
+                if (player.rocketTime == 0)
+                    player.rocketTime = 100;
             }
         }
 
@@ -182,13 +222,22 @@ namespace SagesMania
         {
             if (SagesMania.OverdriveKey.JustPressed)
             {
-                if (livingMetal && !player.HasBuff(ModContent.BuffType<Overdrive>()))
+                if (megamerged && !player.HasBuff(ModContent.BuffType<Overdrive>()))
                 {
-                    player.AddBuff(ModContent.BuffType<Overdrive>(), 2);
-                    CombatText.NewText(player.Hitbox, Color.Green, "Overdrive: ON", true);
-                    Main.PlaySound(SoundID.Item4, player.position);
+                    if (!player.HasBuff(ModContent.BuffType<Overheat>()))
+                    {
+                        player.AddBuff(ModContent.BuffType<Overdrive>(), 2);
+                        CombatText.NewText(player.Hitbox, Color.Green, "Overdrive: ON", true);
+                        Main.PlaySound(SoundID.Item4, player.position);
+                    }
+                    else
+                    {
+                        CombatText.NewText(player.Hitbox, Color.Red, "OVERHEATED!");
+                        Main.PlaySound(SoundID.NPCHit55, player.position);
+                    }
+
                 }
-                else
+                else if (megamerged)
                 {
                     player.ClearBuff(ModContent.BuffType<Overdrive>());
                     CombatText.NewText(player.Hitbox, Color.Red, "Overdrive: OFF");
@@ -332,6 +381,15 @@ namespace SagesMania
             }
         }
 
+        public override void UpdateEquips(ref bool wallSpeedBuff, ref bool tileSpeedBuff, ref bool tileRangeBuff)
+        {
+            // Make sure this condition is the same as the condition in the Buff to remove itself. We do this here instead of in ModItem.UpdateAccessory in case we want future upgraded items to set blockyAccessory
+            if (livingMetal && megamergeToggle == 1)
+            {
+                player.AddBuff(ModContent.BuffType<Megamerged>(), 60, true);
+            }
+        }
+
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
             if (areusBatteryElectrify)
@@ -387,48 +445,59 @@ namespace SagesMania
             }
         }
 
+        public override void FrameEffects()
+        {
+            if (megamerged)
+            {
+                player.head = mod.GetEquipSlot("LivingMetalHead", EquipType.Head);
+                player.body = mod.GetEquipSlot("LivingMetalBody", EquipType.Body);
+                player.legs = mod.GetEquipSlot("LivingMetalLegs", EquipType.Legs);
+            }
+        }
+
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-            if (player.HasBuff(ModContent.BuffType<Overdrive>()))
-            {
-                PlayerDeathReason.ByCustomReason(player.name + "'s systems overheated.");
-            }
             if (lesserSapphireCore && Main.rand.NextFloat() < 0.05f)
             {
                 CombatText.NewText(player.Hitbox, Color.RoyalBlue, "Dodge!", true);
                 player.immune = true;
-                player.immuneTime = 30;
+                player.immuneTime = 60;
                 return false;
             }
             if (sapphireCore && Main.rand.NextFloat() < 0.1f)
             {
                 CombatText.NewText(player.Hitbox, Color.RoyalBlue, "Dodge!", true);
                 player.immune = true;
-                player.immuneTime = 30;
+                player.immuneTime = 60;
                 return false;
             }
             if (superSapphireCore && Main.rand.NextFloat() < 0.15f)
             {
                 CombatText.NewText(player.Hitbox, Color.RoyalBlue, "Dodge!", true);
                 player.immune = true;
-                player.immuneTime = 30;
+                player.immuneTime = 60;
                 return false;
             }
             if (megaGemCore && Main.rand.NextFloat() < 0.2f)
             {
                 CombatText.NewText(player.Hitbox, Color.RoyalBlue, "Dodge!", true);
                 player.immune = true;
-                player.immuneTime = 30;
+                player.immuneTime = 60;
                 return false;
             }
             if (shadowBrand && shadowBrandToggled == 0 && Main.rand.NextFloat() < .1f)
             {
                 player.immune = true;
-                player.immuneTime = 30;
+                player.immuneTime = 60;
                 player.AddBuff(ModContent.BuffType<ShadowTeleport>(), 2);
                 return false;
             }
             else return true;
+        }
+
+        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
+        {
+            if (livingMetal) Main.PlaySound(SoundID.NPCHit4, player.position);
         }
 
         public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
@@ -436,6 +505,7 @@ namespace SagesMania
             if (player.HasBuff(ModContent.BuffType<Overdrive>()))
             {
                 player.ClearBuff(ModContent.BuffType<Overdrive>());
+                player.AddBuff(ModContent.BuffType<Overheat>(), 10 * 60);
                 CombatText.NewText(player.Hitbox, Color.Red, "Overdrive: BREAK", true);
                 Main.PlaySound(SoundID.NPCDeath44, player.position);
             }
@@ -444,6 +514,17 @@ namespace SagesMania
                 player.AddBuff(BuffID.Rage, 10 * 60);
                 player.AddBuff(BuffID.Wrath, 10 * 60);
             }
+            if (sMHealingItem && !player.HasBuff(ModContent.BuffType<HeartBreak>()))
+                player.AddBuff(ModContent.BuffType<HeartBreak>(), 20 * 60);
+        }
+
+        public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        {
+            if (player.HasBuff(ModContent.BuffType<Overdrive>()))
+            {
+                damageSource = PlayerDeathReason.ByCustomReason(player.name + "'s systems overheated.");
+            }
+            return true;
         }
 
         public override void UpdateBadLifeRegen()
@@ -490,6 +571,17 @@ namespace SagesMania
                 if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)
                 {
                     int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, DustID.Blood, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 1f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 1.8f;
+                    Main.dust[dust].velocity.Y -= 0.5f;
+                    Main.playerDrawDust.Add(dust);
+                }
+            }
+            if (overheat)
+            {
+                if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)
+                {
+                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, DustID.Smoke, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 1f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;

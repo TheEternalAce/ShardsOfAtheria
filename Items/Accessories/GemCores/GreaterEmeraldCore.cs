@@ -11,6 +11,7 @@ namespace SagesMania.Items.Accessories.GemCores
 		{
 			Tooltip.SetDefault("Counts as wings\n" +
 				"10% increased movement speed\n" +
+				"Increased jump height" +
 				"Panic Necklace, Lava Waders and Flippers effects\n" +
 				"Grants flight and slowfall");
 		}
@@ -27,6 +28,7 @@ namespace SagesMania.Items.Accessories.GemCores
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.maxRunSpeed += .1f;
+			player.jumpBoost = true;
 			player.wingTimeMax = 4 * 60;
 			player.panic = true;
 			player.waterWalk2 = true;

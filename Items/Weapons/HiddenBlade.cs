@@ -26,11 +26,12 @@ namespace SagesMania.Items.Weapons
             item.melee = true;
             item.crit = 16;
             item.knockBack = 6;
-            item.value = Item.sellPrice(gold: 10);
+            item.value = Item.sellPrice(gold: 5);
             item.rare = ItemRarityID.Blue;
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
             item.useTurn = true;
+			item.expert = true;
 		}
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)

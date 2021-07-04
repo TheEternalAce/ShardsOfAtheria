@@ -7,6 +7,8 @@ using SagesMania.UI;
 using Terraria.UI;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using SagesMania.Items.Placeable;
+using SagesMania.Tiles;
 
 namespace SagesMania
 {
@@ -36,6 +38,15 @@ namespace SagesMania
             AreusResourceBar bar = new AreusResourceBar();
             _areusResourceBarUserInterface = new UserInterface();
             _areusResourceBarUserInterface.SetState(bar);
+            
+            if (!Main.dedServ)
+            {
+                AddEquipTexture(new Items.Accessories.LivingMetalHead(), null, EquipType.Head, "LivingMetalHead", "SagesMania/Items/Accessories/LivingMetal_Head");
+                AddEquipTexture(new Items.Accessories.LivingMetalBody(), null, EquipType.Body, "LivingMetalBody", "SagesMania/Items/Accessories/LivingMetal_Body", "SagesMania/Items/Accessories/LivingMetal_Arms");
+                AddEquipTexture(new Items.Accessories.LivingMetalLegs(), null, EquipType.Legs, "LivingMetalLegs", "SagesMania/Items/Accessories/LivingMetal_Legs");
+
+                //AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicName"), ModContent.ItemType<MusicBox>(), ModContent.TileType<MusicBoxTile>());
+            }
         }
 
         public override void UpdateUI(GameTime gameTime)

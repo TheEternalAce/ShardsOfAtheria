@@ -50,8 +50,16 @@ namespace SagesMania.Items.Weapons
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
         {
-            player.statLife += 100;
-            CombatText.NewText(player.Hitbox, Color.Green, 100);
+            if (!player.GetModPlayer<SMPlayer>().heartBreak)
+            {
+                player.statLife += 100;
+                CombatText.NewText(player.Hitbox, Color.Green, 100);
+            }
+        }
+
+        public override void UpdateInventory(Player player)
+        {
+            player.GetModPlayer<SMPlayer>().sMHealingItem = true;
         }
     }
 }

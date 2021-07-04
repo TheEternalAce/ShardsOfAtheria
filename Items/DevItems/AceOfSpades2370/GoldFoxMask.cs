@@ -24,10 +24,5 @@ namespace SagesMania.Items.DevItems.AceOfSpades2370
         {
             drawAltHair = true;
         }
-
-        public override void OpenBossBag(Player player)
-        {
-            player.TryGettingDevArmor();
-        }
     }
 }

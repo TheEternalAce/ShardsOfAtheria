@@ -33,10 +33,5 @@ namespace SagesMania.Items.DevItems.AceOfSpades2370
             item.rare = ItemRarityID.Cyan;
             item.value = Item.sellPrice(gold: 10);
         }
-
-        public override void OpenBossBag(Player player)
-        {
-            player.TryGettingDevArmor();
-        }
     }
 }

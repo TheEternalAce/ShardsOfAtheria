@@ -34,6 +34,7 @@ namespace SagesMania.Items.Weapons
 			item.shootSpeed = 13f;
 			item.useAmmo = AmmoID.Bullet;
 			item.expert = true;
+			item.value = Item.sellPrice(gold: 5);
 		}
 
 		public override Vector2? HoldoutOffset()

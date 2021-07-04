@@ -36,5 +36,16 @@ namespace SagesMania.Items
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
+        public override bool CanUseItem(Player player)
+        {
+            if (player.GetModPlayer<SMPlayer>().heartBreak) return false;
+            else return true;
+        }
+
+        public override void UpdateInventory(Player player)
+        {
+            player.GetModPlayer<SMPlayer>().sMHealingItem = true;
+        }
     }
 }

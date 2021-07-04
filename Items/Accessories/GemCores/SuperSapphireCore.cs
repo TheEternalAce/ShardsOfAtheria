@@ -42,7 +42,7 @@ namespace SagesMania.Items.Accessories.GemCores
 			player.sporeSac = true;
 			player.GetModPlayer<SMPlayer>().superSapphireCore = true;
 			player.GetModPlayer<SMPlayer>().superSapphireCore = true;
-			player.slotsMinions += 5;
+			player.maxMinions += 5;
 		}
     }
 }

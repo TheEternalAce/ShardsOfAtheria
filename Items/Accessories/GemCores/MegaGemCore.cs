@@ -19,7 +19,7 @@ namespace SagesMania.Items.Accessories.GemCores
                 "Attacks inflict Daybroken and Betsy's Curse\n" +
                 "Immunity to damage dealing, damage and defense reducing and cold debuffs and Chaos State\n" +
                 "Grants Ironskin and Endurance when dealing damage and Wrath and Rage when taking damage\n" +
-                "Effects of Ankh Shield, Lava Waders, Shiny Stone and Spore Sack\n" +
+                "Effects of Ankh Shield, Bundle of Ballons, Frostspark Boots, Lava Waders, Shiny Stone and Spore Sack\n" +
                 "Permanent Thorns, Regeneration, Honey, Heart Lantern, Cozy Campfire, Heartreach and Gravitation buffs\n" +
                 "Grants infinite flight and slow fall\n" +
                 "Dash does not work when equipped in Wing Slot yet");
@@ -68,6 +68,19 @@ namespace SagesMania.Items.Accessories.GemCores
             player.buffImmune[BuffID.WitheredArmor] = true;
             player.buffImmune[BuffID.Ichor] = true;
             player.buffImmune[BuffID.ChaosState] = true;
+            player.buffImmune[ModContent.BuffType<HeartBreak>()] = true;
+
+            //Bundle of Balloons
+            player.doubleJumpCloud = true;
+            player.doubleJumpBlizzard = true;
+            player.doubleJumpSandstorm = true;
+            player.jumpBoost = true;
+
+            //Frostspark Boots
+            player.accRunSpeed = 6.75f;
+            player.rocketBoots = 3;
+            player.moveSpeed += 0.08f;
+            player.iceSkate = true;
 
             //Lava Waders
             player.lavaImmune = true;
@@ -151,7 +164,15 @@ namespace SagesMania.Items.Accessories.GemCores
             {
                 Vector2 newVelocity = player.velocity;
 
-                if ((mp.DashDir == MegaGemDashPlayer.DashLeft && player.velocity.X > -mp.DashVelocity) || (mp.DashDir == MegaGemDashPlayer.DashRight && player.velocity.X < mp.DashVelocity))
+                if ((mp.DashDir == SuperAmethystDashPlayer.DashUp && player.velocity.Y > -mp.DashVelocity) || (mp.DashDir == SuperAmethystDashPlayer.DashDown && player.velocity.Y < mp.DashVelocity))
+                {
+                    //Y-velocity is set here
+                    //If the direction requested was DashUp, then we adjust the velocity to make the dash appear "faster" due to gravity being immediately in effect
+                    //This adjustment is roughly 1.3x the intended dash velocity
+                    float dashDirection = mp.DashDir == MegaGemDashPlayer.DashDown ? 1 : -1.3f;
+                    newVelocity.Y = dashDirection * mp.DashVelocity;
+                }
+                else if ((mp.DashDir == MegaGemDashPlayer.DashLeft && player.velocity.X > -mp.DashVelocity) || (mp.DashDir == MegaGemDashPlayer.DashRight && player.velocity.X < mp.DashVelocity))
                 {
                     //X-velocity is set here
                     int dashDirection = mp.DashDir == MegaGemDashPlayer.DashRight ? 1 : -1;
@@ -194,6 +215,8 @@ namespace SagesMania.Items.Accessories.GemCores
     public class MegaGemDashPlayer : ModPlayer
     {
         //These indicate what direction is what in the timer arrays used
+        public static readonly int DashDown = 0;
+        public static readonly int DashUp = 1;
         public static readonly int DashRight = 2;
         public static readonly int DashLeft = 3;
 
@@ -239,7 +262,11 @@ namespace SagesMania.Items.Accessories.GemCores
             if (!dashAccessoryEquipped || player.setSolar || player.mount.Active || DashActive)
                 return;
 
-            if (player.controlRight && player.releaseRight && player.doubleTapCardinalTimer[DashRight] < 15)
+            if (player.controlDown && player.releaseDown && player.doubleTapCardinalTimer[DashDown] < 15)
+                DashDir = DashDown;
+            else if (player.controlUp && player.releaseUp && player.doubleTapCardinalTimer[DashUp] < 15)
+                DashDir = DashUp;
+            else if (player.controlRight && player.releaseRight && player.doubleTapCardinalTimer[DashRight] < 15)
                 DashDir = DashRight;
             else if (player.controlLeft && player.releaseLeft && player.doubleTapCardinalTimer[DashLeft] < 15)
                 DashDir = DashLeft;
