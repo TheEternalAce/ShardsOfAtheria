@@ -1,4 +1,4 @@
 displayName = Ace's Mania
-author = AceOfSpades2370
-version = 0.4.5.2
+author = TheEternalAce
+version = 0.4.6
 homepage = https://discord.gg/nbPVYBUGvu

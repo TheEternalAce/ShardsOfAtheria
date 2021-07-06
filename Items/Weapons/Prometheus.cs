@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using SagesMania.Buffs;
 using SagesMania.Projectiles;
 using Terraria;
 using Terraria.ID;
@@ -17,6 +18,17 @@ namespace SagesMania.Items.Weapons
 
         public override void SetDefaults()
         {
+            item.noMelee = false;
+            item.noUseGraphic = false;
+            item.useTime = 30;
+            item.useAnimation = 30;
+            item.damage = 112;
+            item.melee = true;
+            item.ranged = false;
+            item.knockBack = 13;
+            item.mana = 0;
+            item.shoot = ProjectileID.None;
+            item.useTurn = true;
             item.width = 54;
             item.height = 48;
             item.useTime = 20;
@@ -24,7 +36,6 @@ namespace SagesMania.Items.Weapons
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.value = Item.sellPrice(gold: 10);
             item.rare = ItemRarityID.Red;
-            item.UseSound = SoundID.Item1;
             item.autoReuse = true;
         }
 
@@ -34,6 +45,7 @@ namespace SagesMania.Items.Weapons
             recipe.AddRecipeGroup("SM:GoldBars", 7);
             recipe.AddIngredient(ItemID.Ectoplasm, 5);
             recipe.AddIngredient(ItemID.HellstoneBar, 10);
+            recipe.AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
@@ -57,7 +69,13 @@ namespace SagesMania.Items.Weapons
                 item.melee = false;
                 item.knockBack = 6;
                 item.mana = 15;
-                item.shoot = ModContent.ProjectileType<PrometheusFire>();
+                item.UseSound = SoundID.Item20;
+                if (player.HasBuff(ModContent.BuffType<Overdrive>()))
+                {
+                    item.shoot = ModContent.ProjectileType<PrometheusSword>();
+                }
+                else
+                    item.shoot = ModContent.ProjectileType<PrometheusFire>();
                 item.shootSpeed = 13f;
                 item.useTurn = false;
             }
@@ -72,6 +90,7 @@ namespace SagesMania.Items.Weapons
                 item.ranged = false;
                 item.knockBack = 13;
                 item.mana = 0;
+                item.UseSound = SoundID.Item1;
                 item.shoot = ProjectileID.None;
                 item.useTurn = true;
             }
@@ -80,6 +99,11 @@ namespace SagesMania.Items.Weapons
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
+            if (player.HasBuff(ModContent.BuffType<Overdrive>()))
+            {
+                target.AddBuff(BuffID.CursedInferno, 10 * 60);
+                player.AddBuff(BuffID.Ichor, 10 * 60);
+            }
             target.AddBuff(BuffID.OnFire, 10 * 60);
             player.AddBuff(BuffID.WeaponImbueIchor, 10 * 60);
         }

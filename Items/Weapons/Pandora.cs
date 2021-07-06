@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using SagesMania.Buffs;
 using SagesMania.Projectiles;
 using Terraria;
 using Terraria.ID;
@@ -17,6 +18,18 @@ namespace SagesMania.Items.Weapons
 
         public override void SetDefaults()
         {
+            item.noMelee = true;
+            item.noUseGraphic = true;
+            item.useTime = 30;
+            item.useAnimation = 30;
+            item.UseSound = SoundID.Item1;
+            item.damage = 107;
+            item.melee = true;
+            item.magic = false;
+            item.mana = 0;
+            item.knockBack = 6;
+            item.shoot = ModContent.ProjectileType<PandoraProjectile>();
+            item.shootSpeed = 2.3f;
             item.width = 32;
             item.height = 32;
             item.useTime = 20;
@@ -33,6 +46,7 @@ namespace SagesMania.Items.Weapons
             recipe.AddRecipeGroup("SM:GoldBars", 7);
             recipe.AddIngredient(ItemID.Ectoplasm, 5);
             recipe.AddIngredient(ItemID.IceBlock, 10);
+            recipe.AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
@@ -52,13 +66,16 @@ namespace SagesMania.Items.Weapons
                 Item.staff[item.type] = true;
                 item.useTime = 20;
                 item.useAnimation = 20;
-                item.UseSound = SoundID.Item30;
+                item.UseSound = SoundID.Item28;
                 item.damage = 87;
                 item.magic = true;
                 item.melee = false;
                 item.mana = 6;
                 item.knockBack = 3;
-                item.shoot = ModContent.ProjectileType<IceBolt>();
+                if (player.HasBuff(ModContent.BuffType<Overdrive>()))
+                    item.shoot = ModContent.ProjectileType<IceBlast>();
+                else
+                    item.shoot = ModContent.ProjectileType<IceBolt>();
                 item.shootSpeed = 15;
             }
             else

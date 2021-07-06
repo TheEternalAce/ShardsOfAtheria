@@ -27,15 +27,14 @@ namespace SagesMania.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.maxRunSpeed += .1f;
+			player.moveSpeed += .1f;
 			player.jumpBoost = true;
 			player.wingTimeMax = 4 * 60;
 			player.panic = true;
-			player.waterWalk2 = true;
+			player.accFlipper = true;
 			player.waterWalk = true;
 			player.fireWalk = true;
-			player.lavaTime = 7 * 60;
-			player.accFlipper = true;
+			player.lavaMax += 420;
 		}
 
 		public override void AddRecipes()

@@ -36,13 +36,13 @@ namespace SagesMania.Items.Weapons
 
 		public override void AddRecipes() 
 		{
-			Mod calamity = ModLoader.GetMod("Calamity");
+			Mod calamity = ModLoader.GetMod("CalamityMod");
 			if (calamity != null)
 			{
 				ModRecipe recipe = new ModRecipe(mod);
 				recipe.AddIngredient(ModContent.ItemType<RootBeerCan>(), 30);
-				recipe.AddIngredient(calamity.ItemType("SoulFramgent"));
-				recipe.AddTile(calamity.TileType("DreadonForge"));
+				recipe.AddIngredient(calamity.ItemType("HellcasterFragment"), 3);
+				recipe.AddTile(calamity.TileType("DraedonsForge"));
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}

@@ -27,8 +27,8 @@ namespace SagesMania.Items.Accessories
 			player.GetModPlayer<SMPlayer>().areusKey = true;
 			player.allDamageMult += .5f;
 			player.statLifeMax2 *= 2;
-			player.maxRunSpeed *= 1.5f;
-			player.wingTime *= 1.5f;
+			player.moveSpeed += .5f;
+			player.wingTime += .5f;
 			player.statDefense *= 2;
 			player.lifeRegen *= 2;
 			player.statManaMax2 *= 2;

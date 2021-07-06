@@ -17,7 +17,7 @@ namespace SagesMania.Buffs
                 "Doubles movement speed\n" +
                 "Increased life regen\n" +
                 "Increased life by 100 and mana by 40\n" +
-                "Grants dash and immunity to knockback and certain debuffs\n" +
+                "Grants dash, wall sliding and immunity to knockback and certain debuffs\n" +
                 "Press 'Toggle Overdrive' to activate or deactivate Overdrive\n" +
                 "Overdrive doubles all damage and increases movement speed by\n" +
                 "Overdrive lasts until you get hit or press 'Toggle Overdrive' again");
@@ -29,7 +29,6 @@ namespace SagesMania.Buffs
 
         public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<SMPlayer>().megamerged = true;
 			player.jumpSpeedBoost += 4.8f;
 			player.extraFall += 45;
             player.allDamage += 0.25f;
@@ -44,6 +43,8 @@ namespace SagesMania.Buffs
             player.buffImmune[BuffID.Weak] = true;
             player.buffImmune[BuffID.WitheredWeapon] = true;
             player.buffImmune[BuffID.Venom] = true;
+            player.spikedBoots++;
+            player.buffTime[buffIndex] = 18000;
 
             LivingMetalDashPlayer mp = player.GetModPlayer<LivingMetalDashPlayer>();
             //If the dash is not active, immediately return so we don't do any of the logic for it

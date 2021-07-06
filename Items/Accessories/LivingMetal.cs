@@ -8,8 +8,7 @@ namespace SagesMania.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Type '/Megamerge!' to Megamerge\n" +
-                "To unmerge simply type '/Megamerge!' again");
+            Tooltip.SetDefault("Press 'Megamerge' to toggle Megamerge");
         }
 
         public override void SetDefaults()

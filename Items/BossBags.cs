@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using SagesMania.Items.Weapons;
 using SagesMania.Items.Accessories;
+using SagesMania.Items.DevItems.AceOfSpades2370;
 
 namespace SagesMania.Items
 {
@@ -42,6 +43,14 @@ namespace SagesMania.Items
 					else player.QuickSpawnItem(ModContent.ItemType<ShadowBrand>());
 				}
 			}
+			if (context == "bossBag" && Main.hardMode && Main.rand.NextFloat() < .05f)
+			{
+				player.QuickSpawnItem(ModContent.ItemType<AceOfSpades>());
+				player.QuickSpawnItem(ModContent.ItemType<AcesGoldFoxMask>());
+				player.QuickSpawnItem(ModContent.ItemType<AcesJacket>());
+				player.QuickSpawnItem(ModContent.ItemType<AcesPants>());
+			}
+			if (context == "bossBag" && Main.rand.NextFloat() < .1f) player.QuickSpawnItem(ModContent.ItemType<RushDrive>());
 		}
 	}
 }

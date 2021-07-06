@@ -23,7 +23,6 @@ namespace SagesMania.Buffs
             player.statDefense -= 30;
             player.lifeRegen = 0;
             Lighting.AddLight(player.position, 0.5f, 0.5f, 0.5f);
-            player.GetModPlayer<SMPlayer>().Overdrive = true;
             player.buffTime[buffIndex] = 18000;
             player.buffImmune[BuffID.Regeneration] = true;
             player.buffImmune[BuffID.Honey] = true;

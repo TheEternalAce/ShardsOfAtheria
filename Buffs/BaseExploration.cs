@@ -15,7 +15,7 @@ namespace SagesMania.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.maxRunSpeed += .1f;
+            player.moveSpeed += .1f;
             player.nightVision = true;
             player.dangerSense = true;
             player.calmed = true;

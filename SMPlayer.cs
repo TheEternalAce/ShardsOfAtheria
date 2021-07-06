@@ -26,10 +26,7 @@ namespace SagesMania
         public bool greaterRubyCore;
         public bool superRubyCore;
         public bool OrangeMask;
-        public bool Overdrive;
         public bool livingMetal;
-        public bool megamerged;
-        public bool Infected;
         public bool omnicientTome;
         public bool baseConservation;
         public bool sapphireMinion;
@@ -41,8 +38,8 @@ namespace SagesMania
         public bool hallowedSeal;
         public bool zenovaJavelin;
         public bool heartBreak;
-        public bool overheat;
         public bool sMHealingItem;
+        public bool rushDrive;
 
         Vector2 recentPos;
 
@@ -50,7 +47,8 @@ namespace SagesMania
         public int shadowBrandToggled;
         public int gravToggle;
         public int flightToggle;
-        public int megamergeToggle;
+        public int megamergedTimer;
+        public int phaseSwitch;
 
         public override void ResetEffects()
         {
@@ -67,8 +65,6 @@ namespace SagesMania
             superRubyCore = false;
             OrangeMask = false;
             livingMetal = false;
-            Overdrive = false;
-            Infected = false;
             omnicientTome = false;
             baseConservation = false;
             sapphireMinion = false;
@@ -80,9 +76,13 @@ namespace SagesMania
             hallowedSeal = false;
             zenovaJavelin = false;
             heartBreak = false;
-            overheat = false;
             sMHealingItem = false;
-            megamerged = false;
+            rushDrive = false;
+        }
+
+        public override void Initialize()
+        {
+            megamergedTimer = 54000;
         }
 
         public override TagCompound Save()
@@ -93,7 +93,7 @@ namespace SagesMania
                 {"shadowBrandToggled", shadowBrandToggled},
                 {"gravToggle", gravToggle},
 				{"flightToggle", flightToggle},
-				{"megamergeToggle", megamergeToggle}
+				{"phaseSwitch", phaseSwitch},
             };
         }
 
@@ -103,7 +103,7 @@ namespace SagesMania
             shadowBrandToggled = tag.GetInt("shadowBrandToggled");
             gravToggle = tag.GetInt("gravToggle");
             flightToggle = tag.GetInt("flightToggle");
-            megamergeToggle = tag.GetInt("megamergeToggle");
+            phaseSwitch = tag.GetInt("phaseSwitch");
         }
 
         public override void PostUpdate()
@@ -114,7 +114,7 @@ namespace SagesMania
                 player.rangedDamage += .1f;
                 player.rangedCrit += 4;
             }
-            if (Overdrive)
+            if (player.HasBuff(ModContent.BuffType<Overdrive>()))
             {
                 player.armorEffectDrawShadow = true;
                 player.armorEffectDrawOutlines = true;
@@ -136,6 +136,7 @@ namespace SagesMania
                     player.AddBuff(BuffID.Builder, 2);
                     player.AddBuff(BuffID.Shine, 2);
                     player.AddBuff(BuffID.Hunter, 2);
+                    player.AddBuff(BuffID.Spelunker, 2);
                 }
             }
             if (player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] <= 0 && greaterSapphireCore)
@@ -177,8 +178,18 @@ namespace SagesMania
                 if (player.rocketTime == 0)
                     player.rocketTime = 100;
             }
+            if (!player.HasBuff(ModContent.BuffType<Megamerged>()))
+            {
+                megamergedTimer++;
+                if (megamergedTimer >= 54000) megamergedTimer = 54000;
+            }
+            if (player.HasBuff(ModContent.BuffType<Megamerged>()))
+            {
+                megamergedTimer--;
+                if (megamergedTimer <= 0) player.AddBuff(ModContent.BuffType<Overheat>(), 2);
+            }
         }
-
+        
         public override bool ConsumeAmmo(Item weapon, Item ammo)
         {
             if (BBBottle)
@@ -189,7 +200,6 @@ namespace SagesMania
             {
                 return Main.rand.NextFloat() >= .48f;
             }
-
             if (baseConservation)
             {
                 return Main.rand.NextFloat() >= .15f;
@@ -201,11 +211,11 @@ namespace SagesMania
         {
             if (PhantomBulletBottle)
             {
-                Projectile.NewProjectile(position.X, position.Y, speedX, speedY, ModContent.ProjectileType<PhantomBullet>(), damage, knockBack, player.whoAmI);
+                Projectile.NewProjectile(position.X, position.Y, speedX, speedY, ModContent.ProjectileType<PhantomBullet>(), 300, knockBack, player.whoAmI);
             }
             if (BBBottle)
             {
-                Projectile.NewProjectile(position.X, position.Y, speedX, speedY, ModContent.ProjectileType<BBProjectile>(), damage, knockBack, player.whoAmI);
+                Projectile.NewProjectile(position.X, position.Y, speedX, speedY, ModContent.ProjectileType<BBProjectile>(), 4, knockBack, player.whoAmI);
             }
             if (Co2Cartridge)
             {
@@ -222,7 +232,7 @@ namespace SagesMania
         {
             if (SagesMania.OverdriveKey.JustPressed)
             {
-                if (megamerged && !player.HasBuff(ModContent.BuffType<Overdrive>()))
+                if (player.HasBuff(ModContent.BuffType<Megamerged>()) && !player.HasBuff(ModContent.BuffType<Overdrive>()))
                 {
                     if (!player.HasBuff(ModContent.BuffType<Overheat>()))
                     {
@@ -235,9 +245,8 @@ namespace SagesMania
                         CombatText.NewText(player.Hitbox, Color.Red, "OVERHEATED!");
                         Main.PlaySound(SoundID.NPCHit55, player.position);
                     }
-
                 }
-                else if (megamerged)
+                else if (player.HasBuff(ModContent.BuffType<Megamerged>()))
                 {
                     player.ClearBuff(ModContent.BuffType<Overdrive>());
                     CombatText.NewText(player.Hitbox, Color.Red, "Overdrive: OFF");
@@ -350,7 +359,6 @@ namespace SagesMania
                     else shadowBrandToggled = 1;
                 }
             }
-
             if (SagesMania.ShadowTeleport.JustPressed)
             {
                 if (shadowBrand && player.HasBuff(ModContent.BuffType<ShadowTeleport>()))
@@ -379,14 +387,44 @@ namespace SagesMania
                     }
                 }
             }
-        }
-
-        public override void UpdateEquips(ref bool wallSpeedBuff, ref bool tileSpeedBuff, ref bool tileRangeBuff)
-        {
-            // Make sure this condition is the same as the condition in the Buff to remove itself. We do this here instead of in ModItem.UpdateAccessory in case we want future upgraded items to set blockyAccessory
-            if (livingMetal && megamergeToggle == 1)
+            if (SagesMania.Megamerge.JustPressed)
             {
-                player.AddBuff(ModContent.BuffType<Megamerged>(), 60, true);
+                if (livingMetal && !player.HasBuff(ModContent.BuffType<Megamerged>()))
+                {
+                    if (!player.HasBuff(ModContent.BuffType<MegamergeCooldown>()))
+                    {
+                        player.AddBuff(ModContent.BuffType<Megamerged>(), 2);
+                        CombatText.NewText(player.Hitbox, Color.White, "Megamerge!", true);
+                        if (player.Male)
+                            Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/MegamergeMale"), player.position);
+                        else Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/MegamergeFemale"), player.position);
+                    }
+                    else
+                    {
+                        CombatText.NewText(player.Hitbox, Color.Red, "On Cooldown!");
+                    }
+                }
+                else if (player.HasBuff(ModContent.BuffType<Megamerged>()))
+                {
+                    player.ClearBuff(ModContent.BuffType<Megamerged>());
+                    Main.PlaySound(SoundID.Item4, player.position);
+                }
+            }
+            if (SagesMania.PhaseSwitch.JustPressed)
+            {
+                if (player.statLife >= player.statLifeMax2/2)
+                {
+                    if (phaseSwitch == 1)
+                    {
+                        phaseSwitch = 0;
+                        Main.NewText("Phase 2 Type: Offensive");
+                    }
+                    else
+                    {
+                        phaseSwitch += 1;
+                        Main.NewText("Phase 2 Type: Defensive");
+                    }
+                }
             }
         }
 
@@ -417,6 +455,7 @@ namespace SagesMania
                 player.statMana += 5;
             }
         }
+
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
             if (areusBatteryElectrify)
@@ -447,11 +486,32 @@ namespace SagesMania
 
         public override void FrameEffects()
         {
-            if (megamerged)
+            if (player.HasBuff(ModContent.BuffType<Megamerged>()))
             {
-                player.head = mod.GetEquipSlot("LivingMetalHead", EquipType.Head);
-                player.body = mod.GetEquipSlot("LivingMetalBody", EquipType.Body);
-                player.legs = mod.GetEquipSlot("LivingMetalLegs", EquipType.Legs);
+                player.handon = -1;
+                player.handoff = -1;
+                player.back = -1;
+                player.front = -1;
+                player.shoe = -1;
+                player.waist = -1;
+                player.shield = -1;
+                player.neck = -1;
+                player.face = -1;
+                player.balloon = -1;
+
+                if (player.name == "Inverted")
+                {
+                    player.head = mod.GetEquipSlot("InvertedLivingMetalHead", EquipType.Head);
+                    player.body = mod.GetEquipSlot("InvertedLivingMetalBody", EquipType.Body);
+                    player.legs = mod.GetEquipSlot("InvertedLivingMetalLegs", EquipType.Legs);
+
+                }
+                else
+                {
+                    player.head = mod.GetEquipSlot("LivingMetalHead", EquipType.Head);
+                    player.body = mod.GetEquipSlot("LivingMetalBody", EquipType.Body);
+                    player.legs = mod.GetEquipSlot("LivingMetalLegs", EquipType.Legs);
+                }
             }
         }
 
@@ -497,7 +557,7 @@ namespace SagesMania
 
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
         {
-            if (livingMetal) Main.PlaySound(SoundID.NPCHit4, player.position);
+            if (player.HasBuff(ModContent.BuffType<Megamerged>())) Main.PlaySound(SoundID.NPCHit4, player.position);
         }
 
         public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
@@ -522,14 +582,20 @@ namespace SagesMania
         {
             if (player.HasBuff(ModContent.BuffType<Overdrive>()))
             {
-                damageSource = PlayerDeathReason.ByCustomReason(player.name + "'s systems overheated.");
+                damageSource = PlayerDeathReason.ByCustomReason(player.name + " pushed too far.");
+            }
+            if (player.HasBuff(ModContent.BuffType<Overheat>()))
+            {
+                if (player.HasBuff(ModContent.BuffType<Megamerged>()))
+                    damageSource = PlayerDeathReason.ByCustomReason(player.name + " was Megamerged for too long.");
+                else damageSource = PlayerDeathReason.ByCustomReason(player.name + "'s systems overheated.");
             }
             return true;
         }
 
         public override void UpdateBadLifeRegen()
         {
-            if (Overdrive)
+            if (player.HasBuff(ModContent.BuffType<Overdrive>()))
             {
                 // These lines zero out any positive lifeRegen. This is expected for all bad life regeneration effects.
                 if (player.lifeRegen > 0)
@@ -537,10 +603,10 @@ namespace SagesMania
                     player.lifeRegen = 0;
                 }
                 player.lifeRegenTime = 0;
-                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 8 life lost per second.
+                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 6 life lost per second.
                 player.lifeRegen -= 12;
             }
-            if (Infected)
+            if (player.HasBuff(ModContent.BuffType<Overheat>()))
             {
                 // These lines zero out any positive lifeRegen. This is expected for all bad life regeneration effects.
                 if (player.lifeRegen > 0)
@@ -548,10 +614,21 @@ namespace SagesMania
                     player.lifeRegen = 0;
                 }
                 player.lifeRegenTime = 0;
-                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 8 life lost per second.
+                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 10 life lost per second.
+                player.lifeRegen -= 20;
+            }
+            if (player.HasBuff(ModContent.BuffType<Infection>()))
+            {
+                // These lines zero out any positive lifeRegen. This is expected for all bad life regeneration effects.
+                if (player.lifeRegen > 0)
+                {
+                    player.lifeRegen = 0;
+                }
+                player.lifeRegenTime = 0;
+                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 5 life lost per second.
                 player.lifeRegen -= 10;
             }
-            if (zenovaJavelin)
+            if (player.HasBuff(ModContent.BuffType<ZenovaJavelin>()))
             {
                 // These lines zero out any positive lifeRegen. This is expected for all bad life regeneration effects.
                 if (player.lifeRegen > 0)
@@ -559,14 +636,14 @@ namespace SagesMania
                     player.lifeRegen = 0;
                 }
                 player.lifeRegenTime = 0;
-                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 8 life lost per second.
+                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 50 life lost per second.
                 player.lifeRegen -= 100;
             }
         }
 
         public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
-            if (Overdrive)
+            if (player.HasBuff(ModContent.BuffType<Overdrive>()))
             {
                 if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)
                 {
@@ -577,11 +654,11 @@ namespace SagesMania
                     Main.playerDrawDust.Add(dust);
                 }
             }
-            if (overheat)
+            if ( player.HasBuff(ModContent.BuffType<Overheat>()))
             {
                 if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)
                 {
-                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, DustID.Smoke, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 1f);
+                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, DustID.Smoke, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, Color.Black, 1f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;

@@ -5,13 +5,14 @@ using Terraria.ID;
 namespace SagesMania.Items.DevItems.AceOfSpades2370
 {
     [AutoloadEquip(EquipType.Head)]
-    public class GoldFoxMask : ModItem
+    public class AcesGoldFoxMask : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("AceOfSpades' Gold Fox Mask");
+            DisplayName.SetDefault("Eternal Ace's Gold Fox Mask");
             Tooltip.SetDefault("'Great for impersonating devs!'");
         }
+
         public override void SetDefaults()
         {
             item.width = 18;

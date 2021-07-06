@@ -79,13 +79,12 @@ namespace SagesMania.Items.Accessories.GemCores
             //Frostspark Boots
             player.accRunSpeed = 6.75f;
             player.rocketBoots = 3;
-            player.moveSpeed += 0.08f;
+            player.moveSpeed += 1f;
             player.iceSkate = true;
 
             //Lava Waders
             player.lavaImmune = true;
             player.waterWalk = true;
-            player.waterWalk2 = true;
             player.fireWalk = true;
 
             //Other
@@ -105,7 +104,6 @@ namespace SagesMania.Items.Accessories.GemCores
             player.AddBuff(ModContent.BuffType<SapphireSpirit>(), 2);
             player.GetModPlayer<SMPlayer>().megaGemCore = true;
 
-            player.maxRunSpeed += .2f;
             player.allDamageMult += .2f;
             player.maxMinions += 8;
             player.statLifeMax2 += 100;

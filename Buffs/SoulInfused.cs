@@ -16,7 +16,7 @@ namespace SagesMania.Buffs
             player.statLifeMax2 += 50;
             player.statDefense += 10;
             player.allDamage += .15f;
-            player.maxRunSpeed *= 2;
+            player.moveSpeed *= 2;
         }
     }
 }

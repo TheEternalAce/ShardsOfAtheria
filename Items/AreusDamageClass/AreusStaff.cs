@@ -4,6 +4,8 @@ using SagesMania.Items.Placeable;
 using SagesMania.Tiles;
 using Terraria;
 using SagesMania.Projectiles;
+using Microsoft.Xna.Framework;
+using SagesMania.Buffs;
 
 namespace SagesMania.Items.AreusDamageClass
 {
@@ -45,6 +47,13 @@ namespace SagesMania.Items.AreusDamageClass
 			recipe.AddTile(ModContent.TileType<AreusForge>());
 			recipe.SetResult(this);
 			recipe.AddRecipe();
+		}
+
+		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		{
+			if (player.HasBuff(ModContent.BuffType<Overdrive>()))
+				type = ModContent.ProjectileType<ElectricBlast>();
+			return true;
 		}
 	}
 }

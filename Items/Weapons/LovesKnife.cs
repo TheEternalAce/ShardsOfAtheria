@@ -39,7 +39,7 @@ namespace SagesMania.Items.Weapons
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ModContent.ItemType<KitchenKnife>());
 			recipe.AddIngredient(ItemID.LifeCrystal, 5);
-			recipe.AddIngredient(ItemID.SoulofNight, 7);
+			recipe.AddIngredient(ModContent.ItemType<SoulOfSpite>(), 7);
 			recipe.AddIngredient(ItemID.Ectoplasm, 5);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);

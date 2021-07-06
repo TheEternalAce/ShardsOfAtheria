@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -20,7 +21,13 @@ namespace SagesMania.Projectiles
         {
             base.OnHitNPC(target, damage, knockback, crit);
             target.AddBuff(BuffID.Ichor, 20 * 60);
+            Main.PlaySound(SoundID.Shatter, projectile.position);
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Main.PlaySound(SoundID.Shatter, projectile.position);
+            return base.OnTileCollide(oldVelocity);
         }
     }
-
 }

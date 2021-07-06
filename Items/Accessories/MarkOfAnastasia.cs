@@ -29,7 +29,7 @@ namespace SagesMania.Items.Accessories
 			{
 				player.statDefense += 30;
 				player.allDamage += 0.1f;
-				player.maxRunSpeed += 20;
+				player.moveSpeed += 1;
 				player.statLifeMax2 += 50;
 				player.statManaMax2 += 20;
 			}
@@ -37,7 +37,7 @@ namespace SagesMania.Items.Accessories
 			{
 				player.statDefense += 15;
 				player.allDamage += 0.05f;
-				player.maxRunSpeed += 10;
+				player.moveSpeed += .5f;
 				player.statLifeMax2 += 25;
 				player.statManaMax2 += 10;
 			}

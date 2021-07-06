@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SagesMania.Projectiles
 {
-    public class PhantomScythe : ModProjectile {
+    public class ElectricScythe : ModProjectile {
         public override void SetDefaults() {
             projectile.width = 40;
             projectile.height = 40;
@@ -24,14 +24,14 @@ namespace SagesMania.Projectiles
         {
             if (Main.rand.NextBool(3))
             {
-                Dust dust = Dust.NewDustDirect(projectile.position, projectile.height, projectile.width, DustID.Fire,
+                Dust dust = Dust.NewDustDirect(projectile.position, projectile.height, projectile.width, DustID.Electric,
                     projectile.velocity.X * .2f, projectile.velocity.Y * .2f, 200, Scale: 1.2f);
                 dust.velocity += projectile.velocity * 0.3f;
                 dust.velocity *= 0.2f;
             }
             if (Main.rand.NextBool(4))
             {
-                Dust dust = Dust.NewDustDirect(projectile.position, projectile.height, projectile.width, DustID.Fire,
+                Dust dust = Dust.NewDustDirect(projectile.position, projectile.height, projectile.width, DustID.Electric,
                     0, 0, 254, Scale: 0.3f);
                 dust.velocity += projectile.velocity * 0.5f;
                 dust.velocity *= 0.5f;
@@ -40,7 +40,7 @@ namespace SagesMania.Projectiles
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(BuffID.OnFire, 10*60);
+            target.AddBuff(BuffID.Electrified, 10*60);
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)

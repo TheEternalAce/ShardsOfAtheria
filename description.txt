@@ -9,6 +9,17 @@ Balance changes
 New NPCs
 4 bosses
 
+0.4.6
+	Added Souls Of Daylight, Starlight and Spite and added Rush Drive
+	Changed recipes of Prometheus, Pandora and Tainted Love
+	Sprited Living Metal transformation
+	Fully implemented Eternal Ace's Dev set (Formerly AceOfSpades2370's Set)
+	Draco Pellet obtainable
+	Greater Emerald Core and Super Emerald Core now properly give Lava Wader's lava immune time
+	Items that increase movement speed properly do so
+	Lots of changes to Living Metal related stuff (Mostly Megamerged buff)
+	Fixed sounds from Prometheus and Pandora And Jar Of Ichor projectile
+
 0.4.5.2
 	Super Sapphire Core now gives additional minion slots
 	Reduced Heart Break duration when struk by an enemy

@@ -37,7 +37,7 @@ namespace SagesMania.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.maxRunSpeed += .1f;
+			player.moveSpeed += .1f;
 			player.wingTimeMax = 2 * 60;
 			player.panic = true;
 			player.jumpBoost = true;

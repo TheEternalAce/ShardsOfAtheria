@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using SagesMania.Items.Placeable;
 using SagesMania.Tiles;
+using SagesMania.Items;
 
 namespace SagesMania
 {
@@ -23,6 +24,8 @@ namespace SagesMania
         public static ModHotKey EmeraldTeleportKey;
         public static ModHotKey ShadowCloak;
         public static ModHotKey ShadowTeleport;
+        public static ModHotKey Megamerge;
+        public static ModHotKey PhaseSwitch;
 
         public override void Load()
         {
@@ -33,6 +36,8 @@ namespace SagesMania
             EmeraldTeleportKey = RegisterHotKey("Emerald Teleport", "Z");
             ShadowCloak = RegisterHotKey("Toggle Shadow Cloak", "`");
             ShadowTeleport = RegisterHotKey("Shadow Teleport", "X");
+            Megamerge = RegisterHotKey("Megamerge", "LeftAlt");
+            PhaseSwitch = RegisterHotKey("Toggle Phase Type", "RightAlt");
 
             // Custom Resource Bar
             AreusResourceBar bar = new AreusResourceBar();
@@ -41,6 +46,10 @@ namespace SagesMania
             
             if (!Main.dedServ)
             {
+                AddEquipTexture(new Items.Accessories.LivingMetalHead(), null, EquipType.Head, "InvertedLivingMetalHead", "SagesMania/Items/Accessories/InvertedLivingMetal_Head");
+                AddEquipTexture(new Items.Accessories.LivingMetalBody(), null, EquipType.Body, "InvertedLivingMetalBody", "SagesMania/Items/Accessories/InvertedLivingMetal_Body", "SagesMania/Items/Accessories/InvertedLivingMetal_Arms");
+                AddEquipTexture(new Items.Accessories.LivingMetalLegs(), null, EquipType.Legs, "InvertedLivingMetalLegs", "SagesMania/Items/Accessories/InvertedLivingMetal_Legs");
+
                 AddEquipTexture(new Items.Accessories.LivingMetalHead(), null, EquipType.Head, "LivingMetalHead", "SagesMania/Items/Accessories/LivingMetal_Head");
                 AddEquipTexture(new Items.Accessories.LivingMetalBody(), null, EquipType.Body, "LivingMetalBody", "SagesMania/Items/Accessories/LivingMetal_Body", "SagesMania/Items/Accessories/LivingMetal_Arms");
                 AddEquipTexture(new Items.Accessories.LivingMetalLegs(), null, EquipType.Legs, "LivingMetalLegs", "SagesMania/Items/Accessories/LivingMetal_Legs");
@@ -128,7 +137,10 @@ namespace SagesMania
                 ItemID.SoulofLight,
                 ItemID.SoulofMight,
                 ItemID.SoulofNight,
-                ItemID.SoulofSight
+                ItemID.SoulofSight,
+                ModContent.ItemType<SoulOfDaylight>(),
+                ModContent.ItemType<SoulOfStarlight>(),
+                ModContent.ItemType<SoulOfSpite>()
             });
             RecipeGroup.RegisterGroup("SM:Souls", souls);
         }

@@ -1,4 +1,5 @@
-﻿using SagesMania.Items;
+﻿using SagesMania.Buffs;
+using SagesMania.Items;
 using SagesMania.Items.Accessories;
 using SagesMania.Items.Weapons;
 using Terraria;
@@ -19,14 +20,16 @@ namespace SagesMania.NPCs
             infected = false;
             zenovaJavelin = false;
         }
+
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
 			if (type == NPCID.ArmsDealer)
 			{
 				shop.item[nextSlot].SetDefaults(ModContent.ItemType<CO2Cartridge>());
 				nextSlot++;
-			}
-		}
+            }
+        }
+
         public override void NPCLoot(NPC npc)
         {
 			if (npc.type == NPCID.Mothron && Main.rand.NextFloat() < 0.25f)
@@ -36,6 +39,23 @@ namespace SagesMania.NPCs
             if (npc.type == NPCID.MartianSaucerCore && Main.rand.NextFloat() < 0.25f)
             {
                 Item.NewItem(npc.getRect(), ModContent.ItemType<ReactorMeltdown>());
+            }
+            if (Main.dayTime && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneOverworldHeight && !(Main.LocalPlayer.ZoneCorrupt || Main.LocalPlayer.ZoneCrimson && Main.eclipse))
+            {
+                Item.NewItem(npc.getRect(), ModContent.ItemType<SoulOfDaylight>());
+            }
+            if (!Main.dayTime && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneOverworldHeight && !(Main.LocalPlayer.ZoneCorrupt || Main.LocalPlayer.ZoneCrimson && Main.eclipse))
+            {
+                Item.NewItem(npc.getRect(), ModContent.ItemType<SoulOfStarlight>());
+            }
+            if (Main.eclipse && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneOverworldHeight && !(Main.LocalPlayer.ZoneCorrupt || Main.LocalPlayer.ZoneCrimson))
+            {
+                Item.NewItem(npc.getRect(), ModContent.ItemType<SoulOfDaylight>());
+                Item.NewItem(npc.getRect(), ModContent.ItemType<SoulOfStarlight>());
+            }
+            if (!Main.dayTime && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneUnderworldHeight && !(Main.LocalPlayer.ZoneHoly))
+            {
+                Item.NewItem(npc.getRect(), ModContent.ItemType<SoulOfSpite>());
             }
         }
 
@@ -61,6 +81,30 @@ namespace SagesMania.NPCs
                 // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 8 life lost per second.
                 npc.lifeRegen -= 100;
             }
+        }
+
+        public override void GetChat(NPC npc, ref string chat)
+        {
+            if (Main.LocalPlayer.HasBuff(ModContent.BuffType<Megamerged>()))
+            {
+                switch (Main.rand.Next(3))
+                {
+                    case 0:
+                        chat = "Huh? Who are you?!";
+                        break;
+                    case 1:
+                        chat = "You better back off maverick!";
+                        break;
+                    default:
+                        chat = "Get away from me, i'm not doing any business with you.";
+                        break;
+                }
+            }
+        }
+
+        public override bool PreChatButtonClicked(NPC npc, bool firstButton)
+        {
+            return !Main.LocalPlayer.HasBuff(ModContent.BuffType<Megamerged>());
         }
     }
 }

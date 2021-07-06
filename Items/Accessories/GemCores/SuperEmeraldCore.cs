@@ -29,14 +29,13 @@ namespace SagesMania.Items.Accessories.GemCores
 		{
 			player.wingTimeMax = 4 * 60;
 			player.panic = true;
-			player.waterWalk2 = true;
 			player.waterWalk = true;
 			player.fireWalk = true;
-			player.lavaTime = 7 * 60;
+			player.lavaMax += 420;
 			player.accFlipper = true;
 			player.accRunSpeed = 6.75f;
 			player.rocketBoots = 3;
-			player.moveSpeed += 0.08f;
+			player.moveSpeed += 1;
 			player.iceSkate = true;
 			player.doubleJumpCloud = true;
 			player.doubleJumpBlizzard = true;

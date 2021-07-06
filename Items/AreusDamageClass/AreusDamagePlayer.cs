@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using SagesMania;
+using Terraria.ModLoader.IO;
 
 namespace SagesMania.Items.AreusDamageClass
 {
@@ -45,6 +46,19 @@ namespace SagesMania.Items.AreusDamageClass
         public override void Initialize()
         {
             areusResourceMax = DefaultAreusResourceMax;
+        }
+
+        public override TagCompound Save()
+        {
+            return new TagCompound
+            {
+                { "areusResourceCurrent", areusResourceCurrent}
+            };
+        }
+
+        public override void Load(TagCompound tag)
+        {
+            areusResourceCurrent = tag.GetInt("areusResourceCurrent");
         }
 
         public override void ResetEffects()
