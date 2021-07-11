@@ -1,4 +1,4 @@
 displayName = Ace's Mania
 author = TheEternalAce
-version = 0.4.6
+version = 0.4.8
 homepage = https://discord.gg/nbPVYBUGvu

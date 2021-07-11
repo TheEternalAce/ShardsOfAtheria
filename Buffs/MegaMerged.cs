@@ -28,13 +28,12 @@ namespace SagesMania.Buffs
         }
 
         public override void Update(Player player, ref int buffIndex)
-		{
-			player.jumpSpeedBoost += 4.8f;
-			player.extraFall += 45;
+        {
+            player.jumpSpeedBoost += 4.8f;
+            player.extraFall += 45;
             player.allDamage += 0.25f;
             player.statDefense += 20;
             player.moveSpeed *= 2;
-            player.lifeRegen += 4;
             player.statLifeMax2 += 100;
             player.statManaMax2 += 40;
             player.noKnockback = true;

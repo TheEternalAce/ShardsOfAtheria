@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,10 +9,10 @@ namespace SagesMania.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Gives the wearer a ''phase 2'' when below 50% life\n" +
+            Tooltip.SetDefault("Gives the user a ''phase 2'' when below 50% life\n" +
                 "Press 'Toggle Phase Type' to chose between two phase types:\n" +
-                "Offensive: Sacrifice 20 defense for 20% increased damage and 10% increased crit chance\n" +
-                "Defensive: Sacrifice 20% damage for 20 defense and 15% reduced damage\n" +
+                "Offensive: Sacrifice half of total defense for doubled damage and 20% increased crit chance\n" +
+                "Defensive: Sacrifice half of total damage for doubled defense and 20% reduced damage\n" +
                 "Always get 20% increased movement speed");
         }
 
@@ -26,31 +27,11 @@ namespace SagesMania.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            if (player.statLife <= player.statLifeMax2 / 2)
-            {
-                player.GetModPlayer<SMPlayer>().rushDrive = true;
-                player.moveSpeed += .2f;
-                if (player.GetModPlayer<SMPlayer>().phaseSwitch == 1)
-                {
-                    player.statDefense += 20;
-                    player.endurance += .1f;
-                    player.allDamage -= .2f;
-                }
-                else
-                {
-                    player.statDefense -= 20;
-                    player.allDamage += .2f;
-                    player.meleeCrit += 10;
-                    player.magicCrit += 10;
-                    player.rangedCrit += 10;
-                }
-            }
+            player.GetModPlayer<SMPlayer>().rushDrive = true;
         }
-
-        public override bool CanEquipAccessory(Player player, int slot)
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            if (player.GetModPlayer<SMPlayer>().livingMetal) return true;
-            else return false;
+            tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
         }
     }
 }

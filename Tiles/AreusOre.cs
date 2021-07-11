@@ -21,7 +21,7 @@ namespace SagesMania.Tiles
             AddMapEntry(new Color(100, 150, 200), name);
 
             dustType = DustID.Electric;
-            minPick = 225;
+            minPick = 65;
             soundType = SoundID.Tink;
             soundStyle = 1;
         }

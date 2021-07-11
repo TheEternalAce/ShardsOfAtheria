@@ -15,7 +15,7 @@ namespace SagesMania.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.allDamageMult -= .5f;
+            player.allDamage -= .5f;
             player.statDefense -= 30;
             player.moveSpeed -= .5f;
             player.buffImmune[BuffID.Regeneration] = true;

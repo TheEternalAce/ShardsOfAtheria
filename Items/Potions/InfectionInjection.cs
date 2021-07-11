@@ -35,7 +35,8 @@ namespace SagesMania.Items.Potions
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ModContent.ItemType<EmptyNeedle>());
             recipe.AddIngredient(ModContent.ItemType<CrystalInfection>());
-			recipe.AddTile(TileID.AlchemyTable);
+			recipe.AddTile(TileID.Bottles);
+			recipe.AddTile(TileID.Furnaces);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
@@ -43,6 +44,14 @@ namespace SagesMania.Items.Potions
 		public override void OnConsumeItem(Player player)
 		{
 			player.QuickSpawnItem(ModContent.ItemType<EmptyNeedle>());
+			player.AddBuff(ModContent.BuffType<InjectionShock>(), 5 * 60);
 		}
-	}
+
+        public override bool CanUseItem(Player player)
+        {
+			if (!player.HasBuff(ModContent.BuffType<InjectionShock>()))
+				return true;
+			else return false;
+        }
+    }
 }

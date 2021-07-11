@@ -1,4 +1,3 @@
-using SagesMania.Items.AreusDamageClass;
 using SagesMania.Projectiles;
 using Terraria;
 using Terraria.ID;

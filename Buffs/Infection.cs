@@ -14,7 +14,6 @@ namespace SagesMania.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.lifeRegen += 4;
             player.statDefense -= 16;
             player.allDamage *= 2;
             player.moveSpeed /= 2;

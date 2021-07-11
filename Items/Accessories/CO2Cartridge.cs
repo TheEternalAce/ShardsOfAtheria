@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using SagesMania.Items.Weapons.Ammo;
+using System.Collections.Generic;
 
 namespace SagesMania.Items.Accessories
 {
@@ -26,6 +27,10 @@ namespace SagesMania.Items.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.GetModPlayer<SMPlayer>().Co2Cartridge = true;
+		}
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
 		}
 	}
 }

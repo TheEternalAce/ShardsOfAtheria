@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using SagesMania.Items.Placeable;
+using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,14 +10,14 @@ namespace SagesMania.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Press 'Megamerge' to toggle Megamerge");
+            Tooltip.SetDefault("Press 'Megamerge' to toggle Megamerge\n" +
+                "Works in inventory");
         }
 
         public override void SetDefaults()
         {
             item.width = 32;
             item.height = 32;
-            item.accessory = true;
             item.value = Item.sellPrice(silver: 30);
             item.rare = ItemRarityID.Blue;
         }
@@ -23,8 +25,7 @@ namespace SagesMania.Items.Accessories
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.LifeCrystal, 5);
-            recipe.AddRecipeGroup("SM:SilverBars", 10);
+            recipe.AddIngredient(ModContent.ItemType<BionicBarItem>(), 15);
             recipe.AddIngredient(ItemID.SoulofNight, 5);
             recipe.AddIngredient(ItemID.SoulofLight, 5);
             recipe.AddTile(TileID.Anvils);
@@ -32,11 +33,14 @@ namespace SagesMania.Items.Accessories
             recipe.AddRecipe();
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateInventory(Player player)
         {
             player.GetModPlayer<SMPlayer>().livingMetal = true;
-            if (player.extraAccessorySlots < 2)
-                player.extraAccessorySlots += 1;
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
         }
     }
 

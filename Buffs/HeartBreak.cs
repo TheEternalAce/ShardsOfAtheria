@@ -8,7 +8,7 @@ namespace SagesMania.Buffs
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Heart Break");
-            Description.SetDefault("You cannont heal with Cross Dagger od Wand Of Healing");
+            Description.SetDefault("You cannont heal with Cross Dagger or Wand Of Healing");
             Main.debuff[Type] = true;
         }
 

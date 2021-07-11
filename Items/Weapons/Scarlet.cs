@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SagesMania.Projectiles;
+using SagesMania.Projectiles.Ammo;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,7 +12,7 @@ namespace SagesMania.Items.Weapons
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Converts regular bullets into Chlorophyte Bullets\n" +
+			Tooltip.SetDefault("Shoots powerful Luminite Bullets\n" +
 				"66% chance to not consume ammo\n" +
 				"[c/960096:''Now we're talkin'!'']");
 		}
@@ -23,8 +24,8 @@ namespace SagesMania.Items.Weapons
 			item.noMelee = true;
 			item.width = 56;
 			item.height = 18;
-			item.useTime = 90;
-			item.useAnimation = 90;
+			item.useTime = 38;
+			item.useAnimation = 38;
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.knockBack = 3.75f;
 			item.rare = ItemRarityID.Green;
@@ -65,11 +66,15 @@ namespace SagesMania.Items.Weapons
 		}
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			if (type == ProjectileID.Bullet || type == ModContent.ProjectileType<BBProjectile>())
+			if (type == ProjectileID.Bullet)
 			{
-				type = ProjectileID.ChlorophyteBullet;
+				type = ProjectileID.MoonlordBullet;
 			}
 			return true;
+		}
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
 		}
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{

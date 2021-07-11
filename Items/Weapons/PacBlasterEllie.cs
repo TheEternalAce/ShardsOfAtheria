@@ -1,5 +1,6 @@
 using SagesMania.Items.Potions;
 using SagesMania.Projectiles;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,8 +13,7 @@ namespace SagesMania.Items.Weapons
 		{
 			DisplayName.SetDefault("Fire Pac-Blaster");
 			Tooltip.SetDefault("'Genderbent version of a certain Root Beer addict's friend'\n" +
-                "Damage scales throughout progression\n" +
-				"[c/FF6400:Special Item]");
+                "Damage scales throughout progression");
 		}
 
 		public override void SetDefaults() 
@@ -50,6 +50,10 @@ namespace SagesMania.Items.Weapons
 			recipe.AddIngredient(ItemID.HellstoneBar, 10);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
+		}
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
 		}
 
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)

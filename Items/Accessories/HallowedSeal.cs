@@ -10,7 +10,7 @@ namespace SagesMania.Items.Accessories
         {
 			Tooltip.SetDefault("5% increased magic and melee damage\n" +
 				"Immunity to fall damage\n" +
-				"Melee hits restore 5 mana\n" +
+				"Melee hits restore 15 mana\n" +
 				"'A holy seal that once protected an underground kingdom'");
         }
 
@@ -26,8 +26,8 @@ namespace SagesMania.Items.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.meleeDamageMult += .05f;
-			player.magicDamageMult += .05f;
+			player.meleeDamage += .05f;
+			player.magicDamage += .05f;
 			player.noFallDmg = true;
 			player.GetModPlayer<SMPlayer>().hallowedSeal = true;
 		}

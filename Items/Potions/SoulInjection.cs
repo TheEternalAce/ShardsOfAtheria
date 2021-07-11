@@ -44,6 +44,14 @@ namespace SagesMania.Items.Potions
         public override void OnConsumeItem(Player player)
         {
             player.QuickSpawnItem(ModContent.ItemType<EmptyNeedle>());
+			player.AddBuff(ModContent.BuffType<InjectionShock>(), 5 * 60);
 		}
-    }
+
+		public override bool CanUseItem(Player player)
+		{
+			if (!player.HasBuff(ModContent.BuffType<InjectionShock>()))
+				return true;
+			else return false;
+		}
+	}
 }

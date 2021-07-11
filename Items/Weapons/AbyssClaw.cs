@@ -1,9 +1,6 @@
-using Microsoft.Xna.Framework;
-using SagesMania.Items.AreusDamageClass;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace SagesMania.Items.Weapons
 {

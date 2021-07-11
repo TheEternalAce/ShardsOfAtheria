@@ -1,6 +1,5 @@
 ﻿using SagesMania.Items;
 using SagesMania.Items.Accessories;
-using SagesMania.Items.AreusDamageClass;
 using SagesMania.Items.Placeable;
 using SagesMania.Items.Weapons;
 using SagesMania.Items.Weapons.Ammo;
@@ -88,12 +87,8 @@ namespace SagesMania.NPCs
         {
             switch (WorldGen.genRand.Next(4))
             {
-                case 0:
-                    return "Harold";
-                case 1:
-                    return "Jordan";
                 default:
-                    return "Zero";
+                    return "Jordan";
             }
         }
 
@@ -113,20 +108,22 @@ namespace SagesMania.NPCs
         public override string GetChat()
         {
             int painter = NPC.FindFirstNPC(NPCID.Painter);
-            if (painter >= 0 && Main.rand.NextBool(4))
+            if (painter >= 0 && Main.rand.NextBool(6))
             {
                 return "Maybe " + Main.npc[painter].GivenName + " can make me a sprite... Huh? Oh, yes yes, enough of that, let's talk retail.";
             }
-            switch (Main.rand.Next(4))
+            if (Main.LocalPlayer.GetModPlayer<SMPlayer>().livingMetal && Main.rand.NextBool(7))
+            {
+                return "That metal.. My daughter has one like it..";
+            }
+            switch (Main.rand.Next(5))
             {
                 case 0:
                     return "HAHAHAHAHAHAHAHAHAHAH! WHAT DO YOU MEAN ''What's so funny''!?";
                 case 1:
-                    return "Ey uh.. Have you seen my son? No..? I hope he's alright..";
+                    return "Ey uh.. Have you seen my daughter? No..? I hope she's alright..";
                 case 2:
                     {
-                        // Main.npcChatCornerItem shows a single item in the corner, like the Angler Quest chat.
-                        //Main.npcChatCornerItem = ModContent.ItemType<>();
                         return $"You know, [i:{ModContent.ItemType<AreusOreItem>()}] is extremely dangerous to you humans.. Wait you're no ordinary human?";
                     }
                 case 3:

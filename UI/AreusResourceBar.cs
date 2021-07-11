@@ -1,5 +1,4 @@
-﻿using SagesMania.Items.AreusDamageClass;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
@@ -57,7 +56,7 @@ namespace SagesMania.UI
 		{
 			base.DrawSelf(spriteBatch);
 
-			var modPlayer = Main.LocalPlayer.GetModPlayer<AreusDamagePlayer>();
+			var modPlayer = Main.LocalPlayer.GetModPlayer<SMPlayer>();
 			// Calculate quotient
 			float quotient = (float)modPlayer.areusResourceCurrent / modPlayer.areusResourceMax2; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
 			quotient = Utils.Clamp(quotient, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
@@ -82,7 +81,7 @@ namespace SagesMania.UI
 		}
 		public override void Update(GameTime gameTime)
 		{
-			var modPlayer = Main.LocalPlayer.GetModPlayer<AreusDamagePlayer>();
+			var modPlayer = Main.LocalPlayer.GetModPlayer<SMPlayer>();
 			// Setting the text per tick to update and show our resource values.
 			text.SetText($"Areus Charge: {modPlayer.areusResourceCurrent} / {modPlayer.areusResourceMax2}");
 			base.Update(gameTime);

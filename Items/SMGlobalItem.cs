@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using SagesMania.Items.AreusDamageClass;
 using SagesMania.Items.Weapons;
 using SagesMania.Projectiles;
 using Terraria;

@@ -1,8 +1,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Placeable;
-using SagesMania.Tiles;
 
 namespace SagesMania.Items
 {
@@ -41,7 +39,7 @@ namespace SagesMania.Items
 		public override bool UseItem(Player player)
 		{
 			Main.NewText("[c/323232:So, you wanna fight me?]");
-			Main.NewText("[c/323232:Give it a few months or so]");
+			Main.NewText("[c/323232:Not right now]");
 			Main.PlaySound(SoundID.Roar, player.position, 0);
 			return true;
 		}

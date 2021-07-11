@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using SagesMania.Items.Placeable;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -25,6 +26,7 @@ namespace SagesMania.Items.Accessories.GemCores
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ModContent.ItemType<TopazCore>());
+			recipe.AddIngredient(ModContent.ItemType<BionicBarItem>(), 10);
 			recipe.AddIngredient(ItemID.RegenerationPotion, 15);
 			recipe.AddIngredient(ItemID.BottledHoney, 15);
 			recipe.AddTile(TileID.Hellforge);

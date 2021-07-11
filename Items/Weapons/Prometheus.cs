@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using SagesMania.Buffs;
 using SagesMania.Projectiles;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -42,13 +43,17 @@ namespace SagesMania.Items.Weapons
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddRecipeGroup("SM:GoldBars", 7);
+            recipe.AddIngredient(ModContent.ItemType<SoulOfSpite>(), 7);
             recipe.AddIngredient(ItemID.Ectoplasm, 5);
             recipe.AddIngredient(ItemID.HellstoneBar, 10);
             recipe.AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
         }
 
         public override bool AltFunctionUse(Player player)

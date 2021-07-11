@@ -10,7 +10,7 @@ namespace SagesMania.Items.Placeable
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Areus Ore"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
-			Tooltip.SetDefault("A pale blue bar of solid electricity\n" +
+			Tooltip.SetDefault("A pale blue ore of solid electricity\n" +
 				"Severely shocks you while in inventory");
 		}
 

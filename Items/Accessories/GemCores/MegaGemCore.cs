@@ -17,7 +17,7 @@ namespace SagesMania.Items.Accessories.GemCores
                 "20% chance to dodge damage\n" +
                 "Gives a super dash to the wearer\n" +
                 "Attacks inflict Daybroken and Betsy's Curse\n" +
-                "Immunity to damage dealing, damage and defense reducing and cold debuffs and Chaos State\n" +
+                "Immunity to damage dealing, damage and defense reducing, anti-healing and cold debuffs and Chaos State\n" +
                 "Grants Ironskin and Endurance when dealing damage and Wrath and Rage when taking damage\n" +
                 "Effects of Ankh Shield, Bundle of Ballons, Frostspark Boots, Lava Waders, Shiny Stone and Spore Sack\n" +
                 "Permanent Thorns, Regeneration, Honey, Heart Lantern, Cozy Campfire, Heartreach and Gravitation buffs\n" +
@@ -58,7 +58,6 @@ namespace SagesMania.Items.Accessories.GemCores
         public override void UpdateAccessory(Player player, bool hideVisual)
 		{
             MegaGemDashPlayer mp = player.GetModPlayer<MegaGemDashPlayer>();
-            player.noKnockback = true;
             player.buffImmune[BuffID.Venom] = true;
             player.buffImmune[BuffID.OnFire] = true;
             player.buffImmune[BuffID.Frostburn] = true;
@@ -68,6 +67,8 @@ namespace SagesMania.Items.Accessories.GemCores
             player.buffImmune[BuffID.WitheredArmor] = true;
             player.buffImmune[BuffID.Ichor] = true;
             player.buffImmune[BuffID.ChaosState] = true;
+            player.buffImmune[BuffID.MoonLeech] = true;
+            player.buffImmune[BuffID.PotionSickness] = true;
             player.buffImmune[ModContent.BuffType<HeartBreak>()] = true;
 
             //Bundle of Balloons

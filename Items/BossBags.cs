@@ -14,7 +14,6 @@ namespace SagesMania.Items
 			if (context == "bossBag" && arg == ItemID.EyeOfCthulhuBossBag)
 			{
 				player.QuickSpawnItem(ModContent.ItemType<Cataracnia>());
-				player.QuickSpawnItem(ModContent.ItemType<EyeOfTheAllSeer>());
 			}
 			if (context == "bossBag" && arg == ItemID.EaterOfWorldsBossBag)
 			{

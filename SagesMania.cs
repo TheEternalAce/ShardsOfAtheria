@@ -7,8 +7,6 @@ using SagesMania.UI;
 using Terraria.UI;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using SagesMania.Items.Placeable;
-using SagesMania.Tiles;
 using SagesMania.Items;
 
 namespace SagesMania
@@ -16,6 +14,7 @@ namespace SagesMania
     public class SagesMania : Mod
     {
         private UserInterface _areusResourceBarUserInterface;
+        private UserInterface _overdriveTimeBarUserInterface;
 
         public static int AreusCurrency;
         public static int DryskalCurrency;
@@ -39,28 +38,34 @@ namespace SagesMania
             Megamerge = RegisterHotKey("Megamerge", "LeftAlt");
             PhaseSwitch = RegisterHotKey("Toggle Phase Type", "RightAlt");
 
-            // Custom Resource Bar
-            AreusResourceBar bar = new AreusResourceBar();
-            _areusResourceBarUserInterface = new UserInterface();
-            _areusResourceBarUserInterface.SetState(bar);
-            
             if (!Main.dedServ)
             {
-                AddEquipTexture(new Items.Accessories.LivingMetalHead(), null, EquipType.Head, "InvertedLivingMetalHead", "SagesMania/Items/Accessories/InvertedLivingMetal_Head");
-                AddEquipTexture(new Items.Accessories.LivingMetalBody(), null, EquipType.Body, "InvertedLivingMetalBody", "SagesMania/Items/Accessories/InvertedLivingMetal_Body", "SagesMania/Items/Accessories/InvertedLivingMetal_Arms");
-                AddEquipTexture(new Items.Accessories.LivingMetalLegs(), null, EquipType.Legs, "InvertedLivingMetalLegs", "SagesMania/Items/Accessories/InvertedLivingMetal_Legs");
+                AddEquipTexture(new Items.Accessories.LivingMetalHead(), null, EquipType.Head, "OmegaMetalHead", "SagesMania/Items/Accessories/OmegaMetal_Head");
+                AddEquipTexture(new Items.Accessories.LivingMetalBody(), null, EquipType.Body, "OmegaMetalBody", "SagesMania/Items/Accessories/OmegaMetal_Body", "SagesMania/Items/Accessories/OmegaMetal_Arms");
+                AddEquipTexture(new Items.Accessories.LivingMetalLegs(), null, EquipType.Legs, "OmegaMetalLegs", "SagesMania/Items/Accessories/OmegaMetal_Legs");
 
                 AddEquipTexture(new Items.Accessories.LivingMetalHead(), null, EquipType.Head, "LivingMetalHead", "SagesMania/Items/Accessories/LivingMetal_Head");
                 AddEquipTexture(new Items.Accessories.LivingMetalBody(), null, EquipType.Body, "LivingMetalBody", "SagesMania/Items/Accessories/LivingMetal_Body", "SagesMania/Items/Accessories/LivingMetal_Arms");
                 AddEquipTexture(new Items.Accessories.LivingMetalLegs(), null, EquipType.Legs, "LivingMetalLegs", "SagesMania/Items/Accessories/LivingMetal_Legs");
 
                 //AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicName"), ModContent.ItemType<MusicBox>(), ModContent.TileType<MusicBoxTile>());
+
+                // Areus Charge Bar
+                AreusResourceBar bar = new AreusResourceBar();
+                _areusResourceBarUserInterface = new UserInterface();
+                _areusResourceBarUserInterface.SetState(bar);
+
+                // Overdrive Time Bar
+                OverdriveTimeBar overdriveBar = new OverdriveTimeBar();
+                _overdriveTimeBarUserInterface = new UserInterface();
+                _overdriveTimeBarUserInterface.SetState(overdriveBar);
             }
         }
 
         public override void UpdateUI(GameTime gameTime)
         {
             _areusResourceBarUserInterface?.Update(gameTime);
+            _overdriveTimeBarUserInterface?.Update(gameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -72,6 +77,17 @@ namespace SagesMania
                     "SagesMania: Areus Charge Bar",
                     delegate {
                         _areusResourceBarUserInterface.Draw(Main.spriteBatch, new GameTime());
+                        return true;
+                    },
+                    InterfaceScaleType.UI)
+                );
+            }
+            if (resourceBarIndex != -1)
+            {
+                layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
+                    "SagesMania: Overdrive Time",
+                    delegate {
+                        _overdriveTimeBarUserInterface.Draw(Main.spriteBatch, new GameTime());
                         return true;
                     },
                     InterfaceScaleType.UI)
@@ -132,15 +148,15 @@ namespace SagesMania
 
             RecipeGroup souls = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Soul", new int[]
             {
+                ModContent.ItemType<SoulOfDaylight>(),
+                ModContent.ItemType<SoulOfStarlight>(),
+                ModContent.ItemType<SoulOfSpite>(),
                 ItemID.SoulofFlight,
                 ItemID.SoulofFright,
                 ItemID.SoulofLight,
                 ItemID.SoulofMight,
                 ItemID.SoulofNight,
-                ItemID.SoulofSight,
-                ModContent.ItemType<SoulOfDaylight>(),
-                ModContent.ItemType<SoulOfStarlight>(),
-                ModContent.ItemType<SoulOfSpite>()
+                ItemID.SoulofSight
             });
             RecipeGroup.RegisterGroup("SM:Souls", souls);
         }

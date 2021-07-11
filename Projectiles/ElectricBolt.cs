@@ -23,6 +23,7 @@ namespace SagesMania.Projectiles
             base.OnHitNPC(target, damage, knockback, crit);
             target.AddBuff(BuffID.Electrified, 600);
         }
+
         public override void AI()
         {
             if (Main.rand.NextBool(3))

@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Projectiles;
+using SagesMania.Projectiles.Ammo;
 
 namespace SagesMania.Items.Weapons
 {
@@ -10,7 +10,7 @@ namespace SagesMania.Items.Weapons
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hécate II");
+			DisplayName.SetDefault("Hecate II");
 			Tooltip.SetDefault("Damage scales based on progression\n" +
 				"''She's a real monster.''\n" +
 				"''Just like me.''");

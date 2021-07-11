@@ -1,7 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Projectiles;
+using SagesMania.Projectiles.Ammo;
+using System.Collections.Generic;
 
 namespace SagesMania.Items.Weapons.Ammo
 {
@@ -10,7 +11,6 @@ namespace SagesMania.Items.Weapons.Ammo
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("BB");
-			Tooltip.SetDefault("[c/FF6400:Special Item]");
 		}
 
 		public override void SetDefaults()
@@ -26,7 +26,7 @@ namespace SagesMania.Items.Weapons.Ammo
 			item.rare = ItemRarityID.Green;
 			item.shoot = ModContent.ProjectileType<BBProjectile>();
 			item.shootSpeed = 16f;
-			item.ammo = AmmoID.Bullet;
+			item.ammo = item.type;
 		}
 
 		public override void AddRecipes()
@@ -36,6 +36,10 @@ namespace SagesMania.Items.Weapons.Ammo
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.SetResult(this, 100);
 			recipe.AddRecipe();
-        }
-    }
+		}
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
+		}
+	}
 }

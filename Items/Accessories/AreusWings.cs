@@ -50,7 +50,8 @@ namespace SagesMania.Items.Accessories
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<AreusOreItem>(), 60);
+			recipe.AddIngredient(ModContent.ItemType<AreusBarItem>(), 20);
+			recipe.AddIngredient(ItemID.FragmentVortex, 6);
 			recipe.AddTile(ModContent.TileType<AreusForge>());
 			recipe.SetResult(this);
 			recipe.AddRecipe();

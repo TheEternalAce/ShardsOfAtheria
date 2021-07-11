@@ -17,7 +17,7 @@ namespace SagesMania.Items.Placeable
 			item.width = 32;
 			item.height = 32;
 			item.value = Item.sellPrice(gold: 8);
-			item.rare = ItemRarityID.Expert;
+			item.rare = ItemRarityID.Orange;
 			item.maxStack = 999;
 			item.consumable = true;
 			item.useStyle = ItemUseStyleID.SwingThrow;

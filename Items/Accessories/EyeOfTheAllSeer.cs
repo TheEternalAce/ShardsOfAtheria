@@ -31,8 +31,23 @@ namespace SagesMania.Items.Accessories
 			player.AddBuff(BuffID.NightOwl, 2);
 			player.AddBuff(BuffID.Dangersense, 2);
 			player.AddBuff(BuffID.Hunter, 2);
+			player.AddBuff(BuffID.Spelunker, 2);
 			player.scope = true;
-			player.allDamageMult += 0.02f;
+			player.allDamage += 0.02f;
 		}
-	}
+
+        public override void UpdateInventory(Player player)
+		{
+			if (NPC.downedMechBoss2)
+			{
+				player.AddBuff(BuffID.Shine, 2);
+				player.AddBuff(BuffID.NightOwl, 2);
+				player.AddBuff(BuffID.Dangersense, 2);
+				player.AddBuff(BuffID.Hunter, 2);
+				player.AddBuff(BuffID.Spelunker, 2);
+				player.scope = true;
+				player.allDamage += 0.02f;
+			}
+		}
+    }
 }

@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using SagesMania.Items.Weapons.Ammo;
+using System.Collections.Generic;
 
 namespace SagesMania.Items.Accessories
 {
@@ -36,6 +37,10 @@ namespace SagesMania.Items.Accessories
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
+		}
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
 		}
 	}
 }

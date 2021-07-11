@@ -26,7 +26,8 @@ namespace SagesMania.Items
         public override void AddRecipes()
         {
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<AreusOreItem>(), 5);
+			recipe.AddIngredient(ModContent.ItemType<AreusBarItem>(), 5);
+			recipe.AddIngredient(ItemID.LunarBar, 5);
 			recipe.AddIngredient(ItemID.SpiderFang, 8);
 			recipe.AddIngredient(ItemID.GoldWatch);
 			recipe.AddTile(TileID.DemonAltar);
@@ -37,7 +38,7 @@ namespace SagesMania.Items
         public override bool UseItem(Player player)
 		{
 			Main.NewText("So, you wanna fight a big spider?");
-			Main.NewText("Give it a few months or so");
+			Main.NewText("Not right now");
 			Main.PlaySound(SoundID.Roar, player.position, 0);
 			return true;
 		}

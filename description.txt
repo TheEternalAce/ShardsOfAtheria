@@ -5,9 +5,59 @@ This mod is still a work in progress, so a lot of stuff is broken, underpowered 
 Mod Plans:
 
 Sprite for the Atherian
-Balance changes
-New NPCs
 4 bosses
+
+0.4.8
+	Added Valkyrie Crest, Slayer's Emblem, Bionic Ore and Bionic Bar
+	Added new mode: Slayer mode
+	Many items made into "Special Items"
+	"Special Item" tag displays at the very bottom of the tooltip
+	Resprited Rush Drive, Omega Drive and BB Gun
+	Properly implemented movement speed (again) and life regen increases
+	Crystal Infection now Orange rarity
+	Changed Prometheus, Pandora, Living Metal, Spider Clock, Slithery Land, Greater Topaz Core and most Areus item recipes
+	Living Metal works in vanity slot
+	BB Gun can only use BBs as ammo
+	Scarlet converts normal bullets into Luminite Bullets instead of Chlorophyte bullets
+
+0.4.7.1
+	Rush Drive no longer needs Living Metal to be equipped
+	Rush Drive works properly
+	Fixed Areus Weapons
+	Fixed all harpy spawning
+	Areus Ore is now obtainable with Nightmare/Deathbringer Pickaxes and higher
+	Added Omega Drive
+	Added Corrupt, Crimson and Hallowed Harpy NPCs
+	Mega Gem Core grants immunity to Moon Bite and Potion Sickness
+	Soul Of Spite now drops at any time of day
+	Mod Icon fully implemented
+
+0.4.7
+	Increased mana gain from Hallowed Seal
+	Increased shoot speed of BB Gun and Scarlet
+	Areus weapons are no longer a seperate damage class
+	Areus weapons are more spread out
+	Changed Areus Pistol use sound
+	Changed Rush drive to lower defense/damage by 50% and in turn double damage/defense
+	Changed Atherian's name to always be Jordan
+	Changed one of Atherian's lines
+	Changed Infection Injection to be made at a Bottle and Furnace
+	Reduced Arues Charge regen rate from 8 per second to 1 per 1/5 second
+	Areus Charge does not regen while an Areus weapon is being used
+	Areus Charge takes 3 seconds to start regenerating
+	Resprited Areus Charge meter frame and Areus Staff
+	Added Areus Magnum, Overdrive Energy Pack, Areus Rod, Areus Railgun and Bone Marrow Injection items
+	Added Injection Shock buff
+	Added Cave, Desert, Forest, Ice, and Ocean Harpy NPCs
+	Added Mod Icon
+	Added another line to Atherian
+	Fixed display name of Hecate II
+	Fixed Soul Of Daylight drops during the Solar Eclipse
+	Fixed Living Metal related Death Messages
+	Fixed Heart Break tooltip
+	Fixed Atherian dialogue
+	Overdrive no longer drains life
+	Small injection rework
 
 0.4.6
 	Added Souls Of Daylight, Starlight and Spite and added Rush Drive
@@ -35,7 +85,7 @@ New NPCs
 
 0.4.5.1
 	Added Reactor Meltdown and Draco Pellet
-	Hécate II, L-CAR 9, Demon Claw, and Hidden Blade now have a sell value of 5 gold
+	Hecate II, L-CAR 9, Demon Claw, and Hidden Blade now have a sell value of 5 gold
 	Areus Forge now also acts as a Adamantite/Titanium forge
 	Cross Dagger, Wand of Healing and Living Metal's Overdrive rework
 	Added /toggleFlight command, for those that want an extra challenge

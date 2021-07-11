@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using SagesMania.Items.Placeable;
 using SagesMania.Tiles;
-using SagesMania.Items.AreusDamageClass;
 
 namespace SagesMania.Items.Accessories
 {
@@ -33,9 +32,8 @@ namespace SagesMania.Items.Accessories
 			player.buffImmune[BuffID.Electrified] = true;
 			player.GetModPlayer<SMPlayer>().areusBatteryElectrify = true;
 			player.GetModPlayer<SMPlayer>().areusWings = true;
-			player.GetModPlayer<AreusDamagePlayer>().naturalAreusRegen = true;
-			player.GetModPlayer<AreusDamagePlayer>().areusResourceMax2 += 100;
-			player.GetModPlayer<AreusDamagePlayer>().areusDamageMult += .1f;
+			player.GetModPlayer<SMPlayer>().naturalAreusRegen = true;
+			player.GetModPlayer<SMPlayer>().areusResourceMax2 += 100;
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
@@ -59,7 +57,7 @@ namespace SagesMania.Items.Accessories
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ModContent.ItemType<AreusWings>());
 			recipe.AddIngredient(ModContent.ItemType<AreusBattery>());
-			recipe.AddIngredient(ModContent.ItemType<AreusOreItem>(), 10);
+			recipe.AddIngredient(ModContent.ItemType<AreusBarItem>(), 10);
 			recipe.AddTile(ModContent.TileType<AreusForge>());
 			recipe.SetResult(this);
 			recipe.AddRecipe();

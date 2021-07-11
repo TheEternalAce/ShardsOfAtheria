@@ -1,4 +1,6 @@
 using Microsoft.Xna.Framework;
+using SagesMania.Items.Weapons.Ammo;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,7 +13,7 @@ namespace SagesMania.Items.Weapons
 		{
 			DisplayName.SetDefault("BB Gun");
 			Tooltip.SetDefault("[c/960096:''One of my favorite treasures, take care of it'']\n" +
-				"[c/FF6400:Special Item]");
+				"Uses BBs for ammo");
 		}
 
 		public override void SetDefaults() 
@@ -19,10 +21,10 @@ namespace SagesMania.Items.Weapons
 			item.damage = 10;
 			item.ranged = true;
 			item.noMelee = true;
-			item.width = 56;
-			item.height = 18;
-			item.useTime = 90;
-			item.useAnimation = 90;
+			item.width = 50;
+			item.height = 16;
+			item.useTime = 38;
+			item.useAnimation = 38;
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.knockBack = 3.75f;
 			item.rare = ItemRarityID.Blue;
@@ -31,14 +33,18 @@ namespace SagesMania.Items.Weapons
 			item.crit = 6;
 			item.shoot = ProjectileID.PurificationPowder;
 			item.shootSpeed = 13f;
-			item.useAmmo = AmmoID.Bullet;
+			item.useAmmo = ModContent.ItemType<BB>();
 		}
         public override Vector2? HoldoutOffset()
 		{
-			return new Vector2(-24, 4);
+			return new Vector2(-4, 2);
+		}
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
 		}
 
-		public override void AddRecipes() 
+        public override void AddRecipes() 
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddRecipeGroup(RecipeGroupID.Wood, 15);

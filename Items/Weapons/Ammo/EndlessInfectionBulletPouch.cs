@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Projectiles;
+using SagesMania.Projectiles.Ammo;
 
 namespace SagesMania.Items.Weapons.Ammo
 {

@@ -13,6 +13,7 @@ namespace SagesMania.Tiles
 		public override void SetDefaults()
 		{
 			adjTiles = new int[] { TileID.AdamantiteForge };
+			adjTiles = new int[] { TileID.Furnaces };
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = true;
