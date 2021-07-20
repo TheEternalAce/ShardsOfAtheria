@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SagesMania.Buffs;
 using SagesMania.Items;
-using SagesMania.Items.Accessories;
 using SagesMania.Projectiles;
 using SagesMania.Projectiles.Ammo;
 using SagesMania.Projectiles.Minions;
@@ -47,15 +46,28 @@ namespace SagesMania
         public bool phaseOffense;
         public bool rushDrive;
         public bool omegaDrive;
-        public bool slayersEmblem;
         public bool markOfAnastasia;
+        public bool megaGemCoreGrav;
+        public bool areusChargePack;
+        public bool valkyrieCrown;
 
-        Vector2 recentPos;
+
+        //Slayer mode stuff
+        public bool creeperPet;
+        public bool honeyCrown;
+        public bool honeybeeMinion;
+        public bool vampiricJaw;
+        public bool plantCells;
+        public bool moonCore;
+        public bool spiderClock;
+        public Vector2 recentPos;
+        public int recentLife;
+        public int recentMana;
+        public int recentCharge;
+        public int saveTimer;
 
         public int TomeKnowledge;
         public int shadowBrandToggled;
-        public int gravToggle;
-        public int flightToggle;
         public int megamergedTimer;
 
         // Here we include a custom resource, similar to mana or health.
@@ -70,7 +82,7 @@ namespace SagesMania
         public static readonly Color HealAreusResource = new Color(0, 255, 255); // We can use this for CombatText, if you create an item that replenishes exampleResourceCurrent.
 
         public bool naturalAreusRegen;
-        public int areusChargeMaxed;
+        public bool areusChargeMaxed;
 
         public int overdriveTimeCurrent;
         public const int DefaultOverdriveTimeMax = 300;
@@ -107,7 +119,17 @@ namespace SagesMania
             sMHealingItem = false;
             rushDrive = false;
             omegaDrive = false;
-            slayersEmblem = false;
+            valkyrieCrown = false;
+
+
+            //Slayer mode stuff
+            creeperPet = false;
+            honeyCrown = false;
+            honeybeeMinion = false;
+            vampiricJaw = false;
+            plantCells = false;
+            moonCore = false;
+            spiderClock = false;
 
             ResetVariables();
             naturalAreusRegen = false;
@@ -136,11 +158,9 @@ namespace SagesMania
         public override TagCompound Save()
         {
             return new TagCompound {
-				// {"somethingelse", somethingelse}, // To save more data, add additional lines
-				{"TomeKnowledge", TomeKnowledge},
+                {"megaGemCoreGrav", megaGemCoreGrav},
+                {"TomeKnowledge", TomeKnowledge},
                 {"shadowBrandToggled", shadowBrandToggled},
-                {"gravToggle", gravToggle},
-                {"flightToggle", flightToggle},
                 { "areusResourceCurrent", areusResourceCurrent},
                 { "overdriveTimeCurrent", overdriveTimeCurrent},
                 { "phaseOffense", phaseOffense}
@@ -149,10 +169,9 @@ namespace SagesMania
 
         public override void Load(TagCompound tag)
         {
+            megaGemCoreGrav = tag.GetBool("megaGemCoreGrav");
             TomeKnowledge = tag.GetInt("TomeKnowledge");
             shadowBrandToggled = tag.GetInt("shadowBrandToggled");
-            gravToggle = tag.GetInt("gravToggle");
-            flightToggle = tag.GetInt("flightToggle");
             areusResourceCurrent = tag.GetInt("areusResourceCurrent");
             overdriveTimeCurrent = tag.GetInt("overdriveTimeCurrent");
             phaseOffense = tag.GetBool("phaseOffense");
@@ -166,7 +185,7 @@ namespace SagesMania
             items.Add(item);
         }
 
-        public override void PostUpdate()
+        public override void PreUpdate()
         {
             UpdateResource();
             if (OrangeMask)
@@ -174,13 +193,6 @@ namespace SagesMania
                 player.statDefense += 7;
                 player.rangedDamage += .1f;
                 player.rangedCrit += 4;
-            }
-            if (slayersEmblem)
-                player.allDamage += .5f;
-            if (player.HasBuff(ModContent.BuffType<Overdrive>()) || omegaDrive)
-            {
-                player.armorEffectDrawShadow = true;
-                player.armorEffectDrawOutlines = true;
             }
             if (omnicientTome)
             {
@@ -202,10 +214,6 @@ namespace SagesMania
                     player.AddBuff(BuffID.Spelunker, 2);
                 }
             }
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] <= 0 && greaterSapphireCore)
-            {
-                Projectile.NewProjectile(player.position, player.velocity, ModContent.ProjectileType<SapphireSpiritMinion>(), 80, 5, player.whoAmI);
-            }
             if (unshackledTome)
             {
                 if (!player.GetModPlayer<SMPlayer>().areusKey)
@@ -221,35 +229,88 @@ namespace SagesMania
                     player.AddBuff(164, 10 * 60);
                 }
             }
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] <= 0 && superSapphireCore)
+            if (Config.sapphireMinion)
             {
-                Projectile.NewProjectile(player.position, player.velocity, ModContent.ProjectileType<SapphireSpiritMinion>(), 157, 5, player.whoAmI);
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] <= 0 && greaterSapphireCore)
+                {
+                    Projectile.NewProjectile(player.position, player.velocity, ModContent.ProjectileType<SapphireSpiritMinion>(), 80, 5, player.whoAmI);
+                }
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] <= 0 && superSapphireCore)
+                {
+                    Projectile.NewProjectile(player.position, player.velocity, ModContent.ProjectileType<SapphireSpiritMinion>(), 157, 5, player.whoAmI);
+                }
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] <= 0 && megaGemCore)
+                {
+                    Projectile.NewProjectile(player.position, player.velocity, ModContent.ProjectileType<SapphireSpiritMinion>(), 267, 5, player.whoAmI);
+                }
             }
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] <= 0 && megaGemCore)
+            if (ModContent.GetInstance<SMWorld>().flightToggle && (megaGemCore || areusWings))
             {
-                Projectile.NewProjectile(player.position, player.velocity, ModContent.ProjectileType<SapphireSpiritMinion>(), 267, 5, player.whoAmI);
+                player.wingTime = 100;
+                player.rocketTime = 100;
             }
-            if (flightToggle == 1)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<HoneybeeMinion>()] <= 0 && honeyCrown)
+            {
+                Projectile.NewProjectile(player.position, player.velocity, ModContent.ProjectileType<HoneybeeMinion>(), 30, 5, player.whoAmI);
+            }
+            if (spiderClock)
+            {
+                saveTimer++;
+                if (saveTimer == 300)
+                {
+                    recentPos = player.position;
+                    recentLife = player.statLife;
+                    recentMana = player.statMana;
+                    recentCharge = areusResourceCurrent;
+                    CombatText.NewText(player.Hitbox, Color.Gray, "Time shift ready");
+                }
+                if (saveTimer >= 302)
+                    saveTimer = 302;
+            }
+            else saveTimer = 0;
+        }
+
+        public override void PostUpdate()
+        {
+            if (player.HasBuff(ModContent.BuffType<Overdrive>()) || omegaDrive)
+            {
+                player.armorEffectDrawShadow = true;
+                player.armorEffectDrawOutlines = true;
+                player.buffImmune[BuffID.Regeneration] = true;
+                player.buffImmune[BuffID.Honey] = true;
+                player.buffImmune[BuffID.Campfire] = true;
+                player.buffImmune[BuffID.HeartLamp] = true;
+                player.shinyStone = false;
+            }
+            if (!ModContent.GetInstance<SMWorld>().flightToggle)
             {
                 player.wingTime = 0;
-                player.rocketTime = 0;
-            }
-            else if (megaGemCore || areusWings)
-            {
-                if (player.wingTime == 0)
-                    player.wingTime = 100;
-                if (player.rocketTime == 0)
-                    player.rocketTime = 100;
+                if (Config.NoRocketFlightToggle)
+                    player.rocketTime = 0;
             }
             if (!player.HasBuff(ModContent.BuffType<Megamerged>()))
             {
                 megamergedTimer++;
                 if (megamergedTimer >= 54000) megamergedTimer = 54000;
+                player.ClearBuff(ModContent.BuffType<Overdrive>());
+                player.ClearBuff(ModContent.BuffType<Overheat>());
+                player.buffImmune[ModContent.BuffType<Overdrive>()] = true;
+                player.buffImmune[ModContent.BuffType<Overheat>()] = true;
             }
-            if (player.HasBuff(ModContent.BuffType<Megamerged>()))
+            else
             {
                 megamergedTimer--;
                 if (megamergedTimer <= 0) player.AddBuff(ModContent.BuffType<Overheat>(), 2);
+            }
+            if (!livingMetal)
+            {
+                player.ClearBuff(ModContent.BuffType<Megamerged>());
+                player.buffImmune[ModContent.BuffType<Megamerged>()] = true;
+            }
+            if (ModContent.GetInstance<SMWorld>().slayerMode)
+            {
+                player.statDefense /= 2;
+                player.endurance /= 2;
             }
             if (omegaDrive || (player.statLife <= player.statLifeMax2 / 2 && rushDrive))
             {
@@ -310,7 +371,7 @@ namespace SagesMania
 
         public override void UpdateLifeRegen()
         {
-            if (player.HasBuff(ModContent.BuffType<Megamerged>()))
+            if (player.HasBuff(ModContent.BuffType<Megamerged>()) && !player.HasBuff(ModContent.BuffType<Overdrive>()))
                 player.lifeRegen += 4;
             if (player.HasBuff(ModContent.BuffType<SoulInfused>()))
                 player.lifeRegen += 4;
@@ -318,6 +379,10 @@ namespace SagesMania
                 player.lifeRegen *= 2;
             if (omegaDrive)
                 player.lifeRegen += 4;
+            if (plantCells)
+                if (player.ZoneOverworldHeight)
+                    player.lifeRegen += 15;
+                else player.lifeRegen += 10;
         }
 
         private void UpdateResource()
@@ -365,16 +430,22 @@ namespace SagesMania
                 areusResourceCurrent = Utils.Clamp(areusResourceCurrent, 0, areusResourceMax2);
             }
             else areusResourceStartRegenTimer = 0;
-            if (areusResourceCurrent >= areusResourceMax2)
+            if (areusResourceCurrent >= areusResourceMax2 && ModLoader.GetMod("TerrariaOverhaul") == null)
             {
-                if (areusChargeMaxed == 0)
+                areusResourceCurrent = areusResourceMax2;
+                if (!areusChargeMaxed)
                 {
                     Main.PlaySound(SoundID.NPCHit53, player.position);
                     CombatText.NewText(player.Hitbox, Color.Cyan, "Charged");
-                    this.areusChargeMaxed = 1;
+                    areusChargeMaxed = true;
                 }
             }
-            else this.areusChargeMaxed = 0;
+            else areusChargeMaxed = false;
+
+            if (ModLoader.GetMod("TerrariaOverhaul") != null)
+            {
+                areusResourceCurrent = areusResourceMax2;
+            }
 
             if (player.HasBuff(ModContent.BuffType<Overdrive>()) && !omegaDrive)
             {
@@ -393,30 +464,20 @@ namespace SagesMania
         public override bool ConsumeAmmo(Item weapon, Item ammo)
         {
             if (BBBottle)
-            {
                 return Main.rand.NextFloat() >= .05f;
-            }
             if (PhantomBulletBottle)
-            {
                 return Main.rand.NextFloat() >= .48f;
-            }
             if (baseConservation)
-            {
                 return Main.rand.NextFloat() >= .15f;
-            }
             return true;
         }
 
         public override bool Shoot(Item item, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            if (PhantomBulletBottle)
-            {
+            if (PhantomBulletBottle && item.ranged && item.useAmmo == AmmoID.Bullet)
                 Projectile.NewProjectile(position.X, position.Y, speedX, speedY, ModContent.ProjectileType<PhantomBullet>(), 300, knockBack, player.whoAmI);
-            }
-            if (BBBottle)
-            {
+            if (BBBottle && item.ranged && item.useAmmo == AmmoID.Bullet)
                 Projectile.NewProjectile(position.X, position.Y, speedX, speedY, ModContent.ProjectileType<BBProjectile>(), 4, knockBack, player.whoAmI);
-            }
             if (Co2Cartridge)
             {
                 if (type == ModContent.ProjectileType<BBProjectile>())
@@ -587,29 +648,6 @@ namespace SagesMania
                     }
                 }
             }
-            if (SagesMania.Megamerge.JustPressed)
-            {
-                if (livingMetal && !player.HasBuff(ModContent.BuffType<Megamerged>()))
-                {
-                    if (!player.HasBuff(ModContent.BuffType<MegamergeCooldown>()))
-                    {
-                        player.AddBuff(ModContent.BuffType<Megamerged>(), 2);
-                        CombatText.NewText(player.Hitbox, Color.White, "Megamerge!", true);
-                        if (player.Male)
-                            Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/MegamergeMale"), player.position);
-                        else Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/MegamergeFemale"), player.position);
-                    }
-                    else
-                    {
-                        CombatText.NewText(player.Hitbox, Color.Red, "On Cooldown!");
-                    }
-                }
-                else if (player.HasBuff(ModContent.BuffType<Megamerged>()))
-                {
-                    player.ClearBuff(ModContent.BuffType<Megamerged>());
-                    Main.PlaySound(SoundID.Item4, player.position);
-                }
-            }
             if (SagesMania.PhaseSwitch.JustPressed)
             {
                 if (player.statLife >= player.statLifeMax2 / 2)
@@ -626,18 +664,24 @@ namespace SagesMania
                     }
                 }
             }
+            if (SagesMania.QuickCharge.JustPressed && areusChargePack)
+            {
+                int areusChargePackIndex = Main.LocalPlayer.FindItem(ModContent.ItemType<AreusChargePack>());
+                Main.LocalPlayer.inventory[areusChargePackIndex].stack--;
+                Main.PlaySound(SoundID.NPCHit53);
+                areusResourceCurrent += 50;
+                CombatText.NewText(player.Hitbox, Color.Aqua, 50);
+            }
         }
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
-        {
+         {
+            if (valkyrieCrown)
+                target.AddBuff(BuffID.Electrified, 60);
             if (areusBatteryElectrify)
-            {
                 target.AddBuff(BuffID.Electrified, 10 * 60);
-            }
             if (greaterRubyCore)
-            {
                 target.AddBuff(BuffID.OnFire, 10 * 60);
-            }
             if (superRubyCore)
             {
                 target.AddBuff(BuffID.CursedInferno, 10 * 60);
@@ -651,87 +695,104 @@ namespace SagesMania
                 player.AddBuff(BuffID.Endurance, 10 * 60);
             }
             if (hallowedSeal && item.melee)
-            {
                 player.statMana += 15;
+            if (vampiricJaw && item.melee && !item.noMelee)
+            {
+                player.HealEffect(item.damage / 5);
+                player.statLife += item.damage / 5;
+            }
+            if (moonCore)
+            {
+                player.HealEffect(item.damage / 2);
+                player.statLife += item.damage / 2;
             }
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            if (areusBatteryElectrify)
+            if (proj.owner == player.whoAmI)
             {
-                target.AddBuff(BuffID.Electrified, 10 * 60);
-            }
-            if (greaterRubyCore)
-            {
-                target.AddBuff(BuffID.OnFire, 10 * 60);
-            }
-            if (superRubyCore)
-            {
-                target.AddBuff(BuffID.CursedInferno, 10 * 60);
-                target.AddBuff(BuffID.Ichor, 10 * 60);
-            }
-            if (megaGemCore)
-            {
-                target.AddBuff(BuffID.Daybreak, 10 * 60);
-                target.AddBuff(BuffID.BetsysCurse, 10 * 60);
-                player.AddBuff(BuffID.Ironskin, 10 * 60);
-                player.AddBuff(BuffID.Endurance, 10 * 60);
-            }
-            if (hallowedSeal && proj.melee)
-            {
-                player.statMana += 15;
+                if (valkyrieCrown)
+                    target.AddBuff(BuffID.Electrified, 60);
+                if (areusBatteryElectrify)
+                    target.AddBuff(BuffID.Electrified, 10 * 60);
+                if (greaterRubyCore)
+                    target.AddBuff(BuffID.OnFire, 10 * 60);
+                if (superRubyCore)
+                {
+                    target.AddBuff(BuffID.CursedInferno, 10 * 60);
+                    target.AddBuff(BuffID.Ichor, 10 * 60);
+                }
+                if (megaGemCore)
+                {
+                    target.AddBuff(BuffID.Daybreak, 10 * 60);
+                    target.AddBuff(BuffID.BetsysCurse, 10 * 60);
+                    player.AddBuff(BuffID.Ironskin, 10 * 60);
+                    player.AddBuff(BuffID.Endurance, 10 * 60);
+                }
+                if (hallowedSeal && proj.melee)
+                    player.statMana += 15;
+                if (moonCore)
+                {
+                    player.HealEffect(proj.damage / 10);
+                    player.statLife += proj.damage / 10;
+                }
             }
         }
 
         public override bool? CanHitNPC(Item item, NPC target)
         {
-            if (target.friendly && omegaDrive) return true;
+            if (target.friendly && omegaDrive)
+                return true;
             else return base.CanHitNPC(item, target);
         }
 
         public override bool? CanHitNPCWithProj(Projectile proj, NPC target)
         {
-            if (target.friendly && omegaDrive) return true;
+            if (target.friendly && omegaDrive)
+                return true;
             else return base.CanHitNPCWithProj(proj, target);
         }
 
         public override void FrameEffects()
         {
-            if (player.HasBuff(ModContent.BuffType<Megamerged>()))
+            if (Config.MegamergeVisual)
             {
-                player.handon = -1;
-                player.handoff = -1;
-                player.back = -1;
-                player.front = -1;
-                player.shoe = -1;
-                player.waist = -1;
-                player.shield = -1;
-                player.neck = -1;
-                player.face = -1;
-                player.balloon = -1;
+                if (player.HasBuff(ModContent.BuffType<Megamerged>()))
+                {
+                    player.handon = -1;
+                    player.handoff = -1;
+                    player.back = -1;
+                    player.front = -1;
+                    player.shoe = -1;
+                    player.waist = -1;
+                    player.shield = -1;
+                    player.neck = -1;
+                    player.face = -1;
+                    player.balloon = -1;
 
-                player.head = mod.GetEquipSlot("LivingMetalHead", EquipType.Head);
-                player.body = mod.GetEquipSlot("LivingMetalBody", EquipType.Body);
-                player.legs = mod.GetEquipSlot("LivingMetalLegs", EquipType.Legs);
-                
-            }
-            if (omegaDrive)
-            {
-                player.handon = -1;
-                player.handoff = -1;
-                player.back = -1;
-                player.front = -1;
-                player.shoe = -1;
-                player.waist = -1;
-                player.shield = -1;
-                player.neck = -1;
-                player.face = -1;
-                player.balloon = -1;
+                    player.head = mod.GetEquipSlot("LivingMetalHead", EquipType.Head);
+                    player.body = mod.GetEquipSlot("LivingMetalBody", EquipType.Body);
+                    player.legs = mod.GetEquipSlot("LivingMetalLegs", EquipType.Legs);
 
-                player.head = mod.GetEquipSlot("OmegaMetalHead", EquipType.Head);
-                player.body = mod.GetEquipSlot("OmegaMetalBody", EquipType.Body);
-                player.legs = mod.GetEquipSlot("OmegaMetalLegs", EquipType.Legs);
+                }
+                if (omegaDrive)
+                {
+                    player.handon = -1;
+                    player.handoff = -1;
+                    player.back = -1;
+                    player.front = -1;
+                    player.shoe = -1;
+                    player.waist = -1;
+                    player.shield = -1;
+                    player.neck = -1;
+                    player.face = -1;
+                    player.balloon = -1;
+
+                    player.head = mod.GetEquipSlot("OmegaMetalHead", EquipType.Head);
+                    player.body = mod.GetEquipSlot("OmegaMetalBody", EquipType.Body);
+                    player.legs = mod.GetEquipSlot("OmegaMetalLegs", EquipType.Legs);
+                }
             }
         }
 
@@ -777,7 +838,8 @@ namespace SagesMania
 
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
         {
-            if (player.HasBuff(ModContent.BuffType<Megamerged>()) || omegaDrive) Main.PlaySound(SoundID.NPCHit4, player.position);
+            if (player.HasBuff(ModContent.BuffType<Megamerged>()) || omegaDrive)
+                Main.PlaySound(SoundID.NPCHit4, player.position);
         }
 
         public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
@@ -806,7 +868,7 @@ namespace SagesMania
             }
             if (player.HasBuff(ModContent.BuffType<Overheat>()))
             {
-                damageSource = PlayerDeathReason.ByCustomReason(player.name + "'s systems overheated.");
+                damageSource = PlayerDeathReason.ByCustomReason(player.name + "'s Living Metal overheated.");
             }
             return true;
         }
@@ -861,17 +923,6 @@ namespace SagesMania
 
         public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
-            if (player.HasBuff(ModContent.BuffType<Overdrive>()))
-            {
-                if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)
-                {
-                    int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, DustID.Blood, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 1f);
-                    Main.dust[dust].noGravity = true;
-                    Main.dust[dust].velocity *= 1.8f;
-                    Main.dust[dust].velocity.Y -= 0.5f;
-                    Main.playerDrawDust.Add(dust);
-                }
-            }
             if (player.HasBuff(ModContent.BuffType<Overheat>()))
             {
                 if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)

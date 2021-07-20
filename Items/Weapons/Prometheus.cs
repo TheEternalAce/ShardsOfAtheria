@@ -1,11 +1,10 @@
-using Microsoft.Xna.Framework;
 using SagesMania.Buffs;
+using SagesMania.Items.Placeable;
 using SagesMania.Projectiles;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace SagesMania.Items.Weapons
 {
@@ -43,7 +42,7 @@ namespace SagesMania.Items.Weapons
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<SoulOfSpite>(), 7);
+            recipe.AddIngredient(ModContent.ItemType<BionicBarItem>(), 7);
             recipe.AddIngredient(ItemID.Ectoplasm, 5);
             recipe.AddIngredient(ItemID.HellstoneBar, 10);
             recipe.AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10);

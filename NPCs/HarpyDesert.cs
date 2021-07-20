@@ -38,8 +38,11 @@ namespace SagesMania.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (!(spawnInfo.player.ZoneHoly && spawnInfo.player.ZoneCrimson && spawnInfo.player.ZoneCorrupt) && spawnInfo.player.ZoneDesert)
-                return .5f;
+            Player player = Main.LocalPlayer;
+            if (!(spawnInfo.player.ZoneHoly && spawnInfo.player.ZoneCrimson && spawnInfo.player.ZoneCorrupt
+                && spawnInfo.player.ZoneTowerNebula && spawnInfo.player.ZoneTowerVortex && spawnInfo.player.ZoneTowerSolar
+                && spawnInfo.player.ZoneTowerStardust && Main.pumpkinMoon && Main.snowMoon && player.townNPCs <= 3) && spawnInfo.player.ZoneDesert)
+                return .25f;
             return 0f;
         }
 
@@ -47,11 +50,13 @@ namespace SagesMania.NPCs
         {
             if(Main.rand.NextFloat() < .5f)
                 Item.NewItem(npc.getRect(), ItemID.Feather);
+            Item.NewItem(npc.getRect(), ItemID.Cactus, Main.rand.Next(3, 6));
+            Item.NewItem(npc.getRect(), ItemID.SandBlock, Main.rand.Next(3, 6));
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(BuffID.Electrified, 10 * 60);
+            target.AddBuff(BuffID.Electrified, 60);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace SagesMania.Items
 		public override bool UseItem(Player player)
 		{
 			Main.NewText("[c/323232:So, you wanna fight me?]");
-			Main.NewText("[c/323232:Not right now]");
+			Main.NewText("[c/323232:Don't worry, the fight will come soon]");
 			Main.PlaySound(SoundID.Roar, player.position, 0);
 			return true;
 		}

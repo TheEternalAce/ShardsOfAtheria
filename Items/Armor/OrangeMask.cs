@@ -28,7 +28,7 @@ namespace SagesMania.Items.Armor
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Silk, 15);
+            recipe.AddIngredient(ItemID.Silk, 2);
             recipe.AddIngredient(ItemID.Pumpkin, 5);
             recipe.AddTile(TileID.Loom);
             recipe.SetResult(this);

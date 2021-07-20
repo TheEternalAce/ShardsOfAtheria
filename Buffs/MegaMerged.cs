@@ -2,7 +2,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Accessories;
+using SagesMania.Items;
+using System.Collections.Generic;
 
 namespace SagesMania.Buffs
 {
@@ -25,6 +26,17 @@ namespace SagesMania.Buffs
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
             canBeCleared = false;
+        }
+
+        public override void ModifyBuffTip(ref string tip, ref int rare)
+        {
+            var list = SagesMania.OverdriveKey.GetAssignedKeys();
+            string keyname = "Not bound";
+
+            if (list.Count > 0)
+            {
+                keyname = list[0];
+            }
         }
 
         public override void Update(Player player, ref int buffIndex)
@@ -114,7 +126,7 @@ namespace SagesMania.Buffs
             // If the Shield of Cthulhu, Master Ninja Gear, Tabi and/or Solar Armour set is equipped, prevent this accessory from doing its dash effect
             //The priority is used to prevent undesirable effects.
             //Without it, the player is able to use the ExampleDashAccessory's dash as well as the vanilla ones
-            bool dashAccessoryEquipped = false;
+            bool dashBuffActive = false;
 
             //This is the loop used in vanilla to update/check the not-vanity accessories
             for (int i = 3; i < 8 + player.extraAccessorySlots; i++)
@@ -123,15 +135,15 @@ namespace SagesMania.Buffs
 
                 //Set the flag for the ExampleDashAccessory being equipped if we have it equipped OR immediately return if any of the accessories are
                 // one of the higher-priority ones
-                if (item.type == ModContent.ItemType<LivingMetal>())
-                    dashAccessoryEquipped = true;
+                if (player.HasBuff(ModContent.BuffType<Megamerged>()))
+                    dashBuffActive = true;
                 else if (item.type == ItemID.EoCShield || item.type == ItemID.MasterNinjaGear || item.type == ItemID.Tabi)
                     return;
             }
 
             //If we don't have the ExampleDashAccessory equipped or the player has the Solor armor set equipped, return immediately
             //Also return if the player is currently on a mount, since dashes on a mount look weird, or if the dash was already activated
-            if (!dashAccessoryEquipped || player.setSolar || player.mount.Active || DashActive)
+            if (!dashBuffActive || player.setSolar || player.mount.Active || DashActive)
                 return;
 
             //When a directional key is pressed and released, vanilla starts a 15 tick (1/4 second) timer during which a second press activates a dash

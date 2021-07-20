@@ -26,7 +26,7 @@ namespace SagesMania.Items.Weapons.Ammo
 			item.rare = ItemRarityID.Green;
 			item.shoot = ModContent.ProjectileType<BBProjectile>();
 			item.shootSpeed = 16f;
-			item.ammo = item.type;
+			item.ammo = AmmoID.Bullet;
 		}
 
 		public override void AddRecipes()

@@ -1,8 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Placeable;
-using SagesMania.Tiles;
+using SagesMania.NPCs.NovaSkyloft;
 
 namespace SagesMania.Items
 {
@@ -10,8 +9,7 @@ namespace SagesMania.Items
 	{
 		public override void SetStaticDefaults() 
 		{
-			Tooltip.SetDefault("Summons a holy Harpy Knight\n" +
-				"Eventually");
+			Tooltip.SetDefault("Summons a holy Harpy Knight");
 		}
 
 		public override void SetDefaults()
@@ -22,24 +20,36 @@ namespace SagesMania.Items
 			item.useStyle = ItemUseStyleID.HoldingUp;
 			item.useTime = 45;
 			item.useAnimation = 45;
+			item.maxStack = 20;
+			item.consumable = true;
 		}
 
         public override void AddRecipes()
         {
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddRecipeGroup("SM:GoldBars", 10);
+			recipe.AddRecipeGroup("SM:EvilMaterials", 10);
 			recipe.AddIngredient(ItemID.Feather, 5);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
 
+		// We use the CanUseItem hook to prevent a player from using this item while the boss is present in the world.
+		public override bool CanUseItem(Player player)
+		{
+			return player.ZoneOverworldHeight && !NPC.AnyNPCs(ModContent.NPCType<HarpyKnight>()) && !NPC.AnyNPCs(ModContent.NPCType<ValkyrieNova>());
+		}
+
 		public override bool UseItem(Player player)
 		{
-			Main.NewText("So, you wanna fight a bird knigt?");
-			Main.NewText("Not right now");
-			Main.PlaySound(SoundID.Roar, player.position, 0);
-			return true;
+			if (!player.ZoneCorrupt && !player.ZoneCrimson)
+			{
+				NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<HarpyKnight>());
+				Main.PlaySound(SoundID.Roar, player.position, 0);
+				return true;
+			}
+			else return false;
 		}
 	}
 }

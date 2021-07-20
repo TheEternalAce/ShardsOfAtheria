@@ -10,14 +10,16 @@ namespace SagesMania.Tiles
     {
         public override void SetDefaults()
         {
+            TileID.Sets.Ore[Type] = true;
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileLighted[Type] = true;
+            Main.tileValue[Type] = 285;
 
             drop = ModContent.ItemType<CrystalInfection>();
 
             ModTranslation name = CreateMapEntryName();
-            name.SetDefault("InfectionCrystal");
+            name.SetDefault("Infection Crystal");
             AddMapEntry(new Color(255, 140, 0), name);
 
             dustType = DustID.Honey;

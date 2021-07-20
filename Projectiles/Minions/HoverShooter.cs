@@ -7,7 +7,7 @@ namespace SagesMania.Projectiles.Minions
 	public abstract class HoverShooter : Minion
 	{
 		protected float idleAccel = 0.05f;
-		protected float spacingMult = 1f;
+		protected float spacingMult = 1.5f;
 		protected float viewDist = 400f;
 		protected float chaseDist = 200f;
 		protected float chaseAccel = 6f;

@@ -11,53 +11,107 @@ namespace SagesMania
 {
     class SMWorld : ModWorld
 	{
+		public bool flightToggle;
+
+		public bool downedValkyrie;
 		public bool slayerMode;
+		public bool slainValkyrie;
 		public bool slainEOC;
 		public bool slainBOC;
 		public bool slainEOW;
 		public bool slainBee;
 		public bool slainSkull;
 		public bool slainWall;
+		public bool slainMechWorm;
+		public bool slainTwins;
+		public bool slainPrime;
+		public bool slainPlant;
+		public bool slainGolem;
+		public bool slainDuke;
+		public bool slainEmpress;
+		public bool slainMoonLord;
+		public bool slainSenterra;
+		public bool slainGenesis;
+		public bool slainEverything;
+		public bool blueprints;
+		public int message;
 
-        public override TagCompound Save()
+		public override TagCompound Save()
         {
 			return new TagCompound
 			{
+				{"flightToggle", flightToggle},
+
+				{"downedValkyrie", downedValkyrie},
 				{"slayerMode", slayerMode},
+				{"slainValkyrie", slainValkyrie},
 				{"slainEOC", slainEOC},
 				{"slainBOC", slainBOC},
 				{"slainEOW", slainEOW},
 				{"slainBee", slainBee},
 				{"slainSkull", slainSkull},
 				{"slainWall", slainWall},
+				{"slainMechWorm", slainMechWorm},
+				{"slainTwins", slainTwins},
+				{"slainPrime", slainPrime},
+				{"slainPlant", slainPlant},
+				{"slainGolem", slainGolem},
+				{"slainDuke", slainDuke},
+				{"slainEmpress", slainEmpress},
+				{"slainMoonLord", slainMoonLord},
+				{"slainEverything", slainEverything},
+				{"blueprints", blueprints},
+				{"message", message},
 			};
         }
 
         public override void Load(TagCompound tag)
-        {
+		{
+			flightToggle = tag.GetBool("flightToggle");
+
+			downedValkyrie = tag.GetBool("downedValkyrie");
 			slayerMode = tag.GetBool("slayerMode");
+			slainValkyrie = tag.GetBool("slainValkyrie");
 			slainEOC = tag.GetBool("slainEOC");
 			slainBOC = tag.GetBool("slainBOC");
 			slainEOW = tag.GetBool("slainEOW");
 			slainBee = tag.GetBool("slainBee");
 			slainSkull = tag.GetBool("slainSkull");
 			slainWall = tag.GetBool("slainWall");
-        }
+			slainMechWorm = tag.GetBool("slainMechWorm");
+			slainTwins = tag.GetBool("slainTwins");
+			slainPrime = tag.GetBool("slainPrime");
+			slainPlant = tag.GetBool("slainPlant");
+			slainGolem = tag.GetBool("slainGolem");
+			slainDuke = tag.GetBool("slainDuke");
+			slainEmpress = tag.GetBool("slainEmpress");
+			slainMoonLord = tag.GetBool("slainMoonLord");
+			slainEverything = tag.GetBool("slainEverything");
+			blueprints = tag.GetBool("blueprints");
+			message = tag.GetInt("message");
+		}
 
         public override void PostUpdate()
-        {
-			if (NPC.downedBoss1 && slayerMode)
-				slainEOC = true;
-			if (NPC.downedBoss2 && slayerMode)
-				slainBOC = true;
-			if (NPC.downedBoss2 && slayerMode)
-				slainEOW = true;
-			if (NPC.downedQueenBee && slayerMode)
-				slainBee = true;
-			if (NPC.downedBoss3 && slayerMode)
-				slainSkull = true;
-			if (Main.hardMode && slayerMode)
-				slainWall = true;
+		{
+			if (slainValkyrie && slainEOC && (slainBOC || slainEOW) && slainBee && slainSkull && slainWall
+				&& slainMechWorm && slainTwins && slainPrime && slainPlant && slainGolem && slainMoonLord)
+				slainEverything = true;
+
+			if (slayerMode && slainEverything && message <= 960)
+            {
+				message++;
+				if (message == 120)
+					Main.NewText("I see...");
+				if (message == 240)
+					Main.NewText("So, you've slain every guardian I have..");
+				if (message == 480)
+					Main.NewText("Well, Come then, face me Soulless Terrarian.");
+				if (message == 960)
+					Main.NewText("I'll be waiting.");
+			}
+
+			if (slainSenterra && !slainGenesis)
+				Main.dayTime = false;
 		}
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)

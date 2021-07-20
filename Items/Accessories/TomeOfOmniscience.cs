@@ -9,8 +9,6 @@ namespace SagesMania.Items.Accessories
 	{
         public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Press 'Cycle Knowledge Base' to cycle between 3 Knowledge Bases:\n" +
-				"Combat Conservation and Exploration");
 		}
 
         public override void SetDefaults()
@@ -26,6 +24,20 @@ namespace SagesMania.Items.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.GetModPlayer<SMPlayer>().omnicientTome = true;
+		}
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+			var list = SagesMania.TomeKey.GetAssignedKeys();
+			string keyname = "Not bound";
+
+			if (list.Count > 0)
+			{
+				keyname = list[0];
+			}
+
+			tooltips.Add(new TooltipLine(mod, "Damage", $"Press '[i:{keyname}]' to cycle between 3 Knowledge Bases:\n" +
+				"Combat Conservation and Exploration"));
 		}
 
 		public override void AddRecipes()

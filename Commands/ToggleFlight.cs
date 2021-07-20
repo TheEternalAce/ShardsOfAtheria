@@ -18,14 +18,14 @@ namespace SagesMania.Commands
 		public override void Action(CommandCaller caller, string input, string[] args)
 		{
 			Player player = Main.LocalPlayer;
-			if (player.GetModPlayer<SMPlayer>().flightToggle == 0)
+			if (ModContent.GetInstance<SMWorld>().flightToggle)
 			{
-				player.GetModPlayer<SMPlayer>().flightToggle = 1;
+				ModContent.GetInstance<SMWorld>().flightToggle = false;
 				Main.NewText("Flight disabled");
 			}
 			else
 			{
-				player.GetModPlayer<SMPlayer>().flightToggle = 0;
+				ModContent.GetInstance<SMWorld>().flightToggle = true;
 				Main.NewText("Flight enabled");
 			}
 		}

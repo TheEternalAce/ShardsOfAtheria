@@ -12,7 +12,6 @@ namespace SagesMania.Items.Accessories.GemCores
 		{
 			Tooltip.SetDefault("15% chance to dodge damage\n" +
 				"+5 aditional minion slots\n" +
-				"Spore Sack effect\n" +
 				"'Calls a sapphire spirit to fight along side you'");
 		}
 
@@ -39,7 +38,6 @@ namespace SagesMania.Items.Accessories.GemCores
 		public override void UpdateAccessory(Player player, bool hideVisual)
         {
 			player.AddBuff(ModContent.BuffType<SapphireSpirit>(), 2);
-			player.sporeSac = true;
 			player.GetModPlayer<SMPlayer>().superSapphireCore = true;
 			player.GetModPlayer<SMPlayer>().superSapphireCore = true;
 			player.maxMinions += 5;

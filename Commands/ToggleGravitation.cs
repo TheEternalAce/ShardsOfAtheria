@@ -18,14 +18,14 @@ namespace SagesMania.Commands
 		public override void Action(CommandCaller caller, string input, string[] args)
 		{
 			Player player = Main.LocalPlayer;
-			if (player.GetModPlayer<SMPlayer>().gravToggle == 0)
+			if (player.GetModPlayer<SMPlayer>().megaGemCoreGrav)
 			{
-				player.GetModPlayer<SMPlayer>().gravToggle = 1;
+				player.GetModPlayer<SMPlayer>().megaGemCoreGrav = false;
 				Main.NewText("Mega Gem Core Gravitation disabled");
 			}
 			else
 			{
-				player.GetModPlayer<SMPlayer>().gravToggle = 0;
+				player.GetModPlayer<SMPlayer>().megaGemCoreGrav = true;
 				Main.NewText("Mega Gem Core Gravitation enabled");
 			}
 		}

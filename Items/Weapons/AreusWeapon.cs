@@ -12,20 +12,6 @@ namespace SagesMania.Items.Weapons
 		public override bool CloneNewInstances => true;
 		public int areusResourceCost = 0;
 
-		// Custom items should override this to set their defaults
-		public virtual void SafeSetDefaults()
-		{
-			areusResourceCost = 1;
-		}
-
-		// By making the override sealed, we prevent derived classes from further overriding the method and enforcing the use of SafeSetDefaults()
-		// We do this to ensure that the vanilla damage types are always set to false, which makes the custom damage type work
-		public sealed override void SetDefaults()
-		{
-			SafeSetDefaults();
-			item.rare = ItemRarityID.Cyan;
-		}
-
 		// Because we want the damage tooltip to show our custom damage, we need to modify it
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{

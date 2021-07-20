@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SagesMania.Buffs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -40,7 +41,8 @@ namespace SagesMania.Projectiles.Needles
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(BuffID.Poisoned, 10 * 60);
+            target.AddBuff(BuffID.Poisoned, 5 * 60);
+            target.AddBuff(ModContent.BuffType<Penetration>(), 5 * 60);
         }
     }
 }

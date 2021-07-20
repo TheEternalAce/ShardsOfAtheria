@@ -1,11 +1,48 @@
 Ace's Mania is a mod that aims to bring loads of content to Terraria, hopefully soaring to great heights.
 
-This mod is still a work in progress, so a lot of stuff is broken, underpowered or non functional.
+This mod is still a work in progress, so a some stuff is broken, underpowered or non functional.
+
+Spriters on discord:
+Torra th
+TheOrca
+Intro
 
 Mod Plans:
 
 Sprite for the Atherian
 4 bosses
+
+0.5
+	Ice Harpy inflicts frostburn instead of frozen
+	Tweaked all new harpy spawns and drops
+	Fully implemented Slayer Mode
+	Added Gunsword, Areus Assult Riffle, Phase Ore and Bar and many Slayer Items
+	Added config file
+	Added new boss and her items
+	Fixed Areus Railgun recpie and changed Areus Dagger, Areus Luger, Areus Magnum, Areus Pistol, Prometheus and Pandora recipes
+	Areus Luger and Areus Magnum now shoot an Electric Beam
+	Areus Railgun now penetrates through defense and has a higher crit chance
+	Areus Key does not increase flight time anymore
+	Areus charge cannot go over max
+	BB is no longer it's own ammo type
+	BB Bottle and Phantom Bullet Bottle effects only avtivate if weapon used is ranged and uses bullets
+	Eye Of The All Seer is now a Slayer Item
+	Rush Drive now has a recipe
+	Resprited Eye Of The All Seer
+	Megamerged is now toggled by using Living Metal instead of pressing a hotkey
+	Changed Hero Gun recipe
+	Player cannot have Megamerged buff if Living Metal is not in inventory
+	Player cannot have Overdrive and Overheat buffs if player does not have Megamerged buff
+
+	Made Areus Charge always at max while Terraria Overhaul is enabled (I need to figure out how to make Areus charge not drain while an Areus weapon is held)
+
+	Minor bug fixes
+
+	Probably more changes/fixes I forgot about
+
+0.4.8.1
+	Harpy feathers no longer inflict electrified
+	Reduced Harpy debuff durations to 1 second
 
 0.4.8
 	Added Valkyrie Crest, Slayer's Emblem, Bionic Ore and Bionic Bar

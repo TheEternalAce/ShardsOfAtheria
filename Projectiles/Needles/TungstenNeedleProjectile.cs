@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SagesMania.Buffs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -36,6 +37,11 @@ namespace SagesMania.Projectiles.Needles
                 drawOffsetX = 0;
                 drawOriginOffsetX = -9; // Math works out that this is negative of the other value.
             }
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            target.AddBuff(ModContent.BuffType<Penetration>(), 5 * 60);
         }
     }
 }

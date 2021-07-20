@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using SagesMania.Items.Weapons;
 using SagesMania.Items.Accessories;
 using SagesMania.Items.DevItems.AceOfSpades2370;
+using SagesMania.Items.Weapons.Melee;
+using SagesMania.Items.Weapons.Ranged;
 
 namespace SagesMania.Items
 {
@@ -49,7 +51,6 @@ namespace SagesMania.Items
 				player.QuickSpawnItem(ModContent.ItemType<AcesJacket>());
 				player.QuickSpawnItem(ModContent.ItemType<AcesPants>());
 			}
-			if (context == "bossBag" && Main.rand.NextFloat() < .1f) player.QuickSpawnItem(ModContent.ItemType<RushDrive>());
 		}
 	}
 }

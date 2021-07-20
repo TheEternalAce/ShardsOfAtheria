@@ -38,20 +38,26 @@ namespace SagesMania.Items
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
+
         public override bool CanUseItem(Player player)
         {
-
             if (player.GetModPlayer<SMPlayer>().areusResourceCurrent != player.GetModPlayer<SMPlayer>().areusResourceMax2)
             {
                 return true;
             }
             else return false;
         }
+
         public override bool UseItem(Player player)
         {
             player.GetModPlayer<SMPlayer>().areusResourceCurrent += 50;
             CombatText.NewText(player.Hitbox, Color.Aqua, 50);
             return true;
+        }
+
+        public override void UpdateInventory(Player player)
+        {
+            player.GetModPlayer<SMPlayer>().areusChargePack = true;
         }
     }
 }

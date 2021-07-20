@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using SagesMania;
+using System.Collections.Generic;
 
 namespace SagesMania.Items.Accessories
 {
@@ -9,12 +10,24 @@ namespace SagesMania.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Press 'Shadow Cloak' to turn invisible, gaining extra 10% crit chance but losing 10 defense\n" +
-				"While not invisible you have a chance to dodge\n" +
-				"After dodge you can teleport once");
 		}
 
-		public override void SetDefaults()
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			var list = SagesMania.ShadowCloak.GetAssignedKeys();
+			string keyname = "Not bound";
+
+			if (list.Count > 0)
+			{
+				keyname = list[0];
+			}
+
+			tooltips.Add(new TooltipLine(mod, "Tip", $"Press '[i:{keyname}]' to turn invisible, gaining extra 10% crit chance but losing 10 defense\n" +
+				"While not invisible you have a chance to dodge\n" +
+				"After dodge you can teleport once"));
+		}
+
+        public override void SetDefaults()
 		{
 			item.width = 16;
 			item.height = 22;

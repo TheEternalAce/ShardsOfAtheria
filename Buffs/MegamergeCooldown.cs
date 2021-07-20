@@ -11,7 +11,7 @@ namespace SagesMania.Buffs
         public override void SetDefaults()
         {
             DisplayName.SetDefault("Megamerge Cooldown");
-            Description.SetDefault("You cnannot megamerge for now");
+            Description.SetDefault("You cannot megamerge for now");
             Main.debuff[Type] = true;
         }
 

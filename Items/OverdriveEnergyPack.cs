@@ -1,6 +1,5 @@
-﻿using SagesMania.Items.Placeable;
-using SagesMania.Tiles;
-using SagesMania;
+﻿using SagesMania.Tiles;
+using SagesMania.Buffs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -43,7 +42,7 @@ namespace SagesMania.Items
         public override bool CanUseItem(Player player)
         {
 
-            if (player.GetModPlayer<SMPlayer>().overdriveTimeCurrent != player.GetModPlayer<SMPlayer>().overdriveTimeMax2)
+            if (player.GetModPlayer<SMPlayer>().overdriveTimeCurrent != player.GetModPlayer<SMPlayer>().overdriveTimeMax2 && !player.HasBuff(ModContent.BuffType<Overdrive>()))
             {
                 return true;
             }
@@ -52,7 +51,6 @@ namespace SagesMania.Items
         public override bool UseItem(Player player)
         {
             player.GetModPlayer<SMPlayer>().overdriveTimeCurrent = 300;
-            CombatText.NewText(player.Hitbox, Color.Aqua, 50);
             return true;
         }
     }

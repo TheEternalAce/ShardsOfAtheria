@@ -1,8 +1,10 @@
 ﻿using SagesMania.Items;
 using SagesMania.Items.Accessories;
 using SagesMania.Items.Placeable;
-using SagesMania.Items.Weapons;
 using SagesMania.Items.Weapons.Ammo;
+using SagesMania.Items.Weapons.Magic;
+using SagesMania.Items.Weapons.Melee;
+using SagesMania.Items.Weapons.Ranged;
 using SagesMania.Projectiles;
 using Terraria;
 using Terraria.ID;

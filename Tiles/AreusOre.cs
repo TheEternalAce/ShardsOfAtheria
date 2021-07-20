@@ -10,9 +10,11 @@ namespace SagesMania.Tiles
     {
         public override void SetDefaults()
         {
+            TileID.Sets.Ore[Type] = true;
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileLighted[Type] = true;
+            Main.tileValue[Type] = 725;
 
             drop = ModContent.ItemType<AreusOreItem>();
 

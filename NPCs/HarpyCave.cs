@@ -1,10 +1,11 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 
 namespace SagesMania.NPCs
 {
-	public class HarpyCave : ModNPC
+    public class HarpyCave : ModNPC
     {
         public override void SetStaticDefaults()
         {
@@ -38,20 +39,35 @@ namespace SagesMania.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (!(spawnInfo.player.ZoneHoly && spawnInfo.player.ZoneCrimson && spawnInfo.player.ZoneCorrupt) && spawnInfo.player.ZoneDirtLayerHeight || spawnInfo.player.ZoneRockLayerHeight)
-                return .5f;
+            Player player = Main.LocalPlayer;
+            if (!(spawnInfo.player.ZoneHoly && spawnInfo.player.ZoneCrimson && spawnInfo.player.ZoneCorrupt && spawnInfo.player.ZoneDungeon
+                && spawnInfo.player.ZoneSnow && player.townNPCs <= 3) && spawnInfo.player.ZoneDirtLayerHeight || spawnInfo.player.ZoneRockLayerHeight)
+                return .25f;
             return 0f;
         }
 
         public override void NPCLoot()
         {
-            if(Main.rand.NextFloat() < .5f)
+            var dropChooser = new WeightedRandom<int>();
+            dropChooser.Add(ItemID.CopperBar);
+            dropChooser.Add(ItemID.TinBar);
+            dropChooser.Add(ItemID.IronBar);
+            dropChooser.Add(ItemID.LeadBar);
+            dropChooser.Add(ItemID.SilverBar);
+            dropChooser.Add(ItemID.TungstenBar);
+            dropChooser.Add(ItemID.GoldBar);
+            dropChooser.Add(ItemID.PlatinumBar);
+            int choice = dropChooser;
+
+            if (Main.rand.NextFloat() < .5f)
                 Item.NewItem(npc.getRect(), ItemID.Feather);
+                Item.NewItem(npc.getRect(), choice, Main.rand.Next(3, 6));
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            target.AddBuff(BuffID.Stoned, 10 * 60);
+            if (Main.rand.NextFloat() < .1f)
+                target.AddBuff(BuffID.Stoned, 60);
         }
     }
 }

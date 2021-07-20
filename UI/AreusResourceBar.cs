@@ -79,6 +79,7 @@ namespace SagesMania.UI
 				spriteBatch.Draw(Main.magicPixel, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), Color.Lerp(gradientA, gradientB, percent));
 			}
 		}
+
 		public override void Update(GameTime gameTime)
 		{
 			var modPlayer = Main.LocalPlayer.GetModPlayer<SMPlayer>();

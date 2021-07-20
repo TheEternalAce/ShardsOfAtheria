@@ -8,6 +8,7 @@ using Terraria.UI;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using SagesMania.Items;
+using System;
 
 namespace SagesMania
 {
@@ -23,11 +24,13 @@ namespace SagesMania
         public static ModHotKey EmeraldTeleportKey;
         public static ModHotKey ShadowCloak;
         public static ModHotKey ShadowTeleport;
-        public static ModHotKey Megamerge;
         public static ModHotKey PhaseSwitch;
+        public static ModHotKey QuickCharge;
 
         public override void Load()
         {
+            Config.Load();
+
             AreusCurrency = CustomCurrencyManager.RegisterCurrency(new AreusCurrency(ModContent.ItemType<Items.AreusCoin>(), 999L));
             DryskalCurrency = CustomCurrencyManager.RegisterCurrency(new AreusCurrency(ModContent.ItemType<Items.Dryskal>(), 999L));
             OverdriveKey = RegisterHotKey("Toggle Overdrive", "F");
@@ -35,18 +38,21 @@ namespace SagesMania
             EmeraldTeleportKey = RegisterHotKey("Emerald Teleport", "Z");
             ShadowCloak = RegisterHotKey("Toggle Shadow Cloak", "`");
             ShadowTeleport = RegisterHotKey("Shadow Teleport", "X");
-            Megamerge = RegisterHotKey("Megamerge", "LeftAlt");
             PhaseSwitch = RegisterHotKey("Toggle Phase Type", "RightAlt");
+            QuickCharge = RegisterHotKey("Quick Charge", "C");
 
             if (!Main.dedServ)
             {
-                AddEquipTexture(new Items.Accessories.LivingMetalHead(), null, EquipType.Head, "OmegaMetalHead", "SagesMania/Items/Accessories/OmegaMetal_Head");
-                AddEquipTexture(new Items.Accessories.LivingMetalBody(), null, EquipType.Body, "OmegaMetalBody", "SagesMania/Items/Accessories/OmegaMetal_Body", "SagesMania/Items/Accessories/OmegaMetal_Arms");
-                AddEquipTexture(new Items.Accessories.LivingMetalLegs(), null, EquipType.Legs, "OmegaMetalLegs", "SagesMania/Items/Accessories/OmegaMetal_Legs");
+                if (Config.MegamergeVisual)
+                {
+                    AddEquipTexture(new Items.LivingMetalHead(), null, EquipType.Head, "OmegaMetalHead", "SagesMania/Items/Accessories/OmegaMetal_Head");
+                    AddEquipTexture(new Items.LivingMetalBody(), null, EquipType.Body, "OmegaMetalBody", "SagesMania/Items/Accessories/OmegaMetal_Body", "SagesMania/Items/Accessories/OmegaMetal_Arms");
+                    AddEquipTexture(new Items.LivingMetalLegs(), null, EquipType.Legs, "OmegaMetalLegs", "SagesMania/Items/Accessories/OmegaMetal_Legs");
 
-                AddEquipTexture(new Items.Accessories.LivingMetalHead(), null, EquipType.Head, "LivingMetalHead", "SagesMania/Items/Accessories/LivingMetal_Head");
-                AddEquipTexture(new Items.Accessories.LivingMetalBody(), null, EquipType.Body, "LivingMetalBody", "SagesMania/Items/Accessories/LivingMetal_Body", "SagesMania/Items/Accessories/LivingMetal_Arms");
-                AddEquipTexture(new Items.Accessories.LivingMetalLegs(), null, EquipType.Legs, "LivingMetalLegs", "SagesMania/Items/Accessories/LivingMetal_Legs");
+                    AddEquipTexture(new Items.LivingMetalHead(), null, EquipType.Head, "LivingMetalHead", "SagesMania/Items/LivingMetal_Head");
+                    AddEquipTexture(new Items.LivingMetalBody(), null, EquipType.Body, "LivingMetalBody", "SagesMania/Items/LivingMetal_Body", "SagesMania/Items/LivingMetal_Arms");
+                    AddEquipTexture(new Items.LivingMetalLegs(), null, EquipType.Legs, "LivingMetalLegs", "SagesMania/Items/LivingMetal_Legs");
+                }
 
                 //AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicName"), ModContent.ItemType<MusicBox>(), ModContent.TileType<MusicBoxTile>());
 
@@ -97,6 +103,20 @@ namespace SagesMania
 
         public override void AddRecipeGroups()
         {
+            RecipeGroup evilMaterial = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Evil Material", new int[]
+            {
+                ItemID.ShadowScale,
+                ItemID.TissueSample
+            });
+            RecipeGroup.RegisterGroup("SM:EvilMaterials", evilMaterial);
+
+            RecipeGroup evilGuns = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Evil Gun", new int[]
+            {
+                ItemID.Musket,
+                ItemID.TheUndertaker
+            });
+            RecipeGroup.RegisterGroup("SM:EvilGuns", evilGuns);
+
             RecipeGroup copper = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Copper Bar", new int[]
             {
                 ItemID.CopperBar,
@@ -130,21 +150,21 @@ namespace SagesMania
                 ItemID.CobaltBar,
                 ItemID.PalladiumBar
             });
-            RecipeGroup.RegisterGroup("SM:CobaltBars", cobalt);
+            RecipeGroup.RegisterGroup("SM:Tier1Bars", cobalt);
 
             RecipeGroup mythril = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Tier 2 Bar", new int[]
             {
                 ItemID.MythrilBar,
                 ItemID.OrichalcumBar
             });
-            RecipeGroup.RegisterGroup("SM:MythrilBars", mythril);
+            RecipeGroup.RegisterGroup("SM:Tier2Bars", mythril);
 
             RecipeGroup adamantite = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Tier 3 Bar", new int[]
             {
                 ItemID.AdamantiteBar,
                 ItemID.TitaniumBar
             });
-            RecipeGroup.RegisterGroup("SM:AdamantiteBars", adamantite);
+            RecipeGroup.RegisterGroup("SM:Tier3Bars", adamantite);
 
             RecipeGroup souls = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Soul", new int[]
             {
@@ -159,6 +179,15 @@ namespace SagesMania
                 ItemID.SoulofSight
             });
             RecipeGroup.RegisterGroup("SM:Souls", souls);
+        }
+
+        public override void PostSetupContent()
+        {
+            Mod bossChecklist = ModLoader.GetMod("BossChecklist");
+            if (bossChecklist != null)
+            {
+                bossChecklist.Call("AddBossWithInfo", "Nova Skyloft", 3.5f, (Func<bool>)(() => ModContent.GetInstance<SMWorld>().downedValkyrie), "Use a [i:" + ModContent.ItemType<ValkyrieCrest>() + "] anywhere but the Crimson/Corruption");
+            }
         }
     }
 }

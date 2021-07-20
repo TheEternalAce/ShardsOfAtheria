@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SagesMania.Buffs;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,13 +20,27 @@ namespace SagesMania.Items.Accessories.GemCores
                 "Attacks inflict Daybroken and Betsy's Curse\n" +
                 "Immunity to damage dealing, damage and defense reducing, anti-healing and cold debuffs and Chaos State\n" +
                 "Grants Ironskin and Endurance when dealing damage and Wrath and Rage when taking damage\n" +
-                "Effects of Ankh Shield, Bundle of Ballons, Frostspark Boots, Lava Waders, Shiny Stone and Spore Sack\n" +
+                "Effects of Ankh Shield, Bundle of Ballons, Frostspark Boots, Lava Waders and Shiny Stone\n" +
                 "Permanent Thorns, Regeneration, Honey, Heart Lantern, Cozy Campfire, Heartreach and Gravitation buffs\n" +
-                "Grants infinite flight and slow fall\n" +
-                "Dash does not work when equipped in Wing Slot yet");
-		}
+                "Grants infinite flight and slow fall");
+        }
 
-		public override void SetDefaults()
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            var list = SagesMania.EmeraldTeleportKey.GetAssignedKeys();
+            string keyname = "Not bound";
+
+            if (list.Count > 0)
+            {
+                keyname = list[0];
+            }
+
+            tooltips.Add(new TooltipLine(mod, "Damage", $"Allows teleportation on press of '[i:{keyname}]'"));
+            if (ModLoader.GetMod("WingSlot") != null)
+                tooltips.Add(new TooltipLine(mod, "Damage", $"Dash does not work when equipped in Wing Slot yet"));
+        }
+
+        public override void SetDefaults()
 		{
 			item.width = 32;
 			item.height = 32;
@@ -99,7 +114,7 @@ namespace SagesMania.Items.Accessories.GemCores
             player.AddBuff(BuffID.Honey, 2);
             player.AddBuff(BuffID.Campfire, 2);
             player.AddBuff(BuffID.HeartLamp, 2);
-            if (player.GetModPlayer<SMPlayer>().gravToggle == 0)
+            if (player.GetModPlayer<SMPlayer>().megaGemCoreGrav)
                 player.AddBuff(BuffID.Gravitation, 2);
 
             player.AddBuff(ModContent.BuffType<SapphireSpirit>(), 2);

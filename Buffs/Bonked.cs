@@ -9,7 +9,7 @@ namespace SagesMania.Buffs
         {
             DisplayName.SetDefault("Bonked!");
             Description.SetDefault("Defense lowered\n" +
-                "'Go to _____ jail'");
+                "'Go to bonk jail'");
             Main.debuff[Type] = true;
         }
 

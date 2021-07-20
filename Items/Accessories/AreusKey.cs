@@ -28,7 +28,6 @@ namespace SagesMania.Items.Accessories
 			player.allDamage += .5f;
 			player.statLifeMax2 *= 2;
 			player.moveSpeed += .5f;
-			player.wingTime += .5f;
 			player.statDefense *= 2;
 			player.statManaMax2 *= 2;
 		}

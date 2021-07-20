@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,8 +13,7 @@ namespace SagesMania.Items.Accessories.GemCores
 			Tooltip.SetDefault("Counts as wings\n" +
 				"15% increased movement speed\n" +
 				"Bundle of Balloons, Panic Necklace, Frostspark Boots, Lava Waders and Flippers effects\n" +
-				"Allows teleportation on press of 'Emerald Teleport' and immune to cold debuffs\n" +
-				"Grants flight and slowfall");
+				"Grants flight, slowfall and immunity to cold debuffs");
 		}
 
 		public override void SetDefaults()
@@ -55,6 +55,19 @@ namespace SagesMania.Items.Accessories.GemCores
 			recipe.AddTile(TileID.Hellforge);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
+		}
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			var list = SagesMania.EmeraldTeleportKey.GetAssignedKeys();
+			string keyname = "Not bound";
+
+			if (list.Count > 0)
+			{
+				keyname = list[0];
+			}
+
+			tooltips.Add(new TooltipLine(mod, "Damage", $"Allows teleportation on press of '[i:{keyname}]'"));
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
