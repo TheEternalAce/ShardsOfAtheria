@@ -43,7 +43,7 @@ namespace SagesMania.Items
 
 		public override bool UseItem(Player player)
 		{
-			if (!player.ZoneCorrupt && !player.ZoneCrimson)
+			if (!player.ZoneCorrupt && !player.ZoneCrimson && Main.dayTime)
 			{
 				NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<HarpyKnight>());
 				Main.PlaySound(SoundID.Roar, player.position, 0);

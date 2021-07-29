@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace SagesMania.Items
 {
-    public class LivingMetal : ModItem
+    public class LivingMetal : SpecialItem
     {
         public override void SetStaticDefaults()
         {
@@ -69,11 +69,6 @@ namespace SagesMania.Items
                 Main.PlaySound(SoundID.Item4, player.position);
             }
             return base.UseItem(player);
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
         }
     }
 

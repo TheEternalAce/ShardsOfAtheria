@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace SagesMania.Items.Weapons.Magic
 {
-	public class PacBlasterCharles : ModItem
+	public class PacBlasterCharles : SpecialItem
 	{
 		public override void SetStaticDefaults() 
 		{
@@ -51,10 +51,6 @@ namespace SagesMania.Items.Weapons.Magic
 			recipe.AddIngredient(ItemID.IceBlock, 30);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-		}
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
 		}
 
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)

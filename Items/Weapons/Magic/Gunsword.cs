@@ -31,6 +31,7 @@ namespace SagesMania.Items.Weapons.Magic
             item.autoReuse = true;
             item.shoot = ProjectileID.PurificationPowder;
             item.shootSpeed = 16;
+            item.mana = 6;
         }
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

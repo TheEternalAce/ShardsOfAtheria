@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using SagesMania.Buffs;
 using SagesMania.Items;
+using SagesMania.Items.DecaEquipment;
 using SagesMania.Projectiles;
 using SagesMania.Projectiles.Ammo;
 using SagesMania.Projectiles.Minions;
@@ -50,7 +51,6 @@ namespace SagesMania
         public bool megaGemCoreGrav;
         public bool areusChargePack;
         public bool valkyrieCrown;
-
 
         //Slayer mode stuff
         public bool creeperPet;
@@ -387,9 +387,32 @@ namespace SagesMania
 
         private void UpdateResource()
         {
-            if (areusWeapon)
+            if (!Config.areusWeaponsCostMana)
             {
-                if (naturalAreusRegen && player.itemAnimation == 0)
+                if (areusWeapon)
+                {
+                    if (naturalAreusRegen && player.itemAnimation == 0)
+                    {
+                        areusResourceStartRegenTimer++;
+                        if (areusResourceStartRegenTimer > 180)
+                        {
+                            // For our resource lets make it regen slowly over time to keep it simple, let's use exampleResourceRegenTimer to count up to whatever value we want, then increase currentResource.
+                            areusResourceRegenTimer++; //Increase it by 60 per second, or 1 per tick.
+
+                            // A simple timer that goes up to 1/5 second, increases the exampleResourceCurrent by 1 and then resets back to 0.
+                            if (areusResourceRegenTimer > 12)
+                            {
+                                areusResourceCurrent += 1;
+                                areusResourceRegenTimer = 0;
+                            }
+                        }
+
+                        // Limit exampleResourceCurrent from going over the limit imposed by exampleResourceMax.
+                        areusResourceCurrent = Utils.Clamp(areusResourceCurrent, 0, areusResourceMax2);
+                    }
+                    else areusResourceStartRegenTimer = 0;
+                }
+                else if (naturalAreusRegen)
                 {
                     areusResourceStartRegenTimer++;
                     if (areusResourceStartRegenTimer > 180)
@@ -409,42 +432,22 @@ namespace SagesMania
                     areusResourceCurrent = Utils.Clamp(areusResourceCurrent, 0, areusResourceMax2);
                 }
                 else areusResourceStartRegenTimer = 0;
-            }
-            else if (naturalAreusRegen)
-            {
-                areusResourceStartRegenTimer++;
-                if (areusResourceStartRegenTimer > 180)
+                if (areusResourceCurrent >= areusResourceMax2 && ModLoader.GetMod("TerrariaOverhaul") == null)
                 {
-                    // For our resource lets make it regen slowly over time to keep it simple, let's use exampleResourceRegenTimer to count up to whatever value we want, then increase currentResource.
-                    areusResourceRegenTimer++; //Increase it by 60 per second, or 1 per tick.
-
-                    // A simple timer that goes up to 1/5 second, increases the exampleResourceCurrent by 1 and then resets back to 0.
-                    if (areusResourceRegenTimer > 12)
+                    areusResourceCurrent = areusResourceMax2;
+                    if (!areusChargeMaxed)
                     {
-                        areusResourceCurrent += 1;
-                        areusResourceRegenTimer = 0;
+                        Main.PlaySound(SoundID.NPCHit53, player.position);
+                        CombatText.NewText(player.Hitbox, Color.Cyan, "Charged");
+                        areusChargeMaxed = true;
                     }
                 }
+                else areusChargeMaxed = false;
 
-                // Limit exampleResourceCurrent from going over the limit imposed by exampleResourceMax.
-                areusResourceCurrent = Utils.Clamp(areusResourceCurrent, 0, areusResourceMax2);
-            }
-            else areusResourceStartRegenTimer = 0;
-            if (areusResourceCurrent >= areusResourceMax2 && ModLoader.GetMod("TerrariaOverhaul") == null)
-            {
-                areusResourceCurrent = areusResourceMax2;
-                if (!areusChargeMaxed)
+                if (ModLoader.GetMod("TerrariaOverhaul") != null)
                 {
-                    Main.PlaySound(SoundID.NPCHit53, player.position);
-                    CombatText.NewText(player.Hitbox, Color.Cyan, "Charged");
-                    areusChargeMaxed = true;
+                    areusResourceCurrent = areusResourceMax2;
                 }
-            }
-            else areusChargeMaxed = false;
-
-            if (ModLoader.GetMod("TerrariaOverhaul") != null)
-            {
-                areusResourceCurrent = areusResourceMax2;
             }
 
             if (player.HasBuff(ModContent.BuffType<Overdrive>()) && !omegaDrive)
@@ -844,7 +847,7 @@ namespace SagesMania
 
         public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
         {
-            if (player.HasBuff(ModContent.BuffType<Overdrive>()))
+            if (player.HasBuff(ModContent.BuffType<Overdrive>()) && !player.HasItem(ModContent.ItemType<DecaFragmentE>()))
             {
                 player.ClearBuff(ModContent.BuffType<Overdrive>());
                 player.AddBuff(ModContent.BuffType<Overheat>(), 10 * 60);

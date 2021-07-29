@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace SagesMania.Items.Weapons.Melee
 {
-	public class ButterflyKnife : ModItem
+	public class ButterflyKnife : SpecialItem
 	{
 		public override void SetStaticDefaults() 
 		{
@@ -33,13 +33,9 @@ namespace SagesMania.Items.Weapons.Melee
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.LunarBar, 15);
-			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-		}
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
 		}
 	}
 }

@@ -12,10 +12,12 @@ namespace SagesMania.Projectiles
             projectile.height = 8;
             projectile.scale = .5f;
 
+            projectile.aiStyle = -1;
             projectile.friendly = true;
             projectile.tileCollide = true;
             projectile.arrow = false;
             projectile.light = 1;
+            projectile.extraUpdates = 1;
 
             drawOffsetX = -28;
             drawOriginOffsetX = 14;
@@ -26,6 +28,7 @@ namespace SagesMania.Projectiles
             base.OnHitNPC(target, damage, knockback, crit);
             target.AddBuff(BuffID.Electrified, 10*60);
         }
+
         public override void AI()
         {
             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(45);

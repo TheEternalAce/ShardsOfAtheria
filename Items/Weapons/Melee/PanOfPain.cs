@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using SagesMania.Buffs;
+using SagesMania.Tiles;
 
 namespace SagesMania.Items.Weapons.Melee
 {
@@ -36,7 +37,7 @@ namespace SagesMania.Items.Weapons.Melee
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddRecipeGroup("SM:Tier1Bars", 15);
             recipe.AddIngredient(ItemID.HellstoneBar, 10);
-            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

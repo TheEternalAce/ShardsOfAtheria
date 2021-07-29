@@ -1,6 +1,7 @@
 ﻿using SagesMania.Buffs;
 using SagesMania.Items;
 using SagesMania.Items.Accessories;
+using SagesMania.Items.DecaEquipment;
 using SagesMania.Items.Placeable;
 using SagesMania.Items.SlayerItems;
 using SagesMania.Items.Weapons.Magic;
@@ -329,11 +330,6 @@ namespace SagesMania.NPCs
 
         public override bool PreAI(NPC npc)
         {
-            if ((npc.type == ModContent.NPCType<HarpyKnight>() || npc.type == ModContent.NPCType<HarpyKnight>()) && ModContent.GetInstance<SMWorld>().slainValkyrie)
-            {
-                Main.NewText("Nova Skyloft, the Harpy Knight was slain...");
-                npc.active = false;
-            }
             if (npc.type == NPCID.EyeofCthulhu && ModContent.GetInstance<SMWorld>().slainEOC)
             {
                 Main.NewText("The Eye of Cthulhu was slain...");
@@ -485,6 +481,11 @@ namespace SagesMania.NPCs
 
         public override void GetChat(NPC npc, ref string chat)
         {
+            if ((Main.LocalPlayer.GetModPlayer<DecaPlayer>().fullDeca || Main.LocalPlayer.GetModPlayer<DecaPlayer>().trueFullDeca)
+                && npc.type != ModContent.NPCType<Atherian>())
+            {
+                chat = "H-Hey there...";
+            }
             if (Main.LocalPlayer.HasBuff(ModContent.BuffType<Megamerged>()))
             {
                 switch (Main.rand.Next(3))

@@ -36,7 +36,9 @@ namespace SagesMania.Items.Accessories
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ModContent.ItemType<AreusBarItem>(), 5);
-			recipe.AddIngredient(ItemID.FragmentVortex, 5);
+			recipe.AddIngredient(ItemID.ChlorophyteBar, 10);
+			recipe.AddIngredient(ItemID.SoulofMight, 10);
+			recipe.AddIngredient(ItemID.MechanicalBatteryPiece);
 			recipe.AddTile(ModContent.TileType<AreusForge>());
 			recipe.SetResult(this);
 			recipe.AddRecipe();

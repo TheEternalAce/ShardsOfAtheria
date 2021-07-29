@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Terraria;
 using SagesMania.Projectiles;
 using Microsoft.Xna.Framework;
+using SagesMania.Tiles;
 
 namespace SagesMania.Items.SlayerItems
 {
@@ -46,7 +47,7 @@ namespace SagesMania.Items.SlayerItems
 			recipe.AddIngredient(ModContent.ItemType<BlasterCannonBlueprints>());
 			recipe.AddIngredient(ItemID.HallowedBar, 20);
 			recipe.AddIngredient(ItemID.SoulofFright, 10);
-			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

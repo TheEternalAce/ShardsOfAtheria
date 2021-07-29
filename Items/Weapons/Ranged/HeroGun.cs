@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using SagesMania.Projectiles;
+using SagesMania.Tiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -37,7 +38,7 @@ namespace SagesMania.Items.Weapons.Ranged
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ModContent.ItemType<BrokenHeroGun>(), 2);
-			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

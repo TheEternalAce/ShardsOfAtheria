@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using SagesMania.Tiles;
 
 namespace SagesMania.Items.Tools
 {
@@ -31,7 +32,9 @@ namespace SagesMania.Items.Tools
 			item.autoReuse = true;
 			item.useTurn = true;
 
-			areusResourceCost = 1;
+			if (!Config.areusWeaponsCostMana)
+				areusResourceCost = 1;
+			else item.mana = 1;
 		}
 
 		public override void AddRecipes()
@@ -40,7 +43,7 @@ namespace SagesMania.Items.Tools
 			recipe.AddIngredient(ModContent.ItemType<AreusBarItem>(), 20);
 			recipe.AddIngredient(ModContent.ItemType<SoulOfSpite>(), 13);
 			recipe.AddIngredient(ItemID.Wire, 10);
-			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

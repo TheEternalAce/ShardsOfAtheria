@@ -22,7 +22,7 @@ namespace SagesMania.Items
             item.useAnimation = 20;
             item.useStyle = ItemUseStyleID.HoldingOut;
             item.value = Item.sellPrice(gold: 10);
-            item.rare = ItemRarityID.Red;
+            item.rare = ItemRarityID.Cyan;
             item.UseSound = SoundID.NPCHit53;
             item.autoReuse = false;
             item.useTurn = true;

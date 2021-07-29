@@ -9,8 +9,7 @@ namespace SagesMania.NPCs.NovaSkyloft
     [AutoloadBossHead]
     public class HarpyKnight : ModNPC
     {
-        public override string HeadTexture => "SagesMania/NPCs/NovaStellar/HarpyKnight_Head_Boss";
-
+        public override string HeadTexture => "SagesMania/NPCs/NovaSkyloft/HarpyKnight_Head_Boss";
         private int attackTimer;
 
         public override void SetStaticDefaults()
@@ -56,11 +55,22 @@ namespace SagesMania.NPCs.NovaSkyloft
             npc.damage = (int)(npc.damage * 1f);
         }
 
+        public override bool PreAI()
+        {
+            Player player = Main.LocalPlayer;
+            if (ModContent.GetInstance<SMWorld>().slainValkyrie)
+            {
+                Main.NewText("Nova Skyloft, the Harpy Knight was slain...");
+                npc.active = false;
+            }
+            if (player.dead)
+                npc.active = false;
+            return base.PreAI();
+        }
+
         public override void AI()
         {
             Player player = Main.LocalPlayer;
-            if (player.dead)
-                npc.active = false;
 
             if (npc.localAI[0] == 0f && npc.life >= 1 && !ModContent.GetInstance<SMWorld>().slainValkyrie)
             {

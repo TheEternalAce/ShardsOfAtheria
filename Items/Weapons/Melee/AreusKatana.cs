@@ -27,13 +27,17 @@ namespace SagesMania.Items.Weapons.Melee
             item.useAnimation = 15;
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.knockBack = 6;
+            item.rare = ItemRarityID.Cyan;
             item.value = Item.sellPrice(gold: 6);
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
             item.crit = 21;
             item.shoot = ModContent.ProjectileType<ElectricKunai>();
             item.shootSpeed = 10;
-            areusResourceCost = 1;
+
+            if (!Config.areusWeaponsCostMana)
+                areusResourceCost = 3;
+            else item.mana = 9;
         }
 
         public override void AddRecipes()

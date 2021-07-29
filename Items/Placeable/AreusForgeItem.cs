@@ -21,6 +21,7 @@ namespace SagesMania.Items.Placeable
 			item.autoReuse = true;
 			item.useAnimation = 15;
 			item.useTime = 10;
+			item.rare = ItemRarityID.Cyan;
 			item.useStyle = ItemUseStyleID.SwingThrow;
 			item.consumable = true;
 			item.createTile = ModContent.TileType<AreusForge>();

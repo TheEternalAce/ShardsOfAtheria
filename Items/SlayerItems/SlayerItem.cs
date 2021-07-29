@@ -7,10 +7,6 @@ namespace SagesMania.Items.SlayerItems
 {
 	public abstract class SlayerItem : ModItem
 	{
-        public override void SetDefaults()
-        {
-			item.rare = ItemRarityID.Expert;
-        }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			if (item.damage > 0)

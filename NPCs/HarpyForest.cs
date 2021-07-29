@@ -1,8 +1,4 @@
-﻿using SagesMania.Buffs;
-using SagesMania.Items;
-using SagesMania.Items.Accessories;
-using SagesMania.Items.Weapons;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,15 +14,15 @@ namespace SagesMania.NPCs
 
         public override void SetDefaults()
         {
+            npc.CloneDefaults(NPCID.Harpy);
             npc.width = 98;
-            npc.height = 368;
-            npc.damage = 25;
+            npc.height = 92;
+            npc.damage = 7;
             npc.defense = 8;
-            npc.lifeMax = 100;
+            npc.lifeMax = 40;
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
             npc.knockBackResist = 0.4f;
-            npc.CloneDefaults(NPCID.Harpy);
             npc.aiStyle = 14;
             aiType = NPCID.Harpy;
             animationType = NPCID.Harpy;
@@ -34,19 +30,13 @@ namespace SagesMania.NPCs
             bannerItem = Item.BannerToItem(banner);
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            npc.lifeMax = (int)(npc.lifeMax * .5f);
-            npc.damage = (int)(npc.damage * .5f);
-        }
-
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
-            if (!(spawnInfo.player.ZoneHoly && spawnInfo.player.ZoneCrimson && spawnInfo.player.ZoneCorrupt && Main.eclipse
-                && spawnInfo.player.ZoneTowerNebula && spawnInfo.player.ZoneTowerVortex && spawnInfo.player.ZoneTowerSolar
-                && spawnInfo.player.ZoneTowerStardust && Main.pumpkinMoon && Main.snowMoon && player.townNPCs <= 3) && spawnInfo.player.ZoneOverworldHeight && Main.dayTime)
-                    return .25f;
+            if(!(spawnInfo.player.ZoneHoly || spawnInfo.player.ZoneCrimson || spawnInfo.player.ZoneCorrupt || Main.eclipse
+                || spawnInfo.player.ZoneTowerNebula || spawnInfo.player.ZoneTowerVortex || spawnInfo.player.ZoneTowerSolar
+                || spawnInfo.player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon || spawnInfo.playerSafe)
+                && spawnInfo.player.ZoneOverworldHeight && Main.dayTime)
+                return .25f;
             return 0f;
         }
 

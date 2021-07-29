@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SagesMania.Items.Weapons.Ammo
 {
-	public class BB : ModItem
+	public class BB : SpecialItem
 	{
 		public override void SetStaticDefaults() 
 		{
@@ -36,10 +36,6 @@ namespace SagesMania.Items.Weapons.Ammo
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.SetResult(this, 100);
 			recipe.AddRecipe();
-		}
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
 		}
 	}
 }

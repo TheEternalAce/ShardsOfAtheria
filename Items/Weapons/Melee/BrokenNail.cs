@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using SagesMania.Buffs;
 using SagesMania.Projectiles;
 using SagesMania.Items.Placeable;
+using SagesMania.Tiles;
 
 namespace SagesMania.Items.Weapons.Melee
 {
@@ -39,7 +40,7 @@ namespace SagesMania.Items.Weapons.Melee
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddRecipeGroup("SM:Tier3Bars", 15);
             recipe.AddIngredient(ModContent.ItemType<CrystalInfection>(), 15);
-            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

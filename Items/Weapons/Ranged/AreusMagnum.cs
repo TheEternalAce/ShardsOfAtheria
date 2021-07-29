@@ -31,11 +31,15 @@ namespace SagesMania.Items.Weapons.Ranged
 			item.UseSound = SoundID.Item41;
 			item.autoReuse = false;
 			item.crit = 5;
+			item.rare = ItemRarityID.Cyan;
 			item.value = Item.sellPrice(gold: 25);
 			item.shoot = ItemID.PurificationPowder;
 			item.shootSpeed = 16f;
 			item.useAmmo = AmmoID.Bullet;
-			areusResourceCost = 1;
+
+			if (!Config.areusWeaponsCostMana)
+				areusResourceCost = 1;
+			else item.mana = 5;
 		}
 
 		public override void AddRecipes() 

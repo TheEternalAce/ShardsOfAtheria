@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SagesMania.Tiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -30,7 +31,7 @@ namespace SagesMania.Items.Accessories
             recipe.AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10);
             recipe.AddIngredient(ItemID.SoulofMight, 10);
             recipe.AddIngredient(ItemID.Ectoplasm, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

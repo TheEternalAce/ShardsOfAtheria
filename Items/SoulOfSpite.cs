@@ -52,16 +52,5 @@ namespace SagesMania.Items
 		{
 			Lighting.AddLight(item.Center, Color.WhiteSmoke.ToVector3() * 0.55f * Main.essScale);
 		}
-
-		/*
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(this, 5);
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(ItemID.SoulofNight);
-			recipe.AddRecipe();
-		}
-		*/
 	}
 }

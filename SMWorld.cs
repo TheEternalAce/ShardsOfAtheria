@@ -1,6 +1,5 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using Terraria.ID;
 using Terraria.World.Generation;
 using System.Collections.Generic;
 using Terraria.GameContent.Generation;
@@ -13,8 +12,10 @@ namespace SagesMania
 	{
 		public bool flightToggle;
 
+		public bool downedDeath;
 		public bool downedValkyrie;
 		public bool slayerMode;
+		public bool slainDeath;
 		public bool slainValkyrie;
 		public bool slainEOC;
 		public bool slainBOC;
@@ -42,8 +43,10 @@ namespace SagesMania
 			{
 				{"flightToggle", flightToggle},
 
+				{"downedDeath", downedDeath},
 				{"downedValkyrie", downedValkyrie},
 				{"slayerMode", slayerMode},
+				{"slainDeath", slainDeath},
 				{"slainValkyrie", slainValkyrie},
 				{"slainEOC", slainEOC},
 				{"slainBOC", slainBOC},
@@ -69,9 +72,11 @@ namespace SagesMania
 		{
 			flightToggle = tag.GetBool("flightToggle");
 
+			downedDeath = tag.GetBool("downedDeath");
 			downedValkyrie = tag.GetBool("downedValkyrie");
 			slayerMode = tag.GetBool("slayerMode");
 			slainValkyrie = tag.GetBool("slainValkyrie");
+			slainDeath = tag.GetBool("slainDeath");
 			slainEOC = tag.GetBool("slainEOC");
 			slainBOC = tag.GetBool("slainBOC");
 			slainEOW = tag.GetBool("slainEOW");

@@ -3,5 +3,7 @@
 ################################################################################
 
 /bin/Debug/net45
-/.vs/SagesMania
+/.vs/ShardsOfAtheria
 /obj
+/.vs/SagesMania/DesignTimeBuild
+/.vs/SagesMania/v16

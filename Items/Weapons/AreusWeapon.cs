@@ -24,14 +24,18 @@ namespace SagesMania.Items.Weapons
 		// Make sure you can't use the item if you don't have enough resource and then use resourceCost otherwise.
 		public override bool CanUseItem(Player player)
 		{
-			var exampleDamagePlayer = player.GetModPlayer<SMPlayer>();
-
-			if (exampleDamagePlayer.areusResourceCurrent >= areusResourceCost)
+			if (!Config.areusWeaponsCostMana)
 			{
-				exampleDamagePlayer.areusResourceCurrent -= areusResourceCost;
-				return true;
+				var exampleDamagePlayer = player.GetModPlayer<SMPlayer>();
+
+				if (exampleDamagePlayer.areusResourceCurrent >= areusResourceCost)
+				{
+					exampleDamagePlayer.areusResourceCurrent -= areusResourceCost;
+					return true;
+				}
+				return false;
 			}
-			return false;
+			else return true;
 		}
 
 		public override void HoldItem(Player player)

@@ -34,7 +34,7 @@ namespace SagesMania.Items
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddRecipeGroup(RecipeGroupID.IronBar, 10);
             recipe.AddIngredient(ItemID.Wire, 20);
-            recipe.AddTile(ModContent.TileType<AreusForge>());
+            recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

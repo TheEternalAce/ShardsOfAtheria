@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace SagesMania.Items.Weapons.Ranged
 {
-	public class PhantomRose : ModItem
+	public class PhantomRose : SpecialItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -52,11 +52,6 @@ namespace SagesMania.Items.Weapons.Ranged
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-		}
-
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
 		}
 
 		public override bool ConsumeAmmo(Player player)

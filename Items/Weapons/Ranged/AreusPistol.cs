@@ -30,10 +30,14 @@ namespace SagesMania.Items.Weapons.Ranged
 			item.UseSound = SoundID.Item11;
 			item.autoReuse = false;
 			item.crit = 16;
+			item.rare = ItemRarityID.Cyan;
 			item.value = Item.sellPrice(gold: 25);
 			item.shoot = ModContent.ProjectileType<ElectricBolt>();
 			item.shootSpeed = 16f;
-			areusResourceCost = 1;
+
+			if (!Config.areusWeaponsCostMana)
+				areusResourceCost = 1;
+			else item.mana = 8;
 		}
 
         public override Vector2? HoldoutOffset()

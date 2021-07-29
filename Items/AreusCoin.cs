@@ -19,7 +19,7 @@ namespace SagesMania.Items
 			item.width = 32;
 			item.height = 32;
 			item.value = Item.sellPrice(gold: 10);
-			item.rare = ItemRarityID.Expert;
+			item.rare = ItemRarityID.Cyan;
 			item.maxStack = 999;
 		}
 

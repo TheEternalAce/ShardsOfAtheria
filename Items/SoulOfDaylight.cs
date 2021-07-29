@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using SagesMania.Items.Placeable;
 using Terraria;
 using Microsoft.Xna.Framework;
+using SagesMania.Tiles;
 
 namespace SagesMania.Items
 {
@@ -57,7 +58,7 @@ namespace SagesMania.Items
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(this, 5);
-			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
 			recipe.SetResult(ItemID.SoulofLight);
 			recipe.AddRecipe();
 		}

@@ -1,16 +1,14 @@
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
-namespace SagesMania.Items.Weapons.Melee
+namespace SagesMania.Items.SlayerItems
 {
-	public class DeathsScythe : ModItem
+	public class DeathsScythe : SlayerItem
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Death's Scythe");
-			Tooltip.SetDefault("[c/323232:''You cheated this in...'']\n" +
-				"[c/323232:''Congrats.'']");
+			Tooltip.SetDefault("[c/323232:...]");
 		}
 
 		public override void SetDefaults()
@@ -33,8 +31,6 @@ namespace SagesMania.Items.Weapons.Melee
 
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
 		{
-			// Add the Onfire buff to the NPC for 1 second when the weapon hits an NPC
-			// 60 frames = 1 second
 			target.AddBuff(BuffID.WitheredArmor, 600);
 			target.AddBuff(BuffID.WitheredWeapon, 600);
 			target.AddBuff(BuffID.Ichor, 600);

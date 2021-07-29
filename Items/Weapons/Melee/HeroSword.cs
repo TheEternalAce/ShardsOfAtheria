@@ -1,4 +1,5 @@
 using SagesMania.Projectiles;
+using SagesMania.Tiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -35,7 +36,7 @@ namespace SagesMania.Items.Weapons.Melee
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.BrokenHeroSword, 2);
-			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
@@ -43,7 +44,7 @@ namespace SagesMania.Items.Weapons.Melee
 			recipe.AddIngredient(this);
 			recipe.AddIngredient(ItemID.NightsEdge);
 			recipe.AddIngredient(ItemID.Excalibur);
-			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
 			recipe.SetResult(ItemID.TerraBlade);
 			recipe.AddRecipe();
 		}

@@ -31,11 +31,14 @@ namespace SagesMania.Items.Weapons.Magic
 			item.UseSound = SoundID.Item8;
 			item.autoReuse = true;
 			item.crit = 16;
+			item.rare = ItemRarityID.Cyan;
 			item.value = Item.sellPrice(gold: 20);
 			item.shoot = ModContent.ProjectileType<ElectricBolt>();
 			item.shootSpeed = 16f;
-			item.mana = 6;
-			areusResourceCost = 1;
+
+			if (!Config.areusWeaponsCostMana)
+				areusResourceCost = 1;
+			else item.mana = 6;
 		}
 
 		public override void AddRecipes() 

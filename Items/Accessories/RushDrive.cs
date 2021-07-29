@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace SagesMania.Items.Accessories
 {
-    public class RushDrive : ModItem
+    public class RushDrive : SpecialItem
     {
         public override void SetStaticDefaults()
         {
@@ -31,7 +31,7 @@ namespace SagesMania.Items.Accessories
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<PhaseOreItem>());
+            recipe.AddIngredient(ModContent.ItemType<PhaseBarItem>(), 10);
             recipe.AddRecipeGroup("SM:EvilBars", 5);
             recipe.AddIngredient(ItemID.TissueSample, 5);
             recipe.AddTile(TileID.Hellforge);
@@ -53,8 +53,6 @@ namespace SagesMania.Items.Accessories
                 "Offensive: Sacrifice half of total defense for doubled damage and 20% increased crit chance\n" +
                 "Defensive: Sacrifice half of total damage for doubled defense and 20% reduced damage\n" +
                 "Always get 20% increased movement speed"));
-
-            tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
         }
     }
 }

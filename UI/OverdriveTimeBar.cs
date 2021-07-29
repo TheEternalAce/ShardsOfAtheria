@@ -12,6 +12,7 @@ namespace SagesMania.UI
 	{
 		// For this bar we'll be using a frame texture and then a gradient inside bar, as it's one of the more simpler approaches while still looking decent.
 		// Once this is all set up make sure to go and do the required stuff for most UI's in the Mod class.
+		private UIText text;
 		private UIElement area;
 		private UIImage barFrame;
 		private Color gradientA;
@@ -33,9 +34,16 @@ namespace SagesMania.UI
 			barFrame.Width.Set(138, 0f);
 			barFrame.Height.Set(34, 0f);
 
+			text = new UIText("0/0", 0.8f); // text to show stat
+			text.Width.Set(138, 0f);
+			text.Height.Set(34, 0f);
+			text.Top.Set(72, 0f);
+			text.Left.Set(0, 0f);
+
 			gradientA = new Color(85, 255, 58);
 			gradientB = new Color(85, 255, 85);
 
+			area.Append(text);
 			area.Append(barFrame);
 			Append(area);
 		}
@@ -76,6 +84,14 @@ namespace SagesMania.UI
 				float percent = (float)i / (right - left);
 				spriteBatch.Draw(Main.magicPixel, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), Color.Lerp(gradientA, gradientB, percent));
 			}
+		}
+
+		public override void Update(GameTime gameTime)
+		{
+			var modPlayer = Main.LocalPlayer.GetModPlayer<SMPlayer>();
+			// Setting the text per tick to update and show our resource values.
+			text.SetText($"Time left: {modPlayer.overdriveTimeCurrent}");
+			base.Update(gameTime);
 		}
 	}
 }

@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace SagesMania.Items.Weapons.Ranged
 {
-	public class BBGun : ModItem
+	public class BBGun : SpecialItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -38,11 +38,6 @@ namespace SagesMania.Items.Weapons.Ranged
         public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-4, 2);
-		}
-
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
 		}
 
         public override void AddRecipes() 

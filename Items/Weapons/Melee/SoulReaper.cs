@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace SagesMania.Items.Weapons.Melee
 {
-	public class SoulReaper : ModItem
+	public class SoulReaper : SpecialItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -47,11 +47,6 @@ namespace SagesMania.Items.Weapons.Melee
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-		}
-
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
 		}
 	}
 }

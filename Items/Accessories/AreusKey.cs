@@ -37,6 +37,7 @@ namespace SagesMania.Items.Accessories
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ModContent.ItemType<AreusBarItem>(), 3);
 			recipe.AddIngredient(ItemID.ShadowKey);
+			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace SagesMania.Items.Weapons.Ranged
 {
-	public class Scarlet : ModItem
+	public class Scarlet : SpecialItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -72,11 +72,6 @@ namespace SagesMania.Items.Weapons.Ranged
 				type = ProjectileID.MoonlordBullet;
 			}
 			return true;
-		}
-
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
 		}
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)

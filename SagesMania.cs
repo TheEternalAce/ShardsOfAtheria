@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using SagesMania.Items;
 using System;
+using SagesMania.Items.SlayerItems;
+using SagesMania.Items.Accessories;
+using SagesMania.Items.Weapons.Magic;
 
 namespace SagesMania
 {
@@ -183,10 +186,30 @@ namespace SagesMania
 
         public override void PostSetupContent()
         {
+            List<int> DeathItemList = new List<int>(){
+                ModContent.ItemType<DeathEssence>(),
+                ModContent.ItemType<DeathsScythe>()
+            };
+            List<int> NovaItemList = new List<int>(){
+                ModContent.ItemType<GildedValkyrieWings>(),
+                ItemID.Feather,
+                ItemID.GoldBar,
+                ModContent.ItemType<ValkyrieCrown>(),
+                ModContent.ItemType<ValkyrieBlade>(),
+                ModContent.ItemType<ValkyrieStormLance>()
+            };
             Mod bossChecklist = ModLoader.GetMod("BossChecklist");
             if (bossChecklist != null)
             {
-                bossChecklist.Call("AddBossWithInfo", "Nova Skyloft", 3.5f, (Func<bool>)(() => ModContent.GetInstance<SMWorld>().downedValkyrie), "Use a [i:" + ModContent.ItemType<ValkyrieCrest>() + "] anywhere but the Crimson/Corruption");
+                bossChecklist.Call("AddBossWithInfo", "Death", 0f, (Func<bool>)(() => ModContent.GetInstance<SMWorld>().downedDeath), "Use a [i:" + ModContent.ItemType<AncientCoin>() + "] and prepare for pain");
+                bossChecklist.Call("AddToBossSpawnItems", "Shards of Atheria", "Death", ModContent.ItemType<AncientCoin>());
+                bossChecklist.Call("AddToBossLoot", "Shards of Atheria", "Death", NovaItemList);
+
+                bossChecklist.Call("AddBossWithInfo", "Nova Skyloft", 3.5f, (Func<bool>)(() => ModContent.GetInstance<SMWorld>().downedValkyrie), "Use a [i:" + ModContent.ItemType<ValkyrieCrest>() + "] anywhere but the Crimson/Corruption during the daytime");
+                bossChecklist.Call("AddToBossSpawnItems", "Shards of Atheria", "Nova Skyloft", ModContent.ItemType<ValkyrieCrest>());
+                bossChecklist.Call("AddToBossLoot", "Shards of Atheria", "Nova Skyloft", NovaItemList);
+
+                bossChecklist.Call("GetBossInfoDictionary", this, "1.1");
             }
         }
     }

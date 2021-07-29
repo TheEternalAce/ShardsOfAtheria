@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SagesMania.Items.Accessories
 {
-	public class CO2Cartridge: ModItem
+	public class CO2Cartridge: SpecialItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -27,10 +27,6 @@ namespace SagesMania.Items.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.GetModPlayer<SMPlayer>().Co2Cartridge = true;
-		}
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
 		}
 	}
 }

@@ -1,6 +1,5 @@
-Ace's Mania is a mod that aims to bring loads of content to Terraria, hopefully soaring to great heights.
+Shards of Atheria is a mod that aims to bring loads of weapons, accessories and items to Terraria. Also introduces harpy biome variants.     
 
-This mod is still a work in progress, so a some stuff is broken, underpowered or non functional.
 
 Spriters on discord:
 Torra th
@@ -10,13 +9,32 @@ Intro
 Mod Plans:
 
 Sprite for the Atherian
-4 bosses
+3 bosses
+
+0.6
+	Added many Deca items, Death Essence, Harpy Storm, Cobalt Workbench, Shinai, P90 and Yellow Plushie
+	Added display of how much Overdrive time is left
+	Added new config options
+	Added Void Harpy, Bone Sword, Forest Scythe, Storm Spear, Thorn Chakram and Tonbogiri NPCs
+	Increased chance for Valkyrie Blade to fire a Feather Blade from 1/3 to 1/2
+	Changed Areus Battery recipe
+	Fixed Rush Drive and Areus Key recipe
+	Gunsword now costs 6 Mana to use
+	Death's Scythe is now a Slayer Item
+
+0.5.1.2
+	Fixed harpy hitboxes
+	Added 2 more modes to Areus Assault Rifle
+
+0.5.1.1
+	Lowered all new pre hardmode harpy stats
+	Pre hardmode harpies do not spawn in towns
 
 0.5
 	Ice Harpy inflicts frostburn instead of frozen
 	Tweaked all new harpy spawns and drops
 	Fully implemented Slayer Mode
-	Added Gunsword, Areus Assult Riffle, Phase Ore and Bar and many Slayer Items
+	Added Gunsword, Areus Assault Rifle, Phase Ore and Bar and many Slayer Items
 	Added config file
 	Added new boss and her items
 	Fixed Areus Railgun recpie and changed Areus Dagger, Areus Luger, Areus Magnum, Areus Pistol, Prometheus and Pandora recipes
@@ -25,7 +43,7 @@ Sprite for the Atherian
 	Areus Key does not increase flight time anymore
 	Areus charge cannot go over max
 	BB is no longer it's own ammo type
-	BB Bottle and Phantom Bullet Bottle effects only avtivate if weapon used is ranged and uses bullets
+	BB Bottle and Phantom Bullet Bottle effects only activate if weapon used is ranged and uses bullets
 	Eye Of The All Seer is now a Slayer Item
 	Rush Drive now has a recipe
 	Resprited Eye Of The All Seer
@@ -72,14 +90,14 @@ Sprite for the Atherian
 0.4.7
 	Increased mana gain from Hallowed Seal
 	Increased shoot speed of BB Gun and Scarlet
-	Areus weapons are no longer a seperate damage class
+	Areus weapons are no longer a separate damage class
 	Areus weapons are more spread out
 	Changed Areus Pistol use sound
 	Changed Rush drive to lower defense/damage by 50% and in turn double damage/defense
 	Changed Atherian's name to always be Jordan
 	Changed one of Atherian's lines
 	Changed Infection Injection to be made at a Bottle and Furnace
-	Reduced Arues Charge regen rate from 8 per second to 1 per 1/5 second
+	Reduced Areus Charge regen rate from 8 per second to 1 per 1/5 second
 	Areus Charge does not regen while an Areus weapon is being used
 	Areus Charge takes 3 seconds to start regenerating
 	Resprited Areus Charge meter frame and Areus Staff
@@ -109,7 +127,7 @@ Sprite for the Atherian
 
 0.4.5.2
 	Super Sapphire Core now gives additional minion slots
-	Reduced Heart Break duration when struk by an enemy
+	Reduced Heart Break duration when struck by an enemy
 	Heart Break only occurs when Cross Dagger or Wand Of Healing is in inventory
 	Heart Break time does not get reset when hit again
 	Super Emerald Core and Mega Gem Core allows all double jumps and sprinting
@@ -130,7 +148,7 @@ Sprite for the Atherian
 
 0.4.5
 	Added Example Block and Wall, Zenova and Lost Nail
-	Patially added AceOfSpades' dev set
+	Partially added AceOfSpades' Dev set
 	Both Pac-Blasters, BB Gun and BBs are now Special Items
 	BB Gun is now crafted at workbenches
 	Both Pac-Blasters now made at Hellforge
@@ -185,11 +203,11 @@ Sprite for the Atherian
 	Fixed Greater Diamond Core recipe
 
 0.4.2.1
-	All Amethyst Core and Greater Amethyst Core dash lenghs increased
+	All Amethyst Core and Greater Amethyst Core dash lengths increased
 	More Gem Cores and made all of them obtainable
 	Areus Wings and Areus Battery properly regenerate Areus Charge
 	Areus Forge recipe changed
-	Satanlance workd as a spear properly
+	Satanlance works as a spear properly
 	Added Prometheus and Pandora
 	Gave sprite to Spider Clock and Tome Of Omniscience
 	Added Unshackled Tome Of Omniscience and Areus Key
@@ -198,8 +216,8 @@ Sprite for the Atherian
 	Changed Butterfly Knife sprite
 
 0.4.2
-	Tome Of Omniscience now obtainable from BoC in Exprt mode
-	Sound plays when when Knowledge Bases are cycled
+	Tome Of Omniscience now obtainable from BoC in Expert mode
+	Sound plays when Knowledge Bases are cycled
 	Knowledge Base: Exploration properly increases movement speed
 	Oversized Worm's Tooth now obtainable from EoW in Expert mode
 	Cataracnia now obtainable from EoC in Expert mode
@@ -222,7 +240,7 @@ Sprite for the Atherian
 	Renamed Pac Blaster Charles to Ice Pac-Blaster and Pac Blaster Ellie to Fire Pac-Blaster
 
 0.4.1.2
-	Added after immage effect when player has 'Overdrive: ON'
+	Added after image effect when player has 'Overdrive: ON'
 	Super Diamond Core now lets the player walk on fire blocks
 
 0.4.1.1
@@ -231,5 +249,5 @@ Sprite for the Atherian
 0.4.1
 	Started keeping track of changes, might not be consistent.
 	Added more gem cores and recipes for previous gem cores
-	Changed Hero Gun have autofire
+	Changed Hero Gun have auto fire
 	Changed Phantom Rose use sound to standard gun fire sound

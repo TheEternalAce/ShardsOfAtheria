@@ -1,6 +1,7 @@
 using SagesMania.Buffs;
 using SagesMania.Items.Placeable;
 using SagesMania.Projectiles;
+using SagesMania.Tiles;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -8,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace SagesMania.Items.Weapons
 {
-    public class Prometheus : ModItem
+    public class Prometheus : SpecialItem
     {
         public override void SetStaticDefaults()
         {
@@ -46,13 +47,9 @@ namespace SagesMania.Items.Weapons
             recipe.AddIngredient(ItemID.Ectoplasm, 5);
             recipe.AddIngredient(ItemID.HellstoneBar, 10);
             recipe.AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10);
-            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
             recipe.SetResult(this);
             recipe.AddRecipe();
-        }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
         }
 
         public override bool AltFunctionUse(Player player)
@@ -75,9 +72,7 @@ namespace SagesMania.Items.Weapons
                 item.mana = 15;
                 item.UseSound = SoundID.Item20;
                 if (player.HasBuff(ModContent.BuffType<Overdrive>()))
-                {
                     item.shoot = ModContent.ProjectileType<PrometheusSword>();
-                }
                 else
                     item.shoot = ModContent.ProjectileType<PrometheusFire>();
                 item.shootSpeed = 13f;

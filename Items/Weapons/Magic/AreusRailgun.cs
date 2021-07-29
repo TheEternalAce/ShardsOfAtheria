@@ -37,8 +37,9 @@ namespace SagesMania.Items.Weapons.Magic
 			item.shootSpeed = 20f;
 			item.useAmmo = ModContent.ItemType<AreusRod>();
 
-			item.mana = 20;
-			areusResourceCost = 5;
+			if (!Config.areusWeaponsCostMana)
+				areusResourceCost = 5;
+			else item.mana = 20;
 		}
 
 		public override void AddRecipes() 

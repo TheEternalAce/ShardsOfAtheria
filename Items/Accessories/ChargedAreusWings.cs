@@ -22,7 +22,7 @@ namespace SagesMania.Items.Accessories
 			item.width = 22;
 			item.height = 20;
 			item.value = Item.sellPrice(gold: 15);
-			item.rare = ItemRarityID.Green;
+			item.rare = ItemRarityID.Cyan;
 			item.accessory = true;
 		}
 		//these wings use the same values as the solar wings

@@ -48,7 +48,7 @@ namespace SagesMania.Items.Placeable
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(this, 10);
 			recipe.AddIngredient(ItemID.JungleSpores, 5);
-			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
 			recipe.SetResult(ItemID.LifeFruit, 2);
 			recipe.AddRecipe();
 		}

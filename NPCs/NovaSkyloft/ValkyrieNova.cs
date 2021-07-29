@@ -67,11 +67,22 @@ namespace SagesMania.NPCs.NovaSkyloft
             npc.damage = (int)(npc.damage * 1f);
         }
 
-        public override void AI()
+        public override bool PreAI()
         {
             Player player = Main.LocalPlayer;
             if (player.dead)
                 npc.active = false;
+            if (ModContent.GetInstance<SMWorld>().slainValkyrie)
+            {
+                Main.NewText("Nova Skyloft, the Harpy Knight was slain...");
+                npc.active = false;
+            }
+            return base.PreAI();
+        }
+
+        public override void AI()
+        {
+            Player player = Main.LocalPlayer;
             if (Main.rand.NextBool(3))
             {
                 Dust dust = Dust.NewDustDirect(npc.position, npc.height, npc.width, DustID.Electric,

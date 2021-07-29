@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SagesMania.Items.Accessories
 {
-	public class BBBottle: ModItem
+	public class BBBottle: SpecialItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -37,10 +37,6 @@ namespace SagesMania.Items.Accessories
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-		}
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			tooltips.Add(new TooltipLine(mod, "Special Item", "[c/FF6400:Special Item]"));
 		}
 	}
 }

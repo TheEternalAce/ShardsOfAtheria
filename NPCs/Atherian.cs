@@ -110,13 +110,20 @@ namespace SagesMania.NPCs
         public override string GetChat()
         {
             int painter = NPC.FindFirstNPC(NPCID.Painter);
-            if (painter >= 0 && Main.rand.NextBool(6))
+            if (Main.LocalPlayer.GetModPlayer<DecaPlayer>().decaFragmentA || Main.LocalPlayer.GetModPlayer<DecaPlayer>().decaFragmentB
+                || Main.LocalPlayer.GetModPlayer<DecaPlayer>().decaFragmentC || Main.LocalPlayer.GetModPlayer<DecaPlayer>().decaFragmentD
+                || Main.LocalPlayer.GetModPlayer<DecaPlayer>().decaFragmentE || Main.LocalPlayer.GetModPlayer<DecaPlayer>().fullDeca
+                || Main.LocalPlayer.GetModPlayer<DecaPlayer>().trueFullDeca)
             {
-                return "Maybe " + Main.npc[painter].GivenName + " can make me a sprite... Huh? Oh, yes yes, enough of that, let's talk retail.";
+                return "H-Hey there... That's a Deca item isn't it.? In my language \"Deca\" means Death..";
             }
             if (Main.LocalPlayer.GetModPlayer<SMPlayer>().livingMetal && Main.rand.NextBool(7))
             {
                 return "That metal.. My daughter has one like it..";
+            }
+            if (painter >= 0 && Main.rand.NextBool(6))
+            {
+                return "Maybe " + Main.npc[painter].GivenName + " can make me a sprite... Huh? Oh, yes yes, enough of that, let's talk retail.";
             }
             switch (Main.rand.Next(5))
             {
