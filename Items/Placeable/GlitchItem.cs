@@ -1,30 +1,30 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Tiles;
 
-namespace SagesMania.Items.Placeable
+namespace ShardsOfAtheria.Items.Placeable
 {
 	public class GlitchItem : ModItem
 	{
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("gElRiRtOcRh");
-			Tooltip.SetDefault("The bane of every programer's existance");
+			Tooltip.SetDefault("The bane of every programmer's existence");
 		}
 
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.rare = ItemRarityID.Gray;
-			item.maxStack = 999;
-			item.consumable = true;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.useTime = 10;
-			item.useAnimation = 10;
-			item.createTile = ModContent.TileType<GlitchTile>();
-			item.autoReuse = true;
+			Item.width = 32;
+			Item.height = 32;
+			Item.rare = ItemRarityID.Gray;
+			Item.maxStack = 999;
+			Item.consumable = true;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useTime = 10;
+			Item.useAnimation = 10;
+			Item.createTile = ModContent.TileType<GlitchTile>();
+			Item.autoReuse = true;
 		}
 
         public override void UpdateInventory(Player player)

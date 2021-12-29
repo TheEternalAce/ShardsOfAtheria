@@ -4,17 +4,18 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using SagesMania.Items.Placeable;
+using ShardsOfAtheria.Items.Placeable;
 
-namespace SagesMania.Tiles
+namespace ShardsOfAtheria.Tiles
 {
 	public class CobaltWorkbench : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			//adjTiles = new int[] { TileID.WorkBenches };
-			adjTiles = new int[] { TileID.HeavyWorkBench };
-			adjTiles = new int[] { TileID.MythrilAnvil };
+			AdjTiles = new int[] { TileID.HeavyWorkBench };
+			AdjTiles = new int[] { TileID.WorkBenches };
+			AdjTiles = new int[] { TileID.MythrilAnvil };
 			Main.tileSolidTop[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
@@ -27,8 +28,8 @@ namespace SagesMania.Tiles
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Cobalt Workbench");
 			AddMapEntry(new Color(200, 200, 200), name);
-			dustType = DustID.Cobalt;
-			disableSmartCursor = true;
+			DustType = DustID.Cobalt;
+			TileID.Sets.DisableSmartCursor[Type] = true;
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num)

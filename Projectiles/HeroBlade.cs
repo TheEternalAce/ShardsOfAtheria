@@ -2,20 +2,19 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Projectiles
+namespace ShardsOfAtheria.Projectiles
 {
     public class HeroBlade : ModProjectile {
         public override void SetDefaults() {
-            projectile.width = 6;
-            projectile.height = 6;
-            projectile.scale = 1.5f;
+            Projectile.width = 6;
+            Projectile.height = 6;
+            Projectile.scale = 1.5f;
 
-            projectile.aiStyle = 27;
-            projectile.friendly = true;
-            projectile.tileCollide = true;
-            projectile.arrow = false;
-            projectile.light = 0.5f;
+            Projectile.aiStyle = 27;
+            Projectile.friendly = true;
+            Projectile.tileCollide = true;
+            Projectile.arrow = false;
+            Projectile.light = 0.5f;
         }
     }
-
 }

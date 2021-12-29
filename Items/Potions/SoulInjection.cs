@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Buffs;
+using ShardsOfAtheria.Buffs;
 
-namespace SagesMania.Items.Potions
+namespace ShardsOfAtheria.Items.Potions
 {
 	public class SoulInjection : ModItem
 	{
@@ -17,28 +17,27 @@ namespace SagesMania.Items.Potions
 
 		public override void SetDefaults()
 		{
-			item.width = 48;
-			item.height = 48;
-			item.value = Item.sellPrice(silver: 75);
-			item.rare = ItemRarityID.Red;
-			item.maxStack = 30;
-			item.useStyle = ItemUseStyleID.HoldingUp;
-			item.useTime = 15;
-			item.useAnimation = 15;
-			item.consumable = true;
-			item.useTurn = true;
-			item.buffType = ModContent.BuffType<SoulInfused>();
-			item.buffTime = (4 * 60) * 60;
+			Item.width = 48;
+			Item.height = 48;
+			Item.value = Item.sellPrice(silver: 75);
+			Item.rare = ItemRarityID.Red;
+			Item.maxStack = 30;
+			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useTime = 15;
+			Item.useAnimation = 15;
+			Item.consumable = true;
+			Item.useTurn = true;
+			Item.buffType = ModContent.BuffType<SoulInfused>();
+			Item.buffTime = (4 * 60) * 60;
 		}
 
         public override void AddRecipes()
         {
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<EmptyNeedle>());
-			recipe.AddRecipeGroup("SM:Souls");
-			recipe.AddTile(TileID.Bottles);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<EmptyNeedle>())
+				.AddRecipeGroup("SM:Souls")
+				.AddTile(TileID.Bottles)
+				.Register();
         }
 
         public override void OnConsumeItem(Player player)

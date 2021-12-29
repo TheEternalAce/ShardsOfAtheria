@@ -1,38 +1,38 @@
 using Microsoft.Xna.Framework;
-using SagesMania.Items.Weapons.Ammo;
+using ShardsOfAtheria.Items.Weapons.Ammo;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Weapons.Ranged
+namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
 	public class BBGun : SpecialItem
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("BB Gun");
-			Tooltip.SetDefault("[c/960096:''One of my favorite treasures, take care of it'']");
+			Tooltip.SetDefault("[c/960096:'One of my favorite treasures, take care of it']");
 		}
 
 		public override void SetDefaults() 
 		{
-			item.damage = 10;
-			item.ranged = true;
-			item.noMelee = true;
-			item.width = 50;
-			item.height = 16;
-			item.useTime = 40;
-			item.useAnimation = 40;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.knockBack = 3.75f;
-			item.rare = ItemRarityID.Blue;
-			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/BBGunShoot");
-			item.autoReuse = true;
-			item.crit = 6;
-			item.shoot = ProjectileID.PurificationPowder;
-			item.shootSpeed = 13f;
-			item.useAmmo = AmmoID.Bullet;
+			Item.damage = 10;
+			Item.DamageType = DamageClass.Ranged;
+			Item.noMelee = true;
+			Item.width = 50;
+			Item.height = 16;
+			Item.useTime = 40;
+			Item.useAnimation = 40;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.knockBack = 3.75f;
+			Item.rare = ItemRarityID.Blue;
+			Item.UseSound = SoundID.Item11;
+			Item.autoReuse = true;
+			Item.crit = 6;
+			Item.shoot = ProjectileID.PurificationPowder;
+			Item.shootSpeed = 13f;
+			Item.useAmmo = AmmoID.Bullet;
 		}
 
         public override Vector2? HoldoutOffset()
@@ -42,12 +42,11 @@ namespace SagesMania.Items.Weapons.Ranged
 
         public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddRecipeGroup(RecipeGroupID.Wood, 15);
-			recipe.AddRecipeGroup("SM:CopperBars", 4);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddRecipeGroup(RecipeGroupID.Wood, 15)
+				.AddRecipeGroup("SM:CopperBars", 4)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 		}
 	}
 }

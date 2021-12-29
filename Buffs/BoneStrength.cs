@@ -1,11 +1,11 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace SagesMania.Buffs
+namespace ShardsOfAtheria.Buffs
 {
     public class BoneStrength : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bone Strength");
             Description.SetDefault("10% increased damage and recuced damage taken by 20%\n" +
@@ -14,7 +14,7 @@ namespace SagesMania.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.allDamage += .1f;
+            player.GetDamage(DamageClass.Generic) += .1f;
             player.endurance += .2f;
         }
     }

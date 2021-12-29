@@ -1,11 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Tiles;
-using SagesMania.Projectiles;
-using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Projectiles.Weapon;
 
-namespace SagesMania.Items.Weapons.Melee
+namespace ShardsOfAtheria.Items.Weapons.Melee
 {
 	public class Satanlance : ModItem
 	{
@@ -13,38 +11,37 @@ namespace SagesMania.Items.Weapons.Melee
         {
 			DisplayName.SetDefault("ecnalnataS");
 			Tooltip.SetDefault("You feel like you can do anything\n" +
-				"''!!!SOAHC SOAHC''");
+				"'!!!SOAHC SOAHC'");
 		}
 
 		public override void SetDefaults() 
 		{
-			item.damage = 257;
-			item.melee = true;
-			item.width = 60;
-			item.height = 60;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.knockBack = 6;
-			item.value = Item.sellPrice(gold: 50);
-			item.rare = ItemRarityID.Expert;
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = false;
-			item.crit = 100;
-			item.shoot = ModContent.ProjectileType<SatanlanceProjectile>();
-			item.shootSpeed = 5.2f;
-			item.noMelee = true;
-			item.noUseGraphic = true;
-			item.autoReuse = true;
+			Item.damage = 257;
+			Item.DamageType = DamageClass.Melee;
+			Item.width = 60;
+			Item.height = 60;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.knockBack = 6;
+			Item.value = Item.sellPrice(gold: 50);
+			Item.rare = ItemRarityID.Expert;
+			Item.UseSound = SoundID.Item1;
+			Item.autoReuse = false;
+			Item.crit = 100;
+			Item.shoot = ModContent.ProjectileType<SatanlanceProjectile>();
+			Item.shootSpeed = 5.2f;
+			Item.noMelee = true;
+			Item.noUseGraphic = true;
+			Item.autoReuse = true;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.LunarBar, 20);
-			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.LunarBar, 20)
+				.AddTile(TileID.LunarCraftingStation)
+				.Register();
 		}
 
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
@@ -55,7 +52,7 @@ namespace SagesMania.Items.Weapons.Melee
 		}
         public override bool CanUseItem(Player player)
 		{
-			return player.ownedProjectileCounts[item.shoot] < 1;
+			return player.ownedProjectileCounts[Item.shoot] < 1;
 		}
     }
 }

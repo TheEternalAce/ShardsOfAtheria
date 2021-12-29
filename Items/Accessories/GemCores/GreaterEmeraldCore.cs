@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Accessories.GemCores
+namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
 	[AutoloadEquip(EquipType.Wings)]
 	public class GreaterEmeraldCore : ModItem
@@ -18,11 +18,11 @@ namespace SagesMania.Items.Accessories.GemCores
 
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.value = Item.sellPrice(silver: 15);
-			item.rare = ItemRarityID.White;
-			item.accessory = true;
+			Item.width = 32;
+			Item.height = 32;
+			Item.value = Item.sellPrice(silver: 15);
+			Item.rare = ItemRarityID.White;
+			Item.accessory = true;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -39,14 +39,13 @@ namespace SagesMania.Items.Accessories.GemCores
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<EmeraldCore>());
-			recipe.AddIngredient(ItemID.SoulofFlight, 10);
-			recipe.AddIngredient(ItemID.Flipper);
-			recipe.AddIngredient(ItemID.LavaWaders);
-			recipe.AddTile(TileID.Hellforge);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<EmeraldCore>())
+				.AddIngredient(ItemID.SoulofFlight, 10)
+				.AddIngredient(ItemID.Flipper)
+				.AddIngredient(ItemID.LavaWaders)
+				.AddTile(TileID.Hellforge)
+				.Register();
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,

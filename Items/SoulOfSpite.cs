@@ -1,11 +1,10 @@
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Placeable;
 using Terraria;
 using Microsoft.Xna.Framework;
 
-namespace SagesMania.Items
+namespace ShardsOfAtheria.Items
 {
 	public class SoulOfSpite : ModItem
 	{
@@ -13,21 +12,21 @@ namespace SagesMania.Items
 		{
 			Tooltip.SetDefault("'The essence of hateful creatures'");
 			// ticksperframe, frameCount
-			Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(5, 4));
-			ItemID.Sets.AnimatesAsSoul[item.type] = true;
-			ItemID.Sets.ItemIconPulse[item.type] = true;
-			ItemID.Sets.ItemNoGravity[item.type] = true;
+			Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
+			ItemID.Sets.AnimatesAsSoul[Item.type] = true;
+			ItemID.Sets.ItemIconPulse[Item.type] = true;
+			ItemID.Sets.ItemNoGravity[Item.type] = true;
         }
 
         public override void SetDefaults()
         {
             Item refItem = new Item();
             refItem.SetDefaults(ItemID.SoulofNight);
-            item.width = refItem.width;
-            item.height = refItem.height;
-            item.maxStack = 999;
-            item.value = 1000;
-            item.rare = ItemRarityID.Blue;
+            Item.width = refItem.width;
+            Item.height = refItem.height;
+            Item.maxStack = 999;
+            Item.value = 1000;
+			Item.rare = ItemRarityID.Blue;
         }
 
 		// The following 2 methods are purely to show off these 2 hooks. Don't use them in your own code.
@@ -43,14 +42,14 @@ namespace SagesMania.Items
 			Vector2 vectorItemToPlayer = player.Center - item.Center;
 			Vector2 movement = -vectorItemToPlayer.SafeNormalize(default(Vector2)) * 0.1f;
 			item.velocity = item.velocity + movement;
-			item.velocity = Collision.TileCollision(item.position, item.velocity, item.width, item.height);
+			item.velocity = Collision.TileCollision(item.position, item.velocity, Item.width, Item.height);
 			return true;
 		}
 		*/
 
 		public override void PostUpdate()
 		{
-			Lighting.AddLight(item.Center, Color.WhiteSmoke.ToVector3() * 0.55f * Main.essScale);
+			Lighting.AddLight(Item.Center, Color.WhiteSmoke.ToVector3() * 0.55f * Main.essScale);
 		}
 	}
 }

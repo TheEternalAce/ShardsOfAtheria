@@ -2,14 +2,14 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using SagesMania.Items.Placeable;
+using ShardsOfAtheria.Items.Placeable;
 using Terraria.ObjectData;
 
-namespace SagesMania.Tiles
+namespace ShardsOfAtheria.Tiles
 {
     public class AreusBar : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileShine[Type] = 1100;
             Main.tileSolid[Type] = true;
@@ -25,16 +25,16 @@ namespace SagesMania.Tiles
             name.SetDefault("Areus Bar");
             AddMapEntry(new Color(100, 150, 200), name);
 
-            dustType = DustID.Electric;
-            soundType = SoundID.Tink;
-            soundStyle = 1;
+            DustType = DustID.Electric;
+            SoundType = SoundID.Tink;
+            SoundStyle = 1;
         }
 
         public override bool Drop(int i, int j)
         {
             Tile t = Main.tile[i, j];
             int style = t.frameX / 18;
-            if (style == 0) // It can be useful to share a single tile with multiple styles. This code will let you drop the appropriate bar if you had multiple.
+            if (style == 0) // It can be useful to share a single tile with multiple styles. This code will let you ItemDrop the appropriate bar if you had multiple.
             {
                 Item.NewItem(i * 16, j * 16, 16, 16, ModContent.ItemType<AreusBarItem>());
             }

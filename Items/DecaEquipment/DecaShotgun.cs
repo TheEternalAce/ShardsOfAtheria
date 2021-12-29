@@ -1,12 +1,15 @@
 using Microsoft.Xna.Framework;
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Projectiles;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.DecaEquipment
+namespace ShardsOfAtheria.Items.DecaEquipment
 {
-    public class DecaShotgun : DecaEquipment
+    public class DecaShotgun : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -17,23 +20,23 @@ namespace SagesMania.Items.DecaEquipment
 
         public override void SetDefaults()
         {
-            item.damage = 200000;
-            item.ranged = true;
-            item.knockBack = 6f;
-            item.useTime = 20;
-            item.useAnimation = 20;
-            item.rare = ItemRarityID.Red;
+            Item.damage = 200000;
+            Item.DamageType = DamageClass.Ranged;
+            Item.knockBack = 6f;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
+            Item.rare = ItemRarityID.Red;
 
-            item.shoot = ItemID.PurificationPowder;
-            item.shootSpeed = 16f;
-            item.useAmmo = AmmoID.Bullet;
+            Item.shoot = ItemID.PurificationPowder;
+            Item.shootSpeed = 16f;
+            Item.useAmmo = AmmoID.Bullet;
 
-            item.noMelee = true;
-            item.autoReuse = true;
-            item.UseSound = SoundID.Item38;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.width = 50;
-            item.height = 20;
+            Item.noMelee = true;
+            Item.autoReuse = true;
+            Item.UseSound = SoundID.Item38;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.width = 50;
+            Item.height = 20;
         }
 
         public override Vector2? HoldoutOffset()
@@ -41,21 +44,56 @@ namespace SagesMania.Items.DecaEquipment
             return new Vector2(0, 0);
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            const int NumProjectiles = 8; // The number of projectiles that this gun will shoot.
+
+            for (int i = 0; i < NumProjectiles; i++)
+            {
+                // Rotate the velocity randomly by 30 degrees at max.
+                Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
+
+                // Decrease velocity randomly for nicer visuals.
+                newVelocity *= 1f - Main.rand.NextFloat(0.3f);
+
+                // Create a Projectile.
+                Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
+            }
+
+            return false; // Return false because we don't want tModLoader to shoot projectile
+        }
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             if (type == ProjectileID.Bullet)
                 type = ProjectileID.ExplosiveBullet;
-            int numberProjectiles = 4 + Main.rand.Next(2); // 4 or 5 shots
-            for (int i = 0; i < numberProjectiles; i++)
-            {
-                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(9));
-                // 30 degree spread.
-                // If you want to randomize the speed to stagger the projectiles
-                float scale = 1f - (Main.rand.NextFloat() * .3f);
-                perturbedSpeed = perturbedSpeed * scale; 
-                Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
-            }
-            return false;
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Add(new TooltipLine(Mod, "Deca Gear", "[c/FF4100:Deca Equipment]"));
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            return player.GetModPlayer<DecaPlayer>().modelDeca;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 20)
+                .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 10)
+                .AddIngredient(ItemID.SoulofFlight, 10)
+                .AddIngredient(ItemID.SoulofFright, 10)
+                .AddIngredient(ItemID.SoulofLight, 10)
+                .AddIngredient(ItemID.SoulofMight, 10)
+                .AddIngredient(ItemID.SoulofNight, 10)
+                .AddIngredient(ItemID.SoulofSight, 10)
+                .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10)
+                .AddIngredient(ModContent.ItemType<SoulOfStarlight>(), 10)
+                .AddIngredient(ModContent.ItemType<DeathEssence>())
+                .Register();
         }
     }
 }

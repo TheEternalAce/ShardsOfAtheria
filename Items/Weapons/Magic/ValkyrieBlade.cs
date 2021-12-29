@@ -1,10 +1,11 @@
 using Microsoft.Xna.Framework;
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Projectiles;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Weapons.Magic
+namespace ShardsOfAtheria.Items.Weapons.Magic
 {
     public class ValkyrieBlade : ModItem
     {
@@ -15,28 +16,28 @@ namespace SagesMania.Items.Weapons.Magic
 
         public override void SetDefaults()
         {
-            item.width = 32;
-            item.height = 32;
-            item.useTime = 15;
-            item.useAnimation = 15;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.damage = 40;
-            item.magic = true;
-            item.crit = 16;
-            item.knockBack = 6;
-            item.value = Item.sellPrice(gold: 10);
-            item.rare = ItemRarityID.Blue;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.shoot = ModContent.ProjectileType<FeatherBladeFriendly>();
-            item.shootSpeed = 16;
+            Item.width = 32;
+            Item.height = 32;
+            Item.useTime = 15;
+            Item.useAnimation = 15;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.damage = 40;
+            Item.DamageType = DamageClass.Magic;
+            Item.crit = 16;
+            Item.knockBack = 6;
+            Item.value = Item.sellPrice(gold: 10);
+            Item.rare = ItemRarityID.Blue;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<FeatherBladeFriendly>();
+            Item.shootSpeed = 16;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (Main.rand.NextFloat() <= .5f)
+            if (Main.rand.NextFloat() <= .66f)
                 return false;
-            return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
     }
 }

@@ -3,13 +3,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Weapons
+namespace ShardsOfAtheria.Items.Weapons
 {
 	// This class handles everything for our custom damage class
 	// Any class that we wish to be using our custom damage class will derive from this class, instead of ModItem
 	public abstract class AreusWeapon : ModItem
 	{
-		public override bool CloneNewInstances => true;
 		public int areusResourceCost = 0;
 
 		// Because we want the damage tooltip to show our custom damage, we need to modify it
@@ -17,7 +16,7 @@ namespace SagesMania.Items.Weapons
 		{
 			if (areusResourceCost > 0)
 			{
-				tooltips.Add(new TooltipLine(mod, "Areua Resource Cost", $"Uses {areusResourceCost} areus charge"));
+				tooltips.Add(new TooltipLine(Mod, "Areus Resource Cost", $"Uses {areusResourceCost} areus charge"));
 			}
 		}
 

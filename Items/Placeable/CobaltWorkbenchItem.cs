@@ -1,38 +1,38 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Tiles;
 
-namespace SagesMania.Items.Placeable
+namespace ShardsOfAtheria.Items.Placeable
 {
 	public class CobaltWorkbenchItem : ModItem
 	{
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Cobalt Workbench");
-			Tooltip.SetDefault("Used to completely skip having to gather mythril ore");
+			Tooltip.SetDefault("Used to completely skip having to gather mythril ore\n" +
+				"[c/960096:'Why? Because $*#% mythril!']");
 		}
 
 		public override void SetDefaults()
 		{
-			item.width = 26;
-			item.height = 22;
-			item.maxStack = 99;
-			item.useTurn = true;
-			item.autoReuse = true;
-			item.useAnimation = 15;
-			item.useTime = 10;
-			item.rare = ItemRarityID.Cyan;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.consumable = true;
-			item.createTile = ModContent.TileType<CobaltWorkbench>();
+			Item.width = 26;
+			Item.height = 22;
+			Item.maxStack = 99;
+			Item.useTurn = true;
+			Item.autoReuse = true;
+			Item.useAnimation = 15;
+			Item.useTime = 10;
+			Item.rare = ItemRarityID.Cyan;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.consumable = true;
+			Item.createTile = ModContent.TileType<CobaltWorkbench>();
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.CobaltBar, 10);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.CobaltBar, 10)
+				.Register();
 		}
 	}
 }

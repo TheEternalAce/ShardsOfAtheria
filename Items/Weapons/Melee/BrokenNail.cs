@@ -1,12 +1,12 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Buffs;
-using SagesMania.Projectiles;
-using SagesMania.Items.Placeable;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Projectiles;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Tiles;
 
-namespace SagesMania.Items.Weapons.Melee
+namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class BrokenNail : ModItem
     {
@@ -18,31 +18,30 @@ namespace SagesMania.Items.Weapons.Melee
 
         public override void SetDefaults()
         {
-            item.damage = 97;
-            item.melee = true;
-            item.width = 42;
-            item.height = 42;
-            item.useTime = 10;
-            item.useAnimation = 10;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.knockBack = 6;
-            item.value = Item.sellPrice(gold: 10);
-            item.rare = ItemRarityID.Orange;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = false;
-            item.crit = 21;
-            item.shoot = ModContent.ProjectileType<InfectionBlob>();
-            item.shootSpeed = 15;
+            Item.damage = 97;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 42;
+            Item.height = 42;
+            Item.useTime = 10;
+            Item.useAnimation = 10;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.knockBack = 6;
+            Item.value = Item.sellPrice(gold: 10);
+            Item.rare = ItemRarityID.Orange;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = false;
+            Item.crit = 21;
+            Item.shoot = ModContent.ProjectileType<InfectionBlob>();
+            Item.shootSpeed = 15;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddRecipeGroup("SM:Tier3Bars", 15);
-            recipe.AddIngredient(ModContent.ItemType<CrystalInfection>(), 15);
-            recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddRecipeGroup("SM:Tier3Bars", 15)
+                .AddIngredient(ModContent.ItemType<CrystalInfection>(), 15)
+                .AddTile(ModContent.TileType<CobaltWorkbench>())
+                .Register();
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)

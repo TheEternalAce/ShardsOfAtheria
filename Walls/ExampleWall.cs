@@ -1,18 +1,18 @@
-﻿using SagesMania.Items.Placeable;
+﻿using ShardsOfAtheria.Items.Placeable;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Walls
+namespace ShardsOfAtheria.Walls
 {
 	public class ExampleWall : ModWall
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.wallHouse[Type] = true;
-			dustType = DustID.Dirt;
-			drop = ModContent.ItemType<ExampleWallItem>();
+			DustType = DustID.Dirt;
+			ItemDrop = ModContent.ItemType<ExampleWallItem>();
 			AddMapEntry(new Color(150, 150, 150));
 		}
 

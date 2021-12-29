@@ -1,10 +1,10 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Placeable;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Tiles;
 
-namespace SagesMania.Items.Accessories
+namespace ShardsOfAtheria.Items.Accessories
 {
 	public class AreusBattery: ModItem
 	{
@@ -17,11 +17,11 @@ namespace SagesMania.Items.Accessories
 
 		public override void SetDefaults()
 		{
-			item.width = 15;
-			item.height = 20;
-			item.value = Item.sellPrice(gold: 15);
-			item.rare = ItemRarityID.Cyan;
-			item.accessory = true;
+			Item.width = 15;
+			Item.height = 20;
+			Item.value = Item.sellPrice(gold: 15);
+			Item.rare = ItemRarityID.Cyan;
+			Item.accessory = true;
 		}
 		//these wings use the same values as the solar wings
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -34,14 +34,13 @@ namespace SagesMania.Items.Accessories
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<AreusBarItem>(), 5);
-			recipe.AddIngredient(ItemID.ChlorophyteBar, 10);
-			recipe.AddIngredient(ItemID.SoulofMight, 10);
-			recipe.AddIngredient(ItemID.MechanicalBatteryPiece);
-			recipe.AddTile(ModContent.TileType<AreusForge>());
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 5)
+				.AddIngredient(ItemID.ChlorophyteBar, 10)
+				.AddIngredient(ItemID.SoulofMight, 10)
+				.AddIngredient(ItemID.MechanicalBatteryPiece)
+				.AddTile(ModContent.TileType<AreusForge>())
+				.Register();
 		}
 	}
 }

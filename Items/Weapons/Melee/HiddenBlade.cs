@@ -1,68 +1,44 @@
-using SagesMania.Buffs;
+using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Projectiles.Weapon;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Weapons.Melee
+namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class HiddenBlade : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Damage increases throughout progression\n" +
-				"''Surprise! You're dead!''");
+            Tooltip.SetDefault("");
         }
 
         public override void SetDefaults()
         {
-            item.width = 32;
-            item.height = 32;
-            item.useTime = 20;
-            item.useAnimation = 20;
-            item.useStyle = ItemUseStyleID.Stabbing;
-            item.damage = 26;
-            item.melee = true;
-            item.crit = 16;
-            item.knockBack = 6;
-            item.value = Item.sellPrice(gold: 5);
-            item.rare = ItemRarityID.Blue;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.useTurn = true;
-			item.expert = true;
+            Item.width = 32;
+            Item.height = 32;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
+            Item.useStyle = ItemUseStyleID.Rapier;
+            Item.damage = 26;
+            Item.DamageType = DamageClass.Melee;
+            Item.crit = 16;
+            Item.knockBack = 6;
+            Item.value = Item.sellPrice(gold: 5);
+            Item.rare = ItemRarityID.Blue;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+            Item.useTurn = true;
+			Item.expert = true;
+            Item.noMelee = true;
+            Item.noUseGraphic = true;
+            Item.shoot = ModContent.ProjectileType<HiddenBladeProj>();
+            Item.shootSpeed = 2.1f;
 		}
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
 			target.AddBuff(ModContent.BuffType<Penetration>(), 10 * 60);
         }
-
-        public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
-		{
-			if (Main.hardMode)
-			{
-				add += .1f;
-			}
-			if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
-			{
-				add += .15f;
-			}
-			if (NPC.downedPlantBoss)
-			{
-				add += .15f;
-			}
-			if (NPC.downedGolemBoss)
-			{
-				add += .2f;
-			}
-			if (NPC.downedAncientCultist)
-			{
-				add += .5f;
-			}
-			if (NPC.downedMoonlord)
-			{
-				add += 1f;
-			}
-		}
 	}
 }

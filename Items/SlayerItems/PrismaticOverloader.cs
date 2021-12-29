@@ -1,7 +1,8 @@
 ﻿using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
-namespace SagesMania.Items.SlayerItems
+namespace ShardsOfAtheria.Items.SlayerItems
 {
 	public class PrismaticOverloader : SlayerItem
 	{
@@ -14,11 +15,11 @@ namespace SagesMania.Items.SlayerItems
 
 		public override void SetDefaults()
 		{
-			item.width = 52;
-			item.height = 32;
-			item.value = Item.sellPrice(gold: 15);
-			item.accessory = true;
-			item.rare = ItemRarityID.Expert;
+			Item.width = 52;
+			Item.height = 32;
+			Item.value = Item.sellPrice(gold: 15);
+			Item.accessory = true;
+			Item.rare = ItemRarityID.Expert;
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -26,9 +27,9 @@ namespace SagesMania.Items.SlayerItems
 			if (Main.dayTime)
             {
 				player.statDefense /= 2;
-                player.allDamage += .5f;
+                player.GetDamage(DamageClass.Generic) += .5f;
             }
-            else player.allDamage += .25f;
+            else player.GetDamage(DamageClass.Generic) += .25f;
 			player.statManaMax2 += 40;
 		}
 	}

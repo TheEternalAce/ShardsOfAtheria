@@ -1,12 +1,12 @@
-﻿using SagesMania.Items.Placeable;
-using SagesMania.Tiles;
-using SagesMania;
+﻿using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Tiles;
+using ShardsOfAtheria;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace SagesMania.Items
+namespace ShardsOfAtheria.Items
 {
     class AreusChargePack : ModItem
     {
@@ -16,27 +16,26 @@ namespace SagesMania.Items
         }
         public override void SetDefaults()
         {
-            item.width = 32;
-            item.height = 32;
-            item.useTime = 20;
-            item.useAnimation = 20;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            item.value = Item.sellPrice(gold: 10);
-            item.rare = ItemRarityID.Cyan;
-            item.UseSound = SoundID.NPCHit53;
-            item.autoReuse = false;
-            item.useTurn = true;
-            item.consumable = true;
-            item.maxStack = 30;
+            Item.width = 32;
+            Item.height = 32;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.value = Item.sellPrice(gold: 10);
+            Item.rare = ItemRarityID.Cyan;
+            Item.UseSound = SoundID.NPCHit53;
+            Item.autoReuse = false;
+            Item.useTurn = true;
+            Item.consumable = true;
+            Item.maxStack = 30;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<AreusOreItem>());
-            recipe.AddTile(ModContent.TileType<AreusForge>());
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<AreusOreItem>())
+                .AddTile(ModContent.TileType<AreusForge>())
+                .Register();
         }
 
         public override bool CanUseItem(Player player)
@@ -48,7 +47,7 @@ namespace SagesMania.Items
             else return false;
         }
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
             player.GetModPlayer<SMPlayer>().areusResourceCurrent += 50;
             CombatText.NewText(player.Hitbox, Color.Aqua, 50);

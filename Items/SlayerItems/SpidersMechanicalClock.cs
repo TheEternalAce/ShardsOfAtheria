@@ -1,9 +1,9 @@
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
-using SagesMania.Buffs;
+using ShardsOfAtheria.Buffs;
 
-namespace SagesMania.Items.SlayerItems
+namespace ShardsOfAtheria.Items.SlayerItems
 {
 	public class SpidersMechanicalClock : SlayerItem
 	{
@@ -19,15 +19,15 @@ namespace SagesMania.Items.SlayerItems
 
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.rare = ItemRarityID.Expert;
-			item.useStyle = ItemUseStyleID.HoldingUp;
-			item.useTime = 45;
-			item.useAnimation = 45;
+			Item.width = 32;
+			Item.height = 32;
+			Item.rare = ItemRarityID.Expert;
+			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
 		}
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
 			if (!player.HasBuff(ModContent.BuffType<ClockCooldown>()))
 			{

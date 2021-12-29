@@ -1,26 +1,26 @@
-﻿using SagesMania.Items.Placeable;
+﻿using ShardsOfAtheria.Items.Placeable;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Accessories
+namespace ShardsOfAtheria.Items.Accessories
 {
     public class RushDrive : SpecialItem
     {
         public override void SetStaticDefaults()
         {
 
-            Tooltip.SetDefault("Gives the user a ''phase 2'' when below 50% life");
+            Tooltip.SetDefault("Gives the user a 'phase 2' when below 50% life");
         }
 
         public override void SetDefaults()
         {
-            item.width = 32;
-            item.height = 32;
-            item.accessory = true;
-            item.value = Item.sellPrice(silver: 30);
-            item.rare = ItemRarityID.Blue;
+            Item.width = 32;
+            Item.height = 32;
+            Item.accessory = true;
+            Item.value = Item.sellPrice(silver: 30);
+            Item.rare = ItemRarityID.Blue;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -30,18 +30,17 @@ namespace SagesMania.Items.Accessories
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<PhaseBarItem>(), 10);
-            recipe.AddRecipeGroup("SM:EvilBars", 5);
-            recipe.AddIngredient(ItemID.TissueSample, 5);
-            recipe.AddTile(TileID.Hellforge);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<PhaseBarItem>(), 10)
+                .AddRecipeGroup("SM:EvilBars", 5)
+                .AddIngredient(ItemID.TissueSample, 5)
+                .AddTile(TileID.Hellforge)
+                .Register();
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            var list = SagesMania.PhaseSwitch.GetAssignedKeys();
+            var list = ShardsOfAtheria.PhaseSwitch.GetAssignedKeys();
             string keyname = "Not bound";
 
             if (list.Count > 0)
@@ -49,7 +48,7 @@ namespace SagesMania.Items.Accessories
                 keyname = list[0];
             }
 
-            tooltips.Add(new TooltipLine(mod, "tip", $"Press '[i:{keyname}]' to chose between two phase types:\n" +
+            tooltips.Add(new TooltipLine(Mod, "tip", $"Press '[i:{keyname}]' to chose between two phase types:\n" +
                 "Offensive: Sacrifice half of total defense for doubled damage and 20% increased crit chance\n" +
                 "Defensive: Sacrifice half of total damage for doubled defense and 20% reduced damage\n" +
                 "Always get 20% increased movement speed"));

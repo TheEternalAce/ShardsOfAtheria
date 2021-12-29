@@ -1,49 +1,50 @@
 ﻿using Microsoft.Xna.Framework;
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Projectiles;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.NPCs.NovaSkyloft
+namespace ShardsOfAtheria.NPCs.NovaSkyloft
 {
     [AutoloadBossHead]
     public class HarpyKnight : ModNPC
     {
-        public override string HeadTexture => "SagesMania/NPCs/NovaSkyloft/HarpyKnight_Head_Boss";
+        public override string HeadTexture => "ShardsOfAtheria/NPCs/NovaSkyloft/HarpyKnight_Head_Boss";
         private int attackTimer;
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nova Skyloft, the Harpy Knight");
-            Main.npcFrameCount[npc.type] = 1;
+            DisplayName.SetDefault("Nova Stellar, the Harpy Knight");
+            Main.npcFrameCount[NPC.type] = 1;
         }
 
         public override void SetDefaults()
         {
-            npc.width = 86;
-            npc.height = 60;
-            npc.damage = 29;
-            npc.defense = 8;
-            npc.lifeMax = 1000;
-            npc.HitSound = SoundID.NPCHit1;
-            npc.knockBackResist = 0f;
-            npc.aiStyle = 14;
-            npc.boss = true;
-            npc.noGravity = true;
-            music = MusicID.Boss1;
-            npc.value = Item.buyPrice(0, 5, 0, 0);
-            npc.npcSlots = 15f;
+            NPC.width = 86;
+            NPC.height = 60;
+            NPC.damage = 29;
+            NPC.defense = 8;
+            NPC.lifeMax = 1000;
+            NPC.HitSound = SoundID.NPCHit1;
+            NPC.knockBackResist = 0f;
+            NPC.aiStyle = 14;
+            NPC.boss = true;
+            NPC.noGravity = true;
+            Music = MusicID.Boss1;
+            NPC.value = Item.buyPrice(0, 5, 0, 0);
+            NPC.npcSlots = 15f;
         }
 
         public override bool CheckDead()
         {
-            if (npc.ai[3] == 0f)
+            if (NPC.ai[3] == 0f)
             {
-                npc.ai[3] = 1f;
-                npc.damage = 0;
-                npc.life = npc.lifeMax;
-                npc.dontTakeDamage = true;
-                npc.netUpdate = true;
+                NPC.ai[3] = 1f;
+                NPC.damage = 0;
+                NPC.life = NPC.lifeMax;
+                NPC.dontTakeDamage = true;
+                NPC.netUpdate = true;
                 return false;
             }
             return true;
@@ -51,8 +52,8 @@ namespace SagesMania.NPCs.NovaSkyloft
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = (int)(npc.lifeMax * 1.5f * bossLifeScale);
-            npc.damage = (int)(npc.damage * 1f);
+            NPC.lifeMax = (int)(NPC.lifeMax * 1.5f * bossLifeScale);
+            NPC.damage = (int)(NPC.damage * 1f);
         }
 
         public override bool PreAI()
@@ -60,11 +61,11 @@ namespace SagesMania.NPCs.NovaSkyloft
             Player player = Main.LocalPlayer;
             if (ModContent.GetInstance<SMWorld>().slainValkyrie)
             {
-                Main.NewText("Nova Skyloft, the Harpy Knight was slain...");
-                npc.active = false;
+                Main.NewText("Nova Stellar, the Harpy Knight was slain...");
+                NPC.active = false;
             }
             if (player.dead)
-                npc.active = false;
+                NPC.active = false;
             return base.PreAI();
         }
 
@@ -72,31 +73,29 @@ namespace SagesMania.NPCs.NovaSkyloft
         {
             Player player = Main.LocalPlayer;
 
-            if (npc.localAI[0] == 0f && npc.life >= 1 && !ModContent.GetInstance<SMWorld>().slainValkyrie)
+            if (NPC.localAI[0] == 0f && NPC.life >= 1 && !ModContent.GetInstance<SMWorld>().slainValkyrie)
             {
                 if (Main.rand.NextFloat() <= .5f)
-                    npc.position = player.position - new Vector2(500, 250);
-                else npc.position = player.position - new Vector2(-500, 250);
-                Main.PlaySound(SoundID.Roar, npc.position, 0);
+                    NPC.position = player.position - new Vector2(500, 250);
+                else NPC.position = player.position - new Vector2(-500, 250);
+                SoundEngine.PlaySound(SoundID.Roar, NPC.position, 0);
                 if (ModContent.GetInstance<SMWorld>().slayerMode)
                 {
-                    Main.NewText("That look in your eyes... I must take you down here and now!");
+                    Main.NewText("Alright, now- That look in your eyes... I must take you down here and now!");
                 }
                 else
                 {
                     if (player.ZoneOverworldHeight)
-                        Main.NewText("So you bring me down to the surface? Well then, have at you!");
-                    else if (player.ZoneSkyHeight)
-                        Main.NewText("Now that you're here, let's do this!");
+                        Main.NewText("Alright, now- Hey, that's my crest! How did you get that!?");
                 }
-                npc.localAI[0] = 1f;
+                NPC.localAI[0] = 1f;
 
             }
-            npc.TargetClosest();
-            if (npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient && !npc.dontTakeDamage)
+            NPC.TargetClosest();
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient && !NPC.dontTakeDamage)
             {
-                Vector2 position = npc.Center;
-                Vector2 targetPosition = Main.player[npc.target].Center;
+                Vector2 position = NPC.Center;
+                Vector2 targetPosition = Main.player[NPC.target].Center;
                 Vector2 direction = targetPosition - position;
                 Vector2 above = player.Center + new Vector2(0, -300f);
 
@@ -107,45 +106,45 @@ namespace SagesMania.NPCs.NovaSkyloft
                 //If the projectile is hostile, the damage passed into NewProjectile will be applied doubled, and quadrupled if expert mode, so keep that in mind when balancing projectiles
                 //Feather blade barrage
                 if (attackTimer == 120)
-                    Projectile.NewProjectile(position, direction * 10f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), position, direction, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
                 if (attackTimer == 130)
-                    Projectile.NewProjectile(position, direction * 10f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), position, direction, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
                 if (attackTimer == 140)
-                    Projectile.NewProjectile(position, direction * 10f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), position, direction, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
                 if (attackTimer == 150)
-                    Projectile.NewProjectile(position, direction * 10f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), position, direction, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
                 if (attackTimer == 160)
-                    Projectile.NewProjectile(position, direction * 10f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
-                
+                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), position, direction, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+
                 if (attackTimer == 220)
                 {
-                    npc.velocity = Vector2.Normalize(player.Center - npc.Center) * 10;
+                    NPC.velocity = Vector2.Normalize(player.Center - NPC.Center) * 10;
                     attackTimer = 0;
                 }
             }
-            npc.spriteDirection = player.Center.X > npc.Center.X ? 1 : -1;
+            NPC.spriteDirection = player.Center.X > NPC.Center.X ? 1 : -1;
 
-            if (npc.position.Y >= player.position.Y + 300)
-                npc.position.Y = player.position.Y + 300;
+            if (NPC.position.Y >= player.position.Y + 300)
+                NPC.position.Y = player.position.Y + 300;
 
             // death drama
-            if (npc.ai[3] > 0f)
+            if (NPC.ai[3] > 0f)
             {
-                npc.dontTakeDamage = true;
-                npc.ai[3] += 1f; // increase our death timer.
-                                 //npc.velocity = Vector2.UnitY * npc.velocity.Length();
-                npc.velocity.X = 0f;
-                npc.velocity.Y = 0;
-                if (npc.ai[3] > 1f && npc.ai[3] == 2)
+                NPC.dontTakeDamage = true;
+                NPC.ai[3] += 1f; // increase our death timer.
+                                 //NPC.velocity = Vector2.UnitY * NPC.velocity.Length();
+                NPC.velocity.X = 0f;
+                NPC.velocity.Y = 0;
+                if (NPC.ai[3] > 1f && NPC.ai[3] == 2)
                 {
                     Main.NewText("Okay, you're stronger than I thought, but I have an ace up my sleeve.");
                 }
-                if (npc.ai[3] >= 120f)
+                if (NPC.ai[3] >= 120f)
                 {
-                    npc.life = 0;
-                    npc.HitEffect(0, 0);
-                    npc.checkDead(); // This will trigger ModNPC.CheckDead the second time, causing the real death.
-                    Vector2 spawnAt = npc.Center;
+                    NPC.life = 0;
+                    NPC.HitEffect(0, 0);
+                    NPC.checkDead(); // This will trigger ModNPC.CheckDead the second time, causing the real death.
+                    Vector2 spawnAt = NPC.Center;
                     NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, ModContent.NPCType<ValkyrieNova>());
                 }
                 return;
@@ -156,11 +155,6 @@ namespace SagesMania.NPCs.NovaSkyloft
         {
             if (Main.expertMode)
                 target.AddBuff(BuffID.Electrified, 60);
-        }
-
-        public override bool PreNPCLoot()
-        {
-            return false;
         }
     }
 }

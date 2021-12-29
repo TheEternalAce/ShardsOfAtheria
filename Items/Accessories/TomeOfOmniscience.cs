@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Accessories
+namespace ShardsOfAtheria.Items.Accessories
 {
 	public class TomeOfOmniscience: ModItem
 	{
@@ -13,12 +13,12 @@ namespace SagesMania.Items.Accessories
 
         public override void SetDefaults()
 		{
-			item.width = 15;
-			item.height = 22;
-			item.value = Item.sellPrice(silver: 15);
-			item.rare = ItemRarityID.White;
-			item.accessory = true;
-			item.expert = true;
+			Item.width = 15;
+			Item.height = 22;
+			Item.value = Item.sellPrice(silver: 15);
+			Item.rare = ItemRarityID.White;
+			Item.accessory = true;
+			Item.expert = true;
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -28,7 +28,7 @@ namespace SagesMania.Items.Accessories
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-			var list = SagesMania.TomeKey.GetAssignedKeys();
+			var list = ShardsOfAtheria.TomeKey.GetAssignedKeys();
 			string keyname = "Not bound";
 
 			if (list.Count > 0)
@@ -36,17 +36,8 @@ namespace SagesMania.Items.Accessories
 				keyname = list[0];
 			}
 
-			tooltips.Add(new TooltipLine(mod, "Damage", $"Press '[i:{keyname}]' to cycle between 3 Knowledge Bases:\n" +
+			tooltips.Add(new TooltipLine(Mod, "Damage", $"Press '[i:{keyname}]' to cycle between 3 Knowledge Bases:\n" +
 				"Combat Conservation and Exploration"));
-		}
-
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<UnshackledTomeOfOmniscience>());
-			recipe.AddIngredient(ItemID.Shackle, 2);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
 		}
 	}
 }

@@ -1,10 +1,10 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Buffs;
-using SagesMania.Projectiles.Minions;
+using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Projectiles.Minions;
 
-namespace SagesMania.Items.Accessories.GemCores
+namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
 	public class GreaterSapphireCore : ModItem
 	{
@@ -16,21 +16,20 @@ namespace SagesMania.Items.Accessories.GemCores
 
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.value = Item.sellPrice(silver: 15);
-			item.rare = ItemRarityID.White;
-			item.accessory = true;
+			Item.width = 32;
+			Item.height = 32;
+			Item.value = Item.sellPrice(silver: 15);
+			Item.rare = ItemRarityID.White;
+			Item.accessory = true;
 		}
 		
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<SapphireCore>());
-			recipe.AddIngredient(ItemID.HellstoneBar, 10);
-			recipe.AddTile(TileID.Hellforge);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<SapphireCore>())
+				.AddIngredient(ItemID.HellstoneBar, 10)
+				.AddTile(TileID.Hellforge)
+				.Register();
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)

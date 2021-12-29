@@ -2,39 +2,40 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items
+namespace ShardsOfAtheria.Items
 {
     public class WandOfHealing : ModItem
     {
         public override void SetStaticDefaults()
         {
+            Tooltip.SetDefault("'Converts Mana into Life'\n" +
+                "Taking damage while this is in your inventory will render this unusable for a time");
         }
 
         public override void SetDefaults()
         {
-            item.width = 32;
-            item.height = 32;
-            item.useTime = 20;
-            item.mana = 100;
-            item.healLife = 50;
-            item.useAnimation = 20;
-            item.useStyle = ItemUseStyleID.HoldingUp;
-            item.value = Item.sellPrice(gold: 5, silver: 70);
-            item.rare = ItemRarityID.Red;
-            item.autoReuse = false;
-            item.UseSound = SoundID.Item29;
+            Item.width = 32;
+            Item.height = 32;
+            Item.useTime = 20;
+            Item.mana = 100;
+            Item.healLife = 50;
+            Item.useAnimation = 20;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.value = Item.sellPrice(gold: 5, silver: 70);
+            Item.rare = ItemRarityID.Red;
+            Item.autoReuse = false;
+            Item.UseSound = SoundID.Item29;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddRecipeGroup("SM:GoldBars", 3);
-            recipe.AddRecipeGroup(RecipeGroupID.IronBar, 6);
-            recipe.AddIngredient(ItemID.LifeCrystal, 5);
-            recipe.AddIngredient(ItemID.ManaCrystal, 5);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddRecipeGroup("SM:GoldBars", 3)
+                .AddRecipeGroup(RecipeGroupID.IronBar, 6)
+                .AddIngredient(ItemID.LifeCrystal, 5)
+                .AddIngredient(ItemID.ManaCrystal, 5)
+                .AddTile(TileID.Anvils)
+                .Register();
         }
 
         public override bool CanUseItem(Player player)

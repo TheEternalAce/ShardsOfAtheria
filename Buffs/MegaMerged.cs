@@ -2,53 +2,41 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items;
+using ShardsOfAtheria.Items;
 using System.Collections.Generic;
 
-namespace SagesMania.Buffs
+namespace ShardsOfAtheria.Buffs
 {
     public class Megamerged : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Megamerged");
-            Description.SetDefault("''BIOLINK ESTABLISHED! M.E.G.A. SYSTEM ONLINE!''\n" +
+            Description.SetDefault("'BIOLINK ESTABLISHED! M.E.G.A. SYSTEM ONLINE!'\n" +
                 "25% Increased damage\n" +
                 "20 defense\n" +
                 "Doubles movement speed\n" +
                 "Increased life regen\n" +
                 "Increased life by 100 and mana by 40\n" +
-                "Grants dash, wall sliding and immunity to knockback and certain debuffs\n" +
+                "Grants dash, wall sliding and immunity to fall damage and certain debuffs/n" +
                 "Press 'Toggle Overdrive' to activate or deactivate Overdrive\n" +
-                "Overdrive doubles all damage and increases movement speed by\n" +
-                "Overdrive lasts until you get hit or press 'Toggle Overdrive' again");
+                "Overdrive doubles all damage\n" +
+                "Overdrive lasts until you get hit or run out of Overdrive time");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
-            canBeCleared = false;
-        }
-
-        public override void ModifyBuffTip(ref string tip, ref int rare)
-        {
-            var list = SagesMania.OverdriveKey.GetAssignedKeys();
-            string keyname = "Not bound";
-
-            if (list.Count > 0)
-            {
-                keyname = list[0];
-            }
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
             player.jumpSpeedBoost += 4.8f;
             player.extraFall += 45;
-            player.allDamage += 0.25f;
+            player.GetDamage(DamageClass.Generic) += 0.25f;
             player.statDefense += 20;
             player.moveSpeed *= 2;
             player.statLifeMax2 += 100;
             player.statManaMax2 += 40;
-            player.noKnockback = true;
+            player.noFallDmg = true;
             player.buffImmune[BuffID.Bleeding] = true;
             player.buffImmune[BuffID.Poisoned] = true;
             player.buffImmune[BuffID.Weak] = true;
@@ -129,13 +117,13 @@ namespace SagesMania.Buffs
             bool dashBuffActive = false;
 
             //This is the loop used in vanilla to update/check the not-vanity accessories
-            for (int i = 3; i < 8 + player.extraAccessorySlots; i++)
+            for (int i = 3; i < 8 + Player.extraAccessorySlots; i++)
             {
-                Item item = player.armor[i];
+                Item item = Player.armor[i];
 
                 //Set the flag for the ExampleDashAccessory being equipped if we have it equipped OR immediately return if any of the accessories are
                 // one of the higher-priority ones
-                if (player.HasBuff(ModContent.BuffType<Megamerged>()))
+                if (Player.HasBuff(ModContent.BuffType<Megamerged>()))
                     dashBuffActive = true;
                 else if (item.type == ItemID.EoCShield || item.type == ItemID.MasterNinjaGear || item.type == ItemID.Tabi)
                     return;
@@ -143,14 +131,14 @@ namespace SagesMania.Buffs
 
             //If we don't have the ExampleDashAccessory equipped or the player has the Solor armor set equipped, return immediately
             //Also return if the player is currently on a mount, since dashes on a mount look weird, or if the dash was already activated
-            if (!dashBuffActive || player.setSolar || player.mount.Active || DashActive)
+            if (!dashBuffActive || Player.setSolar || Player.mount.Active || DashActive)
                 return;
 
             //When a directional key is pressed and released, vanilla starts a 15 tick (1/4 second) timer during which a second press activates a dash
             //If the timers are set to 15, then this is the first press just processed by the vanilla logic.  Otherwise, it's a double-tap
-            if (player.controlRight && player.releaseRight && player.doubleTapCardinalTimer[DashRight] < 15)
+            if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[DashRight] < 15)
                 DashDir = DashRight;
-            else if (player.controlLeft && player.releaseLeft && player.doubleTapCardinalTimer[DashLeft] < 15)
+            else if (Player.controlLeft && Player.releaseLeft && Player.doubleTapCardinalTimer[DashLeft] < 15)
                 DashDir = DashLeft;
             else
                 return;  //No dash was activated, return

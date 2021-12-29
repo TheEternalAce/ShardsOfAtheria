@@ -1,49 +1,48 @@
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Weapons.Melee
+namespace ShardsOfAtheria.Items.Weapons.Melee
 {
 	public class TrueKnife : ModItem
 	{
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("True Kitchen Knife");
-			Tooltip.SetDefault("''Here we are!''\n" +
-				"[c/FF0000:''About time.'']");
+			Tooltip.SetDefault("'Here we are!'\n" +
+				"[c/FF0000:'About time.']");
 		}
 
 		public override void SetDefaults() 
 		{
-			item.damage = 999;
-			item.melee = true;
-			item.width = 32;
-			item.height = 34;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.knockBack = 3;
-			item.value = Item.sellPrice(gold: 10);
-			item.rare = ItemRarityID.Red;
-			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Slash");
-			item.autoReuse = false;
-			item.crit = 0;
-			item.shoot = ModContent.ProjectileType<TrueBlade>();
-			item.shootSpeed = 15;
+			Item.damage = 99;
+			Item.DamageType = DamageClass.Melee;
+			Item.width = 32;
+			Item.height = 34;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.knockBack = 3;
+			Item.value = Item.sellPrice(gold: 7);
+			Item.rare = ItemRarityID.Yellow;
+			Item.UseSound = SoundID.Item1;
+			Item.autoReuse = false;
+			Item.crit = 0;
+			Item.shoot = ModContent.ProjectileType<TrueBlade>();
+			Item.shootSpeed = 15;
 		}
 
 		public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<KitchenKnife>());
-			recipe.AddIngredient(ModContent.ItemType<LovesKnife>());
-			recipe.AddIngredient(ModContent.ItemType<AreusDagger>());
-			recipe.AddIngredient(ModContent.ItemType<CrossDagger>());
-			recipe.AddIngredient(ItemID.LunarBar, 10);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<KitchenKnife>())
+				.AddIngredient(ModContent.ItemType<LovesKnife>())
+				.AddIngredient(ModContent.ItemType<AreusDagger>())
+				.AddIngredient(ModContent.ItemType<CrossDagger>())
+				.AddIngredient(ItemID.BrokenHeroSword)
+				.AddTile(TileID.MythrilAnvil)
+				.Register();
 		}
 	}
 }

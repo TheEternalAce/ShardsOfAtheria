@@ -5,5 +5,7 @@
 /bin/Debug/net45
 /.vs/ShardsOfAtheria
 /obj
-/.vs/SagesMania/DesignTimeBuild
-/.vs/SagesMania/v16
+/.vs/ShardsOfAtheria/DesignTimeBuild
+/.vs/ShardsOfAtheria/v16
+/.vs
+/bin/Debug/net6.0

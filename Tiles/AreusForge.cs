@@ -4,16 +4,15 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using SagesMania.Items.Placeable;
+using ShardsOfAtheria.Items.Placeable;
 
-namespace SagesMania.Tiles
+namespace ShardsOfAtheria.Tiles
 {
 	public class AreusForge : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
-			adjTiles = new int[] { TileID.AdamantiteForge };
-			adjTiles = new int[] { TileID.Furnaces };
+			AdjTiles = new int[] { TileID.Furnaces };
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = true;
@@ -25,7 +24,7 @@ namespace SagesMania.Tiles
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Areus Forge");
 			AddMapEntry(new Color(200, 200, 200), name);
-			dustType = DustID.Electric;
+			DustType = DustID.Electric;
 		}
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

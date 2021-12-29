@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Projectiles.Weapon;
 
-namespace SagesMania.Items.Weapons.Ranged
+namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class JarOIchor : ModItem
     {
@@ -15,33 +15,32 @@ namespace SagesMania.Items.Weapons.Ranged
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 26;
-            item.useTime = 20;
-            item.useAnimation = 20;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.value = Item.sellPrice(silver: 35);
-            item.rare = ItemRarityID.Red;
-            item.autoReuse = false;
-            item.shoot = ModContent.ProjectileType<JarOIchorProjectile>();
-            item.shootSpeed = 15;
-            item.noMelee = true;
-            item.noUseGraphic = true;
-            item.consumable = true;
-            item.damage = 21;
-            item.ranged = true;
-            item.UseSound = SoundID.Item106;
-            item.maxStack = 99;
+            Item.width = 20;
+            Item.height = 26;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.value = Item.sellPrice(silver: 35);
+            Item.rare = ItemRarityID.Red;
+            Item.autoReuse = false;
+            Item.shoot = ModContent.ProjectileType<JarOIchorProjectile>();
+            Item.shootSpeed = 15;
+            Item.noMelee = true;
+            Item.noUseGraphic = true;
+            Item.consumable = true;
+            Item.damage = 21;
+            Item.DamageType = DamageClass.Ranged;
+            Item.UseSound = SoundID.Item106;
+            Item.maxStack = 99;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Bottle);
-            recipe.AddIngredient(ItemID.Ichor, 5);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddIngredient(ItemID.Bottle)
+                .AddIngredient(ItemID.Ichor)
+                .AddTile(TileID.Anvils)
+                .Register();
         }
     }
 }

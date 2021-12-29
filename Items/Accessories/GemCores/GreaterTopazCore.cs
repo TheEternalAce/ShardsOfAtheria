@@ -1,9 +1,9 @@
-﻿using SagesMania.Items.Placeable;
+﻿using ShardsOfAtheria.Items.Placeable;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Accessories.GemCores
+namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
 	public class GreaterTopazCore : ModItem
 	{
@@ -15,23 +15,22 @@ namespace SagesMania.Items.Accessories.GemCores
 
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.value = Item.sellPrice(silver: 15);
-			item.rare = ItemRarityID.White;
-			item.accessory = true;
+			Item.width = 32;
+			Item.height = 32;
+			Item.value = Item.sellPrice(silver: 15);
+			Item.rare = ItemRarityID.White;
+			Item.accessory = true;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<TopazCore>());
-			recipe.AddIngredient(ModContent.ItemType<BionicBarItem>(), 10);
-			recipe.AddIngredient(ItemID.RegenerationPotion, 15);
-			recipe.AddIngredient(ItemID.BottledHoney, 15);
-			recipe.AddTile(TileID.Hellforge);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<TopazCore>())
+				.AddIngredient(ModContent.ItemType<BionicBarItem>(), 10)
+				.AddIngredient(ItemID.RegenerationPotion, 15)
+				.AddIngredient(ItemID.BottledHoney, 15)
+				.AddTile(TileID.Hellforge)
+				.Register();
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

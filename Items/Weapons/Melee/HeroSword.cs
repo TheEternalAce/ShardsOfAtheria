@@ -1,10 +1,10 @@
-using SagesMania.Projectiles;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Projectiles;
+using ShardsOfAtheria.Tiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Weapons.Melee
+namespace ShardsOfAtheria.Items.Weapons.Melee
 {
 	public class HeroSword : ModItem
 	{
@@ -15,38 +15,30 @@ namespace SagesMania.Items.Weapons.Melee
 
 		public override void SetDefaults() 
 		{
-			item.damage = 80;
-			item.melee = true;
-			item.width = 62;
-			item.height = 62;
-			item.useTime = 10;
-			item.useAnimation = 10;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.knockBack = 0;
-			item.value = Item.sellPrice(gold: 80);
-			item.rare = ItemRarityID.Red;
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = false;
-			item.crit = 96;
-			item.shoot = ModContent.ProjectileType<HeroBlade>();
-			item.shootSpeed = 10;
+			Item.damage = 80;
+			Item.DamageType = DamageClass.Melee;
+			Item.width = 62;
+			Item.height = 62;
+			Item.useTime = 10;
+			Item.useAnimation = 10;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.knockBack = 0;
+			Item.value = Item.sellPrice(gold: 80);
+			Item.rare = ItemRarityID.Red;
+			Item.UseSound = SoundID.Item1;
+			Item.autoReuse = false;
+			Item.crit = 96;
+			Item.shoot = ModContent.ProjectileType<HeroBlade>();
+			Item.shootSpeed = 10;
 		}
 
 		public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.BrokenHeroSword, 2);
-			recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(this);
-			recipe.AddIngredient(ItemID.NightsEdge);
-			recipe.AddIngredient(ItemID.Excalibur);
-			recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
-			recipe.SetResult(ItemID.TerraBlade);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.BrokenHeroSword)
+				.AddRecipeGroup(RecipeGroupID.IronBar, 15)
+				.AddTile(ModContent.TileType<CobaltWorkbench>())
+				.Register();
 		}
 	}
 }

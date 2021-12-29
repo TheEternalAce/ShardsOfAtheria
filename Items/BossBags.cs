@@ -1,13 +1,13 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Weapons;
-using SagesMania.Items.Accessories;
-using SagesMania.Items.DevItems.AceOfSpades2370;
-using SagesMania.Items.Weapons.Melee;
-using SagesMania.Items.Weapons.Ranged;
+using ShardsOfAtheria.Items.Weapons;
+using ShardsOfAtheria.Items.Accessories;
+using ShardsOfAtheria.Items.DevItems.AceOfSpades2370;
+using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Items.Weapons.Ranged;
 
-namespace SagesMania.Items
+namespace ShardsOfAtheria.Items
 {
     public class BossBags : GlobalItem
 	{
@@ -34,7 +34,7 @@ namespace SagesMania.Items
 				}
 				else
 				{
-					player.QuickSpawnItem(ModContent.ItemType<LCAR9>());
+					player.QuickSpawnItem(ModContent.ItemType<Glock80>());
 					player.QuickSpawnItem(ModContent.ItemType<HiddenBlade>());
 				}
 				if (Main.rand.NextFloat() < .1f)

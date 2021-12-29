@@ -1,37 +1,37 @@
-﻿using SagesMania.Projectiles;
+﻿using ShardsOfAtheria.Projectiles.Weapon;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.DevItems.AceOfSpades2370
+namespace ShardsOfAtheria.Items.DevItems.AceOfSpades2370
 {
     public class AceOfSpades : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("''What is that object?''");
+            Tooltip.SetDefault("'What is that object?'");
         }
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 22;
+            Item.width = 18;
+            Item.height = 22;
 
-            item.damage = 70;
-            item.ranged = true;
-            item.noMelee = true;
-            item.noUseGraphic = true;
-            item.knockBack = 4;
-            item.crit = 4;
-            item.useTime = 10;
-            item.useAnimation = 10;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.shoot = ModContent.ProjectileType<AceOfSpadesProj>();
-            item.shootSpeed = 15;
-            item.rare = ItemRarityID.Cyan;
-            item.value = Item.sellPrice(gold: 10);
+            Item.damage = 70;
+            Item.DamageType = DamageClass.Ranged;
+            Item.noMelee = true;
+            Item.noUseGraphic = true;
+            Item.knockBack = 4;
+            Item.crit = 4;
+            Item.useTime = 10;
+            Item.useAnimation = 10;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<AceOfSpadesProj>();
+            Item.shootSpeed = 15;
+            Item.rare = ItemRarityID.Cyan;
+            Item.value = Item.sellPrice(gold: 10);
         }
     }
 }

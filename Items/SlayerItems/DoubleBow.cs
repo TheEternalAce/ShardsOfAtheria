@@ -1,9 +1,10 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.SlayerItems
+namespace ShardsOfAtheria.Items.SlayerItems
 {
 	public class DoubleBow : SlayerItem
 	{
@@ -16,45 +17,44 @@ namespace SagesMania.Items.SlayerItems
 
         public override void SetDefaults()
 		{
-			item.width = 42;
-			item.height = 80;
-			item.value = Item.sellPrice(gold: 7, silver: 50);
-			item.rare = ItemRarityID.Expert;
+			Item.width = 42;
+			Item.height = 80;
+			Item.value = Item.sellPrice(gold: 7, silver: 50);
+			Item.rare = ItemRarityID.Expert;
 
-			item.damage = 70;
-            item.ranged = true;
-			item.knockBack = 2f;
-			item.crit = 10;
-            item.useTime = 15;
-			item.useAnimation = 15;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.UseSound = SoundID.Item5;
-			item.autoReuse = true;
+			Item.damage = 70;
+            Item.DamageType = DamageClass.Ranged;
+			Item.knockBack = 2f;
+			Item.crit = 10;
+            Item.useTime = 15;
+			Item.useAnimation = 15;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.UseSound = SoundID.Item5;
+			Item.autoReuse = true;
 
-			item.shoot = ItemID.PurificationPowder;
-			item.shootSpeed = 16;
-			item.useAmmo = AmmoID.Arrow;
+			Item.shoot = ItemID.PurificationPowder;
+			Item.shootSpeed = 16;
+			Item.useAmmo = AmmoID.Arrow;
 		}
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		{
 			if (type == ProjectileID.WoodenArrowFriendly)
-            {
+			{
 				if (cycleShot == 0)
 				{
 					type = ProjectileID.IchorArrow;
 					cycleShot = 1;
 				}
 				else
-                {
+				{
 					type = ProjectileID.CursedArrow;
 					cycleShot = 0;
-                }
-            }
-            return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+				}
+			}
 		}
 
-		public override Vector2? HoldoutOffset()
+        public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-12, 2);
 		}

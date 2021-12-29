@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Accessories.GemCores
+namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
 	[AutoloadEquip(EquipType.Wings)]
 	public class SuperEmeraldCore : ModItem
@@ -18,11 +18,11 @@ namespace SagesMania.Items.Accessories.GemCores
 
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.value = Item.sellPrice(silver: 15);
-			item.rare = ItemRarityID.White;
-			item.accessory = true;
+			Item.width = 32;
+			Item.height = 32;
+			Item.value = Item.sellPrice(silver: 15);
+			Item.rare = ItemRarityID.White;
+			Item.accessory = true;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -37,29 +37,28 @@ namespace SagesMania.Items.Accessories.GemCores
 			player.rocketBoots = 3;
 			player.moveSpeed += 1;
 			player.iceSkate = true;
-			player.doubleJumpCloud = true;
-			player.doubleJumpBlizzard = true;
-			player.doubleJumpSandstorm = true;
+			player.hasJumpOption_Cloud = true;
+			player.hasJumpOption_Blizzard = true;
+			player.hasJumpOption_Sandstorm = true;
 			player.jumpBoost = true;
 			player.GetModPlayer<SMPlayer>().superEmeraldCore = true;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<GreaterEmeraldCore>());
-			recipe.AddIngredient(ItemID.FragmentNebula, 5);
-			recipe.AddIngredient(ItemID.FragmentStardust, 5);
-			recipe.AddIngredient(ItemID.FrostsparkBoots);
-			recipe.AddIngredient(ItemID.BundleofBalloons);
-			recipe.AddTile(TileID.Hellforge);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<GreaterEmeraldCore>())
+				.AddIngredient(ItemID.FragmentNebula, 5)
+				.AddIngredient(ItemID.FragmentStardust, 5)
+				.AddIngredient(ItemID.FrostsparkBoots)
+				.AddIngredient(ItemID.BundleofBalloons)
+				.AddTile(TileID.Hellforge)
+				.Register();
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			var list = SagesMania.EmeraldTeleportKey.GetAssignedKeys();
+			var list = ShardsOfAtheria.EmeraldTeleportKey.GetAssignedKeys();
 			string keyname = "Not bound";
 
 			if (list.Count > 0)
@@ -67,7 +66,7 @@ namespace SagesMania.Items.Accessories.GemCores
 				keyname = list[0];
 			}
 
-			tooltips.Add(new TooltipLine(mod, "Damage", $"Allows teleportation on press of '[i:{keyname}]'"));
+			tooltips.Add(new TooltipLine(Mod, "Damage", $"Allows teleportation on press of '[i:{keyname}]'"));
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,

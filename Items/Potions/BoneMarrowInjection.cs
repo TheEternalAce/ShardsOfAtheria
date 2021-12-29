@@ -1,11 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Buffs;
-using SagesMania.Items.Placeable;
+using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Items.Placeable;
 using Terraria.DataStructures;
 
-namespace SagesMania.Items.Potions
+namespace ShardsOfAtheria.Items.Potions
 {
 	public class BoneMarrowInjection : ModItem
 	{
@@ -16,27 +16,26 @@ namespace SagesMania.Items.Potions
 
 		public override void SetDefaults()
 		{
-			item.width = 48;
-			item.height = 48;
-			item.rare = ItemRarityID.Orange;
-			item.maxStack = 30;
-			item.useStyle = ItemUseStyleID.HoldingUp;
-			item.useTime = 15;
-			item.useAnimation = 15;
-			item.consumable = true;
-			item.useTurn = true;
-			item.buffType = ModContent.BuffType<BoneStrength>();
-			item.buffTime = (4 * 60) * 60;
+			Item.width = 48;
+			Item.height = 48;
+			Item.rare = ItemRarityID.Orange;
+			Item.maxStack = 30;
+			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useTime = 15;
+			Item.useAnimation = 15;
+			Item.consumable = true;
+			Item.useTurn = true;
+			Item.buffType = ModContent.BuffType<BoneStrength>();
+			Item.buffTime = (4 * 60) * 60;
 		}
 
         public override void AddRecipes()
         {
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<EmptyNeedle>());
-            recipe.AddIngredient(ItemID.Bone);
-			recipe.AddTile(TileID.AlchemyTable);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<EmptyNeedle>())
+				.AddIngredient(ItemID.Bone)
+				.AddTile(TileID.AlchemyTable)
+				.Register();
 		}
 
 		public override void OnConsumeItem(Player player)

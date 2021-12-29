@@ -2,11 +2,11 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Buffs
+namespace ShardsOfAtheria.Buffs
 {
     public class InjectionShock : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Injection Shock");
             Description.SetDefault("You cannont use another injection, cannot regenerate life and mild blood loss");

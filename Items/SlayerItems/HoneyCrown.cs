@@ -1,9 +1,9 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Buffs;
+using ShardsOfAtheria.Buffs;
 
-namespace SagesMania.Items.SlayerItems
+namespace ShardsOfAtheria.Items.SlayerItems
 {
 	public class HoneyCrown : ModItem
 	{
@@ -14,11 +14,11 @@ namespace SagesMania.Items.SlayerItems
 
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 16;
-			item.value = Item.sellPrice(silver: 15);
-			item.rare = ItemRarityID.Expert;
-			item.accessory = true;
+			Item.width = 32;
+			Item.height = 16;
+			Item.value = Item.sellPrice(silver: 15);
+			Item.rare = ItemRarityID.Expert;
+			Item.accessory = true;
 		}
 
         public override void UpdateAccessory(Player player, bool hideVisual)

@@ -1,19 +1,19 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Buffs;
+using ShardsOfAtheria.Buffs;
 
-namespace SagesMania.Projectiles
+namespace ShardsOfAtheria.Projectiles
 {
     public class InfectionBlob : ModProjectile {
         public override void SetDefaults() {
-            projectile.width = 32;
-            projectile.height = 32;
+            Projectile.width = 32;
+            Projectile.height = 32;
 
-            projectile.aiStyle = 2;
-            projectile.friendly = true;
-            projectile.tileCollide = true;
-            projectile.arrow = true;
+            Projectile.aiStyle = 2;
+            Projectile.friendly = true;
+            Projectile.tileCollide = true;
+            Projectile.arrow = true;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -21,5 +21,4 @@ namespace SagesMania.Projectiles
             target.AddBuff(ModContent.BuffType<Infection>(), 10*60);
         }
     }
-
 }

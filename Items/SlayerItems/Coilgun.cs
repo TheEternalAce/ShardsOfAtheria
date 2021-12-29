@@ -1,10 +1,10 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
-using SagesMania.Items.Weapons.Ammo;
+using ShardsOfAtheria.Items.Weapons.Ammo;
 using Microsoft.Xna.Framework;
 
-namespace SagesMania.Items.SlayerItems
+namespace ShardsOfAtheria.Items.SlayerItems
 {
 	public class Coilgun : SlayerItem
 	{
@@ -18,25 +18,25 @@ namespace SagesMania.Items.SlayerItems
 
 		public override void SetDefaults() 
 		{
-			item.damage = 150;
-			item.magic = true;
-			item.noMelee = true;
-			item.width = 44;
-			item.height = 26;
-			item.useTime = 48;
-			item.useAnimation = 48;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.knockBack = 4f;
-			item.rare = ItemRarityID.Expert;
-			item.UseSound = SoundID.Item38;
-			item.autoReuse = false;
-			item.crit = 20;
-			item.value = Item.sellPrice(gold: 25);
-			item.shoot = ItemID.PurificationPowder;
-			item.shootSpeed = 20f;
-			item.useAmmo = ModContent.ItemType<AreusRod>();
+			Item.damage = 150;
+			Item.DamageType = DamageClass.Magic;
+			Item.noMelee = true;
+			Item.width = 44;
+			Item.height = 26;
+			Item.useTime = 48;
+			Item.useAnimation = 48;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.knockBack = 4f;
+			Item.rare = ItemRarityID.Expert;
+			Item.UseSound = SoundID.Item38;
+			Item.autoReuse = false;
+			Item.crit = 20;
+			Item.value = Item.sellPrice(gold: 25);
+			Item.shoot = ItemID.PurificationPowder;
+			Item.shootSpeed = 20f;
+			Item.useAmmo = ModContent.ItemType<AreusRod>();
 
-			item.mana = 20;
+			Item.mana = 20;
 		}
 
 		public override Vector2? HoldoutOffset()

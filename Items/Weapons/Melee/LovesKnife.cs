@@ -1,49 +1,47 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Projectiles;
 
-namespace SagesMania.Items.Weapons.Melee
+namespace ShardsOfAtheria.Items.Weapons.Melee
 {
 	public class LovesKnife : ModItem
 	{
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Tainted Love");
-			Tooltip.SetDefault("This blade holds the corrupted love and jealousy of several souls\n" +
-				"[c/960096:''She took you away from me, so I tore her away from you.'']");
+			Tooltip.SetDefault("Holds the corrupted love and jealousy of several souls");
 		}
 
 		public override void SetDefaults() 
 		{
-			item.damage = 97;
-			item.melee = true;
-			item.width = 32;
-			item.height = 34;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.knockBack = 3;
-			item.value = Item.buyPrice(gold: 2, silver: 40);
-			item.value = Item.sellPrice(gold: 1, silver: 40);
-			item.rare = ItemRarityID.Red;
-			item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Slash");
-			item.autoReuse = false;
-			item.crit = 10;
-			item.shoot = ModContent.ProjectileType<TaintedHeart>();
-			item.shootSpeed = 15;
+			Item.damage = 97;
+			Item.DamageType = DamageClass.Melee;
+			Item.width = 32;
+			Item.height = 34;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.knockBack = 3;
+			Item.value = Item.buyPrice(gold: 2, silver: 40);
+			Item.value = Item.sellPrice(gold: 1, silver: 40);
+			Item.rare = ItemRarityID.Red;
+			Item.UseSound = SoundID.Item1;
+			Item.autoReuse = false;
+			Item.crit = 10;
+			Item.shoot = ModContent.ProjectileType<TaintedHeart>();
+			Item.shootSpeed = 15;
 		}
 
 		public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<KitchenKnife>());
-			recipe.AddIngredient(ItemID.LifeCrystal, 5);
-			recipe.AddIngredient(ModContent.ItemType<SoulOfSpite>(), 7);
-			recipe.AddIngredient(ItemID.Ectoplasm, 5);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<KitchenKnife>())
+				.AddIngredient(ItemID.LifeCrystal, 5)
+				.AddIngredient(ModContent.ItemType<SoulOfSpite>(), 7)
+				.AddIngredient(ItemID.Ectoplasm, 5)
+				.AddTile(TileID.Anvils)
+				.Register();
 		}
 	}
 }

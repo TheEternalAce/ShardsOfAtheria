@@ -2,28 +2,28 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace SagesMania.Projectiles
+namespace ShardsOfAtheria.Projectiles
 {
     public class DecaSwarmer : ModProjectile
     {
         public override void SetDefaults()
         {
-            projectile.width = 8;
-            projectile.height = 8;
+            Projectile.width = 8;
+            Projectile.height = 8;
 
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.tileCollide = false;
-            projectile.timeLeft = 40;
-            projectile.extraUpdates = 1;
-            projectile.penetrate = -1;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 40;
+            Projectile.extraUpdates = 1;
+            Projectile.penetrate = -1;
 
-            drawOffsetX = -12;
+            DrawOffsetX = -12;
         }
 
         public override void AI()
         {
-            projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
         }
     }
 }

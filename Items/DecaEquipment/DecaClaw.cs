@@ -1,8 +1,13 @@
 ﻿using Terraria.ID;
+using Terraria.ModLoader;
+using ShardsOfAtheria.Projectiles.Weapon;
+using System.Collections.Generic;
+using Terraria;
+using ShardsOfAtheria.Items.Placeable;
 
-namespace SagesMania.Items.DecaEquipment
+namespace ShardsOfAtheria.Items.DecaEquipment
 {
-    class DecaClaw : DecaEquipment
+    class DecaClaw : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -13,21 +18,51 @@ namespace SagesMania.Items.DecaEquipment
 
         public override void SetDefaults()
         {
-            item.damage = 200000;
-            item.melee = true;
-            item.knockBack = 2f;
-            item.crit = 100;
-            item.useTime = 1;
-            item.useAnimation = 10;
-            item.rare = ItemRarityID.Red;
+            Item.damage = 200000;
+            Item.DamageType = DamageClass.Melee;
+            Item.knockBack = 2f;
+            Item.crit = 100;
+            Item.useTime = 1;
+            Item.useAnimation = 10;
+            Item.rare = ItemRarityID.Red;
 
-            item.autoReuse = true;
-            item.useTurn = true;
-            item.UseSound = SoundID.Item1;
-            item.useStyle = ItemUseStyleID.Stabbing;
-            item.width = 40;
-            item.height = 40;
-            item.scale = .85f;
+            Item.autoReuse = false;
+            Item.UseSound = SoundID.Item1;
+            Item.useStyle = ItemUseStyleID.Rapier;
+            Item.noMelee = true;
+            Item.noUseGraphic = true;
+            Item.width = 40;
+            Item.height = 40;
+            Item.scale = .85f;
+
+            Item.shoot = ModContent.ProjectileType<DecaClawProj>();
+            Item.shootSpeed = 2.1f;
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Add(new TooltipLine(Mod, "Deca Gear", "[c/FF4100:Deca Equipment]"));
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            return player.GetModPlayer<DecaPlayer>().modelDeca;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 20)
+                .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 10)
+                .AddIngredient(ItemID.SoulofFlight, 10)
+                .AddIngredient(ItemID.SoulofFright, 10)
+                .AddIngredient(ItemID.SoulofLight, 10)
+                .AddIngredient(ItemID.SoulofMight, 10)
+                .AddIngredient(ItemID.SoulofNight, 10)
+                .AddIngredient(ItemID.SoulofSight, 10)
+                .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10)
+                .AddIngredient(ModContent.ItemType<SoulOfStarlight>(), 10)
+                .AddIngredient(ModContent.ItemType<DeathEssence>())
+                .Register();
         }
     }
 }

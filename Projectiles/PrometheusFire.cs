@@ -1,67 +1,68 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Projectiles
+namespace ShardsOfAtheria.Projectiles
 {
     public class PrometheusFire : ModProjectile {
         public override void SetStaticDefaults()
         {
-            Main.projFrames[projectile.type] = 4;
+            Main.projFrames[Projectile.type] = 4;
         }
 
         public override void SetDefaults() {
-            projectile.width = 20;
-            projectile.height = 20;
+            Projectile.width = 20;
+            Projectile.height = 20;
 
-            projectile.aiStyle = 1;
-            projectile.friendly = true;
-            projectile.arrow = false;
-            projectile.light = 1f;
-            projectile.extraUpdates = 1;
-            aiType = ProjectileID.Bullet;
+            Projectile.aiStyle = 1;
+            Projectile.friendly = true;
+            Projectile.arrow = false;
+            Projectile.light = 1f;
+            Projectile.extraUpdates = 1;
+            AIType = ProjectileID.Bullet;
         }
 
         public override void AI()
         {
-            projectile.rotation = projectile.velocity.ToRotation();
+            Projectile.rotation = Projectile.velocity.ToRotation();
             // Set both direction and spriteDirection to 1 or -1 (right and left respectively)
-            // projectile.direction is automatically set correctly in Projectile.Update, but we need to set it here or the textures will draw incorrectly on the 1st frame.
-            projectile.spriteDirection = projectile.direction = (projectile.velocity.X > 0).ToDirectionInt();
+            // Projectile.direction is automatically set correctly in Projectile.Update, but we need to set it here or the textures will draw incorrectly on the 1st frame.
+            Projectile.spriteDirection = Projectile.direction = (Projectile.velocity.X > 0).ToDirectionInt();
             // Adding Pi to rotation if facing left corrects the drawing
-            projectile.rotation = projectile.velocity.ToRotation() + (projectile.spriteDirection == 1 ? 0f : MathHelper.Pi);
-            if (projectile.spriteDirection == 1) // facing right
+            Projectile.rotation = Projectile.velocity.ToRotation() + (Projectile.spriteDirection == 1 ? 0f : MathHelper.Pi);
+            if (Projectile.spriteDirection == 1) // facing right
             {
-                drawOffsetX = -19;
-                drawOriginOffsetX = 9;
+                DrawOffsetX = -19;
+                DrawOriginOffsetX = 9;
             }
             else
             {
-                drawOffsetX = 0;
-                drawOriginOffsetX = -9; // Math works out that this is negative of the other value.
+                DrawOffsetX = 0;
+                DrawOriginOffsetX = -9; // Math works out that this is negative of the other value.
             }
             // Loop through the 4 animation frames, spending 5 ticks on each.
-            if (++projectile.frameCounter >= 15)
+            if (++Projectile.frameCounter >= 15)
             {
-                projectile.frameCounter = 0;
-                if (++projectile.frame >= 4)
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 4)
                 {
-                    projectile.frame = 0;
+                    Projectile.frame = 0;
                 }
             }
             if (Main.rand.NextBool(3))
             {
-                Dust dust = Dust.NewDustDirect(projectile.position, projectile.height, projectile.width, DustID.Fire,
-                    projectile.velocity.X * .2f, projectile.velocity.Y * .2f, 200, Scale: 1.2f);
-                dust.velocity += projectile.velocity * 0.3f;
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, 6,
+                    Projectile.velocity.X * .2f, Projectile.velocity.Y * .2f, 200, Scale: 1.2f);
+                dust.velocity += Projectile.velocity * 0.3f;
                 dust.velocity *= 0.2f;
             }
             if (Main.rand.NextBool(4))
             {
-                Dust dust = Dust.NewDustDirect(projectile.position, projectile.height, projectile.width, DustID.Fire,
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, 6,
                     0, 0, 254, Scale: 0.3f);
-                dust.velocity += projectile.velocity * 0.5f;
+                dust.velocity += Projectile.velocity * 0.5f;
                 dust.velocity *= 0.5f;
             }
         }
@@ -69,12 +70,12 @@ namespace SagesMania.Projectiles
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 10 * 60);
-            Main.PlaySound(SoundID.Item74, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            Main.PlaySound(SoundID.Item74, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
             return base.OnTileCollide(oldVelocity);
         }
     }

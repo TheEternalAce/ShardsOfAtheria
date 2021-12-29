@@ -1,12 +1,12 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using SagesMania.Projectiles.Minions;
+using ShardsOfAtheria.Projectiles.Minions;
 
-namespace SagesMania.Buffs
+namespace ShardsOfAtheria.Buffs
 {
     public class Honeybee : ModBuff
     {
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Honeybee");
 			Description.SetDefault("The Honeybee will fight along side you\n" +

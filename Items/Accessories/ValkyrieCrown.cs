@@ -1,11 +1,11 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Placeable;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Tiles;
 using System.Collections.Generic;
 
-namespace SagesMania.Items.Accessories
+namespace ShardsOfAtheria.Items.Accessories
 {
 	public class ValkyrieCrown : ModItem
 	{
@@ -16,10 +16,10 @@ namespace SagesMania.Items.Accessories
 
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.value = Item.sellPrice(gold: 1);
-			item.accessory = true;
+			Item.width = 32;
+			Item.height = 32;
+			Item.value = Item.sellPrice(gold: 1);
+			Item.accessory = true;
 		}
 
         public override void UpdateAccessory(Player player, bool hideVisual)

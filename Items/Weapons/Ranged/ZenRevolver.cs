@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Weapons.Ranged
+namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
 	public class ZenRevolver : ModItem
 	{
@@ -12,32 +12,31 @@ namespace SagesMania.Items.Weapons.Ranged
 
 		public override void SetDefaults()
 		{
-			item.damage = 30;
-			item.ranged = true;
-			item.noMelee = true;
-			item.width = 48;
-			item.height = 28;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.knockBack = 3.75f;
-			item.rare = ItemRarityID.Blue;
-			item.UseSound = SoundID.Item41;
-			item.autoReuse = true;
-			item.crit = 6;
-			item.shoot = ProjectileID.PurificationPowder;
-			item.shootSpeed = 13f;
-			item.useAmmo = AmmoID.Bullet;
+			Item.damage = 30;
+			Item.DamageType = DamageClass.Ranged;
+			Item.noMelee = true;
+			Item.width = 48;
+			Item.height = 28;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.knockBack = 3.75f;
+			Item.rare = ItemRarityID.Blue;
+			Item.UseSound = SoundID.Item41;
+			Item.autoReuse = true;
+			Item.crit = 6;
+			Item.shoot = ProjectileID.PurificationPowder;
+			Item.shootSpeed = 13f;
+			Item.useAmmo = AmmoID.Bullet;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.FlintlockPistol);
-			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 16);
-			recipe.AddTile(TileID.Hellforge);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.FlintlockPistol)
+				.AddRecipeGroup(RecipeGroupID.IronBar, 16)
+				.AddTile(TileID.Hellforge)
+				.Register();
 		}
 
         public override Vector2? HoldoutOffset()

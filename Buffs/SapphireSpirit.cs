@@ -1,12 +1,12 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using SagesMania.Projectiles.Minions;
+using ShardsOfAtheria.Projectiles.Minions;
 
-namespace SagesMania.Buffs
+namespace ShardsOfAtheria.Buffs
 {
     public class SapphireSpirit : ModBuff
     {
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sapphire Spirit");
 			Description.SetDefault("The sapphire spirit will fight along side you\n" +

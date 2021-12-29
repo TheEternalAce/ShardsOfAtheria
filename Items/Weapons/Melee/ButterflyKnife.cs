@@ -3,39 +3,38 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Weapons.Melee
+namespace ShardsOfAtheria.Items.Weapons.Melee
 {
 	public class ButterflyKnife : SpecialItem
 	{
 		public override void SetStaticDefaults() 
 		{
-			Tooltip.SetDefault("''SPAH CREEPIN' 'ROUND HERE!'' ");
+			Tooltip.SetDefault("'SPAH CREEPIN' 'ROUND HERE!' ");
 		}
 
 		public override void SetDefaults() 
 		{
-			item.damage = 1000;
-			item.melee = true;
-			item.width = 32;
-			item.height = 32;
-			item.useTime = 10;
-			item.useAnimation = 10;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.knockBack = 0;
-			item.value = Item.sellPrice(gold: 80);
-			item.rare = ItemRarityID.Red;
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = false;
-			item.crit = 96;
+			Item.damage = 1000;
+			Item.DamageType = DamageClass.Melee;
+			Item.width = 32;
+			Item.height = 32;
+			Item.useTime = 10;
+			Item.useAnimation = 10;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.knockBack = 0;
+			Item.value = Item.sellPrice(gold: 80);
+			Item.rare = ItemRarityID.Red;
+			Item.UseSound = SoundID.Item1;
+			Item.autoReuse = false;
+			Item.crit = 96;
 		}
 
 		public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.LunarBar, 15);
-			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.LunarBar, 15)
+				.AddTile(TileID.LunarCraftingStation)
+				.Register();
 		}
 	}
 }

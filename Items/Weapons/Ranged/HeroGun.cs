@@ -1,11 +1,12 @@
 using Microsoft.Xna.Framework;
-using SagesMania.Projectiles;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Projectiles;
+using ShardsOfAtheria.Tiles;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Weapons.Ranged
+namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
 	public class HeroGun : ModItem
 	{
@@ -16,41 +17,42 @@ namespace SagesMania.Items.Weapons.Ranged
 
 		public override void SetDefaults()
 		{
-			item.damage = 72;
-			item.ranged = true;
-			item.noMelee = true;
-			item.width = 56;
-			item.height = 24;
-			item.useTime = 30;
-			item.useAnimation = 30;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.knockBack = 3.75f;
-			item.rare = ItemRarityID.Green;
-			item.UseSound = SoundID.Item41;
-			item.autoReuse = true;
-			item.crit = 20;
-			item.shoot = ProjectileID.PurificationPowder;
-			item.shootSpeed = 13f;
-			item.useAmmo = AmmoID.Bullet;
+			Item.damage = 72;
+			Item.DamageType = DamageClass.Ranged;
+			Item.noMelee = true;
+			Item.width = 56;
+			Item.height = 24;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.knockBack = 3.75f;
+			Item.rare = ItemRarityID.Green;
+			Item.UseSound = SoundID.Item41;
+			Item.autoReuse = true;
+			Item.crit = 20;
+			Item.shoot = ProjectileID.PurificationPowder;
+			Item.shootSpeed = 13f;
+			Item.useAmmo = AmmoID.Bullet;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<BrokenHeroGun>(), 2);
-			recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<BrokenHeroGun>())
+				.AddIngredient(ItemID.Handgun)
+				.AddTile(ModContent.TileType<CobaltWorkbench>())
+				.Register();
 		}
 
-		public override bool ConsumeAmmo(Player player)
+		public override bool CanConsumeAmmo(Player player)
 		{
 			return Main.rand.NextFloat() >= .48f;
 		}
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Projectile.NewProjectile(position.X, position.Y, speedX, speedY, ModContent.ProjectileType<HeroBullet>(), damage, knockBack, player.whoAmI);
-			return true;
-		}
+			Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<HeroBullet>(), damage, knockback, player.whoAmI);
+			return base.Shoot(player, source, position, velocity, type, damage, knockback);
+        }
     }
 }

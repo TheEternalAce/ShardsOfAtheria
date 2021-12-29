@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Weapons.Melee
+namespace ShardsOfAtheria.Items.Weapons.Melee
 {
 	public class OversizedWormsTooth : ModItem
 	{
@@ -15,20 +15,20 @@ namespace SagesMania.Items.Weapons.Melee
 
 		public override void SetDefaults() 
 		{
-			item.damage = 33;
-			item.melee = true;
-			item.width = 42;
-			item.height = 48;
-			item.useTime = 30;
-			item.useAnimation = 30;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.knockBack = 5;
-			item.value = Item.sellPrice(gold: 10);
-			item.rare = ItemRarityID.Expert;
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = false;
-			item.crit = 21;
-			item.expert = true;
+			Item.damage = 33;
+			Item.DamageType = DamageClass.Melee;
+			Item.width = 42;
+			Item.height = 48;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.knockBack = 5;
+			Item.value = Item.sellPrice(gold: 10);
+			Item.rare = ItemRarityID.Expert;
+			Item.UseSound = SoundID.Item1;
+			Item.autoReuse = false;
+			Item.crit = 21;
+			Item.expert = true;
 		}
 
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)

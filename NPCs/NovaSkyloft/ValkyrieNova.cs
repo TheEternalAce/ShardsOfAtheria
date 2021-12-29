@@ -1,61 +1,61 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SagesMania.Items.Accessories;
-using SagesMania.Items.Placeable;
-using SagesMania.Items.SlayerItems;
-using SagesMania.Items.Weapons.Magic;
-using SagesMania.Items.Weapons.Melee;
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Items.Accessories;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Items.Weapons.Magic;
+using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Projectiles;
 using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
-namespace SagesMania.NPCs.NovaSkyloft
+namespace ShardsOfAtheria.NPCs.NovaSkyloft
 {
     [AutoloadBossHead]
     public class ValkyrieNova : ModNPC
     {
-        public override string Texture => "SagesMania/NPCs/NovaSkyloft/HarpyKnight";
-        public override string HeadTexture => "SagesMania/NPCs/NovaSkyloft/HarpyKnight_Head_Boss";
+        public override string Texture => "ShardsOfAtheria/NPCs/NovaSkyloft/HarpyKnight";
+        public override string HeadTexture => "ShardsOfAtheria/NPCs/NovaSkyloft/HarpyKnight_Head_Boss";
 
         private int attackTimer;
-        private int movementTimer;
+        private int dialogueTimer;
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Nova Skyloft, the Lightning Valkyrie");
-            Main.npcFrameCount[npc.type] = 1;
+            Main.npcFrameCount[NPC.type] = 1;
         }
 
         public override void SetDefaults()
         {
-            npc.width = 86;
-            npc.height = 60;
-            npc.damage = 29;
-            npc.defense = 8;
-            npc.lifeMax = 1000;
-            npc.HitSound = SoundID.NPCHit1;
-            npc.DeathSound = SoundID.NPCDeath1;
-            npc.knockBackResist = 0f;
-            npc.aiStyle = 14;
-            npc.boss = true;
-            npc.noGravity = true;
-            music = MusicID.Boss1;
-            npc.value = Item.buyPrice(0, 5, 0, 0);
-            npc.npcSlots = 15f;
+            NPC.width = 86;
+            NPC.height = 60;
+            NPC.damage = 29;
+            NPC.defense = 8;
+            NPC.lifeMax = 1000;
+            NPC.HitSound = SoundID.NPCHit1;
+            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.knockBackResist = 0f;
+            NPC.aiStyle = 14;
+            NPC.boss = true;
+            NPC.noGravity = true;
+            Music = MusicID.Boss2;
+            NPC.value = Item.buyPrice(0, 5, 0, 0);
+            NPC.npcSlots = 15f;
         }
 
         public override bool CheckDead()
         {
-            if (npc.ai[3] == 0f)
+            if (NPC.ai[3] == 0f)
             {
-                npc.ai[3] = 1f;
-                npc.damage = 0;
-                npc.life = npc.lifeMax;
-                npc.dontTakeDamage = true;
-                npc.netUpdate = true;
+                NPC.ai[3] = 1f;
+                NPC.damage = 0;
+                NPC.life = NPC.lifeMax;
+                NPC.dontTakeDamage = true;
+                NPC.netUpdate = true;
                 return false;
             }
             return true;
@@ -63,19 +63,19 @@ namespace SagesMania.NPCs.NovaSkyloft
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = (int)(npc.lifeMax * 1.5f * bossLifeScale);
-            npc.damage = (int)(npc.damage * 1f);
+            NPC.lifeMax = (int)(NPC.lifeMax * 1.5f * bossLifeScale);
+            NPC.damage = (int)(NPC.damage * 1f);
         }
 
         public override bool PreAI()
         {
             Player player = Main.LocalPlayer;
             if (player.dead)
-                npc.active = false;
+                NPC.active = false;
             if (ModContent.GetInstance<SMWorld>().slainValkyrie)
             {
                 Main.NewText("Nova Skyloft, the Harpy Knight was slain...");
-                npc.active = false;
+                NPC.active = false;
             }
             return base.PreAI();
         }
@@ -85,22 +85,22 @@ namespace SagesMania.NPCs.NovaSkyloft
             Player player = Main.LocalPlayer;
             if (Main.rand.NextBool(3))
             {
-                Dust dust = Dust.NewDustDirect(npc.position, npc.height, npc.width, DustID.Electric,
-                    npc.velocity.X * .2f, npc.velocity.Y * .2f, 200, Scale: 1f);
-                dust.velocity += npc.velocity * 0.3f;
+                Dust dust = Dust.NewDustDirect(NPC.position, NPC.height, NPC.width, DustID.Electric,
+                    NPC.velocity.X * .2f, NPC.velocity.Y * .2f, 200, Scale: 1f);
+                dust.velocity += NPC.velocity * 0.3f;
                 dust.velocity *= 0.2f;
             }
 
-            if (npc.localAI[0] == 0f && npc.life >= 1 && !ModContent.GetInstance<SMWorld>().slainValkyrie)
+            if (NPC.localAI[0] == 0f && NPC.life >= 1 && !ModContent.GetInstance<SMWorld>().slainValkyrie)
             {
-                Main.NewText("Behold, my Valkyrie form!");
-                npc.localAI[0] = 1f;
+                Main.NewText("Behold, my Valkyrie form! (...Shut up the sprite artist is lazy)");
+                NPC.localAI[0] = 1f;
             }
-            npc.TargetClosest();
-            if (npc.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient && !npc.dontTakeDamage)
+            NPC.TargetClosest();
+            if (NPC.HasValidTarget && Main.netMode != NetmodeID.MultiplayerClient && !NPC.dontTakeDamage)
             {
-                Vector2 position = npc.Center;
-                Vector2 targetPosition = Main.player[npc.target].Center;
+                Vector2 position = NPC.Center;
+                Vector2 targetPosition = Main.player[NPC.target].Center;
                 Vector2 direction = targetPosition - position;
                 Vector2 above = targetPosition + new Vector2(0, -300f);
 
@@ -112,97 +112,101 @@ namespace SagesMania.NPCs.NovaSkyloft
                 //Feather blade barrage
                 if (attackTimer == 120)
                 {
-                    Projectile.NewProjectile(targetPosition + new Vector2(150, 0), new Vector2(-3, 0), ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, new Vector2(-10, 0).ToRotation(), Main.rand.Next(100));
-                    Projectile.NewProjectile(targetPosition + new Vector2(-150, 0), new Vector2(3, 0), ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, new Vector2(10, 0).ToRotation(), Main.rand.Next(100));
-                    Projectile.NewProjectile(targetPosition + new Vector2(0, 150), new Vector2(0, -3), ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, new Vector2(0, -10).ToRotation(), Main.rand.Next(100));
-                    Projectile.NewProjectile(targetPosition + new Vector2(0, -150), new Vector2(0, 3), ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, new Vector2(0, 10).ToRotation(), Main.rand.Next(100));
+                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), targetPosition + new Vector2(150, 0), new Vector2(-3, 0), ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), targetPosition + new Vector2(-150, 0), new Vector2(-3, 0), ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), targetPosition + new Vector2(0, 150), new Vector2(-3, 0), ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), targetPosition + new Vector2(0, -150), new Vector2(-3, 0), ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
                 }
                 if (attackTimer == 140)
                 {
-                    Projectile.NewProjectile(position, direction * 10f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), position, direction * 10f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
                 }
                 if (attackTimer == 160)
                 {
-                    Projectile.NewProjectile(targetPosition + new Vector2(125, 125), new Vector2(-3, -3), ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, new Vector2(-10, -10).ToRotation());
-                    Projectile.NewProjectile(targetPosition + new Vector2(125, -125), new Vector2(-3, 3), ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, new Vector2(-10, 10).ToRotation());
-                    Projectile.NewProjectile(targetPosition + new Vector2(-125, 125), new Vector2(3, -3), ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, new Vector2(10, -10).ToRotation());
-                    Projectile.NewProjectile(targetPosition + new Vector2(-125, -125), new Vector2(3, 3), ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, new Vector2(10, 10).ToRotation());
+                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), targetPosition + new Vector2(125, 125), new Vector2(-3, 0), ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), targetPosition + new Vector2(150, -125), new Vector2(-3, 0), ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), targetPosition + new Vector2(-125, 125), new Vector2(-3, 0), ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), targetPosition + new Vector2(-125, -150), new Vector2(-3, 0), ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
                 }
                 
                 //Lightning strikes
                 if (attackTimer == 220)
-                    Projectile.NewProjectile(above, direction * 10f, ProjectileID.VortexLightning, 18, 0f, Main.myPlayer, new Vector2(0, 10).ToRotation(), Main.rand.Next(100));
+                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), above, direction * 10f, ProjectileID.VortexLightning, 18, 0f, Main.myPlayer, new Vector2(0, 10).ToRotation(), Main.rand.Next(100));
                 if (attackTimer == 280)
-                    npc.velocity = Vector2.Normalize(direction) * 10;
+                    NPC.velocity = Vector2.Normalize(direction) * 10;
                 if (attackTimer == 340)
                     attackTimer = 0;
             }
-            npc.spriteDirection = Main.player[npc.target].Center.X > npc.Center.X ? 1 : -1;
+            NPC.spriteDirection = Main.player[NPC.target].Center.X > NPC.Center.X ? 1 : -1;
 
-            if (npc.position.Y >= player.position.Y + 300)
-                npc.position.Y = player.position.Y + 300;
+            if (NPC.position.Y >= player.position.Y + 300)
+                NPC.position.Y = player.position.Y + 300;
 
             // death drama
-            if (npc.ai[3] > 0f)
+            if (NPC.ai[3] > 0f)
             {
-                npc.dontTakeDamage = true;
-                npc.ai[3] += 1f; // increase our death timer.
-                                 //npc.velocity = Vector2.UnitY * npc.velocity.Length();
-                npc.velocity.X = 0f;
-                npc.velocity.Y = 0;
-                if (npc.ai[3] > 1f && npc.ai[3] == 2)
+                NPC.dontTakeDamage = true;
+                NPC.ai[3] += 1f; // increase our death timer.
+                                 //NPC.velocity = Vector2.UnitY * NPC.velocity.Length();
+                NPC.velocity.X = 0f;
+                NPC.velocity.Y = 0;
+                if (NPC.ai[3] > 1f && NPC.ai[3] == 2)
                 {
                     if (!ModContent.GetInstance<SMWorld>().slayerMode)
                     {
-                        Main.NewText("*pant* *pant* You defeated me..? Darn, oh well, that was fun regardless!");
+                        dialogueTimer++;
+                        if (dialogueTimer == 0)
+                            Main.NewText("*pant* *pant* You defeated me..?");
+                        if (dialogueTimer == 20)
+                            Main.NewText("...");
                     }
                     else
                     {
-                        Main.NewText("*cough* *cough* You're... really strong huh..? Or am I weak..? Haha... Mom... I failed...");
+                        Main.NewText("*cough* *cough* You're... really strong huh..? Or am I weak..? Haha... Mother... I've failed... you...");
                     }
                 }
-                if (npc.ai[3] >= 120f)
+                if (NPC.ai[3] >= 120f)
                 {
-                    npc.life = 0;
-                    npc.HitEffect(0, 0);
-                    npc.checkDead(); // This will trigger ModNPC.CheckDead the second time, causing the real death.
+                    NPC.life = 0;
+                    NPC.HitEffect(0, 0);
+                    NPC.checkDead(); // This will trigger ModNPC.CheckDead the second time, causing the real death.
                 }
                 return;
             }
         }
 
-        public override void NPCLoot()
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             var dropChooser = new WeightedRandom<int>();
             dropChooser.Add(ModContent.ItemType<ValkyrieCrown>());
             dropChooser.Add(ModContent.ItemType<ValkyrieBlade>());
             int choice = dropChooser;
+            dialogueTimer = 0;
 
             if (!ModContent.GetInstance<SMWorld>().downedValkyrie)
                 ModContent.GetInstance<SMWorld>().downedValkyrie = true;
             if (!ModContent.GetInstance<SMWorld>().slayerMode)
-                Main.NewText("I shall take my leave now, in the meantime, here's your reward.");
-            if (!ModContent.GetInstance<SMWorld>().slayerMode)
             {
+                Main.NewText("I'll take back my crest now, in the meantime, here's your reward.");
                 if (Main.expertMode)
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<NovaBossBag>());
+                    Item.NewItem(NPC.getRect(), ModContent.ItemType<NovaBossBag>());
                 else
                 {
-                    Item.NewItem(npc.getRect(), ItemID.Feather, Main.rand.Next(10, 19));
-                    Item.NewItem(npc.getRect(), ItemID.GoldBar, Main.rand.Next(10, 19));
-                    Item.NewItem(npc.getRect(), choice);
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<PhaseOreItem>(), Main.rand.Next(5, 7));
+                    Item.NewItem(NPC.getRect(), ItemID.Feather, Main.rand.Next(10, 19));
+                    Item.NewItem(NPC.getRect(), ItemID.GoldBar, Main.rand.Next(10, 19));
+                    Item.NewItem(NPC.getRect(), choice);
+                    Item.NewItem(NPC.getRect(), ModContent.ItemType<PhaseOreItem>(), Main.rand.Next(5, 7));
                 }
             }
             else
             {
-                Item.NewItem(npc.getRect(), ModContent.ItemType<GildedValkyrieWings>());
-                Item.NewItem(npc.getRect(), ModContent.ItemType<ValkyrieCrown>());
-                Item.NewItem(npc.getRect(), ModContent.ItemType<ValkyrieBlade>());
-                Item.NewItem(npc.getRect(), ItemID.Feather, 4000);
-                Item.NewItem(npc.getRect(), ItemID.GoldBar, 4000);
-                Item.NewItem(npc.getRect(), ModContent.ItemType<ValkyrieStormLance>());
-                Item.NewItem(npc.getRect(), ModContent.ItemType<PhaseOreItem>(), 20);
+                Item.NewItem(NPC.getRect(), ModContent.ItemType<GildedValkyrieWings>());
+                Item.NewItem(NPC.getRect(), ModContent.ItemType<ValkyrieCrown>());
+                Item.NewItem(NPC.getRect(), ModContent.ItemType<ValkyrieBlade>());
+                Item.NewItem(NPC.getRect(), ItemID.Feather, 4000);
+                Item.NewItem(NPC.getRect(), ItemID.GoldBar, 4000);
+                Item.NewItem(NPC.getRect(), ModContent.ItemType<ValkyrieStormLance>());
+                Item.NewItem(NPC.getRect(), ModContent.ItemType<PhaseOreItem>(), 20);
             }
         }
 

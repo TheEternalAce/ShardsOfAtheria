@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Commands
+namespace ShardsOfAtheria.Commands
 {
     class ToggleFlight : ModCommand
 	{
@@ -13,19 +13,19 @@ namespace SagesMania.Commands
 			=> "toggleFlight";
 
 		public override string Description
-			=> "Allow or dissallow flight";
+			=> "Toggle flight";
 
 		public override void Action(CommandCaller caller, string input, string[] args)
 		{
 			Player player = Main.LocalPlayer;
-			if (ModContent.GetInstance<SMWorld>().flightToggle)
+			if (!ModContent.GetInstance<SMWorld>().flightDisabled)
 			{
-				ModContent.GetInstance<SMWorld>().flightToggle = false;
+				ModContent.GetInstance<SMWorld>().flightDisabled = true;
 				Main.NewText("Flight disabled");
 			}
 			else
 			{
-				ModContent.GetInstance<SMWorld>().flightToggle = true;
+				ModContent.GetInstance<SMWorld>().flightDisabled = false;
 				Main.NewText("Flight enabled");
 			}
 		}

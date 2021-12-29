@@ -1,44 +1,45 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Projectiles.Weapon;
 using Microsoft.Xna.Framework;
+using Terraria.DataStructures;
 
-namespace SagesMania.Items.SlayerItems
+namespace ShardsOfAtheria.Items.SlayerItems
 {
 	public class FlailOfFlesh : ModItem
 	{
 		public override void SetDefaults()
 		{
-			item.width = 24;
-			item.height = 22;
-			item.value = Item.sellPrice(silver: 5);
-			item.rare = ItemRarityID.Expert;
-			item.noMelee = true;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.useAnimation = 40;
-			item.useTime = 40;
-			item.knockBack = 4f;
-			item.damage = 50;
-			item.noUseGraphic = true;
-			item.shoot = ModContent.ProjectileType<FlailOfFleshProj>();
-			item.shootSpeed = 15.1f;
-			item.UseSound = SoundID.Item1;
-			item.summon = true;
-			item.channel = true;
+			Item.width = 24;
+			Item.height = 22;
+			Item.value = Item.sellPrice(silver: 5);
+			Item.rare = ItemRarityID.Expert;
+			Item.noMelee = true;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useAnimation = 40;
+			Item.useTime = 40;
+			Item.knockBack = 4f;
+			Item.damage = 50;
+			Item.noUseGraphic = true;
+			Item.shoot = ModContent.ProjectileType<FlailOfFleshProj>();
+			Item.shootSpeed = 15.1f;
+			Item.UseSound = SoundID.Item1;
+			Item.DamageType = DamageClass.Summon;
+			Item.channel = true;
 		}
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			float numberProjectiles = 3; // 3 shots
-			float rotation = MathHelper.ToRadians(5);
-			position += Vector2.Normalize(new Vector2(speedX, speedY)) * 5f;
+			float numberProjectiles = 3 + Main.rand.Next(3); // 3, 4, or 5 shots
+			float rotation = MathHelper.ToRadians(45);
+			position += Vector2.Normalize(velocity) * 45f;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .2f; // Watch out for dividing by 0 if there is only 1 Projectile.
+				Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
 			}
-			return false;
+			return false; // return false to stop vanilla from calling Projectile.NewProjectile.
 		}
     }
 }

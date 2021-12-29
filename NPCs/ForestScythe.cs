@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
-namespace SagesMania.NPCs
+namespace ShardsOfAtheria.NPCs
 {
     public class ForestScythe : ModNPC
     {
@@ -13,27 +13,27 @@ namespace SagesMania.NPCs
 
         public override void SetDefaults()
         {
-            npc.width = 60;
-            npc.height = 60;
-            npc.damage = 7;
-            npc.defense = 8;
-            npc.lifeMax = 40;
-            npc.HitSound = SoundID.NPCHit4;
-            npc.DeathSound = SoundID.NPCDeath52;
-            npc.knockBackResist = 0.4f;
-            npc.aiStyle = 23;
+            NPC.width = 60;
+            NPC.height = 60;
+            NPC.damage = 7;
+            NPC.defense = 8;
+            NPC.lifeMax = 40;
+            NPC.HitSound = SoundID.NPCHit4;
+            NPC.DeathSound = SoundID.NPCDeath52;
+            NPC.knockBackResist = 0.4f;
+            NPC.aiStyle = 23;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = (int)(npc.lifeMax * .5f);
-            npc.damage = (int)(npc.damage * .5f);
+            NPC.lifeMax = (int)(NPC.lifeMax * .5f);
+            NPC.damage = (int)(NPC.damage * .5f);
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             Player player = Main.LocalPlayer;
-            if (!(spawnInfo.player.ZoneHoly || spawnInfo.player.ZoneCrimson || spawnInfo.player.ZoneCorrupt || Main.eclipse
+            if (!(spawnInfo.player.ZoneHallow || spawnInfo.player.ZoneCrimson || spawnInfo.player.ZoneCorrupt || Main.eclipse
                 || spawnInfo.player.ZoneTowerNebula || spawnInfo.player.ZoneTowerVortex || spawnInfo.player.ZoneTowerSolar
                 || spawnInfo.player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon || spawnInfo.playerSafe) && Main.dayTime
                 && spawnInfo.player.ZoneOverworldHeight)
@@ -41,7 +41,7 @@ namespace SagesMania.NPCs
             return 0f;
         }
 
-        public override void NPCLoot()
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             var dropChooser = new WeightedRandom<int>();
             dropChooser.Add(ItemID.Radar);
@@ -49,9 +49,9 @@ namespace SagesMania.NPCs
             int choice = dropChooser;
 
             if (Main.rand.NextFloat() < .01f)
-                Item.NewItem(npc.getRect(), choice);
+                Item.NewItem(NPC.getRect(), choice);
             if (Main.rand.NextFloat() < .5f)
-                Item.NewItem(npc.getRect(), ItemID.Wood, Main.rand.Next(10, 20));
+                Item.NewItem(NPC.getRect(), ItemID.Wood, Main.rand.Next(10, 20));
         }
     }
 }

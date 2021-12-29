@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Accessories.GemCores
+namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
 	public class LesserTopazCore : ModItem
 	{
@@ -13,21 +13,20 @@ namespace SagesMania.Items.Accessories.GemCores
 
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.value = Item.sellPrice(silver: 15);
-			item.rare = ItemRarityID.White;
-			item.accessory = true;
+			Item.width = 32;
+			Item.height = 32;
+			Item.value = Item.sellPrice(silver: 15);
+			Item.rare = ItemRarityID.White;
+			Item.accessory = true;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddRecipeGroup("SM:GoldBars", 10);
-			recipe.AddIngredient(ItemID.Topaz, 5);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddRecipeGroup("SM:GoldBars", 10)
+				.AddIngredient(ItemID.Topaz, 5)
+				.AddTile(TileID.Anvils)
+				.Register();
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

@@ -2,38 +2,39 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Terraria.Audio;
 
-namespace SagesMania.Projectiles
+namespace ShardsOfAtheria.Projectiles
 {
     public class IceBolt : ModProjectile {
         public override void SetDefaults() {
-            projectile.width = 18;
-            projectile.height = 18;
+            Projectile.width = 18;
+            Projectile.height = 18;
 
-            projectile.aiStyle = 1;
-            projectile.friendly = true;
-            projectile.tileCollide = true;
-            projectile.arrow = true;
-            projectile.light = 1;
-            projectile.magic = true;
-            aiType = ProjectileID.Bullet;
-            drawOffsetX = 10;
+            Projectile.aiStyle = 1;
+            Projectile.friendly = true;
+            Projectile.tileCollide = true;
+            Projectile.arrow = true;
+            Projectile.light = 1;
+            Projectile.DamageType = DamageClass.Magic;
+            AIType = ProjectileID.Bullet;
+            DrawOffsetX = 10;
         }
 
         public override void AI()
         {
             if (Main.rand.NextBool(3))
             {
-                Dust dust = Dust.NewDustDirect(projectile.position, projectile.height, projectile.width, DustID.Ice,
-                    projectile.velocity.X * .2f, projectile.velocity.Y * .2f, 200, Scale: 1.2f);
-                dust.velocity += projectile.velocity * 0.3f;
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Ice,
+                    Projectile.velocity.X * .2f, Projectile.velocity.Y * .2f, 200, Scale: 1.2f);
+                dust.velocity += Projectile.velocity * 0.3f;
                 dust.velocity *= 0.2f;
             }
             if (Main.rand.NextBool(4))
             {
-                Dust dust = Dust.NewDustDirect(projectile.position, projectile.height, projectile.width, DustID.Ice,
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Ice,
                     0, 0, 254, Scale: 0.3f);
-                dust.velocity += projectile.velocity * 0.5f;
+                dust.velocity += Projectile.velocity * 0.5f;
                 dust.velocity *= 0.5f;
             }
         }
@@ -41,12 +42,12 @@ namespace SagesMania.Projectiles
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Frostburn, 10 * 60);
-            Main.PlaySound(SoundID.Item27, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            Main.PlaySound(SoundID.Item27, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
             return base.OnTileCollide(oldVelocity);
         }
     }

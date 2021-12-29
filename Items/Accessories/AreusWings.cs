@@ -1,10 +1,10 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Placeable;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Tiles;
 
-namespace SagesMania.Items.Accessories
+namespace ShardsOfAtheria.Items.Accessories
 {
 	[AutoloadEquip(EquipType.Wings)]
 	public class AreusWings : ModItem
@@ -17,11 +17,11 @@ namespace SagesMania.Items.Accessories
 
 		public override void SetDefaults()
 		{
-			item.width = 22;
-			item.height = 20;
-			item.value = Item.sellPrice(gold: 15);
-			item.rare = ItemRarityID.Cyan;
-			item.accessory = true;
+			Item.width = 22;
+			Item.height = 20;
+			Item.value = Item.sellPrice(gold: 15);
+			Item.rare = ItemRarityID.Cyan;
+			Item.accessory = true;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -49,12 +49,11 @@ namespace SagesMania.Items.Accessories
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<AreusBarItem>(), 20);
-			recipe.AddIngredient(ItemID.FragmentVortex, 6);
-			recipe.AddTile(ModContent.TileType<AreusForge>());
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 20)
+				.AddIngredient(ItemID.FragmentVortex, 6)
+				.AddTile(ModContent.TileType<AreusForge>())
+				.Register();
 		}
 	}
 }

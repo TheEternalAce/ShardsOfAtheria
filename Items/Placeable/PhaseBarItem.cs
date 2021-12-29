@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Tiles;
 
-namespace SagesMania.Items.Placeable
+namespace ShardsOfAtheria.Items.Placeable
 {
 	public class PhaseBarItem : ModItem
 	{
@@ -11,31 +11,30 @@ namespace SagesMania.Items.Placeable
 		{
 			DisplayName.SetDefault("Phase Bar");
 			Tooltip.SetDefault("Tears in the fabric of reality orbit it");
-			ItemID.Sets.SortingPriorityMaterials[item.type] = 59;
+			ItemID.Sets.SortingPriorityMaterials[Item.type] = 59;
 		}
 
 		public override void SetDefaults()
 		{
-			item.width = 30;
-			item.height = 24;
-			item.value = Item.sellPrice(gold: 8);
-			item.rare = ItemRarityID.Blue;
-			item.maxStack = 999;
-			item.consumable = true;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.useTime = 10;
-			item.useAnimation = 10;
-			item.createTile = ModContent.TileType<PhaseBar>();
-			item.autoReuse = true;
+			Item.width = 30;
+			Item.height = 24;
+			Item.value = Item.sellPrice(gold: 8);
+			Item.rare = ItemRarityID.Blue;
+			Item.maxStack = 999;
+			Item.consumable = true;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useTime = 10;
+			Item.useAnimation = 10;
+			Item.createTile = ModContent.TileType<PhaseBar>();
+			Item.autoReuse = true;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<PhaseOreItem>(), 4);
-			recipe.AddTile(TileID.Furnaces);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<PhaseOreItem>(), 4)
+				.AddTile(TileID.Furnaces)
+				.Register();
 		}
 	}
 }

@@ -1,12 +1,15 @@
 using Microsoft.Xna.Framework;
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Projectiles;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.DecaEquipment
+namespace ShardsOfAtheria.Items.DecaEquipment
 {
-    public class DecaSwarmerRemote : DecaEquipment
+    public class DecaSwarmerRemote : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -17,25 +20,25 @@ namespace SagesMania.Items.DecaEquipment
 
         public override void SetDefaults()
         {
-            item.damage = 200000;
-            item.summon = true;
-            item.knockBack = 1f;
-            item.mana = 12;
-            item.useTime = 15;
-            item.useAnimation = 15;
-            item.rare = ItemRarityID.Red;
+            Item.damage = 200000;
+            Item.DamageType = DamageClass.Summon;
+            Item.knockBack = 1f;
+            Item.mana = 12;
+            Item.useTime = 15;
+            Item.useAnimation = 15;
+            Item.rare = ItemRarityID.Red;
 
-            item.shoot = ModContent.ProjectileType<DecaSwarmer>();
-            item.shootSpeed = 16f;
+            Item.shoot = ModContent.ProjectileType<DecaSwarmer>();
+            Item.shootSpeed = 16f;
 
-            item.noMelee = true;
-            item.autoReuse = true;
-            item.reuseDelay = 15;
-            item.UseSound = SoundID.Item75;
-            item.useStyle = ItemUseStyleID.HoldingOut;
-            Item.staff[item.type] = true;
-            item.width = 32;
-            item.height = 32;
+            Item.noMelee = true;
+            Item.autoReuse = true;
+            Item.reuseDelay = 15;
+            Item.UseSound = SoundID.Item75;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.staff[Item.type] = true;
+            Item.width = 32;
+            Item.height = 32;
         }
 
         public override bool AltFunctionUse(Player player)
@@ -43,17 +46,43 @@ namespace SagesMania.Items.DecaEquipment
             return false;
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile.NewProjectile(Main.MouseWorld + new Vector2(150, 0), new Vector2(-4, 0), ModContent.ProjectileType<DecaSwarmer>(), item.damage, item.knockBack, Main.myPlayer, new Vector2(-10, 0).ToRotation(), Main.rand.Next(100));
-            Projectile.NewProjectile(Main.MouseWorld + new Vector2(-150, 0), new Vector2(4, 0), ModContent.ProjectileType<DecaSwarmer>(), item.damage, item.knockBack, Main.myPlayer, new Vector2(10, 0).ToRotation(), Main.rand.Next(100));
-            Projectile.NewProjectile(Main.MouseWorld + new Vector2(0, 150), new Vector2(0, -4), ModContent.ProjectileType<DecaSwarmer>(), item.damage, item.knockBack, Main.myPlayer, new Vector2(0, -10).ToRotation(), Main.rand.Next(100));
-            Projectile.NewProjectile(Main.MouseWorld + new Vector2(0, -150), new Vector2(0, 4), ModContent.ProjectileType<DecaSwarmer>(), item.damage, item.knockBack, Main.myPlayer, new Vector2(0, 10).ToRotation(), Main.rand.Next(100));
-            Projectile.NewProjectile(Main.MouseWorld + new Vector2(110, 110), new Vector2(-3, -3), ModContent.ProjectileType<DecaSwarmer>(), item.damage, item.knockBack, Main.myPlayer, new Vector2(-10, -10).ToRotation());
-            Projectile.NewProjectile(Main.MouseWorld + new Vector2(110, -110), new Vector2(-3, 3), ModContent.ProjectileType<DecaSwarmer>(), item.damage, item.knockBack, Main.myPlayer, new Vector2(-10, 10).ToRotation());
-            Projectile.NewProjectile(Main.MouseWorld + new Vector2(-110, 110), new Vector2(3, -3), ModContent.ProjectileType<DecaSwarmer>(), item.damage, item.knockBack, Main.myPlayer, new Vector2(10, -10).ToRotation());
-            Projectile.NewProjectile(Main.MouseWorld + new Vector2(-110, -110), new Vector2(3, 3), ModContent.ProjectileType<DecaSwarmer>(), item.damage, item.knockBack, Main.myPlayer, new Vector2(10, 10).ToRotation());
+            Projectile.NewProjectile(player.GetProjectileSource_Item(Item), Main.MouseWorld + new Vector2(150, 0), new Vector2(-4, 0), ModContent.ProjectileType<DecaSwarmer>(), Item.damage, Item.knockBack, Main.myPlayer, new Vector2(-10, 0).ToRotation(), Main.rand.Next(100));
+            Projectile.NewProjectile(player.GetProjectileSource_Item(Item), Main.MouseWorld + new Vector2(-150, 0), new Vector2(4, 0), ModContent.ProjectileType<DecaSwarmer>(), Item.damage, Item.knockBack, Main.myPlayer, new Vector2(10, 0).ToRotation(), Main.rand.Next(100));
+            Projectile.NewProjectile(player.GetProjectileSource_Item(Item), Main.MouseWorld + new Vector2(0, 150), new Vector2(0, -4), ModContent.ProjectileType<DecaSwarmer>(), Item.damage, Item.knockBack, Main.myPlayer, new Vector2(0, -10).ToRotation(), Main.rand.Next(100));
+            Projectile.NewProjectile(player.GetProjectileSource_Item(Item), Main.MouseWorld + new Vector2(0, -150), new Vector2(0, 4), ModContent.ProjectileType<DecaSwarmer>(), Item.damage, Item.knockBack, Main.myPlayer);
+            Projectile.NewProjectile(player.GetProjectileSource_Item(Item), Main.MouseWorld + new Vector2(110, 110), new Vector2(-3, -3), ModContent.ProjectileType<DecaSwarmer>(), Item.damage, Item.knockBack, Main.myPlayer, new Vector2(-10, -10).ToRotation());
+            Projectile.NewProjectile(player.GetProjectileSource_Item(Item), Main.MouseWorld + new Vector2(110, -110), new Vector2(-3, 3), ModContent.ProjectileType<DecaSwarmer>(), Item.damage, Item.knockBack, Main.myPlayer, new Vector2(-10, 10).ToRotation());
+            Projectile.NewProjectile(player.GetProjectileSource_Item(Item), Main.MouseWorld + new Vector2(-110, 110), new Vector2(3, -3), ModContent.ProjectileType<DecaSwarmer>(), Item.damage, Item.knockBack, Main.myPlayer, new Vector2(10, -10).ToRotation());
+            Projectile.NewProjectile(player.GetProjectileSource_Item(Item), Main.MouseWorld + new Vector2(-110, -110), new Vector2(3, 3), ModContent.ProjectileType<DecaSwarmer>(), Item.damage, Item.knockBack, Main.myPlayer);
             return false;
+        }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Add(new TooltipLine(Mod, "Deca Gear", "[c/FF4100:Deca Equipment]"));
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            return player.GetModPlayer<DecaPlayer>().modelDeca;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 20)
+                .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 10)
+                .AddIngredient(ItemID.SoulofFlight, 10)
+                .AddIngredient(ItemID.SoulofFright, 10)
+                .AddIngredient(ItemID.SoulofLight, 10)
+                .AddIngredient(ItemID.SoulofMight, 10)
+                .AddIngredient(ItemID.SoulofNight, 10)
+                .AddIngredient(ItemID.SoulofSight, 10)
+                .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10)
+                .AddIngredient(ModContent.ItemType<SoulOfStarlight>(), 10)
+                .AddIngredient(ModContent.ItemType<DeathEssence>())
+                .Register();
         }
     }
 }

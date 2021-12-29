@@ -1,16 +1,17 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
-using Terraria.World.Generation;
 using System.Collections.Generic;
 using Terraria.GameContent.Generation;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Tiles;
 using Terraria.ModLoader.IO;
+using Terraria.WorldBuilding;
+using Terraria.IO;
 
-namespace SagesMania
+namespace ShardsOfAtheria
 {
-    class SMWorld : ModWorld
+    class SMWorld : ModSystem
 	{
-		public bool flightToggle;
+		public bool flightDisabled;
 
 		public bool downedDeath;
 		public bool downedValkyrie;
@@ -34,14 +35,12 @@ namespace SagesMania
 		public bool slainSenterra;
 		public bool slainGenesis;
 		public bool slainEverything;
-		public bool blueprints;
-		public int message;
 
-		public override TagCompound Save()
+        public override void SaveWorldData(TagCompound tag)
         {
-			return new TagCompound
+			new TagCompound
 			{
-				{"flightToggle", flightToggle},
+				{"flightDisabled", flightDisabled},
 
 				{"downedDeath", downedDeath},
 				{"downedValkyrie", downedValkyrie},
@@ -63,14 +62,12 @@ namespace SagesMania
 				{"slainEmpress", slainEmpress},
 				{"slainMoonLord", slainMoonLord},
 				{"slainEverything", slainEverything},
-				{"blueprints", blueprints},
-				{"message", message},
 			};
-        }
+		}
 
-        public override void Load(TagCompound tag)
+        public override void LoadWorldData(TagCompound tag)
 		{
-			flightToggle = tag.GetBool("flightToggle");
+			flightDisabled = tag.GetBool("flightDisabled");
 
 			downedDeath = tag.GetBool("downedDeath");
 			downedValkyrie = tag.GetBool("downedValkyrie");
@@ -92,31 +89,18 @@ namespace SagesMania
 			slainEmpress = tag.GetBool("slainEmpress");
 			slainMoonLord = tag.GetBool("slainMoonLord");
 			slainEverything = tag.GetBool("slainEverything");
-			blueprints = tag.GetBool("blueprints");
-			message = tag.GetInt("message");
 		}
 
-        public override void PostUpdate()
+        public override void PostUpdateEverything()
 		{
 			if (slainValkyrie && slainEOC && (slainBOC || slainEOW) && slainBee && slainSkull && slainWall
 				&& slainMechWorm && slainTwins && slainPrime && slainPlant && slainGolem && slainMoonLord)
 				slainEverything = true;
 
-			if (slayerMode && slainEverything && message <= 960)
-            {
-				message++;
-				if (message == 120)
-					Main.NewText("I see...");
-				if (message == 240)
-					Main.NewText("So, you've slain every guardian I have..");
-				if (message == 480)
-					Main.NewText("Well, Come then, face me Soulless Terrarian.");
-				if (message == 960)
-					Main.NewText("I'll be waiting.");
-			}
-
 			if (slainSenterra && !slainGenesis)
+			{
 				Main.dayTime = false;
+			}
 		}
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
@@ -126,12 +110,18 @@ namespace SagesMania
             {
                 // Next, we insert our step directly after the original "Shinies" step. 
                 // ExampleModOres is a method seen below.
-                tasks.Insert(ShiniesIndex + 1, new PassLegacy("Sage's Mania Ores", SMOres));
+                tasks.Insert(ShiniesIndex + 1, new SoAOres("Shards of Atheria Ores", 237.4298f));
             }
         }
+	}
 
-		private void SMOres(GenerationProgress progress)
-		{
+	public class SoAOres : GenPass
+    {
+		public SoAOres(string name, float loadWeight) : base(name, loadWeight) {
+        }
+
+        protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
+        {
 			progress.Message = "Ore";
 			for (int k = 0; k < (int)((Main.maxTilesX * Main.maxTilesY) * 6E-05); k++)
 			{
@@ -160,5 +150,5 @@ namespace SagesMania
 				WorldGen.TileRunner(x, y, WorldGen.genRand.Next(6, 6), WorldGen.genRand.Next(2, 6), ModContent.TileType<GlitchTile>());
 			}
 		}
-	}
+    }
 }

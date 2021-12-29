@@ -4,23 +4,24 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SagesMania.Projectiles
+namespace ShardsOfAtheria.Projectiles
 {
     public class ElectricKunai : ModProjectile {
         public override void SetDefaults() {
-            projectile.width = 8;
-            projectile.height = 8;
-            projectile.scale = .5f;
+            Projectile.width = 8;
+            Projectile.height = 8;
+            Projectile.scale = .5f;
 
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.tileCollide = true;
-            projectile.arrow = false;
-            projectile.light = 1;
-            projectile.extraUpdates = 1;
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.tileCollide = true;
+            Projectile.arrow = false;
+            Projectile.light = 1;
+            Projectile.extraUpdates = 1;
 
-            drawOffsetX = -28;
-            drawOriginOffsetX = 14;
+            DrawOffsetX = -28;
+            DrawOriginOffsetX = 14;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -31,16 +32,16 @@ namespace SagesMania.Projectiles
 
         public override void AI()
         {
-            projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(45);
-            projectile.ai[0] += 1f;
-            if (projectile.ai[0] >= 20f)
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(45);
+            Projectile.ai[0] += 1f;
+            if (Projectile.ai[0] >= 20f)
             {
-                projectile.ai[0] = 15f;
-                projectile.velocity.Y = projectile.velocity.Y + 0.1f;
+                Projectile.ai[0] = 15f;
+                Projectile.velocity.Y = Projectile.velocity.Y + 0.1f;
             }
-            if (projectile.velocity.Y > 16f)
+            if (Projectile.velocity.Y > 16f)
             {
-                projectile.velocity.Y = 16f;
+                Projectile.velocity.Y = 16f;
             }
         }
     }

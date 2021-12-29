@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.GameContent.UI;
 using Terraria.Localization;
 
-namespace SagesMania
+namespace ShardsOfAtheria
 {
     public class AreusCurrency : CustomCurrencySingleCoin
     {

@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Commands
+namespace ShardsOfAtheria.Commands
 {
     class SlayAll : ModCommand
 	{

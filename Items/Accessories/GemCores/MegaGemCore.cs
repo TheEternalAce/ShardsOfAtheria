@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using SagesMania.Buffs;
+using ShardsOfAtheria.Buffs;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Accessories.GemCores
+namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
     [AutoloadEquip(EquipType.Wings)]
 	public class MegaGemCore : ModItem
@@ -27,7 +27,7 @@ namespace SagesMania.Items.Accessories.GemCores
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            var list = SagesMania.EmeraldTeleportKey.GetAssignedKeys();
+            var list = ShardsOfAtheria.EmeraldTeleportKey.GetAssignedKeys();
             string keyname = "Not bound";
 
             if (list.Count > 0)
@@ -35,39 +35,38 @@ namespace SagesMania.Items.Accessories.GemCores
                 keyname = list[0];
             }
 
-            tooltips.Add(new TooltipLine(mod, "Damage", $"Allows teleportation on press of '[i:{keyname}]'"));
+            tooltips.Add(new TooltipLine(Mod, "Damage", $"Allows teleportation on press of '[i:{keyname}]'"));
             if (ModLoader.GetMod("WingSlot") != null)
-                tooltips.Add(new TooltipLine(mod, "Damage", $"Dash does not work when equipped in Wing Slot yet"));
+                tooltips.Add(new TooltipLine(Mod, "Damage", $"Dash does not work when equipped in Wing Slot yet"));
         }
 
         public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.value = Item.sellPrice(silver: 15);
-			item.rare = ItemRarityID.White;
-			item.accessory = true;
-            item.defense = 50;
+			Item.width = 32;
+			Item.height = 32;
+			Item.value = Item.sellPrice(silver: 15);
+			Item.rare = ItemRarityID.White;
+			Item.accessory = true;
+            Item.defense = 50;
 		}
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<SuperAmethystCore>());
-            recipe.AddIngredient(ModContent.ItemType<SuperDiamondCore>());
-            recipe.AddIngredient(ModContent.ItemType<SuperEmeraldCore>());
-            recipe.AddIngredient(ModContent.ItemType<SuperRubyCore>());
-            recipe.AddIngredient(ModContent.ItemType<SuperSapphireCore>());
-            recipe.AddIngredient(ModContent.ItemType<SuperTopazCore>());
-            recipe.AddIngredient(ItemID.Amber, 10);
-            recipe.AddIngredient(ItemID.FragmentSolar, 5);
-            recipe.AddIngredient(ItemID.FragmentVortex, 5);
-            recipe.AddIngredient(ItemID.FragmentNebula, 5);
-            recipe.AddIngredient(ItemID.FragmentStardust, 5);
-            recipe.AddIngredient(ItemID.LunarBar, 10);
-            recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+               .AddIngredient(ModContent.ItemType<SuperAmethystCore>())
+                .AddIngredient(ModContent.ItemType<SuperDiamondCore>())
+                .AddIngredient(ModContent.ItemType<SuperEmeraldCore>())
+                .AddIngredient(ModContent.ItemType<SuperRubyCore>())
+                .AddIngredient(ModContent.ItemType<SuperSapphireCore>())
+                .AddIngredient(ModContent.ItemType<SuperTopazCore>())
+                .AddIngredient(ItemID.Amber, 10)
+                .AddIngredient(ItemID.FragmentSolar, 5)
+                .AddIngredient(ItemID.FragmentVortex, 5)
+                .AddIngredient(ItemID.FragmentNebula, 5)
+                .AddIngredient(ItemID.FragmentStardust, 5)
+                .AddIngredient(ItemID.LunarBar, 10)
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -87,9 +86,9 @@ namespace SagesMania.Items.Accessories.GemCores
             player.buffImmune[ModContent.BuffType<HeartBreak>()] = true;
 
             //Bundle of Balloons
-            player.doubleJumpCloud = true;
-            player.doubleJumpBlizzard = true;
-            player.doubleJumpSandstorm = true;
+            player.hasJumpOption_Cloud = true;
+            player.hasJumpOption_Blizzard = true;
+            player.hasJumpOption_Sandstorm = true;
             player.jumpBoost = true;
 
             //Frostspark Boots
@@ -120,7 +119,7 @@ namespace SagesMania.Items.Accessories.GemCores
             player.AddBuff(ModContent.BuffType<SapphireSpirit>(), 2);
             player.GetModPlayer<SMPlayer>().megaGemCore = true;
 
-            player.allDamageMult += .2f;
+            player.GetDamage(DamageClass.Generic) += .2f;
             player.maxMinions += 8;
             player.statLifeMax2 += 100;
             player.wingTimeMax = 2000000000;
@@ -259,9 +258,9 @@ namespace SagesMania.Items.Accessories.GemCores
             bool dashAccessoryEquipped = false;
 
             //This is the loop used in vanilla to update/check the not-vanity accessories
-            for (int i = 3; i < 8 + player.extraAccessorySlots; i++)
+            for (int i = 3; i < 8 + Player.extraAccessorySlots; i++)
             {
-                Item item = player.armor[i];
+                Item item = Player.armor[i];
 
                 //Set the flag for the ExampleDashAccessory being equipped if we have it equipped OR immediately return if any of the accessories are
                 // one of the higher-priority ones
@@ -273,16 +272,16 @@ namespace SagesMania.Items.Accessories.GemCores
 
             //If we don't have the ExampleDashAccessory equipped or the player has the Solor armor set equipped, return immediately
             //Also return if the player is currently on a mount, since dashes on a mount look weird, or if the dash was already activated
-            if (!dashAccessoryEquipped || player.setSolar || player.mount.Active || DashActive)
+            if (!dashAccessoryEquipped || Player.setSolar || Player.mount.Active || DashActive)
                 return;
 
-            if (player.controlDown && player.releaseDown && player.doubleTapCardinalTimer[DashDown] < 15)
+            if (Player.controlDown && Player.releaseDown && Player.doubleTapCardinalTimer[DashDown] < 15)
                 DashDir = DashDown;
-            else if (player.controlUp && player.releaseUp && player.doubleTapCardinalTimer[DashUp] < 15)
+            else if (Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[DashUp] < 15)
                 DashDir = DashUp;
-            else if (player.controlRight && player.releaseRight && player.doubleTapCardinalTimer[DashRight] < 15)
+            else if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[DashRight] < 15)
                 DashDir = DashRight;
-            else if (player.controlLeft && player.releaseLeft && player.doubleTapCardinalTimer[DashLeft] < 15)
+            else if (Player.controlLeft && Player.releaseLeft && Player.doubleTapCardinalTimer[DashLeft] < 15)
                 DashDir = DashLeft;
             else
                 return;  //No dash was activated, return

@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.SlayerItems
+namespace ShardsOfAtheria.Items.SlayerItems
 {
 	public class PlantCells : SlayerItem
 	{
@@ -14,25 +14,25 @@ namespace SagesMania.Items.SlayerItems
         }
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.value = Item.sellPrice(gold: 7, silver: 50);
-			item.rare = ItemRarityID.Expert;
-			item.accessory = true;
+			Item.width = 32;
+			Item.height = 32;
+			Item.value = Item.sellPrice(gold: 7, silver: 50);
+			Item.rare = ItemRarityID.Expert;
+			Item.accessory = true;
 		}
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
 			player.GetModPlayer<SMPlayer>().plantCells = true;
 			player.maxMinions += 4;
-			if (player.ZoneOverworldHeight)
+			if (player.ZoneOverworldHeight || player.ZoneNormalSpace)
 			{
-				player.allDamage += .15f;
+				player.GetDamage(DamageClass.Generic) += .15f;
 				player.statDefense += 25;
 			}
 			else
 			{
-				player.allDamage += .1f;
+				player.GetDamage(DamageClass.Generic) += .1f;
 				player.statDefense += 20;
 			}
 		}

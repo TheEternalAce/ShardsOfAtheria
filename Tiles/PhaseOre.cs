@@ -2,30 +2,30 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using SagesMania.Items.Placeable;
+using ShardsOfAtheria.Items.Placeable;
 
-namespace SagesMania.Tiles
+namespace ShardsOfAtheria.Tiles
 {
     public class PhaseOre : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             TileID.Sets.Ore[Type] = true;
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileLighted[Type] = true;
-            Main.tileValue[Type] = 285;
+            Main.tileOreFinderPriority[Type] = 285;
 
-            drop = ModContent.ItemType<PhaseOreItem>();
+            ItemDrop = ModContent.ItemType<PhaseOreItem>();
 
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Phase Ore");
             AddMapEntry(new Color(255, 0, 255), name);
 
-            dustType = DustID.AmethystBolt;
-            minPick = 50;
-            soundType = SoundID.Tink;
-            soundStyle = 1;
+            DustType = DustID.GemAmethyst;
+            MinPick = 50;
+            SoundType = SoundID.Tink;
+            SoundStyle = 1;
         }
 
         public override bool CanExplode(int i, int j)

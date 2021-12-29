@@ -1,41 +1,40 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Placeable;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Tiles;
 
-namespace SagesMania.Items
+namespace ShardsOfAtheria.Items
 {
 	public class YellowPlushie : SpecialItem
 	{
 		public override void SetStaticDefaults() 
 		{
-			Tooltip.SetDefault("[c/960096:''Happy Birthday friend'']");
+			Tooltip.SetDefault("[c/960096:'Happy Birthday friend']");
 		}
 
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.scale = .5f;
-			item.rare = ItemRarityID.Expert;
-			item.useTime = 1;
-			item.useAnimation = 1;
-			item.autoReuse = true;
-			item.useTurn = true;
-			item.useStyle = ItemUseStyleID.HoldingOut;
+			Item.width = 32;
+			Item.height = 32;
+			Item.scale = .5f;
+			Item.rare = ItemRarityID.Expert;
+			Item.useTime = 1;
+			Item.useAnimation = 1;
+			Item.autoReuse = true;
+			Item.useTurn = true;
+			Item.useStyle = ItemUseStyleID.Shoot;
 		}
 
         public override void AddRecipes()
         {
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.Wire, 5);
-			recipe.AddIngredient(ItemID.Silk, 15);
-			recipe.AddIngredient(ItemID.YellowDye, 8);
-			recipe.AddIngredient(ItemID.RedDye, 2);
-			recipe.AddTile(TileID.Loom);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.Wire, 5)
+				.AddIngredient(ItemID.Silk, 15)
+				.AddIngredient(ItemID.YellowDye, 8)
+				.AddIngredient(ItemID.RedDye, 2)
+				.AddTile(TileID.Loom)
+				.Register();
         }
     }
 }

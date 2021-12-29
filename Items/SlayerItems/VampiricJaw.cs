@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.SlayerItems
+namespace ShardsOfAtheria.Items.SlayerItems
 {
 	[AutoloadEquip(EquipType.Head)]
 	public class VampiricJaw : SlayerItem
@@ -11,15 +11,16 @@ namespace SagesMania.Items.SlayerItems
 		{
 			Tooltip.SetDefault("Grants immunity to Bleeding, Slow and Cursed\n" +
 				"True melee attacks life steal");
+			ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
 		}
 
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.value = Item.sellPrice(gold: 15);
-			item.defense = 9;
-			item.rare = ItemRarityID.Expert;
+			Item.width = 32;
+			Item.height = 32;
+			Item.value = Item.sellPrice(gold: 15);
+			Item.defense = 9;
+			Item.rare = ItemRarityID.Expert;
 		}
 
         public override void UpdateEquip(Player player)
@@ -28,11 +29,6 @@ namespace SagesMania.Items.SlayerItems
 			player.buffImmune[BuffID.Slow] = true;
 			player.buffImmune[BuffID.Cursed] = true;
 			player.GetModPlayer<SMPlayer>().vampiricJaw = true;
-		}
-
-		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
-		{
-			drawHair = true;
 		}
 	}
 }

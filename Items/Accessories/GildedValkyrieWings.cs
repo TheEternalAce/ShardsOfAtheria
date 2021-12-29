@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Accessories
+namespace ShardsOfAtheria.Items.Accessories
 {
 	[AutoloadEquip(EquipType.Wings)]
 	public class GildedValkyrieWings : ModItem
@@ -14,12 +14,12 @@ namespace SagesMania.Items.Accessories
 
 		public override void SetDefaults()
 		{
-			item.width = 24;
-			item.height = 26;
-			item.value = Item.sellPrice(gold: 1);
-			item.rare = ItemRarityID.Expert;
-			item.accessory = true;
-			item.expert = true;
+			Item.width = 24;
+			Item.height = 26;
+			Item.value = Item.sellPrice(gold: 1);
+			Item.rare = ItemRarityID.Expert;
+			Item.accessory = true;
+			Item.expert = true;
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)

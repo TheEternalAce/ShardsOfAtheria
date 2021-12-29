@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Potions
+namespace ShardsOfAtheria.Items.Potions
 {
     public class SuspiciousLookingOrange : ModItem
     {
@@ -14,15 +14,15 @@ namespace SagesMania.Items.Potions
 
         public override void SetDefaults()
         {
-            item.width = 32;
-            item.height = 32;
-            item.useTime = 15;
-            item.useAnimation = 15;
-            item.useStyle = ItemUseStyleID.EatingUsing;
-            item.consumable = true;
-            item.useTurn = true;
-            item.buffType = BuffID.Ironskin;
-            item.buffTime = (4 * 60) * 60;
+            Item.width = 32;
+            Item.height = 32;
+            Item.useTime = 15;
+            Item.useAnimation = 15;
+            Item.useStyle = ItemUseStyleID.EatFood;
+            Item.consumable = true;
+            Item.useTurn = true;
+            Item.buffType = BuffID.Ironskin;
+            Item.buffTime = (4 * 60) * 60;
         }
 
         public override void OnConsumeItem(Player player)
@@ -33,7 +33,7 @@ namespace SagesMania.Items.Potions
         
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(mod, "Submission Item", "Submitted by [c/9000FF:Torra th]"));
+            tooltips.Add(new TooltipLine(Mod, "Submission Item", "Submitted by [c/9000FF:Torra th]"));
         }
     }
 }

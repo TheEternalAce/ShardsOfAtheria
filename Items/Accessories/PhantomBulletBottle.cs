@@ -1,11 +1,11 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Placeable;
-using SagesMania.Tiles;
-using SagesMania.Items.Weapons.Ammo;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Tiles;
+using ShardsOfAtheria.Items.Weapons.Ammo;
 
-namespace SagesMania.Items.Accessories
+namespace ShardsOfAtheria.Items.Accessories
 {
 	public class PhantomBulletBottle: ModItem
 	{
@@ -18,11 +18,11 @@ namespace SagesMania.Items.Accessories
 
 		public override void SetDefaults()
 		{
-			item.width = 15;
-			item.height = 22;
-			item.value = Item.sellPrice(gold: 15);
-			item.rare = ItemRarityID.White;
-			item.accessory = true;
+			Item.width = 15;
+			Item.height = 22;
+			Item.value = Item.sellPrice(gold: 15);
+			Item.rare = ItemRarityID.White;
+			Item.accessory = true;
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -32,13 +32,12 @@ namespace SagesMania.Items.Accessories
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<BBBottle>());
-			recipe.AddIngredient(ItemID.FragmentVortex, 5);
-			recipe.AddIngredient(ItemID.LunarBar, 5);
-			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<BBBottle>())
+				.AddIngredient(ItemID.FragmentVortex, 5)
+				.AddIngredient(ItemID.LunarBar, 5)
+				.AddTile(TileID.LunarCraftingStation)
+				.Register();
 		}
 	}
 }

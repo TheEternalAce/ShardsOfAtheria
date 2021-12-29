@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Buffs;
+using ShardsOfAtheria.Buffs;
 
-namespace SagesMania.Items.Potions
+namespace ShardsOfAtheria.Items.Potions
 {
 	public class RootBeerCan : ModItem
 	{
@@ -17,31 +17,29 @@ namespace SagesMania.Items.Potions
 
 		public override void SetDefaults()
 		{
-			item.width = 20;
-			item.height = 28;
-			item.value = Item.sellPrice(silver: 75);
-			item.rare = ItemRarityID.Blue;
-			item.maxStack = 30;
-			item.useStyle = ItemUseStyleID.EatingUsing;
-			item.UseSound = SoundID.Item3;
-			item.useTime = 15;
-			item.useAnimation = 15;
-			item.consumable = true;
-			item.useTurn = true;
-			item.buffType = BuffID.WellFed;
-			item.buffTime = (4 * 60) * 60;
+			Item.width = 20;
+			Item.height = 28;
+			Item.value = Item.sellPrice(silver: 75);
+			Item.rare = ItemRarityID.Blue;
+			Item.maxStack = 30;
+			Item.useStyle = ItemUseStyleID.DrinkLiquid;
+			Item.UseSound = SoundID.Item3;
+			Item.useTime = 15;
+			Item.useAnimation = 15;
+			Item.consumable = true;
+			Item.useTurn = true;
+			Item.buffType = BuffID.WellFed;
+			Item.buffTime = (4 * 60) * 60;
 		}
 
         public override void AddRecipes()
         {
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddRecipeGroup("SM:CopperBars", 2);
-			recipe.AddIngredient(ItemID.Ale);
-            recipe.AddIngredient(ItemID.Wood);
-			recipe.AddTile(TileID.Bottles);
-			recipe.needWater = true;
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddRecipeGroup("SM:CopperBars", 2)
+				.AddIngredient(ItemID.Ale)
+				.AddIngredient(ItemID.Wood)
+				.AddTile(TileID.Bottles)
+				.Register();
         }
     }
 }

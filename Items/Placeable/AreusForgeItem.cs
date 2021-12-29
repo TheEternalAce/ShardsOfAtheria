@@ -1,8 +1,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Tiles;
 
-namespace SagesMania.Items.Placeable
+namespace ShardsOfAtheria.Items.Placeable
 {
 	public class AreusForgeItem : ModItem
 	{
@@ -14,27 +14,26 @@ namespace SagesMania.Items.Placeable
 
 		public override void SetDefaults()
 		{
-			item.width = 26;
-			item.height = 22;
-			item.maxStack = 99;
-			item.useTurn = true;
-			item.autoReuse = true;
-			item.useAnimation = 15;
-			item.useTime = 10;
-			item.rare = ItemRarityID.Cyan;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.consumable = true;
-			item.createTile = ModContent.TileType<AreusForge>();
+			Item.width = 26;
+			Item.height = 22;
+			Item.maxStack = 99;
+			Item.useTurn = true;
+			Item.autoReuse = true;
+			Item.useAnimation = 15;
+			Item.useTime = 10;
+			Item.rare = ItemRarityID.Cyan;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.consumable = true;
+			Item.createTile = ModContent.TileType<AreusForge>();
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<AreusOreItem>(), 10);
-			recipe.AddRecipeGroup(RecipeGroupID.Wood, 5);
-			recipe.AddIngredient(ItemID.Torch, 5);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<AreusOreItem>(), 10)
+				.AddRecipeGroup(RecipeGroupID.Wood, 5)
+				.AddIngredient(ItemID.Torch, 5)
+				.Register();
 		}
 	}
 }

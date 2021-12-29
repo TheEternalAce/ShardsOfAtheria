@@ -1,10 +1,10 @@
-﻿using SagesMania.Items;
+﻿using ShardsOfAtheria.Items;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
-namespace SagesMania.NPCs
+namespace ShardsOfAtheria.NPCs
 {
     public class Tonbogiri : ModNPC
     {
@@ -14,27 +14,27 @@ namespace SagesMania.NPCs
 
         public override void SetDefaults()
         {
-            npc.width = 116;
-            npc.height = 116;
-            npc.damage = 20;
-            npc.defense = 8;
-            npc.lifeMax = 40;
-            npc.HitSound = SoundID.NPCHit4;
-            npc.DeathSound = SoundID.NPCDeath52;
-            npc.knockBackResist = 0.4f;
-            npc.aiStyle = 23;
+            NPC.width = 116;
+            NPC.height = 116;
+            NPC.damage = 20;
+            NPC.defense = 8;
+            NPC.lifeMax = 40;
+            NPC.HitSound = SoundID.NPCHit4;
+            NPC.DeathSound = SoundID.NPCDeath52;
+            NPC.knockBackResist = 0.4f;
+            NPC.aiStyle = 23;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = (int)(npc.lifeMax * .5f);
-            npc.damage = (int)(npc.damage * .5f);
+            NPC.lifeMax = (int)(NPC.lifeMax * .5f);
+            NPC.damage = (int)(NPC.damage * .5f);
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             Player player = Main.LocalPlayer;
-            if (!(spawnInfo.player.ZoneHoly || spawnInfo.player.ZoneCrimson || spawnInfo.player.ZoneCorrupt || Main.eclipse
+            if (!(spawnInfo.player.ZoneHallow || spawnInfo.player.ZoneCrimson || spawnInfo.player.ZoneCorrupt || Main.eclipse
                 || spawnInfo.player.ZoneTowerNebula || spawnInfo.player.ZoneTowerVortex || spawnInfo.player.ZoneTowerSolar
                 || spawnInfo.player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon || spawnInfo.playerSafe) && Main.hardMode
                 && spawnInfo.player.ZoneBeach)
@@ -42,10 +42,10 @@ namespace SagesMania.NPCs
             return 0f;
         }
 
-        public override void NPCLoot()
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             if (Main.rand.NextFloat() < .5f)
-                Item.NewItem(npc.getRect(), ModContent.ItemType<SoulOfSpite>(), Main.rand.Next(3, 6));
+                Item.NewItem(NPC.getRect(), ModContent.ItemType<SoulOfSpite>(), Main.rand.Next(3, 6));
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

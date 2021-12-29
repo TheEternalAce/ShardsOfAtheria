@@ -1,26 +1,26 @@
-﻿using SagesMania.Buffs;
-using SagesMania.Items.Placeable;
+﻿using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Items.Placeable;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.DecaEquipment
+namespace ShardsOfAtheria.Items.DecaEquipment
 {
     public abstract class DecaFragment : ModItem
     {
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        public override void SetStaticDefaults()
         {
-            tooltips.Add(new TooltipLine(mod, "Dega Fragment", "[c/FF4100:Deca Fragment]"));
+            Tooltip.SetDefault("Unite with the other fragments to unlock their power\n" +
+                "[c/FF4100:Deca Fragment]");
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<BionicBarItem>());
-            recipe.AddIngredient(ModContent.ItemType<DeathEssence>());
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<BionicBarItem>())
+                .AddIngredient(ModContent.ItemType<DeathEssence>())
+                .Register();
         }
     }
 }

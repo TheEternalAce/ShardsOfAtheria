@@ -2,18 +2,18 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Projectiles
+namespace ShardsOfAtheria.Projectiles
 {
     public class TrueBlade : ModProjectile {
         public override void SetDefaults() {
-            projectile.width = 32;
-            projectile.height = 32;
+            Projectile.width = 32;
+            Projectile.height = 32;
 
-            projectile.aiStyle = 27;
-            projectile.friendly = true;
-            projectile.tileCollide = true;
-            projectile.arrow = false;
-            projectile.light = 0.5f;
+            Projectile.aiStyle = 27;
+            Projectile.friendly = true;
+            Projectile.tileCollide = true;
+            Projectile.arrow = false;
+            Projectile.light = 0.5f;
         }
     }
 

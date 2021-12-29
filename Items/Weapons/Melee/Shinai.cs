@@ -2,8 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Terraria.Audio;
 
-namespace SagesMania.Items.Weapons.Melee
+namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class Shinai : SpecialItem
     {
@@ -14,34 +15,33 @@ namespace SagesMania.Items.Weapons.Melee
 
         public override void SetDefaults()
         {
-            item.damage = 20;
-            item.melee = true;
-            item.width = 50;
-            item.height = 50;
-            item.useTime = 30;
-            item.useAnimation = 30;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.knockBack = 6;
-            item.rare = ItemRarityID.White;
-            item.value = Item.sellPrice(silver: 6);
-            item.UseSound = SoundID.Item1;
-            item.crit = 4;
+            Item.damage = 20;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 50;
+            Item.height = 50;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.knockBack = 6;
+            Item.rare = ItemRarityID.White;
+            Item.value = Item.sellPrice(silver: 6);
+            Item.UseSound = SoundID.Item1;
+            Item.crit = 4;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddRecipeGroup(RecipeGroupID.Wood, 17);
-            recipe.AddRecipeGroup("SM:CopperBars", 2);
-            recipe.AddTile(TileID.WorkBenches);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddRecipeGroup(RecipeGroupID.Wood, 17)
+                .AddRecipeGroup("SM:CopperBars", 2)
+                .AddTile(TileID.WorkBenches)
+                .Register();
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
         {
             CombatText.NewText(target.Hitbox, Color.White, "Bonk!");
-            Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/Bonk"));
+            SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Item/Bonk"));
         }
     }
 }

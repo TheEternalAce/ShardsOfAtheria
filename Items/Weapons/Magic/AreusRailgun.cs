@@ -1,12 +1,12 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Placeable;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Tiles;
 using Terraria;
-using SagesMania.Items.Weapons.Ammo;
+using ShardsOfAtheria.Items.Weapons.Ammo;
 using Microsoft.Xna.Framework;
 
-namespace SagesMania.Items.Weapons.Magic
+namespace ShardsOfAtheria.Items.Weapons.Magic
 {
 	public class AreusRailgun : AreusWeapon
 	{
@@ -19,38 +19,37 @@ namespace SagesMania.Items.Weapons.Magic
 
 		public override void SetDefaults() 
 		{
-			item.damage = 100;
-			item.magic = true;
-			item.noMelee = true;
-			item.width = 44;
-			item.height = 26;
-			item.useTime = 48;
-			item.useAnimation = 48;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.knockBack = 4f;
-			item.rare = ItemRarityID.Cyan;
-			item.UseSound = SoundID.Item38;
-			item.autoReuse = false;
-			item.crit = 20;
-			item.value = Item.sellPrice(gold: 25);
-			item.shoot = ItemID.PurificationPowder;
-			item.shootSpeed = 20f;
-			item.useAmmo = ModContent.ItemType<AreusRod>();
+			Item.damage = 100;
+			Item.DamageType = DamageClass.Magic;
+			Item.noMelee = true;
+			Item.width = 44;
+			Item.height = 26;
+			Item.useTime = 48;
+			Item.useAnimation = 48;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.knockBack = 4f;
+			Item.rare = ItemRarityID.Cyan;
+			Item.UseSound = SoundID.Item38;
+			Item.autoReuse = false;
+			Item.crit = 20;
+			Item.value = Item.sellPrice(gold: 25);
+			Item.shoot = ItemID.PurificationPowder;
+			Item.shootSpeed = 20f;
+			Item.useAmmo = ModContent.ItemType<AreusRod>();
 
 			if (!Config.areusWeaponsCostMana)
 				areusResourceCost = 5;
-			else item.mana = 20;
+			else Item.mana = 20;
 		}
 
 		public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<AreusBarItem>(), 15);
-			recipe.AddIngredient(ItemID.SoulofMight, 7);
-			recipe.AddIngredient(ItemID.SoulofFright, 7);
-			recipe.AddTile(ModContent.TileType<AreusForge>());
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 20)
+				.AddIngredient(ItemID.SoulofMight, 7)
+				.AddIngredient(ItemID.SoulofFright, 7)
+				.AddTile(ModContent.TileType<AreusForge>())
+				.Register();
 		}
 
 		public override Vector2? HoldoutOffset()
@@ -68,7 +67,7 @@ namespace SagesMania.Items.Weapons.Magic
 		{
 			var areusDamagePlayer = player.GetModPlayer<SMPlayer>();
 
-			if (areusDamagePlayer.areusResourceCurrent >= areusResourceCost && player.statMana >= item.mana)
+			if (areusDamagePlayer.areusResourceCurrent >= areusResourceCost && player.statMana >= Item.mana)
 			{
 				areusDamagePlayer.areusResourceCurrent -= areusResourceCost;
 				return true;

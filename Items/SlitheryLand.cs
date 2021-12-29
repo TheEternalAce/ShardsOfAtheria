@@ -1,46 +1,45 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Placeable;
+using ShardsOfAtheria.Items.Placeable;
 using Terraria;
 
-namespace SagesMania.Items
+namespace ShardsOfAtheria.Items
 {
 	public class SlitheryLand: ModItem
 	{
 		public override void SetStaticDefaults() 
 		{
-			Tooltip.SetDefault("Summons the Atherial Land\n" +
+			Tooltip.SetDefault("Summons Senterra, the Atherial Land\n" +
 				"Eventually");
 		}
 
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.rare = ItemRarityID.Red;
-			item.useStyle = ItemUseStyleID.HoldingUp;
-			item.useTime = 45;
-			item.useAnimation = 45;
+			Item.width = 32;
+			Item.height = 32;
+			Item.rare = ItemRarityID.Red;
+			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
 		}
-
+		/*
         public override void AddRecipes()
         {
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<AreusBarItem>(), 5);
-			recipe.AddIngredient(ItemID.LunarBar, 5);
-			recipe.AddIngredient(ItemID.SpiderFang, 8);
-			recipe.AddIngredient(ItemID.GoldWatch);
-			recipe.AddTile(TileID.DemonAltar);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 5)
+				.AddIngredient(ItemID.LunarBar, 5)
+				.AddIngredient(ItemID.DirtBlock, 20)
+				.AddIngredient(ItemID.StoneBlock, 20)
+				.AddIngredient(ItemID.Cloud, 20)
+				.AddTile(TileID.DemonAltar)
+				.Register();
 		}
-
+		
 		public override bool UseItem(Player player)
 		{
-			Main.NewText("So, you wanna fight a big snake?");
-			Main.NewText("Not right now");
-			Main.PlaySound(SoundID.Roar, player.position, 0);
+			SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
 			return true;
 		}
+		*/
 	}
 }

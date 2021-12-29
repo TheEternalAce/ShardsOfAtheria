@@ -4,43 +4,42 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
-namespace SagesMania.Items.Weapons.Melee
+namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class CrossDagger : ModItem
     {
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("A blade that heals 100 Life after striking an enemy\n" +
-                "''SOUL STEAL!''");
+                "'SOUL STEAL!'");
         }
 
         public override void SetDefaults()
         {
-            item.width = 32;
-            item.height = 32;
-            item.useTime = 20;
-            item.useAnimation = 20;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.damage = 26;
-            item.melee = true;
-            item.crit = 6;
-            item.knockBack = 6;
-            item.value = Item.sellPrice(gold: 10);
-            item.rare = ItemRarityID.Red;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.useTurn = true;
+            Item.width = 32;
+            Item.height = 32;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.damage = 26;
+            Item.DamageType = DamageClass.Melee;
+            Item.crit = 6;
+            Item.knockBack = 6;
+            Item.value = Item.sellPrice(gold: 10);
+            Item.rare = ItemRarityID.Red;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+            Item.useTurn = true;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddRecipeGroup("SM:GoldBars", 7);
-            recipe.AddIngredient(ItemID.LifeCrystal, 5);
-            recipe.AddIngredient(ItemID.ManaCrystal, 5);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddRecipeGroup("SM:GoldBars", 7)
+                .AddIngredient(ItemID.LifeCrystal, 5)
+                .AddIngredient(ItemID.ManaCrystal, 5)
+                .AddTile(TileID.Anvils)
+                .Register();
         }
 
         public override int ChoosePrefix(UnifiedRandom rand)

@@ -1,11 +1,11 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace SagesMania.Buffs
+namespace ShardsOfAtheria.Buffs
 {
     public class ShadowTeleport : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shadow Teleport");
             Description.SetDefault("Press 'Shadow Teleport' to teleport");

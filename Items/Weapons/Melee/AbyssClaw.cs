@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Weapons.Melee
+namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class AbyssClaw : ModItem
     {
@@ -13,20 +13,20 @@ namespace SagesMania.Items.Weapons.Melee
 
         public override void SetDefaults()
         {
-            item.width = 32;
-            item.height = 32;
-            item.useTime = 8;
-            item.useAnimation = 8;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.damage = 500;
-            item.melee = true;
-            item.crit = 16;
-            item.knockBack = 6;
-            item.value = Item.sellPrice(gold: 10);
-            item.rare = ItemRarityID.Blue;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.useTurn = true;
+            Item.width = 32;
+            Item.height = 32;
+            Item.useTime = 8;
+            Item.useAnimation = 8;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.damage = 500;
+            Item.DamageType = DamageClass.Melee;
+            Item.crit = 16;
+            Item.knockBack = 6;
+            Item.value = Item.sellPrice(gold: 10);
+            Item.rare = ItemRarityID.Blue;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+            Item.useTurn = true;
         }
 
         public override void HoldItem(Player player)
@@ -36,14 +36,13 @@ namespace SagesMania.Items.Weapons.Melee
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<DemonClaw>());
-            recipe.AddIngredient(ModContent.ItemType<AreusDagger>());
-            recipe.AddIngredient(ModContent.ItemType<KitchenKnife>());
-            recipe.AddIngredient(ModContent.ItemType<CrossDagger>());
-            recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<DemonClaw>())
+                .AddIngredient(ModContent.ItemType<AreusDagger>())
+                .AddIngredient(ModContent.ItemType<KitchenKnife>())
+                .AddIngredient(ModContent.ItemType<CrossDagger>())
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
         }
     }
 }

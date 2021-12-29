@@ -1,10 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Buffs;
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Projectiles;
 
-namespace SagesMania.Items.Weapons.Melee
+namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class LostNail : ModItem
     {
@@ -15,32 +15,31 @@ namespace SagesMania.Items.Weapons.Melee
 
         public override void SetDefaults()
         {
-            item.damage = 125;
-            item.melee = true;
-            item.width = 52;
-            item.height = 52;
-            item.useTime = 10;
-            item.useAnimation = 10;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.knockBack = 6;
-            item.value = Item.sellPrice(gold: 15);
-            item.rare = ItemRarityID.Orange;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.crit = 30;
-            item.shoot = ModContent.ProjectileType<InfectionBlob>();
-            item.shootSpeed = 15;
+            Item.damage = 125;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 52;
+            Item.height = 52;
+            Item.useTime = 10;
+            Item.useAnimation = 10;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.knockBack = 6;
+            Item.value = Item.sellPrice(gold: 15);
+            Item.rare = ItemRarityID.Orange;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+            Item.crit = 30;
+            Item.shoot = ModContent.ProjectileType<InfectionBlob>();
+            Item.shootSpeed = 15;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<BrokenNail>());
-            recipe.AddIngredient(ItemID.BrokenHeroSword);
-            recipe.AddIngredient(ItemID.FragmentSolar, 9);
-            recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<BrokenNail>())
+                .AddIngredient(ItemID.BrokenHeroSword)
+                .AddIngredient(ItemID.FragmentSolar, 9)
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)

@@ -1,11 +1,11 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace SagesMania.Buffs
+namespace ShardsOfAtheria.Buffs
 {
     public class BaseExploration : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Knowledge Base: Exploration");
             Description.SetDefault("10% increased movement speed and max run speed\n" +

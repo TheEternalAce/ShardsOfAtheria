@@ -2,7 +2,7 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace SagesMania.Items.DevItems.AceOfSpades2370
+namespace ShardsOfAtheria.Items.DevItems.AceOfSpades2370
 {
     [AutoloadEquip(EquipType.Legs)]
     public class AcesPants : ModItem
@@ -16,15 +16,10 @@ namespace SagesMania.Items.DevItems.AceOfSpades2370
 
         public override void SetDefaults()
         {
-            item.width = 22;
-            item.height = 18;
-            item.rare = ItemRarityID.Cyan;
-            item.vanity = true;
-        }
-
-        public override bool DrawLegs()
-        {
-            return false;
+            Item.width = 22;
+            Item.height = 18;
+            Item.rare = ItemRarityID.Cyan;
+            Item.vanity = true;
         }
     }
 }

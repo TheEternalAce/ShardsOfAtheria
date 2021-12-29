@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Accessories.GemCores
+namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
 	public class RubyCore : ModItem
 	{
@@ -13,26 +13,25 @@ namespace SagesMania.Items.Accessories.GemCores
 
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.value = Item.sellPrice(silver: 15);
-			item.rare = ItemRarityID.White;
-			item.accessory = true;
+			Item.width = 32;
+			Item.height = 32;
+			Item.value = Item.sellPrice(silver: 15);
+			Item.rare = ItemRarityID.White;
+			Item.accessory = true;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<LesserRubyCore>());
-			recipe.AddRecipeGroup("SM:EvilBars", 10);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<LesserRubyCore>())
+				.AddRecipeGroup("SM:EvilBars", 10)
+				.AddTile(TileID.Anvils)
+				.Register();
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.allDamage += .1f;
+			player.GetDamage(DamageClass.Generic) += .1f;
 		}
 	}
 }

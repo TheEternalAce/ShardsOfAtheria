@@ -1,11 +1,13 @@
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Projectiles.Weapon;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.DecaEquipment
+namespace ShardsOfAtheria.Items.DecaEquipment
 {
-    public class DecaBlade : DecaEquipment
+    public class DecaBlade : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -15,51 +17,52 @@ namespace SagesMania.Items.DecaEquipment
 
         public override void SetDefaults()
         {
-            item.damage = 200000;
-            item.melee = true;
-            item.knockBack = 6f;
-            item.crit = 100;
-            item.useTime = 20;
-            item.useAnimation = 20;
-            item.rare = ItemRarityID.Red;
+            Item.damage = 200000;
+            Item.DamageType = DamageClass.Melee;
+            Item.knockBack = 6f;
+            Item.crit = 100;
+            Item.useTime = 17;
+            Item.useAnimation = 17;
+            Item.rare = ItemRarityID.Red;
 
-            item.autoReuse = true;
-            item.useTurn = true;
-            item.UseSound = SoundID.Item1;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.width = 32;
-            item.height = 32;
+            Item.autoReuse = true;
+            Item.useTurn = false;
+            Item.UseSound = SoundID.Item1;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.width = 32;
+            Item.height = 32;
+
+            Item.noMelee = true;
+            Item.noUseGraphic = true;
+            Item.UseSound = SoundID.Item1;
+            Item.shoot = ModContent.ProjectileType<DecaBladeProj>();
+            Item.shootSpeed = 13f;
         }
-
-        public override bool AltFunctionUse(Player player)
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            return true;
+            tooltips.Add(new TooltipLine(Mod, "Deca Gear", "[c/FF4100:Deca Equipment]"));
         }
 
         public override bool CanUseItem(Player player)
         {
-            if (player.altFunctionUse == 2)
-            {
-                item.noMelee = true;
-                item.noUseGraphic = true;
-                item.useTime = 17;
-                item.useAnimation = 17;
-                item.UseSound = SoundID.Item1;
-                item.shoot = ModContent.ProjectileType<DecaBladeProj>();
-                item.shootSpeed = 13f;
-                item.useTurn = false;
-            }
-            else
-            {
-                item.noMelee = false;
-                item.noUseGraphic = false;
-                item.useTime = 20;
-                item.useAnimation = 20;
-                item.UseSound = SoundID.Item1;
-                item.shoot = ProjectileID.None;
-                item.useTurn = true;
-            }
-            return base.CanUseItem(player);
+            return player.GetModPlayer<DecaPlayer>().modelDeca;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 20)
+                .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 10)
+                .AddIngredient(ItemID.SoulofFlight, 10)
+                .AddIngredient(ItemID.SoulofFright, 10)
+                .AddIngredient(ItemID.SoulofLight, 10)
+                .AddIngredient(ItemID.SoulofMight, 10)
+                .AddIngredient(ItemID.SoulofNight, 10)
+                .AddIngredient(ItemID.SoulofSight, 10)
+                .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10)
+                .AddIngredient(ModContent.ItemType<SoulOfStarlight>(), 10)
+                .AddIngredient(ModContent.ItemType<DeathEssence>())
+                .Register();
         }
     }
 }

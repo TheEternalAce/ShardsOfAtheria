@@ -1,12 +1,12 @@
-﻿using SagesMania.NPCs;
+﻿using ShardsOfAtheria.NPCs;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace SagesMania.Buffs
+namespace ShardsOfAtheria.Buffs
 {
     public class ZenovaJavelin : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Zenova Javelin");
             Description.SetDefault("Defense lowered and losing life");

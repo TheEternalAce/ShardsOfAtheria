@@ -1,7 +1,8 @@
 ﻿using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
-namespace SagesMania.Items.SlayerItems
+namespace ShardsOfAtheria.Items.SlayerItems
 {
 	public class MoonCore : SlayerItem
 	{
@@ -14,16 +15,16 @@ namespace SagesMania.Items.SlayerItems
 
 		public override void SetDefaults()
 		{
-			item.width = 22;
-			item.height = 28;
-			item.value = Item.sellPrice(gold: 15);
-			item.rare = ItemRarityID.Expert;
-			item.accessory = true;
+			Item.width = 22;
+			Item.height = 28;
+			Item.value = Item.sellPrice(gold: 15);
+			Item.rare = ItemRarityID.Expert;
+			Item.accessory = true;
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.magicDamage += .5f;
+			player.GetDamage(DamageClass.Magic) += .5f;
 			player.statManaMax2 += 100;
 			player.GetModPlayer<SMPlayer>().moonCore = true;
 		}

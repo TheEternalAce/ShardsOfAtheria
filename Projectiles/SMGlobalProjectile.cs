@@ -1,9 +1,9 @@
-﻿using SagesMania.NPCs;
+﻿using ShardsOfAtheria.NPCs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Projectiles
+namespace ShardsOfAtheria.Projectiles
 {
     class SMGlobalProjectile : GlobalProjectile
     {

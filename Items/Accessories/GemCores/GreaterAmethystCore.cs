@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Accessories.GemCores
+namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
 	public class GreaterAmethystCore : ModItem
 	{
@@ -15,22 +15,21 @@ namespace SagesMania.Items.Accessories.GemCores
 
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.value = Item.sellPrice(silver: 15);
-			item.rare = ItemRarityID.White;
-			item.accessory = true;
+			Item.width = 32;
+			Item.height = 32;
+			Item.value = Item.sellPrice(silver: 15);
+			Item.rare = ItemRarityID.White;
+			Item.accessory = true;
 		}
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<AmethystCore>());
-            recipe.AddIngredient(ItemID.Bone, 20);
-            recipe.AddIngredient(ItemID.Boulder, 4);
-            recipe.AddTile(TileID.Hellforge);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+               .AddIngredient(ModContent.ItemType<AmethystCore>())
+               .AddIngredient(ItemID.Bone, 20)
+               .AddIngredient(ItemID.Boulder, 4)
+               .AddTile(TileID.Hellforge)
+               .Register();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -108,9 +107,9 @@ namespace SagesMania.Items.Accessories.GemCores
             bool dashAccessoryEquipped = false;
 
             //This is the loop used in vanilla to update/check the not-vanity accessories
-            for (int i = 3; i < 8 + player.extraAccessorySlots; i++)
+            for (int i = 3; i < 8 + Player.extraAccessorySlots; i++)
             {
-                Item item = player.armor[i];
+                Item item = Player.armor[i];
 
                 //Set the flag for the ExampleDashAccessory being equipped if we have it equipped OR immediately return if any of the accessories are
                 // one of the higher-priority ones
@@ -120,14 +119,14 @@ namespace SagesMania.Items.Accessories.GemCores
                     return;
             }
 
-            //If we don't have the ExampleDashAccessory equipped or the player has the Solor armor set equipped, return immediately
-            //Also return if the player is currently on a mount, since dashes on a mount look weird, or if the dash was already activated
-            if (!dashAccessoryEquipped || player.setSolar || player.mount.Active || DashActive)
+            //If we don't have the ExampleDashAccessory equipped or the Player has the Solor armor set equipped, return immediately
+            //Also return if the Player is currently on a mount, since dashes on a mount look weird, or if the dash was already activated
+            if (!dashAccessoryEquipped || Player.setSolar || Player.mount.Active || DashActive)
                 return;
 
-            if (player.controlRight && player.releaseRight && player.doubleTapCardinalTimer[DashRight] < 15)
+            if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[DashRight] < 15)
                 DashDir = DashRight;
-            else if (player.controlLeft && player.releaseLeft && player.doubleTapCardinalTimer[DashLeft] < 15)
+            else if (Player.controlLeft && Player.releaseLeft && Player.doubleTapCardinalTimer[DashLeft] < 15)
                 DashDir = DashLeft;
             else
                 return;  //No dash was activated, return

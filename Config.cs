@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.IO;
 using Terraria.ModLoader;
-namespace SagesMania
+namespace ShardsOfAtheria
 {
     public class Config
     {

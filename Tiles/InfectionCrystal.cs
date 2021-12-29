@@ -2,30 +2,30 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using SagesMania.Items.Placeable;
+using ShardsOfAtheria.Items.Placeable;
 
-namespace SagesMania.Tiles
+namespace ShardsOfAtheria.Tiles
 {
     public class InfectionCrystal : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             TileID.Sets.Ore[Type] = true;
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileLighted[Type] = true;
-            Main.tileValue[Type] = 285;
+            Main.tileOreFinderPriority[Type] = 285;
 
-            drop = ModContent.ItemType<CrystalInfection>();
+            ItemDrop = ModContent.ItemType<CrystalInfection>();
 
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Infection Crystal");
             AddMapEntry(new Color(255, 140, 0), name);
 
-            dustType = DustID.Honey;
-            minPick = 100;
-            soundType = SoundID.Tink;
-            soundStyle = 1;
+            DustType = DustID.Honey;
+            MinPick = 100;
+            SoundType = SoundID.Tink;
+            SoundStyle = 1;
         }
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

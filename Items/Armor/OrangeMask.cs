@@ -2,7 +2,7 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace SagesMania.Items.Armor
+namespace ShardsOfAtheria.Items.Armor
 {
     [AutoloadEquip(EquipType.Head)]
     public class OrangeMask : ModItem
@@ -11,33 +11,28 @@ namespace SagesMania.Items.Armor
         {
             Tooltip.SetDefault("Increases ranged damage by 10% and crit chance by 4%\n" +
                 "7 defense");
+            ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
         }
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.rare = ItemRarityID.Orange;
-            item.vanity = true;
+            Item.width = 18;
+            Item.height = 18;
+            Item.rare = ItemRarityID.Orange;
+            Item.vanity = true;
         }
 
-        public override void UpdateVanity(Player player, EquipType type)
+        public override void UpdateVanity(Player player)
         {
             player.GetModPlayer<SMPlayer>().OrangeMask = true;
         }
-        
+
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Silk, 2);
-            recipe.AddIngredient(ItemID.Pumpkin, 5);
-            recipe.AddTile(TileID.Loom);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
-        
-        public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
-        {
-            drawHair = true;
+            CreateRecipe()
+                .AddIngredient(ItemID.Silk, 2)
+                .AddIngredient(ItemID.Pumpkin, 5)
+                .AddTile(TileID.Loom)
+                .Register();
         }
     }
 }

@@ -1,12 +1,12 @@
-using SagesMania.Items.Accessories;
-using SagesMania.Items.Placeable;
-using SagesMania.Items.Weapons.Magic;
+using ShardsOfAtheria.Items.Accessories;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.Weapons.Magic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
-namespace SagesMania.NPCs.NovaSkyloft
+namespace ShardsOfAtheria.NPCs.NovaSkyloft
 {
 	public class NovaBossBag : ModItem
 	{
@@ -18,13 +18,13 @@ namespace SagesMania.NPCs.NovaSkyloft
 
         public override void SetDefaults()
 		{
-			item.width = 30;
-			item.height = 20;
-			item.value = Item.sellPrice(gold: 7, silver: 50);
-			item.rare = ItemRarityID.Expert;
-			item.maxStack = 999;
-			item.expert = true;
-			item.consumable = true;
+			Item.width = 30;
+			Item.height = 20;
+			Item.value = Item.sellPrice(gold: 7, silver: 50);
+			Item.rare = ItemRarityID.Expert;
+			Item.maxStack = 999;
+			Item.expert = true;
+			Item.consumable = true;
 		}
 
         public override bool CanRightClick()

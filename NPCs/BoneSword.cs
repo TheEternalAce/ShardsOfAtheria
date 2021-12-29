@@ -1,39 +1,63 @@
 ﻿using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
-namespace SagesMania.NPCs
+namespace ShardsOfAtheria.NPCs
 {
     public class BoneSword : ModNPC
     {
         public override void SetStaticDefaults()
         {
+            // Influences how the NPC looks in the Bestiary
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Velocity = 1f, // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
+                Direction = 1 // -1 is left and 1 is right. NPCs are drawn facing the left by default but ExamplePerson will be drawn facing the right
+                              // Rotation = MathHelper.ToRadians(180) // You can also change the rotation of an NPC. Rotation is measured in radians
+                              // If you want to see an example of manually modifying these when the NPC is drawn, see PreDraw
+            };
+
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
         }
 
         public override void SetDefaults()
         {
-            npc.width = 42;
-            npc.height = 42;
-            npc.damage = 7;
-            npc.defense = 8;
-            npc.lifeMax = 40;
-            npc.HitSound = SoundID.NPCHit4;
-            npc.DeathSound = SoundID.NPCDeath52;
-            npc.knockBackResist = 0.4f;
-            npc.aiStyle = 23;
+            NPC.width = 42;
+            NPC.height = 42;
+            NPC.damage = 7;
+            NPC.defense = 8;
+            NPC.lifeMax = 40;
+            NPC.HitSound = SoundID.NPCHit4;
+            NPC.DeathSound = SoundID.NPCDeath52;
+            NPC.knockBackResist = 0.4f;
+            NPC.aiStyle = 23;
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+				// Sets the preferred biomes of this town NPC listed in the bestiary.
+				// With Town NPCs, you usually set this to what biome it likes the most in regards to NPC happiness.
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+
+				// Sets your NPC's flavor text in the bestiary.
+				new FlavorTextBestiaryInfoElement("A bone sword possessed by a malicious spirit.")
+            });
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = (int)(npc.lifeMax * .5f);
-            npc.damage = (int)(npc.damage * .5f);
+            NPC.lifeMax = (int)(NPC.lifeMax * .5f);
+            NPC.damage = (int)(NPC.damage * .5f);
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             Player player = Main.LocalPlayer;
-            if (!(spawnInfo.player.ZoneHoly || spawnInfo.player.ZoneCrimson || spawnInfo.player.ZoneCorrupt || Main.eclipse
+            if (!(spawnInfo.player.ZoneHallow || spawnInfo.player.ZoneCrimson || spawnInfo.player.ZoneCorrupt || Main.eclipse
                 || spawnInfo.player.ZoneTowerNebula || spawnInfo.player.ZoneTowerVortex || spawnInfo.player.ZoneTowerSolar
                 || spawnInfo.player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon || spawnInfo.playerSafe)
                 && spawnInfo.player.ZoneDirtLayerHeight || spawnInfo.player.ZoneRockLayerHeight)
@@ -41,10 +65,10 @@ namespace SagesMania.NPCs
             return 0f;
         }
 
-        public override void NPCLoot()
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             if (Main.rand.NextFloat() < .5f)
-                Item.NewItem(npc.getRect(), ItemID.Bone, Main.rand.Next(10, 20));
+                Item.NewItem(NPC.getRect(), ItemID.Bone, Main.rand.Next(10, 20));
         }
     }
 }

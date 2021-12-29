@@ -1,10 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Projectiles.Ammo;
+using ShardsOfAtheria.Projectiles.Ammo;
 using System.Collections.Generic;
 
-namespace SagesMania.Items.Weapons.Ammo
+namespace ShardsOfAtheria.Items.Weapons.Ammo
 {
 	public class BB : SpecialItem
 	{
@@ -15,27 +15,26 @@ namespace SagesMania.Items.Weapons.Ammo
 
 		public override void SetDefaults()
 		{
-			item.damage = 4;
-			item.ranged = true;
-			item.width = 8;
-			item.height = 8;
-			item.maxStack = 999;
-			item.consumable = true;
-			item.knockBack = 1.5f;
-			item.value = Item.sellPrice(silver: 10);
-			item.rare = ItemRarityID.Green;
-			item.shoot = ModContent.ProjectileType<BBProjectile>();
-			item.shootSpeed = 16f;
-			item.ammo = AmmoID.Bullet;
+			Item.damage = 4;
+			Item.DamageType = DamageClass.Ranged;
+			Item.width = 8;
+			Item.height = 8;
+			Item.maxStack = 999;
+			Item.consumable = true;
+			Item.knockBack = 1.5f;
+			Item.value = Item.sellPrice(silver: 10);
+			Item.rare = ItemRarityID.Green;
+			Item.shoot = ModContent.ProjectileType<BBProjectile>();
+			Item.shootSpeed = 16f;
+			Item.ammo = AmmoID.Bullet;
 		}
 
 		public override void AddRecipes()
         {
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddRecipeGroup("SM:CopperBars");
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 100);
-			recipe.AddRecipe();
+			CreateRecipe(50)
+				.AddRecipeGroup("SM:CopperBars")
+				.AddTile(TileID.WorkBenches)
+				.Register();
 		}
 	}
 }

@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Commands
+namespace ShardsOfAtheria.Commands
 {
     class ResetSlain : ModCommand
 	{
@@ -17,7 +17,6 @@ namespace SagesMania.Commands
 
 		public override void Action(CommandCaller caller, string input, string[] args)
 		{
-			ModContent.GetInstance<SMWorld>().message = 0;
 			ModContent.GetInstance<SMWorld>().slainValkyrie = false;
 			ModContent.GetInstance<SMWorld>().slainEOC = false;
 			ModContent.GetInstance<SMWorld>().slainBOC = false;

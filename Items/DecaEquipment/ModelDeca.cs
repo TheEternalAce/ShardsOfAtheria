@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.DecaEquipment
+namespace ShardsOfAtheria.Items.DecaEquipment
 {
     public class ModelDeca : ModItem
     {
@@ -14,33 +14,27 @@ namespace SagesMania.Items.DecaEquipment
 
         public override void SetDefaults()
         {
-            item.rare = ItemRarityID.Red;
-            item.width = 54;
-            item.height = 54;
+            Item.rare = ItemRarityID.Red;
+            Item.width = 54;
+            Item.height = 54;
+            Item.accessory = true;
         }
 
-        public override void UpdateInventory(Player player)
+        public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<DecaPlayer>().fullDeca = true;
-            player.GetModPlayer<DecaPlayer>().decaFragmentA = true;
-            player.GetModPlayer<DecaPlayer>().decaFragmentB = true;
-            player.GetModPlayer<DecaPlayer>().decaFragmentC = true;
-            player.GetModPlayer<DecaPlayer>().decaFragmentD = true;
-            player.GetModPlayer<DecaPlayer>().decaFragmentE = true;
+            player.GetModPlayer<DecaPlayer>().modelDeca = true;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<DecaFragmentA>());
-            recipe.AddIngredient(ModContent.ItemType<DecaFragmentB>());
-            recipe.AddIngredient(ModContent.ItemType<DecaFragmentC>());
-            recipe.AddIngredient(ModContent.ItemType<DecaFragmentD>());
-            recipe.AddIngredient(ModContent.ItemType<DecaFragmentE>());
-            recipe.AddIngredient(ModContent.ItemType<DeathEssence>(), 5);
-            recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<DecaFragmentA>())
+                .AddIngredient(ModContent.ItemType<DecaFragmentB>())
+                .AddIngredient(ModContent.ItemType<DecaFragmentC>())
+                .AddIngredient(ModContent.ItemType<DecaFragmentD>())
+                .AddIngredient(ModContent.ItemType<DecaFragmentE>())
+                .AddTile(TileID.DemonAltar)
+                .Register();
         }
     }
 }

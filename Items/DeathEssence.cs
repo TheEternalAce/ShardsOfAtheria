@@ -1,7 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items
+namespace ShardsOfAtheria.Items
 {
     public class DeathEssence : ModItem
     {
@@ -12,10 +12,10 @@ namespace SagesMania.Items
 
         public override void SetDefaults()
         {
-            item.rare = ItemRarityID.Red;
-            item.width = 32;
-            item.height = 32;
-            item.maxStack = 999;
+            Item.rare = ItemRarityID.Red;
+            Item.width = 32;
+            Item.height = 32;
+            Item.maxStack = 999;
         }
     }
 }

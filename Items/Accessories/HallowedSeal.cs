@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Accessories
+namespace ShardsOfAtheria.Items.Accessories
 {
 	public class HallowedSeal : ModItem
 	{
@@ -16,29 +16,28 @@ namespace SagesMania.Items.Accessories
 
         public override void SetDefaults()
 		{
-			item.width = 24;
-			item.height = 24;
-			item.value = Item.sellPrice(gold: 7, silver: 50);
-			item.rare = ItemRarityID.Yellow;
-			item.accessory = true;
-			item.defense = 9;
+			Item.width = 24;
+			Item.height = 24;
+			Item.value = Item.sellPrice(gold: 7, silver: 50);
+			Item.rare = ItemRarityID.Yellow;
+			Item.accessory = true;
+			Item.defense = 9;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.meleeDamage += .05f;
-			player.magicDamage += .05f;
+			player.GetDamage(DamageClass.Melee) += .05f;
+			player.GetDamage(DamageClass.Magic) += .05f;
 			player.noFallDmg = true;
 			player.GetModPlayer<SMPlayer>().hallowedSeal = true;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.HallowedBar, 5);
-			recipe.AddIngredient(ItemID.SoulofLight, 5);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.HallowedBar, 5)
+				.AddIngredient(ItemID.SoulofLight, 5)
+				.Register();
 		}
 	}
 }

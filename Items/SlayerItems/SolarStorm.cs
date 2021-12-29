@@ -1,11 +1,11 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
-using SagesMania.Items.Weapons.Ammo;
+using ShardsOfAtheria.Items.Weapons.Ammo;
 using Microsoft.Xna.Framework;
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Projectiles;
 
-namespace SagesMania.Items.SlayerItems
+namespace ShardsOfAtheria.Items.SlayerItems
 {
 	public class SolarStorm : SlayerItem
 	{
@@ -17,37 +17,35 @@ namespace SagesMania.Items.SlayerItems
 
 		public override void SetDefaults() 
 		{
-			item.damage = 150;
-			item.magic = true;
-			item.noMelee = true;
-			item.width = 40;
-			item.height = 22;
-			item.useTime = 10;
-			item.useAnimation = 10;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.knockBack = 4f;
-			item.rare = ItemRarityID.Expert;
-			item.UseSound = SoundID.Item11;
-			item.autoReuse = true;
-			item.crit = 8;
-			item.value = Item.sellPrice(gold: 25);
-			item.shoot = ItemID.PurificationPowder;
-			item.shootSpeed = 20f;
-			item.useAmmo = AmmoID.Flare;
+			Item.damage = 150;
+			Item.DamageType = DamageClass.Magic;
+			Item.noMelee = true;
+			Item.width = 40;
+			Item.height = 22;
+			Item.useTime = 10;
+			Item.useAnimation = 10;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.knockBack = 4f;
+			Item.rare = ItemRarityID.Expert;
+			Item.UseSound = SoundID.Item11;
+			Item.autoReuse = true;
+			Item.crit = 8;
+			Item.value = Item.sellPrice(gold: 25);
+			Item.shoot = ItemID.PurificationPowder;
+			Item.shootSpeed = 20f;
+			Item.useAmmo = AmmoID.Flare;
 		}
-
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
-			type = ModContent.ProjectileType<SolarFlare>();
-			Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(10));
-			speedX = perturbedSpeed.X;
-			speedY = perturbedSpeed.Y;
-			return true;
-        }
 
         public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(4, 0);
 		}
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		{
+			velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
+			if (type == ProjectileID.Flare)
+				type = ModContent.ProjectileType<SolarFlare>();
+        }
     }
 }

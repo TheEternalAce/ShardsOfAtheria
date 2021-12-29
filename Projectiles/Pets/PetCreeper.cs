@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Projectiles.Pets
+namespace ShardsOfAtheria.Projectiles.Pets
 {
     public class PetCreeper : ModProjectile
 	{
@@ -18,28 +18,28 @@ namespace SagesMania.Projectiles.Pets
 		public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Creeper");
-            Main.projPet[projectile.type] = true;
+            Main.projPet[Projectile.type] = true;
 
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 34;
-            projectile.height = 34;
-			projectile.CloneDefaults(ProjectileID.BabyHornet);
-			aiType = ProjectileID.BabyHornet;
+            Projectile.width = 34;
+            Projectile.height = 34;
+			Projectile.CloneDefaults(ProjectileID.BabyHornet);
+			AIType = ProjectileID.BabyHornet;
 		}
 
 		public override bool PreAI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			player.hornet = false; // Relic from aiType
 			return true;
 		}
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			SMPlayer modPlayer = player.GetModPlayer<SMPlayer>();
 			if (player.dead)
 			{
@@ -47,7 +47,7 @@ namespace SagesMania.Projectiles.Pets
 			}
 			if (modPlayer.creeperPet)
 			{
-				projectile.timeLeft = 2;
+				Projectile.timeLeft = 2;
 			}
 		}
 	}

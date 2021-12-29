@@ -4,20 +4,20 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SagesMania.Projectiles
+namespace ShardsOfAtheria.Projectiles
 {
     public class ElectricBlade : ModProjectile {
         public override void SetDefaults() {
-            projectile.width = 32;
-            projectile.height = 32;
-            projectile.scale = 1.5f;
+            Projectile.width = 32;
+            Projectile.height = 32;
+            Projectile.scale = 1.5f;
 
-            projectile.aiStyle = 27;
-            projectile.friendly = true;
-            projectile.tileCollide = true;
-            projectile.arrow = false;
-            projectile.light = 1;
-            aiType = ProjectileID.NightBeam;
+            Projectile.aiStyle = 27;
+            Projectile.friendly = true;
+            Projectile.tileCollide = true;
+            Projectile.arrow = false;
+            Projectile.light = 1;
+            AIType = ProjectileID.NightBeam;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -27,33 +27,34 @@ namespace SagesMania.Projectiles
         }
         public override void AI()
         {
+            Projectile.rotation++;
             if (Main.rand.NextBool(3))
             {
-                Dust dust = Dust.NewDustDirect(projectile.position, projectile.height, projectile.width, DustID.Electric,
-                    projectile.velocity.X * .2f, projectile.velocity.Y * .2f, 200, Scale: 1.2f);
-                dust.velocity += projectile.velocity * 0.3f;
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric,
+                    Projectile.velocity.X * .2f, Projectile.velocity.Y * .2f, 200, Scale: 1.2f);
+                dust.velocity += Projectile.velocity * 0.3f;
                 dust.velocity *= 0.2f;
             }
             if (Main.rand.NextBool(4))
             {
-                Dust dust = Dust.NewDustDirect(projectile.position, projectile.height, projectile.width, DustID.Electric,
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric,
                     0, 0, 254, Scale: 0.3f);
-                dust.velocity += projectile.velocity * 0.5f;
+                dust.velocity += Projectile.velocity * 0.5f;
                 dust.velocity *= 0.5f;
             }
         }
-
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        /*
+        public override bool PreDraw(ref Color lightColor)
         {
             SpriteEffects spriteEffects = SpriteEffects.None;
-            Texture2D texture = Main.projectileTexture[projectile.type];
+            Texture2D texture = Main.projectileTexture[Projectile.type];
             Rectangle sourceRectangle = new Rectangle(0, 0, texture.Width, texture.Height);
             Vector2 origin = sourceRectangle.Size() / 2f;
 
-            Color drawColor = projectile.GetAlpha(lightColor);
-            Main.spriteBatch.Draw(texture, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), sourceRectangle, drawColor, projectile.rotation, origin, 1, spriteEffects, 0f);
+            Color drawColor = Projectile.GetAlpha(lightColor);
+            Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), sourceRectangle, drawColor, Projectile.rotation, origin, 1, spriteEffects, 0f);
 
             return false;
-        }
+        }*/
     }
 }

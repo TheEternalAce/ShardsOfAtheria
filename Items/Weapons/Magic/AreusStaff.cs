@@ -1,68 +1,61 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Placeable;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Tiles;
 using Terraria;
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Projectiles;
 using Microsoft.Xna.Framework;
-using SagesMania.Buffs;
+using ShardsOfAtheria.Buffs;
+using Terraria.DataStructures;
 
-namespace SagesMania.Items.Weapons.Magic
+namespace ShardsOfAtheria.Items.Weapons.Magic
 {
 	public class AreusStaff : AreusWeapon
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("''It's magic, so it won't shock you. I think.''");
+			Tooltip.SetDefault("'It's magic, so it won't shock you. I think.'");
 		}
 
 		public override void SetDefaults() 
 		{
-			item.damage = 130;
-			item.magic = true;
-			item.noMelee = true;
-			Item.staff[item.type] = true;
-			item.width = 32;
-			item.height = 32;
-			item.useTime = 10;
-			item.useAnimation = 10;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.knockBack = 3.75f;
-			item.UseSound = SoundID.Item8;
-			item.autoReuse = true;
-			item.crit = 16;
-			item.rare = ItemRarityID.Cyan;
-			item.value = Item.sellPrice(gold: 20);
-			item.shoot = ModContent.ProjectileType<ElectricBolt>();
-			item.shootSpeed = 16f;
+			Item.damage = 130;
+			Item.DamageType = DamageClass.Magic;
+			Item.noMelee = true;
+			Item.staff[Item.type] = true;
+			Item.width = 32;
+			Item.height = 32;
+			Item.useTime = 10;
+			Item.useAnimation = 10;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.knockBack = 3.75f;
+			Item.UseSound = SoundID.Item8;
+			Item.autoReuse = true;
+			Item.crit = 16;
+			Item.rare = ItemRarityID.Cyan;
+			Item.value = Item.sellPrice(gold: 20);
+			Item.shoot = ModContent.ProjectileType<ElectricBolt>();
+			Item.shootSpeed = 16f;
 
 			if (!Config.areusWeaponsCostMana)
 				areusResourceCost = 1;
-			else item.mana = 6;
+			else Item.mana = 6;
 		}
 
 		public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<AreusBarItem>(), 10);
-			recipe.AddIngredient(ItemID.FragmentVortex, 7);
-			recipe.AddTile(ModContent.TileType<AreusForge>());
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 10)
+				.AddIngredient(ItemID.FragmentVortex, 7)
+				.AddTile(ModContent.TileType<AreusForge>())
+				.Register();
 		}
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			if (player.HasBuff(ModContent.BuffType<Overdrive>()))
-				type = ModContent.ProjectileType<ElectricBlast>();
-			return true;
-		}
-
-		public override bool CanUseItem(Player player)
+        public override bool CanUseItem(Player player)
 		{
 			var areusDamagePlayer = player.GetModPlayer<SMPlayer>();
 
-			if (areusDamagePlayer.areusResourceCurrent >= areusResourceCost && player.statMana >= item.mana)
+			if (areusDamagePlayer.areusResourceCurrent >= areusResourceCost && player.statMana >= Item.mana)
 			{
 				areusDamagePlayer.areusResourceCurrent -= areusResourceCost;
 				return true;

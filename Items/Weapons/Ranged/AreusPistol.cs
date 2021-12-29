@@ -1,13 +1,14 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Placeable;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Tiles;
 using Microsoft.Xna.Framework;
 using Terraria;
-using SagesMania.Projectiles;
-using SagesMania.Buffs;
+using ShardsOfAtheria.Projectiles;
+using ShardsOfAtheria.Buffs;
+using Terraria.DataStructures;
 
-namespace SagesMania.Items.Weapons.Ranged
+namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
 	public class AreusPistol : AreusWeapon
 	{
@@ -18,26 +19,26 @@ namespace SagesMania.Items.Weapons.Ranged
 
 		public override void SetDefaults() 
 		{
-			item.damage = 76;
-			item.ranged = true;
-			item.noMelee = true;
-			item.width = 32;
-			item.height = 16;
-			item.useTime = 10;
-			item.useAnimation = 10;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.knockBack = 3.75f;
-			item.UseSound = SoundID.Item11;
-			item.autoReuse = false;
-			item.crit = 16;
-			item.rare = ItemRarityID.Cyan;
-			item.value = Item.sellPrice(gold: 25);
-			item.shoot = ModContent.ProjectileType<ElectricBolt>();
-			item.shootSpeed = 16f;
+			Item.damage = 76;
+			Item.DamageType = DamageClass.Ranged;
+			Item.noMelee = true;
+			Item.width = 32;
+			Item.height = 16;
+			Item.useTime = 10;
+			Item.useAnimation = 10;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.knockBack = 3.75f;
+			Item.UseSound = SoundID.Item11;
+			Item.autoReuse = false;
+			Item.crit = 16;
+			Item.rare = ItemRarityID.Cyan;
+			Item.value = Item.sellPrice(gold: 25);
+			Item.shoot = ModContent.ProjectileType<ElectricBolt>();
+			Item.shootSpeed = 16f;
 
 			if (!Config.areusWeaponsCostMana)
 				areusResourceCost = 1;
-			else item.mana = 8;
+			else Item.mana = 8;
 		}
 
         public override Vector2? HoldoutOffset()
@@ -47,19 +48,17 @@ namespace SagesMania.Items.Weapons.Ranged
 
 		public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<AreusBarItem>(), 10);
-			recipe.AddIngredient(ItemID.SoulofSight, 7);
-			recipe.AddTile(ModContent.TileType<AreusForge>());
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 10)
+				.AddIngredient(ItemID.SoulofSight, 7)
+				.AddTile(ModContent.TileType<AreusForge>())
+				.Register();
 		}
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
-			if (player.HasBuff(ModContent.BuffType<Overdrive>()))
-				type = ModContent.ProjectileType<ElectricBlast>();
-			return true;
+			if (type == ProjectileID.Bullet)
+				type = ModContent.ProjectileType<ElectricBeam>();
 		}
-	}
+    }
 }

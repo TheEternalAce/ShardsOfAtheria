@@ -1,10 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Buffs;
-using SagesMania.Items.Placeable;
+using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Items.Placeable;
 
-namespace SagesMania.Items.Potions
+namespace ShardsOfAtheria.Items.Potions
 {
 	public class ProcessedAmber : ModItem
 	{
@@ -16,28 +16,27 @@ namespace SagesMania.Items.Potions
 
 		public override void SetDefaults()
 		{
-			item.width = 16;
-			item.height = 16;
-			item.rare = ItemRarityID.Orange;
-			item.maxStack = 30;
-			item.useStyle = ItemUseStyleID.EatingUsing;
-			item.UseSound = SoundID.Item3;
-			item.useTime = 15;
-			item.useAnimation = 15;
-			item.consumable = true;
-			item.useTurn = true;
-			item.healLife = 25;
-			item.buffType = BuffID.WellFed;
-			item.buffTime = (8 * 60) * 60;
+			Item.width = 16;
+			Item.height = 16;
+			Item.rare = ItemRarityID.Orange;
+			Item.maxStack = 30;
+			Item.useStyle = ItemUseStyleID.EatFood;
+			Item.UseSound = SoundID.Item3;
+			Item.useTime = 15;
+			Item.useAnimation = 15;
+			Item.consumable = true;
+			Item.useTurn = true;
+			Item.healLife = 25;
+			Item.buffType = BuffID.WellFed;
+			Item.buffTime = (8 * 60) * 60;
 		}
 
         public override void AddRecipes()
         {
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.Amber);
-			recipe.AddTile(TileID.CookingPots);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.Amber)
+				.AddTile(TileID.CookingPots)
+				.Register();
         }
     }
 }

@@ -1,12 +1,12 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Placeable;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Tiles;
 using Microsoft.Xna.Framework;
 using Terraria;
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Projectiles;
 
-namespace SagesMania.Items.Weapons.Magic
+namespace ShardsOfAtheria.Items.Weapons.Magic
 {
 	public class AreusLuger : AreusWeapon
 	{
@@ -17,37 +17,36 @@ namespace SagesMania.Items.Weapons.Magic
 
 		public override void SetDefaults() 
 		{
-			item.damage = 40;
-			item.magic = true;
-			item.noMelee = true;
-			item.width = 40;
-			item.height = 22;
-			item.scale = .85f;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.knockBack = 4f;
-			item.UseSound = SoundID.Item12;
-			item.autoReuse = false;
-			item.crit = 5;
-			item.rare = ItemRarityID.Cyan;
-			item.value = Item.sellPrice(gold: 25);
-			item.shoot = ModContent.ProjectileType<ElectricBeam>();
-			item.shootSpeed = 16f;
+			Item.damage = 40;
+			Item.DamageType = DamageClass.Magic;
+			Item.noMelee = true;
+			Item.width = 40;
+			Item.height = 22;
+			Item.scale = .85f;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.knockBack = 4f;
+			Item.UseSound = SoundID.Item12;
+			Item.autoReuse = false;
+			Item.crit = 5;
+			Item.rare = ItemRarityID.Cyan;
+			Item.value = Item.sellPrice(gold: 25);
+			Item.shoot = ModContent.ProjectileType<ElectricBeam>();
+			Item.shootSpeed = 16f;
 			if (!Config.areusWeaponsCostMana)
 				areusResourceCost = 1;
-			else item.mana = 5;
+			else Item.mana = 5;
 		}
 
 		public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<AreusBarItem>(), 5);
-			recipe.AddIngredient(ModContent.ItemType<SoulOfStarlight>(), 7);
-			recipe.AddIngredient(ItemID.HellstoneBar, 10);
-			recipe.AddTile(ModContent.TileType<AreusForge>());
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 5)
+				.AddIngredient(ModContent.ItemType<SoulOfStarlight>(), 7)
+				.AddIngredient(ItemID.HellstoneBar, 10)
+				.AddTile(ModContent.TileType<AreusForge>())
+				.Register();
 		}
 		public override Vector2? HoldoutOffset()
 		{
@@ -58,7 +57,7 @@ namespace SagesMania.Items.Weapons.Magic
 		{
 			var areusDamagePlayer = player.GetModPlayer<SMPlayer>();
 
-			if (areusDamagePlayer.areusResourceCurrent >= areusResourceCost && player.statMana >= item.mana)
+			if (areusDamagePlayer.areusResourceCurrent >= areusResourceCost && player.statMana >= Item.mana)
 			{
 				areusDamagePlayer.areusResourceCurrent -= areusResourceCost;
 				return true;

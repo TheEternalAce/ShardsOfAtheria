@@ -1,45 +1,44 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Buffs;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Tiles;
 
-namespace SagesMania.Items.Weapons.Melee
+namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class PanOfPain : ModItem
     {
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Lowers enemy defense and sets enemies a blaze\n" +
-                "''BONK!''");
+                "'BONK!'");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 72;
-            item.melee = true;
-            item.width = 42;
-            item.height = 42;
-            item.useTime = 30;
-            item.useAnimation = 30;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.knockBack = 7;
-            item.value = Item.sellPrice(gold: 10);
-            item.rare = ItemRarityID.LightRed;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = false;
-            item.crit = 21;
-            item.shootSpeed = 15;
+            Item.damage = 72;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 42;
+            Item.height = 42;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.knockBack = 7;
+            Item.value = Item.sellPrice(gold: 10);
+            Item.rare = ItemRarityID.LightRed;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = false;
+            Item.crit = 21;
+            Item.shootSpeed = 15;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddRecipeGroup("SM:Tier1Bars", 15);
-            recipe.AddIngredient(ItemID.HellstoneBar, 10);
-            recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddRecipeGroup("SM:Tier1Bars", 15)
+                .AddIngredient(ItemID.HellstoneBar, 10)
+                .AddTile(ModContent.TileType<CobaltWorkbench>())
+                .Register();
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)

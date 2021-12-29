@@ -1,10 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Placeable;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Tiles;
 
-namespace SagesMania.Items
+namespace ShardsOfAtheria.Items
 {
 	public class AreusCoin : ModItem
 	{
@@ -16,20 +16,19 @@ namespace SagesMania.Items
 
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.value = Item.sellPrice(gold: 10);
-			item.rare = ItemRarityID.Cyan;
-			item.maxStack = 999;
+			Item.width = 32;
+			Item.height = 32;
+			Item.value = Item.sellPrice(gold: 10);
+			Item.rare = ItemRarityID.Cyan;
+			Item.maxStack = 999;
 		}
 
         public override void AddRecipes()
         {
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<AreusOreItem>(), 2);
-			recipe.AddTile(ModContent.TileType<AreusForge>());
-			recipe.SetResult(this, 5);
-			recipe.AddRecipe();
+			CreateRecipe(5)
+				.AddIngredient(ModContent.ItemType<AreusOreItem>(), 2)
+				.AddTile(ModContent.TileType<AreusForge>())
+				.Register();
         }
     }
 }

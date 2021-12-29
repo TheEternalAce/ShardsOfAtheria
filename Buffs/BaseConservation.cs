@@ -1,11 +1,11 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace SagesMania.Buffs
+namespace ShardsOfAtheria.Buffs
 {
     public class BaseConservation : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Knowledge Base: Conservation");
             Description.SetDefault("10% reduced mana cost and 15% chance to not consume ammo\n" +

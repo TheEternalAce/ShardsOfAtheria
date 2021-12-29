@@ -2,18 +2,18 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Projectiles
+namespace ShardsOfAtheria.Projectiles
 {
     public class TaintedHeart : ModProjectile {
         public override void SetDefaults() {
-            projectile.width = 32;
-            projectile.height = 32;
+            Projectile.width = 32;
+            Projectile.height = 32;
 
-            projectile.aiStyle = 1;
-            projectile.friendly = true;
-            projectile.tileCollide = true;
-            projectile.arrow = true;
-            aiType = ProjectileID.Bullet;
+            Projectile.aiStyle = 1;
+            Projectile.friendly = true;
+            Projectile.tileCollide = true;
+            Projectile.arrow = true;
+            AIType = ProjectileID.Bullet;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

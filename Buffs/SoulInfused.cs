@@ -1,11 +1,11 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace SagesMania.Buffs
+namespace ShardsOfAtheria.Buffs
 {
     public class SoulInfused : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul Infused");
             Description.SetDefault("You have been infused with souls");
@@ -15,7 +15,7 @@ namespace SagesMania.Buffs
         {
             player.statLifeMax2 += 50;
             player.statDefense += 10;
-            player.allDamage += .15f;
+            player.GetDamage(DamageClass.Generic) += .15f;
             player.moveSpeed *= 2;
         }
     }

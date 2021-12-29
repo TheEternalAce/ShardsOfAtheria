@@ -1,8 +1,9 @@
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items
+namespace ShardsOfAtheria.Items
 {
 	public class SlayersEmblem : ModItem
 	{
@@ -19,46 +20,45 @@ namespace SagesMania.Items
 
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.rare = ItemRarityID.Red;
-			item.useStyle = ItemUseStyleID.HoldingUp;
-			item.useTime = 45;
-			item.useAnimation = 45;
-			item.accessory = true;
-			item.vanity = true;
+			Item.width = 32;
+			Item.height = 32;
+			Item.rare = ItemRarityID.Red;
+			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
+			Item.accessory = true;
+			Item.vanity = true;
 		}
 
         public override void AddRecipes()
         {
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddTile(TileID.DemonAltar);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddTile(TileID.DemonAltar)
+				.Register();
 		}
 
-		public override bool UseItem(Player player)
+		public override bool? UseItem(Player player)
 		{
 			if (!ModContent.GetInstance<SMWorld>().slayerMode)
 			{
 				Main.NewText("Slayer mode enabled");
-				Main.PlaySound(SoundID.Roar, player.position, 0);
+				SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
 				ModContent.GetInstance<SMWorld>().slayerMode = true;
 			}
 			else
 			{
 				Main.NewText("Slayer mode disabled");
-				Main.PlaySound(SoundID.Roar, player.position, 0);
+				SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
 				ModContent.GetInstance<SMWorld>().slayerMode = false;
 			}
 			return true;
 		}
 
-        public override bool CanEquipAccessory(Player player, int slot)
-        {
+        public override bool CanEquipAccessory(Player player, int slot, bool modded)
+		{
 			if (ModContent.GetInstance<SMWorld>().slayerMode)
 				return true;
 			else return false;
-        }
+		}
     }
 }

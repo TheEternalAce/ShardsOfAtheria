@@ -1,9 +1,10 @@
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.NPCs.NovaSkyloft;
+using ShardsOfAtheria.NPCs.NovaSkyloft;
 
-namespace SagesMania.Items
+namespace ShardsOfAtheria.Items
 {
 	public class ValkyrieCrest : ModItem
 	{
@@ -14,25 +15,24 @@ namespace SagesMania.Items
 
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.rare = ItemRarityID.Red;
-			item.useStyle = ItemUseStyleID.HoldingUp;
-			item.useTime = 45;
-			item.useAnimation = 45;
-			item.maxStack = 20;
-			item.consumable = true;
+			Item.width = 32;
+			Item.height = 32;
+			Item.rare = ItemRarityID.Red;
+			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
+			Item.maxStack = 20;
+			Item.consumable = true;
 		}
 
         public override void AddRecipes()
         {
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddRecipeGroup("SM:GoldBars", 10);
-			recipe.AddRecipeGroup("SM:EvilMaterials", 10);
-			recipe.AddIngredient(ItemID.Feather, 5);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddRecipeGroup("SM:GoldBars", 10)
+				.AddRecipeGroup("SM:EvilMaterials", 10)
+				.AddIngredient(ItemID.Feather, 5)
+				.AddTile(TileID.Anvils)
+				.Register();
 		}
 
 		// We use the CanUseItem hook to prevent a player from using this item while the boss is present in the world.
@@ -41,12 +41,12 @@ namespace SagesMania.Items
 			return player.ZoneOverworldHeight && !NPC.AnyNPCs(ModContent.NPCType<HarpyKnight>()) && !NPC.AnyNPCs(ModContent.NPCType<ValkyrieNova>());
 		}
 
-		public override bool UseItem(Player player)
+		public override bool? UseItem(Player player)
 		{
 			if (!player.ZoneCorrupt && !player.ZoneCrimson && Main.dayTime)
 			{
 				NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<HarpyKnight>());
-				Main.PlaySound(SoundID.Roar, player.position, 0);
+				SoundEngine.PlaySound(SoundID.Roar, 0, 0);
 				return true;
 			}
 			else return false;

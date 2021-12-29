@@ -4,9 +4,10 @@ using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 using Terraria.ModLoader;
-using SagesMania.Buffs;
+using ShardsOfAtheria.Buffs;
+using Terraria.GameContent;
 
-namespace SagesMania.UI
+namespace ShardsOfAtheria.UI
 {
 	internal class OverdriveTimeBar : UIState
 	{
@@ -28,7 +29,7 @@ namespace SagesMania.UI
 			area.Width.Set(182, 0f); // We will be placing the following 2 UIElements within this 182x60 area.
 			area.Height.Set(92, 0f);
 
-			barFrame = new UIImage(ModContent.GetTexture("SagesMania/UI/OverdriveTimeFrame"));
+			barFrame = new UIImage(ModContent.Request<Texture2D>("ShardsOfAtheria/UI/OverdriveTimeFrame").Value);
 			barFrame.Left.Set(22, 0f);
 			barFrame.Top.Set(32, 0f);
 			barFrame.Width.Set(138, 0f);
@@ -82,7 +83,7 @@ namespace SagesMania.UI
 			{
 				//float percent = (float)i / steps; // Alternate Gradient Approach
 				float percent = (float)i / (right - left);
-				spriteBatch.Draw(Main.magicPixel, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), Color.Lerp(gradientA, gradientB, percent));
+				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), Color.Lerp(gradientA, gradientB, percent));
 			}
 		}
 

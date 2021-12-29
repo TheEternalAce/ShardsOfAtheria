@@ -3,29 +3,29 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace SagesMania.Projectiles
+namespace ShardsOfAtheria.Projectiles
 {
     public class FeatherBladeFriendly : ModProjectile
     {
-        public override string Texture => "SagesMania/Projectiles/FeatherBlade";
+        public override string Texture => "ShardsOfAtheria/Projectiles/FeatherBlade";
         public override void SetDefaults() {
-            projectile.width = 10;
-            projectile.height = 10;
-            projectile.damage = 37;
+            Projectile.width = 10;
+            Projectile.height = 10;
+            Projectile.damage = 37;
 
-            projectile.timeLeft = 5 * 60;
-            projectile.aiStyle = -1;
-            projectile.friendly = true;
-            projectile.tileCollide = false;
-            projectile.extraUpdates = 1;
+            Projectile.timeLeft = 5 * 60;
+            Projectile.aiStyle = -1;
+            Projectile.friendly = true;
+            Projectile.tileCollide = false;
+            Projectile.extraUpdates = 1;
 
-            drawOffsetX = -4;
-            drawOriginOffsetX = 2;
+            DrawOffsetX = -4;
+            DrawOriginOffsetX = 2;
         }
 
         public override void AI()
         {
-            projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

@@ -1,31 +1,31 @@
-﻿using SagesMania.Items.Placeable;
+﻿using ShardsOfAtheria.Items.Placeable;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Accessories
+namespace ShardsOfAtheria.Items.Accessories
 {
 	public class AreusKey : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Unlocks your true potential\n" +
-				"''Now, nothing but your own competence holds you back.''");
+				"'Now, nothing but your own competence holds you back.'");
 		}
 
 		public override void SetDefaults()
 		{
-			item.width = 16;
-			item.height = 22;
-			item.value = Item.sellPrice(silver: 15);
-			item.rare = ItemRarityID.Cyan;
-			item.accessory = true;
+			Item.width = 16;
+			Item.height = 22;
+			Item.value = Item.sellPrice(silver: 15);
+			Item.rare = ItemRarityID.Cyan;
+			Item.accessory = true;
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.GetModPlayer<SMPlayer>().areusKey = true;
-			player.allDamage += .5f;
+			player.GetDamage(DamageClass.Generic) += .5f;
 			player.statLifeMax2 *= 2;
 			player.moveSpeed += .5f;
 			player.statDefense *= 2;
@@ -34,12 +34,11 @@ namespace SagesMania.Items.Accessories
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<AreusBarItem>(), 3);
-			recipe.AddIngredient(ItemID.ShadowKey);
-			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 3)
+				.AddIngredient(ItemID.ShadowKey)
+				.AddTile(TileID.LunarCraftingStation)
+				.Register();
 		}
 	}
 }

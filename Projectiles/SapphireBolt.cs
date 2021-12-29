@@ -1,20 +1,20 @@
 ﻿using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Projectiles
+namespace ShardsOfAtheria.Projectiles
 {
     public class SapphireBolt : ModProjectile {
         public override void SetDefaults() {
-            projectile.width = 32;
-            projectile.height = 32;
+            Projectile.width = 32;
+            Projectile.height = 32;
 
-            projectile.aiStyle = 1;
-            projectile.friendly = true;
-            projectile.tileCollide = true;
-            projectile.arrow = true;
-            projectile.light = 1;
-            aiType = ProjectileID.Bullet;
-            drawOffsetX = 10;
+            Projectile.aiStyle = 1;
+            Projectile.friendly = true;
+            Projectile.tileCollide = true;
+            Projectile.arrow = true;
+            Projectile.light = 1;
+            AIType = ProjectileID.Bullet;
+            DrawOffsetX = 10;
         }
     }
 }

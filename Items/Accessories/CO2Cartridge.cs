@@ -1,10 +1,10 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Items.Weapons.Ammo;
+using ShardsOfAtheria.Items.Weapons.Ammo;
 using System.Collections.Generic;
 
-namespace SagesMania.Items.Accessories
+namespace ShardsOfAtheria.Items.Accessories
 {
 	public class CO2Cartridge: SpecialItem
 	{
@@ -16,12 +16,12 @@ namespace SagesMania.Items.Accessories
 
 		public override void SetDefaults()
 		{
-			item.width = 15;
-			item.height = 22;
-			item.value = Item.buyPrice(gold: 5);
-			item.value = Item.sellPrice(silver: 75);
-			item.rare = ItemRarityID.White;
-			item.accessory = true;
+			Item.width = 15;
+			Item.height = 22;
+			Item.value = Item.buyPrice(gold: 5);
+			Item.value = Item.sellPrice(silver: 75);
+			Item.rare = ItemRarityID.White;
+			Item.accessory = true;
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)

@@ -2,7 +2,7 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace SagesMania.Items.DevItems.AceOfSpades2370
+namespace ShardsOfAtheria.Items.DevItems.AceOfSpades2370
 {
     [AutoloadEquip(EquipType.Body)]
     public class AcesJacket : ModItem
@@ -16,10 +16,10 @@ namespace SagesMania.Items.DevItems.AceOfSpades2370
 
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 20;
-            item.rare = ItemRarityID.Cyan;
-            item.vanity = true;
+            Item.width = 30;
+            Item.height = 20;
+            Item.rare = ItemRarityID.Cyan;
+            Item.vanity = true;
         }
     }
 }

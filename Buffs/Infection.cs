@@ -1,11 +1,11 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace SagesMania.Buffs
+namespace ShardsOfAtheria.Buffs
 {
     public class Infection : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Infected");
             Description.SetDefault("You are succumbing to the infection...");
@@ -15,7 +15,7 @@ namespace SagesMania.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             player.statDefense -= 16;
-            player.allDamage *= 2;
+            player.GetDamage(DamageClass.Generic) *= 2;
             player.moveSpeed /= 2;
         }
     }

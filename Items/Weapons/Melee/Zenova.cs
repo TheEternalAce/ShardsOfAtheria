@@ -1,10 +1,12 @@
 using Microsoft.Xna.Framework;
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Projectiles;
+using ShardsOfAtheria.Projectiles.Weapon;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.Weapons.Melee
+namespace ShardsOfAtheria.Items.Weapons.Melee
 {
 	public class Zenova : ModItem
 	{
@@ -12,63 +14,59 @@ namespace SagesMania.Items.Weapons.Melee
 		{
 			Tooltip.SetDefault("Ignores a moderate ammount of defense\n" +
 				"'Zenith's older sister'\n" +
-				"''RANDOM BULLS**T GO!''");
+				"'RANDOM BULLS**T GO!'");
 		}
 
 		public override void SetDefaults() 
 		{
-			item.damage = 263;
-			item.melee = true;
-			item.width = 76;
-			item.height = 76;
-			item.useTime = 1;
-			item.useAnimation = 1;
-			item.noMelee = true;
-			item.noUseGraphic = true;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.knockBack = 3;
-			item.value = Item.sellPrice(gold: 25);
-			item.rare = ItemRarityID.Red;
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = true;
-			item.crit = 16;
-			item.shoot = ModContent.ProjectileType<ZenovaProjectile>();
-			item.shootSpeed = 15;
+			Item.damage = 263;
+			Item.DamageType = DamageClass.Melee;
+			Item.width = 76;
+			Item.height = 76;
+			Item.useTime = 1;
+			Item.useAnimation = 1;
+			Item.noMelee = true;
+			Item.noUseGraphic = true;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.knockBack = 3;
+			Item.value = Item.sellPrice(gold: 25);
+			Item.rare = ItemRarityID.Red;
+			Item.UseSound = SoundID.Item1;
+			Item.autoReuse = true;
+			Item.crit = 16;
+			Item.shoot = ModContent.ProjectileType<ZenovaProjectile>();
+			Item.shootSpeed = 15;
 		}
 
 		public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.WoodenSword);
-			recipe.AddIngredient(ItemID.BoneJavelin, 180);
-			recipe.AddIngredient(ModContent.ItemType<Cataracnia>());
-			recipe.AddIngredient(ModContent.ItemType<OversizedWormsTooth>());
-			recipe.AddIngredient(ItemID.BreakerBlade);
-			recipe.AddIngredient(ItemID.ChlorophyteSaber);
-			recipe.AddIngredient(ItemID.DayBreak);
-			recipe.AddIngredient(ModContent.ItemType<LostNail>());
-			recipe.AddIngredient(ModContent.ItemType<Satanlance>());
-			recipe.AddIngredient(ModContent.ItemType<BlackAreusSword>());
-			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ItemID.WoodenSword)
+				.AddIngredient(ItemID.BoneJavelin, 180)
+				.AddIngredient(ModContent.ItemType<Cataracnia>())
+				.AddIngredient(ModContent.ItemType<OversizedWormsTooth>())
+				.AddIngredient(ItemID.BreakerBlade)
+				.AddIngredient(ItemID.ChlorophyteSaber)
+				.AddIngredient(ItemID.DayBreak)
+				.AddIngredient(ModContent.ItemType<LostNail>())
+				.AddIngredient(ModContent.ItemType<Satanlance>())
+				.AddIngredient(ModContent.ItemType<BlackAreusSword>())
+				.AddTile(TileID.LunarCraftingStation)
+				.Register();
 		}
 
-		// How can I choose between several projectiles randomly?
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        // How can I choose between several projectiles randomly?
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
-			// Here we randomly set type to either the original (as defined by the ammo), a vanilla projectile, or a mod projectile.
-			type = Main.rand.Next(new int[] { type, ModContent.ProjectileType<ZenovaDaybreak>(), ModContent.ProjectileType<ZenovaBoneJavelin>(), 
+			// Here we randomly set type to either the original (as defined by the ammo), a vanilla projectile, or a mod Projectile.
+			type = Main.rand.Next(new int[] { type, ModContent.ProjectileType<ZenovaDaybreak>(), ModContent.ProjectileType<ZenovaBoneJavelin>(),
 				ModContent.ProjectileType<ZenovaProjectile>(), ModContent.ProjectileType<ZenovaBlackAreusSword>(),
 				ModContent.ProjectileType<ZenovaBreakerBlade>(), ModContent.ProjectileType<ZenovaCataracnia>(),
 				ModContent.ProjectileType<ZenovaChlorophyteSaber>(), ModContent.ProjectileType<ZenovaSatanlance>(),
 				ModContent.ProjectileType<ZenovaWoodenSword>(), ModContent.ProjectileType<ZenovaWormsTooth>(),
 				ModContent.ProjectileType<ElectricBlade>(), ModContent.ProjectileType<ZenovaLostNail>(),
 				ModContent.ProjectileType<InfectionBlob>()});
-			Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(10));
-			speedX = perturbedSpeed.X;
-			speedY = perturbedSpeed.Y;
-			return true;
+			velocity = velocity.RotatedByRandom(MathHelper.ToRadians(10));
 		}
 
         public override void HoldItem(Player player)

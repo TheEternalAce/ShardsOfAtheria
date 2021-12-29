@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Tiles;
+using ShardsOfAtheria.Tiles;
 
-namespace SagesMania.Items.Placeable
+namespace ShardsOfAtheria.Items.Placeable
 {
 	public class BionicBarItem : ModItem
 	{
@@ -11,46 +11,31 @@ namespace SagesMania.Items.Placeable
 		{
 			DisplayName.SetDefault("Bionic Bar");
 			Tooltip.SetDefault("It still pulsates as if it has a heartbeat...");
-			ItemID.Sets.ItemIconPulse[item.type] = true;
-			ItemID.Sets.SortingPriorityMaterials[item.type] = 59;
+			ItemID.Sets.ItemIconPulse[Item.type] = true;
+			ItemID.Sets.SortingPriorityMaterials[Item.type] = 59;
 		}
 
 		public override void SetDefaults()
 		{
-			item.width = 30;
-			item.height = 24;
-			item.value = Item.sellPrice(gold: 8);
-			item.rare = ItemRarityID.Blue;
-			item.maxStack = 999;
-			item.consumable = true;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.useTime = 10;
-			item.useAnimation = 10;
-			item.createTile = ModContent.TileType<BionicBar>();
-			item.autoReuse = true;
+			Item.width = 30;
+			Item.height = 24;
+			Item.value = Item.sellPrice(gold: 8);
+			Item.rare = ItemRarityID.Blue;
+			Item.maxStack = 999;
+			Item.consumable = true;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useTime = 10;
+			Item.useAnimation = 10;
+			Item.createTile = ModContent.TileType<BionicBar>();
+			Item.autoReuse = true;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<BionicOreItem>(), 4);
-			recipe.AddTile(TileID.Furnaces);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(this, 10);
-			recipe.AddIngredient(ItemID.Ruby, 5);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(ItemID.LifeCrystal, 2);
-			recipe.AddRecipe();
-
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(this, 10);
-			recipe.AddIngredient(ItemID.JungleSpores, 5);
-			recipe.AddTile(ModContent.TileType<CobaltWorkbench>());
-			recipe.SetResult(ItemID.LifeFruit, 2);
-			recipe.AddRecipe();
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<BionicOreItem>(), 4)
+				.AddTile(TileID.Furnaces)
+				.Register();
 		}
 	}
 }

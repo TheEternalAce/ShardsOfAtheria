@@ -2,17 +2,15 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Buffs
+namespace ShardsOfAtheria.Buffs
 {
     public class Overdrive : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Overdrive: ON");
             Description.SetDefault("'Your systems are being pushed beyond their limits'\n" +
-                "Damage and movement speed increased by 50%\n" +
-                "Defense lowered by 30\n" +
-                "You cannot regen life");
+                "Damage increased by 50%");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
@@ -20,8 +18,7 @@ namespace SagesMania.Buffs
         {
             if (player.GetModPlayer<SMPlayer>().overdriveTimeCurrent >= 0)
             {
-                player.allDamage += .5f;
-                player.statDefense -= 30;
+                player.GetDamage(DamageClass.Generic) += 1f;
                 Lighting.AddLight(player.position, 0.5f, 0.5f, 0.5f);
                 player.buffTime[buffIndex] = 18000;
             }

@@ -1,14 +1,15 @@
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Tiles;
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Tiles;
+using ShardsOfAtheria.Projectiles;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using SagesMania.Items.Placeable;
-using SagesMania.Buffs;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Buffs;
 
-namespace SagesMania.Items.Weapons.Melee
+namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class AreusKatana : AreusWeapon
     {
@@ -19,35 +20,34 @@ namespace SagesMania.Items.Weapons.Melee
 
         public override void SetDefaults()
         {
-            item.damage = 60;
-            item.melee = true;
-            item.width = 40;
-            item.height = 42;
-            item.useTime = 15;
-            item.useAnimation = 15;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.knockBack = 6;
-            item.rare = ItemRarityID.Cyan;
-            item.value = Item.sellPrice(gold: 6);
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.crit = 21;
-            item.shoot = ModContent.ProjectileType<ElectricKunai>();
-            item.shootSpeed = 10;
+            Item.damage = 60;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 40;
+            Item.height = 42;
+            Item.useTime = 15;
+            Item.useAnimation = 15;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.knockBack = 6;
+            Item.rare = ItemRarityID.Cyan;
+            Item.value = Item.sellPrice(gold: 6);
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+            Item.crit = 21;
+            Item.shoot = ModContent.ProjectileType<ElectricKunai>();
+            Item.shootSpeed = 10;
 
             if (!Config.areusWeaponsCostMana)
                 areusResourceCost = 3;
-            else item.mana = 9;
+            else Item.mana = 9;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<AreusBarItem>(), 17);
-            recipe.AddIngredient(ItemID.SoulofFlight, 10);
-            recipe.AddTile(ModContent.TileType<AreusForge>());
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<AreusBarItem>(), 17)
+                .AddIngredient(ItemID.SoulofFlight, 10)
+                .AddTile(ModContent.TileType<AreusForge>())
+                .Register();
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
@@ -61,17 +61,16 @@ namespace SagesMania.Items.Weapons.Melee
         {
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            float numberProjectiles = 3; // 3 shots
-            float rotation = MathHelper.ToRadians(5);
-            position += Vector2.Normalize(new Vector2(speedX, speedY)) * 5f;
-            for (int i = 0; i < numberProjectiles; i++)
+            float rotation = MathHelper.ToRadians(45);
+            position += Vector2.Normalize(velocity) * 45f;
+            for (int i = 0; i < 3; i++)
             {
-                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (3 - 1))) * .2f; // Watch out for dividing by 0 if there is only 1 Projectile.
+                Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
             }
-            return false;
+            return false; // return false to stop vanilla from calling Projectile.NewProjectile.
         }
     }
 }

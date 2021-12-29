@@ -3,56 +3,56 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.NPCs
+namespace ShardsOfAtheria.NPCs
 {
 	public class HarpyHallowed : ModNPC
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hallowed Harpy");
-            Main.npcFrameCount[npc.type] = Main.npcFrameCount[NPCID.Harpy];
+            Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.Harpy];
         }
 
         public override void SetDefaults()
         {
-            npc.CloneDefaults(NPCID.Harpy);
-            npc.width = 98;
-            npc.height = 92;
-            npc.damage = 10;
-            npc.defense = 8;
-            npc.lifeMax = 50;
-            npc.HitSound = SoundID.NPCHit1;
-            npc.DeathSound = SoundID.NPCDeath1;
-            npc.knockBackResist = 0.4f;
-            npc.aiStyle = 14;
-            aiType = NPCID.Harpy;
-            animationType = NPCID.Harpy;
-            banner = Item.NPCtoBanner(NPCID.Harpy);
-            bannerItem = Item.BannerToItem(banner);
+            NPC.CloneDefaults(NPCID.Harpy);
+            NPC.width = 98;
+            NPC.height = 92;
+            NPC.damage = 10;
+            NPC.defense = 8;
+            NPC.lifeMax = 50;
+            NPC.HitSound = SoundID.NPCHit1;
+            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.knockBackResist = 0.4f;
+            NPC.aiStyle = 14;
+            AIType = NPCID.Harpy;
+            AnimationType = NPCID.Harpy;
+            Banner = Item.NPCtoBanner(NPCID.Harpy);
+            BannerItem = Item.BannerToItem(Banner);
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = (int)(npc.lifeMax * .5f);
-            npc.damage = (int)(npc.damage * .5f);
+            NPC.lifeMax = (int)(NPC.lifeMax * .5f);
+            NPC.damage = (int)(NPC.damage * .5f);
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (!(Main.eclipse || spawnInfo.player.ZoneTowerNebula || spawnInfo.player.ZoneTowerVortex || spawnInfo.player.ZoneTowerSolar
-                || spawnInfo.player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon) && spawnInfo.player.ZoneHoly
+                || spawnInfo.player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon) && spawnInfo.player.ZoneHallow
                 && spawnInfo.player.ZoneOverworldHeight)
                 return .25f;
             return 0f;
         }
 
-        public override void NPCLoot()
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             if(Main.rand.NextFloat() < .5f)
-                Item.NewItem(npc.getRect(), ItemID.Feather);
-            Item.NewItem(npc.getRect(), ItemID.CrystalShard, Main.rand.Next(3, 6));
-            Item.NewItem(npc.getRect(), ItemID.PixieDust, Main.rand.Next(3, 6));
-            Item.NewItem(npc.getRect(), ItemID.UnicornHorn, Main.rand.Next(3, 6));
+                Item.NewItem(NPC.getRect(), ItemID.Feather);
+            Item.NewItem(NPC.getRect(), ItemID.CrystalShard, Main.rand.Next(3, 6));
+            Item.NewItem(NPC.getRect(), ItemID.PixieDust, Main.rand.Next(3, 6));
+            Item.NewItem(NPC.getRect(), ItemID.UnicornHorn, Main.rand.Next(3, 6));
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

@@ -1,7 +1,8 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
-namespace SagesMania.Items.SlayerItems
+namespace ShardsOfAtheria.Items.SlayerItems
 {
 	public class DeathsScythe : SlayerItem
 	{
@@ -13,20 +14,20 @@ namespace SagesMania.Items.SlayerItems
 
 		public override void SetDefaults()
 		{
-			item.damage = 200000;
-			item.melee = true;
-			item.width = 60;
-			item.height = 56;
-			item.useTime = 30;
-			item.useAnimation = 30;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.knockBack = 6;
-			item.value = Item.sellPrice(gold: 50);
-			item.rare = ItemRarityID.Expert;
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = false;
-			item.useTurn = true;
-			item.crit = 100;
+			Item.damage = 200000;
+			Item.DamageType = DamageClass.Melee;
+			Item.width = 60;
+			Item.height = 56;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.knockBack = 6;
+			Item.value = Item.sellPrice(gold: 50);
+			Item.rare = ItemRarityID.Expert;
+			Item.UseSound = SoundID.Item1;
+			Item.autoReuse = false;
+			Item.useTurn = true;
+			Item.crit = 100;
 		}
 
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)

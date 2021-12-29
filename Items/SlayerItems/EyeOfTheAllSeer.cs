@@ -1,7 +1,8 @@
 ﻿using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
-namespace SagesMania.Items.SlayerItems
+namespace ShardsOfAtheria.Items.SlayerItems
 {
 	public class EyeOfTheAllSeer: SlayerItem
 	{
@@ -10,16 +11,16 @@ namespace SagesMania.Items.SlayerItems
 			Tooltip.SetDefault("Grants Shine, Night Owl, Dangersense, Hunter and Spelunker potion effects\n" +
 				"<right> to zoom\n" +
 				"2% increased damage\n" +
-				"''I can see everything!''");
+				"'I can see everything!'");
 		}
 
         public override void SetDefaults()
 		{
-			item.width = 22;
-			item.height = 22;
-			item.value = Item.sellPrice(silver: 15);
-			item.rare = ItemRarityID.Expert;
-			item.accessory = true;
+			Item.width = 22;
+			Item.height = 22;
+			Item.value = Item.sellPrice(silver: 15);
+			Item.rare = ItemRarityID.Expert;
+			Item.accessory = true;
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -30,7 +31,7 @@ namespace SagesMania.Items.SlayerItems
 			player.AddBuff(BuffID.Hunter, 2);
 			player.AddBuff(BuffID.Spelunker, 2);
 			player.scope = true;
-			player.allDamage += 0.02f;
+			player.GetDamage(DamageClass.Generic) += 0.02f;
 		}
 
         public override void UpdateInventory(Player player)
@@ -43,7 +44,8 @@ namespace SagesMania.Items.SlayerItems
 				player.AddBuff(BuffID.Hunter, 2);
 				player.AddBuff(BuffID.Spelunker, 2);
 				player.scope = true;
-				player.allDamage += 0.02f;
+				player.GetDamage(DamageClass.Generic) += 0.02f;
+				Item.accessory = false;
 			}
 		}
     }

@@ -2,9 +2,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria;
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Projectiles;
+using Terraria.DataStructures;
 
-namespace SagesMania.Items.SlayerItems
+namespace ShardsOfAtheria.Items.SlayerItems
 {
 	public class WormTench : SlayerItem
 	{
@@ -15,23 +16,23 @@ namespace SagesMania.Items.SlayerItems
 
 		public override void SetDefaults() 
 		{
-			item.damage = 40;
-			item.magic = true;
-			item.noMelee = true;
-			item.width = 50;
-			item.height = 26;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.knockBack = 4f;
-			item.UseSound = SoundID.Item17;
-			item.autoReuse = false;
-			item.crit = 5;
-			item.value = Item.sellPrice(gold: 25);
-			item.rare = ItemRarityID.Expert;
-			item.shoot = ModContent.ProjectileType<VileShot>();
-			item.shootSpeed = 16f;
-			item.mana = 5;
+			Item.damage = 40;
+			Item.DamageType = DamageClass.Magic;
+			Item.noMelee = true;
+			Item.width = 50;
+			Item.height = 26;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.knockBack = 4f;
+			Item.UseSound = SoundID.Item17;
+			Item.autoReuse = false;
+			Item.crit = 5;
+			Item.value = Item.sellPrice(gold: 25);
+			Item.rare = ItemRarityID.Expert;
+			Item.shoot = ModContent.ProjectileType<VileShot>();
+			Item.shootSpeed = 16f;
+			Item.mana = 5;
 		}
 
 		public override Vector2? HoldoutOffset()
@@ -39,19 +40,23 @@ namespace SagesMania.Items.SlayerItems
 			return new Vector2(3, 1);
 		}
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			int numberProjectiles = 4 + Main.rand.Next(2); // 4 or 5 shots
-			for (int i = 0; i < numberProjectiles; i++)
+			const int NumProjectiles = 8; // The number of projectiles that this gun will shoot.
+
+			for (int i = 0; i < NumProjectiles; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30));
-				// 30 degree spread.
-				// If you want to randomize the speed to stagger the projectiles
-				float scale = 1f - (Main.rand.NextFloat() * .3f);
-				perturbedSpeed = perturbedSpeed * scale; 
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				// Rotate the velocity randomly by 30 degrees at max.
+				Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15));
+
+				// Decrease velocity randomly for nicer visuals.
+				newVelocity *= 1f - Main.rand.NextFloat(0.3f);
+
+				// Create a Projectile.
+				Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
 			}
-			return false; // return false because we don't want tmodloader to shoot projectile
+
+			return false; // Return false because we don't want tModLoader to shoot projectile
 		}
 	}
 }

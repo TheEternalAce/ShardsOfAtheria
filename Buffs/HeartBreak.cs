@@ -1,14 +1,14 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace SagesMania.Buffs
+namespace ShardsOfAtheria.Buffs
 {
     public class HeartBreak : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Heart Break");
-            Description.SetDefault("You cannont heal with Cross Dagger or Wand Of Healing");
+            Description.SetDefault("You cannot heal with Cross Dagger or Wand Of Healing");
             Main.debuff[Type] = true;
         }
 

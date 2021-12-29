@@ -1,10 +1,10 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania;
+using ShardsOfAtheria;
 using System.Collections.Generic;
 
-namespace SagesMania.Items.Accessories
+namespace ShardsOfAtheria.Items.Accessories
 {
 	public class ShadowBrand : ModItem
 	{
@@ -14,7 +14,7 @@ namespace SagesMania.Items.Accessories
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			var list = SagesMania.ShadowCloak.GetAssignedKeys();
+			var list = ShardsOfAtheria.ShadowCloak.GetAssignedKeys();
 			string keyname = "Not bound";
 
 			if (list.Count > 0)
@@ -22,19 +22,19 @@ namespace SagesMania.Items.Accessories
 				keyname = list[0];
 			}
 
-			tooltips.Add(new TooltipLine(mod, "Tip", $"Press '[i:{keyname}]' to turn invisible, gaining extra 10% crit chance but losing 10 defense\n" +
+			tooltips.Add(new TooltipLine(Mod, "Tip", $"Press '[i:{keyname}]' to turn invisible, gaining extra 10% crit chance but losing 10 defense\n" +
 				"While not invisible you have a chance to dodge\n" +
 				"After dodge you can teleport once"));
 		}
 
         public override void SetDefaults()
 		{
-			item.width = 16;
-			item.height = 22;
-			item.value = Item.sellPrice(silver: 15);
-			item.rare = ItemRarityID.White;
-			item.accessory = true;
-			item.expert = true;
+			Item.width = 16;
+			Item.height = 22;
+			Item.value = Item.sellPrice(silver: 15);
+			Item.rare = ItemRarityID.White;
+			Item.accessory = true;
+			Item.expert = true;
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -43,9 +43,7 @@ namespace SagesMania.Items.Accessories
 			if (player.GetModPlayer<SMPlayer>().shadowBrandToggled == 1)
 			{
 				player.statDefense -= 10;
-				player.meleeCrit += 10;
-				player.rangedCrit += 10;
-				player.magicCrit += 10;
+				player.GetCritChance(DamageClass.Generic) += 10;
 				player.AddBuff(BuffID.Invisibility, 2);
 			}
 		}

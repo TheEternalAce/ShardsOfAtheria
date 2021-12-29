@@ -2,7 +2,7 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace SagesMania.Items.DevItems.AceOfSpades2370
+namespace ShardsOfAtheria.Items.DevItems.AceOfSpades2370
 {
     [AutoloadEquip(EquipType.Head)]
     public class AcesGoldFoxMask : ModItem
@@ -11,19 +11,15 @@ namespace SagesMania.Items.DevItems.AceOfSpades2370
         {
             DisplayName.SetDefault("Eternal Ace's Gold Fox Mask");
             Tooltip.SetDefault("'Great for impersonating devs!'");
+            ArmorIDs.Head.Sets.DrawBackHair[Item.headSlot] = true;
         }
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.rare = ItemRarityID.Cyan;
-            item.vanity = true;
-        }
-        
-        public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
-        {
-            drawAltHair = true;
+            Item.width = 18;
+            Item.height = 18;
+            Item.rare = ItemRarityID.Cyan;
+            Item.vanity = true;
         }
     }
 }

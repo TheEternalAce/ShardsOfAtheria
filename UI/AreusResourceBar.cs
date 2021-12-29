@@ -4,8 +4,9 @@ using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 using Terraria.ModLoader;
+using Terraria.GameContent;
 
-namespace SagesMania.UI
+namespace ShardsOfAtheria.UI
 {
     internal class AreusResourceBar : UIState
     {
@@ -27,7 +28,7 @@ namespace SagesMania.UI
             area.Width.Set(182, 0f); // We will be placing the following 2 UIElements within this 182x60 area.
             area.Height.Set(60, 0f);
 
-            barFrame = new UIImage(ModContent.GetTexture("SagesMania/UI/AreusResourceFrame"));
+            barFrame = new UIImage(ModContent.Request<Texture2D>("ShardsOfAtheria/UI/AreusResourceFrame").Value);
             barFrame.Left.Set(22, 0f);
             barFrame.Top.Set(0, 0f);
             barFrame.Width.Set(138, 0f);
@@ -79,7 +80,7 @@ namespace SagesMania.UI
             {
                 //float percent = (float)i / steps; // Alternate Gradient Approach
                 float percent = (float)i / (right - left);
-                spriteBatch.Draw(Main.magicPixel, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), Color.Lerp(gradientA, gradientB, percent));
+                spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), Color.Lerp(gradientA, gradientB, percent));
             }
 
         }

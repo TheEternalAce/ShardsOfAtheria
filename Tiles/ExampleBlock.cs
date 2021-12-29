@@ -2,21 +2,21 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using SagesMania.Items.Placeable;
+using ShardsOfAtheria.Items.Placeable;
 
-namespace SagesMania.Tiles
+namespace ShardsOfAtheria.Tiles
 {
     public class ExampleBlock : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
 
-            drop = ModContent.ItemType<ExampleBlockItem>();
+            ItemDrop = ModContent.ItemType<ExampleBlockItem>();
 
-            dustType = DustID.Asphalt;
-            minPick = 0;
+            DustType = DustID.Asphalt;
+            MinPick = 0;
         }
     }
 }

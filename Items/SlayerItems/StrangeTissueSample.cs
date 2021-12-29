@@ -1,10 +1,11 @@
-using SagesMania.Buffs;
-using SagesMania.Projectiles.Pets;
+using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Projectiles.Pets;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SagesMania.Items.SlayerItems
+namespace ShardsOfAtheria.Items.SlayerItems
 {
 	public class StrangeTissueSample : SlayerItem
 	{
@@ -14,19 +15,19 @@ namespace SagesMania.Items.SlayerItems
         }
         public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 32;
-			item.value = Item.sellPrice(gold: 7, silver: 50);
-			item.rare = ItemRarityID.Expert;
-			item.shoot = ModContent.ProjectileType<PetCreeper>();
-			item.buffType = ModContent.BuffType<PetCreeperBuff>();
+			Item.width = 32;
+			Item.height = 32;
+			Item.value = Item.sellPrice(gold: 7, silver: 50);
+			Item.rare = ItemRarityID.Expert;
+			Item.shoot = ModContent.ProjectileType<PetCreeper>();
+			Item.buffType = ModContent.BuffType<PetCreeperBuff>();
 		}
 
-		public override void UseStyle(Player player)
+		public override void UseStyle(Player player, Rectangle heldItemFrame)
 		{
 			if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
 			{
-				player.AddBuff(item.buffType, 3600, true);
+				player.AddBuff(Item.buffType, 3600);
 			}
 		}
 	}

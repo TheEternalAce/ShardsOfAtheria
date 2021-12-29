@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SagesMania.Projectiles;
+using ShardsOfAtheria.Projectiles.Weapon;
 
-namespace SagesMania.Items.SlayerItems
+namespace ShardsOfAtheria.Items.SlayerItems
 {
 	public class ValkyrieStormLance : SlayerItem
 	{
@@ -15,29 +15,29 @@ namespace SagesMania.Items.SlayerItems
 
 		public override void SetDefaults() 
 		{
-			item.damage = 50;
-			item.melee = true;
-			item.width = 50;
-			item.height = 50;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.knockBack = 6;
-			item.value = Item.sellPrice(gold: 50);
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = false;
-			item.crit = 6;
-			item.shoot = ModContent.ProjectileType<ValkyrieStormLanceProj>();
-			item.shootSpeed = 3.5f;
-			item.noMelee = true;
-			item.noUseGraphic = true;
-			item.autoReuse = true;
-			item.rare = ItemRarityID.Expert;
+			Item.damage = 50;
+			Item.DamageType = DamageClass.Melee;
+			Item.width = 50;
+			Item.height = 50;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.knockBack = 6;
+			Item.value = Item.sellPrice(gold: 50);
+			Item.UseSound = SoundID.Item1;
+			Item.autoReuse = false;
+			Item.crit = 6;
+			Item.shoot = ModContent.ProjectileType<ValkyrieStormLanceProj>();
+			Item.shootSpeed = 3.5f;
+			Item.noMelee = true;
+			Item.noUseGraphic = true;
+			Item.autoReuse = true;
+			Item.rare = ItemRarityID.Expert;
 		}
 
         public override bool CanUseItem(Player player)
 		{
-			return player.ownedProjectileCounts[item.shoot] < 1;
+			return player.ownedProjectileCounts[Item.shoot] < 1;
 		}
     }
 }
