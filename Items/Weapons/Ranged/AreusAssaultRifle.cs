@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.shootSpeed = 16f;
 			Item.useAmmo = AmmoID.Bullet;
 
-			if (!Config.areusWeaponsCostMana)
+			if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
 				areusResourceCost = 1;
 			else Item.mana = 4;
 		}
@@ -103,7 +103,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 				Item.autoReuse = false;
 				Item.shoot = ItemID.None;
 				Item.UseSound = new LegacySoundStyle(SoundID.Unlock, 0);
-				if (!Config.areusWeaponsCostMana)
+				if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
 					areusResourceCost = 0;
 				else Item.mana = 0;
 				fireMode += 1;
@@ -126,7 +126,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 					Item.useAnimation = 6;
 					Item.reuseDelay = default;
 					Item.autoReuse = false;
-					if (!Config.areusWeaponsCostMana)
+					if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
 						areusResourceCost = 1;
 					else Item.mana = 4;
 				}
@@ -138,8 +138,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 					Item.useAnimation = 12;
 					Item.reuseDelay = 18;
 					Item.autoReuse = true;
-					if (!Config.areusWeaponsCostMana)
-						areusResourceCost = 4;
+					if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
+						areusResourceCost = 3;
 					else Item.mana = 16;
 				}
 				else if (fireMode == 2)
@@ -150,7 +150,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 					Item.useAnimation = 6;
 					Item.reuseDelay = default;
 					Item.autoReuse = true;
-					if (!Config.areusWeaponsCostMana)
+					if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
 						areusResourceCost = 1;
 					else Item.mana = 4;
 				}

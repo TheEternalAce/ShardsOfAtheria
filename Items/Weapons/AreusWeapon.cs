@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.Items.Weapons
 		// Make sure you can't use the item if you don't have enough resource and then use resourceCost otherwise.
 		public override bool CanUseItem(Player player)
 		{
-			if (!Config.areusWeaponsCostMana)
+			if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
 			{
 				var exampleDamagePlayer = player.GetModPlayer<SMPlayer>();
 
@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons
 				}
 				return false;
 			}
-			else return true;
+			else return base.CanUseItem(player);
 		}
 
 		public override void HoldItem(Player player)

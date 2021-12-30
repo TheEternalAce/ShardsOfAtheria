@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.shoot = ModContent.ProjectileType<ElectricBolt>();
 			Item.shootSpeed = 16f;
 
-			if (!Config.areusWeaponsCostMana)
+			if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
 				areusResourceCost = 1;
 			else Item.mana = 8;
 		}

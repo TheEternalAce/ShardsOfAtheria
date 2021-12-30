@@ -37,32 +37,28 @@ namespace ShardsOfAtheria
 		public bool slainEverything;
 
         public override void SaveWorldData(TagCompound tag)
-        {
-			new TagCompound
-			{
-				{"flightDisabled", flightDisabled},
+		{
+			tag["flightDisabled"] = flightDisabled;
+			tag["slayerMode"] = slayerMode;
 
-				{"downedDeath", downedDeath},
-				{"downedValkyrie", downedValkyrie},
-				{"slayerMode", slayerMode},
-				{"slainDeath", slainDeath},
-				{"slainValkyrie", slainValkyrie},
-				{"slainEOC", slainEOC},
-				{"slainBOC", slainBOC},
-				{"slainEOW", slainEOW},
-				{"slainBee", slainBee},
-				{"slainSkull", slainSkull},
-				{"slainWall", slainWall},
-				{"slainMechWorm", slainMechWorm},
-				{"slainTwins", slainTwins},
-				{"slainPrime", slainPrime},
-				{"slainPlant", slainPlant},
-				{"slainGolem", slainGolem},
-				{"slainDuke", slainDuke},
-				{"slainEmpress", slainEmpress},
-				{"slainMoonLord", slainMoonLord},
-				{"slainEverything", slainEverything},
-			};
+			tag["downedDeath"] = downedDeath;
+			tag["downedValkyrie"] = downedValkyrie;
+			tag["slainDeath"] = slainDeath;
+			tag["slainValkyrie"] = slainValkyrie;
+			tag["slainEOC"] = slainEOC;
+			tag["slainBOC"] = slainBOC;
+			tag["slainEOW"] = slainEOW;
+			tag["slainBee"] = slainBee;
+			tag["slainSkull"] = slainSkull;
+			tag["slainWall"] = slainWall;
+			tag["slainMechWorm"] = slainMechWorm;
+			tag["slainTwins"] = slainTwins;
+			tag["slainPrime"] = slainPrime;
+			tag["slainPlant"] = slainPlant;
+			tag["slainGolem"] = slainGolem;
+			tag["slainDuke"] = slainDuke;
+			tag["slainEmpress"] = slainEmpress;
+			tag["slainMoonLord"] = slainMoonLord;
 		}
 
         public override void LoadWorldData(TagCompound tag)

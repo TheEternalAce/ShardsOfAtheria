@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,6 +15,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 				"Increased Jump height\n" +
 				"Panic Neclace effect\n" +
 				"Grants flight and slowfall");
+
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(30, .5f, .5f);
 		}
 
 		public override void SetDefaults()
@@ -37,25 +40,18 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.moveSpeed += .1f;
-			player.wingTimeMax = 2 * 60;
 			player.panic = true;
 			player.jumpBoost = true;
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
 			ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
-		{
-			ascentWhenFalling = 0.85f;
-			ascentWhenRising = 0.15f;
-			maxCanAscendMultiplier = 1f;
-			maxAscentMultiplier = 3f;
+		    {
+			ascentWhenFalling = .85f;
+			ascentWhenRising = .5f;
+			maxCanAscendMultiplier = 3f;
+			maxAscentMultiplier = 1f;
 			constantAscend = 0.135f;
-		}
-
-		public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
-		{
-			speed = 9f;
-			acceleration *= 2.5f;
 		}
 	}
 }

@@ -26,7 +26,7 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<LivingMetal>())
+                .AddIngredient(ModContent.ItemType<Biometal>())
                 .AddIngredient(ModContent.ItemType<RushDrive>())
                 .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10)
                 .AddIngredient(ItemID.SoulofMight, 10)

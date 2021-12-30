@@ -31,7 +31,6 @@ namespace ShardsOfAtheria
         public bool greaterRubyCore;
         public bool superRubyCore;
         public bool OrangeMask;
-        public bool livingMetal;
         public bool omnicientTome;
         public bool baseConservation;
         public bool sapphireMinion;
@@ -105,7 +104,6 @@ namespace ShardsOfAtheria
             greaterRubyCore = false;
             superRubyCore = false;
             OrangeMask = false;
-            livingMetal = false;
             omnicientTome = false;
             baseConservation = false;
             sapphireMinion = false;
@@ -228,29 +226,11 @@ namespace ShardsOfAtheria
                     Player.AddBuff(164, 10 * 60);
                 }
             }
-            if (Config.sapphireMinion)
-            {
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] <= 0 && greaterSapphireCore)
-                {
-                    Projectile.NewProjectile(Player.GetProjectileSource_Buff(ModContent.BuffType<SapphireSpirit>()), Player.position, Player.velocity, ModContent.ProjectileType<SapphireSpiritMinion>(), 80, 5, Player.whoAmI);
-                }
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] <= 0 && superSapphireCore)
-                {
-                    Projectile.NewProjectile(Player.GetProjectileSource_Buff(ModContent.BuffType<SapphireSpirit>()), Player.position, Player.velocity, ModContent.ProjectileType<SapphireSpiritMinion>(), 157, 5, Player.whoAmI);
-                }
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] <= 0 && megaGemCore)
-                {
-                    Projectile.NewProjectile(Player.GetProjectileSource_Buff(ModContent.BuffType<SapphireSpirit>()), Player.position, Player.velocity, ModContent.ProjectileType<SapphireSpiritMinion>(), 267, 5, Player.whoAmI);
-                }
-            }
+
             if (!ModContent.GetInstance<SMWorld>().flightDisabled && (megaGemCore || areusWings))
             {
                 Player.wingTime = 100;
                 Player.rocketTime = 100;
-            }
-            if (Player.ownedProjectileCounts[ModContent.ProjectileType<HoneybeeMinion>()] <= 0 && honeyCrown)
-            {
-                Projectile.NewProjectile(Player.GetProjectileSource_Buff(ModContent.BuffType<Honeybee>()), Player.position, Player.velocity, ModContent.ProjectileType<HoneybeeMinion>(), 30, 5, Player.whoAmI);
             }
             if (spiderClock)
             {
@@ -281,21 +261,16 @@ namespace ShardsOfAtheria
                 Player.buffImmune[BuffID.HeartLamp] = true;
                 Player.shinyStone = false;
             }
-            if (!ModContent.GetInstance<SMWorld>().flightDisabled)
+            if (ModContent.GetInstance<SMWorld>().flightDisabled)
             {
                 Player.wingTime = 0;
-                if (Config.NoRocketFlightToggle)
+                if (ModContent.GetInstance<Config>().NoRocketFlight)
                     Player.rocketTime = 0;
             }
             if (!Player.HasBuff(ModContent.BuffType<Megamerged>()))
             {
                 Player.ClearBuff(ModContent.BuffType<Overdrive>());
                 Player.buffImmune[ModContent.BuffType<Overdrive>()] = true;
-            }
-            if (!livingMetal)
-            {
-                Player.ClearBuff(ModContent.BuffType<Megamerged>());
-                Player.buffImmune[ModContent.BuffType<Megamerged>()] = true;
             }
             if (ModContent.GetInstance<SMWorld>().slayerMode)
             {
@@ -373,7 +348,7 @@ namespace ShardsOfAtheria
 
         private void UpdateResource()
         {
-            if (!Config.areusWeaponsCostMana)
+            if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
             {
                 if (areusWeapon)
                 {
@@ -720,7 +695,7 @@ namespace ShardsOfAtheria
 
         public override void FrameEffects()
         {
-            if (Config.MegamergeVisual)
+            if (ModContent.GetInstance<Config>().MegamergeVisual)
             {
                 if (Player.HasBuff(ModContent.BuffType<Megamerged>()))
                 {
@@ -735,9 +710,9 @@ namespace ShardsOfAtheria
                     Player.face = -1;
                     Player.balloon = -1;
 
-                    Player.head = Mod.GetEquipSlot("LivingMetalHead", EquipType.Head);
-                    Player.body = Mod.GetEquipSlot("LivingMetalBody", EquipType.Body);
-                    Player.legs = Mod.GetEquipSlot("LivingMetalLegs", EquipType.Legs);
+                    Player.head = Mod.GetEquipSlot("BiometalHead", EquipType.Head);
+                    Player.body = Mod.GetEquipSlot("BiometalBody", EquipType.Body);
+                    Player.legs = Mod.GetEquipSlot("BiometalLegs", EquipType.Legs);
 
                 }
                 if (omegaDrive)
@@ -807,13 +782,9 @@ namespace ShardsOfAtheria
         }
 
         public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
-        {
+         {
             if (Player.HasBuff(ModContent.BuffType<Overdrive>()))
-            {
                 Player.ClearBuff(ModContent.BuffType<Overdrive>());
-                CombatText.NewText(Player.Hitbox, Color.Red, "Overdrive: BREAK", true);
-                SoundEngine.PlaySound(SoundID.NPCDeath44, Player.position);
-            }
             if (megaGemCore)
             {
                 Player.AddBuff(BuffID.Rage, 10 * 60);

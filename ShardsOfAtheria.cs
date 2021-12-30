@@ -58,8 +58,6 @@ namespace ShardsOfAtheria
 
         public override void Load()
         {
-            Config.Load();
-
             AreusCurrency = CustomCurrencyManager.RegisterCurrency(new AreusCurrency(ModContent.ItemType<Items.AreusCoin>(), 999L));
             OverdriveKey = KeybindLoader.RegisterKeybind(this, "Toggle Overdrive", "F");
             TomeKey = KeybindLoader.RegisterKeybind(this, "Cycle Knowledge Base", "N");
@@ -72,15 +70,15 @@ namespace ShardsOfAtheria
             if (!Main.dedServ)
             {
                 /*
-                if (Config.MegamergeVisual)
+                if (ModContent.GetInstance<Config>().MegamergeVisual)
                 {
-                    AddEquipTexture(new Items.LivingMetalHead(), null, EquipType.Head, "OmegaMetalHead", "ShardsOfAtheria/Items/Accessories/OmegaMetal_Head");
-                    AddEquipTexture(new Items.LivingMetalBody(), null, EquipType.Body, "OmegaMetalBody", "ShardsOfAtheria/Items/Accessories/OmegaMetal_Body", "ShardsOfAtheria/Items/Accessories/OmegaMetal_Arms");
-                    AddEquipTexture(new Items.LivingMetalLegs(), null, EquipType.Legs, "OmegaMetalLegs", "ShardsOfAtheria/Items/Accessories/OmegaMetal_Legs");
+                    AddEquipTexture(new Items.BiometalHead(), null, EquipType.Head, "OmegaMetalHead", "ShardsOfAtheria/Items/Accessories/OmegaMetal_Head");
+                    AddEquipTexture(new Items.BiometalBody(), null, EquipType.Body, "OmegaMetalBody", "ShardsOfAtheria/Items/Accessories/OmegaMetal_Body", "ShardsOfAtheria/Items/Accessories/OmegaMetal_Arms");
+                    AddEquipTexture(new Items.BiometalLegs(), null, EquipType.Legs, "OmegaMetalLegs", "ShardsOfAtheria/Items/Accessories/OmegaMetal_Legs");
 
-                    AddEquipTexture(new Items.LivingMetalHead(), null, EquipType.Head, "LivingMetalHead", "ShardsOfAtheria/Items/LivingMetal_Head");
-                    AddEquipTexture(new Items.LivingMetalBody(), null, EquipType.Body, "LivingMetalBody", "ShardsOfAtheria/Items/LivingMetal_Body", "ShardsOfAtheria/Items/LivingMetal_Arms");
-                    AddEquipTexture(new Items.LivingMetalLegs(), null, EquipType.Legs, "LivingMetalLegs", "ShardsOfAtheria/Items/LivingMetal_Legs");
+                    AddEquipTexture(new Items.BiometalHead(), null, EquipType.Head, "BiometalHead", "ShardsOfAtheria/Items/Biometal_Head");
+                    AddEquipTexture(new Items.BiometalBody(), null, EquipType.Body, "BiometalBody", "ShardsOfAtheria/Items/Biometal_Body", "ShardsOfAtheria/Items/Biometal_Arms");
+                    AddEquipTexture(new Items.BiometalLegs(), null, EquipType.Legs, "BiometalLegs", "ShardsOfAtheria/Items/Biometal_Legs");
                 }
                 */
                 //AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicName"), ModContent.ItemType<MusicBox>(), ModContent.TileType<MusicBoxTile>());

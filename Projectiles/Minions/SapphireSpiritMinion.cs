@@ -12,8 +12,6 @@ namespace ShardsOfAtheria.Projectiles.Minions
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sapphire Spirit");
-			// Sets the amount of frames this minion has on its spritesheet
-			Main.projFrames[Projectile.type] = 1;
 			// This is necessary for right-click targeting
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
@@ -25,8 +23,8 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
 		public sealed override void SetDefaults()
 		{
-			Projectile.width = 18;
-			Projectile.height = 28;
+			Projectile.width = 32;
+			Projectile.height = 32;
 			Projectile.tileCollide = false; // Makes the minion go through tiles freely
 
 			// These below are needed for a minion weapon

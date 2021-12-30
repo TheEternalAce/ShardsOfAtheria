@@ -10,7 +10,6 @@ namespace ShardsOfAtheria.Buffs
 		{
 			DisplayName.SetDefault("Honeybee");
 			Description.SetDefault("The Honeybee will fight along side you\n" +
-				"'Something's not quite right...'\n" +
 				"'Her name is Rose'");
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
@@ -18,16 +17,14 @@ namespace ShardsOfAtheria.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			SMPlayer modPlayer = player.GetModPlayer<SMPlayer>();
 			if (player.ownedProjectileCounts[ModContent.ProjectileType<HoneybeeMinion>()] > 0)
-				modPlayer.honeybeeMinion = true;
-			if (!modPlayer.honeyCrown)
 			{
-				player.DelBuff(buffIndex);
-				buffIndex--;
+				player.buffTime[buffIndex] = 180000;
 			}
 			else
-				player.buffTime[buffIndex] = 1;
+			{
+				player.buffTime[buffIndex] = 0;
+			}
 		}
 	}
 }

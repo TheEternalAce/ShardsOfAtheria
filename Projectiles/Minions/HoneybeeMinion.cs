@@ -25,8 +25,8 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
 		public sealed override void SetDefaults()
 		{
-			Projectile.width = 18;
-			Projectile.height = 28;
+			Projectile.width = 16;
+			Projectile.height = 18;
 			Projectile.tileCollide = false; // Makes the minion go through tiles freely
 
 			// These below are needed for a minion weapon

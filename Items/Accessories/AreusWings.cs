@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Items.Placeable;
+using Terraria.DataStructures;
 using ShardsOfAtheria.Tiles;
 
 namespace ShardsOfAtheria.Items.Accessories
@@ -13,6 +14,8 @@ namespace ShardsOfAtheria.Items.Accessories
 		{
 			Tooltip.SetDefault("Allows infinite flight and grants slow fall\n" +
 				"Grants immunity to Electrified");
+
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 9f, 2.5f);
 		}
 
 		public override void SetDefaults()
@@ -26,7 +29,6 @@ namespace ShardsOfAtheria.Items.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.wingTimeMax = 1666666666;
 			player.buffImmune[BuffID.Electrified] = true;
 			player.GetModPlayer<SMPlayer>().areusWings = true;
 		}

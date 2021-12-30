@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,6 +15,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 				"Increased jump height" +
 				"Panic Necklace, Lava Waders and Flippers effects\n" +
 				"Grants flight and slowfall");
+
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(120, 9f, 2.5f);
 		}
 
 		public override void SetDefaults()
@@ -29,7 +32,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		{
 			player.moveSpeed += .1f;
 			player.jumpBoost = true;
-			player.wingTimeMax = 4 * 60;
 			player.panic = true;
 			player.accFlipper = true;
 			player.waterWalk = true;

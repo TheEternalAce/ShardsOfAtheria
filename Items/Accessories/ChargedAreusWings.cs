@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Tiles;
+using Terraria.DataStructures;
 
 namespace ShardsOfAtheria.Items.Accessories
 {
@@ -15,6 +16,8 @@ namespace ShardsOfAtheria.Items.Accessories
 				"Grants immunity to Electrified\n" +
 				"20% increased areus damage and all attacks inflict electrified\n" +
 				"Increases Areus Charge by 50 and Areus Charge regenerates");
+
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 9f, 2.5f);
 		}
 
 		public override void SetDefaults()
@@ -28,7 +31,6 @@ namespace ShardsOfAtheria.Items.Accessories
 		//these wings use the same values as the solar wings
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.wingTimeMax = 2000000000;
 			player.buffImmune[BuffID.Electrified] = true;
 			player.GetModPlayer<SMPlayer>().areusBatteryElectrify = true;
 			player.GetModPlayer<SMPlayer>().areusWings = true;

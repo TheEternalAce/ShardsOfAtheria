@@ -8,12 +8,11 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items
 {
-    public class LivingMetal : SpecialItem
+    public class Biometal : SpecialItem
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Use to toggle Megamerge\n" +
-                "Must be used in hotbar");
+            Tooltip.SetDefault("Use to toggle Megamerge");
         }
 
         public override void SetDefaults()
@@ -41,7 +40,6 @@ namespace ShardsOfAtheria.Items
 
         public override void UpdateInventory(Player player)
         {
-            player.GetModPlayer<SMPlayer>().livingMetal = true;
             if (!player.HasBuff(ModContent.BuffType<Megamerged>()))
             {
                 if (player.Male)
@@ -49,10 +47,19 @@ namespace ShardsOfAtheria.Items
                 else Item.UseSound = SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Item/MegamergeFemale");
             }
             else
-            {
-                player.ClearBuff(ModContent.BuffType<Megamerged>());
                 Item.UseSound = SoundID.Item4;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            if (!player.HasBuff(ModContent.BuffType<Megamerged>()))
+            {
+                if (player.Male)
+                    Item.UseSound = SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Item/MegamergeMale");
+                else Item.UseSound = SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Item/MegamergeFemale");
             }
+            else
+                Item.UseSound = SoundID.Item4;
         }
 
         public override bool? UseItem(Player player)
@@ -63,7 +70,7 @@ namespace ShardsOfAtheria.Items
                 CombatText.NewText(player.Hitbox, Color.White, "Megamerge!", true);
             }
             else player.ClearBuff(ModContent.BuffType<Megamerged>());
-            return base.UseItem(player);
+            return true;
         }
     }
 }

@@ -36,10 +36,15 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
         {
-			player.AddBuff(ModContent.BuffType<SapphireSpirit>(), 2);
 			player.GetModPlayer<SMPlayer>().superSapphireCore = true;
 			player.GetModPlayer<SMPlayer>().superSapphireCore = true;
 			player.maxMinions += 5;
+
+			player.AddBuff(ModContent.BuffType<SapphireSpirit>(), 2);
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] <= 0)
+			{
+				Projectile.NewProjectile(player.GetProjectileSource_Accessory(Item), player.position, player.velocity, ModContent.ProjectileType<SapphireSpiritMinion>(), 157, 5, player.whoAmI);
+			}
 		}
     }
 }

@@ -17,19 +17,14 @@ namespace ShardsOfAtheria.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			SMPlayer modPlayer = player.GetModPlayer<SMPlayer>();
-			if (player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] > 0)
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] > 0 && (player.GetModPlayer<SMPlayer>().greaterSapphireCore
+				|| player.GetModPlayer<SMPlayer>().superSapphireCore))
 			{
-				modPlayer.sapphireMinion = true;
-			}
-			if (!modPlayer.greaterSapphireCore)
-			{
-				player.DelBuff(buffIndex);
-				buffIndex--;
+				player.buffTime[buffIndex] = 180000;
 			}
 			else
 			{
-				player.buffTime[buffIndex] = 1;
+				player.buffTime[buffIndex] = 0;
 			}
 		}
 	}

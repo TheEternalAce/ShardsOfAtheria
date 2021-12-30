@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 			Item.shootSpeed = 20f;
 			Item.useAmmo = ModContent.ItemType<AreusRod>();
 
-			if (!Config.areusWeaponsCostMana)
+			if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
 				areusResourceCost = 5;
 			else Item.mana = 20;
 		}

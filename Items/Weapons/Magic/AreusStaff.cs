@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 			Item.shoot = ModContent.ProjectileType<ElectricBolt>();
 			Item.shootSpeed = 16f;
 
-			if (!Config.areusWeaponsCostMana)
+			if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
 				areusResourceCost = 1;
 			else Item.mana = 6;
 		}

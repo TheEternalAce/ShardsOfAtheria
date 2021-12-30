@@ -1,55 +1,32 @@
-﻿using System.IO;
-using Terraria;
-using Terraria.IO;
-using Terraria.ModLoader;
+﻿using System.ComponentModel;
+using Terraria.ModLoader.Config;
+
 namespace ShardsOfAtheria
 {
-    public class Config
+    public class Config : ModConfig
     {
-        public static bool MegamergeVisual = true;
-        public static bool NoRocketFlightToggle = true;
-        public static bool sapphireMinion = true;
-        public static bool areusWeaponsCostMana = false;
+		// ConfigScope.ClientSide should be used for client side, usually visual or audio tweaks.
+		// ConfigScope.ServerSide should be used for basically everything else, including disabling items or changing NPC behaviours
+		public override ConfigScope Mode => ConfigScope.ServerSide;
 
-        //The file will be stored in "Terraria/ModLoader/Mod Configs/AcesMania.json"
-        static string ConfigPath = Path.Combine(Main.SavePath, "Mod Configs", "AcesMania.json");
+		// The things in brackets are known as "Attributes".
+		[Header("Visuals")] // Headers are like titles in a Config. You only need to declare a header on the item it should appear over, not every item in the category.
+		[Label("Megamerge Visual")] // A label is the text displayed next to the option. This should usually be a short description of what it does.
+		[Tooltip("Toggle Megamerge Visual")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option.
+		[DefaultValue(true)] // This sets the Configs default value.
+		[ReloadRequired] // Marking it with [ReloadRequired] makes tModLoader force a mod reload if the option is changed. It should be used for things like item toggles, which only take effect during mod loading
+		public bool MegamergeVisual;
 
-        static Preferences Configuration = new Preferences(ConfigPath);
-
-        public static void Load()
-        {
-            //Reading the config file
-            bool success = ReadConfig();
-
-            if (!success)
-            {
-                CreateConfig();
-            }
-        }
-
-        //Returns "true" if the config file was found and successfully loaded.
-        static bool ReadConfig()
-        {
-            if (Configuration.Load())
-            {
-                Configuration.Get("MegamergeVisual", ref MegamergeVisual);
-                Configuration.Get("NoRocketFlightToggle", ref NoRocketFlightToggle);
-                Configuration.Get("sapphireMinion", ref sapphireMinion);
-                Configuration.Get("areusWeaponsCostMana", ref areusWeaponsCostMana);
-                return true;
-            }
-            return false;
-        }
-
-        //Creates a config file. This will only be called if the config file doesn't exist yet or it's invalid. 
-        static void CreateConfig()
-        {
-            Configuration.Clear();
-            Configuration.Put("MegamergeVisual", MegamergeVisual);
-            Configuration.Put("NoRocketFlightToggle", NoRocketFlightToggle);
-            Configuration.Put("sapphireMinion", sapphireMinion);
-            Configuration.Put("areusWeaponsCostMana", areusWeaponsCostMana);
-            Configuration.Save();
-        }
-    }
+		[Header("Mechanics")] // Headers are like titles in a Config. You only need to declare a header on the item it should appear over, not every item in the category.
+		[Label("Areus weapons use mana")] // A label is the text displayed next to the option. This should usually be a short description of what it does.
+		[Tooltip("Disables the Areus Charge bar")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option.
+		[DefaultValue(false)] // This sets the Configs default value.
+		[ReloadRequired] // Marking it with [ReloadRequired] makes tModLoader force a mod reload if the option is changed. It should be used for things like item toggles, which only take effect during mod loading
+		public bool areusWeaponsCostMana;
+		[Label("Rocket toggle")] // A label is the text displayed next to the option. This should usually be a short description of what it does.
+		[Tooltip("Disables rocket boots when /toggleFlight is used")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option.
+		[DefaultValue(true)] // This sets the Configs default value.
+		[ReloadRequired] // Marking it with [ReloadRequired] makes tModLoader force a mod reload if the option is changed. It should be used for things like item toggles, which only take effect during mod loading
+		public bool NoRocketFlight;
+	}
 }

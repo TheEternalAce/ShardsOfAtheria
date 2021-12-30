@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Buffs
             player.spikedBoots++;
             player.buffTime[buffIndex] = 18000;
 
-            LivingMetalDashPlayer mp = player.GetModPlayer<LivingMetalDashPlayer>();
+            BiometalDashPlayer mp = player.GetModPlayer<BiometalDashPlayer>();
             //If the dash is not active, immediately return so we don't do any of the logic for it
             if (!mp.DashActive)
                 return;
@@ -58,14 +58,14 @@ namespace ShardsOfAtheria.Buffs
             //Here we take advantage of "player.eocDash" and "player.armorEffectDrawShadowEOCShield" to get the Shield of Cthulhu's afterimage effect
 
             //If the dash has just started, apply the dash velocity in whatever direction we wanted to dash towards
-            if (mp.DashTimer == LivingMetalDashPlayer.MAX_DASH_TIMER)
+            if (mp.DashTimer == BiometalDashPlayer.MAX_DASH_TIMER)
             {
                 Vector2 newVelocity = player.velocity;
 
-                if ((mp.DashDir == LivingMetalDashPlayer.DashLeft && player.velocity.X > -mp.DashVelocity) || (mp.DashDir == LivingMetalDashPlayer.DashRight && player.velocity.X < mp.DashVelocity))
+                if ((mp.DashDir == BiometalDashPlayer.DashLeft && player.velocity.X > -mp.DashVelocity) || (mp.DashDir == BiometalDashPlayer.DashRight && player.velocity.X < mp.DashVelocity))
                 {
                     //X-velocity is set here
-                    int dashDirection = mp.DashDir == LivingMetalDashPlayer.DashRight ? 1 : -1;
+                    int dashDirection = mp.DashDir == BiometalDashPlayer.DashRight ? 1 : -1;
                     newVelocity.X = dashDirection * mp.DashVelocity;
                 }
 
@@ -79,14 +79,14 @@ namespace ShardsOfAtheria.Buffs
             if (mp.DashDelay == 0)
             {
                 //The dash has ended.  Reset the fields
-                mp.DashDelay = LivingMetalDashPlayer.MAX_DASH_DELAY;
-                mp.DashTimer = LivingMetalDashPlayer.MAX_DASH_TIMER;
+                mp.DashDelay = BiometalDashPlayer.MAX_DASH_DELAY;
+                mp.DashTimer = BiometalDashPlayer.MAX_DASH_TIMER;
                 mp.DashActive = false;
             }
         }
     }
 
-    public class LivingMetalDashPlayer : ModPlayer
+    public class BiometalDashPlayer : ModPlayer
     {
         //These indicate what direction is what in the timer arrays used
         public static readonly int DashRight = 2;

@@ -5,9 +5,9 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon
 {
-    public class HiddenBladeProj : ModProjectile
+    public class HiddenWristBladeProj : ModProjectile
     {
-        public override string Texture => "ShardsOfAtheria/Items/Weapons/Melee/HiddenBlade";
+        public override string Texture => "ShardsOfAtheria/Items/Weapons/Melee/HiddenWristBlade";
 
         public const int FadeInDuration = 7;
 		public const int FadeOutDuration = 4;
@@ -89,12 +89,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon
 			int HalfProjWidth = Projectile.width / 2;
 			int HalfProjHeight = Projectile.height / 2;
 
-			// Vanilla configuration for "hitbox in middle of sprite"
+			// Vanilla ModContent.GetInstance<Config>()uration for "hitbox in middle of sprite"
 			DrawOriginOffsetX = 0;
 			DrawOffsetX = -(HalfSpriteWidth - HalfProjWidth);
 			DrawOriginOffsetY = -(HalfSpriteHeight - HalfProjHeight);
 
-			// Vanilla configuration for "hitbox towards the end"
+			// Vanilla ModContent.GetInstance<Config>()uration for "hitbox towards the end"
 			//if (Projectile.spriteDirection == 1) {
 			//	DrawOriginOffsetX = -(HalfProjWidth - HalfSpriteWidth);
 			//	DrawOffsetX = (int)-DrawOriginOffsetX * 2;

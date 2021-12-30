@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Projectiles.Minions;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,6 +25,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
                 "Effects of Ankh Shield, Bundle of Ballons, Frostspark Boots, Lava Waders and Shiny Stone\n" +
                 "Permanent Thorns, Regeneration, Honey, Heart Lantern, Cozy Campfire, Heartreach and Gravitation buffs\n" +
                 "Grants infinite flight and slow fall");
+
+            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(2000000000, 9f, 2.5f);
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -36,8 +40,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             }
 
             tooltips.Add(new TooltipLine(Mod, "Damage", $"Allows teleportation on press of '[i:{keyname}]'"));
-            if (ModLoader.GetMod("WingSlot") != null)
-                tooltips.Add(new TooltipLine(Mod, "Damage", $"Dash does not work when equipped in Wing Slot yet"));
         }
 
         public override void SetDefaults()
@@ -53,7 +55,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         public override void AddRecipes()
         {
             CreateRecipe()
-               .AddIngredient(ModContent.ItemType<SuperAmethystCore>())
+                .AddIngredient(ModContent.ItemType<SuperAmethystCore>())
                 .AddIngredient(ModContent.ItemType<SuperDiamondCore>())
                 .AddIngredient(ModContent.ItemType<SuperEmeraldCore>())
                 .AddIngredient(ModContent.ItemType<SuperRubyCore>())
@@ -116,13 +118,16 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             if (player.GetModPlayer<SMPlayer>().megaGemCoreGrav)
                 player.AddBuff(BuffID.Gravitation, 2);
 
+            
             player.AddBuff(ModContent.BuffType<SapphireSpirit>(), 2);
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] <= 0)
+                Projectile.NewProjectile(player.GetProjectileSource_Accessory(Item), player.position, player.velocity, ModContent.ProjectileType<SapphireSpiritMinion>(), 267, 0f, player.whoAmI);
+
             player.GetModPlayer<SMPlayer>().megaGemCore = true;
 
             player.GetDamage(DamageClass.Generic) += .2f;
             player.maxMinions += 8;
             player.statLifeMax2 += 100;
-            player.wingTimeMax = 2000000000;
             player.GetModPlayer<SMPlayer>().superEmeraldCore = true;
             player.GetModPlayer<SMPlayer>().megaGemCore = true;
 

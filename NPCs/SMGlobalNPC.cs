@@ -6,6 +6,7 @@ using ShardsOfAtheria.Items.SlayerItems;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -61,32 +62,8 @@ namespace ShardsOfAtheria.NPCs
             }
         }
 
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        public override void OnKill(NPC npc)
         {
-            if (npc.type == NPCID.Mothron && Main.rand.NextFloat() < 0.25f)
-            {
-                Item.NewItem(npc.getRect(), ModContent.ItemType<BrokenHeroGun>());
-            }
-            if (npc.type == NPCID.MartianSaucerCore && Main.rand.NextFloat() < 0.25f)
-            {
-                Item.NewItem(npc.getRect(), ModContent.ItemType<ReactorMeltdown>());
-            }
-            if (Main.dayTime && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneOverworldHeight && !(Main.LocalPlayer.ZoneCorrupt || Main.LocalPlayer.ZoneCrimson && Main.eclipse))
-            {
-                Item.NewItem(npc.getRect(), ModContent.ItemType<SoulOfDaylight>());
-            }
-            if (!Main.dayTime && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneOverworldHeight && !(Main.LocalPlayer.ZoneCorrupt || Main.LocalPlayer.ZoneCrimson && Main.eclipse))
-            {
-                Item.NewItem(npc.getRect(), ModContent.ItemType<SoulOfStarlight>());
-            }
-            if (Main.eclipse && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneOverworldHeight && !(Main.LocalPlayer.ZoneCorrupt || Main.LocalPlayer.ZoneCrimson))
-            {
-                Item.NewItem(npc.getRect(), ModContent.ItemType<SoulOfStarlight>());
-            }
-            if (Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneUnderworldHeight && !(Main.LocalPlayer.ZoneHallow))
-            {
-                Item.NewItem(npc.getRect(), ModContent.ItemType<SoulOfSpite>());
-            }
             if (ModContent.GetInstance<SMWorld>().slayerMode)
             {
                 if (npc.type == NPCID.EyeofCthulhu)
@@ -157,7 +134,7 @@ namespace ShardsOfAtheria.NPCs
                     Item.NewItem(npc.getRect(), ItemID.BeeKeeper);
                     Item.NewItem(npc.getRect(), ItemID.BeesKnees);
                     Item.NewItem(npc.getRect(), ModContent.ItemType<Glock80>());
-                    Item.NewItem(npc.getRect(), ModContent.ItemType<HiddenBlade>());
+                    Item.NewItem(npc.getRect(), ModContent.ItemType<HiddenWristBlade>());
                     Item.NewItem(npc.getRect(), ModContent.ItemType<DemonClaw>());
                     Item.NewItem(npc.getRect(), ModContent.ItemType<HecateII>());
                     Item.NewItem(npc.getRect(), ModContent.ItemType<ShadowBrand>());
@@ -205,8 +182,8 @@ namespace ShardsOfAtheria.NPCs
                     Item.NewItem(npc.getRect(), ItemID.MechanicalWagonPiece);
                     Item.NewItem(npc.getRect(), ItemID.DestroyerTrophy, 999);
                     Item.NewItem(npc.getRect(), ItemID.DestroyerMask);
-                    Item.NewItem(npc.getRect(), ItemID.SoulofMight, 4000);
-                    Item.NewItem(npc.getRect(), ItemID.HallowedBar, 1000);
+                    Item.NewItem(npc.getRect(), ItemID.SoulofMight, 999);
+                    Item.NewItem(npc.getRect(), ItemID.HallowedBar, 333);
                     Item.NewItem(npc.getRect(), ModContent.ItemType<Coilgun>());
                     Item.NewItem(npc.getRect(), 4932, 999); //Relic
                     Item.NewItem(npc.getRect(), 4803); //Deactivated Probe
@@ -219,8 +196,8 @@ namespace ShardsOfAtheria.NPCs
                     Item.NewItem(npc.getRect(), ItemID.RetinazerTrophy, 999);
                     Item.NewItem(npc.getRect(), ItemID.SpazmatismTrophy, 999);
                     Item.NewItem(npc.getRect(), ItemID.TwinMask);
-                    Item.NewItem(npc.getRect(), ItemID.SoulofSight, 4000);
-                    Item.NewItem(npc.getRect(), ItemID.HallowedBar, 2000);
+                    Item.NewItem(npc.getRect(), ItemID.SoulofSight, 999);
+                    Item.NewItem(npc.getRect(), ItemID.HallowedBar, 333);
                     Item.NewItem(npc.getRect(), ModContent.ItemType<DoubleBow>());
                     Item.NewItem(npc.getRect(), 4931, 999); //Relic
                     Item.NewItem(npc.getRect(), 4804); //Pair of Eyeballs
@@ -232,8 +209,8 @@ namespace ShardsOfAtheria.NPCs
                     Item.NewItem(npc.getRect(), ItemID.MechanicalBatteryPiece);
                     Item.NewItem(npc.getRect(), ItemID.SkeletronPrimeTrophy, 999);
                     Item.NewItem(npc.getRect(), ItemID.SkeletronPrimeMask);
-                    Item.NewItem(npc.getRect(), ItemID.SoulofFright, 4000);
-                    Item.NewItem(npc.getRect(), ItemID.HallowedBar, 1000);
+                    Item.NewItem(npc.getRect(), ItemID.SoulofFright, 999);
+                    Item.NewItem(npc.getRect(), ItemID.HallowedBar, 333);
                     Item.NewItem(npc.getRect(), ModContent.ItemType<BlasterCannonBlueprints>());
                     Item.NewItem(npc.getRect(), 4933, 999); //Relic
                     Item.NewItem(npc.getRect(), 4805); //Robotic Skull
@@ -268,10 +245,10 @@ namespace ShardsOfAtheria.NPCs
                     Item.NewItem(npc.getRect(), ItemID.ShinyStone);
                     Item.NewItem(npc.getRect(), ItemID.GolemTrophy, 999);
                     Item.NewItem(npc.getRect(), ItemID.GolemMask);
-                    Item.NewItem(npc.getRect(), ItemID.BeetleHusk, 4000);
+                    Item.NewItem(npc.getRect(), ItemID.BeetleHusk, 999);
                     Item.NewItem(npc.getRect(), ItemID.Picksaw);
                     Item.NewItem(npc.getRect(), ItemID.Stynger);
-                    Item.NewItem(npc.getRect(), ItemID.StyngerBolt, 4000);
+                    Item.NewItem(npc.getRect(), ItemID.StyngerBolt, 999);
                     Item.NewItem(npc.getRect(), ItemID.PossessedHatchet);
                     Item.NewItem(npc.getRect(), ItemID.SunStone);
                     Item.NewItem(npc.getRect(), ItemID.EyeoftheGolem);
@@ -342,10 +319,37 @@ namespace ShardsOfAtheria.NPCs
                     Item.NewItem(npc.getRect(), ModContent.ItemType<PhaseOreItem>(), 20);
                 }
             }
+            if (Main.dayTime && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneOverworldHeight && !(Main.LocalPlayer.ZoneCorrupt || Main.LocalPlayer.ZoneCrimson))
+            {
+                Item.NewItem(npc.getRect(), ModContent.ItemType<SoulOfDaylight>());
+            }
+            if (!Main.dayTime && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneOverworldHeight && !(Main.LocalPlayer.ZoneCorrupt || Main.LocalPlayer.ZoneCrimson))
+            {
+                Item.NewItem(npc.getRect(), ModContent.ItemType<SoulOfStarlight>());
+            }
+            if (Main.eclipse && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneOverworldHeight && !(Main.LocalPlayer.ZoneCorrupt || Main.LocalPlayer.ZoneCrimson))
+            {
+                Item.NewItem(npc.getRect(), ModContent.ItemType<SoulOfStarlight>());
+            }
+            if (Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneUnderworldHeight && !(Main.LocalPlayer.ZoneHallow))
+            {
+                Item.NewItem(npc.getRect(), ModContent.ItemType<SoulOfSpite>());
+            }
+        }
+
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+        {
+            if (npc.type == NPCID.Mothron)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BrokenHeroGun>(), 4));
+            }
+            if (npc.type == NPCID.MartianSaucerCore)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ReactorMeltdown>(), 4));
+            }
             if (npc.type == NPCID.EyeofCthulhu || npc.type == NPCID.BrainofCthulhu || npc.type == 657 || npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism
-                || npc.type == NPCID.Plantera || npc.type == NPCID.Golem || npc.type == 636 || npc.type == NPCID.DukeFishron || npc.type == NPCID.MoonLordCore 
-               && !ModContent.GetInstance<SMWorld>().slayerMode)
-                Item.NewItem(npc.getRect(), ModContent.ItemType<PhaseOreItem>(), Main.rand.Next(5, 7));
+                || npc.type == NPCID.Plantera || npc.type == NPCID.Golem || npc.type == 636 || npc.type == NPCID.DukeFishron || npc.type == NPCID.MoonLordCore)
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PhaseOreItem>(), 1, 5, 7));
         }
 
         public override bool PreAI(NPC npc)
@@ -495,21 +499,6 @@ namespace ShardsOfAtheria.NPCs
                 // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 8 life lost per second.
                 npc.lifeRegen -= 100;
             }
-        }
-
-        public override bool? CanBeHitByItem(NPC npc, Player player, Item item)
-        {
-            if (player.GetModPlayer<DecaPlayer>().modelDeca)
-                return true;
-            return base.CanBeHitByItem(npc, player, item);
-        }
-
-        public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
-        {
-            Player player = Main.LocalPlayer;
-            if (player.GetModPlayer<DecaPlayer>().modelDeca)
-                return true;
-            return base.CanBeHitByProjectile(npc, projectile);
         }
 
         public override void GetChat(NPC npc, ref string chat)

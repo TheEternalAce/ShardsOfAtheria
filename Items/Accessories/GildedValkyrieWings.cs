@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,7 +10,9 @@ namespace ShardsOfAtheria.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("'The gold plating on the wings weighs you down'");
+			Tooltip.SetDefault("'The gold plating on the wings weighs you down slightly'");
+
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(30, 9f, 2.5f);
 		}
 
 		public override void SetDefaults()
@@ -20,11 +23,6 @@ namespace ShardsOfAtheria.Items.Accessories
 			Item.rare = ItemRarityID.Expert;
 			Item.accessory = true;
 			Item.expert = true;
-		}
-		
-		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			player.wingTimeMax = 30;
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,

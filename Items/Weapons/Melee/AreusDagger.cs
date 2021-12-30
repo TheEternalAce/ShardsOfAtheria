@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<ElectricBolt>();
             Item.shootSpeed = 20;
 
-            if (!Config.areusWeaponsCostMana)
+            if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
                 areusResourceCost = 2;
             else Item.mana = 7;
         }

@@ -50,7 +50,7 @@ namespace ShardsOfAtheria.UI
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (Config.areusWeaponsCostMana || !Main.LocalPlayer.GetModPlayer<SMPlayer>().areusWeapon)
+            if (ModContent.GetInstance<Config>().areusWeaponsCostMana || !Main.LocalPlayer.GetModPlayer<SMPlayer>().areusWeapon)
                 return;
 
             base.Draw(spriteBatch);

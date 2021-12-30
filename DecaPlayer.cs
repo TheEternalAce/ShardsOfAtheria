@@ -59,19 +59,5 @@ namespace ShardsOfAtheria
             if (modelDeca)
                 Player.moveSpeed += 1f;
         }
-
-        public override bool? CanHitNPC(Item item, NPC target)
-        {
-            if (Main.LocalPlayer.HeldItem.ModItem is DecaBlade)
-                return true;
-            return base.CanHitNPC(item, target);
-        }
-
-        public override bool? CanHitNPCWithProj(Projectile proj, NPC target)
-        {
-            if (Main.LocalPlayer.HeldItem.ModItem is DecaBlade && proj.friendly)
-                return true;
-            return base.CanHitNPCWithProj(proj, target);
-        }
     }
 }

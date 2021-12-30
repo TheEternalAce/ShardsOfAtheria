@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<ElectricKunai>();
             Item.shootSpeed = 10;
 
-            if (!Config.areusWeaponsCostMana)
+            if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
                 areusResourceCost = 3;
             else Item.mana = 9;
         }
@@ -63,11 +63,12 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            float numberProjectiles = 3;
             float rotation = MathHelper.ToRadians(45);
             position += Vector2.Normalize(velocity) * 45f;
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < numberProjectiles; i++)
             {
-                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (3 - 1))) * .2f; // Watch out for dividing by 0 if there is only 1 Projectile.
+                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .2f; // Watch out for dividing by 0 if there is only 1 projectile.
                 Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
             }
             return false; // return false to stop vanilla from calling Projectile.NewProjectile.

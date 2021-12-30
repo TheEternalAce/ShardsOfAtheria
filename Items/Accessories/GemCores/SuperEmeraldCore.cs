@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,6 +15,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 				"15% increased movement speed\n" +
 				"Bundle of Balloons, Panic Necklace, Frostspark Boots, Lava Waders and Flippers effects\n" +
 				"Grants flight, slowfall and immunity to cold debuffs");
+
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 9f, 2.5f);
 		}
 
 		public override void SetDefaults()
@@ -27,7 +30,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.wingTimeMax = 4 * 60;
 			player.panic = true;
 			player.waterWalk = true;
 			player.fireWalk = true;

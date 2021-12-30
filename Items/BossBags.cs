@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items
 				else
 				{
 					player.QuickSpawnItem(ModContent.ItemType<Glock80>());
-					player.QuickSpawnItem(ModContent.ItemType<HiddenBlade>());
+					player.QuickSpawnItem(ModContent.ItemType<HiddenWristBlade>());
 				}
 				if (Main.rand.NextFloat() < .1f)
                 {
