@@ -681,59 +681,5 @@ namespace ShardsOfAtheria
                 }
             }
         }
-
-        //public void NinjaDodge()
-        //{
-        //    Player.SetImmuneTimeForAllTypes(Player.longInvince ? 120 : 80);
-        //    for (int i = 0; i < 100; i++)
-        //    {
-        //        int num = Dust.NewDust(new Vector2(Player.position.X, Player.position.Y), Player.width, Player.height, 31, 0f, 0f, 100, default(Color), 2f);
-        //        Main.dust[num].position.X += Main.rand.Next(-20, 21);
-        //        Main.dust[num].position.Y += Main.rand.Next(-20, 21);
-        //        Dust obj = Main.dust[num];
-        //        obj.velocity *= 0.4f;
-        //        Main.dust[num].scale *= 1f + (float)Main.rand.Next(40) * 0.01f;
-        //        Main.dust[num].shader = GameShaders.Armor.GetSecondaryShader(Player.cWaist, Player);
-        //        if (Main.rand.Next(2) == 0)
-        //        {
-        //            Main.dust[num].scale *= 1f + (float)Main.rand.Next(40) * 0.01f;
-        //            Main.dust[num].noGravity = true;
-        //        }
-        //    }
-        //    int num2 = Gore.NewGore(new Vector2(Player.position.X + (float)(Player.width / 2) - 24f, Player.position.Y + (float)(Player.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64));
-        //    Main.gore[num2].scale = 1.5f;
-        //    Main.gore[num2].velocity.X = (float)Main.rand.Next(-50, 51) * 0.01f;
-        //    Main.gore[num2].velocity.Y = (float)Main.rand.Next(-50, 51) * 0.01f;
-        //    Gore obj2 = Main.gore[num2];
-        //    obj2.velocity *= 0.4f;
-        //    num2 = Gore.NewGore(new Vector2(Player.position.X + (float)(Player.width / 2) - 24f, Player.position.Y + (float)(Player.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64));
-        //    Main.gore[num2].scale = 1.5f;
-        //    Main.gore[num2].velocity.X = 1.5f + (float)Main.rand.Next(-50, 51) * 0.01f;
-        //    Main.gore[num2].velocity.Y = 1.5f + (float)Main.rand.Next(-50, 51) * 0.01f;
-        //    Gore obj3 = Main.gore[num2];
-        //    obj3.velocity *= 0.4f;
-        //    num2 = Gore.NewGore(new Vector2(Player.position.X + (float)(Player.width / 2) - 24f, Player.position.Y + (float)(Player.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64));
-        //    Main.gore[num2].scale = 1.5f;
-        //    Main.gore[num2].velocity.X = -1.5f - (float)Main.rand.Next(-50, 51) * 0.01f;
-        //    Main.gore[num2].velocity.Y = 1.5f + (float)Main.rand.Next(-50, 51) * 0.01f;
-        //    Gore obj4 = Main.gore[num2];
-        //    obj4.velocity *= 0.4f;
-        //    num2 = Gore.NewGore(new Vector2(Player.position.X + (float)(Player.width / 2) - 24f, Player.position.Y + (float)(Player.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64));
-        //    Main.gore[num2].scale = 1.5f;
-        //    Main.gore[num2].velocity.X = 1.5f + (float)Main.rand.Next(-50, 51) * 0.01f;
-        //    Main.gore[num2].velocity.Y = -1.5f - (float)Main.rand.Next(-50, 51) * 0.01f;
-        //    Gore obj5 = Main.gore[num2];
-        //    obj5.velocity *= 0.4f;
-        //    num2 = Gore.NewGore(new Vector2(Player.position.X + (float)(Player.width / 2) - 24f, Player.position.Y + (float)(Player.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64));
-        //    Main.gore[num2].scale = 1.5f;
-        //    Main.gore[num2].velocity.X = -1.5f - (float)Main.rand.Next(-50, 51) * 0.01f;
-        //    Main.gore[num2].velocity.Y = -1.5f - (float)Main.rand.Next(-50, 51) * 0.01f;
-        //    Gore obj6 = Main.gore[num2];
-        //    obj6.velocity *= 0.4f;
-        //    if (Player.whoAmI == Main.myPlayer)
-        //    {
-        //        NetMessage.SendData(62, -1, -1, null, Player.whoAmI, 1f);
-        //    }
-        //}
     }
 }
