@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Potions
 			Tooltip.SetDefault("Damages you but grants the following:\n" +
 				"Increased damage, movement speed and defense\n" +
 				"Grants life regen\n" +
-				"[c/960096:'Babe I promise, I don't do drugs!']");
+				"'Bro I promise, injecting souls directly into your bloodstream is a good idea'");
 		}
 
 		public override void SetDefaults()
@@ -35,14 +35,14 @@ namespace ShardsOfAtheria.Items.Potions
         {
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<EmptyNeedle>())
-				.AddRecipeGroup("SM:Souls")
+				.AddRecipeGroup(SoARecipes.Soul, 10)
 				.AddTile(TileID.Bottles)
 				.Register();
         }
 
         public override void OnConsumeItem(Player player)
         {
-            player.QuickSpawnItem(ModContent.ItemType<EmptyNeedle>());
+            player.QuickSpawnItem(player.GetItemSource_Misc(ModContent.ItemType<SoulInjection>()), ModContent.ItemType<EmptyNeedle>());
 			player.AddBuff(ModContent.BuffType<InjectionShock>(), 5 * 60);
 		}
 

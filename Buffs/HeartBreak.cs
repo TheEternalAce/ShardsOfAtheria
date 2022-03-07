@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SMPlayer>().heartBreak = true;
+            player.GetModPlayer<SoAPlayer>().heartBreak = true;
         }
     }
 }

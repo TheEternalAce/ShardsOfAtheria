@@ -8,6 +8,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
+			Tooltip.SetDefault("Grants immunity to knockback");
 		}
 
 		public override void SetDefaults()
@@ -23,10 +24,16 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<LesserDiamondCore>())
-				.AddRecipeGroup(RecipeGroupID.IronBar, 20)
+				.AddIngredient(ModContent.ItemType<DiamondCore_Lesser>())
+				.AddIngredient(ItemID.HellstoneBar, 5)
+				.AddIngredient(ItemID.CobaltShield)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
-	}
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+			player.noKnockback = true;
+        }
+    }
 }

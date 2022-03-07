@@ -22,4 +22,22 @@ namespace ShardsOfAtheria.Buffs
             player.shinyStone = false;
         }
     }
+
+    public class InjectionShockedPlayer : ModPlayer
+    {
+        public override void UpdateBadLifeRegen()
+        {
+            if (Player.HasBuff(ModContent.BuffType<InjectionShock>()))
+            {
+                // These lines zero out any positive lifeRegen. This is expected for all bad life regeneration effects.
+                if (Player.lifeRegen > 0)
+                {
+                    Player.lifeRegen = 0;
+                }
+                Player.lifeRegenTime = 0;
+                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes .5 life lost per second.
+                Player.lifeRegen -= 1;
+            }
+        }
+    }
 }

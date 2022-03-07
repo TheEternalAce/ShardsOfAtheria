@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.Items.Armor
 
         public override void UpdateVanity(Player player)
         {
-            player.GetModPlayer<SMPlayer>().OrangeMask = true;
+            player.GetModPlayer<SoAPlayer>().OrangeMask = true;
         }
 
         public override void AddRecipes()

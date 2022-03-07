@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
 			Item.width = 8;
 			Item.height = 8;
 			Item.knockBack = 1.5f;
-			Item.value = Item.sellPrice(silver: 10);
+			Item.value = Item.sellPrice(silver: 60);
 			Item.rare = ItemRarityID.Green;
 			Item.shoot = ModContent.ProjectileType<BBProjectile>();
 			Item.shootSpeed = 16f;

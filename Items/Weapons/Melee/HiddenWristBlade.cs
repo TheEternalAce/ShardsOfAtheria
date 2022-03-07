@@ -41,11 +41,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shootSpeed = 2.1f;
 		}
 
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
-        {
-			target.AddBuff(ModContent.BuffType<Penetration>(), 10 * 60);
-        }
-
         public override void HoldItem(Player player)
         {
             firstStrike++;

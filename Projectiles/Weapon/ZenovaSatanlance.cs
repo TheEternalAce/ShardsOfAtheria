@@ -19,7 +19,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon
 
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
-            Projectile.light = 0.5f;
+			Projectile.DamageType = DamageClass.Melee;
+			Projectile.light = 0.5f;
             Projectile.extraUpdates = 1;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;

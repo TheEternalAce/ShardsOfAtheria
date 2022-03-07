@@ -31,12 +31,12 @@ namespace ShardsOfAtheria.Items.SlayerItems
         {
 			if (!player.HasBuff(ModContent.BuffType<ClockCooldown>()))
 			{
-				player.Teleport(player.GetModPlayer<SMPlayer>().recentPos);
-				player.statLife = player.GetModPlayer<SMPlayer>().recentLife;
-				player.statMana = player.GetModPlayer<SMPlayer>().recentMana;
-				player.GetModPlayer<SMPlayer>().areusResourceCurrent = player.GetModPlayer<SMPlayer>().recentCharge;
+				player.Teleport(player.GetModPlayer<SoAPlayer>().recentPos);
+				player.statLife = player.GetModPlayer<SoAPlayer>().recentLife;
+				player.statMana = player.GetModPlayer<SoAPlayer>().recentMana;
+				//player.GetModPlayer<SoAPlayer>().areusResourceCurrent = player.GetModPlayer<SoAPlayer>().recentCharge;
 				player.AddBuff(ModContent.BuffType<ClockCooldown>(), 5 * 60);
-				player.GetModPlayer<SMPlayer>().saveTimer = 0;
+				player.GetModPlayer<SoAPlayer>().saveTimer = 0;
 				return true;
 			}
 			else return false;
@@ -44,7 +44,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 
         public override void UpdateInventory(Player player)
         {
-			player.GetModPlayer<SMPlayer>().spiderClock = true;
+			player.GetModPlayer<SoAPlayer>().spiderClock = true;
 		}
     }
 }

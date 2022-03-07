@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles.Weapon;
+using ShardsOfAtheria.Buffs;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
@@ -48,7 +49,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 		{
 			// Add the Onfire buff to the NPC for 1 second when the weapon hits an NPC
 			// 60 frames = 1 second
-			target.AddBuff(BuffID.Electrified, 600);
+			target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
 		}
         public override bool CanUseItem(Player player)
 		{

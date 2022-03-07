@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Items.Accessories
 			player.GetDamage(DamageClass.Melee) += .05f;
 			player.GetDamage(DamageClass.Magic) += .05f;
 			player.noFallDmg = true;
-			player.GetModPlayer<SMPlayer>().hallowedSeal = true;
+			player.GetModPlayer<SoAPlayer>().hallowedSeal = true;
 		}
 
 		public override void AddRecipes()

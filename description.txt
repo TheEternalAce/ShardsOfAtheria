@@ -1,10 +1,8 @@
-Shards of Atheria is a mod that aims to bring loads of weapons, accessories and items to Terraria. Also introduces harpy biome variants.     
+Shards of Atheria is a mod that adds many new items, weapons, accessories and random stuff I feel like adding. Soon the mod will emphasize more on making coherent lore. (unlike Terraria "lore", which will also be rewritten)
 
-
-Spriters on discord:
+Spriters:
 Torra th
+TheEternalAce
 
-Mod Plans:
-
-Sprite for the Atherian
-3 bosses
+Programmers:
+TheEternalAce

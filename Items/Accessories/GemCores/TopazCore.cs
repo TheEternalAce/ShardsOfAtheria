@@ -23,7 +23,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<LesserTopazCore>())
+				.AddIngredient(ModContent.ItemType<TopazCore_Lesser>())
+				.AddIngredient(ItemID.HellstoneBar, 5)
 				.AddIngredient(ItemID.LifeCrystal)
 				.AddTile(TileID.Anvils)
 				.Register();

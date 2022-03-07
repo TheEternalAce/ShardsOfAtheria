@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Accessories
 		{
 			Tooltip.SetDefault("10% increased areus damage and all attacks inflict Electrified\n" +
 				"Grants immunity to Electrified\n" +
-				"Increases Areus Charge by 50 and Areus Charge regenerates");
+				"Areus Charge regenerates");
 		}
 
 		public override void SetDefaults()
@@ -27,9 +27,8 @@ namespace ShardsOfAtheria.Items.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.buffImmune[BuffID.Electrified] = true;
-			player.GetModPlayer<SMPlayer>().areusBatteryElectrify = true;
-			player.GetModPlayer<SMPlayer>().naturalAreusRegen = true;
-			player.GetModPlayer<SMPlayer>().areusResourceMax2 += 50;
+			player.GetModPlayer<SoAPlayer>().areusBatteryElectrify = true;
+			player.GetModPlayer<SoAPlayer>().naturalAreusRegen = true;
 		}
 
 		public override void AddRecipes()

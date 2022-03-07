@@ -40,7 +40,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<BrokenHeroGun>())
 				.AddIngredient(ItemID.Handgun)
-				.AddTile(ModContent.TileType<CobaltWorkbench>())
+				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}
 
@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			return Main.rand.NextFloat() >= .48f;
 		}
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<HeroBullet>(), damage, knockback, player.whoAmI);
 			return base.Shoot(player, source, position, velocity, type, damage, knockback);

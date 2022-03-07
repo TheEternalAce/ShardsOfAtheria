@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,7 +14,6 @@ namespace ShardsOfAtheria.Projectiles
         public override void SetDefaults() {
             Projectile.width = 2;
             Projectile.height = 2;
-            Projectile.damage = 4;
 
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.aiStyle = 1;
@@ -45,11 +45,15 @@ namespace ShardsOfAtheria.Projectiles
                 DrawOffsetX = 0;
                 DrawOriginOffsetX = -9; // Math works out that this is negative of the other value.
             }
+            if (Main.rand.NextBool(20))
+            {
+                Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric, Projectile.velocity.X* .2f, Projectile.velocity.Y* .2f, 200, Scale: 1f);
+            }
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(BuffID.Electrified, 10 * 60);
+            target.AddBuff(ModContent.BuffType<ElectricShock>(), 10 * 60);
         }
     }
 }

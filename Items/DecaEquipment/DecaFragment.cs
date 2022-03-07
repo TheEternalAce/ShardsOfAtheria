@@ -11,16 +11,8 @@ namespace ShardsOfAtheria.Items.DecaEquipment
     {
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "DecaFragment", "Unite with the other fragments to unlock their power\n" +
-                "[c/FF4100:Deca Fragment]"));
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<BionicBarItem>())
-                .AddIngredient(ModContent.ItemType<DeathEssence>())
-                .Register();
+            tooltips.Add(new TooltipLine(Mod, "DecaFragment2", "Unite with the other fragments to unlock their power"));
+            tooltips.Add(new TooltipLine(Mod, "DecaFragment1", "[c/FF4100:Deca Fragment]"));
         }
     }
 }

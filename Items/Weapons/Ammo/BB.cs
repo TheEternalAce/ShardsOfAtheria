@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
 			Item.maxStack = 999;
 			Item.consumable = true;
 			Item.knockBack = 1.5f;
-			Item.value = Item.sellPrice(silver: 10);
+			Item.value = Item.sellPrice(copper: 1);
 			Item.rare = ItemRarityID.Green;
 			Item.shoot = ModContent.ProjectileType<BBProjectile>();
 			Item.shootSpeed = 16f;
@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
 		public override void AddRecipes()
         {
 			CreateRecipe(50)
-				.AddRecipeGroup("SM:CopperBars")
+				.AddRecipeGroup(SoARecipes.Copper)
 				.AddTile(TileID.WorkBenches)
 				.Register();
 		}

@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Items.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.buffImmune[BuffID.Electrified] = true;
-			player.GetModPlayer<SMPlayer>().areusWings = true;
+			player.GetModPlayer<SoAPlayer>().areusWings = true;
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,

@@ -15,15 +15,19 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Counts as wings\n" +
-                "Increased max life by 100, damage and movement speed by 20%\n" +
+                "Increases max life by 100\n" +
+                "Increases damage, movement speed and swing speed by 20%\n" +
+                "Increases melee knockback and size\n" +
                 "+8 extra minion slots\n" +
-                "20% chance to dodge damage\n" +
+                "20% chance to dodge attacks\n" +
                 "Gives a super dash to the wearer\n" +
                 "Attacks inflict Daybroken and Betsy's Curse\n" +
+                "Melee weapons autoswing\n" +
                 "Immunity to damage dealing, damage and defense reducing, anti-healing and cold debuffs and Chaos State\n" +
-                "Grants Ironskin and Endurance when dealing damage and Wrath and Rage when taking damage\n" +
+                "Grants Ironskin and Endurance when dealing damage and Wrath, Rage and Inferno when taking damage\n" +
                 "Effects of Ankh Shield, Bundle of Ballons, Frostspark Boots, Lava Waders and Shiny Stone\n" +
                 "Permanent Thorns, Regeneration, Honey, Heart Lantern, Cozy Campfire, Heartreach and Gravitation buffs\n" +
+                "Disable Gravitation in config\n" +
                 "Grants infinite flight and slow fall");
 
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(2000000000, 9f, 2.5f);
@@ -55,18 +59,14 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<SuperAmethystCore>())
-                .AddIngredient(ModContent.ItemType<SuperDiamondCore>())
-                .AddIngredient(ModContent.ItemType<SuperEmeraldCore>())
-                .AddIngredient(ModContent.ItemType<SuperRubyCore>())
-                .AddIngredient(ModContent.ItemType<SuperSapphireCore>())
-                .AddIngredient(ModContent.ItemType<SuperTopazCore>())
-                .AddIngredient(ItemID.Amber, 10)
-                .AddIngredient(ItemID.FragmentSolar, 5)
-                .AddIngredient(ItemID.FragmentVortex, 5)
-                .AddIngredient(ItemID.FragmentNebula, 5)
-                .AddIngredient(ItemID.FragmentStardust, 5)
-                .AddIngredient(ItemID.LunarBar, 10)
+                .AddIngredient(ModContent.ItemType<AmethystCore_Super>())
+                .AddIngredient(ModContent.ItemType<DiamondCore_Super>())
+                .AddIngredient(ModContent.ItemType<EmeraldCore_Super>())
+                .AddIngredient(ModContent.ItemType<RubyCore_Super>())
+                .AddIngredient(ModContent.ItemType<SapphireCore_Super>())
+                .AddIngredient(ModContent.ItemType<TopazCore_Super>())
+                .AddIngredient(ItemID.Amber, 5)
+                .AddIngredient(ItemID.LunarBar, 5)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
@@ -74,18 +74,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         public override void UpdateAccessory(Player player, bool hideVisual)
 		{
             MegaGemDashPlayer mp = player.GetModPlayer<MegaGemDashPlayer>();
-            player.buffImmune[BuffID.Venom] = true;
-            player.buffImmune[BuffID.OnFire] = true;
-            player.buffImmune[BuffID.Frostburn] = true;
-            player.buffImmune[BuffID.Electrified] = true;
-            player.buffImmune[BuffID.Chilled] = true;
-            player.buffImmune[BuffID.Frozen] = true;
-            player.buffImmune[BuffID.WitheredArmor] = true;
-            player.buffImmune[BuffID.Ichor] = true;
-            player.buffImmune[BuffID.ChaosState] = true;
-            player.buffImmune[BuffID.MoonLeech] = true;
-            player.buffImmune[BuffID.PotionSickness] = true;
-            player.buffImmune[ModContent.BuffType<HeartBreak>()] = true;
 
             //Bundle of Balloons
             player.hasJumpOption_Cloud = true;
@@ -96,13 +84,18 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             //Frostspark Boots
             player.accRunSpeed = 6.75f;
             player.rocketBoots = 3;
-            player.moveSpeed += 1f;
             player.iceSkate = true;
 
             //Lava Waders
             player.lavaImmune = true;
             player.waterWalk = true;
             player.fireWalk = true;
+
+            //Fire Gauntlet
+            player.autoReuseGlove = true;
+            player.meleeSpeed += .20f;
+            player.kbGlove = true;
+            player.meleeScaleGlove = true;
 
             //Other
             player.panic = true;
@@ -115,21 +108,29 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.AddBuff(BuffID.Honey, 2);
             player.AddBuff(BuffID.Campfire, 2);
             player.AddBuff(BuffID.HeartLamp, 2);
-            if (player.GetModPlayer<SMPlayer>().megaGemCoreGrav)
+            if (player.GetModPlayer<SoAPlayer>().megaGemCoreGrav)
                 player.AddBuff(BuffID.Gravitation, 2);
 
-            
-            player.AddBuff(ModContent.BuffType<SapphireSpirit>(), 2);
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpiritMinion>()] <= 0)
-                Projectile.NewProjectile(player.GetProjectileSource_Accessory(Item), player.position, player.velocity, ModContent.ProjectileType<SapphireSpiritMinion>(), 267, 0f, player.whoAmI);
-
-            player.GetModPlayer<SMPlayer>().megaGemCore = true;
+            player.GetModPlayer<SoAPlayer>().megaGemCore = true;
 
             player.GetDamage(DamageClass.Generic) += .2f;
             player.maxMinions += 8;
             player.statLifeMax2 += 100;
-            player.GetModPlayer<SMPlayer>().superEmeraldCore = true;
-            player.GetModPlayer<SMPlayer>().megaGemCore = true;
+            player.GetModPlayer<SoAPlayer>().superEmeraldCore = true;
+            player.GetModPlayer<SoAPlayer>().megaGemCore = true;
+
+            player.buffImmune[BuffID.Venom] = true;
+            player.buffImmune[BuffID.OnFire] = true;
+            player.buffImmune[BuffID.Frostburn] = true;
+            player.buffImmune[BuffID.Electrified] = true;
+            player.buffImmune[BuffID.Chilled] = true;
+            player.buffImmune[BuffID.Frozen] = true;
+            player.buffImmune[BuffID.WitheredArmor] = true;
+            player.buffImmune[BuffID.Ichor] = true;
+            player.buffImmune[BuffID.ChaosState] = true;
+            player.buffImmune[BuffID.MoonLeech] = true;
+            player.buffImmune[BuffID.PotionSickness] = true;
+            player.buffImmune[ModContent.BuffType<HeartBreak>()] = true;
 
             //Royal Gel
             player.npcTypeNoAggro[1] = true;

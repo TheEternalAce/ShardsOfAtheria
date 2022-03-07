@@ -47,7 +47,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 				.AddIngredient(ModContent.ItemType<BlasterCannonBlueprints>())
 				.AddIngredient(ItemID.HallowedBar, 20)
 				.AddIngredient(ItemID.SoulofFright, 10)
-				.AddTile(ModContent.TileType<CobaltWorkbench>())
+				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}
 	}

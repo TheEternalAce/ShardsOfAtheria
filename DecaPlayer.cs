@@ -50,7 +50,7 @@ namespace ShardsOfAtheria
                 Player.buffImmune[ModContent.BuffType<HeartBreak>()] = true;
                 Player.lavaImmune = true;
                 Player.fireWalk = true;
-                Player.GetModPlayer<SMPlayer>().overdriveTimeCurrent = Player.GetModPlayer<SMPlayer>().overdriveTimeMax;
+                Player.GetModPlayer<SoAPlayer>().overdriveTimeCurrent = Player.GetModPlayer<SoAPlayer>().overdriveTimeMax;
             }
         }
 

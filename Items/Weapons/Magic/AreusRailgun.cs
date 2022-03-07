@@ -37,9 +37,8 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 			Item.shootSpeed = 20f;
 			Item.useAmmo = ModContent.ItemType<AreusRod>();
 
-			if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
-				areusResourceCost = 5;
-			else Item.mana = 20;
+			if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+				Item.mana = 20;
 		}
 
 		public override void AddRecipes() 
@@ -62,17 +61,11 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 			player.armorPenetration = 20;
         }
 
-        // Make sure you can't use the item if you don't have enough resource and then use 10 resource otherwise.
         public override bool CanUseItem(Player player)
-		{
-			var areusDamagePlayer = player.GetModPlayer<SMPlayer>();
-
-			if (areusDamagePlayer.areusResourceCurrent >= areusResourceCost && player.statMana >= Item.mana)
-			{
-				areusDamagePlayer.areusResourceCurrent -= areusResourceCost;
-				return true;
-			}
-			return false;
-		}
-	}
+        {
+			if (areusCharge > 0 && ModContent.GetInstance<Config>().areusWeaponsCostMana)
+				areusCharge -= 4;
+            return base.CanUseItem(player);
+        }
+    }
 }

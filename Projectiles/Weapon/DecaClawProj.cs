@@ -84,28 +84,29 @@ namespace ShardsOfAtheria.Projectiles.Weapon
 		{
 			// 32 is the sprite size (here both width and height equal)
 			const int HalfSpriteWidth = 32 / 2;
-			const int HalfSpriteHeight = 32 / 2;
 
 			int HalfProjWidth = Projectile.width / 2;
 			int HalfProjHeight = Projectile.height / 2;
 
 			// Vanilla ModContent.GetInstance<Config>()uration for "hitbox in middle of sprite"
-			DrawOriginOffsetX = 0;
-			DrawOffsetX = -(HalfSpriteWidth - HalfProjWidth);
-			DrawOriginOffsetY = -(HalfSpriteHeight - HalfProjHeight);
+			//DrawOriginOffsetX = 0;
+			//DrawOffsetX = -(HalfSpriteWidth - HalfProjWidth);
+			//DrawOriginOffsetY = -(HalfSpriteHeight - HalfProjHeight);
 
-			// Vanilla ModContent.GetInstance<Config>()uration for "hitbox towards the end"
-			//if (Projectile.spriteDirection == 1) {
-			//	DrawOriginOffsetX = -(HalfProjWidth - HalfSpriteWidth);
-			//	DrawOffsetX = (int)-DrawOriginOffsetX * 2;
-			//	DrawOriginOffsetY = 0;
-			//}
-			//else {
-			//	DrawOriginOffsetX = (HalfProjWidth - HalfSpriteWidth);
-			//	DrawOffsetX = 0;
-			//	DrawOriginOffsetY = 0;
-			//}
-		}
+            // Vanilla ModContent.GetInstance<Config>()uration for "hitbox towards the end"
+            if (Projectile.spriteDirection == 1)
+            {
+                DrawOriginOffsetX = -(HalfProjWidth - HalfSpriteWidth);
+                DrawOffsetX = (int)-DrawOriginOffsetX * 2;
+                DrawOriginOffsetY = 0;
+            }
+            else
+            {
+                DrawOriginOffsetX = (HalfProjWidth - HalfSpriteWidth);
+                DrawOffsetX = 0;
+                DrawOriginOffsetY = 0;
+            }
+        }
 
 		public override bool ShouldUpdatePosition()
 		{

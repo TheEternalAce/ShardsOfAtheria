@@ -9,14 +9,14 @@ namespace ShardsOfAtheria.Items.Placeable
 	{
 		public override void SetStaticDefaults() 
 		{
-			Tooltip.SetDefault("A chunk of crystalized infection");
+			Tooltip.SetDefault("A chunk of crystallized infection");
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.value = Item.sellPrice(gold: 8);
+			Item.value = Item.sellPrice(copper: 10);
 			Item.rare = ItemRarityID.Orange;
 			Item.maxStack = 999;
 			Item.consumable = true;

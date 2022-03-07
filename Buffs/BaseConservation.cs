@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             player.manaCost -= .1f;
-            player.GetModPlayer<SMPlayer>().baseConservation = true;
+            player.GetModPlayer<SoAPlayer>().baseConservation = true;
         }
     }
 }

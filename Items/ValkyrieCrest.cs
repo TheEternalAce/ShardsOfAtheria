@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.NPCs.NovaSkyloft;
+using ShardsOfAtheria.NPCs.NovaStellar;
 
 namespace ShardsOfAtheria.Items
 {
@@ -28,8 +28,8 @@ namespace ShardsOfAtheria.Items
         public override void AddRecipes()
         {
 			CreateRecipe()
-				.AddRecipeGroup("SM:GoldBars", 10)
-				.AddRecipeGroup("SM:EvilMaterials", 10)
+				.AddRecipeGroup(SoARecipes.Gold, 10)
+				.AddRecipeGroup(SoARecipes.EvilMaterial, 10)
 				.AddIngredient(ItemID.Feather, 5)
 				.AddTile(TileID.Anvils)
 				.Register();
@@ -38,18 +38,33 @@ namespace ShardsOfAtheria.Items
 		// We use the CanUseItem hook to prevent a player from using this item while the boss is present in the world.
 		public override bool CanUseItem(Player player)
 		{
-			return player.ZoneOverworldHeight && !NPC.AnyNPCs(ModContent.NPCType<HarpyKnight>()) && !NPC.AnyNPCs(ModContent.NPCType<ValkyrieNova>());
+			return player.ZoneOverworldHeight && !NPC.AnyNPCs(ModContent.NPCType<NovaStellar>());
 		}
 
 		public override bool? UseItem(Player player)
 		{
-			if (!player.ZoneCorrupt && !player.ZoneCrimson && Main.dayTime)
+			if (player.whoAmI == Main.myPlayer)
 			{
-				NPC.SpawnOnPlayer(player.whoAmI, ModContent.NPCType<HarpyKnight>());
-				SoundEngine.PlaySound(SoundID.Roar, 0, 0);
-				return true;
+				// If the player using the item is the client
+				// (explicitely excluded serverside here)
+				SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
+
+				int type = ModContent.NPCType<NovaStellar>();
+
+				if (Main.netMode != NetmodeID.MultiplayerClient)
+				{
+					// If the player is not in multiplayer, spawn directly
+					NPC.SpawnOnPlayer(player.whoAmI, type);
+				}
+				else
+				{
+					// If the player is in multiplayer, request a spawn
+					// This will only work if NPCID.Sets.MPAllowedEnemies[type] is true, which we set in MinionBossBody
+					NetMessage.SendData(MessageID.SpawnBoss, number: player.whoAmI, number2: type);
+				}
 			}
-			else return false;
+
+			return !(player.ZoneCorrupt || player.ZoneCrimson) && Main.dayTime;
 		}
 	}
 }

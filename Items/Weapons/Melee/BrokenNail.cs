@@ -38,9 +38,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddRecipeGroup("SM:Tier3Bars", 15)
+                .AddRecipeGroup(SoARecipes.Adamantite, 15)
                 .AddIngredient(ModContent.ItemType<CrystalInfection>(), 15)
-                .AddTile(ModContent.TileType<CobaltWorkbench>())
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 

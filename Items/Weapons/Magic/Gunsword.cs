@@ -46,7 +46,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             CreateRecipe()
                 .AddIngredient(ItemID.PlatinumBroadsword)
-                .AddRecipeGroup("SM:EvilGuns")
+                .AddRecipeGroup(SoARecipes.EvilGun)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

@@ -8,7 +8,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("10% increased damage.");
+			Tooltip.SetDefault("10% increased damage\n" +
+				"Attacks inflict 'On Fire!'");
 		}
 
 		public override void SetDefaults()
@@ -23,8 +24,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<LesserRubyCore>())
-				.AddRecipeGroup("SM:EvilBars", 10)
+				.AddIngredient(ModContent.ItemType<RubyCore_Lesser>())
+				.AddIngredient(ItemID.HellstoneBar, 10)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

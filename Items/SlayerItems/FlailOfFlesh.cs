@@ -11,8 +11,8 @@ namespace ShardsOfAtheria.Items.SlayerItems
 	{
 		public override void SetDefaults()
 		{
-			Item.width = 24;
-			Item.height = 22;
+			Item.width = 42;
+			Item.height = 38;
 			Item.value = Item.sellPrice(silver: 5);
 			Item.rare = ItemRarityID.Expert;
 			Item.noMelee = true;
@@ -23,13 +23,13 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.damage = 50;
 			Item.noUseGraphic = true;
 			Item.shoot = ModContent.ProjectileType<FlailOfFleshProj>();
-			Item.shootSpeed = 15.1f;
+			Item.shootSpeed = 50;
 			Item.UseSound = SoundID.Item1;
 			Item.DamageType = DamageClass.Summon;
 			Item.channel = true;
 		}
 
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			float numberProjectiles = 3 + Main.rand.Next(3); // 3, 4, or 5 shots
 			float rotation = MathHelper.ToRadians(45);

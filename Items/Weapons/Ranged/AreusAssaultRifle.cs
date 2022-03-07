@@ -43,9 +43,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.shootSpeed = 16f;
 			Item.useAmmo = AmmoID.Bullet;
 
-			if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
-				areusResourceCost = 1;
-			else Item.mana = 4;
+			if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+				Item.mana = 4;
 		}
 
 		public override void AddRecipes() 
@@ -62,7 +61,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			return new Vector2(-8, 0);
 		}
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			return true;
 		}
@@ -104,7 +103,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 				Item.shoot = ItemID.None;
 				Item.UseSound = new LegacySoundStyle(SoundID.Unlock, 0);
 				if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
-					areusResourceCost = 0;
+					areusCharge += 1;
 				else Item.mana = 0;
 				fireMode += 1;
 				if (fireMode == 3)
@@ -126,9 +125,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 					Item.useAnimation = 6;
 					Item.reuseDelay = default;
 					Item.autoReuse = false;
-					if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
-						areusResourceCost = 1;
-					else Item.mana = 4;
+					if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+						Item.mana = 4;
 				}
 				else if (fireMode == 1)
 				{
@@ -138,9 +136,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 					Item.useAnimation = 12;
 					Item.reuseDelay = 18;
 					Item.autoReuse = true;
-					if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
-						areusResourceCost = 3;
-					else Item.mana = 16;
+					if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+						Item.mana = 12;
 				}
 				else if (fireMode == 2)
 				{
@@ -150,24 +147,22 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 					Item.useAnimation = 6;
 					Item.reuseDelay = default;
 					Item.autoReuse = true;
-					if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
-						areusResourceCost = 1;
-					else Item.mana = 4;
+					if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+						Item.mana = 4;
 				}
 			}
 			return base.CanUseItem(player);
 		}
         public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			Player player = Main.LocalPlayer;
-			if (areusResourceCost > 0)
-				tooltips.Add(new TooltipLine(Mod, "Areus Resource Cost", $"Uses {areusResourceCost} areus charge"));
 			if (fireMode == 0)
 				tooltips.Add(new TooltipLine(Mod, "Fire mode", "Semi-auto"));
 			if (fireMode == 1)
 				tooltips.Add(new TooltipLine(Mod, "Fire mode", "Burst fire"));
 			if (fireMode == 2)
 				tooltips.Add(new TooltipLine(Mod, "Fire mode", "Full-auto"));
+			if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
+				tooltips.Add(new TooltipLine(Mod, "Charge", $"{areusCharge} / {areusChargeFull}"));
 		}
     }
 }

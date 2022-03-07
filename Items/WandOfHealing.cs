@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Items
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddRecipeGroup("SM:GoldBars", 3)
+                .AddRecipeGroup(SoARecipes.Gold, 3)
                 .AddRecipeGroup(RecipeGroupID.IronBar, 6)
                 .AddIngredient(ItemID.LifeCrystal, 5)
                 .AddIngredient(ItemID.ManaCrystal, 5)
@@ -40,13 +40,13 @@ namespace ShardsOfAtheria.Items
 
         public override bool CanUseItem(Player player)
         {
-            if (player.GetModPlayer<SMPlayer>().heartBreak) return false;
+            if (player.GetModPlayer<SoAPlayer>().heartBreak) return false;
             else return true;
         }
 
         public override void UpdateInventory(Player player)
         {
-            player.GetModPlayer<SMPlayer>().sMHealingItem = true;
+            player.GetModPlayer<SoAPlayer>().sMHealingItem = true;
         }
     }
 }

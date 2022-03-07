@@ -10,15 +10,14 @@ namespace ShardsOfAtheria.Items.Placeable
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Areus Ore"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
-			Tooltip.SetDefault("A pale blue ore of solid electricity\n" +
-				"Severely shocks you while in inventory");
+			Tooltip.SetDefault("A pale blue ore of solid electricity");
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.value = Item.sellPrice(gold: 8);
+			Item.value = Item.sellPrice(gold: 1, silver: 50);
 			Item.rare = ItemRarityID.Cyan;
 			Item.maxStack = 999;
 			Item.consumable = true;
@@ -29,10 +28,5 @@ namespace ShardsOfAtheria.Items.Placeable
 			Item.autoReuse = true;
 			Item.useTurn = true;
 		}
-
-        public override void UpdateInventory(Player player)
-        {
-			player.AddBuff(BuffID.Electrified, 5*60);
-        }
     }
 }

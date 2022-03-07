@@ -41,10 +41,10 @@ namespace ShardsOfAtheria.Items.DecaEquipment
 
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(0, 0);
+            return new Vector2(-18, 0);
         }
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             const int NumProjectiles = 8; // The number of projectiles that this gun will shoot.
 
@@ -83,16 +83,7 @@ namespace ShardsOfAtheria.Items.DecaEquipment
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<BionicBarItem>(), 20)
-                .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 10)
-                .AddIngredient(ItemID.SoulofFlight, 10)
-                .AddIngredient(ItemID.SoulofFright, 10)
-                .AddIngredient(ItemID.SoulofLight, 10)
-                .AddIngredient(ItemID.SoulofMight, 10)
-                .AddIngredient(ItemID.SoulofNight, 10)
-                .AddIngredient(ItemID.SoulofSight, 10)
-                .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10)
-                .AddIngredient(ModContent.ItemType<SoulOfStarlight>(), 10)
-                .AddIngredient(ModContent.ItemType<DeathEssence>())
+                .AddIngredient(ModContent.ItemType<DecaShard>(), 10)
                 .Register();
         }
     }

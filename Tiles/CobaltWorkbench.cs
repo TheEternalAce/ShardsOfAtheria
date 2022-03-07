@@ -12,10 +12,7 @@ namespace ShardsOfAtheria.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			//adjTiles = new int[] { TileID.WorkBenches };
-			AdjTiles = new int[] { TileID.HeavyWorkBench };
-			AdjTiles = new int[] { TileID.WorkBenches };
-			AdjTiles = new int[] { TileID.MythrilAnvil };
+			AdjTiles = new int[] { TileID.WorkBenches, TileID.HeavyWorkBench, TileID.MythrilAnvil };
 			Main.tileSolidTop[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
@@ -39,7 +36,7 @@ namespace ShardsOfAtheria.Tiles
 		
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(i * 16, j * 16, 32, 16, ModContent.ItemType<CobaltWorkbenchItem>());
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, ModContent.ItemType<CobaltWorkbenchItem>());
 		}
 	}
 }

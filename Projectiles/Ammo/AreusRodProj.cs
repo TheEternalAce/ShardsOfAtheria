@@ -44,6 +44,10 @@ namespace ShardsOfAtheria.Projectiles.Ammo
                 DrawOffsetX = 0;
                 DrawOriginOffsetX = -8; // Math works out that this is negative of the other value.
             }
+            if (Main.rand.NextBool(20))
+            {
+                Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric, Projectile.velocity.X* .2f, Projectile.velocity.Y* .2f, 200, Scale: 1f);
+            }
         }
     }
 }

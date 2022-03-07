@@ -42,7 +42,7 @@ namespace ShardsOfAtheria.Items.Potions
 
 		public override void OnConsumeItem(Player player)
 		{
-			player.QuickSpawnItem(ModContent.ItemType<EmptyNeedle>());
+			player.QuickSpawnItem(player.GetItemSource_Misc(ModContent.ItemType<InfectionInjection>()), ModContent.ItemType<EmptyNeedle>());
 			player.AddBuff(ModContent.BuffType<InjectionShock>(), 5 * 60);
 		}
 

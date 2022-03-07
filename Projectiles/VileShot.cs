@@ -42,14 +42,14 @@ namespace ShardsOfAtheria.Projectiles
             }
             if (Main.rand.NextBool(3))
             {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, 14,
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Demonite,
                     Projectile.velocity.X * .2f, Projectile.velocity.Y * .2f, 200, Scale: 1.2f);
                 dust.velocity += Projectile.velocity * 0.3f;
                 dust.velocity *= 0.2f;
             }
             if (Main.rand.NextBool(4))
             {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, 14,
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Demonite,
                     0, 0, 254, Scale: 0.3f);
                 dust.velocity += Projectile.velocity * 0.5f;
                 dust.velocity *= 0.5f;

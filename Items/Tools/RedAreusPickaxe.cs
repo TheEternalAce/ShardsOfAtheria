@@ -5,6 +5,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Tiles;
+using System.Collections.Generic;
+using Terraria.Audio;
 
 namespace ShardsOfAtheria.Items.Tools
 {
@@ -15,12 +17,12 @@ namespace ShardsOfAtheria.Items.Tools
 			Tooltip.SetDefault("Uses highly concentrated electricity to cut through stones and ores");
 		}
 
-		public override void SetDefaults()
+        public override void SetDefaults()
 		{
 			Item.damage = 20;
 			Item.DamageType = DamageClass.Melee;
-			Item.width = 40;
-			Item.height = 40;
+			Item.width = 60;
+			Item.height = 54;
 			Item.useTime = 5; //Actual Break 1 = FAST 50 = SUPER SLOW
 			Item.useAnimation = 10;
 			Item.pick = 150;
@@ -32,9 +34,8 @@ namespace ShardsOfAtheria.Items.Tools
 			Item.autoReuse = true;
 			Item.useTurn = true;
 
-			if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
-				areusResourceCost = 1;
-			else Item.mana = 1;
+			if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+				Item.mana = 1;
 		}
 
 		public override void AddRecipes()
@@ -43,8 +44,17 @@ namespace ShardsOfAtheria.Items.Tools
 				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 20)
 				.AddIngredient(ModContent.ItemType<SoulOfSpite>(), 13)
 				.AddIngredient(ItemID.Wire, 10)
-				.AddTile(ModContent.TileType<CobaltWorkbench>())
+				.AddTile(TileID.MythrilAnvil)
 				.Register();
+		}
+
+		public override void RightClick(Player player)
+		{
+			int areusChargePackIndex = Main.LocalPlayer.FindItem(ModContent.ItemType<AreusChargePack>());
+			Main.LocalPlayer.inventory[areusChargePackIndex].stack--;
+			areusCharge += 500;
+			SoundEngine.PlaySound(SoundID.NPCHit53);
+			CombatText.NewText(player.Hitbox, Color.Aqua, 50);
 		}
 
 		public override void MeleeEffects(Player player, Rectangle hitbox)

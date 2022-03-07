@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Items.Accessories
 			Tooltip.SetDefault("Allows infinite flight and grants slow fall\n" +
 				"Grants immunity to Electrified\n" +
 				"20% increased areus damage and all attacks inflict electrified\n" +
-				"Increases Areus Charge by 50 and Areus Charge regenerates");
+				"Areus Charge regenerates");
 
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 9f, 2.5f);
 		}
@@ -32,10 +32,9 @@ namespace ShardsOfAtheria.Items.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.buffImmune[BuffID.Electrified] = true;
-			player.GetModPlayer<SMPlayer>().areusBatteryElectrify = true;
-			player.GetModPlayer<SMPlayer>().areusWings = true;
-			player.GetModPlayer<SMPlayer>().naturalAreusRegen = true;
-			player.GetModPlayer<SMPlayer>().areusResourceMax2 += 100;
+			player.GetModPlayer<SoAPlayer>().areusBatteryElectrify = true;
+			player.GetModPlayer<SoAPlayer>().areusWings = true;
+			player.GetModPlayer<SoAPlayer>().naturalAreusRegen = true;
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,

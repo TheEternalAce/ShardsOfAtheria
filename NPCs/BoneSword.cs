@@ -57,18 +57,23 @@ namespace ShardsOfAtheria.NPCs
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             Player player = Main.LocalPlayer;
-            if (!(spawnInfo.player.ZoneHallow || spawnInfo.player.ZoneCrimson || spawnInfo.player.ZoneCorrupt || Main.eclipse
-                || spawnInfo.player.ZoneTowerNebula || spawnInfo.player.ZoneTowerVortex || spawnInfo.player.ZoneTowerSolar
-                || spawnInfo.player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon || spawnInfo.playerSafe)
-                && spawnInfo.player.ZoneDirtLayerHeight || spawnInfo.player.ZoneRockLayerHeight)
-                return .25f;
+            if (!(spawnInfo.player.ZoneHallow || spawnInfo.player.ZoneCrimson || spawnInfo.player.ZoneCorrupt || Main.eclipse || spawnInfo.player.ZoneTowerNebula || spawnInfo.player.ZoneTowerVortex
+                || spawnInfo.player.ZoneTowerSolar|| spawnInfo.player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon || spawnInfo.playerSafe || spawnInfo.player.ZoneSnow
+                || spawnInfo.player.ZoneDesert || spawnInfo.player.ZoneJungle) && spawnInfo.player.ZoneDirtLayerHeight || spawnInfo.player.ZoneRockLayerHeight)
+                return .05f;
             return 0f;
         }
 
-        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        public override void OnKill()
         {
-            if (Main.rand.NextFloat() < .5f)
-                Item.NewItem(NPC.getRect(), ItemID.Bone, Main.rand.Next(10, 20));
+            if (!NPC.downedBoss3 && Main.rand.NextFloat() < .01f)
+                Item.NewItem(NPC.GetItemSource_Loot(), NPC.getRect(), ItemID.Bone);
+            if (NPC.downedBoss3 || Main.rand.NextFloat() < .5f)
+                Item.NewItem(NPC.GetItemSource_Loot(), NPC.getRect(), ItemID.Bone);
+            if (Main.rand.NextFloat() < .01f && Main.LocalPlayer.ZoneDungeon)
+                Item.NewItem(NPC.GetItemSource_Loot(), NPC.getRect(), ItemID.GoldenKey);
+            if (Main.rand.Next(64) == 0 && Main.LocalPlayer.ZoneDungeon)
+                Item.NewItem(NPC.GetItemSource_Loot(), NPC.getRect(), ItemID.TallyCounter);
         }
     }
 }

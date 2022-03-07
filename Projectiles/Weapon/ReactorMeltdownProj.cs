@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
+using ShardsOfAtheria.Buffs;
 
 namespace ShardsOfAtheria.Projectiles.Weapon
 {
@@ -37,7 +38,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(BuffID.Electrified, 600);
+            target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
         }
 
         public override void AI()

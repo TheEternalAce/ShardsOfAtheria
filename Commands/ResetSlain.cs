@@ -17,24 +17,26 @@ namespace ShardsOfAtheria.Commands
 
 		public override void Action(CommandCaller caller, string input, string[] args)
 		{
-			ModContent.GetInstance<SMWorld>().slainValkyrie = false;
-			ModContent.GetInstance<SMWorld>().slainEOC = false;
-			ModContent.GetInstance<SMWorld>().slainBOC = false;
-			ModContent.GetInstance<SMWorld>().slainEOW = false;
-			ModContent.GetInstance<SMWorld>().slainBee = false;
-			ModContent.GetInstance<SMWorld>().slainSkull = false;
-			ModContent.GetInstance<SMWorld>().slainWall = false;
-			ModContent.GetInstance<SMWorld>().slainMechWorm = false;
-			ModContent.GetInstance<SMWorld>().slainTwins = false;
-			ModContent.GetInstance<SMWorld>().slainPrime = false;
-			ModContent.GetInstance<SMWorld>().slainPlant = false;
-			ModContent.GetInstance<SMWorld>().slainGolem = false;
-			ModContent.GetInstance<SMWorld>().slainDuke = false;
-			ModContent.GetInstance<SMWorld>().slainEmpress = false;
-			ModContent.GetInstance<SMWorld>().slainMoonLord = false;
-			ModContent.GetInstance<SMWorld>().slainSenterra = false;
-			ModContent.GetInstance<SMWorld>().slainGenesis = false;
-			ModContent.GetInstance<SMWorld>().slainEverything = false;
+			ModContent.GetInstance<SoAWorld>().slainValkyrie = false;
+			ModContent.GetInstance<SoAWorld>().slainEOC = false;
+			ModContent.GetInstance<SoAWorld>().slainBOC = false;
+			ModContent.GetInstance<SoAWorld>().slainEOW = false;
+			ModContent.GetInstance<SoAWorld>().slainBee = false;
+			ModContent.GetInstance<SoAWorld>().slainSkull = false;
+			ModContent.GetInstance<SoAWorld>().slainWall = false;
+			ModContent.GetInstance<SoAWorld>().slainMechWorm = false;
+			ModContent.GetInstance<SoAWorld>().slainTwins = false;
+			ModContent.GetInstance<SoAWorld>().slainPrime = false;
+			ModContent.GetInstance<SoAWorld>().slainPlant = false;
+			ModContent.GetInstance<SoAWorld>().slainGolem = false;
+			ModContent.GetInstance<SoAWorld>().slainDuke = false;
+			ModContent.GetInstance<SoAWorld>().slainEmpress = false;
+			ModContent.GetInstance<SoAWorld>().slainMoonLord = false;
+			ModContent.GetInstance<SoAWorld>().slainSenterra = false;
+			ModContent.GetInstance<SoAWorld>().slainGenesis = false;
+			ModContent.GetInstance<SoAWorld>().slainEverything = false;
+			ModContent.GetInstance<SoAWorld>().messageToPlayer = 0;
+			Main.LocalPlayer.ClearBuff(ModContent.BuffType<Buffs.AwakenedSlayer>());
 			Main.NewText("Bosses can now be summoned again");
 		}
     }

@@ -11,11 +11,11 @@ namespace ShardsOfAtheria.Items
 		{
 			DisplayName.SetDefault("Slayer's Emblem");
 			Tooltip.SetDefault("Use to toggle Slayer mode\n" +
-				"Bosses defeated will drop every possible item and will drop more than enough materials\n" +
-				"A new item will drop from defeated bosses\n" +
-				"Bosses defeated will never be able to summoned again\n" +
-				"Enemy damage scales with max life\n" +
-				"While Slayer Mode is enabled you may equip this");
+				"Bosses that are considered irreplaceable defeated will become slain\n" +
+				"Slain bosses will drop every possible item, in a stack of 999 if the item is stackable\n" +
+				"A Slayer mode exclusive item will drop from slain bosses\n" +
+				"Slain bosses will never be able to summoned again\n" +
+				"Enemy damage scales with max life");
 		}
 
 		public override void SetDefaults()
@@ -37,28 +37,32 @@ namespace ShardsOfAtheria.Items
 				.Register();
 		}
 
-		public override bool? UseItem(Player player)
+        public override bool CanUseItem(Player player)
+        {
+			for (int i = 0; i < Main.maxNPCs; i++)
+			{
+				NPC npc = Main.npc[i];
+				if (npc.active && npc.life > 0 && npc.boss)
+					return false;
+			}
+			return true;
+		}
+
+        public override bool? UseItem(Player player)
 		{
-			if (!ModContent.GetInstance<SMWorld>().slayerMode)
+			if (!ModContent.GetInstance<SoAWorld>().slayerMode)
 			{
 				Main.NewText("Slayer mode enabled");
 				SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
-				ModContent.GetInstance<SMWorld>().slayerMode = true;
+				ModContent.GetInstance<SoAWorld>().slayerMode = true;
 			}
 			else
 			{
 				Main.NewText("Slayer mode disabled");
 				SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
-				ModContent.GetInstance<SMWorld>().slayerMode = false;
+				ModContent.GetInstance<SoAWorld>().slayerMode = false;
 			}
 			return true;
-		}
-
-        public override bool CanEquipAccessory(Player player, int slot, bool modded)
-		{
-			if (ModContent.GetInstance<SMWorld>().slayerMode)
-				return true;
-			else return false;
 		}
     }
 }

@@ -1,4 +1,3 @@
 displayName = Shards of Atheria
 author = TheEternalAce
-version = 0.7
-homepage = https://discord.gg/Q4RxsJ7Zqy
+version = 0.7.4.1

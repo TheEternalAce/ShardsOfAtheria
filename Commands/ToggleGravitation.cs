@@ -18,14 +18,14 @@ namespace ShardsOfAtheria.Commands
 		public override void Action(CommandCaller caller, string input, string[] args)
 		{
 			Player player = Main.LocalPlayer;
-			if (player.GetModPlayer<SMPlayer>().megaGemCoreGrav)
+			if (player.GetModPlayer<SoAPlayer>().megaGemCoreGrav)
 			{
-				player.GetModPlayer<SMPlayer>().megaGemCoreGrav = false;
+				player.GetModPlayer<SoAPlayer>().megaGemCoreGrav = false;
 				Main.NewText("Mega Gem Core Gravitation disabled");
 			}
 			else
 			{
-				player.GetModPlayer<SMPlayer>().megaGemCoreGrav = true;
+				player.GetModPlayer<SoAPlayer>().megaGemCoreGrav = true;
 				Main.NewText("Mega Gem Core Gravitation enabled");
 			}
 		}

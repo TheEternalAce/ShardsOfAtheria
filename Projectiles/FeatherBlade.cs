@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs;
 
 namespace ShardsOfAtheria.Projectiles
 {
@@ -29,7 +30,7 @@ namespace ShardsOfAtheria.Projectiles
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if(Main.expertMode)
-                target.AddBuff(BuffID.Electrified, 60);
+                target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
         }
     }
 }

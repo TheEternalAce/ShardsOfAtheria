@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			CreateRecipe()
 				.AddIngredient(ItemID.BrokenHeroSword)
 				.AddRecipeGroup(RecipeGroupID.IronBar, 15)
-				.AddTile(ModContent.TileType<CobaltWorkbench>())
+				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}
 	}

@@ -32,8 +32,9 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.crit = 8;
 			Item.value = Item.sellPrice(gold: 25);
 			Item.shoot = ItemID.PurificationPowder;
-			Item.shootSpeed = 20f;
+			Item.shootSpeed = 6f;
 			Item.useAmmo = AmmoID.Flare;
+			Item.holdStyle = ItemHoldStyleID.HoldFront;
 		}
 
         public override Vector2? HoldoutOffset()

@@ -30,13 +30,6 @@ namespace ShardsOfAtheria.Projectiles
                 dust.velocity += Projectile.velocity * 0.3f;
                 dust.velocity *= 0.2f;
             }
-            if (Main.rand.NextBool(4))
-            {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Ice,
-                    0, 0, 254, Scale: 0.3f);
-                dust.velocity += Projectile.velocity * 0.5f;
-                dust.velocity *= 0.5f;
-            }
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

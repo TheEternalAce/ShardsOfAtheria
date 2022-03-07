@@ -12,8 +12,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		{
 			Tooltip.SetDefault("Counts as wings\n" +
 				"10% increased movement speed\n" +
-				"Increased Jump height\n" +
-				"Panic Neclace effect\n" +
+                "Increased jump height\n" +
 				"Grants flight and slowfall");
 
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(30, .5f, .5f);
@@ -31,16 +30,15 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<LesserEmeraldCore>())
-				.AddIngredient(ItemID.Cloud, 20)
+				.AddIngredient(ModContent.ItemType<EmeraldCore_Lesser>())
+				.AddIngredient(ItemID.HellstoneBar, 5)
+				.AddIngredient(4978)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.moveSpeed += .1f;
-			player.panic = true;
 			player.jumpBoost = true;
 		}
 

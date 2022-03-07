@@ -23,8 +23,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.DamageType = DamageClass.Melee;
 			Item.width = 76;
 			Item.height = 76;
-			Item.useTime = 1;
-			Item.useAnimation = 1;
+			Item.useTime = 6;
+			Item.useAnimation = 6;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
 			Item.useStyle = ItemUseStyleID.Swing;
@@ -50,7 +50,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 				.AddIngredient(ItemID.DayBreak)
 				.AddIngredient(ModContent.ItemType<LostNail>())
 				.AddIngredient(ModContent.ItemType<Satanlance>())
-				.AddIngredient(ModContent.ItemType<BlackAreusSword>())
+				.AddIngredient(ModContent.ItemType<AreusSword>())
 				.AddTile(TileID.LunarCraftingStation)
 				.Register();
 		}
@@ -66,7 +66,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 				ModContent.ProjectileType<ZenovaWoodenSword>(), ModContent.ProjectileType<ZenovaWormsTooth>(),
 				ModContent.ProjectileType<ElectricBlade>(), ModContent.ProjectileType<ZenovaLostNail>(),
 				ModContent.ProjectileType<InfectionBlob>()});
-			velocity = velocity.RotatedByRandom(MathHelper.ToRadians(10));
+			velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
 		}
 
         public override void HoldItem(Player player)

@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Placeable;
 using Terraria.ObjectData;
+using Terraria.DataStructures;
 
 namespace ShardsOfAtheria.Tiles
 {
@@ -33,10 +34,10 @@ namespace ShardsOfAtheria.Tiles
         public override bool Drop(int i, int j)
         {
             Tile t = Main.tile[i, j];
-            int style = t.frameX / 18;
+            int style = t.TileFrameX / 18;
             if (style == 0) // It can be useful to share a single tile with multiple styles. This code will let you ItemDrop the appropriate bar if you had multiple.
             {
-                Item.NewItem(i * 16, j * 16, 16, 16, ModContent.ItemType<AreusBarItem>());
+                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, ModContent.ItemType<AreusBarItem>());
             }
             return base.Drop(i, j);
         }

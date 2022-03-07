@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 		public override void AddRecipes() 
 		{
 			CreateRecipe()
-				.AddRecipeGroup(RecipeGroupID.IronBar, 10)
+				.AddRecipeGroup(RecipeGroupID.IronBar, 5)
 				.AddRecipeGroup(RecipeGroupID.Wood, 5)
 				.AddTile(TileID.Anvils)
 				.Register();

@@ -52,16 +52,7 @@ namespace ShardsOfAtheria.Items.DecaEquipment
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<BionicBarItem>(), 20)
-                .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 10)
-                .AddIngredient(ItemID.SoulofFlight, 10)
-                .AddIngredient(ItemID.SoulofFright, 10)
-                .AddIngredient(ItemID.SoulofLight, 10)
-                .AddIngredient(ItemID.SoulofMight, 10)
-                .AddIngredient(ItemID.SoulofNight, 10)
-                .AddIngredient(ItemID.SoulofSight, 10)
-                .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10)
-                .AddIngredient(ModContent.ItemType<SoulOfStarlight>(), 10)
-                .AddIngredient(ModContent.ItemType<DeathEssence>())
+                .AddIngredient(ModContent.ItemType<DecaShard>(), 10)
                 .Register();
         }
     }

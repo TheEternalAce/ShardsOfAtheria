@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Buffs
             Description.SetDefault("'BIOLINK ESTABLISHED! M.E.G.A. SYSTEM ONLINE!'\n" +
                 "25% Increased damage\n" +
                 "20 defense\n" +
-                "Doubles movement speed\n" +
+                "Increases movement speed by 10%\n" +
                 "Increased life regen\n" +
                 "Increased life by 100 and mana by 40\n" +
                 "Grants dash, wall sliding and immunity to fall damage and certain debuffs/n" +
@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Buffs
             player.extraFall += 45;
             player.GetDamage(DamageClass.Generic) += 0.25f;
             player.statDefense += 20;
-            player.moveSpeed *= 2;
+            player.moveSpeed += .1f;
             player.statLifeMax2 += 100;
             player.statManaMax2 += 40;
             player.noFallDmg = true;

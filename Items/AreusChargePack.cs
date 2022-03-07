@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace ShardsOfAtheria.Items
 {
@@ -12,7 +13,7 @@ namespace ShardsOfAtheria.Items
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Gives 50 areus charge");
+            Tooltip.SetDefault("Right click an areus weapon to increase it's charge by 50");
         }
         public override void SetDefaults()
         {
@@ -21,7 +22,7 @@ namespace ShardsOfAtheria.Items
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.value = Item.sellPrice(gold: 10);
+            Item.value = Item.buyPrice(silver: 10);
             Item.rare = ItemRarityID.Cyan;
             Item.UseSound = SoundID.NPCHit53;
             Item.autoReuse = false;
@@ -38,25 +39,9 @@ namespace ShardsOfAtheria.Items
                 .Register();
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            if (player.GetModPlayer<SMPlayer>().areusResourceCurrent != player.GetModPlayer<SMPlayer>().areusResourceMax2)
-            {
-                return true;
-            }
-            else return false;
-        }
-
-        public override bool? UseItem(Player player)
-        {
-            player.GetModPlayer<SMPlayer>().areusResourceCurrent += 50;
-            CombatText.NewText(player.Hitbox, Color.Aqua, 50);
-            return true;
-        }
-
         public override void UpdateInventory(Player player)
         {
-            player.GetModPlayer<SMPlayer>().areusChargePack = true;
+            player.GetModPlayer<SoAPlayer>().areusChargePack = true;
         }
     }
 }

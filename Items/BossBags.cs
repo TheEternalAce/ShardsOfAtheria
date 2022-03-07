@@ -13,43 +13,45 @@ namespace ShardsOfAtheria.Items
 	{
 		public override void OpenVanillaBag(string context, Player player, int arg)
 		{
+			var source = player.GetItemSource_OpenItem(arg);
+
 			if (context == "bossBag" && arg == ItemID.EyeOfCthulhuBossBag)
 			{
-				player.QuickSpawnItem(ModContent.ItemType<Cataracnia>());
+				player.QuickSpawnItem(source, ModContent.ItemType<Cataracnia>());
 			}
 			if (context == "bossBag" && arg == ItemID.EaterOfWorldsBossBag)
 			{
-				player.QuickSpawnItem(ModContent.ItemType<OversizedWormsTooth>());
+				player.QuickSpawnItem(source, ModContent.ItemType<OversizedWormsTooth>());
 			}
 			if (context == "bossBag" && arg == ItemID.BrainOfCthulhuBossBag)
 			{
-				player.QuickSpawnItem(ModContent.ItemType<TomeOfOmniscience>());
+				player.QuickSpawnItem(source, ModContent.ItemType<TomeOfOmniscience>());
 			}
 			if (context == "bossBag" && arg == ItemID.QueenBeeBossBag)
 			{
 				if (Main.rand.NextFloat() < 0.5f)
 				{
-					player.QuickSpawnItem(ModContent.ItemType<HecateII>());
-					player.QuickSpawnItem(ModContent.ItemType<DemonClaw>());
+					player.QuickSpawnItem(source, ModContent.ItemType<HecateII>());
+					player.QuickSpawnItem(source, ModContent.ItemType<DemonClaw>());
 				}
 				else
 				{
-					player.QuickSpawnItem(ModContent.ItemType<Glock80>());
-					player.QuickSpawnItem(ModContent.ItemType<HiddenWristBlade>());
+					player.QuickSpawnItem(source, ModContent.ItemType<Glock80>());
+					player.QuickSpawnItem(source, ModContent.ItemType<HiddenWristBlade>());
 				}
 				if (Main.rand.NextFloat() < .1f)
                 {
 					if (Main.rand.NextFloat() < .5f)
-						player.QuickSpawnItem(ModContent.ItemType<MarkOfAnastasia>());
-					else player.QuickSpawnItem(ModContent.ItemType<ShadowBrand>());
+						player.QuickSpawnItem(source, ModContent.ItemType<MarkOfAnastasia>());
+					else player.QuickSpawnItem(source, ModContent.ItemType<ShadowBrand>());
 				}
 			}
 			if (context == "bossBag" && Main.hardMode && Main.rand.NextFloat() < .05f)
 			{
-				player.QuickSpawnItem(ModContent.ItemType<AceOfSpades>());
-				player.QuickSpawnItem(ModContent.ItemType<AcesGoldFoxMask>());
-				player.QuickSpawnItem(ModContent.ItemType<AcesJacket>());
-				player.QuickSpawnItem(ModContent.ItemType<AcesPants>());
+				player.QuickSpawnItem(source, ModContent.ItemType<AceOfSpades>());
+				player.QuickSpawnItem(source, ModContent.ItemType<AcesGoldFoxMask>());
+				player.QuickSpawnItem(source, ModContent.ItemType<AcesJacket>());
+				player.QuickSpawnItem(source, ModContent.ItemType<AcesPants>());
 			}
 		}
 	}

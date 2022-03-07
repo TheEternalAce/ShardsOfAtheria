@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs;
 
 namespace ShardsOfAtheria.Projectiles
 {
@@ -12,6 +13,7 @@ namespace ShardsOfAtheria.Projectiles
 
             Projectile.aiStyle = 1;
             Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Magic;
             Projectile.tileCollide = true;
             Projectile.arrow = true;
             Projectile.light = 1;
@@ -21,24 +23,14 @@ namespace ShardsOfAtheria.Projectiles
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             base.OnHitNPC(target, damage, knockback, crit);
-            target.AddBuff(BuffID.Electrified, 600);
+            target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
         }
 
         public override void AI()
         {
-            if (Main.rand.NextBool(3))
+            if (Main.rand.NextBool(20))
             {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric,
-                    Projectile.velocity.X * .2f, Projectile.velocity.Y * .2f, 200, Scale: 1.2f);
-                dust.velocity += Projectile.velocity * 0.3f;
-                dust.velocity *= 0.2f;
-            }
-            if (Main.rand.NextBool(4))
-            {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric,
-                    0, 0, 254, Scale: 0.3f);
-                dust.velocity += Projectile.velocity * 0.5f;
-                dust.velocity *= 0.5f;
+                Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric, Projectile.velocity.X* .2f, Projectile.velocity.Y* .2f, 200, Scale: 1f);
             }
         }
     }

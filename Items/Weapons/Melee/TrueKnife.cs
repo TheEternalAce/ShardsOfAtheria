@@ -37,7 +37,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 		{
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<KitchenKnife>())
-				.AddIngredient(ModContent.ItemType<LovesKnife>())
 				.AddIngredient(ModContent.ItemType<AreusDagger>())
 				.AddIngredient(ModContent.ItemType<CrossDagger>())
 				.AddIngredient(ItemID.BrokenHeroSword)

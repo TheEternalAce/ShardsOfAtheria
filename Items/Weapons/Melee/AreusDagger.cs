@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
 using System.Collections.Generic;
 using Terraria.DataStructures;
+using ShardsOfAtheria.Projectiles.Weapon;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
@@ -22,22 +23,24 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             Item.damage = 52;
             Item.DamageType = DamageClass.Melee;
-            Item.width = 32;
-            Item.height = 34;
-            Item.useTime = 10;
-            Item.useAnimation = 10;
-            Item.useStyle = ItemUseStyleID.Swing;
+            Item.width = 48;
+            Item.height = 54;
+            Item.useTime = 25;
+            Item.useAnimation = 25;
+            Item.useStyle = ItemUseStyleID.Rapier;
+            Item.noMelee = true;
+            Item.noUseGraphic = true;
             Item.knockBack = 6;
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(silver: 50);
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
-            Item.shoot = ModContent.ProjectileType<ElectricBolt>();
-            Item.shootSpeed = 20;
+            Item.useTurn = true;
+            Item.shoot = ModContent.ProjectileType<AreusDaggerProj>();
+            Item.shootSpeed = 4f;
 
-            if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
-                areusResourceCost = 2;
-            else Item.mana = 7;
+            if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+                Item.mana = 7;
         }
 
         public override void AddRecipes()
@@ -54,7 +57,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             // Add the Onfire buff to the NPC for 1 second when the weapon hits an NPC
             // 60 frames = 1 second
-            target.AddBuff(BuffID.Electrified, 600);
+            target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
 			Item.maxStack = 999;
 			Item.consumable = true;
 			Item.knockBack = 1.5f;
-			Item.value = Item.sellPrice(silver: 10);
+			Item.value = Item.sellPrice(silver: 5);
 			Item.rare = ItemRarityID.Cyan;
 			Item.shoot = ModContent.ProjectileType<AreusRodProj>();
 			Item.shootSpeed = 16f;

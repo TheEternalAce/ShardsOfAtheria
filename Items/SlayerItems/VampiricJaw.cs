@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			player.buffImmune[BuffID.Bleeding] = true;
 			player.buffImmune[BuffID.Slow] = true;
 			player.buffImmune[BuffID.Cursed] = true;
-			player.GetModPlayer<SMPlayer>().vampiricJaw = true;
+			player.GetModPlayer<SoAPlayer>().vampiricJaw = true;
 		}
 	}
 }

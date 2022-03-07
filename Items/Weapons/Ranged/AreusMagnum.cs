@@ -38,9 +38,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.shootSpeed = 16f;
 			Item.useAmmo = AmmoID.Bullet;
 
-			if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
-				areusResourceCost = 1;
-			else Item.mana = 5;
+			if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+				Item.mana = 5;
 		}
 
 		public override void AddRecipes() 

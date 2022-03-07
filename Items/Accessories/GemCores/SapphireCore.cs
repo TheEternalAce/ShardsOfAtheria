@@ -8,7 +8,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("10% chance to dodge damage.");
+			Tooltip.SetDefault("10% chance to dodge attacks");
 		}
 
 		public override void SetDefaults()
@@ -23,7 +23,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<LesserSapphireCore>())
+				.AddIngredient(ModContent.ItemType<SapphireCore_Lesser>())
+				.AddIngredient(ItemID.HellstoneBar, 5)
 				.AddIngredient(ItemID.Bone, 20)
 				.AddTile(TileID.Anvils)
 				.Register();
@@ -31,7 +32,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.GetModPlayer<SMPlayer>().sapphireCore = true;
+			player.GetModPlayer<SoAPlayer>().sapphireCore = true;
         }
 	}
 }

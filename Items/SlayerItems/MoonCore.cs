@@ -26,7 +26,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 		{
 			player.GetDamage(DamageClass.Magic) += .5f;
 			player.statManaMax2 += 100;
-			player.GetModPlayer<SMPlayer>().moonCore = true;
+			player.GetModPlayer<SoAPlayer>().moonCore = true;
 		}
 	}
 }

@@ -26,11 +26,10 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.damage = 30;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
-			Item.width = 82;
-			Item.height = 36;
+			Item.width = 50;
+			Item.height = 20;
 			Item.useTime = 6;
 			Item.useAnimation = 6;
-			Item.scale = .7f;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = .1f;
 			Item.UseSound = SoundID.Item40;
@@ -47,13 +46,13 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			CreateRecipe()
 				.AddIngredient(ItemID.ChlorophyteBar, 15)
 				.AddIngredient(ItemID.GoldBar, 5)
-				.AddTile(ModContent.TileType<CobaltWorkbench>())
+				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}
 
 		public override Vector2? HoldoutOffset()
 		{
-			return new Vector2(-30, -1);
+			return new Vector2(-16, -1);
 		}
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

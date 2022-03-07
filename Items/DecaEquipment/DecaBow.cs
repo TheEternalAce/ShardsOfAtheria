@@ -52,7 +52,7 @@ namespace ShardsOfAtheria.Items.DecaEquipment
             return Main.rand.NextFloat() >= .66f;
         }
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 target = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
             float ceilingLimit = target.Y;
@@ -106,16 +106,7 @@ namespace ShardsOfAtheria.Items.DecaEquipment
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<BionicBarItem>(), 20)
-                .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 10)
-                .AddIngredient(ItemID.SoulofFlight, 10)
-                .AddIngredient(ItemID.SoulofFright, 10)
-                .AddIngredient(ItemID.SoulofLight, 10)
-                .AddIngredient(ItemID.SoulofMight, 10)
-                .AddIngredient(ItemID.SoulofNight, 10)
-                .AddIngredient(ItemID.SoulofSight, 10)
-                .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10)
-                .AddIngredient(ModContent.ItemType<SoulOfStarlight>(), 10)
-                .AddIngredient(ModContent.ItemType<DeathEssence>())
+                .AddIngredient(ModContent.ItemType<DecaShard>(), 10)
                 .Register();
         }
     }

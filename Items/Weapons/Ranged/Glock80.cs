@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.noMelee = true;
 			Item.width = 42;
 			Item.height = 30;
-			Item.scale = .75f;
+			Item.scale = .60f;
 			Item.useTime = 10;
 			Item.useAnimation = 10;
 			Item.useStyle = ItemUseStyleID.Shoot;
@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
 		public override Vector2? HoldoutOffset()
 		{
-			return new Vector2(-28, 0);
+			return new Vector2(-20, 0);
 		}
 
         public override void HoldItem(Player player)
@@ -67,7 +67,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			}
 		}
 
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			if (bulletsLoaded != 0)
             {

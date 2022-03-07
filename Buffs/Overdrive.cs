@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.GetModPlayer<SMPlayer>().overdriveTimeCurrent >= 0)
+            if (player.GetModPlayer<SoAPlayer>().overdriveTimeCurrent > 0)
             {
                 player.GetDamage(DamageClass.Generic) += 1f;
                 Lighting.AddLight(player.position, 0.5f, 0.5f, 0.5f);

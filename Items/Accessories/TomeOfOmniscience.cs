@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.Items.Accessories
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.GetModPlayer<SMPlayer>().omnicientTome = true;
+			player.GetModPlayer<SoAPlayer>().omnicientTome = true;
 		}
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
 		public override void SetDefaults() 
 		{
-			Item.damage = 36;
+			Item.damage = 20;
 			Item.DamageType = DamageClass.Melee;
 			Item.width = 64;
 			Item.height = 76;
@@ -33,15 +33,12 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
 		{
-			// Add the Onfire buff to the NPC for 1 second when the weapon hits an NPC
-			// 60 frames = 1 second
 			target.AddBuff(BuffID.Ichor, 60);
-            target.AddBuff(BuffID.Blackout, 3600);
-			player.AddBuff(BuffID.Shine, 18000);
-			player.AddBuff(BuffID.NightOwl, 18000);
-			player.AddBuff(BuffID.Spelunker, 18000);
-			player.AddBuff(BuffID.Hunter, 18000);
-			player.AddBuff(BuffID.Dangersense, 18000);
+			player.AddBuff(BuffID.Shine, 3600);
+			player.AddBuff(BuffID.NightOwl, 3600);
+			player.AddBuff(BuffID.Spelunker, 3600);
+			player.AddBuff(BuffID.Hunter, 3600);
+			player.AddBuff(BuffID.Dangersense, 3600);
 		}
 	}
 }

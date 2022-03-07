@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Buffs;
 
 namespace ShardsOfAtheria.Projectiles
 {
@@ -27,7 +28,7 @@ namespace ShardsOfAtheria.Projectiles
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             base.OnHitNPC(target, damage, knockback, crit);
-            target.AddBuff(BuffID.Electrified, 10*60);
+            target.AddBuff(ModContent.BuffType<ElectricShock>(), 10*60);
         }
 
         public override void AI()
@@ -42,6 +43,10 @@ namespace ShardsOfAtheria.Projectiles
             if (Projectile.velocity.Y > 16f)
             {
                 Projectile.velocity.Y = 16f;
+            }
+            if (Main.rand.NextBool(20))
+            {
+                Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric, Projectile.velocity.X * .2f, Projectile.velocity.Y * .2f, 200, Scale: 1f);
             }
         }
     }

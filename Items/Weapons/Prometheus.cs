@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Items.Weapons
                 .AddIngredient(ItemID.Ectoplasm, 5)
                 .AddIngredient(ItemID.HellstoneBar, 10)
                 .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10)
-                .AddTile(ModContent.TileType<CobaltWorkbench>())
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 

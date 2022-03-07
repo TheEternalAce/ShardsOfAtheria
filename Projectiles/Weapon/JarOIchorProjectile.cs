@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Weapons.Biochemical;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -13,6 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon
 
             Projectile.aiStyle = 2;
             Projectile.friendly = true;
+            Projectile.DamageType = ModContent.GetInstance<BiochemicalDamage>();
             Projectile.tileCollide = true;
             Projectile.arrow = true;
             AIType = ProjectileID.HolyWater;

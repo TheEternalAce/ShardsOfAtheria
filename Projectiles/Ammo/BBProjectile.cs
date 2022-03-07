@@ -19,7 +19,6 @@ namespace ShardsOfAtheria.Projectiles.Ammo
             Projectile.aiStyle = 1;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
-            Projectile.arrow = true;
             Projectile.light = 0.5f;
             Projectile.extraUpdates = 1;
             AIType = ProjectileID.Bullet;

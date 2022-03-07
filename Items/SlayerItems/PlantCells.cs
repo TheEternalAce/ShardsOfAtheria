@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-			player.GetModPlayer<SMPlayer>().plantCells = true;
+			player.GetModPlayer<SoAPlayer>().plantCells = true;
 			player.maxMinions += 4;
 			if (player.ZoneOverworldHeight || player.ZoneNormalSpace)
 			{

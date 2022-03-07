@@ -11,6 +11,7 @@ namespace ShardsOfAtheria.Projectiles
 
             Projectile.aiStyle = 27;
             Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Melee;
             Projectile.tileCollide = true;
             Projectile.arrow = false;
             Projectile.light = 0.5f;

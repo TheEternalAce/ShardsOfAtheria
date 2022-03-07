@@ -1,0 +1,12 @@
+```
+v0.7.5
+	Accessories that allow dodging now properly do so
+	Emerald Core now increases jump height
+	Feather Blade Friendly no longer hurts the player or friendly NPCs
+	Increased amount of Souls of Night and Souls of Light made from Souls of Starlight and Souls of Daylight respectively
+	Lesser Emerald Core and upgrades now give proper movement speed boosts
+	Reduced duration of Heartbreak from 20 seconds to 10 seconds
+	Removed Sapphire Spirit
+	Reworked Lesser Sapphire Core and upgrades
+	Couple other changes I forgot
+```

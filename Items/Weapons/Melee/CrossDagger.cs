@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddRecipeGroup("SM:GoldBars", 7)
+                .AddRecipeGroup(SoARecipes.Gold, 7)
                 .AddIngredient(ItemID.LifeCrystal, 5)
                 .AddIngredient(ItemID.ManaCrystal, 5)
                 .AddTile(TileID.Anvils)
@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
         {
-            if (!player.GetModPlayer<SMPlayer>().heartBreak)
+            if (!player.GetModPlayer<SoAPlayer>().heartBreak)
             {
                 player.statLife += 100;
                 CombatText.NewText(player.Hitbox, Color.Green, 100);
@@ -58,7 +58,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void UpdateInventory(Player player)
         {
-            player.GetModPlayer<SMPlayer>().sMHealingItem = true;
+            player.GetModPlayer<SoAPlayer>().sMHealingItem = true;
         }
     }
 }

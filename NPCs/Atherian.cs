@@ -4,16 +4,21 @@ using ShardsOfAtheria.Items;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.DecaEquipment;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.Tools;
 using ShardsOfAtheria.Items.Weapons.Ammo;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Projectiles;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.Personalities;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 
 namespace ShardsOfAtheria.NPCs
 {
@@ -44,12 +49,26 @@ namespace ShardsOfAtheria.NPCs
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+
+            // Set Example Person's biome and neighbor preferences with the NPCHappiness hook. You can add happiness text and remarks with localization (See an example in ExampleMod/Localization/en-US.lang
+            NPC.Happiness
+                //Biomes
+                .SetBiomeAffection<HallowBiome>(AffectionLevel.Love)
+                .SetBiomeAffection<ForestBiome>(AffectionLevel.Like)
+                .SetBiomeAffection<SnowBiome>(AffectionLevel.Dislike)
+                .SetBiomeAffection<UndergroundBiome>(AffectionLevel.Hate)
+                //NPCs
+                .SetNPCAffection(NPCID.Stylist, AffectionLevel.Love)
+                .SetNPCAffection(NPCID.Guide, AffectionLevel.Like)
+                .SetNPCAffection(NPCID.Merchant, AffectionLevel.Dislike)
+                .SetNPCAffection(NPCID.Angler, AffectionLevel.Hate);
         }
 
         public override void SetDefaults()
         {
             NPC.townNPC = true;
             NPC.friendly = true;
+
             NPC.width = 18;
             NPC.height = 40;
             NPC.aiStyle = 7;
@@ -69,33 +88,11 @@ namespace ShardsOfAtheria.NPCs
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
 				// Sets the preferred biomes of this town NPC listed in the bestiary.
 				// With Town NPCs, you usually set this to what biome it likes the most in regards to NPC happiness.
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement("Hailing from a mysterious greyscale cube world, the Example Person is here to help you understand everything about tModLoader."),
-
-				// You can add multiple elements if you really wanted to
-				// You can also use localization keys (see Localization/en-US.lang)
-				new FlavorTextBestiaryInfoElement("Mods.ShardsOfAtheria.Bestiary.Atherian")
+				new FlavorTextBestiaryInfoElement("He's seen your feats and has come in hopes he can find his missing daughter.")
             });
-        }
-
-        // The PreDraw hook is useful for drawing things before our sprite is drawn or running code before the sprite is drawn
-        // Returning false will allow you to manually draw your NPC
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            // This code slowly rotates the NPC in the bestiary
-            // (simply checking NPC.IsABestiaryIconDummy and incrementing NPC.Rotation won't work here as it gets overridden by drawModifiers.Rotation each tick)
-            if (NPCID.Sets.NPCBestiaryDrawOffset.TryGetValue(Type, out NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers))
-            {
-                drawModifiers.Rotation += 0.001f;
-
-                // Replace the existing NPCBestiaryDrawModifiers with our new one with an adjusted rotation
-                NPCID.Sets.NPCBestiaryDrawOffset.Remove(Type);
-                NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-            }
-
-            return true;
         }
 
         public override void HitEffect(int hitDirection, double damage)
@@ -113,63 +110,45 @@ namespace ShardsOfAtheria.NPCs
             {
                 Player player = Main.player[k];
                 if (!player.active)
-                {
                     continue;
-                }
 
-                foreach (Item item in player.inventory)
-                {
-                    if (item.type == ModContent.ItemType<AreusCoin>())
-                    {
-                        return true;
-                    }
-                }
+                if (NPC.downedBoss2 && !ModContent.GetInstance<SoAWorld>().slayerMode)
+                    return true;
             }
             return false;
         }
 
         public override string TownNPCName()
         {
-            switch (WorldGen.genRand.Next(4))
-            {
-                default:
-                    return "Jordan";
-            }
+            return "Jordan";
         }
 
         public override string GetChat()
         {
+            WeightedRandom<string> chat = new WeightedRandom<string>();
             int painter = NPC.FindFirstNPC(NPCID.Painter);
-            if (Main.LocalPlayer.HasItem(ModContent.ItemType<DecaFragment>()))
-            {
-                return "H-Hey there... That's a Deca fragment isn't it.? In my language \"Deca\" means Death..";
-            }
+            if (Main.LocalPlayer.HasItem(ModContent.ItemType<DecaFragment>()) || Main.LocalPlayer.GetModPlayer<DecaPlayer>().modelDeca)
+                chat.Add("H-Hey... I'm getting some really menacing vibes from you..");
             if (painter >= 0 && Main.rand.NextBool(6))
-            {
-                return "Maybe " + Main.npc[painter].GivenName + " can make me a sprite... Huh? Oh, yes yes, enough of that, let's talk retail.";
-            }
-            switch (Main.rand.Next(5))
-            {
-                case 0:
-                    return "HAHAHAHAHAHAHAHAHAHAH! WHAT DO YOU MEAN 'What's so funny'!?";
-                case 1:
-                    return "Ey uh.. Have you seen my daughter? No..? I hope she's alright..";
-                case 2:
-                    {
-                        return $"You know, [i:{ModContent.ItemType<AreusOreItem>()}] is extremely dangerous to you humans.. Wait you're no ordinary human?";
-                    }
-                case 3:
-                    {
-                        return $"Hey, if you got any [i:{ModContent.ItemType<BB>()}] I bet a friend of mine would love to have them. Just give 'em to me and I'll deliver them to him.";
-                    }
-                default:
-                    return "Hey! Tell the mod developer to give me a proper sprite!";
-            }
+                chat.Add("Maybe " + Main.npc[painter].GivenName + " can make me a sprite... Huh? Oh, yes yes, enough of that, let's talk capitalism.");
+            if (Main.LocalPlayer.HasItem(ModContent.ItemType<AreusWings>()))
+                return "Yikes, those wings do not meet my standards, here let me fix that for you.";
+            if (Main.LocalPlayer.HasItem(ModContent.ItemType<MicrobeAnalyzer>()))
+                return "That Microbe Analyzer looks great, but it could be better. Hand it over and I can upgrade it.";
+            chat.Add("HAHAHAHAHAHAHAHAHAHAH! WHAT DO YOU MEAN 'What's so funny'!?");
+            chat.Add("Ey uh.. Have you seen my daughter? No..? I hope she's alright..");
+            chat.Add("You know, Areus is extremely dangerous to you humans.. Wait you're no ordinary human?");
+            chat.Add("Hey, if you got any spare BBs, I bet a friend of mine would love to have them. Just give 'em to me and I'll deliver them to him.");
+            chat.Add("Hey! Tell the mod developer to give me a proper sprite!");
+            if (!ModContent.GetInstance<SoAWorld>().slayerMode)
+                return chat;
+            else return "What the- I was just drinking tea and now I'm here?!";
         }
 
         public override void SetChatButtons(ref string button, ref string button2)
         {
             button = Language.GetTextValue("LegacyInterface.28");
+            button2 = "Upgrade";
         }
 
         public override void OnChatButtonClicked(bool firstButton, ref bool shop)
@@ -178,71 +157,57 @@ namespace ShardsOfAtheria.NPCs
             {
                 shop = true;
             }
+            else
+            {
+                if (Main.LocalPlayer.HasItem(ModContent.ItemType<AreusWings>()))
+                {
+                    SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
+
+                    Main.npcChatText = "There, I upgraded those wings.";
+
+                    int areusWings = Main.LocalPlayer.FindItem(ModContent.ItemType<AreusWings>());
+
+                    Main.LocalPlayer.inventory[areusWings].TurnToAir();
+                    Main.LocalPlayer.QuickSpawnItem(new EntitySource_Gift(NPC), ModContent.ItemType<ChargedAreusWings>());
+
+                    return;
+                }
+                if (Main.LocalPlayer.HasItem(ModContent.ItemType<MicrobeAnalyzer>()))
+                {
+                    SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
+
+                    Main.npcChatText = "There, it'll be much more efficient at analyzing those Microbes.";
+
+                    int microbeAnalyzer = Main.LocalPlayer.FindItem(ModContent.ItemType<MicrobeAnalyzer>());
+
+                    Main.LocalPlayer.inventory[microbeAnalyzer].TurnToAir();
+                    Main.LocalPlayer.QuickSpawnItem(new EntitySource_Gift(NPC), ModContent.ItemType<MicrobeAnalyzerMkII>());
+
+                    return;
+                }
+                if (!Main.LocalPlayer.HasItem(ModContent.ItemType<AreusWings>()) && !Main.LocalPlayer.HasItem(ModContent.ItemType<MicrobeAnalyzer>()))
+                {
+                    Main.npcChatText = "Sorry pal, you don't have anything I can upgrade";
+
+                    return;
+                }
+            }
         }
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusDagger>());
-            shop.item[nextSlot].shopCustomPrice = 50;
-            shop.item[nextSlot].shopSpecialCurrency = ShardsOfAtheria.AreusCurrency;
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusChargePack>());
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<BlackAreusSword>());
-            shop.item[nextSlot].shopCustomPrice = 100;
-            shop.item[nextSlot].shopSpecialCurrency = ShardsOfAtheria.AreusCurrency;
-            nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusPistol>());
-            shop.item[nextSlot].shopCustomPrice = 38;
-            shop.item[nextSlot].shopSpecialCurrency = ShardsOfAtheria.AreusCurrency;
-            nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusStaff>());
-            shop.item[nextSlot].shopCustomPrice = 38;
-            shop.item[nextSlot].shopSpecialCurrency = ShardsOfAtheria.AreusCurrency;
-            nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusWings>());
-            shop.item[nextSlot].shopCustomPrice = 150;
-            shop.item[nextSlot].shopSpecialCurrency = ShardsOfAtheria.AreusCurrency;
-            nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<KitchenKnife>());
-            shop.item[nextSlot].shopCustomPrice = Item.buyPrice(silver: 30, copper: 15);
-            nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<JarOIchor>());
-            shop.item[nextSlot].shopCustomPrice = Item.buyPrice(silver: 40);
-            nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<ButterflyKnife>());
-            shop.item[nextSlot].shopCustomPrice = Item.buyPrice(platinum: 1, gold: 20);
-            nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<BBGun>());
-            shop.item[nextSlot].shopCustomPrice = Item.buyPrice(silver: 4, copper: 10);
-            nextSlot++;
-            if (Main.LocalPlayer.HasBuff(BuffID.Lovestruck))
+            if (NPC.downedBoss3)
             {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<LovesKnife>());
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<PhantomDrill>());
                 nextSlot++;
             }
-
-            /*
-			// Here is an example of how your npc can sell items from other mods.
-			var modSummonersAssociation = ModLoader.GetMod("SummonersAssociation");
-			if (modSummonersAssociation != null)
-			{
-				shop.item[nextSlot].SetDefaults(modSummonersAssociation.ItemType("BloodTalisman"));
-				nextSlot++;
-			}
-
-			if (!Main.LocalPlayer.GetModPlayer<ExamplePlayer>().examplePersonGiftReceived && ModContent.GetInstance<ExampleConfigServer>().ExamplePersonFreeGiftList != null)
-			{
-				foreach (var item in ModContent.GetInstance<ExampleConfigServer>().ExamplePersonFreeGiftList)
-				{
-					if (item.IsUnloaded)
-						continue;
-					shop.item[nextSlot].SetDefaults(item.Type);
-					shop.item[nextSlot].shopCustomPrice = 0;
-					shop.item[nextSlot].GetGlobalItem<ExampleInstancedGlobalItem>().examplePersonFreeGift = true;
-					nextSlot++;
-					// TODO: Have tModLoader handle index issues.
-				}
-			}
-			*/
+            if (NPC.downedPlantBoss)
+            {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusKey>());
+                nextSlot++;
+            }
         }
 
         // Make this Town NPC teleport to the King and/or Queen statue when triggered.

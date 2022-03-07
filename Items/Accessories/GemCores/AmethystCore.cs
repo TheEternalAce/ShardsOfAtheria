@@ -24,10 +24,11 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<LesserAmethystCore>())
-            .AddIngredient(ItemID.Wire, 20)
-            .AddTile(TileID.Anvils)
-            .Register();
+                .AddIngredient(ModContent.ItemType<AmethystCore_Lesser>())
+                .AddIngredient(ItemID.HellstoneBar, 5)
+                .AddIngredient(ItemID.Wire, 20)
+                .AddTile(TileID.Anvils)
+                .Register();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

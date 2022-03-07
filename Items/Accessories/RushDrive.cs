@@ -25,14 +25,14 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<SMPlayer>().rushDrive = true;
+            player.GetModPlayer<SoAPlayer>().rushDrive = true;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<PhaseBarItem>(), 10)
-                .AddRecipeGroup("SM:EvilBars", 5)
+                .AddRecipeGroup(SoARecipes.EvilBar, 5)
                 .AddIngredient(ItemID.TissueSample, 5)
                 .AddTile(TileID.Hellforge)
                 .Register();

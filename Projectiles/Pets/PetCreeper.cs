@@ -40,7 +40,7 @@ namespace ShardsOfAtheria.Projectiles.Pets
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-			SMPlayer modPlayer = player.GetModPlayer<SMPlayer>();
+			SoAPlayer modPlayer = player.GetModPlayer<SoAPlayer>();
 			if (player.dead)
 			{
 				modPlayer.creeperPet = false;

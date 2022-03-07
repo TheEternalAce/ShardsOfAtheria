@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             CreateRecipe()
                 .AddRecipeGroup(RecipeGroupID.Wood, 17)
-                .AddRecipeGroup("SM:CopperBars", 2)
+                .AddRecipeGroup(SoARecipes.Copper, 2)
                 .AddTile(TileID.WorkBenches)
                 .Register();
         }

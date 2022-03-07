@@ -17,28 +17,19 @@ namespace ShardsOfAtheria.Items.Accessories
 		{
 			Item.width = 16;
 			Item.height = 22;
-			Item.value = Item.sellPrice(silver: 15);
+			Item.value = Item.buyPrice(gold: 25);
 			Item.rare = ItemRarityID.Cyan;
 			Item.accessory = true;
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.GetModPlayer<SMPlayer>().areusKey = true;
+			player.GetModPlayer<SoAPlayer>().areusKey = true;
 			player.GetDamage(DamageClass.Generic) += .5f;
-			player.statLifeMax2 *= 2;
-			player.moveSpeed += .5f;
-			player.statDefense *= 2;
-			player.statManaMax2 *= 2;
-		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 3)
-				.AddIngredient(ItemID.ShadowKey)
-				.AddTile(TileID.LunarCraftingStation)
-				.Register();
+			player.statLifeMax2 *= (int)1.5f;
+			player.moveSpeed += .25f;
+			player.statDefense *= (int)1.5f;
+			player.statManaMax2 *= (int)1.5f;
 		}
 	}
 }

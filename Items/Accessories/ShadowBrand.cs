@@ -39,8 +39,8 @@ namespace ShardsOfAtheria.Items.Accessories
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.GetModPlayer<SMPlayer>().shadowBrand = true;
-			if (player.GetModPlayer<SMPlayer>().shadowBrandToggled == 1)
+			player.GetModPlayer<SoAPlayer>().shadowBrand = true;
+			if (player.GetModPlayer<SoAPlayer>().shadowBrandToggled)
 			{
 				player.statDefense -= 10;
 				player.GetCritChance(DamageClass.Generic) += 10;

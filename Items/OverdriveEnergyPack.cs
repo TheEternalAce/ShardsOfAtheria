@@ -34,22 +34,23 @@ namespace ShardsOfAtheria.Items
             CreateRecipe()
                 .AddRecipeGroup(RecipeGroupID.IronBar, 10)
                 .AddIngredient(ItemID.Wire, 20)
-                .AddTile(ModContent.TileType<CobaltWorkbench>())
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 
         public override bool CanUseItem(Player player)
         {
 
-            if (player.GetModPlayer<SMPlayer>().overdriveTimeCurrent == 0 && !player.HasBuff(ModContent.BuffType<Overdrive>()))
+            if (player.GetModPlayer<SoAPlayer>().overdriveTimeCurrent <= 0 && !player.HasBuff(ModContent.BuffType<Overdrive>()))
             {
                 return true;
             }
             else return false;
         }
+
         public override bool? UseItem(Player player)
         {
-            player.GetModPlayer<SMPlayer>().overdriveTimeCurrent = 300;
+            player.GetModPlayer<SoAPlayer>().overdriveTimeCurrent = 300;
             return true;
         }
     }
