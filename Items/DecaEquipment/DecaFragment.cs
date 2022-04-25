@@ -9,10 +9,17 @@ namespace ShardsOfAtheria.Items.DecaEquipment
 {
     public abstract class DecaFragment : ModItem
     {
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        public override void SetStaticDefaults()
         {
-            tooltips.Add(new TooltipLine(Mod, "DecaFragment2", "Unite with the other fragments to unlock their power"));
-            tooltips.Add(new TooltipLine(Mod, "DecaFragment1", "[c/FF4100:Deca Fragment]"));
+            Tooltip.SetDefault("Unite with the other fragments to unlock their power\n" +
+                "[c/FF4100:Deca Fragment]");
+        }
+
+        public override void SetDefaults()
+        {
+            Item.rare = ItemRarityID.Red;
+            Item.width = 26;
+            Item.height = 26;
         }
     }
 }

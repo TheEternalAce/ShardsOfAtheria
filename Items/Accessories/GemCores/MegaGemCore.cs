@@ -108,7 +108,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.AddBuff(BuffID.Honey, 2);
             player.AddBuff(BuffID.Campfire, 2);
             player.AddBuff(BuffID.HeartLamp, 2);
-            if (player.GetModPlayer<SoAPlayer>().megaGemCoreGrav)
+            if (ModContent.GetInstance<ClientSideConfig>().megaGemCoreGrav)
                 player.AddBuff(BuffID.Gravitation, 2);
 
             player.GetModPlayer<SoAPlayer>().megaGemCore = true;

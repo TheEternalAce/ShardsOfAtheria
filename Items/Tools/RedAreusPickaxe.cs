@@ -4,8 +4,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Tiles;
-using System.Collections.Generic;
 using Terraria.Audio;
 
 namespace ShardsOfAtheria.Items.Tools
@@ -28,20 +26,21 @@ namespace ShardsOfAtheria.Items.Tools
 			Item.pick = 150;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 6;
-			Item.value = Item.sellPrice(gold: 5);
+			Item.value = Item.sellPrice(0,  5);
 			Item.rare = ItemRarityID.Cyan;
 			Item.UseSound = SoundID.Item15;
 			Item.autoReuse = true;
 			Item.useTurn = true;
 
-			if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
-				Item.mana = 1;
+			if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+				Item.mana = 0;
+			else chargeCost = 0;
 		}
 
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 20)
+				.AddIngredient(ModContent.ItemType<AreusShard>(), 20)
 				.AddIngredient(ModContent.ItemType<SoulOfSpite>(), 13)
 				.AddIngredient(ItemID.Wire, 10)
 				.AddTile(TileID.MythrilAnvil)
@@ -62,7 +61,7 @@ namespace ShardsOfAtheria.Items.Tools
 			if (Main.rand.NextBool(10))
 			{
 				Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Electric);
-				Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 6);
+				Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Torch);
 			}
 		}
 	}

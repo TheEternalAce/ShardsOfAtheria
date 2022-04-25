@@ -21,9 +21,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.useAnimation = 30;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 6;
-			Item.value = Item.sellPrice(gold: 50);
-			Item.rare = ItemRarityID.Expert;
-			Item.UseSound = SoundID.Item1;
+			Item.UseSound = SoundID.Item71;
 			Item.autoReuse = false;
 			Item.useTurn = true;
 			Item.crit = 100;

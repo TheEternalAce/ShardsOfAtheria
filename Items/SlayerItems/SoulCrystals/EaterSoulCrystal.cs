@@ -1,0 +1,29 @@
+﻿using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.NPCs;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
+{
+    public class EaterSoulCrystal : SoulCrystal
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Soul Crystal (Eater Of Worlds)");
+            Tooltip.SetDefault("Grants one revive and shoots a vile shot when using a weapon\n" +
+                "Revive has a 5 minute cooldown");
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            absorbSoulTimer--;
+            if (absorbSoulTimer == 0 || ModContent.GetInstance<ClientSideConfig>().instantAbsorb)
+            {
+                    Main.LocalPlayer.GetModPlayer<SlayerPlayer>().EaterSoul = SoulCrystalStatus.Absorbed;
+            }
+            return base.UseItem(player);
+        }
+    }
+}

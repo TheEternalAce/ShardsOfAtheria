@@ -1,8 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Ammo;
-using System.Collections.Generic;
+using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 
 namespace ShardsOfAtheria.Items.Weapons.Ammo
 {

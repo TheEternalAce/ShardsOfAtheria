@@ -1,13 +1,10 @@
-	using Terraria;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Tiles;
-using ShardsOfAtheria.Projectiles;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Buffs;
-using Terraria.DataStructures;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
@@ -30,21 +27,21 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 6;
 			Item.rare = ItemRarityID.Cyan;
-			Item.value = Item.sellPrice(gold: 50);
+			Item.value = Item.sellPrice(0,  50);
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = false;
-			Item.crit = 21;
+			Item.crit = 8;
 			Item.shoot = ModContent.ProjectileType<ElectricBlade>();
 			Item.shootSpeed = 10;
 
-			if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+			if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
 				Item.mana = 8;
 		}
 
 		public override void AddRecipes() 
 		{
 			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 20)
+				.AddIngredient(ModContent.ItemType<AreusShard>(), 20)
 				.AddIngredient(ItemID.FragmentVortex, 20)
 				.AddTile(ModContent.TileType<AreusForge>())
 				.Register();

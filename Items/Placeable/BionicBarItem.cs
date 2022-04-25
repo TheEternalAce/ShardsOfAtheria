@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Items.Placeable
 		{
 			Item.width = 30;
 			Item.height = 24;
-			Item.value = Item.sellPrice(gold: 1);
+			Item.value = Item.sellPrice(0,  1);
 			Item.rare = ItemRarityID.Blue;
 			Item.maxStack = 999;
 			Item.consumable = true;

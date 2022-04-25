@@ -69,21 +69,9 @@ namespace ShardsOfAtheria.NPCs
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            var dropChooser = new WeightedRandom<int>();
-            dropChooser.Add(ItemID.CopperOre);
-            dropChooser.Add(ItemID.TinOre);
-            dropChooser.Add(ItemID.IronOre);
-            dropChooser.Add(ItemID.LeadOre);
-            dropChooser.Add(ItemID.SilverOre);
-            dropChooser.Add(ItemID.TungstenOre);
-            dropChooser.Add(ItemID.GoldOre);
-            dropChooser.Add(ItemID.PlatinumOre);
-            dropChooser.Add(ModContent.ItemType<BionicOreItem>());
-            if (NPC.AnyNPCs(ModContent.NPCType<Atherian>()))
-                dropChooser.Add(ModContent.ItemType<AreusOreItem>());
-
             npcLoot.Add(ItemDropRule.Common(ItemID.Feather, 2));
-            npcLoot.Add(ItemDropRule.Common(dropChooser, 1, 3, 6));
+            npcLoot.Add(ItemDropRule.OneFromOptions(1, ItemID.CopperOre, ItemID.TinOre, ItemID.IronOre, ItemID.LeadOre, ItemID.SilverOre, ItemID.TungstenOre, ItemID.GoldOre, ItemID.PlatinumOre,
+                ModContent.ItemType<BionicOreItem>(), ModContent.ItemType<AreusShard>()));
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

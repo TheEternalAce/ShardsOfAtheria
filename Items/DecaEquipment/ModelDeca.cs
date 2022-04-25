@@ -1,6 +1,9 @@
+using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Projectiles.Weapon.Summon;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 
 namespace ShardsOfAtheria.Items.DecaEquipment
 {
@@ -23,6 +26,9 @@ namespace ShardsOfAtheria.Items.DecaEquipment
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<DecaPlayer>().modelDeca = true;
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<DecaShardProj>()] < player.GetModPlayer<DecaPlayer>().decaShards)
+                Projectile.NewProjectileDirect(player.GetProjectileSource_Accessory(Item), player.Center + Vector2.One.RotatedBy(MathHelper.ToRadians(360))*45, Vector2.Zero,
+                    ModContent.ProjectileType<DecaShardProj>(), 200000, 1f, player.whoAmI);
         }
 
         public override void AddRecipes()

@@ -3,25 +3,28 @@ using ShardsOfAtheria.Items.DecaEquipment;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ShardsOfAtheria
 {
     public class DecaPlayer : ModPlayer
     {
         public bool modelDeca;
+        public bool modelDecaPrevious;
+        public bool swarming;
 
-        public override void ResetEffects()
-        {
-            modelDeca = false;
-        }
+        public int decaShards;
 
         public override void PostUpdateMiscEffects()
         {
+            if (decaShards < 0)
+                decaShards = 0;
             if (modelDeca)
             {
                 Player.armorEffectDrawOutlines = true;
                 Player.GetDamage(DamageClass.Generic) += 1f;
                 Player.GetCritChance(DamageClass.Generic) += 20;
+                Player.autoReuseGlove = true;
                 Player.statDefense += 50;
                 Player.endurance += 1f;
                 Player.wingTimeMax += 160;
@@ -53,11 +56,34 @@ namespace ShardsOfAtheria
                 Player.GetModPlayer<SoAPlayer>().overdriveTimeCurrent = Player.GetModPlayer<SoAPlayer>().overdriveTimeMax;
             }
         }
+        public override void Initialize()
+        {
+            decaShards = 10;
+        }
 
-        public override void PreUpdateMovement()
+        public override void SaveData(TagCompound tag)
+        {
+            tag["decaShards"] = decaShards;
+        }
+
+        public override void LoadData(TagCompound tag)
+        {
+            decaShards = (int)tag["decaShards"];
+        }
+
+        public override void ResetEffects()
+        {
+            modelDecaPrevious = modelDeca;
+            modelDeca = false;
+            swarming = false;
+        }
+
+        public override void PostUpdateEquips()
         {
             if (modelDeca)
+            {
                 Player.moveSpeed += 1f;
+            }
         }
     }
 }

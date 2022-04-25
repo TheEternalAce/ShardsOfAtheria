@@ -48,5 +48,14 @@ namespace ShardsOfAtheria.Items
 
 			Main.LocalPlayer.QuickSpawnItem(source, ammoChooser, 999);
 		}
-    }
+
+		public override void AddRecipes()
+		{
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<AmmoBag>())
+				.AddIngredient(ItemID.WoodenArrow)
+				.AddTile(TileID.WorkBenches)
+				.Register();
+		}
+	}
 }

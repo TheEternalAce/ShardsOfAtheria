@@ -25,6 +25,9 @@ namespace ShardsOfAtheria
         public static ModKeybind PhaseSwitch;
         public static ModKeybind QuickCharge;
 
+        public bool foundMod;
+        public bool foundMod1;
+
         public override void Load()
         {
             OverdriveKey = KeybindLoader.RegisterKeybind(this, "Toggle Overdrive", "F");
@@ -66,14 +69,12 @@ namespace ShardsOfAtheria
                 ModContent.ItemType<ValkyrieBlade>(),
                 ModContent.ItemType<ValkyrieStormLance>()
             };
-            Mod census = ModLoader.GetMod("Census");
-            if (census != null)
-                census.Call("TownNPCCondition", ModContent.NPCType<Atherian>(), "Defeat Eater of Worlds/Brain of Cthulhu.");
+            if (ModLoader.TryGetMod("Census", out Mod foundMod))
+                ModLoader.GetMod("Census").Call("TownNPCCondition", ModContent.NPCType<Atherian>(), "Defeat Eater of Worlds/Brain of Cthulhu.");
 
-            Mod bossChecklist = ModLoader.GetMod("BossChecklist");
-            if (bossChecklist != null)
+            if (ModLoader.TryGetMod("Census", out Mod foundMod1))
             {
-                bossChecklist.Call(
+                ModLoader.GetMod("BossChecklist").Call(
                     "AddBoss",
                     3.5f,
                     new List<int> { ModContent.NPCType<NovaStellar>() },
@@ -96,7 +97,7 @@ namespace ShardsOfAtheria
                     ModContent.ItemType<AncientCoin>(),
                     new List<int> { ModContent.ItemType<DeathEssence>(), ModContent.ItemType<Items.Armor.BunnyMask>(), ModContent.ItemType<Items.Placeable.PuritySpiritTrophy>(), ModContent.ItemType<Items.Placeable.BunnyTrophy>(), ModContent.ItemType<Items.Placeable.TreeTrophy>() },
                     new List<int> { ModContent.ItemType<Items.PurityShield>(), ItemID.Bunny },
-                    $"Use a [i:{ModContent.ItemType<ValkyrieCrest>()}] Ancient Coin anywhere"
+                    $"Use a [i:{ModContent.ItemType<AncientMedallion>()}] anywhere"
                 );
                 */
             }

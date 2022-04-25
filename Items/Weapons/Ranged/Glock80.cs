@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.shootSpeed = 13f;
 			Item.useAmmo = AmmoID.Bullet;
 			Item.expert = true;
-			Item.value = Item.sellPrice(gold: 5);
+			Item.value = Item.sellPrice(0,  5);
 
 			bulletsLoaded = 8;
 		}

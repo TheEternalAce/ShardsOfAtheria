@@ -18,7 +18,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.value = Item.sellPrice(gold: 15);
+			Item.value = Item.sellPrice(0,  15);
 			Item.defense = 9;
 			Item.rare = ItemRarityID.Expert;
 		}

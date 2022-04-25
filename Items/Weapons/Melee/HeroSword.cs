@@ -1,5 +1,4 @@
-using ShardsOfAtheria.Projectiles;
-using ShardsOfAtheria.Tiles;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,11 +22,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.useAnimation = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 0;
-			Item.value = Item.sellPrice(gold: 80);
+			Item.value = Item.sellPrice(0,  80);
 			Item.rare = ItemRarityID.Red;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = false;
-			Item.crit = 96;
+			Item.crit = 6;
 			Item.shoot = ModContent.ProjectileType<HeroBlade>();
 			Item.shootSpeed = 10;
 		}

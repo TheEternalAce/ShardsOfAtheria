@@ -12,77 +12,15 @@ namespace ShardsOfAtheria.Buffs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Megamerged");
-            Description.SetDefault("'BIOLINK ESTABLISHED! M.E.G.A. SYSTEM ONLINE!'\n" +
-                "25% Increased damage\n" +
-                "20 defense\n" +
-                "Increases movement speed by 10%\n" +
-                "Increased life regen\n" +
-                "Increased life by 100 and mana by 40\n" +
-                "Grants dash, wall sliding and immunity to fall damage and certain debuffs/n" +
-                "Press 'Toggle Overdrive' to activate or deactivate Overdrive\n" +
-                "Overdrive doubles all damage\n" +
-                "Overdrive lasts until you get hit or run out of Overdrive time");
-            Main.debuff[Type] = true;
+            Description.SetDefault("'BIOLINK ESTABLISHED! M.E.G.A. SYSTEM ONLINE!'");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.jumpSpeedBoost += 4.8f;
-            player.extraFall += 45;
-            player.GetDamage(DamageClass.Generic) += 0.25f;
-            player.statDefense += 20;
-            player.moveSpeed += .1f;
-            player.statLifeMax2 += 100;
-            player.statManaMax2 += 40;
-            player.noFallDmg = true;
-            player.buffImmune[BuffID.Bleeding] = true;
-            player.buffImmune[BuffID.Poisoned] = true;
-            player.buffImmune[BuffID.Weak] = true;
-            player.buffImmune[BuffID.WitheredWeapon] = true;
-            player.buffImmune[BuffID.Venom] = true;
-            player.spikedBoots++;
             player.buffTime[buffIndex] = 18000;
-
-            BiometalDashPlayer mp = player.GetModPlayer<BiometalDashPlayer>();
-            //If the dash is not active, immediately return so we don't do any of the logic for it
-            if (!mp.DashActive)
-                return;
-
-            player.eocDash = mp.DashTimer;
-            player.armorEffectDrawShadowEOCShield = true;
-
-            //This is where we set the afterimage effect.  You can replace these two lines with whatever you want to happen during the dash
-            //Some examples include:  spawning dust where the player is, adding buffs, making the player immune, etc.
-            //Here we take advantage of "player.eocDash" and "player.armorEffectDrawShadowEOCShield" to get the Shield of Cthulhu's afterimage effect
-
-            //If the dash has just started, apply the dash velocity in whatever direction we wanted to dash towards
-            if (mp.DashTimer == BiometalDashPlayer.MAX_DASH_TIMER)
-            {
-                Vector2 newVelocity = player.velocity;
-
-                if ((mp.DashDir == BiometalDashPlayer.DashLeft && player.velocity.X > -mp.DashVelocity) || (mp.DashDir == BiometalDashPlayer.DashRight && player.velocity.X < mp.DashVelocity))
-                {
-                    //X-velocity is set here
-                    int dashDirection = mp.DashDir == BiometalDashPlayer.DashRight ? 1 : -1;
-                    newVelocity.X = dashDirection * mp.DashVelocity;
-                }
-
-                player.velocity = newVelocity;
-            }
-
-            //Decrement the timers
-            mp.DashTimer--;
-            mp.DashDelay--;
-
-            if (mp.DashDelay == 0)
-            {
-                //The dash has ended.  Reset the fields
-                mp.DashDelay = BiometalDashPlayer.MAX_DASH_DELAY;
-                mp.DashTimer = BiometalDashPlayer.MAX_DASH_TIMER;
-                mp.DashActive = false;
-            }
         }
     }
 

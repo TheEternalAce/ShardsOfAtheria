@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
-using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Projectiles;
+using ShardsOfAtheria.Projectiles.NPCProj;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -13,7 +14,6 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace ShardsOfAtheria.NPCs.NovaStellar
 {
@@ -81,8 +81,8 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
         {
             // Sets the description of this NPC that is listed in the bestiary
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> {
-                new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
-				new FlavorTextBestiaryInfoElement(".")
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
+                new FlavorTextBestiaryInfoElement("Bestiary entry in progress.")
             });
         }
 
@@ -108,18 +108,18 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
             // This requires you to set BossBag in SetDefaults accordingly
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<NovaBossBag>()));
 
-            var dropChooser = new WeightedRandom<int>();
-            dropChooser.Add(ModContent.ItemType<ValkyrieCrown>());
-            dropChooser.Add(ModContent.ItemType<ValkyrieBlade>());
-            dropChooser.Add(ModContent.ItemType<GildedValkyrieWings>());
-
 			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
+			LeadingConditionRule slayerMode = new LeadingConditionRule(new IsSlayerMode());
 			
-            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieBlade>(), 10));
+            notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<ValkyrieCrown>()));
             notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.GoldBar, 1, 10, 20));
             notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.Feather, 1, 2, 5));
-            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<PhaseOreItem>(), 1, 5, 7));
-            notExpertRule.OnSuccess(ItemDropRule.Common(dropChooser));
+            slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieSoulCrystal>()));
+            slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieStormLance>()));
+
+            // Finally add the leading rule
+            npcLoot.Add(notExpertRule);
+            npcLoot.Add(slayerMode);
         }
 
         public override void OnKill()
@@ -226,7 +226,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
             }
 
             //Run code when life is half of max or when the world is in Slayer mode
-            if ((NPC.life <= NPC.lifeMax/2 || ModContent.GetInstance<SoAWorld>().slayerMode) && Main.netMode != NetmodeID.MultiplayerClient)
+            if (NPC.life <= NPC.lifeMax/2 && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 NPC.velocity = Vector2.Zero;
                 //Main.NewText("Okay, you're stronger than I thought, but I have an ace up my sleeve.");
@@ -305,14 +305,18 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
 
             //Lightning strike
             if (SecondStageTimer == 300)
-                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), above, Vector2.Zero, ModContent.ProjectileType<LightningBoltSpawner>(), 18, 0f, Main.myPlayer, new Vector2(0, 10).ToRotation(), Main.rand.Next(100));
+                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), above, Vector2.Zero, ModContent.ProjectileType<LightningBoltSpawner>(), 18, 0f, Main.myPlayer);
 
             //Dash
-            if (SecondStageTimer == 340)
+            if (SecondStageTimer == 320)
             {
                 NPC.velocity = Vector2.Normalize(toTarget) * 10;
-                SecondStageTimer = 0;
             }
+            if (SecondStageTimer >= 320)
+                Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), position, Vector2.Zero, ModContent.ProjectileType<ElectricTrail>(), 18, 0f, Main.myPlayer);
+
+            if (SecondStageTimer > 380)
+                SecondStageTimer = 0;
         }
     }
 }

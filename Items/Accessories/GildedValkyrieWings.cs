@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Items.Accessories
 		{
 			Item.width = 24;
 			Item.height = 26;
-			Item.value = Item.sellPrice(gold: 1);
+			Item.value = Item.sellPrice(0,  1);
 			Item.rare = ItemRarityID.Expert;
 			Item.accessory = true;
 			Item.expert = true;

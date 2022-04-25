@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.useAnimation = 20;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 6;
-			Item.value = Item.sellPrice(gold: 50);
+			Item.value = Item.sellPrice(0,  50);
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = false;
 			Item.crit = 6;
@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
 		{
-			Main.NewText(target.nameOver + " was hit by " + player.name + "'s fish");
+			Main.NewText(Lang.GetNPCName(target.type) + " was hit by " + player.name + "'s fish");
 		}
     }
 }

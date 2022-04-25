@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Weapon;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.useAnimation = 20;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 6;
-			Item.value = Item.sellPrice(gold: 50);
+			Item.value = Item.sellPrice(0,  50);
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = false;
 			Item.crit = 6;

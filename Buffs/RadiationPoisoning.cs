@@ -7,7 +7,7 @@ namespace ShardsOfAtheria.Buffs
 {
     public class MildRadiationPoisoning : ModBuff
     {
-        public override string Texture => "ShardsOfAtheria/Buffs/ViralInfection";
+        public override string Texture => "ShardsOfAtheria/Buffs/RadiationPoisoning";
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Mild Radiation Poisoning");
@@ -18,7 +18,7 @@ namespace ShardsOfAtheria.Buffs
 
     public class ModerateRadiationPoisoning : ModBuff
     {
-        public override string Texture => "ShardsOfAtheria/Buffs/ViralInfection";
+        public override string Texture => "ShardsOfAtheria/Buffs/RadiationPoisoning";
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Moderate Radiation Poisoning");
@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Buffs
 
     public class SevereRadiationPoisoning : ModBuff
     {
-        public override string Texture => "ShardsOfAtheria/Buffs/ViralInfection";
+        public override string Texture => "ShardsOfAtheria/Buffs/RadiationPoisoning";
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Severe Radiation Poisoning");
@@ -62,7 +62,7 @@ namespace ShardsOfAtheria.Buffs
                     Player.lifeRegen = 0;
                 }
                 Player.lifeRegenTime = 0;
-                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes .5 life lost per second.
+                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 2 life lost per second.
                 Player.lifeRegen -= 4;
             }
             if (Player.HasBuff<ModerateRadiationPoisoning>())
@@ -73,7 +73,7 @@ namespace ShardsOfAtheria.Buffs
                     Player.lifeRegen = 0;
                 }
                 Player.lifeRegenTime = 0;
-                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes .5 life lost per second.
+                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 4 life lost per second.
                 Player.lifeRegen -= 8;
             }
             if (Player.HasBuff<SevereRadiationPoisoning>())
@@ -84,8 +84,45 @@ namespace ShardsOfAtheria.Buffs
                     Player.lifeRegen = 0;
                 }
                 Player.lifeRegenTime = 0;
-                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes .5 life lost per second.
+                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 8 life lost per second.
                 Player.lifeRegen -= 16;
+            }
+        }
+    }
+
+    public class RadiationPoisoningNPC : GlobalNPC
+    {
+        public override void UpdateLifeRegen(NPC npc, ref int damage)
+        {
+            if (npc.HasBuff<MildRadiationPoisoning>())
+            {
+                // These lines zero out any positive lifeRegen. This is expected for all bad life regeneration effects.
+                if (npc.lifeRegen > 0)
+                {
+                    npc.lifeRegen = 0;
+                }
+                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 2 life lost per second.
+                npc.lifeRegen -= 4;
+            }
+            if (npc.HasBuff<ModerateRadiationPoisoning>())
+            {
+                // These lines zero out any positive lifeRegen. This is expected for all bad life regeneration effects.
+                if (npc.lifeRegen > 0)
+                {
+                    npc.lifeRegen = 0;
+                }
+                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 4 life lost per second.
+                npc.lifeRegen -= 8;
+            }
+            if (npc.HasBuff<SevereRadiationPoisoning>())
+            {
+                // These lines zero out any positive lifeRegen. This is expected for all bad life regeneration effects.
+                if (npc.lifeRegen > 0)
+                {
+                    npc.lifeRegen = 0;
+                }
+                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 8 life lost per second.
+                npc.lifeRegen -= 16;
             }
         }
     }

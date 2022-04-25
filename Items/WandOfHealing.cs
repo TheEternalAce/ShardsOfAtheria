@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Items
             Item.healLife = 50;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.HoldUp;
-            Item.value = Item.sellPrice(gold: 5, silver: 70);
+            Item.value = Item.sellPrice(0,  5, silver: 70);
             Item.rare = ItemRarityID.Red;
             Item.autoReuse = false;
             Item.UseSound = SoundID.Item29;

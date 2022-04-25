@@ -3,20 +3,12 @@ using Terraria.ModLoader;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Tiles;
 using Terraria;
-using ShardsOfAtheria.Projectiles;
-using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
-using Terraria.DataStructures;
+using ShardsOfAtheria.Projectiles.Weapon.Magic;
 
 namespace ShardsOfAtheria.Items.Weapons.Magic
 {
 	public class AreusStaff : AreusWeapon
 	{
-		public override void SetStaticDefaults()
-		{
-			Tooltip.SetDefault("'It's magic, so it won't shock you, I think.'");
-		}
-
 		public override void SetDefaults() 
 		{
 			Item.damage = 130;
@@ -33,18 +25,18 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 			Item.autoReuse = true;
 			Item.crit = 16;
 			Item.rare = ItemRarityID.Cyan;
-			Item.value = Item.sellPrice(gold: 20);
+			Item.value = Item.sellPrice(0,  20);
 			Item.shoot = ModContent.ProjectileType<ElectricBolt>();
 			Item.shootSpeed = 16f;
 
-			if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+			if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
 				Item.mana = 6;
 		}
 
 		public override void AddRecipes() 
 		{
 			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 10)
+				.AddIngredient(ModContent.ItemType<AreusShard>(), 10)
 				.AddIngredient(ItemID.FragmentVortex, 7)
 				.AddTile(ModContent.TileType<AreusForge>())
 				.Register();

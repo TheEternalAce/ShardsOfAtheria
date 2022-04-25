@@ -1,5 +1,7 @@
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.Weapons.Ammo;
+using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,10 +17,17 @@ namespace ShardsOfAtheria.Items
 
         public override void SetDefaults()
         {
+            Item.damage = 40;
+            Item.DamageType = DamageClass.Ranged;
             Item.rare = ItemRarityID.Blue;
             Item.width = 16;
             Item.height = 16;
             Item.maxStack = 999;
+            Item.consumable = true;
+            Item.knockBack = 1.5f;
+            Item.shoot = ModContent.ProjectileType<UraniumRodProj>();
+            Item.shootSpeed = 16f;
+            Item.ammo = ModContent.ItemType<AreusRod>();
         }
 
         public override void UpdateInventory(Player player)

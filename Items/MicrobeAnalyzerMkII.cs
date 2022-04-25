@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
@@ -6,7 +7,6 @@ namespace ShardsOfAtheria.Items
 {
 	public class MicrobeAnalyzerMkII : ModItem
 	{
-        public override string Texture => "ShardsOfAtheria/Items/MicrobeAnalyzer";
         public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Microbe Analyzer Mk II");
@@ -16,26 +16,34 @@ namespace ShardsOfAtheria.Items
 
 		public override void SetDefaults()
 		{
-			Item.CloneDefaults(ModContent.ItemType<MicrobeAnalyzer>());
-			Item.useTime = 0;
-			Item.useAnimation = 0;
+			Item.width = 40;
+			Item.height = 32;
+			Item.useTime = 1;
+			Item.useAnimation = 1;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.rare = ItemRarityID.Blue;
+			Item.autoReuse = true;
+			Item.useTurn = true;
 		}
 
-        public override bool CanConsumeAmmo(Player player)
-        {
-            return Main.rand.NextFloat() >= .5f;
-        }
+		public override bool CanUseItem(Player player)
+		{
+			return player.HasItem(ModContent.ItemType<UnanalyzedMicrobe>());
+		}
 
-        public override bool? UseItem(Player player)
+		public override bool? UseItem(Player player)
 		{
 			var dropChooser = new WeightedRandom<int>();
 			dropChooser.Add(ModContent.ItemType<Bacteria>());
 			dropChooser.Add(ModContent.ItemType<DNA>());
 			dropChooser.Add(ModContent.ItemType<Virus>());
-			
 
-			Item.NewItem(player.GetItemSource_Misc(ModContent.ItemType<MicrobeAnalyzerMkII>()), player.getRect(), dropChooser);
-			return base.UseItem(player);
-        }
-    }
+			int microbe = Main.LocalPlayer.FindItem(ModContent.ItemType<UnanalyzedMicrobe>());
+			if (Main.rand.NextFloat() >= .5f && player.inventory[microbe].stack > 0)
+				player.inventory[microbe].stack--;
+			if (player.inventory[microbe].stack > 0)
+				Item.NewItem(player.GetItemSource_Misc(ModContent.ItemType<MicrobeAnalyzer>()), player.getRect(), dropChooser);
+			return true;
+		}
+	}
 }

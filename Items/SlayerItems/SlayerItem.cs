@@ -7,7 +7,22 @@ namespace ShardsOfAtheria.Items.SlayerItems
 {
 	public abstract class SlayerItem : ModItem
 	{
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        public override void Update(ref float gravity, ref float maxFallSpeed)
+		{
+			Item.rare = ItemRarityID.Yellow;
+		}
+
+        public override void UpdateInventory(Player player)
+		{
+			Item.rare = ItemRarityID.Yellow;
+		}
+
+		public override void HoldItem(Player player)
+		{
+			Item.rare = ItemRarityID.Yellow;
+		}
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			if (Item.damage > 0)
 				tooltips.Add(new TooltipLine(Mod, "Damage", "Damage scales with progression"));

@@ -1,4 +1,5 @@
 ﻿using ShardsOfAtheria.Items;
+using ShardsOfAtheria.Items.DecaEquipment;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Tiles;
@@ -22,6 +23,7 @@ namespace ShardsOfAtheria
         public static RecipeGroup Mythril;
         public static RecipeGroup Adamantite;
         public static RecipeGroup Soul;
+        public static RecipeGroup DecaWeapon;
 
         public override void Unload()
         {
@@ -79,6 +81,11 @@ namespace ShardsOfAtheria
                    ItemID.SoulofFlight, ItemID.SoulofFright, ItemID.SoulofLight, ItemID.SoulofMight, ItemID.SoulofNight, ItemID.SoulofSight, ModContent.ItemType<SoulOfDaylight>(),
                    ModContent.ItemType<SoulOfStarlight>(), ModContent.ItemType<SoulOfSpite>());
             RecipeGroup.RegisterGroup("Souls", Soul);
+
+            DecaWeapon = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Deca Weapon",
+                   ModContent.ItemType<DecaBow>(), ModContent.ItemType<DecaClaw>(), ModContent.ItemType<DecaRifle>(), ModContent.ItemType<DecaSaber>(),
+                   ModContent.ItemType<DecaShotgun>(), ModContent.ItemType<DecaStaff>());
+            RecipeGroup.RegisterGroup("DecaWeapon", DecaWeapon);
         }
 
         public override void AddRecipes()

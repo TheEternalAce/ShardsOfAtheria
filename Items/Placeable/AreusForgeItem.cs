@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Items.Placeable
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<AreusOreItem>(), 10)
+				.AddIngredient(ModContent.ItemType<AreusShard>(), 10)
 				.AddRecipeGroup(RecipeGroupID.Wood, 5)
 				.AddIngredient(ItemID.Torch, 5)
 				.Register();

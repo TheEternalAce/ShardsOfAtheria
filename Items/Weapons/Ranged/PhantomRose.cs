@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles;
-using System.Collections.Generic;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -22,8 +21,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.damage = 425;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
-			Item.width = 42;
-			Item.height = 30;
+			Item.width = 38;
+			Item.height = 24;
 			Item.scale = .85f;
 			Item.useTime = 10;
 			Item.useAnimation = 10;
@@ -32,7 +31,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Item41;
 			Item.autoReuse = false;
-			Item.crit = 20;
+			Item.crit = 8;
 			Item.shoot = ProjectileID.PurificationPowder;
 			Item.shootSpeed = 13f;
 			Item.useAmmo = AmmoID.Bullet;
@@ -40,7 +39,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
 		public override Vector2? HoldoutOffset()
 		{
-			return new Vector2(0, 2);
+			return new Vector2(6, -2);
 		}
 
 		public override void AddRecipes()

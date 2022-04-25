@@ -1,8 +1,13 @@
 Shards of Atheria is a mod that adds many new items, weapons, accessories and random stuff I feel like adding. Soon the mod will emphasize more on making coherent lore. (unlike Terraria "lore", which will also be rewritten)
 
+Discord Server: https://discord.gg/TJnkxf7fcr
+
 Spriters:
 Torra th
 TheEternalAce
 
 Programmers:
 TheEternalAce
+
+MASSIVE thank you to the TML team and others in the server for the huge help otherwise I would have never gotten this far in making the mod
+As well as the creator of the Parrying Daggers mod for letting me use their reflecting code

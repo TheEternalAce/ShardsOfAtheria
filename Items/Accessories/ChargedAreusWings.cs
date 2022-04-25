@@ -24,7 +24,7 @@ namespace ShardsOfAtheria.Items.Accessories
 		{
 			Item.width = 22;
 			Item.height = 20;
-			Item.value = Item.sellPrice(gold: 15);
+			Item.value = Item.sellPrice(0,  15);
 			Item.rare = ItemRarityID.Cyan;
 			Item.accessory = true;
 		}
@@ -51,16 +51,6 @@ namespace ShardsOfAtheria.Items.Accessories
 		{
 			speed = 18f;
 			acceleration *= 5f;
-		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<AreusWings>())
-				.AddIngredient(ModContent.ItemType<AreusBattery>())
-				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 10)
-				.AddTile(ModContent.TileType<AreusForge>())
-				.Register();
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -14,15 +15,16 @@ namespace ShardsOfAtheria.Items.Weapons
 	{
 		public int areusCharge = 100;
 		public int areusChargeFull = 100;
+		public int chargeCost = 1;
 
 		// Make sure you can't use the item if you don't have enough resource and then use resourceCost otherwise.
 		public override bool CanUseItem(Player player)
 		{
-			if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
+			if (!ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
 			{
 				if (areusCharge > 0)
                 {
-					areusCharge--;
+					areusCharge -= chargeCost;
 					return true;
 				}
 				return false;
@@ -30,16 +32,13 @@ namespace ShardsOfAtheria.Items.Weapons
 			else return base.CanUseItem(player);
 		}
 
-		public override void HoldItem(Player player)
-		{
-			player.GetModPlayer<SoAPlayer>().areusWeapon = true;
-		}
-
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-			if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
+			if (!ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
 				tooltips.Add(new TooltipLine(Mod, "Charge", $"{areusCharge}%"));
-        }
+			if (!ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+				tooltips.Add(new TooltipLine(Mod, "Cost", $"Charge cost {chargeCost}%"));
+		}
 
         public override void UpdateInventory(Player player)
 		{
@@ -65,21 +64,29 @@ namespace ShardsOfAtheria.Items.Weapons
 			SoundEngine.PlaySound(SoundID.NPCHit53);
             CombatText.NewText(player.Hitbox, Color.Aqua, 50);
         }
-		/*
+
         public override void SaveData(TagCompound tag)
         {
-			new TagCompound()
-            {
-				{"areusCharge", areusCharge},
-				{"areusChargeFull", areusChargeFull}
-            };
+			tag["areusCharge"] = areusCharge;
+			tag["areusChargeFull"] = areusChargeFull;
         }
 
-        public override void LoadData(TagCompound tag)
-        {
+		public override void LoadData(TagCompound tag)
+		{
 			areusCharge = tag.GetInt("areusCharge");
 			areusChargeFull = tag.GetInt("areusChargeFull");
+		}
+
+        public override void NetSend(BinaryWriter writer)
+        {
+			writer.Write(areusCharge);
+			writer.Write(areusChargeFull);
         }
-		*/
+
+        public override void NetReceive(BinaryReader reader)
+        {
+			areusCharge = reader.ReadInt32();
+			areusChargeFull = reader.ReadInt32();
+        }
     }
 }

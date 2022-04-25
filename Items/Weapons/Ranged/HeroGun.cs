@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles;
-using ShardsOfAtheria.Tiles;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -29,7 +28,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Item41;
 			Item.autoReuse = true;
-			Item.crit = 20;
+			Item.crit = 6;
 			Item.shoot = ProjectileID.PurificationPowder;
 			Item.shootSpeed = 13f;
 			Item.useAmmo = AmmoID.Bullet;

@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Items
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.HoldUp;
-            Item.value = Item.sellPrice(gold: 10);
+            Item.value = Item.sellPrice(0,  10);
             Item.rare = ItemRarityID.Red;
             Item.UseSound = SoundID.NPCHit53;
             Item.autoReuse = false;
@@ -40,12 +40,7 @@ namespace ShardsOfAtheria.Items
 
         public override bool CanUseItem(Player player)
         {
-
-            if (player.GetModPlayer<SoAPlayer>().overdriveTimeCurrent <= 0 && !player.HasBuff(ModContent.BuffType<Overdrive>()))
-            {
-                return true;
-            }
-            else return false;
+            return player.GetModPlayer<SoAPlayer>().overdriveTimeCurrent != player.GetModPlayer<SoAPlayer>().overdriveTimeMax2;
         }
 
         public override bool? UseItem(Player player)

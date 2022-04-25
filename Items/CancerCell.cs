@@ -7,7 +7,7 @@ namespace ShardsOfAtheria.Items
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'The disease, our own bodies'");
+            Tooltip.SetDefault("'The ultimate disease, our own bodies'");
         }
 
         public override void SetDefaults()

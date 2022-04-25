@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles;
+using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -24,9 +23,9 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.staff[Item.type] = true;
             Item.damage = 30;
             Item.DamageType = DamageClass.Magic;
-            Item.crit = 16;
+            Item.crit = 4;
             Item.knockBack = 6;
-            Item.value = Item.sellPrice(gold: 10);
+            Item.value = Item.sellPrice(0,  10);
             Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item11;
             Item.autoReuse = true;

@@ -58,7 +58,7 @@ namespace ShardsOfAtheria.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
+            Player Player = Main.LocalPlayer;
             if (!(spawnInfo.player.ZoneHallow || spawnInfo.player.ZoneCrimson || spawnInfo.player.ZoneCorrupt || Main.pumpkinMoon || Main.snowMoon || spawnInfo.player.ZoneTowerNebula 
                 || spawnInfo.player.ZoneTowerVortex || spawnInfo.player.ZoneTowerSolar || spawnInfo.player.ZoneTowerStardust || spawnInfo.playerSafe) && spawnInfo.player.ZoneSnow 
                 && spawnInfo.player.ZoneOverworldHeight)

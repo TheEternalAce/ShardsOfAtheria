@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.value = Item.sellPrice(gold: 7, silver: 50);
+			Item.value = Item.sellPrice(0,  7, silver: 50);
 			Item.rare = ItemRarityID.Expert;
 			Item.shoot = ModContent.ProjectileType<PetCreeper>();
 			Item.buffType = ModContent.BuffType<PetCreeperBuff>();

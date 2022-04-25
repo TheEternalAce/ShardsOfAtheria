@@ -1,9 +1,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
-using ShardsOfAtheria.Items.Weapons.Ammo;
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
@@ -30,7 +29,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.UseSound = SoundID.Item11;
 			Item.autoReuse = true;
 			Item.crit = 8;
-			Item.value = Item.sellPrice(gold: 25);
+			Item.value = Item.sellPrice(0,  25);
 			Item.shoot = ItemID.PurificationPowder;
 			Item.shootSpeed = 6f;
 			Item.useAmmo = AmmoID.Flare;

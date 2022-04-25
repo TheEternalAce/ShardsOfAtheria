@@ -11,11 +11,10 @@ namespace ShardsOfAtheria.Items
 		{
 			DisplayName.SetDefault("Slayer's Emblem");
 			Tooltip.SetDefault("Use to toggle Slayer mode\n" +
-				"Bosses that are considered irreplaceable defeated will become slain\n" +
-				"Slain bosses will drop every possible item, in a stack of 999 if the item is stackable\n" +
-				"A Slayer mode exclusive item will drop from slain bosses\n" +
-				"Slain bosses will never be able to summoned again\n" +
-				"Enemy damage scales with max life");
+				"Bosses considered irreplaceable will also drop every possible item, in a stack of 999 if the item is stackable, its slayer mode exclusive item and its Soul Crystal\n" +
+				"Using a boss's Soul Crystal will prevent that boss from ever spawning again and grants the player its powers\n" +
+				"Immunity frames disabled\n" +
+                "Cannot be used while a boss is alive");
 		}
 
 		public override void SetDefaults()

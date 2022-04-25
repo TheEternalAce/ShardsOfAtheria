@@ -4,11 +4,10 @@ using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Tiles;
 using Microsoft.Xna.Framework;
 using Terraria;
-using ShardsOfAtheria.Projectiles;
-using ShardsOfAtheria.Buffs;
 using System.Collections.Generic;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -38,19 +37,19 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.autoReuse = false;
 			Item.crit = 5;
 			Item.rare = ItemRarityID.Cyan;
-			Item.value = Item.sellPrice(gold: 25);
+			Item.value = Item.sellPrice(0,  25);
 			Item.shoot = ItemID.PurificationPowder;
 			Item.shootSpeed = 16f;
 			Item.useAmmo = AmmoID.Bullet;
 
-			if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+			if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
 				Item.mana = 4;
 		}
 
 		public override void AddRecipes() 
 		{
 			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 15)
+				.AddIngredient(ModContent.ItemType<AreusShard>(), 15)
 				.AddIngredient(ItemID.FragmentVortex, 10)
 				.AddTile(ModContent.TileType<AreusForge>())
 				.Register();
@@ -102,8 +101,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 				Item.autoReuse = false;
 				Item.shoot = ItemID.None;
 				Item.UseSound = new LegacySoundStyle(SoundID.Unlock, 0);
-				if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
-					areusCharge += 1;
+				if (!ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+					chargeCost = 0;
 				else Item.mana = 0;
 				fireMode += 1;
 				if (fireMode == 3)
@@ -125,8 +124,9 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 					Item.useAnimation = 6;
 					Item.reuseDelay = default;
 					Item.autoReuse = false;
-					if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+					if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
 						Item.mana = 4;
+					else chargeCost = 1;
 				}
 				else if (fireMode == 1)
 				{
@@ -136,8 +136,9 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 					Item.useAnimation = 12;
 					Item.reuseDelay = 18;
 					Item.autoReuse = true;
-					if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+					if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
 						Item.mana = 12;
+					else chargeCost = 4;
 				}
 				else if (fireMode == 2)
 				{
@@ -147,8 +148,9 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 					Item.useAnimation = 6;
 					Item.reuseDelay = default;
 					Item.autoReuse = true;
-					if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+					if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
 						Item.mana = 4;
+					else chargeCost = 1;
 				}
 			}
 			return base.CanUseItem(player);
@@ -161,8 +163,10 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 				tooltips.Add(new TooltipLine(Mod, "Fire mode", "Burst fire"));
 			if (fireMode == 2)
 				tooltips.Add(new TooltipLine(Mod, "Fire mode", "Full-auto"));
-			if (!ModContent.GetInstance<Config>().areusWeaponsCostMana)
+			if (!ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
 				tooltips.Add(new TooltipLine(Mod, "Charge", $"{areusCharge} / {areusChargeFull}"));
+			if (!ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+				tooltips.Add(new TooltipLine(Mod, "Cost", $"Charge cost: {chargeCost}%"));
 		}
     }
 }

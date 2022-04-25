@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Items.Potions
             Item.useTime = 15;
             Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.EatFood;
+            Item.UseSound = SoundID.Item2;
             Item.consumable = true;
             Item.useTurn = true;
             Item.buffType = BuffID.Ironskin;

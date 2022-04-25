@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Projectiles.Weapon;
+using ShardsOfAtheria.Projectiles.Weapon.Biochemical;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

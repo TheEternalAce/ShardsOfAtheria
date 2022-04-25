@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Items.Weapons.Biochemical
 
         public override void AddRecipes()
         {
-            if (ModContent.GetInstance<Config>().biochemicalToxicFlask)
+            if (ModContent.GetInstance<ServerSideConfig>().biochemicalToxicFlask)
                 CreateRecipe(1)
                     .AddIngredient(ItemID.ToxicFlask)
                     .AddTile(TileID.WorkBenches)

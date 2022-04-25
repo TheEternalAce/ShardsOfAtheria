@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles;
-using ShardsOfAtheria.Tiles;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -24,9 +23,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.useStyle = ItemUseStyleID.Swing;
             Item.damage = 67;
             Item.DamageType = DamageClass.Melee;
-            Item.crit = 16;
+            Item.crit = 6;
             Item.knockBack = 6;
-            Item.value = Item.sellPrice(gold: 10);
+            Item.value = Item.sellPrice(0,  10);
             Item.rare = ItemRarityID.Pink;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;

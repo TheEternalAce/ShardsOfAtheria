@@ -13,8 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Uses Rods as ammo\n" +
-				"Tears through enemy armor\n" +
-				"'Leaves your enemies in an electrified pile of flesh, bones, both or scrap'");
+				"Tears through enemy armor");
 		}
 
 		public override void SetDefaults() 
@@ -31,20 +30,22 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 			Item.rare = ItemRarityID.Cyan;
 			Item.UseSound = SoundID.Item38;
 			Item.autoReuse = false;
-			Item.crit = 20;
-			Item.value = Item.sellPrice(gold: 25);
+			Item.crit = 6;
+			Item.value = Item.sellPrice(0,  25);
 			Item.shoot = ItemID.PurificationPowder;
 			Item.shootSpeed = 20f;
 			Item.useAmmo = ModContent.ItemType<AreusRod>();
 
-			if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+			if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
 				Item.mana = 20;
+
+			chargeCost = 5;
 		}
 
 		public override void AddRecipes() 
 		{
 			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 20)
+				.AddIngredient(ModContent.ItemType<AreusShard>(), 20)
 				.AddIngredient(ItemID.SoulofMight, 7)
 				.AddIngredient(ItemID.SoulofFright, 7)
 				.AddTile(ModContent.TileType<AreusForge>())
@@ -59,13 +60,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void HoldItem(Player player)
         {
 			player.armorPenetration = 20;
-        }
-
-        public override bool CanUseItem(Player player)
-        {
-			if (areusCharge > 0 && ModContent.GetInstance<Config>().areusWeaponsCostMana)
-				areusCharge -= 4;
-            return base.CanUseItem(player);
         }
     }
 }

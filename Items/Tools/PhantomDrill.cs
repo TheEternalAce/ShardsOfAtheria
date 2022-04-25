@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Tools
 			Item.pick = 150;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 0;
-			Item.value = Item.sellPrice(gold: 10);
+			Item.value = Item.sellPrice(0,  10);
 			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Item23;
 			Item.autoReuse = true;

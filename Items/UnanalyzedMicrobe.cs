@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Projectiles.Ammo;
+using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,8 +18,7 @@ namespace ShardsOfAtheria.Items
 			Item.height = 10;
 			Item.maxStack = 999;
 			Item.consumable = true;
-			Item.rare = ItemRarityID.Green;
-			Item.ammo = Item.type;
+			Item.rare = ItemRarityID.Gray;
 		}
     }
 }
