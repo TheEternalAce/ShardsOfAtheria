@@ -9,13 +9,12 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.DecaEquipment
 {
-    public class DecaShotgun : ModItem
+    public class DecaShotgun : DecaEquipment
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ion's Deca Annihilator");
-            Tooltip.SetDefault("'Shotgun of a godly machine'\n" +
-              "'Makes things go boom'");
+            Tooltip.SetDefault("'Shotgun of a godly machine'");
         }
 
         public override void SetDefaults()
@@ -25,7 +24,6 @@ namespace ShardsOfAtheria.Items.DecaEquipment
             Item.knockBack = 6f;
             Item.useTime = 20;
             Item.useAnimation = 20;
-            Item.rare = ItemRarityID.Red;
 
             Item.shoot = ItemID.PurificationPowder;
             Item.shootSpeed = 16f;
@@ -67,24 +65,6 @@ namespace ShardsOfAtheria.Items.DecaEquipment
         {
             if (type == ProjectileID.Bullet)
                 type = ProjectileID.ExplosiveBullet;
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            tooltips.Add(new TooltipLine(Mod, "Deca Gear", "[c/FF4100:Deca Equipment]"));
-        }
-
-        public override bool CanUseItem(Player player)
-        {
-            return player.GetModPlayer<DecaPlayer>().modelDeca;
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 20)
-                .AddIngredient(ModContent.ItemType<DecaShard>(), 10)
-                .Register();
         }
     }
 }

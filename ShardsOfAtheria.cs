@@ -24,6 +24,12 @@ namespace ShardsOfAtheria
         public static ModKeybind ShadowTeleport;
         public static ModKeybind PhaseSwitch;
         public static ModKeybind QuickCharge;
+        public static ModKeybind SoulTeleport;
+
+        public static ModKeybind QuickTest;
+
+        public bool foundMod;
+        public bool foundMod1;
 
         public override void Load()
         {
@@ -34,23 +40,9 @@ namespace ShardsOfAtheria
             ShadowTeleport = KeybindLoader.RegisterKeybind(this, "Shadow Teleport", "X");
             PhaseSwitch = KeybindLoader.RegisterKeybind(this, "Toggle Phase Type", "RightAlt");
             QuickCharge = KeybindLoader.RegisterKeybind(this, "Quick Charge", "C");
+            SoulTeleport = KeybindLoader.RegisterKeybind(this, "Soul Crystal Teleport", "V");
 
-            if (!Main.dedServ)
-            {
-                /*
-                if (ModContent.GetInstance<Config>().MegamergeVisual)
-                {
-                    AddEquipTexture(new Items.BiometalHead(), null, EquipType.Head, "OmegaMetalHead", "ShardsOfAtheria/Items/Accessories/OmegaMetal_Head");
-                    AddEquipTexture(new Items.BiometalBody(), null, EquipType.Body, "OmegaMetalBody", "ShardsOfAtheria/Items/Accessories/OmegaMetal_Body", "ShardsOfAtheria/Items/Accessories/OmegaMetal_Arms");
-                    AddEquipTexture(new Items.BiometalLegs(), null, EquipType.Legs, "OmegaMetalLegs", "ShardsOfAtheria/Items/Accessories/OmegaMetal_Legs");
-
-                    AddEquipTexture(new Items.BiometalHead(), null, EquipType.Head, "BiometalHead", "ShardsOfAtheria/Items/Biometal_Head");
-                    AddEquipTexture(new Items.BiometalBody(), null, EquipType.Body, "BiometalBody", "ShardsOfAtheria/Items/Biometal_Body", "ShardsOfAtheria/Items/Biometal_Arms");
-                    AddEquipTexture(new Items.BiometalLegs(), null, EquipType.Legs, "BiometalLegs", "ShardsOfAtheria/Items/Biometal_Legs");
-                }
-                */
-                //AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/MusicName"), ModContent.ItemType<MusicBox>(), ModContent.TileType<MusicBoxTile>());
-            }
+            QuickTest = KeybindLoader.RegisterKeybind(this, "Quick Test (For mod developers, does nothing)", "OemComma");
         }
 
         public override void PostSetupContent()
@@ -66,24 +58,24 @@ namespace ShardsOfAtheria
                 ModContent.ItemType<ValkyrieBlade>(),
                 ModContent.ItemType<ValkyrieStormLance>()
             };
-            Mod census = ModLoader.GetMod("Census");
-            if (census != null)
-                census.Call("TownNPCCondition", ModContent.NPCType<Atherian>(), "Defeat Eater of Worlds/Brain of Cthulhu.");
+            if (ModLoader.TryGetMod("Census", out Mod foundMod))
+                ModLoader.GetMod("Census").Call("TownNPCCondition", ModContent.NPCType<Atherian>(), "Defeat Eater of Worlds/Brain of Cthulhu.");
 
-            Mod bossChecklist = ModLoader.GetMod("BossChecklist");
-            if (bossChecklist != null)
+            if (ModLoader.TryGetMod("BossChecklist", out Mod foundMod1))
             {
-                bossChecklist.Call(
+                ModLoader.GetMod("BossChecklist").Call(
                     "AddBoss",
-                    3.5f,
-                    new List<int> { ModContent.NPCType<NovaStellar>() },
-                    this, // Mod
+                    this,
                     "Nova Stellar",
+                    new List<int> { ModContent.NPCType<NovaStellar>() },
+                    3.5f,
                     (Func<bool>)(() => SoAWorld.downedValkyrie),
+                    () => true,
+                    new List<int> { ModContent.ItemType<ValkyrieStormLance>(), ModContent.ItemType<GildedValkyrieWings>(), ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<ValkyrieCrown>(),
+                        ItemID.GoldBar, ItemID.Feather },
                     ModContent.ItemType<ValkyrieCrest>(),
-                    new List<int> { ModContent.ItemType<ValkyrieStormLance>(), ModContent.ItemType<GildedValkyrieWings>() },
-                    new List<int> { ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<ValkyrieCrown>(), ItemID.GoldBar, ItemID.Feather },
-                    $"Use a [i:{ModContent.ItemType<ValkyrieCrest>()}] on the surface"
+                    $"Use a [i:{ModContent.ItemType<ValkyrieCrest>()}] on the surface",
+                    "Nova Stellar leaves in triumph"
                 );
                 /*
                 bossChecklist.Call(
@@ -96,7 +88,7 @@ namespace ShardsOfAtheria
                     ModContent.ItemType<AncientCoin>(),
                     new List<int> { ModContent.ItemType<DeathEssence>(), ModContent.ItemType<Items.Armor.BunnyMask>(), ModContent.ItemType<Items.Placeable.PuritySpiritTrophy>(), ModContent.ItemType<Items.Placeable.BunnyTrophy>(), ModContent.ItemType<Items.Placeable.TreeTrophy>() },
                     new List<int> { ModContent.ItemType<Items.PurityShield>(), ItemID.Bunny },
-                    $"Use a [i:{ModContent.ItemType<ValkyrieCrest>()}] Ancient Coin anywhere"
+                    $"Use a [i:{ModContent.ItemType<AncientMedallion>()}] anywhere"
                 );
                 */
             }

@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Ammo;
+using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using ShardsOfAtheria.Items.Placeable;
 
 namespace ShardsOfAtheria.Items.Weapons.Ammo
@@ -16,8 +16,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
 		{
 			Item.damage = 20;
 			Item.DamageType = DamageClass.Ranged;
-			Item.width = 8;
-			Item.height = 8;
+			Item.width = 16;
+			Item.height = 16;
 			Item.maxStack = 999;
 			Item.consumable = true;
 			Item.knockBack = 1.5f;
@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
 		public override void AddRecipes()
         {
 			CreateRecipe(100)
-				.AddIngredient(ModContent.ItemType<AreusBarItem>())
+				.AddIngredient(ModContent.ItemType<AreusShard>())
 				.AddTile(TileID.WorkBenches)
 				.Register();
         }

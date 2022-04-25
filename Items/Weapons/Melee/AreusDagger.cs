@@ -3,22 +3,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Tiles;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Projectiles;
-using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
-using System.Collections.Generic;
-using Terraria.DataStructures;
-using ShardsOfAtheria.Projectiles.Weapon;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class AreusDagger : AreusWeapon
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("'A dagger with 'shocking' potential'");
-        }
-
         public override void SetDefaults()
         {
             Item.damage = 52;
@@ -39,14 +30,14 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<AreusDaggerProj>();
             Item.shootSpeed = 4f;
 
-            if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+            if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
                 Item.mana = 7;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<AreusBarItem>(), 7)
+                .AddIngredient(ModContent.ItemType<AreusShard>(), 7)
                 .AddIngredient(ModContent.ItemType<SoulOfStarlight>(), 10)
                 .AddIngredient(ItemID.HellstoneBar, 10)
                 .AddTile(ModContent.TileType<AreusForge>())

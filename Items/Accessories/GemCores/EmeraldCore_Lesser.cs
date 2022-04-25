@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Lesser Emerald Core");
-			Tooltip.SetDefault("2% increased movement speed\n" +
+			Tooltip.SetDefault("5% increased movement speed\n" +
 				"Increased jump height");
 		}
 
@@ -34,6 +34,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.jumpBoost = true;
+			player.GetModPlayer<SoAPlayer>().lesserEmeraldCore = true;
 		}
 	}
 }

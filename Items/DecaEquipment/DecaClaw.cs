@@ -1,19 +1,18 @@
 ﻿using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Weapon;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using System.Collections.Generic;
 using Terraria;
 using ShardsOfAtheria.Items.Placeable;
 
 namespace ShardsOfAtheria.Items.DecaEquipment
 {
-    class DecaClaw : ModItem
+    class DecaClaw : DecaEquipment
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ion's Deca Claws");
-            Tooltip.SetDefault("'Claws of a Godly machine'\n" +
-                "'Even the jungle tyrant fears his wrath'");
+            Tooltip.SetDefault("'Claws of a Godly machine'");
         }
 
         public override void SetDefaults()
@@ -24,7 +23,6 @@ namespace ShardsOfAtheria.Items.DecaEquipment
             Item.crit = 100;
             Item.useTime = 1;
             Item.useAnimation = 10;
-            Item.rare = ItemRarityID.Red;
 
             Item.autoReuse = false;
             Item.UseSound = SoundID.Item1;
@@ -37,23 +35,6 @@ namespace ShardsOfAtheria.Items.DecaEquipment
 
             Item.shoot = ModContent.ProjectileType<DecaClawProj>();
             Item.shootSpeed = 2.1f;
-        }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            tooltips.Add(new TooltipLine(Mod, "Deca Gear", "[c/FF4100:Deca Equipment]"));
-        }
-
-        public override bool CanUseItem(Player player)
-        {
-            return player.GetModPlayer<DecaPlayer>().modelDeca;
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 20)
-                .AddIngredient(ModContent.ItemType<DecaShard>(), 10)
-                .Register();
         }
     }
 }

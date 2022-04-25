@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Items
         public override void RightClick(Player player)
         {
             var ammoChooser = new WeightedRandom<int>();
-            var source = player.GetItemSource_OpenItem(Type);
+            var source = player.GetSource_OpenItem(Type);
             //Arrow
             ammoChooser.Add(ItemID.BoneArrow);
             ammoChooser.Add(ItemID.ChlorophyteArrow);

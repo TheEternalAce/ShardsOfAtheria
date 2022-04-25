@@ -19,13 +19,13 @@ namespace ShardsOfAtheria.Items.SlayerItems
 		{
 			Item.width = 42;
 			Item.height = 80;
-			Item.value = Item.sellPrice(gold: 7, silver: 50);
+			Item.value = Item.sellPrice(0,  7, silver: 50);
 			Item.rare = ItemRarityID.Expert;
 
 			Item.damage = 70;
             Item.DamageType = DamageClass.Ranged;
 			Item.knockBack = 2f;
-			Item.crit = 10;
+			Item.crit = 5;
             Item.useTime = 15;
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Shoot;

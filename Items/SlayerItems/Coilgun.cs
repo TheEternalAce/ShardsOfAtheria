@@ -27,11 +27,9 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.useAnimation = 48;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4f;
-			Item.rare = ItemRarityID.Expert;
 			Item.UseSound = SoundID.Item38;
 			Item.autoReuse = false;
-			Item.crit = 20;
-			Item.value = Item.sellPrice(gold: 25);
+			Item.crit = 5;
 			Item.shoot = ItemID.PurificationPowder;
 			Item.shootSpeed = 20f;
 			Item.useAmmo = ModContent.ItemType<AreusRod>();
@@ -46,7 +44,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 
         public override void HoldItem(Player player)
         {
-			player.armorPenetration = 20;
+			player.GetArmorPenetration(DamageClass.Generic) = 20;
         }
 	}
 }

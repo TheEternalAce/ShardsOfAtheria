@@ -2,8 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Ammo;
-using Terraria.DataStructures;
+using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -34,7 +33,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.shootSpeed = 16f;
 			Item.useAmmo = AmmoID.Bullet;
 			Item.expert = true;
-			Item.value = Item.sellPrice(gold: 5);
+			Item.value = Item.sellPrice(0,  5);
 		}
 
         public override Vector2? HoldoutOffset()

@@ -5,7 +5,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles.Tools;
-using System.Collections.Generic;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -48,7 +47,7 @@ namespace ShardsOfAtheria.Items.Tools
 			Item.pick = 225;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 0;
-			Item.value = Item.sellPrice(gold: 10);
+			Item.value = Item.sellPrice(0,  10);
 			Item.rare = ItemRarityID.Cyan;
 			Item.UseSound = SoundID.Item23;
 			Item.autoReuse = true;
@@ -59,14 +58,15 @@ namespace ShardsOfAtheria.Items.Tools
 			Item.shoot = ModContent.ProjectileType<RedAreusDrillProj>();
 			Item.shootSpeed = 32;
 
-			if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
-				Item.mana = 1;
+			if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+				Item.mana = 0;
+			else chargeCost = 0;
 		}
 
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 20)
+				.AddIngredient(ModContent.ItemType<AreusShard>(), 20)
 				.AddIngredient(ItemID.LunarBar, 10)
 				.AddIngredient(ItemID.Wire, 10)
 				.AddTile(TileID.MythrilAnvil)
@@ -80,15 +80,6 @@ namespace ShardsOfAtheria.Items.Tools
 			areusCharge += 500;
 			SoundEngine.PlaySound(SoundID.NPCHit53);
 			CombatText.NewText(player.Hitbox, Color.Aqua, 50);
-		}
-
-		public override void MeleeEffects(Player player, Rectangle hitbox)
-		{
-			if (Main.rand.NextBool(10))
-			{
-				Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Electric);
-				Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 6);
-			}
 		}
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)

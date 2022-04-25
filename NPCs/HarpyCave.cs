@@ -61,29 +61,17 @@ namespace ShardsOfAtheria.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (!(spawnInfo.player.ZoneHallow || spawnInfo.player.ZoneCrimson || spawnInfo.player.ZoneCorrupt || spawnInfo.player.ZoneDungeon || spawnInfo.player.ZoneSnow || spawnInfo.playerSafe
-                || spawnInfo.player.ZoneSnow || spawnInfo.player.ZoneDesert || spawnInfo.player.ZoneJungle) && (spawnInfo.player.ZoneDirtLayerHeight  || spawnInfo.player.ZoneRockLayerHeight))
+            if (!(spawnInfo.Player.ZoneHallow || spawnInfo.Player.ZoneCrimson || spawnInfo.Player.ZoneCorrupt || spawnInfo.Player.ZoneDungeon || spawnInfo.Player.ZoneSnow || spawnInfo.PlayerSafe
+                || spawnInfo.Player.ZoneSnow || spawnInfo.Player.ZoneDesert || spawnInfo.Player.ZoneJungle) && (spawnInfo.Player.ZoneDirtLayerHeight  || spawnInfo.Player.ZoneRockLayerHeight))
                 return .05f;
             return 0f;
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            var dropChooser = new WeightedRandom<int>();
-            dropChooser.Add(ItemID.CopperOre);
-            dropChooser.Add(ItemID.TinOre);
-            dropChooser.Add(ItemID.IronOre);
-            dropChooser.Add(ItemID.LeadOre);
-            dropChooser.Add(ItemID.SilverOre);
-            dropChooser.Add(ItemID.TungstenOre);
-            dropChooser.Add(ItemID.GoldOre);
-            dropChooser.Add(ItemID.PlatinumOre);
-            dropChooser.Add(ModContent.ItemType<BionicOreItem>());
-            if (NPC.AnyNPCs(ModContent.NPCType<Atherian>()))
-                dropChooser.Add(ModContent.ItemType<AreusOreItem>());
-
             npcLoot.Add(ItemDropRule.Common(ItemID.Feather, 2));
-            npcLoot.Add(ItemDropRule.Common(dropChooser, 1, 3, 6));
+            npcLoot.Add(ItemDropRule.OneFromOptions(1, ItemID.CopperOre, ItemID.TinOre, ItemID.IronOre, ItemID.LeadOre, ItemID.SilverOre, ItemID.TungstenOre, ItemID.GoldOre, ItemID.PlatinumOre,
+                ModContent.ItemType<BionicOreItem>(), ModContent.ItemType<AreusShard>()));
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

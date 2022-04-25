@@ -16,7 +16,6 @@ namespace ShardsOfAtheria.Buffs
             player.statLifeMax2 += 50;
             player.statDefense += 10;
             player.GetDamage(DamageClass.Generic) += .15f;
-            player.moveSpeed *= 2;
         }
     }
 }

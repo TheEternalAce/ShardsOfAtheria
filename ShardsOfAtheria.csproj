@@ -10,4 +10,9 @@
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Items\Armor\" />
+    <Folder Include="Items\Weapons\Summon\" />
+    <Folder Include="Walls\" />
+  </ItemGroup>
 </Project>

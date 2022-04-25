@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -8,13 +8,22 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
-	public class PhantomRose : SpecialItem
+	public class PhantomRose : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Shoots an extra Phantom Bullet\n" +
-				"48% chance to not consume ammo\n" +
-				"[c/960096:'Scarlet's younger sister']");
+				"48% chance to not consume ammo");
+		}
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			var line = new TooltipLine(Mod, "Verbose:RemoveMe", "This tooltip won't show in-game");
+			line = new TooltipLine(Mod, "PhantomRose", "'Scarlet's younger sister'")
+			{
+				OverrideColor = Color.Red
+			};
+			tooltips.Add(line);
 		}
 
 		public override void SetDefaults()
@@ -22,8 +31,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.damage = 425;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
-			Item.width = 42;
-			Item.height = 30;
+			Item.width = 38;
+			Item.height = 24;
 			Item.scale = .85f;
 			Item.useTime = 10;
 			Item.useAnimation = 10;
@@ -32,7 +41,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Item41;
 			Item.autoReuse = false;
-			Item.crit = 20;
+			Item.crit = 8;
 			Item.shoot = ProjectileID.PurificationPowder;
 			Item.shootSpeed = 13f;
 			Item.useAmmo = AmmoID.Bullet;
@@ -40,7 +49,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
 		public override Vector2? HoldoutOffset()
 		{
-			return new Vector2(0, 2);
+			return new Vector2(6, -2);
 		}
 
 		public override void AddRecipes()

@@ -4,9 +4,7 @@ using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Tiles;
 using Microsoft.Xna.Framework;
 using Terraria;
-using ShardsOfAtheria.Projectiles;
-using ShardsOfAtheria.Buffs;
-using Terraria.DataStructures;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -33,19 +31,19 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.autoReuse = false;
 			Item.crit = 5;
 			Item.rare = ItemRarityID.Cyan;
-			Item.value = Item.sellPrice(gold: 25);
+			Item.value = Item.sellPrice(0,  25);
 			Item.shoot = ItemID.PurificationPowder;
 			Item.shootSpeed = 16f;
 			Item.useAmmo = AmmoID.Bullet;
 
-			if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+			if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
 				Item.mana = 5;
 		}
 
 		public override void AddRecipes() 
 		{
 			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 5)
+				.AddIngredient(ModContent.ItemType<AreusShard>(), 5)
 				.AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 7)
 				.AddIngredient(ItemID.HellstoneBar, 10)
 				.AddTile(ModContent.TileType<AreusForge>())

@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.NPCs
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
 				// Sets the preferred biomes of this town NPC listed in the bestiary.
 				// With Town NPCs, you usually set this to what biome it likes the most in regards to NPC happiness.
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns,
 
 				// Sets your NPC's flavor text in the bestiary.
 				new FlavorTextBestiaryInfoElement("A bone sword possessed by a malicious spirit.")
@@ -56,10 +56,9 @@ namespace ShardsOfAtheria.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
-            if (!(spawnInfo.player.ZoneHallow || spawnInfo.player.ZoneCrimson || spawnInfo.player.ZoneCorrupt || Main.eclipse || spawnInfo.player.ZoneTowerNebula || spawnInfo.player.ZoneTowerVortex
-                || spawnInfo.player.ZoneTowerSolar|| spawnInfo.player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon || spawnInfo.playerSafe || spawnInfo.player.ZoneSnow
-                || spawnInfo.player.ZoneDesert || spawnInfo.player.ZoneJungle) && spawnInfo.player.ZoneDirtLayerHeight || spawnInfo.player.ZoneRockLayerHeight)
+            if (!(spawnInfo.Player.ZoneHallow || spawnInfo.Player.ZoneCrimson || spawnInfo.Player.ZoneCorrupt || Main.eclipse || spawnInfo.Player.ZoneTowerNebula || spawnInfo.Player.ZoneTowerVortex
+                || spawnInfo.Player.ZoneTowerSolar|| spawnInfo.Player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon || spawnInfo.PlayerSafe || spawnInfo.Player.ZoneSnow
+                || spawnInfo.Player.ZoneDesert || spawnInfo.Player.ZoneJungle) && spawnInfo.Player.ZoneDirtLayerHeight || spawnInfo.Player.ZoneRockLayerHeight)
                 return .05f;
             return 0f;
         }
@@ -67,13 +66,13 @@ namespace ShardsOfAtheria.NPCs
         public override void OnKill()
         {
             if (!NPC.downedBoss3 && Main.rand.NextFloat() < .01f)
-                Item.NewItem(NPC.GetItemSource_Loot(), NPC.getRect(), ItemID.Bone);
+                Item.NewItem(NPC.GetSource_Loot(), NPC.getRect(), ItemID.Bone);
             if (NPC.downedBoss3 || Main.rand.NextFloat() < .5f)
-                Item.NewItem(NPC.GetItemSource_Loot(), NPC.getRect(), ItemID.Bone);
+                Item.NewItem(NPC.GetSource_Loot(), NPC.getRect(), ItemID.Bone);
             if (Main.rand.NextFloat() < .01f && Main.LocalPlayer.ZoneDungeon)
-                Item.NewItem(NPC.GetItemSource_Loot(), NPC.getRect(), ItemID.GoldenKey);
+                Item.NewItem(NPC.GetSource_Loot(), NPC.getRect(), ItemID.GoldenKey);
             if (Main.rand.Next(64) == 0 && Main.LocalPlayer.ZoneDungeon)
-                Item.NewItem(NPC.GetItemSource_Loot(), NPC.getRect(), ItemID.TallyCounter);
+                Item.NewItem(NPC.GetSource_Loot(), NPC.getRect(), ItemID.TallyCounter);
         }
     }
 }

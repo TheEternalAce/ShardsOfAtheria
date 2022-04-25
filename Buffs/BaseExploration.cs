@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Buffs
@@ -15,7 +16,7 @@ namespace ShardsOfAtheria.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.moveSpeed += .1f;
+            Lighting.AddLight(player.Center, TorchID.White);
             player.nightVision = true;
             player.dangerSense = true;
             player.calmed = true;

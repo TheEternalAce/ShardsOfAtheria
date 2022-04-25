@@ -2,7 +2,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria;
-using ShardsOfAtheria.Projectiles;
+using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria.DataStructures;
 
 namespace ShardsOfAtheria.Items.SlayerItems
@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.UseSound = SoundID.Item17;
 			Item.autoReuse = false;
 			Item.crit = 5;
-			Item.value = Item.sellPrice(gold: 25);
+			Item.value = Item.sellPrice(0,  25);
 			Item.rare = ItemRarityID.Expert;
 			Item.shoot = ModContent.ProjectileType<VileShot>();
 			Item.shootSpeed = 16f;

@@ -1,21 +1,18 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Projectiles.Ammo;
+using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
-	public class Scarlet : SpecialItem
+	public class Scarlet : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Shoots powerful Luminite Bullets\n" +
-				"66% chance to not consume ammo\n" +
-				"[c/960096:'Now we're talkin'!']");
+				"66% chance to not consume ammo");
 		}
 
 		public override void SetDefaults()
@@ -32,7 +29,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Item11;
 			Item.autoReuse = true;
-			Item.crit = 20;
+			Item.crit = 8;
 			Item.shoot = ProjectileID.PurificationPowder;
 			Item.shootSpeed = 13f;
 			Item.useAmmo = AmmoID.Bullet;

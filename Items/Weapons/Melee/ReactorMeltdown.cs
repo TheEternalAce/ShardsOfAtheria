@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Projectiles.Weapon;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,10 +22,10 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.useAnimation = 25;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2;
-			Item.value = Item.sellPrice(gold: 80);
+			Item.value = Item.sellPrice(0,  80);
 			Item.rare = ItemRarityID.Red;
 			Item.UseSound = SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Item/ReactorMeltdownAlarm");
-			Item.crit = 14;
+			Item.crit = 7;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
 			Item.shoot = ModContent.ProjectileType<ReactorMeltdownProj>();

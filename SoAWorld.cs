@@ -11,58 +11,38 @@ namespace ShardsOfAtheria
 {
     public class SoAWorld : ModSystem
 	{
-		public static bool downedDeath;
-		public static bool downedValkyrie;
-		public bool slayerMode;
-		public bool slainDeath;
-		public bool slainValkyrie;
-		public bool slainEOC;
-		public bool slainBOC;
-		public bool slainEOW;
-		public bool slainBee;
-		public bool slainSkull;
-		public bool slainWall;
-		public bool slainMechWorm;
-		public bool slainTwins;
-		public bool slainPrime;
-		public bool slainPlant;
-		public bool slainGolem;
-		public bool slainDuke;
-		public bool slainEmpress;
-		public bool slainMoonLord;
-		public bool slainSenterra;
-		public bool slainGenesis;
-		public bool slainEverything;
+		public static bool downedDeath = false;
+		public static bool downedValkyrie = false;
+		public bool slayerMode = false;
+		public bool slainDeath = false;
+		public bool slainKing = false;
+		public bool slainEOC = false;
+		public bool slainBOC = false;
+		public bool slainEOW = false;
+		public bool slainValkyrie = false;
+		public bool slainBee = false;
+		public bool slainSkull = false;
+		public bool slainDeerclops = false;
+		public bool slainWall = false;
+		public bool slainQueen = false;
+		public bool slainMechWorm = false;
+		public bool slainTwins = false;
+		public bool slainPrime = false;
+		public bool slainPlant = false;
+		public bool slainGolem = false;
+		public bool slainDuke = false;
+		public bool slainEmpress = false;
+		public bool slainLunatic = false;
+		public bool slainPillarNebula = false;
+		public bool slainPillarSolar = false;
+		public bool slainPillarStardust = false;
+		public bool slainPillarVortex = false;
+		public bool slainMoonLord = false;
+		public bool slainSenterra = false;
+		public bool slainGenesis = false;
+		public bool slainEverything = false;
 
-		public int messageToPlayer;
-
-		public override void OnWorldLoad()
-		{
-			slayerMode = false;
-
-			downedDeath = false;
-			downedValkyrie = false;
-
-			slainDeath = false;
-			slainValkyrie = false;
-			slainEOC = false;
-			slainBOC = false;
-			slainEOW = false;
-			slainBee = false;
-			slainSkull = false;
-			slainWall = false;
-			slainMechWorm = false;
-			slainTwins = false;
-			slainPrime = false;
-			slainPlant = false;
-			slainGolem = false;
-			slainDuke = false;
-			slainEmpress = false;
-			slainMoonLord = false;
-			slainEOC = false;
-
-			messageToPlayer = 0;
-		}
+		public int messageToPlayer = 0;
 
 		public override void OnWorldUnload()
 		{
@@ -73,12 +53,15 @@ namespace ShardsOfAtheria
 
 			slainDeath = false;
 			slainValkyrie = false;
+			slainKing = false;
 			slainEOC = false;
 			slainBOC = false;
 			slainEOW = false;
 			slainBee = false;
 			slainSkull = false;
+			slainDeerclops = false;
 			slainWall = false;
+			slainQueen = false;
 			slainMechWorm = false;
 			slainTwins = false;
 			slainPrime = false;
@@ -86,8 +69,8 @@ namespace ShardsOfAtheria
 			slainGolem = false;
 			slainDuke = false;
 			slainEmpress = false;
+			slainLunatic = false;
 			slainMoonLord = false;
-			slainEOC = false;
 
 			messageToPlayer = 0;
 		}
@@ -104,20 +87,26 @@ namespace ShardsOfAtheria
 
 			if (slainDeath)
 				tag["slainDeath"] = true;
-			if (slainValkyrie)
-				tag["slainValkyrie"] = true;
+			if (slainKing)
+				tag["slainKing"] = true;
 			if (slainEOC)
 				tag["slainEOC"] = true;
 			if (slainBOC)
 				tag["slainBOC"] = true;
 			if (slainEOW)
 				tag["slainEOW"] = true;
+			if (slainValkyrie)
+				tag["slainValkyrie"] = true;
 			if (slainBee)
 				tag["slainBee"] = true;
 			if (slainSkull)
 				tag["slainSkull"] = true;
+			if (slainDeerclops)
+				tag["slainDeerclops"] = true;
 			if (slainWall)
 				tag["slainWall"] = true;
+			if (slainQueen)
+				tag["slainQueen"] = true;
 			if (slainMechWorm)
 				tag["slainMechWorm"] = true;
 			if (slainTwins)
@@ -132,6 +121,8 @@ namespace ShardsOfAtheria
 				tag["slainDuke"] = true;
 			if (slainEmpress)
 				tag["slainEmpress"] = true;
+			if (slainLunatic)
+				tag["slainLunatic"] = true;
 			if (slainMoonLord)
 				tag["slainMoonLord"] = true;
 
@@ -142,13 +133,13 @@ namespace ShardsOfAtheria
 		{
 			slayerMode = tag.ContainsKey("slayerMode");
 
-			downedDeath = tag.ContainsKey("downedDeath");
 			downedValkyrie = tag.ContainsKey("downedValkyrie");
-			slainValkyrie = tag.ContainsKey("slainValkyrie");
-			slainDeath = tag.ContainsKey("slainDeath");
+			downedDeath = tag.ContainsKey("downedDeath");
+
 			slainEOC = tag.ContainsKey("slainEOC");
 			slainBOC = tag.ContainsKey("slainBOC");
 			slainEOW = tag.ContainsKey("slainEOW");
+			slainValkyrie = tag.ContainsKey("slainValkyrie");
 			slainBee = tag.ContainsKey("slainBee");
 			slainSkull = tag.ContainsKey("slainSkull");
 			slainWall = tag.ContainsKey("slainWall");
@@ -159,7 +150,10 @@ namespace ShardsOfAtheria
 			slainGolem = tag.ContainsKey("slainGolem");
 			slainDuke = tag.ContainsKey("slainDuke");
 			slainEmpress = tag.ContainsKey("slainEmpress");
+			slainLunatic = tag.ContainsKey("slainLunatic");
 			slainMoonLord = tag.ContainsKey("slainMoonLord");
+			slainDeath = tag.ContainsKey("slainDeath");
+
 			slainEverything = tag.ContainsKey("slainEverything");
 
 			messageToPlayer = tag.GetInt("messageToPlayer");
@@ -170,33 +164,42 @@ namespace ShardsOfAtheria
 			BitsByte flags = new BitsByte();
 			flags[0] = slayerMode;
 
-			flags[1] = downedDeath;
-			flags[2] = downedValkyrie;
+			flags[1] = downedValkyrie;
+			flags[2] = downedDeath;
 
-			flags[3] = slainDeath;
-			flags[4] = slainValkyrie;
-			flags[5] = slainEOC;
-			flags[6] = slainBOC;
-			flags[7] = slainEOW;
+			flags[3] = slainKing;
+			flags[4] = slainEOC;
+			flags[5] = slainBOC;
+			flags[6] = slainEOW;
+			flags[7] = slainValkyrie;
 			writer.Write(flags);
 
 			BitsByte flags2 = new BitsByte();
 			flags2[0] = slainBee;
 			flags2[1] = slainSkull;
-			flags2[2] = slainWall;
-			flags2[3] = slainMechWorm;
-			flags2[4] = slainTwins;
-			flags2[5] = slainPrime;
-			flags2[6] = slainPlant;
-			flags2[7] = slainGolem;
+			flags2[2] = slainDeerclops;
+			flags2[3] = slainWall;
+			flags2[4] = slainDeerclops;
+			flags2[5] = slainMechWorm;
+			flags2[6] = slainTwins;
+			flags2[7] = slainPrime;
 			writer.Write(flags2);
 
 			BitsByte flags3 = new BitsByte();
-			flags2[0] = slainDuke;
-			flags2[1] = slainEmpress;
-			flags3[2] = slainMoonLord;
-			flags3[3] = slainEverything;
-			writer.Write(flags3);
+			flags3[0] = slainPlant;
+			flags3[1] = slainGolem;
+			flags3[2] = slainDuke;
+			flags3[3] = slainEmpress;
+			flags3[4] = slainLunatic;
+			flags3[5] = slainMoonLord;
+			flags3[6] = slainDeath;
+			flags3[7] = slainGenesis;
+
+			BitsByte flags4 = new BitsByte();
+			flags4[0] = slainGenesis;
+
+			flags4[1] = slainEverything;
+			writer.Write(flags4);
 		}
 
 		public override void NetReceive(BinaryReader reader)
@@ -204,62 +207,46 @@ namespace ShardsOfAtheria
 			BitsByte flags = reader.ReadByte();
 			slayerMode = flags[0];
 
-			downedDeath = flags[1];
-			downedValkyrie = flags[2];
+			downedValkyrie = flags[1];
+			downedDeath = flags[2];
 
-			slainDeath = flags[3];
-			slainValkyrie = flags[4];
-			slainEOC = flags[5];
-			slainBOC = flags[6];
-			slainEOW = flags[7];
+			slainKing = flags[3];
+			slainEOC = flags[4];
+			slainBOC = flags[5];
+			slainEOW = flags[6];
+			slainValkyrie = flags[7];
 
 			BitsByte flags2 = reader.ReadByte();
 			slainBee = flags2[0];
 			slainSkull = flags2[1];
-			slainWall = flags2[2];
-			slainMechWorm = flags2[3];
-			slainTwins = flags2[4];
-			slainPrime = flags2[5];
-			slainPlant = flags2[6];
-			slainGolem = flags2[7];
+			slainDeerclops = flags2[2];
+			slainWall = flags2[3];
+			slainQueen = flags2[4];
+			slainMechWorm = flags2[5];
+			slainTwins = flags2[6];
+			slainPrime = flags2[7];
 
-			BitsByte flags3 = new BitsByte();
-			slainDuke = flags3[0];
-			slainEmpress = flags3[1];
-			slainMoonLord = flags3[2];
-			slainEverything = flags3[3];
+			BitsByte flags3 = reader.ReadByte();
+			slainPlant = flags3[0];
+			slainGolem = flags3[1];
+			slainDuke = flags3[2];
+			slainEmpress = flags3[3];
+			slainLunatic = flags3[4];
+			slainMoonLord = flags3[5];
+			slainDeath = flags3[6];
+			slainGenesis = flags3[7];
+
+			BitsByte flags4 = reader.ReadByte();
+			slainSenterra = flags4[0];
+
+			slainEverything = flags4[1];
 		}
 
 		public override void PostUpdateEverything()
 		{
-			if (slainValkyrie && slainEOC && (slainBOC || slainEOW) && slainBee && slainSkull && slainWall
-				&& slainMechWorm && slainTwins && slainPrime && slainPlant && slainGolem && slainMoonLord)
-				slainEverything = true;
-
 			if (slainSenterra && !slainGenesis)
 			{
 				Main.dayTime = false;
-			}
-
-			if (slainEverything)
-            {
-				messageToPlayer++;
-				if (messageToPlayer == 240)
-					Main.NewText("[c/FF00DA:Greetings.]");
-				if (messageToPlayer == 360)
-					Main.NewText("[c/FF00DA:I must say, I am impressed.]");
-				if (messageToPlayer == 480)
-					Main.NewText("[c/FF00DA:You've managed to get hold of my emblem and kill them all.]");
-				if (messageToPlayer == 600)
-					Main.NewText("[c/FF00DA:Who'd have known that their death would break the spell my sister put on me?]");
-				if (messageToPlayer == 720)
-					Main.NewText("[c/FF00DA:Regardless, you made yourself a perfect vessel.]");
-				if (messageToPlayer == 840)
-					Main.NewText("[c/FF00DA:You wouldn't mind if my consciousness took over yours would you?]");
-				if (messageToPlayer == 960)
-					Main.NewText("[c/FF00DA:Of course not]");
-				if (messageToPlayer == 1080)
-					Main.NewText("[c/FF0000:You don't have a choice.]");
 			}
 		}
 
@@ -294,12 +281,6 @@ namespace ShardsOfAtheria
 				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
 				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
 				WorldGen.TileRunner(x, y, WorldGen.genRand.Next(6, 6), WorldGen.genRand.Next(2, 6), ModContent.TileType<BionicOre>());
-			}
-			for (int k = 0; k < (int)((Main.maxTilesX * Main.maxTilesY) * 6E-05); k++)
-			{
-				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
-				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
-				WorldGen.TileRunner(x, y, WorldGen.genRand.Next(6, 6), WorldGen.genRand.Next(2, 6), ModContent.TileType<InfectionCrystal>());
 			}
 			for (int k = 0; k < (int)((Main.maxTilesX * Main.maxTilesY) * 6E-05); k++)
 			{

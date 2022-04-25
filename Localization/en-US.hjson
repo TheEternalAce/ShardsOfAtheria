@@ -8,6 +8,7 @@
 
 Mods: {
 	ShardsOfAtheria: {
+
 		#This is what displays during all of an NPC's happiness levels. Note that the localization key for these should always be "TownNPCMood.*NPCName*.*Mood*" or else it won't display properly.
 		TownNPCMood: {
 			Atherian: {
@@ -19,15 +20,15 @@ Mods: {
 				DislikeCrowded: I've grown so accustomed to having so much space that this is uncomfortable now.
 
 				LoveBiome: I love {BiomeName}, It reminds me of Atheria.
-				LikeBiome: "{BiomeName} Atheria doesn't have many lush forests, this is a nice change."
+				LikeBiome: "Atheria doesn't have many lush forests, this is a nice change."
 				DislikeBiome: "I don't like {BiomeName}, it reminds me of Sanshannah."
-				HateBiome: "I hate {BiomeName}, it's so boring. No colors but grey, gray and Maybe brown."
+				HateBiome: "I hate {BiomeName}, it's so boring. No colors but grey, gray and maybe brown."
 				
-				LoveNPC: "I don't know why, but {NPCName} makes my heart race.. Should I see a doctor?"
-				LikeNPC: "Nobody gives {NPCName} enough credit. I mean come on, he knows how to make the Soul of Eternity and it's whole crafting tree yet you have to look it up on Recipe Browser!"
-				LikeNPC_Princess: "E."
+				LoveNPC: "{NPCName} makes me feel a certain way.. But regardless I'd love for her to do my hair! (If I HAD hair. Give me a proper sprite already!)"
+				LikeNPC: "Nobody gives {NPCName} enough credit. I mean come on, he knows the Soul of Eternity's whole crafting tree yet you have to look it up on Recipe Browser!"
+				LikeNPC_Princess: "{NPCName} reminds me of our king and queen in Atheria, I didn't know humans had royalty as well!"
 				DislikeNPC: '''"{NPCName} keeps rambling on about "payed mods"... Wish I could convince him how terrible of an idea that is."'''
-				HateNPC: "{NPCName}, I get he's a child but he's such a brat."
+				HateNPC: "{NPCName}, I get he's a child but he's kind of a brat."
 			}
 		}
 	}

@@ -23,11 +23,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.useAnimation = 30;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 5;
-			Item.value = Item.sellPrice(gold: 10);
+			Item.value = Item.sellPrice(0,  10);
 			Item.rare = ItemRarityID.Expert;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = false;
-			Item.crit = 21;
+			Item.crit = 5;
 			Item.expert = true;
 		}
 

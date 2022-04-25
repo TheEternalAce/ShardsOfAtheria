@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Buffs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Awakened Slayer");
-            Description.SetDefault("'You are not you anymore. [c/FF00DA:I am in control.]'");
+            Description.SetDefault("'You are not you anymore. I am in control.'");
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;

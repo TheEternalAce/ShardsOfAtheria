@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Items
         public override void RightClick(Player player)
 		{
 			var ammoChooser = new WeightedRandom<int>();
-			var source = player.GetItemSource_OpenItem(Type);
+			var source = player.GetSource_OpenItem(Type);
 
 			ammoChooser.Add(ItemID.BoneArrow);
 			ammoChooser.Add(ItemID.ChlorophyteArrow);
@@ -48,5 +48,14 @@ namespace ShardsOfAtheria.Items
 
 			Main.LocalPlayer.QuickSpawnItem(source, ammoChooser, 999);
 		}
-    }
+
+		public override void AddRecipes()
+		{
+			CreateRecipe()
+				.AddIngredient(ModContent.ItemType<AmmoBag>())
+				.AddIngredient(ItemID.WoodenArrow)
+				.AddTile(TileID.WorkBenches)
+				.Register();
+		}
+	}
 }

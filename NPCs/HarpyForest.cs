@@ -53,9 +53,9 @@ namespace ShardsOfAtheria.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if(!(spawnInfo.player.ZoneHallow || spawnInfo.player.ZoneCrimson || spawnInfo.player.ZoneCorrupt || Main.eclipse || spawnInfo.player.ZoneTowerNebula || spawnInfo.player.ZoneTowerVortex 
-                || spawnInfo.player.ZoneTowerSolar || spawnInfo.player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon || spawnInfo.playerSafe || spawnInfo.player.ZoneSnow 
-                || spawnInfo.player.ZoneDesert) && spawnInfo.player.ZoneOverworldHeight && Main.dayTime)
+            if(!(spawnInfo.Player.ZoneHallow || spawnInfo.Player.ZoneCrimson || spawnInfo.Player.ZoneCorrupt || Main.eclipse || spawnInfo.Player.ZoneTowerNebula || spawnInfo.Player.ZoneTowerVortex 
+                || spawnInfo.Player.ZoneTowerSolar || spawnInfo.Player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon || spawnInfo.PlayerSafe || spawnInfo.Player.ZoneSnow 
+                || spawnInfo.Player.ZoneDesert) && spawnInfo.Player.ZoneOverworldHeight && Main.dayTime)
                 return .05f;
             return 0f;
         }

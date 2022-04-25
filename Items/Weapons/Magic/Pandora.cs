@@ -1,10 +1,6 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Projectiles;
-using ShardsOfAtheria.Projectiles.Weapon;
-using ShardsOfAtheria.Tiles;
-using System.Collections.Generic;
+using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -12,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Magic
 {
-    public class Pandora : SpecialItem
+    public class Pandora : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -35,7 +31,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.useAnimation = 35;
             Item.autoReuse = false;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.value = Item.sellPrice(gold: 10);
+            Item.value = Item.sellPrice(0,  10);
             Item.rare = ItemRarityID.Red;
         }
 

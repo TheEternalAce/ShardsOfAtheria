@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Items
         public override void AddRecipes()
         {
 			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 5)
+				.AddIngredient(ModContent.ItemType<AreusShard>(), 5)
 				.AddIngredient(ItemID.LunarBar, 5)
 				.AddIngredient(ItemID.SpiderFang, 8)
 				.AddIngredient(ItemID.GoldWatch)

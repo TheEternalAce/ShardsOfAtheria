@@ -1,15 +1,13 @@
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Projectiles;
-using ShardsOfAtheria.Tiles;
-using System.Collections.Generic;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons
 {
-    public class Prometheus : SpecialItem
+    public class Prometheus : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -33,7 +31,7 @@ namespace ShardsOfAtheria.Items.Weapons
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.value = Item.sellPrice(gold: 10);
+            Item.value = Item.sellPrice(0,  10);
             Item.rare = ItemRarityID.Red;
             Item.autoReuse = true;
         }
@@ -49,10 +47,7 @@ namespace ShardsOfAtheria.Items.Weapons
                 .Register();
         }
 
-        public override bool AltFunctionUse(Player player)
-        {
-            return true;
-        }
+        public override bool AltFunctionUse(Player player) => true;
 
         public override bool CanUseItem(Player player)
         {

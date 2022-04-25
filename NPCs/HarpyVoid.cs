@@ -76,23 +76,21 @@ namespace ShardsOfAtheria.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (!spawnInfo.playerSafe && spawnInfo.player.ZoneUnderworldHeight)
+            if (!spawnInfo.PlayerSafe && spawnInfo.Player.ZoneUnderworldHeight)
                 return .05f;
             return 0f;
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            var dropChooser = new WeightedRandom<int>();
-            dropChooser.Add(ItemID.Hellstone);
-            dropChooser.Add(ItemID.AshBlock);
-            dropChooser.Add(ItemID.Obsidian);
-
             LeadingConditionRule hardmode = new LeadingConditionRule(new Conditions.IsHardmode());
 
-            npcLoot.Add(ItemDropRule.Common(dropChooser, 1, 3, 6));
+            npcLoot.Add(ItemDropRule.OneFromOptions(1, ItemID.Hellstone, ItemID.Obsidian));
             npcLoot.Add(ItemDropRule.Common(ItemID.Feather, 5, 3, 6));
             hardmode.OnSuccess(ItemDropRule.Common(ItemID.FireFeather, 5));
+
+            // Finally add the leading rule
+            npcLoot.Add(hardmode);
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		{
 			DisplayName.SetDefault("Super Ruby Core");
 			Tooltip.SetDefault("15% increased damage and melee speed\n" +
-				"Increased melee knockback and swing speed\n" +
+				"Increased knockback and attack speed\n" +
 				"Attacks inflict 'Cursed Inferno' and 'Ichor'\n" +
 				"Immune to damage reducing and anti attacking debuffs\n" +
 				"Melee weapons autoswing");
@@ -40,8 +40,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			player.GetDamage(DamageClass.Generic) += .15f;
 			player.GetModPlayer<SoAPlayer>().superRubyCore = true;
 			player.autoReuseGlove = true;
-			player.meleeSpeed += .15f;
-			player.kbGlove = true;
+			player.GetAttackSpeed(DamageClass.Generic) += .15f;
+			player.GetKnockback(DamageClass.Generic) += 3;
 			player.meleeScaleGlove = true;
 			player.buffImmune[BuffID.WitheredWeapon] = true;
 			player.buffImmune[BuffID.Silenced] = true;

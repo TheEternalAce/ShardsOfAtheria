@@ -7,12 +7,11 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
-	public class BBGun : SpecialItem
+	public class BBGun : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("BB Gun");
-			Tooltip.SetDefault("[c/960096:'One of my favorite treasures, take care of it']");
 		}
 
 		public override void SetDefaults() 

@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles;
-using ShardsOfAtheria.Projectiles.Weapon;
+using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -29,11 +29,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.noUseGraphic = true;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 3;
-			Item.value = Item.sellPrice(gold: 25);
+			Item.value = Item.sellPrice(0,  25);
 			Item.rare = ItemRarityID.Red;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.crit = 16;
+			Item.crit = 8;
 			Item.shoot = ModContent.ProjectileType<ZenovaProjectile>();
 			Item.shootSpeed = 15;
 		}
@@ -48,7 +48,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 				.AddIngredient(ItemID.BreakerBlade)
 				.AddIngredient(ItemID.ChlorophyteSaber)
 				.AddIngredient(ItemID.DayBreak)
-				.AddIngredient(ModContent.ItemType<LostNail>())
 				.AddIngredient(ModContent.ItemType<Satanlance>())
 				.AddIngredient(ModContent.ItemType<AreusSword>())
 				.AddTile(TileID.LunarCraftingStation)
@@ -60,18 +59,17 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 		{
 			// Here we randomly set type to either the original (as defined by the ammo), a vanilla projectile, or a mod Projectile.
 			type = Main.rand.Next(new int[] { type, ModContent.ProjectileType<ZenovaDaybreak>(), ModContent.ProjectileType<ZenovaBoneJavelin>(),
-				ModContent.ProjectileType<ZenovaProjectile>(), ModContent.ProjectileType<ZenovaBlackAreusSword>(),
+				ModContent.ProjectileType<ZenovaProjectile>(), ModContent.ProjectileType<ZenovaAreusSword>(),
 				ModContent.ProjectileType<ZenovaBreakerBlade>(), ModContent.ProjectileType<ZenovaCataracnia>(),
 				ModContent.ProjectileType<ZenovaChlorophyteSaber>(), ModContent.ProjectileType<ZenovaSatanlance>(),
 				ModContent.ProjectileType<ZenovaWoodenSword>(), ModContent.ProjectileType<ZenovaWormsTooth>(),
-				ModContent.ProjectileType<ElectricBlade>(), ModContent.ProjectileType<ZenovaLostNail>(),
-				ModContent.ProjectileType<InfectionBlob>()});
+				ModContent.ProjectileType<ElectricBlade>(), ModContent.ProjectileType<ZenovaLostNail>()});
 			velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
 		}
 
         public override void HoldItem(Player player)
         {
-			player.armorPenetration = 37;
+			player.GetArmorPenetration(DamageClass.Generic) = 37;
         }
     }
 }

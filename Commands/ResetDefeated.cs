@@ -23,6 +23,7 @@ namespace ShardsOfAtheria.Commands
 			SoAWorld.downedValkyrie = false;
 			NPC.downedQueenBee = false;
 			NPC.downedBoss3 = false;
+			NPC.downedDeerclops = false;
 			Main.hardMode = false;
 			NPC.downedQueenSlime = false;
 			NPC.downedMechBoss1 = false;

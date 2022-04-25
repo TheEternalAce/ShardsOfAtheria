@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Ammo;
+using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using ShardsOfAtheria.Items.Weapons.Biochemical;
 
 namespace ShardsOfAtheria.Items.Weapons.Ammo

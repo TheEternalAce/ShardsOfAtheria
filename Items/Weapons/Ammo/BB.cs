@@ -1,12 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Ammo;
-using System.Collections.Generic;
+using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 
 namespace ShardsOfAtheria.Items.Weapons.Ammo
 {
-	public class BB : SpecialItem
+	public class BB : ModItem
 	{
 		public override void SetStaticDefaults() 
 		{

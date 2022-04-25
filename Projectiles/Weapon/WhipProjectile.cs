@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon
 {
-    public class WhipProjectile : ModProjectile
+    public abstract class WhipProjectile : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -102,7 +102,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon
 				num6 = (num5 - 1f) / num2;
 				num5 = MathHelper.Lerp(1f, 0f, num6);
 			}
-			float num7 = proj.ai[0] - 1f;
+			float num7;
 			Player player = Main.player[proj.owner];
 			Item heldItem = Main.player[proj.owner].HeldItem;
 			num7 = (float)(ContentSamples.ItemsByType[heldItem.type].useAnimation * 2) * num * player.whipRangeMultiplier;
@@ -146,7 +146,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon
 			List<Vector2> list = new List<Vector2>();
 			FillWhipControlPoints(proj, list);
 			Texture2D value = TextureAssets.FishingLine.Value;
-			Microsoft.Xna.Framework.Rectangle value2 = value.Frame();
+			Rectangle value2 = value.Frame();
 			Vector2 origin = new Vector2(value2.Width / 2, 2f);
 
 			Vector2 value3 = list[0];
@@ -155,7 +155,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon
 				Vector2 vector = list[i];
 				Vector2 vector2 = list[i + 1] - vector;
 				float rotation = vector2.ToRotation() - (float)Math.PI / 2f;
-				Microsoft.Xna.Framework.Color color = Lighting.GetColor(vector.ToTileCoordinates(), originalColor);
+				Color color = Lighting.GetColor(vector.ToTileCoordinates(), originalColor);
 				Vector2 scale = new Vector2(1f, (vector2.Length() + 2f) / (float)value2.Height);
 				Main.EntitySpriteDraw(value, value3 - Main.screenPosition, value2, color, rotation, origin, scale, SpriteEffects.None, 0);
 				value3 += vector2;
@@ -208,7 +208,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon
 				if (flag)
 				{
 					float rotation = vector4.ToRotation() - (float)Math.PI / 2f;
-					Microsoft.Xna.Framework.Color color = Lighting.GetColor(vector3.ToTileCoordinates());
+					Color color = Lighting.GetColor(vector3.ToTileCoordinates());
 					Main.EntitySpriteDraw(value, vector2 - Main.screenPosition, rectangle, color, rotation, origin, scale, spriteEffects, 0);
 				}
 				vector2 += vector4;

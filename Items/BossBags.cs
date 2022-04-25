@@ -13,19 +13,11 @@ namespace ShardsOfAtheria.Items
 	{
 		public override void OpenVanillaBag(string context, Player player, int arg)
 		{
-			var source = player.GetItemSource_OpenItem(arg);
+			var source = player.GetSource_OpenItem(arg);
 
-			if (context == "bossBag" && arg == ItemID.EyeOfCthulhuBossBag)
-			{
-				player.QuickSpawnItem(source, ModContent.ItemType<Cataracnia>());
-			}
 			if (context == "bossBag" && arg == ItemID.EaterOfWorldsBossBag)
 			{
 				player.QuickSpawnItem(source, ModContent.ItemType<OversizedWormsTooth>());
-			}
-			if (context == "bossBag" && arg == ItemID.BrainOfCthulhuBossBag)
-			{
-				player.QuickSpawnItem(source, ModContent.ItemType<TomeOfOmniscience>());
 			}
 			if (context == "bossBag" && arg == ItemID.QueenBeeBossBag)
 			{
@@ -41,9 +33,7 @@ namespace ShardsOfAtheria.Items
 				}
 				if (Main.rand.NextFloat() < .1f)
                 {
-					if (Main.rand.NextFloat() < .5f)
-						player.QuickSpawnItem(source, ModContent.ItemType<MarkOfAnastasia>());
-					else player.QuickSpawnItem(source, ModContent.ItemType<ShadowBrand>());
+					player.QuickSpawnItem(source, ModContent.ItemType<ShadowBrand>());
 				}
 			}
 			if (context == "bossBag" && Main.hardMode && Main.rand.NextFloat() < .05f)

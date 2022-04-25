@@ -16,8 +16,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		{
 			Tooltip.SetDefault("Counts as wings\n" +
                 "Increases max life by 100\n" +
-                "Increases damage, movement speed and swing speed by 20%\n" +
-                "Increases melee knockback and size\n" +
+                "Increases damage, movement speed and attack speed by 20%\n" +
+                "Increases knockback and melee size\n" +
                 "+8 extra minion slots\n" +
                 "20% chance to dodge attacks\n" +
                 "Gives a super dash to the wearer\n" +
@@ -93,8 +93,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
             //Fire Gauntlet
             player.autoReuseGlove = true;
-            player.meleeSpeed += .20f;
-            player.kbGlove = true;
+            player.GetAttackSpeed(DamageClass.Generic) += .20f;
+            player.GetKnockback(DamageClass.Generic) += 4;
             player.meleeScaleGlove = true;
 
             //Other
@@ -108,7 +108,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.AddBuff(BuffID.Honey, 2);
             player.AddBuff(BuffID.Campfire, 2);
             player.AddBuff(BuffID.HeartLamp, 2);
-            if (player.GetModPlayer<SoAPlayer>().megaGemCoreGrav)
+            if (ModContent.GetInstance<ClientSideConfig>().megaGemCoreGrav)
                 player.AddBuff(BuffID.Gravitation, 2);
 
             player.GetModPlayer<SoAPlayer>().megaGemCore = true;

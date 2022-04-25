@@ -3,11 +3,10 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Tiles;
-using ShardsOfAtheria.Projectiles;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
@@ -15,7 +14,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Call me Carlson");
+            Tooltip.SetDefault("Holding this weapon increases your movement speed by 5%\n" +
+                "'Call me Karlson'");
         }
 
         public override void SetDefaults()
@@ -29,21 +29,21 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 6;
             Item.rare = ItemRarityID.Cyan;
-            Item.value = Item.sellPrice(gold: 6);
+            Item.value = Item.sellPrice(0,  6);
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
-            Item.crit = 21;
+            Item.crit = 4;
             Item.shoot = ModContent.ProjectileType<ElectricKunai>();
             Item.shootSpeed = 6;
 
-            if (ModContent.GetInstance<Config>().areusWeaponsCostMana)
+            if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
                 Item.mana = 9;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<AreusBarItem>(), 17)
+                .AddIngredient(ModContent.ItemType<AreusShard>(), 17)
                 .AddIngredient(ItemID.SoulofFlight, 10)
                 .AddTile(ModContent.TileType<AreusForge>())
                 .Register();

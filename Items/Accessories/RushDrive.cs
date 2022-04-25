@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories
 {
-    public class RushDrive : SpecialItem
+    public class RushDrive : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -31,9 +31,9 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<PhaseBarItem>(), 10)
-                .AddRecipeGroup(SoARecipes.EvilBar, 5)
-                .AddIngredient(ItemID.TissueSample, 5)
+                .AddRecipeGroup(SoARecipes.EvilBar, 15)
+                .AddRecipeGroup(SoARecipes.EvilMaterial, 5)
+                .AddIngredient(ItemID.Bone, 5)
                 .AddTile(TileID.Hellforge)
                 .Register();
         }
@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.Items.Accessories
             }
 
             tooltips.Add(new TooltipLine(Mod, "tip", $"Press '[i:{keyname}]' to chose between two phase types:\n" +
-                "Offensive: Sacrifice half of total defense for doubled damage and 20% increased crit chance\n" +
+                "Offensive: Sacrifice half of total defense for doubled damage and 5% increased crit chance\n" +
                 "Defensive: Sacrifice half of total damage for doubled defense and 20% reduced damage\n" +
                 "Always get 20% increased movement speed"));
         }

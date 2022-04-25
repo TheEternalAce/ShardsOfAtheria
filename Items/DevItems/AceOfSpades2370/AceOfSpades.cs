@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Projectiles.Weapon;
+﻿using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Items.DevItems.AceOfSpades2370
             Item.shoot = ModContent.ProjectileType<AceOfSpadesProj>();
             Item.shootSpeed = 15;
             Item.rare = ItemRarityID.Cyan;
-            Item.value = Item.sellPrice(gold: 10);
+            Item.value = Item.sellPrice(0,  10);
         }
     }
 }

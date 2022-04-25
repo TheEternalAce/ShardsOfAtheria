@@ -9,8 +9,7 @@ namespace ShardsOfAtheria.Items.Placeable
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("Cobalt Workbench");
-			Tooltip.SetDefault("Used to completely skip having to gather mythril ore\n" +
-				"[c/960096:'Why? Because $*#% mythril!']");
+			Tooltip.SetDefault("Used to completely skip having to gather mythril ore");
 		}
 
 		public override void SetDefaults()

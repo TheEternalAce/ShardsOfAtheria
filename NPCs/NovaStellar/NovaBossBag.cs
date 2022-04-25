@@ -1,5 +1,4 @@
 using ShardsOfAtheria.Items.Accessories;
-using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using Terraria;
 using Terraria.ID;
@@ -20,7 +19,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
 		{
 			Item.width = 30;
 			Item.height = 20;
-			Item.value = Item.sellPrice(gold: 7, silver: 50);
+			Item.value = Item.sellPrice(0,  7, silver: 50);
 			Item.rare = ItemRarityID.Expert;
 			Item.maxStack = 999;
 			Item.expert = true;
@@ -37,7 +36,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
 			var dropChooser = new WeightedRandom<int>();
 			dropChooser.Add(ModContent.ItemType<ValkyrieCrown>());
 			dropChooser.Add(ModContent.ItemType<ValkyrieBlade>());
-			var source = player.GetItemSource_OpenItem(Type);
+			var source = player.GetSource_OpenItem(Type);
 
 
 			if (Main.rand.NextFloat() < .01f && Main.hardMode)
@@ -51,7 +50,6 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
 			player.QuickSpawnItem(source, ItemID.Feather, Main.rand.Next(10, 19));
 			player.QuickSpawnItem(source, ItemID.GoldBar, Main.rand.Next(10, 19));
 			player.QuickSpawnItem(source, dropChooser);
-			player.QuickSpawnItem(source, ModContent.ItemType<PhaseOreItem>(), 7);
 		}
 
 		public override int BossBagNPC => ModContent.NPCType<NovaStellar>();

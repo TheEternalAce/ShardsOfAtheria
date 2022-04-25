@@ -21,9 +21,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.useStyle = ItemUseStyleID.Swing;
             Item.damage = 28;
             Item.DamageType = DamageClass.Melee;
-            Item.crit = 16;
+            Item.crit = 6;
             Item.knockBack = 6;
-            Item.value = Item.sellPrice(gold: 5);
+            Item.value = Item.sellPrice(0,  5);
             Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;

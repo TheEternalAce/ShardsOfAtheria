@@ -44,25 +44,21 @@ namespace ShardsOfAtheria.Items.Accessories.SevenDeadlySouls
             gluttonySoul = false;
         }
 
-        //public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
-        //{
-        //    if (Player.GetModPlayer<GluttonyPlayer>().gluttonySoul && target.lifeMax > 5)
-        //    {
-        //        Player.statLife += (int)(Player.statLifeMax2 * .2f);
-        //        CombatText.NewText(Player.getRect(), Colors.RarityGreen, (int)(Player.statLifeMax2 * .2f));
-        //    }
-        //}
-    }
-
-    public class EatenNPC : GlobalNPC
-    {
-        public override void OnKill(NPC npc)
+        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
-            Player player = Main.LocalPlayer;
-            if (player.GetModPlayer<GluttonyPlayer>().gluttonySoul && npc.lifeMax > 5)
+            if (Player.GetModPlayer<GluttonyPlayer>().gluttonySoul)
             {
-                player.statLife += (int)(player.statLifeMax2 * .2f);
-                CombatText.NewText(player.getRect(), Colors.RarityGreen, (int)(player.statLifeMax2 * .2f));
+                Player player = Main.LocalPlayer;
+                if (target.lifeMax > 5 && target.life > 0)
+                {
+                    player.statLife += 15;
+                    CombatText.NewText(Player.getRect(), Colors.RarityGreen, 15);
+                }
+                if (target.life <= 0)
+                {
+                    player.statLife += (int)(player.statLifeMax2 * .2f);
+                    CombatText.NewText(player.getRect(), Colors.RarityGreen, (int)(player.statLifeMax2 * .2f));
+                }
             }
         }
     }

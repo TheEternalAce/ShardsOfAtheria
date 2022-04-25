@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.UseSound = SoundID.Item40;
 			Item.crit = 5;
 			Item.rare = ItemRarityID.Pink;
-			Item.value = Item.sellPrice(gold: 5);
+			Item.value = Item.sellPrice(0,  5);
 			Item.shoot = ItemID.PurificationPowder;
 			Item.shootSpeed = 16f;
 			Item.useAmmo = AmmoID.Bullet;

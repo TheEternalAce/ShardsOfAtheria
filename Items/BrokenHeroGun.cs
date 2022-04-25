@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Items
 		{
 			Item.width = 30;
 			Item.height = 20;
-			Item.value = Item.sellPrice(gold: 7, silver: 50);
+			Item.value = Item.sellPrice(0,  7, silver: 50);
 			Item.rare = ItemRarityID.Yellow;
 			Item.maxStack = 99;
 		}

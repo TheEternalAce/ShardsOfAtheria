@@ -57,10 +57,9 @@ namespace ShardsOfAtheria.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
-            if (!(spawnInfo.player.ZoneHallow || spawnInfo.player.ZoneCrimson || spawnInfo.player.ZoneCorrupt || Main.eclipse || spawnInfo.player.ZoneTowerNebula || spawnInfo.player.ZoneTowerVortex 
-                || spawnInfo.player.ZoneTowerSolar || spawnInfo.player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon || spawnInfo.playerSafe || spawnInfo.player.ZoneSnow 
-                || spawnInfo.player.ZoneDesert || spawnInfo.player.ZoneJungle || spawnInfo.player.ZoneBeach) && Main.dayTime && spawnInfo.player.ZoneOverworldHeight)
+            if (!(spawnInfo.Player.ZoneHallow || spawnInfo.Player.ZoneCrimson || spawnInfo.Player.ZoneCorrupt || Main.eclipse || spawnInfo.Player.ZoneTowerNebula || spawnInfo.Player.ZoneTowerVortex 
+                || spawnInfo.Player.ZoneTowerSolar || spawnInfo.Player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon || spawnInfo.PlayerSafe || spawnInfo.Player.ZoneSnow 
+                || spawnInfo.Player.ZoneDesert || spawnInfo.Player.ZoneJungle || spawnInfo.Player.ZoneBeach) && Main.dayTime && spawnInfo.Player.ZoneOverworldHeight)
                 return .05f;
             return 0f;
         }
@@ -72,7 +71,7 @@ namespace ShardsOfAtheria.NPCs
             dropChooser.Add(ItemID.Aglet);
 
             npcLoot.Add(ItemDropRule.Common(ItemID.Wood, 2, 10, 20));
-            npcLoot.Add(ItemDropRule.Common(dropChooser, 100));
+            npcLoot.Add(ItemDropRule.OneFromOptions(100, ItemID.Radar, ItemID.Aglet));
         }
     }
 }

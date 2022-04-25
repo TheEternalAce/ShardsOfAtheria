@@ -57,22 +57,16 @@ namespace ShardsOfAtheria.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            Player player = Main.LocalPlayer;
-            if (!(spawnInfo.player.ZoneHallow || spawnInfo.player.ZoneCrimson || spawnInfo.player.ZoneCorrupt || Main.eclipse || spawnInfo.player.ZoneTowerNebula || spawnInfo.player.ZoneTowerVortex 
-                || spawnInfo.player.ZoneTowerSolar || spawnInfo.player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon || spawnInfo.playerSafe) && spawnInfo.player.ZoneUndergroundDesert)
+            Player Player = Main.LocalPlayer;
+            if (!(spawnInfo.Player.ZoneHallow || spawnInfo.Player.ZoneCrimson || spawnInfo.Player.ZoneCorrupt || Main.eclipse || spawnInfo.Player.ZoneTowerNebula || spawnInfo.Player.ZoneTowerVortex 
+                || spawnInfo.Player.ZoneTowerSolar || spawnInfo.Player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon || spawnInfo.PlayerSafe) && spawnInfo.Player.ZoneUndergroundDesert)
                 return .05f;
             return 0f;
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            var dropChooser = new WeightedRandom<int>();
-            dropChooser.Add(3380);
-            dropChooser.Add(ItemID.SandBlock);
-            dropChooser.Add(ItemID.Sandstone);
-            dropChooser.Add(ItemID.HardenedSand);
-
-            npcLoot.Add(ItemDropRule.Common(dropChooser, 2, 3, 6));
+            npcLoot.Add(ItemDropRule.OneFromOptions(2, 3380, ItemID.SandBlock, ItemID.Sandstone, ItemID.HardenedSand));
             npcLoot.Add(ItemDropRule.Common(ItemID.Bone, 4, 3, 6));
         }
 

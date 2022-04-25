@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -19,6 +20,7 @@ namespace ShardsOfAtheria.Items.Potions
             Item.useTime = 15;
             Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.EatFood;
+            Item.UseSound = SoundID.Item2;
             Item.consumable = true;
             Item.useTurn = true;
             Item.buffType = BuffID.Ironskin;
@@ -33,7 +35,12 @@ namespace ShardsOfAtheria.Items.Potions
         
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "Submission Item", "Submitted by [c/9000FF:Torra th]"));
+            var line = new TooltipLine(Mod, "Verbose:RemoveMe", "This tooltip won't show in-game");
+            line = new TooltipLine(Mod, "Submission Item", "Submitted by Torra th")
+            {
+                OverrideColor = Color.MediumPurple
+            };
+            tooltips.Add(line);
         }
     }
 }

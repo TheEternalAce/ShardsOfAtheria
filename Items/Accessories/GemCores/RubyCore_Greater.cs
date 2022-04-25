@@ -10,8 +10,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		{
 			DisplayName.SetDefault("Greater Ruby Core");
 			Tooltip.SetDefault("10% increased damage\n" +
-				"Increases melee speed by 10%\n" +
-				"Increases melee knockback\n" +
+				"Increases attack speed by 10%\n" +
+				"Increases knockback\n" +
 				"Increased melee size\n" +
 				"Attacks inflict 'Hellfire'\n" +
 				"Melee weapons autoswing");
@@ -40,8 +40,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		{
 			player.GetDamage(DamageClass.Generic) += .1f;
 			player.autoReuseGlove = true;
-			player.meleeSpeed += .1f;
-			player.kbGlove = true;
+			player.GetAttackSpeed(DamageClass.Generic) += .1f;
+			player.GetKnockback(DamageClass.Generic) += 2;
 			player.meleeScaleGlove = true;
 			player.GetModPlayer<SoAPlayer>().greaterRubyCore = true;
 		}

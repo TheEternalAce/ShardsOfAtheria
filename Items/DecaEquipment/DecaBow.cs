@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.DecaEquipment
 {
-    public class DecaBow : ModItem
+    public class DecaBow : DecaEquipment
     {
         public override void SetStaticDefaults()
         {
@@ -27,7 +27,6 @@ namespace ShardsOfAtheria.Items.DecaEquipment
             Item.knockBack = 6f;
             Item.useTime = 5;
             Item.useAnimation = 20;
-            Item.rare = ItemRarityID.Red;
 
             Item.shoot = ItemID.PurificationPowder;
             Item.shootSpeed = 16f;
@@ -38,13 +37,14 @@ namespace ShardsOfAtheria.Items.DecaEquipment
             Item.UseSound = SoundID.Item5;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.reuseDelay = 25;
-            Item.width = 50;
-            Item.height = 20;
+            Item.width = 34;
+            Item.height = 56;
         }
 
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-20, 4);
+            //return new Vector2(-20, 4);
+            return new Vector2(0, 0);
         }
 
         public override bool CanConsumeAmmo(Player player)
@@ -90,24 +90,6 @@ namespace ShardsOfAtheria.Items.DecaEquipment
         {
             if (type == ProjectileID.WoodenArrowFriendly)
                 type = ProjectileID.MoonlordArrow;
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            tooltips.Add(new TooltipLine(Mod, "Deca Gear", "[c/FF4100:Deca Equipment]"));
-        }
-
-        public override bool CanUseItem(Player player)
-        {
-            return player.GetModPlayer<DecaPlayer>().modelDeca;
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 20)
-                .AddIngredient(ModContent.ItemType<DecaShard>(), 10)
-                .Register();
         }
     }
 }

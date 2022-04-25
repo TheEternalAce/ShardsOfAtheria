@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Projectiles.Weapon;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,9 +26,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.useStyle = ItemUseStyleID.Rapier;
             Item.damage = 26;
             Item.DamageType = DamageClass.Melee;
-            Item.crit = 16;
+            Item.crit = 6;
             Item.knockBack = 6;
-            Item.value = Item.sellPrice(gold: 5);
+            Item.value = Item.sellPrice(0,  5);
             Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
@@ -44,12 +43,13 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void HoldItem(Player player)
         {
             firstStrike++;
-            if (firstStrike == 600) { 
+            if (firstStrike == 600)
+            { 
                 CombatText.NewText(player.getRect(), Color.Yellow, "First Strike Ready");
                 Item.damage = 1040;
             }
-            if (firstStrike >= 601)
-                firstStrike = 601;
+            if (firstStrike > 600)
+                firstStrike = 600;
             holding = true;
         }
 

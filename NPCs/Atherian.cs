@@ -1,15 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Items;
+﻿using ShardsOfAtheria.Items;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.DecaEquipment;
-using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Tools;
-using ShardsOfAtheria.Items.Weapons.Ammo;
-using ShardsOfAtheria.Items.Weapons.Magic;
-using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Items.Weapons.Ranged;
-using ShardsOfAtheria.Projectiles;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -91,7 +85,7 @@ namespace ShardsOfAtheria.NPCs
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement("He's seen your feats and has come in hopes he can find his missing daughter.")
+				new FlavorTextBestiaryInfoElement("Placeholder text.")
             });
         }
 
@@ -118,31 +112,23 @@ namespace ShardsOfAtheria.NPCs
             return false;
         }
 
-        public override string TownNPCName()
+        public override List<string> SetNPCNameList()
         {
-            return "Jordan";
+            return new List<string>() { "Jordan" };
         }
 
         public override string GetChat()
         {
             WeightedRandom<string> chat = new WeightedRandom<string>();
             int painter = NPC.FindFirstNPC(NPCID.Painter);
-            if (Main.LocalPlayer.HasItem(ModContent.ItemType<DecaFragment>()) || Main.LocalPlayer.GetModPlayer<DecaPlayer>().modelDeca)
-                chat.Add("H-Hey... I'm getting some really menacing vibes from you..");
             if (painter >= 0 && Main.rand.NextBool(6))
                 chat.Add("Maybe " + Main.npc[painter].GivenName + " can make me a sprite... Huh? Oh, yes yes, enough of that, let's talk capitalism.");
             if (Main.LocalPlayer.HasItem(ModContent.ItemType<AreusWings>()))
                 return "Yikes, those wings do not meet my standards, here let me fix that for you.";
             if (Main.LocalPlayer.HasItem(ModContent.ItemType<MicrobeAnalyzer>()))
                 return "That Microbe Analyzer looks great, but it could be better. Hand it over and I can upgrade it.";
-            chat.Add("HAHAHAHAHAHAHAHAHAHAH! WHAT DO YOU MEAN 'What's so funny'!?");
-            chat.Add("Ey uh.. Have you seen my daughter? No..? I hope she's alright..");
-            chat.Add("You know, Areus is extremely dangerous to you humans.. Wait you're no ordinary human?");
-            chat.Add("Hey, if you got any spare BBs, I bet a friend of mine would love to have them. Just give 'em to me and I'll deliver them to him.");
             chat.Add("Hey! Tell the mod developer to give me a proper sprite!");
-            if (!ModContent.GetInstance<SoAWorld>().slayerMode)
-                return chat;
-            else return "What the- I was just drinking tea and now I'm here?!";
+            return chat;
         }
 
         public override void SetChatButtons(ref string button, ref string button2)
@@ -196,8 +182,11 @@ namespace ShardsOfAtheria.NPCs
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusChargePack>());
-            nextSlot++;
+            if (!ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+            {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusChargePack>());
+                nextSlot++;
+            }
             if (NPC.downedBoss3)
             {
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<PhantomDrill>());
@@ -207,6 +196,96 @@ namespace ShardsOfAtheria.NPCs
             {
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusKey>());
                 nextSlot++;
+            }
+            if (!ModContent.GetInstance<SoAWorld>().slayerMode)
+            {
+                if (NPC.downedSlimeKing)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.SlimeCrown);
+                    nextSlot++;
+                }
+                if (NPC.downedBoss1)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.SuspiciousLookingEye);
+                    nextSlot++;
+                }
+                if (NPC.downedBoss2)
+                {
+                    if (WorldGen.crimson)
+                        shop.item[nextSlot].SetDefaults(ItemID.BloodySpine);
+                    else shop.item[nextSlot].SetDefaults(ItemID.WormFood);
+                    nextSlot++;
+                }
+                if (NPC.downedQueenBee)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.Abeemination);
+                    nextSlot++;
+                }
+                if (SoAWorld.downedValkyrie)
+                {
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<ValkyrieCrest>());
+                    nextSlot++;
+                }
+                if (NPC.downedBoss3)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.ClothierVoodooDoll);
+                    nextSlot++;
+                }
+                if (NPC.downedDeerclops)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.DeerThing);
+                    nextSlot++;
+                }
+                if (Main.hardMode)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.GuideVoodooDoll);
+                    nextSlot++;
+                }
+                if (NPC.downedQueenSlime)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.QueenSlimeCrystal);
+                    nextSlot++;
+                }
+                if (NPC.downedMechBoss1)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.MechanicalWorm);
+                    nextSlot++;
+                }
+                if (NPC.downedMechBoss2)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.MechanicalEye);
+                    nextSlot++;
+                }
+                if (NPC.downedMechBoss3)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.MechanicalSkull);
+                    nextSlot++;
+                }
+                //if (NPC.downedPlantBoss)
+                //{
+                //    shop.item[nextSlot].SetDefaults(ItemID.ClothierVoodooDoll);
+                //    nextSlot++;
+                //}
+                if (NPC.downedGolemBoss)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.LihzahrdPowerCell);
+                    nextSlot++;
+                }
+                if (NPC.downedFishron)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.TruffleWorm);
+                    nextSlot++;
+                }
+                if (NPC.downedEmpressOfLight)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.EmpressButterfly);
+                    nextSlot++;
+                }
+                if (NPC.downedMoonlord)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.CelestialSigil);
+                    nextSlot++;
+                }
             }
         }
 
@@ -230,7 +309,7 @@ namespace ShardsOfAtheria.NPCs
 
         public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
         {
-            projType = ModContent.ProjectileType<TrueBlade>();
+            projType = ModContent.ProjectileType<ElectricBlade>();
             attackDelay = 1;
         }
 

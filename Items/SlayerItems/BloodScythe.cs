@@ -1,3 +1,5 @@
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -6,9 +8,14 @@ namespace ShardsOfAtheria.Items.SlayerItems
 {
 	public class BloodScythe : SlayerItem
 	{
-		public override void SetStaticDefaults()
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			Tooltip.SetDefault("[c/323232:...]");
+			var line = new TooltipLine(Mod, "Verbose:RemoveMe", "This tooltip won't show in-game");
+			line = new TooltipLine(Mod, "BloodScythe", "...")
+			{
+				OverrideColor = Color.DarkGray
+			};
+			tooltips.Add(line);
 		}
 
 		public override void SetDefaults()
@@ -21,9 +28,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.useAnimation = 30;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 6;
-			Item.value = Item.sellPrice(gold: 50);
-			Item.rare = ItemRarityID.Expert;
-			Item.UseSound = SoundID.Item1;
+			Item.UseSound = SoundID.Item71;
 			Item.autoReuse = false;
 			Item.useTurn = true;
 			Item.crit = 100;

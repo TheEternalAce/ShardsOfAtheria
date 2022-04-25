@@ -40,12 +40,12 @@ namespace ShardsOfAtheria.Items.Weapons.Biochemical
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            Item.NewItem(target.GetSpawnSource_NPCHurt(), target.getRect(), ModContent.ItemType<UnanalyzedMicrobe>(), Main.rand.Next(20, 40));
+            Item.NewItem(target.GetSource_OnHurt(player), target.getRect(), ModContent.ItemType<UnanalyzedMicrobe>(), Main.rand.Next(20, 40));
         }
 
         public override void OnHitPvp(Player player, Player target, int damage, bool crit)
         {
-            Item.NewItem(target.GetItemSource_OnHit(target, ModContent.ItemType<OrichalcumExtractor>()), target.getRect(), ModContent.ItemType<UnanalyzedMicrobe>(), Main.rand.Next(20, 40));
+            Item.NewItem(target.GetSource_OnHurt(player), target.getRect(), ModContent.ItemType<UnanalyzedMicrobe>(), Main.rand.Next(20, 40));
         }
     }
 }

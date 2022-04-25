@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.DecaEquipment
 {
-    public class DecaRifle : ModItem
+    public class DecaRifle : DecaEquipment
     {
         private int shootingSoundsTimer;
 
@@ -28,7 +28,6 @@ namespace ShardsOfAtheria.Items.DecaEquipment
             Item.knockBack = 6f;
             Item.useTime = 1;
             Item.useAnimation = 50;
-            Item.rare = ItemRarityID.Red;
 
             Item.shoot = ItemID.PurificationPowder;
             Item.shootSpeed = 16f;
@@ -70,23 +69,6 @@ namespace ShardsOfAtheria.Items.DecaEquipment
             velocity = velocity.RotatedByRandom(MathHelper.ToRadians(10));
             if (type == ProjectileID.Bullet)
                 type = ProjectileID.MoonlordBullet;
-        }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            tooltips.Add(new TooltipLine(Mod, "Deca Gear", "[c/FF4100:Deca Equipment]"));
-        }
-
-        public override bool CanUseItem(Player player)
-        {
-            return player.GetModPlayer<DecaPlayer>().modelDeca;
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 20)
-                .AddIngredient(ModContent.ItemType<DecaShard>(), 10)
-                .Register();
         }
     }
 }

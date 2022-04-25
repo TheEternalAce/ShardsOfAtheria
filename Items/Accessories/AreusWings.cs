@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Items.Accessories
 		{
 			Item.width = 22;
 			Item.height = 20;
-			Item.value = Item.sellPrice(gold: 15);
+			Item.value = Item.sellPrice(0,  15);
 			Item.rare = ItemRarityID.Cyan;
 			Item.accessory = true;
 		}
@@ -52,7 +52,7 @@ namespace ShardsOfAtheria.Items.Accessories
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<AreusBarItem>(), 20)
+				.AddIngredient(ModContent.ItemType<AreusShard>(), 20)
 				.AddIngredient(ItemID.FragmentVortex, 6)
 				.AddTile(ModContent.TileType<AreusForge>())
 				.Register();

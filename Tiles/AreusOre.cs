@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Tiles
             Main.tileLighted[Type] = true;
             Main.tileOreFinderPriority[Type] = 725;
 
-            ItemDrop = ModContent.ItemType<AreusOreItem>();
+            ItemDrop = ModContent.ItemType<AreusShard>();
 
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Areus Ore");
