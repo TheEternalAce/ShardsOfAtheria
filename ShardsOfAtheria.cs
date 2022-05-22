@@ -47,19 +47,8 @@ namespace ShardsOfAtheria
 
         public override void PostSetupContent()
         {
-            List<int> DeathItemList = new List<int>(){
-                ModContent.ItemType<BloodScythe>()
-            };
-            List<int> NovaItemList = new List<int>(){
-                ModContent.ItemType<GildedValkyrieWings>(),
-                ItemID.Feather,
-                ItemID.GoldBar,
-                ModContent.ItemType<ValkyrieCrown>(),
-                ModContent.ItemType<ValkyrieBlade>(),
-                ModContent.ItemType<ValkyrieStormLance>()
-            };
             if (ModLoader.TryGetMod("Census", out Mod foundMod))
-                ModLoader.GetMod("Census").Call("TownNPCCondition", ModContent.NPCType<Atherian>(), "Defeat Eater of Worlds/Brain of Cthulhu.");
+                ModLoader.GetMod("Census").Call("TownNPCCondition", ModContent.NPCType<Atherian>(), "Defeat Eater of Worlds/Brain of Cthulhu while not in Slayer mode.");
 
             if (ModLoader.TryGetMod("BossChecklist", out Mod foundMod1))
             {
@@ -69,7 +58,7 @@ namespace ShardsOfAtheria
                     "Nova Stellar",
                     new List<int> { ModContent.NPCType<NovaStellar>() },
                     3.5f,
-                    (Func<bool>)(() => SoAWorld.downedValkyrie),
+                    (() => SoAWorld.downedValkyrie),
                     () => true,
                     new List<int> { ModContent.ItemType<ValkyrieStormLance>(), ModContent.ItemType<GildedValkyrieWings>(), ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<ValkyrieCrown>(),
                         ItemID.GoldBar, ItemID.Feather },
@@ -77,20 +66,6 @@ namespace ShardsOfAtheria
                     $"Use a [i:{ModContent.ItemType<ValkyrieCrest>()}] on the surface",
                     "Nova Stellar leaves in triumph"
                 );
-                /*
-                bossChecklist.Call(
-                    "AddBoss",
-                    15.5f,
-                    ModContent.NPCType<Death>(),
-                    this,
-                    "Death",
-                    (Func<bool>)(() => SoAWorld.downedDeath),
-                    ModContent.ItemType<AncientCoin>(),
-                    new List<int> { ModContent.ItemType<DeathEssence>(), ModContent.ItemType<Items.Armor.BunnyMask>(), ModContent.ItemType<Items.Placeable.PuritySpiritTrophy>(), ModContent.ItemType<Items.Placeable.BunnyTrophy>(), ModContent.ItemType<Items.Placeable.TreeTrophy>() },
-                    new List<int> { ModContent.ItemType<Items.PurityShield>(), ItemID.Bunny },
-                    $"Use a [i:{ModContent.ItemType<AncientMedallion>()}] anywhere"
-                );
-                */
             }
         }
     }

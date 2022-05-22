@@ -38,10 +38,5 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
             Projectile.velocity = Vector2.Zero;
             return false;
         }
-
-        public override void Kill(int timeLeft)
-        {
-            SoundEngine.PlaySound(SoundID.Thunder, Projectile.position);
-        }
     }
 }

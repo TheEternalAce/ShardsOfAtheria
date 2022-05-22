@@ -1,6 +1,4 @@
-﻿using ShardsOfAtheria.Items.Weapons;
-using System.Linq;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria

@@ -12,15 +12,17 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul Crystal (Nova Stellar)");
-            Tooltip.SetDefault("Grants 8 defense, wing flight time boost, immunity to Electrified and a dash that leaves behind an electric trail");
+            Tooltip.SetDefault("Grants 8 defense, wing flight time boost and a dash that leaves behind an electric trail\n" +
+                "Attacks create 4 closing feather blades in an x pattern\n" +
+                "Getting hit by an enemy gives them Electric Shock");
         }
 
         public override bool? UseItem(Player player)
         {
             absorbSoulTimer--;
-            if (absorbSoulTimer == 0 || ModContent.GetInstance<ClientSideConfig>().instantAbsorb)
+            if (absorbSoulTimer == 0 || ModContent.GetInstance<ConfigClientSide>().instantAbsorb)
             {
-                Main.LocalPlayer.GetModPlayer<SlayerPlayer>().ValkyrieSoul = SoulCrystalStatus.Absorbed;
+                Main.LocalPlayer.GetModPlayer<SlayerPlayer>().ValkyrieSoul = true;
             }
             return base.UseItem(player);
         }

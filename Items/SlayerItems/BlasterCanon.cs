@@ -30,6 +30,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.crit = 5;
 			Item.shoot = ModContent.ProjectileType<NotLime>();
 			Item.shootSpeed = 20f;
+			Item.rare = ModContent.RarityType<SlayerRarity>();
 
 			Item.mana = 6;
 		}
@@ -45,7 +46,6 @@ namespace ShardsOfAtheria.Items.SlayerItems
 				.AddIngredient(ItemID.HallowedBar, 20)
 				.AddIngredient(ItemID.SoulofFright, 10)
 				.AddTile(TileID.MythrilAnvil)
-				.AddCondition(NetworkText.FromKey("RecipeConditions.BlueprintRead"), r => Main.LocalPlayer.GetModPlayer<SlayerPlayer>().blueprintRead)
 				.Register();
 		}
 	}

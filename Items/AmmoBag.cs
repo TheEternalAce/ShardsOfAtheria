@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Items
             Item.width = 30;
             Item.height = 22;
             Item.rare = ItemRarityID.Blue;
-            Item.maxStack = 999;
+            Item.maxStack = 10;
         }
 
         public override bool CanRightClick()

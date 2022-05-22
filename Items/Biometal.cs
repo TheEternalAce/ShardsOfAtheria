@@ -20,6 +20,7 @@ namespace ShardsOfAtheria.Items
                 Mod.AddEquipTexture(this, EquipType.Head, $"{Texture}_{EquipType.Head}");
                 Mod.AddEquipTexture(this, EquipType.Body, $"{Texture}_{EquipType.Body}");
                 Mod.AddEquipTexture(this, EquipType.Legs, $"{Texture}_{EquipType.Legs}");
+                
             }
         }
 

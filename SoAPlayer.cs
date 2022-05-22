@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items;
+using ShardsOfAtheria.Items.SlayerItems;
 using ShardsOfAtheria.Items.Weapons;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -24,7 +26,6 @@ namespace ShardsOfAtheria
         public bool superSapphireCore;
         public bool greaterRubyCore;
         public bool superRubyCore;
-        public bool omnicientTome;
         public bool baseConservation;
         public bool sapphireMinion;
         public bool lesserEmeraldCore;
@@ -47,27 +48,10 @@ namespace ShardsOfAtheria
         public bool inCombat;
         public int inCombatTimer;
 
-        //Slayer mode stuff
-        public bool creeperPet;
-        public bool honeyCrown;
-        public bool honeybeeMinion;
-        public bool vampiricJaw;
-        public bool plantCells;
-        public bool moonCore;
-        public bool spiderClock;
-            //Spider Clock
-        public Vector2 recentPos;
-        public int recentLife;
-        public int recentMana;
-        public int recentCharge;
-        public int saveTimer;
-
-        public int TomeKnowledge;
-
         public bool naturalAreusRegen;
         public bool areusChargeMaxed;
 
-        // These 5 relate to ExampleCostume.
+        // These 5 relate to Biometal.
         public bool BiometalPrevious;
         public bool Biometal;
         public bool BiometalHideVanity;
@@ -80,7 +64,7 @@ namespace ShardsOfAtheria
         internal int overdriveTimeRegenTimer = 0;
 
         public override void ResetEffects()
-       {
+        {
             areusBatteryElectrify = false;
             areusWings = false;
             lesserSapphireCore = false;
@@ -89,7 +73,6 @@ namespace ShardsOfAtheria
             superSapphireCore = false;
             greaterRubyCore = false;
             superRubyCore = false;
-            omnicientTome = false;
             baseConservation = false;
             sapphireMinion = false;
             superEmeraldCore = false;
@@ -105,15 +88,6 @@ namespace ShardsOfAtheria
             markOfAnastasia = false;
 
             inCombat = false;
-
-            //Slayer mode stuff
-            creeperPet = false;
-            honeyCrown = false;
-            honeybeeMinion = false;
-            vampiricJaw = false;
-            plantCells = false;
-            moonCore = false;
-            spiderClock = false;
 
             ResetVariables();
             naturalAreusRegen = false;
@@ -137,14 +111,12 @@ namespace ShardsOfAtheria
             overdriveTimeCurrent = 300;
             overdriveTimeMax = DefaultOverdriveTimeMax;
 
-            TomeKnowledge = 0;
             shadowBrandToggled = false;
             phaseOffense = true;
         }
 
         public override void SaveData(TagCompound tag)
         {
-            tag["TomeKnowledge"] = TomeKnowledge;
             tag["shadowBrandToggled"] = shadowBrandToggled;
             tag["overdriveTimeCurrent"] = overdriveTimeCurrent;
             tag["phaseOffense"] = phaseOffense;
@@ -152,64 +124,30 @@ namespace ShardsOfAtheria
 
         public override void LoadData(TagCompound tag)
         {
-            TomeKnowledge = (int)tag["TomeKnowledge"];
-            shadowBrandToggled = tag.GetBool("shadowBrandToggled");
-            overdriveTimeCurrent = (int)tag["overdriveTimeCurrent"];
-            phaseOffense = tag.GetBool("phaseOffense");
+            if (tag.ContainsKey("shadowBrandToggled"))
+                shadowBrandToggled = tag.GetBool("shadowBrandToggled");
+            if (tag.ContainsKey("overdriveTimeCurrent"))
+                overdriveTimeCurrent = (int)tag["overdriveTimeCurrent"];
+            if (tag.ContainsKey("phaseOffense"))
+                phaseOffense = tag.GetBool("phaseOffense");
         }
 
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
         {
             return new Item[] {
-                new Item(ModContent.ItemType<SlayersEmblem>()),
-                new Item(ModContent.ItemType<MicrobeAnalyzer>())
+                new Item(ModContent.ItemType<Necronomicon>())
             };
         }
 
         public override void PreUpdate()
         {
             UpdateResource();
-            if (omnicientTome)
-            {
-                if (TomeKnowledge == 0)
-                {
-                    Player.AddBuff(ModContent.BuffType<BaseCombat>(), 2);
-                }
-                else if (TomeKnowledge == 1)
-                {
-                    Player.AddBuff(ModContent.BuffType<BaseConservation>(), 2);
-                }
-                else if (TomeKnowledge == 2)
-                {
-                    Player.AddBuff(ModContent.BuffType<BaseExploration>(), 2);
-                    Player.AddBuff(BuffID.Mining, 2);
-                    Player.AddBuff(BuffID.Builder, 2);
-                    Player.AddBuff(BuffID.Hunter, 2);
-                    Player.AddBuff(BuffID.Spelunker, 2);
-                }
-            }
 
             if (megaGemCore || areusWings)
             {
                 Player.wingTime = 100;
                 Player.rocketTime = 100;
             }
-            if (spiderClock)
-            {
-                saveTimer++;
-                if (saveTimer == 300)
-                {
-                    recentPos = Player.position;
-                    recentLife = Player.statLife;
-                    recentMana = Player.statMana;
-                    CombatText.NewText(Player.Hitbox, Color.Gray, "Time shift ready");
-                }
-                if (saveTimer >= 302)
-                    saveTimer = 302;
-            }
-            else saveTimer = 0;
-            if (ModContent.GetInstance<SoAWorld>().messageToPlayer > 1080)
-                Player.AddBuff(ModContent.BuffType<AwakenedSlayer>(), 18000);
         }
 
         public override void PostUpdate()
@@ -238,10 +176,6 @@ namespace ShardsOfAtheria
 
         public override void PostUpdateBuffs()
         {
-            if (Player.HasBuff(ModContent.BuffType<BaseExploration>()))
-            {
-                Player.moveSpeed += .1f;
-            }
             if (Player.HasBuff(ModContent.BuffType<Megamerged>()))
             {
                 Player.moveSpeed += .1f;
@@ -307,10 +241,6 @@ namespace ShardsOfAtheria
                 Player.lifeRegen += 4;
             if (areusKey)
                 Player.lifeRegen *= 2;
-            if (plantCells)
-                if (Player.ZoneOverworldHeight)
-                    Player.lifeRegen += 15;
-                else Player.lifeRegen += 10;
         }
 
         private void UpdateResource()
@@ -371,18 +301,6 @@ namespace ShardsOfAtheria
                     CombatText.NewText(Player.Hitbox, Color.Red, "Overdrive: OFF");
                 }
             }
-            if (ShardsOfAtheria.TomeKey.JustPressed)
-            {
-                if (omnicientTome)
-                {
-                    if (TomeKnowledge == 2)
-                    {
-                        TomeKnowledge = 0;
-                    }
-                    else TomeKnowledge += 1;
-                    SoundEngine.PlaySound(SoundID.Item1, Player.position);
-                }
-            }
             if (ShardsOfAtheria.EmeraldTeleportKey.JustPressed)
             {
                 if (superEmeraldCore)
@@ -410,7 +328,7 @@ namespace ShardsOfAtheria
                             {
                                 Player.statLife -= Player.statLifeMax2 / 7;
                                 PlayerDeathReason damageSource = PlayerDeathReason.ByOther(13);
-                                if (Main.rand.Next(2) == 0)
+                                if (Main.rand.NextBool(2))
                                 {
                                     damageSource = PlayerDeathReason.ByOther(Player.Male ? 14 : 15);
                                 }
@@ -450,7 +368,7 @@ namespace ShardsOfAtheria
                             {
                                 Player.statLife -= Player.statLifeMax2 / 7;
                                 PlayerDeathReason damageSource = PlayerDeathReason.ByOther(13);
-                                if (Main.rand.Next(2) == 0)
+                                if (Main.rand.NextBool(2))
                                 {
                                     damageSource = PlayerDeathReason.ByOther(Player.Male ? 14 : 15);
                                 }
@@ -544,18 +462,6 @@ namespace ShardsOfAtheria
                 Player.AddBuff(BuffID.Ironskin, 10 * 60);
                 Player.AddBuff(BuffID.Endurance, 10 * 60);
             }
-            if (hallowedSeal && item.DamageType == DamageClass.Melee)
-                Player.statMana += 15;
-            if (vampiricJaw && item.DamageType == DamageClass.Melee && !item.noMelee)
-            {
-                Player.HealEffect(item.damage / 5);
-                Player.statLife += item.damage / 5;
-            }
-            if (moonCore)
-            {
-                Player.HealEffect(item.damage / 2);
-                Player.statLife += item.damage / 2;
-            }
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
@@ -583,11 +489,6 @@ namespace ShardsOfAtheria
                 }
                 if (hallowedSeal && proj.DamageType == DamageClass.Melee)
                     Player.statMana += 15;
-                if (moonCore)
-                {
-                    Player.HealEffect(proj.damage / 10);
-                    Player.statLife += proj.damage / 10;
-                }
             }
         }
 

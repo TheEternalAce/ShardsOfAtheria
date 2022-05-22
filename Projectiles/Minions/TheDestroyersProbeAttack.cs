@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
-using ShardsOfAtheria.Projectiles.NPCProj;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -33,17 +31,49 @@ namespace ShardsOfAtheria.Projectiles.Minions
             Player player = Main.player[Projectile.owner];
             if (!CheckActive(player))
             {
-                Projectile.Kill();
+                return;
             }
 
             Projectile.rotation += MathHelper.ToRadians(180);
+            Projectile.tileCollide = false;
+
+            // If your minion is flying, you want to do this independently of any conditions
+            float overlapVelocity = 0.04f;
+
+            // Fix overlap with other minions
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                Projectile other = Main.projectile[i];
+
+                if (i != Projectile.whoAmI && other.active && other.owner == Projectile.owner && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
+                {
+                    if (Projectile.position.X < other.position.X)
+                    {
+                        Projectile.velocity.X -= overlapVelocity;
+                    }
+                    else
+                    {
+                        Projectile.velocity.X += overlapVelocity;
+                    }
+
+                    if (Projectile.position.Y < other.position.Y)
+                    {
+                        Projectile.velocity.Y -= overlapVelocity;
+                    }
+                    else
+                    {
+                        Projectile.velocity.Y += overlapVelocity;
+                    }
+                }
+            }
         }
 
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
         private bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || owner.GetModPlayer<SlayerPlayer>().DestroyerSoul == SoulCrystalStatus.None)
+            if (owner.dead || !owner.active || !owner.GetModPlayer<SlayerPlayer>().DestroyerSoul)
                 return false;
+            else Projectile.timeLeft = 2;
             return true;
         }
 

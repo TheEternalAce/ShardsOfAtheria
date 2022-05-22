@@ -79,7 +79,7 @@ namespace ShardsOfAtheria
 
             Soul = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Soul",
                    ItemID.SoulofFlight, ItemID.SoulofFright, ItemID.SoulofLight, ItemID.SoulofMight, ItemID.SoulofNight, ItemID.SoulofSight, ModContent.ItemType<SoulOfDaylight>(),
-                   ModContent.ItemType<SoulOfStarlight>(), ModContent.ItemType<SoulOfSpite>());
+                   ModContent.ItemType<SoulOfTwilight>(), ModContent.ItemType<SoulOfSpite>());
             RecipeGroup.RegisterGroup("Souls", Soul);
 
             DecaWeapon = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Deca Weapon",
@@ -95,7 +95,7 @@ namespace ShardsOfAtheria
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
             Mod.CreateRecipe(ItemID.SoulofNight, 2)
-                .AddIngredient(ModContent.ItemType<SoulOfStarlight>(), 5)
+                .AddIngredient(ModContent.ItemType<SoulOfTwilight>(), 5)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
             Mod.CreateRecipe(ItemID.TerraBlade)

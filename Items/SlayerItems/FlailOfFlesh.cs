@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.width = 42;
 			Item.height = 38;
 			Item.value = Item.sellPrice(silver: 5);
-			Item.rare = ItemRarityID.Expert;
+			Item.rare = ModContent.RarityType<SlayerRarity>();
 			Item.noMelee = true;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.useAnimation = 40;

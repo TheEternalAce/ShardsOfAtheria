@@ -17,46 +17,48 @@ namespace ShardsOfAtheria.Commands
 
 		public override void Action(CommandCaller caller, string input, string[] args)
 		{
-			SlayerPlayer player = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
+			SlayerPlayer sPlayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
+			Player player = Main.LocalPlayer;
+			if (player.name != "Tester Shane")
+				return;
 
-			player.anySoulCrystals = false;
+			sPlayer.soulCrystals = 0;
 			ModContent.GetInstance<SoAWorld>().slainKing = false;
-			player.KingSoul = 0;
+			sPlayer.KingSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainEOC = false;
-			player.EyeSoul = 0;
+			sPlayer.EyeSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainBOC = false;
-			player.BrainSoul = 0;
+			sPlayer.BrainSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainEOW = false;
-			player.EaterSoul = 0;
+			sPlayer.EaterSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainValkyrie = false;
-			player.ValkyrieSoul = 0;
+			sPlayer.ValkyrieSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainBee = false;
-			player.BeeSoul = 0;
+			sPlayer.BeeSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainSkull = false;
-			player.SkullSoul = 0;
+			sPlayer.SkullSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainDeerclops = false;
-			player.DeerclopsSoul = 0;
+			sPlayer.DeerclopsSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainWall = false;
-			player.WallSoul = 0;
+			sPlayer.WallSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainQueen = false;
-			player.QueenSoul = 0;
+			sPlayer.QueenSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainMechWorm = false;
-			player.DestroyerSoul = 0;
+			sPlayer.DestroyerSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainTwins = false;
-			player.TwinSoul = 0;
+			sPlayer.TwinSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainPrime = false;
-			player.PrimeSoul = 0;
-			player.blueprintRead = false;
+			sPlayer.PrimeSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainPlant = false;
-			player.PlantSoul = 0;
+			sPlayer.PlantSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainGolem = false;
-			player.GolemSoul = 0;
+			sPlayer.GolemSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainDuke = false;
-			player.DukeSoul = 0;
+			sPlayer.DukeSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainEmpress = false;
-			player.EmpressSoul = 0;
+			sPlayer.EmpressSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainLunatic = false;
-			player.LunaticSoul = 0;
+			sPlayer.LunaticSoul = false;
 
 			ModContent.GetInstance<SoAWorld>().slainPillarNebula = false;
 			ModContent.GetInstance<SoAWorld>().slainPillarSolar = false;
@@ -64,16 +66,14 @@ namespace ShardsOfAtheria.Commands
 			ModContent.GetInstance<SoAWorld>().slainPillarVortex = false;
 
 			ModContent.GetInstance<SoAWorld>().slainMoonLord = false;
-			player.LordSoul = 0;
+			sPlayer.LordSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainSenterra = false;
-			player.LandSoul = 0;
+			sPlayer.LandSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainGenesis = false;
-			player.TimeSoul = 0;
+			sPlayer.TimeSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainDeath = false;
-			player.DeathSoul = 0;
+			sPlayer.DeathSoul = false;
 			ModContent.GetInstance<SoAWorld>().slainEverything = false;
-			ModContent.GetInstance<SoAWorld>().messageToPlayer = 0;
-			Main.LocalPlayer.ClearBuff(ModContent.BuffType<Buffs.AwakenedSlayer>());
 			Main.NewText("Slayer mode reset");
 		}
     }

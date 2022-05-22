@@ -1,8 +1,6 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -54,7 +52,6 @@ namespace ShardsOfAtheria.Projectiles.Minions
             {
                 return;
             }
-            else Projectile.timeLeft = 2;
             Projectile.rotation = Vector2.Normalize(Projectile.Center - owner.Center).ToRotation() + MathHelper.ToRadians(180);
 
             float maxDetectRadius = 400f; // The maximum radius at which a projectile can detect a target
@@ -78,8 +75,9 @@ namespace ShardsOfAtheria.Projectiles.Minions
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
         private bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || owner.GetModPlayer<SlayerPlayer>().PlantSoul != SoulCrystalStatus.Absorbed)
+            if (owner.dead || !owner.active || !owner.GetModPlayer<SlayerPlayer>().PlantSoul)
                 return false;
+            else Projectile.timeLeft = 2;
             return true;
         }
 

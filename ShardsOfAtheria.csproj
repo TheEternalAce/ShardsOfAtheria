@@ -12,7 +12,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Items\Armor\" />
-    <Folder Include="Items\Weapons\Summon\" />
+    <Folder Include="Items\Weapons\Summon\Minion\" />
+    <Folder Include="Items\Weapons\Summon\Sentry\" />
+    <Folder Include="Items\Weapons\Summon\Whip\" />
     <Folder Include="Walls\" />
   </ItemGroup>
 </Project>

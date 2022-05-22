@@ -65,13 +65,11 @@ namespace ShardsOfAtheria.NPCs
 
         public override void OnKill()
         {
-            if (!NPC.downedBoss3 && Main.rand.NextFloat() < .01f)
-                Item.NewItem(NPC.GetSource_Loot(), NPC.getRect(), ItemID.Bone);
-            if (NPC.downedBoss3 || Main.rand.NextFloat() < .5f)
+            if (NPC.downedBoss3 && Main.rand.NextFloat() < .5f)
                 Item.NewItem(NPC.GetSource_Loot(), NPC.getRect(), ItemID.Bone);
             if (Main.rand.NextFloat() < .01f && Main.LocalPlayer.ZoneDungeon)
                 Item.NewItem(NPC.GetSource_Loot(), NPC.getRect(), ItemID.GoldenKey);
-            if (Main.rand.Next(64) == 0 && Main.LocalPlayer.ZoneDungeon)
+            if (Main.rand.NextBool(64) && Main.LocalPlayer.ZoneDungeon)
                 Item.NewItem(NPC.GetSource_Loot(), NPC.getRect(), ItemID.TallyCounter);
         }
     }

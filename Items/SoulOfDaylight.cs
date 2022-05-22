@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Items
 
         public override void SetDefaults()
         {
-            Item refItem = new Item();
+            Item refItem = new();
             refItem.SetDefaults(ItemID.SoulofLight);
             Item.width = refItem.width;
             Item.height = refItem.height;
@@ -51,7 +51,7 @@ namespace ShardsOfAtheria.Items
 
 		public override void PostUpdate()
 		{
-			Lighting.AddLight(Item.Center, Color.WhiteSmoke.ToVector3() * 0.55f * Main.essScale);
+			Lighting.AddLight(Item.Center, Color.Yellow.ToVector3() * 0.55f * Main.essScale);
 		}
 	}
 }

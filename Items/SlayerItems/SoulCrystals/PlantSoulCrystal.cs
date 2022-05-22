@@ -13,7 +13,6 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
         {
             DisplayName.SetDefault("Soul Crystal (Plantera)");
             Tooltip.SetDefault("Spawn up to 8 tentacles over the course of 40 seconds\n" +
-                "These tentacles can block projectiles\n" +
                 "Attacks fire a petal that inflicts venom\n" +
                 "Passive 15% increase in movement speed, 10% damage increase and increased life regen");
         }
@@ -21,9 +20,9 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
         public override bool? UseItem(Player player)
         {
             absorbSoulTimer--;
-            if (absorbSoulTimer == 0 || ModContent.GetInstance<ClientSideConfig>().instantAbsorb)
+            if (absorbSoulTimer == 0 || ModContent.GetInstance<ConfigClientSide>().instantAbsorb)
             {
-                Main.LocalPlayer.GetModPlayer<SlayerPlayer>().PlantSoul = SoulCrystalStatus.Absorbed;
+                Main.LocalPlayer.GetModPlayer<SlayerPlayer>().PlantSoul = true;
             }
             return base.UseItem(player);
         }

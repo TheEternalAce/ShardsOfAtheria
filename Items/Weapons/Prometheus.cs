@@ -76,7 +76,7 @@ namespace ShardsOfAtheria.Items.Weapons
                 Item.DamageType = DamageClass.Melee;
                 Item.knockBack = 13;
                 Item.mana = 0;
-                Item.UseSound = SoundID.Item1;
+                Item.UseSound = SoundID.Item71;
                 Item.shoot = ProjectileID.None;
                 Item.useTurn = true;
             }

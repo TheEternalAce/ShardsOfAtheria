@@ -32,7 +32,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon
             {
                 return;
             }
-            else Projectile.timeLeft = 2;
 
             Idle(owner);
             if (owner.GetModPlayer<DecaPlayer>().swarming)
@@ -45,6 +44,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon
             if (owner.dead || !owner.active || owner.ownedProjectileCounts[ModContent.ProjectileType<DecaShardProj>()] > owner.GetModPlayer<DecaPlayer>().decaShards
                 || !owner.GetModPlayer<DecaPlayer>().modelDeca)
                 return false;
+            else Projectile.timeLeft = 2;
             return true;
         }
 

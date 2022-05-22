@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 	{
 		public override void SetStaticDefaults() 
 		{
-			Tooltip.SetDefault("Ignores a moderate ammount of defense\n" +
+			Tooltip.SetDefault("Ignores a moderate amount of defense\n" +
 				"'Zenith's older sister'\n" +
 				"'RANDOM BULLS**T GO!'");
 		}
@@ -43,8 +43,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			CreateRecipe()
 				.AddIngredient(ItemID.WoodenSword)
 				.AddIngredient(ItemID.BoneJavelin, 180)
-				.AddIngredient(ModContent.ItemType<Cataracnia>())
-				.AddIngredient(ModContent.ItemType<OversizedWormsTooth>())
 				.AddIngredient(ItemID.BreakerBlade)
 				.AddIngredient(ItemID.ChlorophyteSaber)
 				.AddIngredient(ItemID.DayBreak)
@@ -60,9 +58,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			// Here we randomly set type to either the original (as defined by the ammo), a vanilla projectile, or a mod Projectile.
 			type = Main.rand.Next(new int[] { type, ModContent.ProjectileType<ZenovaDaybreak>(), ModContent.ProjectileType<ZenovaBoneJavelin>(),
 				ModContent.ProjectileType<ZenovaProjectile>(), ModContent.ProjectileType<ZenovaAreusSword>(),
-				ModContent.ProjectileType<ZenovaBreakerBlade>(), ModContent.ProjectileType<ZenovaCataracnia>(),
-				ModContent.ProjectileType<ZenovaChlorophyteSaber>(), ModContent.ProjectileType<ZenovaSatanlance>(),
-				ModContent.ProjectileType<ZenovaWoodenSword>(), ModContent.ProjectileType<ZenovaWormsTooth>(),
+				ModContent.ProjectileType<ZenovaBreakerBlade>(), ModContent.ProjectileType<ZenovaChlorophyteSaber>(),
+				ModContent.ProjectileType<ZenovaSatanlance>(), ModContent.ProjectileType<ZenovaWoodenSword>(),
 				ModContent.ProjectileType<ElectricBlade>(), ModContent.ProjectileType<ZenovaLostNail>()});
 			velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
 		}

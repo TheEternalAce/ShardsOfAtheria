@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
+using ShardsOfAtheria.Projectiles.Other;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,85 +12,95 @@ namespace ShardsOfAtheria.Projectiles.Tools
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("All Seeing Eye");
+            Main.projFrames[Projectile.type] = 3;
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = 24;
-            Projectile.height = 26;
+            Projectile.width = 32;
+            Projectile.height = 32;
             Projectile.aiStyle = -1;
             Projectile.tileCollide = false;
-			Projectile.alpha = 100;
         }
 
         public override void AI()
         {
-            float maxDetectRadius = 24f;
-            Player owner = Main.LocalPlayer;
+            Projectile.frame = 0;
+            float maxDetectRadius = 5f;
+            Player owner = Main.player[Projectile.owner];
 
-			if (!CheckActive(owner))
-			{
-				return;
-			}
 
-			Projectile.Center = Main.MouseWorld;
-			Lighting.AddLight(Projectile.Center, TorchID.White);
+            if (!CheckActive(owner))
+            {
+                return;
+            }
 
-			// Trying to find NPC closest to the projectile
-			NPC closestNPC = FindClosestNPC(maxDetectRadius);
-			if (closestNPC == null)
-				return;
+            if (Main.myPlayer == owner.whoAmI)
+            {
+                Projectile.Center = Main.MouseWorld;
+                Lighting.AddLight(Main.MouseWorld, TorchID.White);
+            }
 
-			if (Projectile.getRect().Intersects(closestNPC.getRect()))
-			{
-				closestNPC.AddBuff(ModContent.BuffType<Marked>(), 600);
-			}
-		}
+            if (Main.hardMode)
+            {
+                if (owner.GetModPlayer<SlayerPlayer>().TwinSoul)
+                {
+                    maxDetectRadius = 200f;
+                    Projectile.frame = 1;
+                }
+                if (owner.GetModPlayer<SlayerPlayer>().LordSoul)
+                {
+                    maxDetectRadius = 400f;
+                    Projectile.frame = 2;
+                }
+            }
+            // This code is required either way, used for finding a target
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC npc = Main.npc[i];
 
-		// This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
-		private bool CheckActive(Player owner)
-		{
-			if (owner.dead || !owner.active || owner.GetModPlayer<SlayerPlayer>().EyeSoul == SoulCrystalStatus.None)
-				return false;
-			else Projectile.timeLeft = 2;
-			return true;
-		}
+                if (npc.CanBeChasedBy())
+                {
+                    if (owner.GetModPlayer<SlayerPlayer>().TwinSoul || owner.GetModPlayer<SlayerPlayer>().LordSoul && Main.hardMode)
+                    {
+                        float between = Vector2.Distance(npc.Center, Projectile.Center);
+                        bool inRange = between < maxDetectRadius;
 
-		// Finding the closest NPC to attack within maxDetectDistance range
-		// If not found then returns null
-		public NPC FindClosestNPC(float maxDetectDistance)
-		{
-			NPC closestNPC = null;
+                        if (inRange)
+                        {
+                            if (owner.GetModPlayer<SynergyPlayer>().eyeTwinSynergy)
+                            {
+                                npc.AddBuff(ModContent.BuffType<MarkedII>(), 600);
+                                if (++Projectile.ai[0] >= 60)
+                                {
+                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Normalize(npc.Center - Projectile.Center) * 16, ProjectileID.MiniRetinaLaser, 60, 0, owner.whoAmI);
+                                    Projectile.ai[0] = 0;
+                                }
+                            }
+                            if (owner.GetModPlayer<SynergyPlayer>().eyeLordSynergy)
+                            {
+                                npc.AddBuff(ModContent.BuffType<MarkedIII>(), 600);
+                                if (++Projectile.ai[0] >= 60)
+                                {
+                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Normalize(npc.Center - Projectile.Center) * 16, ModContent.ProjectileType<PhantasmalEye>(), 60, 0, owner.whoAmI);
+                                    Projectile.ai[0] = 0;
+                                }
+                            }
+                        }
+                    }
+                    else if (Projectile.Hitbox.Intersects(npc.getRect()))
+                        npc.AddBuff(ModContent.BuffType<Marked>(), 600);
+                }
+            }
+        }
 
-			// Using squared values in distance checks will let us skip square root calculations, drastically improving this method's speed.
-			float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
-
-			// Loop through all NPCs(max always 200)
-			for (int k = 0; k < Main.maxNPCs; k++)
-			{
-				NPC target = Main.npc[k];
-				// Check if NPC able to be targeted. It means that NPC is
-				// 1. active (alive)
-				// 2. chaseable (e.g. not a cultist archer)
-				// 3. max life bigger than 5 (e.g. not a critter)
-				// 4. can take damage (e.g. moonlord core after all it's parts are downed)
-				// 5. hostile (!friendly)
-				// 6. not immortal (e.g. not a target dummy)
-				if (target.CanBeChasedBy())
-				{
-					// The DistanceSquared function returns a squared distance between 2 points, skipping relatively expensive square root calculations
-					float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, Projectile.Center);
-
-					// Check if it is within the radius
-					if (sqrDistanceToTarget < sqrMaxDetectDistance)
-					{
-						sqrMaxDetectDistance = sqrDistanceToTarget;
-						closestNPC = target;
-					}
-				}
-			}
-
-			return closestNPC;
-		}
-	}
+        // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
+        private bool CheckActive(Player owner)
+        {
+            if (owner.dead || !owner.active || !owner.GetModPlayer<SlayerPlayer>().EyeSoul)
+                return false;
+            else Projectile.timeLeft = 2;
+            return true;
+        }
+    }
 }

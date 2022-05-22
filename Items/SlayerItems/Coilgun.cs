@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 		public override void SetDefaults() 
 		{
 			Item.damage = 150;
-			Item.DamageType = DamageClass.Magic;
+			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
 			Item.width = 44;
 			Item.height = 26;
@@ -31,13 +31,17 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.autoReuse = false;
 			Item.crit = 5;
 			Item.shoot = ItemID.PurificationPowder;
-			Item.shootSpeed = 20f;
-			Item.useAmmo = ModContent.ItemType<AreusRod>();
-
-			Item.mana = 20;
+			Item.shootSpeed = 16f;
+			Item.useAmmo = AmmoID.Bullet;
+			Item.rare = ModContent.RarityType<SlayerRarity>();
 		}
 
-		public override Vector2? HoldoutOffset()
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+			velocity *= 2.5f;
+        }
+
+        public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-2, 0);
 		}

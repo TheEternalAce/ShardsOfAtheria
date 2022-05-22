@@ -11,6 +11,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("A blade that heals 100 Life after striking an enemy\n" +
+                "Taking damage while this is in your inventory will render this unusable for a time" +
                 "'SOUL STEAL!'");
         }
 

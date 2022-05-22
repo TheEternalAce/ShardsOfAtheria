@@ -16,11 +16,12 @@ namespace ShardsOfAtheria.Items.Weapons
 		public int areusCharge = 100;
 		public int areusChargeFull = 100;
 		public int chargeCost = 1;
+		public int rechargetime = 10;
 
 		// Make sure you can't use the item if you don't have enough resource and then use resourceCost otherwise.
 		public override bool CanUseItem(Player player)
 		{
-			if (!ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+			if (!ModContent.GetInstance<ConfigServerSide>().areusWeaponsCostMana)
 			{
 				if (areusCharge > 0)
                 {
@@ -34,9 +35,9 @@ namespace ShardsOfAtheria.Items.Weapons
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-			if (!ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+			if (!ModContent.GetInstance<ConfigServerSide>().areusWeaponsCostMana)
 				tooltips.Add(new TooltipLine(Mod, "Charge", $"{areusCharge}%"));
-			if (!ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+			if (!ModContent.GetInstance<ConfigServerSide>().areusWeaponsCostMana)
 				tooltips.Add(new TooltipLine(Mod, "Cost", $"Charge cost {chargeCost}%"));
 		}
 
@@ -45,6 +46,17 @@ namespace ShardsOfAtheria.Items.Weapons
 			if (areusCharge > areusChargeFull)
 				areusCharge = areusChargeFull;
 		}
+
+        public override void HoldItem(Player player)
+        {
+			if (player.GetModPlayer<SoAPlayer>().naturalAreusRegen)
+            {
+				if (--rechargetime == 0)
+                {
+					areusCharge++;
+                }
+            }
+        }
 
         public override bool ConsumeItem(Player player)
         {

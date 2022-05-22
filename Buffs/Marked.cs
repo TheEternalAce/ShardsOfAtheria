@@ -8,13 +8,8 @@ namespace ShardsOfAtheria.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Awakened Slayer");
+            DisplayName.SetDefault("Marked");
             Description.SetDefault("Taking 10% extra damage");
-        }
-
-        public override void Update(NPC npc, ref int buffIndex)
-        {
-            npc.takenDamageMultiplier = 1.1f;
         }
     }
 }

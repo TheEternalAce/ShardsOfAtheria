@@ -5,8 +5,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
     public class GunCrimson : ModProjectile {
         public override void SetDefaults() {
-            Projectile.width = 46;
-            Projectile.height = 46;
+            Projectile.width = 20;
+            Projectile.height = 20;
             Projectile.scale = .85f;
             Projectile.DamageType = DamageClass.Magic;
 

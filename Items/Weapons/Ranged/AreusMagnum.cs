@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.shootSpeed = 16f;
 			Item.useAmmo = AmmoID.Bullet;
 
-			if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+			if (ModContent.GetInstance<ConfigServerSide>().areusWeaponsCostMana)
 				Item.mana = 5;
 		}
 
@@ -46,7 +46,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 				.AddIngredient(ModContent.ItemType<AreusShard>(), 5)
 				.AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 7)
 				.AddIngredient(ItemID.HellstoneBar, 10)
-				.AddTile(ModContent.TileType<AreusForge>())
+				.AddTile(TileID.Hellforge)
 				.Register();
 		}
 

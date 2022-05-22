@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items.SlayerItems;
-using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
-using ShardsOfAtheria.Projectiles.NPCProj;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -72,7 +69,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
         private bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || owner.GetModPlayer<SlayerPlayer>().DestroyerSoul == SoulCrystalStatus.None)
+            if (owner.dead || !owner.active || !owner.GetModPlayer<SlayerPlayer>().DestroyerSoul)
                 return false;
             else Projectile.timeLeft = 2;
             return true;

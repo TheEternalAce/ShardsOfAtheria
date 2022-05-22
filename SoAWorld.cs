@@ -42,8 +42,6 @@ namespace ShardsOfAtheria
 		public bool slainGenesis = false;
 		public bool slainEverything = false;
 
-		public int messageToPlayer = 0;
-
 		public override void OnWorldUnload()
 		{
 			slayerMode = false;
@@ -71,8 +69,6 @@ namespace ShardsOfAtheria
 			slainEmpress = false;
 			slainLunatic = false;
 			slainMoonLord = false;
-
-			messageToPlayer = 0;
 		}
 
 		public override void SaveWorldData(TagCompound tag)
@@ -125,8 +121,6 @@ namespace ShardsOfAtheria
 				tag["slainLunatic"] = true;
 			if (slainMoonLord)
 				tag["slainMoonLord"] = true;
-
-			tag["messageToPlayer"] = messageToPlayer;
 		}
 
         public override void LoadWorldData(TagCompound tag)
@@ -155,8 +149,6 @@ namespace ShardsOfAtheria
 			slainDeath = tag.ContainsKey("slainDeath");
 
 			slainEverything = tag.ContainsKey("slainEverything");
-
-			messageToPlayer = tag.GetInt("messageToPlayer");
 		}
 
 		public override void NetSend(BinaryWriter writer)
@@ -281,12 +273,6 @@ namespace ShardsOfAtheria
 				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
 				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
 				WorldGen.TileRunner(x, y, WorldGen.genRand.Next(6, 6), WorldGen.genRand.Next(2, 6), ModContent.TileType<BionicOre>());
-			}
-			for (int k = 0; k < (int)((Main.maxTilesX * Main.maxTilesY) * 6E-05); k++)
-			{
-				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
-				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
-				WorldGen.TileRunner(x, y, WorldGen.genRand.Next(3, 6), WorldGen.genRand.Next(2, 6), ModContent.TileType<UraniumOreTile>());
 			}
 		}
     }

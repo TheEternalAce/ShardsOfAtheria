@@ -17,6 +17,10 @@ namespace ShardsOfAtheria.Commands
 
 		public override void Action(CommandCaller caller, string input, string[] args)
 		{
+			Player player = Main.LocalPlayer;
+			if (player.name != "Tester Shane")
+				return;
+
 			ModContent.GetInstance<SoAWorld>().slainValkyrie = true;
 			ModContent.GetInstance<SoAWorld>().slainEOC = true;
 			ModContent.GetInstance<SoAWorld>().slainBOC = true;

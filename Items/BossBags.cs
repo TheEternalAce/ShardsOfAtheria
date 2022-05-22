@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Items
 
 			if (context == "bossBag" && arg == ItemID.EaterOfWorldsBossBag)
 			{
-				player.QuickSpawnItem(source, ModContent.ItemType<OversizedWormsTooth>());
+				player.QuickSpawnItem(source, ModContent.ItemType<WormBloom>());
 			}
 			if (context == "bossBag" && arg == ItemID.QueenBeeBossBag)
 			{

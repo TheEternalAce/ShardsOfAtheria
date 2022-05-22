@@ -26,6 +26,12 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
+
+            if (Projectile.ai[0] == 1)
+            {
+                Projectile.timeLeft = 60;
+                Projectile.ai[0] = 0;
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

@@ -18,18 +18,18 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.width = 15;
 			Item.height = 22;
 			Item.value = Item.sellPrice(silver: 15);
-			Item.rare = ItemRarityID.Yellow;
+			Item.rare = ModContent.RarityType<SlayerRarity>();
 			Item.accessory = true;
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.GetModPlayer<SoAPlayer>().omnicientTome = true;
+			player.GetModPlayer<SlayerPlayer>().omnicientTome = true;
 		}
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-			Player player = Main.LocalPlayer;
+			SlayerPlayer slayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
 			var list = ShardsOfAtheria.TomeKey.GetAssignedKeys();
 			string keyname = "Not bound";
 
@@ -43,23 +43,24 @@ namespace ShardsOfAtheria.Items.SlayerItems
 
 			var line = new TooltipLine(Mod, "Verbose:RemoveMe", "This tooltip won't show in-game");
 
-			if (player.HasBuff(ModContent.BuffType<BaseCombat>()))
+			if (slayer.TomeKnowledge == 0)
 				line = new TooltipLine(Mod, "CurrentKnowledgeBase", "Combat")
 				{
 					OverrideColor = Color.Red
 				};
-			if (player.HasBuff(ModContent.BuffType<BaseConservation>()))
+			if (slayer.TomeKnowledge == 1)
 				line = new TooltipLine(Mod, "CurrentKnowledgeBase", "Conservation")
 				{
 					OverrideColor = Color.Green
 				};
-			if (player.HasBuff(ModContent.BuffType<BaseExploration>()))
+			if (slayer.TomeKnowledge == 2)
 				line = new TooltipLine(Mod, "CurrentKnowledgeBase", "Exploration")
 				{
 					OverrideColor = Color.Blue
 				};
 
 			tooltips.Add(line);
+			base.ModifyTooltips(tooltips);
 		}
 	}
 }

@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 
 		public override void SetDefaults() 
 		{
-			Item.damage = 40;
+			Item.damage = 17;
 			Item.DamageType = DamageClass.Magic;
 			Item.noMelee = true;
 			Item.width = 50;
@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.autoReuse = false;
 			Item.crit = 5;
 			Item.value = Item.sellPrice(0,  25);
-			Item.rare = ItemRarityID.Expert;
+			Item.rare = ModContent.RarityType<SlayerRarity>();
 			Item.shoot = ModContent.ProjectileType<VileShot>();
 			Item.shootSpeed = 16f;
 			Item.mana = 5;
@@ -42,7 +42,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			const int NumProjectiles = 8; // The number of projectiles that this gun will shoot.
+			int NumProjectiles = 4 + Main.rand.Next(0, 4); // The number of projectiles that this gun will shoot.
 
 			for (int i = 0; i < NumProjectiles; i++)
 			{

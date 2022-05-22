@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Items
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>())
-                .AddTile(ModContent.TileType<AreusForge>())
+                .AddTile(TileID.WorkBenches)
                 .Register();
         }
 

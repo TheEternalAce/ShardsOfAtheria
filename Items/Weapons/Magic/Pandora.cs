@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Left Click to summon lightning, <right> to fire an ice bolt\n" +
+            Tooltip.SetDefault("Left Click to fire an ice bolt, <right> to summon lightning\n" +
                 "'Destiny of destruction awaits'");
         }
 
@@ -31,6 +31,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.useAnimation = 35;
             Item.autoReuse = false;
             Item.useStyle = ItemUseStyleID.Shoot;
+            Item.staff[Item.type] = true;
             Item.value = Item.sellPrice(0,  10);
             Item.rare = ItemRarityID.Red;
         }
@@ -55,8 +56,18 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             if (player.altFunctionUse == 2)
             {
-                Item.useStyle = ItemUseStyleID.Shoot;
-                Item.staff[Item.type] = true;
+                Item.useTime = 35;
+                Item.useAnimation = 35;
+                Item.autoReuse = false;
+                Item.UseSound = SoundID.Item43;
+                Item.damage = 107;
+                Item.mana = 20;
+                Item.knockBack = 0;
+                Item.shoot = ModContent.ProjectileType<LightningBoltFriendly>();
+                Item.shootSpeed = 16;
+            }
+            else
+            {
                 Item.useTime = 20;
                 Item.useAnimation = 20;
                 Item.autoReuse = true;
@@ -65,20 +76,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 Item.mana = 6;
                 Item.knockBack = 3;
                 Item.shoot = ModContent.ProjectileType<IceBolt>();
-                Item.shootSpeed = 15;
-            }
-            else
-            {
-                Item.useStyle = ItemUseStyleID.HoldUp;
-                Item.useTime = 35;
-                Item.useAnimation = 35;
-                Item.autoReuse = false;
-                Item.UseSound = SoundID.Item43;
-                Item.damage = 107;
-                Item.mana = 10;
-                Item.knockBack = 0;
-                Item.shoot = ModContent.ProjectileType<LightningBoltFriendly>();
-                Item.shootSpeed = 100;
+                Item.shootSpeed = 16;
             }
             return base.CanUseItem(player);
         }
@@ -86,12 +84,12 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (player.altFunctionUse == 2)
-                return true;
-            else
             {
                 Projectile.NewProjectile(source, Main.MouseWorld - new Vector2(0, 200), new Vector2(0, 10), type, damage, knockback, player.whoAmI);
                 return false;
             }
+            else
+                return true;
         }
     }
 }

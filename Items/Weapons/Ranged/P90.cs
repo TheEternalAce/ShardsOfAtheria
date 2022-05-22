@@ -57,7 +57,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
-			if (type == ProjectileID.Bullet && Main.rand.Next(2) == 0)
+			if (type == ProjectileID.Bullet && Main.rand.NextBool(2))
 			{
 				type = ProjectileID.ChlorophyteBullet;
 			}

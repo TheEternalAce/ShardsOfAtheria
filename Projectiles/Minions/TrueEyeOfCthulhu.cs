@@ -1,14 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items.SlayerItems;
-using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
-using ShardsOfAtheria.Projectiles.NPCProj;
 using ShardsOfAtheria.Projectiles.Other;
 using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Minions
@@ -48,13 +43,15 @@ namespace ShardsOfAtheria.Projectiles.Minions
 			Projectile.Center = owner.Center - new Vector2(0, 90);
 
 			if (!CheckActive(owner))
+            {
 				return;
+			}
 
 			if (Main.myPlayer == Projectile.owner)
 			{
 				if (owner.direction == 1)
-					Projectile.Center = owner.Center + new Vector2(-45, -45);
-				else Projectile.Center = owner.Center + new Vector2(45, -45);
+					Projectile.Center = owner.Center + new Vector2(45, -45);
+				else Projectile.Center = owner.Center + new Vector2(-45, -45);
 
 				Projectile.spriteDirection = Main.MouseWorld.X > Projectile.Center.X ? -1 : 1;
 
@@ -78,7 +75,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
 		// This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
 		private bool CheckActive(Player owner)
 		{
-			if (owner.dead || !owner.active || owner.GetModPlayer<SlayerPlayer>().LordSoul == SoulCrystalStatus.None)
+			if (owner.dead || !owner.active || !owner.GetModPlayer<SlayerPlayer>().LordSoul)
 				return false;
 			else Projectile.timeLeft = 2;
 			return true;

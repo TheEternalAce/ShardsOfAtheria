@@ -27,6 +27,9 @@ namespace ShardsOfAtheria.Commands
 			SlayerPlayer slayerPlayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
 			SoAPlayer soaPlayer = Main.LocalPlayer.GetModPlayer<SoAPlayer>();
 			SoAWorld soaWorld = ModContent.GetInstance<SoAWorld>();
+
+			if (player.name != "Tester Shane")
+				return;
 		}
     }
 }

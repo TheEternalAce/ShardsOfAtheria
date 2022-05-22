@@ -10,12 +10,12 @@ namespace ShardsOfAtheria.Items.SlayerItems
 	{
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			var line = new TooltipLine(Mod, "Verbose:RemoveMe", "This tooltip won't show in-game");
-			line = new TooltipLine(Mod, "BloodScythe", "...")
+			var line = new TooltipLine(Mod, "BloodScythe", "...")
 			{
 				OverrideColor = Color.DarkGray
 			};
 			tooltips.Add(line);
+			base.ModifyTooltips(tooltips);
 		}
 
 		public override void SetDefaults()
@@ -32,6 +32,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.autoReuse = false;
 			Item.useTurn = true;
 			Item.crit = 100;
+			Item.rare = ModContent.RarityType<SlayerRarity>();
 		}
 
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)

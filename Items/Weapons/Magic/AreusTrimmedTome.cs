@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 			Item.shootSpeed = 32f;
 			chargeCost = 4;
 
-			if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+			if (ModContent.GetInstance<ConfigServerSide>().areusWeaponsCostMana)
 				Item.mana = 10;
 		}
 
@@ -51,8 +51,8 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 		{
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<AreusShard>(), 10)
-				.AddIngredient(ModContent.ItemType<SoulOfStarlight>(), 7)
-				.AddTile(ModContent.TileType<AreusForge>())
+				.AddIngredient(ModContent.ItemType<SoulOfTwilight>(), 7)
+				.AddTile(TileID.Hellforge)
 				.Register();
 		}
 	}

@@ -16,9 +16,9 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
         public override bool? UseItem(Player player)
         {
             absorbSoulTimer--;
-            if (absorbSoulTimer == 0 || ModContent.GetInstance<ClientSideConfig>().instantAbsorb)
+            if (absorbSoulTimer == 0 || ModContent.GetInstance<ConfigClientSide>().instantAbsorb)
             {
-                Main.LocalPlayer.GetModPlayer<SlayerPlayer>().SkullSoul = SoulCrystalStatus.Absorbed;
+                Main.LocalPlayer.GetModPlayer<SlayerPlayer>().SkullSoul = true;
             }
             return base.UseItem(player);
         }

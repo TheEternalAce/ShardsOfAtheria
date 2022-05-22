@@ -2,8 +2,6 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles.Tools;
-using Terraria.Audio;
-using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using System.Collections.Generic;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
@@ -22,13 +20,22 @@ namespace ShardsOfAtheria.Items.SlayerItems
         {
             Item.width = 36;
             Item.height = 40;
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ModContent.RarityType<SlayerRarity>();
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.shoot = ModContent.ProjectileType<ExtractingSoul>();
             Item.shootSpeed = 16f;
             Item.noUseGraphic = true;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddRecipeGroup(SoARecipes.EvilBar, 15)
+                .AddIngredient(ItemID.Stinger, 5)
+                .AddTile(TileID.DemonAltar)
+                .Register();
         }
 
         public override bool ConsumeItem(Player player)
@@ -43,37 +50,15 @@ namespace ShardsOfAtheria.Items.SlayerItems
 
         public override void RightClick(Player player)
         {
-            SelectSoul(player);
-            if (!player.GetModPlayer<SlayerPlayer>().anySoulCrystals)
+            if (player.GetModPlayer<SlayerPlayer>().soulCrystals == 0)
                 CombatText.NewText(player.getRect(), Color.Blue, "You have no Soul Crystals to extract");
+            else SelectSoul(player);
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             Player player = Main.LocalPlayer;
             var selected = new TooltipLine(Mod, "Verbose:RemoveMe", "Selected: None");
-            var line = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line1 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line2 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line3 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line4 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line5 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line6 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line7 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line8 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line9 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line10 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line11 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line12 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line13 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line14 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line15 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line16 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line17 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line18 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line19 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line20 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
-            var line21 = new TooltipLine(Mod, "Verbose:RemoveMe", "Unavailable");
 
             //Selected Soul
             if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.King)
@@ -131,13 +116,13 @@ namespace ShardsOfAtheria.Items.SlayerItems
                 {
                     OverrideColor = Color.Gray
                 };
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Twins)
-                selected = new TooltipLine(Mod, "SelectedSoul", "Selected: The Twins")
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Prime)
+                selected = new TooltipLine(Mod, "SelectedSoul", "Selected: Skeletron Prime")
                 {
                     OverrideColor = Color.Gray
                 };
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Prime)
-                selected = new TooltipLine(Mod, "SelectedSoul", "Selected: Skeletron Prime")
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Twins)
+                selected = new TooltipLine(Mod, "SelectedSoul", "Selected: The Twins")
                 {
                     OverrideColor = Color.Gray
                 };
@@ -187,190 +172,190 @@ namespace ShardsOfAtheria.Items.SlayerItems
                     OverrideColor = Color.DarkGray
                 };
 
+            tooltips.Add(selected);
+
             //Available Souls
-            if (player.GetModPlayer<SlayerPlayer>().KingSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().KingSoul)
             {
-                line = new TooltipLine(Mod, "AvailableSoul", "King Slime")
+                var line = new TooltipLine(Mod, "AvailableSoul", "King Slime")
                 {
                     OverrideColor = Color.Blue
                 };
                 tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().EyeSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().EyeSoul)
             {
-                line1 = new TooltipLine(Mod, "AvailableSoul", "Eye of Cthulhu")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Eye of Cthulhu")
                 {
                     OverrideColor = Color.Red
                 };
-                tooltips.Add(line1);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().BrainSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().BrainSoul)
             {
-                line2 = new TooltipLine(Mod, "AvailableSoul", "Brain of Cthulhu")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Brain of Cthulhu")
                 {
                     OverrideColor = Color.LightPink
                 };
-                tooltips.Add(line2);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().EaterSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().EaterSoul)
             {
-                line3 = new TooltipLine(Mod, "AvailableSoul", "Eater of Worlds")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Eater of Worlds")
                 {
                     OverrideColor = Color.Purple
                 };
-                tooltips.Add(line3);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().ValkyrieSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().ValkyrieSoul)
             {
-                line4 = new TooltipLine(Mod, "AvailableSoul", "Nova Stellar, the Lightning Valkyrie")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Nova Stellar, the Lightning Valkyrie")
                 {
                     OverrideColor = Color.DeepSkyBlue
                 };
-                tooltips.Add(line4);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().BeeSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().BeeSoul)
             {
-                line5 = new TooltipLine(Mod, "AvailableSoul", "Queen Bee")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Queen Bee")
                 {
                     OverrideColor = Color.Yellow
                 };
-                tooltips.Add(line5);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().SkullSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().SkullSoul)
             {
-                line6 = new TooltipLine(Mod, "AvailableSoul", "Skeletron")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Skeletron")
                 {
                     OverrideColor = new Color(130, 130, 90)
                 };
-                tooltips.Add(line6);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().DeerclopsSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().DeerclopsSoul)
             {
-                line7 = new TooltipLine(Mod, "AvailableSoul", "Deerclops")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Deerclops")
                 {
                     OverrideColor = Color.MediumPurple
                 };
-                tooltips.Add(line7);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().WallSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().WallSoul)
             {
-                line8 = new TooltipLine(Mod, "AvailableSoul", "Wall of Flesh")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Wall of Flesh")
                 {
                     OverrideColor = Color.MediumPurple
                 };
-                tooltips.Add(line8);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().QueenSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().QueenSoul)
             {
-                line9 = new TooltipLine(Mod, "AvailableSoul", "QueenSlime")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Queen Slime")
                 {
                     OverrideColor = Color.Pink
                 };
-                tooltips.Add(line9);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().DestroyerSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().DestroyerSoul)
             {
-                line10 = new TooltipLine(Mod, "AvailableSoul", "The Destroyer")
+                var line = new TooltipLine(Mod, "AvailableSoul", "The Destroyer")
                 {
                     OverrideColor = Color.Gray
                 };
-                tooltips.Add(line10);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().TwinSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().PrimeSoul)
             {
-                line11 = new TooltipLine(Mod, "AvailableSoul", "The Twins")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Skeletron Prime")
                 {
                     OverrideColor = Color.Gray
                 };
-                tooltips.Add(line11);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().PrimeSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().TwinSoul)
             {
-                line12 = new TooltipLine(Mod, "AvailableSoul", "Skeletron Prime")
+                var line = new TooltipLine(Mod, "AvailableSoul", "The Twins")
                 {
                     OverrideColor = Color.Gray
                 };
-                tooltips.Add(line12);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().PlantSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().PlantSoul)
             {
-                line13 = new TooltipLine(Mod, "AvailableSoul", "Plantera")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Plantera")
                 {
                     OverrideColor = Color.Pink
                 };
-                tooltips.Add(line13);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().GolemSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().GolemSoul)
             {
-                line14 = new TooltipLine(Mod, "AvailableSoul", "Golem")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Golem")
                 {
                     OverrideColor = Color.DarkOrange
                 };
-                tooltips.Add(line14);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().DukeSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().DukeSoul)
             {
-                line15 = new TooltipLine(Mod, "AvailableSoul", "Duke Fishron")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Duke Fishron")
                 {
                     OverrideColor = Color.SeaGreen
                 };
-                tooltips.Add(line15);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().EmpressSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().EmpressSoul)
             {
-                line16 = new TooltipLine(Mod, "AvailableSoul", "Empress of Light")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Empress of Light")
                 {
                     OverrideColor = Main.DiscoColor
                 };
-                tooltips.Add(line16);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().LunaticSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().LunaticSoul)
             {
-                line17 = new TooltipLine(Mod, "AvailableSoul", "Lunatic Cultist")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Lunatic Cultist")
                 {
                     OverrideColor = Color.Blue
                 };
-                tooltips.Add(line17);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().LordSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().LordSoul)
             {
-                line18 = new TooltipLine(Mod, "AvailableSoul", "Moon Lord")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Moon Lord")
                 {
                     OverrideColor = Color.LightCyan
                 };
-                tooltips.Add(line18);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().LandSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().LandSoul)
             {
-                line19 = new TooltipLine(Mod, "AvailableSoul", "Senterra, the Atherial Land")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Senterra, the Atherial Land")
                 {
                     OverrideColor = Color.Green
                 };
-                tooltips.Add(line19);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().TimeSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().TimeSoul)
             {
-                line20 = new TooltipLine(Mod, "AvailableSoul", "Genesis, Atherial Time")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Genesis, Atherial Time")
                 {
                     OverrideColor = Color.BlueViolet
                 };
-                tooltips.Add(line20);
+                tooltips.Add(line);
             }
-            if (player.GetModPlayer<SlayerPlayer>().DeathSoul == SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().DeathSoul)
             {
-                line21 = new TooltipLine(Mod, "AvailableSoul", "Elizabeth Norman, Death")
+                var line = new TooltipLine(Mod, "AvailableSoul", "Elizabeth Norman, Death")
                 {
                     OverrideColor = Color.DarkGray
                 };
-                tooltips.Add(line21);
+                tooltips.Add(line);
             }
-
-            tooltips.Add(selected);
         }
 
         public override bool CanUseItem(Player player)
         {
-            return player.GetModPlayer<SlayerPlayer>().selectedSoul != SelectedSoul.None && player.GetModPlayer<SlayerPlayer>().anySoulCrystals;
+            return !player.immune && player.GetModPlayer<SlayerPlayer>().selectedSoul != SelectedSoul.None && player.GetModPlayer<SlayerPlayer>().soulCrystals > 0;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -383,56 +368,68 @@ namespace ShardsOfAtheria.Items.SlayerItems
             if (player.direction == 1)
                 toPlayer = player.Center + new Vector2(-48, 0);
             else toPlayer = player.Center + new Vector2(48, 0);
-            Projectile.NewProjectile(source, spawnLocation, toPlayer, type, 0, 0, player.whoAmI);
+            Projectile.NewProjectile(source, spawnLocation, toPlayer * 4 + player.velocity, type, 50, 0, Main.myPlayer);
             return false;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            SelecableSouls(player);
         }
 
         public override void UpdateInventory(Player player)
         {
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.King && player.GetModPlayer<SlayerPlayer>().KingSoul != SoulCrystalStatus.Absorbed)
+            SelecableSouls(player);
+        }
+        
+        public void SelecableSouls(Player player)
+        {
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.King && !player.GetModPlayer<SlayerPlayer>().KingSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Eye;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Eye && player.GetModPlayer<SlayerPlayer>().EyeSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Eye && !player.GetModPlayer<SlayerPlayer>().EyeSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Brain;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Brain && player.GetModPlayer<SlayerPlayer>().BrainSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Brain && !player.GetModPlayer<SlayerPlayer>().BrainSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Eater;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Eater && player.GetModPlayer<SlayerPlayer>().EaterSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Eater && !player.GetModPlayer<SlayerPlayer>().EaterSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Valkyrie;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Valkyrie && player.GetModPlayer<SlayerPlayer>().ValkyrieSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Valkyrie && !player.GetModPlayer<SlayerPlayer>().ValkyrieSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Bee;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Bee && player.GetModPlayer<SlayerPlayer>().BeeSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Bee && !player.GetModPlayer<SlayerPlayer>().BeeSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Skull;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Skull && player.GetModPlayer<SlayerPlayer>().BeeSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Skull && !player.GetModPlayer<SlayerPlayer>().SkullSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Deerclops;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Deerclops && player.GetModPlayer<SlayerPlayer>().DeerclopsSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Deerclops && !player.GetModPlayer<SlayerPlayer>().DeerclopsSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Wall;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Wall && player.GetModPlayer<SlayerPlayer>().WallSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Wall && !player.GetModPlayer<SlayerPlayer>().WallSoul)
+                player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Queen;
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Queen && !player.GetModPlayer<SlayerPlayer>().QueenSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Destroyer;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Destroyer && player.GetModPlayer<SlayerPlayer>().DestroyerSoul != SoulCrystalStatus.Absorbed)
-                player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Twins;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Twins && player.GetModPlayer<SlayerPlayer>().TwinSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Destroyer && !player.GetModPlayer<SlayerPlayer>().DestroyerSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Prime;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Prime && player.GetModPlayer<SlayerPlayer>().PrimeSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Prime && !player.GetModPlayer<SlayerPlayer>().PrimeSoul)
+                player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Twins;
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Twins && !player.GetModPlayer<SlayerPlayer>().TwinSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Plant;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Plant && player.GetModPlayer<SlayerPlayer>().PlantSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Plant && !player.GetModPlayer<SlayerPlayer>().PlantSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Golem;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Golem && player.GetModPlayer<SlayerPlayer>().GolemSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Golem && !player.GetModPlayer<SlayerPlayer>().GolemSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Duke;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Duke && player.GetModPlayer<SlayerPlayer>().DukeSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Duke && !player.GetModPlayer<SlayerPlayer>().DukeSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Empress;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Empress && player.GetModPlayer<SlayerPlayer>().EmpressSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Empress && !player.GetModPlayer<SlayerPlayer>().EmpressSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Lunatic;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Lunatic && player.GetModPlayer<SlayerPlayer>().LunaticSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Lunatic && !player.GetModPlayer<SlayerPlayer>().LunaticSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Lord;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Lord && player.GetModPlayer<SlayerPlayer>().LordSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Lord && !player.GetModPlayer<SlayerPlayer>().LordSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Senterrra;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Senterrra && player.GetModPlayer<SlayerPlayer>().LandSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Senterrra && !player.GetModPlayer<SlayerPlayer>().LandSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Genesis;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Genesis && player.GetModPlayer<SlayerPlayer>().TimeSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Genesis && !player.GetModPlayer<SlayerPlayer>().TimeSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.Death;
-            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Death && player.GetModPlayer<SlayerPlayer>().DeathSoul != SoulCrystalStatus.Absorbed)
+            if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Death && !player.GetModPlayer<SlayerPlayer>().DeathSoul)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.King;
 
-            if (!player.GetModPlayer<SlayerPlayer>().anySoulCrystals)
+            if (player.GetModPlayer<SlayerPlayer>().soulCrystals == 0)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.None;
             else if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.None)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.King;

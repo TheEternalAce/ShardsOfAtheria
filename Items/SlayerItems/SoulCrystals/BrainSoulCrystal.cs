@@ -22,9 +22,9 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
         public override bool? UseItem(Player player)
         {
             absorbSoulTimer--;
-            if (absorbSoulTimer == 0 || ModContent.GetInstance<ClientSideConfig>().instantAbsorb)
+            if (absorbSoulTimer == 0 || ModContent.GetInstance<ConfigClientSide>().instantAbsorb)
             {
-                Main.LocalPlayer.GetModPlayer<SlayerPlayer>().BrainSoul = SoulCrystalStatus.Absorbed;
+                Main.LocalPlayer.GetModPlayer<SlayerPlayer>().BrainSoul = true;
                 if (!player.HasBuff(ModContent.BuffType<CreeperShield>()) && !player.HasItem(ModContent.ItemType<SoulExtractingDagger>()))
                 {
                     NPC.NewNPC(NPC.GetBossSpawnSource(player.whoAmI), (int)(player.Center.X + 20), (int)(player.Center.Y + 20), ModContent.NPCType<Creeper>());

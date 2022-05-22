@@ -58,7 +58,7 @@ namespace ShardsOfAtheria.Items.Tools
 			Item.shoot = ModContent.ProjectileType<RedAreusDrillProj>();
 			Item.shootSpeed = 32;
 
-			if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+			if (ModContent.GetInstance<ConfigServerSide>().areusWeaponsCostMana)
 				Item.mana = 0;
 			else chargeCost = 0;
 		}

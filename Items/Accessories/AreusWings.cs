@@ -54,7 +54,7 @@ namespace ShardsOfAtheria.Items.Accessories
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<AreusShard>(), 20)
 				.AddIngredient(ItemID.FragmentVortex, 6)
-				.AddTile(ModContent.TileType<AreusForge>())
+				.AddTile(TileID.LunarCraftingStation)
 				.Register();
 		}
 	}

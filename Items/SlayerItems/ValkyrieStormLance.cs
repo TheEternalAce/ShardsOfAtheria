@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
 			Item.autoReuse = true;
-			Item.rare = ItemRarityID.Expert;
+			Item.rare = ModContent.RarityType<SlayerRarity>();
 		}
 
         public override bool CanUseItem(Player player)

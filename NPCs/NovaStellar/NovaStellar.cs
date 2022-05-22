@@ -271,7 +271,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
         }
 
         public void DoSecondStage(Player player)
-        {
+          {
             SecondStageTimer++;
 
             Vector2 position = NPC.Center;
@@ -284,23 +284,25 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
             //If the projectile is hostile, the damage passed into NewProjectile will be applied doubled, and quadrupled if expert mode, so keep that in mind when balancing projectiles
 
             //Feather blade barrage
+            // + pattern
             if (SecondStageTimer == 120)
             {
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(150, 0), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(150, 0))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(-150, 0), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(-150, 0))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(0, 150), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(0, 150))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(0, -150), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(0, -150))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(150, 0), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(150, 0))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(-150, 0), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(-150, 0))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(0, 150), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(0, 150))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(0, -150), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(0, -150))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
             }
             if (SecondStageTimer == 180)
             {
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), position, toTarget * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
             }
+            // X pattern
             if (SecondStageTimer == 240)
             {
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(125, 125), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(125, 125))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(150, -125), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(150, -125))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(-125, 125), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(-125, 125))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(-125, -150), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(-125, -150))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(125, 125), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(125, 125))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(150, -125), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(150, -125))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(-125, 125), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(-125, 125))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(-125, -150), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(-125, -150))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
             }
 
             //Lightning strike

@@ -12,15 +12,16 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul Crystal (Queen Bee)");
-            Tooltip.SetDefault("Passive Hive Pack and Honey Comb effects as well as 5% increased movement speed");
+            Tooltip.SetDefault("Attacks inflict Poisoned and shoot stingers\n" +
+                "Spawn a bee every 10 seconds in combat");
         }
 
         public override bool? UseItem(Player player)
         {
             absorbSoulTimer--;
-            if (absorbSoulTimer == 0 || ModContent.GetInstance<ClientSideConfig>().instantAbsorb)
+            if (absorbSoulTimer == 0 || ModContent.GetInstance<ConfigClientSide>().instantAbsorb)
             {
-                Main.LocalPlayer.GetModPlayer<SlayerPlayer>().BeeSoul = SoulCrystalStatus.Absorbed;
+                Main.LocalPlayer.GetModPlayer<SlayerPlayer>().BeeSoul = true;
             }
             return base.UseItem(player);
         }

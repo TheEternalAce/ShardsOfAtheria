@@ -48,13 +48,13 @@ namespace ShardsOfAtheria.Items.Accessories.SevenDeadlySouls
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
-            if (lustSoul && Main.rand.Next(59) == 0)
+            if (lustSoul && Main.rand.NextBool(59))
                 Item.NewItem(target.GetSource_OnHurt(item), target.getRect(), ItemID.Heart);
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            if (lustSoul && Main.rand.Next(99) == 0)
+            if (lustSoul && Main.rand.NextBool(99))
                 Item.NewItem(target.GetSource_OnHurt(proj), target.getRect(), ItemID.Heart);
         }
     }

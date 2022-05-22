@@ -1,3 +1,3 @@
-displayName = Shards of Atheria (The Slayer Update, Part 1)
+displayName = Shards of Atheria (The Slayer Update, Part 3)
 author = TheEternalAce
-version = 0.7.7
+version = 0.7.8

@@ -16,9 +16,8 @@ namespace ShardsOfAtheria.Items.SlayerItems
             Item.width = 16;
             Item.height = 22;
             Item.value = Item.sellPrice(silver: 15);
-            Item.rare = ItemRarityID.White;
+            Item.rare = ModContent.RarityType<SlayerRarity>();
             Item.accessory = true;
-            Item.expert = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

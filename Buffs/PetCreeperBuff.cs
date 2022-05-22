@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Buffs
 		public override void Update(Player player, ref int buffIndex)
 		{
 			player.buffTime[buffIndex] = 18000;
-			player.GetModPlayer<SoAPlayer>().creeperPet = true;
+			player.GetModPlayer<SlayerPlayer>().creeperPet = true;
 			bool petProjectileNotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<PetCreeper>()] <= 0;
 			if (petProjectileNotSpawned && player.whoAmI == Main.myPlayer)
 			{

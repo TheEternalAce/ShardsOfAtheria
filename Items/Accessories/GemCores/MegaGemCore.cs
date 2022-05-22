@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
                 keyname = list[0];
             }
 
-            tooltips.Add(new TooltipLine(Mod, "Damage", $"Allows teleportation on press of '[i:{keyname}]'"));
+            tooltips.Add(new TooltipLine(Mod, "Teleport", $"Allows teleportation on press of '[i:{keyname}]'"));
         }
 
         public override void SetDefaults()
@@ -108,7 +108,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.AddBuff(BuffID.Honey, 2);
             player.AddBuff(BuffID.Campfire, 2);
             player.AddBuff(BuffID.HeartLamp, 2);
-            if (ModContent.GetInstance<ClientSideConfig>().megaGemCoreGrav)
+            if (ModContent.GetInstance<ConfigClientSide>().megaGemCoreGrav)
                 player.AddBuff(BuffID.Gravitation, 2);
 
             player.GetModPlayer<SoAPlayer>().megaGemCore = true;

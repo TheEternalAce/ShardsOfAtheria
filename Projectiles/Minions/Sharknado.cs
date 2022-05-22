@@ -1,12 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
-using ShardsOfAtheria.Projectiles.NPCProj;
-using ShardsOfAtheria.Projectiles.Other;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -26,10 +19,9 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
         public override void SetDefaults()
         {
-            Projectile.CloneDefaults(ProjectileID.Tempest);
+			Projectile.width = 4;
+			Projectile.height = 4;
 			Projectile.aiStyle = -1;
-			Projectile.minion = false;
-			Projectile.minionSlots = 0;
 			Projectile.friendly = false;
             Projectile.timeLeft = 360000;
             Projectile.penetrate = -1;
@@ -52,7 +44,9 @@ namespace ShardsOfAtheria.Projectiles.Minions
 			Projectile.Center = owner.Center - new Vector2(0, 90);
 
 			if (!CheckActive(owner))
-				Projectile.Kill();
+			{
+				return;
+			}
 
 			SearchForTargets(owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter);
 
@@ -69,8 +63,9 @@ namespace ShardsOfAtheria.Projectiles.Minions
 		// This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
 		private bool CheckActive(Player owner)
 		{
-			if (owner.dead || !owner.active || owner.GetModPlayer<SlayerPlayer>().DukeSoul == SoulCrystalStatus.None)
+			if (owner.dead || !owner.active || !owner.GetModPlayer<SlayerPlayer>().DukeSoul)
 				return false;
+			else Projectile.timeLeft = 2;
 			return true;
 		}
 

@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<AreusDaggerProj>();
             Item.shootSpeed = 4f;
 
-            if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+            if (ModContent.GetInstance<ConfigServerSide>().areusWeaponsCostMana)
                 Item.mana = 7;
         }
 
@@ -38,9 +38,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 7)
-                .AddIngredient(ModContent.ItemType<SoulOfStarlight>(), 10)
+                .AddIngredient(ModContent.ItemType<SoulOfTwilight>(), 10)
                 .AddIngredient(ItemID.HellstoneBar, 10)
-                .AddTile(ModContent.TileType<AreusForge>())
+                .AddTile(TileID.Hellforge)
                 .Register();
         }
 

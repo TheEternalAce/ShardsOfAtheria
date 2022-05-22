@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Holding this weapon increases your movement speed by 5%\n" +
-                "'Call me Karlson'");
+                "'I am all out of milk'");
         }
 
         public override void SetDefaults()
@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<ElectricKunai>();
             Item.shootSpeed = 6;
 
-            if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+            if (ModContent.GetInstance<ConfigServerSide>().areusWeaponsCostMana)
                 Item.mana = 9;
         }
 
@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 17)
                 .AddIngredient(ItemID.SoulofFlight, 10)
-                .AddTile(ModContent.TileType<AreusForge>())
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 

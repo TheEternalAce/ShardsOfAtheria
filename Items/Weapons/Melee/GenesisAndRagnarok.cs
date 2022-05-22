@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -12,7 +12,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     public class GenesisAndRagnarok : ModItem
     {
         public int combo = 0;
-        private int comboTimer;
+        public int comboTimer;
+        public int level = 0;
 
         public override void SetStaticDefaults()
         {
@@ -144,7 +145,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (type == ModContent.ProjectileType<Genesis_Whip>() /*|| type == ModContent.ProjectileType<Genesis_Sword>()*/)
+            if (type == ModContent.ProjectileType<Genesis_Whip>())
             {
                 float ai4 = (Main.rand.NextFloat() - 0.5f) * ((float)Math.PI / 4f);
                 Projectile.NewProjectile(source, player.Center, Vector2.Normalize(Main.MouseWorld - player.Center), type, damage, knockback, player.whoAmI, 0f, ai4);

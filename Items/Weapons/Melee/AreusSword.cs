@@ -12,7 +12,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 	{
 		public override void SetStaticDefaults()
         {
-			//DisplayName.SetDefault("Areus Sword");
 			Tooltip.SetDefault("Definitely wont(?) shock you");
 		}
 
@@ -34,7 +33,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.shoot = ModContent.ProjectileType<ElectricBlade>();
 			Item.shootSpeed = 10;
 
-			if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+			if (ModContent.GetInstance<ConfigServerSide>().areusWeaponsCostMana)
 				Item.mana = 8;
 		}
 
@@ -43,7 +42,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<AreusShard>(), 20)
 				.AddIngredient(ItemID.FragmentVortex, 20)
-				.AddTile(ModContent.TileType<AreusForge>())
+				.AddTile(TileID.LunarCraftingStation)
 				.Register();
 		}
 

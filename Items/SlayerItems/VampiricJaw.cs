@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.height = 32;
 			Item.value = Item.sellPrice(0,  15);
 			Item.defense = 9;
-			Item.rare = ItemRarityID.Expert;
+			Item.rare = ModContent.RarityType<SlayerRarity>();
 		}
 
         public override void UpdateEquip(Player player)
@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			player.buffImmune[BuffID.Bleeding] = true;
 			player.buffImmune[BuffID.Slow] = true;
 			player.buffImmune[BuffID.Cursed] = true;
-			player.GetModPlayer<SoAPlayer>().vampiricJaw = true;
+			player.GetModPlayer<SlayerPlayer>().vampiricJaw = true;
 		}
 	}
 }

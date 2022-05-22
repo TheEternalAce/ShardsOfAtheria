@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<EmeraldCore_Lesser>())
 				.AddIngredient(ItemID.HellstoneBar, 5)
-				.AddIngredient(4978)
+				.AddIngredient(ItemID.CreativeWings)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}

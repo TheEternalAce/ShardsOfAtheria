@@ -24,11 +24,11 @@ Mods: {
 				DislikeBiome: "I don't like {BiomeName}, it reminds me of Sanshannah."
 				HateBiome: "I hate {BiomeName}, it's so boring. No colors but grey, gray and maybe brown."
 				
-				LoveNPC: "{NPCName} makes me feel a certain way.. But regardless I'd love for her to do my hair! (If I HAD hair. Give me a proper sprite already!)"
+				LoveNPC: "{NPCName} makes me feel a certain way.. But regardless she does a grat job doing my hair!"
 				LikeNPC: "Nobody gives {NPCName} enough credit. I mean come on, he knows the Soul of Eternity's whole crafting tree yet you have to look it up on Recipe Browser!"
 				LikeNPC_Princess: "{NPCName} reminds me of our king and queen in Atheria, I didn't know humans had royalty as well!"
-				DislikeNPC: '''"{NPCName} keeps rambling on about "payed mods"... Wish I could convince him how terrible of an idea that is."'''
-				HateNPC: "{NPCName}, I get he's a child but he's kind of a brat."
+				DislikeNPC: '''"{NPCName} doesn't take areus as acceptable currency.."'''
+				HateNPC: ""
 			}
 		}
 	}

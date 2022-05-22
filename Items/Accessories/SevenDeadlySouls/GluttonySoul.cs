@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Projectiles.Other;
+using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,7 +13,8 @@ namespace ShardsOfAtheria.Items.Accessories.SevenDeadlySouls
             Tooltip.SetDefault("Increases melee damage by 15%\n" +
                 "Defense reduced by 15\n" +
                 "Starving debuff\n" +
-                "Killing enemies heals 20% of max Life");
+                "Critical strikes on enemies creates a food chunk that will heal you when it makes contact\n" +
+                "If an attack kills an enemy the food chuck will heal for more");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -46,18 +48,30 @@ namespace ShardsOfAtheria.Items.Accessories.SevenDeadlySouls
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
-            if (Player.GetModPlayer<GluttonyPlayer>().gluttonySoul)
+            if (gluttonySoul)
             {
-                Player player = Main.LocalPlayer;
-                if (target.lifeMax > 5 && target.life > 0)
+                if (target.life > 0 && crit)
                 {
-                    player.statLife += 15;
-                    CombatText.NewText(Player.getRect(), Colors.RarityGreen, 15);
+                    Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Player.Center - target.Center * 10f, ModContent.ProjectileType<FoodChunk>(), 0, 0, Player.whoAmI, 0f);
                 }
                 if (target.life <= 0)
                 {
-                    player.statLife += (int)(player.statLifeMax2 * .2f);
-                    CombatText.NewText(player.getRect(), Colors.RarityGreen, (int)(player.statLifeMax2 * .2f));
+                    Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Player.Center - target.Center * 10f, ModContent.ProjectileType<FoodChunk>(), 0, 0, Player.whoAmI, 1f);
+                }
+            }
+        }
+
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        {
+            if (gluttonySoul)
+            {
+                if (target.lifeMax > 5 && target.life > 0 && crit)
+                {
+                    Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Player.Center - target.Center * 10f, ModContent.ProjectileType<FoodChunk>(), 0, 0, Player.whoAmI, 0f);
+                }
+                if (target.life <= 0)
+                {
+                    Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Player.Center - target.Center * 10f, ModContent.ProjectileType<FoodChunk>(), 0, 0, Player.whoAmI, 1f);
                 }
             }
         }

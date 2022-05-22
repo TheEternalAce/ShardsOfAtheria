@@ -1,8 +1,6 @@
-﻿ 
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -77,9 +75,10 @@ namespace ShardsOfAtheria.Projectiles.Minions
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
         private bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || owner.GetModPlayer<SlayerPlayer>().WallSoul != SoulCrystalStatus.Absorbed)
+            if (owner.dead || !owner.active || !owner.GetModPlayer<SlayerPlayer>().WallSoul)
                 return false;
-            return true;
+			else Projectile.timeLeft = 2;
+			return true;
 		}
 
 		private void GeneralBehavior(Player owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition)

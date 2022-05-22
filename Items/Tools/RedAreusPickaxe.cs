@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.Tools
 			Item.autoReuse = true;
 			Item.useTurn = true;
 
-			if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+			if (ModContent.GetInstance<ConfigServerSide>().areusWeaponsCostMana)
 				Item.mana = 0;
 			else chargeCost = 0;
 		}

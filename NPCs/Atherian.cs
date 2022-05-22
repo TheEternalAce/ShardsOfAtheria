@@ -24,9 +24,9 @@ namespace ShardsOfAtheria.NPCs
         {
             // DisplayName automatically assigned from .lang files, but the commented line below is the normal approach.
             // DisplayName.SetDefault("Example Person");
-            Main.npcFrameCount[Type] = 25;
+            Main.npcFrameCount[Type] = 26;
             NPCID.Sets.ExtraFramesCount[Type] = 9;
-            NPCID.Sets.AttackFrameCount[Type] = 4;
+            NPCID.Sets.AttackFrameCount[Type] = 5;
             NPCID.Sets.DangerDetectRange[Type] = 700;
             NPCID.Sets.AttackType[Type] = 0;
             NPCID.Sets.AttackTime[Type] = 90;
@@ -44,7 +44,7 @@ namespace ShardsOfAtheria.NPCs
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
-            // Set Example Person's biome and neighbor preferences with the NPCHappiness hook. You can add happiness text and remarks with localization (See an example in ExampleMod/Localization/en-US.lang
+            // Set Atherian's biome and neighbor preferences with the NPCHappiness hook. You can add happiness text and remarks with localization (See an example in ExampleMod/Localization/en-US.lang
             NPC.Happiness
                 //Biomes
                 .SetBiomeAffection<HallowBiome>(AffectionLevel.Love)
@@ -54,8 +54,7 @@ namespace ShardsOfAtheria.NPCs
                 //NPCs
                 .SetNPCAffection(NPCID.Stylist, AffectionLevel.Love)
                 .SetNPCAffection(NPCID.Guide, AffectionLevel.Like)
-                .SetNPCAffection(NPCID.Merchant, AffectionLevel.Dislike)
-                .SetNPCAffection(NPCID.Angler, AffectionLevel.Hate);
+                .SetNPCAffection(NPCID.Merchant, AffectionLevel.Dislike);
         }
 
         public override void SetDefaults()
@@ -73,7 +72,7 @@ namespace ShardsOfAtheria.NPCs
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.knockBackResist = 0.5f;
 
-            AnimationType = NPCID.Clothier;
+            AnimationType = NPCID.Merchant;
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -106,10 +105,17 @@ namespace ShardsOfAtheria.NPCs
                 if (!player.active)
                     continue;
 
-                if (NPC.downedBoss2 && !ModContent.GetInstance<SoAWorld>().slayerMode)
+                if (NPC.downedBoss2 && !(ModContent.GetInstance<SoAWorld>().slainSenterra || ModContent.GetInstance<SoAWorld>().slainGenesis))
                     return true;
             }
             return false;
+        }
+
+        public override bool PreAI()
+        {
+            if (ModContent.GetInstance<SoAWorld>().slainSenterra)
+                NPC.active = false;
+            return base.PreAI();
         }
 
         public override List<string> SetNPCNameList()
@@ -119,15 +125,19 @@ namespace ShardsOfAtheria.NPCs
 
         public override string GetChat()
         {
-            WeightedRandom<string> chat = new WeightedRandom<string>();
-            int painter = NPC.FindFirstNPC(NPCID.Painter);
-            if (painter >= 0 && Main.rand.NextBool(6))
-                chat.Add("Maybe " + Main.npc[painter].GivenName + " can make me a sprite... Huh? Oh, yes yes, enough of that, let's talk capitalism.");
+            WeightedRandom<string> chat = new();
+
+            int dryad = NPC.FindFirstNPC(NPCID.Dryad);
+            if (dryad >= 0)
+            {
+                chat.Add(Main.npc[dryad].GivenName + " is 500 years old huh? I'm only half that, neat.", 1/4);
+            }
+
             if (Main.LocalPlayer.HasItem(ModContent.ItemType<AreusWings>()))
-                return "Yikes, those wings do not meet my standards, here let me fix that for you.";
-            if (Main.LocalPlayer.HasItem(ModContent.ItemType<MicrobeAnalyzer>()))
-                return "That Microbe Analyzer looks great, but it could be better. Hand it over and I can upgrade it.";
-            chat.Add("Hey! Tell the mod developer to give me a proper sprite!");
+                return "Yikes, those wings do not serve us atherians any justice, here let me fix that for you.";
+            chat.Add("DOOR STUCK!");
+            chat.Add("Hello there.");
+            chat.Add("I used to have so many lines of dialogue what happened?");
             return chat;
         }
 
@@ -158,20 +168,7 @@ namespace ShardsOfAtheria.NPCs
 
                     return;
                 }
-                if (Main.LocalPlayer.HasItem(ModContent.ItemType<MicrobeAnalyzer>()))
-                {
-                    SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
-
-                    Main.npcChatText = "There, it'll be much more efficient at analyzing those Microbes.";
-
-                    int microbeAnalyzer = Main.LocalPlayer.FindItem(ModContent.ItemType<MicrobeAnalyzer>());
-
-                    Main.LocalPlayer.inventory[microbeAnalyzer].TurnToAir();
-                    Main.LocalPlayer.QuickSpawnItem(new EntitySource_Gift(NPC), ModContent.ItemType<MicrobeAnalyzerMkII>());
-
-                    return;
-                }
-                if (!Main.LocalPlayer.HasItem(ModContent.ItemType<AreusWings>()) && !Main.LocalPlayer.HasItem(ModContent.ItemType<MicrobeAnalyzer>()))
+                if (!Main.LocalPlayer.HasItem(ModContent.ItemType<AreusWings>()))
                 {
                     Main.npcChatText = "Sorry pal, you don't have anything I can upgrade";
 
@@ -182,7 +179,7 @@ namespace ShardsOfAtheria.NPCs
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
-            if (!ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+            if (!ModContent.GetInstance<ConfigServerSide>().areusWeaponsCostMana)
             {
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusChargePack>());
                 nextSlot++;
@@ -263,7 +260,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 //if (NPC.downedPlantBoss)
                 //{
-                //    shop.item[nextSlot].SetDefaults(ItemID.ClothierVoodooDoll);
+                //    shop.item[nextSlot].SetDefaults();
                 //    nextSlot++;
                 //}
                 if (NPC.downedGolemBoss)

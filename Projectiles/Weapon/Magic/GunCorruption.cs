@@ -8,8 +8,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
     public class GunCorruption : ModProjectile {
         public override void SetDefaults() {
-            Projectile.width = 36;
-            Projectile.height = 36;
+            Projectile.width = 20;
+            Projectile.height = 20;
             Projectile.DamageType = DamageClass.Magic;
 
             Projectile.aiStyle = -1;

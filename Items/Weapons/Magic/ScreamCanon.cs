@@ -38,16 +38,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 			Item.shootSpeed = 20f;
 		}
 
-		public override void AddRecipes() 
-		{
-			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<AreusShard>(), 20)
-				.AddIngredient(ItemID.SoulofMight, 7)
-				.AddIngredient(ItemID.SoulofFright, 7)
-				.AddTile(ModContent.TileType<AreusForge>())
-				.Register();
-		}
-
 		public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-2, 0);

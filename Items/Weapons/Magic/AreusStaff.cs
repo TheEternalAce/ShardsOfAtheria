@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 			Item.shoot = ModContent.ProjectileType<ElectricBolt>();
 			Item.shootSpeed = 16f;
 
-			if (ModContent.GetInstance<ServerSideConfig>().areusWeaponsCostMana)
+			if (ModContent.GetInstance<ConfigServerSide>().areusWeaponsCostMana)
 				Item.mana = 6;
 		}
 
@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<AreusShard>(), 10)
 				.AddIngredient(ItemID.FragmentVortex, 7)
-				.AddTile(ModContent.TileType<AreusForge>())
+				.AddTile(TileID.LunarCraftingStation)
 				.Register();
 		}
 	}

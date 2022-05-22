@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.rare = ItemRarityID.Expert;
+			Item.rare = ModContent.RarityType<SlayerRarity>();
 			Item.useStyle = ItemUseStyleID.HoldUp;
 			Item.useTime = 45;
 			Item.useAnimation = 45;
@@ -31,12 +31,12 @@ namespace ShardsOfAtheria.Items.SlayerItems
         {
 			if (!player.HasBuff(ModContent.BuffType<ClockCooldown>()))
 			{
-				player.Teleport(player.GetModPlayer<SoAPlayer>().recentPos);
-				player.statLife = player.GetModPlayer<SoAPlayer>().recentLife;
-				player.statMana = player.GetModPlayer<SoAPlayer>().recentMana;
+				player.Teleport(player.GetModPlayer<SlayerPlayer>().recentPos);
+				player.statLife = player.GetModPlayer<SlayerPlayer>().recentLife;
+				player.statMana = player.GetModPlayer<SlayerPlayer>().recentMana;
 				//player.GetModPlayer<SoAPlayer>().areusResourceCurrent = player.GetModPlayer<SoAPlayer>().recentCharge;
 				player.AddBuff(ModContent.BuffType<ClockCooldown>(), 5 * 60);
-				player.GetModPlayer<SoAPlayer>().saveTimer = 0;
+				player.GetModPlayer<SlayerPlayer>().saveTimer = 0;
 				return true;
 			}
 			else return false;
@@ -44,7 +44,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 
         public override void UpdateInventory(Player player)
         {
-			player.GetModPlayer<SoAPlayer>().spiderClock = true;
+			player.GetModPlayer<SlayerPlayer>().spiderClock = true;
 		}
     }
 }

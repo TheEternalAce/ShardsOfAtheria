@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Projectiles.NPCProj;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -47,30 +49,70 @@ namespace ShardsOfAtheria.NPCs
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                if (NPC.Distance(Main.player[NPC.target].Center) > 400f)
+                if (Main.player[NPC.target].dead || !Main.player[NPC.target].active || !Main.player[NPC.target].GetModPlayer<SlayerPlayer>().BrainSoul
+                    || Main.player[NPC.target].GetModPlayer<SynergyPlayer>().brainLordSynergy)
+                    NPC.active = false;
+                else NPC.active = true;
+
+                aiTimer++;
+                if (aiTimer <= 1)
                 {
-                    if (Main.player[NPC.target].velocity != Vector2.Zero)
-                        NPC.velocity = toOwner * 15f;
-                    else NPC.velocity = toOwner * Main.player[NPC.target].velocity * 2f;
-                    return;
+                    NPC.velocity = toOwner.RotatedByRandom(MathHelper.ToRadians(5)) * 5f;
                 }
-                aiTimer--;
-                if (aiTimer == 25)
+                if (aiTimer == 5)
                     Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.position, Vector2.Zero, ModContent.ProjectileType<CreeperHitbox>(), 40, 0f, Main.player[NPC.target].whoAmI);
                 if (aiTimer == 15)
                     Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.position, Vector2.Zero, ModContent.ProjectileType<CreeperHitbox>(), 40, 0f, Main.player[NPC.target].whoAmI);
-                if (aiTimer == 5)
-                    Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.position, Vector2.Zero, ModContent.ProjectileType<CreeperHitbox>(), 40, 0f, Main.player[NPC.target].whoAmI);
-                if (aiTimer <= 0)
+                if (aiTimer == 25)
                 {
-                    NPC.velocity = toOwner.RotatedByRandom(MathHelper.ToRadians(45)) * 6f;
-                    aiTimer = 30;
+                    Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.position, Vector2.Zero, ModContent.ProjectileType<CreeperHitbox>(), 40, 0f, Main.player[NPC.target].whoAmI);
+                    aiTimer = 0;
                 }
-                Main.player[NPC.target].AddBuff(ModContent.BuffType<Buffs.CreeperShield>(), 2);
-                
-                if (Main.player[NPC.target].dead || !Main.player[NPC.target].active || Main.player[NPC.target].GetModPlayer<SlayerPlayer>().BrainSoul <= 1)
-                    NPC.active = false;
-                else NPC.active = true;
+                if (Main.player[NPC.target].GetModPlayer<SynergyPlayer>().brainLordSynergy)
+                {
+                    Main.player[NPC.target].AddBuff(ModContent.BuffType<TrueCreeperShield>(), 2);
+                }
+                else Main.player[NPC.target].AddBuff(ModContent.BuffType<CreeperShield>(), 2);
+
+                // If your minion is flying, you want to do this independently of any conditions
+                float overlapVelocity = 0.04f;
+
+                // Fix overlap with other minions
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    NPC other = Main.npc[i];
+
+                    if (i != NPC.whoAmI && other.active && other.type == ModContent.NPCType<Creeper>() && Math.Abs(NPC.position.X - other.position.X) + Math.Abs(NPC.position.Y - other.position.Y) < NPC.width)
+                    {
+                        if (NPC.position.X < other.position.X)
+                        {
+                            NPC.velocity.X -= overlapVelocity;
+                        }
+                        else
+                        {
+                            NPC.velocity.X += overlapVelocity;
+                        }
+
+                        if (NPC.position.Y < other.position.Y)
+                        {
+                            NPC.velocity.Y -= overlapVelocity;
+                        }
+                        else
+                        {
+                            NPC.velocity.Y += overlapVelocity;
+                        }
+                    }
+                }
+
+                if (NPC.Distance(Main.player[NPC.target].Center) > 400f)
+                {
+                    NPC.Center = Main.player[NPC.target].Center;
+                }
+                if (NPC.Distance(Main.player[NPC.target].Center) > 200f)
+                {
+                    NPC.velocity = toOwner * 15f;
+                    return;
+                }
             }
         }
 
