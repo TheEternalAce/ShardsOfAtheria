@@ -10,6 +10,11 @@ namespace ShardsOfAtheria.Items
 		public override void SetStaticDefaults() 
 		{
 			Tooltip.SetDefault("Summons Plantera");
+			ItemID.Sets.SortingPriorityBossSpawns[Type] = 12; // This helps sort inventory know that this is a boss summoning Item.
+
+			// This is set to true for all NPCs that can be summoned via an Item (calling NPC.SpawnOnPlayer). If this is for a modded boss,
+			// write this in the bosses file instead
+			NPCID.Sets.MPAllowedEnemies[NPCID.Plantera] = true;
 		}
 
 		public override void SetDefaults()
@@ -40,7 +45,7 @@ namespace ShardsOfAtheria.Items
 		// We use the CanUseItem hook to prevent a Player from using this item while the boss is present in the world.
 		public override bool CanUseItem(Player player)
 		{
-			return player.ZoneRockLayerHeight && player.ZoneJungle && !NPC.AnyNPCs(NPCID.Plantera);
+			return (player.ZoneRockLayerHeight || player.ZoneDirtLayerHeight) && player.ZoneJungle && !NPC.AnyNPCs(NPCID.Plantera);
 		}
 
 		public override bool? UseItem(Player player)
@@ -49,7 +54,7 @@ namespace ShardsOfAtheria.Items
 			{
 				// If the Player using the item is the client
 				// (explicitely excluded serverside here)
-				SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
+				SoundEngine.PlaySound(SoundID.Roar, player.position);
 
 				int type = NPCID.Plantera;
 

@@ -47,7 +47,7 @@ namespace ShardsOfAtheria.Items.DecaEquipment
             return new Vector2(0, 0);
         }
 
-        public override bool CanConsumeAmmo(Player player)
+        public override bool CanConsumeAmmo(Item item, Player player)
         {
             return Main.rand.NextFloat() >= .66f;
         }

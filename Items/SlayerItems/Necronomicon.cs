@@ -77,13 +77,13 @@ namespace ShardsOfAtheria.Items.SlayerItems
                 if (!ModContent.GetInstance<SoAWorld>().slayerMode)
                 {
                     Main.NewText("Slayer mode enabled");
-                    SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
+                    SoundEngine.PlaySound(SoundID.Roar, player.position);
                     ModContent.GetInstance<SoAWorld>().slayerMode = true;
                 }
                 else
                 {
                     Main.NewText("Slayer mode disabled");
-                    SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
+                    SoundEngine.PlaySound(SoundID.Roar, player.position);
                     ModContent.GetInstance<SoAWorld>().slayerMode = false;
                 }
             }
@@ -306,7 +306,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
             {
                 tooltips.Add(new TooltipLine(Mod, "Page", "King Slime:\n" +
                     "Increased life and mana regen\n" +
-                    "After taking damage, your next hit will heal 25% of that damage"));
+                    "After taking damage, your next hit will heal 25% of that damage taken"));
             }
             if (page == 4)
             {
@@ -320,7 +320,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
                     "Spawns 4 Creepers\n" +
                     "While Creepers are alive you are invulnerable and cannot attack\n" +
                     "Gain a temporary 20% damage boost when all of the creepers die\n" +
-                    "Creepers take 5 minutes to respawn\n" +
+                    "Creepers take 1 minute to respawn\n" +
                     "Cannot be immune to knockback"));
             }
             if (page == 6)
@@ -340,7 +340,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
             {
                 tooltips.Add(new TooltipLine(Mod, "Page", "Queen Bee:\n" +
                     "Attacks inflict Poisoned and shoot stingers\n" +
-                    "Spawn a bee every 10 seconds in combat"));
+                    "Spawn a bee every 10 seconds while in combat"));
             }
             if (page == 9)
             {

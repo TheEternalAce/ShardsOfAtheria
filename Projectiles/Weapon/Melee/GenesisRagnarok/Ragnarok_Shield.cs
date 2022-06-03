@@ -79,8 +79,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                         velocity = dir;
                         if (reflProjectile.hostile)
                         {
-                            SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack.WithVolume(1), Projectile.Center);
-                            SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack.WithVolume(1), Projectile.Center);
+                            SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, Projectile.Center);
+                            SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, Projectile.Center);
                             reflProjectile.hostile = false;
                             reflProjectile.friendly = true;
                             reflProjectile.damage = (int)damage;
@@ -108,6 +108,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                     parryNPC.AddBuff(BuffID.OnFire, 600);
                 }
             }
+        }
+
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
         }
 
         public override bool PreDraw(ref Color lightColor)

@@ -7,10 +7,16 @@ namespace ShardsOfAtheria.Items
 {
 	public class SlitheryLand: ModItem
 	{
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return false;
+		}
+
 		public override void SetStaticDefaults() 
 		{
 			Tooltip.SetDefault("Summons Senterra, the Atherial Land\n" +
 				"Eventually");
+			ItemID.Sets.SortingPriorityBossSpawns[Type] = 12; // This helps sort inventory know that this is a boss summoning Item.
 		}
 
 		public override void SetDefaults()

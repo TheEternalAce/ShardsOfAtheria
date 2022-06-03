@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework.Input;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Buffs
@@ -8,7 +9,7 @@ namespace ShardsOfAtheria.Buffs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Electric Shock");
-            Description.SetDefault("You cannot move");
+            Description.SetDefault("Moving hurts");
             Main.debuff[Type] = true;
         }
     }
@@ -42,7 +43,9 @@ namespace ShardsOfAtheria.Buffs
                 }
                 Player.lifeRegenTime = 0;
                 // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes .5 life lost per second.
-                Player.lifeRegen -= 20;
+                if (Main.keyState.IsKeyDown(Keys.Left) || Main.keyState.IsKeyDown(Keys.Right))
+                    Player.lifeRegen -= 20;
+                else Player.lifeRegen -= 2;
             }
         }
     }

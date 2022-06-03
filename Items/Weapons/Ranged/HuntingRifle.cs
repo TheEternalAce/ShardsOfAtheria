@@ -7,20 +7,15 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
-	public class BBGun : ModItem
+	public class HuntingRifle : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("BB Gun");
-		}
-
 		public override void SetDefaults() 
 		{
 			Item.damage = 10;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
-			Item.width = 50;
-			Item.height = 16;
+			Item.width = 58;
+			Item.height = 26;
 			Item.useTime = 40;
 			Item.useAnimation = 40;
 			Item.useStyle = ItemUseStyleID.Shoot;
@@ -36,7 +31,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override Vector2? HoldoutOffset()
 		{
-			return new Vector2(-4, 2);
+			return new Vector2(-10, -2);
 		}
 
         public override void AddRecipes() 

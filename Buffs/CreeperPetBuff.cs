@@ -1,15 +1,16 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles.Pets;
+using Microsoft.Xna.Framework;
 
 namespace ShardsOfAtheria.Buffs
 {
-    public class PetCreeperBuff : ModBuff
+    public class CreeperPetBuff : ModBuff
     {
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Creeper Pet");
-			Description.SetDefault("The creeper will follow you");
+			Description.SetDefault("Strangely cute");
 			Main.vanityPet[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}
@@ -21,7 +22,8 @@ namespace ShardsOfAtheria.Buffs
 			bool petProjectileNotSpawned = player.ownedProjectileCounts[ModContent.ProjectileType<PetCreeper>()] <= 0;
 			if (petProjectileNotSpawned && player.whoAmI == Main.myPlayer)
 			{
-				Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, ModContent.ProjectileType<PetCreeper>(), 0, 0f, player.whoAmI, 0f, 0f);
+				Vector2 toOwner = Vector2.Normalize(player.Center + new Vector2(5, 0));
+				Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center - new Vector2(5, 0), toOwner * 5f, ModContent.ProjectileType<PetCreeper>(), 0, 0f, player.whoAmI);
 			}
 		}
 	}

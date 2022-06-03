@@ -94,6 +94,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 			}
 		}
 
+		public override Color? GetAlpha(Color lightColor)
+		{
+			return Color.White;
+		}
+
 		public override bool PreDraw(ref Color lightColor)
 		{
 			var player = Main.player[Projectile.owner];

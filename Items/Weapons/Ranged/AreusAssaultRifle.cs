@@ -60,11 +60,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			return new Vector2(-8, 0);
 		}
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-		{
-			return true;
-		}
-
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
 			if (fireMode == 1)
@@ -79,7 +74,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 				type = ModContent.ProjectileType<ElectricBeam>();
 		}
 
-        public override bool CanConsumeAmmo(Player player)
+        public override bool CanConsumeAmmo(Item item, Player player)
 		{
 			if (fireMode == 1)
 				return !(player.itemAnimation < Item.useAnimation - 2) || Main.rand.NextFloat() >= .66f;
@@ -100,7 +95,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 				Item.reuseDelay = 20;
 				Item.autoReuse = false;
 				Item.shoot = ItemID.None;
-				Item.UseSound = new LegacySoundStyle(SoundID.Unlock, 0);
+				Item.UseSound = SoundID.Unlock;
 				if (!ModContent.GetInstance<ConfigServerSide>().areusWeaponsCostMana)
 					chargeCost = 0;
 				else Item.mana = 0;

@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Items.DevItems.AceOfSpades2370
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eternal Ace's Jacket");
+            DisplayName.SetDefault("The Eternal Ace's Jacket");
             Tooltip.SetDefault("'Great for impersonating devs!'\n" +
                 "'Pockets included!'");
         }

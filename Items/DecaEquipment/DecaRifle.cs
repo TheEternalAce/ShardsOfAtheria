@@ -47,18 +47,17 @@ namespace ShardsOfAtheria.Items.DecaEquipment
             return new Vector2(-8, 0);
         }
         
-		public override bool CanConsumeAmmo(Player player)
+		public override bool CanConsumeAmmo(Item item, Player player)
 		{
 			return !(player.itemAnimation < Item.useAnimation - 2) || Main.rand.NextFloat() >= .66f;
 		}
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            velocity = velocity.RotatedByRandom(MathHelper.ToRadians(10));
             shootingSoundsTimer++;
             if (shootingSoundsTimer == 1)
             {
-                SoundEngine.PlaySound(Item.UseSound);
+                SoundEngine.PlaySound(Item.UseSound.Value);
                 shootingSoundsTimer = 0;
             }
             return true;

@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova
 
 		public override void Kill(int timeLeft)
 		{
-			SoundEngine.PlaySound(SoundID.Dig, (int)Projectile.position.X, (int)Projectile.position.Y); // Play a death sound
+			SoundEngine.PlaySound(SoundID.Dig, Projectile.Center); // Play a death sound
 			Vector2 usePos = Projectile.position; // Position to use for dusts
 
 			// Please note the usage of MathHelper, please use this!

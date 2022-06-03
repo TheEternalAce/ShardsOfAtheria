@@ -65,6 +65,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             target.AddBuff(BuffID.OnFire, 600);
         }
 
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
+        }
+
         public override bool PreDraw(ref Color lightColor)
         {
             var player = Main.player[Projectile.owner];

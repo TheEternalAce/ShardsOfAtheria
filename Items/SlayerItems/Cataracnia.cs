@@ -32,12 +32,12 @@ namespace ShardsOfAtheria.Items.SlayerItems
 
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
 		{
-			target.AddBuff(BuffID.Ichor, 60);
-			player.AddBuff(BuffID.Shine, 3600);
-			player.AddBuff(BuffID.NightOwl, 3600);
-			player.AddBuff(BuffID.Spelunker, 3600);
-			player.AddBuff(BuffID.Hunter, 3600);
-			player.AddBuff(BuffID.Dangersense, 3600);
+			target.AddBuff(BuffID.Ichor, 120);
+			player.AddBuff(BuffID.Shine, 7200);
+			player.AddBuff(BuffID.NightOwl, 7200);
+			player.AddBuff(BuffID.Spelunker, 7200);
+			player.AddBuff(BuffID.Hunter, 7200);
+			player.AddBuff(BuffID.Dangersense, 7200);
 		}
 	}
 }

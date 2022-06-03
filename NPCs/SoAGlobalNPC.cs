@@ -224,7 +224,6 @@ namespace ShardsOfAtheria.NPCs
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SkullSoulCrystal>());
-                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<VampiricJaw>());
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SkeletronTrophy, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SkeletronMasterTrophy, 1000);
@@ -383,7 +382,7 @@ namespace ShardsOfAtheria.NPCs
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<PrimeSoulCrystal>());
-                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<BlasterCanon>());
+                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<HandCanon>());
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SoulofFright, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.HallowedBar, 333);

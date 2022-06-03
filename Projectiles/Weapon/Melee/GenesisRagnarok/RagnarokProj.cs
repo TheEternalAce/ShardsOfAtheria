@@ -10,12 +10,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 {
     public class RagnarokProj : ModProjectile
     {
-        public int airTime = 0;
-        public int airTimeMax = 20;
         public override void SetDefaults()
         {
-            Projectile.width = 60;
-            Projectile.height = 60;
+            Projectile.width = 50;
+            Projectile.height = 50;
 
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
@@ -24,8 +22,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             Projectile.penetrate = -1;
             Projectile.light = .4f;
 
-            DrawOffsetX = -5;
-            DrawOriginOffsetY = -5;
+            DrawOffsetX = -4;
+            DrawOriginOffsetY = -4;
         }
 
         public override void AI()
@@ -38,8 +36,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             player.ChangeDir(newDirection);
             Projectile.direction = newDirection;
 
-            airTime++;
-            if (airTime >= airTimeMax)
+            Projectile.ai[1]++;
+            if (Projectile.ai[1] >= 20)
                 Projectile.velocity = Vector2.Normalize(player.Center - Projectile.Center) *30;
 
             for (int num72 = 0; num72 < 2; num72++)
@@ -51,7 +49,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                 obj4.fadeIn = 1.5f;
             }
 
-            if (Projectile.getRect().Intersects(player.getRect()) && airTime > airTimeMax || player.dead || Main.mouseLeft)
+            if (Projectile.getRect().Intersects(player.getRect()) && Projectile.ai[1] > 20 || player.dead || Main.mouseLeft)
                 Projectile.Kill();
         }
 
@@ -68,6 +66,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 600);
+        }
+
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
         }
     }
 }

@@ -63,7 +63,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 				.Register();
 		}
 
-		public override bool CanConsumeAmmo(Player player)
+		public override bool CanConsumeAmmo(Item item, Player player)
 		{
 			return Main.rand.NextFloat() >= .48f;
 		}

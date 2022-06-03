@@ -14,10 +14,13 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
     {
 		public double rotation;
         private const string ChainTexturePath = "ShardsOfAtheria/Projectiles/Weapon/Melee/GenesisRagnarok/RagnarokProj2_GenesisChain";
-        public override void SetDefaults()
+
+        public override string Texture => "ShardsOfAtheria/Projectiles/Weapon/Melee/GenesisRagnarok/RagnarokProj";
+
+		public override void SetDefaults()
         {
-            Projectile.width = 60;
-            Projectile.height = 60;
+            Projectile.width = 50;
+            Projectile.height = 50;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Melee;
@@ -25,8 +28,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             Projectile.penetrate = -1;
             Projectile.light = .4f;
 
-            DrawOffsetX = -5;
-            DrawOriginOffsetY = -5;
+            DrawOffsetX = -4;
+            DrawOriginOffsetY = -4;
         }
 
         public override void AI()
@@ -88,6 +91,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 			}
 			return false;
 		}
+		public override Color? GetAlpha(Color lightColor)
+		{
+			return Color.White;
+		}
 
 		public override bool PreDraw(ref Color lightColor)
 		{
@@ -128,7 +135,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 
 				// Finally, we draw the texture at the coordinates using the lighting information of the tile coordinates of the chain section
 				Color color = Lighting.GetColor((int)drawPosition.X / 16, (int)(drawPosition.Y / 16f));
-				Main.spriteBatch.Draw(chainTexture.Value, drawPosition - Main.screenPosition, null, color, rotation, chainTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(chainTexture.Value, drawPosition - Main.screenPosition, null, Color.White, rotation, chainTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
 			}
 
 			return true;

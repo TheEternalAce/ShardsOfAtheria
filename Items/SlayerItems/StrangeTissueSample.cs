@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.value = Item.sellPrice(0,  7, silver: 50);
 			Item.rare = ModContent.RarityType<SlayerRarity>();
 			Item.shoot = ModContent.ProjectileType<PetCreeper>();
-			Item.buffType = ModContent.BuffType<PetCreeperBuff>();
+			Item.buffType = ModContent.BuffType<CreeperPetBuff>();
 		}
 
 		public override void UseStyle(Player player, Rectangle heldItemFrame)

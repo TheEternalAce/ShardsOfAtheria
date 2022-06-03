@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Projectiles.NPCProj;
+﻿using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Projectiles.NPCProj;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
 using Terraria;
