@@ -58,7 +58,7 @@ namespace ShardsOfAtheria.NPCs
         {
             if (!(spawnInfo.Player.ZoneHallow || spawnInfo.Player.ZoneCrimson || spawnInfo.Player.ZoneCorrupt || Main.eclipse || spawnInfo.Player.ZoneTowerNebula || spawnInfo.Player.ZoneTowerVortex
                 || spawnInfo.Player.ZoneTowerSolar|| spawnInfo.Player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon || spawnInfo.PlayerSafe || spawnInfo.Player.ZoneSnow
-                || spawnInfo.Player.ZoneDesert || spawnInfo.Player.ZoneJungle) && spawnInfo.Player.ZoneDirtLayerHeight || spawnInfo.Player.ZoneRockLayerHeight)
+                || spawnInfo.Player.ZoneDesert || spawnInfo.Player.ZoneJungle) && (spawnInfo.Player.ZoneNormalUnderground || spawnInfo.Player.ZoneNormalCaverns))
                 return .05f;
             return 0f;
         }

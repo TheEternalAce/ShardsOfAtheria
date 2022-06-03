@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
             Tooltip.SetDefault("Spawns 4 Creepers\n" +
                 "While Creepers are alive you are invulnerable and cannot attack\n" +
                 "Gain a temporary 20% damage boost when all of the creepers die\n" +
-                "Creepers take 5 minutes to respawn\n" +
+                "Creepers take 1 minute to respawn\n" +
                 "Cannot be immune to knockback");
         }
 

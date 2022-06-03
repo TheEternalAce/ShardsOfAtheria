@@ -334,7 +334,7 @@ namespace ShardsOfAtheria
                     if (spinningTimer == 1800)
                     {
                         Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SpinSkull>(), 100, 9f, Player.whoAmI);
-                        SoundEngine.PlaySound(SoundID.Roar, Player.position, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, Player.position);
                     }
                     if (spinningTimer >= 1800)
                     {
@@ -405,7 +405,7 @@ namespace ShardsOfAtheria
                     if (spinningTimer == 1800)
                     {
                         Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SpinPrime>(), 200, 9f, Player.whoAmI);
-                        SoundEngine.PlaySound(SoundID.Roar, Player.position, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, Player.position);
                     }
                     if (spinningTimer >= 1800)
                     {
@@ -494,7 +494,7 @@ namespace ShardsOfAtheria
             {
                 return;
             }
-            if (ModContent.GetInstance<SoAWorld>().slayerMode)
+            else
             {
                 Player.statDefense = Player.statDefense / 2 - defenseReduction;
                 Player.endurance /= 2;

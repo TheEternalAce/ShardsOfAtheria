@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.useStyle = ItemUseStyleID.Rapier;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.knockBack = 6;
+            Item.knockBack = 2;
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(silver: 50);
             Item.UseSound = SoundID.Item1;

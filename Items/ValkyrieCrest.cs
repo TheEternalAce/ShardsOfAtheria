@@ -48,7 +48,7 @@ namespace ShardsOfAtheria.Items
 			{
 				// If the Player using the item is the client
 				// (explicitely excluded serverside here)
-				SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
+				SoundEngine.PlaySound(SoundID.Roar, player.position);
 
 				int type = ModContent.NPCType<NovaStellar>();
 

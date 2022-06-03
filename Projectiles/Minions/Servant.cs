@@ -58,7 +58,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
 			SearchForTargets(owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter);
 			Movement(foundTarget, distanceFromTarget, targetCenter, distanceToIdlePosition, vectorToIdlePosition);
 			Visuals();
-			if (owner.GetModPlayer<SlayerPlayer>().BrainSoul && owner.GetModPlayer<SynergyPlayer>().eyeBrainSynergy)
+			if (owner.GetModPlayer<SlayerPlayer>().BrainSoul && owner.GetModPlayer<SynergyPlayer>().brainEyeSynergy)
 			{
 				owner.AddBuff(ModContent.BuffType<CreeperShield>(), 2);
 			}

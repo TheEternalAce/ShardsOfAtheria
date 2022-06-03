@@ -47,6 +47,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
             DisplayName.SetDefault("Nova Stellar, the Harpy Knight");
             Main.npcFrameCount[NPC.type] = 1;
 
+            NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
             NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
             {
                 SpecificallyImmuneTo = new int[] {
@@ -170,7 +171,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
                 if (Main.rand.NextFloat() <= .5f)
                     NPC.position = player.position - new Vector2(500, 250);
                 else NPC.position = player.position - new Vector2(-500, 250);
-                SoundEngine.PlaySound(SoundID.Roar, NPC.position, 0);
+                SoundEngine.PlaySound(SoundID.Roar, NPC.position);
                 //if (ModContent.GetInstance<SoAWorld>().slayerMode)
                 //{
                 //    Main.NewText("Alright, now- That look in your eyes... I must take you down here and now!");

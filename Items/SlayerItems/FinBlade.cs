@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.useAnimation = 20;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 6;
-			Item.value = Item.sellPrice(0,  50);
+			Item.value = Item.sellPrice(0, 3, 50);
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = false;
 			Item.crit = 6;
@@ -30,11 +30,6 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.autoReuse = true;
 			Item.rare = ModContent.RarityType<SlayerRarity>();
 		}
-
-        public override void OnHitPvp(Player player, Player target, int damage, bool crit)
-        {
-			Main.NewText(target.name + " was hit by " + player.name + "'s fish");
-        }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
 		{

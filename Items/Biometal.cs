@@ -17,9 +17,9 @@ namespace ShardsOfAtheria.Items
             if (Main.netMode != NetmodeID.Server)
             {
                 // Add equip textures
-                Mod.AddEquipTexture(this, EquipType.Head, $"{Texture}_{EquipType.Head}");
-                Mod.AddEquipTexture(this, EquipType.Body, $"{Texture}_{EquipType.Body}");
-                Mod.AddEquipTexture(this, EquipType.Legs, $"{Texture}_{EquipType.Legs}");
+                EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Head}", EquipType.Head, this);
+                EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Body}", EquipType.Body, this);
+                EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Legs}", EquipType.Legs, this);
                 
             }
         }
@@ -27,9 +27,9 @@ namespace ShardsOfAtheria.Items
         // Called in SetStaticDefaults
         private void SetupDrawing()
         {
-            int equipSlotHead = Mod.GetEquipSlot(Name, EquipType.Head);
-            int equipSlotBody = Mod.GetEquipSlot(Name, EquipType.Body);
-            int equipSlotLegs = Mod.GetEquipSlot(Name, EquipType.Legs);
+            int equipSlotHead = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Head);
+            int equipSlotBody = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Body);
+            int equipSlotLegs = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Legs);
 
             ArmorIDs.Head.Sets.DrawHead[equipSlotHead] = true;
             ArmorIDs.Body.Sets.HidesTopSkin[equipSlotBody] = true;
@@ -92,8 +92,18 @@ namespace ShardsOfAtheria.Items
             {
                 player.AddBuff(ModContent.BuffType<Megamerged>(), 60);
                 if (player.Male)
-                    SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Item/MegamergeMale"));
-                else SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Item/MegamergeMale"));
+                    SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/MegamergeMale")
+                    {
+                        Volume = 0.9f,
+                        PitchVariance = 0.2f,
+                        MaxInstances = 3,
+                    });
+                else SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/MegamergeFemale")
+                {
+                    Volume = 0.9f,
+                    PitchVariance = 0.2f,
+                    MaxInstances = 3,
+                });
             }
 
             player.GetModPlayer<SoAPlayer>().Biometal = true;
@@ -157,8 +167,18 @@ namespace ShardsOfAtheria.Items
             {
                 player.AddBuff(ModContent.BuffType<Megamerged>(), 60);
                 if (player.Male)
-                    SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Item/MegamergeMale"));
-                else SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot(Mod, "Sounds/Item/MegamergeMale"));
+                    SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/MegamergeMale")
+                    {
+                        Volume = 0.9f,
+                        PitchVariance = 0.2f,
+                        MaxInstances = 3,
+                    });
+                else SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/MegamergeFemale")
+                {
+                    Volume = 0.9f,
+                    PitchVariance = 0.2f,
+                    MaxInstances = 3,
+                });
             }
         }
 

@@ -22,6 +22,7 @@ namespace ShardsOfAtheria.Items.Weapons
             Item.useTime = 30;
             Item.useAnimation = 30;
             Item.damage = 112;
+            Item.DamageType = DamageClass.Melee;
             Item.knockBack = 13;
             Item.mana = 0;
             Item.shoot = ProjectileID.None;

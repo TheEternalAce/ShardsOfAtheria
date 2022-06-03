@@ -22,8 +22,8 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 			Item.damage = 40;
 			Item.DamageType = DamageClass.Magic;
 			Item.noMelee = true;
-			Item.width = 44;
-			Item.height = 26;
+			Item.width = 68;
+			Item.height = 28;
 			Item.useTime = 12;
 			Item.useAnimation = 24;
 			Item.reuseDelay = 36;

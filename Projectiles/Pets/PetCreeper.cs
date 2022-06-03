@@ -19,15 +19,14 @@ namespace ShardsOfAtheria.Projectiles.Pets
         {
             DisplayName.SetDefault("Creeper");
             Main.projPet[Projectile.type] = true;
-
         }
 
         public override void SetDefaults()
         {
             Projectile.width = 34;
             Projectile.height = 34;
-			Projectile.CloneDefaults(ProjectileID.BabyHornet);
-			AIType = ProjectileID.BabyHornet;
+			Projectile.aiStyle = -1;
+			Projectile.tileCollide = false;
 		}
 
 		public override bool PreAI()
@@ -40,12 +39,19 @@ namespace ShardsOfAtheria.Projectiles.Pets
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-			SlayerPlayer modPlayer = player.GetModPlayer<SlayerPlayer>();
+			SlayerPlayer slayer = player.GetModPlayer<SlayerPlayer>();
+
+			if (++Projectile.ai[1] >= 30)
+			{
+				Projectile.velocity = Vector2.Normalize(player.Center - Projectile.Center) * 5f;
+				Projectile.ai[1] = 1;
+			}
+
 			if (player.dead)
 			{
-				modPlayer.creeperPet = false;
+				slayer.creeperPet = false;
 			}
-			if (modPlayer.creeperPet)
+			if (slayer.creeperPet)
 			{
 				Projectile.timeLeft = 2;
 			}

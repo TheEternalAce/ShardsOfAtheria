@@ -81,7 +81,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 				Item.useAnimation = 20;
 				Item.autoReuse = false;
 				Item.shoot = ItemID.None;
-				Item.UseSound = new LegacySoundStyle(SoundID.Unlock, 0);
+				Item.UseSound = SoundID.Unlock;
 				if (fullAuto)
 					fullAuto = false;
 				else fullAuto = true;

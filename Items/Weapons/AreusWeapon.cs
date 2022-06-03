@@ -49,11 +49,12 @@ namespace ShardsOfAtheria.Items.Weapons
 
         public override void HoldItem(Player player)
         {
-			if (player.GetModPlayer<SoAPlayer>().naturalAreusRegen)
+			if (player.GetModPlayer<SoAPlayer>().naturalAreusRegen && areusCharge != areusChargeFull)
             {
-				if (--rechargetime == 0)
+				if (--rechargetime <= 0)
                 {
 					areusCharge++;
+					rechargetime = 10;
                 }
             }
         }

@@ -20,8 +20,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.damage = 500;
 			Item.DamageType = DamageClass.Ranged;
 			Item.noMelee = true;
-			Item.width = 56;
-			Item.height = 18;
+			Item.width = 60;
+			Item.height = 22;
 			Item.useTime = 40;
 			Item.useAnimation = 40;
 			Item.useStyle = ItemUseStyleID.Shoot;
@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
 		public override Vector2? HoldoutOffset()
 		{
-			return new Vector2(-8, 2);
+			return new Vector2(-8, -2);
 		}
 
         public override void HoldItem(Player player)
@@ -48,7 +48,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<BBGun>())
+				.AddIngredient(ModContent.ItemType<HuntingRifle>())
 				.AddIngredient(ModContent.ItemType<BrokenHeroGun>())
 				.AddIngredient(ItemID.SniperRifle)
 				.AddIngredient(ItemID.FragmentVortex, 20)
@@ -57,7 +57,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 				.Register();
 		}
 
-		public override bool CanConsumeAmmo(Player player)
+		public override bool CanConsumeAmmo(Item item, Player player)
 		{
 			return Main.rand.NextFloat() >= .66f;
 		}

@@ -24,8 +24,8 @@ namespace ShardsOfAtheria
         public int probeSpawnTimer;
         public int slimeSpawnTimer;
 
+        public bool brainEyeSynergy;
         public bool brainLordSynergy;
-        public bool eyeBrainSynergy;
         public bool eyeLordSynergy;
         public bool eyeTwinSynergy;
         public bool kingQueenSynergy;
@@ -34,8 +34,8 @@ namespace ShardsOfAtheria
 
         public override void ResetEffects()
         {
+            brainEyeSynergy = false;
             brainLordSynergy = false;
-            eyeBrainSynergy = false;
             eyeLordSynergy = false;
             eyeTwinSynergy = false;
             kingQueenSynergy = false;
@@ -47,7 +47,7 @@ namespace ShardsOfAtheria
         {
             if (!ModContent.GetInstance<SoAWorld>().slayerMode || !Main.hardMode)
                 return;
-            if (eyeBrainSynergy)
+            if (brainEyeSynergy)
             {
                 Player.AddBuff(BuffID.Shine, 2);
                 Player.AddBuff(BuffID.NightOwl, 2);
@@ -91,7 +91,7 @@ namespace ShardsOfAtheria
                     if (Player.GetModPlayer<SlayerPlayer>().spinningTimer == 1200)
                     {
                         Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SpinPrime>(), 200, 9f, Player.whoAmI);
-                        SoundEngine.PlaySound(SoundID.Roar, Player.position, 0);
+                        SoundEngine.PlaySound(SoundID.Roar, Player.position);
                     }
                     if (Player.GetModPlayer<SlayerPlayer>().spinningTimer >= 1200)
                     {

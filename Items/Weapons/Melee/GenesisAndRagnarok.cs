@@ -4,8 +4,8 @@ using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using System;
+using Terraria.ModLoader.IO;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
@@ -14,6 +14,22 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public int combo = 0;
         public int comboTimer;
         public int level = 0;
+
+        public override void OnCreate(ItemCreationContext context)
+        {
+            level = 0;
+        }
+
+        public override void SaveData(TagCompound tag)
+        {
+            tag["level"] = level;
+        }
+
+        public override void LoadData(TagCompound tag)
+        {
+            if (tag.ContainsKey("level"))
+                level = tag.GetInt("level");
+        }
 
         public override void SetStaticDefaults()
         {
@@ -29,8 +45,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.damage = 300;
             Item.DamageType = DamageClass.Melee;
             Item.channel = false;
-            Item.width = 94;
-            Item.height = 104;
+            Item.width = 50;
+            Item.height = 50;
             Item.value = Item.sellPrice(0, 10);
             Item.rare = ItemRarityID.Red;
             Item.useStyle = ItemUseStyleID.Shoot;

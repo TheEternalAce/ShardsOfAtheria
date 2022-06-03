@@ -27,8 +27,7 @@ namespace ShardsOfAtheria.Tiles
             AddMapEntry(new Color(100, 100, 100), name);
 
             DustType = DustID.Platinum;
-            SoundType = SoundID.Tink;
-            SoundStyle = 1;
+            HitSound = SoundID.Tink;
         }
 
         public override bool Drop(int i, int j)
