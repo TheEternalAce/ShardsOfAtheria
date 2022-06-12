@@ -432,7 +432,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
             if (player.GetModPlayer<SlayerPlayer>().soulCrystals == 0)
                 player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.None;
             else if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.None)
-                player.GetModPlayer<SlayerPlayer>().selectedSoul = SelectedSoul.King;
+                player.GetModPlayer<SlayerPlayer>().selectedSoul++;
         }
 
         public void SelectSoul(Player player)
@@ -455,8 +455,8 @@ namespace ShardsOfAtheria.Items.SlayerItems
         public const int Wall = 9;
         public const int Queen = 10;
         public const int Destroyer = 11;
-        public const int Twins = 12;
-        public const int Prime = 13;
+        public const int Prime = 12;
+        public const int Twins = 13;
         public const int Plant = 14;
         public const int Golem = 15;
         public const int Duke = 16;

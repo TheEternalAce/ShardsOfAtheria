@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Tiles
 	{
 		public override void SetStaticDefaults()
 		{
-			AdjTiles = new int[] { TileID.WorkBenches, TileID.HeavyWorkBench, TileID.MythrilAnvil };
+			AdjTiles = new int[] { TileID.WorkBenches, TileID.HeavyWorkBench, TileID.MythrilAnvil, TileID.Anvils };
 			Main.tileSolidTop[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;

@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Commands
 		{
 			SlayerPlayer sPlayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
 			Player player = Main.LocalPlayer;
-			if (player.name != "Tester Shane")
+			if (player.name != "The Eternal Ace")
 				return;
 
 			sPlayer.soulCrystals = 0;

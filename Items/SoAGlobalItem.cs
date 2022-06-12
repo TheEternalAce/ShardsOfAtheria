@@ -32,48 +32,57 @@ namespace ShardsOfAtheria.Items
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center);
-            if (player.GetModPlayer<SlayerPlayer>().SkullSoul && item.damage > 0)
+            if (!ModContent.GetInstance<SoAWorld>().slayerMode)
             {
-                Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 3.5f, ProjectileID.BookOfSkullsSkull, 40, 3.5f, player.whoAmI);
+                return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
             }
-            if (player.GetModPlayer<SlayerPlayer>().EaterSoul && item.damage > 0)
+            SlayerPlayer slayer = player.GetModPlayer<SlayerPlayer>();
+            if (slayer.soulCrystalProjectileCooldown == 0)
             {
-                Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 16f, ModContent.ProjectileType<VileShot>(), 30, 1, player.whoAmI);
-                SoundEngine.PlaySound(SoundID.Item17);
-            }
-            if (player.GetModPlayer<SlayerPlayer>().ValkyrieSoul && item.damage > 0)
-            {
-                SoundEngine.PlaySound(SoundID.Item1);
-                Projectile.NewProjectile(item.GetSource_FromThis(), Main.MouseWorld + new Vector2(125, 125), Vector2.Normalize(Main.MouseWorld - (Main.MouseWorld + new Vector2(125, 125))) * 7f, ModContent.ProjectileType<FeatherBladeFriendly>(), 18, 0f, Main.myPlayer);
-                Projectile.NewProjectile(item.GetSource_FromThis(), Main.MouseWorld + new Vector2(150, -125), Vector2.Normalize(Main.MouseWorld - (Main.MouseWorld + new Vector2(150, -125))) * 7f, ModContent.ProjectileType<FeatherBladeFriendly>(), 18, 0f, Main.myPlayer);
-                Projectile.NewProjectile(item.GetSource_FromThis(), Main.MouseWorld + new Vector2(-125, 125), Vector2.Normalize(Main.MouseWorld - (Main.MouseWorld + new Vector2(-125, 125))) * 7f, ModContent.ProjectileType<FeatherBladeFriendly>(), 18, 0f, Main.myPlayer);
-                Projectile.NewProjectile(item.GetSource_FromThis(), Main.MouseWorld + new Vector2(-125, -150), Vector2.Normalize(Main.MouseWorld - (Main.MouseWorld + new Vector2(-125, -150))) * 7f, ModContent.ProjectileType<FeatherBladeFriendly>(), 18, 0f, Main.myPlayer);
-            }
-            if (player.GetModPlayer<SlayerPlayer>().BeeSoul && item.damage > 0)
-            {
-                Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 18f, ModContent.ProjectileType<Stinger>(), 5, 0f, player.whoAmI);
-                SoundEngine.PlaySound(SoundID.Item17);
-            }
-            if (player.GetModPlayer<SlayerPlayer>().PrimeSoul && item.damage > 0)
-            {
-                Main.rand.Next(2);
-                switch (Main.rand.Next(3))
+                slayer.soulCrystalProjectileCooldown = 60;
+                if (slayer.SkullSoul && item.damage > 0)
                 {
-                    case 0:
-                        Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 10f, ProjectileID.MiniRetinaLaser, 40, 3.5f, player.whoAmI);
-                        break;
-                    case 1:
-                        Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 8f, ProjectileID.RocketI, 40, 3.5f, player.whoAmI);
-                        break;
-                    case 2:
-                        Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 8f, ProjectileID.Grenade, 40, 3.5f, player.whoAmI);
-                        break;
+                    Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 3.5f, ProjectileID.BookOfSkullsSkull, 40, 3.5f, player.whoAmI);
                 }
-            }
-            if (player.GetModPlayer<SlayerPlayer>().PlantSoul && item.damage > 0)
-            {
-                Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 16f, ModContent.ProjectileType<VenomSeed>(), 30, 1, player.whoAmI);
-                SoundEngine.PlaySound(SoundID.Item17);
+                if (slayer.EaterSoul && item.damage > 0)
+                {
+                    Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 16f, ModContent.ProjectileType<VileShot>(), 30, 1, player.whoAmI);
+                    SoundEngine.PlaySound(SoundID.Item17);
+                }
+                if (slayer.ValkyrieSoul && item.damage > 0)
+                {
+                    SoundEngine.PlaySound(SoundID.Item1);
+                    Projectile.NewProjectile(item.GetSource_FromThis(), Main.MouseWorld + new Vector2(125, 125), Vector2.Normalize(Main.MouseWorld - (Main.MouseWorld + new Vector2(125, 125))) * 7f, ModContent.ProjectileType<FeatherBladeFriendly>(), 18, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(item.GetSource_FromThis(), Main.MouseWorld + new Vector2(150, -125), Vector2.Normalize(Main.MouseWorld - (Main.MouseWorld + new Vector2(150, -125))) * 7f, ModContent.ProjectileType<FeatherBladeFriendly>(), 18, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(item.GetSource_FromThis(), Main.MouseWorld + new Vector2(-125, 125), Vector2.Normalize(Main.MouseWorld - (Main.MouseWorld + new Vector2(-125, 125))) * 7f, ModContent.ProjectileType<FeatherBladeFriendly>(), 18, 0f, Main.myPlayer);
+                    Projectile.NewProjectile(item.GetSource_FromThis(), Main.MouseWorld + new Vector2(-125, -150), Vector2.Normalize(Main.MouseWorld - (Main.MouseWorld + new Vector2(-125, -150))) * 7f, ModContent.ProjectileType<FeatherBladeFriendly>(), 18, 0f, Main.myPlayer);
+                }
+                if (slayer.BeeSoul && item.damage > 0)
+                {
+                    Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 18f, ModContent.ProjectileType<Stinger>(), 5, 0f, player.whoAmI);
+                    SoundEngine.PlaySound(SoundID.Item17);
+                }
+                if (slayer.PrimeSoul && item.damage > 0)
+                {
+                    Main.rand.Next(2);
+                    switch (Main.rand.Next(3))
+                    {
+                        case 0:
+                            Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 10f, ProjectileID.MiniRetinaLaser, 40, 3.5f, player.whoAmI);
+                            break;
+                        case 1:
+                            Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 8f, ProjectileID.RocketI, 40, 3.5f, player.whoAmI);
+                            break;
+                        case 2:
+                            Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 8f, ProjectileID.Grenade, 40, 3.5f, player.whoAmI);
+                            break;
+                    }
+                }
+                if (slayer.PlantSoul && item.damage > 0)
+                {
+                    Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 16f, ModContent.ProjectileType<VenomSeed>(), 30, 1, player.whoAmI);
+                    SoundEngine.PlaySound(SoundID.Item17);
+                }
             }
             return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
         }

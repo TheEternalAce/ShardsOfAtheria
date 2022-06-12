@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Items.SlayerItems.SlayersEquipment;
 using ShardsOfAtheria.NPCs;
 using ShardsOfAtheria.Projectiles.Minions;
 using ShardsOfAtheria.Projectiles.Other;
@@ -73,6 +74,8 @@ namespace ShardsOfAtheria
 
         public int defenseReduction;
         public int defenseRegenTime;
+
+        public int soulCrystalProjectileCooldown;
 
         public int selectedSoul;
 
@@ -496,17 +499,22 @@ namespace ShardsOfAtheria
             }
             else
             {
-                Player.statDefense = Player.statDefense / 2 - defenseReduction;
-                Player.endurance /= 2;
+                Player.statDefense -= defenseReduction;
 
-                if (Player.statDefense < Player.statDefense / 2)
+                if (soulCrystalProjectileCooldown > 0)
+                    soulCrystalProjectileCooldown--;
+
+                if (!Player.GetModPlayer<SoAPlayer>().inCombat)
                 {
-                    if (++defenseRegenTime == 1)
+                    if (++defenseRegenTime == 1 && defenseReduction > 0)
                     {
                         defenseRegenTime = 0;
                         defenseReduction--;
                     }
                 }
+
+                if (defenseReduction < 0)
+                    defenseReduction = 0;
             }
 
             if (Player.timeSinceLastDashStarted < 5 && EyeSoul && Player.ownedProjectileCounts[ModContent.ProjectileType<Servant>()] < 3)
@@ -644,7 +652,7 @@ namespace ShardsOfAtheria
             if (EmpressSoul)
             {
                 Vector2 position = target.Center+Vector2.One.RotatedByRandom(360)*180;
-                Projectile.NewProjectile(Player.GetSource_FromThis(), position, Vector2.Normalize(target.Center - position) * 10, ProjectileID.FairyQueenRangedItemShot, 50, 6f, Player.whoAmI);
+                Projectile.NewProjectile(Player.GetSource_FromThis(), position, Vector2.Normalize(target.Center - position) * 20, ProjectileID.FairyQueenRangedItemShot, 50, 6f, Player.whoAmI);
             }
         }
 
@@ -683,7 +691,7 @@ namespace ShardsOfAtheria
             if (EmpressSoul && proj.type != ProjectileID.FairyQueenRangedItemShot)
             {
                 Vector2 position = target.Center+Vector2.One.RotatedByRandom(360)*180;
-                Projectile.NewProjectile(Player.GetSource_FromThis(), position, Vector2.Normalize(target.Center - position) * 10, ProjectileID.FairyQueenRangedItemShot, 50, 6f, Player.whoAmI);
+                Projectile.NewProjectile(Player.GetSource_FromThis(), position, Vector2.Normalize(target.Center - position) * 20, ProjectileID.FairyQueenRangedItemShot, 50, 6f, Player.whoAmI);
             }
         }
 
@@ -807,6 +815,7 @@ namespace ShardsOfAtheria
             {
                 return;
             }
+            defenseReduction = 0;
             if (EyeSoul)
             {
                 Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<AllSeeingEye>(), 0, 0f, player.whoAmI);

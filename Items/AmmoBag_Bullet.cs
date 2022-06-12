@@ -19,7 +19,8 @@ namespace ShardsOfAtheria.Items
 			Item.width = 30;
 			Item.height = 22;
 			Item.rare = ItemRarityID.Blue;
-			Item.maxStack = 10;
+			Item.maxStack = 9999;
+			Item.value = Item.buyPrice(0, 5);
 		}
 
         public override bool CanRightClick()

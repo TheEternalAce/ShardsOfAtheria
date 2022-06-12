@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Commands
 			SoAPlayer soaPlayer = Main.LocalPlayer.GetModPlayer<SoAPlayer>();
 			SoAWorld soaWorld = ModContent.GetInstance<SoAWorld>();
 
-			if (player.name != "Tester Shane")
+			if (player.name != "The Eternal Ace")
 				return;
 		}
     }

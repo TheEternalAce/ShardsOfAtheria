@@ -1,3 +1,4 @@
-displayName = Shards of Atheria (The Slayer Update, Part 3)
+displayName = Shards of Atheria (The Slayer Update, Part 3.2)
 author = TheEternalAce
-version = 0.7.8
+version = 0.7.8.2
+homepage = https://forums.terraria.org/index.php?threads/shards-of-atheria-mod.112953/

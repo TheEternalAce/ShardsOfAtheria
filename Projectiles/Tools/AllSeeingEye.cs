@@ -43,12 +43,12 @@ namespace ShardsOfAtheria.Projectiles.Tools
 
             if (Main.hardMode)
             {
-                if (owner.GetModPlayer<SlayerPlayer>().TwinSoul)
+                if (owner.GetModPlayer<SynergyPlayer>().eyeTwinSynergy)
                 {
                     maxDetectRadius = 200f;
                     Projectile.frame = 1;
                 }
-                if (owner.GetModPlayer<SlayerPlayer>().LordSoul)
+                if (owner.GetModPlayer<SynergyPlayer>().eyeLordSynergy)
                 {
                     maxDetectRadius = 400f;
                     Projectile.frame = 2;

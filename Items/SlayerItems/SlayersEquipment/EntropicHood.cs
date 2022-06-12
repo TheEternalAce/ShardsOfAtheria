@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
         // IsArmorSet determines what armor pieces are needed for the setbonus to take effect
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            return body.type == ModContent.ItemType<EntropicGarb>() && legs.type == ModContent.ItemType<EntropicLeggings>();
+            return body.type == ModContent.ItemType<EntropicRobe>() && legs.type == ModContent.ItemType<EntropicLeggings>();
         }
 
         // UpdateArmorSet allows you to give set bonuses to the armor.

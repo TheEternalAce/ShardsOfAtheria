@@ -8,7 +8,7 @@ using Terraria.DataStructures;
 namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
 {
     [AutoloadEquip(EquipType.Body)]
-    public class EntropicGarb : SlayerItem
+    public class EntropicRobe : SlayerItem
     {
         public override void SetStaticDefaults()
         {

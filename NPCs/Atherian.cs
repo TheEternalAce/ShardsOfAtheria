@@ -203,7 +203,7 @@ namespace ShardsOfAtheria.NPCs
                 //    {
                 //        SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
 
-                //        Main.npcChatText = "As I expected, the fragments did make is stronger.. But it doesn't belong to you.. Interesting.\n" +
+                //        Main.npcChatText = "As I expected, the fragments did make them stronger.\n" +
                 //            "Either way, it's now able to take the form of a double-headed spear.\n" +
                 //            "There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.";
 

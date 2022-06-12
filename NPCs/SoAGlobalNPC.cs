@@ -46,6 +46,11 @@ namespace ShardsOfAtheria.NPCs
                     nextSlot++;
                 }
             }
+            if (type == NPCID.ArmsDealer && NPC.downedBoss2)
+            {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<AmmoBag>());
+                nextSlot++;
+            }
         }
 
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
@@ -84,8 +89,8 @@ namespace ShardsOfAtheria.NPCs
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.Solidifier, 1000);
 
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.KingSlimeTrophy, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.KingSlimeMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.KingSlimeTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.KingSlimeMasterTrophy);
                 }
                 if (npc.type == NPCID.EyeofCthulhu)
                 {
@@ -112,8 +117,8 @@ namespace ShardsOfAtheria.NPCs
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DemoniteOre, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.CorruptSeeds, 1000);
 
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.EyeofCthulhuTrophy, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.EyeofCthulhuMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.EyeofCthulhuTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.EyeofCthulhuMasterTrophy);
                 }
                 if (npc.type == NPCID.BrainofCthulhu)
                 {
@@ -139,7 +144,7 @@ namespace ShardsOfAtheria.NPCs
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.TissueSample, 1000);
 
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.BrainofCthulhuTrophy);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.BrainofCthulhuMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.BrainofCthulhuMasterTrophy);
                 }
                 if (npc.boss && System.Array.IndexOf(new int[] { NPCID.EaterofWorldsBody, NPCID.EaterofWorldsHead, NPCID.EaterofWorldsTail }, npc.type) > -1)
                 {
@@ -164,8 +169,8 @@ namespace ShardsOfAtheria.NPCs
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DemoniteOre, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.ShadowScale, 1000);
 
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.EaterofWorldsTrophy, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.EaterofWorldsMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.EaterofWorldsTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.EaterofWorldsMasterTrophy);
                 }
                 if (npc.type == NPCID.QueenBee)
                 {
@@ -200,11 +205,11 @@ namespace ShardsOfAtheria.NPCs
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<BeeSoulCrystal>());
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<MarkOfAnastasia>());
                     }
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.QueenBeeTrophy, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.BottledHoney, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.BeeWax, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.Beenade, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.QueenBeeMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.QueenBeeTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.QueenBeeMasterTrophy);
                 }
                 if (npc.type == NPCID.SkeletronHead)
                 {
@@ -225,8 +230,8 @@ namespace ShardsOfAtheria.NPCs
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SkullSoulCrystal>());
                     }
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SkeletronTrophy, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SkeletronMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SkeletronTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SkeletronMasterTrophy);
                 }
                 if (npc.type == NPCID.Deerclops)
                 {
@@ -255,8 +260,8 @@ namespace ShardsOfAtheria.NPCs
 
                     }
 
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DeerclopsTrophy, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DeerclopsMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DeerclopsTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DeerclopsMasterTrophy);
                 }
                 if (npc.type == NPCID.WallofFlesh)
                 {
@@ -285,8 +290,8 @@ namespace ShardsOfAtheria.NPCs
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<WallSoulCrystal>());
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<FlailOfFlesh>());
                     }
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.WallofFleshTrophy, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.WallofFleshMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.WallofFleshTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.WallofFleshMasterTrophy);
                 }
                 if (npc.type == NPCID.QueenSlimeBoss)
                 {
@@ -314,8 +319,8 @@ namespace ShardsOfAtheria.NPCs
                         //Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<>());
                     }
 
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.QueenSlimeTrophy, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.QueenSlimeMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.QueenSlimeTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.QueenSlimeMasterTrophy);
                 }
                 if (npc.boss && System.Array.IndexOf(new int[] { NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail }, npc.type) > -1)
                 {
@@ -338,8 +343,8 @@ namespace ShardsOfAtheria.NPCs
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SoulofMight, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.HallowedBar, 333);
 
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DestroyerTrophy, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DestroyerMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DestroyerTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DestroyerMasterTrophy);
                 }
                 if (npc.boss && System.Array.IndexOf(new int[] { NPCID.Spazmatism, NPCID.Retinazer }, npc.type) > -1)
                 {
@@ -362,9 +367,9 @@ namespace ShardsOfAtheria.NPCs
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SoulofSight, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.HallowedBar, 333);
 
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.RetinazerTrophy, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SpazmatismTrophy, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.TwinsMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.RetinazerTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SpazmatismTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.TwinsMasterTrophy);
                 }
                 if (npc.type == NPCID.SkeletronPrime)
                 {
@@ -387,8 +392,8 @@ namespace ShardsOfAtheria.NPCs
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SoulofFright, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.HallowedBar, 333);
 
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SkeletronPrimeTrophy, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SkeletronPrimeMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SkeletronPrimeTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SkeletronPrimeMasterTrophy);
                 }
                 if (npc.type == NPCID.Plantera)
                 {
@@ -420,8 +425,8 @@ namespace ShardsOfAtheria.NPCs
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<PlantSoulCrystal>());
                         //Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<>());
                     }
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.PlanteraTrophy, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.PlanteraMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.PlanteraTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.PlanteraMasterTrophy);
                 }
                 if (npc.type == NPCID.Golem)
                 {
@@ -452,8 +457,8 @@ namespace ShardsOfAtheria.NPCs
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.BeetleHusk, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.StyngerBolt, 1000);
 
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.GolemTrophy, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.GolemMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.GolemTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.GolemMasterTrophy);
                 }
                 if (npc.type == NPCID.DukeFishron)
                 {
@@ -478,8 +483,8 @@ namespace ShardsOfAtheria.NPCs
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<DukeSoulCrystal>());
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<FinBlade>());
                     }
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DukeFishronTrophy, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DukeFishronMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DukeFishronTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DukeFishronMasterTrophy);
                 }
                 if (npc.type == NPCID.HallowBoss)
                 {
@@ -509,8 +514,8 @@ namespace ShardsOfAtheria.NPCs
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.HallowBossDye, 1000);
 
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.FairyQueenTrophy, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.FairyQueenMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.FairyQueenTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.FairyQueenMasterTrophy);
                 }
                 if (npc.type == NPCID.CultistBoss)
                 {
@@ -529,6 +534,10 @@ namespace ShardsOfAtheria.NPCs
                     }
                     if (ModLoader.TryGetMod("NoMorePillars", out Mod foundMod))
                     {
+						ModContent.GetInstance<SoAWorld>().slainPillarNebula = true;
+						ModContent.GetInstance<SoAWorld>().slainPillarSolar = true;
+						ModContent.GetInstance<SoAWorld>().slainPillarStardust = true;
+						ModContent.GetInstance<SoAWorld>().slainPillarVortex = true;
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.FragmentNebula, 1000);
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.FragmentSolar, 1000);
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.FragmentStardust, 1000);
@@ -536,8 +545,8 @@ namespace ShardsOfAtheria.NPCs
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<FragmentEntropy>(), 1000);
                     }
 
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.AncientCultistTrophy, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.LunaticCultistMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.AncientCultistTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.LunaticCultistMasterTrophy);
                 }
                 if (npc.type == NPCID.LunarTowerNebula)
                 {
@@ -619,8 +628,8 @@ namespace ShardsOfAtheria.NPCs
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.LunarOre, 1000);
 
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.MoonLordTrophy, 1000);
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.MoonLordMasterTrophy, 1000);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.MoonLordTrophy);
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.MoonLordMasterTrophy);
                 }
             }
             if (Main.dayTime && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneOverworldHeight && !(Main.LocalPlayer.ZoneCorrupt || Main.LocalPlayer.ZoneCrimson))

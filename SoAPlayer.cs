@@ -268,7 +268,7 @@ namespace ShardsOfAtheria
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-            if (ShardsOfAtheria.QuickTest.JustPressed && (Player.name == "]" || Player.name == "Tester Shane"))
+            if (ShardsOfAtheria.QuickTest.JustPressed && (Player.name == "]" || Player.name == "The Eternal Ace"))
             {
 
             }

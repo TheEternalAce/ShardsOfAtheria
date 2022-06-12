@@ -47,7 +47,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
                 Projectile.Kill();
 
             Projectile.Center = owner.Center;
-            if (owner.GetModPlayer<SlayerPlayer>().LordSoul)
+            if (owner.GetModPlayer<SynergyPlayer>().lunaticLordSynergy)
                 Projectile.frame = 1;
             else Projectile.frame = 0;
 

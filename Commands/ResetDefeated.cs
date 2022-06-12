@@ -18,7 +18,7 @@ namespace ShardsOfAtheria.Commands
 		public override void Action(CommandCaller caller, string input, string[] args)
 		{
 			Player player = Main.LocalPlayer;
-			if (player.name != "Tester Shane")
+			if (player.name != "The Eternal Ace")
 				return;
 
 			NPC.downedSlimeKing = false;
