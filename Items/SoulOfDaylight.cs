@@ -1,10 +1,9 @@
+using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Placeable;
-using Terraria;
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Tiles;
 
 namespace ShardsOfAtheria.Items
 {
@@ -19,6 +18,8 @@ namespace ShardsOfAtheria.Items
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;
             ItemID.Sets.ItemIconPulse[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
         }
 
         public override void SetDefaults()
@@ -28,8 +29,9 @@ namespace ShardsOfAtheria.Items
             Item.width = refItem.width;
             Item.height = refItem.height;
             Item.maxStack = 999;
-            Item.value = 1000;
+
             Item.rare = ItemRarityID.Blue;
+            Item.value = 1000;
         }
 
         // The following 2 methods are purely to show off these 2 hooks. Don't use them in your own code.
@@ -59,7 +61,7 @@ namespace ShardsOfAtheria.Items
                     Dust.NewDust(Item.position, Item.width, Item.height, DustID.MagicMirror, Item.velocity.X, Item.velocity.Y, 150, default(Color), 1.2f);
                 }
                 Item.active = false;
-                Item.type = 0;
+                Item.type = ItemID.None;
                 Item.stack = 0;
                 if (Main.netMode == NetmodeID.Server)
                 {

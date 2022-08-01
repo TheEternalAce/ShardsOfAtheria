@@ -10,7 +10,6 @@ using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.Creative;
-using ShardsOfAtheria.Utilities;
 
 namespace ShardsOfAtheria.Items.Tools
 {
@@ -26,25 +25,28 @@ namespace ShardsOfAtheria.Items.Tools
 
         public override void SetDefaults()
 		{
-			Item.damage = 20;
-			Item.DamageType = DamageClass.Melee;
 			Item.width = 64;
 			Item.height = 30;
+
+			Item.pick = 150;
+
+			Item.damage = 20;
+			Item.DamageType = DamageClass.Melee;
+			Item.knockBack = 0;
+
 			Item.useTime = 5; //Actual Break 1 = FAST 50 = SUPER SLOW
 			Item.useAnimation = 10;
-			Item.pick = 150;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.knockBack = 0;
-			Item.value = Item.sellPrice(0,  10);
-			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Item23;
 			Item.autoReuse = true;
-			Item.useTurn = true;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
 			Item.channel = true;
-			Item.shoot = ModContent.ProjectileType<PhantomDrillProj>();
+
 			Item.shootSpeed = 32;
+			Item.rare = ItemRarityID.Green;
+			Item.value = Item.sellPrice(0, 10);
+			Item.shoot = ModContent.ProjectileType<PhantomDrillProj>();
 		}
 	}
 }

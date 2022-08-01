@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,15 +12,18 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			DisplayName.SetDefault("Super Topaz Core");
 			Tooltip.SetDefault("Increases max life by 60\n" +
 				"Honey, Regeneration, Cozy Campfire and Heart Lantern buffs");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.value = Item.sellPrice(silver: 15);
-			Item.rare = ItemRarityID.White;
 			Item.accessory = true;
+
+			Item.rare = ItemRarityID.Lime;
+			Item.value = Item.sellPrice(0, 3);
 		}
 
 		public override void AddRecipes()

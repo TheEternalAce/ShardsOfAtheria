@@ -1,9 +1,10 @@
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.ID;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SoulBonds
 {
-	public class SoulBondMechaMayhem : SoulBond
+    public class SoulBondMechaMayhem : SoulBond
 	{
         public override void SetStaticDefaults()
         {
@@ -13,6 +14,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulBonds
                 "You can have up to 5 of these Destroyer Probes\n" +
                 "Reduces \"spin phase\" time to activate to 20 seconds\n" +
                 "Shadow Double deals 60 damage");
+
+            base.SetStaticDefaults();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

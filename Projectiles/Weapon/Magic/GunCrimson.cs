@@ -3,8 +3,10 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
-    public class GunCrimson : ModProjectile {
-        public override void SetDefaults() {
+    public class GunCrimson : ModProjectile
+    {
+        public override void SetDefaults()
+        {
             Projectile.width = 20;
             Projectile.height = 20;
             Projectile.scale = .85f;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Other;
 using System;
 using Terraria;

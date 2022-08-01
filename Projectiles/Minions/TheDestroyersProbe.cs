@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

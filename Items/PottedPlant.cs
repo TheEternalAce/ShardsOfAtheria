@@ -1,7 +1,8 @@
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.Creative;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items
 {
@@ -15,18 +16,23 @@ namespace ShardsOfAtheria.Items
 			// This is set to true for all NPCs that can be summoned via an Item (calling NPC.SpawnOnPlayer). If this is for a modded boss,
 			// write this in the bosses file instead
 			NPCID.Sets.MPAllowedEnemies[NPCID.Plantera] = true;
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.rare = ItemRarityID.Red;
+			Item.maxStack = 9999;
+			Item.consumable = true;
+
 			Item.useStyle = ItemUseStyleID.HoldUp;
 			Item.useTime = 45;
 			Item.useAnimation = 45;
-			Item.maxStack = 9999;
-			Item.consumable = true;
+
+			Item.rare = ItemRarityID.Red;
+			Item.value = 50000;
 		}
 
         public override void AddRecipes()

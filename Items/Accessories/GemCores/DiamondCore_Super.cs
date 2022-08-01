@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,16 +12,20 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			DisplayName.SetDefault("Super Diamond Core");
 			Tooltip.SetDefault("Immune to slimes and defense reducing debuffs\n" +
 				"Ankh Shield effect");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.value = Item.sellPrice(silver: 15);
-			Item.rare = ItemRarityID.White;
 			Item.accessory = true;
+
 			Item.defense = 15;
+
+			Item.rare = ItemRarityID.Lime;
+			Item.value = Item.sellPrice(0, 3);
 		}
 
 		public override void AddRecipes()

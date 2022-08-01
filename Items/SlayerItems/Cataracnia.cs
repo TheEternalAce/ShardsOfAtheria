@@ -8,26 +8,29 @@ namespace ShardsOfAtheria.Items.SlayerItems
 	{
         public override void SetStaticDefaults()
         {
-
 			DisplayName.SetDefault("Cataracnia"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
 			Tooltip.SetDefault("'The blade wielded by the All Seer'");
+
+			base.SetStaticDefaults();
 		}
 
 		public override void SetDefaults() 
 		{
-			Item.damage = 20;
-			Item.DamageType = DamageClass.Melee;
 			Item.width = 36;
 			Item.height = 54;
+
+			Item.damage = 20;
+			Item.DamageType = DamageClass.Melee;
+			Item.knockBack = 6;
+			Item.crit = 4;
+
 			Item.useTime = 20;
 			Item.useAnimation = 20;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.knockBack = 6;
-			Item.value = Item.sellPrice(0,  10);
 			Item.UseSound = SoundID.Item1;
-			Item.autoReuse = false;
-			Item.crit = 4;
+
 			Item.rare = ModContent.RarityType<SlayerRarity>();
+			Item.value = Item.sellPrice(0,  10);
 		}
 
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)

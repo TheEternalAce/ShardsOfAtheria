@@ -1,10 +1,8 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
 using System;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,10 +12,11 @@ namespace ShardsOfAtheria.Items.DecaEquipment
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ion's Deca Swarmer");
             Tooltip.SetDefault("'Drone controller of a godly machine'\n" +
                 "Controls the Deca Shards summoned from equipping Model Deca with left click\n" +
                 "Right click turns one into item form, allowing you to make one of the other Deca Weapons");
+
+            base.SetStaticDefaults();
         }
 
         public override void SetDefaults()

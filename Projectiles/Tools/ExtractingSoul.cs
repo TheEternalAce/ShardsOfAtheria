@@ -4,6 +4,7 @@ using Terraria;
 using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ShardsOfAtheria.Players;
 
 namespace ShardsOfAtheria.Projectiles.Tools
 {

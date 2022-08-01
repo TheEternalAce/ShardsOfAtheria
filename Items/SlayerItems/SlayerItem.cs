@@ -1,14 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
+using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
 	public abstract class SlayerItem : ModItem
 	{
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
+        public override void SetStaticDefaults()
+		{
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+		}
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			if (Item.damage > 0)
 				tooltips.Add(new TooltipLine(Mod, "Damage", "Damage scales with progression"));

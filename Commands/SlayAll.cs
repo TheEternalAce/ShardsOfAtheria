@@ -21,24 +21,24 @@ namespace ShardsOfAtheria.Commands
 			if (player.name != "The Eternal Ace")
 				return;
 
-			ModContent.GetInstance<SoAWorld>().slainValkyrie = true;
-			ModContent.GetInstance<SoAWorld>().slainEOC = true;
-			ModContent.GetInstance<SoAWorld>().slainBOC = true;
-			ModContent.GetInstance<SoAWorld>().slainEOW = true;
-			ModContent.GetInstance<SoAWorld>().slainBee = true;
-			ModContent.GetInstance<SoAWorld>().slainSkull = true;
-			ModContent.GetInstance<SoAWorld>().slainWall = true;
-			ModContent.GetInstance<SoAWorld>().slainMechWorm = true;
-			ModContent.GetInstance<SoAWorld>().slainTwins = true;
-			ModContent.GetInstance<SoAWorld>().slainPrime = true;
-			ModContent.GetInstance<SoAWorld>().slainPlant = true;
-			ModContent.GetInstance<SoAWorld>().slainGolem = true;
-			ModContent.GetInstance<SoAWorld>().slainDuke = true;
-			ModContent.GetInstance<SoAWorld>().slainEmpress = true;
-			ModContent.GetInstance<SoAWorld>().slainMoonLord = true;
-			ModContent.GetInstance<SoAWorld>().slainSenterra = true;
-			ModContent.GetInstance<SoAWorld>().slainGenesis = true;
-			ModContent.GetInstance<SoAWorld>().slainEverything = true;
+			ModContent.GetInstance<SoADownedSystem>().slainValkyrie = true;
+			ModContent.GetInstance<SoADownedSystem>().slainEOC = true;
+			ModContent.GetInstance<SoADownedSystem>().slainBOC = true;
+			ModContent.GetInstance<SoADownedSystem>().slainEOW = true;
+			ModContent.GetInstance<SoADownedSystem>().slainBee = true;
+			ModContent.GetInstance<SoADownedSystem>().slainSkull = true;
+			ModContent.GetInstance<SoADownedSystem>().slainWall = true;
+			ModContent.GetInstance<SoADownedSystem>().slainMechWorm = true;
+			ModContent.GetInstance<SoADownedSystem>().slainTwins = true;
+			ModContent.GetInstance<SoADownedSystem>().slainPrime = true;
+			ModContent.GetInstance<SoADownedSystem>().slainPlant = true;
+			ModContent.GetInstance<SoADownedSystem>().slainGolem = true;
+			ModContent.GetInstance<SoADownedSystem>().slainDuke = true;
+			ModContent.GetInstance<SoADownedSystem>().slainEmpress = true;
+			ModContent.GetInstance<SoADownedSystem>().slainMoonLord = true;
+			ModContent.GetInstance<SoADownedSystem>().slainSenterra = true;
+			ModContent.GetInstance<SoADownedSystem>().slainGenesis = true;
+			ModContent.GetInstance<SoADownedSystem>().slainEverything = true;
 			Main.NewText("All bosses are slain");
 		}
     }

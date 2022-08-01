@@ -1,25 +1,30 @@
 ﻿using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Players;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories
 {
-	public class AreusKey : ModItem
+    public class AreusKey : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Unlocks your true potential\n" +
 				"'Now, nothing but your own competence holds you back.'");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 16;
 			Item.height = 22;
-			Item.value = Item.buyPrice(gold: 25);
-			Item.rare = ItemRarityID.Cyan;
 			Item.accessory = true;
+
+			Item.rare = ItemRarityID.Cyan;
+			Item.value = Item.buyPrice(0, 10);
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)

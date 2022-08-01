@@ -1,6 +1,8 @@
 ﻿using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Players;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,6 +14,8 @@ namespace ShardsOfAtheria.Items.Accessories
         {
 
             Tooltip.SetDefault("Gives the user a 'phase 2' when below 50% life");
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
@@ -19,8 +23,9 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.width = 32;
             Item.height = 32;
             Item.accessory = true;
-            Item.value = Item.sellPrice(silver: 30);
+
             Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(0, 1, 25);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

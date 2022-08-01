@@ -12,7 +12,9 @@ namespace ShardsOfAtheria.Items.SlayerItems
         public override void SetStaticDefaults()
         {
 			Tooltip.SetDefault("Summons a pet Creeper to follow you");
-        }
+
+			base.SetStaticDefaults();
+		}
         public override void SetDefaults()
 		{
 			Item.width = 32;

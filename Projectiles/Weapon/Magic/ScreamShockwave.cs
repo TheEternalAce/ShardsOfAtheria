@@ -36,6 +36,20 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
+            if (Projectile.damage < 1)
+            {
+                Projectile.damage = 1;
+            }
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            if (Projectile.damage > 1)
+            {
+                Projectile.damage -= 10;
+            }
+            Projectile.scale += 0.1f;
+            Projectile.alpha += 25;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -55,14 +69,21 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
                 // If the projectile hits the left or right side of the tile, reverse the X velocity
                 if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon)
                 {
-                    Projectile.velocity.X = -oldVelocity.X * 1.5f;
+                    Projectile.velocity.X = -oldVelocity.X * 1.05f;
                 }
 
                 // If the projectile hits the top or bottom side of the tile, reverse the Y velocity
                 if (Math.Abs(Projectile.velocity.Y - oldVelocity.Y) > float.Epsilon)
                 {
-                    Projectile.velocity.Y = -oldVelocity.Y * 1.5f;
+                    Projectile.velocity.Y = -oldVelocity.Y * 1.05f;
                 }
+
+                if (Projectile.damage > 1)
+                {
+                    Projectile.damage -= 10;
+                }
+                Projectile.scale += 0.1f;
+                Projectile.alpha += 25;
             }
 
             return false;

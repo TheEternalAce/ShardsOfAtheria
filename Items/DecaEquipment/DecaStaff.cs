@@ -1,6 +1,4 @@
-using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,30 +9,31 @@ namespace ShardsOfAtheria.Items.DecaEquipment
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ion's Deca Staff");
             Tooltip.SetDefault("'The staff of a godly machine'");
+
+            base.SetStaticDefaults();
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 200000;
-            Item.DamageType = DamageClass.Melee;
-            Item.knockBack = 6f;
-            Item.crit = 100;
-            Item.useTime = 6;
-            Item.useAnimation = 6;
-
-            Item.shoot = ModContent.ProjectileType<IonBeam>();
-            Item.shootSpeed = 13f;
-            Item.mana = 5;
-
-            Item.noMelee = true;
-            Item.staff[Item.type] = true;
-            Item.autoReuse = true;
-            Item.UseSound = SoundID.Item75;
-            Item.useStyle = ItemUseStyleID.Shoot;
             Item.width = 50;
             Item.height = 50;
+
+            Item.DamageType = DamageClass.Magic;
+            Item.knockBack = 6f;
+            Item.mana = 5;
+
+            Item.useTime = 6;
+            Item.useAnimation = 6;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.UseSound = SoundID.Item75;
+            Item.autoReuse = true;
+            Item.noMelee = true;
+            Item.staff[Item.type] = true;
+
+            Item.shootSpeed = 13f;
+            Item.shoot = ModContent.ProjectileType<IonBeam>();
+            base.SetDefaults();
         }
     }
 }

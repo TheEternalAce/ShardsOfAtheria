@@ -1,8 +1,7 @@
+using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Placeable;
-using Terraria;
-using Terraria.Audio;
 
 namespace ShardsOfAtheria.Items
 {
@@ -18,16 +17,20 @@ namespace ShardsOfAtheria.Items
 			Tooltip.SetDefault("Summons Genesis, Atherial Time\n" +
 				"Eventually");
 			ItemID.Sets.SortingPriorityBossSpawns[Type] = 12; // This helps sort inventory know that this is a boss summoning Item.
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.rare = ItemRarityID.Red;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+
 			Item.useTime = 45;
 			Item.useAnimation = 45;
+			Item.useStyle = ItemUseStyleID.HoldUp;
+
+			Item.rare = ItemRarityID.Red;
 		}
 		/*
         public override void AddRecipes()

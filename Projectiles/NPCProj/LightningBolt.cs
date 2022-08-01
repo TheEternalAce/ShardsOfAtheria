@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
             Projectile.timeLeft = 60;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(ModContent.BuffType<ElectricShock>(), 10 * 60);
         }

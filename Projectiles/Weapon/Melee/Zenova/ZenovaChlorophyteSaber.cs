@@ -5,13 +5,15 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova
 {
-    public class ZenovaChlorophyteSaber : ModProjectile {
+    public class ZenovaChlorophyteSaber : ModProjectile
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Zenova Chlorophyte Saber");
         }
 
-        public override void SetDefaults() {
+        public override void SetDefaults()
+        {
             Projectile.width = 18;
             Projectile.height = 18;
 

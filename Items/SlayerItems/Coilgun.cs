@@ -10,45 +10,40 @@ namespace ShardsOfAtheria.Items.SlayerItems
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Uses Rods as ammo\n" +
-				"Tears through enemy armor\n" +
-				"'Uses electro magnets to fire projectiles at insane velocities'\n" +
+			Tooltip.SetDefault("Tears through enemy armor\n" +
+				"'Uses electromagnetic coils to fire projectiles at insane velocities'\n" +
 				"'Areus Railgun's older brother'");
+
+			base.SetStaticDefaults();
 		}
 
 		public override void SetDefaults() 
 		{
-			Item.damage = 150;
-			Item.DamageType = DamageClass.Ranged;
-			Item.noMelee = true;
 			Item.width = 44;
 			Item.height = 26;
+
+			Item.damage = 150;
+			Item.DamageType = DamageClass.Ranged;
+			Item.knockBack = 4f;
+			Item.crit = 5;
+
 			Item.useTime = 48;
 			Item.useAnimation = 48;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.knockBack = 4f;
 			Item.UseSound = SoundID.Item38;
-			Item.autoReuse = false;
-			Item.crit = 5;
-			Item.shoot = ItemID.PurificationPowder;
-			Item.shootSpeed = 16f;
-			Item.useAmmo = AmmoID.Bullet;
-			Item.rare = ModContent.RarityType<SlayerRarity>();
-		}
+			Item.noMelee = true;
 
-        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
-			velocity *= 2.5f;
-        }
+			Item.shootSpeed = 16f;
+			Item.rare = ModContent.RarityType<SlayerRarity>();
+			Item.value = Item.sellPrice(0, 2, 75);
+			Item.shoot = ItemID.PurificationPowder;
+			Item.useAmmo = AmmoID.Bullet;
+			Item.ArmorPenetration = 20;
+		}
 
         public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-2, 0);
 		}
-
-        public override void HoldItem(Player player)
-        {
-			player.GetArmorPenetration(DamageClass.Generic) = 20;
-        }
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,15 +14,18 @@ namespace ShardsOfAtheria.Items.Accessories
 			Tooltip.SetDefault("'The gold plating on the wings weighs you down slightly'");
 
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(30, 9f, 2.5f);
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 24;
 			Item.height = 26;
-			Item.value = Item.sellPrice(0,  1);
-			Item.rare = ItemRarityID.Expert;
 			Item.accessory = true;
+
+			Item.rare = ItemRarityID.Expert;
+			Item.value = Item.sellPrice(0, 1);
 			Item.expert = true;
 		}
 

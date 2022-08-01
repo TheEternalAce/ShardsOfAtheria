@@ -5,8 +5,10 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
-    public class IonBeam : ModProjectile {
-        public override void SetDefaults() {
+    public class IonBeam : ModProjectile
+    {
+        public override void SetDefaults()
+        {
             Projectile.width = 6;
             Projectile.height = 6;
 

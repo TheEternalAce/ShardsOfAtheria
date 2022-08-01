@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Players;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
@@ -9,6 +10,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
         {
             DisplayName.SetDefault("Soul Crystal (Wall of Flesh)");
             Tooltip.SetDefault("Summon 5 friendly The Hungry over the course of 5 seconds");
+
+            base.SetStaticDefaults();
         }
 
         public override bool? UseItem(Player player)

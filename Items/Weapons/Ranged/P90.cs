@@ -1,14 +1,9 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Tiles;
 using Microsoft.Xna.Framework;
 using Terraria;
-using ShardsOfAtheria.Projectiles;
-using ShardsOfAtheria.Buffs;
+using Terraria.GameContent.Creative;
 using System.Collections.Generic;
-using Terraria.Audio;
-using Terraria.DataStructures;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -19,25 +14,30 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("<right> to switch between 2 modes: Semi and Full-auto");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() 
 		{
-			Item.damage = 30;
-			Item.DamageType = DamageClass.Ranged;
-			Item.noMelee = true;
 			Item.width = 50;
 			Item.height = 20;
+
+			Item.damage = 30;
+			Item.DamageType = DamageClass.Ranged;
+			Item.knockBack = .1f;
+			Item.crit = 5;
+
 			Item.useTime = 6;
 			Item.useAnimation = 6;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.knockBack = .1f;
 			Item.UseSound = SoundID.Item40;
-			Item.crit = 5;
-			Item.rare = ItemRarityID.Pink;
-			Item.value = Item.sellPrice(0,  5);
-			Item.shoot = ItemID.PurificationPowder;
+			Item.noMelee = true;
+
 			Item.shootSpeed = 16f;
+			Item.rare = ItemRarityID.Pink;
+			Item.value = Item.sellPrice(0, 3, 25);
+			Item.shoot = ItemID.PurificationPowder;
 			Item.useAmmo = AmmoID.Bullet;
 		}
 
@@ -111,6 +111,31 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			}
 			return base.CanUseItem(player);
 		}
+
+        public override void UpdateInventory(Player player)
+		{
+			if (player.altFunctionUse == 2)
+            {
+				return;
+            }
+			if (!fullAuto)
+			{
+				Item.shoot = ItemID.PurificationPowder;
+				Item.useTime = 6;
+				Item.useAnimation = 6;
+				Item.UseSound = SoundID.Item40;
+				Item.autoReuse = false;
+			}
+			else if (fullAuto)
+			{
+				Item.shoot = ItemID.PurificationPowder;
+				Item.useTime = 6;
+				Item.useAnimation = 6;
+				Item.UseSound = SoundID.Item40;
+				Item.autoReuse = true;
+			}
+		}
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			if (!fullAuto)

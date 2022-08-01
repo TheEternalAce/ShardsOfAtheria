@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Players;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -7,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Minions
 {
-	public class Servant : ModProjectile
+    public class Servant : ModProjectile
 	{
 		public override void SetStaticDefaults()
 		{

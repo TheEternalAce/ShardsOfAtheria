@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Players;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,8 +12,16 @@ namespace ShardsOfAtheria.Items.DecaEquipment
 {
     public abstract class DecaEquipment : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+        }
+
         public override void SetDefaults()
         {
+            Item.damage = 200000;
+            Item.crit = 100;
+
             Item.rare = ItemRarityID.Red;
         }
 

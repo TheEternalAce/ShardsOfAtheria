@@ -1,4 +1,6 @@
+using ShardsOfAtheria.Players;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,6 +12,8 @@ namespace ShardsOfAtheria.Items.DecaEquipment
         {
             Tooltip.SetDefault("A shard of immense power\n" +
                 "Use to send it out to follow you");
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
         }
 
         public override void SetDefaults()

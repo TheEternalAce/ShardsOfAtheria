@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Players;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -7,19 +8,21 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
-	public class TomeOfOmniscience : SlayerItem
+    public class TomeOfOmniscience : SlayerItem
 	{
         public override void SetStaticDefaults()
 		{
+			base.SetStaticDefaults();
 		}
 
         public override void SetDefaults()
 		{
 			Item.width = 15;
 			Item.height = 22;
-			Item.value = Item.sellPrice(silver: 15);
-			Item.rare = ModContent.RarityType<SlayerRarity>();
 			Item.accessory = true;
+
+			Item.rare = ModContent.RarityType<SlayerRarity>();
+			Item.value = Item.sellPrice(0, 1);
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)

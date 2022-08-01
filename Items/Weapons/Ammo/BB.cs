@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
@@ -10,6 +11,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("BB");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
 		}
 
 		public override void SetDefaults()
@@ -24,7 +27,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
 			Item.value = Item.sellPrice(copper: 1);
 			Item.rare = ItemRarityID.Green;
 			Item.shoot = ModContent.ProjectileType<BBProjectile>();
-			Item.shootSpeed = 16f;
+			Item.shootSpeed = 4f;
 			Item.ammo = AmmoID.Bullet;
 		}
 

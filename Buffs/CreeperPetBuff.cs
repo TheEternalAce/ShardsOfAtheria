@@ -2,6 +2,7 @@
 using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles.Pets;
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Players;
 
 namespace ShardsOfAtheria.Buffs
 {

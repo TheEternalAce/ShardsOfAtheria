@@ -1,4 +1,6 @@
+using ShardsOfAtheria.Players;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,21 +12,25 @@ namespace ShardsOfAtheria.Items
         {
             Tooltip.SetDefault("'Converts Mana into Life'\n" +
                 "Taking damage while this is in your inventory will render this unusable for a time");
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
             Item.width = 32;
             Item.height = 32;
-            Item.useTime = 20;
-            Item.mana = 100;
+
             Item.healLife = 50;
+            Item.mana = 100;
+
+            Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.HoldUp;
-            Item.value = Item.sellPrice(0,  5, silver: 70);
-            Item.rare = ItemRarityID.Red;
-            Item.autoReuse = false;
             Item.UseSound = SoundID.Item29;
+
+            Item.rare = ItemRarityID.Red;
+            Item.value = Item.sellPrice(0, 1);
         }
 
         public override void AddRecipes()

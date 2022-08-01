@@ -1,5 +1,6 @@
 ﻿using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.NPCs;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -14,6 +15,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
             DisplayName.SetDefault("Soul Crystal (Golem)");
             Tooltip.SetDefault("Grants the effects of Shiny Stone\n" +
                 "While under 50% max life, gain increased life regen and summon a Golem head above you");
+
+            base.SetStaticDefaults();
         }
 
         public override bool? UseItem(Player player)

@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,6 +11,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("'I M  D E A D'");
+
+            base.SetStaticDefaults();
         }
 
         public override void SetDefaults()
@@ -22,17 +22,19 @@ namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
 
             Item.damage = 220;
             Item.DamageType = DamageClass.Magic;
-            Item.crit = 20;
             Item.knockBack = 4;
+            Item.crit = 20;
+            Item.mana = 25;
+
             Item.useTime = 15;
             Item.useAnimation = 15;
-            Item.mana = 25;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item103;
             Item.autoReuse = true;
-            Item.shoot = ModContent.ProjectileType<DeathNote>();
+
             Item.shootSpeed = 10;
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ModContent.RarityType<SlayerRarity>();
+            Item.shoot = ModContent.ProjectileType<DeathNote>();
         }
 
         public override void AddRecipes()

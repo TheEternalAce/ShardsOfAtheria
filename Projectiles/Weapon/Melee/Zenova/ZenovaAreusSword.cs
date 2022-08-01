@@ -6,13 +6,15 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova
 {
-    public class ZenovaAreusSword : ModProjectile {
+    public class ZenovaAreusSword : ModProjectile
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Zenova Black Areus Sword");
         }
 
-        public override void SetDefaults() {
+        public override void SetDefaults()
+        {
             Projectile.width = 21;
             Projectile.height = 21;
 

@@ -25,6 +25,10 @@ namespace ShardsOfAtheria
         public static RecipeGroup Soul;
         public static RecipeGroup DecaWeapon;
 
+        public static RecipeGroup Bullet;
+        public static RecipeGroup Arrow;
+        public static RecipeGroup Rocket;
+
         public override void Unload()
         {
             EvilMaterial = null;
@@ -43,84 +47,91 @@ namespace ShardsOfAtheria
         {
             EvilMaterial = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Evil Material",
                    ItemID.ShadowScale, ItemID.TissueSample);
-            RecipeGroup.RegisterGroup("EvilMaterials", EvilMaterial);
-
-            EvilGun = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Evil Gun",
-                   ItemID.Musket, ItemID.TheUndertaker);
-            RecipeGroup.RegisterGroup("EvilGuns", EvilGun);
+            RecipeGroup.RegisterGroup("Shards:EvilMaterials", EvilMaterial);
 
             Copper = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} {Lang.GetItemNameValue(ItemID.CopperBar)}",
                    ItemID.CopperBar, ItemID.TinBar);
-            RecipeGroup.RegisterGroup("CopperBars", Copper);
+            RecipeGroup.RegisterGroup("Shards:CopperBars", Copper);
 
             Silver = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} {Lang.GetItemNameValue(ItemID.SilverBar)}",
                    ItemID.SilverBar, ItemID.TungstenBar);
-            RecipeGroup.RegisterGroup("SilverBars", Silver);
+            RecipeGroup.RegisterGroup("Shards:SilverBars", Silver);
 
             Gold = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} {Lang.GetItemNameValue(ItemID.GoldBar)}",
                    ItemID.GoldBar, ItemID.PlatinumBar);
-            RecipeGroup.RegisterGroup("GoldBars", Gold);
+            RecipeGroup.RegisterGroup("Shards:GoldBars", Gold);
 
             EvilBar = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Evil Bar",
                    ItemID.DemoniteBar, ItemID.CrimtaneBar);
-            RecipeGroup.RegisterGroup("EvilBars", EvilBar);
+            RecipeGroup.RegisterGroup("Shards:EvilBars", EvilBar);
 
             Cobalt = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Tier 1 Bar",
                    ItemID.CobaltBar, ItemID.PalladiumBar);
-            RecipeGroup.RegisterGroup("Tier1Bars", Cobalt);
+            RecipeGroup.RegisterGroup("Shards:Tier1Bars", Cobalt);
 
             Mythril = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Tier 2 Bar",
                    ItemID.MythrilBar, ItemID.OrichalcumBar);
-            RecipeGroup.RegisterGroup("Tier2Bars", Mythril);
+            RecipeGroup.RegisterGroup("Shards:Tier2Bars", Mythril);
 
             Adamantite = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Tier 3 Bar",
                    ItemID.AdamantiteBar, ItemID.TitaniumBar);
-            RecipeGroup.RegisterGroup("Tier3Bars", Adamantite);
+            RecipeGroup.RegisterGroup("Shards:Tier3Bars", Adamantite);
 
             Soul = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Soul",
                    ItemID.SoulofFlight, ItemID.SoulofFright, ItemID.SoulofLight, ItemID.SoulofMight, ItemID.SoulofNight, ItemID.SoulofSight, ModContent.ItemType<SoulOfDaylight>(),
                    ModContent.ItemType<SoulOfTwilight>(), ModContent.ItemType<SoulOfSpite>());
-            RecipeGroup.RegisterGroup("Souls", Soul);
+            RecipeGroup.RegisterGroup("Shards:Souls", Soul);
 
             DecaWeapon = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Deca Weapon",
-                   ModContent.ItemType<DecaBow>(), ModContent.ItemType<DecaClaw>(), ModContent.ItemType<DecaRifle>(), ModContent.ItemType<DecaSaber>(),
-                   ModContent.ItemType<DecaShotgun>(), ModContent.ItemType<DecaStaff>());
-            RecipeGroup.RegisterGroup("DecaWeapon", DecaWeapon);
+                   ModContent.ItemType<DecaBow>(), ModContent.ItemType<DecaClaw>(), ModContent.ItemType<DecaSaber>(), ModContent.ItemType<DecaAnnihilator>(), ModContent.ItemType<DecaStaff>());
+            RecipeGroup.RegisterGroup("Shards:DecaWeapon", DecaWeapon);
+
+            Arrow = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} arrow",
+                   ItemID.WoodenArrow);
+            RecipeGroup.RegisterGroup("Shards:Arrows", Arrow);
+
+            Bullet = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} bullet",
+                   ItemID.MusketBall);
+            RecipeGroup.RegisterGroup("Shards:Bullets", Bullet);
+
+            Rocket = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} rocket",
+                   ItemID.RocketI);
+            RecipeGroup.RegisterGroup("Shards:Rockets", Rocket);
         }
 
         public override void AddRecipes()
         {
-            Mod.CreateRecipe(ItemID.SoulofLight, 2)
+            Recipe.Create(ItemID.SoulofLight, 2)
                 .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 5)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
-            Mod.CreateRecipe(ItemID.SoulofNight, 2)
+            Recipe.Create(ItemID.SoulofNight, 2)
                 .AddIngredient(ModContent.ItemType<SoulOfTwilight>(), 5)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
-            Mod.CreateRecipe(ItemID.TerraBlade)
+            Recipe.Create(ItemID.TerraBlade)
                 .AddIngredient(ModContent.ItemType<HeroSword>())
                 .AddIngredient(ItemID.TrueNightsEdge)
                 .AddIngredient(ItemID.TrueExcalibur)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
-            Mod.CreateRecipe(ItemID.LifeCrystal)
+            Recipe.Create(ItemID.LifeCrystal)
                 .AddIngredient(ModContent.ItemType<BionicBarItem>(), 5)
                 .AddIngredient(ItemID.Ruby, 5)
                 .AddTile(TileID.Anvils)
                 .Register();
-            Mod.CreateRecipe(ItemID.LifeFruit)
+            Recipe.Create(ItemID.LifeFruit)
                 .AddIngredient(ModContent.ItemType<BionicBarItem>(), 5)
                 .AddIngredient(ItemID.JungleSpores, 5)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
-            Mod.CreateRecipe(ItemID.GuideVoodooDoll)
+            Recipe.Create(ItemID.GuideVoodooDoll)
                 .AddIngredient(ModContent.ItemType<BionicBarItem>(), 5)
                 .AddIngredient(ItemID.Silk, 5)
                 .AddRecipeGroup(SoARecipes.Soul, 5)
                 .AddTile(TileID.DemonAltar)
                 .Register();
-            Mod.CreateRecipe(ItemID.ClothierVoodooDoll)
+            Recipe.Create(ItemID.ClothierVoodooDoll)
                 .AddIngredient(ItemID.GuideVoodooDoll)
                 .AddIngredient(ItemID.RedHat)
                 .AddTile(TileID.DemonAltar)

@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Players;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
@@ -11,6 +12,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
             Tooltip.SetDefault("While in combat enter a \"spin phase\" for 5 seconds every 30 seconds\n" +
                 "This \"spin phase\" inceases defense and damage by 50% and damages nearby enemies\n" +
                 "Attacks fire a homing skull");
+
+            base.SetStaticDefaults();
         }
 
         public override bool? UseItem(Player player)

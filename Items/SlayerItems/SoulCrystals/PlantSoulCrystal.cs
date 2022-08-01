@@ -1,5 +1,6 @@
 ﻿using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.NPCs;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -15,6 +16,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
             Tooltip.SetDefault("Spawn up to 8 tentacles over the course of 40 seconds\n" +
                 "Attacks fire a petal that inflicts venom\n" +
                 "Passive 15% increase in movement speed, 10% damage increase and increased life regen");
+
+            base.SetStaticDefaults();
         }
 
         public override bool? UseItem(Player player)

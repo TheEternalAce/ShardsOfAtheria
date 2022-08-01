@@ -29,6 +29,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         {
             var direction = Main.MouseWorld - Projectile.Center;
             Player player = Main.player[Projectile.owner];
+            player.itemAnimation = 10;
+            player.itemTime = 10;
             (player.HeldItem.ModItem as GenesisAndRagnarok).combo = 0;
 
             if (Main.myPlayer == Projectile.owner)
@@ -50,7 +52,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             Vector2 velocity = Vector2.Normalize(Main.MouseWorld - player.Center) * 30f;
             if (!player.dead && !Main.mouseLeft && Main.myPlayer == Projectile.owner)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, velocity.RotatedByRandom(MathHelper.ToRadians(5)), ModContent.ProjectileType<RagnarokProj>(), player.HeldItem.damage, player.HeldItem.knockBack, player.whoAmI);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, velocity.RotatedByRandom(MathHelper.ToRadians(5)), ModContent.ProjectileType<RagnarokProj>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
                 SoundEngine.PlaySound(SoundID.Item1);
             }
         }
@@ -105,7 +107,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                     player.immuneTime = 60;
                     player.AddBuff(ModContent.BuffType<ParryCooldown>(), 300);
                     player.AddBuff(BuffID.ParryDamageBuff, 300);
-                    parryNPC.AddBuff(BuffID.OnFire, 600);
+
+                    if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
+                    {
+                        if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5 && (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades >= 3)
+                            parryNPC.AddBuff(BuffID.OnFire, 600);
+                        else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
+                            parryNPC.AddBuff(BuffID.Frostburn, 600);
+                    }
                 }
             }
         }

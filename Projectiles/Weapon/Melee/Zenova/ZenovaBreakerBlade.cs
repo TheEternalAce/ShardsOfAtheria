@@ -5,13 +5,15 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova
 {
-    public class ZenovaBreakerBlade : ModProjectile {
+    public class ZenovaBreakerBlade : ModProjectile
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Zenova Breker Blade");
         }
 
-        public override void SetDefaults() {
+        public override void SetDefaults()
+        {
             Projectile.width = 24;
             Projectile.height = 24;
 

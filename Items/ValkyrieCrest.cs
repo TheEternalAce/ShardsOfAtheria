@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.NPCs.NovaStellar;
@@ -10,20 +11,24 @@ namespace ShardsOfAtheria.Items
 	{
 		public override void SetStaticDefaults() 
 		{
-			Tooltip.SetDefault("Summons a holy Harpy Knight");
+			Tooltip.SetDefault("Summons a powerful Valkyrie");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.rare = ItemRarityID.Red;
-			Item.useStyle = ItemUseStyleID.HoldUp;
-			Item.value = Item.buyPrice(0, 5);
+			Item.consumable = true;
+			Item.maxStack = 20;
+
 			Item.useTime = 45;
 			Item.useAnimation = 45;
-			Item.maxStack = 20;
-			Item.consumable = true;
+			Item.useStyle = ItemUseStyleID.HoldUp;
+
+			Item.rare = ItemRarityID.Blue;
+			Item.value = Item.buyPrice(0, 5);
 		}
 
         public override void AddRecipes()

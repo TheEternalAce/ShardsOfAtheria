@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Players;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Buffs

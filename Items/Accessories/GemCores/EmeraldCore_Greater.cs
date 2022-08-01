@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,15 +19,18 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 				"Grants flight and slowfall");
 
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(120, 9f, 2.5f);
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.value = Item.sellPrice(silver: 15);
-			Item.rare = ItemRarityID.White;
 			Item.accessory = true;
+
+			Item.rare = ItemRarityID.Orange;
+			Item.value = Item.sellPrice(0, 2, 25);
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

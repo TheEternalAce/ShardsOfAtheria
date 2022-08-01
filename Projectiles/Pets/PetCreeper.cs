@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Players;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -8,13 +9,6 @@ namespace ShardsOfAtheria.Projectiles.Pets
 {
     public class PetCreeper : ModProjectile
 	{
-		protected float idleAccel = 0.05f;
-		protected float spacingMult = 1f;
-		protected float viewDist = 400f;
-		protected float chaseDist = 200f;
-		protected float chaseAccel = 6f;
-		protected float inertia = 40f;
-
 		public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Creeper");
@@ -44,7 +38,7 @@ namespace ShardsOfAtheria.Projectiles.Pets
 			if (++Projectile.ai[1] >= 30)
 			{
 				Projectile.velocity = Vector2.Normalize(player.Center - Projectile.Center) * 5f;
-				Projectile.ai[1] = 1;
+				Projectile.ai[1] = 0;
 			}
 
 			if (player.dead)

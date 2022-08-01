@@ -6,42 +6,37 @@ using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.DevItems.AceOfSpades2370;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
+using ShardsOfAtheria.Items.DevItems.nightlight;
+using ShardsOfAtheria.Items.DevItems.DaluyanMesses;
+using Terraria.GameContent.ItemDropRules;
 
 namespace ShardsOfAtheria.Items
 {
     public class BossBags : GlobalItem
 	{
-		public override void OpenVanillaBag(string context, Player player, int arg)
+        public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
 		{
-			var source = player.GetSource_OpenItem(arg);
+			LeadingConditionRule hardmodeDevSet = new LeadingConditionRule(new Conditions.IsHardmode());
+			IItemDropRule aceDrop = ItemDropRule.Common(ModContent.ItemType<AceOfSpades>());
+			aceDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AcesGoldFoxMask>()));
+			aceDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AcesJacket>()));
+			aceDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AcesPants>()));
 
-			if (context == "bossBag" && arg == ItemID.EaterOfWorldsBossBag)
+			IItemDropRule nightDrop = ItemDropRule.Common(ModContent.ItemType<Nightlight>());
+			nightDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<CoatOfnight>()));
+
+			IItemDropRule devDrop = new OneFromRulesRule(20, aceDrop, nightDrop, ItemDropRule.Common(ModContent.ItemType<StatueOfDaluyan>()));
+			hardmodeDevSet.OnSuccess(devDrop);
+
+			itemLoot.Add(hardmodeDevSet);
+
+			if (item.type == ItemID.EaterOfWorldsBossBag)
 			{
-				player.QuickSpawnItem(source, ModContent.ItemType<WormBloom>());
+				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<WormBloom>()));
 			}
-			if (context == "bossBag" && arg == ItemID.QueenBeeBossBag)
+			if (item.type == ItemID.QueenBeeBossBag)
 			{
-				if (Main.rand.NextFloat() < 0.5f)
-				{
-					player.QuickSpawnItem(source, ModContent.ItemType<HecateII>());
-					player.QuickSpawnItem(source, ModContent.ItemType<DemonClaw>());
-				}
-				else
-				{
-					player.QuickSpawnItem(source, ModContent.ItemType<Glock80>());
-					player.QuickSpawnItem(source, ModContent.ItemType<HiddenWristBlade>());
-				}
-				if (Main.rand.NextFloat() < .1f)
-                {
-					player.QuickSpawnItem(source, ModContent.ItemType<ShadowBrand>());
-				}
-			}
-			if (context == "bossBag" && Main.hardMode && Main.rand.NextFloat() < .05f)
-			{
-				player.QuickSpawnItem(source, ModContent.ItemType<AceOfSpades>());
-				player.QuickSpawnItem(source, ModContent.ItemType<AcesGoldFoxMask>());
-				player.QuickSpawnItem(source, ModContent.ItemType<AcesJacket>());
-				player.QuickSpawnItem(source, ModContent.ItemType<AcesPants>());
+				itemLoot.Add(ItemDropRule.OneFromOptions(1, ModContent.ItemType<HecateII>(), ModContent.ItemType<Glock80>()));
 			}
 		}
 	}

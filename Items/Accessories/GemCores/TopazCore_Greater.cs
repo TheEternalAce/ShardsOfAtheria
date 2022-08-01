@@ -1,5 +1,6 @@
 ﻿using ShardsOfAtheria.Items.Placeable;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,15 +13,18 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			DisplayName.SetDefault("Greater Topaz Core");
 			Tooltip.SetDefault("Increases max life by 40\n" +
 				"Honey and Regeneration buffs");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.value = Item.sellPrice(silver: 15);
-			Item.rare = ItemRarityID.White;
 			Item.accessory = true;
+
+			Item.rare = ItemRarityID.Orange;
+			Item.value = Item.sellPrice(0, 2, 25);
 		}
 
 		public override void AddRecipes()

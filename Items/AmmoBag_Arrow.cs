@@ -1,5 +1,5 @@
 using Terraria;
-using Terraria.Audio;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
@@ -12,14 +12,17 @@ namespace ShardsOfAtheria.Items
 		{
 			DisplayName.SetDefault("Ammo Bag (Arrow)");
 			Tooltip.SetDefault("Gives a stack of a random arrow type");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 10;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 30;
 			Item.height = 22;
-			Item.rare = ItemRarityID.Blue;
 			Item.maxStack = 9999;
+
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.buyPrice(0, 5);
 		}
 
@@ -33,28 +36,40 @@ namespace ShardsOfAtheria.Items
 			var ammoChooser = new WeightedRandom<int>();
 			var source = player.GetSource_OpenItem(Type);
 
-			ammoChooser.Add(ItemID.BoneArrow);
-			ammoChooser.Add(ItemID.ChlorophyteArrow);
-			ammoChooser.Add(ItemID.CursedArrow);
+			ammoChooser.Add(ItemID.WoodenArrow);
 			ammoChooser.Add(ItemID.FlamingArrow);
 			ammoChooser.Add(ItemID.FrostburnArrow);
-			ammoChooser.Add(ItemID.HellfireArrow);
-			ammoChooser.Add(ItemID.HolyArrow);
-			ammoChooser.Add(ItemID.IchorArrow);
+			ammoChooser.Add(ItemID.BoneArrow);
 			ammoChooser.Add(ItemID.JestersArrow);
-			ammoChooser.Add(ItemID.MoonlordArrow);
 			ammoChooser.Add(ItemID.UnholyArrow);
-			ammoChooser.Add(ItemID.VenomArrow);
-			ammoChooser.Add(ItemID.WoodenArrow);
 
-			Main.LocalPlayer.QuickSpawnItem(source, ammoChooser, 999);
+			if (NPC.downedBoss3)
+			{
+				ammoChooser.Add(ItemID.HellfireArrow);
+			}
+
+			if (Main.hardMode)
+			{
+				ammoChooser.Add(ItemID.ChlorophyteArrow);
+				ammoChooser.Add(ItemID.CursedArrow);
+				ammoChooser.Add(ItemID.HolyArrow);
+				ammoChooser.Add(ItemID.IchorArrow);
+				ammoChooser.Add(ItemID.VenomArrow);
+			}
+
+			if (NPC.downedMoonlord)
+			{
+				ammoChooser.Add(ItemID.MoonlordArrow);
+			}
+
+			Main.LocalPlayer.QuickSpawnItem(source, ammoChooser, 9999);
 		}
 
 		public override void AddRecipes()
 		{
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<AmmoBag>())
-				.AddIngredient(ItemID.WoodenArrow)
+				.AddIngredient(ItemID.WoodenArrow, 100)
 				.AddTile(TileID.WorkBenches)
 				.Register();
 		}

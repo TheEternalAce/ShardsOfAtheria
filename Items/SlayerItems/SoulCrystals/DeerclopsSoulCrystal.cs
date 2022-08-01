@@ -1,5 +1,6 @@
 ﻿using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.NPCs;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -14,7 +15,9 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
             DisplayName.SetDefault("Soul Crystal (Deerclops)");
             Tooltip.SetDefault("For every nearby NPC your damage is increased by 5% and your defense is increased by 10\n" +
                 "This increase caps at 15% increased damage and 15 defense\n" +
-                "Summons shadow hands when you are hurt");
+                "Summons shadow hands on taking damage");
+
+            base.SetStaticDefaults();
         }
 
         public override bool? UseItem(Player player)

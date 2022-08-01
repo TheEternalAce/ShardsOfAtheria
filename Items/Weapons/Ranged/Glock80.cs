@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,28 +13,33 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             DisplayName.SetDefault("Glock 80");
             Tooltip.SetDefault("'Automatic shotgun pistol, because it's funny'");
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 1;
-            Item.DamageType = DamageClass.Ranged;
-            Item.noMelee = true;
             Item.width = 44;
             Item.height = 22;
+
+            Item.damage = 1;
+            Item.DamageType = DamageClass.Ranged;
+            Item.knockBack = 3.75f;
+            Item.crit = 0;
+
             Item.useTime = 10;
             Item.useAnimation = 10;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 3.75f;
-            Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item41;
             Item.autoReuse = true;
-            Item.crit = 0;
-            Item.shoot = ProjectileID.PurificationPowder;
+            Item.noMelee = true;
+
             Item.shootSpeed = 8f;
-            Item.useAmmo = AmmoID.Bullet;
+            Item.rare = ItemRarityID.Expert;
             Item.expert = true;
-            Item.value = Item.sellPrice(0, 5);
+            Item.value = Item.sellPrice(0, 2, 25);
+            Item.shoot = ProjectileID.PurificationPowder;
+            Item.useAmmo = AmmoID.Bullet;
         }
 
         public override Vector2? HoldoutOffset()

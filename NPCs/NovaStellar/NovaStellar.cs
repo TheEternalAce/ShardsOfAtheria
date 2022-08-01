@@ -5,6 +5,7 @@ using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.SlayerItems;
 using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj;
 using System.Collections.Generic;
 using Terraria;
@@ -126,9 +127,14 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
         public override void OnKill()
         {
             dialogueTimer = 0;
-            NPC.SetEventFlagCleared(ref SoAWorld.downedValkyrie, -1);
-            if (ModContent.GetInstance<SoAWorld>().slayerMode)
-                ModContent.GetInstance<SoAWorld>().slainValkyrie = true;
+            NPC.SetEventFlagCleared(ref SoADownedSystem.downedValkyrie, -1);
+            if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
+                ModContent.GetInstance<SoADownedSystem>().slainValkyrie = true;
+
+            if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage) && !SoADownedSystem.downedValkyrie)
+            {
+                Item.NewItem(NPC.GetSource_Death(), NPC.getRect(), magicStorage.Find<ModItem>("ShadowDiamond").Type);
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -139,7 +145,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
 
         public override bool PreAI()
         {
-            if (ModContent.GetInstance<SoAWorld>().slainValkyrie)
+            if (ModContent.GetInstance<SoADownedSystem>().slainValkyrie)
             {
                 Main.NewText("Nova Stellar, the Harpy Knight was slain...");
                 NPC.active = false;
@@ -166,13 +172,13 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
                 return;
             }
 
-            if (NPC.localAI[0] == 0f && NPC.life >= 1 && !ModContent.GetInstance<SoAWorld>().slainValkyrie)
+            if (NPC.localAI[0] == 0f && NPC.life >= 1 && !ModContent.GetInstance<SoADownedSystem>().slainValkyrie)
             {
                 if (Main.rand.NextFloat() <= .5f)
                     NPC.position = player.position - new Vector2(500, 250);
                 else NPC.position = player.position - new Vector2(-500, 250);
                 SoundEngine.PlaySound(SoundID.Roar, NPC.position);
-                //if (ModContent.GetInstance<SoAWorld>().slayerMode)
+                //if (Player.GetModPlayer<SlayerPlayer>().slayerMode)
                 //{
                 //    Main.NewText("Alright, now- That look in your eyes... I must take you down here and now!");
                 //}
@@ -204,7 +210,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
                 NPC.velocity = Vector2.Zero;
                 //if (NPC.ai[3] > 1f && NPC.ai[3] == 2)
                 //{
-                //    if (ModContent.GetInstance<SoAWorld>().slayerMode)
+                //    if (Player.GetModPlayer<SlayerPlayer>().slayerMode)
                 //        Main.NewText("*cough* *cough* You're... really strong huh..? Or am I weak..? Haha... Mother... I've failed... you...");
                 //    else Main.NewText("*pant* *pant* You defeated me..?");
                 //}

@@ -3,9 +3,11 @@ using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Projectiles.Minions;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ShardsOfAtheria.Players;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
@@ -31,6 +33,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
                 "Grants infinite flight and slow fall");
 
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(2000000000, 9f, 2.5f);
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -50,10 +54,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.value = Item.sellPrice(silver: 15);
-			Item.rare = ItemRarityID.White;
-			Item.accessory = true;
+            Item.accessory = true;
+
             Item.defense = 50;
+
+            Item.rare = ItemRarityID.Red;
+            Item.value = Item.sellPrice(0, 3);
 		}
 
         public override void AddRecipes()
@@ -72,8 +78,11 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-            MegaGemDashPlayer mp = player.GetModPlayer<MegaGemDashPlayer>();
+        {
+            AmethystDashPlayerII mp = player.GetModPlayer<AmethystDashPlayerII>();
+            mp.DashVelocity = 20f;
+            AmethystDashPlayerII.MAX_DASH_DELAY = 50;
+            AmethystDashPlayerII.MAX_DASH_TIMER = 35;
 
             //Bundle of Balloons
             player.hasJumpOption_Cloud = true;
@@ -94,7 +103,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             //Fire Gauntlet
             player.autoReuseGlove = true;
             player.GetAttackSpeed(DamageClass.Generic) += .20f;
-            player.GetKnockback(DamageClass.Generic) += 4;
+            player.GetKnockback(DamageClass.Generic) += 2;
             player.meleeScaleGlove = true;
 
             //Other
@@ -179,22 +188,22 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.armorEffectDrawShadowEOCShield = true;
 
             //If the dash has just started, apply the dash velocity in whatever direction we wanted to dash towards
-            if (mp.DashTimer == MegaGemDashPlayer.MAX_DASH_TIMER)
+            if (mp.DashTimer == AmethystDashPlayerII.MAX_DASH_TIMER)
             {
                 Vector2 newVelocity = player.velocity;
 
-                if ((mp.DashDir == SuperAmethystDashPlayer.DashUp && player.velocity.Y > -mp.DashVelocity) || (mp.DashDir == SuperAmethystDashPlayer.DashDown && player.velocity.Y < mp.DashVelocity))
+                if ((mp.DashDir == AmethystDashPlayerII.DashUp && player.velocity.Y > -mp.DashVelocity) || (mp.DashDir == AmethystDashPlayerII.DashDown && player.velocity.Y < mp.DashVelocity))
                 {
                     //Y-velocity is set here
                     //If the direction requested was DashUp, then we adjust the velocity to make the dash appear "faster" due to gravity being immediately in effect
                     //This adjustment is roughly 1.3x the intended dash velocity
-                    float dashDirection = mp.DashDir == MegaGemDashPlayer.DashDown ? 1 : -1.3f;
+                    float dashDirection = mp.DashDir == AmethystDashPlayerII.DashDown ? 1 : -1.3f;
                     newVelocity.Y = dashDirection * mp.DashVelocity;
                 }
-                else if ((mp.DashDir == MegaGemDashPlayer.DashLeft && player.velocity.X > -mp.DashVelocity) || (mp.DashDir == MegaGemDashPlayer.DashRight && player.velocity.X < mp.DashVelocity))
+                else if ((mp.DashDir == AmethystDashPlayerII.DashLeft && player.velocity.X > -mp.DashVelocity) || (mp.DashDir == AmethystDashPlayerII.DashRight && player.velocity.X < mp.DashVelocity))
                 {
                     //X-velocity is set here
-                    int dashDirection = mp.DashDir == MegaGemDashPlayer.DashRight ? 1 : -1;
+                    int dashDirection = mp.DashDir == AmethystDashPlayerII.DashRight ? 1 : -1;
                     newVelocity.X = dashDirection * mp.DashVelocity;
                 }
 
@@ -208,8 +217,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             if (mp.DashDelay == 0)
             {
                 //The dash has ended.  Reset the fields
-                mp.DashDelay = MegaGemDashPlayer.MAX_DASH_DELAY;
-                mp.DashTimer = MegaGemDashPlayer.MAX_DASH_TIMER;
+                mp.DashDelay = AmethystDashPlayerII.MAX_DASH_DELAY;
+                mp.DashTimer = AmethystDashPlayerII.MAX_DASH_TIMER;
                 mp.DashActive = false;
             }
         }
@@ -228,74 +237,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         {
             speed = 9f;
             acceleration *= 2.5f;
-        }
-    }
-
-    public class MegaGemDashPlayer : ModPlayer
-    {
-        //These indicate what direction is what in the timer arrays used
-        public static readonly int DashDown = 0;
-        public static readonly int DashUp = 1;
-        public static readonly int DashRight = 2;
-        public static readonly int DashLeft = 3;
-
-        //The direction the player is currently dashing towards.  Defaults to -1 if no dash is ocurring.
-        public int DashDir = -1;
-
-        //The fields related to the dash accessory
-        public bool DashActive = false;
-        public int DashDelay = MAX_DASH_DELAY;
-        public int DashTimer = MAX_DASH_TIMER;
-        //The initial velocity.  10 velocity is about 37.5 tiles/second or 50 mph
-        public readonly float DashVelocity = 20;
-        //These two fields are the max values for the delay between dashes and the length of the dash in that order
-        //The time is measured in frames
-        public static readonly int MAX_DASH_DELAY = 50;
-        public static readonly int MAX_DASH_TIMER = 35;
-
-        public override void ResetEffects()
-        {
-            //ResetEffects() is called not long after player.doubleTapCardinalTimer's values have been set
-
-            //Check if the ExampleDashAccessory is equipped and also check against this priority:
-            // If the Shield of Cthulhu, Master Ninja Gear, Tabi and/or Solar Armour set is equipped, prevent this accessory from doing its dash effect
-            //The priority is used to prevent undesirable effects.
-            //Without it, the player is able to use the ExampleDashAccessory's dash as well as the vanilla ones
-            bool dashAccessoryEquipped = false;
-
-            //This is the loop used in vanilla to update/check the not-vanity accessories
-            for (int i = 3; i < 8 + Player.extraAccessorySlots; i++)
-            {
-                Item item = Player.armor[i];
-
-                //Set the flag for the ExampleDashAccessory being equipped if we have it equipped OR immediately return if any of the accessories are
-                // one of the higher-priority ones
-                if (item.type == ModContent.ItemType<MegaGemCore>())
-                    dashAccessoryEquipped = true;
-                else if (item.type == ItemID.EoCShield || item.type == ItemID.MasterNinjaGear || item.type == ItemID.Tabi)
-                    return;
-            }
-
-            //If we don't have the ExampleDashAccessory equipped or the player has the Solor armor set equipped, return immediately
-            //Also return if the player is currently on a mount, since dashes on a mount look weird, or if the dash was already activated
-            if (!dashAccessoryEquipped || Player.setSolar || Player.mount.Active || DashActive)
-                return;
-
-            if (Player.controlDown && Player.releaseDown && Player.doubleTapCardinalTimer[DashDown] < 15)
-                DashDir = DashDown;
-            else if (Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[DashUp] < 15)
-                DashDir = DashUp;
-            else if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[DashRight] < 15)
-                DashDir = DashRight;
-            else if (Player.controlLeft && Player.releaseLeft && Player.doubleTapCardinalTimer[DashLeft] < 15)
-                DashDir = DashLeft;
-            else
-                return;  //No dash was activated, return
-
-            DashActive = true;
-
-            //Here you'd be able to set an effect that happens when the dash first activates
-            //Some examples include:  the larger smoke effect from the Master Ninja Gear and Tabi
         }
     }
 }

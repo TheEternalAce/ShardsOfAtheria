@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,16 +10,20 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Grants immunity to knockback");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.value = Item.sellPrice(silver: 15);
-			Item.rare = ItemRarityID.White;
 			Item.accessory = true;
+
 			Item.defense = 15;
+
+			Item.rare = ItemRarityID.Blue;
+			Item.value = Item.sellPrice(0, 1, 25);
 		}
 
 		public override void AddRecipes()

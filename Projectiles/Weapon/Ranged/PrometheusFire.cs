@@ -6,13 +6,15 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 {
-    public class PrometheusFire : ModProjectile {
+    public class PrometheusFire : ModProjectile
+    {
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 4;
         }
 
-        public override void SetDefaults() {
+        public override void SetDefaults()
+        {
             Projectile.width = 20;
             Projectile.height = 20;
             Projectile.DamageType = DamageClass.Ranged;

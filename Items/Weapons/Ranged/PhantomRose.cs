@@ -3,6 +3,7 @@ using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,6 +15,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 		{
 			Tooltip.SetDefault("Shoots an extra Phantom Bullet\n" +
 				"48% chance to not consume ammo");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -28,22 +31,25 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
 		public override void SetDefaults()
 		{
-			Item.damage = 425;
-			Item.DamageType = DamageClass.Ranged;
-			Item.noMelee = true;
 			Item.width = 38;
 			Item.height = 24;
 			Item.scale = .85f;
+
+			Item.damage = 100;
+			Item.DamageType = DamageClass.Ranged;
+			Item.knockBack = 3.75f;
+			Item.crit = 8;
+
 			Item.useTime = 10;
 			Item.useAnimation = 10;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.knockBack = 3.75f;
-			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Item41;
-			Item.autoReuse = false;
-			Item.crit = 8;
-			Item.shoot = ProjectileID.PurificationPowder;
+			Item.noMelee = true;
+
 			Item.shootSpeed = 13f;
+			Item.rare = ItemRarityID.Green;
+			Item.value = 42500;
+			Item.shoot = ProjectileID.PurificationPowder;
 			Item.useAmmo = AmmoID.Bullet;
 		}
 

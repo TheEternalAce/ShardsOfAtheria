@@ -1,5 +1,6 @@
 ﻿using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.NPCs;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -15,6 +16,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
             Tooltip.SetDefault("Taking over 100 damage summons a True Eye of Cthulhu\n" +
                 "You can have up to 2 of these\n" +
                 "Another True EoC stays over you and attacks at your cursor");
+
+            base.SetStaticDefaults();
         }
 
         public override bool? UseItem(Player player)

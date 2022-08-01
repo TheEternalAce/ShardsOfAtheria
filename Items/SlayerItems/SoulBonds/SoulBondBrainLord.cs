@@ -1,10 +1,11 @@
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SoulBonds
 {
-	public class SoulBondBrainLord : SoulBond
+    public class SoulBondBrainLord : SoulBond
 	{
         public override void SetStaticDefaults()
         {
@@ -12,6 +13,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulBonds
             Tooltip.SetDefault("Having the Brain of Cthulhu and Moon Lord Soul Crystals absorbed grants the following:\n" +
                 "Transforms your Creepers into True Creepers\n" +
                 "Allows attacking with True Creepers active at the cost of 50% reduced damage");
+
+            base.SetStaticDefaults();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

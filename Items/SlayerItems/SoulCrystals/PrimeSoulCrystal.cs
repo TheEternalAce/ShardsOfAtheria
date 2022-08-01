@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.NPCs;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Other;
 using Terraria;
 using Terraria.Audio;
@@ -17,6 +18,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
             Tooltip.SetDefault("While in combat enter a \"spin phase\" for 5 seconds every 30 seconds\n" +
                 "This \"spin phase\" inceases defense and damage by 100% and damages nearby enemies\n" +
                 "Attacks fire either a laser, rocket or grenade");
+
+            base.SetStaticDefaults();
         }
 
         public override bool? UseItem(Player player)

@@ -1,9 +1,10 @@
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.ID;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SoulBonds
 {
-	public class SoulBondBrainEye : SoulBond
+    public class SoulBondBrainEye : SoulBond
 	{
         public override void SetStaticDefaults()
         {
@@ -11,6 +12,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulBonds
             Tooltip.SetDefault("Having the Eye of Cthulhu and Brain of Cthulhu Soul Crystals absorbed grants the following:\n" +
                 "Passive Dangersense, Hunter, Night Owl, Shine and Spelunker buffs\n" +
                 "Any Servants out will also provide immunity and prevent attacking");
+
+            base.SetStaticDefaults();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

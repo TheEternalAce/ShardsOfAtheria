@@ -7,32 +7,37 @@ using Terraria.DataStructures;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
-	public class FlailOfFlesh : ModItem
+	public class FlailOfFlesh : SlayerItem
 	{
         public override void SetStaticDefaults()
         {
 			Tooltip.SetDefault("Throws 3-6 Hungry\n" +
                 "'Your very own Hungry as a pet! Adorable..?'");
-        }
+
+			base.SetStaticDefaults();
+		}
 
         public override void SetDefaults()
 		{
 			Item.width = 42;
 			Item.height = 38;
-			Item.value = Item.sellPrice(silver: 5);
-			Item.rare = ModContent.RarityType<SlayerRarity>();
-			Item.noMelee = true;
-			Item.useStyle = ItemUseStyleID.Shoot;
+
+			Item.damage = 50;
+			Item.DamageType = DamageClass.Summon;
+			Item.knockBack = 4f;
+
 			Item.useAnimation = 40;
 			Item.useTime = 40;
-			Item.knockBack = 4f;
-			Item.damage = 50;
-			Item.noUseGraphic = true;
-			Item.shoot = ModContent.ProjectileType<FlailOfFleshProj>();
-			Item.shootSpeed = 20f;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.UseSound = SoundID.Item1;
-			Item.DamageType = DamageClass.Summon;
+			Item.noMelee = true;
+			Item.noUseGraphic = true;
 			Item.channel = true;
+
+			Item.shootSpeed = 20f;
+			Item.value = Item.sellPrice(0, 2, 25);
+			Item.rare = ModContent.RarityType<SlayerRarity>();
+			Item.shoot = ModContent.ProjectileType<FlailOfFleshProj>();
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

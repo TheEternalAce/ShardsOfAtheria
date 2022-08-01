@@ -1,5 +1,5 @@
 using Terraria;
-using Terraria.Audio;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
@@ -12,14 +12,17 @@ namespace ShardsOfAtheria.Items
 		{
 			DisplayName.SetDefault("Ammo Bag (Rocket)");
 			Tooltip.SetDefault("Gives a stack of a random rocket type");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 10;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 30;
 			Item.height = 22;
-			Item.rare = ItemRarityID.Blue;
 			Item.maxStack = 9999;
+
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.buyPrice(0, 5);
 		}
 
@@ -46,14 +49,14 @@ namespace ShardsOfAtheria.Items
 			ammoChooser.Add(ItemID.MiniNukeI);
 			ammoChooser.Add(ItemID.MiniNukeII);
 
-			Main.LocalPlayer.QuickSpawnItem(source, ammoChooser, 999);
+			Main.LocalPlayer.QuickSpawnItem(source, ammoChooser, 9999);
 		}
 
         public override void AddRecipes()
         {
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<AmmoBag>())
-				.AddIngredient(ItemID.RocketI)
+				.AddIngredient(ItemID.RocketI, 100)
 				.AddTile(TileID.WorkBenches)
 				.Register();
         }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Placeable;
@@ -7,29 +8,38 @@ using ShardsOfAtheria.Items.SlayerItems;
 using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ShardsOfAtheria.NPCs
 {
     public class SoAGlobalNPC : GlobalNPC
     {
-        public override bool InstancePerEntity => true;
-
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
             Player player = Main.LocalPlayer;
-            if (type == NPCID.Merchant && player.HasItem(ModContent.ItemType<SolarStorm>()))
+            if (type == NPCID.Merchant)
             {
-                shop.item[nextSlot].SetDefaults(ItemID.Flare);
-                nextSlot++;
-                shop.item[nextSlot].SetDefaults(ItemID.BlueFlare);
-                nextSlot++;
+                if (player.HasItem(ModContent.ItemType<SolarStorm>()))
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.Flare);
+                    nextSlot++;
+                    shop.item[nextSlot].SetDefaults(ItemID.BlueFlare);
+                    nextSlot++;
+                }
+                if (player.GetModPlayer<SlayerPlayer>().slayerMode)
+                {
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<LesserRepairKit>());
+                    nextSlot++;
+                }
             }
             if (type == NPCID.TravellingMerchant)
             {
@@ -46,26 +56,56 @@ namespace ShardsOfAtheria.NPCs
                     nextSlot++;
                 }
             }
-            if (type == NPCID.ArmsDealer && NPC.downedBoss2)
+            if (type == NPCID.ArmsDealer && NPC.downedBoss3)
             {
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<AmmoBag>());
                 nextSlot++;
             }
-        }
 
-        public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
-        {
+            if (ModLoader.TryGetMod("AlchemistNPCLite", out Mod alchemistNPCLite))
+            {
+                if (type == alchemistNPCLite.Find<ModNPC>("Operator").Type)
+                {
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<SoulOfDaylight>());
+                    nextSlot++;
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<SoulOfSpite>());
+                    nextSlot++;
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<SoulOfTwilight>());
+                    nextSlot++;
+                }
+            }
 
+            if (ModLoader.TryGetMod("Fargowiltas", out Mod mutantMod))
+            {
+                if (type == mutantMod.Find<ModNPC>("Mutant").Type && SoADownedSystem.downedValkyrie)
+                {
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<ValkyrieCrest>());
+                    nextSlot++;
+                }
+            }
         }
 
         public override void OnKill(NPC npc)
         {
-            if (ModContent.GetInstance<SoAWorld>().slayerMode)
+            if (Main.dayTime && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneOverworldHeight)
+            {
+                Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SoulOfDaylight>());
+            }
+            if ((Main.eclipse || !Main.dayTime) && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneOverworldHeight)
+            {
+                Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SoulOfTwilight>());
+            }
+            if (Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneUnderworldHeight)
+            {
+                Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SoulOfSpite>());
+            }
+            Player lastPlayerToHitThisNPC = npc.AnyInteractions() ? Main.player[npc.lastInteraction] : null;
+            if (lastPlayerToHitThisNPC != null && lastPlayerToHitThisNPC.GetModPlayer<SlayerPlayer>().slayerMode)
             {
                 int numPlayers = Main.CurrentFrameFlags.ActivePlayersCount;
                 if (npc.type == NPCID.KingSlime)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainKing = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainKing = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         // Normal mode
@@ -83,7 +123,7 @@ namespace ShardsOfAtheria.NPCs
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.KingSlimePetItem);
 
                         // Slayer mode
-                        //Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<KingSoulCrystal>());
+                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<KingSoulCrystal>());
                         //Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SlimedKatana>());
 
                     }
@@ -94,7 +134,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (npc.type == NPCID.EyeofCthulhu)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainEOC = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainEOC = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         // Normal mode
@@ -122,7 +162,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (npc.type == NPCID.BrainofCthulhu)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainBOC = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainBOC = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         // Normal mode
@@ -146,9 +186,9 @@ namespace ShardsOfAtheria.NPCs
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.BrainofCthulhuTrophy);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.BrainofCthulhuMasterTrophy);
                 }
-                if (npc.boss && System.Array.IndexOf(new int[] { NPCID.EaterofWorldsBody, NPCID.EaterofWorldsHead, NPCID.EaterofWorldsTail }, npc.type) > -1)
+                if (npc.boss && Array.IndexOf(new int[] { NPCID.EaterofWorldsBody, NPCID.EaterofWorldsHead, NPCID.EaterofWorldsTail }, npc.type) > -1)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainEOW = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainEOW = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         //NormalMode
@@ -174,7 +214,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (npc.type == NPCID.QueenBee)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainBee = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainBee = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         // Normal mode
@@ -193,17 +233,13 @@ namespace ShardsOfAtheria.NPCs
                         // Expert mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.HiveBackpack);
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<Glock80>());
-                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<HiddenWristBlade>());
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<HecateII>());
-                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<DemonClaw>());
-                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<ShadowBrand>());
 
                         // Master mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.QueenBeePetItem);
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<BeeSoulCrystal>());
-                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<MarkOfAnastasia>());
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.BottledHoney, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.BeeWax, 1000);
@@ -213,7 +249,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (npc.type == NPCID.SkeletronHead)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainSkull = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainSkull = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         // Normal mode
@@ -229,13 +265,14 @@ namespace ShardsOfAtheria.NPCs
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SkullSoulCrystal>());
+                        //Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<>());
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SkeletronTrophy);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SkeletronMasterTrophy);
                 }
                 if (npc.type == NPCID.Deerclops)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainDeerclops = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainDeerclops = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         // Normal mode
@@ -256,7 +293,7 @@ namespace ShardsOfAtheria.NPCs
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<DeerclopsSoulCrystal>());
-                        //Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<>());
+                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<ScreamLantern>());
 
                     }
 
@@ -265,7 +302,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (npc.type == NPCID.WallofFlesh)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainWall = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainWall = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         // Normal mode
@@ -295,7 +332,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (npc.type == NPCID.QueenSlimeBoss)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainQueen = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainQueen = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         // Normal mode
@@ -322,9 +359,9 @@ namespace ShardsOfAtheria.NPCs
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.QueenSlimeTrophy);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.QueenSlimeMasterTrophy);
                 }
-                if (npc.boss && System.Array.IndexOf(new int[] { NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail }, npc.type) > -1)
+                if (npc.type == NPCID.TheDestroyer || npc.type == NPCID.TheDestroyerBody || npc.type == NPCID.TheDestroyerTail && npc.boss)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainMechWorm = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainMechWorm = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         // Normal mode
@@ -346,9 +383,9 @@ namespace ShardsOfAtheria.NPCs
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DestroyerTrophy);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DestroyerMasterTrophy);
                 }
-                if (npc.boss && System.Array.IndexOf(new int[] { NPCID.Spazmatism, NPCID.Retinazer }, npc.type) > -1)
+                if (npc.boss && Array.IndexOf(new int[] { NPCID.Spazmatism, NPCID.Retinazer }, npc.type) > -1)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainTwins = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainTwins = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         // Normal mode
@@ -373,7 +410,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (npc.type == NPCID.SkeletronPrime)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainPrime = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainPrime = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         // Normal mode
@@ -397,7 +434,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (npc.type == NPCID.Plantera)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainPlant = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainPlant = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         // Normal mode
@@ -430,7 +467,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (npc.type == NPCID.Golem)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainGolem = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainGolem = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         // Normal mode
@@ -462,7 +499,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (npc.type == NPCID.DukeFishron)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainDuke = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainDuke = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         // Normal mode
@@ -488,7 +525,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (npc.type == NPCID.HallowBoss)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainEmpress = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainEmpress = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         // Normal mode
@@ -519,7 +556,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (npc.type == NPCID.CultistBoss)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainLunatic = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainLunatic = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         // Normal mode
@@ -534,10 +571,10 @@ namespace ShardsOfAtheria.NPCs
                     }
                     if (ModLoader.TryGetMod("NoMorePillars", out Mod foundMod))
                     {
-						ModContent.GetInstance<SoAWorld>().slainPillarNebula = true;
-						ModContent.GetInstance<SoAWorld>().slainPillarSolar = true;
-						ModContent.GetInstance<SoAWorld>().slainPillarStardust = true;
-						ModContent.GetInstance<SoAWorld>().slainPillarVortex = true;
+                        ModContent.GetInstance<SoADownedSystem>().slainPillarNebula = true;
+                        ModContent.GetInstance<SoADownedSystem>().slainPillarSolar = true;
+                        ModContent.GetInstance<SoADownedSystem>().slainPillarStardust = true;
+                        ModContent.GetInstance<SoADownedSystem>().slainPillarVortex = true;
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.FragmentNebula, 1000);
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.FragmentSolar, 1000);
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.FragmentStardust, 1000);
@@ -550,7 +587,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (npc.type == NPCID.LunarTowerNebula)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainPillarNebula = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainPillarNebula = true;
                     if (!ModLoader.TryGetMod("NoMorePillars", out Mod foundMod))
                     {
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.FragmentNebula, 1000);
@@ -562,7 +599,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (npc.type == NPCID.LunarTowerSolar)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainPillarSolar = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainPillarSolar = true;
                     if (!ModLoader.TryGetMod("NoMorePillars", out Mod foundMod))
                     {
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.FragmentSolar, 1000);
@@ -574,7 +611,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (npc.type == NPCID.LunarTowerStardust)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainPillarStardust = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainPillarStardust = true;
                     if (!ModLoader.TryGetMod("NoMorePillars", out Mod foundMod))
                     {
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.FragmentStardust, 1000);
@@ -586,7 +623,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (npc.type == NPCID.LunarTowerVortex)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainPillarVortex = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainPillarVortex = true;
                     if (!ModLoader.TryGetMod("NoMorePillars", out Mod foundMod))
                     {
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.FragmentVortex, 1000);
@@ -598,7 +635,7 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (npc.type == NPCID.MoonLordCore)
                 {
-                    ModContent.GetInstance<SoAWorld>().slainMoonLord = true;
+                    ModContent.GetInstance<SoADownedSystem>().slainMoonLord = true;
                     for (int i = 0; i < numPlayers; i++)
                     {
                         // Normal mode
@@ -632,22 +669,6 @@ namespace ShardsOfAtheria.NPCs
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.MoonLordMasterTrophy);
                 }
             }
-            if (Main.dayTime && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneOverworldHeight && !(Main.LocalPlayer.ZoneCorrupt || Main.LocalPlayer.ZoneCrimson))
-            {
-                Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SoulOfDaylight>());
-            }
-            if (!Main.dayTime && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneOverworldHeight && !(Main.LocalPlayer.ZoneCorrupt || Main.LocalPlayer.ZoneCrimson))
-            {
-                Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SoulOfTwilight>());
-            }
-            if (Main.eclipse && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneOverworldHeight && !(Main.LocalPlayer.ZoneCorrupt || Main.LocalPlayer.ZoneCrimson))
-            {
-                Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SoulOfTwilight>());
-            }
-            if (Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneUnderworldHeight && !(Main.LocalPlayer.ZoneHallow))
-            {
-                Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SoulOfSpite>());
-            }
         }
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
@@ -660,31 +681,51 @@ namespace ShardsOfAtheria.NPCs
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ReactorMeltdown>(), 4));
             }
+            if (npc.type == NPCID.WallofFlesh)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragmentI>()));
+            }
+            if (npc.type == NPCID.Plantera)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragmentII>()));
+            }
+            if (npc.type == NPCID.Golem)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragmentIII>()));
+            }
+            if (npc.type == NPCID.CultistBoss)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragmentIV>()));
+            }
+            if (npc.type == NPCID.MoonLordCore)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragmentV>()));
+            }
         }
 
         public override bool PreAI(NPC npc)
         {
-            if (npc.type == NPCID.KingSlime && ModContent.GetInstance<SoAWorld>().slainKing)
+            if (npc.type == NPCID.KingSlime && ModContent.GetInstance<SoADownedSystem>().slainKing)
             {
                 Main.NewText("King Slime was slain...");
                 npc.active = false;
             }
-            if (npc.type == NPCID.EyeofCthulhu && ModContent.GetInstance<SoAWorld>().slainEOC)
+            if (npc.type == NPCID.EyeofCthulhu && ModContent.GetInstance<SoADownedSystem>().slainEOC)
             {
                 Main.NewText("The Eye of Cthulhu was slain...");
                 npc.active = false;
             }
-            if (ModContent.GetInstance<SoAWorld>().slainBOC)
+            if (ModContent.GetInstance<SoADownedSystem>().slainBOC)
             {
                 if (npc.type == NPCID.BrainofCthulhu)
                 {
                     Main.NewText("The Brain of Cthulhu was slain...");
                     npc.active = false;
                 }
-                if (npc.type == NPCID.Creeper && ModContent.GetInstance<SoAWorld>().slainBOC)
+                if (npc.type == NPCID.Creeper && ModContent.GetInstance<SoADownedSystem>().slainBOC)
                     npc.active = false;
             }
-            if (ModContent.GetInstance<SoAWorld>().slainEOW)
+            if (ModContent.GetInstance<SoADownedSystem>().slainEOW)
             {
                 if (npc.type == NPCID.EaterofWorldsHead)
                 {
@@ -694,12 +735,12 @@ namespace ShardsOfAtheria.NPCs
                 if (npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
                     npc.active = false;
             }
-            if (npc.type == NPCID.QueenBee && ModContent.GetInstance<SoAWorld>().slainBee)
+            if (npc.type == NPCID.QueenBee && ModContent.GetInstance<SoADownedSystem>().slainBee)
             {
                 Main.NewText("The Queen Bee was slain...");
                 npc.active = false;
             }
-            if (ModContent.GetInstance<SoAWorld>().slainSkull)
+            if (ModContent.GetInstance<SoADownedSystem>().slainSkull)
             {
                 if (npc.type == NPCID.SkeletronHead || npc.type == NPCID.DungeonGuardian)
                 {
@@ -709,12 +750,12 @@ namespace ShardsOfAtheria.NPCs
                 if (npc.type == NPCID.SkeletronHand)
                     npc.active = false;
             }
-            if (npc.type == NPCID.Deerclops && ModContent.GetInstance<SoAWorld>().slainDeerclops)
+            if (npc.type == NPCID.Deerclops && ModContent.GetInstance<SoADownedSystem>().slainDeerclops)
             {
                 Main.NewText("Deerclops was slain...");
                 npc.active = false;
             }
-            if (ModContent.GetInstance<SoAWorld>().slainWall)
+            if (ModContent.GetInstance<SoADownedSystem>().slainWall)
             {
                 if (npc.type == NPCID.WallofFlesh)
                 {
@@ -724,12 +765,12 @@ namespace ShardsOfAtheria.NPCs
                 if (npc.type == NPCID.WallofFleshEye)
                     npc.active = false;
             }
-            if (npc.type == NPCID.QueenSlimeBoss && ModContent.GetInstance<SoAWorld>().slainQueen)
+            if (npc.type == NPCID.QueenSlimeBoss && ModContent.GetInstance<SoADownedSystem>().slainQueen)
             {
                 Main.NewText("Queen Slime was slain...");
                 npc.active = false;
             }
-            if (ModContent.GetInstance<SoAWorld>().slainMechWorm)
+            if (ModContent.GetInstance<SoADownedSystem>().slainMechWorm)
             {
                 if (npc.type == NPCID.TheDestroyer)
                 {
@@ -739,7 +780,7 @@ namespace ShardsOfAtheria.NPCs
                 if (npc.type == NPCID.TheDestroyerBody || npc.type == NPCID.TheDestroyerTail)
                     npc.active = false;
             }
-            if (ModContent.GetInstance<SoAWorld>().slainTwins)
+            if (ModContent.GetInstance<SoADownedSystem>().slainTwins)
             {
                 if (npc.type == NPCID.Spazmatism)
                 {
@@ -752,7 +793,7 @@ namespace ShardsOfAtheria.NPCs
                     npc.active = false;
                 }
             }
-            if (ModContent.GetInstance<SoAWorld>().slainPrime)
+            if (ModContent.GetInstance<SoADownedSystem>().slainPrime)
             {
                 if (npc.type == NPCID.SkeletronPrime)
                 {
@@ -762,7 +803,7 @@ namespace ShardsOfAtheria.NPCs
                 if (npc.type == NPCID.PrimeCannon || npc.type == NPCID.PrimeLaser || npc.type == NPCID.PrimeSaw || npc.type == NPCID.PrimeVice)
                     npc.active = false;
             }
-            if (ModContent.GetInstance<SoAWorld>().slainPlant)
+            if (ModContent.GetInstance<SoADownedSystem>().slainPlant)
             {
                 if (npc.type == NPCID.Plantera)
                 {
@@ -772,7 +813,7 @@ namespace ShardsOfAtheria.NPCs
                 if (npc.type == NPCID.PlanterasHook || npc.type == NPCID.PlanterasTentacle)
                     npc.active = false;
             }
-            if (ModContent.GetInstance<SoAWorld>().slainGolem)
+            if (ModContent.GetInstance<SoADownedSystem>().slainGolem)
             {
                 if (npc.type == NPCID.Golem)
                 {
@@ -782,17 +823,17 @@ namespace ShardsOfAtheria.NPCs
                 if (npc.type == NPCID.GolemFistLeft || npc.type == NPCID.GolemFistRight || npc.type == NPCID.GolemHead)
                     npc.active = false;
             }
-            if (npc.type == NPCID.DukeFishron && ModContent.GetInstance<SoAWorld>().slainDuke)
+            if (npc.type == NPCID.DukeFishron && ModContent.GetInstance<SoADownedSystem>().slainDuke)
             {
                 Main.NewText("Duke Fishron was slain...");
                 npc.active = false;
             }
-            if (npc.type == NPCID.HallowBoss && ModContent.GetInstance<SoAWorld>().slainEmpress)
+            if (npc.type == NPCID.HallowBoss && ModContent.GetInstance<SoADownedSystem>().slainEmpress)
             {
                 Main.NewText("The Empress of Light was slain...");
                 npc.active = false;
             }
-            if (ModContent.GetInstance<SoAWorld>().slainLunatic)
+            if (ModContent.GetInstance<SoADownedSystem>().slainLunatic)
             {
                 if (npc.type == NPCID.CultistBoss)
                 {
@@ -816,23 +857,23 @@ namespace ShardsOfAtheria.NPCs
                     npc.active = false;
                 }
             }
-            if (npc.type == NPCID.LunarTowerNebula && ModContent.GetInstance<SoAWorld>().slainPillarNebula)
+            if (npc.type == NPCID.LunarTowerNebula && ModContent.GetInstance<SoADownedSystem>().slainPillarNebula)
             {
                 npc.active = false;
             }
-            if (npc.type == NPCID.LunarTowerSolar && ModContent.GetInstance<SoAWorld>().slainPillarSolar)
+            if (npc.type == NPCID.LunarTowerSolar && ModContent.GetInstance<SoADownedSystem>().slainPillarSolar)
             {
                 npc.active = false;
             }
-            if (npc.type == NPCID.LunarTowerStardust && ModContent.GetInstance<SoAWorld>().slainPillarStardust)
+            if (npc.type == NPCID.LunarTowerStardust && ModContent.GetInstance<SoADownedSystem>().slainPillarStardust)
             {
                 npc.active = false;
             }
-            if (npc.type == NPCID.LunarTowerVortex && ModContent.GetInstance<SoAWorld>().slainPillarVortex)
+            if (npc.type == NPCID.LunarTowerVortex && ModContent.GetInstance<SoADownedSystem>().slainPillarVortex)
             {
                 npc.active = false;
             }
-            if (ModContent.GetInstance<SoAWorld>().slainMoonLord)
+            if (ModContent.GetInstance<SoADownedSystem>().slainMoonLord)
             {
                 if (npc.type == NPCID.MoonLordCore)
                 {

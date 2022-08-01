@@ -12,6 +12,8 @@ namespace ShardsOfAtheria.Items.SlayerItems
             Tooltip.SetDefault("'Feelings of universal decay emanate from this fragment'");
             ItemID.Sets.ItemIconPulse[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
+
+            base.SetStaticDefaults();
         }
 
         public override void SetDefaults()

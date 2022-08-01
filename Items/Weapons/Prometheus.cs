@@ -2,6 +2,7 @@ using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,28 +14,31 @@ namespace ShardsOfAtheria.Items.Weapons
         {
             Tooltip.SetDefault("Left Click to swing an energy scythe, <right> to throw a fireball\n" +
                 "'It seems like you're worthy of playing his little game, his game of destiny!'");
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.noMelee = false;
-            Item.noUseGraphic = false;
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.width = 54;
+            Item.height = 48;
+
             Item.damage = 112;
             Item.DamageType = DamageClass.Melee;
             Item.knockBack = 13;
             Item.mana = 0;
-            Item.shoot = ProjectileID.None;
-            Item.useTurn = true;
-            Item.width = 54;
-            Item.height = 48;
-            Item.useTime = 20;
-            Item.useAnimation = 20;
+
+            Item.useTime = 30;
+            Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.value = Item.sellPrice(0,  10);
-            Item.rare = ItemRarityID.Red;
             Item.autoReuse = true;
+            Item.useTurn = true;
+            Item.noMelee = false;
+            Item.noUseGraphic = false;
+
+            Item.value = Item.sellPrice(0, 3, 25);
+            Item.rare = ItemRarityID.Red;
+            Item.shoot = ProjectileID.None;
         }
 
         public override void AddRecipes()

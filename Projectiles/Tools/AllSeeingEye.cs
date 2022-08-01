@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Other;
 using Terraria;
 using Terraria.ID;

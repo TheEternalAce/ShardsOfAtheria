@@ -1,5 +1,6 @@
 ﻿using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.NPCs;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -15,6 +16,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
             Tooltip.SetDefault("Increased max flight time and permanent Shine and Night Owl buffs\n" +
                 "Daytime increased damage by 20% and nighttime increases defense by 20\n" +
                 "Hitting enemies summons a twilight lance for a second strike");
+
+            base.SetStaticDefaults();
         }
 
         public override bool? UseItem(Player player)

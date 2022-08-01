@@ -6,8 +6,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
-    public class GunCorruption : ModProjectile {
-        public override void SetDefaults() {
+    public class GunCorruption : ModProjectile
+    {
+        public override void SetDefaults()
+        {
             Projectile.width = 20;
             Projectile.height = 20;
             Projectile.DamageType = DamageClass.Magic;
@@ -21,18 +23,5 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         {
             Projectile.rotation += 0.4f * (float)Projectile.direction;
         }
-        /*
-        public override bool PreDraw(ref Color lightColor)
-        {
-            SpriteEffects spriteEffects = SpriteEffects.None;
-            Texture2D texture = Main.projectileTexture[Projectile.type];
-            Rectangle sourceRectangle = new Rectangle(0, 0, texture.Width, texture.Height);
-            Vector2 origin = sourceRectangle.Size() / 2f;
-
-            Color drawColor = Projectile.GetAlpha(lightColor);
-            Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), sourceRectangle, drawColor, Projectile.rotation, origin, 1, spriteEffects, 0f);
-
-            return false;
-        }*/
     }
 }

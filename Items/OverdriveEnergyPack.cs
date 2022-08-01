@@ -1,9 +1,8 @@
-﻿using ShardsOfAtheria.Tiles;
-using ShardsOfAtheria.Buffs;
+﻿using ShardsOfAtheria.Players;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace ShardsOfAtheria.Items
 {
@@ -12,21 +11,25 @@ namespace ShardsOfAtheria.Items
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Refills Overdrive Time");
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
         }
+
         public override void SetDefaults()
         {
             Item.width = 32;
             Item.height = 32;
+            Item.maxStack = 30;
+
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.HoldUp;
-            Item.value = Item.sellPrice(0,  10);
-            Item.rare = ItemRarityID.Red;
             Item.UseSound = SoundID.NPCHit53;
-            Item.autoReuse = false;
             Item.useTurn = true;
             Item.consumable = true;
-            Item.maxStack = 30;
+
+            Item.rare = ItemRarityID.Red;
+            Item.value = Item.sellPrice(0, 0, 20);
         }
 
         public override void AddRecipes()

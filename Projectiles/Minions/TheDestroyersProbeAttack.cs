@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Players;
 using System;
 using Terraria;
 using Terraria.ID;

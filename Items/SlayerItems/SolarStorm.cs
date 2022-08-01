@@ -12,27 +12,33 @@ namespace ShardsOfAtheria.Items.SlayerItems
         {
             Tooltip.SetDefault("Fires a storm of Solar Flares\n" +
                 "'Harness energy from the sun to vaporize your foes!'");
+
+            base.SetStaticDefaults();
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 150;
-            Item.DamageType = DamageClass.Ranged;
-            Item.noMelee = true;
             Item.width = 42;
             Item.height = 24;
+
+            Item.damage = 150;
+            Item.DamageType = DamageClass.Ranged;
+            Item.knockBack = 4f;
+            Item.crit = 8;
+
             Item.useTime = 10;
             Item.useAnimation = 10;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 4f;
-            Item.rare = ModContent.RarityType<SlayerRarity>();
             Item.UseSound = SoundID.Item11;
             Item.autoReuse = true;
-            Item.crit = 8;
-            Item.value = Item.sellPrice(0, 25);
-            Item.shoot = ItemID.PurificationPowder;
+            Item.noMelee = true;
+
             Item.shootSpeed = 6f;
+            Item.rare = ModContent.RarityType<SlayerRarity>();
+            Item.value = Item.sellPrice(0, 3, 25);
+            Item.shoot = ItemID.PurificationPowder;
             Item.useAmmo = AmmoID.Flare;
+
             Item.holdStyle = ItemHoldStyleID.HoldFront;
         }
 

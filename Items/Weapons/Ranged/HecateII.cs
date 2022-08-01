@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
@@ -11,29 +12,33 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hecate II");
-			Tooltip.SetDefault("'She's a real monster.'\n" +
-				"'Just like me.'");
+			Tooltip.SetDefault("");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() 
 		{
+			Item.width = 104;
+			Item.height = 30;
+
 			Item.damage = 25;
 			Item.DamageType = DamageClass.Ranged;
-			Item.noMelee = true;
-			Item.width = 93;
-			Item.height = 20;
+			Item.crit = 6;
+			Item.knockBack = 8f;
+
 			Item.useTime = 36;
 			Item.useAnimation = 36;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.knockBack = 8f;
-			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.Item40;
-			Item.crit = 6;
-			Item.shoot = ProjectileID.PurificationPowder;
+			Item.noMelee = true;
+
 			Item.shootSpeed = 16f;
-			Item.useAmmo = AmmoID.Bullet;
+			Item.rare = ItemRarityID.Expert;
 			Item.expert = true;
-			Item.value = Item.sellPrice(0,  5);
+			Item.value = Item.sellPrice(0, 2, 25);
+			Item.shoot = ProjectileID.PurificationPowder;
+			Item.useAmmo = AmmoID.Bullet;
 		}
 
         public override Vector2? HoldoutOffset()

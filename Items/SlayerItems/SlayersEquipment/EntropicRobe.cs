@@ -1,9 +1,6 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged;
-using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
 {
@@ -13,6 +10,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("12% increased damage and critical strike chance");
+
+            base.SetStaticDefaults();
         }
 
         public override void SetDefaults()
@@ -36,7 +35,7 @@ namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<FragmentEntropy>(), 64)
                 .AddIngredient(ItemID.LunarBar, 32)
-                .AddTile(TileID.MythrilAnvil)
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
     }

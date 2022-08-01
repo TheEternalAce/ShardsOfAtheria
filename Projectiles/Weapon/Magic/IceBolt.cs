@@ -6,8 +6,10 @@ using Terraria.Audio;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
-    public class IceBolt : ModProjectile {
-        public override void SetDefaults() {
+    public class IceBolt : ModProjectile
+    {
+        public override void SetDefaults()
+        {
             Projectile.width = 18;
             Projectile.height = 18;
 

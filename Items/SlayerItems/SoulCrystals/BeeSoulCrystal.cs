@@ -1,5 +1,6 @@
 ﻿using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.NPCs;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -14,6 +15,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
             DisplayName.SetDefault("Soul Crystal (Queen Bee)");
             Tooltip.SetDefault("Attacks inflict Poisoned and shoot stingers\n" +
                 "Spawn a bee every 10 seconds while in combat");
+
+            base.SetStaticDefaults();
         }
 
         public override bool? UseItem(Player player)

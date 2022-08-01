@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Players;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,15 +12,23 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
     public abstract class SoulCrystal : SlayerItem
     {
         public int absorbSoulTimer = 300;
+
+        public override void SetStaticDefaults()
+        {
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+        }
+
         public override void SetDefaults()
         {
             Item.width = 14;
             Item.height = 24;
+
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.useTime = 1;
             Item.useAnimation = 1;
             Item.autoReuse = true;
             Item.useTurn = true;
+
             Item.rare = ModContent.RarityType<SlayerRarity>();
         }
 

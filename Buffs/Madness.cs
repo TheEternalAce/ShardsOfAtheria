@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Players;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;

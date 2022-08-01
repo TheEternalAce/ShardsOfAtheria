@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Players;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -74,17 +75,17 @@ namespace ShardsOfAtheria.Items.SlayerItems
         {
             if (page == 1)
             {
-                if (!ModContent.GetInstance<SoAWorld>().slayerMode)
+                if (!player.GetModPlayer<SlayerPlayer>().slayerMode)
                 {
                     Main.NewText("Slayer mode enabled");
                     SoundEngine.PlaySound(SoundID.Roar, player.position);
-                    ModContent.GetInstance<SoAWorld>().slayerMode = true;
+                    player.GetModPlayer<SlayerPlayer>().slayerMode = true;
                 }
                 else
                 {
                     Main.NewText("Slayer mode disabled");
                     SoundEngine.PlaySound(SoundID.Roar, player.position);
-                    ModContent.GetInstance<SoAWorld>().slayerMode = false;
+                    player.GetModPlayer<SlayerPlayer>().slayerMode = false;
                 }
             }
             return true;
@@ -285,7 +286,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
                     "Bosses will drop every item in its loot table (in a stack of 1000 if the item is stackable), its slayer mode exclusive item and its Soul Crystal.\n" +
                     "This boss is considered slain and cannot be fought again.\n" +
                     "While Slayer mode is active, taking damage will reduce your defense. Defense will regenerate after a period of time."));
-                if (ModContent.GetInstance<SoAWorld>().slayerMode)
+                if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
                 {
                     tooltips.Add(new TooltipLine(Mod, "SlayerMode", "Slayer Mode Active")
                     {

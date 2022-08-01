@@ -1,41 +1,49 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
-	public class Zenova : ModItem
+    public class Zenova : ModItem
 	{
 		public override void SetStaticDefaults() 
 		{
 			Tooltip.SetDefault("Ignores a moderate amount of defense\n" +
 				"'Zenith's older sister'\n" +
 				"'RANDOM BULLS**T GO!'");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults() 
 		{
-			Item.damage = 263;
-			Item.DamageType = DamageClass.Melee;
 			Item.width = 76;
 			Item.height = 76;
+
+			Item.damage = 263;
+			Item.DamageType = DamageClass.Melee;
+			Item.knockBack = 3;
+			Item.crit = 8;
+
 			Item.useTime = 6;
 			Item.useAnimation = 6;
-			Item.noMelee = true;
-			Item.noUseGraphic = true;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.knockBack = 3;
-			Item.value = Item.sellPrice(0,  25);
-			Item.rare = ItemRarityID.Red;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.crit = 8;
-			Item.shoot = ModContent.ProjectileType<ZenovaProjectile>();
+			Item.noMelee = true;
+			Item.noUseGraphic = true;
+
 			Item.shootSpeed = 15;
+			Item.value = Item.sellPrice(0, 4);
+			Item.rare = ItemRarityID.Red;
+			Item.shoot = ModContent.ProjectileType<ZenovaProjectile>();
+			Item.ArmorPenetration = 37;
 		}
 
 		public override void AddRecipes() 
@@ -63,10 +71,5 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 				ModContent.ProjectileType<ElectricBlade>(), ModContent.ProjectileType<ZenovaLostNail>()});
 			velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
 		}
-
-        public override void HoldItem(Player player)
-        {
-			player.GetArmorPenetration(DamageClass.Generic) = 37;
-        }
     }
 }

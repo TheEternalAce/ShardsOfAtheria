@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Players;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
@@ -11,26 +13,31 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("A blade that heals 100 Life after striking an enemy\n" +
-                "Taking damage while this is in your inventory will render this unusable for a time" +
+                "Taking damage while this is in your inventory will disable this effect for a time\n" +
                 "'SOUL STEAL!'");
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
             Item.width = 32;
             Item.height = 32;
+
+            Item.damage = 26;
+            Item.DamageType = DamageClass.Melee;
+            Item.knockBack = 6;
+            Item.crit = 6;
+
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.damage = 26;
-            Item.DamageType = DamageClass.Melee;
-            Item.crit = 6;
-            Item.knockBack = 6;
-            Item.value = Item.sellPrice(0,  10);
-            Item.rare = ItemRarityID.Red;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.useTurn = true;
+
+            Item.value = Item.sellPrice(0, 15);
+            Item.rare = ItemRarityID.Red;
         }
 
         public override void AddRecipes()
@@ -53,7 +60,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             if (!player.GetModPlayer<SoAPlayer>().heartBreak)
             {
                 player.statLife += 100;
-                CombatText.NewText(player.Hitbox, Color.Green, 100);
+                player.HealEffect(100);
             }
         }
 

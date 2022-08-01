@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -6,17 +7,19 @@ namespace ShardsOfAtheria.Items
 {
 	public class EmptyNeedle : ModItem
 	{
-		public override void SetStaticDefaults() 
+		public override void SetStaticDefaults()
 		{
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 48;
 			Item.height = 48;
-			Item.value = Item.sellPrice(silver: 20);
-			Item.rare = ItemRarityID.White;
 			Item.maxStack = 99;
+
+			Item.rare = ItemRarityID.White;
+			Item.value = Item.sellPrice(0, 0, 5);
 		}
 
         public override void AddRecipes()

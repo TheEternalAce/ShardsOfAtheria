@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Buffs;
@@ -12,21 +13,27 @@ namespace ShardsOfAtheria.Items.Potions
 		public override void SetStaticDefaults() 
 		{
 			Tooltip.SetDefault("Strengthens your bones");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 48;
 			Item.height = 48;
-			Item.rare = ItemRarityID.Orange;
 			Item.maxStack = 30;
-			Item.useStyle = ItemUseStyleID.HoldUp;
+
 			Item.useTime = 15;
 			Item.useAnimation = 15;
+			Item.useStyle = ItemUseStyleID.HoldUp;
 			Item.consumable = true;
 			Item.useTurn = true;
+
+			Item.value = Item.sellPrice(silver: 75);
+			Item.rare = ItemRarityID.Orange;
+
 			Item.buffType = ModContent.BuffType<BoneStrength>();
-			Item.buffTime = (4 * 60) * 60;
+			Item.buffTime = 14400;
 		}
 
         public override void AddRecipes()
@@ -41,7 +48,7 @@ namespace ShardsOfAtheria.Items.Potions
 		public override void OnConsumeItem(Player player)
 		{
 			player.QuickSpawnItem(player.GetSource_FromThis(), ModContent.ItemType<EmptyNeedle>());
-			player.AddBuff(ModContent.BuffType<InjectionShock>(), 5 * 60);
+			player.AddBuff(ModContent.BuffType<InjectionShock>(), 300);
 		}
 
 		public override bool CanUseItem(Player player)

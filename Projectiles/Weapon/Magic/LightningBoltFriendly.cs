@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Projectiles.NPCProj;
 using Terraria;
 using Terraria.Audio;
@@ -26,7 +27,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<ElectricShock>(), 10 * 60);
+            Player player = Main.player[Projectile.owner];
+            target.AddBuff(ModContent.BuffType<ElectricShock>(), player.HasBuff(ModContent.BuffType<Conductive>()) ? 1200 : 600);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

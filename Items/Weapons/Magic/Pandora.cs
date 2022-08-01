@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,25 +15,30 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             Tooltip.SetDefault("Left Click to fire an ice bolt, <right> to summon lightning\n" +
                 "'Destiny of destruction awaits'");
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.noMelee = true;
-            Item.UseSound = SoundID.Item1;
-            Item.damage = 107;
-            Item.DamageType = DamageClass.Magic;
-            Item.mana = 6;
-            Item.knockBack = 6;
-            Item.shootSpeed = 15f;
             Item.width = 32;
             Item.height = 32;
+
+            Item.damage = 107;
+            Item.DamageType = DamageClass.Magic;
+            Item.knockBack = 6;
+            Item.mana = 6;
+
             Item.useTime = 35;
             Item.useAnimation = 35;
-            Item.autoReuse = false;
             Item.useStyle = ItemUseStyleID.Shoot;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = false;
+            Item.noMelee = true;
             Item.staff[Item.type] = true;
-            Item.value = Item.sellPrice(0,  10);
+
+            Item.shootSpeed = 15f;
+            Item.value = Item.sellPrice(0, 3, 25);
             Item.rare = ItemRarityID.Red;
         }
 

@@ -1,20 +1,25 @@
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
+using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SoulBonds
 {
 	public abstract class SoulBond : SlayerItem
 	{
-		public override void SetDefaults()
+        public override void SetStaticDefaults()
+		{
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+		}
+
+        public override void SetDefaults()
 		{
 			Item.width = 52;
 			Item.height = 42;
-
 			Item.accessory = true;
+
 			Item.rare = ModContent.RarityType<SlayerRarity>();
+			Item.value = Item.sellPrice(0, 1, 25);
 		}
 
 		public override bool CanEquipAccessory(Player player, int slot, bool modded)
@@ -38,6 +43,7 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulBonds
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			tooltips.Add(new TooltipLine(Mod, "Only1", "Only one may be equipped at a time"));
+			base.ModifyTooltips(tooltips);
 		}
 
 		public override bool CanRightClick()

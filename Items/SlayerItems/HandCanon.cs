@@ -13,38 +13,34 @@ namespace ShardsOfAtheria.Items.SlayerItems
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Hold in hand to charge\n" +
+            Tooltip.SetDefault("Charges passively when not in use\n" +
                 "After 5 seconds of charging damage is increased and fire a burst of 3 grenades\n" +
                 "'Demoman TF2'");
+
+            base.SetStaticDefaults();
         }
 
         public override void SetDefaults()
         {
-            Item.damage = 65;
-            Item.DamageType = DamageClass.Ranged;
-            Item.noMelee = true;
             Item.width = 34;
             Item.height = 24;
+
+            Item.damage = 65;
+            Item.DamageType = DamageClass.Ranged;
+            Item.knockBack = 4;
+            Item.crit = 5;
+
             Item.useTime = 10;
             Item.useAnimation = 10;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 4;
             Item.UseSound = SoundID.Item11;
-            Item.crit = 5;
+            Item.noMelee = true;
+
+            Item.shootSpeed = 20f;
             Item.rare = ModContent.RarityType<SlayerRarity>();
-            Item.shoot = ProjectileID.RocketI;
-            Item.shootSpeed = 10f;
-            Item.useAmmo = AmmoID.Rocket;
-        }
-
-        public override Vector2? HoldoutOffset()
-        {
-            return new Vector2(0, 0);
-        }
-
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            return base.Shoot(player, source, position, velocity, type, damage, knockback);
+            Item.value = 22500;
+            Item.shoot = ProjectileID.Grenade;
+            Item.useAmmo = ItemID.Grenade;
         }
 
         public override bool CanConsumeAmmo(Item item, Player player)
@@ -52,7 +48,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
             return !(player.itemAnimation < Item.useAnimation);
         }
 
-        public override void HoldItem(Player player)
+        public override void UpdateInventory(Player player)
         {
             if (++charge == 300)
             {

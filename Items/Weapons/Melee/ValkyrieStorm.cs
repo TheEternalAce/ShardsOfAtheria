@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,26 +12,31 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'Rains feather blades on your enemies'");
+            Tooltip.SetDefault("'Rains feather blades on your enemies!'");
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
             Item.width = 64;
             Item.height = 64;
+
+            Item.damage = 67;
+            Item.DamageType = DamageClass.Melee;
+            Item.knockBack = 6;
+            Item.crit = 6;
+            
             Item.useTime = 15;
             Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.damage = 67;
-            Item.DamageType = DamageClass.Melee;
-            Item.crit = 6;
-            Item.knockBack = 6;
-            Item.value = Item.sellPrice(0,  10);
-            Item.rare = ItemRarityID.Pink;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
-            Item.shoot = ModContent.ProjectileType<FeatherBladeFriendly>();
+
             Item.shootSpeed = 8;
+            Item.rare = ItemRarityID.Pink;
+            Item.value = Item.sellPrice(0, 3, 50);
+            Item.shoot = ModContent.ProjectileType<FeatherBladeFriendly>();
         }
 
         public override void AddRecipes()

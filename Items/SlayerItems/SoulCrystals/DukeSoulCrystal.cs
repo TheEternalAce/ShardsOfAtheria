@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.NPCs;
+using ShardsOfAtheria.Players;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -16,6 +17,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
             DisplayName.SetDefault("Soul Crystal (Duke Fishron)");
             Tooltip.SetDefault("Increased max flight time\n" +
                 "Summon a Sharknado over your head");
+
+            base.SetStaticDefaults();
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

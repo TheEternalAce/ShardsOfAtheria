@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ShardsOfAtheria.Players;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
-	[AutoloadEquip(EquipType.Wings)]
+    [AutoloadEquip(EquipType.Wings)]
 	public class EmeraldCore_Super : ModItem
 	{
 		public override void SetStaticDefaults()
@@ -18,15 +20,18 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 				"Grants flight, slowfall and immunity to cold debuffs");
 
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 9f, 2.5f);
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.value = Item.sellPrice(silver: 15);
-			Item.rare = ItemRarityID.White;
 			Item.accessory = true;
+
+			Item.rare = ItemRarityID.Lime;
+			Item.value = Item.sellPrice(0, 3);
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -54,7 +59,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 				.AddIngredient(ItemID.FragmentStardust, 5)
 				.AddIngredient(ItemID.FrostsparkBoots)
 				.AddIngredient(ItemID.BundleofBalloons)
-				.AddTile(TileID.Hellforge)
+				.AddTile(TileID.LunarCraftingStation)
 				.Register();
 		}
 

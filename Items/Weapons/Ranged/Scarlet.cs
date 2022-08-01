@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,25 +14,31 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 		{
 			Tooltip.SetDefault("Shoots powerful Luminite Bullets\n" +
 				"66% chance to not consume ammo");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
-			Item.damage = 500;
-			Item.DamageType = DamageClass.Ranged;
-			Item.noMelee = true;
 			Item.width = 60;
 			Item.height = 22;
+
+			Item.damage = 250;
+			Item.DamageType = DamageClass.Ranged;
+			Item.knockBack = 3.75f;
+			Item.crit = 8;
+
 			Item.useTime = 40;
 			Item.useAnimation = 40;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.knockBack = 3.75f;
-			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Item11;
 			Item.autoReuse = true;
-			Item.crit = 8;
-			Item.shoot = ProjectileID.PurificationPowder;
+			Item.noMelee = true;
+
 			Item.shootSpeed = 13f;
+			Item.rare = ItemRarityID.Green;
+			Item.value = 42500;
+			Item.shoot = ProjectileID.PurificationPowder;
 			Item.useAmmo = AmmoID.Bullet;
 		}
 

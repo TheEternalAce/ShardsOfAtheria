@@ -1,246 +1,21 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Tiles;
-using Terraria.ModLoader.IO;
+using Terraria.ID;
+using ShardsOfAtheria.Items.Placeable.Furniture;
+using ShardsOfAtheria.Utilities;
 using Terraria.WorldBuilding;
+using System.Collections.Generic;
 using Terraria.IO;
+using ShardsOfAtheria.Tiles.Furniture;
+using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Items.DecaEquipment;
 
 namespace ShardsOfAtheria
 {
     public class SoAWorld : ModSystem
-	{
-		public static bool downedDeath = false;
-		public static bool downedValkyrie = false;
-		public bool slayerMode = false;
-		public bool slainDeath = false;
-		public bool slainKing = false;
-		public bool slainEOC = false;
-		public bool slainBOC = false;
-		public bool slainEOW = false;
-		public bool slainValkyrie = false;
-		public bool slainBee = false;
-		public bool slainSkull = false;
-		public bool slainDeerclops = false;
-		public bool slainWall = false;
-		public bool slainQueen = false;
-		public bool slainMechWorm = false;
-		public bool slainTwins = false;
-		public bool slainPrime = false;
-		public bool slainPlant = false;
-		public bool slainGolem = false;
-		public bool slainDuke = false;
-		public bool slainEmpress = false;
-		public bool slainLunatic = false;
-		public bool slainPillarNebula = false;
-		public bool slainPillarSolar = false;
-		public bool slainPillarStardust = false;
-		public bool slainPillarVortex = false;
-		public bool slainMoonLord = false;
-		public bool slainSenterra = false;
-		public bool slainGenesis = false;
-		public bool slainEverything = false;
-
-		public override void OnWorldUnload()
-		{
-			slayerMode = false;
-
-			downedDeath = false;
-			downedValkyrie = false;
-
-			slainDeath = false;
-			slainValkyrie = false;
-			slainKing = false;
-			slainEOC = false;
-			slainBOC = false;
-			slainEOW = false;
-			slainBee = false;
-			slainSkull = false;
-			slainDeerclops = false;
-			slainWall = false;
-			slainQueen = false;
-			slainMechWorm = false;
-			slainTwins = false;
-			slainPrime = false;
-			slainPlant = false;
-			slainGolem = false;
-			slainDuke = false;
-			slainEmpress = false;
-			slainLunatic = false;
-			slainMoonLord = false;
-		}
-
-		public override void SaveWorldData(TagCompound tag)
-		{
-			if (slayerMode)
-				tag["slayerMode"] = true;
-
-			if (downedDeath)
-				tag["downedDeath"] = true;
-			if (downedValkyrie)
-				tag["downedValkyrie"] = true;
-
-			if (slainDeath)
-				tag["slainDeath"] = true;
-			if (slainKing)
-				tag["slainKing"] = true;
-			if (slainEOC)
-				tag["slainEOC"] = true;
-			if (slainBOC)
-				tag["slainBOC"] = true;
-			if (slainEOW)
-				tag["slainEOW"] = true;
-			if (slainValkyrie)
-				tag["slainValkyrie"] = true;
-			if (slainBee)
-				tag["slainBee"] = true;
-			if (slainSkull)
-				tag["slainSkull"] = true;
-			if (slainDeerclops)
-				tag["slainDeerclops"] = true;
-			if (slainWall)
-				tag["slainWall"] = true;
-			if (slainQueen)
-				tag["slainQueen"] = true;
-			if (slainMechWorm)
-				tag["slainMechWorm"] = true;
-			if (slainTwins)
-				tag["slainTwins"] = true;
-			if (slainPrime)
-				tag["slainPrime"] = true;
-			if (slainPlant)
-				tag["slainPlant"] = true;
-			if (slainGolem)
-				tag["slainGolem"] = true;
-			if (slainDuke)
-				tag["slainDuke"] = true;
-			if (slainEmpress)
-				tag["slainEmpress"] = true;
-			if (slainLunatic)
-				tag["slainLunatic"] = true;
-			if (slainMoonLord)
-				tag["slainMoonLord"] = true;
-		}
-
-        public override void LoadWorldData(TagCompound tag)
-		{
-			slayerMode = tag.ContainsKey("slayerMode");
-
-			downedValkyrie = tag.ContainsKey("downedValkyrie");
-			downedDeath = tag.ContainsKey("downedDeath");
-
-			slainEOC = tag.ContainsKey("slainEOC");
-			slainBOC = tag.ContainsKey("slainBOC");
-			slainEOW = tag.ContainsKey("slainEOW");
-			slainValkyrie = tag.ContainsKey("slainValkyrie");
-			slainBee = tag.ContainsKey("slainBee");
-			slainSkull = tag.ContainsKey("slainSkull");
-			slainWall = tag.ContainsKey("slainWall");
-			slainMechWorm = tag.ContainsKey("slainMechWorm");
-			slainTwins = tag.ContainsKey("slainTwins");
-			slainPrime = tag.ContainsKey("slainPrime");
-			slainPlant = tag.ContainsKey("slainPlant");
-			slainGolem = tag.ContainsKey("slainGolem");
-			slainDuke = tag.ContainsKey("slainDuke");
-			slainEmpress = tag.ContainsKey("slainEmpress");
-			slainLunatic = tag.ContainsKey("slainLunatic");
-			slainMoonLord = tag.ContainsKey("slainMoonLord");
-			slainDeath = tag.ContainsKey("slainDeath");
-
-			slainEverything = tag.ContainsKey("slainEverything");
-		}
-
-		public override void NetSend(BinaryWriter writer)
-		{
-			BitsByte flags = new BitsByte();
-			flags[0] = slayerMode;
-
-			flags[1] = downedValkyrie;
-			flags[2] = downedDeath;
-
-			flags[3] = slainKing;
-			flags[4] = slainEOC;
-			flags[5] = slainBOC;
-			flags[6] = slainEOW;
-			flags[7] = slainValkyrie;
-			writer.Write(flags);
-
-			BitsByte flags2 = new BitsByte();
-			flags2[0] = slainBee;
-			flags2[1] = slainSkull;
-			flags2[2] = slainDeerclops;
-			flags2[3] = slainWall;
-			flags2[4] = slainDeerclops;
-			flags2[5] = slainMechWorm;
-			flags2[6] = slainTwins;
-			flags2[7] = slainPrime;
-			writer.Write(flags2);
-
-			BitsByte flags3 = new BitsByte();
-			flags3[0] = slainPlant;
-			flags3[1] = slainGolem;
-			flags3[2] = slainDuke;
-			flags3[3] = slainEmpress;
-			flags3[4] = slainLunatic;
-			flags3[5] = slainMoonLord;
-			flags3[6] = slainDeath;
-			flags3[7] = slainGenesis;
-
-			BitsByte flags4 = new BitsByte();
-			flags4[0] = slainGenesis;
-
-			flags4[1] = slainEverything;
-			writer.Write(flags4);
-		}
-
-		public override void NetReceive(BinaryReader reader)
-		{
-			BitsByte flags = reader.ReadByte();
-			slayerMode = flags[0];
-
-			downedValkyrie = flags[1];
-			downedDeath = flags[2];
-
-			slainKing = flags[3];
-			slainEOC = flags[4];
-			slainBOC = flags[5];
-			slainEOW = flags[6];
-			slainValkyrie = flags[7];
-
-			BitsByte flags2 = reader.ReadByte();
-			slainBee = flags2[0];
-			slainSkull = flags2[1];
-			slainDeerclops = flags2[2];
-			slainWall = flags2[3];
-			slainQueen = flags2[4];
-			slainMechWorm = flags2[5];
-			slainTwins = flags2[6];
-			slainPrime = flags2[7];
-
-			BitsByte flags3 = reader.ReadByte();
-			slainPlant = flags3[0];
-			slainGolem = flags3[1];
-			slainDuke = flags3[2];
-			slainEmpress = flags3[3];
-			slainLunatic = flags3[4];
-			slainMoonLord = flags3[5];
-			slainDeath = flags3[6];
-			slainGenesis = flags3[7];
-
-			BitsByte flags4 = reader.ReadByte();
-			slainSenterra = flags4[0];
-
-			slainEverything = flags4[1];
-		}
-
-		public override void PostUpdateEverything()
-		{
-			if (slainSenterra && !slainGenesis)
-			{
-				Main.dayTime = false;
-			}
-		}
+    {
+        public bool omegaKey;
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
@@ -251,29 +26,370 @@ namespace ShardsOfAtheria
                 // ExampleModOres is a method seen below.
                 tasks.Insert(ShiniesIndex + 1, new SoAOres("Shards of Atheria Ores", 237.4298f));
             }
-        }
-	}
 
-	public class SoAOres : GenPass
+            int ShiniesIndex1 = tasks.FindIndex(genpass => genpass.Name.Equals("Random Gems"));
+
+            if (ShiniesIndex1 != -1)
+            {
+                tasks.Insert(ShiniesIndex1 + 1, new UnderworldShrinePass("UnderworldShrine", 237.4298f));
+            }
+        }
+
+        public override void PostWorldGen()
+        {
+            for (int k = 0; k < Main.maxChests; k++)
+            {
+                Chest c = Main.chest[k];
+                if (c != null)
+                {
+                    if (Main.tile[c.x, c.y].TileType == TileID.Containers)
+                    {
+                        int style = ChestTypes.GetChestStyle(c);
+                        if (style == ChestTypes.Skyware)
+                        {
+                            if (!omegaKey && Main.rand.NextBool(14))
+                            {
+                                c.Insert(ModContent.ItemType<OmegaKey>(), 1);
+                                omegaKey = true;
+                            }
+                        }
+                        else if (style == ChestTypes.LockedGold)
+                        {
+                            //c.Insert(ModContent.ItemType<>(), 1);
+                        }
+                    }
+                }
+            }
+            base.PostWorldGen();
+        }
+    }
+
+    public class SoAOres : GenPass
     {
-		public SoAOres(string name, float loadWeight) : base(name, loadWeight) {
+        public SoAOres(string name, float loadWeight) : base(name, loadWeight)
+        {
+
         }
 
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {
-			progress.Message = "Shards Of Atheria Ores";
-			for (int k = 0; k < (int)((Main.maxTilesX * Main.maxTilesY) * 6E-05); k++)
-			{
-				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
-				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
-				WorldGen.TileRunner(x, y, WorldGen.genRand.Next(3, 6), WorldGen.genRand.Next(2, 6), ModContent.TileType<AreusOre>());
-			}
-			for (int k = 0; k < (int)((Main.maxTilesX * Main.maxTilesY) * 6E-05); k++)
-			{
-				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
-				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
-				WorldGen.TileRunner(x, y, WorldGen.genRand.Next(6, 6), WorldGen.genRand.Next(2, 6), ModContent.TileType<BionicOre>());
-			}
-		}
+            progress.Message = "Shards Of Atheria Ores";
+            for (int k = 0; k < (int)((Main.maxTilesX * Main.maxTilesY) * 6E-05); k++)
+            {
+                int x = WorldGen.genRand.Next(0, Main.maxTilesX);
+                int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
+                WorldGen.TileRunner(x, y, WorldGen.genRand.Next(3, 6), WorldGen.genRand.Next(2, 6), ModContent.TileType<AreusOre>());
+            }
+            for (int k = 0; k < (int)((Main.maxTilesX * Main.maxTilesY) * 6E-05); k++)
+            {
+                int x = WorldGen.genRand.Next(0, Main.maxTilesX);
+                int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
+                WorldGen.TileRunner(x, y, WorldGen.genRand.Next(6, 6), WorldGen.genRand.Next(2, 6), ModContent.TileType<BionicOre>());
+            }
+        }
+    }
+
+    public class UnderworldShrinePass : GenPass
+    {
+        public UnderworldShrinePass(string name, float loadWeight) : base(name, loadWeight)
+        {
+
+        }
+
+        protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
+        {
+            progress.Message = "Generating shrines";
+
+            //PlaceShrine(Main.spawnTileX, Main.spawnTileY - 40);
+            PlaceDecaShrine(Main.spawnTileX, (int)(Main.maxTilesY * 0.09f), ModContent.ItemType<DecaFragmentC>());
+
+            // attempts to spawn shrine 1000 times, so hopefully it actually will generate
+            for (int t = 0; t < 1000; t++)
+            {
+                int x = WorldGen.genRand.Next(Main.maxTilesX);
+
+                // Fuck you it can also spawn on the right now
+
+                if ((x < Main.maxTilesX * 0.2f && x > Main.maxTilesX * 0.05f) || (x > Main.maxTilesX * 0.8f && x < Main.maxTilesX * 0.95f))
+                {
+                    int y = WorldGen.genRand.Next((int)(Main.maxTilesY * 0.85f), Main.maxTilesY);
+
+                    if (Main.tile[x, y].TileType == TileID.Ash && !Main.tile[x, y - 1].HasTile && Main.tile[x, y - 1].LiquidType != LiquidID.Lava)
+                    {
+                        PlaceOmegaShrine(x, y);
+                    }
+                    if (Main.tile[x, y].TileType == TileID.Ash && !Main.tile[x, y - 1].HasTile && Main.tile[x, y - 1].LiquidType != LiquidID.Lava)
+                    {
+                        PlaceDecaShrine(x, y, ModContent.ItemType<DecaFragmentA>());
+                    }
+                }
+            }
+        }
+
+        private readonly int[,] _omegashrineshape = {
+            {0,3,0,0,2,2,0,0,3,0},
+            {0,3,3,2,2,2,2,3,3,0},
+            {5,3,3,3,2,2,3,3,3,5},
+            {5,5,3,3,5,5,3,3,5,5},
+            {5,5,5,5,5,5,5,5,5,5},
+            {5,5,5,5,4,5,5,5,5,5},
+            {1,1,5,5,0,0,5,5,1,1},
+            {0,1,1,2,2,2,2,1,1,0},
+        };
+        private readonly int[,] _omegashrinechestshape = {
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,1,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0},
+        };
+        private readonly int[,] _omegashrineslopeshape = {
+            {0,2,0,0,1,1,0,0,3,0},
+            {0,0,2,3,0,0,2,3,0,0},
+            {0,4,0,0,4,5,0,0,5,0},
+            {0,0,4,0,0,0,0,5,0,0},
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0},
+            {4,2,0,0,0,0,0,0,3,5},
+            {0,4,0,0,0,0,0,0,5,0},
+        };
+        private readonly int[,] _omegashrinewallshape = {
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0},
+            {0,0,2,1,1,1,1,2,0,0},
+            {0,0,2,1,3,3,1,2,0,0},
+            {0,0,2,1,1,1,1,2,0,0},
+            {0,0,2,1,1,1,1,2,0,0},
+            {0,0,2,1,1,1,1,2,0,0},
+            {0,0,0,0,0,0,0,0,0,0},
+        };
+
+        private readonly int[,] _decashrineshape = {
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,1,1,1,1,1,1,0},
+            {0,0,0,0,0,0,0,0},
+        };
+        private readonly int[,] _decashrinewallshape = {
+            {0,0,1,1,1,1,0,0},
+            {0,0,1,2,2,1,0,0},
+            {0,1,1,2,2,1,1,0},
+            {0,1,2,2,2,2,1,0},
+            {0,1,2,3,3,2,1,0},
+            {0,1,2,4,4,2,1,0},
+            {0,1,2,3,3,2,1,0},
+            {1,1,2,2,2,2,1,1},
+            {1,1,1,1,1,1,1,1},
+            {1,1,1,1,1,1,1,1},
+        };
+        private readonly int[,] _decashrinechestshape = {
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,1,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+        };
+
+        public bool PlaceOmegaShrine(int i, int j)
+        {
+            for (int y = 0; y < _omegashrineshape.GetLength(0); y++)
+            {
+                for (int x = 0; x < _omegashrineshape.GetLength(1); x++)
+                {
+                    int k = i - 5 + x;
+                    int l = j - 4 + y;
+
+                    int tileType = 0;
+
+                    SlopeType slopeType = 0;
+                    switch (_omegashrineshape[y, x])
+                    {
+                        case 1:
+                            tileType = TileID.PlatinumBrick;
+                            break;
+                        case 2:
+                            tileType = TileID.Titanstone;
+                            break;
+                        case 3:
+                            tileType = TileID.AdamantiteBeam;
+                            break;
+                        case 4:
+                            // switch this to modded chest
+                            //	WorldGen.PlaceChestDirect(k, l, 21, 0, 1);
+                            //	WorldGen.PlaceChest(k, l); //, 21, false, 3);
+                            break;
+                    }
+                    switch (_omegashrineslopeshape[y, x])
+                    {
+                        case 1:
+                            slopeType = SlopeType.Solid;
+                            break;
+                        case 2:
+                            slopeType = SlopeType.SlopeDownLeft;
+                            break;
+                        case 3:
+                            slopeType = SlopeType.SlopeDownRight;
+                            break;
+                        case 4:
+                            slopeType = SlopeType.SlopeUpRight;
+                            break;
+                        case 5:
+                            slopeType = SlopeType.SlopeUpLeft;
+                            break;
+                    }
+                    switch (_omegashrinewallshape[y, x])
+                    {
+                        case 1:
+                            WorldGen.PlaceWall(k, l, WallID.TitanstoneBlock);
+                            break;
+                        case 2:
+                            WorldGen.PlaceWall(k, l, WallID.AdamantiteBeam);
+                            break;
+                        case 3:
+                            WorldGen.PlaceWall(k, l, WallID.AmethystGemspark);
+                            break;
+                    }
+
+                    if (tileType == 5)
+                    {
+                        // removes any existing tiles so it looks better
+                        Main.tile[k, l].ClearTile();
+                    }
+
+                    if (tileType != 0 && tileType != 5)
+                    {
+                        // removes any existing tiles so it looks better
+                        Main.tile[k, l].ClearTile();
+
+                        WorldGen.PlaceTile(k, l, tileType);
+                        Tile tile = Framing.GetTileSafely(k, l);
+                        tile.Slope = slopeType;
+                        if (_omegashrineslopeshape[y, x] == 1)
+                        {
+                            tile.IsHalfBlock = true;
+                        }
+                    }
+                }
+            }
+            // Chest spawn and loot
+            // Has to be seperate otherwise it doesnt spawn properly
+            for (int y = 0; y < _omegashrineshape.GetLength(0); y++)
+            {
+                for (int x = 0; x < _omegashrineshape.GetLength(1); x++)
+                {
+                    int k = i - 5 + x;
+                    int l = j - 4 + y;
+
+                    switch (_omegashrinechestshape[y, x])
+                    {
+                        case 1:
+                            // switch this to modded chest
+                            WorldGen.PlaceChestDirect(k, l + 1, (ushort)ModContent.TileType<OmegaChest>(), 1, 1000);
+                            Chest chest = Main.chest[1000];
+                            for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                            {
+                                if (chest.item[inventoryIndex].type == ItemID.None)
+                                {
+                                    chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<TheMessiah>());
+                                    break;
+                                }
+                            }
+                            break;
+                    }
+
+                }
+            }
+            return true;
+        }
+
+        public bool PlaceDecaShrine(int i, int j, int f)
+        {
+            for (int y2 = 0; y2 < _decashrineshape.GetLength(0); y2++)
+            {
+                for (int x2 = 0; x2 < _decashrineshape.GetLength(1); x2++)
+                {
+                    int k = i - 4 + x2;
+                    int l = j - 4 + y2;
+
+                    int tileType = 0;
+
+                    switch (_decashrineshape[y2, x2])
+                    {
+                        case 1:
+                            tileType = TileID.SapphireGemsparkOff;
+                            break;
+                    }
+                    switch (_decashrinewallshape[y2, x2])
+                    {
+                        case 1:
+                            WorldGen.PlaceWall(k, l, WallID.DiamondGemsparkOff);
+                            break;
+                        case 2:
+                            WorldGen.PlaceWall(k, l, WallID.TopazGemspark);
+                            break;
+                        case 3:
+                            WorldGen.PlaceWall(k, l, WallID.SapphireGemspark);
+                            break;
+                        case 4:
+                            WorldGen.PlaceWall(k, l, WallID.RubyGemspark);
+                            break;
+                    }
+
+                    // removes any existing tiles so it looks better
+                    Main.tile[k, l].ClearTile();
+
+                    if (tileType != 0)
+                    {
+                        WorldGen.PlaceTile(k, l, tileType);
+                        Tile tile = Framing.GetTileSafely(k, l);
+                    }
+                }
+            }
+            // Chest spawn and loot
+            // Has to be seperate otherwise it doesnt spawn properly
+            for (int y = 0; y < _decashrinechestshape.GetLength(0); y++)
+            {
+                for (int x = 0; x < _decashrinechestshape.GetLength(1); x++)
+                {
+                    int k = i - 5 + x;
+                    int l = j - 4 + y;
+
+                    switch (_decashrinechestshape[y, x])
+                    {
+                        case 1:
+                            // switch this to modded chest
+                            int chestindex = WorldGen.PlaceChest(k, l, style: 467);
+                            Chest chest = Main.chest[chestindex];
+                            for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                            {
+                                if (chestindex != -1)
+                                {
+                                    if (chest.item[inventoryIndex].type == ItemID.None)
+                                    {
+                                        chest.item[inventoryIndex].SetDefaults(f);
+                                    }
+                                }
+                            }
+                            break;
+                    }
+
+                }
+            }
+            return true;
+        }
     }
 }

@@ -1,26 +1,30 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace ShardsOfAtheria.Items.DecaEquipment
 {
-    public class ModelDeca : ModItem
+    public class ModelDeca : DecaEquipment
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Model Deca");
             Tooltip.SetDefault("'The new Death has been made, and soon a new dawn shall rise'");
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.rare = ItemRarityID.Red;
             Item.width = 54;
             Item.height = 54;
             Item.accessory = true;
+
+            base.SetDefaults();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

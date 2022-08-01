@@ -6,13 +6,15 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova
 {
-    public class ZenovaLostNail: ModProjectile {
+    public class ZenovaLostNail : ModProjectile
+    {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Zenova Lost Nail");
         }
 
-        public override void SetDefaults() {
+        public override void SetDefaults()
+        {
             Projectile.width = 14;
             Projectile.height = 14;
 

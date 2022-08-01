@@ -1,10 +1,6 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Placeable;
-using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,31 +10,33 @@ namespace ShardsOfAtheria.Items.DecaEquipment
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ion's Deca Bow");
             Tooltip.SetDefault("Rains powerful luminite arrows\n" +
               "66% chance to not consume ammo\n" +
               "'Bow of a godly machine'");
+
+            base.SetStaticDefaults();
         }
 
         public override void SetDefaults()
         {
+            Item.width = 34;
+            Item.height = 56;
+
             Item.damage = 200000;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 6f;
+
             Item.useTime = 5;
             Item.useAnimation = 20;
-
-            Item.shoot = ItemID.PurificationPowder;
-            Item.shootSpeed = 16f;
-            Item.useAmmo = AmmoID.Arrow;
-
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.UseSound = SoundID.Item5;
+            Item.reuseDelay = 25;
             Item.noMelee = true;
             Item.autoReuse = true;
-            Item.UseSound = SoundID.Item5;
-            Item.useStyle = ItemUseStyleID.Shoot;
-            Item.reuseDelay = 25;
-            Item.width = 34;
-            Item.height = 56;
+
+            Item.shootSpeed = 16f;
+            Item.shoot = ItemID.PurificationPowder;
+            Item.useAmmo = AmmoID.Arrow;
         }
 
         public override Vector2? HoldoutOffset()

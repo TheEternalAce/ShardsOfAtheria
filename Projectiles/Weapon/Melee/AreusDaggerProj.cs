@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Items.Potions;
 using Terraria;
 using Terraria.Enums;
 using Terraria.ID;
@@ -134,5 +136,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 			float collisionPoint = 0f; // Don't need that variable, but required as parameter
 			return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), start, end, CollisionWidth, ref collisionPoint);
 		}
-	}
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
+			Player player = Main.player[Projectile.owner];
+			target.AddBuff(ModContent.BuffType<ElectricShock>(), player.HasBuff(ModContent.BuffType<Conductive>()) ? 1200 : 600);
+        }
+    }
 }

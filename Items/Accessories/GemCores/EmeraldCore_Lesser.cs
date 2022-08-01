@@ -1,25 +1,30 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Players;
+using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
-	public class EmeraldCore_Lesser : ModItem
+    public class EmeraldCore_Lesser : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Lesser Emerald Core");
 			Tooltip.SetDefault("5% increased movement speed\n" +
 				"Increased jump height");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.value = Item.sellPrice(silver: 15);
-			Item.rare = ItemRarityID.White;
 			Item.accessory = true;
+
+			Item.value = Item.sellPrice(0, 0, 15);
+			Item.rare = ItemRarityID.White;
 		}
 
 		public override void AddRecipes()

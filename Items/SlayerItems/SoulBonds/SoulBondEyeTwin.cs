@@ -1,9 +1,10 @@
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.ID;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SoulBonds
 {
-	public class SoulBondEyeTwin : SoulBond
+    public class SoulBondEyeTwin : SoulBond
 	{
         public override void SetStaticDefaults()
         {
@@ -11,6 +12,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulBonds
             Tooltip.SetDefault("Transforms All Seeing Eye into a Mechanical All Seeing Eye\n" +
                 "Mechanical All Seeing Eye has increased radius and fires lasers at enemies in the radius\n" +
                 "Marked enemies take 25% more damage instead of 10%");
+
+            base.SetStaticDefaults();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

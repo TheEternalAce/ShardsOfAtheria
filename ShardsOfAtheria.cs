@@ -20,11 +20,10 @@ namespace ShardsOfAtheria
         public static ModKeybind OverdriveKey;
         public static ModKeybind TomeKey;
         public static ModKeybind EmeraldTeleportKey;
-        public static ModKeybind ShadowCloak;
-        public static ModKeybind ShadowTeleport;
         public static ModKeybind PhaseSwitch;
         public static ModKeybind QuickCharge;
         public static ModKeybind SoulTeleport;
+        public static ModKeybind ArmorSetBonusActive;
 
         public static ModKeybind QuickTest;
 
@@ -36,11 +35,10 @@ namespace ShardsOfAtheria
             OverdriveKey = KeybindLoader.RegisterKeybind(this, "Toggle Overdrive", "F");
             TomeKey = KeybindLoader.RegisterKeybind(this, "Cycle Knowledge Base", "N");
             EmeraldTeleportKey = KeybindLoader.RegisterKeybind(this, "Emerald Teleport", "Z");
-            ShadowCloak = KeybindLoader.RegisterKeybind(this, "Toggle Shadow Cloak", "OemTilde");
-            ShadowTeleport = KeybindLoader.RegisterKeybind(this, "Shadow Teleport", "X");
             PhaseSwitch = KeybindLoader.RegisterKeybind(this, "Toggle Phase Type", "RightAlt");
             QuickCharge = KeybindLoader.RegisterKeybind(this, "Quick Charge", "C");
             SoulTeleport = KeybindLoader.RegisterKeybind(this, "Soul Crystal Teleport", "V");
+            ArmorSetBonusActive = KeybindLoader.RegisterKeybind(this, "Activate Armor Set Bonus", "Mouse4");
 
             QuickTest = KeybindLoader.RegisterKeybind(this, "Quick Test (For mod developers, does nothing)", "OemComma");
         }
@@ -58,7 +56,7 @@ namespace ShardsOfAtheria
                     "Nova Stellar",
                     new List<int> { ModContent.NPCType<NovaStellar>() },
                     3.5f,
-                    (() => SoAWorld.downedValkyrie),
+                    (() => SoADownedSystem.downedValkyrie),
                     () => true,
                     new List<int> { ModContent.ItemType<ValkyrieStormLance>(), ModContent.ItemType<GildedValkyrieWings>(), ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<ValkyrieCrown>(),
                         ItemID.GoldBar, ItemID.Feather },

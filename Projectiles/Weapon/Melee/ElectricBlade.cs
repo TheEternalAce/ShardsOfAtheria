@@ -1,12 +1,15 @@
 ﻿using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Items.Potions;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
-    public class ElectricBlade : ModProjectile {
-        public override void SetDefaults() {
+    public class ElectricBlade : ModProjectile
+    {
+        public override void SetDefaults()
+        {
             Projectile.width = 22;
             Projectile.height = 22;
             Projectile.scale = 1.5f;
@@ -21,7 +24,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<ElectricShock>(), 10*60);
+            Player player = Main.player[Projectile.owner];
+            target.AddBuff(ModContent.BuffType<ElectricShock>(), player.HasBuff(ModContent.BuffType<Conductive>()) ? 1200 : 600);
         }
 
         public override void AI()

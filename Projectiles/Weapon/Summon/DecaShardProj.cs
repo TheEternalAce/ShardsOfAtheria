@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.DecaEquipment;
+using ShardsOfAtheria.Players;
 using System;
 using Terraria;
 using Terraria.ModLoader;

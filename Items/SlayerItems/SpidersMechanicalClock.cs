@@ -2,10 +2,11 @@ using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Players;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
-	public class SpidersMechanicalClock : SlayerItem
+    public class SpidersMechanicalClock : SlayerItem
 	{
 		public override void SetStaticDefaults() 
 		{
@@ -15,6 +16,8 @@ namespace ShardsOfAtheria.Items.SlayerItems
 				"There's an engraving on the back\n" +
 				"'-A gift to you, my beloved little sister <3'\n" +
 				"Must be used in hotbar");
+
+			base.SetStaticDefaults();
 		}
 
 		public override void SetDefaults()

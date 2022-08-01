@@ -1,7 +1,8 @@
+using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
 using Microsoft.Xna.Framework;
 
 namespace ShardsOfAtheria.Items
@@ -16,18 +17,21 @@ namespace ShardsOfAtheria.Items
 			ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 			ItemID.Sets.ItemIconPulse[Item.type] = true;
 			ItemID.Sets.ItemNoGravity[Item.type] = true;
-        }
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+		}
 
         public override void SetDefaults()
-        {
-            Item refItem = new();
-            refItem.SetDefaults(ItemID.SoulofNight);
-            Item.width = refItem.width;
-            Item.height = refItem.height;
-            Item.maxStack = 999;
-            Item.value = 1000;
+		{
+			Item refItem = new();
+			refItem.SetDefaults(ItemID.SoulofNight);
+			Item.width = refItem.width;
+			Item.height = refItem.height;
+			Item.maxStack = 999;
+
 			Item.rare = ItemRarityID.Blue;
-        }
+			Item.value = 1000;
+		}
 
 		// The following 2 methods are purely to show off these 2 hooks. Don't use them in your own code.
 		/*

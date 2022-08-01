@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Buffs
@@ -10,6 +11,7 @@ namespace ShardsOfAtheria.Buffs
             DisplayName.SetDefault("Parry Cool Down");
             Description.SetDefault("You cannot parry right now");
             Main.debuff[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
     }
 }

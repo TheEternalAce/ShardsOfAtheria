@@ -1,13 +1,15 @@
 ﻿using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Items.Placeable;
 using Terraria.DataStructures;
 using ShardsOfAtheria.Tiles;
+using ShardsOfAtheria.Players;
 
 namespace ShardsOfAtheria.Items.Accessories
 {
-	[AutoloadEquip(EquipType.Wings)]
+    [AutoloadEquip(EquipType.Wings)]
 	public class AreusWings : ModItem
 	{
 		public override void SetStaticDefaults()
@@ -16,15 +18,18 @@ namespace ShardsOfAtheria.Items.Accessories
 				"Grants immunity to Electrified");
 
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 9f, 2.5f);
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 22;
 			Item.height = 20;
-			Item.value = Item.sellPrice(0,  15);
-			Item.rare = ItemRarityID.Cyan;
 			Item.accessory = true;
+
+			Item.rare = ItemRarityID.Cyan;
+			Item.value = Item.sellPrice(0, 2, 25);
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

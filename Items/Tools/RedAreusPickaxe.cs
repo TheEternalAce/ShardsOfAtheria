@@ -1,14 +1,14 @@
 ﻿using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ShardsOfAtheria.Items.Weapons.Areus;
 
 namespace ShardsOfAtheria.Items.Tools
 {
-	public class RedAreusPickaxe : AreusWeapon
+    public class RedAreusPickaxe : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -17,24 +17,25 @@ namespace ShardsOfAtheria.Items.Tools
 
         public override void SetDefaults()
 		{
-			Item.damage = 20;
-			Item.DamageType = DamageClass.Melee;
 			Item.width = 60;
 			Item.height = 54;
+
+			Item.pick = 150;
+
+			Item.damage = 20;
+			Item.DamageType = DamageClass.Melee;
+			Item.knockBack = 6;
+			Item.mana = 0;
+
 			Item.useTime = 5; //Actual Break 1 = FAST 50 = SUPER SLOW
 			Item.useAnimation = 10;
-			Item.pick = 150;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.knockBack = 6;
-			Item.value = Item.sellPrice(0,  5);
-			Item.rare = ItemRarityID.Cyan;
 			Item.UseSound = SoundID.Item15;
 			Item.autoReuse = true;
 			Item.useTurn = true;
 
-			if (ModContent.GetInstance<ConfigServerSide>().areusWeaponsCostMana)
-				Item.mana = 0;
-			else chargeCost = 0;
+			Item.rare = ItemRarityID.Cyan;
+			Item.value = Item.sellPrice(0, 1, 25);
 		}
 
 		public override void AddRecipes()
@@ -45,15 +46,6 @@ namespace ShardsOfAtheria.Items.Tools
 				.AddIngredient(ItemID.Wire, 10)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
-		}
-
-		public override void RightClick(Player player)
-		{
-			int areusChargePackIndex = Main.LocalPlayer.FindItem(ModContent.ItemType<AreusChargePack>());
-			Main.LocalPlayer.inventory[areusChargePackIndex].stack--;
-			areusCharge += 500;
-			SoundEngine.PlaySound(SoundID.NPCHit53);
-			CombatText.NewText(player.Hitbox, Color.Aqua, 50);
 		}
 
 		public override void MeleeEffects(Player player, Rectangle hitbox)

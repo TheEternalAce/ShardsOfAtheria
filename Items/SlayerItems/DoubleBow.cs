@@ -13,27 +13,30 @@ namespace ShardsOfAtheria.Items.SlayerItems
         public override void SetStaticDefaults()
         {
 			Tooltip.SetDefault("Alternates between Cursed Arrows and Ichor arrows");
-        }
+
+			base.SetStaticDefaults();
+		}
 
         public override void SetDefaults()
 		{
 			Item.width = 42;
 			Item.height = 80;
-			Item.value = Item.sellPrice(0,  7, silver: 50);
-			Item.rare = ModContent.RarityType<SlayerRarity>();
 
 			Item.damage = 70;
             Item.DamageType = DamageClass.Ranged;
 			Item.knockBack = 2f;
 			Item.crit = 5;
+
             Item.useTime = 15;
 			Item.useAnimation = 15;
 			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.UseSound = SoundID.Item5;
 			Item.autoReuse = true;
 
-			Item.shoot = ItemID.PurificationPowder;
 			Item.shootSpeed = 16;
+			Item.rare = ModContent.RarityType<SlayerRarity>();
+			Item.value = Item.sellPrice(0, 2, 75);
+			Item.shoot = ItemID.PurificationPowder;
 			Item.useAmmo = AmmoID.Arrow;
 		}
 

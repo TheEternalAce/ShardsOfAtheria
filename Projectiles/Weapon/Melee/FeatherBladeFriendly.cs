@@ -8,10 +8,13 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
     public class FeatherBladeFriendly : ModProjectile
     {
-        public override void SetDefaults() {
+        public override void SetDefaults()
+        {
             Projectile.CloneDefaults(ModContent.ProjectileType<FeatherBlade>());
 			Projectile.friendly = true;
 			Projectile.hostile = false;
+            Projectile.timeLeft = 120;
+            Projectile.DamageType = DamageClass.Melee;
         }
 
         public override void AI()

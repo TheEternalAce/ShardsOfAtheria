@@ -1,4 +1,5 @@
 ﻿using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
@@ -27,7 +28,7 @@ namespace ShardsOfAtheria.Commands
 			Player player = Main.LocalPlayer;
 			SlayerPlayer slayerPlayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
 			SoAPlayer soaPlayer = Main.LocalPlayer.GetModPlayer<SoAPlayer>();
-			SoAWorld soaWorld = ModContent.GetInstance<SoAWorld>();
+			SoADownedSystem soaWorld = ModContent.GetInstance<SoADownedSystem>();
 
 			if (player.name != "The Eternal Ace")
 				return;

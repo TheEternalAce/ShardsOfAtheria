@@ -1,9 +1,10 @@
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.ID;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SoulBonds
 {
-	public class SoulBondLunaticLord : SoulBond
+    public class SoulBondLunaticLord : SoulBond
 	{
         public override void SetStaticDefaults()
         {
@@ -12,6 +13,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulBonds
                 "Transforms your ice circle into a madness circle\n" +
                 "The madness circle shoots madness fragments that inflict a slew of debuffs at your cursor\n" +
                 "Taking damage causes several shadow tendrils to burst out of your body and damage nearby enemies");
+
+            base.SetStaticDefaults();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

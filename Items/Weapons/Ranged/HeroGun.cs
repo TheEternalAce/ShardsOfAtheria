@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,25 +13,31 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("The gun of a long forgotten hero");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
-			Item.damage = 72;
-			Item.DamageType = DamageClass.Ranged;
-			Item.noMelee = true;
 			Item.width = 56;
 			Item.height = 24;
+
+			Item.damage = 72;
+			Item.DamageType = DamageClass.Ranged;
+			Item.knockBack = 3.75f;
+			Item.crit = 6;
+
 			Item.useTime = 30;
 			Item.useAnimation = 30;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.knockBack = 3.75f;
-			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Item41;
 			Item.autoReuse = true;
-			Item.crit = 6;
-			Item.shoot = ProjectileID.PurificationPowder;
+			Item.noMelee = true;
+
 			Item.shootSpeed = 13f;
+			Item.rare = ItemRarityID.Green;
+			Item.value = Item.sellPrice(0, 3, 25);
+			Item.shoot = ProjectileID.PurificationPowder;
 			Item.useAmmo = AmmoID.Bullet;
 		}
 

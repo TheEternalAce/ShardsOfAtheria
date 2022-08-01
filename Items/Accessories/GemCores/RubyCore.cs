@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,15 +11,18 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		{
 			Tooltip.SetDefault("10% increased damage\n" +
 				"Attacks inflict 'On Fire!'");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
 		public override void SetDefaults()
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.value = Item.sellPrice(silver: 15);
-			Item.rare = ItemRarityID.White;
 			Item.accessory = true;
+
+			Item.rare = ItemRarityID.Blue;
+			Item.value = Item.sellPrice(0, 1, 25);
 		}
 
 		public override void AddRecipes()

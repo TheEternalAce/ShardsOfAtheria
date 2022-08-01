@@ -26,7 +26,6 @@ namespace ShardsOfAtheria.Projectiles.Other
             Projectile.height = refItem.height;
 
             Projectile.aiStyle = -1;
-            Projectile.tileCollide = false;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
         }

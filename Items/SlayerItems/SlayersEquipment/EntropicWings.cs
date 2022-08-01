@@ -1,7 +1,7 @@
 ﻿using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
 {
@@ -13,6 +13,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
 			Tooltip.SetDefault("Allows flight and grants slow fall");
 
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 9f, 2.5f);
+
+			base.SetStaticDefaults();
 		}
 
 		public override void SetDefaults()

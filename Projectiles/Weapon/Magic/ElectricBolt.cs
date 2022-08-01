@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Items.Potions;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
@@ -23,8 +24,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            base.OnHitNPC(target, damage, knockback, crit);
-            target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
+            Player player = Main.player[Projectile.owner];
+            target.AddBuff(ModContent.BuffType<ElectricShock>(), player.HasBuff(ModContent.BuffType<Conductive>()) ? 1200 : 600);
         }
 
         public override void AI()

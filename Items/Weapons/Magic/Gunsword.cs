@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,27 +12,33 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("'I think it's broken..'");
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
             Item.width = 50;
             Item.height = 50;
+
+            Item.damage = 30;
+            Item.DamageType = DamageClass.Magic;
+            Item.knockBack = 6;
+            Item.crit = 4;
+            Item.mana = 6;
+
             Item.useTime = 15;
             Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.staff[Item.type] = true;
-            Item.damage = 30;
-            Item.DamageType = DamageClass.Magic;
-            Item.crit = 4;
-            Item.knockBack = 6;
-            Item.value = Item.sellPrice(0,  10);
-            Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item11;
             Item.autoReuse = true;
-            Item.shoot = ProjectileID.PurificationPowder;
+            Item.staff[Item.type] = true;
+
+            Item.value = Item.sellPrice(0, 1, 25);
+
             Item.shootSpeed = 16;
-            Item.mana = 6;
+            Item.rare = ItemRarityID.Blue;
+            Item.shoot = ProjectileID.PurificationPowder;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -45,7 +52,25 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             CreateRecipe()
                 .AddIngredient(ItemID.PlatinumBroadsword)
-                .AddRecipeGroup(SoARecipes.EvilGun)
+                .AddIngredient(ItemID.Musket)
+                .AddTile(TileID.Anvils)
+                .Register();
+
+            CreateRecipe()
+                .AddIngredient(ItemID.PlatinumBroadsword)
+                .AddIngredient(ItemID.TheUndertaker)
+                .AddTile(TileID.Anvils)
+                .Register();
+
+            CreateRecipe()
+                .AddIngredient(ItemID.GoldBroadsword)
+                .AddIngredient(ItemID.Musket)
+                .AddTile(TileID.Anvils)
+                .Register();
+
+            CreateRecipe()
+                .AddIngredient(ItemID.GoldBroadsword)
+                .AddIngredient(ItemID.TheUndertaker)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

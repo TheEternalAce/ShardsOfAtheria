@@ -5,6 +5,7 @@ using ShardsOfAtheria.Projectiles.Tools;
 using System.Collections.Generic;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Players;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
@@ -14,6 +15,8 @@ namespace ShardsOfAtheria.Items.SlayerItems
         {
             Tooltip.SetDefault("Right click to cycle between absorbed Soul Crystals\n" +
                 "Use to extract the currently selected Soul Crystal");
+
+            base.SetStaticDefaults();
         }
 
         public override void SetDefaults()
@@ -351,6 +354,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
                 };
                 tooltips.Add(line);
             }
+            base.ModifyTooltips(tooltips);
         }
 
         public override bool CanUseItem(Player player)

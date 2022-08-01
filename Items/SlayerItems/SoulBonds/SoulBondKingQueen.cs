@@ -1,9 +1,10 @@
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.ID;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SoulBonds
 {
-	public class SoulBondKingQueen : SoulBond
+    public class SoulBondKingQueen : SoulBond
 	{
         public override void SetStaticDefaults()
         {
@@ -11,6 +12,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulBonds
             Tooltip.SetDefault("Having the King Slime and Queen Slime Soul Crystals absorbed grants the following:\n" +
                 "Summons a temporary slime minion to fight along side you after taking 100 damage\n" +
                 "You may have up to 10 of these slimes");
+
+            base.SetStaticDefaults();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

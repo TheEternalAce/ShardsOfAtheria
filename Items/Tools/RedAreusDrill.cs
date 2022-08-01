@@ -1,5 +1,4 @@
 ﻿using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -13,7 +12,7 @@ using ShardsOfAtheria.Utilities;
 
 namespace ShardsOfAtheria.Items.Tools
 {
-	public class RedAreusDrill : AreusWeapon
+    public class RedAreusDrill : ModItem
 	{
 		public static Asset<Texture2D> glowmask;
 
@@ -38,29 +37,29 @@ namespace ShardsOfAtheria.Items.Tools
 
         public override void SetDefaults()
 		{
-			Item.damage = 20;
-			Item.DamageType = DamageClass.Melee;
 			Item.width = 30;
 			Item.height = 64;
+
+			Item.pick = 225;
+
+			Item.damage = 20;
+			Item.DamageType = DamageClass.Melee;
+			Item.knockBack = 0;
+			Item.mana = 0;
+
 			Item.useTime = 2; //Actual Break 1 = FAST 50 = SUPER SLOW
 			Item.useAnimation = 10;
-			Item.pick = 225;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.knockBack = 0;
-			Item.value = Item.sellPrice(0,  10);
-			Item.rare = ItemRarityID.Cyan;
 			Item.UseSound = SoundID.Item23;
 			Item.autoReuse = true;
-			Item.useTurn = true;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
 			Item.channel = true;
-			Item.shoot = ModContent.ProjectileType<RedAreusDrillProj>();
-			Item.shootSpeed = 32;
 
-			if (ModContent.GetInstance<ConfigServerSide>().areusWeaponsCostMana)
-				Item.mana = 0;
-			else chargeCost = 0;
+			Item.shootSpeed = 32;
+			Item.rare = ItemRarityID.Cyan;
+			Item.value = Item.sellPrice(0, 4, 75);
+			Item.shoot = ModContent.ProjectileType<RedAreusDrillProj>();
 		}
 
 		public override void AddRecipes()
@@ -71,15 +70,6 @@ namespace ShardsOfAtheria.Items.Tools
 				.AddIngredient(ItemID.Wire, 10)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
-		}
-
-		public override void RightClick(Player player)
-		{
-			int areusChargePackIndex = Main.LocalPlayer.FindItem(ModContent.ItemType<AreusChargePack>());
-			Main.LocalPlayer.inventory[areusChargePackIndex].stack--;
-			areusCharge += 500;
-			SoundEngine.PlaySound(SoundID.NPCHit53);
-			CombatText.NewText(player.Hitbox, Color.Aqua, 50);
 		}
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)

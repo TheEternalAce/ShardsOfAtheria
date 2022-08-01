@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Buffs
@@ -11,6 +12,7 @@ namespace ShardsOfAtheria.Buffs
             DisplayName.SetDefault("Looming Entropy");
             Description.SetDefault("'Heat death is Swiftly approaching..'\n" +
                 "Defense reduced and losing life");
+            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
         }
 
         public override void Update(NPC npc, ref int buffIndex)
@@ -51,6 +53,14 @@ namespace ShardsOfAtheria.Buffs
                     npc.lifeRegen = 0;
                 }
                 npc.lifeRegen -= 50;
+            }
+        }
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            // Only player attacks should benefit from this buff, hence the NPC and trap checks.
+            if (npc.HasBuff(ModContent.BuffType<LoomingEntropy>()) && !projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type]))
+            {
+                damage += 26;
             }
         }
     }

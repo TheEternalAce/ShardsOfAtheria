@@ -12,27 +12,31 @@ namespace ShardsOfAtheria.Items.SlayerItems
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("'Gross, absolutely vile..'");
+
+			base.SetStaticDefaults();
 		}
 
 		public override void SetDefaults() 
 		{
-			Item.damage = 17;
-			Item.DamageType = DamageClass.Magic;
-			Item.noMelee = true;
 			Item.width = 50;
 			Item.height = 26;
+
+			Item.damage = 17;
+			Item.DamageType = DamageClass.Magic;
+			Item.knockBack = 4f;
+			Item.crit = 5;
+			Item.mana = 5;
+
 			Item.useTime = 20;
 			Item.useAnimation = 20;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.knockBack = 4f;
 			Item.UseSound = SoundID.Item17;
-			Item.autoReuse = false;
-			Item.crit = 5;
-			Item.value = Item.sellPrice(0,  25);
-			Item.rare = ModContent.RarityType<SlayerRarity>();
-			Item.shoot = ModContent.ProjectileType<VileShot>();
+			Item.noMelee = true;
+
 			Item.shootSpeed = 16f;
-			Item.mana = 5;
+			Item.rare = ModContent.RarityType<SlayerRarity>();
+			Item.value = Item.sellPrice(0, 1, 25);
+			Item.shoot = ModContent.ProjectileType<VileShot>();
 		}
 
 		public override Vector2? HoldoutOffset()

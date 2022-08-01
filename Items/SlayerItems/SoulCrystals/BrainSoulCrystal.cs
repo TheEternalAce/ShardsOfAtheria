@@ -1,5 +1,6 @@
 ﻿using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.NPCs;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -17,6 +18,8 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
                 "Gain a temporary 20% damage boost when all of the creepers die\n" +
                 "Creepers take 1 minute to respawn\n" +
                 "Cannot be immune to knockback");
+
+            base.SetStaticDefaults();
         }
 
         public override bool? UseItem(Player player)

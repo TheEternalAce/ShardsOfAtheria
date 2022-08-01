@@ -5,10 +5,12 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
-    public class IonCutter : ModProjectile {
-        public override void SetDefaults() {
+    public class IonCutter : ModProjectile
+    {
+        public override void SetDefaults()
+        {
             Projectile.width = 24;
-            Projectile.height = 80;
+            Projectile.height = 24;
 
             Projectile.aiStyle = -1;
             Projectile.friendly = true;

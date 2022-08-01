@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,16 +12,19 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         {
             DisplayName.SetDefault("Lesser Amethyst Core");
             Tooltip.SetDefault("Gives a short dash to the wearer.");
-		}
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+        }
 
 		public override void SetDefaults()
 		{
 			Item.width = 32;
             Item.height = 32;
-            Item.value = Item.sellPrice(silver: 15);
-            Item.rare = ItemRarityID.White;
             Item.accessory = true;
-		}
+
+            Item.value = Item.sellPrice(0, 0, 15);
+            Item.rare = ItemRarityID.White;
+        }
 
         public override void AddRecipes()
         {
@@ -33,7 +37,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
         public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-            LesserAmethystDashPlayer mp = player.GetModPlayer<LesserAmethystDashPlayer>();
+            AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
 
             //If the dash is not active, immediately return so we don't do any of the logic for it
             if (!mp.DashActive)
@@ -46,14 +50,14 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.armorEffectDrawShadowEOCShield = true;
 
             //If the dash has just started, apply the dash velocity in whatever direction we wanted to dash towards
-            if (mp.DashTimer == LesserAmethystDashPlayer.MAX_DASH_TIMER)
+            if (mp.DashTimer == AmethystDashPlayer.MAX_DASH_TIMER)
             {
                 Vector2 newVelocity = player.velocity;
 
-                if ((mp.DashDir == LesserAmethystDashPlayer.DashLeft && player.velocity.X > -mp.DashVelocity) || (mp.DashDir == LesserAmethystDashPlayer.DashRight && player.velocity.X < mp.DashVelocity))
+                if ((mp.DashDir == AmethystDashPlayer.DashLeft && player.velocity.X > -mp.DashVelocity) || (mp.DashDir == AmethystDashPlayer.DashRight && player.velocity.X < mp.DashVelocity))
                 {
                     //X-velocity is set here
-                    int dashDirection = mp.DashDir == LesserAmethystDashPlayer.DashRight ? 1 : -1;
+                    int dashDirection = mp.DashDir == AmethystDashPlayer.DashRight ? 1 : -1;
                     newVelocity.X = dashDirection * mp.DashVelocity;
                 }
 
@@ -67,14 +71,14 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             if (mp.DashDelay == 0)
             {
                 //The dash has ended.  Reset the fields
-                mp.DashDelay = LesserAmethystDashPlayer.MAX_DASH_DELAY;
-                mp.DashTimer = LesserAmethystDashPlayer.MAX_DASH_TIMER;
+                mp.DashDelay = AmethystDashPlayer.MAX_DASH_DELAY;
+                mp.DashTimer = AmethystDashPlayer.MAX_DASH_TIMER;
                 mp.DashActive = false;
             }
         }
     }
 
-    public class LesserAmethystDashPlayer : ModPlayer
+    public class AmethystDashPlayer : ModPlayer
     {
         //These indicate what direction is what in the timer arrays used
         public static readonly int DashRight = 2;
@@ -88,11 +92,11 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         public int DashDelay = MAX_DASH_DELAY;
         public int DashTimer = MAX_DASH_TIMER;
         //The initial velocity.  10 velocity is about 37.5 tiles/second or 50 mph
-        public readonly float DashVelocity = 10f;
+        public float DashVelocity = 10f;
         //These two fields are the max values for the delay between dashes and the length of the dash in that order
         //The time is measured in frames
-        public static readonly int MAX_DASH_DELAY = 50;
-        public static readonly int MAX_DASH_TIMER = 10;
+        public static int MAX_DASH_DELAY = 50;
+        public static int MAX_DASH_TIMER = 10;
 
         public override void ResetEffects()
         {
@@ -111,7 +115,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
                 //Set the flag for the ExampleDashAccessory being equipped if we have it equipped OR immediately return if any of the accessories are
                 // one of the higher-priority ones
-                if (item.type == ModContent.ItemType<AmethystCore_Lesser>())
+                if (item.type == ModContent.ItemType<AmethystCore_Lesser>() || item.type == ModContent.ItemType<AmethystCore>() || item.type == ModContent.ItemType<AmethystCore_Greater>())
                     dashAccessoryEquipped = true;
                 else if (item.type == ItemID.EoCShield || item.type == ItemID.MasterNinjaGear || item.type == ItemID.Tabi)
                     return;
@@ -130,6 +134,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
                 return;  //No dash was activated, return
 
             DashActive = true;
+            Player.timeSinceLastDashStarted = 0;
 
             //Here you'd be able to set an effect that happens when the dash first activates
             //Some examples include:  the larger smoke effect from the Master Ninja Gear and Tabi

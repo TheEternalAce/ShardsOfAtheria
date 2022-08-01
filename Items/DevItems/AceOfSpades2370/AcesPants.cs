@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using Terraria.ID;
 
@@ -12,6 +13,8 @@ namespace ShardsOfAtheria.Items.DevItems.AceOfSpades2370
             DisplayName.SetDefault("The Eternal Ace's pants");
             Tooltip.SetDefault("'Great for impersonating devs!'\n" +
                 "'Pockets not included'");
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
