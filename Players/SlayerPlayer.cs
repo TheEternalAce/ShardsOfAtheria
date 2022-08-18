@@ -68,6 +68,8 @@ namespace ShardsOfAtheria.Players
         public int spinningTimer;
         public int theHungrySpawnTimer;
         public int yourTentacleSpawnTimer;
+        public int servantSpawnTimer;
+
         public int soulTeleports;
         public int lunaticCircleFragments = 1;
 
@@ -213,6 +215,35 @@ namespace ShardsOfAtheria.Players
                 selectedSoul = tag.GetInt("selectedSoul");
             if (tag.ContainsKey("TomeKnowledge"))
                 selectedSoul = tag.GetInt("TomeKnowledge");
+        }
+
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            ModPacket packet = Mod.GetPacket();
+            packet.Write((byte)ShardsOfAtheria.MessageType.SyncSoulCrystals);
+            packet.Write((byte)Player.whoAmI);
+            packet.Write(KingSoul);
+            packet.Write(EyeSoul);
+            packet.Write(BrainSoul);
+            packet.Write(EaterSoul);
+            packet.Write(ValkyrieSoul);
+            packet.Write(BeeSoul);
+            packet.Write(SkullSoul);
+            packet.Write(DeerclopsSoul);
+            packet.Write(WallSoul);
+            packet.Write(QueenSoul);
+            packet.Write(DestroyerSoul);
+            packet.Write(PrimeSoul);
+            packet.Write(TwinSoul);
+            packet.Write(PlantSoul);
+            packet.Write(DukeSoul);
+            packet.Write(EmpressSoul);
+            packet.Write(LunaticSoul);
+            packet.Write(LordSoul);
+            packet.Write(TimeSoul);
+            packet.Write(LandSoul);
+            packet.Write(DeathSoul);
+            packet.Send(toWho, fromWho);
         }
 
         public override bool CanConsumeAmmo(Item weapon, Item ammo)
@@ -507,7 +538,7 @@ namespace ShardsOfAtheria.Players
 
         public override void PostUpdate()
         {
-            if (soulCrystals >= 6 && Player.name != "Trevor Mendez" && Player.name != "Luna Mendez")
+            if (soulCrystals >= 6)
             {
                 Player.AddBuff(ModContent.BuffType<Madness>(), 600);
             }
@@ -541,9 +572,16 @@ namespace ShardsOfAtheria.Players
                 }
             }
 
-            if (Player.timeSinceLastDashStarted < 5 && EyeSoul && Player.ownedProjectileCounts[ModContent.ProjectileType<Servant>()] < 3)
+            if (EyeSoul && Player.ownedProjectileCounts[ModContent.ProjectileType<Servant>()] < 3)
             {
-                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Player.velocity.RotatedByRandom(MathHelper.ToRadians(360)) * 1f, ModContent.ProjectileType<Servant>(), 15, 1, Player.whoAmI);
+                if (++servantSpawnTimer >= 300)
+                {
+                    servantSpawnTimer = 0;
+                    for (int i = 0; i < 3; ++i)
+                    {
+                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Player.velocity.RotatedByRandom(MathHelper.TwoPi) * 1f, ModContent.ProjectileType<Servant>(), 15, 1, Player.whoAmI);
+                    }
+                }
             }
             if (BrainSoul && !Player.GetModPlayer<SynergyPlayer>().brainLordSynergy)
             {
@@ -566,7 +604,7 @@ namespace ShardsOfAtheria.Players
             }
             if (BeeSoul)
             {
-                if (Player.GetModPlayer<SoAPlayer>().inCombat == 0)
+                if (Player.GetModPlayer<SoAPlayer>().inCombat > 0)
                 {
                     beeSpawnTimer++;
                     if (beeSpawnTimer >= 600)
@@ -844,7 +882,7 @@ namespace ShardsOfAtheria.Players
             {
                 Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<AllSeeingEye>(), 0, 0f, player.whoAmI);
             }
-            if (BrainSoul&& !Player.GetModPlayer<SynergyPlayer>().brainLordSynergy)
+            if (BrainSoul && !Player.GetModPlayer<SynergyPlayer>().brainLordSynergy)
             {
                 NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X + 20), (int)(Player.Center.Y + 20), ModContent.NPCType<Creeper>());
                 NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X - 20), (int)(Player.Center.Y + 20), ModContent.NPCType<Creeper>());

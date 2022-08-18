@@ -16,30 +16,22 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public int charge;
         public bool theMessiah;
-        public bool airRanbuToggle = false;
-        public bool groundRanbuToggle = true;
 
         public override void OnCreate(ItemCreationContext context)
         {
-            airRanbuToggle = false;
-            groundRanbuToggle = true;
+            theMessiah = false;
         }
 
         public override void SaveData(TagCompound tag)
         {
-            tag["airRanbuToggle"] = airRanbuToggle;
-            tag["groundRanbuToggle"] = groundRanbuToggle;
+            tag["theMessiah"] = theMessiah;
         }
 
         public override void LoadData(TagCompound tag)
         {
-            if (tag.ContainsKey("airRanbuToggle"))
+            if (tag.ContainsKey("theMessiah"))
             {
-                airRanbuToggle = tag.GetBool("airRanbuToggle");
-            }
-            if (tag.ContainsKey("groundRanbuToggle"))
-            {
-                groundRanbuToggle = tag.GetBool("groundRanbuToggle");
+                theMessiah = tag.GetBool("theMessiah");
             }
         }
 
@@ -50,13 +42,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 "'I am the messiah!'");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            tooltips.Add(new TooltipLine(Mod, "Tooltip#", string.Format("(Right click) Mid-air Combo: {0}", airRanbuToggle ? "ON" : "OFF")));
-            tooltips.Add(new TooltipLine(Mod, "Tooltip#", string.Format("(Left Alt + Right click) Ground Combo: {0}", groundRanbuToggle ? "ON" : "OFF")));
-            base.ModifyTooltips(tooltips);
         }
 
         public override void SetDefaults()
@@ -82,24 +67,14 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<MessiahAirSlash>();
         }
 
-        public override bool ConsumeItem(Player player) => false;
-
-        public override bool CanRightClick() => true;
-
-        public override void RightClick(Player player)
-        {
-            if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt))
-            {
-                groundRanbuToggle = !groundRanbuToggle;
-            }
-            else
-            {
-                airRanbuToggle = !airRanbuToggle;
-            }
-        }
-
         public override void UpdateInventory(Player player)
         {
+            if (!theMessiah && Main.myPlayer == player.whoAmI)
+            {
+                SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/TheMessiah"));
+                theMessiah = true;
+            }
+
             if (charge >= 80 && player.ownedProjectileCounts[ModContent.ProjectileType<ChargeOrb>()] < 3)
             {
                 for (int i = 0; i < 3; i++)
@@ -115,16 +90,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 SoundEngine.PlaySound(SoundID.MaxMana);
                 CombatText.NewText(player.getRect(), Color.SkyBlue, "Charge ready!");
             }
-            if (!theMessiah)
-            {
-                SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/TheMessiah"));
-                theMessiah = true;
-            }
         }
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            if (charge >= 50)
+            if (charge >= 200)
             {
                 damage += charge * .1f;
             }
@@ -155,15 +125,13 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             }
             else if (player.velocity.Y == 0)
             {
-                Projectile.NewProjectile(source, position, velocity, groundRanbuToggle ? ModContent.ProjectileType<MessiahRanbu1>() : ModContent.ProjectileType<MessiahSlash>(), damage, knockback, player.whoAmI);
-                return false;
-            }
-            else if (airRanbuToggle)
-            {
                 Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<MessiahRanbu1>(), damage, knockback, player.whoAmI);
                 return false;
             }
-            return base.Shoot(player, source, position, velocity, type, damage, knockback);
+            else
+            {
+                return true;
+            }
         }
     }
 }

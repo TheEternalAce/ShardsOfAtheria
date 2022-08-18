@@ -8,12 +8,13 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
 {
     public class EyeSoulCrystal : SoulCrystal
     {
+        public static readonly string tip = "Summon 3 Servants after 5 seconds, these Servants will chase down enemies\n" +
+                "Also creates an All Seeing Eye that lights up the cursor and marks enemies, making them take 10% more damage";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul Crystal (Eye Of Cthulhu)");
-            Tooltip.SetDefault("Summon 3 Servants when dashing, these Servants will chase down enemies\n" +
-                "Also creates an All Seeing Eye that lights up the cursor and marks enemies, making them take 10% more damage");
+            Tooltip.SetDefault(tip);
 
             base.SetStaticDefaults();
         }

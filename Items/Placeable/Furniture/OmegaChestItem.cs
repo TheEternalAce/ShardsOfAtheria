@@ -26,7 +26,7 @@ namespace ShardsOfAtheria.Items.Placeable.Furniture
 			Item.consumable = true;
 			Item.value = 500;
 			Item.createTile = ModContent.TileType<OmegaChest>();
-			Item.placeStyle = 1; // Use this to place the chest in its locked style
+			//Item.placeStyle = 1; // Use this to place the chest in its locked style
 		}
 	}
 

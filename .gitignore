@@ -9,5 +9,11 @@
 /.vs/ShardsOfAtheria/v16
 /.vs
 /bin/Debug/net6.0
+<<<<<<< HEAD
 /ShardsOfAtheria/SoA Demonstrations
 /SoA Demonstrations
+=======
+/SoA Demonstrations
+/Properties
+/.editorconfig
+>>>>>>> parent of 9413226 (Revert "0.9")

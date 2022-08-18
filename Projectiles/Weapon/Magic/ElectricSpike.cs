@@ -43,6 +43,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
                 {
                     Projectile.friendly = true;
                     Projectile.velocity = Vector2.Normalize(Main.MouseWorld - Projectile.Center) * 16f;
+                    Projectile.netUpdate = true;
                 }
             }
             if (flightTimer == 50)

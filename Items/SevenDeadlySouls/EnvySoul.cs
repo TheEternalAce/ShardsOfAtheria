@@ -127,7 +127,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            SevenSoulPlayer.SevenSoulUsed = 1;
+            player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed = 1;
             player.AddBuff(BuffID.Darkness, 2);
             base.Update(player, ref buffIndex);
         }

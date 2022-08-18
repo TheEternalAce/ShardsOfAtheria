@@ -1,6 +1,9 @@
-﻿using ShardsOfAtheria.Players;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Players;
 using Terraria;
+using Terraria.Chat;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Commands
@@ -75,7 +78,7 @@ namespace ShardsOfAtheria.Commands
 			ModContent.GetInstance<SoADownedSystem>().slainDeath = false;
 			sPlayer.DeathSoul = false;
 			ModContent.GetInstance<SoADownedSystem>().slainEverything = false;
-			Main.NewText("Slayer mode reset");
+			ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Slayer mode reset"), Color.White, player.whoAmI);
 		}
     }
 }

@@ -10,6 +10,7 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 using ShardsOfAtheria.Items.Placeable.Furniture;
 using ShardsOfAtheria.Items.Weapons.Melee;
+using Terraria.Chat;
 
 namespace ShardsOfAtheria.Tiles.Furniture
 {
@@ -67,7 +68,7 @@ namespace ShardsOfAtheria.Tiles.Furniture
 		{
 			if (!Main.bloodMoon && !Main.LocalPlayer.HasItem(ModContent.ItemType<TheMessiah>()))
 			{
-				Main.NewText("I await the red moon.", Color.DarkRed);
+				ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("I await the red moon."), Color.DarkRed, Main.LocalPlayer.whoAmI);
 				Item.NewItem(Main.LocalPlayer.GetSource_FromThis(), Main.LocalPlayer.getRect(), ModContent.ItemType<OmegaKey>());
 				return false;
 			}

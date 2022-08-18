@@ -186,12 +186,14 @@ namespace ShardsOfAtheria
             flags3[5] = slainDeath;
             flags3[6] = slainGenesis;
             flags3[6] = slainSenterra;
+            writer.Write(flags3);
 
             BitsByte flags4 = new BitsByte();
             flags4[0] = slainEverything;
 
             flags4[1] = downedSenterra;
             flags4[2] = downedGenesis;
+            writer.Write(flags4);
         }
 
         public override void NetReceive(BinaryReader reader)

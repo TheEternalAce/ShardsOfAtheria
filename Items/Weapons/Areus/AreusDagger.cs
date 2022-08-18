@@ -34,6 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 4f;
+            Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 0, 50);
             Item.shoot = ModContent.ProjectileType<AreusDaggerProj>();
         }

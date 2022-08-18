@@ -70,7 +70,7 @@ namespace ShardsOfAtheria.Items
 				}
 			}
 
-			return !(player.ZoneCorrupt || player.ZoneCrimson) && Main.dayTime;
+			return true;
 		}
 	}
 }

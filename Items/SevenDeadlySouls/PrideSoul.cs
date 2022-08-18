@@ -75,7 +75,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            SevenSoulPlayer.SevenSoulUsed = 5;
+            player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed = 5;
             if (player.GetModPlayer<SoAPlayer>().inCombat > 0)
                 player.GetModPlayer<PridePlayer>().prideTimer++;
             if (player.GetModPlayer<PridePlayer>().prideTimer >= 1200)

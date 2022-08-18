@@ -13,9 +13,11 @@ using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using System;
 using Terraria;
+using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -707,19 +709,19 @@ namespace ShardsOfAtheria.NPCs
         {
             if (npc.type == NPCID.KingSlime && ModContent.GetInstance<SoADownedSystem>().slainKing)
             {
-                Main.NewText("King Slime was slain...");
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("King Slime was slain..."), Color.White);
                 npc.active = false;
             }
             if (npc.type == NPCID.EyeofCthulhu && ModContent.GetInstance<SoADownedSystem>().slainEOC)
             {
-                Main.NewText("The Eye of Cthulhu was slain...");
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Eye of Cthulhu was slain..."), Color.White);
                 npc.active = false;
             }
             if (ModContent.GetInstance<SoADownedSystem>().slainBOC)
             {
                 if (npc.type == NPCID.BrainofCthulhu)
                 {
-                    Main.NewText("The Brain of Cthulhu was slain...");
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Brain of Cthulhu was slain..."), Color.White);
                     npc.active = false;
                 }
                 if (npc.type == NPCID.Creeper && ModContent.GetInstance<SoADownedSystem>().slainBOC)
@@ -729,7 +731,7 @@ namespace ShardsOfAtheria.NPCs
             {
                 if (npc.type == NPCID.EaterofWorldsHead)
                 {
-                    Main.NewText("The Eater of Worlds was slain...");
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Eater of Worlds was slain..."), Color.White);
                     npc.active = false;
                 }
                 if (npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
@@ -737,14 +739,14 @@ namespace ShardsOfAtheria.NPCs
             }
             if (npc.type == NPCID.QueenBee && ModContent.GetInstance<SoADownedSystem>().slainBee)
             {
-                Main.NewText("The Queen Bee was slain...");
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Queen Bee was slain..."), Color.White);
                 npc.active = false;
             }
             if (ModContent.GetInstance<SoADownedSystem>().slainSkull)
             {
                 if (npc.type == NPCID.SkeletronHead || npc.type == NPCID.DungeonGuardian)
                 {
-                    Main.NewText("Skeletron was slain...");
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Skeletron was slain..."), Color.White);
                     npc.active = false;
                 }
                 if (npc.type == NPCID.SkeletronHand)
@@ -752,14 +754,14 @@ namespace ShardsOfAtheria.NPCs
             }
             if (npc.type == NPCID.Deerclops && ModContent.GetInstance<SoADownedSystem>().slainDeerclops)
             {
-                Main.NewText("Deerclops was slain...");
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Deerclops was slain..."), Color.White);
                 npc.active = false;
             }
             if (ModContent.GetInstance<SoADownedSystem>().slainWall)
             {
                 if (npc.type == NPCID.WallofFlesh)
                 {
-                    Main.NewText("the Wall of Flesh was slain...");
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("the Wall of Flesh was slain..."), Color.White);
                     npc.active = false;
                 }
                 if (npc.type == NPCID.WallofFleshEye)
@@ -767,14 +769,14 @@ namespace ShardsOfAtheria.NPCs
             }
             if (npc.type == NPCID.QueenSlimeBoss && ModContent.GetInstance<SoADownedSystem>().slainQueen)
             {
-                Main.NewText("Queen Slime was slain...");
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Queen Slime was slain..."), Color.White);
                 npc.active = false;
             }
             if (ModContent.GetInstance<SoADownedSystem>().slainMechWorm)
             {
                 if (npc.type == NPCID.TheDestroyer)
                 {
-                    Main.NewText("The Destroyer was slain...");
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Destroyer was slain..."), Color.White);
                     npc.active = false;
                 }
                 if (npc.type == NPCID.TheDestroyerBody || npc.type == NPCID.TheDestroyerTail)
@@ -784,12 +786,12 @@ namespace ShardsOfAtheria.NPCs
             {
                 if (npc.type == NPCID.Spazmatism)
                 {
-                    Main.NewText("Spazmatism was slain...");
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Spazmatism was slain..."), Color.White);
                     npc.active = false;
                 }
                 if (npc.type == NPCID.Retinazer)
                 {
-                    Main.NewText("Retinazer was slain...");
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Retinazer was slain..."), Color.White);
                     npc.active = false;
                 }
             }
@@ -797,7 +799,7 @@ namespace ShardsOfAtheria.NPCs
             {
                 if (npc.type == NPCID.SkeletronPrime)
                 {
-                    Main.NewText("Skeletron Prime was slain... (Again, how???)");
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Skeletron Prime was slain... (Again, how???)"), Color.White);
                     npc.active = false;
                 }
                 if (npc.type == NPCID.PrimeCannon || npc.type == NPCID.PrimeLaser || npc.type == NPCID.PrimeSaw || npc.type == NPCID.PrimeVice)
@@ -807,7 +809,7 @@ namespace ShardsOfAtheria.NPCs
             {
                 if (npc.type == NPCID.Plantera)
                 {
-                    Main.NewText("Plantera was slain...");
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Plantera was slain..."), Color.White);
                     npc.active = false;
                 }
                 if (npc.type == NPCID.PlanterasHook || npc.type == NPCID.PlanterasTentacle)
@@ -817,7 +819,7 @@ namespace ShardsOfAtheria.NPCs
             {
                 if (npc.type == NPCID.Golem)
                 {
-                    Main.NewText("Golem was slain...");
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Golem was slain..."), Color.White);
                     npc.active = false;
                 }
                 if (npc.type == NPCID.GolemFistLeft || npc.type == NPCID.GolemFistRight || npc.type == NPCID.GolemHead)
@@ -825,19 +827,19 @@ namespace ShardsOfAtheria.NPCs
             }
             if (npc.type == NPCID.DukeFishron && ModContent.GetInstance<SoADownedSystem>().slainDuke)
             {
-                Main.NewText("Duke Fishron was slain...");
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Duke Fishron was slain..."), Color.White);
                 npc.active = false;
             }
             if (npc.type == NPCID.HallowBoss && ModContent.GetInstance<SoADownedSystem>().slainEmpress)
             {
-                Main.NewText("The Empress of Light was slain...");
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Empress of Light was slain..."), Color.White);
                 npc.active = false;
             }
             if (ModContent.GetInstance<SoADownedSystem>().slainLunatic)
             {
                 if (npc.type == NPCID.CultistBoss)
                 {
-                    Main.NewText("The Lunatic Cultist was slain...");
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Lunatic Cultist was slain..."), Color.White);
                     npc.active = false;
                 }
                 if (npc.type == NPCID.CultistTablet)
@@ -877,7 +879,7 @@ namespace ShardsOfAtheria.NPCs
             {
                 if (npc.type == NPCID.MoonLordCore)
                 {
-                    Main.NewText("The Moon Lord was slain...");
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Moon Lord was slain..."), Color.White);
                     npc.active = false;
                 }
                 if (npc.type == NPCID.MoonLordHand || npc.type == NPCID.MoonLordHead)
