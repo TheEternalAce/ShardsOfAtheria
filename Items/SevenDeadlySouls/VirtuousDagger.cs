@@ -42,7 +42,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
             player.ClearBuff(ModContent.BuffType<PrideBuff>());
             player.ClearBuff(ModContent.BuffType<SlothBuff>());
             player.ClearBuff(ModContent.BuffType<WrathBuff>());
-            player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed = 0;
+            SevenSoulPlayer.SevenSoulUsed = 0;
 
             for (int i = 0; i < 10; i++)
             {

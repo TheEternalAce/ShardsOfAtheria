@@ -77,7 +77,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed = 2;
+            SevenSoulPlayer.SevenSoulUsed = 2;
             player.GetDamage(DamageClass.Melee) += .15f;
             player.statDefense -= 15;
             player.starving = true;

@@ -27,23 +27,12 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override bool? UseItem(Player player)
         {
-            if (player.whoAmI == Main.myPlayer)
-            {
-                int newItem = Item.NewItem(Item.GetSource_DropAsItem(), player.getRect(), ModContent.ItemType<SinfulArmament>());
-                Main.item[newItem].noGrabDelay = 0; // Set the new item to be able to be picked up instantly
-
-                // Here we need to make sure the item is synced in multiplayer games.
-                if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
-                {
-                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
-                }
-            }
             return true;
         }
 
         public override bool CanUseItem(Player player)
         {
-            return player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed == 0;
+            return SevenSoulPlayer.SevenSoulUsed == 0;
         }
 
         public override void AddRecipes()
@@ -56,7 +45,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
     
     public class SevenSoulPlayer : ModPlayer
     {
-        public int SevenSoulUsed;
+        public static int SevenSoulUsed;
 
         public override void Initialize()
         {

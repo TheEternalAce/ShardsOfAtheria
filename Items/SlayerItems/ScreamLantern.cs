@@ -57,10 +57,11 @@ namespace ShardsOfAtheria.Items.SlayerItems
             shockwave++;
             if (shockwave == 9 || shockwave == 10)
             {
-                for (int i = 0; i < 5; i++)
-                {
-                    Projectile.NewProjectile(source, player.Center, new Vector2(0, -1).RotatedBy(MathHelper.ToRadians(72 * i)) * 16, type, damage, knockback, player.whoAmI);
-                }
+                Projectile.NewProjectile(source, player.Center, new Vector2(0, -1).RotatedBy(MathHelper.ToRadians(72)) * 16, type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, player.Center, new Vector2(0, -1).RotatedBy(MathHelper.ToRadians(144)) * 16, type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, player.Center, new Vector2(0, -1).RotatedBy(MathHelper.ToRadians(216)) * 16, type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, player.Center, new Vector2(0, -1).RotatedBy(MathHelper.ToRadians(288)) * 16, type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, player.Center, new Vector2(0, -1).RotatedBy(MathHelper.ToRadians(360)) * 16, type, damage, knockback, player.whoAmI);
                 return false;
             }
 

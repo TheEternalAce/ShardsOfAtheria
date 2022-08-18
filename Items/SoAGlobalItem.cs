@@ -60,12 +60,6 @@ namespace ShardsOfAtheria.Items
                 item.autoReuse = true;
             }
 
-            if (item.type == ItemID.LifeCrystal || item.type == ItemID.ManaCrystal || item.type == ItemID.LifeFruit)
-            {
-                item.autoReuse = true;
-                item.useTurn = true;
-            }
-
             if (item.type == ItemID.RocketI)
             {
                 item.shoot = ProjectileID.RocketI;

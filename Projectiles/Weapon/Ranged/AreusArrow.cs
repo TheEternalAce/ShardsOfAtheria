@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Projectiles.Other;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 {
@@ -34,7 +33,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 120;
 
             DrawOffsetX = -4;
         }
@@ -42,44 +40,43 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
-            Projectile.netUpdate = true;
-
-            if (Main.myPlayer == Projectile.owner)
+            if (Projectile.ai[0] == 0)
             {
-                Player player = Main.player[Projectile.owner];
+                Projectile.ai[0] = 1;
+            }
+            if (Projectile.ai[0] == 1)
+            {
+                Projectile.timeLeft = 60;
+            }
+            if (Projectile.ai[0] == 2)
+            {
+                Projectile.timeLeft = 30;
+                Projectile.ai[0] = 3;
+            }
+            if (Projectile.timeLeft == 1 && Projectile.ai[0] == 3)
+            {
+                SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
+                Projectile.timeLeft = 60;
+                Projectile.ai[0] = 4;
+            }
+            if (Projectile.ai[0] == 4)
+            {
+                Projectile.penetrate = 1;
+                Projectile.velocity *= -1;
+                Projectile.ai[0] = 5;
+            }
+            if (Projectile.ai[0] == 5)
+            {
+                float maxDetectRadius = 400f; // The maximum radius at which a projectile can detect a target
 
-                if (Projectile.ai[0] == 0)
-                {
-                    Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<AreusArrow2>(), 0, 0, player.whoAmI);
-                    Projectile.ai[0] = 1;
-                }
-                if (Projectile.ai[0] == 2)
-                {
-                    Projectile.timeLeft = 30;
-                    Projectile.ai[0] = 3;
-                    Projectile.netUpdate = true;
-                }
-                if (Projectile.timeLeft == 1 && Projectile.ai[0] == 3)
-                {
-                    SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
-                    Projectile.timeLeft = 60;
-                    Projectile.penetrate = 1;
-                    Projectile.velocity *= -1;
-                    Projectile.ai[0] = 4;
-                }
-                if (Projectile.ai[0] == 4)
-                {
-                    float maxDetectRadius = 400f; // The maximum radius at which a projectile can detect a target
+                // Trying to find NPC closest to the projectile
+                NPC closestNPC = FindClosestNPC(maxDetectRadius);
+                if (closestNPC == null)
+                    return;
 
-                    // Trying to find NPC closest to the projectile
-                    NPC closestNPC = FindClosestNPC(maxDetectRadius);
-                    if (closestNPC == null)
-                        return;
-
-                    // If found, change the velocity of the projectile and turn it in the direction of the target
-                    // Use the SafeNormalize extension method to avoid NaNs returned by Vector2.Normalize when the vector is zero
-                    Projectile.velocity =  (closestNPC.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 16;
-                }
+                // If found, change the velocity of the projectile and turn it in the direction of the target
+                // Use the SafeNormalize extension method to avoid NaNs returned by Vector2.Normalize when the vector is zero
+                Projectile.velocity =  (closestNPC.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 16;
             }
         }
 
@@ -91,17 +88,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 
         public override void Kill(int timeLeft)
         {
-            if (Main.myPlayer == Projectile.owner)
+            Player player = Main.player[Projectile.owner];
+            SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
+            if (Projectile.ai[0] == 1)
             {
-                Player player = Main.player[Projectile.owner];
-                SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
-                if (Projectile.ai[0] == 1)
+                for (int i = 0; i < 6; i++)
                 {
-                    for (int i = 0; i < 6; i++)
-                    {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(1, 0).RotatedBy(MathHelper.ToRadians(60 * i)) * 16, ModContent.ProjectileType<AreusArrow>(), Projectile.damage, Projectile.knockBack, player.whoAmI, 2f);
-                        Projectile.netUpdate = true;
-                    }
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize((Projectile.position + Projectile.velocity) - Projectile.Center).RotatedBy(MathHelper.ToRadians(60 * i)) * 16,
+                        ModContent.ProjectileType<AreusArrow>(), Projectile.damage, Projectile.knockBack, player.whoAmI, 2f);
                 }
             }
         }

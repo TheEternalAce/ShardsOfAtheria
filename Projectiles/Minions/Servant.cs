@@ -68,7 +68,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
 		// This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
 		private bool CheckActive(Player owner)
 		{
-			if (Main.myPlayer == Projectile.owner && (owner.dead || !owner.active || !owner.GetModPlayer<SlayerPlayer>().EyeSoul))
+			if (owner.dead || !owner.active || !owner.GetModPlayer<SlayerPlayer>().EyeSoul)
 				return false;
 			else Projectile.timeLeft = 2;
 			return true;
@@ -188,7 +188,6 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
 		private void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
 		{
-			Projectile.netUpdate = true;
 			// Default movement parameters (here for attacking)
 			float speed = 8f;
 			float inertia = 20f;
@@ -243,7 +242,6 @@ namespace ShardsOfAtheria.Projectiles.Minions
 		private void Visuals()
 		{
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(180);
-			Projectile.netUpdate = true;
 		}
 	}
 }

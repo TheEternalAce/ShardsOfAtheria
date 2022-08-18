@@ -52,7 +52,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
             if (++charge >= 120)
             {
                 Projectile.frame = 1;
-                Projectile.netUpdate = true;
             }
         }
 

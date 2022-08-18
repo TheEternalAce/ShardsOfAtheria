@@ -96,7 +96,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 
                 if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
                 {
-                    if ((Projectile.ai[0] == 1f || Projectile.ai[0] == 30f) && (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
+                    if ((Projectile.ai[0] == 1f || Projectile.ai[0] == 30f) && (Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
                     {
                         float numberProjectiles = 3;
                         float shardRotation = MathHelper.ToRadians(15);
@@ -110,7 +110,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                     }
 
                     // Dust stuff
-                    if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades >= 3)
+                    if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades >= 3)
                     {
                         if (Projectile.alpha == 0)
                         {

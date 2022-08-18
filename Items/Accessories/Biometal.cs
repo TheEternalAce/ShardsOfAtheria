@@ -15,21 +15,20 @@ namespace ShardsOfAtheria.Items.Accessories
     {
         public override void Load()
         {
-            // Since the equipment textures weren't loaded on the server, we can't have this code running server-side
-            if (Main.netMode == NetmodeID.Server)
-                return;
-            // Add equip textures
-            EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Head}", EquipType.Head, this);
-            EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Body}", EquipType.Body, this);
-            EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Legs}", EquipType.Legs, this);
+            // The code below runs only if we're not loading on a server
+            if (Main.netMode != NetmodeID.Server)
+            {
+                // Add equip textures
+                EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Head}", EquipType.Head, this);
+                EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Body}", EquipType.Body, this);
+                EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Legs}", EquipType.Legs, this);
+
+            }
         }
 
         // Called in SetStaticDefaults
         private void SetupDrawing()
         {
-            // Since the equipment textures weren't loaded on the server, we can't have this code running server-side
-            if (Main.netMode == NetmodeID.Server)
-                return;
             int equipSlotHead = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Head);
             int equipSlotBody = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Body);
             int equipSlotLegs = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Legs);

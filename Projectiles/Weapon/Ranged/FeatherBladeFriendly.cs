@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Projectiles.NPCProj;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Melee
+namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 {
     public class FeatherBladeFriendly : ModProjectile
     {
@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 			Projectile.friendly = true;
 			Projectile.hostile = false;
             Projectile.timeLeft = 120;
-            Projectile.DamageType = DamageClass.Melee;
+            Projectile.DamageType = DamageClass.Ranged;
         }
 
         public override void AI()

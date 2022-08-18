@@ -49,7 +49,6 @@ namespace ShardsOfAtheria.Items.Potions
 				.Register();
 		}
 	}
-
 	public class Conductive : ModBuff
 	{
 		public override void SetStaticDefaults()
