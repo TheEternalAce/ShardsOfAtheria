@@ -2,9 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles;
-using Terraria.Chat;
-using Terraria.Localization;
-using Microsoft.Xna.Framework;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
@@ -39,7 +36,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
 		{
-			ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(Lang.GetNPCName(target.type) + " was hit by " + player.name + "'s fish"), Color.White);
+			Main.NewText(Lang.GetNPCName(target.type) + " was hit by " + player.name + "'s fish");
 		}
     }
 }

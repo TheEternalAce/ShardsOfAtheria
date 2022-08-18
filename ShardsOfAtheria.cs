@@ -1,16 +1,21 @@
-using ShardsOfAtheria.Items;
-using ShardsOfAtheria.Items.Accessories;
-using ShardsOfAtheria.Items.SlayerItems;
-using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.NPCs;
-using ShardsOfAtheria.NPCs.NovaStellar;
-using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.UI;
+using Terraria.UI;
+using System.Collections.Generic;
+using ShardsOfAtheria.Items;
+using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Items.Accessories;
+using ShardsOfAtheria.Items.Weapons.Magic;
+using ShardsOfAtheria.NPCs;
+using ShardsOfAtheria.NPCs.NovaStellar;
+using System;
+using ShardsOfAtheria.Items.Weapons.Melee;
 
 namespace ShardsOfAtheria
 {
-    public partial class ShardsOfAtheria : Mod
+    public class ShardsOfAtheria : Mod
     {
         public static ModKeybind OverdriveKey;
         public static ModKeybind TomeKey;

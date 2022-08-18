@@ -112,6 +112,30 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			return base.CanUseItem(player);
 		}
 
+        public override void UpdateInventory(Player player)
+		{
+			if (player.altFunctionUse == 2)
+            {
+				return;
+            }
+			if (!fullAuto)
+			{
+				Item.shoot = ItemID.PurificationPowder;
+				Item.useTime = 6;
+				Item.useAnimation = 6;
+				Item.UseSound = SoundID.Item40;
+				Item.autoReuse = false;
+			}
+			else if (fullAuto)
+			{
+				Item.shoot = ItemID.PurificationPowder;
+				Item.useTime = 6;
+				Item.useAnimation = 6;
+				Item.UseSound = SoundID.Item40;
+				Item.autoReuse = true;
+			}
+		}
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			if (!fullAuto)

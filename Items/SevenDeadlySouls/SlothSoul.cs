@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed = 6;
+            SevenSoulPlayer.SevenSoulUsed = 6;
             if (player.velocity == Vector2.Zero)
             {
                 player.GetDamage(DamageClass.Generic) += .2f;

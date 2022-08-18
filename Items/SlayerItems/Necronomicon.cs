@@ -1,14 +1,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using ShardsOfAtheria.Players;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems
@@ -80,13 +77,13 @@ namespace ShardsOfAtheria.Items.SlayerItems
             {
                 if (!player.GetModPlayer<SlayerPlayer>().slayerMode)
                 {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Slayer mode enabled for " + player.name), Color.White);
+                    Main.NewText("Slayer mode enabled");
                     SoundEngine.PlaySound(SoundID.Roar, player.position);
                     player.GetModPlayer<SlayerPlayer>().slayerMode = true;
                 }
                 else
                 {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Slayer mode disabled for " + player.name), Color.White);
+                    Main.NewText("Slayer mode disabled");
                     SoundEngine.PlaySound(SoundID.Roar, player.position);
                     player.GetModPlayer<SlayerPlayer>().slayerMode = false;
                 }
@@ -315,7 +312,8 @@ namespace ShardsOfAtheria.Items.SlayerItems
             if (page == 4)
             {
                 tooltips.Add(new TooltipLine(Mod, "Page", "Eye of Cthulhu:\n" +
-                    EyeSoulCrystal.tip));
+                    "Summon 3 Servants when dashing, these Servants will chase down enemies\n" +
+                    "Also creates an All Seeing Eye that lights up the cursor and marks enemies, making them take 10% more damage"));
             }
             if (page == 5)
             {

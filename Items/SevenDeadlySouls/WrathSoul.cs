@@ -90,7 +90,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed = 7;
+            SevenSoulPlayer.SevenSoulUsed = 7;
             player.GetDamage(DamageClass.Generic) += player.GetModPlayer<WrathPlayer>().anger;
             player.GetCritChance(DamageClass.Generic) += player.GetModPlayer<WrathPlayer>().rage;
             base.Update(player, ref buffIndex);

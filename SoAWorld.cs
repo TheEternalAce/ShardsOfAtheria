@@ -16,8 +16,6 @@ namespace ShardsOfAtheria
     public class SoAWorld : ModSystem
     {
         public bool omegaKey;
-        public bool omegaShrine;
-        public bool underworldDecaShrine;
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
@@ -118,32 +116,11 @@ namespace ShardsOfAtheria
 
                     if (Main.tile[x, y].TileType == TileID.Ash && !Main.tile[x, y - 1].HasTile && Main.tile[x, y - 1].LiquidType != LiquidID.Lava)
                     {
-                        if (!ModContent.GetInstance<SoAWorld>().omegaShrine)
-                        {
-                            PlaceOmegaShrine(x, y);
-                            ModContent.GetInstance<SoAWorld>().omegaShrine = true;
-                        }
+                        PlaceOmegaShrine(x, y);
                     }
-                }
-            }
-            // attempts to spawn shrine 1000 times, so hopefully it actually will generate
-            for (int t = 0; t < 1000; t++)
-            {
-                int x = WorldGen.genRand.Next(Main.maxTilesX);
-
-                // Fuck you it can also spawn on the right now
-
-                if ((x < Main.maxTilesX * 0.2f && x > Main.maxTilesX * 0.05f) || (x > Main.maxTilesX * 0.8f && x < Main.maxTilesX * 0.95f))
-                {
-                    int y = WorldGen.genRand.Next((int)(Main.maxTilesY * 0.85f), Main.maxTilesY);
-
                     if (Main.tile[x, y].TileType == TileID.Ash && !Main.tile[x, y - 1].HasTile && Main.tile[x, y - 1].LiquidType != LiquidID.Lava)
                     {
-                        if (!ModContent.GetInstance<SoAWorld>().underworldDecaShrine)
-                        {
-                            PlaceDecaShrine(x, y, ModContent.ItemType<DecaFragmentA>());
-                            ModContent.GetInstance<SoAWorld>().underworldDecaShrine = true;
-                        }
+                        PlaceDecaShrine(x, y, ModContent.ItemType<DecaFragmentA>());
                     }
                 }
             }
@@ -321,17 +298,14 @@ namespace ShardsOfAtheria
                     {
                         case 1:
                             // switch this to modded chest
-                            int chestindex = WorldGen.PlaceChest(k, l + 1, (ushort)ModContent.TileType<OmegaChest>(), false, 1);
-                            if (chestindex >= 0)
+                            WorldGen.PlaceChestDirect(k, l + 1, (ushort)ModContent.TileType<OmegaChest>(), 1, 1000);
+                            Chest chest = Main.chest[1000];
+                            for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                             {
-                                Chest chest = Main.chest[chestindex];
-                                for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                                if (chest.item[inventoryIndex].type == ItemID.None)
                                 {
-                                    if (chest.item[inventoryIndex].type == ItemID.None)
-                                    {
-                                        chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<TheMessiah>());
-                                        break;
-                                    }
+                                    chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<TheMessiah>());
+                                    break;
                                 }
                             }
                             break;
@@ -398,16 +372,15 @@ namespace ShardsOfAtheria
                     {
                         case 1:
                             // switch this to modded chest
-                            int chestindex = WorldGen.PlaceChest(k, l, 467);
-                            if (chestindex >= 0)
+                            int chestindex = WorldGen.PlaceChest(k, l, style: 467);
+                            Chest chest = Main.chest[chestindex];
+                            for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                             {
-                                Chest chest = Main.chest[chestindex];
-                                for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                                if (chestindex != -1)
                                 {
                                     if (chest.item[inventoryIndex].type == ItemID.None)
                                     {
                                         chest.item[inventoryIndex].SetDefaults(f);
-                                        break;
                                     }
                                 }
                             }

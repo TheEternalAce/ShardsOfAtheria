@@ -2,9 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Items;
 using ShardsOfAtheria.Items.Accessories;
-using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Items.Weapons.Ranged;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.Creative;
@@ -56,7 +54,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<GildedValkyrieWings>()));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ChargedFeather>(), 1, 15, 28));
 			itemLoot.Add(ItemDropRule.Common(ItemID.GoldBar, 1, 10, 20));
-			itemLoot.Add(ItemDropRule.OneFromOptions(1, ModContent.ItemType<ValkyrieCrown>(), ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<DownBow>(), ModContent.ItemType<PlumeCodex>()));
+			itemLoot.Add(ItemDropRule.OneFromOptions(1, ModContent.ItemType<ValkyrieCrown>(), ModContent.ItemType<ValkyrieBlade>()));
 			itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<NovaStellar>()));
 			base.ModifyItemLoot(itemLoot);
 		}

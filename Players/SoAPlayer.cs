@@ -5,17 +5,14 @@ using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.SevenDeadlySouls;
 using ShardsOfAtheria.Items.SlayerItems;
 using ShardsOfAtheria.Items.Weapons.Areus;
-using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -138,10 +135,10 @@ namespace ShardsOfAtheria.Players
 
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
         {
-            if (!mediumCoreDeath && Player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed > 0)
+            if (!mediumCoreDeath && SevenSoulPlayer.SevenSoulUsed > 0)
                 return new[] { new Item(ModContent.ItemType<Necronomicon>()) };
 
-            if (Player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed == 0)
+            if (SevenSoulPlayer.SevenSoulUsed == 0)
             {
                 List<Item> list = new() {
                     new Item(ModContent.ItemType<SinfulSoul>())
@@ -337,10 +334,6 @@ namespace ShardsOfAtheria.Players
             {
                 Player.moveSpeed += .05f;
             }
-            if (Player.HeldItem.type == ModContent.ItemType<TheMessiah>())
-            {
-                Player.autoReuseGlove = false;
-            }
         }
 
         public override void UpdateLifeRegen()
@@ -498,12 +491,12 @@ namespace ShardsOfAtheria.Players
                     if (phaseOffense)
                     {
                         phaseOffense = false;
-                        ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Phase 2 Type: Defensive"), Color.White, Player.whoAmI);
+                        Main.NewText("Phase 2 Type: Defensive");
                     }
                     else
                     {
                         phaseOffense = true;
-                        ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Phase 2 Type: Offensive"), Color.White, Player.whoAmI);
+                        Main.NewText("Phase 2 Type: Offensive");
                     }
                 }
             }

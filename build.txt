@@ -2,4 +2,3 @@ displayName = Shards of Atheria (Splitting Skies)
 author = TheEternalAce
 version = 0.9
 homepage = https://forums.terraria.org/index.php?threads/shards-of-atheria-mod.112953/
-buildIgnore = SoA Demonstrations/*, PlaceHolderSprite.png, AreusPallet.png, NPCs/NovaStellar/NPC_48.png

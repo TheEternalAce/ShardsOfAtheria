@@ -4,11 +4,11 @@ using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Tiles;
 using Microsoft.Xna.Framework;
 using Terraria;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria.DataStructures;
 using ShardsOfAtheria.Projectiles.Other;
 using Terraria.GameContent.Creative;
 using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -16,6 +16,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
+            Tooltip.SetDefault("'Brilliant light show'");
+
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -31,7 +33,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
             Item.useTime = 12;
             Item.useAnimation = 36;
-            Item.reuseDelay = 20;
+            Item.reuseDelay = 40;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item5;
             Item.autoReuse = true;
@@ -48,7 +50,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             if (type == ProjectileID.WoodenArrowFriendly)
             {
-                type = ModContent.ProjectileType<FeatherBladeFriendly>();
+                //type = ModContent.ProjectileType<AreusArrow>();
             }
         }
 

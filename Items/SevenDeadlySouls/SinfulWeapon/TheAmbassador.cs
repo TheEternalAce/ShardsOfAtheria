@@ -7,7 +7,7 @@ using Terraria.GameContent.Creative;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria.DataStructures;
 
-namespace ShardsOfAtheria.Items.Weapons.Ranged
+namespace ShardsOfAtheria.Items.SevenDeadlySouls.SinfulWeapon
 {
     public class TheAmbassador : ModItem
     {
@@ -20,8 +20,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void SetDefaults()
         {
-            Item.width = 50;
-            Item.height = 28;
+            Item.width = 44;
+            Item.height = 26;
             Item.scale = .85f;
 
             Item.damage = 20;
@@ -50,7 +50,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(0, 0);
+            return new Vector2(-1, 0);
         }
     }
 }

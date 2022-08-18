@@ -1,8 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.Chat;
+﻿using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Commands
@@ -42,7 +39,7 @@ namespace ShardsOfAtheria.Commands
 			ModContent.GetInstance<SoADownedSystem>().slainSenterra = true;
 			ModContent.GetInstance<SoADownedSystem>().slainGenesis = true;
 			ModContent.GetInstance<SoADownedSystem>().slainEverything = true;
-			ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("All bosses are slain"), Color.White, player.whoAmI);
+			Main.NewText("All bosses are slain");
 		}
     }
 }

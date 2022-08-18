@@ -1,24 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.ItemDropRules.Conditions;
-using ShardsOfAtheria.Items;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.SlayerItems;
 using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
-using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.NPCs.NovaStellar
@@ -115,12 +110,12 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
             // This requires you to set BossBag in SetDefaults accordingly
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<NovaBossBag>()));
 
-            LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
-            LeadingConditionRule slayerMode = new LeadingConditionRule(new IsSlayerMode());
-
-            notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<ValkyrieCrown>(), ModContent.ItemType<DownBow>(), ModContent.ItemType<PlumeCodex>()));
+			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
+			LeadingConditionRule slayerMode = new LeadingConditionRule(new IsSlayerMode());
+			
+            notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<ValkyrieCrown>()));
             notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.GoldBar, 1, 10, 20));
-            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ChargedFeather>(), 1, 15, 28));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.Feather, 1, 2, 5));
             slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieSoulCrystal>()));
             slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieStormLance>()));
 
@@ -152,7 +147,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
         {
             if (ModContent.GetInstance<SoADownedSystem>().slainValkyrie)
             {
-                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Nova Stellar, the Harpy Knight was slain..."), Color.White);
+                Main.NewText("Nova Stellar, the Harpy Knight was slain...");
                 NPC.active = false;
             }
             return base.PreAI();
@@ -185,11 +180,11 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
                 SoundEngine.PlaySound(SoundID.Roar, NPC.position);
                 //if (Player.GetModPlayer<SlayerPlayer>().slayerMode)
                 //{
-                //    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Alright, now- That look in your eyes... I must take you down here and now!");
+                //    Main.NewText("Alright, now- That look in your eyes... I must take you down here and now!");
                 //}
                 //else
                 //{
-                //    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Alright, now- Hey, that's my crest! How did you get that!?");
+                //    Main.NewText("Alright, now- Hey, that's my crest! How did you get that!?");
                 //}
                 NPC.localAI[0] = 1f;
 
@@ -216,8 +211,8 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
                 //if (NPC.ai[3] > 1f && NPC.ai[3] == 2)
                 //{
                 //    if (Player.GetModPlayer<SlayerPlayer>().slayerMode)
-                //        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("*cough* *cough* You're... really strong huh..? Or am I weak..? Haha... Mother... I've failed... you...");
-                //    else ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("*pant* *pant* You defeated me..?");
+                //        Main.NewText("*cough* *cough* You're... really strong huh..? Or am I weak..? Haha... Mother... I've failed... you...");
+                //    else Main.NewText("*pant* *pant* You defeated me..?");
                 //}
                 if (NPC.ai[3] >= 120f)
                 {
@@ -241,7 +236,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
             if (NPC.life <= NPC.lifeMax/2 && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 NPC.velocity = Vector2.Zero;
-                //ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Okay, you're stronger than I thought, but I have an ace up my sleeve.");
+                //Main.NewText("Okay, you're stronger than I thought, but I have an ace up my sleeve.");
                 SecondStage = true;
                 NPC.netUpdate = true;
             }
@@ -254,7 +249,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 Vector2 position = NPC.Center;
-                Vector2 targetPosition = player.Center;
+                Vector2 targetPosition = Main.player[NPC.target].Center;
                 Vector2 toTarget = targetPosition - position;
 
                 toTarget.Normalize();
@@ -283,12 +278,13 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
         }
 
         public void DoSecondStage(Player player)
-        {
+          {
             SecondStageTimer++;
 
             Vector2 position = NPC.Center;
             Vector2 targetPosition = Main.player[NPC.target].Center;
             Vector2 toTarget = targetPosition - position;
+            Vector2 above = targetPosition + new Vector2(0, -300f);
 
             toTarget.Normalize();
 
@@ -298,11 +294,10 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
             // + pattern
             if (SecondStageTimer == 120)
             {
-                for (int i = 0; i < 4; i++)
-                {
-                    Vector2 projPos = targetPosition + new Vector2(1, 0).RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), projPos, Vector2.Normalize(targetPosition - projPos) * 7, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
-                }
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(150, 0), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(150, 0))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(-150, 0), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(-150, 0))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(0, 150), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(0, 150))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(0, -150), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(0, -150))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
             }
             if (SecondStageTimer == 180)
             {
@@ -311,16 +306,15 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
             // X pattern
             if (SecondStageTimer == 240)
             {
-                for (int i = 0; i < 4; i++)
-                {
-                    Vector2 projPos = targetPosition + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), projPos, Vector2.Normalize(targetPosition - projPos) * 7, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
-                }
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(125, 125), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(125, 125))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(150, -125), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(150, -125))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(-125, 125), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(-125, 125))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(-125, -150), Vector2.Normalize(targetPosition - (targetPosition + new Vector2(-125, -150))) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
             }
 
             //Lightning strike
             if (SecondStageTimer == 300)
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(0, -300f), Vector2.Zero, ModContent.ProjectileType<LightningBoltSpawner>(), 18, 0f, Main.myPlayer);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), above, Vector2.Zero, ModContent.ProjectileType<LightningBoltSpawner>(), 18, 0f, Main.myPlayer);
 
             //Dash
             if (SecondStageTimer == 320)

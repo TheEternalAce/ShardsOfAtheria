@@ -5,32 +5,19 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
 {
-    public class MessiahChargeSlash : ModProjectile
+    public class MessiahSlash : ModProjectile
     {
         public int num1;
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ranbu 4");
+            DisplayName.SetDefault("Messiah Air Slash");
             Main.projFrames[Type] = 4;
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = 138;
-            Projectile.height = 98;
-
-            Projectile.aiStyle = 75;
-            Projectile.friendly = true;
-            Projectile.penetrate = -1;
-            Projectile.tileCollide = false;
-            Projectile.DamageType = DamageClass.Melee;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.timeLeft = 60;
-
-            DrawOffsetX = -0;
-            DrawOriginOffsetY = -0;
-            DrawOriginOffsetX = -0;
+            Projectile.CloneDefaults(ModContent.ProjectileType<MessiahRanbu1>());
         }
 
         public override void AI()
@@ -46,7 +33,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
             }
 
             Player player = Main.player[Projectile.owner];
-
             (player.HeldItem.ModItem as TheMessiah).charge = 0;
             Projectile.Center = player.Center;
 

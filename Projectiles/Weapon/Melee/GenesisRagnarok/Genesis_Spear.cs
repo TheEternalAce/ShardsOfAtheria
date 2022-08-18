@@ -10,10 +10,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 {
     public class Genesis_Spear : ModProjectile
     {
-        // Define the range of the Spear Projectile. These are overrideable properties, in case you'll want to make a class inheriting from this one.
-        protected virtual float HoldoutRangeMin => 24f;
-        protected virtual float HoldoutRangeMax => 240;
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Genesis");
@@ -37,80 +33,121 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 
         public override void SetDefaults()
         {
-            Projectile.CloneDefaults(ProjectileID.Spear);
+            Projectile.width = 36;
+            Projectile.height = 36;
+            Projectile.aiStyle = 19;
+            Projectile.penetrate = -1;
+            Projectile.alpha = 0;
+
+            Projectile.hide = true;
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.tileCollide = false;
+            Projectile.friendly = true;
         }
 
-        public override bool PreAI()
+        // In here the AI uses this example, to make the code more organized and readable
+        // Also showcased in ExampleJavelinProjectile.cs
+        public float MovementFactor // Change this value to alter how fast the spear moves
         {
-            Player player = Main.player[Projectile.owner]; // Since we access the owner player instance so much, it's useful to create a helper local variable for this
-            int duration = player.itemAnimationMax; // Define the duration the projectile will exist in frames
+            get => Projectile.ai[0];
+            set => Projectile.ai[0] = value;
+        }
 
-            player.heldProj = Projectile.whoAmI; // Update the player's held projectile id
+        // It appears that for this AI, only the ai0 field is used!
+        public override void AI()
+        {
+            // Since we access the owner player instance so much, it's useful to create a helper local variable for this
+            // Sadly, Projectile/ModProjectile does not have its own
+            Player player = Main.player[Projectile.owner];
 
-            // Reset projectile time left if necessary
-            if (Projectile.timeLeft > duration)
+            // Here we set some of the projectile's owner properties, such as held item and itemtime, along with projectile direction and position based on the player
+            Vector2 ownerMountedCenter = player.RotatedRelativePoint(player.MountedCenter, true);
+            Projectile.direction = player.direction;
+            player.heldProj = Projectile.whoAmI;
+            player.itemTime = player.itemAnimation;
+            Projectile.position.X = ownerMountedCenter.X - (float)(Projectile.width / 2);
+            Projectile.position.Y = ownerMountedCenter.Y - (float)(Projectile.height / 2);
+            // As long as the player isn't frozen, the spear can move
+            if (!player.frozen)
             {
-                Projectile.timeLeft = duration;
+                if (MovementFactor == 0f) // When initially thrown out, the ai0 will be 0f
+                {
+                    MovementFactor = 3f; // Make sure the spear moves forward when initially thrown out
+                    Projectile.netUpdate = true; // Make sure to netUpdate this spear
+                }
+                if (player.itemAnimation < player.itemAnimationMax / 3) // Somewhere along the item animation, make sure the spear moves back
+                {
+                    MovementFactor -= 2.4f;
+                }
+                else // Otherwise, increase the movement factor
+                {
+                    MovementFactor += 2.1f;
+                }
             }
-
-            Projectile.velocity = Vector2.Normalize(Projectile.velocity); // Velocity isn't used in this spear implementation, but we use the field to store the spear's attack direction.
-
-            float halfDuration = duration * 0.5f;
-            float progress;
-
-            // Here 'progress' is set to a value that goes from 0.0 to 1.0 and back during the item use animation.
-            if (Projectile.timeLeft < halfDuration)
+            // Change the spear position based off of the velocity and the movementFactor
+            Projectile.position += Projectile.velocity * MovementFactor;
+            // When we reach the end of the animation, we can kill the spear projectile
+            if (player.itemAnimation == 0)
             {
-                progress = Projectile.timeLeft / halfDuration;
+                Projectile.Kill();
             }
-            else
-            {
-                progress = (duration - Projectile.timeLeft) / halfDuration;
-            }
-
-            // Move the projectile from the HoldoutRangeMin to the HoldoutRangeMax and back, using SmoothStep for easing the movement
-            Projectile.Center = player.MountedCenter + Vector2.SmoothStep(Projectile.velocity * HoldoutRangeMin, Projectile.velocity * HoldoutRangeMax, progress);
-
-            // Apply proper rotation to the sprite.
+            // Apply proper rotation, with an offset of 135 degrees due to the sprite's rotation, notice the usage of MathHelper, use this class!
+            // MathHelper.ToRadians(xx degrees here)
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(135f);
+            // Offset by 90 degrees here
             if (Projectile.spriteDirection == -1)
             {
-                // If sprite is facing left, rotate 45 degrees
-                Projectile.rotation += MathHelper.ToRadians(45f);
-            }
-            else
-            {
-                // If sprite is facing right, rotate 135 degrees
-                Projectile.rotation += MathHelper.ToRadians(135f);
+                Projectile.rotation -= MathHelper.ToRadians(90f);
             }
 
-            // Avoid spawning dusts on dedicated servers
-            if (!Main.dedServ)
+            if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
             {
-                if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
+                if (Projectile.ai[1] == 0 && Main.myPlayer == player.whoAmI && (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
                 {
-                    if (Projectile.ai[1] == 0 && Main.myPlayer == player.whoAmI && (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
-                    {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize(Main.MouseWorld - Projectile.Center) * 16, ModContent.ProjectileType<IceShard>(), Projectile.damage,
-                            Projectile.knockBack, player.whoAmI);
-                        Projectile.ai[1] = 1;
-                    }
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize(Main.MouseWorld - Projectile.Center) * 16, ModContent.ProjectileType<IceShard>(), Projectile.damage,
+                        Projectile.knockBack, player.whoAmI);
+                    Projectile.ai[1] = 1;
+                }
 
-                    if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades >= 3)
+                if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades >= 3)
+                {
+                    for (int num72 = 0; num72 < 2; num72++)
                     {
-                        for (int num72 = 0; num72 < 2; num72++)
-                        {
-                            Dust obj4 = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5 ? DustID.Torch : DustID.Frost, 0f, 0f, 100, default,
-                                (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5 ? 2f : .5f)];
-                            obj4.noGravity = true;
-                            obj4.velocity *= 2f;
-                            obj4.velocity += Projectile.localAI[0].ToRotationVector2();
-                            obj4.fadeIn = 1.5f;
-                        }
+                        Dust obj4 = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5 ? DustID.Torch : DustID.Frost, 0f, 0f, 100, default,
+                            (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5 ? 2f : .5f)];
+                        obj4.noGravity = true;
+                        obj4.velocity *= 2f;
+                        obj4.velocity += Projectile.localAI[0].ToRotationVector2();
+                        obj4.fadeIn = 1.5f;
                     }
                 }
             }
+        }
 
-            return false; // Don't execute vanilla AI.
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return Color.White;
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            var player = Main.player[Projectile.owner];
+
+            Vector2 mountedCenter = player.MountedCenter;
+
+            var drawPosition = Main.MouseWorld;
+            var remainingVectorToPlayer = mountedCenter - drawPosition;
+
+            if (Projectile.alpha == 0)
+            {
+                int direction = -1;
+
+                if (Main.MouseWorld.X < mountedCenter.X)
+                    direction = 1;
+
+                player.itemRotation = (float)Math.Atan2(remainingVectorToPlayer.Y * direction, remainingVectorToPlayer.X * direction);
+            }
+            return true;
         }
     }
 }

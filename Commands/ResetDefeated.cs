@@ -1,8 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.Chat;
+﻿using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Commands
@@ -42,7 +39,7 @@ namespace ShardsOfAtheria.Commands
 			NPC.downedFishron = false;
 			NPC.downedEmpressOfLight = false;
 			NPC.downedMoonlord = false;
-			ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Bosses have no longer been defeated"), Color.White, player.whoAmI);
+			Main.NewText("Bosses have no longer been defeated");
 		}
     }
 }
