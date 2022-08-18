@@ -89,7 +89,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 
             if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
             {
-                if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades >= 3)
+                if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades >= 3)
                 {
                     for (int num72 = 0; num72 < 2; num72++)
                     {

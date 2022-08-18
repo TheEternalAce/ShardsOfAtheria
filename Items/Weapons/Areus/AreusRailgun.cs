@@ -34,6 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.noMelee = true;
 
             Item.shootSpeed = 16f;
+            Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 2, 25);
             Item.shoot = ItemID.PurificationPowder;
             Item.useAmmo = AmmoID.Bullet;

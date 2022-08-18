@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ranbu 4");
+            DisplayName.SetDefault("CHarge Slash");
             Main.projFrames[Type] = 4;
         }
 

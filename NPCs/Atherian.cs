@@ -289,11 +289,6 @@ namespace ShardsOfAtheria.NPCs
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
-            if (NPC.downedBoss3)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<PhantomDrill>());
-                nextSlot++;
-            }
             if (NPC.downedPlantBoss)
             {
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusKey>());

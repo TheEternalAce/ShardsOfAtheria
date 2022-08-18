@@ -19,22 +19,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 
         public override string Texture => "ShardsOfAtheria/Projectiles/Weapon/Melee/GenesisRagnarok/RagnarokProj";
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
-        {
-            Player player = Main.player[Projectile.owner];
-
-            if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
-            {
-                if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5 && (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades >= 3)
-                    target.AddBuff(BuffID.OnFire, 600);
-                else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
-                {
-                    target.AddBuff(BuffID.Frostburn, 600);
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<IceVortexShard>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
-                }
-            }
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 50;
@@ -91,8 +75,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             player.ChangeDir(newDirection);
             Projectile.direction = newDirection;
             if (!Main.mouseLeft || player.dead || !player.active)
+            {
                 Projectile.velocity = Vector2.Normalize(player.Center - Projectile.Center) * 31;
-            else Projectile.Center = player.Center + Vector2.One.RotatedBy(rotation) * 180;
+            }
+            else
+            {
+                Projectile.Center = player.Center + Vector2.One.RotatedBy(rotation) * 180;
+                Projectile.netUpdate = true;
+            }
 
             if (Projectile.getRect().Intersects(player.getRect()))
                 Projectile.Kill();
@@ -109,7 +99,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                 else
                 {
                     target.AddBuff(BuffID.Frostburn, 600);
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<IceVortexShard>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<IceVortexShard>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
                 }
             }
         }
@@ -128,11 +118,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                 return true;
             }
             return false;
-        }
-
-        public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -174,7 +159,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 
                 // Finally, we draw the texture at the coordinates using the lighting information of the tile coordinates of the chain section
                 Color color = Lighting.GetColor((int)drawPosition.X / 16, (int)(drawPosition.Y / 16f));
-                Main.spriteBatch.Draw(chainTexture.Value, drawPosition - Main.screenPosition, null, Color.White, rotation, chainTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
+                Main.spriteBatch.Draw(chainTexture.Value, drawPosition - Main.screenPosition, null, color, rotation, chainTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
             }
 
             return true;

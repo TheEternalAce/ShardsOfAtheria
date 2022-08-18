@@ -15,11 +15,17 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 			Projectile.hostile = false;
             Projectile.timeLeft = 120;
             Projectile.DamageType = DamageClass.Melee;
+            Projectile.tileCollide = false;
+            Projectile.extraUpdates = 0;
         }
 
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
+            if (++Projectile.ai[0] >= 60 && !Projectile.tileCollide)
+            {
+                Projectile.tileCollide = true;
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

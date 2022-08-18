@@ -35,6 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.noMelee = true;
 
             Item.shootSpeed = 32f;
+            Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 1, 75);
             Item.shoot = ModContent.ProjectileType<ElectricSpike>();
         }

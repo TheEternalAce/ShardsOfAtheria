@@ -8,8 +8,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
     public class GreedSoul : SevenSouls
     {
         public const string tip = "Every gold coin in your inventory increases damage by 5% and reduces defense by 2\n" +
-            "All coins disappear on death\n" +
-            "'And NOBODY steals from me!'";
+            "All coins disappear on death";
 
         public override void SetStaticDefaults()
         {
@@ -37,10 +36,22 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
         {
             if (Player.HasBuff(ModContent.BuffType<GreedBuff>()))
             {
-                Player.inventory[Main.LocalPlayer.FindItem(ItemID.PlatinumCoin)].TurnToAir();
-                Player.inventory[Main.LocalPlayer.FindItem(ItemID.GoldCoin)].TurnToAir();
-                Player.inventory[Main.LocalPlayer.FindItem(ItemID.SilverCoin)].TurnToAir();
-                Player.inventory[Main.LocalPlayer.FindItem(ItemID.CopperCoin)].TurnToAir();
+                if (Player.HasItem(ItemID.PlatinumCoin))
+                {
+                    Player.inventory[Main.LocalPlayer.FindItem(ItemID.PlatinumCoin)].TurnToAir();
+                }
+                if (Player.HasItem(ItemID.GoldCoin))
+                {
+                    Player.inventory[Main.LocalPlayer.FindItem(ItemID.GoldCoin)].TurnToAir();
+                }
+                if (Player.HasItem(ItemID.SilverCoin))
+                {
+                    Player.inventory[Main.LocalPlayer.FindItem(ItemID.SilverCoin)].TurnToAir();
+                }
+                if (Player.HasItem(ItemID.CopperCoin))
+                {
+                    Player.inventory[Main.LocalPlayer.FindItem(ItemID.CopperCoin)].TurnToAir();
+                }
             }
         }
     }
@@ -56,7 +67,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            SevenSoulPlayer.SevenSoulUsed = 3;
+            player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed = 3;
             if (player.HasItem(ItemID.GoldCoin))
             {
                 for (int i = 0; i < player.inventory[player.FindItem(ItemID.GoldCoin)].stack; i++)

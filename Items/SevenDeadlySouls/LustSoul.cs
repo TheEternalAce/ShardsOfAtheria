@@ -48,8 +48,10 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
                 if (Player.HasBuff(ModContent.BuffType<LustBuff>()) && Main.rand.NextBool(50))
                     Item.NewItem(target.GetSource_OnHurt(proj), target.getRect(), ItemID.Heart);
             }
-            if (Player.HasBuff(ModContent.BuffType<LustBuff>()) && Main.rand.NextBool(100))
+            else if (Player.HasBuff(ModContent.BuffType<LustBuff>()) && Main.rand.NextBool(100))
+            {
                 Item.NewItem(target.GetSource_OnHurt(proj), target.getRect(), ItemID.Heart);
+            }
         }
 
         public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
@@ -70,7 +72,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            SevenSoulPlayer.SevenSoulUsed = 4;
+            player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed = 4;
             player.maxMinions += 3;
             player.GetDamage(DamageClass.Generic) -= .2f;
             player.AddBuff(BuffID.Lovestruck, 2);

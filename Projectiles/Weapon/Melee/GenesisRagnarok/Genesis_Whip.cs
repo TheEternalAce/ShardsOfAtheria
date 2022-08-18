@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                 else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
                 {
                     target.AddBuff(BuffID.Frostburn, 600);
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<IceExplosion>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<IceExplosion>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
                 }
             }
         }
@@ -106,7 +106,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                 }
 
                 // Dust stuff
-                if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades >= 3)
+                if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades >= 3)
                 {
                     if (Projectile.alpha == 0)
                     {

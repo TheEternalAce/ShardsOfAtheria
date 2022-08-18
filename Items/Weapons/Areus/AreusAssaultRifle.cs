@@ -40,11 +40,10 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.noMelee = true;
 
             Item.shootSpeed = 16f;
+            Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 4, 25);
             Item.shoot = ItemID.PurificationPowder;
             Item.useAmmo = AmmoID.Bullet;
-
-            base.SetDefaults();
         }
 
         public override void AddRecipes()
@@ -146,41 +145,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 }
             }
             return base.CanUseItem(player);
-        }
-
-        public override void UpdateInventory(Player player)
-        {
-            if (player.altFunctionUse == 2)
-            {
-                return;
-            }
-            if (fireMode == 0)
-            {
-                Item.shoot = ItemID.PurificationPowder;
-                Item.UseSound = SoundID.Item11;
-                Item.useTime = 6;
-                Item.useAnimation = 6;
-                Item.reuseDelay = default;
-                Item.autoReuse = false;
-            }
-            else if (fireMode == 1)
-            {
-                Item.shoot = ItemID.PurificationPowder;
-                Item.UseSound = SoundID.Item31;
-                Item.useTime = 4;
-                Item.useAnimation = 12;
-                Item.reuseDelay = 18;
-                Item.autoReuse = true;
-            }
-            else if (fireMode == 2)
-            {
-                Item.shoot = ItemID.PurificationPowder;
-                Item.UseSound = SoundID.Item11;
-                Item.useTime = 6;
-                Item.useAnimation = 6;
-                Item.reuseDelay = default;
-                Item.autoReuse = true;
-            }
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

@@ -39,6 +39,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.noMelee = true;
 
             Item.shootSpeed = 16f;
+            Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 5);
             Item.shoot = ProjectileID.PurificationPowder;
             Item.useAmmo = AmmoID.Arrow;
@@ -68,12 +69,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             {
                 type = ModContent.ProjectileType<AreusArrow>();
             }
-        }
-
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            Projectile.NewProjectile(source, Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<AreusArrow2>(), 0, 0, player.whoAmI);
-            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 
         public override Vector2? HoldoutOffset()

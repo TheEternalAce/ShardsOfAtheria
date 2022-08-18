@@ -94,8 +94,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 Projectile.NewProjectile(source, Main.MouseWorld - new Vector2(0, 200), new Vector2(0, 10), type, damage, knockback, player.whoAmI);
                 return false;
             }
-            else
-                return true;
+            return true;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Messiah Air Slash");
+            DisplayName.SetDefault("Air Slash");
             Main.projFrames[Type] = 4;
         }
 

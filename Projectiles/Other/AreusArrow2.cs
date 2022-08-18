@@ -22,20 +22,32 @@ namespace ShardsOfAtheria.Projectiles.Other
 
         public override void AI()
         {
-            Projectile.timeLeft = 2;
-
-            for (int i = 0; i < Main.maxProjectiles; i++)
+            if (Main.myPlayer == Projectile.owner)
             {
-                Projectile proj = Main.projectile[i];
-                if (proj.type == ModContent.ProjectileType<AreusArrow>())
+                Projectile.timeLeft = 2;
+
+                if (++Projectile.ai[0] == 10)
                 {
-                    if (Projectile.Hitbox.Intersects(proj.getRect()) && proj.ai[0] == 1 && proj.active)
+                    Player player = Main.player[Projectile.owner];
+                    if (player.ownedProjectileCounts[ModContent.ProjectileType<AreusArrow>()] == 0)
                     {
                         Projectile.Kill();
-                        proj.Kill();
+                    }
+                }
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    Projectile proj = Main.projectile[i];
+                    if (proj.type == ModContent.ProjectileType<AreusArrow>())
+                    {
+                        if (Projectile.Hitbox.Intersects(proj.getRect()) && proj.ai[0] == 1 && proj.active)
+                        {
+                            Projectile.Kill();
+                            proj.Kill();
+                        }
                     }
                 }
             }
+
             base.AI();
         }
     }

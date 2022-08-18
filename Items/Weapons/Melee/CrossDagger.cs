@@ -50,9 +50,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 .Register();
         }
 
-        public override int ChoosePrefix(UnifiedRandom rand)
+        public override bool AllowPrefix(int pre)
         {
-            return base.ChoosePrefix(rand);
+            return false;
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)

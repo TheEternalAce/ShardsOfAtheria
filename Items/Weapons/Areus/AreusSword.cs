@@ -31,8 +31,9 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.UseSound = SoundID.Item1;
-            Item.shootSpeed = 10;
 
+            Item.shootSpeed = 10;
+            Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 4, 25);
             Item.shoot = ModContent.ProjectileType<ElectricBlade>();
         }

@@ -38,59 +38,60 @@ namespace ShardsOfAtheria.Projectiles.Tools
 
             if (Main.myPlayer == owner.whoAmI)
             {
+                Projectile.netUpdate = true;
                 Projectile.Center = Main.MouseWorld;
                 Lighting.AddLight(Main.MouseWorld, TorchID.White);
-            }
 
-            if (Main.hardMode)
-            {
-                if (owner.GetModPlayer<SynergyPlayer>().eyeTwinSynergy)
+                if (Main.hardMode)
                 {
-                    maxDetectRadius = 200f;
-                    Projectile.frame = 1;
-                }
-                if (owner.GetModPlayer<SynergyPlayer>().eyeLordSynergy)
-                {
-                    maxDetectRadius = 400f;
-                    Projectile.frame = 2;
-                }
-            }
-            // This code is required either way, used for finding a target
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC npc = Main.npc[i];
-
-                if (npc.CanBeChasedBy())
-                {
-                    if (owner.GetModPlayer<SlayerPlayer>().TwinSoul || owner.GetModPlayer<SlayerPlayer>().LordSoul && Main.hardMode)
+                    if (owner.GetModPlayer<SynergyPlayer>().eyeTwinSynergy)
                     {
-                        float between = Vector2.Distance(npc.Center, Projectile.Center);
-                        bool inRange = between < maxDetectRadius;
+                        maxDetectRadius = 200f;
+                        Projectile.frame = 1;
+                    }
+                    if (owner.GetModPlayer<SynergyPlayer>().eyeLordSynergy)
+                    {
+                        maxDetectRadius = 400f;
+                        Projectile.frame = 2;
+                    }
+                }
+                // This code is required either way, used for finding a target
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    NPC npc = Main.npc[i];
 
-                        if (inRange)
+                    if (npc.CanBeChasedBy())
+                    {
+                        if (owner.GetModPlayer<SlayerPlayer>().TwinSoul || owner.GetModPlayer<SlayerPlayer>().LordSoul && Main.hardMode)
                         {
-                            if (owner.GetModPlayer<SynergyPlayer>().eyeTwinSynergy)
+                            float between = Vector2.Distance(npc.Center, Projectile.Center);
+                            bool inRange = between < maxDetectRadius;
+
+                            if (inRange)
                             {
-                                npc.AddBuff(ModContent.BuffType<MarkedII>(), 600);
-                                if (++Projectile.ai[0] >= 60)
+                                if (owner.GetModPlayer<SynergyPlayer>().eyeTwinSynergy)
                                 {
-                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Normalize(npc.Center - Projectile.Center) * 16, ProjectileID.MiniRetinaLaser, 60, 0, owner.whoAmI);
-                                    Projectile.ai[0] = 0;
+                                    npc.AddBuff(ModContent.BuffType<MarkedII>(), 600);
+                                    if (++Projectile.ai[0] >= 60)
+                                    {
+                                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Normalize(npc.Center - Projectile.Center) * 16, ProjectileID.MiniRetinaLaser, 60, 0, owner.whoAmI);
+                                        Projectile.ai[0] = 0;
+                                    }
                                 }
-                            }
-                            if (owner.GetModPlayer<SynergyPlayer>().eyeLordSynergy)
-                            {
-                                npc.AddBuff(ModContent.BuffType<MarkedIII>(), 600);
-                                if (++Projectile.ai[0] >= 60)
+                                if (owner.GetModPlayer<SynergyPlayer>().eyeLordSynergy)
                                 {
-                                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Normalize(npc.Center - Projectile.Center) * 16, ModContent.ProjectileType<PhantasmalEye>(), 60, 0, owner.whoAmI);
-                                    Projectile.ai[0] = 0;
+                                    npc.AddBuff(ModContent.BuffType<MarkedIII>(), 600);
+                                    if (++Projectile.ai[0] >= 60)
+                                    {
+                                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Normalize(npc.Center - Projectile.Center) * 16, ModContent.ProjectileType<PhantasmalEye>(), 60, 0, owner.whoAmI);
+                                        Projectile.ai[0] = 0;
+                                    }
                                 }
                             }
                         }
+                        else if (Projectile.Hitbox.Intersects(npc.getRect()))
+                            npc.AddBuff(ModContent.BuffType<Marked>(), 600);
                     }
-                    else if (Projectile.Hitbox.Intersects(npc.getRect()))
-                        npc.AddBuff(ModContent.BuffType<Marked>(), 600);
                 }
             }
         }

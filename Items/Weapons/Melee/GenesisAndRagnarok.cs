@@ -104,7 +104,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             CreateRecipe()
                 .AddIngredient(ItemID.HellstoneBar, 18)
-                .AddRecipeGroup(SoARecipes.EvilMaterial, 10)
+                .AddIngredient(ModContent.ItemType<ChargedFeather>(), 7)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
@@ -152,29 +152,34 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 }
                 else
                 {
-                    if (combo == 0)
+                    switch (combo)
                     {
-                        Item.shoot = ModContent.ProjectileType<Genesis_Spear>();
-                        Item.shootSpeed = 4.5f;
-                        Item.UseSound = SoundID.Item1;
-                    }
-                    if (combo == 1)
-                    {
-                        Item.shoot = ModContent.ProjectileType<Genesis_Whip>();
-                        Item.shootSpeed = 24f;
-                        Item.UseSound = SoundID.Item116;
-                    }
-                    if (combo == 2 && upgrades >= 1)
-                    {
-                        Item.shoot = ModContent.ProjectileType<Genesis_Spear2>();
-                        Item.shootSpeed = 30f;
-                        Item.UseSound = SoundID.Item71;
-                    }
-                    if (combo == 3 && upgrades >= 4)
-                    {
-                        Item.shoot = ModContent.ProjectileType<Genesis_Sword>();
-                        Item.shootSpeed = 30f;
-                        Item.UseSound = SoundID.DD2_MonkStaffSwing;
+                        case 0:
+                            Item.shoot = ModContent.ProjectileType<Genesis_Spear>();
+                            Item.shootSpeed = 3.7f;
+                            Item.UseSound = SoundID.Item1;
+                            break;
+                        case 1:
+                            Item.shoot = ModContent.ProjectileType<Genesis_Whip>();
+                            Item.shootSpeed = 24f;
+                            Item.UseSound = SoundID.Item116;
+                            break;
+                        case 2:
+                            if (upgrades >= 4)
+                            {
+                                Item.shoot = ModContent.ProjectileType<Genesis_Spear2>();
+                                Item.shootSpeed = 30f;
+                                Item.UseSound = SoundID.Item71;
+                            }
+                            break;
+                        case 3:
+                            if (upgrades >= 4)
+                            {
+                                Item.shoot = ModContent.ProjectileType<Genesis_Sword>();
+                                Item.shootSpeed = 30f;
+                                Item.UseSound = SoundID.DD2_MonkStaffSwing;
+                            }
+                            break;
                     }
                 }
             }

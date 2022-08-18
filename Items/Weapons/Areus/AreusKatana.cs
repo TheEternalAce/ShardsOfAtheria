@@ -36,12 +36,11 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.useStyle = ItemUseStyleID.Swing;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
+
             Item.shootSpeed = 6;
-
+            Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 1, 50);
-
             Item.shoot = ModContent.ProjectileType<ElectricKunai>();
-            base.SetDefaults();
         }
 
         public override void AddRecipes()
