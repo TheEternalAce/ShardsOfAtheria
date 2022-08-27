@@ -8,7 +8,7 @@ using Terraria.Utilities;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
-    public class Keteru : ModItem
+    public class Yamiko : SinfulItem
     {
         public override void SetStaticDefaults()
         {
@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.width = 56;
             Item.height = 58;
 
-            Item.damage = 26;
+            Item.damage = 50;
             Item.DamageType = DamageClass.Melee;
             Item.knockBack = 6;
             Item.crit = 6;

@@ -17,8 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Items\Armor\" />
-    <Folder Include="Items\SlayerItems\NewFolder\" />
-    <Folder Include="Items\Weapons\Summon\Minion\" />
+    <Folder Include="Items\SlayerItems\SlayerBags\" />
     <Folder Include="Items\Weapons\Summon\Sentry\" />
     <Folder Include="Items\Weapons\Summon\Whip\" />
     <Folder Include="Walls\" />

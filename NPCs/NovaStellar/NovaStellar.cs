@@ -9,7 +9,7 @@ using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.NPCProj;
+using ShardsOfAtheria.Projectiles.NPCProj.Nova;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -27,6 +27,10 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
     public class NovaStellar : ModNPC
     {
         public int dialogueTimer;
+
+        public int attackType = 0;
+        public int attackTimer = 0;
+        public int attackCooldown = 40;
 
         // This boss has a second phase and we want to give it a second boss head icon, this variable keeps track of the registered texture from Load().
         // It is applied in the BossHeadSlot hook when the boss is in its second stage
@@ -50,7 +54,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nova Stellar, the Harpy Knight");
+            DisplayName.SetDefault("Nova Stellar, the Lightning Valkyrie");
             Main.npcFrameCount[NPC.type] = 1;
 
             NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
@@ -79,7 +83,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
             NPC.aiStyle = 14;
             NPC.boss = true;
             NPC.noGravity = true;
-            Music = MusicID.Boss1;
+            Music = MusicID.Boss4;
             NPC.value = Item.buyPrice(0, 5, 0, 0);
             NPC.npcSlots = 15f;
         }
@@ -131,15 +135,14 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
 
         public override void OnKill()
         {
-            dialogueTimer = 0;
-            NPC.SetEventFlagCleared(ref SoADownedSystem.downedValkyrie, -1);
-            if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
-                ModContent.GetInstance<SoADownedSystem>().slainValkyrie = true;
-
             if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage) && !SoADownedSystem.downedValkyrie)
             {
                 Item.NewItem(NPC.GetSource_Death(), NPC.getRect(), magicStorage.Find<ModItem>("ShadowDiamond").Type);
             }
+
+            NPC.SetEventFlagCleared(ref SoADownedSystem.downedValkyrie, -1);
+            if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
+                ModContent.GetInstance<SoADownedSystem>().slainValkyrie = true;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -152,7 +155,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
         {
             if (ModContent.GetInstance<SoADownedSystem>().slainValkyrie)
             {
-                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Nova Stellar, the Harpy Knight was slain..."), Color.White);
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Nova Stellar, the Lightning Valkyrie was slain..."), Color.White);
                 NPC.active = false;
             }
             return base.PreAI();
@@ -164,6 +167,36 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
             if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active)
             {
                 NPC.TargetClosest();
+            }
+
+            // death drama
+            if (NPC.ai[3] > 0f)
+            {
+                NPC.ai[3] += 1f; // increase our death timer.
+                                 //NPC.velocity = Vector2.UnitY * NPC.velocity.Length();
+                NPC.velocity = Vector2.Zero;
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    Projectile proj = Main.projectile[i];
+
+                    if (proj.type == ModContent.ProjectileType<StormSword>() || proj.type == ModContent.ProjectileType<StormLance>() || proj.type == ModContent.ProjectileType<FeatherBlade>())
+                    {
+                        proj.Kill();
+                    }
+                }
+                //if (NPC.ai[3] > 1f && NPC.ai[3] == 2)
+                //{
+                //    if (Player.GetModPlayer<SlayerPlayer>().slayerMode)
+                //        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("");
+                //    else ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("");
+                //}
+                if (NPC.ai[3] >= 120f)
+                {
+                    NPC.life = 0;
+                    NPC.HitEffect(0, 0);
+                    NPC.checkDead(); // This will trigger ModNPC.CheckDead the second time, causing the real death.
+                }
+                return;
             }
 
             Player player = Main.player[NPC.target];
@@ -182,156 +215,163 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
                 if (Main.rand.NextFloat() <= .5f)
                     NPC.position = player.position - new Vector2(500, 250);
                 else NPC.position = player.position - new Vector2(-500, 250);
-                SoundEngine.PlaySound(SoundID.Roar, NPC.position);
                 //if (Player.GetModPlayer<SlayerPlayer>().slayerMode)
                 //{
-                //    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Alright, now- That look in your eyes... I must take you down here and now!");
+                //    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("");
                 //}
                 //else
                 //{
-                //    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Alright, now- Hey, that's my crest! How did you get that!?");
+                //    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("");
                 //}
                 NPC.localAI[0] = 1f;
 
             }
             NPC.spriteDirection = player.Center.X > NPC.Center.X ? 1 : -1;
-            CheckSecondStage();
-            if (NPC.life > 1)
+            // Nothing will happen here
+            if (attackCooldown <= 0)
             {
-                if (SecondStage)
+                attackType = Main.rand.Next(5);
+                if (attackType == 2 || attackType == 4)
                 {
-                    DoSecondStage(player);
+                    attackType++;
                 }
-                else
+
+                switch (attackType)
                 {
-                    DoFirstStage(player);
+                    default:
+                        break;
+                    case 0:
+                        // Electric Dash
+                        attackTimer = 60;
+                        attackCooldown = 60;
+                        break;
+                    case 1:
+                        // Feather Blade Barrage
+                        attackTimer = 240;
+                        attackCooldown = 60;
+                        break;
+                    case 2:
+                        // Feather Blade Spiral
+                        attackTimer = 120;
+                        attackCooldown = 60;
+                        break;
+                    case 3:
+                        // Lance Dash
+                        attackTimer = 120;
+                        attackCooldown = 60;
+                        break;
+                    case 4:
+                        // Storm Cloud
+                        attackTimer = 600;
+                        attackCooldown = 60;
+                        break;
+                    case 5:
+                        // Sword Dance
+                        attackTimer = 9 * 60;
+                        attackCooldown = 60;
+                        break;
                 }
             }
-            // death drama
-            if (NPC.ai[3] > 0f)
-            {
-                NPC.ai[3] += 1f; // increase our death timer.
-                                 //NPC.velocity = Vector2.UnitY * NPC.velocity.Length();
-                NPC.velocity = Vector2.Zero;
-                //if (NPC.ai[3] > 1f && NPC.ai[3] == 2)
-                //{
-                //    if (Player.GetModPlayer<SlayerPlayer>().slayerMode)
-                //        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("*cough* *cough* You're... really strong huh..? Or am I weak..? Haha... Mother... I've failed... you...");
-                //    else ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("*pant* *pant* You defeated me..?");
-                //}
-                if (NPC.ai[3] >= 120f)
-                {
-                    NPC.life = 0;
-                    NPC.HitEffect(0, 0);
-                    NPC.checkDead(); // This will trigger ModNPC.CheckDead the second time, causing the real death.
-                }
-                return;
-            }
-        }
 
-        public void CheckSecondStage()
-        {
-            if (SecondStage)
+            if (attackTimer > 0)
             {
-                // No point checking if the NPC is already in its second stage
-                return;
-            }
-
-            //Run code when life is half of max or when the world is in Slayer mode
-            if (NPC.life <= NPC.lifeMax/2 && Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                NPC.velocity = Vector2.Zero;
-                //ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Okay, you're stronger than I thought, but I have an ace up my sleeve.");
-                SecondStage = true;
-                NPC.netUpdate = true;
-            }
-        }
-
-        public void DoFirstStage(Player player)
-        {
-            FirstStageTimer++;
-
-            if (Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                Vector2 position = NPC.Center;
+                Vector2 center = NPC.Center;
                 Vector2 targetPosition = player.Center;
-                Vector2 toTarget = targetPosition - position;
-
-                toTarget.Normalize();
-
-                //If the projectile is hostile, the damage passed into NewProjectile will be applied doubled, and quadrupled if expert mode, so keep that in mind when balancing projectiles
-
-                //Feather blade barrage
-                if (FirstStageTimer == 120)
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), position, toTarget * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
-                if (FirstStageTimer == 130)
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), position, toTarget * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
-                if (FirstStageTimer == 140)
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), position, toTarget * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
-                if (FirstStageTimer == 150)
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), position, toTarget * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
-                if (FirstStageTimer == 160)
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), position, toTarget * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
-
-                //Dash
-                if (FirstStageTimer == 220)
+                Vector2 toTarget = targetPosition - center;
+                switch (attackType)
                 {
-                    NPC.velocity = Vector2.Normalize(toTarget) * 10;
-                    FirstStageTimer = 0;
+                    default:
+                        break;
+                    case 0:
+                        // Electric Dash
+                        if (attackTimer == 60)
+                        {
+                            NPC.velocity = Vector2.Normalize(toTarget) * 10;
+                        }
+                        if (attackTimer <= 60 && attackTimer > 2)
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), center, Vector2.Zero, ModContent.ProjectileType<ElectricTrail>(), 18, 0f, Main.myPlayer);
+                        break;
+                    case 1:
+                        // Feather Blade Barrage
+                        if (attackTimer == 240)
+                        {
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), center, Vector2.Normalize(toTarget) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+                        }
+                        // + pattern
+                        if (attackTimer == 180)
+                        {
+                            for (int i = 0; i < 4; i++)
+                            {
+                                Vector2 projPos = targetPosition + new Vector2(1, 0).RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), projPos, Vector2.Normalize(targetPosition - projPos) * 7, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 0, 60f);
+                            }
+                        }
+                        if (attackTimer == 120)
+                        {
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), center, Vector2.Normalize(toTarget) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+                        }
+                        // X pattern
+                        if (attackTimer == 60)
+                        {
+                            for (int i = 0; i < 4; i++)
+                            {
+                                Vector2 projPos = targetPosition + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), projPos, Vector2.Normalize(targetPosition - projPos) * 7, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 0, 60f);
+                            }
+                        }
+                        break;
+                    case 2:
+                        // Feather Blade Spiral
+
+                        break;
+                    case 3:
+                        // Lance Dash
+                        if (attackTimer > 30)
+                        {
+                            NPC.velocity = Vector2.Normalize(player.Center + new Vector2(250 * (NPC.Center.X > player.Center.X ? 1 : -1), 0) - NPC.Center) * 12;
+                        }
+                        if (attackTimer == 30)
+                        {
+                            NPC.velocity = Vector2.Normalize(new Vector2(player.Center.X, player.Center.Y - player.velocity.Y) - center) * 16;
+                            Projectile.NewProjectile(NPC.GetSource_FromAI(), center, NPC.velocity * 0.75f, ModContent.ProjectileType<StormLance>(), 16, 0, Main.myPlayer);
+                        }
+                        break;
+                    case 4: 
+                        // Storm Cloud
+
+                        break;
+                    case 5:
+                        // Sword Dance
+                        if (attackTimer > 8 * 60)
+                        {
+                            NPC.velocity = Vector2.Normalize((player.Center + new Vector2(500 * (NPC.Center.X > player.Center.X ? 1 : -1), -200)) - NPC.Center) * 12;
+                        }
+                        else
+                        {
+                            NPC.Center = player.Center + new Vector2(500 * (NPC.Center.X > player.Center.X ? 1 : -1), -200);
+                        }
+                        if (attackTimer == 9 * 60)
+                        {
+                            for (int i = 0; i < 7; i++)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<StormSword>(), 16, 0, Main.myPlayer, i);
+                            }
+                        }
+                        if (attackTimer == 1)
+                        {
+                            NPC.velocity = Vector2.Zero;
+                        }
+                        break;
                 }
+                attackTimer--;
             }
-        }
-
-        public void DoSecondStage(Player player)
-        {
-            SecondStageTimer++;
-
-            Vector2 position = NPC.Center;
-            Vector2 targetPosition = Main.player[NPC.target].Center;
-            Vector2 toTarget = targetPosition - position;
-
-            toTarget.Normalize();
-
-            //If the projectile is hostile, the damage passed into NewProjectile will be applied doubled, and quadrupled if expert mode, so keep that in mind when balancing projectiles
-
-            //Feather blade barrage
-            // + pattern
-            if (SecondStageTimer == 120)
+            else
             {
-                for (int i = 0; i < 4; i++)
-                {
-                    Vector2 projPos = targetPosition + new Vector2(1, 0).RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), projPos, Vector2.Normalize(targetPosition - projPos) * 7, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
-                }
-            }
-            if (SecondStageTimer == 180)
-            {
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), position, toTarget * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
-            }
-            // X pattern
-            if (SecondStageTimer == 240)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    Vector2 projPos = targetPosition + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), projPos, Vector2.Normalize(targetPosition - projPos) * 7, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 1f);
-                }
+                // decrease wait timer when attack done
+                attackCooldown--;
             }
 
-            //Lightning strike
-            if (SecondStageTimer == 300)
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(0, -300f), Vector2.Zero, ModContent.ProjectileType<LightningBoltSpawner>(), 18, 0f, Main.myPlayer);
-
-            //Dash
-            if (SecondStageTimer == 320)
-            {
-                NPC.velocity = Vector2.Normalize(toTarget) * 10;
-            }
-            if (SecondStageTimer >= 320)
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), position, Vector2.Zero, ModContent.ProjectileType<ElectricTrail>(), 18, 0f, Main.myPlayer);
-
-            if (SecondStageTimer > 380)
-                SecondStageTimer = 0;
+            NPC.netUpdate = true;
         }
     }
 }

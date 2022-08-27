@@ -4,6 +4,7 @@ using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.SevenDeadlySouls;
 using ShardsOfAtheria.Items.SlayerItems;
 using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Melee;
@@ -686,6 +687,8 @@ namespace ShardsOfAtheria.NPCs
             if (npc.type == NPCID.WallofFlesh)
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragmentI>()));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulSoul>()));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulArmament>()));
             }
             if (npc.type == NPCID.Plantera)
             {

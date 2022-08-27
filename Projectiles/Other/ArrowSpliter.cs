@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Other
 {
-    public class AreusArrow2 : ModProjectile
+    public class ArrowSpliter : ModProjectile
     {
         public override void SetDefaults()
         {

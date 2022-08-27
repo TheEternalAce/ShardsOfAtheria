@@ -20,99 +20,105 @@ namespace ShardsOfAtheria.Items
     {
         public override void SetDefaults(Item item)
         {
-            if (item.type == ItemID.SlimeCrown || item.type == ItemID.SuspiciousLookingEye || item.type == ItemID.BloodySpine || item.type == ItemID.WormFood || item.type == ItemID.Abeemination
-                || item.type == ItemID.ClothierVoodooDoll || item.type == ItemID.DeerThing || item.type == ItemID.GuideVoodooDoll || item.type == ItemID.QueenSlimeCrystal || item.type == ItemID.MechanicalWorm
-                || item.type == ItemID.MechanicalSkull || item.type == ItemID.MechanicalEye || item.type == ItemID.LihzahrdPowerCell || item.type == ItemID.TruffleWorm || item.type == ItemID.EmpressButterfly
-                || item.type == ItemID.CelestialSigil)
+            switch (item.type)
             {
-                item.value = Item.buyPrice(0, 5);
-            }
+                case ItemID.Grenade:
+                    item.ammo = ItemID.Grenade;
+                    break;
+                case ItemID.Beenade:
+                    item.ammo = ItemID.Grenade;
+                    break;
+                case ItemID.StickyGrenade:
+                    item.ammo = ItemID.Grenade;
+                    break;
+                case ItemID.BouncyGrenade:
+                    item.ammo = ItemID.Grenade;
+                    break;
+                case ItemID.PartyGirlGrenade:
+                    item.ammo = ItemID.Grenade;
+                    break;
 
-            if (item.type == ItemID.Grenade || item.type == ItemID.Beenade || item.type == ItemID.StickyGrenade || item.type == ItemID.BouncyGrenade || item.type == ItemID.PartyGirlGrenade)
-            {
-                item.ammo = ItemID.Grenade;
-            }
+                case ItemID.PearlwoodHelmet:
+                    item.defense = 8;
+                    break;
+                case ItemID.PearlwoodBreastplate:
+                    item.defense = 8;
+                    break;
+                case ItemID.PearlwoodGreaves:
+                    item.defense = 8;
+                    break;
+                case ItemID.PearlwoodSword:
+                    item.defense = 8;
+                    break;
+                case ItemID.PearlwoodBow:
+                    item.damage = 30;
+                    item.autoReuse = true;
+                    break;
 
-            if (item.type == ItemID.PearlwoodHelmet)
-            {
-                item.defense = 8;
-            }
-            if (item.type == ItemID.PearlwoodBreastplate)
-            {
-                item.defense = 8;
-            }
-            if (item.type == ItemID.PearlwoodGreaves)
-            {
-                item.defense = 8;
-            }
+                case ItemID.LifeCrystal:
+                    if (ModContent.GetInstance<ConfigServerSide>().upgradeChange)
+                    {
+                        item.useTime = 15;
+                        item.useAnimation = 15;
+                        item.autoReuse = true;
+                        item.useTurn = true;
+                    }
+                    break;
+                case ItemID.ManaCrystal:
+                    if (ModContent.GetInstance<ConfigServerSide>().upgradeChange)
+                    {
+                        item.useTime = 15;
+                        item.useAnimation = 15;
+                        item.autoReuse = true;
+                        item.useTurn = true;
+                    }
+                    break;
+                case ItemID.LifeFruit:
+                    if (ModContent.GetInstance<ConfigServerSide>().upgradeChange)
+                    {
+                        item.useTime = 15;
+                        item.useAnimation = 15;
+                        item.autoReuse = true;
+                        item.useTurn = true;
+                    }
+                    break;
 
-            if (item.type == ItemID.PearlwoodSword)
-            {
-                item.damage = 47;
-                item.shoot = ModContent.ProjectileType<SoulBlade>();
-                item.shootSpeed = 16f;
-                item.autoReuse = true;
-                item.scale = 2;
-            }
-            if (item.type == ItemID.PearlwoodBow)
-            {
-                item.damage = 30;
-                item.autoReuse = true;
-            }
-
-            if (item.type == ItemID.LifeCrystal || item.type == ItemID.ManaCrystal || item.type == ItemID.LifeFruit)
-            {
-                item.autoReuse = true;
-                item.useTurn = true;
-            }
-
-            if (item.type == ItemID.RocketI)
-            {
-                item.shoot = ProjectileID.RocketI;
-            }
-            if (item.type == ItemID.RocketII)
-            {
-                item.shoot = ProjectileID.RocketII;
-            }
-            if (item.type == ItemID.RocketIII)
-            {
-                item.shoot = ProjectileID.RocketIII;
-            }
-            if (item.type == ItemID.RocketIV)
-            {
-                item.shoot = ProjectileID.RocketIV;
-            }
-            if (item.type == ItemID.DryRocket)
-            {
-                item.shoot = ProjectileID.DryRocket;
-            }
-            if (item.type == ItemID.WetRocket)
-            {
-                item.shoot = ProjectileID.WetRocket;
-            }
-            if (item.type == ItemID.LavaRocket)
-            {
-                item.shoot = ProjectileID.LavaRocket;
-            }
-            if (item.type == ItemID.HoneyRocket)
-            {
-                item.shoot = ProjectileID.HoneyRocket;
-            }
-            if (item.type == ItemID.ClusterRocketI)
-            {
-                item.shoot = ProjectileID.ClusterRocketI;
-            }
-            if (item.type == ItemID.ClusterRocketII)
-            {
-                item.shoot = ProjectileID.ClusterRocketII;
-            }
-            if (item.type == ItemID.MiniNukeI)
-            {
-                item.shoot = ProjectileID.MiniNukeRocketI;
-            }
-            if (item.type == ItemID.MiniNukeII)
-            {
-                item.shoot = ProjectileID.MiniNukeRocketII;
+                //case ItemID.RocketI:
+                //    item.shoot = ProjectileID.RocketI;
+                //    break;
+                //case ItemID.RocketII:
+                //    item.shoot = ProjectileID.RocketII;
+                //    break;
+                //case ItemID.RocketIII:
+                //    item.shoot = ProjectileID.RocketIII;
+                //    break;
+                //case ItemID.RocketIV:
+                //    item.shoot = ProjectileID.RocketIV;
+                //    break;
+                //case ItemID.DryRocket:
+                //    item.shoot = ProjectileID.DryRocket;
+                //    break;
+                //case ItemID.WetRocket:
+                //    item.shoot = ProjectileID.WetRocket;
+                //    break;
+                //case ItemID.LavaRocket:
+                //    item.shoot = ProjectileID.LavaRocket;
+                //    break;
+                //case ItemID.HoneyRocket:
+                //    item.shoot = ProjectileID.HoneyRocket;
+                //    break;
+                //case ItemID.ClusterRocketI:
+                //    item.shoot = ProjectileID.ClusterRocketI;
+                //    break;
+                //case ItemID.ClusterRocketII:
+                //    item.shoot = ProjectileID.ClusterRocketII;
+                //    break;
+                //case ItemID.MiniNukeI:
+                //    item.shoot = ProjectileID.MiniNukeRocketI;
+                //    break;
+                //case ItemID.MiniNukeII:
+                //    item.shoot = ProjectileID.MiniNukeRocketII;
+                //    break;
             }
         }
 

@@ -71,6 +71,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.useAnimation = 24;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
 
             Item.shoot = ModContent.ProjectileType<BloodCutter>();
             Item.shootSpeed = 15;

@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
-	public class StrangeTissueSample : SlayerItem
+    public class StrangeTissueSample : SlayerItem
 	{
         public override void SetStaticDefaults()
         {

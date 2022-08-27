@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
-	public class FinBlade : SlayerItem
+    public class FinBlade : SlayerItem
 	{
         public override void SetStaticDefaults()
         {

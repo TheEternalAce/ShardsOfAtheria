@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         {
             Projectile.width = 8;
             Projectile.height = 8;
-            Projectile.scale = .5f;
+            Projectile.scale = .75f;
 
             Projectile.DamageType = DamageClass.Melee;
             Projectile.aiStyle = -1;

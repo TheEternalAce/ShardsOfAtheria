@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
-	public class BloodScythe : SlayerItem
+    public class BloodScythe : SlayerItem
 	{
         public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{

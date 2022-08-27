@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using ShardsOfAtheria.Players;
 using System.Collections.Generic;
@@ -7,6 +8,8 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -16,6 +19,14 @@ namespace ShardsOfAtheria.Items.SlayerItems
     public class Necronomicon : SlayerItem
     {
         public int page;
+        public static Asset<Texture2D> book;
+
+        public override void SetStaticDefaults()
+        {
+            book = ModContent.Request<Texture2D>(Texture + "_Open");
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+        }
 
         public override void SetDefaults()
         {
@@ -57,9 +68,9 @@ namespace ShardsOfAtheria.Items.SlayerItems
 
         public override void RightClick(Player player)
         {
-            if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt))
+            if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt) && page > 0)
                 page = 0;
-            else if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
+            else if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift) && page > 0)
                 page--;
             else page++;
         }
@@ -68,7 +79,8 @@ namespace ShardsOfAtheria.Items.SlayerItems
         {
             if (page > 0)
             {
-
+                spriteBatch.Draw(book.Value, position - book.Size() * 0.5f + TextureAssets.Item[Item.type].Size() * 0.5f, null, drawColor * 0.95f, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+                return false;
             }
 
             return base.PreDrawInInventory(spriteBatch, position, frame, drawColor, itemColor, origin, scale);
@@ -452,9 +464,14 @@ namespace ShardsOfAtheria.Items.SlayerItems
 
             tooltips.Add(new TooltipLine(Mod, "TurnPage", "----------\n" +
                 "Right click to turn the page"));
-            tooltips.Add(new TooltipLine(Mod, "TurnPageBack", "Hold left shift and right click to turn the page backward"));
             if (page > 0)
-                tooltips.Add(new TooltipLine(Mod, "TurnPageBack", "Hold left alt and right click to return to Table of Contents"));
+            {
+                tooltips.Add(new TooltipLine(Mod, "TurnPageBack", "Hold left shift and right click to turn the page backward"));
+            }
+            if (page > 0)
+            {
+                tooltips.Add(new TooltipLine(Mod, "CloseBook", "Hold left alt and right click to return to Table of Contents"));
+            }
             base.ModifyTooltips(tooltips);
         }
 

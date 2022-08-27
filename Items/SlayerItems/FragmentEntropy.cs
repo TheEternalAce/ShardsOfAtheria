@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
-	public class FragmentEntropy : SlayerItem
+    public class FragmentEntropy : SlayerItem
 	{
         public override void SetStaticDefaults()
         {
@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
         {
             Item.width = 18;
             Item.height = 18;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
             Item.value = Item.sellPrice(0, 18);
             Item.rare = ItemRarityID.Red;
         }

@@ -3,13 +3,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.NPCProj
+namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {
-    public class ElectricTrail : ModProjectile
+    public class LightningBoltSpawner : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Electric Trail");
+            DisplayName.SetDefault("Lightning Bolt");
         }
 
         public override void SetDefaults()
@@ -18,8 +18,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
             Projectile.height = 20;
 
             Projectile.aiStyle = -1;
-            Projectile.tileCollide = false;
-            Projectile.hostile = true;
+            Projectile.tileCollide = true;
             Projectile.light = 1f;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 60;
@@ -34,6 +33,11 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
                 dust.velocity += Projectile.velocity * 0.3f;
                 dust.velocity *= 0.2f;
             }
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position, new Vector2(0, 10), ModContent.ProjectileType<LightningBolt>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
         }
     }
 }

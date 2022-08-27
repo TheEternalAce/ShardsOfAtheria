@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Items.Potions
 		{
 			Item.width = 48;
 			Item.height = 48;
-			Item.maxStack = 30;
+			Item.maxStack = 9999;
 
 			Item.useTime = 15;
 			Item.useAnimation = 15;

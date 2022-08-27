@@ -25,8 +25,8 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
 
         public override void SetDefaults()
         {
-            Item.width = 44;
-            Item.height = 26;
+            Item.width = 70;
+            Item.height = 28;
 
             Item.damage = 96;
             Item.DamageType = DamageClass.Ranged;

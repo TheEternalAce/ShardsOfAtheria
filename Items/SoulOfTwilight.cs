@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Items
 			refItem.SetDefaults(ItemID.SoulofNight);
 			Item.width = refItem.width;
 			Item.height = refItem.height;
-			Item.maxStack = 999;
+			Item.maxStack = 9999;
 
 			Item.rare = ItemRarityID.Blue;
 			Item.value = 1000;

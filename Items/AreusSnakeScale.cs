@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items
 {
-	public class EarthScale : ModItem
+	public class AreusSnakeScale : ModItem
 	{
 		public override bool IsLoadingEnabled(Mod mod)
 		{
@@ -25,6 +25,10 @@ namespace ShardsOfAtheria.Items
 		{
 			Item.width = 32;
 			Item.height = 32;
+			if (!ModContent.GetInstance<ConfigServerSide>().nonConsumeBoss)
+			{
+				Item.consumable = true;
+			}
 
 			Item.useTime = 45;
 			Item.useAnimation = 45;

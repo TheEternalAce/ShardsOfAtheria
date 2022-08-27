@@ -46,7 +46,10 @@ namespace ShardsOfAtheria.Players
         public bool phaseOffense;
         public bool rushDrive;
         public bool areusChargePack;
+
         public bool valkyrieCrown;
+        public bool valkyrieCrownHideVanity;
+        public bool valkyrieCrownForceVanity;
 
         public bool pearlwoodSet;
         public int pearlwoodBowShoot;
@@ -376,6 +379,19 @@ namespace ShardsOfAtheria.Players
             return true;
         }
 
+        public override void SetControls()
+        {
+            if (Player.HasBuff(ModContent.BuffType<StunLock>()))
+            {
+                Player.controlUp = false;
+                Player.controlDown = false;
+                Player.controlLeft = false;
+                Player.controlRight = false;
+                Player.controlJump = false;
+                Player.controlUseItem = false;
+            }
+        }
+
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
             if (ShardsOfAtheria.QuickTest.JustPressed /*&& (Player.name == "AceOfSpades2370" || Player.name == "The Eternal Ace")*/)
@@ -570,6 +586,11 @@ namespace ShardsOfAtheria.Players
                     BiometalHideVanity = false;
                     BiometalForceVanity = true;
                 }
+                if (item.type == ModContent.ItemType<ValkyrieCrown>())
+                {
+                    valkyrieCrownHideVanity = false;
+                    valkyrieCrownForceVanity = true;
+                }
             }
         }
 
@@ -600,32 +621,32 @@ namespace ShardsOfAtheria.Players
             {
                 if (Player.whoAmI == Main.myPlayer && lesserSapphireCore && Main.rand.NextFloat() < 0.05f)
                 {
-                    Player.immuneTime = 60;
                     Player.immune = true;
+                    Player.immuneTime = 60;
                     return false;
                 }
                 if (Player.whoAmI == Main.myPlayer && sapphireCore && Main.rand.NextFloat() < 0.1f)
                 {
-                    Player.immuneTime = 60;
                     Player.immune = true;
+                    Player.immuneTime = 60;
                     return false;
                 }
                 if (Player.whoAmI == Main.myPlayer && superSapphireCore && Main.rand.NextFloat() < 0.15f)
                 {
-                    Player.immuneTime = 60;
                     Player.immune = true;
+                    Player.immuneTime = 60;
                     return false;
                 }
                 if (Player.whoAmI == Main.myPlayer && megaGemCore && Main.rand.NextFloat() < 0.2f)
                 {
-                    Player.immuneTime = 60;
                     Player.immune = true;
+                    Player.immuneTime = 60;
                     return false;
                 }
                 if (Player.whoAmI == Main.myPlayer && shadowBrand && shadowBrandToggled && Main.rand.NextFloat() < .1f)
                 {
-                    Player.immuneTime = 60;
                     Player.immune = true;
+                    Player.immuneTime = 60;
                     return false;
                 }
             }

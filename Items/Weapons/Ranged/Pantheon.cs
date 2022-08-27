@@ -10,12 +10,15 @@ using Terraria.GameContent.Creative;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria.ModLoader.IO;
+using System;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
-    public class Pantheon : ModItem
+    public class Pantheon : SinfulItem
     {
         public int gold = 0;
+        public int arrows;
+        public int maxArrows;
 
         public override void SaveData(TagCompound tag)
         {
@@ -32,18 +35,19 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Right click with Gold or Platinum bars in inventory to increase damage and projectiles fired by 1\n" +
-                "Fires up to 5 projectiles");
+            Tooltip.SetDefault("Right click with Gold or Platinum bars in inventory to increase projectiles fired by 1\n" +
+                "Fires up to 5 projectiles\n" +
+                "Resets after death");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item.width = 24;
-            Item.height = 36;
+            Item.width = 32;
+            Item.height = 42;
 
-            Item.damage = 5;
+            Item.damage = 25;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 2f;
             Item.crit = 6;
@@ -55,7 +59,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noMelee = true;
 
             Item.shootSpeed = 16f;
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Red;
             Item.value = Item.sellPrice(0, 5);
             Item.shoot = ProjectileID.PurificationPowder;
             Item.useAmmo = AmmoID.Arrow;
@@ -81,15 +85,28 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void HoldItem(Player player)
         {
-            Item.damage = 5;
+            maxArrows = gold >= 5 ? 5 : (gold == 0 ? 1 : gold + 1);
             if (player.dead)
             {
                 gold = 0;
             }
-            for (int i = 0; i < gold; i++)
+        }
+
+        public override bool? CanChooseAmmo(Item ammo, Player player)
+        {
+            if (!ammo.consumable)
             {
-                Item.damage += 1;
+                arrows = maxArrows;
             }
+
+            return base.CanChooseAmmo(ammo, player);
+        }
+
+        public override void OnConsumeAmmo(Item ammo, Player player)
+        {
+            arrows = Math.Min(ammo.stack, maxArrows);
+            ammo.stack -= arrows;
+            base.OnConsumeAmmo(ammo, player);
         }
 
         public override void RightClick(Player player)
@@ -107,11 +124,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            float numberProjectiles = 1 + gold;
-            if (numberProjectiles > 5)
-            {
-                numberProjectiles = 5;
-            }
+            float numberProjectiles = arrows;
             if (numberProjectiles > 1)
             {
                 float rotation = MathHelper.ToRadians(5);

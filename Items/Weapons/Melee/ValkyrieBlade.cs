@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
             Item.shootSpeed = 16;
             Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0,  2, 25);
+            Item.value = Item.sellPrice(0, 1, 75);
 
             Item.shoot = ModContent.ProjectileType<FeatherBladeFriendly>();
         }

@@ -5,9 +5,9 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.NPCProj
+namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {
-    public class LightningBolt : ModProjectile
+    public class StormCloud : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -16,16 +16,29 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
 
         public override void SetDefaults()
         {
-            Projectile.width = 22;
+            Projectile.width = 1300;
             Projectile.height = 200;
 
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
-            Projectile.tileCollide = true;
             Projectile.light = 1f;
-            Projectile.extraUpdates = 19;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 60;
+        }
+
+        public override void AI()
+        {
+            if (Projectile.ai[0] == 0)
+            {
+                Player player = Main.player[Projectile.owner];
+                Projectile.Center = player.Center + new Vector2(0, -400);
+                Projectile.ai[0] = 1;
+            }
+
+            for (int i = 0; i < 50; i++)
+            {
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.RainCloud, Scale: 2f);
+                dust.noGravity = true;
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)

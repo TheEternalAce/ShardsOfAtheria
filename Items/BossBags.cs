@@ -3,12 +3,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Items.Weapons;
 using ShardsOfAtheria.Items.Accessories;
-using ShardsOfAtheria.Items.DevItems.AceOfSpades2370;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.DevItems.nightlight;
 using ShardsOfAtheria.Items.DevItems.DaluyanMesses;
 using Terraria.GameContent.ItemDropRules;
+using ShardsOfAtheria.Items.DevItems.TheEternalAce;
 
 namespace ShardsOfAtheria.Items
 {
@@ -16,19 +16,22 @@ namespace ShardsOfAtheria.Items
 	{
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
 		{
-			LeadingConditionRule hardmodeDevSet = new LeadingConditionRule(new Conditions.IsHardmode());
-			IItemDropRule aceDrop = ItemDropRule.Common(ModContent.ItemType<AceOfSpades>());
-			aceDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AcesGoldFoxMask>()));
-			aceDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AcesJacket>()));
-			aceDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AcesPants>()));
+			if (ItemID.Sets.BossBag[item.type])
+			{
+				LeadingConditionRule hardmodeDevSet = new LeadingConditionRule(new Conditions.IsHardmode());
+				IItemDropRule aceDrop = ItemDropRule.Common(ModContent.ItemType<AceOfSpades>());
+				aceDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AcesGoldFoxMask>()));
+				aceDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AcesJacket>()));
+				aceDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AcesPants>()));
 
-			IItemDropRule nightDrop = ItemDropRule.Common(ModContent.ItemType<Nightlight>());
-			nightDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<CoatOfnight>()));
+				IItemDropRule nightDrop = ItemDropRule.Common(ModContent.ItemType<Nightlight>());
+				nightDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<CoatOfnight>()));
 
-			IItemDropRule devDrop = new OneFromRulesRule(20, aceDrop, nightDrop, ItemDropRule.Common(ModContent.ItemType<StatueOfDaluyan>()));
-			hardmodeDevSet.OnSuccess(devDrop);
+				IItemDropRule devDrop = new OneFromRulesRule(20, aceDrop, nightDrop, ItemDropRule.Common(ModContent.ItemType<StatueOfDaluyan>()));
+				hardmodeDevSet.OnSuccess(devDrop);
 
-			itemLoot.Add(hardmodeDevSet);
+				itemLoot.Add(hardmodeDevSet);
+			}
 
 			if (item.type == ItemID.EaterOfWorldsBossBag)
 			{

@@ -4,7 +4,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.DevItems.AceOfSpades2370
+namespace ShardsOfAtheria.Items.DevItems.TheEternalAce
 {
     public class AceOfSpades : ModItem
     {

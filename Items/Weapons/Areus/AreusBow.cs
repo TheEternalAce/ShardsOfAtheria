@@ -26,7 +26,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.width = 28;
             Item.height = 54;
 
-            Item.damage = 100;
+            Item.damage = 20;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 4f;
             Item.crit = 5;
@@ -50,7 +50,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 5)
                 .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 7)
-                .AddIngredient(ItemID.HellstoneBar, 10)
+                .AddIngredient(ModContent.ItemType<ChargedFeather>(), 10)
                 .AddTile(TileID.Hellforge)
                 .Register();
         }

@@ -7,7 +7,7 @@ using Terraria.DataStructures;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
-	public class FlailOfFlesh : SlayerItem
+    public class FlailOfFlesh : SlayerItem
 	{
         public override void SetStaticDefaults()
         {

@@ -5,7 +5,7 @@ using ShardsOfAtheria.Projectiles.Weapon.Melee;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
-	public class ValkyrieStormLance : SlayerItem
+    public class ValkyrieStormLance : SlayerItem
 	{
         public override void SetStaticDefaults()
         {

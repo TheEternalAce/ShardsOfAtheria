@@ -48,26 +48,27 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             {
                 Player player = Main.player[Projectile.owner];
 
-                if (Projectile.ai[0] == 0)
+                if (Projectile.ai[0] == 0f)
                 {
-                    Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<AreusArrow2>(), 0, 0, player.whoAmI);
-                    Projectile.ai[0] = 1;
+                    Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<ArrowSpliter>(), 0, 0, player.whoAmI);
+                    Projectile.tileCollide = true;
+                    Projectile.ai[0] = 1f;
                 }
-                if (Projectile.ai[0] == 2)
+                if (Projectile.ai[0] == 2f)
                 {
                     Projectile.timeLeft = 30;
-                    Projectile.ai[0] = 3;
+                    Projectile.ai[0] = 3f;
                     Projectile.netUpdate = true;
                 }
-                if (Projectile.timeLeft == 1 && Projectile.ai[0] == 3)
+                if (Projectile.timeLeft == 1 && Projectile.ai[0] == 3f)
                 {
                     SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
                     Projectile.timeLeft = 60;
                     Projectile.penetrate = 1;
                     Projectile.velocity *= -1;
-                    Projectile.ai[0] = 4;
+                    Projectile.ai[0] = 4f;
                 }
-                if (Projectile.ai[0] == 4)
+                if (Projectile.ai[0] == 4f)
                 {
                     float maxDetectRadius = 400f; // The maximum radius at which a projectile can detect a target
 
@@ -89,13 +90,22 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             target.AddBuff(ModContent.BuffType<ElectricShock>(), player.HasBuff(ModContent.BuffType<Conductive>()) ? 1200 : 600);
         }
 
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            if (Projectile.ai[0] == 1f)
+            {
+                Projectile.ai[0] = 5f;
+            }
+            return base.OnTileCollide(oldVelocity);
+        }
+
         public override void Kill(int timeLeft)
         {
             if (Main.myPlayer == Projectile.owner)
             {
                 Player player = Main.player[Projectile.owner];
                 SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
-                if (Projectile.ai[0] == 1)
+                if (Projectile.ai[0] == 1f)
                 {
                     for (int i = 0; i < 6; i++)
                     {

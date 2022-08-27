@@ -12,6 +12,11 @@ namespace ShardsOfAtheria.Items
 		public override void SetStaticDefaults() 
 		{
 			Tooltip.SetDefault("Summons a powerful Valkyrie");
+			ItemID.Sets.SortingPriorityBossSpawns[Type] = 12; // This helps sort inventory know that this is a boss summoning Item.
+
+			// This is set to true for all NPCs that can be summoned via an Item (calling NPC.SpawnOnPlayer). If this is for a modded boss,
+			// write this in the bosses file instead
+			NPCID.Sets.MPAllowedEnemies[ModContent.NPCType<NovaStellar>()] = true;
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
 		}
@@ -20,8 +25,11 @@ namespace ShardsOfAtheria.Items
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.consumable = true;
-			Item.maxStack = 20;
+			if (!ModContent.GetInstance<ConfigServerSide>().nonConsumeBoss)
+			{
+				Item.consumable = true;
+				Item.maxStack = 9999;
+			}
 
 			Item.useTime = 45;
 			Item.useAnimation = 45;

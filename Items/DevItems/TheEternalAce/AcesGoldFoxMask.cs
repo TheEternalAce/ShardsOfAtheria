@@ -3,7 +3,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace ShardsOfAtheria.Items.DevItems.AceOfSpades2370
+namespace ShardsOfAtheria.Items.DevItems.TheEternalAce
 {
     [AutoloadEquip(EquipType.Head)]
     public class AcesGoldFoxMask : ModItem

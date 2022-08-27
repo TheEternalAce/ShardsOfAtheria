@@ -50,12 +50,10 @@ namespace ShardsOfAtheria.NPCs
                 //Biomes
                 .SetBiomeAffection<HallowBiome>(AffectionLevel.Love)
                 .SetBiomeAffection<ForestBiome>(AffectionLevel.Like)
-                .SetBiomeAffection<SnowBiome>(AffectionLevel.Dislike)
                 .SetBiomeAffection<UndergroundBiome>(AffectionLevel.Hate)
                 //NPCs
                 .SetNPCAffection(NPCID.Stylist, AffectionLevel.Love)
-                .SetNPCAffection(NPCID.Guide, AffectionLevel.Like)
-                .SetNPCAffection(NPCID.Merchant, AffectionLevel.Dislike);
+                .SetNPCAffection(NPCID.Guide, AffectionLevel.Like);
         }
 
         public override void SetDefaults()
@@ -148,7 +146,7 @@ namespace ShardsOfAtheria.NPCs
                     }
                 }
                 if (Main.LocalPlayer.HasItem(ModContent.ItemType<AreusWings>()))
-                    return "... Let me see those wings.";
+                    return "Those wings are great now, but what if they could be better? If you hand them over I can make them better.";
             }
 
             chat.Add("DOOR STUCK!");
@@ -292,6 +290,7 @@ namespace ShardsOfAtheria.NPCs
             if (NPC.downedPlantBoss)
             {
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusKey>());
+                shop.item[nextSlot].shopCustomPrice = 50000;
                 nextSlot++;
             }
             if (!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
@@ -345,17 +344,40 @@ namespace ShardsOfAtheria.NPCs
                 }
                 if (NPC.downedMechBoss1)
                 {
-                    shop.item[nextSlot].SetDefaults(ItemID.MechanicalWorm);
+                    if (ModLoader.TryGetMod("PrimeRework", out Mod foundMod))
+                    {
+                        shop.item[nextSlot].SetDefaults(foundMod.Find<ModItem>("WormRemote").Type);
+                        nextSlot++;
+                        shop.item[nextSlot].SetDefaults(foundMod.Find<ModItem>("BrainRemote").Type);
+                    }
+                    else
+                    {
+                        shop.item[nextSlot].SetDefaults(ItemID.MechanicalWorm);
+                    }
                     nextSlot++;
                 }
                 if (NPC.downedMechBoss2)
                 {
-                    shop.item[nextSlot].SetDefaults(ItemID.MechanicalEye);
+                    if (ModLoader.TryGetMod("PrimeRework", out Mod foundMod))
+                    {
+                        shop.item[nextSlot].SetDefaults(foundMod.Find<ModItem>("EyeRemote").Type);
+                    }
+                    else
+                    {
+                        shop.item[nextSlot].SetDefaults(ItemID.MechanicalEye);
+                    }
                     nextSlot++;
                 }
                 if (NPC.downedMechBoss3)
                 {
-                    shop.item[nextSlot].SetDefaults(ItemID.MechanicalSkull);
+                    if (ModLoader.TryGetMod("PrimeRework", out Mod foundMod))
+                    {
+                        shop.item[nextSlot].SetDefaults(foundMod.Find<ModItem>("SkullRemote").Type);
+                    }
+                    else
+                    {
+                        shop.item[nextSlot].SetDefaults(ItemID.MechanicalSkull);
+                    }
                     nextSlot++;
                 }
                 if (NPC.downedPlantBoss)
@@ -381,6 +403,21 @@ namespace ShardsOfAtheria.NPCs
                 if (NPC.downedMoonlord)
                 {
                     shop.item[nextSlot].SetDefaults(ItemID.CelestialSigil);
+                    nextSlot++;
+                }
+                if (SoADownedSystem.downedGenesis)
+                {
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpiderClock>());
+                    nextSlot++;
+                }
+                if (SoADownedSystem.downedSenterra)
+                {
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusSnakeScale>());
+                    nextSlot++;
+                }
+                if (SoADownedSystem.downedDeath)
+                {
+                    //shop.item[nextSlot].SetDefaults(ModContent.ItemType<AncientMedalion>());
                     nextSlot++;
                 }
             }

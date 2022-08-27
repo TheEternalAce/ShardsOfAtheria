@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Items.DecaEquipment
             Item.rare = ItemRarityID.Red;
             Item.width = 36;
             Item.height = 36;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
 
             Item.useTime = 15;
             Item.useAnimation = 15;

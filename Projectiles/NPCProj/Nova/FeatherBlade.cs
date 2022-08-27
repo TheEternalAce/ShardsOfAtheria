@@ -2,8 +2,9 @@
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
+using System;
 
-namespace ShardsOfAtheria.Projectiles.NPCProj
+namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {
     public class FeatherBlade : ModProjectile
     {
@@ -27,17 +28,19 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
 
-            if (Projectile.ai[0] == 1)
+            if (Projectile.ai[0] == 0 && Projectile.ai[1] > 0)
             {
-                Projectile.timeLeft = 60;
-                Projectile.ai[0] = 0;
+                Projectile.timeLeft = Convert.ToInt32(Projectile.ai[1]);
+                Projectile.ai[0] = 1;
             }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (Main.expertMode)
-                target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
+            {
+                target.AddBuff(ModContent.BuffType<ElectricShock>(), 300);
+            }
         }
     }
 }

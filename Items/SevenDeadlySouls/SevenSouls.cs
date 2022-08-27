@@ -7,7 +7,7 @@ using Terraria.ModLoader.IO;
 
 namespace ShardsOfAtheria.Items.SevenDeadlySouls
 {
-    public abstract class SevenSouls : ModItem
+    public abstract class SevenSouls : SinfulItem
     {
         public override void SetStaticDefaults()
         {
@@ -21,29 +21,18 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "SevenSoul", "Using this soul is permanent and only one can be active"));
+            tooltips.Add(new TooltipLine(Mod, "SevenSoul", "Only one Sinful Soul may be active at a time"));
             base.ModifyTooltips(tooltips);
-        }
-
-        public override bool? UseItem(Player player)
-        {
-            if (player.whoAmI == Main.myPlayer)
-            {
-                int newItem = Item.NewItem(Item.GetSource_DropAsItem(), player.getRect(), ModContent.ItemType<SinfulArmament>());
-                Main.item[newItem].noGrabDelay = 0; // Set the new item to be able to be picked up instantly
-
-                // Here we need to make sure the item is synced in multiplayer games.
-                if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
-                {
-                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
-                }
-            }
-            return true;
         }
 
         public override bool CanUseItem(Player player)
         {
             return player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed == 0;
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            return true;
         }
 
         public override void AddRecipes()
@@ -137,7 +126,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
         {
             Item.width = 54;
             Item.height = 52;
-            Item.maxStack = 30;
+            Item.maxStack = 9999;
         }
     }
 }

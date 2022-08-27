@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SoulBonds
 {
-	public abstract class SoulBond : SlayerItem
+    public abstract class SoulBond : SlayerItem
 	{
         public override void SetStaticDefaults()
 		{

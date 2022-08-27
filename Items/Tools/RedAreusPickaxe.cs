@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using ShardsOfAtheria.Items.Weapons.Areus;
+using Terraria.GameContent.Creative;
 
 namespace ShardsOfAtheria.Items.Tools
 {
@@ -13,6 +14,8 @@ namespace ShardsOfAtheria.Items.Tools
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Uses highly concentrated electricity to cut through stones and ores");
+
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 
         public override void SetDefaults()

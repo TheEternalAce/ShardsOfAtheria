@@ -9,22 +9,25 @@ using ShardsOfAtheria.Players;
 
 namespace ShardsOfAtheria.Items.Accessories
 {
+    [AutoloadEquip(EquipType.Face)]
     public class ValkyrieCrown : ModItem
-	{
-		public override void SetStaticDefaults()
+    {
+        public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Attacks shock enemies briefly");
+            ArmorIDs.Head.Sets.DrawHatHair[Item.faceSlot] = true;
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+        }
 
 		public override void SetDefaults()
 		{
 			Item.width = 32;
 			Item.height = 32;
 			Item.accessory = true;
+            Item.canBePlacedInVanityRegardlessOfConditions = true;
 
-			Item.rare = ItemRarityID.Blue;
+            Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 50);
 		}
 

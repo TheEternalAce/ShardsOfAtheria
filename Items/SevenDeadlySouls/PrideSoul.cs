@@ -6,7 +6,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 {
     public class PrideSoul : SevenSouls
     {
-        public const string tip = "Every 20 seconds of not taking damage increases damage by 2%";
+        public const string tip = "Every 10 seconds of not taking damage increases damage by 2%";
 
         public override void SetStaticDefaults()
         {
@@ -78,7 +78,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
             player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed = 5;
             if (player.GetModPlayer<SoAPlayer>().inCombat > 0)
                 player.GetModPlayer<PridePlayer>().prideTimer++;
-            if (player.GetModPlayer<PridePlayer>().prideTimer >= 1200)
+            if (player.GetModPlayer<PridePlayer>().prideTimer >= 600)
             {
                 player.GetModPlayer<PridePlayer>().pride += .02f;
                 player.GetModPlayer<PridePlayer>().prideTimer = 0;

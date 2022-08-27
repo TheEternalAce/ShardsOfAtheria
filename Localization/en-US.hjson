@@ -21,13 +21,12 @@ Mods: {
 
 				LoveBiome: I love {BiomeName}, It reminds me of Atheria.
 				LikeBiome: "Atheria doesn't have many lush forests, this is a nice change."
-				DislikeBiome: "I don't like {BiomeName}, it reminds me of Sanshannah."
 				HateBiome: "I hate {BiomeName}, it's so boring. No colors but grey, gray and maybe brown."
 				
-				LoveNPC: "{NPCName} makes me feel a certain way.. But regardless she does a grat job doing my hair!"
+				LoveNPC: "{NPCName} makes me feel a certain way.. But regardless she does a great job doing my hair!"
 				LikeNPC: "Nobody gives {NPCName} enough credit. I mean come on, he knows the Soul of Eternity's whole crafting tree yet you have to look it up on Recipe Browser!"
 				LikeNPC_Princess: "{NPCName} reminds me of our king and queen in Atheria, I didn't know humans had royalty as well!"
-				DislikeNPC: '''"{NPCName} doesn't take areus as acceptable currency.."'''
+				DislikeNPC: '''""'''
 				HateNPC: ""
 			}
 		}

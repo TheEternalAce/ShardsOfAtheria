@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.DevItems.AceOfSpades2370;
+using ShardsOfAtheria.Items.DevItems.TheEternalAce;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 {
