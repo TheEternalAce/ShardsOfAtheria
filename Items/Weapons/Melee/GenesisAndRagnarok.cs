@@ -165,7 +165,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                             Item.UseSound = SoundID.Item116;
                             break;
                         case 2:
-                            if (upgrades >= 4)
+                            if (upgrades >= 1)
                             {
                                 Item.shoot = ModContent.ProjectileType<Genesis_Spear2>();
                                 Item.shootSpeed = 30f;

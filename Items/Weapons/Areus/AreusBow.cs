@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Tooltip.SetDefault("'Brilliant light show'");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()
@@ -26,7 +27,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.width = 28;
             Item.height = 54;
 
-            Item.damage = 100;
+            Item.damage = 20;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 4f;
             Item.crit = 5;
@@ -50,17 +51,9 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 5)
                 .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 7)
-                .AddIngredient(ItemID.HellstoneBar, 10)
-                .AddTile(TileID.Hellforge)
+                .AddIngredient(ModContent.ItemType<ChargedFeather>(), 10)
+                .AddTile(TileID.Anvils)
                 .Register();
-        }
-
-        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-        {
-            if (player.HasBuff(ModContent.BuffType<Conductive>()))
-            {
-                damage += .15f;
-            }
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation();
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
         }
     }
 }

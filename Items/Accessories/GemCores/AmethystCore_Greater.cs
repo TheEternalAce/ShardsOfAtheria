@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             CreateRecipe()
                .AddIngredient(ModContent.ItemType<AmethystCore>())
                 .AddIngredient(ItemID.HallowedBar, 5)
-               .AddTile(TileID.Hellforge)
+               .AddTile(TileID.MythrilAnvil)
                .Register();
         }
 

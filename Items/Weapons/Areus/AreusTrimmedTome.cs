@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()
@@ -45,16 +46,8 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 10)
                 .AddIngredient(ModContent.ItemType<SoulOfTwilight>(), 7)
-                .AddTile(TileID.Hellforge)
+                .AddTile(TileID.Anvils)
                 .Register();
-        }
-
-        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-        {
-            if (player.HasBuff(ModContent.BuffType<Conductive>()))
-            {
-                damage += .15f;
-            }
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

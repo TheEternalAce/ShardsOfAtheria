@@ -24,8 +24,11 @@ namespace ShardsOfAtheria.Items
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.maxStack = 9999;
-			Item.consumable = true;
+			if (!ModContent.GetInstance<ConfigServerSide>().nonConsumeBoss)
+			{
+				Item.consumable = true;
+				Item.maxStack = 9999;
+			}
 
 			Item.useStyle = ItemUseStyleID.HoldUp;
 			Item.useTime = 45;
@@ -40,10 +43,10 @@ namespace ShardsOfAtheria.Items
 			CreateRecipe()
 				.AddIngredient(ItemID.Moonglow, 5)
 				.AddIngredient(ItemID.Vine, 6)
-				.AddIngredient(ItemID.ChlorophyteBar, 4)
-				.AddIngredient(ItemID.SoulofFright)
-				.AddIngredient(ItemID.SoulofMight)
-				.AddIngredient(ItemID.SoulofSight)
+				.AddIngredient(ItemID.ChlorophyteBar, 5)
+				.AddIngredient(ItemID.SoulofFright, 5)
+				.AddIngredient(ItemID.SoulofMight, 5)
+				.AddIngredient(ItemID.SoulofSight, 5)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}

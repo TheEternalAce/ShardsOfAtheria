@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Tooltip.SetDefault("'Headshots do not crit'");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()
@@ -47,16 +48,8 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 5)
                 .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 7)
                 .AddIngredient(ItemID.HellstoneBar, 10)
-                .AddTile(TileID.Hellforge)
+                .AddTile(TileID.Anvils)
                 .Register();
-        }
-
-        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-        {
-            if (player.HasBuff(ModContent.BuffType<Conductive>()))
-            {
-                damage += .15f;
-            }
         }
 
         public override Vector2? HoldoutOffset()

@@ -3,7 +3,6 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
-using ShardsOfAtheria.Buffs;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
@@ -13,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
 			DisplayName.SetDefault("ecnalnataS");
 			Tooltip.SetDefault("You feel like you can do anything\n" +
-				"'!!!SOAHC SOAHC'");
+				"'!SOAHC SOAHC'");
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
             Item.width = 54;
             Item.height = 52;
             Item.consumable = true;
-            Item.maxStack = 30;
+            Item.maxStack = 9999;
             Item.scale = .75f;
 
             Item.useTime = 10;

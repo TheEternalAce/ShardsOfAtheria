@@ -4,6 +4,7 @@ using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -31,10 +32,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.knockBack = 3;
 			Item.crit = 8;
 
-			Item.useTime = 6;
-			Item.useAnimation = 6;
+			Item.useTime = 5;
+			Item.useAnimation = 25;
+			Item.reuseDelay = 10;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.UseSound = SoundID.Item1;
+			Item.UseSound = SoundID.DD2_SkyDragonsFuryShot;
 			Item.autoReuse = true;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
@@ -62,13 +64,41 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         // How can I choose between several projectiles randomly?
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-		{
-			// Here we randomly set type to either the original (as defined by the ammo), a vanilla projectile, or a mod Projectile.
-			type = Main.rand.Next(new int[] { type, ModContent.ProjectileType<ZenovaDaybreak>(), ModContent.ProjectileType<ZenovaBoneJavelin>(),
-				ModContent.ProjectileType<ZenovaProjectile>(), ModContent.ProjectileType<ZenovaAreusSword>(),
-				ModContent.ProjectileType<ZenovaBreakerBlade>(), ModContent.ProjectileType<ZenovaChlorophyteSaber>(),
-				ModContent.ProjectileType<ZenovaSatanlance>(), ModContent.ProjectileType<ZenovaWoodenSword>(),
-				ModContent.ProjectileType<ElectricBlade>(), ModContent.ProjectileType<ZenovaLostNail>()});
+        {
+			SoundEngine.PlaySound(Item.UseSound);
+            switch (Main.rand.Next(11))
+            {
+				case 0:
+					type = ModContent.ProjectileType<ZenovaDaybreak>();
+					break;
+				case 1:
+					type = ModContent.ProjectileType<ZenovaBoneJavelin>();
+					break;
+				case 2:
+					type = ModContent.ProjectileType<ZenovaProjectile>();
+					break;
+				case 3:
+					type = ModContent.ProjectileType<ZenovaAreusSword>();
+					break;
+				case 4:
+					type = ModContent.ProjectileType<ZenovaBreakerBlade>();
+					break;
+				case 5:
+					type = ModContent.ProjectileType<ZenovaChlorophyteSaber>();
+					break;
+				case 6:
+					type = ModContent.ProjectileType<ZenovaSatanlance>();
+					break;
+				case 7:
+					type = ModContent.ProjectileType<ZenovaWoodenSword>();
+					break;
+				case 8:
+					type = ModContent.ProjectileType<ElectricBlade>();
+					break;
+				case 9:
+					type = ModContent.ProjectileType<ZenovaLostNail>();
+					break;
+            }
 			velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
 		}
     }

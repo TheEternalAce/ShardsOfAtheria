@@ -25,8 +25,9 @@ namespace ShardsOfAtheria.Items.SlayerItems
 
         public override void SetDefaults()
         {
-            Item.width = 16;
-            Item.height = 28;
+            Item.width = 18;
+            Item.height = 36;
+            Item.scale = .75f;
 
             Item.damage = 40;
             Item.DamageType = DamageClass.Magic;

@@ -24,6 +24,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             Projectile.arrow = false;
             Projectile.light = 1f;
             Projectile.extraUpdates = 1;
+            Projectile.timeLeft = 120;
         }
 
         public override void AI()
@@ -72,13 +73,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 10 * 60);
-            SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
         }
 
-        public override bool OnTileCollide(Vector2 oldVelocity)
+        public override void Kill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
-            return base.OnTileCollide(oldVelocity);
+            base.Kill(timeLeft);
         }
     }
 }

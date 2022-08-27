@@ -50,14 +50,12 @@ namespace ShardsOfAtheria.Players
         public bool DeathSoul;
 
         public bool creeperPet;
-        public bool vampiricJaw;
-        public bool spiderClock;
+
         //Spider Clock
         public Vector2 recentPos;
         public int recentLife;
         public int recentMana;
         public int recentCharge;
-        public int saveTimer;
 
         public int TomeKnowledge;
         public bool omnicientTome;
@@ -87,8 +85,6 @@ namespace ShardsOfAtheria.Players
         {
             creeperPet = false;
             markOfAnastasia = false;
-            vampiricJaw = false;
-            spiderClock = false;
         }
 
         public override void Initialize()
@@ -520,20 +516,6 @@ namespace ShardsOfAtheria.Players
                     Player.AddBuff(BuffID.Spelunker, 2);
                 }
             }
-            if (spiderClock)
-            {
-                saveTimer++;
-                if (saveTimer == 300)
-                {
-                    recentPos = Player.position;
-                    recentLife = Player.statLife;
-                    recentMana = Player.statMana;
-                    CombatText.NewText(Player.getRect(), Color.Gray, "Time shift ready");
-                }
-                if (saveTimer >= 302)
-                    saveTimer = 302;
-            }
-            else saveTimer = 0;
         }
 
         public override void PostUpdate()
@@ -682,11 +664,6 @@ namespace ShardsOfAtheria.Players
             if (!slayerMode)
             {
                 return;
-            }
-            if (vampiricJaw && item.DamageType == DamageClass.Melee && !item.noMelee)
-            {
-                Player.HealEffect(item.damage / 5);
-                Player.statLife += item.damage / 5;
             }
             if (lastDamageTaken > 0)
             {

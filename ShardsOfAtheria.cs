@@ -1,7 +1,10 @@
 using ShardsOfAtheria.Items;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Items.Weapons.Ranged;
+using ShardsOfAtheria.Items.Weapons.Summon.Minion;
 using ShardsOfAtheria.NPCs;
 using ShardsOfAtheria.NPCs.NovaStellar;
 using System.Collections.Generic;
@@ -22,9 +25,6 @@ namespace ShardsOfAtheria
 
         public static ModKeybind QuickTest;
 
-        public bool foundMod;
-        public bool foundMod1;
-
         public override void Load()
         {
             OverdriveKey = KeybindLoader.RegisterKeybind(this, "Toggle Overdrive", "F");
@@ -41,24 +41,31 @@ namespace ShardsOfAtheria
         public override void PostSetupContent()
         {
             if (ModLoader.TryGetMod("Census", out Mod foundMod))
-                ModLoader.GetMod("Census").Call("TownNPCCondition", ModContent.NPCType<Atherian>(), "Defeat Eater of Worlds/Brain of Cthulhu while not in Slayer mode.");
+            {
+                foundMod.Call("TownNPCCondition", ModContent.NPCType<Atherian>(), "Defeat Eater of Worlds/Brain of Cthulhu while not in Slayer mode.");
+            }
 
             if (ModLoader.TryGetMod("BossChecklist", out Mod foundMod1))
             {
-                ModLoader.GetMod("BossChecklist").Call(
+                foundMod1.Call(
                     "AddBoss",
                     this,
                     "Nova Stellar",
                     new List<int> { ModContent.NPCType<NovaStellar>() },
                     3.5f,
-                    (() => SoADownedSystem.downedValkyrie),
+                    () => SoADownedSystem.downedValkyrie,
                     () => true,
-                    new List<int> { ModContent.ItemType<ValkyrieStormLance>(), ModContent.ItemType<GildedValkyrieWings>(), ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<ValkyrieCrown>(),
+                    new List<int> { ModContent.ItemType<ValkyrieStormLance>(), ModContent.ItemType<GildedValkyrieWings>(), ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<DownBow>(),
+                        ModContent.ItemType<PlumeCodex>(), ModContent.ItemType<NestlingStaff>(), ModContent.ItemType<ValkyrieCrown>(),
                         ItemID.GoldBar, ItemID.Feather },
                     ModContent.ItemType<ValkyrieCrest>(),
                     $"Use a [i:{ModContent.ItemType<ValkyrieCrest>()}] on the surface",
                     "Nova Stellar leaves in triumph"
                 );
+            }
+            if (ModLoader.TryGetMod("Fargowiltas", out Mod foundMod2))
+            {
+                foundMod2.Call("AddSummon", 5.5f, ModContent.ItemType<ValkyrieCrest>(), () => SoADownedSystem.downedValkyrie, 50000);
             }
         }
     }

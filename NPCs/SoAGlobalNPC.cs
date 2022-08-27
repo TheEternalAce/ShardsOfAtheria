@@ -4,6 +4,7 @@ using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.SevenDeadlySouls;
 using ShardsOfAtheria.Items.SlayerItems;
 using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Melee;
@@ -28,40 +29,52 @@ namespace ShardsOfAtheria.NPCs
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
             Player player = Main.LocalPlayer;
-            if (type == NPCID.Merchant)
+            switch (type)
             {
-                if (player.HasItem(ModContent.ItemType<SolarStorm>()))
-                {
-                    shop.item[nextSlot].SetDefaults(ItemID.Flare);
-                    nextSlot++;
-                    shop.item[nextSlot].SetDefaults(ItemID.BlueFlare);
-                    nextSlot++;
-                }
-                if (player.GetModPlayer<SlayerPlayer>().slayerMode)
-                {
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<LesserRepairKit>());
-                    nextSlot++;
-                }
-            }
-            if (type == NPCID.TravellingMerchant)
-            {
-                // Sells during a Full Moon
-                if (Main.moonPhase == 0)
-                {
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusShard>());
-                    nextSlot++;
-                }
-                // Sells during a New Moon
-                if (Main.moonPhase == 4)
-                {
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<BionicOreItem>());
-                    nextSlot++;
-                }
-            }
-            if (type == NPCID.ArmsDealer && NPC.downedBoss3)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<AmmoBag>());
-                nextSlot++;
+                case NPCID.Merchant:
+                    if (player.HasItem(ModContent.ItemType<SolarStorm>()))
+                    {
+                        shop.item[nextSlot].SetDefaults(ItemID.Flare);
+                        nextSlot++;
+                        shop.item[nextSlot].SetDefaults(ItemID.BlueFlare);
+                        nextSlot++;
+                    }
+                    if (player.GetModPlayer<SlayerPlayer>().slayerMode)
+                    {
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<LesserRepairKit>());
+                        nextSlot++;
+                    }
+                    break;
+                case NPCID.TravellingMerchant:
+                    // Sells during a Full Moon
+                    if (Main.moonPhase == 0)
+                    {
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusShard>());
+                        nextSlot++;
+                    }
+                    // Sells during a New Moon
+                    if (Main.moonPhase == 4)
+                    {
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<BionicOreItem>());
+                        nextSlot++;
+                    }
+                    break;
+                case NPCID.ArmsDealer:
+                    if (NPC.downedBoss3)
+                    {
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<AmmoBag>());
+                        nextSlot++;
+                    }
+                    break;
+                case NPCID.Wizard:
+                    if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
+                    {
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<SinfulSoul>());
+                        nextSlot++;
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<SinfulArmament>());
+                        nextSlot++;
+                    }
+                    break;
             }
 
             if (ModLoader.TryGetMod("AlchemistNPCLite", out Mod alchemistNPCLite))
@@ -81,7 +94,7 @@ namespace ShardsOfAtheria.NPCs
             {
                 if (type == mutantMod.Find<ModNPC>("Mutant").Type && SoADownedSystem.downedValkyrie)
                 {
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<ValkyrieCrest>());
+                    //shop.item[nextSlot].SetDefaults(ModContent.ItemType<ValkyrieCrest>());
                     nextSlot++;
                 }
             }
@@ -686,6 +699,8 @@ namespace ShardsOfAtheria.NPCs
             if (npc.type == NPCID.WallofFlesh)
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragmentI>()));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulSoul>()));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulArmament>()));
             }
             if (npc.type == NPCID.Plantera)
             {

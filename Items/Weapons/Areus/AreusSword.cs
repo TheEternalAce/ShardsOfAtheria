@@ -13,9 +13,8 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'Definitely wont(?) shock you'");
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()
@@ -45,14 +44,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .AddIngredient(ItemID.FragmentVortex, 20)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
-        }
-
-        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-        {
-            if (player.HasBuff(ModContent.BuffType<Conductive>()))
-            {
-                damage += .15f;
-            }
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)

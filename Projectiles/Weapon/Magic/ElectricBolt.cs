@@ -7,7 +7,8 @@ using ShardsOfAtheria.Items.Potions;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
-    public class ElectricBolt : ModProjectile {
+    public class ElectricBolt : ModProjectile
+    {
         public override void SetDefaults()
         {
             Projectile.width = 10;

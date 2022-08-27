@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
-	public class Cataracnia : SlayerItem
+    public class Cataracnia : SlayerItem
 	{
         public override void SetStaticDefaults()
         {

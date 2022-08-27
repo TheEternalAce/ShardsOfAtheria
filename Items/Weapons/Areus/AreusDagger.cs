@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()
@@ -45,7 +46,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 7)
                 .AddIngredient(ModContent.ItemType<SoulOfTwilight>(), 10)
                 .AddIngredient(ItemID.HellstoneBar, 10)
-                .AddTile(TileID.Hellforge)
+                .AddTile(TileID.Anvils)
                 .Register();
         }
 

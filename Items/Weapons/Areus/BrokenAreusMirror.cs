@@ -24,6 +24,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 "Only one mirror can be out at a time");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()
@@ -95,8 +96,8 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 for (int i = 0; i < 6; i++)
                 {
                     // Minions have to be spawned manually, then have originalDamage assigned to the damage of the summon item
-                    var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage/6, knockback, Main.myPlayer);
-                    projectile.originalDamage = Item.damage;
+                    var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage / 6, knockback, Main.myPlayer);
+                    projectile.originalDamage = Item.damage / 6;
                 }
             }
 
@@ -109,16 +110,8 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 16)
                 .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10)
-                .AddTile(TileID.Hellforge)
+                .AddTile(TileID.Anvils)
                 .Register();
-        }
-
-        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-        {
-            if (player.HasBuff(ModContent.BuffType<Conductive>()))
-            {
-                damage += .15f;
-            }
         }
     }
 }

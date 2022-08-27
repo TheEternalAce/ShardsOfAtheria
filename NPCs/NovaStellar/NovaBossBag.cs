@@ -5,6 +5,7 @@ using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
+using ShardsOfAtheria.Items.Weapons.Summon.Minion;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.Creative;
@@ -32,9 +33,9 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
 		{
 			Item.width = 30;
 			Item.height = 20;
-			Item.value = Item.sellPrice(0,  7, silver: 50);
+			Item.value = Item.sellPrice(0, 3, 50);
 			Item.rare = ItemRarityID.Expert;
-			Item.maxStack = 999;
+			Item.maxStack = 9999;
 			Item.expert = true;
 			Item.consumable = true;
 		}
@@ -46,17 +47,12 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
 
         public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
-			if (Main.rand.NextFloat() < .01f && Main.hardMode)
-			{
-				itemLoot.Add(ItemDropRule.Common(3226));
-				itemLoot.Add(ItemDropRule.Common(3227));
-				itemLoot.Add(ItemDropRule.Common(3228));
-				itemLoot.Add(ItemDropRule.Common(3288));
-			}
+			int[] loot = { ModContent.ItemType<ValkyrieCrown>(), ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<DownBow>(), ModContent.ItemType<PlumeCodex>(), ModContent.ItemType<NestlingStaff>() };
+
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<GildedValkyrieWings>()));
 			itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ChargedFeather>(), 1, 15, 28));
 			itemLoot.Add(ItemDropRule.Common(ItemID.GoldBar, 1, 10, 20));
-			itemLoot.Add(ItemDropRule.OneFromOptions(1, ModContent.ItemType<ValkyrieCrown>(), ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<DownBow>(), ModContent.ItemType<PlumeCodex>()));
+			itemLoot.Add(ItemDropRule.OneFromOptions(1, loot));
 			itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<NovaStellar>()));
 			base.ModifyItemLoot(itemLoot);
 		}

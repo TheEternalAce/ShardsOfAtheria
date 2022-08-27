@@ -7,6 +7,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 {
     public class FieryExplosion : ModProjectile
     {
+        public override string Texture => "ShardsOfAtheria/Blank";
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Fiery Explosion");

@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Tooltip.SetDefault("Tears through enemy armor");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()
@@ -49,14 +50,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .AddIngredient(ItemID.SoulofFright, 7)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
-        }
-
-        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-        {
-            if (player.HasBuff(ModContent.BuffType<Conductive>()))
-            {
-                damage += .15f;
-            }
         }
 
         public override Vector2? HoldoutOffset()

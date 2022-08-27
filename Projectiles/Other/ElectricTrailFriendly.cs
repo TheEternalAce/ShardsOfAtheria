@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Projectiles.NPCProj;
+using ShardsOfAtheria.Projectiles.NPCProj.Nova;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,6 +9,8 @@ namespace ShardsOfAtheria.Projectiles.Other
 {
     public class ElectricTrailFriendly : ModProjectile
     {
+        public override string Texture => "ShardsOfAtheria/Blank";
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Electric Trail");

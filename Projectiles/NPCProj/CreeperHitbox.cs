@@ -7,6 +7,8 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
 {
     public class CreeperHitbox : ModProjectile
     {
+        public override string Texture => "ShardsOfAtheria/Blank";
+
         public override void SetDefaults()
         {
             Projectile.width = 34;

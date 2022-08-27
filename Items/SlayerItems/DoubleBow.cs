@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
-	public class DoubleBow : SlayerItem
+    public class DoubleBow : SlayerItem
 	{
 		int cycleShot;
 

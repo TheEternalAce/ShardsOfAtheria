@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
 {
-	[AutoloadEquip(EquipType.Wings)]
+    [AutoloadEquip(EquipType.Wings)]
 	public class EntropicWings : SlayerItem
 	{
 		public override void SetStaticDefaults()

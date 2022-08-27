@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.ItemDropRules.Conditions
 {
-    // Very simple drop condition: drop during daytime
+    // Very simple drop condition: drop in slayer mode
     public class IsSlayerMode : IItemDropRuleCondition
 	{
 		public bool CanDrop(DropAttemptInfo info)

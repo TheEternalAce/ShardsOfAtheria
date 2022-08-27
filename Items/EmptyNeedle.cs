@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Items
 		{
 			Item.width = 48;
 			Item.height = 48;
-			Item.maxStack = 99;
+			Item.maxStack = 9999;
 
 			Item.rare = ItemRarityID.White;
 			Item.value = Item.sellPrice(0, 0, 5);

@@ -49,9 +49,9 @@ namespace ShardsOfAtheria.Items.Accessories
                 "Increased life by 100 and mana by 40\n" +
                 "Grants dash, wall sliding and immunity to fall damage and certain debuffs");
 
-            SetupDrawing();
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+            SetupDrawing();
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

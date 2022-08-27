@@ -9,11 +9,12 @@ using Terraria.DataStructures;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
-    public class TheAmbassador : ModItem
+    public class TheAmbassador : SinfulItem
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'Gun Spy TF2'");
+            Tooltip.SetDefault("'Never miss a shot again. Not like I could anyway.'\n" +
+                "'Gun Spy TF2'");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -24,7 +25,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.height = 28;
             Item.scale = .85f;
 
-            Item.damage = 20;
+            Item.damage = 26;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 4f;
             Item.crit = 5;
@@ -36,7 +37,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noMelee = true;
 
             Item.shootSpeed = 16f;
-            Item.rare = ItemRarityID.Blue;
+            Item.rare = ItemRarityID.Red;
             Item.value = Item.sellPrice(0, 10, 25);
             Item.shoot = ProjectileID.PurificationPowder;
             Item.useAmmo = AmmoID.Bullet;

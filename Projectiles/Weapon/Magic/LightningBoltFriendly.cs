@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Projectiles.NPCProj;
+using ShardsOfAtheria.Projectiles.NPCProj.Nova;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

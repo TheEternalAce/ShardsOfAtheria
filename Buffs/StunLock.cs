@@ -11,19 +11,15 @@ namespace ShardsOfAtheria.Buffs
         {
             DisplayName.SetDefault("Stun Lock");
             Description.SetDefault("Cannot move");
-            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
+
+            Main.debuff[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 
         public override void Update(NPC npc, ref int buffIndex)
         {
             npc.position = npc.oldPosition;
             npc.velocity = Vector2.Zero;
-        }
-
-        public override void Update(Player player, ref int buffIndex)
-        {
-            player.position = player.oldPosition;
-            player.velocity = Vector2.Zero;
         }
     }
 }

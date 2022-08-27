@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
 
-            Item.shootSpeed = 8;
+            Item.shootSpeed = 16;
             Item.rare = ItemRarityID.Pink;
             Item.value = Item.sellPrice(0, 3, 50);
             Item.shoot = ModContent.ProjectileType<FeatherBladeFriendly>();

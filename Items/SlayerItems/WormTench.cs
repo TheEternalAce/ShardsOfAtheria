@@ -7,7 +7,7 @@ using Terraria.DataStructures;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
-	public class WormTench : SlayerItem
+    public class WormTench : SlayerItem
 	{
 		public override void SetStaticDefaults()
 		{

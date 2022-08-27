@@ -160,7 +160,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova
 
 		public override void AI()
 		{
-
 			UpdateAlpha();
 			// Run either the Sticky AI or Normal AI
 			// Separating into different methods helps keeps your AI clean
@@ -185,24 +184,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova
 
 		private void NormalAI()
 		{
-			TargetWhoAmI++;
-
-			// For a little while, the javelin will travel with the same speed, but after this, the javelin drops velocity very quickly.
-			if (TargetWhoAmI >= MAX_TICKS)
-			{
-				// Change these multiplication factors to alter the javelin's movement change after reaching maxTicks
-				const float velXmult = 0.98f; // x velocity factor, every AI update the x velocity will be 98% of the original speed
-				const float velYmult = 0.35f; // y velocity factor, every AI update the y velocity will be be 0.35f bigger of the original speed, causing the javelin to drop to the ground
-				TargetWhoAmI = MAX_TICKS; // set ai1 to maxTicks continuously
-				Projectile.velocity.X *= velXmult;
-				Projectile.velocity.Y += velYmult;
-			}
-
-			Projectile.velocity.Y = Projectile.velocity.Y + 0.1f; // 0.1f for arrow gravity, 0.4f for knife gravity
-			if (Projectile.velocity.Y > 16f) // This check implements "terminal velocity". We don't want the projectile to keep getting faster and faster. Past 16f this projectile will travel through blocks, so this check is useful.
-			{
-				Projectile.velocity.Y = 16f;
-			}
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
 		}
 

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
-	public class Coilgun : SlayerItem
+    public class Coilgun : SlayerItem
 	{
 		public override void SetStaticDefaults()
 		{

@@ -15,12 +15,13 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()
         {
-            Item.width = 60;
-            Item.height = 60;
+            Item.width = 58;
+            Item.height = 56;
 
             Item.damage = 130;
             Item.DamageType = DamageClass.Magic;
@@ -49,14 +50,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .AddIngredient(ItemID.FragmentVortex, 7)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
-        }
-
-        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-        {
-            if (player.HasBuff(ModContent.BuffType<Conductive>()))
-            {
-                damage += .15f;
-            }
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

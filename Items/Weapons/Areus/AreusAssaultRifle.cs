@@ -21,12 +21,13 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 "66% chance to not consume ammo");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()
         {
-            Item.width = 44;
-            Item.height = 26;
+            Item.width = 70;
+            Item.height = 28;
 
             Item.damage = 96;
             Item.DamageType = DamageClass.Ranged;
@@ -53,14 +54,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .AddIngredient(ItemID.FragmentVortex, 10)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
-        }
-
-        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-        {
-            if (player.HasBuff(ModContent.BuffType<Conductive>()))
-            {
-                damage += .15f;
-            }
         }
 
         public override Vector2? HoldoutOffset()

@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using Terraria;
+using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -10,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SevenDeadlySouls
 {
-    public class SinfulArmament : ModItem
+    public class SinfulArmament : SinfulItem
     {
         public override void SetStaticDefaults()
         {
@@ -30,6 +31,8 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.UseSound = SoundID.Item82;
+
+            Item.rare = ItemRarityID.Orange;
         }
 
         public override bool CanUseItem(Player player)
@@ -42,39 +45,59 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
             if (player.whoAmI == Main.myPlayer)
             {
                 int weapon = 0;
+                string text = "";
+                Color color = new();
                 switch (player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed)
                 {
                     case 1:
                         // Envy
                         weapon = ModContent.ItemType<SinfulArmament>();
+                        text = "";
+                        color = Color.Orange;
                         break;
                     case 2:
                         // Gluttony
-                        weapon = ModContent.ItemType<SinfulArmament>();
+                        weapon = ModContent.ItemType<Gomorrah>();
+                        text = "I'm Gomorrah, no game can stand a chance against us!";
+                        color = Color.Orange;
                         break;
                     case 3:
                         // Greed
                         weapon = ModContent.ItemType<Pantheon>();
+                        text = "My name is Pantheon, together we'll become the richest in the world!";
+                        color = Color.Gold;
                         break;
                     case 4:
                         // Lust
                         weapon = ModContent.ItemType<SinfulArmament>();
+                        text = "";
+                        color = Color.Pink;
                         break;
                     case 5:
                         // Pride
                         weapon = ModContent.ItemType<TheAmbassador>();
+                        text = "I am The Ambassador, the only weapon you'll ever need.";
+                        color = Color.White;
                         break;
                     case 6:
                         // Sloth
                         weapon = ModContent.ItemType<SinfulArmament>();
+                        text = "";
+                        color = Color.Orange;
                         break;
                     case 7:
                         // Wrath
-                        weapon = ModContent.ItemType<Keteru>();
+                        weapon = ModContent.ItemType<Yamiko>();
+                        text = "My name is Yamiko, my edge is sharper than those pathetic blades.";
+                        color = Color.Red;
                         break;
                 }
                 int newItem = Item.NewItem(Item.GetSource_DropAsItem(), player.getRect(), weapon);
                 Main.item[newItem].noGrabDelay = 0; // Set the new item to be able to be picked up instantly
+                if (ModContent.GetInstance<ConfigClientSide>().sinfulArmamentText)
+                {
+                    ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(text), color, player.whoAmI);
+                }
 
                 // Here we need to make sure the item is synced in multiplayer games.
                 if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
