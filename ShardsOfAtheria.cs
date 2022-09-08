@@ -6,7 +6,7 @@ using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon.Minion;
 using ShardsOfAtheria.NPCs;
-using ShardsOfAtheria.NPCs.NovaStellar;
+using ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie;
 using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,6 +15,8 @@ namespace ShardsOfAtheria
 {
     public partial class ShardsOfAtheria : Mod
     {
+        public static int MaxNecronomiconPages = 2;
+
         public static ModKeybind OverdriveKey;
         public static ModKeybind TomeKey;
         public static ModKeybind EmeraldTeleportKey;
@@ -52,7 +54,7 @@ namespace ShardsOfAtheria
                     this,
                     "Nova Stellar",
                     new List<int> { ModContent.NPCType<NovaStellar>() },
-                    3.5f,
+                    5.5f,
                     () => SoADownedSystem.downedValkyrie,
                     () => true,
                     new List<int> { ModContent.ItemType<ValkyrieStormLance>(), ModContent.ItemType<GildedValkyrieWings>(), ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<DownBow>(),

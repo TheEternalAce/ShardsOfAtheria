@@ -70,8 +70,10 @@ namespace ShardsOfAtheria.NPCs
                     if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
                     {
                         shop.item[nextSlot].SetDefaults(ModContent.ItemType<SinfulSoul>());
+                        shop.item[nextSlot].shopCustomPrice = 250000;
                         nextSlot++;
                         shop.item[nextSlot].SetDefaults(ModContent.ItemType<SinfulArmament>());
+                        shop.item[nextSlot].shopCustomPrice = 250000;
                         nextSlot++;
                     }
                     break;

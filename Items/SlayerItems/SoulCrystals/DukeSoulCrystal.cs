@@ -12,11 +12,13 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
 {
     public class DukeSoulCrystal : SoulCrystal
     {
+        public static readonly string tip = "Increased max flight time\n" +
+                "Summon a Sharknado over your head";
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul Crystal (Duke Fishron)");
-            Tooltip.SetDefault("Increased max flight time\n" +
-                "Summon a Sharknado over your head");
+            Tooltip.SetDefault(tip);
 
             base.SetStaticDefaults();
         }

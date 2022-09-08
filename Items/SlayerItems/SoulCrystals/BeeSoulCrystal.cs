@@ -10,11 +10,13 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
 {
     public class BeeSoulCrystal : SoulCrystal
     {
+        public static readonly string tip = "Attacks inflict Poisoned and shoot stingers\n" +
+                "Spawn a bee every 10 seconds while in combat";
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul Crystal (Queen Bee)");
-            Tooltip.SetDefault("Attacks inflict Poisoned and shoot stingers\n" +
-                "Spawn a bee every 10 seconds while in combat");
+            Tooltip.SetDefault(tip);
 
             base.SetStaticDefaults();
         }

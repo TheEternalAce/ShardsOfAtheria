@@ -51,7 +51,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
                 {
                     case 1:
                         // Envy
-                        weapon = ModContent.ItemType<SinfulArmament>();
+                        weapon = 0;//ModContent.ItemType<SinfulArmament>();
                         text = "";
                         color = Color.Orange;
                         break;
@@ -69,7 +69,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
                         break;
                     case 4:
                         // Lust
-                        weapon = ModContent.ItemType<SinfulArmament>();
+                        weapon = 0;//ModContent.ItemType<SinfulArmament>();
                         text = "";
                         color = Color.Pink;
                         break;
@@ -81,7 +81,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
                         break;
                     case 6:
                         // Sloth
-                        weapon = ModContent.ItemType<SinfulArmament>();
+                        weapon = 0;//ModContent.ItemType<SinfulArmament>();
                         text = "";
                         color = Color.Orange;
                         break;

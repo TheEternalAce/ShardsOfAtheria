@@ -43,6 +43,7 @@ namespace ShardsOfAtheria.Projectiles.Other
                         {
                             Projectile.Kill();
                             proj.Kill();
+                            Projectile.netUpdate = true;
                         }
                     }
                 }

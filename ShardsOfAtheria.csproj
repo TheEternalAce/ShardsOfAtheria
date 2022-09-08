@@ -20,6 +20,7 @@
     <Folder Include="Items\SlayerItems\SlayerBags\" />
     <Folder Include="Items\Weapons\Summon\Sentry\" />
     <Folder Include="Items\Weapons\Summon\Whip\" />
+    <Folder Include="NPCs\NovaStellar\PhoenixWarrior\" />
     <Folder Include="Walls\" />
   </ItemGroup>
 </Project>

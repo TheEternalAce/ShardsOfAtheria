@@ -10,14 +10,16 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
 {
     public class BrainSoulCrystal : SoulCrystal
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Soul Crystal (Brain Of Cthulhu)");
-            Tooltip.SetDefault("Spawns 4 Creepers\n" +
+        public static readonly string tip = "Spawns 4 Creepers\n" +
                 "While Creepers are alive you are invulnerable and cannot attack\n" +
                 "Gain a temporary 20% damage boost when all of the creepers die\n" +
                 "Creepers take 1 minute to respawn\n" +
-                "Cannot be immune to knockback");
+                "Cannot be immune to knockback";
+
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Soul Crystal (Brain Of Cthulhu)");
+            Tooltip.SetDefault(tip);
 
             base.SetStaticDefaults();
         }

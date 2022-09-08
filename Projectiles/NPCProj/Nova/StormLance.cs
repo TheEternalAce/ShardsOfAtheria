@@ -2,10 +2,10 @@
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.NPCs.NovaStellar;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Linq;
+using ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {

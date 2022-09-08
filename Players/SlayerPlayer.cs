@@ -530,14 +530,11 @@ namespace ShardsOfAtheria.Players
             }
             else
             {
+                int oldDefense = Player.statDefense;
                 Player.statDefense -= defenseReduction;
                 if (Player.statDefense < -100)
                 {
-                    defenseReduction--;
-                }
-                if (defenseReduction < 0)
-                {
-                    defenseReduction = 0;
+                    defenseReduction = oldDefense + 100;
                 }
 
                 if (soulCrystalProjectileCooldown > 0)

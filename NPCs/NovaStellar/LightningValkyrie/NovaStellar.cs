@@ -21,7 +21,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.NPCs.NovaStellar
+namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
 {
     [AutoloadBossHead]
     public class NovaStellar : ModNPC
@@ -31,26 +31,6 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
         public int attackType = 0;
         public int attackTimer = 0;
         public int attackCooldown = 40;
-        
-        // This boss has a second phase and we want to give it a second boss head icon, this variable keeps track of the registered texture from Load().
-        // It is applied in the BossHeadSlot hook when the boss is in its second stage
-        public static int secondStageHeadSlot = -1;
-
-        // This code here is called a property: It acts like a variable, but can modify other things. In this case it uses the NPC.ai[] array that has four entries.
-        // We use properties because it makes code more readable ("if (SecondStage)" vs "if (NPC.ai[0] == 1f)").
-        // We use NPC.ai[] because in combination with NPC.netUpdate we can make it multiplayer compatible. Otherwise (making our own fields) we would have to write extra code to make it work (not covered here)
-        public bool SecondStage
-        {
-            get => NPC.ai[0] == 1f;
-            set => NPC.ai[0] = value ? 1f : 0f;
-        }
-        // This is a reference property. It lets us write FirstStageTimer as if it's NPC.localAI[1], essentially giving it our own name
-        public ref float FirstStageTimer => ref NPC.localAI[1];
-
-        public ref float SecondStageTimer => ref NPC.localAI[2];
-
-        // Do NOT try to use NPC.ai[4]/NPC.localAI[4] or higher indexes, it only accepts 0, 1, 2 and 3!
-        // If you choose to go the route of "wrapping properties" for NPC.ai[], make sure they don't overlap (two properties using the same variable in different ways), and that you don't accidently use NPC.ai[] directly
 
         public override void SetStaticDefaults()
         {
@@ -147,7 +127,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if (Main.expertMode || SecondStage)
+            if (Main.expertMode)
                 target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
         }
 
@@ -266,6 +246,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
 
             if (attackTimer > 0)
             {
+                NPC.netUpdate = true;
                 Vector2 center = NPC.Center;
                 Vector2 targetPosition = player.Center;
                 Vector2 toTarget = targetPosition - center;
@@ -347,7 +328,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
                         }
                         if (attackTimer == 30)
                         {
-                            NPC.velocity = Vector2.Normalize(player.Center + (player.velocity * 12) - center) * 16;
+                            NPC.velocity = Vector2.Normalize(player.Center + player.velocity * 12 - center) * 16;
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), center, NPC.velocity * 0.75f, ModContent.ProjectileType<StormLance>(), 16, 0, Main.myPlayer);
                         }
                         break;
@@ -355,7 +336,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
                         // Storm Cloud
                         if (attackTimer > 160)
                         {
-                            NPC.velocity = Vector2.Normalize((player.Center + new Vector2(500 * (NPC.Center.X > player.Center.X ? 1 : -1), -200)) - NPC.Center) * 12;
+                            NPC.velocity = Vector2.Normalize(player.Center + new Vector2(500 * (NPC.Center.X > player.Center.X ? 1 : -1), -200) - NPC.Center) * 12;
                         }
                         else
                         {
@@ -374,7 +355,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar
                         // Sword Dance
                         if (attackTimer > 8 * 60)
                         {
-                            NPC.velocity = Vector2.Normalize((player.Center + new Vector2(500 * (NPC.Center.X > player.Center.X ? 1 : -1), -200)) - NPC.Center) * 12;
+                            NPC.velocity = Vector2.Normalize(player.Center + new Vector2(500 * (NPC.Center.X > player.Center.X ? 1 : -1), -200) - NPC.Center) * 12;
                         }
                         else
                         {

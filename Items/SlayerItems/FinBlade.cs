@@ -41,5 +41,10 @@ namespace ShardsOfAtheria.Items.SlayerItems
 		{
 			ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(Lang.GetNPCName(target.type) + " was hit by " + player.name + "'s fish"), Color.White);
 		}
+
+        public override void OnHitPvp(Player player, Player target, int damage, bool crit)
+		{
+			ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(target.name + " was hit by " + player.name + "'s fish"), Color.White);
+		}
     }
 }

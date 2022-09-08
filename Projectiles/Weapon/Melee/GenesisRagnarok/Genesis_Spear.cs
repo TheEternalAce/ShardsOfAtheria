@@ -124,6 +124,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                     }
                 }
             }
+            Projectile.netUpdate = true;
 
             return false; // Don't execute vanilla AI.
         }

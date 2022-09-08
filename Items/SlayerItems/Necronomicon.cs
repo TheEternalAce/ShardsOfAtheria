@@ -16,6 +16,69 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
+    public class Entry
+    {
+        public static List<PageEntry> entries = new();
+
+        public static void NewEntry(string mod, string name, string tooltip)
+        {
+            entries.Add(new PageEntry(mod, name, tooltip, Color.White));
+        }
+
+        public static void NewEntry(string mod, string name, string tooltip, Color pageColor)
+        {
+            entries.Add(new PageEntry(mod, name, tooltip, pageColor));
+            ShardsOfAtheria.MaxNecronomiconPages++;
+        }
+
+        public struct PageEntry
+        {
+            public PageEntry(string mod, string entryName, string soulCrystalTooltip, Color entryColor)
+            {
+                OtherMod = mod;
+                EntryName = entryName;
+                SoulCrystalTooltip = soulCrystalTooltip;
+                EntryColor = entryColor;
+            }
+
+            public string EntryText()
+            {
+                return $"{EntryName} ({OtherMod})\n{SoulCrystalTooltip}";
+            }
+
+            public string OtherMod { get; set; }
+            public string EntryName { get; set; }
+            public string SoulCrystalTooltip { get; set; }
+            public Color EntryColor { get; set; }
+        }
+
+        public static void IncludedEntries()
+        {
+            NewEntry("Terraria", "King Slime", KingSoulCrystal.tip, Color.Blue);
+            NewEntry("Terraria", "Eye of Cthulhu", EyeSoulCrystal.tip, Color.Red);
+            NewEntry("Terraria", "Brain of Cthulhu", BrainSoulCrystal.tip, Color.LightPink);
+            NewEntry("Terraria", "Eater of Worlds", EaterSoulCrystal.tip, Color.Purple);
+            NewEntry("Terraria", "Queen Bee", BeeSoulCrystal.tip, Color.Yellow);
+            NewEntry("Terraria", "Skeletron", SkullSoulCrystal.tip, new Color(130, 130, 90));
+            NewEntry(nameof(ShardsOfAtheria), "Lightning Valkyrie, Nova Stellar", ValkyrieSoulCrystal.tip, Color.DeepSkyBlue);
+            NewEntry("Terraria", "Deerclops", DeerclopsSoulCrystal.tip, Color.MediumPurple);
+            NewEntry("Terraria", "Wall of Flesh", WallSoulCrystal.tip, Color.MediumPurple);
+            NewEntry("Terraria", "Queen Slime", QueenSoulCrystal.tip, Color.Pink);
+            NewEntry("Terraria", "Destroyer", DestroyerSoulCrystal.tip, Color.Gray);
+            NewEntry("Terraria", "Skeletron Prime", PrimeSoulCrystal.tip, Color.Gray);
+            NewEntry("Terraria", "The Twins", TwinsSoulCrystal.tip, Color.Gray);
+            NewEntry("Terraria", "Plantera", PlantSoulCrystal.tip, Color.Pink);
+            NewEntry("Terraria", "Golem", GolemSoulCrystal.tip, Color.DarkOrange);
+            NewEntry("Terraria", "Duke Fishron", DukeSoulCrystal.tip, Color.SeaGreen);
+            NewEntry("Terraria", "Empress of Light", EmpressSoulCrystal.tip, Main.DiscoColor);
+            NewEntry("Terraria", "Lunatic Cultist", LunaticSoulCrystal.tip, Color.Blue);
+            NewEntry("Terraria", "Moon Lord", LordSoulCrystal.tip, Color.LightCyan);
+            NewEntry(nameof(ShardsOfAtheria), "Senterra, Atherial Land", "This Soul Crystal needs further research. Please wait for the boss to be introduced into the mod.", Color.Green);
+            NewEntry(nameof(ShardsOfAtheria), "Genesis, Atherial Time", "This Soul Crystal needs further research. Please wait for the boss to be introduced into the mod.", Color.BlueViolet);
+            NewEntry(nameof(ShardsOfAtheria), "Elizabeth Norman, Death", "This Soul Crystal needs further research. Please wait for the boss to be introduced into the mod.", Color.DarkGray);
+        }
+    }
+
     public class Necronomicon : SlayerItem
     {
         public int page;
@@ -24,6 +87,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
         public override void SetStaticDefaults()
         {
             book = ModContent.Request<Texture2D>(Texture + "_Open");
+            Entry.IncludedEntries();
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -116,182 +180,13 @@ namespace ShardsOfAtheria.Items.SlayerItems
                 tooltips.Add(new TooltipLine(Mod, "PageList", "General Info"));
                 tooltips.Add(new TooltipLine(Mod, "PageList", "Soul Crystal Info"));
 
-                // Absorbed Souls
-                if (slayer.KingSoul)
+                // Absorbed PageList
+                for (int i = 0; i < Entry.entries.Count; i++)
                 {
-                    var line = new TooltipLine(Mod, "Souls", "King Slime")
+                    tooltips.Add(new TooltipLine(Mod, "PageList", $"{Entry.entries[i].EntryName} ({Entry.entries[i].OtherMod})")
                     {
-                        OverrideColor = Color.Blue
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.EyeSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Eye of Cthulhu")
-                    {
-                        OverrideColor = Color.Red
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.BrainSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Brain of Cthulhu")
-                    {
-                        OverrideColor = Color.LightPink
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.EaterSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Eater of Worlds")
-                    {
-                        OverrideColor = Color.Purple
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.ValkyrieSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Nova Stellar, the Lightning Valkyrie")
-                    {
-                        OverrideColor = Color.DeepSkyBlue
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.BeeSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Queen Bee")
-                    {
-                        OverrideColor = Color.Yellow
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.SkullSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Skeletron")
-                    {
-                        OverrideColor = new Color(130, 130, 90)
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.DeerclopsSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Deerclops")
-                    {
-                        OverrideColor = Color.MediumPurple
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.WallSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Wall of Flesh")
-                    {
-                        OverrideColor = Color.MediumPurple
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.QueenSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Queen Slime")
-                    {
-                        OverrideColor = Color.Pink
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.DestroyerSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "The Destroyer")
-                    {
-                        OverrideColor = Color.Gray
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.PrimeSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Skeletron Prime")
-                    {
-                        OverrideColor = Color.Gray
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.TwinSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "The Twins")
-                    {
-                        OverrideColor = Color.Gray
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.PlantSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Plantera")
-                    {
-                        OverrideColor = Color.Pink
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.GolemSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Golem")
-                    {
-                        OverrideColor = Color.DarkOrange
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.DukeSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Duke Fishron")
-                    {
-                        OverrideColor = Color.SeaGreen
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.EmpressSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Empress of Light")
-                    {
-                        OverrideColor = Main.DiscoColor
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.LunaticSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Lunatic Cultist")
-                    {
-                        OverrideColor = Color.Blue
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.LordSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Moon Lord")
-                    {
-                        OverrideColor = Color.LightCyan
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.LandSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Senterra, the Atherial Land")
-                    {
-                        OverrideColor = Color.Green
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.TimeSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Genesis, Atherial Time")
-                    {
-                        OverrideColor = Color.BlueViolet
-                    };
-                    tooltips.Add(line);
-                }
-                if (slayer.DeathSoul)
-                {
-                    var line = new TooltipLine(Mod, "Souls", "Elizabeth Norman, Death")
-                    {
-                        OverrideColor = Color.DarkGray
-                    };
-                    tooltips.Add(line);
+                        OverrideColor = Entry.entries[i].EntryColor
+                    });
                 }
             }
             if (page == 1)
@@ -522,7 +417,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
                     page = 21;
                 if (page == 23 && !slayer.TimeSoul)
                     page = 22;
-                if ((page == 24 && !slayer.DeathSoul) || page < 0 || page > 24)
+                if ((page == ShardsOfAtheria.MaxNecronomiconPages && !slayer.DeathSoul) || page < 0 || page > ShardsOfAtheria.MaxNecronomiconPages)
                     page = 23;
             }
             else
@@ -569,7 +464,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
                     page = 23;
                 if (page == 23 && !slayer.TimeSoul)
                     page = 24;
-                if ((page == 24 && !slayer.DeathSoul) || page < 0 || page > 24)
+                if ((page == ShardsOfAtheria.MaxNecronomiconPages && !slayer.DeathSoul) || page < 0 || page > ShardsOfAtheria.MaxNecronomiconPages)
                     page = 0;
             }
         }

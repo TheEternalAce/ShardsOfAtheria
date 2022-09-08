@@ -80,6 +80,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
                     // If found, change the velocity of the projectile and turn it in the direction of the target
                     // Use the SafeNormalize extension method to avoid NaNs returned by Vector2.Normalize when the vector is zero
                     Projectile.velocity =  (closestNPC.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 16;
+                    Projectile.netUpdate = true;
                 }
             }
         }

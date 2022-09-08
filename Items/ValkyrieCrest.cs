@@ -3,11 +3,11 @@ using Terraria.Audio;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.NPCs.NovaStellar;
+using ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie;
 
 namespace ShardsOfAtheria.Items
 {
-	public class ValkyrieCrest : ModItem
+    public class ValkyrieCrest : ModItem
 	{
 		public override void SetStaticDefaults() 
 		{

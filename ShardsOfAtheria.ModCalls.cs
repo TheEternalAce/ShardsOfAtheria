@@ -1,4 +1,6 @@
-﻿using ShardsOfAtheria.Players;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Players;
 using System;
 using Terraria;
 
@@ -30,7 +32,7 @@ namespace ShardsOfAtheria
 				switch (content)
                 {
                     default:
-						throw new ArgumentException("Unrecognized ModCall. Usable ModCalls for Shards of Atheria are as follows: checkSlayerMode");
+						throw new ArgumentException("Unrecognized ModCall. Usable ModCalls for Shards of Atheria are as follows: checkSlayerMode, addNecronomiconEntry and addColoredNecronomiconEntry");
 					case "checkSlayerMode":
 						// Checks if the player has Slayer Mode enabled
 						if (args[1] is Player player)
@@ -38,19 +40,63 @@ namespace ShardsOfAtheria
 							return player.GetModPlayer<SlayerPlayer>().slayerMode;
 						}
 						else throw new ArgumentException(args[1].GetType().Name + " is not a valid Player type.");
-                    case "addNecronomiconEntry":
-						if (args[1] is string modName)
+					case "addNecronomiconEntry":
+						if (args[1] is not string modName)
 						{
 							throw new ArgumentException(args[1].GetType().Name + " is not a valid string.");
 						}
-						if (args[1] is string bossName)
+						else
+                        {
+							modName = args[1] as string;
+						}
+						if (args[2] is not string bossName)
 						{
 							throw new ArgumentException(args[2].GetType().Name + " is not a valid string.");
 						}
-						if (args[2] is string soulCrystalTooltip)
+						else
+						{
+							bossName = args[1] as string;
+						}
+						if (args[3] is not string soulCrystalTooltip)
 						{
 							throw new ArgumentException(args[3].GetType().Name + " is not a valid string.");
 						}
+						else
+						{
+							soulCrystalTooltip = args[1] as string;
+						}
+						Entry.NewEntry(modName, bossName, soulCrystalTooltip);
+						break;
+					case "addColoredNecronomiconEntry":
+						if (args[1] is not string)
+						{
+							throw new ArgumentException(args[1].GetType().Name + " is not a valid string.");
+						}
+						else
+						{
+							modName = args[1] as string;
+						}
+						if (args[2] is not string)
+						{
+							throw new ArgumentException(args[2].GetType().Name + " is not a valid string.");
+						}
+						else
+						{
+							bossName = args[2] as string;
+						}
+						if (args[3] is not string)
+						{
+							throw new ArgumentException(args[3].GetType().Name + " is not a valid string.");
+						}
+						else
+						{
+							soulCrystalTooltip = args[3] as string;
+						}
+						if (args[4] is not Color)
+						{
+							throw new ArgumentException(args[4].GetType().Name + " is not a valid color.");
+						}
+						Entry.NewEntry(modName, bossName, soulCrystalTooltip, (Color)args[4]);
 						break;
                 }
             }

@@ -10,11 +10,13 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
 {
     public class QueenSoulCrystal : SoulCrystal
     {
+        public static readonly string tip = "Increased life and mana regen\n" +
+                "After taking damage, your next hit will heal 50% of that damage";
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Soul Crystal (Queen Slime)");
-            Tooltip.SetDefault("Increased life and mana regen\n" +
-                "After taking damage, your next hit will heal 50% of that damage");
+            Tooltip.SetDefault(tip);
 
             base.SetStaticDefaults();
         }
