@@ -36,5 +36,10 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
         {
             target.AddBuff(ModContent.BuffType<ElectricShock>(), 300);
         }
+
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            target.AddBuff(ModContent.BuffType<ElectricShock>(), 300);
+        }
     }
 }
