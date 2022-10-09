@@ -7,11 +7,13 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
-    public class StrangeTissueSample : SlayerItem
+    public class StrangeTissueSample : ModItem
 	{
         public override void SetStaticDefaults()
         {
 			Tooltip.SetDefault("Summons a pet Creeper to follow you");
+
+			SoAGlobalItem.SlayerItem.Add(Type);
 
 			base.SetStaticDefaults();
 		}
@@ -20,7 +22,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.width = 32;
 			Item.height = 32;
 			Item.value = Item.sellPrice(0,  7, silver: 50);
-			Item.rare = ModContent.RarityType<SlayerRarity>();
+			Item.rare = ItemRarityID.Yellow;
 			Item.shoot = ModContent.ProjectileType<PetCreeper>();
 			Item.buffType = ModContent.BuffType<CreeperPetBuff>();
 		}

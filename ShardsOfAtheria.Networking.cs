@@ -24,27 +24,10 @@ namespace ShardsOfAtheria
 				case MessageType.SyncSoulCrystals:
 					byte playernumber = reader.ReadByte();
 					SlayerPlayer slayer = Main.player[playernumber].GetModPlayer<SlayerPlayer>();
-					slayer.KingSoul = reader.ReadBoolean();
-					slayer.EyeSoul = reader.ReadBoolean();
-					slayer.BrainSoul = reader.ReadBoolean();
-					slayer.EaterSoul = reader.ReadBoolean();
-					slayer.ValkyrieSoul = reader.ReadBoolean();
-					slayer.BeeSoul = reader.ReadBoolean();
-					slayer.SkullSoul = reader.ReadBoolean();
-					slayer.DeerclopsSoul = reader.ReadBoolean();
-					slayer.WallSoul = reader.ReadBoolean();
-					slayer.QueenSoul = reader.ReadBoolean();
-					slayer.DestroyerSoul = reader.ReadBoolean();
-					slayer.PrimeSoul = reader.ReadBoolean();
-					slayer.TwinSoul = reader.ReadBoolean();
-					slayer.PlantSoul = reader.ReadBoolean();
-					slayer.DukeSoul = reader.ReadBoolean();
-					slayer.EmpressSoul = reader.ReadBoolean();
-					slayer.LunaticSoul = reader.ReadBoolean();
-					slayer.LordSoul = reader.ReadBoolean();
-					slayer.TimeSoul = reader.ReadBoolean();
-					slayer.LandSoul = reader.ReadBoolean();
-					slayer.DeathSoul = reader.ReadBoolean();
+					for (int i = 0; i < slayer.soulCrystals.Count; i++)
+					{
+						slayer.soulCrystals[i] = reader.ReadInt32();
+					}
 					// SyncPlayer will be called automatically, so there is no need to forward this data to other clients.
 					break;
 				default:

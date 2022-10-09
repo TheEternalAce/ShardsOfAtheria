@@ -34,70 +34,59 @@ namespace ShardsOfAtheria
                     default:
 						throw new ArgumentException("Unrecognized ModCall. Usable ModCalls for Shards of Atheria are as follows: checkSlayerMode, addNecronomiconEntry and addColoredNecronomiconEntry");
 					case "checkSlayerMode":
-						// Checks if the player has Slayer Mode enabled
-						if (args[1] is Player player)
-						{
-							return player.GetModPlayer<SlayerPlayer>().slayerMode;
-						}
-						else throw new ArgumentException(args[1].GetType().Name + " is not a valid Player type.");
-					case "addNecronomiconEntry":
-						if (args[1] is not string modName)
+                        // Checks if the player has Slayer Mode enabled
+                        if (args[1] is Player player)
+                        {
+                            return player.GetModPlayer<SlayerPlayer>().slayerMode;
+                        }
+                        else
+                        {
+                            throw new ArgumentException(args[1].GetType().Name + " is not a valid Player type.");
+                        }
+                    case "addNecronomiconEntry":
+						if (args[1] is not string) // Mod Name
 						{
 							throw new ArgumentException(args[1].GetType().Name + " is not a valid string.");
 						}
-						else
-                        {
-							modName = args[1] as string;
-						}
-						if (args[2] is not string bossName)
+						if (args[2] is not string) // Boss Name
 						{
 							throw new ArgumentException(args[2].GetType().Name + " is not a valid string.");
 						}
-						else
-						{
-							bossName = args[1] as string;
-						}
-						if (args[3] is not string soulCrystalTooltip)
+						if (args[3] is not string) // Soul Crystal Tooltip
 						{
 							throw new ArgumentException(args[3].GetType().Name + " is not a valid string.");
 						}
-						else
+						if (args[4] is not int) // Soul Crystal Item ID
 						{
-							soulCrystalTooltip = args[1] as string;
+							throw new ArgumentException(args[4].GetType().Name + " is not a valid int.");
 						}
-						Entry.NewEntry(modName, bossName, soulCrystalTooltip);
+						Entry.NewEntry((string)args[1], (string)args[2], (string)args[3], (int)args[4]);
 						break;
 					case "addColoredNecronomiconEntry":
-						if (args[1] is not string)
+						if (args[1] is not string) // Mod Name
 						{
 							throw new ArgumentException(args[1].GetType().Name + " is not a valid string.");
 						}
-						else
-						{
-							modName = args[1] as string;
-						}
-						if (args[2] is not string)
+						if (args[2] is not string) // Boss Name
 						{
 							throw new ArgumentException(args[2].GetType().Name + " is not a valid string.");
 						}
-						else
-						{
-							bossName = args[2] as string;
-						}
-						if (args[3] is not string)
+						if (args[3] is not string) // Soul Crystal Tooltip
 						{
 							throw new ArgumentException(args[3].GetType().Name + " is not a valid string.");
-						}
-						else
-						{
-							soulCrystalTooltip = args[3] as string;
 						}
 						if (args[4] is not Color)
 						{
 							throw new ArgumentException(args[4].GetType().Name + " is not a valid color.");
 						}
-						Entry.NewEntry(modName, bossName, soulCrystalTooltip, (Color)args[4]);
+						if (args[5] is not int) // Soul Crystal Item ID
+						{
+							throw new ArgumentException(args[5].GetType().Name + " is not a valid int.");
+						}
+						Entry.NewEntry((string)args[1], (string)args[2], (string)args[3], (Color)args[4], (int)args[5]);
 						break;
+					case "wipNecronomiconEntry":
+						return Entry.WipEntry();
                 }
             }
 

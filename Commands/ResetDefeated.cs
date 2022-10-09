@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Commands
 			NPC.downedSlimeKing = false;
 			NPC.downedBoss1 = false;
 			NPC.downedBoss2 = false;
-			SoADownedSystem.downedValkyrie = false;
+			ShardsDownedSystem.downedValkyrie = false;
 			NPC.downedQueenBee = false;
 			NPC.downedBoss3 = false;
 			NPC.downedDeerclops = false;

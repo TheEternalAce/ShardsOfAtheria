@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddRecipeGroup(SoARecipes.Gold, 3)
+                .AddRecipeGroup(ShardsRecipes.Gold, 3)
                 .AddRecipeGroup(RecipeGroupID.IronBar, 6)
                 .AddIngredient(ItemID.LifeCrystal, 5)
                 .AddIngredient(ItemID.ManaCrystal, 5)

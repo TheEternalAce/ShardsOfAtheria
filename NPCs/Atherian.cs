@@ -104,7 +104,7 @@ namespace ShardsOfAtheria.NPCs
                 if (!player.active)
                     continue;
 
-                if (NPC.downedBoss2 && !(ModContent.GetInstance<SoADownedSystem>().slainSenterra || ModContent.GetInstance<SoADownedSystem>().slainGenesis))
+                if (NPC.downedBoss2 && !(ModContent.GetInstance<ShardsDownedSystem>().slainSenterra || ModContent.GetInstance<ShardsDownedSystem>().slainGenesis))
                     return true;
             }
             return false;
@@ -112,7 +112,7 @@ namespace ShardsOfAtheria.NPCs
 
         public override bool PreAI()
         {
-            if (ModContent.GetInstance<SoADownedSystem>().slainSenterra)
+            if (ModContent.GetInstance<ShardsDownedSystem>().slainSenterra)
                 NPC.active = false;
             return base.PreAI();
         }
@@ -317,7 +317,7 @@ namespace ShardsOfAtheria.NPCs
                     shop.item[nextSlot].SetDefaults(ItemID.Abeemination);
                     nextSlot++;
                 }
-                if (SoADownedSystem.downedValkyrie)
+                if (ShardsDownedSystem.downedValkyrie)
                 {
                     shop.item[nextSlot].SetDefaults(ModContent.ItemType<ValkyrieCrest>());
                     nextSlot++;
@@ -405,17 +405,17 @@ namespace ShardsOfAtheria.NPCs
                     shop.item[nextSlot].SetDefaults(ItemID.CelestialSigil);
                     nextSlot++;
                 }
-                if (SoADownedSystem.downedGenesis)
+                if (ShardsDownedSystem.downedGenesis)
                 {
                     shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpiderClock>());
                     nextSlot++;
                 }
-                if (SoADownedSystem.downedSenterra)
+                if (ShardsDownedSystem.downedSenterra)
                 {
                     shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusSnakeScale>());
                     nextSlot++;
                 }
-                if (SoADownedSystem.downedDeath)
+                if (ShardsDownedSystem.downedDeath)
                 {
                     //shop.item[nextSlot].SetDefaults(ModContent.ItemType<AncientMedalion>());
                     nextSlot++;

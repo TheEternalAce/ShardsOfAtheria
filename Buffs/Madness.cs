@@ -68,7 +68,7 @@ namespace ShardsOfAtheria.Buffs
                     Player.lifeRegen = 0;
                 }
                 Player.lifeRegenTime = 0;
-                Player.lifeRegen -= Player.GetModPlayer<SlayerPlayer>().soulCrystals;
+                Player.lifeRegen -= Player.GetModPlayer<SlayerPlayer>().soulCrystals.Count;
             }
         }
 

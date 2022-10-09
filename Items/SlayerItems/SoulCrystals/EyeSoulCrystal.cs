@@ -18,16 +18,5 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
 
             base.SetStaticDefaults();
         }
-
-        public override bool? UseItem(Player player)
-        {
-            absorbSoulTimer--;
-            if (absorbSoulTimer == 0 || ModContent.GetInstance<ConfigClientSide>().instantAbsorb)
-            {
-                Main.LocalPlayer.GetModPlayer<SlayerPlayer>().EyeSoul = true;
-                Projectile.NewProjectile(player.GetSource_ItemUse(Item), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<AllSeeingEye>(), 0, 0f, player.whoAmI);
-            }
-            return base.UseItem(player);
-        }
     }
 }

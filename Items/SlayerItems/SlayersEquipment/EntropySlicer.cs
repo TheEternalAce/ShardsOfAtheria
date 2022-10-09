@@ -5,12 +5,14 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
 {
-    public class EntropySlicer : SlayerItem
+    public class EntropySlicer : ModItem
     {
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("'Cut through the very fabric of life and escalate the heat death of the universe'\n" +
                 "Dashing increases damage for a short time");
+
+            SoAGlobalItem.SlayerItem.Add(Type);
 
             base.SetStaticDefaults();
         }
@@ -33,7 +35,7 @@ namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 15f;
-            Item.rare = ModContent.RarityType<SlayerRarity>();
+            Item.rare = ItemRarityID.Yellow;
             Item.shoot = ModContent.ProjectileType<EntropyBlade>();
         }
 

@@ -6,11 +6,13 @@ using Terraria.ModLoader;
 namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
 {
     [AutoloadEquip(EquipType.Wings)]
-	public class EntropicWings : SlayerItem
+	public class EntropicWings : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Allows flight and grants slow fall");
+
+			SoAGlobalItem.SlayerItem.Add(Type);
 
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 9f, 2.5f);
 
@@ -22,7 +24,7 @@ namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
 			Item.width = 26;
 			Item.height = 26;
 			Item.value = Item.sellPrice(0, 15);
-			Item.rare = ModContent.RarityType<SlayerRarity>();
+			Item.rare = ItemRarityID.Yellow;
 			Item.accessory = true;
 		}
 

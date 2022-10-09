@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Items
 		{
 			Item.width = 32;
 			Item.height = 32;
-			if (!ModContent.GetInstance<ConfigServerSide>().nonConsumeBoss)
+			if (!ModContent.GetInstance<ShardsConfigServerSide>().nonConsumeBoss)
 			{
 				Item.consumable = true;
 				Item.maxStack = 9999;
@@ -42,8 +42,8 @@ namespace ShardsOfAtheria.Items
         public override void AddRecipes()
         {
 			CreateRecipe()
-				.AddRecipeGroup(SoARecipes.Gold, 10)
-				.AddRecipeGroup(SoARecipes.EvilMaterial, 10)
+				.AddRecipeGroup(ShardsRecipes.Gold, 10)
+				.AddRecipeGroup(ShardsRecipes.EvilMaterial, 10)
 				.AddIngredient(ItemID.Feather, 5)
 				.AddTile(TileID.Anvils)
 				.Register();

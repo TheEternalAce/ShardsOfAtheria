@@ -3,7 +3,6 @@ using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items;
 using ShardsOfAtheria.Items.Accessories;
-using ShardsOfAtheria.Items.SlayerItems;
 using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
@@ -115,14 +114,14 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
 
         public override void OnKill()
         {
-            if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage) && !SoADownedSystem.downedValkyrie)
+            if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage) && !ShardsDownedSystem.downedValkyrie)
             {
                 Item.NewItem(NPC.GetSource_Death(), NPC.getRect(), magicStorage.Find<ModItem>("ShadowDiamond").Type);
             }
 
-            NPC.SetEventFlagCleared(ref SoADownedSystem.downedValkyrie, -1);
+            NPC.SetEventFlagCleared(ref ShardsDownedSystem.downedValkyrie, -1);
             if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
-                ModContent.GetInstance<SoADownedSystem>().slainValkyrie = true;
+                ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie = true;
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -133,7 +132,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
 
         public override bool PreAI()
         {
-            if (ModContent.GetInstance<SoADownedSystem>().slainValkyrie)
+            if (ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie)
             {
                 ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Nova Stellar, the Lightning Valkyrie was slain..."), Color.White);
                 NPC.active = false;
@@ -190,7 +189,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
                 return;
             }
 
-            if (NPC.localAI[0] == 0f && NPC.life >= 1 && !ModContent.GetInstance<SoADownedSystem>().slainValkyrie)
+            if (NPC.localAI[0] == 0f && NPC.life >= 1 && !ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie)
             {
                 if (Main.rand.NextFloat() <= .5f)
                     NPC.position = player.position - new Vector2(500, 250);
@@ -210,7 +209,18 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
 
             if (attackCooldown <= 0)
             {
-                attackType = Main.rand.Next(5);
+                if (NPC.life <= NPC.lifeMax / 4 * 3)
+                {
+                    attackType = Main.rand.Next(4);
+                    if (NPC.life <= NPC.lifeMax / 2)
+                    {
+                        attackType = Main.rand.Next(5);
+                    }
+                }
+                else
+                {
+                    attackType = Main.rand.Next(3);
+                }
 
                 switch (attackType)
                 {
@@ -233,7 +243,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
                         break;
                     case 3:
                         // Storm Cloud
-                        attackTimer = 220;
+                        attackTimer = 320;
                         attackCooldown = 60;
                         break;
                     case 4:
@@ -260,7 +270,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
                         {
                             NPC.velocity = Vector2.Normalize(toTarget) * 10;
                         }
-                        if (attackTimer <= 60 && attackTimer > 2)
+                        if (attackTimer % 2 == 0)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), center, Vector2.Zero, ModContent.ProjectileType<ElectricTrail>(), 18, 0f, Main.myPlayer);
                         }
@@ -342,7 +352,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
                         {
                             NPC.Center = player.Center + new Vector2(500 * (NPC.Center.X > player.Center.X ? 1 : -1), -200);
                         }
-                        if (attackTimer == 220)
+                        if (attackTimer == 320)
                         {
                             Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center + new Vector2(0, -400), Vector2.Zero, ModContent.ProjectileType<StormCloud>(), 16, 0, Main.myPlayer);
                         }

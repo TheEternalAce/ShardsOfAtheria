@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Items.Potions
         {
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<EmptyNeedle>())
-				.AddRecipeGroup(SoARecipes.Soul, 10)
+				.AddRecipeGroup(ShardsRecipes.Soul, 10)
 				.AddTile(TileID.Bottles)
 				.Register();
         }

@@ -36,8 +36,8 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddRecipeGroup(SoARecipes.EvilBar, 15)
-                .AddRecipeGroup(SoARecipes.EvilMaterial, 5)
+                .AddRecipeGroup(ShardsRecipes.EvilBar, 15)
+                .AddRecipeGroup(ShardsRecipes.EvilMaterial, 5)
                 .AddIngredient(ItemID.Bone, 5)
                 .AddTile(TileID.Hellforge)
                 .Register();

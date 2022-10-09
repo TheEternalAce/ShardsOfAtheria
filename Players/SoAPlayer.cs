@@ -396,8 +396,8 @@ namespace ShardsOfAtheria.Players
         {
             if (ShardsOfAtheria.QuickTest.JustPressed /*&& (Player.name == "AceOfSpades2370" || Player.name == "The Eternal Ace")*/)
             {
-                ModContent.GetInstance<SoADownedSystem>().slainTwins = false;
-                ModContent.GetInstance<SoADownedSystem>().slainPrime = false;
+                ModContent.GetInstance<ShardsDownedSystem>().slainTwins = false;
+                ModContent.GetInstance<ShardsDownedSystem>().slainPrime = false;
             }
             if (ShardsOfAtheria.ArmorSetBonusActive.JustReleased && !Player.HasBuff(ModContent.BuffType<SetBonusCooldown>()))
             {

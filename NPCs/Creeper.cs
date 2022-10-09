@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj;
 using System;
@@ -50,7 +51,7 @@ namespace ShardsOfAtheria.NPCs
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                if (Main.player[NPC.target].dead || !Main.player[NPC.target].active || !Main.player[NPC.target].GetModPlayer<SlayerPlayer>().BrainSoul
+                if (Main.player[NPC.target].dead || !Main.player[NPC.target].active || !Main.player[NPC.target].GetModPlayer<SlayerPlayer>().soulCrystals.Contains(ModContent.ItemType<BrainSoulCrystal>())
                     || Main.player[NPC.target].GetModPlayer<SynergyPlayer>().brainLordSynergy)
                     NPC.active = false;
                 else NPC.active = true;
@@ -69,11 +70,7 @@ namespace ShardsOfAtheria.NPCs
                     Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.position, Vector2.Zero, ModContent.ProjectileType<CreeperHitbox>(), 40, 0f, Main.player[NPC.target].whoAmI);
                     aiTimer = 0;
                 }
-                if (Main.player[NPC.target].GetModPlayer<SynergyPlayer>().brainLordSynergy)
-                {
-                    Main.player[NPC.target].AddBuff(ModContent.BuffType<TrueCreeperShield>(), 2);
-                }
-                else Main.player[NPC.target].AddBuff(ModContent.BuffType<CreeperShield>(), 2);
+                Main.player[NPC.target].AddBuff(ModContent.BuffType<CreeperShield>(), 2);
 
                 // If your minion is flying, you want to do this independently of any conditions
                 float overlapVelocity = 0.04f;

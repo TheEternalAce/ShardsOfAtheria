@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
-    public class FragmentEntropy : SlayerItem
+    public class FragmentEntropy : ModItem
 	{
         public override void SetStaticDefaults()
         {
@@ -12,6 +13,8 @@ namespace ShardsOfAtheria.Items.SlayerItems
             Tooltip.SetDefault("'Feelings of universal decay emanate from this fragment'");
             ItemID.Sets.ItemIconPulse[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
+
+            SoAGlobalItem.SlayerItem.Add(Type);
 
             base.SetStaticDefaults();
         }

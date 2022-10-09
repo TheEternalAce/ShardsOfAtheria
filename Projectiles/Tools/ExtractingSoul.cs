@@ -5,6 +5,7 @@ using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Players;
+using System;
 
 namespace ShardsOfAtheria.Projectiles.Tools
 {
@@ -65,120 +66,116 @@ namespace ShardsOfAtheria.Projectiles.Tools
             int soulCrystal = 0;
             if (Main.myPlayer == Projectile.owner)
             {
-                Player player = Main.player[Projectile.owner];
-                if (player.GetModPlayer<SlayerPlayer>().soulCrystals > 0)
+                SlayerPlayer slayer = Main.player[Projectile.owner].GetModPlayer<SlayerPlayer>();
+                if (slayer.selectedSoul == SelectedSoul.King)
                 {
-                    player.GetModPlayer<SlayerPlayer>().soulCrystals--;
-                }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.King)
-                {
-                    player.GetModPlayer<SlayerPlayer>().KingSoul = false;
                     soulCrystal = ModContent.ItemType<KingSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Eye)
+                if (slayer.selectedSoul == SelectedSoul.Eye)
                 {
-                    player.GetModPlayer<SlayerPlayer>().EyeSoul = false;
                     soulCrystal = ModContent.ItemType<EyeSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Brain)
+                if (slayer.selectedSoul == SelectedSoul.Brain)
                 {
-                    player.GetModPlayer<SlayerPlayer>().BrainSoul = false;
                     soulCrystal = ModContent.ItemType<BrainSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Eater)
+                if (slayer.selectedSoul == SelectedSoul.Eater)
                 {
-                    player.GetModPlayer<SlayerPlayer>().EaterSoul = false;
                     soulCrystal = ModContent.ItemType<EaterSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Valkyrie)
+                if (slayer.selectedSoul == SelectedSoul.Valkyrie)
                 {
-                    player.GetModPlayer<SlayerPlayer>().ValkyrieSoul = false;
                     soulCrystal = ModContent.ItemType<ValkyrieSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Bee)
+                if (slayer.selectedSoul == SelectedSoul.Bee)
                 {
-                    player.GetModPlayer<SlayerPlayer>().BeeSoul = false;
                     soulCrystal = ModContent.ItemType<BeeSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Skull)
+                if (slayer.selectedSoul == SelectedSoul.Skull)
                 {
-                    player.GetModPlayer<SlayerPlayer>().SkullSoul = false;
                     soulCrystal = ModContent.ItemType<SkullSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Deerclops)
+                if (slayer.selectedSoul == SelectedSoul.Deerclops)
                 {
-                    player.GetModPlayer<SlayerPlayer>().DeerclopsSoul = false;
                     soulCrystal = ModContent.ItemType<DeerclopsSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Wall)
+                if (slayer.selectedSoul == SelectedSoul.Wall)
                 {
-                    player.GetModPlayer<SlayerPlayer>().WallSoul = false;
                     soulCrystal = ModContent.ItemType<WallSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Queen)
+                if (slayer.selectedSoul == SelectedSoul.Queen)
                 {
-                    player.GetModPlayer<SlayerPlayer>().QueenSoul = false;
                     soulCrystal = ModContent.ItemType<QueenSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Destroyer)
+                if (slayer.selectedSoul == SelectedSoul.Destroyer)
                 {
-                    player.GetModPlayer<SlayerPlayer>().DestroyerSoul = false;
                     soulCrystal = ModContent.ItemType<DestroyerSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Twins)
+                if (slayer.selectedSoul == SelectedSoul.Twins)
                 {
-                    player.GetModPlayer<SlayerPlayer>().TwinSoul = false;
                     soulCrystal = ModContent.ItemType<TwinsSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Prime)
+                if (slayer.selectedSoul == SelectedSoul.Prime)
                 {
-                    player.GetModPlayer<SlayerPlayer>().PrimeSoul = false;
                     soulCrystal = ModContent.ItemType<PrimeSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Plant)
+                if (slayer.selectedSoul == SelectedSoul.Plant)
                 {
-                    player.GetModPlayer<SlayerPlayer>().PlantSoul = false;
                     soulCrystal = ModContent.ItemType<PlantSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Golem)
+                if (slayer.selectedSoul == SelectedSoul.Golem)
                 {
-                    player.GetModPlayer<SlayerPlayer>().GolemSoul = false;
                     soulCrystal = ModContent.ItemType<GolemSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Duke)
+                if (slayer.selectedSoul == SelectedSoul.Duke)
                 {
-                    player.GetModPlayer<SlayerPlayer>().DukeSoul = false;
                     soulCrystal = ModContent.ItemType<DukeSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Empress)
+                if (slayer.selectedSoul == SelectedSoul.Empress)
                 {
-                    player.GetModPlayer<SlayerPlayer>().EmpressSoul = false;
                     soulCrystal = ModContent.ItemType<EmpressSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Lunatic)
+                if (slayer.selectedSoul == SelectedSoul.Lunatic)
                 {
-                    player.GetModPlayer<SlayerPlayer>().LunaticSoul = false;
                     soulCrystal = ModContent.ItemType<LunaticSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Lord)
+                if (slayer.selectedSoul == SelectedSoul.Lord)
                 {
-                    player.GetModPlayer<SlayerPlayer>().LordSoul = false;
                     soulCrystal = ModContent.ItemType<LordSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Senterrra)
+                if (slayer.selectedSoul == SelectedSoul.Senterrra)
                 {
-                    player.GetModPlayer<SlayerPlayer>().LandSoul = false;
                     //soulCrystal = ModContent.ItemType<SenterrraSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Genesis)
+                if (slayer.selectedSoul == SelectedSoul.Genesis)
                 {
-                    player.GetModPlayer<SlayerPlayer>().TimeSoul = false;
                     //soulCrystal = ModContent.ItemType<GenesisSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
-                if (player.GetModPlayer<SlayerPlayer>().selectedSoul == SelectedSoul.Death)
+                if (slayer.selectedSoul == SelectedSoul.Death)
                 {
-                    player.GetModPlayer<SlayerPlayer>().DeathSoul = false;
                     //soulCrystal = ModContent.ItemType<DeathSoulCrystal>();
+                    slayer.soulCrystals.Remove(soulCrystal);
                 }
 
                 int newItem = Item.NewItem(Projectile.GetSource_DropAsItem(), Projectile.Hitbox, soulCrystal);

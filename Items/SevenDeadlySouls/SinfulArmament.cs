@@ -94,7 +94,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
                 }
                 int newItem = Item.NewItem(Item.GetSource_DropAsItem(), player.getRect(), weapon);
                 Main.item[newItem].noGrabDelay = 0; // Set the new item to be able to be picked up instantly
-                if (ModContent.GetInstance<ConfigClientSide>().sinfulArmamentText)
+                if (ModContent.GetInstance<ShardsConfigClientSide>().sinfulArmamentText)
                 {
                     ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(text), color, player.whoAmI);
                 }

@@ -1,5 +1,9 @@
+using ShardsOfAtheria.ItemDropRules.Conditions;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.GameContent.Creative;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
@@ -13,7 +17,7 @@ namespace ShardsOfAtheria.Items
 			DisplayName.SetDefault("Ammo Bag (Rocket)");
 			Tooltip.SetDefault("Gives a stack of a random rocket type");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 10;
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
 		}
 
 		public override void SetDefaults()
@@ -31,25 +35,35 @@ namespace ShardsOfAtheria.Items
             return true;
         }
 
-        public override void RightClick(Player player)
+        public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
-			var ammoChooser = new WeightedRandom<int>();
-			var source = player.GetSource_OpenItem(Type);
+			int stackSize = 1000;
 
-			ammoChooser.Add(ItemID.RocketI);
-			ammoChooser.Add(ItemID.RocketII);
-			ammoChooser.Add(ItemID.RocketIII);
-			ammoChooser.Add(ItemID.RocketIV);
-			ammoChooser.Add(ItemID.ClusterRocketI);
-			ammoChooser.Add(ItemID.ClusterRocketII);
-			ammoChooser.Add(ItemID.DryRocket);
-			ammoChooser.Add(ItemID.WetRocket);
-			ammoChooser.Add(ItemID.LavaRocket);
-			ammoChooser.Add(ItemID.HoneyRocket);
-			ammoChooser.Add(ItemID.MiniNukeI);
-			ammoChooser.Add(ItemID.MiniNukeII);
+			CommonDrop[] preHardmodeRockets = SoAGlobalItem.preHardmodeRockets.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
 
-			Main.LocalPlayer.QuickSpawnItem(source, ammoChooser, 9999);
+			CommonDrop[] hardmodeRockets = SoAGlobalItem.hardmodeRockets.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
+
+			CommonDrop[] postMLRockets = SoAGlobalItem.postMoonLordRockets.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
+
+			OneFromRulesRule executePrehardMode = new(1, preHardmodeRockets);
+
+			// successfulInHardmode will resolve into successful state if we are in Hard Mode
+			CommonDrop[] hardmodeDrops = preHardmodeRockets.Concat(hardmodeRockets).ToArray();
+			LeadingConditionRule successfulInHardmode = new(new Conditions.IsHardmode());
+			OneFromRulesRule executeInHardMode = new(1, hardmodeDrops);
+			successfulInHardmode.OnSuccess(executeInHardMode);
+
+			// successfulPostML will resolve into successful state if Moon Lord is dead
+			CommonDrop[] postMLDrops = hardmodeDrops.Concat(postMLRockets).ToArray();
+			LeadingConditionRule successfulPostML = new(new DownedMoonLord());
+			OneFromRulesRule executePostML = new(1, postMLDrops);
+			successfulPostML.OnSuccess(executePostML);
+
+			// Executes rules in defined order until one is successful. Stops once one is successful. So it tries successfulPostML, then successfulInHarmode,
+			// then it finally tries chooseOnePreHardmodeDrop
+			SequentialRulesRule rootRule = new(1, new IItemDropRule[] { successfulPostML, successfulInHardmode, executePrehardMode });
+
+			itemLoot.Add(rootRule);
 		}
 
         public override void AddRecipes()

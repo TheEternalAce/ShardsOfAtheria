@@ -8,6 +8,7 @@ using ShardsOfAtheria.Items.Weapons.Summon.Minion;
 using ShardsOfAtheria.NPCs;
 using ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -38,10 +39,80 @@ namespace ShardsOfAtheria
             ArmorSetBonusActive = KeybindLoader.RegisterKeybind(this, "Activate Armor Set Bonus", "Mouse4");
 
             QuickTest = KeybindLoader.RegisterKeybind(this, "Quick Test (For mod developers, does nothing)", "OemComma");
+
+            Entry.IncludedEntries();
         }
 
         public override void PostSetupContent()
         {
+            for (int i = 1; i < ItemLoader.ItemCount; i++)
+            {
+                Item ammunition = ContentSamples.ItemsByType[i];
+                if (ammunition.consumable)
+                {
+                    if (ammunition.ammo > AmmoID.None)
+                    {
+                        if (ammunition.rare < ItemRarityID.LightRed)
+                        {
+                            SoAGlobalItem.preHardmodeAmmo.Add(ammunition.type);
+                        }
+                        else if (ammunition.rare < ItemRarityID.Cyan)
+                        {
+                            SoAGlobalItem.hardmodeAmmo.Add(ammunition.type);
+                        }
+                        else if (ammunition.rare >= ItemRarityID.Cyan)
+                        {
+                            SoAGlobalItem.postMoonLordAmmo.Add(ammunition.type);
+                        }
+                    }
+                    if (ammunition.ammo == AmmoID.Arrow)
+                    {
+                        if (ammunition.rare < ItemRarityID.LightRed)
+                        {
+                            SoAGlobalItem.preHardmodeArrows.Add(ammunition.type);
+                        }
+                        else if (ammunition.rare < ItemRarityID.Cyan)
+                        {
+                            SoAGlobalItem.hardmodeArrows.Add(ammunition.type);
+                        }
+                        else if (ammunition.rare >= ItemRarityID.Cyan)
+                        {
+                            SoAGlobalItem.postMoonLordArrows.Add(ammunition.type);
+                        }
+                    }
+                    if (ammunition.ammo == AmmoID.Bullet)
+                    {
+                        if (ammunition.rare < ItemRarityID.LightRed)
+                        {
+                            SoAGlobalItem.preHardmodeBullets.Add(ammunition.type);
+                        }
+                        else if (ammunition.rare < ItemRarityID.Cyan)
+                        {
+                            SoAGlobalItem.hardmodeBullets.Add(ammunition.type);
+                        }
+                        else if (ammunition.rare >= ItemRarityID.Cyan)
+                        {
+                            SoAGlobalItem.postMoonLordBullets.Add(ammunition.type);
+                        }
+                    }
+                    if (ammunition.ammo == AmmoID.Rocket)
+                    {
+                        if (ammunition.rare < ItemRarityID.LightRed)
+                        {
+                            SoAGlobalItem.preHardmodeRockets.Add(ammunition.type);
+                        }
+                        else if (ammunition.rare < ItemRarityID.Cyan)
+                        {
+                            SoAGlobalItem.hardmodeRockets.Add(ammunition.type);
+                        }
+                        else if (ammunition.rare >= ItemRarityID.Cyan)
+                        {
+                            SoAGlobalItem.postMoonLordRockets.Add(ammunition.type);
+                        }
+                    }
+                }
+            }
+
             if (ModLoader.TryGetMod("Census", out Mod foundMod))
             {
                 foundMod.Call("TownNPCCondition", ModContent.NPCType<Atherian>(), "Defeat Eater of Worlds/Brain of Cthulhu while not in Slayer mode.");
@@ -55,7 +126,7 @@ namespace ShardsOfAtheria
                     "Nova Stellar",
                     new List<int> { ModContent.NPCType<NovaStellar>() },
                     5.5f,
-                    () => SoADownedSystem.downedValkyrie,
+                    () => ShardsDownedSystem.downedValkyrie,
                     () => true,
                     new List<int> { ModContent.ItemType<ValkyrieStormLance>(), ModContent.ItemType<GildedValkyrieWings>(), ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<DownBow>(),
                         ModContent.ItemType<PlumeCodex>(), ModContent.ItemType<NestlingStaff>(), ModContent.ItemType<ValkyrieCrown>(),
@@ -67,7 +138,7 @@ namespace ShardsOfAtheria
             }
             if (ModLoader.TryGetMod("Fargowiltas", out Mod foundMod2))
             {
-                foundMod2.Call("AddSummon", 5.5f, ModContent.ItemType<ValkyrieCrest>(), () => SoADownedSystem.downedValkyrie, 50000);
+                foundMod2.Call("AddSummon", 5.5f, ModContent.ItemType<ValkyrieCrest>(), () => ShardsDownedSystem.downedValkyrie, 50000);
             }
         }
     }

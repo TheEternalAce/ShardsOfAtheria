@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Items.SevenDeadlySouls;
+using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles;
@@ -21,6 +22,27 @@ namespace ShardsOfAtheria.Items
     public class SoAGlobalItem : GlobalItem
     {
         public static List<int> AreusWeapon = new();
+        public static List<int> SlayerItem = new();
+
+        public static List<int> preHardmodeAmmo = new();
+        public static List<int> hardmodeAmmo = new();
+        public static List<int> postMoonLordAmmo = new();
+
+        public static List<int> preHardmodeArrows = new();
+        public static List<int> hardmodeArrows = new();
+        public static List<int> postMoonLordArrows = new();
+
+        public static List<int> preHardmodeBullets = new();
+        public static List<int> hardmodeBullets = new();
+        public static List<int> postMoonLordBullets = new();
+
+        public static List<int> preHardmodeRockets = new();
+        public static List<int> hardmodeRockets = new();
+        public static List<int> postMoonLordRockets = new();
+
+        public override void SetStaticDefaults()
+        {
+        }
 
         public override void SetDefaults(Item item)
         {
@@ -60,7 +82,7 @@ namespace ShardsOfAtheria.Items
                     break;
 
                 case ItemID.LifeCrystal:
-                    if (ModContent.GetInstance<ConfigServerSide>().upgradeChange)
+                    if (ModContent.GetInstance<ShardsConfigServerSide>().upgradeChange)
                     {
                         item.useTime = 15;
                         item.useAnimation = 15;
@@ -69,7 +91,7 @@ namespace ShardsOfAtheria.Items
                     }
                     break;
                 case ItemID.ManaCrystal:
-                    if (ModContent.GetInstance<ConfigServerSide>().upgradeChange)
+                    if (ModContent.GetInstance<ShardsConfigServerSide>().upgradeChange)
                     {
                         item.useTime = 15;
                         item.useAnimation = 15;
@@ -78,7 +100,7 @@ namespace ShardsOfAtheria.Items
                     }
                     break;
                 case ItemID.LifeFruit:
-                    if (ModContent.GetInstance<ConfigServerSide>().upgradeChange)
+                    if (ModContent.GetInstance<ShardsConfigServerSide>().upgradeChange)
                     {
                         item.useTime = 15;
                         item.useAnimation = 15;
@@ -161,6 +183,18 @@ namespace ShardsOfAtheria.Items
             }
         }
 
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            if (SlayerItem.Contains(item.type))
+            {
+                var line = new TooltipLine(Mod, "Slayer Item", "Slayer Item")
+                {
+                    OverrideColor = Color.Red
+                };
+                tooltips.Add(line);
+            }
+        }
+
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (item.type == ItemID.PearlwoodBow)
@@ -194,16 +228,16 @@ namespace ShardsOfAtheria.Items
             if (slayer.soulCrystalProjectileCooldown == 0 && item.damage > 0)
             {
                 slayer.soulCrystalProjectileCooldown = 60;
-                if (slayer.SkullSoul)
+                if (slayer.soulCrystals.Contains(ModContent.ItemType<SkullSoulCrystal>()))
                 {
                     Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 3.5f, ProjectileID.BookOfSkullsSkull, 40, 3.5f, player.whoAmI);
                 }
-                if (slayer.EaterSoul)
+                if (slayer.soulCrystals.Contains(ModContent.ItemType<EaterSoulCrystal>()))
                 {
                     Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 16f, ModContent.ProjectileType<VileShot>(), 30, 1, player.whoAmI);
                     SoundEngine.PlaySound(SoundID.Item17);
                 }
-                if (slayer.ValkyrieSoul)
+                if (slayer.soulCrystals.Contains(ModContent.ItemType<ValkyrieSoulCrystal>()))
                 {
                     SoundEngine.PlaySound(SoundID.Item1);
                     for (int i = 0; i < 4; i++)
@@ -212,12 +246,12 @@ namespace ShardsOfAtheria.Items
                         proj.DamageType = DamageClass.Generic;
                     }
                 }
-                if (slayer.BeeSoul)
+                if (slayer.soulCrystals.Contains(ModContent.ItemType<BeeSoulCrystal>()))
                 {
                     Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 18f, ModContent.ProjectileType<Stinger>(), 5, 0f, player.whoAmI);
                     SoundEngine.PlaySound(SoundID.Item17);
                 }
-                if (slayer.PrimeSoul)
+                if (slayer.soulCrystals.Contains(ModContent.ItemType<PrimeSoulCrystal>()))
                 {
                     Main.rand.Next(2);
                     switch (Main.rand.Next(3))
@@ -233,7 +267,7 @@ namespace ShardsOfAtheria.Items
                             break;
                     }
                 }
-                if (slayer.PlantSoul)
+                if (slayer.soulCrystals.Contains(ModContent.ItemType<PlantSoulCrystal>()))
                 {
                     Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 16f, ModContent.ProjectileType<VenomSeed>(), 30, 1, player.whoAmI);
                     SoundEngine.PlaySound(SoundID.Item17);

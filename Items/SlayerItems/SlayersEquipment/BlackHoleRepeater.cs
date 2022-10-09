@@ -7,11 +7,13 @@ using Terraria.DataStructures;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
 {
-    public class BlackHoleRepeater : SlayerItem
+    public class BlackHoleRepeater : ModItem
     {
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("Converts regular arrows into powerful Black Hole Bolts");
+
+            SoAGlobalItem.SlayerItem.Add(Type);
 
             base.SetStaticDefaults();
         }
@@ -34,7 +36,7 @@ namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
             Item.noMelee = true;
 
             Item.shootSpeed = 16f;
-            Item.rare = ModContent.RarityType<SlayerRarity>();
+            Item.rare = ItemRarityID.Yellow;
             Item.shoot = ProjectileID.PurificationPowder;
             Item.useAmmo = AmmoID.Arrow;
         }

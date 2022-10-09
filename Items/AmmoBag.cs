@@ -1,3 +1,5 @@
+using ShardsOfAtheria.ItemDropRules.Conditions;
+using System.Linq;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
@@ -14,7 +16,7 @@ namespace ShardsOfAtheria.Items
             DisplayName.SetDefault("Ammo Bag");
             Tooltip.SetDefault("Gives a stack of a random ammo");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 10;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
         }
 
         public override void SetDefaults()
@@ -32,123 +34,35 @@ namespace ShardsOfAtheria.Items
             return true;
         }
 
-        public override void RightClick(Player player)
+        public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            var ammoChooser = new WeightedRandom<int>();
-            var source = player.GetSource_OpenItem(Type);
-            //Arrow
-            ammoChooser.Add(ItemID.WoodenArrow);
-            ammoChooser.Add(ItemID.FlamingArrow);
-            ammoChooser.Add(ItemID.FrostburnArrow);
-            ammoChooser.Add(ItemID.BoneArrow);
-            ammoChooser.Add(ItemID.JestersArrow);
-            ammoChooser.Add(ItemID.UnholyArrow);
+            int stackSize = 1000;
 
-            if (NPC.downedBoss3)
-            {
-                ammoChooser.Add(ItemID.HellfireArrow);
-            }
+            CommonDrop[] preHardmodeAmmo = SoAGlobalItem.preHardmodeAmmo.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
 
-            if (Main.hardMode)
-            {
-                ammoChooser.Add(ItemID.ChlorophyteArrow);
-                ammoChooser.Add(ItemID.CursedArrow);
-                ammoChooser.Add(ItemID.HolyArrow);
-                ammoChooser.Add(ItemID.IchorArrow);
-                ammoChooser.Add(ItemID.VenomArrow);
-            }
+            CommonDrop[] hardmodeAmmo = SoAGlobalItem.hardmodeAmmo.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
 
-            if (NPC.downedMoonlord)
-            {
-                ammoChooser.Add(ItemID.MoonlordArrow);
-            }
+            CommonDrop[] postMLAmmo = SoAGlobalItem.postMoonLordAmmo.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
 
-            //Bullet
-            ammoChooser.Add(ItemID.MusketBall);
-            ammoChooser.Add(ItemID.SilverBullet);
-            ammoChooser.Add(ItemID.TungstenBullet);
+            OneFromRulesRule executePrehardMode = new(1, preHardmodeAmmo);
 
-            if (NPC.downedBoss2)
-            {
-                ammoChooser.Add(ItemID.MeteorShot);
-            }
+            // successfulInHardmode will resolve into successful state if we are in Hard Mode
+            CommonDrop[] hardmodeDrops = preHardmodeAmmo.Concat(hardmodeAmmo).ToArray();
+            LeadingConditionRule successfulInHardmode = new(new Conditions.IsHardmode());
+            OneFromRulesRule executeInHardMode = new(1, hardmodeDrops);
+            successfulInHardmode.OnSuccess(executeInHardMode);
 
-            if (Main.hardMode)
-            {
-                ammoChooser.Add(ItemID.CrystalBullet);
-                ammoChooser.Add(ItemID.CursedBullet);
-                ammoChooser.Add(ItemID.ChlorophyteBullet);
-                ammoChooser.Add(ItemID.HighVelocityBullet);
-                ammoChooser.Add(ItemID.IchorBullet);
-                ammoChooser.Add(ItemID.VenomBullet);
-                ammoChooser.Add(ItemID.PartyBullet);
-                ammoChooser.Add(ItemID.NanoBullet);
-                ammoChooser.Add(ItemID.ExplodingBullet);
-                ammoChooser.Add(ItemID.GoldenBullet);
-            }
-            if (NPC.downedMoonlord)
-            {
-                ammoChooser.Add(ItemID.MoonlordBullet);
-            }
+            // successfulPostML will resolve into successful state if Moon Lord is dead
+            CommonDrop[] postMLDrops = hardmodeDrops.Concat(postMLAmmo).ToArray();
+            LeadingConditionRule successfulPostML = new(new DownedMoonLord());
+            OneFromRulesRule executePostML = new(1, postMLDrops);
+            successfulPostML.OnSuccess(executePostML);
 
-            //Rocket
-            if (NPC.downedPlantBoss)
-            {
-                ammoChooser.Add(ItemID.RocketI);
-                ammoChooser.Add(ItemID.RocketII);
-                ammoChooser.Add(ItemID.RocketIII);
-                ammoChooser.Add(ItemID.RocketIV);
-                ammoChooser.Add(ItemID.ClusterRocketI);
-                ammoChooser.Add(ItemID.ClusterRocketII);
-                ammoChooser.Add(ItemID.DryRocket);
-                ammoChooser.Add(ItemID.WetRocket);
-                ammoChooser.Add(ItemID.LavaRocket);
-                ammoChooser.Add(ItemID.HoneyRocket);
-                ammoChooser.Add(ItemID.MiniNukeI);
-                ammoChooser.Add(ItemID.MiniNukeII);
-            }
+            // Executes rules in defined order until one is successful. Stops once one is successful. So it tries successfulPostML, then successfulInHarmode,
+            // then it finally tries chooseOnePreHardmodeDrop
+            SequentialRulesRule rootRule = new(1, new IItemDropRule[] { successfulPostML, successfulInHardmode, executePrehardMode });
 
-            //Dart
-            ammoChooser.Add(ItemID.PoisonDart);
-
-            if (Main.hardMode)
-            {
-                ammoChooser.Add(ItemID.CrystalDart);
-                ammoChooser.Add(ItemID.CursedDart);
-                ammoChooser.Add(ItemID.IchorDart);
-            }
-
-            //Other
-            ammoChooser.Add(ItemID.FallenStar);
-            ammoChooser.Add(ItemID.Gel);
-            ammoChooser.Add(ItemID.SandBlock);
-            ammoChooser.Add(ItemID.CrimsandBlock);
-            ammoChooser.Add(ItemID.EbonsandBlock);
-            ammoChooser.Add(ItemID.Seed);
-            ammoChooser.Add(ItemID.Flare);
-            ammoChooser.Add(ItemID.BlueFlare);
-            ammoChooser.Add(ItemID.Snowball);
-
-            if (NPC.downedBoss3)
-            {
-                ammoChooser.Add(ItemID.Bone);
-            }
-
-            if (Main.hardMode)
-            {
-                ammoChooser.Add(ItemID.PearlsandBlock);
-            }
-
-            if (NPC.downedPlantBoss)
-            {
-                ammoChooser.Add(ItemID.StyngerBolt);
-                ammoChooser.Add(ItemID.CandyCorn);
-                ammoChooser.Add(ItemID.ExplosiveJackOLantern);
-                ammoChooser.Add(ItemID.Stake);
-                ammoChooser.Add(ItemID.Nail);
-            }
-
-            Main.LocalPlayer.QuickSpawnItem(source, ammoChooser, 999);
+            itemLoot.Add(rootRule);
         }
     }
 }

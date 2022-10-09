@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		public override void AddRecipes()
 		{
 			CreateRecipe()
-				.AddRecipeGroup(SoARecipes.Gold, 10)
+				.AddRecipeGroup(ShardsRecipes.Gold, 10)
 				.AddIngredient(ItemID.Topaz, 5)
 				.AddTile(TileID.Anvils)
 				.Register();

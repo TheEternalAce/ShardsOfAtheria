@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
 		public override void AddRecipes()
         {
 			CreateRecipe(50)
-				.AddRecipeGroup(SoARecipes.Copper)
+				.AddRecipeGroup(ShardsRecipes.Copper)
 				.AddTile(TileID.WorkBenches)
 				.Register();
 		}

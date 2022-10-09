@@ -5,12 +5,14 @@ using Terraria.ModLoader;
 namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
 {
     [AutoloadEquip(EquipType.Legs)]
-    public class EntropicLeggings : SlayerItem
+    public class EntropicLeggings : ModItem
     {
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("8% increased damage and critical strike chance\n" +
                 "10% increased movement speed");
+
+            SoAGlobalItem.SlayerItem.Add(Type);
 
             base.SetStaticDefaults();
         }
@@ -19,7 +21,7 @@ namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
         {
             Item.width = 18;
             Item.height = 18;
-            Item.rare = ModContent.RarityType<SlayerRarity>();
+            Item.rare = ItemRarityID.Yellow;
             Item.value = Item.sellPrice(0, 10, 0, 0);
             Item.defense = 14;
         }

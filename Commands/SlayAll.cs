@@ -24,24 +24,24 @@ namespace ShardsOfAtheria.Commands
 			if (player.name != "The Eternal Ace")
 				return;
 
-			ModContent.GetInstance<SoADownedSystem>().slainValkyrie = true;
-			ModContent.GetInstance<SoADownedSystem>().slainEOC = true;
-			ModContent.GetInstance<SoADownedSystem>().slainBOC = true;
-			ModContent.GetInstance<SoADownedSystem>().slainEOW = true;
-			ModContent.GetInstance<SoADownedSystem>().slainBee = true;
-			ModContent.GetInstance<SoADownedSystem>().slainSkull = true;
-			ModContent.GetInstance<SoADownedSystem>().slainWall = true;
-			ModContent.GetInstance<SoADownedSystem>().slainMechWorm = true;
-			ModContent.GetInstance<SoADownedSystem>().slainTwins = true;
-			ModContent.GetInstance<SoADownedSystem>().slainPrime = true;
-			ModContent.GetInstance<SoADownedSystem>().slainPlant = true;
-			ModContent.GetInstance<SoADownedSystem>().slainGolem = true;
-			ModContent.GetInstance<SoADownedSystem>().slainDuke = true;
-			ModContent.GetInstance<SoADownedSystem>().slainEmpress = true;
-			ModContent.GetInstance<SoADownedSystem>().slainMoonLord = true;
-			ModContent.GetInstance<SoADownedSystem>().slainSenterra = true;
-			ModContent.GetInstance<SoADownedSystem>().slainGenesis = true;
-			ModContent.GetInstance<SoADownedSystem>().slainEverything = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainEOC = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainBOC = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainEOW = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainBee = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainSkull = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainWall = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainMechWorm = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainTwins = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainPrime = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainPlant = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainGolem = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainDuke = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainEmpress = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainMoonLord = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainSenterra = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainGenesis = true;
+			ModContent.GetInstance<ShardsDownedSystem>().slainEverything = true;
 			ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("All bosses are slain"), Color.White, player.whoAmI);
 		}
     }

@@ -5,11 +5,13 @@ using Terraria.ModLoader;
 namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
 {
     [AutoloadEquip(EquipType.Body)]
-    public class EntropicRobe : SlayerItem
+    public class EntropicRobe : ModItem
     {
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("12% increased damage and critical strike chance");
+
+            SoAGlobalItem.SlayerItem.Add(Type);
 
             base.SetStaticDefaults();
         }
@@ -18,7 +20,7 @@ namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
         {
             Item.width = 18;
             Item.height = 18;
-            Item.rare = ModContent.RarityType<SlayerRarity>();
+            Item.rare = ItemRarityID.Yellow;
             Item.value = Item.sellPrice(0, 10, 0, 0);
             Item.defense = 28;
         }

@@ -9,13 +9,15 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
 {
-    public abstract class SoulCrystal : SlayerItem
+    public abstract class SoulCrystal : ModItem
     {
         public int absorbSoulTimer = 300;
 
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+            SoAGlobalItem.SlayerItem.Add(Type);
         }
 
         public override void SetDefaults()
@@ -29,13 +31,13 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
             Item.autoReuse = true;
             Item.useTurn = true;
 
-            Item.rare = ModContent.RarityType<SlayerRarity>();
+            Item.rare = ItemRarityID.Yellow;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             TooltipLine line;
-            if (!ModContent.GetInstance<ConfigClientSide>().instantAbsorb)
+            if (!ModContent.GetInstance<ShardsConfigClientSide>().instantAbsorb)
                 line = new TooltipLine(Mod, "SoulCrystal", "Hold left click for 5 seconds to absorb the soul inside, this grants you this boss's powers")
                 {
                     OverrideColor = Color.Purple
@@ -44,12 +46,7 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
             {
                 OverrideColor = Color.Purple
             };
-            var line2 = new TooltipLine(Mod, "Slayer Item", "Slayer Item")
-            {
-                OverrideColor = Color.Red
-            };
             tooltips.Add(line);
-            tooltips.Add(line2);
         }
 
         public override void UpdateInventory(Player player)
@@ -65,10 +62,11 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
 
         public override bool? UseItem(Player player)
         {
+            absorbSoulTimer--;
             if (Main.rand.NextBool(3))
                 Dust.NewDustDirect(player.Center, 4, 4, DustID.SandstormInABottle, .2f, .2f, 0, Scale: 1.2f);
             Lighting.AddLight(player.Center, TorchID.Yellow);
-            if (absorbSoulTimer == 299 && !ModContent.GetInstance<ConfigClientSide>().instantAbsorb)
+            if (absorbSoulTimer == 299 && !ModContent.GetInstance<ShardsConfigClientSide>().instantAbsorb)
                 SoundEngine.PlaySound(SoundID.Item46);
             if (absorbSoulTimer == 240)
                 SoundEngine.PlaySound(SoundID.Item43);
@@ -78,7 +76,7 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
                 SoundEngine.PlaySound(SoundID.Item43);
             if (absorbSoulTimer == 60)
                 SoundEngine.PlaySound(SoundID.Item43);
-            if (absorbSoulTimer == 0 || ModContent.GetInstance<ConfigClientSide>().instantAbsorb)
+            if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsConfigClientSide>().instantAbsorb)
             {
                 for (int i = 0; i < 20; i++)
                 {
@@ -86,9 +84,12 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
                         Dust.NewDustDirect(player.Center, 4, 4, DustID.SandstormInABottle, .2f, .2f, 0, default, 1.2f);
                     Lighting.AddLight(player.Center, TorchID.Yellow);
                 }
-                player.GetModPlayer<SlayerPlayer>().soulCrystals += 1;
-                Item.TurnToAir();
-                SoundEngine.PlaySound(SoundID.Item4);
+                if (!player.GetModPlayer<SlayerPlayer>().soulCrystals.Contains(Type))
+                {
+                    player.GetModPlayer<SlayerPlayer>().soulCrystals.Add(Type);
+                    Item.TurnToAir();
+                    SoundEngine.PlaySound(SoundID.Item4);
+                }
             }
             return true;
         }

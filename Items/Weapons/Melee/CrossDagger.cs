@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddRecipeGroup(SoARecipes.Gold, 7)
+                .AddRecipeGroup(ShardsRecipes.Gold, 7)
                 .AddIngredient(ItemID.LifeCrystal, 5)
                 .AddIngredient(ItemID.ManaCrystal, 5)
                 .AddTile(TileID.Anvils)

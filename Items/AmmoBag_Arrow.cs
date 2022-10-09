@@ -1,5 +1,7 @@
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Weapons.Ammo;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
@@ -16,7 +18,7 @@ namespace ShardsOfAtheria.Items
             DisplayName.SetDefault("Ammo Bag (Arrow)");
             Tooltip.SetDefault("Gives a stack of a random arrow type");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 10;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
         }
 
         public override void SetDefaults()
@@ -36,62 +38,33 @@ namespace ShardsOfAtheria.Items
 
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            return;
-            LeadingConditionRule isHardmode = new LeadingConditionRule(new Conditions.IsHardmode());
-            LeadingConditionRule downedSkeletron = new LeadingConditionRule(new Conditions.IsHardmode());
-            LeadingConditionRule downedMoonLord = new LeadingConditionRule(new DownedMoonLord());
+            int stackSize = 1000;
 
-            int[] preHardmodeArrowDrop = { ItemID.WoodenArrow, ItemID.FlamingArrow, ItemID.FrostburnArrow, ItemID.BoneArrow, ItemID.JestersArrow, ItemID.UnholyArrow };
-            int[] postSkeletronArrowDrop = { ItemID.HellfireArrow };
-            int[] hardmodeArrowDrop = { ItemID.ChlorophyteArrow, ItemID.CursedArrow, ItemID.HolyArrow, ItemID.IchorArrow, ItemID.VenomArrow, ModContent.ItemType<SpectralArrow>() };
-            int[] postMoonLordArrowDrop = { ItemID.MoonlordArrow };
+            CommonDrop[] preHardmodeArrows = SoAGlobalItem.preHardmodeArrows.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
 
-            IItemDropRule preHardmodeArrow = ItemDropRule.OneFromOptions(1, preHardmodeArrowDrop);
-            IItemDropRule postSkeletronArrow = ItemDropRule.OneFromOptions(1, postSkeletronArrowDrop);
-            IItemDropRule hardmodeArrow = ItemDropRule.OneFromOptions(1, hardmodeArrowDrop);
-            IItemDropRule postMoonLordArrow = ItemDropRule.OneFromOptions(1, postMoonLordArrowDrop);
+            CommonDrop[] hardmodeArrows = SoAGlobalItem.hardmodeArrows.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
 
-            isHardmode.OnSuccess(hardmodeArrow);
-            downedSkeletron.OnSuccess(postSkeletronArrow);
-            downedMoonLord.OnSuccess(postMoonLordArrow);
+            CommonDrop[] postMLArrows = SoAGlobalItem.postMoonLordArrows.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
 
-            IItemDropRule arrowDrop = new OneFromRulesRule(1, preHardmodeArrow, isHardmode, downedSkeletron, downedMoonLord);
+            OneFromRulesRule executePrehardMode = new(1, preHardmodeArrows);
 
-            itemLoot.Add(arrowDrop);
-        }
+            // successfulInHardmode will resolve into successful state if we are in Hard Mode
+            CommonDrop[] hardmodeDrops = preHardmodeArrows.Concat(hardmodeArrows).ToArray();
+            LeadingConditionRule successfulInHardmode = new(new Conditions.IsHardmode());
+            OneFromRulesRule executeInHardMode = new(1, hardmodeDrops);
+            successfulInHardmode.OnSuccess(executeInHardMode);
 
-        public override void RightClick(Player player)
-        {
-            var ammoChooser = new WeightedRandom<int>();
-            var source = player.GetSource_OpenItem(Type);
+            // successfulPostML will resolve into successful state if Moon Lord is dead
+            CommonDrop[] postMLDrops = hardmodeDrops.Concat(postMLArrows).ToArray();
+            LeadingConditionRule successfulPostML = new(new DownedMoonLord());
+            OneFromRulesRule executePostML = new(1, postMLDrops);
+            successfulPostML.OnSuccess(executePostML);
 
-            ammoChooser.Add(ItemID.WoodenArrow);
-            ammoChooser.Add(ItemID.FlamingArrow);
-            ammoChooser.Add(ItemID.FrostburnArrow);
-            ammoChooser.Add(ItemID.BoneArrow);
-            ammoChooser.Add(ItemID.JestersArrow);
-            ammoChooser.Add(ItemID.UnholyArrow);
+            // Executes rules in defined order until one is successful. Stops once one is successful. So it tries successfulPostML, then successfulInHarmode,
+            // then it finally tries chooseOnePreHardmodeDrop
+            SequentialRulesRule rootRule = new(1, new IItemDropRule[] { successfulPostML, successfulInHardmode, executePrehardMode });
 
-            if (NPC.downedBoss3)
-            {
-                ammoChooser.Add(ItemID.HellfireArrow);
-            }
-
-            if (Main.hardMode)
-            {
-                ammoChooser.Add(ItemID.ChlorophyteArrow);
-                ammoChooser.Add(ItemID.CursedArrow);
-                ammoChooser.Add(ItemID.HolyArrow);
-                ammoChooser.Add(ItemID.IchorArrow);
-                ammoChooser.Add(ItemID.VenomArrow);
-            }
-
-            if (NPC.downedMoonlord)
-            {
-                ammoChooser.Add(ItemID.MoonlordArrow);
-            }
-
-            Main.LocalPlayer.QuickSpawnItem(source, ammoChooser, 9999);
+            itemLoot.Add(rootRule);
         }
 
         public override void AddRecipes()

@@ -8,11 +8,11 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
-    public class TomeOfOmniscience : SlayerItem
+    public class TomeOfOmniscience : ModItem
 	{
         public override void SetStaticDefaults()
 		{
-			base.SetStaticDefaults();
+			SoAGlobalItem.SlayerItem.Add(Type);
 		}
 
         public override void SetDefaults()
@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
 			Item.height = 22;
 			Item.accessory = true;
 
-			Item.rare = ModContent.RarityType<SlayerRarity>();
+			Item.rare = ItemRarityID.Yellow;
 			Item.value = Item.sellPrice(0, 1);
 		}
 		

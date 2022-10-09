@@ -6,11 +6,13 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
 {
-    public class PerishSong : SlayerItem
+    public class PerishSong : ModItem
     {
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("'I M  D E A D'");
+
+            SoAGlobalItem.SlayerItem.Add(Type);
 
             base.SetStaticDefaults();
         }
@@ -33,7 +35,7 @@ namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
             Item.autoReuse = true;
 
             Item.shootSpeed = 10;
-            Item.rare = ModContent.RarityType<SlayerRarity>();
+            Item.rare = ItemRarityID.Yellow;
             Item.shoot = ModContent.ProjectileType<DeathNote>();
         }
 

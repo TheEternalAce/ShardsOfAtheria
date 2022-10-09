@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override void AI()
         {
-            Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Electric);
+            Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, 700, DustID.Electric);
             dust.noGravity = true;
         }
 

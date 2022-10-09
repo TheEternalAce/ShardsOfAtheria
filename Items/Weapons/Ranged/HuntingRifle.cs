@@ -46,7 +46,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 		{
 			CreateRecipe()
 				.AddRecipeGroup(RecipeGroupID.Wood, 15)
-				.AddRecipeGroup(SoARecipes.Copper, 4)
+				.AddRecipeGroup(ShardsRecipes.Copper, 4)
 				.AddTile(TileID.WorkBenches)
 				.Register();
 		}

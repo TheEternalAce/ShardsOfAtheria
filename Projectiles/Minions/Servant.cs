@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using ShardsOfAtheria.Players;
 using System;
 using Terraria;
@@ -59,16 +60,12 @@ namespace ShardsOfAtheria.Projectiles.Minions
 			SearchForTargets(owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter);
 			Movement(foundTarget, distanceFromTarget, targetCenter, distanceToIdlePosition, vectorToIdlePosition);
 			Visuals();
-			if (owner.GetModPlayer<SlayerPlayer>().BrainSoul && owner.GetModPlayer<SynergyPlayer>().brainEyeSynergy)
-			{
-				owner.AddBuff(ModContent.BuffType<CreeperShield>(), 2);
-			}
 		}
 
 		// This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
 		private bool CheckActive(Player owner)
 		{
-			if (Main.myPlayer == Projectile.owner && (owner.dead || !owner.active || !owner.GetModPlayer<SlayerPlayer>().EyeSoul))
+			if (Main.myPlayer == Projectile.owner && (owner.dead || !owner.active || !owner.GetModPlayer<SlayerPlayer>().soulCrystals.Contains(ModContent.ItemType<EyeSoulCrystal>())))
 				return false;
 			else Projectile.timeLeft = 2;
 			return true;

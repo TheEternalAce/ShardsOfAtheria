@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using ShardsOfAtheria.Players;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -13,6 +14,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using static ShardsOfAtheria.Items.SlayerItems.Entry;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
@@ -20,66 +22,77 @@ namespace ShardsOfAtheria.Items.SlayerItems
     {
         public static List<PageEntry> entries = new();
 
-        public static void NewEntry(string mod, string name, string tooltip)
+        public static void NewEntry(string mod, string name, string tooltip, int crystalItem)
         {
-            entries.Add(new PageEntry(mod, name, tooltip, Color.White));
+            entries.Add(new PageEntry(mod, name, tooltip, Color.White, crystalItem));
+            ShardsOfAtheria.MaxNecronomiconPages++;
         }
 
-        public static void NewEntry(string mod, string name, string tooltip, Color pageColor)
+        public static void NewEntry(string mod, string name, string tooltip, Color pageColor, int crystalItem)
         {
-            entries.Add(new PageEntry(mod, name, tooltip, pageColor));
+            entries.Add(new PageEntry(mod, name, tooltip, pageColor, crystalItem));
             ShardsOfAtheria.MaxNecronomiconPages++;
         }
 
         public struct PageEntry
         {
-            public PageEntry(string mod, string entryName, string soulCrystalTooltip, Color entryColor)
+            public string mod = "";
+            public string soulCrystalTooltip = "";
+            public string entryName = "";
+            public Color entryColor = Color.White;
+            public int crystalItem = 0;
+
+            public PageEntry(string mod, string entryName, string soulCrystalTooltip, Color entryColor, int crystalItem)
             {
-                OtherMod = mod;
-                EntryName = entryName;
-                SoulCrystalTooltip = soulCrystalTooltip;
-                EntryColor = entryColor;
+                this.mod = mod;
+                this.entryName = entryName;
+                this.soulCrystalTooltip = soulCrystalTooltip;
+                this.entryColor = entryColor;
+                this.crystalItem = crystalItem;
+
             }
 
             public string EntryText()
             {
-                return $"{EntryName} ({OtherMod})\n{SoulCrystalTooltip}";
+                return $"{entryName} ({mod})\n" +
+                    $"{soulCrystalTooltip}";
             }
-
-            public string OtherMod { get; set; }
-            public string EntryName { get; set; }
-            public string SoulCrystalTooltip { get; set; }
-            public Color EntryColor { get; set; }
         }
 
         public static void IncludedEntries()
         {
-            NewEntry("Terraria", "King Slime", KingSoulCrystal.tip, Color.Blue);
-            NewEntry("Terraria", "Eye of Cthulhu", EyeSoulCrystal.tip, Color.Red);
-            NewEntry("Terraria", "Brain of Cthulhu", BrainSoulCrystal.tip, Color.LightPink);
-            NewEntry("Terraria", "Eater of Worlds", EaterSoulCrystal.tip, Color.Purple);
-            NewEntry("Terraria", "Queen Bee", BeeSoulCrystal.tip, Color.Yellow);
-            NewEntry("Terraria", "Skeletron", SkullSoulCrystal.tip, new Color(130, 130, 90));
-            NewEntry(nameof(ShardsOfAtheria), "Lightning Valkyrie, Nova Stellar", ValkyrieSoulCrystal.tip, Color.DeepSkyBlue);
-            NewEntry("Terraria", "Deerclops", DeerclopsSoulCrystal.tip, Color.MediumPurple);
-            NewEntry("Terraria", "Wall of Flesh", WallSoulCrystal.tip, Color.MediumPurple);
-            NewEntry("Terraria", "Queen Slime", QueenSoulCrystal.tip, Color.Pink);
-            NewEntry("Terraria", "Destroyer", DestroyerSoulCrystal.tip, Color.Gray);
-            NewEntry("Terraria", "Skeletron Prime", PrimeSoulCrystal.tip, Color.Gray);
-            NewEntry("Terraria", "The Twins", TwinsSoulCrystal.tip, Color.Gray);
-            NewEntry("Terraria", "Plantera", PlantSoulCrystal.tip, Color.Pink);
-            NewEntry("Terraria", "Golem", GolemSoulCrystal.tip, Color.DarkOrange);
-            NewEntry("Terraria", "Duke Fishron", DukeSoulCrystal.tip, Color.SeaGreen);
-            NewEntry("Terraria", "Empress of Light", EmpressSoulCrystal.tip, Main.DiscoColor);
-            NewEntry("Terraria", "Lunatic Cultist", LunaticSoulCrystal.tip, Color.Blue);
-            NewEntry("Terraria", "Moon Lord", LordSoulCrystal.tip, Color.LightCyan);
-            NewEntry(nameof(ShardsOfAtheria), "Senterra, Atherial Land", "This Soul Crystal needs further research. Please wait for the boss to be introduced into the mod.", Color.Green);
-            NewEntry(nameof(ShardsOfAtheria), "Genesis, Atherial Time", "This Soul Crystal needs further research. Please wait for the boss to be introduced into the mod.", Color.BlueViolet);
-            NewEntry(nameof(ShardsOfAtheria), "Elizabeth Norman, Death", "This Soul Crystal needs further research. Please wait for the boss to be introduced into the mod.", Color.DarkGray);
+            NewEntry(nameof(Terraria), "King Slime", KingSoulCrystal.tip, Color.Blue, ModContent.ItemType<KingSoulCrystal>());
+            NewEntry(nameof(Terraria), "Eye of Cthulhu", EyeSoulCrystal.tip, Color.Red, ModContent.ItemType<EyeSoulCrystal>());
+            NewEntry(nameof(Terraria), "Brain of Cthulhu", BrainSoulCrystal.tip, Color.LightPink, ModContent.ItemType<BrainSoulCrystal>());
+            NewEntry(nameof(Terraria), "Eater of Worlds", EaterSoulCrystal.tip, Color.Purple, ModContent.ItemType<EaterSoulCrystal>());
+            NewEntry(nameof(Terraria), "Queen Bee", BeeSoulCrystal.tip, Color.Yellow, ModContent.ItemType<BeeSoulCrystal>());
+            NewEntry(nameof(Terraria), "Skeletron", SkullSoulCrystal.tip, new Color(130, 130, 90), ModContent.ItemType<SkullSoulCrystal>());
+            NewEntry(nameof(ShardsOfAtheria), "Lightning Valkyrie, Nova Stellar", ValkyrieSoulCrystal.tip, Color.DeepSkyBlue, ModContent.ItemType<ValkyrieSoulCrystal>());
+            NewEntry(nameof(Terraria), "Deerclops", DeerclopsSoulCrystal.tip, Color.MediumPurple, ModContent.ItemType<DeerclopsSoulCrystal>());
+            NewEntry(nameof(Terraria), "Wall of Flesh", WallSoulCrystal.tip, Color.MediumPurple, ModContent.ItemType<WallSoulCrystal>());
+            NewEntry(nameof(Terraria), "Queen Slime", QueenSoulCrystal.tip, Color.Pink, ModContent.ItemType<QueenSoulCrystal>());
+            NewEntry(nameof(Terraria), "Destroyer", DestroyerSoulCrystal.tip, Color.Gray, ModContent.ItemType<DestroyerSoulCrystal>());
+            NewEntry(nameof(Terraria), "Skeletron Prime", PrimeSoulCrystal.tip, Color.Gray, ModContent.ItemType<PrimeSoulCrystal>());
+            NewEntry(nameof(Terraria), "The Twins", TwinsSoulCrystal.tip, Color.Gray, ModContent.ItemType<TwinsSoulCrystal>());
+            NewEntry(nameof(Terraria), "Plantera", PlantSoulCrystal.tip, Color.Pink, ModContent.ItemType<PlantSoulCrystal>());
+            NewEntry(nameof(Terraria), "Golem", GolemSoulCrystal.tip, Color.DarkOrange, ModContent.ItemType<GolemSoulCrystal>());
+            NewEntry(nameof(Terraria), "Duke Fishron", DukeSoulCrystal.tip, Color.SeaGreen, ModContent.ItemType<DukeSoulCrystal>());
+            NewEntry(nameof(Terraria), "Empress of Light", EmpressSoulCrystal.tip, Main.DiscoColor, ModContent.ItemType<EmpressSoulCrystal>());
+            NewEntry(nameof(Terraria), "Lunatic Cultist", LunaticSoulCrystal.tip, Color.Blue, ModContent.ItemType<LunaticSoulCrystal>());
+            NewEntry(nameof(Terraria), "Moon Lord", LordSoulCrystal.tip, Color.LightCyan, ModContent.ItemType<LordSoulCrystal>());
+            NewEntry(nameof(ShardsOfAtheria), "Senterra, Atherial Land", WipEntry(), Color.Green, ItemID.None);
+            NewEntry(nameof(ShardsOfAtheria), "Genesis, Atherial Time", WipEntry(), Color.BlueViolet, ItemID.None);
+            NewEntry(nameof(ShardsOfAtheria), "Elizabeth Norman, Death", WipEntry(), Color.DarkGray, ItemID.None);
+            Console.WriteLine(entries[0].EntryText());
+        }
+
+        public static string WipEntry()
+        {
+            return "This Soul Crystal needs further research. Please wait for this boss to be introduced into the mod.";
         }
     }
 
-    public class Necronomicon : SlayerItem
+    public class Necronomicon : ModItem
     {
         public int page;
         public static Asset<Texture2D> book;
@@ -87,16 +100,17 @@ namespace ShardsOfAtheria.Items.SlayerItems
         public override void SetStaticDefaults()
         {
             book = ModContent.Request<Texture2D>(Texture + "_Open");
-            Entry.IncludedEntries();
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+            SoAGlobalItem.SlayerItem.Add(Type);
         }
 
         public override void SetDefaults()
         {
             Item.width = 44;
             Item.height = 56;
-            Item.rare = ModContent.RarityType<SlayerRarity>();
+            Item.rare = ItemRarityID.Yellow;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.useTime = 45;
             Item.useAnimation = 45;
@@ -181,12 +195,16 @@ namespace ShardsOfAtheria.Items.SlayerItems
                 tooltips.Add(new TooltipLine(Mod, "PageList", "Soul Crystal Info"));
 
                 // Absorbed PageList
-                for (int i = 0; i < Entry.entries.Count; i++)
+                for (int i = 0; i < entries.Count; i++)
                 {
-                    tooltips.Add(new TooltipLine(Mod, "PageList", $"{Entry.entries[i].EntryName} ({Entry.entries[i].OtherMod})")
+                    PageEntry entry = entries[i];
+                    if (slayer.soulCrystals.Contains(entry.crystalItem))
                     {
-                        OverrideColor = Entry.entries[i].EntryColor
-                    });
+                        tooltips.Add(new TooltipLine(Mod, "PageList", $"{entry.entryName} ({entry.mod})")
+                        {
+                            OverrideColor = entry.entryColor
+                        });
+                    }
                 }
             }
             if (page == 1)
@@ -213,259 +231,73 @@ namespace ShardsOfAtheria.Items.SlayerItems
             }
 
             // Soul Crystal effects
-            if (page == 3)
+            if (page > ShardsOfAtheria.MaxNecronomiconPages)
             {
-                tooltips.Add(new TooltipLine(Mod, "Page", "King Slime:\n" +
-                    "Increased life and mana regen\n" +
-                    "After taking damage, your next hit will heal 25% of that damage taken"));
+                page = 0;
             }
-            if (page == 4)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Eye of Cthulhu:\n" +
-                    EyeSoulCrystal.tip));
-            }
-            if (page == 5)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Brain of Cthulhu:\n" +
-                    "Spawns 4 Creepers\n" +
-                    "While Creepers are alive you are invulnerable and cannot attack\n" +
-                    "Gain a temporary 20% damage boost when all of the creepers die\n" +
-                    "Creepers take 1 minute to respawn\n" +
-                    "Cannot be immune to knockback"));
-            }
-            if (page == 6)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Eater of Worlds:\n" +
-                    "Grants one revive and shoots a vile shot when using a weapon\n" +
-                    "Revive has a 5 minute cooldown"));
-            }
-            if (page == 7)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Nova Stellar, the Lightning Valkyrie:\n" +
-                    "Grants 8 defense, wing flight time boost and a dash that leaves behind an electric trail\n" +
-                    "Attacks create 4 closing feather blades in an x pattern\n" +
-                    "Getting hit by an enemy gives them Electric Shock"));
-            }
-            if (page == 8)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Queen Bee:\n" +
-                    "Attacks inflict Poisoned and shoot stingers\n" +
-                    "Spawn a bee every 10 seconds while in combat"));
-            }
-            if (page == 9)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Skeletron:\n" +
-                    "While in combat enter a \"spin phase\" for 5 seconds every 30 seconds\n" +
-                    "This \"spin phase\" inceases defense and damage by 50% and damages nearby enemies\n" +
-                    "Attacks fire a homing skull"));
-            }
-            if (page == 10)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Deerclops:\n" +
-                    "For every nearby NPC your damage is increased by 5% and your defense is increased by 10\n" +
-                    "This increase caps at 15% increased damage and 15 defense\n" +
-                    "Summons shadow hands when you are hurt"));
-            }
-            if (page == 11)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Wall of Flesh:\n" +
-                    "Summon 5 friendly The Hungry over the course of 5 seconds"));
-            }
-            if (page == 12)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Queen Slime:\n" +
-                    "Increased life and mana regen\n" +
-                    "After taking damage, your next hit will heal 50% of that damage"));
-            }
-            if (page == 13)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "The Destroyer:\n" +
-                    "Summon a Destroyer's Probe that fires at your cursor besides you\n" +
-                    "Taking over 100 damage spawns another temporary Destroyer's Probe that will fire at nearby enemies\n" +
-                    "You can have up to five of these \"attack probes\""));
-            }
-            if (page == 14)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Skeletron Prime:\n" +
-                    "While in combat enter a \"spin phase\" for 5 seconds every 30 seconds\n" +
-                    "This \"spin phase\" inceases defense and damage by 100% and damages nearby enemies\n" +
-                    "Attacks fire either a laser, rocket or grenade"));
-            }
-            if (page == 15)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "The Twins:\n" +
-                    "Projectiles inflict either Ichor or Cursed Inferno\n" +
-                    "Melee hits inflict both debuffs\n" +
-                    "Taking damage summons a shadow double of you to strike back with 100% of damage taken"));
-            }
-            if (page == 16)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Plantera:\n" +
-                    "Spawn up to 8 tentacles over the course of 40 seconds\n" +
-                    "Attacks fire a petal that inflicts venom\n" +
-                    "Passive 15% increase in movement speed, 10% damage increase and increased life regen"));
-            }
-            if (page == 17)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Golem:\n" +
-                    "Grants the effects of Shiny Stone\n" +
-                    "While under 50% max life, gain increased life regen and summon a Golem head above you"));
-            }
-            if (page == 18)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Duke Fishron:\n" +
-                    "Increased max flight time\n" +
-                    "Summon a Sharknado over your head"));
-                tooltips.Add(new TooltipLine(Mod, "SoulTeleport", string.Format("Press {0} to teleport", ShardsOfAtheria.SoulTeleport.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.SoulTeleport.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
 
-            }
-            if (page == 19)
+            if (page >= 3)
             {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Empress of Light:\n" +
-                    "Increased max flight time and permanent Shine and Night Owl buffs\n" +
-                    "Daytime increased damage by 20% and nighttime increases defense by 20\n" +
-                    "Hitting enemies summons a twilight lance for a second strike"));
-            }
-            if (page == 20)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Lunatic Cultist:\n" +
-                    "Summons a magic circle behind you that fires ice fragments at your cursor\n" +
-                    "Gives a chance to dodge attacks\n" +
-                    "Every dodge increases ice fragments fired by 1, up to 5 total"));
-                tooltips.Add(new TooltipLine(Mod, "SoulTeleport", string.Format("Press {0} to teleport", ShardsOfAtheria.SoulTeleport.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.SoulTeleport.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
-            }
-            if (page == 21)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Moon Lord:\n" +
-                    "Taking over 100 damage summons a True Eye of Cthulhu\n" +
-                    "You can have up to 2 of these\n" +
-                    "Another True EoC stays over you and attacks at your cursor"));
-            }
-            if (page == 22)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Senterra, the Atherial Land:\n" +
-                    "This Soul Crystal needs further research. Please wait for the boss to be introduced into the mod."));
-            }
-            if (page == 23)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Genesis, Atherial Time:\n" +
-                    "This Soul Crystal needs further research. Please wait for the boss to be introduced into the mod."));
-            }
-            if (page == 24)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Elizabeth Norman, Death:\n" +
-                    "This Soul Crystal needs further research. Please wait for the boss to be introduced into the mod."));
+                PageEntry entry = entries[page - 3];
+                if (slayer.soulCrystals.Contains(entry.crystalItem))
+                {
+                    tooltips.Add(new TooltipLine(Mod, "Page", $"{entry.EntryText()}")
+                    {
+                        OverrideColor = entry.entryColor
+                    });
+                }
             }
 
             tooltips.Add(new TooltipLine(Mod, "TurnPage", "----------\n" +
                 "Right click to turn the page"));
             if (page > 0)
             {
-                tooltips.Add(new TooltipLine(Mod, "TurnPageBack", "Hold left shift and right click to turn the page backward"));
+                tooltips.Add(new TooltipLine(Mod, "TurnPageBack", "Hold Left Shift and Right Click to turn the page backward"));
             }
             if (page > 0)
             {
-                tooltips.Add(new TooltipLine(Mod, "CloseBook", "Hold left alt and right click to return to Table of Contents"));
+                tooltips.Add(new TooltipLine(Mod, "CloseBook", "Hold Left Alt and Right Click to return to Table of Contents"));
             }
             base.ModifyTooltips(tooltips);
         }
 
         public override void UpdateInventory(Player player)
         {
-            SlayerPlayer slayer = player.GetModPlayer<SlayerPlayer>();
-            if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
+            if (page > ShardsOfAtheria.MaxNecronomiconPages)
             {
-                if (page == 3 && !slayer.KingSoul)
-                    page = 2;
-                if (page == 4 && !slayer.EyeSoul)
-                    page = 3;
-                if (page == 5 && !slayer.BrainSoul)
-                    page = 4;
-                if (page == 6 && !slayer.EaterSoul)
-                    page = 5;
-                if (page == 7 && !slayer.ValkyrieSoul)
-                    page = 6;
-                if (page == 8 && !slayer.BeeSoul)
-                    page = 7;
-                if (page == 9 && !slayer.SkullSoul)
-                    page = 8;
-                if (page == 10 && !slayer.DeerclopsSoul)
-                    page = 9;
-                if (page == 11 && !slayer.WallSoul)
-                    page = 10;
-                if (page == 12 && !slayer.QueenSoul)
-                    page = 11;
-                if (page == 13 && !slayer.DestroyerSoul)
-                    page = 12;
-                if (page == 14 && !slayer.PrimeSoul)
-                    page = 13;
-                if (page == 15 && !slayer.TwinSoul)
-                    page = 14;
-                if (page == 16 && !slayer.PlantSoul)
-                    page = 15;
-                if (page == 17 && !slayer.GolemSoul)
-                    page = 16;
-                if (page == 18 && !slayer.DukeSoul)
-                    page = 17;
-                if (page == 19 && !slayer.EmpressSoul)
-                    page = 18;
-                if (page == 20 && !slayer.LunaticSoul)
-                    page = 19;
-                if (page == 21 && !slayer.LordSoul)
-                    page = 20;
-                if (page == 22 && !slayer.LandSoul)
-                    page = 21;
-                if (page == 23 && !slayer.TimeSoul)
-                    page = 22;
-                if ((page == ShardsOfAtheria.MaxNecronomiconPages && !slayer.DeathSoul) || page < 0 || page > ShardsOfAtheria.MaxNecronomiconPages)
-                    page = 23;
+                page = ShardsOfAtheria.MaxNecronomiconPages;
             }
-            else
+            SlayerPlayer slayer = player.GetModPlayer<SlayerPlayer>();
+            if (ModContent.GetInstance<ShardsConfigClientSide>().entryView)
             {
-                if (page == 3 && !slayer.KingSoul)
-                    page = 4;
-                if (page == 4 && !slayer.EyeSoul)
-                    page = 5;
-                if (page == 5 && !slayer.BrainSoul)
-                    page = 6;
-                if (page == 6 && !slayer.EaterSoul)
-                    page = 7;
-                if (page == 7 && !slayer.ValkyrieSoul)
-                    page = 8;
-                if (page == 8 && !slayer.BeeSoul)
-                    page = 9;
-                if (page == 9 && !slayer.SkullSoul)
-                    page = 10;
-                if (page == 10 && !slayer.DeerclopsSoul)
-                    page = 11;
-                if (page == 11 && !slayer.WallSoul)
-                    page = 12;
-                if (page == 12 && !slayer.QueenSoul)
-                    page = 13;
-                if (page == 13 && !slayer.DestroyerSoul)
-                    page = 14;
-                if (page == 14 && !slayer.PrimeSoul)
-                    page = 15;
-                if (page == 15 && !slayer.TwinSoul)
-                    page = 16;
-                if (page == 16 && !slayer.PlantSoul)
-                    page = 17;
-                if (page == 17 && !slayer.GolemSoul)
-                    page = 18;
-                if (page == 18 && !slayer.DukeSoul)
-                    page = 19;
-                if (page == 19 && !slayer.EmpressSoul)
-                    page = 20;
-                if (page == 20 && !slayer.LunaticSoul)
-                    page = 21;
-                if (page == 21 && !slayer.LordSoul)
-                    page = 22;
-                if (page == 22 && !slayer.LandSoul)
-                    page = 23;
-                if (page == 23 && !slayer.TimeSoul)
-                    page = 24;
-                if ((page == ShardsOfAtheria.MaxNecronomiconPages && !slayer.DeathSoul) || page < 0 || page > ShardsOfAtheria.MaxNecronomiconPages)
-                    page = 0;
+                return;
+            }
+            else if (page >= 3)
+            {
+                if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
+                {
+                    PageEntry entry = entries[page - 3];
+                    if (!slayer.soulCrystals.Contains(entry.crystalItem))
+                    {
+                        page--;
+                    }
+                    if (page > ShardsOfAtheria.MaxNecronomiconPages)
+                    {
+                        page = 23;
+                    }
+                }
+                else
+                {
+                    PageEntry entry = entries[page - 3];
+                    if (!slayer.soulCrystals.Contains(entry.crystalItem))
+                    {
+                        page++;
+                    }
+                    if (page > ShardsOfAtheria.MaxNecronomiconPages)
+                    {
+                        page = 0;
+                    }
+                }
             }
         }
     }

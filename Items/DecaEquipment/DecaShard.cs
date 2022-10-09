@@ -40,7 +40,7 @@ namespace ShardsOfAtheria.Items.DecaEquipment
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddRecipeGroup(SoARecipes.DecaWeapon)
+                .AddRecipeGroup(ShardsRecipes.DecaWeapon)
                 .Register();
         }
     }

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace ShardsOfAtheria.Items.SlayerItems
 {
-    public class SpidersMechanicalClock : SlayerItem
+    public class SpidersMechanicalClock : ModItem
     {
         int saveTimer = 0;
         public override void SetStaticDefaults()
@@ -19,6 +19,8 @@ namespace ShardsOfAtheria.Items.SlayerItems
                 "'-A gift to you, my beloved little sister <3'\n" +
                 "Must be used in hotbar");
 
+            SoAGlobalItem.SlayerItem.Add(Type);
+
             base.SetStaticDefaults();
         }
 
@@ -26,7 +28,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
         {
             Item.width = 32;
             Item.height = 32;
-            Item.rare = ModContent.RarityType<SlayerRarity>();
+            Item.rare = ItemRarityID.Yellow;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.useTime = 45;
             Item.useAnimation = 45;

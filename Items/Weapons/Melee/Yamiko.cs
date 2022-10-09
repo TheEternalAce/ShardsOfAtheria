@@ -61,7 +61,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 string[] insult = { "How did you manage that? Dumbass.", "Good job idiot, you fatally cut yourself. ", "How could you be so stupid?" };
                 int i = Main.rand.Next(insult.Length);
                 string dying = $"{player.name} cut {(player.Male ? "himself" : " herself")}";
-                string die = ModContent.GetInstance<ConfigServerSide>().insult ? insult[i] + " (" + dying + ")" : dying;
+                string die = ModContent.GetInstance<ShardsConfigServerSide>().insult ? insult[i] + " (" + dying + ")" : dying;
                 player.Hurt(PlayerDeathReason.ByCustomReason(die), 100, player.direction);
             }
             return null;

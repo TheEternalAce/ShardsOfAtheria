@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Commands
 			Player player = Main.LocalPlayer;
 			SlayerPlayer slayerPlayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
 			SoAPlayer soaPlayer = Main.LocalPlayer.GetModPlayer<SoAPlayer>();
-			SoADownedSystem soaWorld = ModContent.GetInstance<SoADownedSystem>();
+			ShardsDownedSystem soaWorld = ModContent.GetInstance<ShardsDownedSystem>();
 
 			if (player.name != "The Eternal Ace")
 				return;

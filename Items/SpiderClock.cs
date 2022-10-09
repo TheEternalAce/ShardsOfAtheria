@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Items
 		{
 			Item.width = 32;
 			Item.height = 32;
-			if (!ModContent.GetInstance<ConfigServerSide>().nonConsumeBoss)
+			if (!ModContent.GetInstance<ShardsConfigServerSide>().nonConsumeBoss)
 			{
 				Item.consumable = true;
 			}

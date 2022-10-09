@@ -1,5 +1,10 @@
+using ShardsOfAtheria.ItemDropRules.Conditions;
+using ShardsOfAtheria.Items.Weapons.Ammo;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.GameContent.Creative;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
@@ -13,7 +18,7 @@ namespace ShardsOfAtheria.Items
 			DisplayName.SetDefault("Ammo Bag (Bullet)");
 			Tooltip.SetDefault("Gives a stack of a random bullet type");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 10;
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
 		}
 
 		public override void SetDefaults()
@@ -29,41 +34,37 @@ namespace ShardsOfAtheria.Items
         public override bool CanRightClick()
         {
             return true;
-        }
+		}
 
-        public override void RightClick(Player player)
+		public override void ModifyItemLoot(ItemLoot itemLoot)
 		{
-			var ammoChooser = new WeightedRandom<int>();
-			var source = player.GetSource_OpenItem(Type);
+			int stackSize = 1000;
 
-			ammoChooser.Add(ItemID.MusketBall);
-			ammoChooser.Add(ItemID.SilverBullet);
-			ammoChooser.Add(ItemID.TungstenBullet);
+			CommonDrop[] preHardmodeBullets = SoAGlobalItem.preHardmodeBullets.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
 
-			if (NPC.downedBoss2)
-			{
-				ammoChooser.Add(ItemID.MeteorShot);
-			}
+			CommonDrop[] hardmodeBullets = SoAGlobalItem.hardmodeBullets.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
 
-			if (Main.hardMode)
-			{
-				ammoChooser.Add(ItemID.CrystalBullet);
-				ammoChooser.Add(ItemID.CursedBullet);
-				ammoChooser.Add(ItemID.ChlorophyteBullet);
-				ammoChooser.Add(ItemID.HighVelocityBullet);
-				ammoChooser.Add(ItemID.IchorBullet);
-				ammoChooser.Add(ItemID.VenomBullet);
-				ammoChooser.Add(ItemID.PartyBullet);
-				ammoChooser.Add(ItemID.NanoBullet);
-				ammoChooser.Add(ItemID.ExplodingBullet);
-				ammoChooser.Add(ItemID.GoldenBullet);
-			}
-			if (NPC.downedMoonlord)
-			{
-				ammoChooser.Add(ItemID.MoonlordBullet);
-			}
+			CommonDrop[] postMLBullets = SoAGlobalItem.postMoonLordBullets.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
 
-			Main.LocalPlayer.QuickSpawnItem(source, ammoChooser, 9999);
+			OneFromRulesRule executePrehardMode = new(1, preHardmodeBullets);
+
+			// successfulInHardmode will resolve into successful state if we are in Hard Mode
+			CommonDrop[] hardmodeDrops = preHardmodeBullets.Concat(hardmodeBullets).ToArray();
+			LeadingConditionRule successfulInHardmode = new(new Conditions.IsHardmode());
+			OneFromRulesRule executeInHardMode = new(1, hardmodeDrops);
+			successfulInHardmode.OnSuccess(executeInHardMode);
+
+			// successfulPostML will resolve into successful state if Moon Lord is dead
+			CommonDrop[] postMLDrops = hardmodeDrops.Concat(postMLBullets).ToArray();
+			LeadingConditionRule successfulPostML = new(new DownedMoonLord());
+			OneFromRulesRule executePostML = new(1, postMLDrops);
+			successfulPostML.OnSuccess(executePostML);
+
+			// Executes rules in defined order until one is successful. Stops once one is successful. So it tries successfulPostML, then successfulInHarmode,
+			// then it finally tries chooseOnePreHardmodeDrop
+			SequentialRulesRule rootRule = new(1, new IItemDropRule[] { successfulPostML, successfulInHardmode, executePrehardMode });
+
+			itemLoot.Add(rootRule);
 		}
 
 		public override void AddRecipes()

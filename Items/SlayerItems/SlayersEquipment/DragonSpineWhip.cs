@@ -5,12 +5,15 @@ using ShardsOfAtheria.Projectiles.Weapon.Summon.Whip;
 
 namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
 {
-    public class DragonSpineWhip : SlayerItem
+    public class DragonSpineWhip : ModItem
     {
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("26 summon tag damage\n" +
                 "Your summons will focus struck enemies");
+
+            SoAGlobalItem.SlayerItem.Add(Type);
+
             base.SetStaticDefaults();
         }
 
@@ -21,7 +24,7 @@ namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
 
             Item.DefaultToWhip(ModContent.ProjectileType<DragonSpineWhipProj>(), 220, 2, 5, 26);
             
-            Item.rare = ModContent.RarityType<SlayerRarity>();
+            Item.rare = ItemRarityID.Yellow;
         }
 
         public override void AddRecipes()

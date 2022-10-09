@@ -20,15 +20,5 @@ namespace ShardsOfAtheria.Items.SlayerItems.SoulCrystals
 
             base.SetStaticDefaults();
         }
-
-        public override bool? UseItem(Player player)
-        {
-            absorbSoulTimer--;
-            if (absorbSoulTimer == 0 || ModContent.GetInstance<ConfigClientSide>().instantAbsorb)
-            {
-                Main.LocalPlayer.GetModPlayer<SlayerPlayer>().KingSoul = true;
-            }
-            return base.UseItem(player);
-        }
     }
 }

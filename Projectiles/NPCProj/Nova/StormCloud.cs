@@ -76,7 +76,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.position + new Vector2(Main.rand.Next(Projectile.width), 100), Vector2.Zero, ModContent.ProjectileType<LightningBoltSpawner>(), 10, 0, Main.myPlayer);
                 }
             }
-            if (Projectile.ai[1] >= 40)
+            if (Projectile.ai[1] >= 60)
             {
                 Projectile.ai[1] = 0;
             }

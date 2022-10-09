@@ -7,11 +7,13 @@ using ShardsOfAtheria.Players;
 namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
 {
     [AutoloadEquip(EquipType.Head)]
-    public class EntropicHood : SlayerItem
+    public class EntropicHood : ModItem
     {
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("6% increased damage and critical strike chance");
+
+            SoAGlobalItem.SlayerItem.Add(Type);
 
             base.SetStaticDefaults();
         }
@@ -20,7 +22,7 @@ namespace ShardsOfAtheria.Items.SlayerItems.SlayersEquipment
         {
             Item.width = 18;
             Item.height = 18;
-            Item.rare = ModContent.RarityType<SlayerRarity>();
+            Item.rare = ItemRarityID.Yellow;
             Item.value = Item.sellPrice(0, 10, 0, 0);
             Item.defense = 20;
         }
