@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.Creative;
 using ShardsOfAtheria.Items.Potions;
+using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {

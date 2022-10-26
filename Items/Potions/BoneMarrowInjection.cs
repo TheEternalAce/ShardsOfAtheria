@@ -5,10 +5,11 @@ using Terraria.ModLoader;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items.Placeable;
 using Terraria.DataStructures;
+using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Potions
 {
-	public class BoneMarrowInjection : ModItem
+    public class BoneMarrowInjection : ModItem
 	{
 		public override void SetStaticDefaults() 
 		{

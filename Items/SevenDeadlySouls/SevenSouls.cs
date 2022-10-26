@@ -9,6 +9,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 {
     public abstract class SevenSouls : SinfulItem
     {
+
         public override void SetStaticDefaults()
         {
             Item.rare = ItemRarityID.Green;
@@ -46,6 +47,11 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
     public class SevenSoulPlayer : ModPlayer
     {
         public int SevenSoulUsed;
+        public static readonly int[] SinfulBuffs = {
+            ModContent.BuffType<EnvyBuff>(), ModContent.BuffType<GluttonyBuff>(), ModContent.BuffType<GreedBuff>(),
+            ModContent.BuffType<LustBuff>(), ModContent.BuffType<PrideBuff>(), ModContent.BuffType<SlothBuff>(),
+            ModContent.BuffType<WrathBuff>()
+        };
 
         public override void Initialize()
         {

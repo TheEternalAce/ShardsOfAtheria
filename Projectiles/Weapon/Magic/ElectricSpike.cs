@@ -10,6 +10,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
     public class ElectricSpike : ModProjectile
     {
         public int flightTimer;
+        Vector2 to;
+
         public override void SetDefaults()
         {
             Projectile.width = 6;
@@ -35,16 +37,20 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 
         public override void AI()
         {
+            if (flightTimer == 0)
+            {
+                if (Projectile.owner == Main.myPlayer)
+                {
+                    to = Main.MouseWorld;
+                }
+            }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
             flightTimer++;
-            if (flightTimer == 20)
+            if (flightTimer >= 20 && flightTimer < 60)
             {
-                if (Main.myPlayer == Projectile.owner)
-                {
-                    Projectile.friendly = true;
-                    Projectile.velocity = Vector2.Normalize(Main.MouseWorld - Projectile.Center) * 16f;
-                    Projectile.netUpdate = true;
-                }
+                Projectile.friendly = true;
+                Projectile.velocity += Vector2.Normalize(to - Projectile.Center);
+                Projectile.netUpdate = true;
             }
             if (flightTimer == 50)
                 Projectile.tileCollide = true;

@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.SlayerItems;
@@ -139,6 +140,26 @@ namespace ShardsOfAtheria
             if (ModLoader.TryGetMod("Fargowiltas", out Mod foundMod2))
             {
                 foundMod2.Call("AddSummon", 5.5f, ModContent.ItemType<ValkyrieCrest>(), () => ShardsDownedSystem.downedValkyrie, 50000);
+            }
+
+            if (ModLoader.TryGetMod("RORBossHealthbars", out Mod ror2HBS))
+            {
+                ror2HBS.Call("HPPool", new List<int>()
+                {
+                    ModContent.NPCType<NovaStellar>()
+                });
+                ror2HBS.Call("CustomName", ModContent.NPCType<NovaStellar>(), "Mods.ShardsOfAtheria.NPCName.NovaStellar");
+                ror2HBS.Call("BossDesc", ModContent.NPCType<NovaStellar>(), "Mods.ShardsOfAtheria.BossDesc.NovaStellar");
+            }
+
+            if (ModLoader.TryGetMod("RiskOfTerrain", out Mod rot))
+            {
+                rot.Call("HPPool", new List<int>()
+                {
+                    ModContent.NPCType<NovaStellar>()
+                });
+                rot.Call("CustomName", ModContent.NPCType<NovaStellar>(), "Mods.ShardsOfAtheria.NPCName.NovaStellar");
+                rot.Call("BossDesc", ModContent.NPCType<NovaStellar>(), "Mods.ShardsOfAtheria.BossDesc.NovaStellar");
             }
         }
     }

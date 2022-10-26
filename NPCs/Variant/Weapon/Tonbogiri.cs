@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Items;
+﻿using ShardsOfAtheria.Items.Materials;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;

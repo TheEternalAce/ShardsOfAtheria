@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using System.Collections.Generic;
 using Terraria;

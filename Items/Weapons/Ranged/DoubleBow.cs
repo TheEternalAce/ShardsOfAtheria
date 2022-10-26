@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.SlayerItems;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
@@ -15,8 +16,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             Tooltip.SetDefault("Fires Cursed Arrows, Ichor arrows and lasers\n" +
                 "'It's called 'Double Bow' and shoots 3 projectiles???'"); // nightlight reference
-
-            SoAGlobalItem.SlayerItem.Add(Type);
 
             base.SetStaticDefaults();
         }

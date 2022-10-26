@@ -8,6 +8,11 @@
 
 Mods: {
 	ShardsOfAtheria: {
+		
+		#Soon
+		ItemName: {
+			StrangeTissueSample: Strange Tissue Sample
+		}
 
 		#This is what displays during all of an NPC's happiness levels. Note that the localization key for these should always be "TownNPCMood.*NPCName*.*Mood*" or else it won't display properly.
 		TownNPCMood: {
@@ -29,6 +34,13 @@ Mods: {
 				DislikeNPC: '''""'''
 				HateNPC: ""
 			}
+		}
+
+		NPCName: {
+			NovaStellar: Nova Stellar
+		}
+		BossDesc: {
+			NovaStellar: Lightning Valkyrie
 		}
 	}
 }

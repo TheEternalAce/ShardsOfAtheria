@@ -17,6 +17,9 @@ csharp_style_expression_bodied_lambdas = true:silent
 csharp_style_expression_bodied_local_functions = false:silent
 csharp_indent_labels = one_less_than_current
 
+# CA2211: Non-constant fields should not be visible
+dotnet_diagnostic.CA2211.severity = silent
+
 [*.{cs,vb}]
 #### Naming styles ####
 

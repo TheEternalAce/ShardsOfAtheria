@@ -89,9 +89,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             }
         }
 
-        public override Color? GetAlpha(Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            return Color.White;
+            lightColor = Color.White;
+            return base.PreDraw(ref lightColor);
         }
     }
 }

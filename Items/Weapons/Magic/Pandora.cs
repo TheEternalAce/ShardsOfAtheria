@@ -6,6 +6,7 @@ using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Weapons.Magic
 {

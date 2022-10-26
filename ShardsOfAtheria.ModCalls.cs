@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.SlayerItems;
 using ShardsOfAtheria.Players;
 using System;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria
 {
@@ -32,8 +34,9 @@ namespace ShardsOfAtheria
 				switch (content)
                 {
                     default:
-						throw new ArgumentException("Unrecognized ModCall. Usable ModCalls for Shards of Atheria are as follows: checkSlayerMode, addNecronomiconEntry and addColoredNecronomiconEntry");
-					case "checkSlayerMode":
+						throw new ArgumentException("Unrecognized ModCall. Usable ModCalls for Shards of Atheria are as follows: " +
+                            "checkSlayerMode, addNecronomiconEntry, addColoredNecronomiconEntry, wipNecronomiconEntry, and addSoulCrystalToList.");
+					case "checkSlayer":
                         // Checks if the player has Slayer Mode enabled
                         if (args[1] is Player player)
                         {
@@ -60,7 +63,10 @@ namespace ShardsOfAtheria
 						{
 							throw new ArgumentException(args[4].GetType().Name + " is not a valid int.");
 						}
-						Entry.NewEntry((string)args[1], (string)args[2], (string)args[3], (int)args[4]);
+						else
+						{
+							Entry.NewEntry((string)args[1], (string)args[2], (string)args[3], (int)args[4]);
+						}
 						break;
 					case "addColoredNecronomiconEntry":
 						if (args[1] is not string) // Mod Name
@@ -83,10 +89,79 @@ namespace ShardsOfAtheria
 						{
 							throw new ArgumentException(args[5].GetType().Name + " is not a valid int.");
 						}
-						Entry.NewEntry((string)args[1], (string)args[2], (string)args[3], (Color)args[4], (int)args[5]);
+						else
+						{
+							Entry.NewEntry((string)args[1], (string)args[2], (string)args[3], (Color)args[4], (int)args[5]);
+						}
 						break;
 					case "wipNecronomiconEntry":
 						return Entry.WipEntry();
+					case "checkHasSoulCrystal":
+                        if (args[1] is Player player2)
+                        {
+                            if (args[2] is int sC)
+                            {
+                                return player2.GetModPlayer<SlayerPlayer>().soulCrystals.Contains(sC);
+                            }
+                            else
+                            {
+                                throw new ArgumentException(args[2].GetType().Name + " is not a valid int.");
+                            }
+                        }
+                        else
+                        {
+                            throw new ArgumentException(args[1].GetType().Name + " is not a valid SlayerPlayer type.");
+                        }
+					case "addSoulCrystalToList":
+						if (args[1] is string context)
+						{
+							if (context == "slayerItems")
+                            {
+                                if (args[2] is int)
+                                {
+                                    SoAGlobalItem.SlayerItem.Add((int)args[2]);
+                                }
+                                else
+                                {
+                                    throw new ArgumentException(args[2].GetType().Name + " is not a valid int.");
+                                }
+                            }
+                            else if (context == "absorbedSouls")
+                            {
+                                if (args[2] is Player soulsPlayer)
+                                {
+                                    if (args[3] is int)
+                                    {
+                                        throw new ArgumentException(args[3].GetType().Name + " is not a valid int.");
+                                    }
+                                    else
+                                    {
+                                        soulsPlayer.GetModPlayer<SlayerPlayer>().soulCrystals.Add((int)args[3]);
+                                    }
+                                }
+								else
+                                {
+                                    throw new ArgumentException(args[2].GetType().Name + " is not a Player type.");
+                                }
+                            }
+						}
+                        else
+                        {
+                            throw new ArgumentException(args[1].GetType().Name + " is not a valid string.");
+                        }
+						break;
+					case "removeAbsorbedSoul":
+                        if (args[1] is int soul)
+                        {
+                            SoAGlobalItem.SlayerItem.Remove(soul);
+                        }
+                        else
+                        {
+                            throw new ArgumentException(args[1].GetType().Name + " is not a valid int.");
+                        }
+                        break;
+                    case "checkSoulConfig":
+                        return ModContent.GetInstance<ShardsConfigClientSide>().instantAbsorb;
                 }
             }
 

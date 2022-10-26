@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.DataStructures;
@@ -8,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
-	public class HeroGun : ModItem
+    public class HeroGun : ModItem
 	{
 		public override void SetStaticDefaults()
 		{

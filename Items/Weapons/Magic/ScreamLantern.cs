@@ -7,6 +7,7 @@ using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria.DataStructures;
 using Terraria.Audio;
 using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Items.Weapons.Magic
 {
@@ -20,8 +21,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 "Shockwaves get faster after each bounce\n" +
                 "'I like ya cut g'\n" +
                 "'No voice to cry suffering'");
-
-            SoAGlobalItem.SlayerItem.Add(Type);
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }

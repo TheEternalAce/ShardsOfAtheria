@@ -1,7 +1,8 @@
-﻿using ShardsOfAtheria.Items;
-using ShardsOfAtheria.Items.DecaEquipment;
+﻿using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Tiles;
 using Terraria;
 using Terraria.ID;
@@ -81,10 +82,6 @@ namespace ShardsOfAtheria
                    ItemID.SoulofFlight, ItemID.SoulofFright, ItemID.SoulofLight, ItemID.SoulofMight, ItemID.SoulofNight, ItemID.SoulofSight, ModContent.ItemType<SoulOfDaylight>(),
                    ModContent.ItemType<SoulOfTwilight>(), ModContent.ItemType<SoulOfSpite>());
             RecipeGroup.RegisterGroup("Shards:Souls", Soul);
-
-            DecaWeapon = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Deca Weapon",
-                   ModContent.ItemType<DecaBow>(), ModContent.ItemType<DecaClaw>(), ModContent.ItemType<DecaSaber>(), ModContent.ItemType<DecaAnnihilator>(), ModContent.ItemType<DecaStaff>());
-            RecipeGroup.RegisterGroup("Shards:DecaWeapon", DecaWeapon);
 
             Arrow = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} arrow",
                    ItemID.WoodenArrow);

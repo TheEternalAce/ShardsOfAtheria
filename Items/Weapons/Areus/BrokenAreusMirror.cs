@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Placeable;
 using Terraria.DataStructures;
 using ShardsOfAtheria.Projectiles.Minions;
+using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {

@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using Terraria.GameContent.Creative;
+using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Tools
 {

@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
+using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Items.Weapons.Summon
 {
@@ -13,8 +14,6 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
         {
             Tooltip.SetDefault("Throws 3-6 Hungry\n" +
                 "'Your very own Hungry as a pet! Adorable..?'");
-
-            SoAGlobalItem.SlayerItem.Add(Type);
 
             base.SetStaticDefaults();
         }

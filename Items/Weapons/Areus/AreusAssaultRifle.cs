@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria.GameContent.Creative;
 using ShardsOfAtheria.Items.Potions;
+using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {

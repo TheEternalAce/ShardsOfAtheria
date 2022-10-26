@@ -8,19 +8,21 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Items\ModItems\**" />
     <Compile Remove="SoA Demonstrations\**" />
+    <EmbeddedResource Remove="Items\ModItems\**" />
     <EmbeddedResource Remove="SoA Demonstrations\**" />
+    <None Remove="Items\ModItems\**" />
     <None Remove="SoA Demonstrations\**" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Items\Armor\" />
-    <Folder Include="Items\ModItems\SlayerBags\" />
+    <Folder Include="Items\SlayerItems\SlayerBoxes\" />
     <Folder Include="Items\Weapons\Summon\Sentry\" />
-    <Folder Include="Items\Weapons\Summon\Whip\" />
     <Folder Include="NPCs\NovaStellar\PhoenixWarrior\" />
+    <Folder Include="Projectiles\Weapon\Melee\GenesisRagnarok\LightningStuff\" />
     <Folder Include="Walls\" />
   </ItemGroup>
 </Project>

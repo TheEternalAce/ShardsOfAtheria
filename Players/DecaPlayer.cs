@@ -1,5 +1,4 @@
 ﻿using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Items.DecaEquipment;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

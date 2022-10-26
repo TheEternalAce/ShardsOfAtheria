@@ -6,6 +6,7 @@ using Terraria.Chat;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
@@ -14,8 +15,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("'Getting hit by a fish has got to be humiliating'");
-
-            SoAGlobalItem.SlayerItem.Add(Type);
 
             base.SetStaticDefaults();
         }

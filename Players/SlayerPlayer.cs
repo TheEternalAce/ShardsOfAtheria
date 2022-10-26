@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items.SlayerItems;
-using ShardsOfAtheria.Items.SlayerItems.SlayersEquipment;
 using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using ShardsOfAtheria.NPCs;
 using ShardsOfAtheria.Projectiles.Minions;
@@ -58,8 +57,6 @@ namespace ShardsOfAtheria.Players
 
         public int soulCrystalProjectileCooldown;
 
-        public int selectedSoul;
-
         public override void ResetEffects()
         {
             creeperPet = false;
@@ -72,7 +69,6 @@ namespace ShardsOfAtheria.Players
 
             slayerSet = false;
 
-            selectedSoul = SelectedSoul.None;
             TomeKnowledge = 0;
             omnicientTome = false;
         }
@@ -83,7 +79,6 @@ namespace ShardsOfAtheria.Players
             tag["soulCrystals"] = soulCrystals;
 
             tag.Add("soulCrystalsList", soulCrystals);
-            tag["selectedSoul"] = selectedSoul;
             tag["TomeKnowledge"] = TomeKnowledge;
         }
 
@@ -97,13 +92,9 @@ namespace ShardsOfAtheria.Players
             {
                 soulCrystals = tag.Get<List<int>>("soulCrystalsList");
             }
-            if (tag.ContainsKey("selectedSoul"))
-            {
-                selectedSoul = tag.GetInt("selectedSoul");
-            }
             if (tag.ContainsKey("TomeKnowledge"))
             {
-                selectedSoul = tag.GetInt("TomeKnowledge");
+                TomeKnowledge = tag.GetInt("TomeKnowledge");
             }
         }
 

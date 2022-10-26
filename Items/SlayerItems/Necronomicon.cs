@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using ShardsOfAtheria.Players;
 using System;
@@ -61,29 +62,28 @@ namespace ShardsOfAtheria.Items.SlayerItems
 
         public static void IncludedEntries()
         {
-            NewEntry(nameof(Terraria), "King Slime", KingSoulCrystal.tip, Color.Blue, ModContent.ItemType<KingSoulCrystal>());
-            NewEntry(nameof(Terraria), "Eye of Cthulhu", EyeSoulCrystal.tip, Color.Red, ModContent.ItemType<EyeSoulCrystal>());
-            NewEntry(nameof(Terraria), "Brain of Cthulhu", BrainSoulCrystal.tip, Color.LightPink, ModContent.ItemType<BrainSoulCrystal>());
-            NewEntry(nameof(Terraria), "Eater of Worlds", EaterSoulCrystal.tip, Color.Purple, ModContent.ItemType<EaterSoulCrystal>());
-            NewEntry(nameof(Terraria), "Queen Bee", BeeSoulCrystal.tip, Color.Yellow, ModContent.ItemType<BeeSoulCrystal>());
-            NewEntry(nameof(Terraria), "Skeletron", SkullSoulCrystal.tip, new Color(130, 130, 90), ModContent.ItemType<SkullSoulCrystal>());
-            NewEntry(nameof(ShardsOfAtheria), "Lightning Valkyrie, Nova Stellar", ValkyrieSoulCrystal.tip, Color.DeepSkyBlue, ModContent.ItemType<ValkyrieSoulCrystal>());
-            NewEntry(nameof(Terraria), "Deerclops", DeerclopsSoulCrystal.tip, Color.MediumPurple, ModContent.ItemType<DeerclopsSoulCrystal>());
-            NewEntry(nameof(Terraria), "Wall of Flesh", WallSoulCrystal.tip, Color.MediumPurple, ModContent.ItemType<WallSoulCrystal>());
-            NewEntry(nameof(Terraria), "Queen Slime", QueenSoulCrystal.tip, Color.Pink, ModContent.ItemType<QueenSoulCrystal>());
-            NewEntry(nameof(Terraria), "Destroyer", DestroyerSoulCrystal.tip, Color.Gray, ModContent.ItemType<DestroyerSoulCrystal>());
-            NewEntry(nameof(Terraria), "Skeletron Prime", PrimeSoulCrystal.tip, Color.Gray, ModContent.ItemType<PrimeSoulCrystal>());
-            NewEntry(nameof(Terraria), "The Twins", TwinsSoulCrystal.tip, Color.Gray, ModContent.ItemType<TwinsSoulCrystal>());
-            NewEntry(nameof(Terraria), "Plantera", PlantSoulCrystal.tip, Color.Pink, ModContent.ItemType<PlantSoulCrystal>());
-            NewEntry(nameof(Terraria), "Golem", GolemSoulCrystal.tip, Color.DarkOrange, ModContent.ItemType<GolemSoulCrystal>());
-            NewEntry(nameof(Terraria), "Duke Fishron", DukeSoulCrystal.tip, Color.SeaGreen, ModContent.ItemType<DukeSoulCrystal>());
-            NewEntry(nameof(Terraria), "Empress of Light", EmpressSoulCrystal.tip, Main.DiscoColor, ModContent.ItemType<EmpressSoulCrystal>());
-            NewEntry(nameof(Terraria), "Lunatic Cultist", LunaticSoulCrystal.tip, Color.Blue, ModContent.ItemType<LunaticSoulCrystal>());
-            NewEntry(nameof(Terraria), "Moon Lord", LordSoulCrystal.tip, Color.LightCyan, ModContent.ItemType<LordSoulCrystal>());
-            NewEntry(nameof(ShardsOfAtheria), "Senterra, Atherial Land", WipEntry(), Color.Green, ItemID.None);
-            NewEntry(nameof(ShardsOfAtheria), "Genesis, Atherial Time", WipEntry(), Color.BlueViolet, ItemID.None);
-            NewEntry(nameof(ShardsOfAtheria), "Elizabeth Norman, Death", WipEntry(), Color.DarkGray, ItemID.None);
-            Console.WriteLine(entries[0].EntryText());
+            NewEntry("Terraria", "King Slime", KingSoulCrystal.tip, Color.Blue, ModContent.ItemType<KingSoulCrystal>());
+            NewEntry("Terraria", "Eye of Cthulhu", EyeSoulCrystal.tip, Color.Red, ModContent.ItemType<EyeSoulCrystal>());
+            NewEntry("Terraria", "Brain of Cthulhu", BrainSoulCrystal.tip, Color.LightPink, ModContent.ItemType<BrainSoulCrystal>());
+            NewEntry("Terraria", "Eater of Worlds", EaterSoulCrystal.tip, Color.Purple, ModContent.ItemType<EaterSoulCrystal>());
+            NewEntry("Terraria", "Queen Bee", BeeSoulCrystal.tip, Color.Yellow, ModContent.ItemType<BeeSoulCrystal>());
+            NewEntry("Terraria", "Skeletron", SkullSoulCrystal.tip, new Color(130, 130, 90), ModContent.ItemType<SkullSoulCrystal>());
+            NewEntry("Shards of Atheria", "Lightning Valkyrie, Nova Stellar", ValkyrieSoulCrystal.tip, Color.DeepSkyBlue, ModContent.ItemType<ValkyrieSoulCrystal>());
+            NewEntry("Terraria", "Deerclops", DeerclopsSoulCrystal.tip, Color.MediumPurple, ModContent.ItemType<DeerclopsSoulCrystal>());
+            NewEntry("Terraria", "Wall of Flesh", WallSoulCrystal.tip, Color.MediumPurple, ModContent.ItemType<WallSoulCrystal>());
+            NewEntry("Terraria", "Queen Slime", QueenSoulCrystal.tip, Color.Pink, ModContent.ItemType<QueenSoulCrystal>());
+            NewEntry("Terraria", "Destroyer", DestroyerSoulCrystal.tip, Color.Gray, ModContent.ItemType<DestroyerSoulCrystal>());
+            NewEntry("Terraria", "Skeletron Prime", PrimeSoulCrystal.tip, Color.Gray, ModContent.ItemType<PrimeSoulCrystal>());
+            NewEntry("Terraria", "The Twins", TwinsSoulCrystal.tip, Color.Gray, ModContent.ItemType<TwinsSoulCrystal>());
+            NewEntry("Terraria", "Plantera", PlantSoulCrystal.tip, Color.Pink, ModContent.ItemType<PlantSoulCrystal>());
+            NewEntry("Terraria", "Golem", GolemSoulCrystal.tip, Color.DarkOrange, ModContent.ItemType<GolemSoulCrystal>());
+            NewEntry("Terraria", "Duke Fishron", DukeSoulCrystal.tip, Color.SeaGreen, ModContent.ItemType<DukeSoulCrystal>());
+            NewEntry("Terraria", "Empress of Light", EmpressSoulCrystal.tip, Main.DiscoColor, ModContent.ItemType<EmpressSoulCrystal>());
+            NewEntry("Terraria", "Lunatic Cultist", LunaticSoulCrystal.tip, Color.Blue, ModContent.ItemType<LunaticSoulCrystal>());
+            NewEntry("Terraria", "Moon Lord", LordSoulCrystal.tip, Color.LightCyan, ModContent.ItemType<LordSoulCrystal>());
+            NewEntry("Shards of Atheria", "Senterra, Atherial Land", WipEntry(), Color.Green, ItemID.None);
+            NewEntry("Shards of Atheria", "Genesis, Atherial Time", WipEntry(), Color.BlueViolet, ItemID.None);
+            NewEntry("Shards of Atheria", "Elizabeth Norman, Death", WipEntry(), Color.DarkGray, ItemID.None);
         }
 
         public static string WipEntry()
@@ -198,7 +198,7 @@ namespace ShardsOfAtheria.Items.SlayerItems
                 for (int i = 0; i < entries.Count; i++)
                 {
                     PageEntry entry = entries[i];
-                    if (slayer.soulCrystals.Contains(entry.crystalItem))
+                    if (slayer.soulCrystals.Contains(entry.crystalItem) || ModContent.GetInstance<ShardsConfigClientSide>().entryView)
                     {
                         tooltips.Add(new TooltipLine(Mod, "PageList", $"{entry.entryName} ({entry.mod})")
                         {

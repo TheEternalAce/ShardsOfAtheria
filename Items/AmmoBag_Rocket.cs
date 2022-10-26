@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using Terraria.Utilities;
 
 namespace ShardsOfAtheria.Items
 {
-	public class AmmoBag_Rocket : ModItem
+    public class AmmoBag_Rocket : ModItem
 	{
 		public override void SetStaticDefaults() 
 		{
