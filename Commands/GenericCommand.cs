@@ -1,11 +1,15 @@
-﻿using ShardsOfAtheria.Items.Weapons.Melee;
+﻿using rail;
+using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static ShardsOfAtheria.Items.SlayerItems.Entry;
 
 namespace ShardsOfAtheria.Commands
 {
@@ -26,12 +30,13 @@ namespace ShardsOfAtheria.Commands
 		public override void Action(CommandCaller caller, string input, string[] args)
 		{
 			Player player = Main.LocalPlayer;
-			SlayerPlayer slayerPlayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
+			SlayerPlayer slayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
 			SoAPlayer soaPlayer = Main.LocalPlayer.GetModPlayer<SoAPlayer>();
 			ShardsDownedSystem soaWorld = ModContent.GetInstance<ShardsDownedSystem>();
 
-			if (player.name != "The Eternal Ace")
-				return;
+			if (player.name == "The Eternal Ace")
+            {
+            }
 		}
     }
 }

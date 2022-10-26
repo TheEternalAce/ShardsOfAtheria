@@ -7,6 +7,7 @@ using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria.DataStructures;
 using Terraria.Audio;
 using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Items.Weapons.Magic
 {
@@ -16,13 +17,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Fires a 2 burst of shockwaves that can bounce off of tiles\n" +
-                "Shockwaves get faster after each bounce\n" +
-                "'I like ya cut g'\n" +
-                "'No voice to cry suffering'");
-
-            SoAGlobalItem.SlayerItem.Add(Type);
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
@@ -65,7 +59,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 {
                     Projectile.NewProjectile(source, player.Center, new Vector2(0, -1).RotatedBy(MathHelper.ToRadians(72 * i)) * 16, type, damage, knockback, player.whoAmI);
                 }
-                return false;
             }
 
             return base.Shoot(player, source, position, velocity, type, damage, knockback);

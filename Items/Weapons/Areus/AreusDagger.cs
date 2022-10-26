@@ -6,6 +6,8 @@ using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria.GameContent.Creative;
 using ShardsOfAtheria.Items.Potions;
+using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {
@@ -48,14 +50,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .AddIngredient(ItemID.HellstoneBar, 10)
                 .AddTile(TileID.Anvils)
                 .Register();
-        }
-
-        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-        {
-            if (player.HasBuff(ModContent.BuffType<Conductive>()))
-            {
-                damage += .15f;
-            }
         }
     }
 }

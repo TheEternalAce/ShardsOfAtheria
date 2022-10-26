@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria.ModLoader.IO;
 using System.Collections.Generic;
+using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
@@ -218,7 +219,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             if (type == ModContent.ProjectileType<Genesis_Whip>())
             {
                 float ai4 = (Main.rand.NextFloat() - 0.5f) * ((float)Math.PI / 4f);
-                Projectile.NewProjectile(source, player.Center, Vector2.Normalize(Main.MouseWorld - player.Center), type, damage, knockback, player.whoAmI, 0f, upgrades >= 2 ? 0 : ai4);
+                Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0f, ai4);
                 return false;
             }
             if (player.ownedProjectileCounts[ModContent.ProjectileType<RagnarokProj2>()] > 0)

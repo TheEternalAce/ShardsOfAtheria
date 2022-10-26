@@ -8,6 +8,32 @@
 
 Mods: {
 	ShardsOfAtheria: {
+		ItemName: {
+			AreusSaber: Areus Saber
+			CrossDagger: Cross Dagger
+			Necronomicon: Necronomicon
+			NovaTrophy: Nova Stellar's Trophy
+			ScreamLantern: Trapped Soul Lantern
+			StrangeTissueSample: Strange Tissue Sample
+			ValkyrieCrest: Hardlight Crest
+		}
+		
+		ItemTooltip: {
+			AreusSaber: "'The pinnacle of areus weapon technology'"
+			CrossDagger:
+				'''
+				A blade that heals 100 Life after striking an enemy
+				Taking damage while this is in your inventory will disable this effect for a time
+				'''
+			ScreamLantern:
+				'''
+				Fires a 2 burst of shockwaves that can bounce off of tiles
+                Shockwaves get faster after each bounce
+                'I like ya cut g'
+                'No voice to cry suffering'
+				'''
+			ValkyrieCrest: Summons a powerful Valkyrie
+		}
 
 		#This is what displays during all of an NPC's happiness levels. Note that the localization key for these should always be "TownNPCMood.*NPCName*.*Mood*" or else it won't display properly.
 		TownNPCMood: {
@@ -21,14 +47,21 @@ Mods: {
 
 				LoveBiome: I love {BiomeName}, It reminds me of Atheria.
 				LikeBiome: "Atheria doesn't have many lush forests, this is a nice change."
-				HateBiome: "I hate {BiomeName}, it's so boring. No colors but grey, gray and maybe brown."
+				HateBiome: "I can't stand how boring {BiomeName} is. No colors but grey, gray and maybe brown."
 				
 				LoveNPC: "{NPCName} makes me feel a certain way.. But regardless she does a great job doing my hair!"
 				LikeNPC: "Nobody gives {NPCName} enough credit. I mean come on, he knows the Soul of Eternity's whole crafting tree yet you have to look it up on Recipe Browser!"
-				LikeNPC_Princess: "{NPCName} reminds me of our king and queen in Atheria, I didn't know humans had royalty as well!"
-				DislikeNPC: '''""'''
+				LikeNPC_Princess: "{NPCName} reminds me of our queen in Atheria, I didn't know humans had royalty as well!"
+				DislikeNPC: ""
 				HateNPC: ""
 			}
+		}
+
+		NPCName: {
+			NovaStellar: Nova Stellar
+		}
+		BossDesc: {
+			NovaStellar: Lightning Valkyrie
 		}
 	}
 }

@@ -3,10 +3,11 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Potions
 {
-	public class SoulInjection : ModItem
+    public class SoulInjection : ModItem
 	{
 		public override void SetStaticDefaults() 
 		{

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using Terraria.IO;
 using ShardsOfAtheria.Tiles.Furniture;
 using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Items.DecaEquipment;
+using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria
 {
@@ -101,10 +101,6 @@ namespace ShardsOfAtheria
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {
             progress.Message = "Generating shrines";
-
-            //PlaceShrine(Main.spawnTileX, Main.spawnTileY - 40);
-            PlaceDecaShrine(Main.spawnTileX, (int)(Main.maxTilesY * 0.09f), ModContent.ItemType<DecaFragmentC>());
-
             // attempts to spawn shrine 1000 times, so hopefully it actually will generate
             for (int t = 0; t < 1000; t++)
             {
@@ -122,27 +118,6 @@ namespace ShardsOfAtheria
                         {
                             PlaceOmegaShrine(x, y);
                             ModContent.GetInstance<ShardsWorld>().omegaShrine = true;
-                        }
-                    }
-                }
-            }
-            // attempts to spawn shrine 1000 times, so hopefully it actually will generate
-            for (int t = 0; t < 1000; t++)
-            {
-                int x = WorldGen.genRand.Next(Main.maxTilesX);
-
-                // Fuck you it can also spawn on the right now
-
-                if ((x < Main.maxTilesX * 0.2f && x > Main.maxTilesX * 0.05f) || (x > Main.maxTilesX * 0.8f && x < Main.maxTilesX * 0.95f))
-                {
-                    int y = WorldGen.genRand.Next((int)(Main.maxTilesY * 0.85f), Main.maxTilesY);
-
-                    if (Main.tile[x, y].TileType == TileID.Ash && !Main.tile[x, y - 1].HasTile && Main.tile[x, y - 1].LiquidType != LiquidID.Lava)
-                    {
-                        if (!ModContent.GetInstance<ShardsWorld>().underworldDecaShrine)
-                        {
-                            PlaceDecaShrine(x, y, ModContent.ItemType<DecaFragmentA>());
-                            ModContent.GetInstance<ShardsWorld>().underworldDecaShrine = true;
                         }
                     }
                 }
@@ -188,43 +163,6 @@ namespace ShardsOfAtheria
             {0,0,2,1,1,1,1,2,0,0},
             {0,0,2,1,1,1,1,2,0,0},
             {0,0,0,0,0,0,0,0,0,0},
-        };
-
-        private readonly int[,] _decashrineshape = {
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,1,1,1,1,1,1,0},
-            {0,0,0,0,0,0,0,0},
-        };
-        private readonly int[,] _decashrinewallshape = {
-            {0,0,1,1,1,1,0,0},
-            {0,0,1,2,2,1,0,0},
-            {0,1,1,2,2,1,1,0},
-            {0,1,2,2,2,2,1,0},
-            {0,1,2,3,3,2,1,0},
-            {0,1,2,4,4,2,1,0},
-            {0,1,2,3,3,2,1,0},
-            {1,1,2,2,2,2,1,1},
-            {1,1,1,1,1,1,1,1},
-            {1,1,1,1,1,1,1,1},
-        };
-        private readonly int[,] _decashrinechestshape = {
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,1,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
         };
 
         public bool PlaceOmegaShrine(int i, int j)
@@ -330,83 +268,6 @@ namespace ShardsOfAtheria
                                     if (chest.item[inventoryIndex].type == ItemID.None)
                                     {
                                         chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<TheMessiah>());
-                                        break;
-                                    }
-                                }
-                            }
-                            break;
-                    }
-
-                }
-            }
-            return true;
-        }
-
-        public bool PlaceDecaShrine(int i, int j, int f)
-        {
-            for (int y2 = 0; y2 < _decashrineshape.GetLength(0); y2++)
-            {
-                for (int x2 = 0; x2 < _decashrineshape.GetLength(1); x2++)
-                {
-                    int k = i - 4 + x2;
-                    int l = j - 4 + y2;
-
-                    int tileType = 0;
-
-                    switch (_decashrineshape[y2, x2])
-                    {
-                        case 1:
-                            tileType = TileID.SapphireGemsparkOff;
-                            break;
-                    }
-                    switch (_decashrinewallshape[y2, x2])
-                    {
-                        case 1:
-                            WorldGen.PlaceWall(k, l, WallID.DiamondGemsparkOff);
-                            break;
-                        case 2:
-                            WorldGen.PlaceWall(k, l, WallID.TopazGemspark);
-                            break;
-                        case 3:
-                            WorldGen.PlaceWall(k, l, WallID.SapphireGemspark);
-                            break;
-                        case 4:
-                            WorldGen.PlaceWall(k, l, WallID.RubyGemspark);
-                            break;
-                    }
-
-                    // removes any existing tiles so it looks better
-                    Main.tile[k, l].ClearTile();
-
-                    if (tileType != 0)
-                    {
-                        WorldGen.PlaceTile(k, l, tileType);
-                        Tile tile = Framing.GetTileSafely(k, l);
-                    }
-                }
-            }
-            // Chest spawn and loot
-            // Has to be seperate otherwise it doesnt spawn properly
-            for (int y = 0; y < _decashrinechestshape.GetLength(0); y++)
-            {
-                for (int x = 0; x < _decashrinechestshape.GetLength(1); x++)
-                {
-                    int k = i - 5 + x;
-                    int l = j - 4 + y;
-
-                    switch (_decashrinechestshape[y, x])
-                    {
-                        case 1:
-                            // switch this to modded chest
-                            int chestindex = WorldGen.PlaceChest(k, l, 467);
-                            if (chestindex >= 0)
-                            {
-                                Chest chest = Main.chest[chestindex];
-                                for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
-                                {
-                                    if (chest.item[inventoryIndex].type == ItemID.None)
-                                    {
-                                        chest.item[inventoryIndex].SetDefaults(f);
                                         break;
                                     }
                                 }

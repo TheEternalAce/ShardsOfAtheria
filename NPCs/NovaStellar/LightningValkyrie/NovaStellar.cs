@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.ItemDropRules.Conditions;
-using ShardsOfAtheria.Items;
 using ShardsOfAtheria.Items.Accessories;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
@@ -33,7 +33,6 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Nova Stellar, the Lightning Valkyrie");
             Main.npcFrameCount[NPC.type] = 1;
 
             NPCID.Sets.MPAllowedEnemies[NPC.type] = true;

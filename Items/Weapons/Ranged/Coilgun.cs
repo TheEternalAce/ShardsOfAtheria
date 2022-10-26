@@ -4,6 +4,7 @@ using Terraria;
 using ShardsOfAtheria.Items.Weapons.Ammo;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -14,8 +15,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Tooltip.SetDefault("Tears through enemy armor\n" +
                 "'Uses electromagnetic coils to fire projectiles at insane velocities'\n" +
                 "'Areus Railgun's older brother'");
-
-            SoAGlobalItem.SlayerItem.Add(Type);
 
             base.SetStaticDefaults();
         }

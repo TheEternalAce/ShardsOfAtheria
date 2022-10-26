@@ -25,12 +25,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                 else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
                 {
                     target.AddBuff(BuffID.Frostburn, 600);
-                    for (int i = 0; i < 6; i++)
-                    {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Vector2.One.RotatedBy(MathHelper.ToRadians(60 * i)),
-                            Vector2.Normalize(Projectile.Center - (Projectile.Center + Vector2.One.RotatedBy(MathHelper.ToRadians(60 * i)))) * 16,
-                            ModContent.ProjectileType<IceShard>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
-                    }
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<IceExplosion>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
                 }
             }
         }
@@ -81,7 +76,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             Projectile.ai[0]++;
             if (Projectile.ai[0] >= 15)
             {
-                Projectile.velocity = Vector2.Normalize(player.Center - Projectile.Center) *30;
+                Projectile.velocity = Vector2.Normalize(player.Center - Projectile.Center) * 30;
             }
 
             if (Projectile.getRect().Intersects(player.getRect()) && Projectile.ai[0] >= 15)
@@ -127,6 +122,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 
                 player.itemRotation = (float)Math.Atan2(remainingVectorToPlayer.Y * direction, remainingVectorToPlayer.X * direction);
             }
+            lightColor = Color.White;
             return true;
         }
     }

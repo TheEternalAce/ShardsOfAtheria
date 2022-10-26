@@ -10,8 +10,6 @@ namespace ShardsOfAtheria.Items.Placeable.Furniture.Trophies
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nova Stellar's Trophy");
-
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

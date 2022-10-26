@@ -1,5 +1,6 @@
-﻿using ShardsOfAtheria.Items;
-using ShardsOfAtheria.Items.Accessories;
+﻿using ShardsOfAtheria.Items.Accessories;
+using ShardsOfAtheria.Items.BossSummons;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Tools;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;

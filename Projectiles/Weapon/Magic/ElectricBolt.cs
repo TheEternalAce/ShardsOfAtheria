@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
-            float maxDetectRadius = 300f; // The maximum radius at which a projectile can detect a target
+            float maxDetectRadius = 600f; // The maximum radius at which a projectile can detect a target
 
             // Trying to find NPC closest to the projectile
             NPC closestNPC = FindClosestNPC(maxDetectRadius);
@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 
             // If found, change the velocity of the projectile and turn it in the direction of the target
             // Use the SafeNormalize extension method to avoid NaNs returned by Vector2.Normalize when the vector is zero
-            Projectile.velocity =  (closestNPC.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 16;
+            Projectile.velocity += (closestNPC.Center - Projectile.Center).SafeNormalize(Vector2.Zero);
             if (Main.rand.NextBool(20))
             {
                 Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric, Projectile.velocity.X* .2f, Projectile.velocity.Y* .2f, 200, Scale: 1f);

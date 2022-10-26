@@ -5,6 +5,7 @@ using Terraria;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria.DataStructures;
 using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Items.Weapons.Magic
 {
@@ -13,8 +14,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("'Gross, absolutely vile..'");
-
-            SoAGlobalItem.SlayerItem.Add(Type);
 
             base.SetStaticDefaults();
         }

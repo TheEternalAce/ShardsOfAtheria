@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using System.Linq;
 using Terraria;

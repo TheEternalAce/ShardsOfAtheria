@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.SlayerItems;
 using System.Collections.Generic;
 using Terraria;
@@ -9,21 +10,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class BloodScythe : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            SoAGlobalItem.SlayerItem.Add(Type);
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            var line = new TooltipLine(Mod, "BloodScythe", "...")
-            {
-                OverrideColor = Color.DarkGray
-            };
-            tooltips.Add(line);
-            base.ModifyTooltips(tooltips);
-        }
-
         public override void SetDefaults()
         {
             Item.width = 70;

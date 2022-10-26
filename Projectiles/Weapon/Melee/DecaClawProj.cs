@@ -7,8 +7,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
     public class DecaClawProj : ModProjectile
     {
-        public override string Texture => "ShardsOfAtheria/Items/DecaEquipment/DecaClaw";
-
         public const int FadeInDuration = 7;
 		public const int FadeOutDuration = 4;
 
