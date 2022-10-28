@@ -9,8 +9,6 @@ namespace ShardsOfAtheria.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'The broken gun of a long forgotten hero'");
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

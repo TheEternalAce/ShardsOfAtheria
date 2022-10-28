@@ -13,9 +13,6 @@ namespace ShardsOfAtheria.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Left Click to swing an energy scythe, <right> to throw a fireball\n" +
-                "'It seems like you're worthy of playing his little game, his game of destiny!'");
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 

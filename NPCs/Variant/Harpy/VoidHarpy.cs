@@ -14,8 +14,6 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Void Harpy");
-
             // Specify the debuffs it is immune to
             NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
             {

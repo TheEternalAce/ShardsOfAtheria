@@ -1,7 +1,3 @@
-using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.SlayerItems;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

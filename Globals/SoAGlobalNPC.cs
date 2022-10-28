@@ -8,8 +8,7 @@ using ShardsOfAtheria.Items.PetItems;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.SevenDeadlySouls;
 using ShardsOfAtheria.Items.SevenDeadlySouls.Extras;
-using ShardsOfAtheria.Items.SlayerItems;
-using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
+using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
@@ -696,25 +695,25 @@ namespace ShardsOfAtheria.Globals
             }
             if (npc.type == NPCID.WallofFlesh)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragmentI>()));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulSoul>()));
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulArmament>()));
             }
             if (npc.type == NPCID.Plantera)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragmentII>()));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
             }
             if (npc.type == NPCID.Golem)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragmentIII>()));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
             }
             if (npc.type == NPCID.CultistBoss)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragmentIV>()));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
             }
             if (npc.type == NPCID.MoonLordCore)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragmentV>()));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
             }
         }
 

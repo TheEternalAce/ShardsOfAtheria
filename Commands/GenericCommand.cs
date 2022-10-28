@@ -1,5 +1,4 @@
 ﻿using rail;
-using ShardsOfAtheria.Items.SlayerItems;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj;
@@ -9,12 +8,16 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ShardsOfAtheria.Items.SlayerItems.Entry;
+using static ShardsOfAtheria.Items.Tools.Misc.Entry;
 
 namespace ShardsOfAtheria.Commands
 {
     class GenericCommand : ModCommand
 	{
+		public override bool IsLoadingEnabled(Mod mod)
+		{
+			return ShardsOfAtheria.DeveloperMode;
+		}
 		public override CommandType Type
 			=> CommandType.Chat;
 
@@ -34,9 +37,7 @@ namespace ShardsOfAtheria.Commands
 			SoAPlayer soaPlayer = Main.LocalPlayer.GetModPlayer<SoAPlayer>();
 			ShardsDownedSystem soaWorld = ModContent.GetInstance<ShardsDownedSystem>();
 
-			if (player.name == "The Eternal Ace")
-            {
-            }
-		}
+            Console.WriteLine("Hello mod developer");
+        }
     }
 }

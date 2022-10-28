@@ -19,7 +19,8 @@
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Items\SlayerItems\SlayerBoxes\" />
+    <Folder Include="Items\SlayerBoxes\" />
+    <Folder Include="Items\Tools\Mining\Wood\" />
     <Folder Include="Items\Weapons\Summon\Sentry\" />
     <Folder Include="NPCs\NovaStellar\PhoenixWarrior\" />
     <Folder Include="Projectiles\Weapon\Melee\GenesisRagnarok\LightningStuff\" />

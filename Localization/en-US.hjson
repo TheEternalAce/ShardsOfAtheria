@@ -9,30 +9,331 @@
 Mods: {
 	ShardsOfAtheria: {
 		ItemName: {
-			AreusSaber: Areus Saber
-			CrossDagger: Cross Dagger
-			Necronomicon: Necronomicon
-			NovaTrophy: Nova Stellar's Trophy
-			ScreamLantern: Trapped Soul Lantern
-			StrangeTissueSample: Strange Tissue Sample
+			# Accessories
+				# Gem cores
+					# Amethyst
+				AmethystCore_Lesser: Lesser Amethyst Core
+				AmethystCore: Amethyst Core
+				AmethystCore_Greater: Greater Amethyst Core
+				AmethystCore_Super: Super Amethyst Core
+					# Diamond
+				DiamondCore_Lesser: Lesser Diamond Core
+				DiamondCore: Diamond Core
+				DiamondCore_Greater: Greater Diamond Core
+				DiamondCore_Super: Super Diamond Core
+					# Emerald
+				EmeraldCore_Lesser: Lesser Emerald Core
+				EmeraldCore: Emerald Core
+				EmeraldCore_Greater: Greater Emerald Core
+				EmeraldCore_Super: Super Emerald Core
+					# Ruby
+				RubyCore_Lesser: Lesser Ruby Core
+				RubyCore: Ruby Core
+				RubyCore_Greater: Greater Ruby Core
+				RubyCore_Super: Super Ruby Core
+					# Sapphire
+				SapphireCore_Lesser: Lesser Sapphire Core
+				SapphireCore: Sapphire Core
+				SapphireCore_Greater: Greater Sapphire Core
+				SapphireCore_Super: Super Sapphire Core
+					# Topaz
+				TopazCore_Lesser: Lesser Topaz Core
+				TopazCore: Topaz Core
+				TopazCore_Greater: Greater Topaz Core
+				TopazCore_Super: Super Topaz Core
+			AreusKey: Areus Key
+			AreusWings: Areus Wings
+			Biometal: Biometal
+			ChargedAreusWings: Charged Areus Wings
+			EntropicWings: Entropic Wings
+			GildedValkyrieWings: Gilded Valkyrie Wings
+			RushDrive: Rush Drive
+			TomeOfOmniscience: Tome of Omniscience
+			ValkyrieCrown: Valkyrie Crown
+
+			# Armor
+			EntropicHood: Entropic Hood
+			EntropicRobe: Entropic Robes
+			EntropicLeggings: Entropic Leggings
+
+			# Boss summons
+			# AreusSnakeScale: Areus Snake Scale
+			PottedPlant: Potted Plant
+			# SpiderClock: Areus Spider Clock
 			ValkyrieCrest: Hardlight Crest
+
+			# Dev items
+				# The Eternal Ace
+			AceOfSpades: Ace of Spades
+			AcesGoldFoxMask: "Rockman Zeta's Gold Fox Mask"
+			AcesJacket: "Rockman Zeta's Gold Fox Mask"
+			AcesPants: "Rockman Zeta's Gold Fox Mask"
+				# nightlight
+			CoatOfnight: "nightlight's Coat"
+			Nightlight: The nightlight
+				# DaluyanMesses
+			StatueOfDaluyan: Golden Hat Statue
+
+			# Materials
+			BrokenHeroGun: Broken Hero Gun
+			ChargedFeather: Charged Feather
+			EmptyNeedle: Empty Needle
+			FragmentEntropy: Entropic Fragment
+			MemoryFragment: Memory Fragment
+			SoulOfDaylight: Soul of Daylight
+			SoulOfSpite: Soul of Spite
+			SoulOfTwilight: Soul of Twilight
+
+			# Misc
+			AmmoBag: Ammo Bag
+			AmmoBag_Arrow: Ammo Bag (Arrow)
+			AmmoBag_Bullet: Ammo Bag (Bullet)
+			AmmoBag_Rocket: Ammo Bag (Rocket)
+			# MagicOcarina: Magic Ocarina
+			OverdriveEnergyPack: Overdrive Energy Pack
+			RepairKit: Repair Kit
+
+			# Pet items
+			StrangeTissueSample: Strange Tissue Sample
+
+			# Place-ables
+				# Ores & Bars
+			AreusShard: Areus Shard
+			BionicBarItem: Bionic Bar
+			BionicOreItem: Bionic Ore
+				# Crafting
+			CobaltWorkbenchItem: Cobalt Workbench
+			PalladiumWorkbenchItem: Palladium Workbench
+				# Furniture
+			ForestHarpyBanner: Forest Harpy Banner
+			NovaTrophy: Nova Stellar's Trophy
+			NovaRelic: Nova Stellar Relic
+
+			# Potions
+			BoneMarrowInjection: Bone Marrow Injection
+			ConductivityPotion: Conductivity Potion
+			SoulInjection: Soul Injection
+
+			# Sinful
+			EnvySoul: Envy Soul
+			GluttonySoul: Gluttony Soul
+			GreedSoul: Greed Soul
+			LustSoul: Lust Soul
+			PrideSoul: Pride Soul
+			SlothSoul: Sloth Soul
+			WrathSoul: Wrath Soul
+			VirtuousDagger: Virtuous Dagger
+			SinfulArmament: Sinful Armament
+
+			# Soul crystals
+			KingSoulCrystal: "Soul Crystal (King Slime)"
+			EyeSoulCrystal: "Soul Crystal (Eye of Cthulhu)"
+			BrainSoulCrystal: "Soul Crystal (Brain of Cthulhu)"
+			EaterSoulCrystal: "Soul Crystal (Eater of Worlds)"
+			BeeSoulCrystal: "Soul Crystal (Queen Bee)"
+			SkullSoulCrystal: "Soul Crystal (Skeletron)"
+			ValkyrieSoulCrystal: "Soul Crystal (Nova Stellar)"
+			DeerclopsSoulCrystal: "Soul Crystal (Deerclops)"
+			WallSoulCrystal: "Soul Crystal (Wall of Flesh)"
+			QueenSoulCrystal: "Soul Crystal (Queen Slime)"
+			DestoyerSoulCrystal: "Soul Crystal (The Destroyer)"
+			PrimeSoulCrystal: "Soul Crystal (Skeletron Prime)"
+			TwinsSoulCrystal: "Soul Crystal (The Twins)"
+			PlantSoulCrystal: "Soul Crystal (Plantera)"
+			GolemSoulCrystal: "Soul Crystal (Golem)"
+			DukeSoulCrystal: "Soul Crystal (Duke Fishron)"
+			EmpressSoulCrystal: "Soul Crystal (Empress of Light)"
+			LunaticSoulCrystal: "Soul Crystal (Lunatic Cultist)"
+			LordSoulCrystal: "Soul Crystal (Moon Lord)"
+			# LandSoulCrystal: "Soul Crystal (Senterra)"
+			# TimeSoulCrystal: "Soul Crystal (Genesis)"
+			# DeathSoulCrystal: "Soul Crystal (Elizabeth Norman)"
+
+			# Slayer boxes coming in 1.0
+
+			# Tools
+			Necronomicon: Necronomicon
+			RedAreusDrill: Red Areus Drill
+			RedAreusPickaxe: Red Areus Pickaxe
+			SpidersMechanicalClock: "Spider's Mechanical Clock"
+			SoulExtractingDagger: Soul Extracting Dagger
+
+			# Weapons
+				# Ammo
+			AreusBullet: Areus Bullet
+			BB: BB
+			SpectralArrow: Spectral Arrow
+			SpectralBullet: Spectral Bullet
+				# Areus
+			AreusAssaultRifle: Areus Assault Rifle
+			AreusBow: Areus Bow
+			AreusDagger: Areus Dagger
+			AreusGlaive: Areus Glaive
+			AreusKatana: Areus Katana
+			AreusMagnum: Areus Magnum
+			AreusRailgun: "Areus Rail-gun"
+			AreusSaber: Areus Saber
+			AreusStaff: Areus Staff
+			AreusSword: Areus Sword
+			AreusTrimmedTome: Areus Trimmed Tome
+			BrokenAreusMirror: Broken Areus Mirror
+				# Magic
+			Gunsword: "Gun-Sword"
+			Pandora: Frostspark Staff
+			PerishSong: Perish Song
+			PlumeCodex: Plume Codex
+			ScreamLantern: Trapped Soul Lantern
+			WormTench: Worm Tench
+				# Melee
+			BloodScythe: Blood Scythe
+			Cataracnia: Cataracnia
+			CrossDagger: Cross Dagger
+			EntropySlicer: Entropy Slicer
+			GenesisAndRagnarok: Genesis and Ragnarok
+			Gomorrah: Gomorrah
+			HeroSword: Hero Sword
+			Masamune: Masamune
+			Prometheus: Energy Scythe
+			ReactorMeltdown: Reactor Meltdown
+			Satanlance: ecnatnataS
+			TheMessiah: The Messiah
+			TheMourningStar: The Mourning Star
+			ValkyrieBlade: Valkyrie Blade
+			ValkyrieStorm: Valkyrie Storm
+			ValkyrieStormLance: Storm Lance
+			WormBloom: Worm Bloom
+			Yamiko: Yamiko
+			Zenova: Zenova
+				# Ranged
+			BlackHoleRepeater: Black Hole Repeater
+			Coilgun: "Coil-gun"
+			DoubleBow: Double Bow
+			DownBow: Down Bow
+			Glock80: Glock 80
+			HandCanon: Hand Cannon
+			HecateII: Hecate II
+			HeroGun: Hero Gun
+			HuntingRifle: Hunting Rifle
+			MetalBlade: Metal Blade
+			P90: P90
+			Pantheon: Pantheon
+			PhantomRose: Phantom Rose
+			Scarlet: Scarlet
+			TheAmbassador: The Ambassador
+				# Summon
+			DragonSpineWhip: Dragon Spine Whip
+			FlailOfFlesh: Flail of Flesh
+			NestlingStaff: Nestling Staff
 		}
 		
 		ItemTooltip: {
+			# Boss summons
+			PottedPlant: Summons Plantera in the Underground Jungle
+			ValkyrieCrest: Summons a powerful Valkyrie
+
+			# Materials
+			BrokenHeroGun: "'The broken gun of a long forgotten hero'"
+			ChargedFeather: "'Electricity flows between its barbs'"
+			FragmentEnntropy: "'Feelings of universal decay emanate from this fragment'"
+			MemoryFragment:
+				'''
+				Can be used to upgrade Genesis and Ragnarok
+				"'The faint voice of a young boy echoes from within'"
+				'''
+			SoulOfDaylight:
+				'''
+				'The essence of daytime creatures'
+				Disappears after the sunset
+				'''
+			SoulOfSpite: "'The essence of hateful creatures'"
+			SoulOfTwilight:
+				'''
+				'The essence of nighttime creatures'
+				Disappears after the sunset
+				'''
+
+			# Pet items
+			StrangeTissueSample: Summons a pet Creeper to follow you
+
+			# Tools
+			RedAreusDrill:
+				'''
+				Uses highly concentrated electricity to cut through stones and ores
+				"'Extremely dangerous... and fun!'"
+				'''
+			RedAreusPickaxe: Uses highly concentrated electricity to cut through stones and ores
+			SoulExtractingDagger:
+				'''
+				Right click to cycle between absorbed Soul Crystals
+				Use to extract the currently selected Soul Crystal
+				'''
+			WandOfHealing:
+				'''
+				'Converts Mana into Life'
+				Taking damage while this is in your inventory will render this unusable for a time
+				'''
+
+			# Place-ables
+			AreusShard: A shard of limitless electricity
+			BionicBarItem: "'It still pulsates as if it has a heartbeat...'"
+			BionicOreItem: "'It pulsates as if it has a heartbeat...'"
+			CobaltWorkbenchItem: Used to completely skip having to gather mythril ore
+			PalladiumWorkbenchItem: Used to completely skip having to gather mythril ore
+
+			# Weapons
+				# Magic
+			ScreamLantern:
+				'''
+				Fires a 2 burst of shockwaves that can bounce off of tiles
+				Shockwaves get faster after each bounce
+				'I like ya cut g'
+				'No voice to cry suffering'
+				'''
+				# Melee
 			AreusSaber: "'The pinnacle of areus weapon technology'"
 			CrossDagger:
 				'''
 				A blade that heals 100 Life after striking an enemy
 				Taking damage while this is in your inventory will disable this effect for a time
 				'''
-			ScreamLantern:
+			Prometheus:
 				'''
-				Fires a 2 burst of shockwaves that can bounce off of tiles
-                Shockwaves get faster after each bounce
-                'I like ya cut g'
-                'No voice to cry suffering'
+				Left Click to swing an energy scythe, <right> to throw a fireball
+				"'It seems like you're worthy of playing his little game, his game of destiny!'"
 				'''
-			ValkyrieCrest: Summons a powerful Valkyrie
+				# Ranged
+				# Summon
+			NestlingStaff: Summons a fledgling harpy knight to fight for you
+		}
+
+		ProjectileName: {
+			# Weapon
+		}
+
+		NPCName: {
+			NovaStellar: Nova Stellar
+
+			CaveHarpy: Cavern Harpy
+			CorruptHarpy: Infested Harpy
+			CrimsonHarpy: Hemorrhaging Harpy
+			DesertHarpy: Dust Storm Harpy
+			ForestHarpy: Forest Harpy
+			HallowedHarpy: Holy Harpy
+			OceanHarpy: Seaside Harpy
+			SnowHarpy: Arctic Harpy
+			VoidHarpy: Void Harpy
+
+			BoneSword: Bone Sword
+			ForestScythe: Forest Scythe
+			StormSpear: Storm Spear
+			ThornChakram: Thorn Chakram
+			Tonbogiri: Tonbogiri
+
+			Creeper: Creeper
+		}
+
+		BossDesc: {
+			NovaStellar: Lightning Valkyrie
 		}
 
 		#This is what displays during all of an NPC's happiness levels. Note that the localization key for these should always be "TownNPCMood.*NPCName*.*Mood*" or else it won't display properly.
@@ -47,7 +348,7 @@ Mods: {
 
 				LoveBiome: I love {BiomeName}, It reminds me of Atheria.
 				LikeBiome: "Atheria doesn't have many lush forests, this is a nice change."
-				HateBiome: "I can't stand how boring {BiomeName} is. No colors but grey, gray and maybe brown."
+				HateBiome: "I can't stand how boring {BiomeName} is. All the colors are buried under gray and maybe brown."
 				
 				LoveNPC: "{NPCName} makes me feel a certain way.. But regardless she does a great job doing my hair!"
 				LikeNPC: "Nobody gives {NPCName} enough credit. I mean come on, he knows the Soul of Eternity's whole crafting tree yet you have to look it up on Recipe Browser!"
@@ -55,13 +356,6 @@ Mods: {
 				DislikeNPC: ""
 				HateNPC: ""
 			}
-		}
-
-		NPCName: {
-			NovaStellar: Nova Stellar
-		}
-		BossDesc: {
-			NovaStellar: Lightning Valkyrie
 		}
 	}
 }

@@ -13,7 +13,6 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Desert Harpy");
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.Harpy];
 
             // Influences how the NPC looks in the Bestiary

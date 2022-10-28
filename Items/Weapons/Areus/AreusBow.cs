@@ -4,13 +4,13 @@ using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Tiles;
 using Microsoft.Xna.Framework;
 using Terraria;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria.DataStructures;
 using ShardsOfAtheria.Projectiles.Other;
 using Terraria.GameContent.Creative;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Projectiles.Weapon.Areus;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {

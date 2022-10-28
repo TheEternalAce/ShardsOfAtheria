@@ -1,5 +1,5 @@
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Items.Materials;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

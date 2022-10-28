@@ -16,7 +16,6 @@ namespace ShardsOfAtheria.Items.DevItems.nightlight
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("nightlight's Coat");
             Tooltip.SetDefault("'Great for impersonating devs!'\n" +
                 "'no capitalization on my name'");
 

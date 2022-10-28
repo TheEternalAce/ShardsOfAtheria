@@ -74,14 +74,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/TheMessiah"));
                 theMessiah = true;
             }
-
-            if (charge >= 80 && player.ownedProjectileCounts[ModContent.ProjectileType<ChargeOrb>()] < 3)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center, Vector2.Zero, ModContent.ProjectileType<ChargeOrb>(), 0, 0, player.whoAmI, i);
-                }
-            }
             if (charge < 200)
                 charge += 1;
             else charge = 200;
@@ -102,13 +94,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            for (int i = 0; i < Main.maxProjectiles; i++)
-            {
-                if (Main.projectile[i].type == ModContent.ProjectileType<ChargeOrb>())
-                {
-                    Main.projectile[i].Kill();
-                }
-            }
             if (charge == 200)
             {
                 float numberProjectiles = 5;

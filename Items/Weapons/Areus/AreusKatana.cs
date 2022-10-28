@@ -5,10 +5,10 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria.GameContent.Creative;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Projectiles.Weapon.Areus;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {

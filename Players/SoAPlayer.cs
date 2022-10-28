@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Items;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.SevenDeadlySouls;
-using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Items.Tools.Misc;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;

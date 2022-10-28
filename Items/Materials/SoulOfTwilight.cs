@@ -13,8 +13,6 @@ namespace ShardsOfAtheria.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'The essence of nighttime creatures'\n" +
-                "Disappears after the sunrise");
             // ticksperframe, frameCount
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 4));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;

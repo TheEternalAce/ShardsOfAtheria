@@ -2,8 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles.Weapon.Summon.Whip;
-using ShardsOfAtheria.Items.SlayerItems;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Weapons.Summon.Whip
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
+using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj;
 using System;
@@ -51,8 +51,7 @@ namespace ShardsOfAtheria.NPCs
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                if (Main.player[NPC.target].dead || !Main.player[NPC.target].active || !Main.player[NPC.target].GetModPlayer<SlayerPlayer>().soulCrystals.Contains(ModContent.ItemType<BrainSoulCrystal>())
-                    || Main.player[NPC.target].GetModPlayer<SynergyPlayer>().brainLordSynergy)
+                if (Main.player[NPC.target].dead || !Main.player[NPC.target].active || !Main.player[NPC.target].GetModPlayer<SlayerPlayer>().soulCrystals.Contains(ModContent.ItemType<BrainSoulCrystal>()))
                     NPC.active = false;
                 else NPC.active = true;
 

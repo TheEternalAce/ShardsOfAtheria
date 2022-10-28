@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
+using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Players;
 using System;
 using Terraria;

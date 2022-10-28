@@ -15,7 +15,6 @@ namespace ShardsOfAtheria.Items
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Ammo Bag (Rocket)");
 			Tooltip.SetDefault("Gives a stack of a random rocket type");
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;

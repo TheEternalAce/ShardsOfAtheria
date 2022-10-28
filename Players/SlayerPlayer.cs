@@ -1,12 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Items.SlayerItems;
-using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
+using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.NPCs;
 using ShardsOfAtheria.Projectiles.Minions;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Tools;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -302,7 +300,7 @@ namespace ShardsOfAtheria.Players
                 Player.lifeRegen += 8;
                 Player.manaRegen += 8;
             }
-            if (soulCrystals.Contains(ModContent.ItemType<PrimeSoulCrystal>()) && !Player.GetModPlayer<SynergyPlayer>().mechaMayhemSynergy)
+            if (soulCrystals.Contains(ModContent.ItemType<PrimeSoulCrystal>()))
             {
                 if (Player.GetModPlayer<SoAPlayer>().inCombat > 0)
                 {
@@ -430,7 +428,7 @@ namespace ShardsOfAtheria.Players
                     }
                 }
             }
-            if (soulCrystals.Contains(ModContent.ItemType<BrainSoulCrystal>()) && !Player.GetModPlayer<SynergyPlayer>().brainLordSynergy)
+            if (soulCrystals.Contains(ModContent.ItemType<BrainSoulCrystal>()))
             {
                 if (!Player.HasBuff(ModContent.BuffType<CreeperShield>()))
                     creeperSpawnTimer++;
@@ -608,7 +606,7 @@ namespace ShardsOfAtheria.Players
             if (soulCrystals.Contains(ModContent.ItemType<TwinsSoulCrystal>()))
             {
                 Vector2 position = npc.Center+Vector2.One.RotatedByRandom(360)*180;
-                int getDamage = Player.GetModPlayer<SynergyPlayer>().mechaMayhemSynergy ? 60 : 40;
+                int getDamage = 40;
                 Projectile.NewProjectile(Player.GetSource_OnHurt(npc), position, Vector2.Normalize(npc.Center - position) * 10, ProjectileID.FirstFractal, getDamage, 6f, Player.whoAmI);
             }
             if (soulCrystals.Contains(ModContent.ItemType<DeerclopsSoulCrystal>()))
@@ -661,10 +659,6 @@ namespace ShardsOfAtheria.Players
             }
             if (totalDamageTaken >= 100)
             {
-                if (Player.GetModPlayer<SynergyPlayer>().kingQueenSynergy && Player.ownedProjectileCounts[ModContent.ProjectileType<Slime>()] < 10)
-                {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<Slime>(), 30, 1f, Player.whoAmI);
-                }
                 if (soulCrystals.Contains(ModContent.ItemType<DestroyerSoulCrystal>()) && Player.ownedProjectileCounts[ModContent.ProjectileType<TheDestroyersProbeAttack>()] < 5)
                 {
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<TheDestroyersProbeAttack>(), 50, 0f, Player.whoAmI);
@@ -724,22 +718,12 @@ namespace ShardsOfAtheria.Players
             {
                 Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<AllSeeingEye>(), 0, 0f, player.whoAmI);
             }
-            if (soulCrystals.Contains(ModContent.ItemType<BrainSoulCrystal>()) && !Player.GetModPlayer<SynergyPlayer>().brainLordSynergy)
+            if (soulCrystals.Contains(ModContent.ItemType<BrainSoulCrystal>()))
             {
-                if (Player.GetModPlayer<SynergyPlayer>().brainLordSynergy)
-                {
-                    NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X + 20), (int)(Player.Center.Y + 20), ModContent.NPCType<TrueCreeper>());
-                    NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X - 20), (int)(Player.Center.Y + 20), ModContent.NPCType<TrueCreeper>());
-                    NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X + 20), (int)(Player.Center.Y - 20), ModContent.NPCType<TrueCreeper>());
-                    NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X - 20), (int)(Player.Center.Y - 20), ModContent.NPCType<TrueCreeper>());
-                }
-                else
-                {
-                    NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X + 20), (int)(Player.Center.Y + 20), ModContent.NPCType<Creeper>());
-                    NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X - 20), (int)(Player.Center.Y + 20), ModContent.NPCType<Creeper>());
-                    NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X + 20), (int)(Player.Center.Y - 20), ModContent.NPCType<Creeper>());
-                    NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X - 20), (int)(Player.Center.Y - 20), ModContent.NPCType<Creeper>());
-                }
+                NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X + 20), (int)(Player.Center.Y + 20), ModContent.NPCType<Creeper>());
+                NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X - 20), (int)(Player.Center.Y + 20), ModContent.NPCType<Creeper>());
+                NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X + 20), (int)(Player.Center.Y - 20), ModContent.NPCType<Creeper>());
+                NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X - 20), (int)(Player.Center.Y - 20), ModContent.NPCType<Creeper>());
             }
             if (soulCrystals.Contains(ModContent.ItemType<DestroyerSoulCrystal>()))
             {
@@ -758,7 +742,7 @@ namespace ShardsOfAtheria.Players
             {
                 Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<AllSeeingEye>(), 0, 0f, player.whoAmI);
             }
-            if (soulCrystals.Contains(ModContent.ItemType<BrainSoulCrystal>()) && !Player.GetModPlayer<SynergyPlayer>().brainLordSynergy)
+            if (soulCrystals.Contains(ModContent.ItemType<BrainSoulCrystal>()))
             {
                 NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X + 20), (int)(Player.Center.Y + 20), ModContent.NPCType<Creeper>());
                 NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X - 20), (int)(Player.Center.Y + 20), ModContent.NPCType<Creeper>());

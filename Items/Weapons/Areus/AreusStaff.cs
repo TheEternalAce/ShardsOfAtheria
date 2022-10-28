@@ -2,12 +2,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Items.Placeable;
 using Terraria;
-using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria.GameContent.Creative;
 using ShardsOfAtheria.Items.Potions;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Projectiles.Weapon.Areus;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {

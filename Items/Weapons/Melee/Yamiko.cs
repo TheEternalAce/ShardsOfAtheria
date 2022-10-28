@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
@@ -18,6 +19,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Tooltip.SetDefault("'I'm not tsundere! You're tsundere!'");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()

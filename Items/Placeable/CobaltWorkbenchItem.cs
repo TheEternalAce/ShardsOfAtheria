@@ -9,9 +9,6 @@ namespace ShardsOfAtheria.Items.Placeable
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Cobalt Workbench");
-			Tooltip.SetDefault("Used to completely skip having to gather mythril ore");
-
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

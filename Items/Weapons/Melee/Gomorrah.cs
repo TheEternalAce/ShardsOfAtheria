@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah;
+using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
@@ -16,6 +17,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 "Sticking 8 spears into the same target causes a large burst of damage");
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SoAGlobalItem.AreusWeapon.Add(Type);
 		}
 
 		public override void SetDefaults() 

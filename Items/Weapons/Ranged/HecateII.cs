@@ -11,9 +11,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hecate II");
-			Tooltip.SetDefault("");
-
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

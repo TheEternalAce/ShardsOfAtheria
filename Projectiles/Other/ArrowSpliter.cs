@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Projectiles.NPCProj;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged;
+using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

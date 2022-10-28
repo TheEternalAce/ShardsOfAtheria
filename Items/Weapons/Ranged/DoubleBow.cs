@@ -1,9 +1,6 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.SlayerItems;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;

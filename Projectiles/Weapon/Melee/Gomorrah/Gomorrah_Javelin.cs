@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Globals;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -13,6 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 		public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gomorrah");
+            SoAGlobalProjectile.AreusProjectile.Add(Type);
         }
 
         public override void SetDefaults()
@@ -33,11 +35,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 
 			DrawOffsetX = -76;
 			DrawOriginOffsetX = 38;
-		}
-
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
-			target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
 		}
 
 		// See ExampleBehindTilesProjectile. 

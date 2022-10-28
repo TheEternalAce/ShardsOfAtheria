@@ -11,8 +11,6 @@ namespace ShardsOfAtheria.Items.Placeable
 	{
 		public override void SetStaticDefaults() 
 		{
-			Tooltip.SetDefault("A pale blue shard of limitless electricity");
-
 			Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 11));
 			ItemID.Sets.AnimatesAsSoul[Item.type] = true;
 

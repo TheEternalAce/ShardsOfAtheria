@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Globals;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,10 +10,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 {
     public class Gomorrah_Spear : ModProjectile
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gomorrah");
+            SoAGlobalProjectile.AreusProjectile.Add(Type);
         }
 
         public override void SetDefaults()
@@ -85,11 +86,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
                 Projectile.rotation -= MathHelper.ToRadians(90f);
             }
             Projectile.netUpdate = true;
-        }
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
         }
     }
 }

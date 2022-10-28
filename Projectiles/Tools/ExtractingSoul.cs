@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.SlayerItems;
 using Terraria;
-using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
+using ShardsOfAtheria.Items.SoulCrystals;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Players;
 using System;
-using static ShardsOfAtheria.Items.SlayerItems.Entry;
+using static ShardsOfAtheria.Items.Tools.Misc.Entry;
 
 namespace ShardsOfAtheria.Projectiles.Tools
 {

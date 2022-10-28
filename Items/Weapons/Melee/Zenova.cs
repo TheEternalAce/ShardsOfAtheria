@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.SlayerItems;
 using ShardsOfAtheria.Items.Weapons.Areus;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova;
 using Terraria;
 using Terraria.Audio;

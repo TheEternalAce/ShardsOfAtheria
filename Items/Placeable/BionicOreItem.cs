@@ -10,8 +10,6 @@ namespace ShardsOfAtheria.Items.Placeable
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Bionic Ore");
-			Tooltip.SetDefault("It pulsates as if it has a heartbeat...");
 			ItemID.Sets.ItemIconPulse[Item.type] = true;
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;

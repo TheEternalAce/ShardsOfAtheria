@@ -3,8 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Items.SlayerItems;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Armor
 {

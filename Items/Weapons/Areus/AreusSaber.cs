@@ -8,7 +8,7 @@ using Terraria.GameContent.Creative;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSaber;
+using ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {

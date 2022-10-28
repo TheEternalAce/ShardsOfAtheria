@@ -6,15 +6,10 @@ using Microsoft.Xna.Framework;
 
 namespace ShardsOfAtheria.Items.Materials
 {
-    public class MemoryFragmentI : ModItem
+    public class MemoryFragment : ModItem
     {
-        public override string Texture => "ShardsOfAtheria/Items/Materials/MemoryFragment";
-
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Can be used to upgrade Genesis and Ragnarok\n" +
-                "'Memories broken the truth goes unspoken'\n" +
-                "'The faint voice of a young boy echoes from within'");
             ItemID.Sets.ItemIconPulse[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
 
@@ -35,37 +30,5 @@ namespace ShardsOfAtheria.Items.Materials
         {
             Lighting.AddLight(Item.Center, Color.WhiteSmoke.ToVector3() * 1f * Main.essScale);
         }
-    }
-
-    public class MemoryFragmentII : MemoryFragmentI
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Memory Fragment II");
-            base.SetStaticDefaults();
-        }
-    }
-
-    public class MemoryFragmentIII : MemoryFragmentI
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Memory Fragment III");
-            base.SetStaticDefaults();
-        }
-    }
-
-    public class MemoryFragmentIV : MemoryFragmentI
-    {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Memory Fragment IV");
-            base.SetStaticDefaults();
-        }
-    }
-
-    public class MemoryFragmentV : MemoryFragmentI
-    {
-
     }
 }

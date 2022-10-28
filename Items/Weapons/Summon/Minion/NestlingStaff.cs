@@ -18,18 +18,13 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Minion
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Summons a juvenile harpy to fight for you");
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()
         {
-            Item refItem = new Item();
-            refItem.SetDefaults(ModContent.ItemType<AreusStaff>());
-
-            Item.width = refItem.width;
-            Item.height = refItem.height;
+            Item.width = 70;
+            Item.height = 70;
 
             Item.damage = 20;
             Item.DamageType = DamageClass.Summon;
@@ -62,13 +57,15 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Minion
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            // This is needed so the buff that keeps your minion alive and allows you to despawn it properly applies
-            player.AddBuff(Item.buffType, 2);
+            if (player.whoAmI == Main.myPlayer)
+            {
+                // This is needed so the buff that keeps your minion alive and allows you to despawn it properly applies
+                player.AddBuff(Item.buffType, 2);
 
-            // Minions have to be spawned manually, then have originalDamage assigned to the damage of the summon item
-            var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, Main.myPlayer);
-            projectile.originalDamage = Item.damage;
-
+                // Minions have to be spawned manually, then have originalDamage assigned to the damage of the summon item
+                var projectile = Projectile.NewProjectileDirect(source, Main.MouseWorld, velocity, type, damage, knockback, Main.myPlayer);
+                projectile.originalDamage = Item.damage;
+            }
             // Since we spawned the projectile manually already, we do not need the game to spawn it for ourselves anymore, so return false
             return false;
         }

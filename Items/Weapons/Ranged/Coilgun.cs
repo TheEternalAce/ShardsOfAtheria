@@ -1,10 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria;
-using ShardsOfAtheria.Items.Weapons.Ammo;
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.SlayerItems;
-using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {

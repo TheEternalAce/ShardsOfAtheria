@@ -5,9 +5,6 @@ using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria.DataStructures;
-using Terraria.Audio;
-using ShardsOfAtheria.Items.SlayerItems;
-using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Items.Weapons.Magic
 {

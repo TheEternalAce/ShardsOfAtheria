@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using System;
 using Terraria;
@@ -15,6 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Shard of Agony");
+            SoAGlobalProjectile.AreusProjectile.Add(Type);
         }
 
         public override void SetDefaults()

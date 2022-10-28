@@ -10,8 +10,6 @@ namespace ShardsOfAtheria.Items.Placeable
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Bionic Bar");
-			Tooltip.SetDefault("It still pulsates as if it has a heartbeat...");
 			ItemID.Sets.ItemIconPulse[Item.type] = true;
 			ItemID.Sets.SortingPriorityMaterials[Item.type] = 59;
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Potions;
 using Terraria;
 using Terraria.ID;
@@ -11,6 +12,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
     {
         public override void SetStaticDefaults()
         {
+            SoAGlobalProjectile.AreusProjectile.Add(Type);
         }
 
         public override void SetDefaults()
@@ -35,12 +37,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
             {
                 Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric, Projectile.velocity.X* .2f, Projectile.velocity.Y* .2f, 200, Scale: 1f);
             }
-        }
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            Player player = Main.player[Projectile.owner];
-            target.AddBuff(ModContent.BuffType<ElectricShock>(), player.HasBuff(ModContent.BuffType<Conductive>()) ? 1200 : 600);
         }
     }
 }

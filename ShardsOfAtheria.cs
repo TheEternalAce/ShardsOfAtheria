@@ -1,7 +1,7 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
-using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Items.Tools.Misc;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
@@ -17,6 +17,8 @@ namespace ShardsOfAtheria
 {
     public partial class ShardsOfAtheria : Mod
     {
+        public static bool DeveloperMode = true;
+
         public static int MaxNecronomiconPages = 2;
 
         public static ModKeybind OverdriveKey;

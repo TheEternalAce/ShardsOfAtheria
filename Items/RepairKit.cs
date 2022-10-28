@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Players;
 using System.Collections.Generic;
 using Terraria;

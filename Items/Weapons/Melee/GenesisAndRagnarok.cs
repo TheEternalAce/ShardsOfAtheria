@@ -36,7 +36,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Genesis and Ragnarok");
             Tooltip.SetDefault("If an attack is not followed up after an attack, the combo will reset\n" +
                 "Use RMB to bring up a shield, release RMB to throw the shield\n" +
                 "This shield grants 20 defense and is capable of parrying and reflecting some projectiles");

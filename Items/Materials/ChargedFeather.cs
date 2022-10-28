@@ -11,7 +11,6 @@ namespace ShardsOfAtheria.Items.Materials
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'Electricity flows between its barbs'");
             // ticksperframe, frameCount
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 8));
             ItemID.Sets.AnimatesAsSoul[Item.type] = true;

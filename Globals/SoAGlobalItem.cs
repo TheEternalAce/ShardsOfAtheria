@@ -2,7 +2,7 @@
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Items.SevenDeadlySouls;
-using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
+using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles;
@@ -21,6 +21,7 @@ namespace ShardsOfAtheria.Globals
 {
     public class SoAGlobalItem : GlobalItem
     {
+        #region
         public static List<int> AreusWeapon = new();
         public static List<int> SlayerItem = new();
 
@@ -39,6 +40,11 @@ namespace ShardsOfAtheria.Globals
         public static List<int> preHardmodeRockets = new();
         public static List<int> hardmodeRockets = new();
         public static List<int> postMoonLordRockets = new();
+        #endregion
+
+        #region
+
+        #endregion
 
         public override void SetDefaults(Item item)
         {

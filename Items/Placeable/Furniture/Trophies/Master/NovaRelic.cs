@@ -11,8 +11,6 @@ namespace ShardsOfAtheria.Items.Placeable.Furniture.Trophies.Master
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nova Stellar Relic");
-
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
 

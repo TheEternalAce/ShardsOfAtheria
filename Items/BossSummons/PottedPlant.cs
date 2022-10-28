@@ -10,14 +10,13 @@ namespace ShardsOfAtheria.Items.BossSummons
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Summons Plantera");
             ItemID.Sets.SortingPriorityBossSpawns[Type] = 12; // This helps sort inventory know that this is a boss summoning Item.
 
             // This is set to true for all NPCs that can be summoned via an Item (calling NPC.SpawnOnPlayer). If this is for a modded boss,
             // write this in the bosses file instead
             NPCID.Sets.MPAllowedEnemies[NPCID.Plantera] = true;
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

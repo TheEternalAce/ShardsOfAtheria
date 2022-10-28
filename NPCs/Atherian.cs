@@ -4,7 +4,7 @@ using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Tools;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -139,7 +139,7 @@ namespace ShardsOfAtheria.NPCs
                 {
                     if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 0)
                     {
-                        if (!Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragmentI>()))
+                        if (!Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragment>()))
                             return "What a peculiar weapon. It shows capabilities of transforming into several types of weapon, but it's locked in spear and whip form.\n" +
                             "There's also memories sealed inside the shield. Perhaps something to unlock those memories will make it stronger?";
                         else
@@ -188,75 +188,69 @@ namespace ShardsOfAtheria.NPCs
 
                     return;
                 }
-                if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>() && (Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades >= 0
-                    && (Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragmentI>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragmentII>())
-                    || Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragmentIII>()) || Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragmentIV>())
-                    || Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragmentV>())))
+                if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>() && (Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5
+                    && Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragment>()))
                 {
-                    if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 0 && Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragmentI>()))
+                    if (Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragment>()))
                     {
-                        SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
-
-                        Main.npcChatText = "As I expected, the fragments did make them stronger.\n" +
-                            "Either way, Genesis is now able to take the form of a double-headed spear.\n" +
-                            "There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.";
-
-                        (Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades = 1;
-                        Main.LocalPlayer.inventory[Main.LocalPlayer.FindItem(ModContent.ItemType<MemoryFragmentI>())].stack--;
-
-                        return;
-                    }
-                    else if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 1 && Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragmentII>()))
-                    {
-                        SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
-
-                        Main.npcChatText = "Genesis and Ragnarok are now stronger and Genesis can attach to Ragnarok for swinging.\n" +
-                            "There are still seals to break, if you find any more of those Memory Fragments then be sure to see me.";
-
-                        (Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades = 2;
-                        Main.LocalPlayer.inventory[Main.LocalPlayer.FindItem(ModContent.ItemType<MemoryFragmentII>())].stack--;
-
-                        return;
-                    }
-                    else if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 2 && Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragmentIII>()))
-                    {
-                        SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
-
-                        Main.npcChatText = "Genesis and Ragnarok now stronger and can set enemies on fire.\n" +
-                            "There are still seals to break, if you find any more of those Memory Fragments then be sure to see me.";
-
-                        (Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades = 3;
-                        Main.LocalPlayer.inventory[Main.LocalPlayer.FindItem(ModContent.ItemType<MemoryFragmentIII>())].stack--;
-
-                        return;
-                    }
-                    else if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 3 && Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragmentIV>()))
-                    {
-                        SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
-
-                        Main.npcChatText = "Genesis and Ragnarok now stronger and can Genesis can transform into a sword.\n" +
-                            "There are still seals to break, if you find any more of those Memory Fragments then be sure to see me.";
-
-                        (Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades = 4;
-                        Main.LocalPlayer.inventory[Main.LocalPlayer.FindItem(ModContent.ItemType<MemoryFragmentIV>())].stack--;
-
-                        return;
-                    }
-                    else if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 4 && Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragmentV>()))
-                    {
-                        SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
-
-                        Main.npcChatText = "Genesis and Ragnarok now stronger and their ice capabilities are revealed.\n" +
-                            "That's all the memory seals released, I cannot upgrade them further.";
-
-                        (Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades = 5;
-                        Main.LocalPlayer.inventory[Main.LocalPlayer.FindItem(ModContent.ItemType<MemoryFragmentV>())].stack--;
-
-                        return;
+                        int materialID = ModContent.ItemType<MemoryFragment>();
+                        if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 0)
+                        {
+                            if (Main.LocalPlayer.HasItem(materialID))
+                            {
+                                if (UpgradeItem(Main.LocalPlayer.HeldItem, materialID, 0))
+                                {
+                                    Main.npcChatText = "As I expected, the fragments did make them stronger.\n" +
+                                        "Either way, Genesis is now able to take the form of a double-headed spear.\n" +
+                                        "There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.";
+                                }
+                            }
+                            return;
+                        }
+                        else if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 1)
+                        {
+                            materialID = ItemID.ChlorophyteBar;
+                            if (UpgradeItem(Main.LocalPlayer.HeldItem, materialID, 14))
+                            {
+                                Main.npcChatText = "Genesis and Ragnarok are now stronger and Genesis can attach to Ragnarok for swinging.\n" +
+                                    "There are still seals to break, if you find any more of those Memory Fragments then be sure to see me.";
+                            }
+                            return;
+                        }
+                        else if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 2)
+                        {
+                            materialID = ItemID.BeetleHusk;
+                            if (UpgradeItem(Main.LocalPlayer.HeldItem, materialID, 16))
+                            {
+                                Main.npcChatText = "Genesis and Ragnarok now stronger and can set enemies on fire.\n" +
+                                    "There are still seals to break, if you find any more of those Memory Fragments then be sure to see me.";
+                            }
+                            return;
+                        }
+                        else if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 3)
+                        {
+                            materialID = ItemID.FragmentSolar;
+                            if (UpgradeItem(Main.LocalPlayer.HeldItem, materialID, 18))
+                            {
+                                Main.npcChatText = "Genesis and Ragnarok now stronger and can Genesis can transform into a sword.\n" +
+                                    "There are still seals to break, if you find any more of those Memory Fragments then be sure to see me.";
+                            }
+                            return;
+                        }
+                        else if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 4)
+                        {
+                            materialID = ItemID.LunarBar;
+                            if (UpgradeItem(Main.LocalPlayer.HeldItem, materialID, 20))
+                            {
+                                Main.npcChatText = "Genesis and Ragnarok now stronger and their ice capabilities are revealed.\n" +
+                                    "That's all the memory seals released, I cannot upgrade them further.";
+                            }
+                            return;
+                        }
                     }
                 }
 
-                if (!Main.LocalPlayer.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
+                if (Main.LocalPlayer.HeldItem.type != ModContent.ItemType<GenesisAndRagnarok>())
                 {
                     if (!Main.LocalPlayer.HasItem(ModContent.ItemType<AreusWings>()))
                     {
@@ -266,24 +260,44 @@ namespace ShardsOfAtheria.NPCs
                 }
                 else
                 {
-                    if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
+                    if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
                     {
-                        if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
-                        {
-                            Main.npcChatText = "I've already upgraded them to their full potential";
+                        Main.npcChatText = "I've already upgraded them to their full potential";
 
-                            return;
-                        }
-                        else if (!Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragmentI>()) && !Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragmentII>())
-                            && !Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragmentIII>()) && !Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragmentIV>())
-                            && !Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragmentV>()))
-                        {
-                            Main.npcChatText = "I need another Memory Fragment to upgrade the weapons.";
-                            return;
-                        }
+                        return;
+                    }
+                    else if (!Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragment>()))
+                    {
+                        Main.npcChatText = "I need another Memory Fragment to upgrade the weapons.";
+                        return;
                     }
                 }
             }
+        }
+
+        public bool UpgradeItem(Item item, int materialID, int minMaterial)
+        {
+            Item materialItem = ContentSamples.ItemsByType[materialID];
+            if (Main.LocalPlayer.HasItem(materialID))
+            {
+                materialItem = Main.LocalPlayer.inventory[Main.LocalPlayer.FindItem(materialID)];
+            }
+            if (Main.LocalPlayer.HasItem(materialItem.type) && materialItem.stack >= minMaterial)
+            {
+                SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
+                materialItem.stack -= minMaterial;
+
+                if (item.type == ModContent.ItemType<GenesisAndRagnarok>())
+                {
+                    (item.ModItem as GenesisAndRagnarok).upgrades++;
+                    Main.LocalPlayer.inventory[Main.LocalPlayer.FindItem(ModContent.ItemType<MemoryFragment>())].stack--;
+                }
+            }
+            else
+            {
+                Main.npcChatText = $"You don't have enough [i:{materialID}], I need at least {minMaterial}. You have {(Main.LocalPlayer.HasItem(materialID) ? materialItem.stack : 0)} [i:{materialID}].";
+            }
+            return materialItem.stack >= minMaterial;
         }
 
         public override void SetupShop(Chest shop, ref int nextSlot)

@@ -1,9 +1,6 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
-using ShardsOfAtheria.Items.SlayerItems;
-using ShardsOfAtheria.Globals;
 using Terraria.Enums;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee

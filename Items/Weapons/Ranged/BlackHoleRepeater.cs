@@ -4,8 +4,8 @@ using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
-using ShardsOfAtheria.Items.SlayerItems;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {

@@ -75,7 +75,8 @@ namespace ShardsOfAtheria.Projectiles.Minions
             if (fireTimer > 60 && Main.myPlayer == Projectile.owner)
             {
                 SoundEngine.PlaySound(SoundID.Item11);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize(targetCenter - Projectile.Center) * 16, ModContent.ProjectileType<AreusBulletProj>(), Projectile.damage, Projectile.knockBack, owner.whoAmI);
+                Projectile projectile = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize(targetCenter - Projectile.Center) * 16, ModContent.ProjectileType<AreusBulletProj>(), Projectile.damage, Projectile.knockBack, owner.whoAmI);
+                projectile.DamageType = DamageClass.Summon;
                 fireTimer = 0;
             }
         }

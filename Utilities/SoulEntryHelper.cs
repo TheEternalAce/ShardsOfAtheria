@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShardsOfAtheria.Utilities
 {
-    internal class SoulEntryHelper
+    public class SoulEntryHelper
     {
     }
 }

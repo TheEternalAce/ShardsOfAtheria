@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Pets;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,10 +12,9 @@ namespace ShardsOfAtheria.Items.PetItems
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Summons a pet Creeper to follow you");
-
-            base.SetStaticDefaults();
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
+
         public override void SetDefaults()
         {
             Item.width = 32;

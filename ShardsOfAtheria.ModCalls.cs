@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.SlayerItems;
+using ShardsOfAtheria.Items.Tools.Misc;
 using ShardsOfAtheria.Players;
 using System;
 using Terraria;

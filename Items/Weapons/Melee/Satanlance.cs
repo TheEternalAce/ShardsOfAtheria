@@ -11,7 +11,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 	{
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("ecnalnataS");
 			Tooltip.SetDefault("You feel like you can do anything");
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

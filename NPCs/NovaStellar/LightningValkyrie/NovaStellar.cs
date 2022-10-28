@@ -3,7 +3,9 @@ using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Items.SlayerItems.SoulCrystals;
+using ShardsOfAtheria.Items.Placeable.Furniture.Trophies;
+using ShardsOfAtheria.Items.Placeable.Furniture.Trophies.Master;
+using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
@@ -105,6 +107,9 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ChargedFeather>(), 1, 15, 28));
             slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieSoulCrystal>()));
             slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieStormLance>()));
+            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<NovaRelic>()));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<NovaTrophy>(), 10));
+            //npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<NovaPet>(), 25));
 
             // Finally add the leading rule
             npcLoot.Add(notExpertRule);
