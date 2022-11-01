@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.SevenDeadlySouls;
 using ShardsOfAtheria.Items.Tools.Misc;

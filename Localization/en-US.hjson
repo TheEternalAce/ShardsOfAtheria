@@ -281,6 +281,8 @@ Mods: {
 			PalladiumWorkbenchItem: Used to completely skip having to gather mythril ore
 
 			# Weapons
+				# Ammo
+				# Areus
 				# Magic
 			ScreamLantern:
 				'''
@@ -301,6 +303,7 @@ Mods: {
 				Left Click to swing an energy scythe, <right> to throw a fireball
 				"'It seems like you're worthy of playing his little game, his game of destiny!'"
 				'''
+			Yamiko: "'I'm not tsundere! You're tsundere!'"
 				# Ranged
 				# Summon
 			NestlingStaff: Summons a fledgling harpy knight to fight for you

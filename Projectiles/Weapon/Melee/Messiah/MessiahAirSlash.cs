@@ -9,6 +9,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
     {
         public int num1;
 
+        public override string Texture => "ShardsOfAtheria/Projectiles/Weapon/Melee/Messiah/MessiahRanbu2";
+
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 4;
