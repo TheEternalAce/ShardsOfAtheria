@@ -1,10 +1,10 @@
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Players;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Buffs.Cooldowns;
 
 namespace ShardsOfAtheria.Items.Tools.Misc
 {
