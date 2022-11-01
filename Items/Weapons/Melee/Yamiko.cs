@@ -1,14 +1,13 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
@@ -16,8 +15,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'I'm not tsundere! You're tsundere!'");
-
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }
@@ -57,7 +54,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool? UseItem(Player player)
         {
-            if (player.altFunctionUse == 2)
+            if (player.altFunctionUse == 2 && !player.HasBuff(ModContent.BuffType<YamikoDashCooldown>()))
             {
                 player.velocity = Vector2.Normalize(Main.MouseWorld - player.Center).RotatedByRandom(MathHelper.ToRadians(15)) * 16;
                 string[] insult = { "How did you manage that? Dumbass.", "Good job idiot, you fatally cut yourself. ", "How could you be so stupid?" };
@@ -65,13 +62,15 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 string dying = $"{player.name} cut {(player.Male ? "himself" : " herself")}";
                 string die = ModContent.GetInstance<ShardsConfigServerSide>().insult ? insult[i] + " (" + dying + ")" : dying;
                 player.Hurt(PlayerDeathReason.ByCustomReason(die), 100, player.direction);
+                player.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
+                player.AddBuff(ModContent.BuffType<YamikoDashCooldown>(), 600);
             }
             return null;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (player.altFunctionUse == 2)
+            if (player.altFunctionUse == 2 && !player.HasBuff(ModContent.BuffType<YamikoDashCooldown>()))
             {
                 float numberProjectiles = 4;
                 float rotation = MathHelper.ToRadians(10);
