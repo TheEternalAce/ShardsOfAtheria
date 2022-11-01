@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova
 {
-    public class ZenovaProjectile : ModProjectile
+    public class ZenovaProj : ModProjectile
     {
         public override void SetStaticDefaults()
         {

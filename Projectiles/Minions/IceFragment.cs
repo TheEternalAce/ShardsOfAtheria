@@ -10,7 +10,6 @@ namespace ShardsOfAtheria.Projectiles.Minions
 	{
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ice Fragment");
         }
 
         public override void SetDefaults()

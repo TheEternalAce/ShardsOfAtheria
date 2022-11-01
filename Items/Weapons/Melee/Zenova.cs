@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.shootSpeed = 15;
 			Item.value = Item.sellPrice(0, 4);
 			Item.rare = ItemRarityID.Red;
-			Item.shoot = ModContent.ProjectileType<ZenovaProjectile>();
+			Item.shoot = ModContent.ProjectileType<ZenovaProj>();
 			Item.ArmorPenetration = 37;
 		}
 
@@ -74,7 +74,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 					type = ModContent.ProjectileType<ZenovaBoneJavelin>();
 					break;
 				case 2:
-					type = ModContent.ProjectileType<ZenovaProjectile>();
+					type = ModContent.ProjectileType<ZenovaProj>();
 					break;
 				case 3:
 					type = ModContent.ProjectileType<ZenovaAreusSword>();

@@ -13,7 +13,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Scream Shockwave"); // The English name of the projectile
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10; // The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0; // The recording mode
         }

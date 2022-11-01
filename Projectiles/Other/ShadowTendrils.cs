@@ -12,7 +12,6 @@ namespace ShardsOfAtheria.Projectiles.Other
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Shadow Tendrils");
             Main.projFrames[Projectile.type] = 3;
         }
 

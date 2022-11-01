@@ -101,7 +101,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ranbu");
             base.SetStaticDefaults();
         }
 
@@ -129,7 +128,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ranbu");
             base.SetStaticDefaults();
         }
 
@@ -163,7 +161,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ranbu");
             base.SetStaticDefaults();
         }
 
@@ -197,7 +194,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ranbu");
             base.SetStaticDefaults();
         }
 
@@ -223,7 +219,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ranbu");
             base.SetStaticDefaults();
         }
 

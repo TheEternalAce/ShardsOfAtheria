@@ -5,6 +5,7 @@ using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Players;
 using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Minions
@@ -25,7 +26,13 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("True Eye of Cthulhu");
+            // This is necessary for right-click targeting
+            ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
+
+            Main.projPet[Projectile.type] = true; // Denotes that this projectile is a pet or minion
+
+            ProjectileID.Sets.MinionSacrificable[Projectile.type] = true; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
         }
 
         public override void SetDefaults()

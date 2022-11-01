@@ -7,11 +7,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
 {
     public class SpectralBulletProj : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Spectral Bullet");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 6; // The width of projectile hitbox

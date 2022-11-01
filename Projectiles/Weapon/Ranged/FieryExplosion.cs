@@ -9,11 +9,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
     {
         public override string Texture => "ShardsOfAtheria/Blank";
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Fiery Explosion");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 120;

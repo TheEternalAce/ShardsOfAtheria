@@ -9,7 +9,6 @@ namespace ShardsOfAtheria.Projectiles.Other
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Venom Seed");
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.PoisonSeedPlantera];
         }
 

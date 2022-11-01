@@ -10,11 +10,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff
 {
     public class IceExplosion : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Ice Explosion");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 120;

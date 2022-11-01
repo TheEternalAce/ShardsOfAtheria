@@ -12,11 +12,6 @@ namespace ShardsOfAtheria.Projectiles.Other
     {
         public override string Texture => "ShardsOfAtheria/Blank";
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Crystal Explosion");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 120;

@@ -8,11 +8,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {
     public class ElectricTrail : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Electric Trail");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 20;

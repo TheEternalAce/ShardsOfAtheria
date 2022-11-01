@@ -7,11 +7,6 @@ namespace ShardsOfAtheria.Projectiles.Other
 {
     public class GolemBeam : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Golem Beam");
-        }
-
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.EyeBeam);

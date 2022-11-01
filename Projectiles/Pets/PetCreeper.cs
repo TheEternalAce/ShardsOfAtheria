@@ -11,7 +11,6 @@ namespace ShardsOfAtheria.Projectiles.Pets
 	{
 		public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Creeper");
             Main.projPet[Projectile.type] = true;
         }
 

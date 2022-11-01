@@ -21,11 +21,6 @@ namespace ShardsOfAtheria.Projectiles.Tools
 			glowmask = null;
 		}
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Red Areus Drill");
-        }
-
         public override void SetDefaults()
         {
 			Projectile.width = 30;

@@ -11,11 +11,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff
         private Vector2 position;
         private double rotation;
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Ice Shard");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 8;

@@ -9,11 +9,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
     {
         public override string Texture => "ShardsOfAtheria/Blank";
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Lightning Bolt");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 20;

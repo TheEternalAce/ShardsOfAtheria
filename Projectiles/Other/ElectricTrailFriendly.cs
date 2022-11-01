@@ -11,11 +11,6 @@ namespace ShardsOfAtheria.Projectiles.Other
     {
         public override string Texture => "ShardsOfAtheria/Blank";
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Electric Trail");
-        }
-
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ModContent.ProjectileType<ElectricTrail>());

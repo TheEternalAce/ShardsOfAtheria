@@ -9,11 +9,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {
     public class LightningBolt : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Lightning Bolt");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 22;

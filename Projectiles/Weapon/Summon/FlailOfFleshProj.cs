@@ -16,7 +16,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flail of Flesh Ball"); // Set the projectile name to Example Flail Ball
 			Main.projFrames[Projectile.type] = 3;
 		}
 

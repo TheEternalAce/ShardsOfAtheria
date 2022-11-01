@@ -307,7 +307,147 @@ Mods: {
 		}
 
 		ProjectileName: {
-			# Weapon
+			# Minions
+			AreusMirror: Areus Mirror
+			AreusMirrorShard: Areus Mirror Shard
+			CultistRitual: Ice Circle
+			GolemHead: Golem Head
+			IceFragment: Ice Fragment
+			Servant: Servant of You
+			Sharknado: Sharknado
+			TheDestroyersProbe: "The Destroyer's Probe"
+			TheDestroyersProbeAttack: "The Destroyer's Probe"
+			TheHungry: The Hungry
+			TrueEyeOfCthulhu: True Eye of Cthulhu
+			TrueEyeOfCthulhuAttack: True Eye of Cthulhu
+			YoungHarpy: Fledgling Knight
+			YourTentacle: Your Tentacle
+
+			# NPCs
+				# Nova Stellar
+			ElectricTrail: Electric Trail
+			FeatherBlade: Feather Blade
+			LightningBolt: Lightning Bolt
+			LightningBoltSpawner: Lightning Bolt Spawner
+			StormCloud: Storm Cloud
+			StormCloudPunisher: Storm Cloud Fatal
+			StormLance: Storm Lance
+			StormSword: Storm Sword
+				# Variant NPC
+			BloodFeather: Blood Feather
+			BoneFeather: Bone Feather
+			CrystalFeather: Crystal Feather
+			FireFeather: Fire Feather
+			IceFeather: Ice Feather
+			PoisonFeather: Poison Feather
+			StaticFeather: Static Feather
+			VileFeather: Vile Feather
+				# Other
+			CreeperHitbox: "Creeper, aw man"
+
+			# Other
+			ArrowSpliter: Arrow Splitter
+			CrystalExplosion: CrystalExplosion
+			ElectricTrailFriendly: Electric Trail
+			FoodChunk: Food Chunk
+			GolemBeam: Golem Beam
+			PhantasmalEye: Phantasmal Eye
+			ShadowTendrils: Shadow Tendrils
+			SpinPrime: Spin Skull Prime
+			SpinSkull: Spin Skull
+			Stinger: Stinger
+			VenomSeed: Venom Seed
+
+			# Pets
+			PetCreeper: Pet Creeper
+
+			# Tools
+			AllSeeingEye: All Seeing Eye
+			ExtractingSoul: Soul Extracting Dagger
+			RedAreusDrillProj: Red Areus Drill
+
+			# Weapons
+				# Ammo
+			AreusBulletProj: Areus Bullet
+			BBProj: BB
+			SpectralArrowProj: Spectral Arrow
+			SpectralBulletProj: Spectral Bullet
+				# Areus
+			AreusArrow: Areus Arrow
+			AreusDaggerProj: Areus Dagger
+			AreusGlaive_Swing: Areus Glaive
+			AreusGlaive_Throw: Areus Glaive
+			AreusGlaive_Thrust: Areus Glaive
+			AreusGlaive_Thrust2: Areus Glaive
+			AreusSlash1: Areus Slash
+			AreusSlash2: Areus Slash
+			AreusSlash3: Areus Slash
+			AreusSlash4: Areus Slash
+			ElectricBlade: Electric Blade
+			ElectricBolt: Electric Bolt
+				# Magic
+			DeathNote: Death Note
+			GunCorruption: Musket
+			CunCrimson: The Undertaker
+			IceBolt: Ice Bolt
+			LightningBoltFriendly: Lightning Bolt
+			ScreamShockwave: Scream Shock Wave
+			VileShot: Vile Shot
+				# Melee
+			BloodCutter: Blood Cutter
+			CorruptPetal: Corrupt Petal
+			CorruptRose: Corrupt Rose
+			EntropyBlade: Entropy Blade
+			EntropySlash: Entropy Slash
+			FeatherBladeFriendly: Feather Blade
+			Genesis_Spear: Genesis
+			Genesis_Spear2: Genesis
+			Genesis_Sword: Genesis
+			Genesis_Whip: Genesis
+			Gomorrah_Burst: Gomorrah Explosion
+			Gomorrah_Javelin: Gomorrah
+			Gomorrah_Spear: Gomorrah
+			HeroBlade: Hero Blade
+			IceExplosion: Ice Explosion
+			IceShard: Ice Shard
+			IceVortexShard: Ice Shard
+			MessiahAirSlash: Air Slash
+			MessiahChargedSlash: Charge Slash
+			MessiahRanbu1: Ranbu
+			MessiahRanbu2: Ranbu
+			MessiahRanbu3: Ranbu
+			MessiahRanbu4: Ranbu
+			MessiahRanbu5: Ranbu
+			ReactorMeltdownProj: Reactor Meltdown
+			SatanlanceProj: ecnalnataS
+			SoulBlade: Soul Blade
+			ValkyrieStormLanceProj: Storm Lance
+			ZenovaAreusSword: Areus Sword
+			ZenovaBoneJavelin: Bone Javelin
+			ZenovaBreakerBlade: Breaker Blade
+			ZenovaChlorophyte Saber: Chlorophyte Saber
+			ZenovaDaybreak: Daybreak
+			ZenovaLostNail: Lost Nail
+			ZenovaProj: Zenova
+			ZenovaSatanlance: ecnalnataS
+			ZenovaWoodenSword: Wooden Sword
+				# Ranged
+			AceOfSpadesProj: Ace of Spades
+			AmbassadorShot: Ambassador Shot
+			BlackHole: Black Hole
+			BlackHoleBolt: Black Hole Bolt
+			FieryExplosion: Fiery Explosion
+			HeroBullet: Hero Bullet
+			LaserArrow: Laser Arrow
+			MetalBladeProj: Metal Blade
+			MetalBladeProjStick: Metal Blade
+			PhantomBullet: Phantom Bullet
+			PrometheusFire: Prometheus Fire
+			SoulArrow: Soul Arrow
+				# Summon
+			DragonSpineWhipProj: Dragon Spine
+			FlailOfFleshProj: Leashed Hungry
+			SoulDagger: Soul Dagger
 		}
 
 		NPCName: {

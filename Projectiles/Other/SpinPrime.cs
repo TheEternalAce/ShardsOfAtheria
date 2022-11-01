@@ -22,10 +22,6 @@ namespace ShardsOfAtheria.Projectiles.Other
         {
             glowmask = null;
         }
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Spin Prime");
-        }
 
         public override void SetDefaults()
         {

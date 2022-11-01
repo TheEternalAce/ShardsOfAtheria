@@ -15,11 +15,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
     {
         public int iceSickle = 3;
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Genesis (Whip)");
-        }
-
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             Player player = Main.player[Projectile.owner];

@@ -7,10 +7,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 {
     public class PhantomBullet : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 2;

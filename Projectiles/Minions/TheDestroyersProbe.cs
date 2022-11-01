@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
         public int shootTimer;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Destroyer's Probe");
+            Main.projPet[Projectile.type] = true; // Denotes that this projectile is a pet or minion
         }
 
         public override void SetDefaults()

@@ -7,11 +7,6 @@ namespace ShardsOfAtheria.Projectiles.Other
 {
     public class Stinger : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Stinger");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 10;

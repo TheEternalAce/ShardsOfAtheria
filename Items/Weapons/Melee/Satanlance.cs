@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             // The shoot speed will affect how far away the projectile spawns from the player's hand.
             // If you are using the custom AI in your projectile (and not aiStyle 19 and AIType = ProjectileID.JoustingLance), the standard value is 1f.
             // If you are using aiStyle 19 and AIType = ProjectileID.JoustingLance, then multiply the value by about 3.5f.
-            Item.DefaultToSpear(ModContent.ProjectileType<SatanlanceProjectile>(), 0.65f, 20);
+            Item.DefaultToSpear(ModContent.ProjectileType<SatanlanceProj>(), 0.65f, 20);
 
             Item.DamageType = DamageClass.MeleeNoSpeed; // We need to use MeleeNoSpeed here so that attack speed doesn't effect our held projectile.
 

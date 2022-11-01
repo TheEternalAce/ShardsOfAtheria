@@ -13,7 +13,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Entropy Blade");
             Main.projFrames[Projectile.type] = 5;
         }
 

@@ -5,13 +5,8 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
 {
-    public class BBProjectile : ModProjectile
+    public class BBProj : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("BB");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 6; // The width of projectile hitbox

@@ -13,11 +13,6 @@ namespace ShardsOfAtheria.Projectiles.Tools
     {
         int pos = 48;
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Soul Extracting Dagger");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 16;

@@ -28,7 +28,10 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Golem Head");
+            // This is necessary for right-click targeting
+            ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
+
+            Main.projPet[Projectile.type] = true; // Denotes that this projectile is a pet or minion
         }
 
         public override void SetDefaults()

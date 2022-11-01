@@ -7,11 +7,6 @@ namespace ShardsOfAtheria.Projectiles.Other
 {
     public class PhantasmalEye : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Phantasmal Eye");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 18;

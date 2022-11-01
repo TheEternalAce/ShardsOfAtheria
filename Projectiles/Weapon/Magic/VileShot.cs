@@ -7,10 +7,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
     public class VileShot : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 6; // The width of projectile hitbox

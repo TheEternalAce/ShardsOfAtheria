@@ -27,12 +27,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             glowmask = null;
         }
 
-
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Genesis");
-        }
-
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             Player player = Main.player[Projectile.owner];

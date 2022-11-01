@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cultist Ritual");
+            Main.projPet[Projectile.type] = true; // Denotes that this projectile is a pet or minion
         }
 
         public override void SetDefaults()

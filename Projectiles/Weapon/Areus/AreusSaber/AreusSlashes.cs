@@ -81,7 +81,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Areus Slash");
             base.SetStaticDefaults();
         }
 
@@ -109,7 +108,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Areus Slash");
             base.SetStaticDefaults();
         }
 
@@ -136,7 +134,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Areus Slash");
             base.SetStaticDefaults();
         }
 

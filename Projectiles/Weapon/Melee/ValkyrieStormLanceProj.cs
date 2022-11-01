@@ -13,8 +13,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Valkyrie Storm Lance"); // The English name of the projectile
-
             // This will cause the player to dismount if they are hit by another Jousting Lance.
             // Since no enemies use Jousting Lances, this will only cause the player to dismount in PVP.
             ProjectileID.Sets.DismountsPlayersOnHit[Type] = true;

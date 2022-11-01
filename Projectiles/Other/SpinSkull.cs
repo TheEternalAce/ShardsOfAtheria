@@ -9,11 +9,6 @@ namespace ShardsOfAtheria.Projectiles.Other
 {
     public class SpinSkull : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Spin Skull");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 80;

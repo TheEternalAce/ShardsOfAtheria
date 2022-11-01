@@ -18,7 +18,12 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Your Tentacle");
+            // This is necessary for right-click targeting
+            ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
+
+            Main.projPet[Projectile.type] = true; // Denotes that this projectile is a pet or minion
+
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
             Main.projFrames[Projectile.type] = 4;
         }
 

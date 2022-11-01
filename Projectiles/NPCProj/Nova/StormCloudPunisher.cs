@@ -11,11 +11,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
     {
         public override string Texture => "ShardsOfAtheria/Blank";
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Storm Cloud Fatal");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 250;

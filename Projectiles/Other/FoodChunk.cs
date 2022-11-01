@@ -11,9 +11,9 @@ namespace ShardsOfAtheria.Projectiles.Other
     public class FoodChunk : ModProjectile
     {
         public override string Texture => "Terraria/Images/Item_" + ItemID.ChickenNugget;
+
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Food Chunk");
             Main.projFrames[Projectile.type] = 3;
         }
 

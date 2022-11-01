@@ -9,14 +9,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 {
     public class Gomorrah_Burst : ModProjectile
     {
-
         public override string Texture => "ShardsOfAtheria/Blank";
-
-
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Gomorrah Explosion");
-        }
 
         public override void SetDefaults()
         {

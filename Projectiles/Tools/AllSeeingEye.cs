@@ -11,12 +11,6 @@ namespace ShardsOfAtheria.Projectiles.Tools
 {
     public class AllSeeingEye : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("All Seeing Eye");
-            Main.projFrames[Projectile.type] = 3;
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 32;

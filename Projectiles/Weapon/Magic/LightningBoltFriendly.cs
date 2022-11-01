@@ -11,11 +11,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
     public class LightningBoltFriendly : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Lightning Bolt");
-        }
-
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ModContent.ProjectileType<LightningBolt>());

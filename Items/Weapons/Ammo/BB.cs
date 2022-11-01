@@ -26,7 +26,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
 			Item.knockBack = 1.5f;
 			Item.value = Item.sellPrice(copper: 1);
 			Item.rare = ItemRarityID.Green;
-			Item.shoot = ModContent.ProjectileType<BBProjectile>();
+			Item.shoot = ModContent.ProjectileType<BBProj>();
 			Item.shootSpeed = 4f;
 			Item.ammo = AmmoID.Bullet;
 		}
