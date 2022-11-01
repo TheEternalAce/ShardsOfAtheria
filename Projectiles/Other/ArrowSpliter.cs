@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Projectiles.NPCProj;
-using ShardsOfAtheria.Projectiles.Weapon.Areus;
+using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -26,10 +26,10 @@ namespace ShardsOfAtheria.Projectiles.Other
             {
                 Projectile.timeLeft = 2;
 
-                if (++Projectile.ai[0] == 10)
+                if (++Projectile.ai[0] >= 10)
                 {
                     Player player = Main.player[Projectile.owner];
-                    if (player.ownedProjectileCounts[ModContent.ProjectileType<AreusArrow>()] == 0)
+                    if (player.ownedProjectileCounts[ModContent.ProjectileType<AreusArrowProj>()] == 0)
                     {
                         Projectile.Kill();
                     }
@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Projectiles.Other
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
                     Projectile proj = Main.projectile[i];
-                    if (proj.type == ModContent.ProjectileType<AreusArrow>())
+                    if (proj.type == ModContent.ProjectileType<AreusArrowProj>())
                     {
                         if (Projectile.Hitbox.Intersects(proj.getRect()) && proj.ai[0] == 1 && proj.active)
                         {
