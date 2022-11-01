@@ -50,7 +50,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement("This harpy has decided to make her home in the deep, dark caves. She probably carries precious ores and minerals.")
+				new FlavorTextBestiaryInfoElement("Several harpies 300 years ago made their home in the Caverns. Over time, their children have evolved into forms best fit for their new home.")
             });
         }
 

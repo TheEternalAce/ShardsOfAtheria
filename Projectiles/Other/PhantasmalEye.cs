@@ -15,7 +15,8 @@ namespace ShardsOfAtheria.Projectiles.Other
             Projectile.friendly = true;
             Projectile.timeLeft = 600;
             Projectile.penetrate = 10;
-		}
+            Projectile.DamageType = DamageClass.Summon;
+        }
 
 		// Custom AI
 		public override void AI()

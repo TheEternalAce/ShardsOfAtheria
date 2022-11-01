@@ -46,6 +46,18 @@ namespace ShardsOfAtheria.Projectiles.Minions
             Projectile.aiStyle = -1;
         }
 
+        // Here you can decide if your minion breaks things like grass or pots
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
+
+        // This is mandatory if your minion deals contact damage (further related stuff in AI() in the Movement region)
+        public override bool MinionContactDamage()
+        {
+            return true;
+        }
+
         // The AI of this minion is split into multiple methods to avoid bloat. This method just passes values between calls actual parts of the AI.
         public override void AI()
         {
@@ -53,6 +65,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
             if (!CheckActive(owner))
             {
+				Projectile.Kill();
                 return;
             }
 

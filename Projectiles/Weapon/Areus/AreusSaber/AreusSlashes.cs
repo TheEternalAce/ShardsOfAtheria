@@ -154,19 +154,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber
                 if (Main.myPlayer == Projectile.owner)
                 {
                     Vector2 velocity = Vector2.Normalize(Main.MouseWorld - player.Center) * 16;
-                    if (player.direction == 1)
+                    if (player.direction == (Main.MouseWorld.X < player.Center.X ? 1 : -1))
                     {
-                        if (Main.MouseWorld.X < player.Center.X)
-                        {
-                            velocity = new Vector2(1, 0) * player.direction * 16;
-                        }
-                    }
-                    else
-                    {
-                        if (Main.MouseWorld.X > player.Center.X)
-                        {
-                            velocity = new Vector2(1, 0) * player.direction * 16;
-                        }
+                        velocity = -velocity;
                     }
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, velocity, ModContent.ProjectileType<AreusSlash4>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
                     Projectile.ai[0] = 1f;

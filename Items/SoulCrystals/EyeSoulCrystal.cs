@@ -1,4 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Items.Tools.Misc;
+using ShardsOfAtheria.NPCs;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Tools;
 using Terraria;
@@ -16,6 +19,18 @@ namespace ShardsOfAtheria.Items.SoulCrystals
             Tooltip.SetDefault(tip);
 
             base.SetStaticDefaults();
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsConfigClientSide>().instantAbsorb)
+            {
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<AllSeeingEye>()] <= 0)
+                {
+                    Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<AllSeeingEye>(), 0, 0f, player.whoAmI);
+                }
+            }
+            return base.UseItem(player);
         }
     }
 }

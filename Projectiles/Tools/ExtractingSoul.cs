@@ -27,6 +27,10 @@ namespace ShardsOfAtheria.Projectiles.Tools
             DrawOriginOffsetX = 15;
         }
 
+        public override void ModifyDamageScaling(ref float damageScale)
+        {
+        }
+
         public override void AI()
         {
             Player owner = Main.LocalPlayer;

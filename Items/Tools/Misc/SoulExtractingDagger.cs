@@ -146,7 +146,16 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             {
                 spawnLocation = player.Center + new Vector2(-48, 0);
             }
-            Projectile.NewProjectile(source, spawnLocation, Vector2.Zero, type, 50, 0, Main.myPlayer, 0, selectedSoul);
+            damage = 50;
+            if (Main.expertMode)
+            {
+                damage = 25;
+            }
+            else if (Main.masterMode)
+            {
+                damage = 13;
+            }
+            Projectile.NewProjectile(source, spawnLocation, Vector2.Zero, type, damage, 0, Main.myPlayer, 0, selectedSoul);
             return false;
         }
 

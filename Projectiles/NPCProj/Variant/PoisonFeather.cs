@@ -33,5 +33,13 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
                 target.AddBuff(BuffID.Poisoned, 60);
             }
         }
+
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Poisoned, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 0, default, 0.75f);
+            }
+        }
     }
 }

@@ -66,7 +66,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Jungle,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement("This harpy has decided to make her home in the lush forest and jungle. She is likely holding mushrooms for food.")
+				new FlavorTextBestiaryInfoElement("Several harpies 300 years ago made their homes in the Forests and Jungles. Over time, their children have evolved into forms best fit for their new home.")
             });
         }
 

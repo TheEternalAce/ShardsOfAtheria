@@ -13,8 +13,10 @@ namespace ShardsOfAtheria.Projectiles.Minions
 {
     public class TheHungry : ModProjectile
     {
-        public int aiTimer;
-		public override void SetStaticDefaults()
+        int aiTimer;
+        float degrees;
+
+        public override void SetStaticDefaults()
         {
             // This is necessary for right-click targeting
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
@@ -41,38 +43,50 @@ namespace ShardsOfAtheria.Projectiles.Minions
 			DrawOffsetX = -6;
         }
 
-        public override void AI()
-		{
-			if (++Projectile.frameCounter >= 10)
-			{
-				Projectile.frameCounter = 0;
-				if (++Projectile.frame >= 3)
-				{
-					Projectile.frame = 0;
-				}
-			}
+        // Here you can decide if your minion breaks things like grass or pots
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
 
-			Player owner = Main.player[Projectile.owner];
+        // This is mandatory if your minion deals contact damage (further related stuff in AI() in the Movement region)
+        public override bool MinionContactDamage()
+        {
+            return true;
+        }
+
+        public override void AI()
+        {
+            if (++Projectile.frameCounter >= 10)
+            {
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 3)
+                {
+                    Projectile.frame = 0;
+                }
+            }
+
+            Player owner = Main.player[Projectile.owner];
 
             if (!CheckActive(owner))
             {
+                Projectile.Kill();
                 return;
             }
-            else Projectile.timeLeft = 2;
             Projectile.rotation = Vector2.Normalize(Projectile.Center - owner.Center).ToRotation() + MathHelper.ToRadians(90);
 
             float maxDetectRadius = 400f; // The maximum radius at which a projectile can detect a target
             float projSpeed = 5f; // The speed at which the projectile moves towards the target
 
 
-			// Trying to find NPC closest to the projectile
-			NPC closestNPC = FindClosestNPC(maxDetectRadius);
+            // Trying to find NPC closest to the projectile
+            NPC closestNPC = FindClosestNPC(maxDetectRadius);
             if (closestNPC == null)
-			{
-				GeneralBehavior(owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition);
-				Movement(distanceToIdlePosition, vectorToIdlePosition);
-				return;
-			}
+            {
+                GeneralBehavior(owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition);
+                Movement(distanceToIdlePosition, vectorToIdlePosition);
+                return;
+            }
 
             // If found, change the velocity of the projectile and turn it in the direction of the target
             // Use the SafeNormalize extension method to avoid NaNs returned by Vector2.Normalize when the vector is zero
@@ -84,78 +98,80 @@ namespace ShardsOfAtheria.Projectiles.Minions
         {
             if (owner.dead || !owner.active || !owner.GetModPlayer<SlayerPlayer>().soulCrystals.Contains(ModContent.ItemType<WallSoulCrystal>()))
                 return false;
-			else Projectile.timeLeft = 2;
-			return true;
-		}
+            else Projectile.timeLeft = 2;
+            return true;
+        }
 
-		private void GeneralBehavior(Player owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition)
-		{
-			Vector2 idlePosition = owner.Center;
-			if (owner.direction == 1)
-				idlePosition.X += 96f; // Go right 48 coordinates (eight tiles from the center of the player)
-			else idlePosition.X -= 96f; // Go left
-			// If your minion doesn't aimlessly move around when it's idle, you need to "put" it into the line of other summoned minions
-			// The index is projectile.minionPos
-			float minionPositionOffsetX = (10 + Projectile.minionPos * 40) * -owner.direction;
-			idlePosition.X += minionPositionOffsetX; // Go behind the player
+        private void GeneralBehavior(Player owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition)
+        {
+            if (Projectile.ai[0] == 0)
+            {
+                degrees = Main.rand.NextFloat(360);
+                Projectile.ai[0] = 1;
+            }
+            Vector2 idlePosition = owner.Center + Vector2.One.RotatedBy(MathHelper.ToRadians(degrees)) * 90;
+            // If your minion doesn't aimlessly move around when it's idle, you need to "put" it into the line of other summoned minions
+            // The index is projectile.minionPos
+            float minionPositionOffsetX = (10 + Projectile.minionPos * 40) * -owner.direction;
+            idlePosition.X += minionPositionOffsetX; // Go behind the player
 
-			// All of this code below this line is adapted from Spazmamini code (ID 388, aiStyle 66)
+            // All of this code below this line is adapted from Spazmamini code (ID 388, aiStyle 66)
 
-			// Teleport to player if distance is too big
-			vectorToIdlePosition = idlePosition - Projectile.Center;
-			distanceToIdlePosition = vectorToIdlePosition.Length();
+            // Teleport to player if distance is too big
+            vectorToIdlePosition = idlePosition - Projectile.Center;
+            distanceToIdlePosition = vectorToIdlePosition.Length();
 
-			if (Main.myPlayer == owner.whoAmI && distanceToIdlePosition > 2000f)
-			{
-				// Whenever you deal with non-regular events that change the behavior or position drastically, make sure to only run the code on the owner of the projectile,
-				// and then set netUpdate to true
-				Projectile.position = idlePosition;
-				Projectile.velocity *= 0.1f;
-				Projectile.netUpdate = true;
-			}
+            if (Main.myPlayer == owner.whoAmI && distanceToIdlePosition > 2000f)
+            {
+                // Whenever you deal with non-regular events that change the behavior or position drastically, make sure to only run the code on the owner of the projectile,
+                // and then set netUpdate to true
+                Projectile.position = idlePosition;
+                Projectile.velocity *= 0.1f;
+                Projectile.netUpdate = true;
+            }
 
-			// If your minion is flying, you want to do this independently of any conditions
-			float overlapVelocity = 0.04f;
+            // If your minion is flying, you want to do this independently of any conditions
+            float overlapVelocity = 0.04f;
 
-			// Fix overlap with other minions
-			for (int i = 0; i < Main.maxProjectiles; i++)
-			{
-				Projectile other = Main.projectile[i];
+            // Fix overlap with other minions
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                Projectile other = Main.projectile[i];
 
-				if (i != Projectile.whoAmI && other.active && other.owner == Projectile.owner && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
-				{
-					if (Projectile.position.X < other.position.X)
-					{
-						Projectile.velocity.X -= overlapVelocity;
-					}
-					else
-					{
-						Projectile.velocity.X += overlapVelocity;
-					}
+                if (i != Projectile.whoAmI && other.active && other.owner == Projectile.owner && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
+                {
+                    if (Projectile.position.X < other.position.X)
+                    {
+                        Projectile.velocity.X -= overlapVelocity;
+                    }
+                    else
+                    {
+                        Projectile.velocity.X += overlapVelocity;
+                    }
 
-					if (Projectile.position.Y < other.position.Y)
-					{
-						Projectile.velocity.Y -= overlapVelocity;
-					}
-					else
-					{
-						Projectile.velocity.Y += overlapVelocity;
-					}
-				}
-			}
-		}
+                    if (Projectile.position.Y < other.position.Y)
+                    {
+                        Projectile.velocity.Y -= overlapVelocity;
+                    }
+                    else
+                    {
+                        Projectile.velocity.Y += overlapVelocity;
+                    }
+                }
+            }
+        }
 
-		private void Movement(float distanceToIdlePosition, Vector2 vectorToIdlePosition)
-		{
-			float speed;
-			float inertia;
-			// Default movement parameters (here for attacking)
-			float maxDetectRadius = 400f;
+        private void Movement(float distanceToIdlePosition, Vector2 vectorToIdlePosition)
+        {
+            float speed;
+            float inertia;
+            // Default movement parameters (here for attacking)
+            float maxDetectRadius = 400f;
 
             NPC closestNPC = FindClosestNPC(maxDetectRadius);
 
-			if (closestNPC == null)
-			{
+            if (closestNPC == null)
+            {
                 // Minion doesn't have a target: return to player and idle
                 if (distanceToIdlePosition > 600f)
                 {
@@ -171,61 +187,61 @@ namespace ShardsOfAtheria.Projectiles.Minions
                 }
 
                 if (distanceToIdlePosition > 20f)
-				{
-					// The immediate range around the player (when it passively floats about)
+                {
+                    // The immediate range around the player (when it passively floats about)
 
-					// This is a simple movement formula using the two parameters and its desired direction to create a "homing" movement
-					vectorToIdlePosition.Normalize();
-					vectorToIdlePosition *= speed;
-					Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
-				}
-				else if (Projectile.velocity == Vector2.Zero)
-				{
-					// If there is a case where it's not moving at all, give it a little "poke"
-					Projectile.velocity.X = -0.15f;
-					Projectile.velocity.Y = -0.05f;
-				}
-			}
-		}
+                    // This is a simple movement formula using the two parameters and its desired direction to create a "homing" movement
+                    vectorToIdlePosition.Normalize();
+                    vectorToIdlePosition *= speed;
+                    Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
+                }
+                else if (Projectile.velocity == Vector2.Zero)
+                {
+                    // If there is a case where it's not moving at all, give it a little "poke"
+                    Projectile.velocity.X = -0.15f;
+                    Projectile.velocity.Y = -0.05f;
+                }
+            }
+        }
 
-		// Finding the closest NPC to attack within maxDetectDistance range
-		// If not found then returns null
-		public NPC FindClosestNPC(float maxDetectDistance)
-		{
-			NPC closestNPC = null;
+        // Finding the closest NPC to attack within maxDetectDistance range
+        // If not found then returns null
+        public NPC FindClosestNPC(float maxDetectDistance)
+        {
+            NPC closestNPC = null;
 
-			// Using squared values in distance checks will let us skip square root calculations, drastically improving this method's speed.
-			float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
+            // Using squared values in distance checks will let us skip square root calculations, drastically improving this method's speed.
+            float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
 
-			// Loop through all NPCs(max always 200)
-			for (int k = 0; k < Main.maxNPCs; k++)
-			{
-				NPC target = Main.npc[k];
-				// Check if NPC able to be targeted. It means that NPC is
-				// 1. active (alive)
-				// 2. chaseable (e.g. not a cultist archer)
-				// 3. max life bigger than 5 (e.g. not a critter)
-				// 4. can take damage (e.g. moonlord core after all it's parts are downed)
-				// 5. hostile (!friendly)
-				// 6. not immortal (e.g. not a target dummy)
-				if (target.CanBeChasedBy())
-				{
-					// The DistanceSquared function returns a squared distance between 2 points, skipping relatively expensive square root calculations
-					float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, Projectile.Center);
+            // Loop through all NPCs(max always 200)
+            for (int k = 0; k < Main.maxNPCs; k++)
+            {
+                NPC target = Main.npc[k];
+                // Check if NPC able to be targeted. It means that NPC is
+                // 1. active (alive)
+                // 2. chaseable (e.g. not a cultist archer)
+                // 3. max life bigger than 5 (e.g. not a critter)
+                // 4. can take damage (e.g. moonlord core after all it's parts are downed)
+                // 5. hostile (!friendly)
+                // 6. not immortal (e.g. not a target dummy)
+                if (target.CanBeChasedBy())
+                {
+                    // The DistanceSquared function returns a squared distance between 2 points, skipping relatively expensive square root calculations
+                    float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, Projectile.Center);
 
-					// Check if it is within the radius
-					if (sqrDistanceToTarget < sqrMaxDetectDistance)
-					{
-						sqrMaxDetectDistance = sqrDistanceToTarget;
-						closestNPC = target;
-					}
-				}
-			}
+                    // Check if it is within the radius
+                    if (sqrDistanceToTarget < sqrMaxDetectDistance)
+                    {
+                        sqrMaxDetectDistance = sqrDistanceToTarget;
+                        closestNPC = target;
+                    }
+                }
+            }
 
-			return closestNPC;
-		}
+            return closestNPC;
+        }
 
-		public override bool PreDraw(ref Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
             // The folder path to the flail chain sprite
             const string ChainTexturePath = "ShardsOfAtheria/Projectiles/Minions/TheHungryChain";

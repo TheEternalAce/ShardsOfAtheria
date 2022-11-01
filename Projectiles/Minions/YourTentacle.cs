@@ -13,8 +13,8 @@ namespace ShardsOfAtheria.Projectiles.Minions
 {
     public class YourTentacle : ModProjectile
     {
-        public int aiTimer;
-        public float degrees;
+        int aiTimer;
+        float degrees;
 
         public override void SetStaticDefaults()
         {
@@ -42,6 +42,18 @@ namespace ShardsOfAtheria.Projectiles.Minions
             DrawOriginOffsetY = -6;
         }
 
+        // Here you can decide if your minion breaks things like grass or pots
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
+
+        // This is mandatory if your minion deals contact damage (further related stuff in AI() in the Movement region)
+        public override bool MinionContactDamage()
+        {
+            return true;
+        }
+
         public override void AI()
         {
             if (++Projectile.frameCounter >= 10)
@@ -57,6 +69,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
             if (!CheckActive(owner))
             {
+                Projectile.Kill();
                 return;
             }
             Projectile.rotation = Vector2.Normalize(Projectile.Center - owner.Center).ToRotation() + MathHelper.ToRadians(180);

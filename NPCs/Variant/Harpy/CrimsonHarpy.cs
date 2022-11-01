@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCrimson,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement("This harpy found herself in the blood soaked terrain of the crimson, which has taken over her mind. Killing her would be doing her a favor.")
+				new FlavorTextBestiaryInfoElement("Some harpy got lost in the Crimson. Her mind and body have been defiled by the infection; she's now a husk of her former self.")
             });
         }
 

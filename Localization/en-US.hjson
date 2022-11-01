@@ -95,6 +95,7 @@ Mods: {
 
 			# Pet items
 			StrangeTissueSample: Strange Tissue Sample
+			SmallHardlightCrest: Small Hardlight Crest
 
 			# Place-ables
 				# Ores & Bars
@@ -254,6 +255,11 @@ Mods: {
 
 			# Pet items
 			StrangeTissueSample: Summons a pet Creeper to follow you
+			SmallHardlightCrest:
+				'''
+				Summons a miniature Nova Stellar
+				"'Adorableness from the heavens'"
+				'''
 
 			# Tools
 			RedAreusDrill:
@@ -281,6 +287,8 @@ Mods: {
 			PalladiumWorkbenchItem: Used to completely skip having to gather mythril ore
 
 			# Weapons
+				# Ammo
+				# Areus
 				# Magic
 			ScreamLantern:
 				'''
@@ -301,6 +309,7 @@ Mods: {
 				Left Click to swing an energy scythe, <right> to throw a fireball
 				"'It seems like you're worthy of playing his little game, his game of destiny!'"
 				'''
+			Yamiko: "'I'm not tsundere! You're tsundere!'"
 				# Ranged
 				# Summon
 			NestlingStaff: Summons a fledgling harpy knight to fight for you
@@ -360,6 +369,7 @@ Mods: {
 
 			# Pets
 			PetCreeper: Pet Creeper
+			SmolNova: Smol Nova
 
 			# Tools
 			AllSeeingEye: All Seeing Eye

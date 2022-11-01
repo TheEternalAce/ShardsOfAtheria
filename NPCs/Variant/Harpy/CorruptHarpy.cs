@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCorruption,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement("This harpy found herself in the darkness of the corruption, which has taken over her mind. Killing her would be doing her a favor.")
+				new FlavorTextBestiaryInfoElement("Some harpy got lost in the Corruption. Her mind and body have been defiled by the infection; she's now a husk of her former self.")
             });
         }
 

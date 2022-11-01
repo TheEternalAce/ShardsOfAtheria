@@ -199,80 +199,80 @@ namespace ShardsOfAtheria.Globals
 
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (item.type == ItemID.PearlwoodBow)
+            if (player.whoAmI == Main.myPlayer)
             {
-                player.GetModPlayer<SoAPlayer>().pearlwoodBowShoot++;
-                if (player.GetModPlayer<SoAPlayer>().pearlwoodBowShoot == 5)
+                if (item.type == ItemID.PearlwoodBow)
                 {
-                    float numberProjectiles = 5;
-                    float rotation = MathHelper.ToRadians(15);
-                    position += Vector2.Normalize(velocity) * 10f;
-                    for (int i = 0; i < numberProjectiles; i++)
+                    player.GetModPlayer<SoAPlayer>().pearlwoodBowShoot++;
+                    if (player.GetModPlayer<SoAPlayer>().pearlwoodBowShoot == 5)
                     {
-                        Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                        Projectile.NewProjectile(source, position, perturbedSpeed, ModContent.ProjectileType<SoulArrow>(), damage, knockback, player.whoAmI);
+                        float numberProjectiles = 5;
+                        float rotation = MathHelper.ToRadians(15);
+                        position += Vector2.Normalize(velocity) * 10f;
+                        for (int i = 0; i < numberProjectiles; i++)
+                        {
+                            Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
+                            Projectile.NewProjectile(source, position, perturbedSpeed, ModContent.ProjectileType<SoulArrow>(), damage, knockback, player.whoAmI);
+                        }
+                        SoundEngine.PlaySound(SoundID.Item78);
+                        for (int i = 0; i < 10; i++)
+                        {
+                            Dust.NewDust(player.position, player.width, player.height, DustID.PinkFairy);
+                        }
+                        player.GetModPlayer<SoAPlayer>().pearlwoodBowShoot = 0;
                     }
-                    SoundEngine.PlaySound(SoundID.Item78);
-                    for (int i = 0; i < 10; i++)
-                    {
-                        Dust.NewDust(player.position, player.width, player.height, DustID.PinkFairy);
-                    }
-                    player.GetModPlayer<SoAPlayer>().pearlwoodBowShoot = 0;
                 }
-            }
 
-            Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center);
-            if (!player.GetModPlayer<SlayerPlayer>().slayerMode)
-            {
-                return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
-            }
-            SlayerPlayer slayer = player.GetModPlayer<SlayerPlayer>();
-            if (slayer.soulCrystalProjectileCooldown == 0 && item.damage > 0)
-            {
-                slayer.soulCrystalProjectileCooldown = 60;
-                if (slayer.soulCrystals.Contains(ModContent.ItemType<SkullSoulCrystal>()))
+                Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center);
+                SlayerPlayer slayer = player.GetModPlayer<SlayerPlayer>();
+                if (slayer.soulCrystalProjectileCooldown == 0 && item.damage > 0)
                 {
-                    Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 3.5f, ProjectileID.BookOfSkullsSkull, 40, 3.5f, player.whoAmI);
-                }
-                if (slayer.soulCrystals.Contains(ModContent.ItemType<EaterSoulCrystal>()))
-                {
-                    Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 16f, ModContent.ProjectileType<VileShot>(), 30, 1, player.whoAmI);
-                    SoundEngine.PlaySound(SoundID.Item17);
-                }
-                if (slayer.soulCrystals.Contains(ModContent.ItemType<ValkyrieSoulCrystal>()))
-                {
-                    SoundEngine.PlaySound(SoundID.Item1);
-                    for (int i = 0; i < 4; i++)
+                    slayer.soulCrystalProjectileCooldown = 60;
+                    if (slayer.soulCrystals.Contains(ModContent.ItemType<SkullSoulCrystal>()))
                     {
-                        Projectile proj = Projectile.NewProjectileDirect(item.GetSource_FromThis(), Main.MouseWorld + Vector2.One.RotatedBy(90 * i) * 120, Vector2.Normalize(Main.MouseWorld - (Main.MouseWorld + Vector2.One.RotatedBy(90 * i) * 120)) * 16f, ModContent.ProjectileType<FeatherBladeFriendly>(), 18, 0f, Main.myPlayer);
-                        proj.DamageType = DamageClass.Generic;
+                        Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 3.5f, ProjectileID.BookOfSkullsSkull, 40, 3.5f, player.whoAmI);
                     }
-                }
-                if (slayer.soulCrystals.Contains(ModContent.ItemType<BeeSoulCrystal>()))
-                {
-                    Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 18f, ModContent.ProjectileType<Stinger>(), 5, 0f, player.whoAmI);
-                    SoundEngine.PlaySound(SoundID.Item17);
-                }
-                if (slayer.soulCrystals.Contains(ModContent.ItemType<PrimeSoulCrystal>()))
-                {
-                    Main.rand.Next(2);
-                    switch (Main.rand.Next(3))
+                    if (slayer.soulCrystals.Contains(ModContent.ItemType<EaterSoulCrystal>()))
                     {
-                        case 0:
-                            Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 10f, ProjectileID.MiniRetinaLaser, 40, 3.5f, player.whoAmI);
-                            break;
-                        case 1:
-                            Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 8f, ProjectileID.RocketI, 40, 3.5f, player.whoAmI);
-                            break;
-                        case 2:
-                            Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 8f, ProjectileID.Grenade, 40, 3.5f, player.whoAmI);
-                            break;
+                        Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 16f, ModContent.ProjectileType<VileShot>(), 30, 1, player.whoAmI);
+                        SoundEngine.PlaySound(SoundID.Item17);
                     }
-                }
-                if (slayer.soulCrystals.Contains(ModContent.ItemType<PlantSoulCrystal>()))
-                {
-                    Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 16f, ModContent.ProjectileType<VenomSeed>(), 30, 1, player.whoAmI);
-                    SoundEngine.PlaySound(SoundID.Item17);
+                    if (slayer.soulCrystals.Contains(ModContent.ItemType<ValkyrieSoulCrystal>()))
+                    {
+                        SoundEngine.PlaySound(SoundID.Item1);
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Vector2 projPos = Main.MouseWorld + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
+                            Projectile proj = Projectile.NewProjectileDirect(item.GetSource_FromThis(), projPos, Vector2.Normalize(Main.MouseWorld - projPos) * 16f, ModContent.ProjectileType<FeatherBladeFriendly>(), 18, 0f, Main.myPlayer);
+                            proj.DamageType = DamageClass.Generic;
+                        }
+                    }
+                    if (slayer.soulCrystals.Contains(ModContent.ItemType<BeeSoulCrystal>()))
+                    {
+                        Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 18f, ModContent.ProjectileType<Stinger>(), 5, 0f, player.whoAmI);
+                        SoundEngine.PlaySound(SoundID.Item17);
+                    }
+                    if (slayer.soulCrystals.Contains(ModContent.ItemType<PrimeSoulCrystal>()))
+                    {
+                        Main.rand.Next(2);
+                        switch (Main.rand.Next(3))
+                        {
+                            case 0:
+                                Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 10f, ProjectileID.MiniRetinaLaser, 40, 3.5f, player.whoAmI);
+                                break;
+                            case 1:
+                                Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 8f, ProjectileID.RocketI, 40, 3.5f, player.whoAmI);
+                                break;
+                            case 2:
+                                Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 8f, ProjectileID.Grenade, 40, 3.5f, player.whoAmI);
+                                break;
+                        }
+                    }
+                    if (slayer.soulCrystals.Contains(ModContent.ItemType<PlantSoulCrystal>()))
+                    {
+                        Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 16f, ModContent.ProjectileType<VenomSeed>(), 30, 1, player.whoAmI);
+                        SoundEngine.PlaySound(SoundID.Item17);
+                    }
                 }
             }
             return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
@@ -281,7 +281,9 @@ namespace ShardsOfAtheria.Globals
         public override bool CanUseItem(Item item, Player player)
         {
             if (item.damage > 0 && player.HasBuff(ModContent.BuffType<CreeperShield>()))
+            {
                 return false;
+            }
             return base.CanUseItem(item, player);
         }
 

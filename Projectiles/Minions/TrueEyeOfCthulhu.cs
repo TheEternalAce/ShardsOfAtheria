@@ -46,7 +46,8 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
 			if (!CheckActive(owner))
             {
-				return;
+                Projectile.Kill();
+                return;
 			}
 
 			if (Main.myPlayer == Projectile.owner)

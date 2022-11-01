@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
+using Terraria.ID;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
@@ -25,6 +26,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             if (++Projectile.ai[0] >= 60 && !Projectile.tileCollide)
             {
                 Projectile.tileCollide = true;
+            }
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Stone, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 0, new Color(0, 200, 255), 0.75f);
             }
         }
 

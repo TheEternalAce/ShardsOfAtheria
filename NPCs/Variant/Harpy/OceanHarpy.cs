@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement("This harpy has decided to make her home in the sandy beach. Not sure how, but her feathers and hair are as blue as the ocean.")
+				new FlavorTextBestiaryInfoElement("Several harpies 300 years ago made their home in the Ocean. Over time, their children have evolved into forms best fit for their new home.")
             });
         }
 

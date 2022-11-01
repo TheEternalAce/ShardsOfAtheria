@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.NPCs;
 using ShardsOfAtheria.Projectiles.Minions;
@@ -110,21 +111,15 @@ namespace ShardsOfAtheria.Players
 
         public override bool CanConsumeAmmo(Item weapon, Item ammo)
         {
-            if (!slayerMode)
-            {
-                return base.CanConsumeAmmo(weapon, ammo);
-            }
             if (slayerSet)
+            {
                 return Main.rand.NextFloat() >= .1f;
+            }
             return base.CanConsumeAmmo(weapon, ammo);
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-            if (!slayerMode)
-            {
-                return;
-            }
             if (ShardsOfAtheria.TomeKey.JustPressed && omnicientTome)
             {
                 if (TomeKnowledge == 2)
@@ -165,10 +160,6 @@ namespace ShardsOfAtheria.Players
 
         public override void PostUpdateBuffs()
         {
-            if (!slayerMode)
-            {
-                return;
-            }
             if (Player.HasBuff(ModContent.BuffType<BaseExploration>()))
             {
                 Player.moveSpeed += .1f;
@@ -332,10 +323,6 @@ namespace ShardsOfAtheria.Players
 
         public override void UpdateEquips()
         {
-            if (!slayerMode)
-            {
-                return;
-            }
             if (soulCrystals.Contains(ModContent.ItemType<BrainSoulCrystal>()))
             {
                 Player.noKnockback = false;
@@ -359,10 +346,6 @@ namespace ShardsOfAtheria.Players
 
         public override void PreUpdate()
         {
-            if (!slayerMode)
-            {
-                return;
-            }
             if (omnicientTome)
             {
                 if (TomeKnowledge == 0)
@@ -390,11 +373,7 @@ namespace ShardsOfAtheria.Players
             {
                 Player.AddBuff(ModContent.BuffType<Madness>(), 600);
             }
-            if (!slayerMode)
-            {
-                return;
-            }
-            else
+            if (slayerMode)
             {
                 int oldDefense = Player.statDefense;
                 Player.statDefense -= defenseReduction;
@@ -402,9 +381,6 @@ namespace ShardsOfAtheria.Players
                 {
                     defenseReduction = oldDefense + 100;
                 }
-
-                if (soulCrystalProjectileCooldown > 0)
-                    soulCrystalProjectileCooldown--;
 
                 if (Player.GetModPlayer<SoAPlayer>().inCombat == 0)
                 {
@@ -415,6 +391,15 @@ namespace ShardsOfAtheria.Players
                         defenseReduction--;
                     }
                 }
+            }
+            else
+            {
+                defenseReduction = 0;
+            }
+
+            if (soulCrystalProjectileCooldown > 0)
+            {
+                soulCrystalProjectileCooldown--;
             }
 
             if (soulCrystals.Contains(ModContent.ItemType<EyeSoulCrystal>()) && Player.ownedProjectileCounts[ModContent.ProjectileType<Servant>()] < 3)
@@ -524,10 +509,6 @@ namespace ShardsOfAtheria.Players
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
-            if (!slayerMode)
-            {
-                return;
-            }
             if (lastDamageTaken > 0)
             {
                 if (soulCrystals.Contains(ModContent.ItemType<KingSoulCrystal>()) && !soulCrystals.Contains(ModContent.ItemType<QueenSoulCrystal>()))
@@ -560,10 +541,6 @@ namespace ShardsOfAtheria.Players
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            if (!slayerMode)
-            {
-                return;
-            }
             if (lastDamageTaken > 0)
             {
                 if (soulCrystals.Contains(ModContent.ItemType<KingSoulCrystal>()) && !soulCrystals.Contains(ModContent.ItemType<QueenSoulCrystal>()))
@@ -599,10 +576,6 @@ namespace ShardsOfAtheria.Players
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
         {
-            if (!slayerMode)
-            {
-                return;
-            }
             if (soulCrystals.Contains(ModContent.ItemType<TwinsSoulCrystal>()))
             {
                 Vector2 position = npc.Center+Vector2.One.RotatedByRandom(360)*180;
@@ -618,10 +591,6 @@ namespace ShardsOfAtheria.Players
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {
-            if (!slayerMode)
-            {
-                return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
-            }
             if (Player.HasBuff(ModContent.BuffType<CreeperShield>()) && damageSource.SourceProjectileType != ModContent.ProjectileType<ExtractingSoul>())
             {
                 return false;
@@ -641,16 +610,15 @@ namespace ShardsOfAtheria.Players
 
         public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
         {
-            if (!slayerMode)
+            if (slayerMode)
             {
-                return;
-            }
-            totalDamageTaken += (int)damage;
-            lastDamageTaken = (int)damage;
+                totalDamageTaken += (int)damage;
+                lastDamageTaken = (int)damage;
 
-            if (Player.statDefense > -100)
-            {
-                defenseReduction += (int)damage;
+                if (Player.statDefense > -100)
+                {
+                    defenseReduction += (int)damage;
+                }
             }
 
             if (soulCrystals.Contains(ModContent.ItemType<QueenSoulCrystal>()))
@@ -688,10 +656,6 @@ namespace ShardsOfAtheria.Players
                     damageSource = PlayerDeathReason.ByCustomReason(Player.name + " had dug too deep.");
                 }
             }
-            if (!slayerMode)
-            {
-                return base.PreKill(damage, hitDirection, pvp, ref playSound, ref genGore, ref damageSource);
-            }
             if (!Player.HasBuff(ModContent.BuffType<EaterReviveCooldown>()) && soulCrystals.Contains(ModContent.ItemType<EaterSoulCrystal>()))
             {
                 Player.AddBuff(ModContent.BuffType<EaterReviveCooldown>(), 18000);
@@ -709,10 +673,6 @@ namespace ShardsOfAtheria.Players
 
         public override void OnRespawn(Player player)
         {
-            if (!slayerMode)
-            {
-                return;
-            }
             defenseReduction = 0;
             if (soulCrystals.Contains(ModContent.ItemType<EyeSoulCrystal>()))
             {
@@ -728,16 +688,21 @@ namespace ShardsOfAtheria.Players
             if (soulCrystals.Contains(ModContent.ItemType<DestroyerSoulCrystal>()))
             {
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<TheDestroyersProbe>()] == 0)
+                {
                     Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, Vector2.Zero, ModContent.ProjectileType<TheDestroyersProbe>(), 0, 0f, player.whoAmI);
+                }
+            }
+            if (soulCrystals.Contains(ModContent.ItemType<LordSoulCrystal>()))
+            {
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<TrueEyeOfCthulhu>()] == 0)
+                {
+                    Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, Vector2.Zero, ModContent.ProjectileType<TrueEyeOfCthulhu>(), 0, 0f, player.whoAmI);
+                }
             }
         }
 
         public override void OnEnterWorld(Player player)
         {
-            if (!slayerMode)
-            {
-                return;
-            }
             if (soulCrystals.Contains(ModContent.ItemType<EyeSoulCrystal>()))
             {
                 Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<AllSeeingEye>(), 0, 0f, player.whoAmI);
@@ -752,7 +717,16 @@ namespace ShardsOfAtheria.Players
             if (soulCrystals.Contains(ModContent.ItemType<DestroyerSoulCrystal>()))
             {
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<TheDestroyersProbe>()] == 0)
+                {
                     Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, Vector2.Zero, ModContent.ProjectileType<TheDestroyersProbe>(), 0, 0f, player.whoAmI);
+                }
+            }
+            if (soulCrystals.Contains(ModContent.ItemType<LordSoulCrystal>()))
+            {
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<TrueEyeOfCthulhu>()] == 0)
+                {
+                    Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, Vector2.Zero, ModContent.ProjectileType<TrueEyeOfCthulhu>(), 0, 0f, player.whoAmI);
+                }
             }
         }
     }

@@ -198,16 +198,9 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
                 if (Main.rand.NextFloat() <= .5f)
                     NPC.position = player.position - new Vector2(500, 250);
                 else NPC.position = player.position - new Vector2(-500, 250);
-                //if (Player.GetModPlayer<SlayerPlayer>().slayerMode)
-                //{
-                //    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("");
-                //}
-                //else
-                //{
-                //    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("");
-                //}
+                int isSlayer = player.GetModPlayer<SlayerPlayer>().slayerMode ? 1 : 5; // Use when dialogue options are finished
+                CombatText.NewText(NPC.getRect(), Color.DeepSkyBlue, GetDialogue(0));
                 NPC.localAI[0] = 1f;
-
             }
             NPC.spriteDirection = player.Center.X > NPC.Center.X ? 1 : -1;
 
@@ -397,6 +390,30 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
             }
 
             NPC.netUpdate = true;
+        }
+
+        string GetDialogue(int index)
+        {
+            switch (index)
+            {
+                case 0: // Testing
+                    return "Placeholder Text";
+                case 1: // Initial summon
+                    return "";
+                case 2: // Defeat
+                    return "";
+                case 3: // Phase 2 transition
+                    return "";
+                case 4: // Slayer mode 25% life
+                    return "";
+                case 5: // Slayer mode initial summon
+                    return "";
+                case 6: // Slayer mode defeat
+                    return "";
+                case 7: // Slayer mode phase 2 transition
+                    return "";
+            }
+            return "";
         }
     }
 }

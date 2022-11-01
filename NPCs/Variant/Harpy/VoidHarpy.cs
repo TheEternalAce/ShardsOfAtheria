@@ -81,7 +81,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement("A harpy found it's way into the Underworld, it's dark magic messed up her mind and she's now in eternal pain. Killing her would be doing her a favor.")
+				new FlavorTextBestiaryInfoElement("Some Cavern Harpy got lost in the Underworld. Her mind and body have been defiled by it's dark magic; she's now a husk of her former self.")
             });
         }
 

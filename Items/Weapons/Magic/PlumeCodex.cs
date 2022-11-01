@@ -70,7 +70,8 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 heading.Normalize();
                 heading *= velocity.Length();
                 heading.Y += Main.rand.Next(-40, 41) * 0.02f;
-                Projectile.NewProjectile(source, position, heading, type, damage * 2, knockback, player.whoAmI, 0f, ceilingLimit);
+                Projectile proj = Projectile.NewProjectileDirect(source, position, heading, type, damage * 2, knockback, player.whoAmI, 0f, ceilingLimit);
+                proj.DamageType = DamageClass.Magic;
             }
             return false;
         }

@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Snow,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement("This harpy has decided to make her home in the cold, icy tundra. Ice and snow clings to her feathers and hair.")
+				new FlavorTextBestiaryInfoElement("Several harpies 300 years ago made their home in the Tundra. Over time, their children have evolved into forms best fit for their new home.")
             });
         }
 

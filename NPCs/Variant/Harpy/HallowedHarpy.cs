@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement("This harpy has found herself in the colorful land of the hallowed, which has changed her body to fit it's standards.")
+				new FlavorTextBestiaryInfoElement("Several harpies 300 years ago made their home in the Hallowed. Over time, their children have evolved into forms best fit for their new home.")
             });
         }
 

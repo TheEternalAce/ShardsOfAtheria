@@ -65,7 +65,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Desert,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement("This harpy has decided to make her home in the vast, windy desert. She probably has sand between her feathers and in her hair.")
+				new FlavorTextBestiaryInfoElement("Several harpies 300 years ago made their home in the Dessert. Over time, their children have evolved into forms best fit for their new home.")
             });
         }
 

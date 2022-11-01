@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
         {
             if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsConfigClientSide>().instantAbsorb)
             {
-                if (!player.HasBuff(ModContent.BuffType<CreeperShield>()) && !player.HasItem(ModContent.ItemType<SoulExtractingDagger>()))
+                if (!player.HasBuff(ModContent.BuffType<CreeperShield>()))
                 {
                     NPC.NewNPC(NPC.GetBossSpawnSource(player.whoAmI), (int)(player.Center.X + 20), (int)(player.Center.Y + 20), ModContent.NPCType<Creeper>());
                     NPC.NewNPC(NPC.GetBossSpawnSource(player.whoAmI), (int)(player.Center.X - 20), (int)(player.Center.Y + 20), ModContent.NPCType<Creeper>());

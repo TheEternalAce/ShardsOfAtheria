@@ -41,6 +41,18 @@ namespace ShardsOfAtheria.Projectiles.Minions
             Projectile.minionSlots = 0.16f; // Amount of slots this minion occupies from the total minion slots available to the player (more on that later)
         }
 
+        // Here you can decide if your minion breaks things like grass or pots
+        public override bool? CanCutTiles()
+        {
+            return false;
+        }
+
+        // This is mandatory if your minion deals contact damage (further related stuff in AI() in the Movement region)
+        public override bool MinionContactDamage()
+        {
+            return true;
+        }
+
         // The AI of this minion is split into multiple methods to avoid bloat. This method just passes values between calls actual parts of the AI.
         public override void AI()
         {
@@ -195,7 +207,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
                     direction.Normalize();
                     direction *= speed;
 
-                    if (++moveTimer >= 10)
+                    if (++moveTimer >= 5)
                     {
                         Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
                         moveTimer = 0;
