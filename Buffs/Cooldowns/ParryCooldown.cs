@@ -2,14 +2,14 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs
+namespace ShardsOfAtheria.Buffs.Cooldowns
 {
-    public class SoulTeleportCooldown : ModBuff
+    public class ParryCooldown : ModBuff
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Soul Teleport Cool Down");
-            Description.SetDefault("You cannot use Soul Teleport right now");
+            DisplayName.SetDefault("Parry Cool Down");
+            Description.SetDefault("You cannot parry right now");
             Main.debuff[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
