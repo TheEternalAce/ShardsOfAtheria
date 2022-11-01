@@ -10,7 +10,7 @@ using Terraria.GameContent.Creative;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Areus;
+using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {
@@ -62,13 +62,13 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             if (type == ProjectileID.WoodenArrowFriendly)
             {
-                type = ModContent.ProjectileType<AreusArrow>();
+                type = ModContent.ProjectileType<AreusArrowProj>();
             }
         }
 
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(0, 5);
+            return new Vector2(0, 0);
         }
     }
 }

@@ -124,7 +124,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            float numberProjectiles = arrows;
+            float numberProjectiles = maxArrows;
             if (numberProjectiles > 1)
             {
                 float rotation = MathHelper.ToRadians(5);
@@ -141,7 +141,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(0, 5);
+            return new Vector2(0, 0);
         }
     }
 }

@@ -91,7 +91,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-6, 2);
+            return new Vector2(0, 0);
         }
     }
 }
