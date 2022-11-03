@@ -13,7 +13,6 @@ namespace ShardsOfAtheria.Projectiles.Minions
 {
     public class YourTentacle : ModProjectile
     {
-        int aiTimer;
         float degrees;
 
         public override void SetStaticDefaults()

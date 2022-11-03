@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Players;
 using System;
-using static ShardsOfAtheria.Items.Tools.Misc.Entry;
+using static ShardsOfAtheria.Utilities.Entry;
 
 namespace ShardsOfAtheria.Projectiles.Tools
 {

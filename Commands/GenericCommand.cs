@@ -8,8 +8,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ShardsOfAtheria.Items.Tools.Misc.Entry;
-
+using static ShardsOfAtheria.Utilities.Entry;
 namespace ShardsOfAtheria.Commands
 {
     class GenericCommand : ModCommand

@@ -13,7 +13,6 @@ namespace ShardsOfAtheria.Projectiles.Minions
 {
     public class TheHungry : ModProjectile
     {
-        int aiTimer;
         float degrees;
 
         public override void SetStaticDefaults()

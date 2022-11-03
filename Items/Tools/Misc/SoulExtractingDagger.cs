@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Globals;
-using static ShardsOfAtheria.Items.Tools.Misc.Entry;
+using static ShardsOfAtheria.Utilities.Entry;
 using System.Configuration;
 using System;
 
