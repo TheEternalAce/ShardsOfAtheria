@@ -11,6 +11,7 @@ using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -21,10 +22,17 @@ namespace ShardsOfAtheria.Globals
 {
     public class SoAGlobalItem : GlobalItem
     {
-        #region
+        #region Weapon Categories
         public static List<int> AreusWeapon = new();
-        public static List<int> SlayerItem = new();
+        public static List<int> ThrowingWeapon = new();
+        #endregion
 
+        #region Item Categories
+        public static List<int> SlayerItem = new();
+        public static List<int> SinfulItem = new();
+        #endregion
+
+        #region Ammo lists for Ammo Bags
         public static List<int> preHardmodeAmmo = new();
         public static List<int> hardmodeAmmo = new();
         public static List<int> postMoonLordAmmo = new();
@@ -42,30 +50,40 @@ namespace ShardsOfAtheria.Globals
         public static List<int> postMoonLordRockets = new();
         #endregion
 
-        #region
+        #region Weapon Elements (for 1.0)
+        public static List<int> MetalWeapon = new();
+        public static List<int> FireWeapon = new();
+        public static List<int> IceWeapon = new();
+        public static List<int> ElectricWeapon = new();
+
+        #region Weapon Sub-Elements
+        public static List<int> BloodWeapon = new();
+        public static List<int> FrostfireWeapon = new();
+        #endregion
 
         #endregion
 
         public override void SetDefaults(Item item)
         {
+            ShardsConfigServerSide serverConfig = ModContent.GetInstance<ShardsConfigServerSide>();
             switch (item.type)
             {
+                #region Add new grenade ammo type
                 case ItemID.Grenade:
-                    item.ammo = ItemID.Grenade;
-                    break;
                 case ItemID.Beenade:
-                    item.ammo = ItemID.Grenade;
-                    break;
                 case ItemID.StickyGrenade:
-                    item.ammo = ItemID.Grenade;
-                    break;
                 case ItemID.BouncyGrenade:
-                    item.ammo = ItemID.Grenade;
-                    break;
                 case ItemID.PartyGirlGrenade:
                     item.ammo = ItemID.Grenade;
+                    if (serverConfig.throwingDamage)
+                    {
+                        item.DamageType = DamageClass.Throwing;
+                        ThrowingWeapon.Add(item.type);
+                    }
                     break;
+                #endregion
 
+                #region Buff Pearlwood gear
                 case ItemID.PearlwoodHelmet:
                     item.defense = 8;
                     break;
@@ -82,27 +100,54 @@ namespace ShardsOfAtheria.Globals
                     item.damage = 30;
                     item.autoReuse = true;
                     break;
+                #endregion
 
+                #region Make old 1.3 throwing weapons deal throwing damage if config is enabled
+                case ItemID.ThrowingKnife:
+                case ItemID.Shuriken:
+                case ItemID.AleThrowingGlove:
+                case ItemID.Snowball:
+                case ItemID.RottenEgg:
+                case ItemID.PoisonedKnife:
+                case ItemID.StarAnise:
+                case ItemID.Javelin:
+                case ItemID.FrostDaggerfish:
+                case ItemID.Bone:
+                case ItemID.MolotovCocktail:
+                    if (serverConfig.throwingDamage)
+                    {
+                        ThrowingWeapon.Add(item.type);
+                    }
+                    break;
+                #endregion
+
+                #region Make boss summons non-consumable if config is enabled
+                case ItemID.SlimeCrown:
+                case ItemID.SuspiciousLookingEye:
+                case ItemID.BloodySpine:
+                case ItemID.WormFood:
+                case ItemID.Abeemination:
+                case ItemID.DeerThing:
+                case ItemID.QueenSlimeCrystal:
+                case ItemID.MechanicalWorm:
+                case ItemID.MechanicalSkull:
+                case ItemID.MechanicalEye:
+                case ItemID.LihzahrdPowerCell:
+                case ItemID.TruffleWorm:
+                case ItemID.EmpressButterfly:
+                case ItemID.CelestialSigil:
+                    if (serverConfig.nonConsumeBoss)
+                    {
+                        item.consumable = false;
+                    }
+                    break;
+                #endregion
+
+                #region Make small adjustments to Upgrade Items
                 case ItemID.LifeCrystal:
-                    if (ModContent.GetInstance<ShardsConfigServerSide>().upgradeChange)
-                    {
-                        item.useTime = 15;
-                        item.useAnimation = 15;
-                        item.autoReuse = true;
-                        item.useTurn = true;
-                    }
-                    break;
                 case ItemID.ManaCrystal:
-                    if (ModContent.GetInstance<ShardsConfigServerSide>().upgradeChange)
-                    {
-                        item.useTime = 15;
-                        item.useAnimation = 15;
-                        item.autoReuse = true;
-                        item.useTurn = true;
-                    }
-                    break;
                 case ItemID.LifeFruit:
-                    if (ModContent.GetInstance<ShardsConfigServerSide>().upgradeChange)
+                    if (serverConfig.upgradeChange)
                     {
                         item.useTime = 15;
                         item.useAnimation = 15;
@@ -110,7 +155,9 @@ namespace ShardsOfAtheria.Globals
                         item.useTurn = true;
                     }
                     break;
+                    #endregion
 
+                    #region Janky ass rockets wtf
                     //case ItemID.RocketI:
                     //    item.shoot = ProjectileID.RocketI;
                     //    break;
@@ -147,7 +194,25 @@ namespace ShardsOfAtheria.Globals
                     //case ItemID.MiniNukeII:
                     //    item.shoot = ProjectileID.MiniNukeRocketII;
                     //    break;
+                    #endregion
             }
+
+            if (ThrowingWeapon.Contains(item.type))
+            {
+                item.DamageType = DamageClass.Throwing;
+            }
+            #region Assign Sub-Element weapon to branching Base-Elements
+            if (BloodWeapon.Contains(item.type))
+            {
+                MetalWeapon.Add(item.type);
+                IceWeapon.Add(item.type);
+            }
+            if (FrostfireWeapon.Contains(item.type))
+            {
+                FireWeapon.Add(item.type);
+                IceWeapon.Add(item.type);
+            }
+            #endregion
         }
 
         public override void UpdateArmorSet(Player player, string set)

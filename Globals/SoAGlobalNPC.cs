@@ -17,6 +17,7 @@ using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Chat;
 using Terraria.DataStructures;
@@ -30,6 +31,18 @@ namespace ShardsOfAtheria.Globals
 {
     public class SoAGlobalNPC : GlobalNPC
     {
+        #region NPC Elements (for 1.0)
+        public static List<int> MetalNPC = new();
+        public static List<int> FireNPC = new();
+        public static List<int> IceNPC = new();
+        public static List<int> ElectricNPC = new();
+        #endregion
+
+        public override void SetDefaults(NPC npc)
+        {
+            base.SetDefaults(npc);
+        }
+
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
             Player player = Main.LocalPlayer;
@@ -685,6 +698,11 @@ namespace ShardsOfAtheria.Globals
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
+            LeadingConditionRule notHardmode = new LeadingConditionRule(new Conditions.IsPreHardmode());
+            LeadingConditionRule firstTimeKillingPlantera = new LeadingConditionRule(new Conditions.FirstTimeKillingPlantera());
+            LeadingConditionRule downedGolem = new LeadingConditionRule(new DownedGolem());
+            LeadingConditionRule downedCultist = new LeadingConditionRule(new DownedLunaticCultist());
+            LeadingConditionRule downedMoonLord = new LeadingConditionRule(new DownedMoonLord());
             if (npc.type == NPCID.Mothron)
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BrokenHeroGun>(), 4));
@@ -695,25 +713,30 @@ namespace ShardsOfAtheria.Globals
             }
             if (npc.type == NPCID.WallofFlesh)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
+                notHardmode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
+                npcLoot.Add(notHardmode);
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulSoul>()));
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulArmament>()));
             }
             if (npc.type == NPCID.Plantera)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
+                firstTimeKillingPlantera.OnSuccess(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
+                npcLoot.Add(firstTimeKillingPlantera);
             }
             if (npc.type == NPCID.Golem)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
+                downedGolem.OnFailedConditions(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
+                npcLoot.Add(downedGolem);
             }
             if (npc.type == NPCID.CultistBoss)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
+                downedCultist.OnFailedConditions(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
+                npcLoot.Add(downedCultist);
             }
             if (npc.type == NPCID.MoonLordCore)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
+                downedMoonLord.OnFailedConditions(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
+                npcLoot.Add(downedMoonLord);
             }
         }
 
