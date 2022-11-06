@@ -173,10 +173,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                             }
                             break;
                         case 3:
+                        case 4:
                             if (upgrades >= 4)
                             {
                                 Item.shoot = ModContent.ProjectileType<Genesis_Sword>();
-                                Item.shootSpeed = 30f;
+                                Item.shootSpeed = 1f;
                                 Item.UseSound = SoundID.DD2_MonkStaffSwing;
                             }
                             break;
@@ -192,7 +193,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override bool? UseItem(Player player)
         {
             int comboExtra = upgrades >= 1 ? 1 : 0;
-            int comboExtra2 = upgrades >= 4 ? 1 : 0;
+            int comboExtra2 = upgrades >= 4 ? 2 : 0;
             if (combo == 1 + comboExtra + comboExtra2)
                 combo = 0;
             else combo++;

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -12,33 +11,22 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
+namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
-    public class Genesis_Sword : EpicSwingSword
+    public class HeroSword : EpicSwingSword
     {
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            Projectile.width = Projectile.height = 132;
-            hitboxOutwards = 90;
+            Projectile.width = Projectile.height = 90;
+            hitboxOutwards = 50;
             rotationOffset = -MathHelper.PiOver4 * 3f;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            Player player = Main.player[Projectile.owner];
-
-            if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
-            {
-                if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5 && (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades >= 3)
-                    target.AddBuff(BuffID.OnFire, 600);
-                else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
-                {
-                    target.AddBuff(BuffID.Frostburn, 600);
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<IceExplosion>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
-                }
-            }
+            base.OnHitNPC(target, damage, knockback, crit);
         }
 
         protected override void Initialize(Player player, SoAPlayer shards)
@@ -73,23 +61,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         {
             if (progress == 0.5f && Main.myPlayer == Projectile.owner)
             {
-                Player player = Main.player[Projectile.owner];
-
-                if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
-                {
-                    if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
-                    {
-                        float numberProjectiles = 3;
-                        float shardRotation = MathHelper.ToRadians(15);
-                        Vector2 position = Projectile.position;
-                        Vector2 velocity = AngleVector * Projectile.velocity.Length() * 16;
-                        for (int i = 0; i < numberProjectiles; i++)
-                        {
-                            Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-shardRotation, shardRotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, perturbedSpeed, ModContent.ProjectileType<IceShard>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
-                        }
-                    }
-                }
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center,
+                    AngleVector * Projectile.velocity.Length() * 10f,
+                    ModContent.ProjectileType<HeroBlade>(), (int)(Projectile.damage * 0.75f), Projectile.knockBack / 4f, Projectile.owner);
             }
         }
 
@@ -132,6 +106,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             var drawCoords = handPosition - Main.screenPosition;
             float size = texture.Size().Length();
             var effects = SpriteEffects.None;
+            bool flip = Main.player[Projectile.owner].direction == 1 ? combo > 0 : combo == 0;
+            if (flip)
+            {
+                Main.instance.LoadItem(ModContent.ItemType<Items.Weapons.Melee.HeroSword>());
+                texture = TextureAssets.Item[ModContent.ItemType<Items.Weapons.Melee.HeroSword>()].Value;
+            }
             var origin = new Vector2(0f, texture.Height);
 
             Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor, Projectile.rotation, origin, Projectile.scale, effects, 0);

@@ -8,6 +8,7 @@ using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -55,6 +56,12 @@ namespace ShardsOfAtheria.Players
         public int pearlwoodBowShoot;
 
         public int inCombat;
+        /// <summary>
+        /// When above 0, you are in a combo. Ticks down by 1 every player update.
+        /// <para>Item "combos" are used for determining what type of item action to use.</para>
+        /// <para>A usage example would be a weapon with a 3 swing pattern. Each swing will increase the combo meter by 60, and when it becomes greater than 120, reset to 0.</para>
+        /// </summary>
+        public ushort itemCombo;
 
         public bool naturalAreusRegen;
         public bool areusChargeMaxed;
@@ -117,6 +124,7 @@ namespace ShardsOfAtheria.Players
         {
             overdriveTimeCurrent = 300;
             overdriveTimeMax = DefaultOverdriveTimeMax;
+            itemCombo = 0;
 
             shadowBrandToggled = false;
             phaseOffense = true;
@@ -196,6 +204,14 @@ namespace ShardsOfAtheria.Players
             if (Player.HasBuff(ModContent.BuffType<SoulInfused>()))
             {
                 Player.moveSpeed += .5f;
+            }
+        }
+
+        public void UpdateItemFields()
+        {
+            if (itemCombo > 0)
+            {
+                itemCombo--;
             }
         }
 

@@ -1,4 +1,3 @@
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -25,16 +24,18 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.knockBack = 6;
 			Item.crit = 6;
 
-			Item.useTime = 10;
-			Item.useAnimation = 10;
-			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useTime = 25;
+			Item.useAnimation = 25;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.shootSpeed = 10;
+			Item.noMelee = true;
+			Item.noUseGraphic = true;
 
 			Item.rare = ItemRarityID.Red;
 			Item.value = Item.sellPrice(0, 2, 50);
-			Item.shoot = ModContent.ProjectileType<HeroBlade>();
+			Item.shoot = ModContent.ProjectileType<Projectiles.Weapon.Melee.HeroSword>();
+			Item.shootSpeed = 1;
 		}
 
 		public override void AddRecipes() 

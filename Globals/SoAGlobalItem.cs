@@ -15,6 +15,7 @@ using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -139,6 +140,7 @@ namespace ShardsOfAtheria.Globals
                     if (serverConfig.nonConsumeBoss)
                     {
                         item.consumable = false;
+                        CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[item.type] = 1;
                     }
                     break;
                 #endregion
