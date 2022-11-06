@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Creative;
@@ -11,6 +12,7 @@ namespace ShardsOfAtheria.Items
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SoAGlobalItem.SinfulItem.Add(Type);
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

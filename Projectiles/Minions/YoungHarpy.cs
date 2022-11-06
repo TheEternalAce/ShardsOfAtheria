@@ -214,7 +214,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
                         for (int i = 0; i < numberProjectiles; i++)
                         {
                             Vector2 vel = Vector2.Normalize(targetCenter - Projectile.Center);
-                            Vector2 perturbedSpeed = vel.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * 7f; // Watch out for dividing by 0 if there is only 1 projectile.
+                            Vector2 perturbedSpeed = vel.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * 10f; // Watch out for dividing by 0 if there is only 1 projectile.
                             Projectile feather = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, perturbedSpeed, ModContent.ProjectileType<FeatherBladeFriendly>(), Projectile.damage, 0, Projectile.owner);
                             feather.friendly = true;
                             feather.hostile = false;

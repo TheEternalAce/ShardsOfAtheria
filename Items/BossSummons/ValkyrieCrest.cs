@@ -4,6 +4,9 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie;
+using Terraria.Chat;
+using Terraria.Localization;
+using Microsoft.Xna.Framework;
 
 namespace ShardsOfAtheria.Items.BossSummons
 {
@@ -58,6 +61,19 @@ namespace ShardsOfAtheria.Items.BossSummons
         {
             if (player.whoAmI == Main.myPlayer)
             {
+                if (!Main.dayTime)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Nova Stellar is asleep, try again in the morning."), Color.White);
+                    }
+                    else
+                    {
+                        Main.NewText("Nova Stellar is asleep, try again in the morning.");
+                    }
+                    return true;
+                }
+
                 // If the Player using the item is the client
                 // (explicitely excluded serverside here)
                 SoundEngine.PlaySound(SoundID.Roar, player.position);

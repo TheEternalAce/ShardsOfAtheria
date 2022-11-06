@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override void Kill(int timeLeft)
         {
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(0, 1) * 50, ModContent.ProjectileType<LightningBolt>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(0, 1) * 50, ModContent.ProjectileType<LightningBolt>(), 16, Projectile.knockBack, Main.myPlayer);
         }
     }
 }

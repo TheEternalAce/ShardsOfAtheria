@@ -26,4 +26,9 @@
     <Folder Include="Projectiles\Weapon\Melee\GenesisRagnarok\LightningStuff\" />
     <Folder Include="Walls\" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="ShopQuotesMod">
+      <HintPath>..\ModAssemblies\ShopQuotesMod_v1.0.0.1.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

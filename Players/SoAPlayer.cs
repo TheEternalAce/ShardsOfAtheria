@@ -166,12 +166,6 @@ namespace ShardsOfAtheria.Players
 
             if (inCombat > 0)
                 inCombat--;
-
-            if (megaGemCore || areusWings)
-            {
-                Player.wingTime = 100;
-                Player.rocketTime = 100;
-            }
         }
 
         public override void PostUpdate()
