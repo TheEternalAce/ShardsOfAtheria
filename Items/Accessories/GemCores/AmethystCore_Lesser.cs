@@ -6,9 +6,9 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
-	public class AmethystCore_Lesser : ModItem
-	{
-		public override void SetStaticDefaults()
+    public class AmethystCore_Lesser : ModItem
+    {
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lesser Amethyst Core");
             Tooltip.SetDefault("Gives a short dash to the wearer.");
@@ -16,9 +16,9 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
-		public override void SetDefaults()
-		{
-			Item.width = 32;
+        public override void SetDefaults()
+        {
+            Item.width = 32;
             Item.height = 32;
             Item.accessory = true;
 
@@ -29,14 +29,15 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         public override void AddRecipes()
         {
             CreateRecipe()
-              .AddRecipeGroup(ShardsRecipes.Gold, 10)
-              .AddIngredient(ItemID.Amethyst, 5)
-              .AddTile(TileID.Anvils)
-              .Register();
+                .AddRecipeGroup(ShardsRecipes.Gold, 10)
+                .AddIngredient(ItemID.StoneBlock, 10)
+                .AddIngredient(ItemID.Amethyst, 5)
+                .AddTile(TileID.Anvils)
+                .Register();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
-		{
+        {
             AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
 
             //If the dash is not active, immediately return so we don't do any of the logic for it
@@ -125,7 +126,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             //Also return if the player is currently on a mount, since dashes on a mount look weird, or if the dash was already activated
             if (!dashAccessoryEquipped || Player.setSolar || Player.mount.Active || DashActive)
                 return;
-            
+
             if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[DashRight] < 15)
                 DashDir = DashRight;
             else if (Player.controlLeft && Player.releaseLeft && Player.doubleTapCardinalTimer[DashLeft] < 15)
