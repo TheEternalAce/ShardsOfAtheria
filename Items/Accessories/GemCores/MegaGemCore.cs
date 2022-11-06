@@ -8,13 +8,34 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Players;
+using Terraria.ModLoader.IO;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
     [AutoloadEquip(EquipType.Wings)]
 	public class MegaGemCore : ModItem
 	{
-		public override void SetStaticDefaults()
+        bool gravitation = true;
+
+        public override void OnCreate(ItemCreationContext context)
+        {
+            gravitation = true;
+        }
+
+        public override void SaveData(TagCompound tag)
+        {
+            tag["gravitation"] = gravitation;
+        }
+
+        public override void LoadData(TagCompound tag)
+        {
+            if (tag.ContainsKey("gravitation"))
+            {
+                gravitation = tag.GetBool("gravitation");
+            }
+        }
+
+        public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Counts as wings\n" +
                 "Increases max life by 100\n" +
@@ -27,12 +48,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
                 "Melee weapons autoswing\n" +
                 "Immunity to damage dealing, damage and defense reducing, anti-healing and cold debuffs and Chaos State\n" +
                 "Grants Ironskin and Endurance when dealing damage and Wrath, Rage and Inferno when taking damage\n" +
-                "Effects of Ankh Shield, Bundle of Ballons, Frostspark Boots, Lava Waders and Shiny Stone\n" +
+                "Effects of Ankh Shield, Bundle of Ballons, Frostspark Boots, Lava Waders, Shiny Stone and Soaring insignia\n" +
                 "Permanent Thorns, Regeneration, Honey, Heart Lantern, Cozy Campfire, Heartreach and Gravitation buffs\n" +
-                "Disable Gravitation in config\n" +
+                "Use to disable Gravitation\n" +
                 "Grants infinite flight and slow fall");
 
-            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(2000000000, 9f, 2.5f);
+            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(100, 9f, 2.5f, true, 1f, 1f);
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
@@ -56,6 +77,10 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			Item.height = 32;
             Item.accessory = true;
 
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.useTime = 10;
+            Item.useAnimation = 10;
+
             Item.defense = 50;
 
             Item.rare = ItemRarityID.Red;
@@ -75,6 +100,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
                 .AddIngredient(ItemID.LunarBar, 5)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            gravitation = !gravitation;
+            return true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -112,13 +143,17 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
             player.shinyStone = true;
 
+            player.empressBrooch = true;
+
             player.AddBuff(BuffID.Thorns, 2);
             player.AddBuff(BuffID.Regeneration, 2);
             player.AddBuff(BuffID.Honey, 2);
             player.AddBuff(BuffID.Campfire, 2);
             player.AddBuff(BuffID.HeartLamp, 2);
-            if (ModContent.GetInstance<ShardsConfigClientSide>().megaGemCoreGrav)
+            if (gravitation)
+            {
                 player.AddBuff(BuffID.Gravitation, 2);
+            }
 
             player.GetModPlayer<SoAPlayer>().megaGemCore = true;
 
