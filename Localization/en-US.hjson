@@ -239,7 +239,7 @@ Mods: {
 			MemoryFragment:
 				'''
 				Can be used to upgrade Genesis and Ragnarok
-				"'The faint voice of a young boy echoes from within'"
+				'The faint voice of a young boy echoes from within'
 				'''
 			SoulOfDaylight:
 				'''
@@ -258,14 +258,14 @@ Mods: {
 			SmallHardlightCrest:
 				'''
 				Summons a miniature Nova Stellar
-				"'Adorableness from the heavens'"
+				'Adorableness from the heavens'
 				'''
 
 			# Tools
 			RedAreusDrill:
 				'''
 				Uses highly concentrated electricity to cut through stones and ores
-				"'Extremely dangerous... and fun!'"
+				'Extremely dangerous... and fun!'
 				'''
 			RedAreusPickaxe: Uses highly concentrated electricity to cut through stones and ores
 			SoulExtractingDagger:
@@ -307,7 +307,7 @@ Mods: {
 			Prometheus:
 				'''
 				Left Click to swing an energy scythe, <right> to throw a fireball
-				"'It seems like you're worthy of playing his little game, his game of destiny!'"
+				'It seems like you're worthy of playing his little game, his game of destiny!'
 				'''
 			Yamiko: "'I'm not tsundere! You're tsundere!'"
 				# Ranged
@@ -439,7 +439,8 @@ Mods: {
 			ZenovaDaybreak: Daybreak
 			ZenovaLostNail: Lost Nail
 			ZenovaProj: Zenova
-			ZenovaSatanlance: ecnalnataS
+			ZenovaProjectile: Zenova Weapons
+		 	ZenovaSatanlance: ecnalnataS
 			ZenovaWoodenSword: Wooden Sword
 				# Ranged
 			AceOfSpadesProj: Ace of Spades
@@ -484,6 +485,12 @@ Mods: {
 
 		BossDesc: {
 			NovaStellar: Lightning Valkyrie
+		}
+
+		ShopQuote: {
+			Atherian: {
+				ValkyrieCrest: "This was my Ex's..."
+			}
 		}
 
 		#This is what displays during all of an NPC's happiness levels. Note that the localization key for these should always be "TownNPCMood.*NPCName*.*Mood*" or else it won't display properly.

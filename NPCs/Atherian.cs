@@ -1,10 +1,12 @@
-﻿using ShardsOfAtheria.Items.Accessories;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Tools;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
+using ShopQuotesMod;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -55,6 +57,9 @@ namespace ShardsOfAtheria.NPCs
                 //NPCs
                 .SetNPCAffection(NPCID.Stylist, AffectionLevel.Love)
                 .SetNPCAffection(NPCID.Guide, AffectionLevel.Like);
+
+            ModContent.GetInstance<QuoteDatabase>().AddNPC(Type, Mod, "Mods.ShardsOfAtheria.ShopQuote.")
+                .UseColor(Color.Cyan);
         }
 
         public override void SetDefaults()
@@ -289,7 +294,8 @@ namespace ShardsOfAtheria.NPCs
 
                 if (item.type == ModContent.ItemType<GenesisAndRagnarok>())
                 {
-                    (item.ModItem as GenesisAndRagnarok).upgrades++;
+                    GenesisAndRagnarok upgradeItem = (item.ModItem as GenesisAndRagnarok);
+                    upgradeItem.upgrades++;
                     Main.LocalPlayer.inventory[Main.LocalPlayer.FindItem(ModContent.ItemType<MemoryFragment>())].stack--;
                 }
             }
@@ -302,6 +308,8 @@ namespace ShardsOfAtheria.NPCs
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<ValkyrieCrest>());
+            nextSlot++;
             if (NPC.downedPlantBoss)
             {
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusKey>());
@@ -330,11 +338,6 @@ namespace ShardsOfAtheria.NPCs
                 if (NPC.downedQueenBee)
                 {
                     shop.item[nextSlot].SetDefaults(ItemID.Abeemination);
-                    nextSlot++;
-                }
-                if (ShardsDownedSystem.downedValkyrie)
-                {
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<ValkyrieCrest>());
                     nextSlot++;
                 }
                 if (NPC.downedBoss3)
