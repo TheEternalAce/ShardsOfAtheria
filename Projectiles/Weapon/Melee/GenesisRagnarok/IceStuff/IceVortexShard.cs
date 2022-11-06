@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -21,7 +22,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff
             Projectile.aiStyle = 0;
             Projectile.extraUpdates = 1;
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 120;
 
             DrawOffsetX = 6;
         }
@@ -42,6 +43,15 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Frostburn, 600);
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Ice);
+            }
+            SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
         }
     }
 }
