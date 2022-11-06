@@ -36,6 +36,7 @@ namespace ShardsOfAtheria.Items.Accessories
 		{
 			player.buffImmune[BuffID.Electrified] = true;
 			player.GetModPlayer<SoAPlayer>().areusWings = true;
+			player.empressBrooch = true;
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,

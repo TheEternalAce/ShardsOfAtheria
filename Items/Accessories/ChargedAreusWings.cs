@@ -41,7 +41,8 @@ namespace ShardsOfAtheria.Items.Accessories
 			player.GetModPlayer<SoAPlayer>().areusBatteryElectrify = true;
 			player.GetModPlayer<SoAPlayer>().areusWings = true;
 			player.GetModPlayer<SoAPlayer>().naturalAreusRegen = true;
-		}
+            player.empressBrooch = true;
+        }
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
 			ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
