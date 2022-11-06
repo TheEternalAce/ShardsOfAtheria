@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Creative;
@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.shootSpeed = 15;
 			Item.value = Item.sellPrice(0, 4);
 			Item.rare = ItemRarityID.Red;
-			Item.shoot = ModContent.ProjectileType<ZenovaProj>();
+			Item.shoot = ModContent.ProjectileType<ZenovaProjectile>();
 			Item.ArmorPenetration = 37;
 		}
 
@@ -61,43 +61,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 				.Register();
 		}
 
-        // How can I choose between several projectiles randomly?
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
 			SoundEngine.PlaySound(Item.UseSound);
-            switch (Main.rand.Next(11))
-            {
-				case 0:
-					type = ModContent.ProjectileType<ZenovaDaybreak>();
-					break;
-				case 1:
-					type = ModContent.ProjectileType<ZenovaBoneJavelin>();
-					break;
-				case 2:
-					type = ModContent.ProjectileType<ZenovaProj>();
-					break;
-				case 3:
-					type = ModContent.ProjectileType<ZenovaAreusSword>();
-					break;
-				case 4:
-					type = ModContent.ProjectileType<ZenovaBreakerBlade>();
-					break;
-				case 5:
-					type = ModContent.ProjectileType<ZenovaChlorophyteSaber>();
-					break;
-				case 6:
-					type = ModContent.ProjectileType<ZenovaSatanlance>();
-					break;
-				case 7:
-					type = ModContent.ProjectileType<ZenovaWoodenSword>();
-					break;
-				case 8:
-					type = ModContent.ProjectileType<ElectricBlade>();
-					break;
-				case 9:
-					type = ModContent.ProjectileType<ZenovaLostNail>();
-					break;
-            }
 			velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
 		}
     }

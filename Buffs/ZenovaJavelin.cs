@@ -1,4 +1,5 @@
 ﻿using ShardsOfAtheria.NPCs;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -30,13 +31,24 @@ namespace ShardsOfAtheria.Buffs
         {
             if (npc.HasBuff(ModContent.BuffType<ZenovaJavelin>()))
             {
-                // These lines zero out any positive lifeRegen. This is expected for all bad life regeneration effects.
                 if (npc.lifeRegen > 0)
                 {
                     npc.lifeRegen = 0;
                 }
-                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 8 life lost per second.
-                npc.lifeRegen -= 100;
+                int exampleJavelinCount = 0;
+                for (int i = 0; i < 1000; i++)
+                {
+                    Projectile p = Main.projectile[i];
+                    if (p.active && p.type == ModContent.ProjectileType<ZenovaProjectile>() && p.ai[0] == 1f && p.ai[1] == npc.whoAmI)
+                    {
+                        exampleJavelinCount++;
+                    }
+                }
+                npc.lifeRegen -= exampleJavelinCount * 2 * 50;
+                if (damage < exampleJavelinCount * 50)
+                {
+                    damage = exampleJavelinCount * 50;
+                }
             }
         }
     }

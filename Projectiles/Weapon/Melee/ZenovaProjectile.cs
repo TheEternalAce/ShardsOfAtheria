@@ -6,13 +6,13 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova
+namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
-    public class ZenovaProj : ModProjectile
+    public class ZenovaProjectile : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Zenova");
+            Main.projFrames[Type] = 10;
         }
 
         public override void SetDefaults()
@@ -53,12 +53,17 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova
 
         public override void Kill(int timeLeft)
         {
+            if (Projectile.frame == 7)
+            {
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ProjectileID.DaybreakExplosion, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                return;
+            }
             SoundEngine.PlaySound(SoundID.Dig, Projectile.Center); // Play a death sound
             Vector2 usePos = Projectile.position; // Position to use for dusts
 
             // Please note the usage of MathHelper, please use this!
             // We subtract 90 degrees as radians to the rotation vector to offset the sprite as its default rotation in the sprite isn't aligned properly.
-            Vector2 rotVector = (Projectile.rotation - MathHelper.ToRadians(90f)).ToRotationVector2(); // rotation vector to use for dust velocity
+            Vector2 rotVector = (Projectile.rotation - MathHelper.ToRadians(45f)).ToRotationVector2(); // rotation vector to use for dust velocity
             usePos += rotVector * 16f;
 
             // Declaring a constant in-line is fine as it will be optimized by the compiler
@@ -93,6 +98,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova
             set => Projectile.ai[1] = value;
         }
 
+        // Randomize projectile frame
+        public bool frameSet = false;
+
         private const int MAX_STICKY_JAVELINS = 20; // This is the max. amount of javelins being able to attach
         private readonly Point[] _stickingJavelins = new Point[MAX_STICKY_JAVELINS]; // The point array holding for sticking javelins
 
@@ -104,12 +112,42 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova
                 (target.Center - Projectile.Center) *
                 0.75f; // Change velocity based on delta center of targets (difference between entity centers)
             Projectile.netUpdate = true; // netUpdate this javelin
-            target.AddBuff(ModContent.BuffType<Buffs.ZenovaJavelin>(), 900); // Adds the ExampleJavelin debuff for a very small DoT
+            int buffType = ModContent.BuffType<ZenovaJavelin>();
+            switch (Projectile.frame)
+            {
+                case 1:
+                    buffType = BuffID.Ichor;
+                    break;
+                case 2:
+                    buffType = BuffID.Venom;
+                    break;
+                case 9:
+                    buffType = ModContent.BuffType<ElectricShock>();
+                    Projectile.Kill();
+                    break;
+                case 3:
+                    buffType = ModContent.BuffType<ElectricShock>();
+                    break;
+                case 5:
+                    buffType = BuffID.Confused;
+                    target.AddBuff(BuffID.OnFire3, 900);
+                    target.AddBuff(BuffID.Frostburn2, 900);
+                    target.AddBuff(BuffID.CursedInferno, 900);
+                    break;
+                case 7:
+                    buffType = BuffID.Daybreak;
+                    break;
+                case 8:
+                    buffType = 169;
+                    break;
+            }
+            target.AddBuff(buffType, 900); // Adds the ExampleJavelin debuff for a very small DoT
 
             Projectile.damage = 0; // Makes sure the sticking javelins do not deal damage anymore
 
             // It is recommended to split your code into separate methods to keep code clean and clear
             UpdateStickyJavelins(target);
+
         }
 
         /*
@@ -126,7 +164,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova
                     && currentProjectile.active // Make sure the projectile is active
                     && currentProjectile.owner == Main.myPlayer // Make sure the projectile's owner is the client's player
                     && currentProjectile.type == Projectile.type // Make sure the projectile is of the same type as this javelin
-                    && currentProjectile.ModProjectile is ZenovaSatanlance javelinProjectile // Use a pattern match cast so we can access the projectile like an ExampleJavelinProjectile
+                    && currentProjectile.ModProjectile is ZenovaProjectile javelinProjectile // Use a pattern match cast so we can access the projectile like an ExampleJavelinProjectile
                     && javelinProjectile.IsStickingToTarget // the previous pattern match allows us to use our properties
                     && javelinProjectile.TargetWhoAmI == target.whoAmI)
                 {
@@ -164,7 +202,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova
 
         public override void AI()
         {
-
             UpdateAlpha();
             // Run either the Sticky AI or Normal AI
             // Separating into different methods helps keeps your AI clean
@@ -189,6 +226,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Zenova
 
         private void NormalAI()
         {
+            if (!frameSet)
+            {
+                Projectile.frame = Main.rand.Next(Main.projFrames[Type]);
+                frameSet = true;
+            }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(45f);
         }
 
