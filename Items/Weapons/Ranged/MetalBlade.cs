@@ -7,6 +7,7 @@ using ShardsOfAtheria.Items.Potions;
 using Terraria.Audio;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -17,6 +18,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Tooltip.SetDefault("'Cut a new path for your foes, a path of pain!'");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SoAGlobalItem.ThrowingWeapon.Add(Type);
         }
 
         public override void SetDefaults()
