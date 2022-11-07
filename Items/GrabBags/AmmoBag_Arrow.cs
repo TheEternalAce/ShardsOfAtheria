@@ -10,7 +10,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
-namespace ShardsOfAtheria.Items
+namespace ShardsOfAtheria.Items.GrabBags
 {
     public class AmmoBag_Arrow : ModItem
     {

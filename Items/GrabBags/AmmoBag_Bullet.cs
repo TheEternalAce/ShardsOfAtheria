@@ -1,5 +1,7 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.ItemDropRules.Conditions;
+using ShardsOfAtheria.Items.Weapons.Ammo;
+using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.GameContent.Creative;
@@ -8,13 +10,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
-namespace ShardsOfAtheria.Items
+namespace ShardsOfAtheria.Items.GrabBags
 {
-    public class AmmoBag : ModItem
+    public class AmmoBag_Bullet : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Gives a stack of a random ammo");
+            Tooltip.SetDefault("Gives a stack of a random bullet type");
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
         }
@@ -26,7 +28,7 @@ namespace ShardsOfAtheria.Items
             Item.maxStack = 9999;
 
             Item.rare = ItemRarityID.Blue;
-            Item.value = Item.buyPrice(0, 10);
+            Item.value = Item.buyPrice(0, 5);
         }
 
         public override bool CanRightClick()
@@ -38,22 +40,22 @@ namespace ShardsOfAtheria.Items
         {
             int stackSize = 1000;
 
-            CommonDrop[] preHardmodeAmmo = SoAGlobalItem.preHardmodeAmmo.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
+            CommonDrop[] preHardmodeBullets = SoAGlobalItem.preHardmodeBullets.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
 
-            CommonDrop[] hardmodeAmmo = SoAGlobalItem.hardmodeAmmo.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
+            CommonDrop[] hardmodeBullets = SoAGlobalItem.hardmodeBullets.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
 
-            CommonDrop[] postMLAmmo = SoAGlobalItem.postMoonLordAmmo.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
+            CommonDrop[] postMLBullets = SoAGlobalItem.postMoonLordBullets.Select((type) => new CommonDrop(type, 1, stackSize, stackSize)).ToArray();
 
-            OneFromRulesRule executePrehardMode = new(1, preHardmodeAmmo);
+            OneFromRulesRule executePrehardMode = new(1, preHardmodeBullets);
 
             // successfulInHardmode will resolve into successful state if we are in Hard Mode
-            CommonDrop[] hardmodeDrops = preHardmodeAmmo.Concat(hardmodeAmmo).ToArray();
+            CommonDrop[] hardmodeDrops = preHardmodeBullets.Concat(hardmodeBullets).ToArray();
             LeadingConditionRule successfulInHardmode = new(new Conditions.IsHardmode());
             OneFromRulesRule executeInHardMode = new(1, hardmodeDrops);
             successfulInHardmode.OnSuccess(executeInHardMode);
 
             // successfulPostML will resolve into successful state if Moon Lord is dead
-            CommonDrop[] postMLDrops = hardmodeDrops.Concat(postMLAmmo).ToArray();
+            CommonDrop[] postMLDrops = hardmodeDrops.Concat(postMLBullets).ToArray();
             LeadingConditionRule successfulPostML = new(new DownedMoonLord());
             OneFromRulesRule executePostML = new(1, postMLDrops);
             successfulPostML.OnSuccess(executePostML);
@@ -63,6 +65,15 @@ namespace ShardsOfAtheria.Items
             SequentialRulesRule rootRule = new(1, new IItemDropRule[] { successfulPostML, successfulInHardmode, executePrehardMode });
 
             itemLoot.Add(rootRule);
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<AmmoBag>())
+                .AddIngredient(ItemID.MusketBall, 100)
+                .AddTile(TileID.WorkBenches)
+                .Register();
         }
     }
 }

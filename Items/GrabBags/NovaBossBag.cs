@@ -6,6 +6,7 @@ using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon.Minion;
+using ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.Creative;
@@ -14,7 +15,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
-namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
+namespace ShardsOfAtheria.Items.GrabBags
 {
     public class NovaBossBag : ModItem
     {

@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
+using ShardsOfAtheria.Items.GrabBags;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable.Furniture.Trophies;
 using ShardsOfAtheria.Items.Placeable.Furniture.Trophies.Master;
