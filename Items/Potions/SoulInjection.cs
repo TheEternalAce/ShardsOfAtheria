@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Potions
@@ -11,11 +10,6 @@ namespace ShardsOfAtheria.Items.Potions
 	{
 		public override void SetStaticDefaults() 
 		{
-			Tooltip.SetDefault("Damages you but grants the following:\n" +
-				"Increased damage, movement speed and defense\n" +
-				"Grants life regen\n" +
-				"'Bro I promise, injecting souls directly into your bloodstream is a good idea'");
-
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
 		}
 
@@ -59,5 +53,16 @@ namespace ShardsOfAtheria.Items.Potions
 				return true;
 			else return false;
 		}
-	}
+    }
+
+    public class SoulInfused : ModBuff
+    {
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.statLifeMax2 += 50;
+            player.statDefense += 10;
+            player.GetDamage(DamageClass.Generic) += .15f;
+			player.lifeRegen += 10;
+        }
+    }
 }

@@ -10,13 +10,8 @@ namespace ShardsOfAtheria.Items.Potions
 {
 	public class ConductivityPotion : ModItem
 	{
-		public const string tip = "Increases areus weapon damage by 15% and duration of Electric Shock by 100%\n" +
-            "All attacks inflict Electric Shock";
-
 		public override void SetStaticDefaults() 
 		{
-			Tooltip.SetDefault(tip);
-
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
 		}
 
@@ -55,8 +50,7 @@ namespace ShardsOfAtheria.Items.Potions
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Conductive");
-			Description.SetDefault(ConductivityPotion.tip);
+			BuffID.Sets.IsAFlaskBuff[Type] = true;
 		}
 	}
 

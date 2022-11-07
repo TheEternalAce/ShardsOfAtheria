@@ -286,6 +286,21 @@ Mods: {
 			CobaltWorkbenchItem: Used to completely skip having to gather mythril ore
 			PalladiumWorkbenchItem: Used to completely skip having to gather mythril ore
 
+			# Potions
+			BoneMarrowInjection: Strengthens your bones
+			ConductivityPotion:
+				'''
+				Increases areus weapon damage by 15% and duration of Electric Shock by 100%
+				All attacks inflict Electric Shock
+				'''
+			SoulInjection:
+				'''
+				Damages you but grants the following:
+				Increased damage, movement speed and defense
+				Grants life regen
+				'Bro I promise, injecting souls directly into your bloodstream is a good idea'
+				'''
+
 			# Weapons
 				# Ammo
 				# Areus
@@ -481,6 +496,27 @@ Mods: {
 			Tonbogiri: Tonbogiri
 
 			Creeper: Creeper
+		}
+
+		BuffName: {
+			BoneStrength: Bone Strength
+			Conductive: Conductive
+			InjectionShock: Injection Shock
+			SoulInfused: Soul Infused
+		}
+		BuffDescription: {
+			BoneStrength: 
+				'''
+				10% increased damage and recuced damage taken by 20%
+				'Your bones are stronger'
+				'''
+			Conductive:
+				'''
+				Increases areus weapon damage by 15% and duration of Electric Shock by 100%
+				All attacks inflict Electric Shock
+				'''
+			InjectionShock: "You cannot use another injection, cannot regenerate life and mild blood loss"
+			SoulInfused: "Increased max life by 50, defense by 10 and damage by 15%"
 		}
 
 		BossDesc: {

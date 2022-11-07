@@ -13,8 +13,6 @@ namespace ShardsOfAtheria.Items.Potions
 	{
 		public override void SetStaticDefaults() 
 		{
-			Tooltip.SetDefault("Strengthens your bones");
-
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
 		}
 
@@ -58,5 +56,14 @@ namespace ShardsOfAtheria.Items.Potions
 				return true;
 			else return false;
 		}
-	}
+    }
+
+    public class BoneStrength : ModBuff
+    {
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.GetDamage(DamageClass.Generic) += .1f;
+            player.endurance += .2f;
+        }
+    }
 }

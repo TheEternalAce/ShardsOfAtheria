@@ -2,14 +2,12 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs
+namespace ShardsOfAtheria.Items.Potions
 {
     public class InjectionShock : ModBuff
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Injection Shock");
-            Description.SetDefault("You cannont use another injection, cannot regenerate life and mild blood loss");
             Main.debuff[Type] = true;
         }
 
@@ -35,8 +33,8 @@ namespace ShardsOfAtheria.Buffs
                     Player.lifeRegen = 0;
                 }
                 Player.lifeRegenTime = 0;
-                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes .5 life lost per second.
-                Player.lifeRegen -= 1;
+                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 2 life lost per second.
+                Player.lifeRegen -= 4;
             }
         }
     }
