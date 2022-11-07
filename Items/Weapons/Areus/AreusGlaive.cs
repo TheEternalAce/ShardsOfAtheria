@@ -42,7 +42,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.noMelee = true;
             Item.noUseGraphic = true;
 
-            Item.shootSpeed = 30f;
+            Item.shootSpeed = 1f;
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 1);
             Item.shoot = ModContent.ProjectileType<AreusGlaive_Swing>();
@@ -84,21 +84,22 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             switch (combo)
             {
                 case 0:
+                case 1:
                     Item.shoot = ModContent.ProjectileType<AreusGlaive_Swing>();
-                    Item.shootSpeed = 30f;
+                    Item.shootSpeed = 1f;
                     Item.UseSound = SoundID.Item1;
                     break;
-                case 1:
+                case 2:
                     Item.shoot = ModContent.ProjectileType<AreusGlaive_Thrust>();
                     Item.shootSpeed = 4.5f;
                     Item.UseSound = SoundID.DD2_MonkStaffSwing;
                     break;
-                case 2:
+                case 3:
                     Item.shoot = ModContent.ProjectileType<AreusGlaive_Thrust2>();
                     Item.shootSpeed = 4.5f;
                     Item.UseSound = SoundID.DD2_MonkStaffSwing;
                     break;
-                case 3:
+                case 4:
                     Item.shoot = ModContent.ProjectileType<AreusGlaive_Throw>();
                     Item.shootSpeed = 30f;
                     Item.UseSound = SoundID.Item71;
@@ -110,7 +111,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
 
         public override bool? UseItem(Player player)
         {
-            if (combo == 3)
+            if (combo >= 4)
                 combo = 0;
             else combo++;
             return true;

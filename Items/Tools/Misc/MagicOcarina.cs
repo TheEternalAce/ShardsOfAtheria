@@ -4,7 +4,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items
+namespace ShardsOfAtheria.Items.Tools.Misc
 {
     public class MagicOcarina : ModItem
     {
@@ -64,25 +64,23 @@ namespace ShardsOfAtheria.Items
                     Item.healLife = player.statLifeMax2 / 5;
                 }
                 else
+                {
                     Item.healLife = 0;
-
+                }
                 // Weather
                 if (selectedSong == 2)
                 {
                     Item.mana = 60;
-
                 }
                 // Healing Alt (Purification)
                 if (selectedSong == 3)
                 {
                     Item.mana = 50;
-
                 }
                 // Unhealing (Corruption/Crimson)
                 if (selectedSong == 4)
                 {
                     Item.mana = 50;
-
                 }
                 // Double Time
                 if (selectedSong == 5)
@@ -275,7 +273,7 @@ namespace ShardsOfAtheria.Items
             {
                 selectedSong++;
             }
-            if ((!ocarinaPlayer.soaringSongLearned && selectedSong == 7) || selectedSong > 7)
+            if (!ocarinaPlayer.soaringSongLearned && selectedSong == 7 || selectedSong > 7)
             {
                 selectedSong = 0;
             }
@@ -307,7 +305,7 @@ namespace ShardsOfAtheria.Items
             {
                 Main.dayRate = 2;
             }
-            else Main.dayRate = default;
+            else Main.dayRate = 1;
         }
     }
 }

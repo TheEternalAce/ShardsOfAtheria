@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace ShardsOfAtheria.Items
+namespace ShardsOfAtheria.Items.Tools.Misc
 {
     public abstract class SongSheets : ModItem
     {
@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Items
         public override bool? UseItem(Player player)
         {
             player.GetModPlayer<OcarinaPlayer>().songsLearned++;
-            return base.UseItem(player);
+            return true;
         }
     }
 

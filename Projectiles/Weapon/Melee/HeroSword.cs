@@ -26,7 +26,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            base.OnHitNPC(target, damage, knockback, crit);
+            Player player = Main.player[Projectile.owner];
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, Vector2.Normalize(target.Center - player.Center) * 16f,
+                ModContent.ProjectileType<HeroBlade>(), (int)(Projectile.damage * .75), Projectile.knockBack, Projectile.owner);
         }
 
         protected override void Initialize(Player player, SoAPlayer shards)
@@ -54,16 +56,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             {
                 playedSound = true;
                 SoundEngine.PlaySound(SoundID.Item1.WithPitchOffset(-1f), Projectile.Center);
-            }
-        }
-
-        public override void UpdateSwing(float progress, float interpolatedSwingProgress)
-        {
-            if (progress == 0.5f && Main.myPlayer == Projectile.owner)
-            {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center,
-                    AngleVector * Projectile.velocity.Length() * 10f,
-                    ModContent.ProjectileType<HeroBlade>(), (int)(Projectile.damage * 0.75f), Projectile.knockBack / 4f, Projectile.owner);
             }
         }
 

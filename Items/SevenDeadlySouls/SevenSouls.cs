@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ShardsOfAtheria.Items.SevenDeadlySouls.Extras;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -9,7 +10,6 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 {
     public abstract class SevenSouls : SinfulItem
     {
-
         public override void SetStaticDefaults()
         {
             Item.rare = ItemRarityID.Green;
@@ -33,6 +33,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override bool? UseItem(Player player)
         {
+            player.ClearBuff(ModContent.BuffType<VirtuousSoul>());
             return true;
         }
 
@@ -43,7 +44,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
                 .Register();
         }
     }
-    
+
     public class SevenSoulPlayer : ModPlayer
     {
         public int SevenSoulUsed;

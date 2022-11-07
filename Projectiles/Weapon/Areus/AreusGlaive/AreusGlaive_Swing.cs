@@ -2,18 +2,19 @@
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Projectiles.NPCProj;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff;
+using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Projectiles.Bases;
+using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
 {
-    public class AreusGlaive_Swing : ModProjectile
+    public class AreusGlaive_Swing : EpicSwingSword
     {
         public float rotation = 45;
 
@@ -24,75 +25,20 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
 
         public override void SetDefaults()
         {
-            Projectile.width = 14;
-            Projectile.height = 14;
-            Projectile.aiStyle = 75;
-            Projectile.tileCollide = false;
-            Projectile.friendly = true;
-            Projectile.penetrate = -1;
-            Projectile.extraUpdates = 1;
-            Projectile.DamageType = DamageClass.Melee;
+            base.SetDefaults();
 
-            DrawOffsetX = -6;
-            DrawOriginOffsetY = -16;
+            Projectile.width = Projectile.height = 90;
+            hitboxOutwards = 50;
+            rotationOffset = -MathHelper.PiOver4 * 3f;
         }
 
-        public override void AI()
+        protected override void Initialize(Player player, SoAPlayer shards)
         {
-            Player player = Main.player[Projectile.owner];
-            player.heldProj = Projectile.whoAmI;
-            player.itemTime = player.itemAnimation;
-
-            // Centering
-            Vector2 value21 = Main.OffsetsPlayerOnhand[player.bodyFrame.Y / 56] * 2f;
-            if (player.direction != 1)
+            base.Initialize(player, shards);
+            if (shards.itemCombo > 0)
             {
-                value21.X = player.bodyFrame.Width - value21.X;
+                swingDirection *= -1;
             }
-            if (player.gravDir != 1f)
-            {
-                value21.Y = player.bodyFrame.Height - value21.Y;
-            }
-            value21 -= new Vector2(player.bodyFrame.Width - player.width, player.bodyFrame.Height - 42) / 2f;
-            Projectile.Center = player.RotatedRelativePoint(player.MountedCenter - new Vector2(20f, 42f) / 2f + value21, reverseRotation: false, addGfxOffY: false) - Projectile.velocity;
-
-            // Behavior
-            if (player.whoAmI == Projectile.owner)
-            {
-                Projectile.ai[0] += 1f;
-                if (Projectile.ai[0] > 70f)
-                {
-                    Projectile.Kill();
-                }
-                else player.itemAnimation = 10;
-
-                int newDirection = Projectile.Center.X > player.Center.X ? -1 : 1;
-                player.ChangeDir(newDirection);
-                Projectile.direction = newDirection;
-
-                if (Projectile.ai[0] == 35f)
-                    SoundEngine.PlaySound(SoundID.Item1);
-                if (Projectile.ai[0] > 35f)
-                    rotation -= 6;
-                else
-                    rotation += 6;
-                if (Projectile.direction == 1)
-                    Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(rotation + 135);
-                else Projectile.rotation = Projectile.velocity.ToRotation() - MathHelper.ToRadians(rotation - 45);
-
-            }
-        }
-
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
-        {
-            float ro = Projectile.rotation + MathHelper.ToRadians(90);
-            float collisionPoint4 = 0f;
-            if (Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Hitbox.Center.ToVector2(),
-                Projectile.Center + Projectile.velocity + ro.ToRotationVector2().SafeNormalize(Vector2.Zero) * 80f, 16f * Projectile.scale, ref collisionPoint4))
-            {
-                return true;
-            }
-            return false;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -100,49 +46,82 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
             return Color.White;
         }
 
-        public override bool PreDraw(ref Color lightColor)
+        public override void AI()
         {
-            var player = Main.player[Projectile.owner];
-
-            Vector2 mountedCenter = player.MountedCenter;
-
-            var drawPosition = Main.MouseWorld;
-            var remainingVectorToPlayer = mountedCenter - drawPosition;
-
-            if (Projectile.alpha == 0 && player.whoAmI == Projectile.owner)
+            base.AI();
+            if (Main.player[Projectile.owner].itemAnimation <= 1)
             {
-                int direction = -1;
-
-                if (Projectile.Center.X < mountedCenter.X)
-                    direction = 1;
-
-                player.itemRotation = (float)Math.Atan2(remainingVectorToPlayer.Y * direction, remainingVectorToPlayer.X * direction);
+                Main.player[Projectile.owner].ShardsOfAtheria().itemCombo = (ushort)(combo == 0 ? 20 : 0);
             }
-            return false;
+            if (!playedSound && AnimProgress > 0.4f)
+            {
+                playedSound = true;
+                SoundEngine.PlaySound(SoundID.Item1.WithPitchOffset(-1f), Projectile.Center);
+            }
         }
 
-        public override void PostDraw(Color lightColor)
+        public override float SwingProgress(float progress)
         {
-            //TODO Generic glowmask draw, maybe generalize method
-            Player player = Main.player[Projectile.owner];
-
-            int offsetY = 0;
-            int offsetX = 0;
-            Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
-            float originX = (texture.Width - Projectile.width) * 0.5f + Projectile.width * 0.5f;
-            ProjectileLoader.DrawOffset(Projectile, ref offsetX, ref offsetY, ref originX);
-
-            SpriteEffects spriteEffects = SpriteEffects.None;
-            if (Projectile.ai[0] > 35)
+            return GenericSwing2(progress);
+        }
+        public override float GetScale(float progress)
+        {
+            float scale = base.GetScale(progress);
+            if (progress > 0.4f && progress < 0.6f)
             {
-                spriteEffects = SpriteEffects.FlipHorizontally;
+                return scale + 0.7f * ShardsHelpers.Wave(SwingProgress((progress - 0.4f) / 0.2f), 0f, 1f);
             }
+            return scale;
+        }
+        public override float GetVisualOuter(float progress, float swingProgress)
+        {
+            if (progress > 0.8f)
+            {
+                float p = 1f - (1f - progress) / 0.2f;
+                Projectile.alpha = (int)(p * 255);
+                return -20f * p;
+            }
+            if (progress < 0.35f)
+            {
+                float p = 1f - (progress) / 0.35f;
+                Projectile.alpha = (int)(p * 255);
+                return -20f * p;
+            }
+            return 0f;
+        }
 
-            Vector2 drawPos = new Vector2(Projectile.position.X - Main.screenPosition.X + originX + offsetX, Projectile.position.Y - Main.screenPosition.Y + Projectile.height / 2 + Projectile.gfxOffY);
-            Rectangle sourceRect = texture.Frame(1, Main.projFrames[Projectile.type], 0, Projectile.frame);
-            Color glowColor = new Color(255, 255, 255, 255) * 0.7f * Projectile.Opacity;
-            Vector2 drawOrigin = new Vector2(originX, Projectile.height / 2 + offsetY);
-            Main.EntitySpriteDraw(texture, drawPos, sourceRect, glowColor, Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
+        public override bool PreDraw(ref Color lightColor)
+        {
+            var texture = TextureAssets.Projectile[Type].Value;
+            var center = Main.player[Projectile.owner].Center;
+            var handPosition = Main.GetPlayerArmPosition(Projectile) + AngleVector * visualOutwards;
+            var drawColor = Projectile.GetAlpha(lightColor) * Projectile.Opacity;
+            var drawCoords = handPosition - Main.screenPosition;
+            float size = texture.Size().Length();
+            var effects = SpriteEffects.None;
+            bool flip = Main.player[Projectile.owner].direction == 1 ? combo > 0 : combo == 0;
+            if (flip)
+            {
+                Main.instance.LoadItem(ModContent.ItemType<Items.Weapons.Areus.AreusGlaive>());
+                texture = TextureAssets.Item[ModContent.ItemType<Items.Weapons.Areus.AreusGlaive>()].Value;
+            }
+            var origin = new Vector2(0f, texture.Height);
+
+            Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor, Projectile.rotation, origin, Projectile.scale, effects, 0);
+
+            if (AnimProgress > 0.35f && AnimProgress < 0.75f)
+            {
+                float intensity = (float)Math.Sin((AnimProgress - 0.35f) / 0.4f * MathHelper.Pi);
+                Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor.UseA(0) * intensity * 0.5f, Projectile.rotation, origin, Projectile.scale, effects, 0);
+
+                var swish = SwishTexture.Value;
+                var swishOrigin = swish.Size() / 2f;
+                var swishColor = new Color(100, 120, 140, 80) * intensity * intensity * Projectile.Opacity * 0.5f;
+                float r = BaseAngleVector.ToRotation() + ((AnimProgress - 0.45f) / 0.2f * 2f - 1f) * -swingDirection * 0.6f;
+                var swishLocation = Main.player[Projectile.owner].Center - Main.screenPosition + r.ToRotationVector2() * (size - 20f) * scale;
+                Main.EntitySpriteDraw(swish, swishLocation, null, swishColor.UseA(0), r + MathHelper.PiOver2, swishOrigin, 1f, effects, 0);
+            }
+            return false;
         }
     }
 }

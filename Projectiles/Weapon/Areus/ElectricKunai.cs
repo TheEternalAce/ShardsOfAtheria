@@ -25,10 +25,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
             Projectile.DamageType = DamageClass.Melee;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
-            Projectile.tileCollide = true;
-            Projectile.arrow = false;
-            Projectile.light = 1;
             Projectile.extraUpdates = 1;
+            Projectile.timeLeft = 600;
 
             DrawOffsetX = -28;
             DrawOriginOffsetX = 14;
@@ -49,7 +47,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
             }
             if (Main.rand.NextBool(20))
             {
-                Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric, Projectile.velocity.X * .2f, Projectile.velocity.Y * .2f, 200, Scale: 1f);
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric, 0, 0, 200, Scale: 1f);
+                dust.noGravity = true;
             }
         }
     }
