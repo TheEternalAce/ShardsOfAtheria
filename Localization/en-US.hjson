@@ -507,7 +507,7 @@ Mods: {
 		BuffDescription: {
 			BoneStrength: 
 				'''
-				10% increased damage and recuced damage taken by 20%
+				10% increased damage and reduced damage taken by 20%
 				'Your bones are stronger'
 				'''
 			Conductive:
