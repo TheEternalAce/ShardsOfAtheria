@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
 using Terraria;
 using Terraria.GameContent.Bestiary;
@@ -34,8 +35,8 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.defense = 12;
             NPC.lifeMax = 75;
             AnimationType = NPCID.Harpy;
-            Banner = Item.NPCtoBanner(NPCID.Harpy);
-            BannerItem = Item.BannerToItem(Banner);
+            Banner = NPC.type;
+            BannerItem = ModContent.ItemType<DesertHarpyBanner>();
         }
 
         public override void AI()

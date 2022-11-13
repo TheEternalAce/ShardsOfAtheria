@@ -16,9 +16,17 @@ using Terraria.ObjectData;
 
 namespace ShardsOfAtheria.Tiles.Banner
 {
-	public class MonsterBanners : ModTile
-	{
-		public const int ForestHarpyBanner = 0;
+    public class MonsterBanners : ModTile
+    {
+        public const int ForestHarpyBanner = 0;
+        public const int SnowHarpyBanner = 1;
+        public const int CaveHarpyBanner = 2;
+        public const int DesertHarpyBanner = 3;
+        public const int OceanHarpyBanner = 4;
+        public const int VoidHarpyBanner = 5;
+        public const int CrimsonHarpyBanner = 6;
+        public const int CorruptHarpyBanner = 7;
+        public const int HallowedHarpyBanner = 8;
 
         public static List<int> bannerWindHack;
 
@@ -166,6 +174,22 @@ namespace ShardsOfAtheria.Tiles.Banner
             {
                 case ForestHarpyBanner:
                     return ModContent.NPCType<ForestHarpy>();
+                case SnowHarpyBanner:
+                    return ModContent.NPCType<SnowHarpy>();
+                case CaveHarpyBanner:
+                    return ModContent.NPCType<CaveHarpy>();
+                case DesertHarpyBanner:
+                    return ModContent.NPCType<DesertHarpy>();
+                case OceanHarpyBanner:
+                    return ModContent.NPCType<OceanHarpy>();
+                case VoidHarpyBanner:
+                    return ModContent.NPCType<VoidHarpy>();
+                case CrimsonHarpyBanner:
+                    return ModContent.NPCType<CrimsonHarpy>();
+                case CorruptHarpyBanner:
+                    return ModContent.NPCType<CorruptHarpy>();
+                case HallowedHarpyBanner:
+                    return ModContent.NPCType<HallowedHarpy>();
             }
             return 0;
         }

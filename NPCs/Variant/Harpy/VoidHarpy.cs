@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
 using Terraria;
 using Terraria.DataStructures;
@@ -6,7 +7,6 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace ShardsOfAtheria.NPCs.Variant.Harpy
 {
@@ -50,8 +50,8 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.lifeMax = 100;
             NPC.lavaImmune = true;
             AnimationType = NPCID.Harpy;
-            Banner = Item.NPCtoBanner(NPCID.Harpy);
-            BannerItem = Item.BannerToItem(Banner);
+            Banner = NPC.type;
+            BannerItem = ModContent.ItemType<VoidHarpyBanner>();
         }
 
         public override void AI()

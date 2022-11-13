@@ -1,13 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
-using System;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace ShardsOfAtheria.NPCs.Variant.Harpy
 {
@@ -36,8 +35,8 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.defense = 10;
             NPC.lifeMax = 50;
             AnimationType = NPCID.Harpy;
-            Banner = Item.NPCtoBanner(NPCID.Harpy);
-            BannerItem = Item.BannerToItem(Banner);
+            Banner = NPC.type;
+            BannerItem = ModContent.ItemType<CaveHarpyBanner>();
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -71,7 +70,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                 NPC.ai[0] = 0f;
             }
         }
-        
+
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (!(spawnInfo.Player.ZoneHallow || spawnInfo.Player.ZoneCrimson || spawnInfo.Player.ZoneCorrupt || spawnInfo.Player.ZoneDungeon || spawnInfo.Player.ZoneSnow
