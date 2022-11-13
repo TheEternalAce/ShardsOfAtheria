@@ -9,8 +9,6 @@ namespace ShardsOfAtheria.Items.DevItems.TheEternalAce
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Eternal Ace's Gold Fox Mask");
-            Tooltip.SetDefault("'Great for impersonating devs!'");
             ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true; // Draw all hair as normal. Used by Mime Mask, Sunglasses
 
             SacrificeTotal = 1;

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Players;
 using System.Collections.Generic;
@@ -41,13 +41,6 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Equipping transforms the user into a Mega Man\n" +
-                "25% Increased damage\n" +
-                "Increases movement speed by 10%\n" +
-                "Increased life regen\n" +
-                "Increased life by 100 and mana by 40\n" +
-                "Grants dash, wall sliding and immunity to fall damage and certain debuffs");
-
             SacrificeTotal = 1;
 
             SetupDrawing();

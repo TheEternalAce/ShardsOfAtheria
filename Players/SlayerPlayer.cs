@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Buffs.Cooldowns;
+using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Buffs.PlayerDebuff;
+using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.NPCs;
 using ShardsOfAtheria.Projectiles.Minions;

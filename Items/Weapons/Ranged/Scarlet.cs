@@ -7,13 +7,10 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
-    public class Scarlet : ModItem
+	public class Scarlet : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Shoots powerful Luminite Bullets\n" +
-				"66% chance to not consume ammo");
-
 			SacrificeTotal = 1;
 		}
 
@@ -46,12 +43,12 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			return new Vector2(-8, -2);
 		}
 
-        public override void HoldItem(Player player)
-        {
+		public override void HoldItem(Player player)
+		{
 			player.scope = true;
-        }
+		}
 
-        public override void AddRecipes()
+		public override void AddRecipes()
 		{
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<HuntingRifle>())
@@ -68,12 +65,12 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			return Main.rand.NextFloat() >= .66f;
 		}
 
-        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
 			if (type == ProjectileID.Bullet || type == ModContent.ProjectileType<BBProj>())
 			{
 				type = ProjectileID.MoonlordBullet;
 			}
 		}
-    }
+	}
 }

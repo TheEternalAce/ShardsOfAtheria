@@ -1,9 +1,9 @@
+using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Projectiles.Weapon.Summon.Whip;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Weapon.Summon.Whip;
-using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Weapons.Summon.Whip
 {
@@ -11,12 +11,9 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Whip
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("26 summon tag damage\n" +
-                "Your summons will focus struck enemies");
-
             SoAGlobalItem.SlayerItem.Add(Type);
 
-            base.SetStaticDefaults();
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

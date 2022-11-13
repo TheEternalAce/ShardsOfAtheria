@@ -9,14 +9,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Greater Ruby Core");
-			Tooltip.SetDefault("10% increased damage\n" +
-				"Increases attack speed by 10%\n" +
-				"Increases knockback\n" +
-				"Increased melee size\n" +
-				"Attacks inflict 'Hellfire'\n" +
-				"Melee weapons autoswing");
-
 			SacrificeTotal = 1;
 		}
 

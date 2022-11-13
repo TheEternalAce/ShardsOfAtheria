@@ -8,7 +8,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("'I will... never be a memory.'");
 			SacrificeTotal = 1;
 		}
 

@@ -11,8 +11,6 @@ namespace ShardsOfAtheria.Items.Armor
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("12% increased damage and critical strike chance");
-
             SoAGlobalItem.SlayerItem.Add(Type);
 
             base.SetStaticDefaults();

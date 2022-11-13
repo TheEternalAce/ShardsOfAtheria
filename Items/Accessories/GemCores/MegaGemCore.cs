@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -7,6 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Players;
 using Terraria.ModLoader.IO;
+using ShardsOfAtheria.Buffs.PlayerDebuff;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
 {

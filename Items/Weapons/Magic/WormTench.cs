@@ -1,9 +1,9 @@
+using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Projectiles.Weapon.Magic;
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Terraria;
-using ShardsOfAtheria.Projectiles.Weapon.Magic;
-using Terraria.DataStructures;
 
 namespace ShardsOfAtheria.Items.Weapons.Magic
 {
@@ -11,8 +11,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'Gross, absolutely vile..'");
-
             base.SetStaticDefaults();
         }
 

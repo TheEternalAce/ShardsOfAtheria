@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
@@ -15,10 +15,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Summons a broken Areus Mirror that shoots homing Mirror Shards\n" +
-                "Use again to shatter the mirror into 6 shards that deal 1/3 damage each\n" +
-                "Only one mirror can be out at a time");
-
             SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }

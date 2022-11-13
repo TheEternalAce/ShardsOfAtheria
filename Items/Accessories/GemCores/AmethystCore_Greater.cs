@@ -9,10 +9,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Greater Amethyst Core");
-            Tooltip.SetDefault("Gives a dash to the wearer\n" +
-                "Immunity to 'Ichor' and 'Cursed Inferno'");
-
             SacrificeTotal = 1;
         }
 

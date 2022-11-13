@@ -9,11 +9,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Super Amethyst Core");
-            Tooltip.SetDefault("Gives a great dash to the wearer\n" +
-                "Immunity to knockback, Poison, Venom, On Fire, cold debuffs, lava and fire blocks\n" +
-                "Master Ninja Gear effects");
-
             SacrificeTotal = 1;
         }
 

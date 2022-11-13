@@ -12,9 +12,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Shoots an extra Phantom Bullet\n" +
-				"48% chance to not consume ammo");
-
 			SacrificeTotal = 1;
 		}
 
@@ -73,10 +70,10 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			return Main.rand.NextFloat() >= .48f;
 		}
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<PhantomBullet>(), damage, knockback, player.whoAmI);
 			return base.Shoot(player, source, position, velocity, type, damage, knockback);
-        }
-    }
+		}
+	}
 }

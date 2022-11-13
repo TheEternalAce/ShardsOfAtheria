@@ -14,10 +14,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'Ugh!'\n" +
-                "<right> to switch between 3 modes: Semi-auto, Burst Fire and Full-auto\n" +
-                "66% chance to not consume ammo");
-
             SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }

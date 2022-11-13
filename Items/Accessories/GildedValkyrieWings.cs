@@ -10,8 +10,6 @@ namespace ShardsOfAtheria.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("'The gold plating on the wings weighs you down slightly'");
-
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(30, 9f, 2.5f);
 
 			SacrificeTotal = 1;

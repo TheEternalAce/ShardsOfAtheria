@@ -1,10 +1,9 @@
+using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Projectiles.Weapon.Summon;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Weapon.Summon;
-using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
-using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Items.Weapons.Summon
 {
@@ -12,10 +11,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Throws 3-6 Hungry\n" +
-                "'Your very own Hungry as a pet! Adorable..?'");
-
-            base.SetStaticDefaults();
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

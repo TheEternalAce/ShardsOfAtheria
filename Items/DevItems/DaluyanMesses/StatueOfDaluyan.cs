@@ -8,10 +8,6 @@ namespace ShardsOfAtheria.Items.DevItems.DaluyanMesses
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'Great for impersonating devs!'\n" +
-                "'bro legit i have the perfect dev item'\n" +
-                "'That's Fool's Gold! That ain't worth nothing!'");
-
             SacrificeTotal = 1;
         }
 

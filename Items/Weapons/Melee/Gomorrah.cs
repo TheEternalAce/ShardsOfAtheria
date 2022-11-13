@@ -10,9 +10,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Use RMB to throw a spear\n" +
-				"Sticking 8 spears into the same target causes a large burst of damage");
-
 			SacrificeTotal = 1;
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 			SoAGlobalItem.AreusWeapon.Add(Type);

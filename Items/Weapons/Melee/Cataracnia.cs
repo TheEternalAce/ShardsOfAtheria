@@ -6,13 +6,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class Cataracnia : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault("'The blade wielded by the All Seer'");
-
-            base.SetStaticDefaults();
-        }
-
         public override void SetDefaults()
         {
             Item.width = 36;

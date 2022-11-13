@@ -9,13 +9,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Super Ruby Core");
-			Tooltip.SetDefault("15% increased damage\n" +
-				"Increased knockback, attack speed and melee size\n" +
-				"Attacks inflict 'Cursed Inferno' and 'Ichor'\n" +
-				"Immune to damage reducing and anti attacking debuffs\n" +
-				"Melee weapons autoswing");
-
 			SacrificeTotal = 1;
 		}
 

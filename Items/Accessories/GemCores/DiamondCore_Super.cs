@@ -8,10 +8,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Super Diamond Core");
-			Tooltip.SetDefault("Immune to defense reducing debuffs\n" +
-				"Effects of Ankh Shield and Frozen Turtle Shell");
-
 			SacrificeTotal = 1;
 		}
 

@@ -1,21 +1,15 @@
 ﻿using ShardsOfAtheria.Projectiles.Other;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SevenDeadlySouls
 {
     public class GluttonySoul : SevenSouls
     {
-        public const string tip = "Increases melee damage by 15%\n" +
-            "Defense reduced by 15\n" +
-            "Starving debuff\n" +
-            "Critical strikes on enemies creates a food chunk that will heal you when it makes contact\n" +
-            "If an attack kills an enemy the food chunk will heal for more";
-
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault(tip);
             base.SetStaticDefaults();
         }
 
@@ -70,8 +64,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gluttony");
-            Description.SetDefault(GluttonySoul.tip);
+            Description.SetDefault(Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.GluttonySoul"));
             base.SetStaticDefaults();
         }
 

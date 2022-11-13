@@ -1,6 +1,6 @@
-﻿using Terraria.ID;
+﻿using ShardsOfAtheria.Tiles.Furniture;
+using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Tiles.Furniture;
 
 namespace ShardsOfAtheria.Items.Placeable.Furniture
 {
@@ -8,7 +8,6 @@ namespace ShardsOfAtheria.Items.Placeable.Furniture
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Omega Chest");
 			SacrificeTotal = 1;
 		}
 

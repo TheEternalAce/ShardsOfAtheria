@@ -8,14 +8,12 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 {
 	public class ReactorMeltdown : ModItem
 	{
-		public override void SetStaticDefaults() 
+		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("'Sussus Moogus'");
-
 			SacrificeTotal = 1;
 		}
 
-		public override void SetDefaults() 
+		public override void SetDefaults()
 		{
 			Item.width = 30;
 			Item.height = 26;

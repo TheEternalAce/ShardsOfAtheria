@@ -1,17 +1,15 @@
+using ShardsOfAtheria.Projectiles.Weapon.Ammo;
+using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Weapon.Ammo;
-using ShardsOfAtheria.Systems;
 
 namespace ShardsOfAtheria.Items.Weapons.Ammo
 {
-    public class BB : ModItem
+	public class BB : ModItem
 	{
-		public override void SetStaticDefaults() 
+		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("BB");
-
 			SacrificeTotal = 99;
 		}
 
@@ -32,7 +30,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
 		}
 
 		public override void AddRecipes()
-        {
+		{
 			CreateRecipe(50)
 				.AddRecipeGroup(ShardsRecipes.Copper)
 				.AddTile(TileID.WorkBenches)

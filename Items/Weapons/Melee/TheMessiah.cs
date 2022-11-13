@@ -34,10 +34,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Passively charges while in hand and not in use\n" +
-                "Max charge level increases damage by 200% and critical strike chance by 60%\n" +
-                "'I am the messiah!'");
-
             SacrificeTotal = 1;
         }
 

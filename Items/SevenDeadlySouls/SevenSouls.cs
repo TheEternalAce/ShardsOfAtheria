@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Items.SevenDeadlySouls.Extras;
+﻿using ShardsOfAtheria.Items.Bases;
+using ShardsOfAtheria.Items.SevenDeadlySouls.Extras;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj;
@@ -116,8 +117,8 @@ namespace ShardsOfAtheria.NPCs
         public override void OnKill()
         {
             Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.position, Vector2.Zero, ModContent.ProjectileType<CreeperHitbox>(), 40, 0f, Main.player[NPC.target].whoAmI);
-            Main.player[NPC.target].AddBuff(ModContent.BuffType<Buffs.CreeperRevenge>(), 600);
-            Main.player[NPC.target].ClearBuff(ModContent.BuffType<Buffs.CreeperShield>());
+            Main.player[NPC.target].AddBuff(ModContent.BuffType<CreeperRevenge>(), 600);
+            Main.player[NPC.target].ClearBuff(ModContent.BuffType<CreeperShield>());
             Gore.NewGore(NPC.GetSource_Death(), NPC.position, new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-6, 7)), 402);
         }
     }

@@ -11,9 +11,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Fires Cursed Arrows, Ichor arrows and lasers\n" +
-                "'It's called 'Double Bow' and shoots 3 projectiles???'"); // nightlight reference
-
             base.SetStaticDefaults();
         }
 

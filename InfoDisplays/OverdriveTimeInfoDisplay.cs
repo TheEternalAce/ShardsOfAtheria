@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Players;
+﻿using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -17,7 +18,7 @@ namespace ShardsOfAtheria.InfoDisplays
         // This dictates whether or not this info display should be active
         public override bool Active()
         {
-            return Main.LocalPlayer.HasBuff(ModContent.BuffType<Buffs.Megamerged>());
+            return Main.LocalPlayer.HasBuff(ModContent.BuffType<Megamerged>());
         }
 
         // Here we can change the value that will be displayed in the game

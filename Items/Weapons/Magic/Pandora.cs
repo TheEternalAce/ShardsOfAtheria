@@ -13,9 +13,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Left Click to fire an ice bolt, <right> to summon lightning\n" +
-                "'Destiny of destruction awaits'");
-
             SacrificeTotal = 1;
         }
 

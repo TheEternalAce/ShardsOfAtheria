@@ -9,12 +9,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Super Sapphire Core");
-			Tooltip.SetDefault("15% chance to dodge attacks\n" +
-				"+5 aditional minion slots\n" +
-				"Thorns effect\n" +
-				"Inferno effect when taking damage");
-
 			SacrificeTotal = 1;
 		}
 

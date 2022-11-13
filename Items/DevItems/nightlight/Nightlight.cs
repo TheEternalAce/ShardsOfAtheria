@@ -15,9 +15,6 @@ namespace ShardsOfAtheria.Items.DevItems.nightlight
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'Great for impersonating devs!'\n" +
-                "'This is what peak performance looks like'");
-
             SacrificeTotal = 1;
         }
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.Summons;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

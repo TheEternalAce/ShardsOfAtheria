@@ -1,10 +1,9 @@
-using Terraria.ID;
-using Terraria;
-using Terraria.ModLoader;
-using ShardsOfAtheria.Players;
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Buffs.Cooldowns;
+using ShardsOfAtheria.Players;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Tools.Misc
 {
@@ -18,13 +17,6 @@ namespace ShardsOfAtheria.Items.Tools.Misc
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spider's Mechanical Clock");
-            Tooltip.SetDefault("Saves your current position after 5 seconds, use to teleport to saved position\n" +
-                "All stats you had in that save are regained\n" +
-                "There's an engraving on the back\n" +
-                "'-A gift to you, my beloved little sister <3'\n" +
-                "Must be used in hotbar");
-
             base.SetStaticDefaults();
         }
 

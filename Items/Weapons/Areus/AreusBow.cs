@@ -13,8 +13,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'Brilliant light show'");
-
             SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }

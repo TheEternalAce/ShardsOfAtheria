@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Bases;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
@@ -14,8 +15,6 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Transforms into a weapon based on your sin");
-
             SacrificeTotal = 1;
         }
 

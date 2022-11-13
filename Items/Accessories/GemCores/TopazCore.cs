@@ -8,8 +8,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Increases max Life by 40");
-
 			SacrificeTotal = 1;
 		}
 

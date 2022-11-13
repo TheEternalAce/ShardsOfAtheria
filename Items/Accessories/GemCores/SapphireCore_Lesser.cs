@@ -10,9 +10,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lesser Sapphire Core");
-            Tooltip.SetDefault("5% chance to dodge attacks");
-
             SacrificeTotal = 1;
         }
 

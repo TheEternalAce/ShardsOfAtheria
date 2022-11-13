@@ -8,10 +8,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Greater Topaz Core");
-			Tooltip.SetDefault("Increases max life by 40\n" +
-				"Honey and Regeneration buffs");
-
 			SacrificeTotal = 1;
 		}
 

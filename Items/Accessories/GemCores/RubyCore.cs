@@ -8,9 +8,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("10% increased damage\n" +
-				"Attacks inflict 'On Fire!'");
-
 			SacrificeTotal = 1;
 		}
 

@@ -1,8 +1,8 @@
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
-using Microsoft.Xna.Framework;
-using Terraria.Audio;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -12,10 +12,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Charges passively when not in use\n" +
-                "After 5 seconds of charging damage is increased and fire a burst of 3 grenades\n" +
-                "'Demoman TF2'");
-
             base.SetStaticDefaults();
         }
 

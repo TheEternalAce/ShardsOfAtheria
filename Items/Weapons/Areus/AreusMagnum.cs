@@ -11,8 +11,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'Headshots do not crit'");
-
             SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }

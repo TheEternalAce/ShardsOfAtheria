@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.NPCDebuff;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;

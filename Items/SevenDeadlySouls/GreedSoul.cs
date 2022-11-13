@@ -1,18 +1,15 @@
 ﻿using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SevenDeadlySouls
 {
     public class GreedSoul : SevenSouls
     {
-        public const string tip = "Every gold coin in your inventory increases damage by 5% and reduces defense by 2\n" +
-            "All coins disappear on death";
-
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault(tip);
             base.SetStaticDefaults();
         }
 
@@ -60,8 +57,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Greed");
-            Description.SetDefault(GreedSoul.tip);
+            Description.SetDefault(Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.GreedSoul"));
             base.SetStaticDefaults();
         }
 

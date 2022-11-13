@@ -1,7 +1,7 @@
-using Terraria;
-using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using Terraria;
 using Terraria.Enums;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
@@ -9,9 +9,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Briefly shocks enemies");
-
-            base.SetStaticDefaults();
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

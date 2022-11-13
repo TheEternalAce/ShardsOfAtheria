@@ -1,22 +1,15 @@
 ﻿using ShardsOfAtheria.Players;
 using System;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SevenDeadlySouls
 {
     public class WrathSoul : SevenSouls
     {
-        public const string tip = "Each time damage is taken damage is increased by 1%\n" +
-            "Once damage bonus goes to 5% increase, crit chance starts to go up by 1% as well\n" +
-            "Dying increases both by 5%\n" +
-            "There is no limit to these boosts\n" +
-            "Boots slowly decrease while out of combat\n" +
-            "'I'm not tsundere, you're tsundere!'";
-
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault(tip);
             base.SetStaticDefaults();
         }
 
@@ -76,13 +69,12 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Wrath");
             base.SetStaticDefaults();
         }
 
         public override void ModifyBuffTip(ref string tip, ref int rare)
         {
-            tip = WrathSoul.tip +
+            tip = Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.WrathSoul") +
                 $"\nCurrent damage increase: +{MathF.Round(Main.LocalPlayer.GetModPlayer<WrathPlayer>().anger, 3)}%\n" +
                 $"Current critical strike chance increase: +{Main.LocalPlayer.GetModPlayer<WrathPlayer>().rage}%";
             base.ModifyBuffTip(ref tip, ref rare);

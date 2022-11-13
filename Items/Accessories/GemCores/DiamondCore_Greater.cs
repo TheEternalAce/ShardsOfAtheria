@@ -8,10 +8,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Greater Diamond Core");
-			Tooltip.SetDefault("Immune to knockback\n" +
-				"Effect of Frozen Turtle Shell");
-
 			SacrificeTotal = 1;
 		}
 

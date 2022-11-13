@@ -1,21 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SevenDeadlySouls
 {
     public class SlothSoul : SevenSouls
     {
-        public const string tip = "The lower your movement speed is, the greater your damage and defense are increased\n" +
-            "While not moving damage is increased by 20% and defense by 10\n" +
-            "'How very slothful of you'";
-
-        public override void SetStaticDefaults()
-        {
-            Tooltip.SetDefault(tip);
-            base.SetStaticDefaults();
-        }
-
         public override void SetDefaults()
         {
             Item.width = 38;
@@ -38,8 +29,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sloth");
-            Description.SetDefault(SlothSoul.tip);
+            Description.SetDefault(Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.SlothSoul"));
             base.SetStaticDefaults();
         }
 

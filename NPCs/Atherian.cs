@@ -2,7 +2,6 @@
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Items.Tools;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
@@ -10,7 +9,6 @@ using ShopQuotesMod;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
@@ -152,8 +150,6 @@ namespace ShardsOfAtheria.NPCs
                             return "Hmm, it seems that Memory Fragment could be the key to upgrading your weapon. Mind if I take a look?";
                     }
                 }
-                if (Main.LocalPlayer.HasItem(ModContent.ItemType<AreusWings>()))
-                    return "Those wings are great now, but what if they could be better? If you hand them over I can make them better.";
             }
 
             chat.Add("DOOR STUCK!");
@@ -179,19 +175,6 @@ namespace ShardsOfAtheria.NPCs
                 if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
                 {
                     Main.npcChatText = "You may have everyone else fooled but I know.. I will not help you slay our guardians..";
-                    return;
-                }
-                if (Main.LocalPlayer.HasItem(ModContent.ItemType<AreusWings>()))
-                {
-                    SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
-
-                    Main.npcChatText = "There, I upgraded those wings.";
-
-                    int areusWings = Main.LocalPlayer.FindItem(ModContent.ItemType<AreusWings>());
-
-                    Main.LocalPlayer.inventory[areusWings].TurnToAir();
-                    Main.LocalPlayer.QuickSpawnItem(new EntitySource_Gift(NPC), ModContent.ItemType<ChargedAreusWings>());
-
                     return;
                 }
                 if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>() && (Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5
@@ -258,11 +241,8 @@ namespace ShardsOfAtheria.NPCs
 
                 if (Main.LocalPlayer.HeldItem.type != ModContent.ItemType<GenesisAndRagnarok>())
                 {
-                    if (!Main.LocalPlayer.HasItem(ModContent.ItemType<AreusWings>()))
-                    {
-                        Main.npcChatText = "Sorry pal, you don't have anything I can upgrade";
-                        return;
-                    }
+                    Main.npcChatText = "Sorry pal, you don't have anything I can upgrade";
+                    return;
                 }
                 else
                 {

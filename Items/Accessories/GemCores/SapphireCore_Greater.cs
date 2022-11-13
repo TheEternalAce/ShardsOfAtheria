@@ -9,10 +9,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Greater Sapphire Core");
-			Tooltip.SetDefault("10% chance to dodge damage\n" +
-				"Thorns effect");
-
 			SacrificeTotal = 1;
 		}
 

@@ -8,8 +8,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Grants immunity to knockback");
-
 			SacrificeTotal = 1;
 		}
 

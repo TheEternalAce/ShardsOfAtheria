@@ -11,9 +11,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'Cut through the very fabric of life and escalate the heat death of the universe'\n" +
-                "Dashing increases damage for a short time");
-
             SoAGlobalItem.SlayerItem.Add(Type);
 
             base.SetStaticDefaults();

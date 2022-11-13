@@ -9,8 +9,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lesser Diamand Core");
-
             SacrificeTotal = 1;
         }
         public override string Texture => base.Texture;

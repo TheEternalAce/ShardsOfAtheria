@@ -12,8 +12,6 @@ namespace ShardsOfAtheria.Items.GrabBags
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Gives a stack of a random rocket type");
-
             SacrificeTotal = 99;
         }
 

@@ -1,10 +1,10 @@
+using ShardsOfAtheria.Buffs.PlayerDebuff;
+using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Armor
 {
@@ -13,8 +13,6 @@ namespace ShardsOfAtheria.Items.Armor
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("6% increased damage and critical strike chance");
-
             SoAGlobalItem.SlayerItem.Add(Type);
 
             base.SetStaticDefaults();

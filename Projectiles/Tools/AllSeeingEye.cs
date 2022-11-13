@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Other;

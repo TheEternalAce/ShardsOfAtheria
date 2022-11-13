@@ -1,7 +1,8 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Bases;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.DataStructures;

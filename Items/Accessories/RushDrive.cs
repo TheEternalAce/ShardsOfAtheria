@@ -11,9 +11,6 @@ namespace ShardsOfAtheria.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-
-            Tooltip.SetDefault("Gives the user a 'phase 2' when below 50% life");
-
             SacrificeTotal = 1;
         }
 

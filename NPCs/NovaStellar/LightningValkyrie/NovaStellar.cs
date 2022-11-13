@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.GrabBags;

@@ -12,8 +12,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Tears through enemy armor");
-
             SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }

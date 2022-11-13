@@ -11,8 +11,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'Cut a new path for your foes, a path of pain!'");
-
             SacrificeTotal = 1;
             SoAGlobalItem.ThrowingWeapon.Add(Type);
         }

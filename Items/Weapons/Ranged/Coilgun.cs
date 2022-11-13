@@ -10,10 +10,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Tears through enemy armor\n" +
-                "'Uses electromagnetic coils to fire projectiles at insane velocities'\n" +
-                "'Areus Railgun's older brother'");
-
             base.SetStaticDefaults();
         }
 

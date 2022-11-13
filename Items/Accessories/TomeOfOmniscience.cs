@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using System.Collections.Generic;
 using Terraria;
@@ -11,7 +9,6 @@ namespace ShardsOfAtheria.Items.Accessories
 {
     public class TomeOfOmniscience : ModItem
     {
-
         public override void SetDefaults()
         {
             Item.width = 15;

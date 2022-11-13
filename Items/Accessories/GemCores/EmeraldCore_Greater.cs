@@ -10,13 +10,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Greater Emerald Core");
-			Tooltip.SetDefault("Counts as wings\n" +
-				"10% increased movement speed\n" +
-				"Increased jump height" +
-				"Panic Necklace, Terraspark Boots and Flippers effects\n" +
-				"Grants flight and slowfall");
-
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(120, 9f, 2.5f);
 
 			SacrificeTotal = 1;

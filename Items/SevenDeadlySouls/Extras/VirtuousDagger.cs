@@ -11,9 +11,6 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Cleanses your soul of sin\n" +
-                "Shatters on use");
-
             SacrificeTotal = 5;
         }
 

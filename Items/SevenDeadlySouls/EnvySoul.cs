@@ -1,18 +1,14 @@
 ﻿using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SevenDeadlySouls
 {
     public class EnvySoul : SevenSouls
     {
-        public const string tip = "Consecutive strikes on an enemy will increase the damage they take by 1\n" +
-            "Darkness debuff\n" +
-            "'Oh the misery'";
-
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault(tip);
             base.SetStaticDefaults();
         }
 
@@ -49,7 +45,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
                     targetFound = true;
                 }
             }
-                
+
             base.PostUpdate();
         }
 
@@ -110,8 +106,6 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Envy's Target");
-            Description.SetDefault("Taking extra damage");
             base.SetStaticDefaults();
         }
     }
@@ -120,8 +114,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Envy");
-            Description.SetDefault(EnvySoul.tip);
+            Description.SetDefault(Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.EnvySoul"));
             base.SetStaticDefaults();
         }
 

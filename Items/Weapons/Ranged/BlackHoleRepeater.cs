@@ -1,11 +1,11 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -13,8 +13,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Converts regular arrows into powerful Black Hole Bolts");
-
             SoAGlobalItem.SlayerItem.Add(Type);
 
             base.SetStaticDefaults();

@@ -9,8 +9,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Gives a dash to the wearer");
-
             SacrificeTotal = 1;
         }
 

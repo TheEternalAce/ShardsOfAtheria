@@ -12,12 +12,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Super Emerald Core");
-			Tooltip.SetDefault("Counts as wings\n" +
-				"15% increased movement speed\n" +
-				"Bundle of Balloons, Panic Necklace, Terraspark Boots, and Flippers effects\n" +
-				"Grants flight, slowfall and immunity to cold debuffs");
-
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 9f, 2.5f);
 
 			SacrificeTotal = 1;

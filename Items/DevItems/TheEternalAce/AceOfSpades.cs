@@ -9,9 +9,6 @@ namespace ShardsOfAtheria.Items.DevItems.TheEternalAce
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Use RMB to detonate the cards\n" +
-                "'What is that object?'");
-
             SacrificeTotal = 1;
         }
 

@@ -9,9 +9,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lesser Topaz Core");
-            Tooltip.SetDefault("Increases max Life by 20");
-
             SacrificeTotal = 1;
         }
 

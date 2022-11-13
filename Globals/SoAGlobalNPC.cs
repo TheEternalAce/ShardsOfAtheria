@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.ItemDropRules.Conditions;
-using ShardsOfAtheria.Items;
 using ShardsOfAtheria.Items.Accessories;
+using ShardsOfAtheria.Items.Consumable;
 using ShardsOfAtheria.Items.GrabBags;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.PetItems;
@@ -15,18 +16,15 @@ using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Chat;
-using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace ShardsOfAtheria.Globals
 {
@@ -52,7 +50,7 @@ namespace ShardsOfAtheria.Globals
                 case NPCID.Merchant:
                     if (player.GetModPlayer<SlayerPlayer>().slayerMode)
                     {
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<LesserRepairKit>());
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<RepairKit_Lesser>());
                         nextSlot++;
                     }
                     break;
@@ -938,10 +936,6 @@ namespace ShardsOfAtheria.Globals
         {
             if (npc.HasBuff(ModContent.BuffType<Marked>()))
                 damage += .1f;
-            if (npc.HasBuff(ModContent.BuffType<MarkedII>()))
-                damage += .2f;
-            if (npc.HasBuff(ModContent.BuffType<MarkedIII>()))
-                damage += .5f;
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
@@ -949,8 +943,6 @@ namespace ShardsOfAtheria.Globals
         {
             if (npc.HasBuff(ModContent.BuffType<Marked>()))
                 drawColor = Color.MediumPurple;
-            if (npc.HasBuff(ModContent.BuffType<MarkedII>()))
-                drawColor = Color.Purple;
         }
     }
 }

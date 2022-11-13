@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -11,9 +10,6 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Virtuous soul");
-            Description.SetDefault("AAAAAAA");
-
             Main.debuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
@@ -66,11 +62,6 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
     }
     public class HolyExplosion : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Holy Fire Explosion");
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 2000;
@@ -81,7 +72,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
             Projectile.friendly = true;
             Projectile.light = 1f;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 10;   
+            Projectile.timeLeft = 10;
 
             DrawOffsetX = 480;
             DrawOriginOffsetY = 210;

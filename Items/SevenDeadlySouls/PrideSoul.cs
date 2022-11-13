@@ -1,16 +1,14 @@
 ﻿using ShardsOfAtheria.Players;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SevenDeadlySouls
 {
     public class PrideSoul : SevenSouls
     {
-        public const string tip = "Every 10 seconds of not taking damage increases damage by 2%";
-
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault(tip);
             base.SetStaticDefaults();
         }
 
@@ -68,8 +66,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pride");
-            Description.SetDefault(PrideSoul.tip);
+            Description.SetDefault(Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.PrideSoul"));
             base.SetStaticDefaults();
         }
 

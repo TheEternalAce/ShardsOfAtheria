@@ -10,9 +10,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Glock 80");
-            Tooltip.SetDefault("'Automatic shotgun pistol, because it's funny'");
-
             SacrificeTotal = 1;
         }
 

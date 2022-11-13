@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Bases;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -30,10 +31,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Right click with Gold or Platinum bars in inventory to increase projectiles fired by 1\n" +
-                "Fires up to 5 projectiles\n" +
-                "Resets after death");
-
             SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }

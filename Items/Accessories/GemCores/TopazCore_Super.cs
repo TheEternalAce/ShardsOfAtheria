@@ -8,11 +8,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Super Topaz Core");
-			Tooltip.SetDefault("Increases max life by 60\n" +
-				"Honey, Regeneration, Cozy Campfire and Heart Lantern buffs\n" +
-				"Effects of Shiny Stone");
-
 			SacrificeTotal = 1;
 		}
 

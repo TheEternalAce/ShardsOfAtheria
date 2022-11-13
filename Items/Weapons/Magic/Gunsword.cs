@@ -10,8 +10,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'I think it's broken..'");
-
             SacrificeTotal = 1;
         }
 

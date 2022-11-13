@@ -9,9 +9,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lesser Ruby Core");
-            Tooltip.SetDefault("5% increased damage.");
-
             SacrificeTotal = 1;
         }
 

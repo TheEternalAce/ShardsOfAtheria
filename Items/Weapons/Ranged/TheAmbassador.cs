@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Bases;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.DataStructures;
@@ -11,9 +12,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'Never miss a shot again. Not like I could anyway.'\n" +
-                "'Gun Spy TF2'");
-
             SacrificeTotal = 1;
         }
 

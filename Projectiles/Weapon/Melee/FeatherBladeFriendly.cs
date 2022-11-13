@@ -1,9 +1,9 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
 using Terraria.ID;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {

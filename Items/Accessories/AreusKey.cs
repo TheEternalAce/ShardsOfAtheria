@@ -9,9 +9,6 @@ namespace ShardsOfAtheria.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Unlocks your true potential\n" +
-				"'Now, nothing but your own competence holds you back.'");
-
 			SacrificeTotal = 1;
 		}
 

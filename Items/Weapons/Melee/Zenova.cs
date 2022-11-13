@@ -8,18 +8,14 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
-    public class Zenova : ModItem
+	public class Zenova : ModItem
 	{
-		public override void SetStaticDefaults() 
+		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Ignores a moderate amount of defense\n" +
-				"'Zenith's older sister'\n" +
-				"'RANDOM BULLS**T GO!'");
-
 			SacrificeTotal = 1;
 		}
 
-		public override void SetDefaults() 
+		public override void SetDefaults()
 		{
 			Item.width = 76;
 			Item.height = 76;
@@ -45,7 +41,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.ArmorPenetration = 37;
 		}
 
-		public override void AddRecipes() 
+		public override void AddRecipes()
 		{
 			CreateRecipe()
 				.AddIngredient(ItemID.WoodenSword)
@@ -59,10 +55,10 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 				.Register();
 		}
 
-        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
+		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		{
 			SoundEngine.PlaySound(Item.UseSound);
 			velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
 		}
-    }
+	}
 }

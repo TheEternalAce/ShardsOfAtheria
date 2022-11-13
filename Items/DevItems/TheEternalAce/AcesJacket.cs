@@ -9,10 +9,6 @@ namespace ShardsOfAtheria.Items.DevItems.TheEternalAce
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("The Eternal Ace's Jacket");
-            Tooltip.SetDefault("'Great for impersonating devs!'\n" +
-                "'Pockets included!'");
-
             SacrificeTotal = 1;
         }
 

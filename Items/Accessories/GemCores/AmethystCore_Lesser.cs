@@ -10,9 +10,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lesser Amethyst Core");
-            Tooltip.SetDefault("Gives a short dash to the wearer.");
-
             SacrificeTotal = 1;
         }
 

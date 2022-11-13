@@ -1,21 +1,15 @@
-﻿using ShardsOfAtheria.Buffs;
+﻿using ShardsOfAtheria.Buffs.AnyDebuff;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SevenDeadlySouls
 {
     public class LustSoul : SevenSouls
     {
-        public const string tip = "Increases max minions by 3\n" +
-            "Damage reduced by 20%\n" +
-            "Lovestruck buff\n" +
-            "Damaging enemies may cause them to drop hearts\n" +
-            "'The only thing I know for real: there will be blood-shed!'";
-
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault(tip);
             base.SetStaticDefaults();
         }
 
@@ -65,8 +59,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lust");
-            Description.SetDefault(LustSoul.tip);
+            Description.SetDefault(Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.LustSoul"));
             base.SetStaticDefaults();
         }
 

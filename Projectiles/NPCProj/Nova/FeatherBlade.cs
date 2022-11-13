@@ -1,8 +1,8 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
 using System;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {

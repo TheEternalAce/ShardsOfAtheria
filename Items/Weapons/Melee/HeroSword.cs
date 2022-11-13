@@ -6,14 +6,12 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 {
 	public class HeroSword : ModItem
 	{
-		public override void SetStaticDefaults() 
+		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("'The sword of a long forgotten hero'");
-
 			SacrificeTotal = 1;
 		}
 
-		public override void SetDefaults() 
+		public override void SetDefaults()
 		{
 			Item.width = 62;
 			Item.height = 62;
@@ -37,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.value = Item.sellPrice(0, 2, 50);
 		}
 
-		public override void AddRecipes() 
+		public override void AddRecipes()
 		{
 			CreateRecipe()
 				.AddIngredient(ItemID.BrokenHeroSword)

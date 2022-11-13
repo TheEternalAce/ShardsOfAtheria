@@ -11,8 +11,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'Rains feather blades on your enemies!'");
-
             SacrificeTotal = 1;
         }
 
@@ -25,7 +23,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.DamageType = DamageClass.Melee;
             Item.knockBack = 6;
             Item.crit = 6;
-            
+
             Item.useTime = 15;
             Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -40,12 +38,12 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void AddRecipes()
         {
-			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<ValkyrieBlade>())
-				.AddIngredient(ItemID.SpectreBar, 10)
-				.AddIngredient(ItemID.FallenStar, 20)
-				.AddTile(TileID.MythrilAnvil)
-				.Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<ValkyrieBlade>())
+                .AddIngredient(ItemID.SpectreBar, 10)
+                .AddIngredient(ItemID.FallenStar, 20)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

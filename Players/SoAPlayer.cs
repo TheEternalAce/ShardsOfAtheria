@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Cooldowns;
+using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Buffs.PlayerDebuff;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Items.SevenDeadlySouls;
@@ -211,111 +213,6 @@ namespace ShardsOfAtheria.Players
 
         public override void UpdateEquips()
         {
-            //if (Player.armor[10].type == ItemID.KingSlimeMask)
-            //{
-            //    Player.jumpBoost = true;
-            //}
-            //if (Player.armor[10].type == ItemID.EyeMask)
-            //{
-            //    Player.npcTypeNoAggro[NPCID.DemonEye] = true;
-            //    Player.npcTypeNoAggro[NPCID.FromNetId(NPCID.DemonEye2)] = true;
-            //    Player.npcTypeNoAggro[NPCID.DemonEyeOwl] = true;
-            //    Player.npcTypeNoAggro[NPCID.DemonEyeSpaceship] = true;
-            //}
-            //if (Player.armor[10].type == ItemID.EaterMask)
-            //{
-            //    Player.calmed = true;
-            //}
-            //if (Player.armor[10].type == ItemID.BrainMask)
-            //{
-            //    Player.AddBuff(BuffID.Dangersense, 2);
-            //    Player.AddBuff(BuffID.Hunter, 2);
-            //    Player.AddBuff(BuffID.Spelunker, 2);
-            //}
-            //if (Player.armor[10].type == ItemID.BeeMask)
-            //{
-            //    Player.npcTypeNoAggro[NPCID.Bee] = true;
-            //    Player.npcTypeNoAggro[NPCID.BeeSmall] = true;
-            //    Player.npcTypeNoAggro[NPCID.Hornet] = true;
-            //    Player.npcTypeNoAggro[NPCID.Hornet] = true;
-            //    Player.npcTypeNoAggro[NPCID.HornetFatty] = true;
-            //    Player.npcTypeNoAggro[NPCID.FromNetId(NPCID.LittleHornetFatty)] = true;
-            //    Player.npcTypeNoAggro[NPCID.FromNetId(NPCID.BigHornetFatty)] = true;
-            //    Player.npcTypeNoAggro[NPCID.HornetHoney] = true;
-            //    Player.npcTypeNoAggro[NPCID.FromNetId(NPCID.LittleHornetHoney)] = true;
-            //    Player.npcTypeNoAggro[NPCID.FromNetId(NPCID.BigHornetHoney)] = true;
-            //    Player.npcTypeNoAggro[NPCID.HornetLeafy] = true;
-            //    Player.npcTypeNoAggro[NPCID.FromNetId(NPCID.LittleHornetLeafy)] = true;
-            //    Player.npcTypeNoAggro[NPCID.FromNetId(NPCID.BigHornetLeafy)] = true;
-            //    Player.npcTypeNoAggro[NPCID.HornetSpikey] = true;
-            //    Player.npcTypeNoAggro[NPCID.FromNetId(NPCID.LittleHornetSpikey)] = true;
-            //    Player.npcTypeNoAggro[NPCID.FromNetId(NPCID.BigHornetSpikey)] = true;
-            //    Player.npcTypeNoAggro[NPCID.HornetStingy] = true;
-            //    Player.npcTypeNoAggro[NPCID.FromNetId(NPCID.LittleHornetStingy)] = true;
-            //    Player.npcTypeNoAggro[NPCID.FromNetId(NPCID.BigHornetStingy)] = true;
-            //}
-            //if (Player.armor[10].type == ItemID.SkeletronMask)
-            //{
-            //    Player.npcTypeNoAggro[NPCID.Skeleton] = true;
-            //    Player.npcTypeNoAggro[NPCID.SkeletonAlien] = true;
-            //    Player.npcTypeNoAggro[NPCID.SkeletonAstonaut] = true;
-            //    Player.npcTypeNoAggro[NPCID.SkeletonTopHat] = true;
-            //    Player.npcTypeNoAggro[NPCID.FromNetId(NPCID.BigHeadacheSkeleton)] = true;
-            //    Player.npcTypeNoAggro[NPCID.HeadacheSkeleton] = true;
-            //}
-            //if (Player.armor[10].type == ItemID.DeerclopsMask)
-            //{
-            //    Player.buffImmune[BuffID.Frostburn] = true;
-            //    Player.buffImmune[BuffID.Frostburn2] = true;
-            //    Player.buffImmune[BuffID.Frozen] = true;
-            //    Player.buffImmune[BuffID.Chilled] = true;
-            //}
-            //if (Player.armor[10].type == ItemID.FleshMask)
-            //{
-            //    Player.defaultItemGrabRange *= (int)1.5f;
-            //}
-            //if (Player.armor[10].type == ItemID.QueenSlimeMask)
-            //{
-            //    Player.npcTypeNoAggro[NPCID.BlueSlime] = true;
-            //    Player.npcTypeNoAggro[NPCID.SlimeSpiked] = true;
-            //}
-            //if (Player.armor[10].type == ItemID.DestroyerMask)
-            //{
-            //    Player.AddBuff(BuffID.Mining, 2);
-            //}
-            //if (Player.armor[10].type == ItemID.SkeletronPrimeMask)
-            //{
-
-            //}
-            //if (Player.armor[10].type == ItemID.TwinMask)
-            //{
-
-            //}
-            //if (Player.armor[10].type == ItemID.PlanteraMask)
-            //{
-
-            //}
-            //if (Player.armor[10].type == ItemID.GolemMask)
-            //{
-
-            //}
-            //if (Player.armor[10].type == ItemID.DukeFishronMask)
-            //{
-
-            //}
-            //if (Player.armor[10].type == ItemID.FairyQueenMask)
-            //{
-
-            //}
-            //if (Player.armor[10].type == ItemID.BossMaskCultist)
-            //{
-
-            //}
-            //if (Player.armor[10].type == ItemID.BossMaskMoonlord)
-            //{
-
-            //}
-
             if (areusKey)
             {
                 Player.moveSpeed += .5f;
@@ -530,20 +427,20 @@ namespace ShardsOfAtheria.Players
             if (valkyrieCrown)
                 target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
             if (areusBatteryElectrify)
-                target.AddBuff(ModContent.BuffType<ElectricShock>(), 10 * 60);
+                target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
             if (greaterRubyCore)
-                target.AddBuff(BuffID.OnFire, 10 * 60);
+                target.AddBuff(BuffID.OnFire, 600);
             if (superRubyCore)
             {
-                target.AddBuff(BuffID.CursedInferno, 10 * 60);
-                target.AddBuff(BuffID.Ichor, 10 * 60);
+                target.AddBuff(BuffID.CursedInferno, 600);
+                target.AddBuff(BuffID.Ichor, 600);
             }
             if (megaGemCore)
             {
-                target.AddBuff(BuffID.Daybreak, 10 * 60);
-                target.AddBuff(BuffID.BetsysCurse, 10 * 60);
-                Player.AddBuff(BuffID.Ironskin, 10 * 60);
-                Player.AddBuff(BuffID.Endurance, 10 * 60);
+                target.AddBuff(BuffID.Daybreak, 600);
+                target.AddBuff(BuffID.BetsysCurse, 600);
+                Player.AddBuff(BuffID.Ironskin, 600);
+                Player.AddBuff(BuffID.Endurance, 600);
             }
         }
 
@@ -553,22 +450,28 @@ namespace ShardsOfAtheria.Players
             if (proj.owner == Player.whoAmI)
             {
                 if (valkyrieCrown)
+                {
                     target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
+                }
                 if (areusBatteryElectrify)
-                    target.AddBuff(ModContent.BuffType<ElectricShock>(), 10 * 60);
+                {
+                    target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
+                }
                 if (greaterRubyCore)
-                    target.AddBuff(BuffID.OnFire, 10 * 60);
+                {
+                    target.AddBuff(BuffID.OnFire, 600);
+                }
                 if (superRubyCore)
                 {
-                    target.AddBuff(BuffID.CursedInferno, 10 * 60);
-                    target.AddBuff(BuffID.Ichor, 10 * 60);
+                    target.AddBuff(BuffID.CursedInferno, 600);
+                    target.AddBuff(BuffID.Ichor, 600);
                 }
                 if (megaGemCore)
                 {
-                    target.AddBuff(BuffID.Daybreak, 10 * 60);
-                    target.AddBuff(BuffID.BetsysCurse, 10 * 60);
-                    Player.AddBuff(BuffID.Ironskin, 10 * 60);
-                    Player.AddBuff(BuffID.Endurance, 10 * 60);
+                    target.AddBuff(BuffID.Daybreak, 600);
+                    target.AddBuff(BuffID.BetsysCurse, 600);
+                    Player.AddBuff(BuffID.Ironskin, 600);
+                    Player.AddBuff(BuffID.Endurance, 600);
                 }
                 if (hallowedSeal && proj.DamageType == DamageClass.Melee)
                     Player.statMana += 15;
@@ -663,12 +566,12 @@ namespace ShardsOfAtheria.Players
                 Player.ClearBuff(ModContent.BuffType<Overdrive>());
             if (megaGemCore)
             {
-                Player.AddBuff(BuffID.Rage, 10 * 60);
-                Player.AddBuff(BuffID.Wrath, 10 * 60);
-                Player.AddBuff(BuffID.Inferno, 10 * 60);
+                Player.AddBuff(BuffID.Rage, 600);
+                Player.AddBuff(BuffID.Wrath, 600);
+                Player.AddBuff(BuffID.Inferno, 600);
             }
             if (superSapphireCore)
-                Player.AddBuff(BuffID.Inferno, 10 * 60);
+                Player.AddBuff(BuffID.Inferno, 600);
             if (Player.HasItem(ModContent.ItemType<WandOfHealing>()) && !Player.HasBuff(ModContent.BuffType<HeartBreak>()))
                 Player.AddBuff(ModContent.BuffType<HeartBreak>(), 120);
         }

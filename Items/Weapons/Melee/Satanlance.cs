@@ -1,21 +1,19 @@
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
+using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
-using Terraria.Enums;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
-	public class Satanlance : ModItem
-	{
+    public class Satanlance : ModItem
+    {
         public override void SetStaticDefaults()
         {
-			Tooltip.SetDefault("You feel like you can do anything");
+            SacrificeTotal = 1;
+        }
 
-			SacrificeTotal = 1;
-		}
-
-		public override void SetDefaults()
+        public override void SetDefaults()
         {
             // A special method that sets a variety of item parameters that make the item act like a spear weapon.
             // To see everything DefaultToSpear() does, right click the method in Visual Studios and choose "Go To Definition" (or press F12).
@@ -36,19 +34,19 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             // It's not enough just to stop the channel, as the lance can still deal damage while being stowed
             // If two players charge at each other, the first one to hit should cancel the other's lance
             Item.StopAnimationOnHurt = true;
-		}
+        }
 
-		public override void AddRecipes()
-		{
-			CreateRecipe()
-				.AddIngredient(ItemID.LunarBar, 20)
-				.AddTile(TileID.LunarCraftingStation)
-				.Register();
-		}
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.LunarBar, 20)
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
+        }
 
         public override bool CanUseItem(Player player)
-		{
-			return player.ownedProjectileCounts[Item.shoot] < 1;
-		}
+        {
+            return player.ownedProjectileCounts[Item.shoot] < 1;
+        }
     }
 }

@@ -9,10 +9,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lesser Emerald Core");
-            Tooltip.SetDefault("5% increased movement speed\n" +
-                "Increased jump height");
-
             SacrificeTotal = 1;
         }
 

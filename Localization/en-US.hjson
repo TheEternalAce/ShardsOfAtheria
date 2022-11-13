@@ -42,9 +42,7 @@ Mods: {
 				TopazCore_Greater: Greater Topaz Core
 				TopazCore_Super: Super Topaz Core
 			AreusKey: Areus Key
-			AreusWings: Areus Wings
 			Biometal: Biometal
-			ChargedAreusWings: Charged Areus Wings
 			EntropicWings: Entropic Wings
 			GildedValkyrieWings: Gilded Valkyrie Wings
 			RushDrive: Rush Drive
@@ -74,6 +72,13 @@ Mods: {
 				# DaluyanMesses
 			StatueOfDaluyan: Golden Hat Statue
 
+			# Grab bags
+			AmmoBag: Ammo Bag
+			AmmoBag_Arrow: Ammo Bag (Arrow)
+			AmmoBag_Bullet: Ammo Bag (Bullet)
+			AmmoBag_Rocket: Ammo Bag (Rocket)
+			NovaBossBag: Treasure Bag (Nova Stellar)
+
 			# Materials
 			BrokenHeroGun: Broken Hero Gun
 			ChargedFeather: Charged Feather
@@ -85,30 +90,38 @@ Mods: {
 			SoulOfTwilight: Soul of Twilight
 
 			# Misc
-			AmmoBag: Ammo Bag
-			AmmoBag_Arrow: Ammo Bag (Arrow)
-			AmmoBag_Bullet: Ammo Bag (Bullet)
-			AmmoBag_Rocket: Ammo Bag (Rocket)
-			# MagicOcarina: Magic Ocarina
 			OverdriveEnergyPack: Overdrive Energy Pack
+			RepairKit_Lesser: Lesser Repair Kit
 			RepairKit: Repair Kit
+			RepairKit_Greater: Greater Repair Kit
+			RepairKit_Super: Super Repair Kit
 
 			# Pet items
 			StrangeTissueSample: Strange Tissue Sample
 			SmallHardlightCrest: Small Hardlight Crest
 
 			# Place-ables
-				# Ores & Bars
-			AreusShard: Areus Shard
-			BionicBarItem: Bionic Bar
-			BionicOreItem: Bionic Ore
+				# Banners
+			CaveHarpyBanner: Cavern Harpy Banner
+			CrimsonHarpyBanner: Hemorrhaging Harpy Banner
+			CorruptHarpyBanner: Infested Harpy Banner
+			DesertHarpyBanner: Dust Storm Harpy Banner
+			ForestHarpyBanner: Forest Harpy Banner
+			HallowedHarpyBanner: Holy Harpy Banner
+			OceanHarpyBanner: Seaside Harpy Banner
+			SnowHarpyBanner: Arctic Harpy Banner
 				# Crafting
 			CobaltWorkbenchItem: Cobalt Workbench
 			PalladiumWorkbenchItem: Palladium Workbench
 				# Furniture
-			ForestHarpyBanner: Forest Harpy Banner
+			VoidHarpyBanner: Void Harpy Banner
 			NovaTrophy: Nova Stellar's Trophy
 			NovaRelic: Nova Stellar Relic
+			OmegaChestItem: Omega Chest
+				# Ores & Bars
+			AreusShard: Areus Shard
+			BionicBarItem: Bionic Bar
+			BionicOreItem: Bionic Ore
 
 			# Potions
 			BoneMarrowInjection: Bone Marrow Injection
@@ -138,7 +151,7 @@ Mods: {
 			DeerclopsSoulCrystal: "Soul Crystal (Deerclops)"
 			WallSoulCrystal: "Soul Crystal (Wall of Flesh)"
 			QueenSoulCrystal: "Soul Crystal (Queen Slime)"
-			DestoyerSoulCrystal: "Soul Crystal (The Destroyer)"
+			DestroyerSoulCrystal: "Soul Crystal (The Destroyer)"
 			PrimeSoulCrystal: "Soul Crystal (Skeletron Prime)"
 			TwinsSoulCrystal: "Soul Crystal (The Twins)"
 			PlantSoulCrystal: "Soul Crystal (Plantera)"
@@ -154,6 +167,7 @@ Mods: {
 			# Slayer boxes coming in 1.0
 
 			# Tools
+			# MagicOcarina: Magic Ocarina
 			Necronomicon: Necronomicon
 			RedAreusDrill: Red Areus Drill
 			RedAreusPickaxe: Red Areus Pickaxe
@@ -230,9 +244,209 @@ Mods: {
 		}
 		
 		ItemTooltip: {
+			# Accessories
+				# Gem cores
+					# Amethyst
+				AmethystCore_Lesser: Gives a short dash to the wearer
+				AmethystCore: Gives a dash to the wearer
+				AmethystCore_Greater:
+					'''
+					Gives a dash to the wearer
+					Grants immunity to 'Ichor' and 'Cursed Inferno'
+					'''
+				AmethystCore_Super:
+					'''
+					Gives a great dash to the wearer
+					Grants immunity to knockback, 'Poison', 'Venom', 'On Fire', cold debuffs, lava and fire blocks
+					Master Ninja Gear effects
+					'''
+					# Diamond
+				DiamondCore: Grants immunity to knockback
+				DiamondCore_Greater:
+					'''
+					Grants immunity to knockback
+					Effect of Frozen Turtle Shell
+					'''
+				DiamondCore_Super:
+					'''
+					Grants immunity to defense reducing debuffs and knockback
+					Effects of Ankh Shield and Frozen Turtle Shell
+					'''
+					# Emerald
+				EmeraldCore_Lesser:
+					'''
+					5% increased movement speed
+					Increased jump height
+					'''
+				EmeraldCore:
+					'''
+					Counts as wings
+					10% increased movement speed
+					Increased jump height
+					Grants flight and slowfall
+					'''
+				EmeraldCore_Greater:
+					'''
+					Counts as wings
+					10% increased movement speed
+					Increased jump height
+					Panic Necklace, Terraspark Boots and Flippers effects
+					Grants flight and slowfall
+					'''
+				EmeraldCore_Super:
+					'''
+					Counts as wings
+					15% increased movement speed
+					Bundle of Balloons, Panic Necklace, Terraspark Boots, and Flippers effects
+					Grants flight, slowfall and immunity to cold debuffs
+					'''
+					# Ruby
+				RubyCore_Lesser: "5% increased damage"
+				RubyCore:
+					'''
+					10% increased damage
+					Attacks inflict 'On Fire!'
+					'''
+				RubyCore_Greater:
+					'''
+					10% increased damage
+					Increases attack speed by 10%
+					Increases knockback
+					Increased melee size
+					Attacks inflict 'Hellfire'
+					Melee weapons autoswing
+					'''
+				RubyCore_Super:
+					'''
+					15% increased damage
+					Increased knockback, attack speed and melee size
+					Attacks inflict 'Cursed Inferno' and 'Ichor'
+					Grants immunity to damage reducing and anti attacking debuffs
+					Melee weapons autoswing
+					'''
+					# Sapphire
+				SapphireCore_Lesser: 5% chance to dodge attacks
+				SapphireCore: 10% chance to dodge attacks
+				SapphireCore_Greater:
+					'''
+					10% chance to dodge attacks
+					Thorns effect
+					'''
+				SapphireCore_Super:
+					'''
+					15% chance to dodge attacks
+					+5 additional minion slots
+					Thorns effect
+					Inferno effect when taking damage
+					'''
+					# Topaz
+				TopazCore_Lesser: Increases max Life by 20
+				TopazCore: Increases max Life by 40
+				TopazCore_Greater:
+					'''
+					Increases max life by 40
+					Honey and Regeneration buffs
+					'''
+				TopazCore_Super:
+					'''
+					Increases max life by 60
+					Honey, Regeneration, Cozy Campfire and Heart Lantern buffs
+					Effects of Shiny Stone
+					'''
+				MegaGemCore:
+					'''
+					Counts as wings
+					Increases max life by 100
+					Increases damage, movement speed and attack speed by 20%
+					Increases knockback and melee size
+					+8 extra minion slots
+					20% chance to dodge attacks
+					Gives a super dash to the wearer
+					Attacks inflict Daybroken and Betsy's Curse
+					Melee weapons autoswing
+					Grants immunity to damage dealing, damage and defense reducing, anti-healing and cold debuffs and Chaos State
+					Grants Ironskin and Endurance when dealing damage and Wrath, Rage and Inferno when taking damage
+					Effects of Ankh Shield, Bundle of Balloons, Frozen Turtle Shell, Shiny Stone, Soaring Insignia and Terrasparrk Boots
+					Permanent Thorns, Regeneration, Honey, Heart Lantern, Cozy Campfire, Heartreach and Gravitation buffs
+					Use to disable Gravitation
+					Grants infinite flight and slow fall
+					'''
+			AreusKey:
+				'''
+				Unlocks your true potential
+				'Now, nothing but your own competence holds you back!'
+				'''
+			Biometal:
+				'''
+				Equipping transforms the user into a Mega Man
+				25% Increased damage
+				Increases movement speed by 10%
+				Increased life regen
+				Increased life by 100 and mana by 40
+				Grants dash, wall sliding and immunity to fall damage and certain debuffs
+				'''
+			EntropicWings: Allows flight and grants slow fall
+			GildedValkyrieWings: "'The gold plating on the wings weighs you down slightly'"
+			RushDrive: Gives the user a 'phase 2' when below 50% life
+			TomeOfOmniscience:
+				'''
+
+				'''
+			ValkyrieCrown: Attacks shock enemies briefly
+
+			# Armor
+			EntropicHood: 6% increased damage and critical strike chance
+			EntropicRobe: 12% increased damage and critical strike chance
+			EntropicLeggings:
+				'''
+				8% increased damage and critical strike chance
+				10% increased movement speed
+				'''
+
 			# Boss summons
+			# AreusSnakeScale: Summons the Goddess of Life and Earth
 			PottedPlant: Summons Plantera in the Underground Jungle
+			# SpiderClock: Summons the Goddess of Time and Magic
 			ValkyrieCrest: Summons a powerful Valkyrie
+
+			# Dev items
+				# The Eternal Ace
+			AceOfSpades:
+				'''
+				Use RMB to detonate the cards
+				'What is that object?'
+				'''
+			AcesGoldFoxMask: "'Great for impersonating devs!'"
+			AcesJacket:
+				''''
+				'Great for impersonating devs!'
+				'Pockets included!'
+				'''
+			AcesPants: "'Great for impersonating devs!'"
+				# nightlight
+			CoatOfnight:
+				'''
+				'Great for impersonating devs!'
+				'no capitalization on my name'
+				'''
+			Nightlight:
+				'''
+				'Great for impersonating devs!'
+				'This is what peak performance looks like!'
+				'''
+				# DaluyanMesses
+			StatueOfDaluyan:
+				'''
+				'Great for impersonating devs!'
+				'bro legit i have the perfect dev item'
+				'That's Fool's Gold! That ain't worth nothing!'
+				'''
+
+			# Grab bags
+			AmmoBag: Gives a stack of a random ammo
+			AmmoBag_Arrow: Gives a stack of a random arrow type
+			AmmoBag_Bullet: Gives a stack of a random bullet type
+			AmmoBag_Rocket: Gives a stack of a random rocket type
 
 			# Materials
 			BrokenHeroGun: "'The broken gun of a long forgotten hero'"
@@ -253,6 +467,29 @@ Mods: {
 				'''
 				'The essence of nighttime creatures'
 				Disappears after the sunset
+				'''
+
+			# Misc
+			OverdriveEnergyPack: Refills Overdrive Time
+			RepairKit_Lesser:
+				'''
+				Repairs 20 defense
+				'Another satisfied customer!'
+				'''
+			RepairKit:
+				'''
+				Repairs 30 defense
+				'Another satisfied customer!'
+				'''
+			RepairKit_Greater:
+				'''
+				Repairs 40 defense
+				'Another satisfied customer!'
+				'''
+			RepairKit_Super:
+				'''
+				Repairs 50 defense
+				'Another satisfied customer!'
 				'''
 
 			# Pet items
@@ -284,6 +521,56 @@ Mods: {
 				Increased damage, movement speed and defense
 				Grants life regen
 				'Bro I promise, injecting souls directly into your bloodstream is a good idea'
+				'''
+
+			# Sinful
+			EnvySoul:
+				'''
+				Consecutive strikes on an enemy will increase the damage they take by 1
+				Darkness debuff
+				'Oh the misery'
+				'''
+			GluttonySoul:
+				'''
+				Increases melee damage by 15%
+				Defense reduced by 15
+				Starving debuff
+				Critical strikes on enemies creates a food chunk that will heal you when it makes contact
+				If an attack kills an enemy the food chunk will heal for more
+				'''
+			GreedSoul:
+				'''
+				Every gold coin in your inventory increases damage by 5% and reduces defense by 2
+				All coins disappear on death
+				'''
+			LustSoul:
+				'''
+				Increases max minions by 3
+				Damage reduced by 20%
+				Lovestruck buff
+				Damaging enemies may cause them to drop hearts
+				'The only thing I know for real: there will be blood-shed!'
+				'''
+			PrideSoul: Every 10 seconds of not taking damage increases damage by 2%
+			SlothSoul:
+				'''
+				The lower your movement speed is, the greater your damage and defense are increased
+				While not moving damage is increased by 20% and defense by 10
+				'How very slothful of you'
+				'''
+			WrathSoul:
+				'''
+				Each time damage is taken damage is increased by 1%
+				Once damage bonus goes to 5% increase, crit chance starts to go up by 1% as well
+				Dying increases both by 5%
+				There is no limit to these boosts
+				Boots slowly decrease while out of combat
+				'''
+			VirtuousDagger: Transforms into a weapon based on your sin
+			SinfulArmament:
+				'''
+				Cleanses your soul of sin
+				Shatters on use
 				'''
 
 			# Soul Crystals
@@ -342,7 +629,7 @@ Mods: {
 				Increased life and mana regen
 				After taking damage, your next hit will heal 50% of that damage
 				'''
-			DestoyerSoulCrystal:
+			DestroyerSoulCrystal:
 				'''
 				Summon a Destroyer's Probe that fires at your cursor besides you
 				Taking over 100 damage spawns another temporary Destroyer's Probe that will fire at nearby enemies
@@ -350,8 +637,8 @@ Mods: {
 				'''
 			PrimeSoulCrystal:
 				'''
-				While in combat enter a \"spin phase\" for 5 seconds every 30 seconds
-				This \"spin phase\" inceases defense and damage by 100% and damages nearby enemies
+				While in combat enter a "spin phase" for 5 seconds every 30 seconds
+				This "spin phase" inceases defense and damage by 100% and damages nearby enemies
 				Attacks fire either a laser, rocket or grenade
 				'''
 			TwinsSoulCrystal:
@@ -410,6 +697,14 @@ Mods: {
 				Right click to cycle between absorbed Soul Crystals
 				Use to extract the currently selected Soul Crystal
 				'''
+			SpidersMechanicalClock:
+				'''
+				Saves your current position after 5 seconds, use to teleport to saved position
+				All stats you had in that save are regained
+				There's an engraving on the back
+				'-A gift to you, my beloved little sister <3'
+				Must be used in hot-bar
+				'''
 			WandOfHealing:
 				'''
 				'Converts Mana into Life'
@@ -417,8 +712,26 @@ Mods: {
 				'''
 
 			# Weapons
-				# Ammo
 				# Areus
+				'''
+
+				'''
+			AreusAssaultRifle:
+				'''
+				Right click to switch between 3 modes: Semi-auto, Burst Fire and Full-auto
+				66% chance to not consume ammo
+				'Ugh!'
+				'''
+			AreusBow: 'Brilliant light show'
+			AreusMagnum: "'Headshots do not crit'"
+			AreusRailgun: Tears through enemy armor
+			AreusSaber: "'The pinnacle of areus weapon technology'"
+			BrokenAreusMirror:
+				'''
+				Summons a broken Areus Mirror that shoots homing Mirror Shards
+				Use again to shatter the mirror into 6 shards that deal 1/3 damage each
+				Only one mirror can be out at a time
+				'''
 			TheMourningStar:
 				'''
 				'The blade has turned dark and lost its electrical properties'
@@ -429,6 +742,13 @@ Mods: {
 				Shade State increases damage by 15% and defense by 20
 				'''
 				# Magic
+			Gunsword: "'I think it's broken..'"
+			Pandora:
+				'''
+				Left Click to fire an ice bolt, Right click to summon lightning
+				'Destiny of destruction awaits'
+				'''
+			PerishSong: "'I M  D E A D'"
 			ScreamLantern:
 				'''
 				Fires a 2 burst of shockwaves that can bounce off of tiles
@@ -436,21 +756,134 @@ Mods: {
 				'I like ya cut g'
 				'No voice to cry suffering'
 				'''
+			WormTench: "'Gross, absolutely vile..'"
 				# Melee
-			AreusSaber: "'The pinnacle of areus weapon technology'"
+			Cataracnia: "'The blade wielded by the All Seer'"
 			CrossDagger:
 				'''
 				A blade that heals 100 Life after striking an enemy
 				Taking damage while this is in your inventory will disable this effect for a time
 				'''
+			EntropySlicer:
+				'''
+				Dashing increases damage for a short time
+				'Cut through the very fabric of life and escalate the heat death of the universe'
+				'''
+			GenesisAndRagnarok:
+				'''
+				If an attack is not followed up after an attack, the combo will reset
+				Use RMB to bring up a shield, release RMB to throw the shield
+				This shield grants 20 defense and is capable of parrying and reflecting some projectiles
+				'''
+			GenesisAndRagnarokUpgrade1: Preforms a combo of a spear thrust and whip swing
+			GenesisAndRagnarokUpgrade2: Preforms a combo of a spear thrust, whip swing and spear throw
+			GenesisAndRagnarokUpgrade3:
+				'''
+				Preforms a combo of a spear thrust, whip swing and spear throw
+				Able to swing shield with LMB before it returns
+				'''
+			GenesisAndRagnarokUpgrade4:
+				'''
+				Preforms a combo of a spear thrust, whip swing and spear throw
+				Able to swing shield with LMB before it returns
+				Attacks inflict 'On Fire!'
+				'''
+			GenesisAndRagnarokUpgrade5:
+				'''
+				Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing
+				Able to swing shield with LMB before it returns
+				Attacks inflict 'On Fire!'
+				'''
+			GenesisAndRagnarokUpgrade6:
+				'''
+				Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing
+				Able to swing shield with LMB before it returns
+				Attacks inflict Frostburn and create extra ice projectiles
+				'''
+			Gomorrah:
+				'''
+				Use RMB to throw a spear
+				Sticking 8 spears into the same target causes a large burst of damage
+				'''
+			HeroSword: "'The sword of a long forgotten hero'"
+			Masamune: "'I will... never be a memory.'"
 			Prometheus:
 				'''
-				Left Click to swing an energy scythe, <right> to throw a fireball
+				Left Click to swing an energy scythe, Right click to throw a fireball
 				'It seems like you're worthy of playing his little game, his game of destiny!'
 				'''
+			ReactorMeltdown: "'Sussus Moogus'"
+			Satanlance: "'You feel like you can do anything'"
+			TheMessiah:
+				'''
+				Passively charges while in hand and not in use
+				Max charge level increases damage by 200% and critical strike chance by 60%
+				'I am the messiah!'"
+				'''
+			ValkyrieStorm: "'Rains feather blades on your enemies!'"
+			ValkyrieStormLance: Briefly shocks enemies
 			Yamiko: "'I'm not tsundere! You're tsundere!'"
+			Zenova:
+				'''
+				Ignores a moderate amount of defense
+				'Zenith's older sister'
+				'RANDOM BULLS**T GO!'
+				'''
 				# Ranged
+			BlackHoleRepeater: Converts regular arrows into powerful Black Hole Bolts
+			Coilgun:
+				'''
+				Tears through enemy armor
+				'Uses electromagnetic coils to fire projectiles at insane velocities'
+				'Areus Railgun's older brother'
+				'''
+			DoubleBow:
+				'''
+				Fires Cursed Arrows, Ichor arrows and lasers
+				'It's called 'Double Bow' and shoots 3 projectiles???'
+				'''
+			Glock80: "'Automatic shotgun pistol, because it's funny'"
+			HandCanon:
+				'''
+				Charges passively when not in use
+				After 5 seconds of charging damage is increased and fire a burst of 3 grenades
+				'Demoman TF2'
+				'''
+			HeroGun: "'The gun of a long forgotten hero'"
+			MetalBlade: "'Cut a new path for your foes, a path of pain!'"
+			P90: Right click to switch between 2 modes: Semi and Full-auto
+			Pantheon:
+				'''
+				Right click with Gold or Platinum bars in inventory to increase projectiles fired by 1
+				Fires up to 5 projectiles
+				Resets after death
+				'''
+			PhantomRose:
+				'''
+				Shoots an extra Phantom Bullet
+				48% chance to not consume ammo
+				'''
+			Scarlet:
+				'''
+				Shoots powerful Luminite Bullets
+				66% chance to not consume ammo
+				'''
+			TheAmbassador:
+				'''
+				'Never miss a shot again. Not like I could anyway.'
+				'Gun Spy TF2'
+				'''
 				# Summon
+			DragonSpineWhip:
+				'''
+				26 summon tag damage
+				Your summons will focus struck enemies
+				'''
+			FlailOfFlesh:
+				'''
+				Throws 3-6 Hungry
+				'Your very own Hungry as a pet! Adorable..?'
+				'''
 			NestlingStaff: Summons a fledgling harpy knight to fight for you
 		}
 
@@ -499,6 +932,7 @@ Mods: {
 			ElectricTrailFriendly: Electric Trail
 			FoodChunk: Food Chunk
 			GolemBeam: Golem Beam
+			HolyExplosion: Holy Fire Explosion
 			PhantasmalEye: Phantasmal Eye
 			ShadowTendrils: Shadow Tendrils
 			SpinPrime: Spin Skull Prime
@@ -623,14 +1057,140 @@ Mods: {
 		}
 
 		BuffName: {
+			# Any debuff
+			ElectricShock: Electric Shock
+			StunLock: Stun Lock
+			ZenovaJavelin: Zenova Javelin
+
+			# Cool-down
+			ClockCooldown: Clock Cool-down
+			EaterReviveCooldown: "Eater's Revive Cool-down"
+			ParryCooldown: Parry Cool-down
+			SetBonusCooldown: Active Armor Set Bonus Cool-down
+			SoulTeleportCooldown: Soul Teleport Cool-down
+			YamikoDashCooldown: Yamiko Dash Cool-down
+
+			# NPC debuff
+			LoomingEntropy: Looming Entropy
+			Marked: Marked
+			Penetration: Armor Penetrated
+			EnvyTarget: "Envy's Target"
+
+			# Pet buff
+			CreeperPetBuff: Smol Nova
+			NovaPetBuff: Pet Creeper
+
+			# Player buff
+			BaseCombat: Knowledge Base: Combat
+			BaseConservation: Knowledge Base: Conservation
+			BaseExploration: Knowledge Base: Exploration
+			CreeperRevenge: Creeper Revenge
+			MegaMerged: Mega-merged
+			Overdrive: Overdrive: ON
+			ShadeState: Shade State
+				# Sinful Souls
+			EnvySoulBuff: Envy
+			GluttonySoulBuff: Gluttony
+			GreedSoulBuff: Greed
+			LustSoulBuff: Lust
+			PrideSoulBuff: Pride
+			SlothSoulBuff: Sloth
+			WrathSoulBuff: Wrath
+			VirtuousSoul: Virtuous
+
+			# Player debuff
+			HeartBreak: Heart Break
+			InjectionShock: Injection Shock
+			Madness: Madness
+
+			# Potion buff
 			BoneStrength: Bone Strength
 			Conductive: Conductive
 			ChargedFlight: Charged Flight
-			InjectionShock: Injection Shock
 			SoulInfused: Soul Infused
+
+			# Summons
+			AreusMirrorBuff: Areus Mirror
+			CreeperShield: Creeper Shield
+			JuvenileHarpy: Fledgling Harpy
 		}
 
 		BuffDescription: {
+			# Any debuff
+			ElectricShock: Moving hurts
+			StunLock: Cannot move
+			ZenovaJavelin: Defense lowered and losing life
+
+			# Cool-down
+			ClockCooldown: "You cannot use Spider's Mechanical Clock for now"
+			EaterReviveCooldown: "You cannot be revived by the Eater of Worlds' soul crystal for now"
+			ParryCooldown: You cannot parry for now
+			SetBonusCooldown: You cannot activate your armor set bonus for now
+			SoulTeleportCooldown: You cannot use your Soul Crystal Teleport right now
+			YamikoDashCooldown: "You cannot use Yamiko's Dash ability for now"
+
+			# NPC debuff
+			LoomingEntropy:
+				'''
+				'Heat death is Swiftly approaching..'
+				Defense reduced and losing life
+				'''
+			Marked: "Taking 10% extra damage"
+			Penetration: Defense lowered
+			EnvyTarget: Taking extra damage
+
+			# Pet buff
+			CreeperPetBuff: Strangely cute
+			NovaPetBuff: Look at her now
+
+			# Player buff
+			BaseCombat:
+				'''
+				10% increased damage and 10 defense
+				Thorns effect
+				'You excel in combat'
+				'''
+			BaseConservation:
+				'''
+				10% reduced mana cost and 15% chance to not consume ammo
+				'You are efficient with your resources'
+				'''
+			BaseExploration:
+				'''
+				10% increased movement speed and max run speed
+				Mining, Builder, Shine, Night Owl, Dangersense, Hunter and Calming potions effects
+				'You will never be lost'
+				'''
+			CreeperRevenge: "20% increase to all damage"
+			MegaMerged: "'BIOLINK ESTABLISHED! M.E.G.A. SYSTEM ONLINE!'"
+			Overdrive:
+				'''
+				'Your systems are being pushed beyond their limits'
+				Damage increased by 50%
+				'''
+			ShadeState:
+				'''
+				Increased damage by 15%
+				Increased defense by 20
+				'''
+			VirtuousSoul:
+				'''
+				Killing monsters increases purification by 1
+				Each Purification charge increases damage by 2%
+				When Purification charge reaches 7, the next critical hit creates a Holy Fire Explosion
+				This explosion damages all enemies on screen
+				'''
+
+			# Player debuff
+			HeartBreak: You cannot heal with Cross Dagger or Wand Of Healing
+			InjectionShock: "You cannot use another injection, cannot regenerate life and mild blood loss"
+			Madness:
+				'''
+				Losing life and your vision is reduced
+				'You're losing yourself...'
+				'''
+
+			# Potion Buff
 			BoneStrength: 
 				'''
 				10% increased damage and reduced damage taken by 20%
@@ -642,8 +1202,12 @@ Mods: {
 				Increases areus weapon damage by 15% and duration of Electric Shock by 100%
 				All attacks inflict Electric Shock
 				'''
-			InjectionShock: "You cannot use another injection, cannot regenerate life and mild blood loss"
 			SoulInfused: "Increased max life by 50, defense by 10 and damage by 15%"
+
+			# Summons
+			AreusMirrorBuff: The Areus Mirror will fight for you
+			CreeperShield: Immune to damage, cannot attack and summons severely weakened
+			JuvenileHarpy: The harpy will fight along side you
 		}
 
 		Necronomicon: {

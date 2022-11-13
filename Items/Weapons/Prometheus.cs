@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;

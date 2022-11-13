@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using Terraria;
 using Terraria.Audio;

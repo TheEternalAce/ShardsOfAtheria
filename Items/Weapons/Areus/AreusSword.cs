@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Potions;

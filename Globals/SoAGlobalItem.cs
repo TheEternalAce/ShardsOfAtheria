@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Items.SevenDeadlySouls;
 using ShardsOfAtheria.Items.SoulCrystals;

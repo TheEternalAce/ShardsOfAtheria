@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;

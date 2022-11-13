@@ -1,13 +1,14 @@
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
-using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
-using System;
-using Terraria.ModLoader.IO;
-using System.Collections.Generic;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
+using System;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
@@ -35,10 +36,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("If an attack is not followed up after an attack, the combo will reset\n" +
-                "Use RMB to bring up a shield, release RMB to throw the shield\n" +
-                "This shield grants 20 defense and is capable of parrying and reflecting some projectiles");
-
             SacrificeTotal = 1;
         }
 
@@ -46,34 +43,27 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             if (upgrades == 0)
             {
-                tooltips.Add(new TooltipLine(Mod, "Tooltip", "Preforms a combo of a spear thrust and whip swing"));
+                tooltips.Add(new TooltipLine(Mod, "Tooltip", Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.GenesisAndRagnarokUpgrade1")));
             }
             if (upgrades == 1)
             {
-                tooltips.Add(new TooltipLine(Mod, "Tooltip", "Preforms a combo of a spear thrust, whip swing and spear throw"));
+                tooltips.Add(new TooltipLine(Mod, "Tooltip", Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.GenesisAndRagnarokUpgrade2")));
             }
             if (upgrades == 2)
             {
-                tooltips.Add(new TooltipLine(Mod, "Tooltip", "Preforms a combo of a spear thrust, whip swing and spear throw\n" +
-                    "Able to swing shield with LMB before it returns"));
+                tooltips.Add(new TooltipLine(Mod, "Tooltip", Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.GenesisAndRagnarokUpgrade3")));
             }
             if (upgrades == 3)
             {
-                tooltips.Add(new TooltipLine(Mod, "Tooltip", "Preforms a combo of a spear thrust, whip swing and spear throw\n" +
-                    "Able to swing shield with LMB before it returns\n" +
-                    "Attacks set enemies on fire"));
+                tooltips.Add(new TooltipLine(Mod, "Tooltip", Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.GenesisAndRagnarokUpgrade4")));
             }
             if (upgrades == 4)
             {
-                tooltips.Add(new TooltipLine(Mod, "Tooltip", "Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing\n" +
-                    "Able to swing shield with LMB before it returns\n" +
-                    "Attacks set enemies on fire"));
+                tooltips.Add(new TooltipLine(Mod, "Tooltip", Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.GenesisAndRagnarokUpgrade5")));
             }
             if (upgrades == 5)
             {
-                tooltips.Add(new TooltipLine(Mod, "Tooltip", "Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing\n" +
-                    "Able to swing shield with LMB before it fully returns\n" +
-                    "Attacks inflict frostburn and create extra ice projectiles"));
+                tooltips.Add(new TooltipLine(Mod, "Tooltip", Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.GenesisAndRagnarokUpgrade6")));
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
 using Terraria;

@@ -19,8 +19,7 @@ namespace ShardsOfAtheria.Items.GrabBags
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Treasure Bag (Nova Stellar)");
-            Tooltip.SetDefault("Right Click to open");
+            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
 
             ItemID.Sets.BossBag[Type] = true; // This set is one that every boss bag should have, it, for example, lets our boss bag drop dev armor..
             ItemID.Sets.PreHardmodeLikeBossBag[Type] = true; // ..But this set ensures that dev armor will only be dropped on special world seeds, since that's the behavior of pre-hardmode boss bags

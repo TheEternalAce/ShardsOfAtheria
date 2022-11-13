@@ -10,7 +10,6 @@ namespace ShardsOfAtheria.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Attacks shock enemies briefly");
             ArmorIDs.Head.Sets.DrawHatHair[Item.faceSlot] = true;
 
             SacrificeTotal = 1;

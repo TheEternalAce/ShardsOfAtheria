@@ -10,11 +10,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Counts as wings\n" +
-				"10% increased movement speed\n" +
-				"Increased jump height\n" +
-				"Grants flight and slowfall");
-
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(30, .5f, .5f);
 
 			SacrificeTotal = 1;

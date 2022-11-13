@@ -155,7 +155,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             if (page >= 3)
             {
                 PageEntry entry = entries[page - 3];
-                if (slayer.soulCrystals.Contains(entry.crystalItem))
+                if (slayer.soulCrystals.Contains(entry.crystalItem) || ModContent.GetInstance<ShardsConfigClientSide>().entryView)
                 {
                     tooltips.Add(new TooltipLine(Mod, "Page", $"{entry.EntryText()}")
                     {
@@ -199,7 +199,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
                     }
                     if (page > ShardsOfAtheria.MaxNecronomiconPages)
                     {
-                        page = 23;
+                        page = ShardsOfAtheria.MaxNecronomiconPages;
                     }
                 }
                 else

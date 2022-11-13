@@ -9,8 +9,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("10% chance to dodge attacks");
-
 			SacrificeTotal = 1;
 		}
 
