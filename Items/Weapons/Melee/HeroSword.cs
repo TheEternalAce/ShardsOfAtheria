@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,7 +10,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 		{
 			Tooltip.SetDefault("'The sword of a long forgotten hero'");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
 		public override void SetDefaults() 
@@ -32,10 +31,10 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
 
-			Item.rare = ItemRarityID.Red;
-			Item.value = Item.sellPrice(0, 2, 50);
 			Item.shoot = ModContent.ProjectileType<Projectiles.Weapon.Melee.HeroSword>();
 			Item.shootSpeed = 1;
+			Item.rare = ItemRarityID.Red;
+			Item.value = Item.sellPrice(0, 2, 50);
 		}
 
 		public override void AddRecipes() 

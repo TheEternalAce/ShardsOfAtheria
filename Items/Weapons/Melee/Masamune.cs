@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -7,13 +6,13 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 {
 	public class Masamune : ModItem
 	{
-        public override void SetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("'I will... never be a memory.'");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
-		public override void SetDefaults() 
+		public override void SetDefaults()
 		{
 			Item.width = 68;
 			Item.height = 70;
@@ -35,7 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			// Add the Onfire buff to the NPC for 1 second when the weapon hits an NPC
 			// 60 frames = 1 second
 			target.AddBuff(BuffID.Ichor, 600);
-            target.AddBuff(BuffID.Weak, 600);
+			target.AddBuff(BuffID.Weak, 600);
 			target.AddBuff(BuffID.Chilled, 600);
 		}
 	}

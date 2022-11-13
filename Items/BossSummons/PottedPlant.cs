@@ -1,6 +1,5 @@
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,7 +15,7 @@ namespace ShardsOfAtheria.Items.BossSummons
             // write this in the bosses file instead
             NPCID.Sets.MPAllowedEnemies[NPCID.Plantera] = true;
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

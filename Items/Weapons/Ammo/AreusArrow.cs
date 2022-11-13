@@ -1,10 +1,9 @@
+using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Weapon.Ammo;
-using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Items.Weapons.Ammo
 {
@@ -12,7 +11,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
     {
         public override void SetStaticDefaults()
         {
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            SacrificeTotal = 99;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }
 

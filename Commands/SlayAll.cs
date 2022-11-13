@@ -8,8 +8,13 @@ using Terraria.ModLoader;
 namespace ShardsOfAtheria.Commands
 {
     class SlayAll : ModCommand
-	{
-		public override CommandType Type
+    {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return ShardsOfAtheria.DeveloperMode;
+        }
+
+        public override CommandType Type
 			=> CommandType.Chat;
 
 		public override string Command
@@ -21,8 +26,6 @@ namespace ShardsOfAtheria.Commands
 		public override void Action(CommandCaller caller, string input, string[] args)
 		{
 			Player player = Main.LocalPlayer;
-			if (player.name != "The Eternal Ace")
-				return;
 
 			ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie = true;
 			ModContent.GetInstance<ShardsDownedSystem>().slainEOC = true;

@@ -1,11 +1,8 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Placeable;
-using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Tiles;
 
 namespace ShardsOfAtheria.Items.Materials
 {
@@ -19,7 +16,7 @@ namespace ShardsOfAtheria.Items.Materials
             ItemID.Sets.ItemIconPulse[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+            SacrificeTotal = 25;
         }
 
         public override void SetDefaults()
@@ -54,7 +51,7 @@ namespace ShardsOfAtheria.Items.Materials
 
         public override void Update(ref float gravity, ref float maxFallSpeed)
         {
-            if (Main.dayTime)
+            if (Main.dayTime && !Main.eclipse)
             {
                 for (int j = 0; j < 10; j++)
                 {

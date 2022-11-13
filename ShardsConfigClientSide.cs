@@ -31,5 +31,10 @@ namespace ShardsOfAtheria
         [Tooltip("Toggles the dialogue when using Sinful Armament")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option.
         [DefaultValue(true)]
         public bool sinfulArmamentText;
+        [Label("[i:3617] Window Title")] // A label is the text displayed next to the option. This should usually be a short description of what it does.
+        [Tooltip("Toggles changing the window title")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option.
+        [DefaultValue(true)]
+        [ReloadRequired()]
+        public bool windowTitle;
     }
 }

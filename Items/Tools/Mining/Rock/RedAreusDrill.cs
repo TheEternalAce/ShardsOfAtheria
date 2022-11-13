@@ -1,14 +1,12 @@
-﻿using ShardsOfAtheria.Items.Placeable;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Projectiles.Tools;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Tools;
-using Terraria.Audio;
-using ReLogic.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.GameContent.Creative;
-using ShardsOfAtheria.Utilities;
 
 namespace ShardsOfAtheria.Items.Tools.Mining.Rock
 {
@@ -30,7 +28,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining.Rock
                 glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
             }
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

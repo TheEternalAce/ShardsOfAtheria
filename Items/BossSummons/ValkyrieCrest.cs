@@ -1,12 +1,12 @@
+using Microsoft.Xna.Framework;
+using ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie;
+using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.Creative;
-using Terraria.ID;
-using Terraria.ModLoader;
-using ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie;
 using Terraria.Chat;
+using Terraria.ID;
 using Terraria.Localization;
-using Microsoft.Xna.Framework;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.BossSummons
 {
@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Items.BossSummons
             // write this in the bosses file instead
             NPCID.Sets.MPAllowedEnemies[ModContent.NPCType<NovaStellar>()] = true;
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+            SacrificeTotal = 3;
         }
 
         public override void SetDefaults()

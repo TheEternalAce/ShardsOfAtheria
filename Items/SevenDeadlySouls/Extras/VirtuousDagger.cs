@@ -2,9 +2,7 @@
 using ShardsOfAtheria.Items.Materials;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
@@ -16,7 +14,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
             Tooltip.SetDefault("Cleanses your soul of sin\n" +
                 "Shatters on use");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
+            SacrificeTotal = 5;
         }
 
         public override void SetDefaults()
@@ -41,7 +39,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
             {
                 return false;
             }
-            return !player.immune && player.immuneTime == 0 ;
+            return !player.immune && player.immuneTime == 0;
         }
 
         public override bool? UseItem(Player player)

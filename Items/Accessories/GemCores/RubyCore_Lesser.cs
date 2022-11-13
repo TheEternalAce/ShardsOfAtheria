@@ -1,5 +1,5 @@
-﻿using Terraria;
-using Terraria.GameContent.Creative;
+﻿using ShardsOfAtheria.Systems;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             DisplayName.SetDefault("Lesser Ruby Core");
             Tooltip.SetDefault("5% increased damage.");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

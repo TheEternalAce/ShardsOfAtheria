@@ -1,12 +1,11 @@
 ﻿using ShardsOfAtheria.Players;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
-    public class RubyCore_Greater : ModItem
+	public class RubyCore_Greater : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -18,7 +17,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 				"Attacks inflict 'Hellfire'\n" +
 				"Melee weapons autoswing");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
 		public override void SetDefaults()

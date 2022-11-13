@@ -9,8 +9,13 @@ using Terraria.ModLoader;
 namespace ShardsOfAtheria.Commands
 {
     class ResetSlayer : ModCommand
-	{
-		public override CommandType Type
+    {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return ShardsOfAtheria.DeveloperMode;
+        }
+
+        public override CommandType Type
 			=> CommandType.Chat;
 
 		public override string Command
@@ -23,8 +28,6 @@ namespace ShardsOfAtheria.Commands
 		{
 			SlayerPlayer sPlayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
 			Player player = Main.LocalPlayer;
-			if (player.name != "The Eternal Ace")
-				return;
 
 			sPlayer.soulCrystals.Clear();
 			ModContent.GetInstance<ShardsDownedSystem>().slainKing = false;

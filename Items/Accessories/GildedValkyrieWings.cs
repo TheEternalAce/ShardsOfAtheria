@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,7 +14,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(30, 9f, 2.5f);
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
 		public override void SetDefaults()
@@ -31,7 +30,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
 			ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
-		    {
+		{
 			ascentWhenFalling = 0.85f;
 			ascentWhenRising = 0.15f;
 			maxCanAscendMultiplier = 1.5f;

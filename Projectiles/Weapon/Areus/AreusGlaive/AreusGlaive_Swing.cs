@@ -16,8 +16,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
 {
     public class AreusGlaive_Swing : EpicSwingSword
     {
-        public float rotation = 45;
-
         public override void SetStaticDefaults()
         {
             SoAGlobalProjectile.AreusProjectile.Add(Type);

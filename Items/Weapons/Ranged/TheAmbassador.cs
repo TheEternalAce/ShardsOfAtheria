@@ -1,11 +1,9 @@
+using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged;
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Placeable;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.GameContent.Creative;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged;
-using Terraria.DataStructures;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -16,7 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Tooltip.SetDefault("'Never miss a shot again. Not like I could anyway.'\n" +
                 "'Gun Spy TF2'");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

@@ -1,15 +1,14 @@
-using Terraria.GameContent.Creative;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Tiles;
 
 namespace ShardsOfAtheria.Items.Placeable
 {
-	public class CobaltWorkbenchItem : ModItem
+    public class CobaltWorkbenchItem : ModItem
 	{
-		public override void SetStaticDefaults() 
+		public override void SetStaticDefaults()
 		{
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
 		public override void SetDefaults()

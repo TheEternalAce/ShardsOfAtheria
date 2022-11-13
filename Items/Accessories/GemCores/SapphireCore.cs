@@ -1,18 +1,17 @@
 ﻿using ShardsOfAtheria.Players;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
-    public class SapphireCore : ModItem
+	public class SapphireCore : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("10% chance to dodge attacks");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
 		public override void SetDefaults()
@@ -38,6 +37,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.GetModPlayer<SoAPlayer>().sapphireCore = true;
-        }
+		}
 	}
 }

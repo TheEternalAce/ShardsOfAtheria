@@ -1,26 +1,25 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
-	public class AmethystCore_Greater : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
+    public class AmethystCore_Greater : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
             DisplayName.SetDefault("Greater Amethyst Core");
-			Tooltip.SetDefault("Gives a dash to the wearer\n" +
+            Tooltip.SetDefault("Gives a dash to the wearer\n" +
                 "Immunity to 'Ichor' and 'Cursed Inferno'");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
-		public override void SetDefaults()
-		{
-			Item.width = 32;
-			Item.height = 32;
+        public override void SetDefaults()
+        {
+            Item.width = 32;
+            Item.height = 32;
             Item.accessory = true;
 
             Item.rare = ItemRarityID.Orange;
@@ -37,7 +36,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
-		{
+        {
             AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
             mp.DashVelocity = 13f;
             AmethystDashPlayer.MAX_DASH_DELAY = 50;

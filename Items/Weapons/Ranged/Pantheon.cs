@@ -1,17 +1,11 @@
-using Terraria.ID;
-using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Tiles;
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
+using System;
 using Terraria;
 using Terraria.DataStructures;
-using ShardsOfAtheria.Projectiles.Other;
-using Terraria.GameContent.Creative;
-using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using System;
-using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -40,7 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 "Fires up to 5 projectiles\n" +
                 "Resets after death");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }
 

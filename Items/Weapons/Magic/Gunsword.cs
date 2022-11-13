@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             Tooltip.SetDefault("'I think it's broken..'");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

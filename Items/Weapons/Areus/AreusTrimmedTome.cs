@@ -1,14 +1,12 @@
-using Terraria.ID;
-using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Placeable;
-using Terraria;
-using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
-using Terraria.GameContent.Creative;
-using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {
@@ -16,7 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
     {
         public override void SetStaticDefaults()
         {
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
@@ -37,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.UseSound = SoundID.Item43;
             Item.noMelee = true;
 
-            Item.shootSpeed = 32f;
+            Item.shootSpeed = 16f;
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 1, 75);
             Item.shoot = ModContent.ProjectileType<ElectricSpike>();

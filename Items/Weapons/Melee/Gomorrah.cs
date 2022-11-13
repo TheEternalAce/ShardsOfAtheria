@@ -1,26 +1,24 @@
+using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
-using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah;
-using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
 	public class Gomorrah : ModItem
 	{
-        public override void SetStaticDefaults()
-        {
+		public override void SetStaticDefaults()
+		{
 			Tooltip.SetDefault("Use RMB to throw a spear\n" +
-                "Sticking 8 spears into the same target causes a large burst of damage");
+				"Sticking 8 spears into the same target causes a large burst of damage");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 			SoAGlobalItem.AreusWeapon.Add(Type);
 		}
 
-		public override void SetDefaults() 
+		public override void SetDefaults()
 		{
 			Item.width = 54;
 			Item.height = 56;
@@ -44,12 +42,12 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.shoot = ModContent.ProjectileType<Gomorrah_Spear>();
 		}
 
-        public override bool AltFunctionUse(Player player)
-        {
-            return true;
-        }
+		public override bool AltFunctionUse(Player player)
+		{
+			return true;
+		}
 
-        public override bool CanUseItem(Player player)
+		public override bool CanUseItem(Player player)
 		{
 			if (player.altFunctionUse == 2)
 			{
@@ -67,5 +65,5 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			}
 			return player.ownedProjectileCounts[ModContent.ProjectileType<Gomorrah_Spear>()] < 1;
 		}
-    }
+	}
 }

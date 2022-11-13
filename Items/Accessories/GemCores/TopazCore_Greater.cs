@@ -1,6 +1,4 @@
-﻿using ShardsOfAtheria.Items.Placeable;
-using Terraria;
-using Terraria.GameContent.Creative;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,7 +12,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			Tooltip.SetDefault("Increases max life by 40\n" +
 				"Honey and Regeneration buffs");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
 		public override void SetDefaults()

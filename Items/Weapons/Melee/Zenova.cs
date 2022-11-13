@@ -1,10 +1,8 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Weapons.Areus;
-using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,7 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 				"'Zenith's older sister'\n" +
 				"'RANDOM BULLS**T GO!'");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
 		public override void SetDefaults() 

@@ -95,8 +95,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
             {
                 if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5 && (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades >= 3)
+                {
                     target.AddBuff(BuffID.OnFire, 600);
-                else
+                }
+                else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
                 {
                     target.AddBuff(BuffID.Frostburn, 600);
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<IceVortexShard>(), Projectile.damage, Projectile.knockBack, player.whoAmI);

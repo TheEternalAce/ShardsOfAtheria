@@ -28,6 +28,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.penetrate = 3;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 0;
 
             DrawOffsetX = -62;
             DrawOriginOffsetX = 31;

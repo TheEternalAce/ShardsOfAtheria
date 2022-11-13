@@ -1,11 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Players;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -28,8 +26,8 @@ namespace ShardsOfAtheria.Projectiles.Minions
         public override void SetDefaults()
         {
             Projectile.friendly = true;
-            Projectile.width = 8;
-            Projectile.height = 8;
+            Projectile.width = 10;
+            Projectile.height = 10;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
@@ -39,6 +37,9 @@ namespace ShardsOfAtheria.Projectiles.Minions
             Projectile.localNPCHitCooldown = 60; // This facilitates custom hit cooldown logic
             Projectile.minion = true; // Declares this as a minion (has many effects)
             Projectile.minionSlots = 0.16f; // Amount of slots this minion occupies from the total minion slots available to the player (more on that later)
+            Projectile.usesLocalNPCImmunity = true;
+
+            DrawOffsetX = -6;
         }
 
         // Here you can decide if your minion breaks things like grass or pots
@@ -69,10 +70,19 @@ namespace ShardsOfAtheria.Projectiles.Minions
             Visuals();
         }
 
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Electric);
+            }
+            SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
+        }
+
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
         private bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || !owner.HasBuff(ModContent.BuffType<AreusMirrorShardBuff>()))
+            if (owner.dead || !owner.active || !owner.HasBuff(ModContent.BuffType<AreusMirrorBuff>()))
                 return false;
             else Projectile.timeLeft = 2;
             return true;

@@ -1,16 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Placeable.Furniture;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent.ObjectInteractions;
 using Terraria.Enums;
+using Terraria.GameContent.ObjectInteractions;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using ShardsOfAtheria.Items.Placeable.Furniture;
-using ShardsOfAtheria.Items.Weapons.Melee;
-using Terraria.Chat;
 
 namespace ShardsOfAtheria.Tiles.Furniture
 {
@@ -66,13 +64,6 @@ namespace ShardsOfAtheria.Tiles.Furniture
 
 		public override bool UnlockChest(int i, int j, ref short frameXAdjustment, ref int dustType, ref bool manual)
 		{
-			if (!Main.bloodMoon && !Main.LocalPlayer.HasItem(ModContent.ItemType<TheMessiah>()))
-			{
-				ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("I await the red moon."), Color.DarkRed, Main.LocalPlayer.whoAmI);
-				Item.NewItem(Main.LocalPlayer.GetSource_FromThis(), Main.LocalPlayer.getRect(), ModContent.ItemType<OmegaKey>());
-				return false;
-			}
-
 			DustType = dustType;
 			return true;
 		}

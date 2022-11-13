@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Players;
 using Terraria;
-using ShardsOfAtheria.Items.SoulCrystals;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Players;
-using System;
 using static ShardsOfAtheria.Utilities.Entry;
 
 namespace ShardsOfAtheria.Projectiles.Tools
@@ -25,10 +23,6 @@ namespace ShardsOfAtheria.Projectiles.Tools
 
             DrawOffsetX = -21;
             DrawOriginOffsetX = 15;
-        }
-
-        public override void ModifyDamageScaling(ref float damageScale)
-        {
         }
 
         public override void AI()

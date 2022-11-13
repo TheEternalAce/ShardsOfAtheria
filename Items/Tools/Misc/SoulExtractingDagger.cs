@@ -1,16 +1,14 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Projectiles.Tools;
+using ShardsOfAtheria.Systems;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Projectiles.Tools;
-using System.Collections.Generic;
-using Terraria.DataStructures;
-using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Items.SoulCrystals;
-using ShardsOfAtheria.Globals;
 using static ShardsOfAtheria.Utilities.Entry;
-using System.Configuration;
-using System;
 
 namespace ShardsOfAtheria.Items.Tools.Misc
 {
@@ -45,6 +43,8 @@ namespace ShardsOfAtheria.Items.Tools.Misc
         public override void SetStaticDefaults()
         {
             SoAGlobalItem.SlayerItem.Add(Type);
+
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

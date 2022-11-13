@@ -73,8 +73,8 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
 
         public override void SetDefaults()
         {
-            Projectile.width = 1000;
-            Projectile.height = 500;
+            Projectile.width = 2000;
+            Projectile.height = 1000;
 
             Projectile.aiStyle = -1;
             Projectile.tileCollide = false;

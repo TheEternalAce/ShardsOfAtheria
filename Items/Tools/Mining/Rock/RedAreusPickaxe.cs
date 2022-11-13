@@ -1,12 +1,9 @@
-﻿using ShardsOfAtheria.Items.Placeable;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Placeable;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
-using ShardsOfAtheria.Items.Weapons.Areus;
-using Terraria.GameContent.Creative;
-using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Tools.Mining.Rock
 {
@@ -14,7 +11,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining.Rock
     {
         public override void SetStaticDefaults()
         {
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

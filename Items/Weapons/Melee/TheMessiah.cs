@@ -1,11 +1,8 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Placeable.Furniture;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -41,7 +38,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 "Max charge level increases damage by 200% and critical strike chance by 60%\n" +
                 "'I am the messiah!'");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

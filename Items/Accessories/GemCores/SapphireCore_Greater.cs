@@ -1,14 +1,11 @@
-﻿using Terraria;
-using Terraria.GameContent.Creative;
+﻿using ShardsOfAtheria.Players;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Projectiles.Minions;
-using ShardsOfAtheria.Players;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
-    public class SapphireCore_Greater : ModItem
+	public class SapphireCore_Greater : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -16,7 +13,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			Tooltip.SetDefault("10% chance to dodge damage\n" +
 				"Thorns effect");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
 		public override void SetDefaults()
@@ -28,7 +25,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			Item.rare = ItemRarityID.Orange;
 			Item.value = Item.sellPrice(0, 2, 25);
 		}
-		
+
 		public override void AddRecipes()
 		{
 			CreateRecipe()
@@ -37,12 +34,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}
-		
+
 		public override void UpdateAccessory(Player player, bool hideVisual)
-        {
+		{
 			player.GetModPlayer<SoAPlayer>().sapphireCore = true;
 
 			player.AddBuff(BuffID.Thorns, 2);
 		}
-    }
+	}
 }

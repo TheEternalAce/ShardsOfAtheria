@@ -57,6 +57,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
                     });
                 }
             }
+            base.AI();
         }
 
         public override void PostAI()

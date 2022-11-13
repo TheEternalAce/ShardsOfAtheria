@@ -1,15 +1,13 @@
-﻿using ShardsOfAtheria.Items.Materials;
+﻿using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Items.Weapons.Ranged;
-using ShardsOfAtheria.Tiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria
+namespace ShardsOfAtheria.Systems
 {
     public class ShardsRecipes : ModSystem
     {
@@ -24,7 +22,7 @@ namespace ShardsOfAtheria
         public static RecipeGroup Mythril;
         public static RecipeGroup Adamantite;
         public static RecipeGroup Soul;
-        public static RecipeGroup DecaWeapon;
+        public static RecipeGroup HMAnvil;
 
         public static RecipeGroup Bullet;
         public static RecipeGroup Arrow;
@@ -42,6 +40,7 @@ namespace ShardsOfAtheria
             Mythril = null;
             Adamantite = null;
             Soul = null;
+            HMAnvil = null;
         }
 
         public override void AddRecipeGroups()
@@ -94,6 +93,14 @@ namespace ShardsOfAtheria
             Rocket = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} rocket",
                    ItemID.RocketI);
             RecipeGroup.RegisterGroup("Shards:Rockets", Rocket);
+
+
+            if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
+            {
+                HMAnvil = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} {Lang.GetItemNameValue(ItemID.MythrilAnvil)}\"",
+                       ModContent.ItemType<CobaltWorkbenchItem>(), ModContent.ItemType<PalladiumWorkbenchItem>());
+                RecipeGroup.RegisterGroup("MagicStorage:AnyHmAnvil", HMAnvil);
+            }
         }
 
         public override void AddRecipes()
@@ -125,7 +132,7 @@ namespace ShardsOfAtheria
             Recipe.Create(ItemID.GuideVoodooDoll)
                 .AddIngredient(ModContent.ItemType<BionicBarItem>(), 5)
                 .AddIngredient(ItemID.Silk, 5)
-                .AddRecipeGroup(ShardsRecipes.Soul, 5)
+                .AddRecipeGroup(Soul, 5)
                 .AddTile(TileID.DemonAltar)
                 .Register();
             Recipe.Create(ItemID.ClothierVoodooDoll)
@@ -133,6 +140,27 @@ namespace ShardsOfAtheria
                 .AddIngredient(ItemID.RedHat)
                 .AddTile(TileID.DemonAltar)
                 .Register();
+
+            Recipe.Create(ItemID.RodofDiscord)
+                .AddIngredient(ItemID.HallowedBar, 20)
+                .AddIngredient(ItemID.BeetleHusk, 18)
+                .AddIngredient(ItemID.SoulofFlight, 14)
+                .AddIngredient(ItemID.SoulofLight, 14)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
+        }
+
+        public override void PostAddRecipes()
+        {
+            for (var i = 0; i < Recipe.maxRecipes; i++)
+            {
+                Recipe recipe = Main.recipe[i];
+                if ((recipe.TryGetIngredient(ItemID.Bottle, out Item _) || recipe.TryGetIngredient(ItemID.BottledWater, out Item _) || recipe.TryGetIngredient(ItemID.BottledHoney, out Item _))
+                    && recipe.HasTile(TileID.Bottles))
+                {
+                    SoAGlobalItem.Potions.Add(recipe.createItem.type);
+                }
+            }
         }
     }
 }

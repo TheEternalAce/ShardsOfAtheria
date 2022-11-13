@@ -1,29 +1,28 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
-	public class AmethystCore : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			Tooltip.SetDefault("Gives a dash to the wearer");
+    public class AmethystCore : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            Tooltip.SetDefault("Gives a dash to the wearer");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
-		public override void SetDefaults()
-		{
-			Item.width = 32;
-			Item.height = 32;
-			Item.accessory = true;
+        public override void SetDefaults()
+        {
+            Item.width = 32;
+            Item.height = 32;
+            Item.accessory = true;
 
-			Item.rare = ItemRarityID.Blue;
-			Item.value = Item.sellPrice(0, 1, 25);
-		}
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(0, 1, 25);
+        }
 
         public override void AddRecipes()
         {
@@ -36,7 +35,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
-		{
+        {
             AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
             mp.DashVelocity = 13f;
             AmethystDashPlayer.MAX_DASH_DELAY = 50;

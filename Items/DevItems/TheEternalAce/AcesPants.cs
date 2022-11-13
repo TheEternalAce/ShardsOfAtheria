@@ -1,7 +1,6 @@
 ﻿using Terraria;
-using Terraria.GameContent.Creative;
-using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.DevItems.TheEternalAce
 {
@@ -14,7 +13,7 @@ namespace ShardsOfAtheria.Items.DevItems.TheEternalAce
             Tooltip.SetDefault("'Great for impersonating devs!'\n" +
                 "'Pockets not included'");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

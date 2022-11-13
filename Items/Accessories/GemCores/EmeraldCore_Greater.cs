@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,12 +14,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			Tooltip.SetDefault("Counts as wings\n" +
 				"10% increased movement speed\n" +
 				"Increased jump height" +
-				"Panic Necklace, Lava Waders and Flippers effects\n" +
+				"Panic Necklace, Terraspark Boots and Flippers effects\n" +
 				"Grants flight and slowfall");
 
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(120, 9f, 2.5f);
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
 		public override void SetDefaults()
@@ -35,12 +34,17 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.jumpBoost = true;
-			player.panic = true;
-			player.accFlipper = true;
+			// Terraspark Boots
 			player.waterWalk = true;
 			player.fireWalk = true;
 			player.lavaMax += 420;
+			player.accRunSpeed = 6.75f;
+			player.rocketBoots = 3;
+			player.iceSkate = true;
+
+			// Misc
+			player.accFlipper = true;
+			player.jumpBoost = true;
 		}
 
 		public override void AddRecipes()
@@ -49,7 +53,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 				.AddIngredient(ModContent.ItemType<EmeraldCore>())
 				.AddIngredient(ItemID.HallowedBar, 5)
 				.AddIngredient(ItemID.Flipper)
-				.AddIngredient(ItemID.LavaWaders)
+				.AddIngredient(ItemID.TerrasparkBoots)
 				.AddIngredient(ItemID.PanicNecklace)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();

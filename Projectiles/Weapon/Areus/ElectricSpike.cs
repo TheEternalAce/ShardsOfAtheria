@@ -1,10 +1,8 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Buffs;
-using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Areus
 {
@@ -30,8 +28,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
             Projectile.light = 1;
             Projectile.timeLeft = 600;
             Projectile.penetrate = -1;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 8;
 
-            DrawOffsetX = 4;
+            DrawOffsetX = -4;
         }
 
         public override void AI()
@@ -52,7 +52,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
                 Projectile.netUpdate = true;
             }
             if (flightTimer == 50)
+            {
+                Projectile.velocity = Vector2.Normalize(to - Projectile.Center) * 16f;
                 Projectile.tileCollide = true;
+            }
             if (Main.rand.NextBool(20))
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric, 0, 0, 200, Scale: 1f);

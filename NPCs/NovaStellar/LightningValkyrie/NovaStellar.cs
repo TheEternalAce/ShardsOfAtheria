@@ -14,7 +14,6 @@ using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
@@ -163,7 +162,8 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
                 {
                     Projectile proj = Main.projectile[i];
 
-                    if (proj.type == ModContent.ProjectileType<StormSword>() || proj.type == ModContent.ProjectileType<StormLance>() || proj.type == ModContent.ProjectileType<FeatherBlade>())
+                    if (proj.type == ModContent.ProjectileType<StormSword>() || proj.type == ModContent.ProjectileType<StormLance>() || proj.type == ModContent.ProjectileType<FeatherBlade>()
+                        || proj.type == ModContent.ProjectileType<StormCloud>())
                     {
                         proj.Kill();
                     }

@@ -6,6 +6,7 @@ using ShardsOfAtheria.NPCs;
 using ShardsOfAtheria.Projectiles.Minions;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Tools;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -703,6 +704,11 @@ namespace ShardsOfAtheria.Players
 
         public override void OnEnterWorld(Player player)
         {
+            if (!Entry.entriesLoaded)
+            {
+                Entry.IncludedEntries();
+                Entry.entriesLoaded = true;
+            }
             if (soulCrystals.Contains(ModContent.ItemType<EyeSoulCrystal>()))
             {
                 Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<AllSeeingEye>(), 0, 0f, player.whoAmI);

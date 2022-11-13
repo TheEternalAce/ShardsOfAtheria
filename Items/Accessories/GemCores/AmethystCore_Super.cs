@@ -1,27 +1,26 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
-	public class AmethystCore_Super : ModItem
-	{
-		public override void SetStaticDefaults()
+    public class AmethystCore_Super : ModItem
+    {
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Super Amethyst Core");
             Tooltip.SetDefault("Gives a great dash to the wearer\n" +
                 "Immunity to knockback, Poison, Venom, On Fire, cold debuffs, lava and fire blocks\n" +
                 "Master Ninja Gear effects");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
-		public override void SetDefaults()
-		{
-			Item.width = 32;
-			Item.height = 32;
+        public override void SetDefaults()
+        {
+            Item.width = 32;
+            Item.height = 32;
             Item.accessory = true;
 
             Item.rare = ItemRarityID.Lime;

@@ -2,16 +2,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Players;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
-using Terraria.DataStructures;
 using Terraria.GameContent;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -28,7 +24,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
         {
             book = ModContent.Request<Texture2D>(Texture + "_Open");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
 
             SoAGlobalItem.SlayerItem.Add(Type);
         }
@@ -136,14 +132,10 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             }
             if (page == 1)
             {
-                tooltips.Add(new TooltipLine(Mod, "Page", "General Info:\n" +
-                    "Use on this page to toggle Slayer mode. Cannot be used while a boss is alive.\n" +
-                    "Bosses will drop every item in its loot table (in a stack of 1000 if the item is stackable), its slayer mode exclusive item and its Soul Crystal.\n" +
-                    "This boss is considered slain and cannot be fought again.\n" +
-                    "While Slayer mode is active, taking damage will reduce your defense. Defense will regenerate after a period of time."));
+                tooltips.Add(new TooltipLine(Mod, "Page", Language.GetTextValue("Mods.ShardsOfAtheria.Necronomicon.GenericInfo")));
                 if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
                 {
-                    tooltips.Add(new TooltipLine(Mod, "SlayerMode", "Slayer Mode Active")
+                    tooltips.Add(new TooltipLine(Mod, "SlayerMode", Language.GetTextValue("Mods.ShardsOfAtheria.Necronomicon.Active"))
                     {
                         OverrideColor = Color.Red
                     });
@@ -151,10 +143,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             }
             if (page == 2)
             {
-                tooltips.Add(new TooltipLine(Mod, "Page", "Soul Crystal Info:\n" +
-                    "Absorbing a boss' Soul Crystal gives you it's powers. Be warned: absorbing too many Soul Crystals may descend you into madness.\n" +
-                    "Soul Crystals are removable by making a Soul Extracting Dagger.\n" +
-                    "Certain combinations of Soul Crystals and the correct Soul Bond will cause a synergy between the Soul Crystals and new special effects will occur."));
+                tooltips.Add(new TooltipLine(Mod, "Page", Language.GetTextValue("Mods.ShardsOfAtheria.Necronomicon.SoulCrystalInfo")));
             }
 
             // Soul Crystal effects

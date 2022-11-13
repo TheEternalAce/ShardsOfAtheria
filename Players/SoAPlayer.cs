@@ -7,9 +7,9 @@ using ShardsOfAtheria.Items.SevenDeadlySouls;
 using ShardsOfAtheria.Items.Tools.Misc;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -39,8 +39,6 @@ namespace ShardsOfAtheria.Players
         public bool superEmeraldCore;
         public bool areusKey;
         public bool megaGemCore;
-        public bool shadowBrand;
-        public bool shadowBrandToggled;
         public bool hallowedSeal;
         public bool zenovaJavelin;
         public bool heartBreak;
@@ -94,7 +92,6 @@ namespace ShardsOfAtheria.Players
             superEmeraldCore = false;
             areusKey = false;
             megaGemCore = false;
-            shadowBrand = false;
             hallowedSeal = false;
             zenovaJavelin = false;
             heartBreak = false;
@@ -127,21 +124,17 @@ namespace ShardsOfAtheria.Players
             overdriveTimeMax = DefaultOverdriveTimeMax;
             itemCombo = 0;
 
-            shadowBrandToggled = false;
             phaseOffense = true;
         }
 
         public override void SaveData(TagCompound tag)
         {
-            tag["shadowBrandToggled"] = shadowBrandToggled;
             tag["overdriveTimeCurrent"] = overdriveTimeCurrent;
             tag["phaseOffense"] = phaseOffense;
         }
 
         public override void LoadData(TagCompound tag)
         {
-            if (tag.ContainsKey("shadowBrandToggled"))
-                shadowBrandToggled = tag.GetBool("shadowBrandToggled");
             if (tag.ContainsKey("overdriveTimeCurrent"))
                 overdriveTimeCurrent = (int)tag["overdriveTimeCurrent"];
             if (tag.ContainsKey("phaseOffense"))
@@ -369,7 +362,7 @@ namespace ShardsOfAtheria.Players
 
         private void UpdateResource()
         {
-            if (Player.HasBuff(ModContent.BuffType<Overdrive>()) && !Player.GetModPlayer<DecaPlayer>().modelDeca)
+            if (Player.HasBuff(ModContent.BuffType<Overdrive>()))
             {
                 // For our resource lets make it regen slowly over time to keep it simple, let's use exampleResourceRegenTimer to count up to whatever value we want, then increase currentResource.
                 overdriveTimeRegenTimer++; //Increase it by 60 per second, or 1 per tick.
@@ -405,11 +398,6 @@ namespace ShardsOfAtheria.Players
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-            if (ShardsOfAtheria.QuickTest.JustPressed /*&& (Player.name == "AceOfSpades2370" || Player.name == "The Eternal Ace")*/)
-            {
-                ModContent.GetInstance<ShardsDownedSystem>().slainTwins = false;
-                ModContent.GetInstance<ShardsDownedSystem>().slainPrime = false;
-            }
             if (ShardsOfAtheria.ArmorSetBonusActive.JustReleased && !Player.HasBuff(ModContent.BuffType<SetBonusCooldown>()))
             {
                 if (pearlwoodSet && !Player.mouseInterface)
@@ -634,30 +622,28 @@ namespace ShardsOfAtheria.Players
                 {
                     Player.immune = true;
                     Player.immuneTime = 60;
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SapphireShield>(), 0, 0, Player.whoAmI);
                     return false;
                 }
                 if (Player.whoAmI == Main.myPlayer && sapphireCore && Main.rand.NextFloat() < 0.1f)
                 {
                     Player.immune = true;
                     Player.immuneTime = 60;
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SapphireShield>(), 0, 0, Player.whoAmI);
                     return false;
                 }
                 if (Player.whoAmI == Main.myPlayer && superSapphireCore && Main.rand.NextFloat() < 0.15f)
                 {
                     Player.immune = true;
                     Player.immuneTime = 60;
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SapphireShield>(), 0, 0, Player.whoAmI);
                     return false;
                 }
                 if (Player.whoAmI == Main.myPlayer && megaGemCore && Main.rand.NextFloat() < 0.2f)
                 {
                     Player.immune = true;
                     Player.immuneTime = 60;
-                    return false;
-                }
-                if (Player.whoAmI == Main.myPlayer && shadowBrand && shadowBrandToggled && Main.rand.NextFloat() < .1f)
-                {
-                    Player.immune = true;
-                    Player.immuneTime = 60;
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SapphireShield>(), 0, 0, Player.whoAmI);
                     return false;
                 }
             }

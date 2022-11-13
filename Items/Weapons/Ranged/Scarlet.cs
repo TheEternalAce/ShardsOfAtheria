@@ -1,9 +1,7 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,7 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Tooltip.SetDefault("Shoots powerful Luminite Bullets\n" +
 				"66% chance to not consume ammo");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
 		public override void SetDefaults()

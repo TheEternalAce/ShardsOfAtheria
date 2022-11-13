@@ -1,14 +1,9 @@
-using Terraria.ID;
-using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Tiles;
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.DataStructures;
-using ShardsOfAtheria.Projectiles.Other;
-using Terraria.GameContent.Creative;
-using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -16,7 +11,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

@@ -1,4 +1,5 @@
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -11,6 +12,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

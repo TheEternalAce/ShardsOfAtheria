@@ -1,19 +1,18 @@
+using ShardsOfAtheria.Tiles;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Tiles;
 
 namespace ShardsOfAtheria.Items.Placeable
 {
 	public class BionicBarItem : ModItem
 	{
-		public override void SetStaticDefaults() 
+		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.ItemIconPulse[Item.type] = true;
 			ItemID.Sets.SortingPriorityMaterials[Item.type] = 59;
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+			SacrificeTotal = 25;
 		}
 
 		public override void SetDefaults()
@@ -30,7 +29,7 @@ namespace ShardsOfAtheria.Items.Placeable
 			Item.useTurn = true;
 			Item.autoReuse = true;
 
-			Item.value = Item.sellPrice(0,  1);
+			Item.value = Item.sellPrice(0, 1);
 			Item.rare = ItemRarityID.Blue;
 		}
 

@@ -2,11 +2,9 @@ using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using System.Linq;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace ShardsOfAtheria.Items.GrabBags
 {
@@ -16,7 +14,7 @@ namespace ShardsOfAtheria.Items.GrabBags
         {
             Tooltip.SetDefault("Gives a stack of a random ammo");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+            SacrificeTotal = 99;
         }
 
         public override void SetDefaults()

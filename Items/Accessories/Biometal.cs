@@ -5,7 +5,6 @@ using ShardsOfAtheria.Players;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -49,7 +48,7 @@ namespace ShardsOfAtheria.Items.Accessories
                 "Increased life by 100 and mana by 40\n" +
                 "Grants dash, wall sliding and immunity to fall damage and certain debuffs");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
 
             SetupDrawing();
         }

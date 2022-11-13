@@ -1,18 +1,18 @@
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
+using ShardsOfAtheria.Systems;
 
 namespace ShardsOfAtheria.Items.Weapons.Ammo
 {
-	public class BB : ModItem
+    public class BB : ModItem
 	{
 		public override void SetStaticDefaults() 
 		{
 			DisplayName.SetDefault("BB");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 99;
+			SacrificeTotal = 99;
 		}
 
 		public override void SetDefaults()

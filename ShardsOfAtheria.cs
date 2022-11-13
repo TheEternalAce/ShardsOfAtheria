@@ -1,14 +1,12 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
-using ShardsOfAtheria.Items.Tools.Misc;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon.Minion;
 using ShardsOfAtheria.NPCs;
 using ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie;
-using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -30,8 +28,6 @@ namespace ShardsOfAtheria
         public static ModKeybind SoulTeleport;
         public static ModKeybind ArmorSetBonusActive;
 
-        public static ModKeybind QuickTest;
-
         public override void Load()
         {
             OverdriveKey = KeybindLoader.RegisterKeybind(this, "Toggle Overdrive", "F");
@@ -42,13 +38,15 @@ namespace ShardsOfAtheria
             SoulTeleport = KeybindLoader.RegisterKeybind(this, "Soul Crystal Teleport", "V");
             ArmorSetBonusActive = KeybindLoader.RegisterKeybind(this, "Activate Armor Set Bonus", "Mouse4");
 
-            QuickTest = KeybindLoader.RegisterKeybind(this, "Quick Test (For mod developers, does nothing)", "OemComma");
-
-            Entry.IncludedEntries();
         }
 
         public override void PostSetupContent()
         {
+            if (ModContent.GetInstance<ShardsConfigClientSide>().windowTitle)
+            {
+                Main.instance.Window.Title = "WALUIGI";
+            }
+
             for (int i = 1; i < ItemLoader.ItemCount; i++)
             {
                 Item ammunition = ContentSamples.ItemsByType[i];

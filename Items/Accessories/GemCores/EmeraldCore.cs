@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,12 +12,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		{
 			Tooltip.SetDefault("Counts as wings\n" +
 				"10% increased movement speed\n" +
-                "Increased jump height\n" +
+				"Increased jump height\n" +
 				"Grants flight and slowfall");
 
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(30, .5f, .5f);
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
 		public override void SetDefaults()
@@ -48,7 +47,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
 			ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
-		    {
+		{
 			ascentWhenFalling = .85f;
 			ascentWhenRising = .5f;
 			maxCanAscendMultiplier = 3f;

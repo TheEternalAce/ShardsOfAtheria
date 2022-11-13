@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Systems;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             DisplayName.SetDefault("Lesser Amethyst Core");
             Tooltip.SetDefault("Gives a short dash to the wearer.");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

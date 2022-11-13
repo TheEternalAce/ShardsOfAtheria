@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,7 +14,7 @@ namespace ShardsOfAtheria.Items.Materials
             ItemID.Sets.ItemNoGravity[Item.type] = true;
 
             SoAGlobalItem.SlayerItem.Add(Type);
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 25;
+            SacrificeTotal = 25;
         }
 
         public override void SetDefaults()

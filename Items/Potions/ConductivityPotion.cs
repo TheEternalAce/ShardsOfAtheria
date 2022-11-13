@@ -1,18 +1,17 @@
-using Terraria;
-using Terraria.GameContent.Creative;
-using Terraria.ID;
-using Terraria.ModLoader;
 using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items.Placeable;
-using Terraria.DataStructures;
+using ShardsOfAtheria.Utilities;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Potions
 {
 	public class ConductivityPotion : ModItem
 	{
-		public override void SetStaticDefaults() 
+		public override void SetStaticDefaults()
 		{
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
+			SacrificeTotal = 30;
 		}
 
 		public override void SetDefaults()
@@ -21,22 +20,14 @@ namespace ShardsOfAtheria.Items.Potions
 			Item.height = 50;
 			Item.maxStack = 9999;
 
-			Item.useTime = 17;
-			Item.useAnimation = 17;
-			Item.useStyle = ItemUseStyleID.DrinkLiquid;
-			Item.UseSound = SoundID.Item3;
-			Item.consumable = true;
-			Item.useTurn = true;
+			Item.DefaultToPotion(ModContent.BuffType<Conductive>(), 14400);
 
 			Item.value = Item.sellPrice(silver: 75);
 			Item.rare = ItemRarityID.Cyan;
-
-			Item.buffType = ModContent.BuffType<Conductive>();
-			Item.buffTime = 14400;
 		}
 
-        public override void AddRecipes()
-        {
+		public override void AddRecipes()
+		{
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<AreusShard>())
 				.AddIngredient(ItemID.CopperOre)
@@ -59,9 +50,9 @@ namespace ShardsOfAtheria.Items.Potions
 		public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
 		{
 			if (Player.HasBuff(ModContent.BuffType<Conductive>()))
-            {
-                target.AddBuff(ModContent.BuffType<ElectricShock>(), Player.HasBuff(ModContent.BuffType<Conductive>()) ? 1200 : 600);
-            }
+			{
+				target.AddBuff(ModContent.BuffType<ElectricShock>(), Player.HasBuff(ModContent.BuffType<Conductive>()) ? 1200 : 600);
+			}
 		}
 	}
 }

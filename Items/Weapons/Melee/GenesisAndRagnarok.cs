@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
@@ -40,7 +39,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 "Use RMB to bring up a shield, release RMB to throw the shield\n" +
                 "This shield grants 20 defense and is capable of parrying and reflecting some projectiles");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

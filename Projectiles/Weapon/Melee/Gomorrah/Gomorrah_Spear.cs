@@ -18,8 +18,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 
         public override void SetDefaults()
         {
-            Projectile.width = 8;
-            Projectile.height = 8;
+            Projectile.width = 18;
+            Projectile.height = 18;
             Projectile.aiStyle = 19;
             Projectile.penetrate = -1;
             Projectile.scale = 1.3f;

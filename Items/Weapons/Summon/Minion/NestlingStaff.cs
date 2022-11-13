@@ -1,16 +1,10 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Projectiles.Minions;
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Buffs;
-using Terraria.GameContent.Creative;
-using ShardsOfAtheria.Items.Potions;
-using Terraria.Audio;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged;
-using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Placeable;
-using Terraria.DataStructures;
-using ShardsOfAtheria.Projectiles.Minions;
-using ShardsOfAtheria.Items.Weapons.Areus;
 
 namespace ShardsOfAtheria.Items.Weapons.Summon.Minion
 {
@@ -18,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Minion
     {
         public override void SetStaticDefaults()
         {
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

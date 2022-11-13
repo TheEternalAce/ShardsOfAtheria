@@ -1,16 +1,16 @@
+using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Systems;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Potions
 {
     public class SoulInjection : ModItem
 	{
-		public override void SetStaticDefaults() 
+		public override void SetStaticDefaults()
 		{
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
+			SacrificeTotal = 30;
 		}
 
 		public override void SetDefaults()
@@ -32,18 +32,18 @@ namespace ShardsOfAtheria.Items.Potions
 			Item.buffTime = 14400;
 		}
 
-        public override void AddRecipes()
-        {
+		public override void AddRecipes()
+		{
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<EmptyNeedle>())
 				.AddRecipeGroup(ShardsRecipes.Soul, 10)
 				.AddTile(TileID.Bottles)
 				.Register();
-        }
+		}
 
-        public override void OnConsumeItem(Player player)
-        {
-            player.QuickSpawnItem(player.GetSource_FromThis(), ModContent.ItemType<EmptyNeedle>());
+		public override void OnConsumeItem(Player player)
+		{
+			player.QuickSpawnItem(player.GetSource_FromThis(), ModContent.ItemType<EmptyNeedle>());
 			player.AddBuff(ModContent.BuffType<InjectionShock>(), 300);
 		}
 
@@ -53,16 +53,16 @@ namespace ShardsOfAtheria.Items.Potions
 				return true;
 			else return false;
 		}
-    }
+	}
 
-    public class SoulInfused : ModBuff
-    {
-        public override void Update(Player player, ref int buffIndex)
-        {
-            player.statLifeMax2 += 50;
-            player.statDefense += 10;
-            player.GetDamage(DamageClass.Generic) += .15f;
+	public class SoulInfused : ModBuff
+	{
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.statLifeMax2 += 50;
+			player.statDefense += 10;
+			player.GetDamage(DamageClass.Generic) += .15f;
 			player.lifeRegen += 10;
-        }
-    }
+		}
+	}
 }

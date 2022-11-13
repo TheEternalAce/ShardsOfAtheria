@@ -1,6 +1,5 @@
 ﻿using ShardsOfAtheria.Players;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,7 +11,7 @@ namespace ShardsOfAtheria.Items
         {
             Tooltip.SetDefault("Refills Overdrive Time");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
+            SacrificeTotal = 30;
         }
 
         public override void SetDefaults()

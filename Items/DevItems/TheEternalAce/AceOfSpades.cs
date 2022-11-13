@@ -1,6 +1,5 @@
 ﻿using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,7 +12,7 @@ namespace ShardsOfAtheria.Items.DevItems.TheEternalAce
             Tooltip.SetDefault("Use RMB to detonate the cards\n" +
                 "'What is that object?'");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

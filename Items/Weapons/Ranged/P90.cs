@@ -2,7 +2,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.GameContent.Creative;
 using System.Collections.Generic;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
@@ -15,7 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 		{
 			Tooltip.SetDefault("<right> to switch between 2 modes: Semi and Full-auto");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
 		public override void SetDefaults() 

@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,9 +11,9 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			DisplayName.SetDefault("Super Topaz Core");
 			Tooltip.SetDefault("Increases max life by 60\n" +
 				"Honey, Regeneration, Cozy Campfire and Heart Lantern buffs\n" +
-                "Effects of Shiny Stone");
+				"Effects of Shiny Stone");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
 		public override void SetDefaults()

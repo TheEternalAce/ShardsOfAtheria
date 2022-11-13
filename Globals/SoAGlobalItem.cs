@@ -3,15 +3,13 @@ using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Items.SevenDeadlySouls;
 using ShardsOfAtheria.Items.SoulCrystals;
-using ShardsOfAtheria.Items.Weapons;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles;
 using ShardsOfAtheria.Projectiles.Other;
+using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -31,6 +29,7 @@ namespace ShardsOfAtheria.Globals
         #region Item Categories
         public static List<int> SlayerItem = new();
         public static List<int> SinfulItem = new();
+        public static List<int> Potions = new();
         #endregion
 
         #region Ammo lists for Ammo Bags
@@ -69,6 +68,11 @@ namespace ShardsOfAtheria.Globals
             ShardsConfigServerSide serverConfig = ModContent.GetInstance<ShardsConfigServerSide>();
             switch (item.type)
             {
+                // Why don't silbr bullets deal extra damage to werewolves???
+                case ItemID.SilverBullet:
+                    item.shoot = ModContent.ProjectileType<SilverBullet>();
+                    break;
+
                 #region Add new grenade ammo type
                 case ItemID.Grenade:
                 case ItemID.Beenade:
@@ -140,6 +144,7 @@ namespace ShardsOfAtheria.Globals
                     if (serverConfig.nonConsumeBoss)
                     {
                         item.consumable = false;
+                        item.maxStack = 1;
                         CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[item.type] = 1;
                     }
                     break;
@@ -356,6 +361,10 @@ namespace ShardsOfAtheria.Globals
 
         public override bool ConsumeItem(Item item, Player player)
         {
+            if (Potions.Contains(item.type))
+            {
+                Item.NewItem(item.GetSource_FromThis(), player.getRect(), ItemID.Bottle, 1);
+            }
             if (player.HasBuff(ModContent.BuffType<GluttonyBuff>()))
             {
                 if (item.buffType == BuffID.WellFed)

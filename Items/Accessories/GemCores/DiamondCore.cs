@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,7 +10,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		{
 			Tooltip.SetDefault("Grants immunity to knockback");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
 		public override void SetDefaults()
@@ -36,9 +35,9 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 				.Register();
 		}
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
+		public override void UpdateAccessory(Player player, bool hideVisual)
+		{
 			player.noKnockback = true;
-        }
-    }
+		}
+	}
 }

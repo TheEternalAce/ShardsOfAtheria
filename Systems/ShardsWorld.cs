@@ -1,17 +1,16 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using ShardsOfAtheria.Tiles;
-using Terraria.ID;
-using ShardsOfAtheria.Items.Placeable.Furniture;
-using ShardsOfAtheria.Utilities;
-using Terraria.WorldBuilding;
-using System.Collections.Generic;
-using Terraria.IO;
-using ShardsOfAtheria.Tiles.Furniture;
+﻿using ShardsOfAtheria.Items.Placeable.Furniture;
 using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Tiles;
+using ShardsOfAtheria.Tiles.Furniture;
+using ShardsOfAtheria.Utilities;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.ID;
+using Terraria.IO;
+using Terraria.ModLoader;
+using Terraria.WorldBuilding;
 
-namespace ShardsOfAtheria
+namespace ShardsOfAtheria.Systems
 {
     public class ShardsWorld : ModSystem
     {
@@ -76,13 +75,13 @@ namespace ShardsOfAtheria
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {
             progress.Message = "Shards Of Atheria Ores";
-            for (int k = 0; k < (int)((Main.maxTilesX * Main.maxTilesY) * 6E-05); k++)
+            for (int k = 0; k < (int)(Main.maxTilesX * Main.maxTilesY * 6E-05); k++)
             {
                 int x = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
                 WorldGen.TileRunner(x, y, WorldGen.genRand.Next(3, 6), WorldGen.genRand.Next(2, 6), ModContent.TileType<AreusOre>());
             }
-            for (int k = 0; k < (int)((Main.maxTilesX * Main.maxTilesY) * 6E-05); k++)
+            for (int k = 0; k < (int)(Main.maxTilesX * Main.maxTilesY * 6E-05); k++)
             {
                 int x = WorldGen.genRand.Next(0, Main.maxTilesX);
                 int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
@@ -108,7 +107,7 @@ namespace ShardsOfAtheria
 
                 // Fuck you it can also spawn on the right now
 
-                if ((x < Main.maxTilesX * 0.2f && x > Main.maxTilesX * 0.05f) || (x > Main.maxTilesX * 0.8f && x < Main.maxTilesX * 0.95f))
+                if (x < Main.maxTilesX * 0.2f && x > Main.maxTilesX * 0.05f || x > Main.maxTilesX * 0.8f && x < Main.maxTilesX * 0.95f)
                 {
                     int y = WorldGen.genRand.Next((int)(Main.maxTilesY * 0.85f), Main.maxTilesY);
 

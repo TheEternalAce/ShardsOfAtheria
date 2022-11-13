@@ -1,15 +1,12 @@
-﻿using Terraria;
-using Terraria.GameContent.Creative;
+﻿using ShardsOfAtheria.Players;
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Tiles;
-using Terraria.DataStructures;
-using ShardsOfAtheria.Players;
 
 namespace ShardsOfAtheria.Items.Accessories
 {
-    [AutoloadEquip(EquipType.Wings)]
+	[AutoloadEquip(EquipType.Wings)]
 	public class ChargedAreusWings : ModItem
 	{
 		public override void SetStaticDefaults()
@@ -21,7 +18,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 9f, 2.5f);
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
 		public override void SetDefaults()
@@ -41,8 +38,8 @@ namespace ShardsOfAtheria.Items.Accessories
 			player.GetModPlayer<SoAPlayer>().areusBatteryElectrify = true;
 			player.GetModPlayer<SoAPlayer>().areusWings = true;
 			player.GetModPlayer<SoAPlayer>().naturalAreusRegen = true;
-            player.empressBrooch = true;
-        }
+			player.empressBrooch = true;
+		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
 			ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)

@@ -4,8 +4,6 @@ using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using Terraria;
 using Terraria.Chat;
-using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -18,7 +16,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
         {
             Tooltip.SetDefault("Transforms into a weapon based on your sin");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

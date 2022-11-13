@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Projectiles.Minions;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -48,14 +46,14 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
                 "Melee weapons autoswing\n" +
                 "Immunity to damage dealing, damage and defense reducing, anti-healing and cold debuffs and Chaos State\n" +
                 "Grants Ironskin and Endurance when dealing damage and Wrath, Rage and Inferno when taking damage\n" +
-                "Effects of Ankh Shield, Bundle of Ballons, Frostspark Boots, Lava Waders, Shiny Stone and Soaring insignia\n" +
+                "Effects of Ankh Shield, Bundle of Balloons, Frozen Turtle Shell, Shiny Stone, Soaring Insignia and Terrasparrk Boots\n" +
                 "Permanent Thorns, Regeneration, Honey, Heart Lantern, Cozy Campfire, Heartreach and Gravitation buffs\n" +
                 "Use to disable Gravitation\n" +
                 "Grants infinite flight and slow fall");
 
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(100, 9f, 2.5f, true, 1f, 1f);
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -175,31 +173,16 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.buffImmune[BuffID.MoonLeech] = true;
             player.buffImmune[BuffID.PotionSickness] = true;
             player.buffImmune[ModContent.BuffType<HeartBreak>()] = true;
+            player.potionDelay = 0;
+            player.potionDelayTime = 0;
 
-            //Royal Gel
-            player.npcTypeNoAggro[1] = true;
-            player.npcTypeNoAggro[16] = true;
-            player.npcTypeNoAggro[59] = true;
-            player.npcTypeNoAggro[71] = true;
-            player.npcTypeNoAggro[81] = true;
-            player.npcTypeNoAggro[138] = true;
-            player.npcTypeNoAggro[121] = true;
-            player.npcTypeNoAggro[122] = true;
-            player.npcTypeNoAggro[141] = true;
-            player.npcTypeNoAggro[147] = true;
-            player.npcTypeNoAggro[183] = true;
-            player.npcTypeNoAggro[184] = true;
-            player.npcTypeNoAggro[204] = true;
-            player.npcTypeNoAggro[225] = true;
-            player.npcTypeNoAggro[244] = true;
-            player.npcTypeNoAggro[302] = true;
-            player.npcTypeNoAggro[333] = true;
-            player.npcTypeNoAggro[335] = true;
-            player.npcTypeNoAggro[334] = true;
-            player.npcTypeNoAggro[336] = true;
-            player.npcTypeNoAggro[537] = true;
+            // Frozen Turtle Shell
+            if (player.statLife <= player.statLifeMax * 0.5)
+            {
+                player.AddBuff(62, 5);
+            }
 
-            //Ankh Shield
+            // Ankh Shield
             player.buffImmune[BuffID.Poisoned] = true;
             player.buffImmune[BuffID.Bleeding] = true;
             player.buffImmune[BuffID.Darkness] = true;

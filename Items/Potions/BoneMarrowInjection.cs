@@ -1,19 +1,15 @@
+using ShardsOfAtheria.Items.Materials;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Items.Placeable;
-using Terraria.DataStructures;
-using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Potions
 {
-    public class BoneMarrowInjection : ModItem
+	public class BoneMarrowInjection : ModItem
 	{
-		public override void SetStaticDefaults() 
+		public override void SetStaticDefaults()
 		{
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
+			SacrificeTotal = 30;
 		}
 
 		public override void SetDefaults()
@@ -35,8 +31,8 @@ namespace ShardsOfAtheria.Items.Potions
 			Item.buffTime = 14400;
 		}
 
-        public override void AddRecipes()
-        {
+		public override void AddRecipes()
+		{
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<EmptyNeedle>())
 				.AddIngredient(ItemID.Bone)
@@ -56,14 +52,14 @@ namespace ShardsOfAtheria.Items.Potions
 				return true;
 			else return false;
 		}
-    }
+	}
 
-    public class BoneStrength : ModBuff
-    {
-        public override void Update(Player player, ref int buffIndex)
-        {
-            player.GetDamage(DamageClass.Generic) += .1f;
-            player.endurance += .2f;
-        }
-    }
+	public class BoneStrength : ModBuff
+	{
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.GetDamage(DamageClass.Generic) += .1f;
+			player.endurance += .2f;
+		}
+	}
 }

@@ -1,13 +1,10 @@
+using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Buffs;
-using Terraria.GameContent.Creative;
-using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Areus;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {
@@ -15,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
     {
         public override void SetStaticDefaults()
         {
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }
 

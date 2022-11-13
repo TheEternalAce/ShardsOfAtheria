@@ -1,5 +1,4 @@
 ﻿using Terraria.ID;
-using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using ShardsOfAtheria.Tiles.Furniture;
 
@@ -10,7 +9,7 @@ namespace ShardsOfAtheria.Items.Placeable.Furniture
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Omega Chest");
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
 		public override void SetDefaults()
@@ -34,7 +33,7 @@ namespace ShardsOfAtheria.Items.Placeable.Furniture
 	{
 		public override void SetStaticDefaults()
 		{
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3; // Biome keys usually take 1 item to research instead.
+			SacrificeTotal = 3; // Biome keys usually take 1 item to research instead.
 		}
 
 		public override void SetDefaults()

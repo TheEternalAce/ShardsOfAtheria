@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Pets;
 using ShardsOfAtheria.Projectiles.Pets;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,7 +11,7 @@ namespace ShardsOfAtheria.Items.PetItems
     {
         public override void SetStaticDefaults()
         {
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

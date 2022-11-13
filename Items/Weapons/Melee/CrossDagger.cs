@@ -1,10 +1,8 @@
-using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Systems;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
@@ -12,7 +10,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

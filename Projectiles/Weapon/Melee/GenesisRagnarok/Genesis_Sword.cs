@@ -97,6 +97,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         {
             return GenericSwing2(progress);
         }
+
         public override float GetScale(float progress)
         {
             float scale = base.GetScale(progress);

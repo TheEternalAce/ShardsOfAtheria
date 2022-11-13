@@ -9,11 +9,9 @@ using ShardsOfAtheria.Items.Weapons.Summon.Minion;
 using ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace ShardsOfAtheria.Items.GrabBags
 {
@@ -27,7 +25,7 @@ namespace ShardsOfAtheria.Items.GrabBags
             ItemID.Sets.BossBag[Type] = true; // This set is one that every boss bag should have, it, for example, lets our boss bag drop dev armor..
             ItemID.Sets.PreHardmodeLikeBossBag[Type] = true; // ..But this set ensures that dev armor will only be dropped on special world seeds, since that's the behavior of pre-hardmode boss bags
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+            SacrificeTotal = 3;
         }
 
         public override void SetDefaults()

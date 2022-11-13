@@ -2,7 +2,6 @@ using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Players;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,7 +13,7 @@ namespace ShardsOfAtheria.Items
 
         public override void SetStaticDefaults()
         {
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 30;
+            SacrificeTotal = 30;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

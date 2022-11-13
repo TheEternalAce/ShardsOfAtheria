@@ -1,22 +1,16 @@
-﻿using rail;
-using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.NPCProj;
-using ShardsOfAtheria.Projectiles.Other;
-using ShardsOfAtheria.Projectiles.Weapon.Summon;
+﻿using ShardsOfAtheria.Players;
 using System;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using static ShardsOfAtheria.Utilities.Entry;
 namespace ShardsOfAtheria.Commands
 {
-    class GenericCommand : ModCommand
+	class GenericCommand : ModCommand
 	{
 		public override bool IsLoadingEnabled(Mod mod)
 		{
 			return ShardsOfAtheria.DeveloperMode;
 		}
+
 		public override CommandType Type
 			=> CommandType.Chat;
 
@@ -36,7 +30,7 @@ namespace ShardsOfAtheria.Commands
 			SoAPlayer soaPlayer = Main.LocalPlayer.GetModPlayer<SoAPlayer>();
 			ShardsDownedSystem soaWorld = ModContent.GetInstance<ShardsDownedSystem>();
 
-            Console.WriteLine("Hello mod developer");
-        }
-    }
+			Console.WriteLine("----------Hello mod developer----------");
+		}
+	}
 }

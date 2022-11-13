@@ -1,13 +1,10 @@
+using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Placeable;
+using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Placeable;
-using Microsoft.Xna.Framework;
-using Terraria;
-using System.Collections.Generic;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged;
-using Terraria.GameContent.Creative;
-using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {
@@ -21,7 +18,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 "<right> to switch between 3 modes: Semi-auto, Burst Fire and Full-auto\n" +
                 "66% chance to not consume ammo");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }
 

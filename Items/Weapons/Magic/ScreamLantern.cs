@@ -1,10 +1,9 @@
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria;
-using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
+using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Magic
 {
@@ -14,7 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
         public override void SetStaticDefaults()
         {
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

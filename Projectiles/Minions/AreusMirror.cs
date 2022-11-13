@@ -2,9 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Items.Weapons.Ammo;
-using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -36,17 +33,13 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
+            Main.projFrames[Type] = 2;
         }
-
-        public override string Texture => "Terraria/Images/Item_" + ItemID.MagicMirror;
 
         public override void SetDefaults()
         {
-            Item refItem = new Item();
-            refItem.SetDefaults(ItemID.MagicMirror);
-
-            Projectile.width = refItem.width;
-            Projectile.height = refItem.height;
+            Projectile.width = 22;
+            Projectile.height = 22;
             Projectile.tileCollide = false; // Makes the minion go through tiles freely
 
             // These below are needed for a minion weapon
@@ -54,6 +47,9 @@ namespace ShardsOfAtheria.Projectiles.Minions
             Projectile.DamageType = DamageClass.Summon; // Declares the damage type (needed for it to deal damage)
             Projectile.minionSlots = 1f; // Amount of slots this minion occupies from the total minion slots available to the player (more on that later)
             Projectile.penetrate = -1; // Needed so the minion doesn't despawn on collision with enemies or tiles
+
+            DrawOffsetX = -8;
+            DrawOriginOffsetY = -14;
         }
 
         public override void AI()
@@ -67,6 +63,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
             SearchForTargets(owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter);
 
             Projectile.Center = owner.Center + new Vector2(0, -50);
+            Projectile.frame = (int)Projectile.ai[0];
 
             if (foundTarget)
                 fireTimer++;
@@ -74,10 +71,21 @@ namespace ShardsOfAtheria.Projectiles.Minions
             if (fireTimer > 60 && Main.myPlayer == Projectile.owner)
             {
                 SoundEngine.PlaySound(SoundID.Item11);
-                Projectile projectile = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize(targetCenter - Projectile.Center) * 16, ModContent.ProjectileType<AreusBulletProj>(), Projectile.damage, Projectile.knockBack, owner.whoAmI);
-                projectile.DamageType = DamageClass.Summon;
+                Projectile projectile = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize(targetCenter - Projectile.Center) * 16,
+                    ModContent.ProjectileType<AreusMirrorShard>(), Projectile.damage, Projectile.knockBack, owner.whoAmI);
+                projectile.minionSlots = 0;
+                projectile.penetrate = 1;
                 fireTimer = 0;
             }
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Electric);
+            }
+            SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
         }
 
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not

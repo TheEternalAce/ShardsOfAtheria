@@ -4,8 +4,10 @@ Join the Discord server to report bugs, see spoilers and other things: https://d
 View the Forum page for more info: https://forums.terraria.org/index.php?threads/shards-of-atheria-mod.112953/
 
 Spriters:
-Daluyan Messes (Discord)
+Torra th (Discord)
 nightlight (Discord)
+Dyl. (Discord)
+Daluyan Messes (Discord)
 TheEternalAce (Discord)
 
 Programmers:
@@ -13,10 +15,12 @@ TheEternalAce (Discord)
 
 Former members:
 DJ-Orca (Discord)
-Torra th (Discord)
+
+Other:
+Caustic Warrior: Made a few sprites for the mod
 
 MASSIVE thank you to the TML team and others in the server for the huge help otherwise I would have never gotten this far in making the mod
 
 As well as the following from other mods:
 The creator of the Parrying Daggers mod for letting me use their reflecting code, link to the mod: https://steamcommunity.com/sharedfiles/filedetails/?id=2765225124
-The creator of the Aequus mod for letting me use their world gen code, link to the mod: https://steamcommunity.com/sharedfiles/filedetails/?id=2787632488
+The creator of the Aequus mod for letting me use their world gen and epic sword code, link to the mod: https://steamcommunity.com/sharedfiles/filedetails/?id=2787632488

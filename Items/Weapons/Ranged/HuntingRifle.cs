@@ -1,19 +1,19 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Systems;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
-	public class HuntingRifle : ModItem
+    public class HuntingRifle : ModItem
 	{
-        public override void SetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
-        public override void SetDefaults() 
+		public override void SetDefaults()
 		{
 			Item.width = 58;
 			Item.height = 26;
@@ -37,12 +37,12 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.useAmmo = AmmoID.Bullet;
 		}
 
-        public override Vector2? HoldoutOffset()
+		public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-10, -2);
 		}
 
-        public override void AddRecipes() 
+		public override void AddRecipes()
 		{
 			CreateRecipe()
 				.AddRecipeGroup(RecipeGroupID.Wood, 15)

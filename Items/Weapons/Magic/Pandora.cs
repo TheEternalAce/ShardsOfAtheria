@@ -1,12 +1,11 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Weapons.Magic
 {
@@ -17,7 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Tooltip.SetDefault("Left Click to fire an ice bolt, <right> to summon lightning\n" +
                 "'Destiny of destruction awaits'");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

@@ -1,6 +1,6 @@
 ﻿using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Systems;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             DisplayName.SetDefault("Lesser Sapphire Core");
             Tooltip.SetDefault("5% chance to dodge attacks");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

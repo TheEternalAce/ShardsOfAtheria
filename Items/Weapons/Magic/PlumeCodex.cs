@@ -1,13 +1,9 @@
+using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Placeable;
-using Terraria;
-using ShardsOfAtheria.Projectiles.Weapon.Magic;
-using Terraria.DataStructures;
-using Microsoft.Xna.Framework;
-using Terraria.GameContent.Creative;
-using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
 
 namespace ShardsOfAtheria.Items.Weapons.Magic
 {
@@ -15,7 +11,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
     {
         public override void SetStaticDefaults()
         {
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()

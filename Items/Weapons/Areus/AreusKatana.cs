@@ -1,14 +1,13 @@
+using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.Potions;
+using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Buffs;
-using Terraria.GameContent.Creative;
-using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Projectiles.Weapon.Areus;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {
@@ -19,7 +18,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Tooltip.SetDefault("Holding this weapon increases your movement speed by 5%\n" +
                 "'I am all out of milk'");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }
 

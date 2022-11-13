@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,7 +10,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		{
 			Tooltip.SetDefault("Increases max Life by 40");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			SacrificeTotal = 1;
 		}
 
 		public override void SetDefaults()
@@ -37,6 +36,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.statLifeMax2 += 40;
-        }
+		}
 	}
 }
