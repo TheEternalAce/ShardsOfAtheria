@@ -112,6 +112,7 @@ Mods: {
 
 			# Potions
 			BoneMarrowInjection: Bone Marrow Injection
+			ChargedFlightPotion: Charged Flight Potion
 			ConductivityPotion: Conductivity Potion
 			SoulInjection: Soul Injection
 
@@ -178,6 +179,7 @@ Mods: {
 			AreusSword: Areus Sword
 			AreusTrimmedTome: Areus Trimmed Tome
 			BrokenAreusMirror: Broken Areus Mirror
+			TheMourningStar: The Mourning Star
 				# Magic
 			Gunsword: "Gun-Sword"
 			Pandora: Frostspark Staff
@@ -261,6 +263,141 @@ Mods: {
 				'Adorableness from the heavens'
 				'''
 
+			# Place-ables
+			AreusShard: A shard of limitless electricity
+			BionicBarItem: "'It still pulsates as if it has a heartbeat...'"
+			BionicOreItem: "'It pulsates as if it has a heartbeat...'"
+			CobaltWorkbenchItem: Used to completely skip having to gather mythril ore
+			PalladiumWorkbenchItem: Used to completely skip having to gather mythril ore
+
+			# Potions
+			BoneMarrowInjection: Strengthens your bones
+			ChargedFlightPotion: Increases flight time by 34
+			ConductivityPotion:
+				'''
+				Increases areus weapon damage by 15% and duration of Electric Shock by 100%
+				All attacks inflict Electric Shock
+				'''
+			SoulInjection:
+				'''
+				Damages you but grants the following:
+				Increased damage, movement speed and defense
+				Grants life regen
+				'Bro I promise, injecting souls directly into your bloodstream is a good idea'
+				'''
+
+			# Soul Crystals
+			KingSoulCrystal:
+				'''
+				Increased life and mana regen
+				After taking damage, your next hit will heal 25% of that damage taken
+				'''
+			EyeSoulCrystal:
+				'''
+				Summon 3 Servants after 5 seconds, these Servants will chase down enemies
+				Also creates an All Seeing Eye that lights up the cursor and marks enemies, making them take 10% more damage
+				'''
+			BrainSoulCrystal:
+				'''
+				Spawns 4 Creepers
+				While Creepers are alive you are invulnerable and cannot attack
+				Gain a temporary 20% damage boost when all of the creepers die
+				Creepers take 1 minute to respawn
+				Cannot be immune to knockback
+				'''
+			EaterSoulCrystal:
+				'''
+				Grants one revive and shoots a vile shot when using a weapon
+				Revive has a 5 minute cooldown
+				'''
+			BeeSoulCrystal:
+				'''
+				Attacks inflict Poisoned and shoot stingers
+				Spawn a bee every 10 seconds while in combat
+				'''
+			SkullSoulCrystal:
+				'''
+				While in combat enter a "spin phase" for 5 seconds every 30 seconds
+				This "spin phase" increases defense and damage by 50% and damages nearby enemies
+				Attacks fire a homing skull
+				'''
+			ValkyrieSoulCrystal:
+				'''
+				Grants 8 defense, wing flight time boost and a dash that leaves behind an electric trail
+				Attacks create 4 closing feather blades in an x pattern
+				Getting hit by an enemy gives them Electric Shock
+				'''
+			DeerclopsSoulCrystal:
+				'''
+				For every nearby NPC your damage is increased by 5% and your defense is increased by 10
+				This increase caps at 15% increased damage and 15 defense
+				Summons shadow hands on taking damage
+				'''
+			WallSoulCrystal:
+				'''
+				Summon 5 friendly The Hungry over the course of 5 seconds
+				'''
+			QueenSoulCrystal:
+				'''
+				Increased life and mana regen
+				After taking damage, your next hit will heal 50% of that damage
+				'''
+			DestoyerSoulCrystal:
+				'''
+				Summon a Destroyer's Probe that fires at your cursor besides you
+				Taking over 100 damage spawns another temporary Destroyer's Probe that will fire at nearby enemies
+				You can have up to five of these "attack probes"
+				'''
+			PrimeSoulCrystal:
+				'''
+				While in combat enter a \"spin phase\" for 5 seconds every 30 seconds
+				This \"spin phase\" inceases defense and damage by 100% and damages nearby enemies
+				Attacks fire either a laser, rocket or grenade
+				'''
+			TwinsSoulCrystal:
+				'''
+				Projectiles inflict either Ichor or Cursed Inferno
+				Melee hits inflict both debuffs
+				Taking damage summons a shadow double of you to strike back with 100% of damage taken
+				'''
+			PlantSoulCrystal:
+				'''
+				Spawn up to 8 tentacles over the course of 40 seconds
+				Attacks fire a petal that inflicts venom
+				Passive 15% increase in movement speed, 10% damage increase and increased life regen
+				'''
+			GolemSoulCrystal:
+				'''
+				Grants the effects of Shiny Stone
+				While under 50% max life, gain increased life regen and summon a Golem head above you
+				'''
+			DukeSoulCrystal:
+				'''
+				Increased max flight time
+				Summon a Sharknado over your head
+				'''
+			EmpressSoulCrystal:
+				'''
+				Increased max flight time and permanent Shine and Night Owl buffs
+				Daytime increased damage by 20% and nighttime increases defense by 20
+				Hitting enemies summons a twilight lance for a second strike
+				'''
+			LunaticSoulCrystal:
+				'''
+				Summons a magic circle behind you that fires ice fragments at your cursor
+				Gives a chance to dodge attacks
+				Every dodge increases ice fragments fired by 1, up to 5 total
+				'''
+			LordSoulCrystal:
+				'''
+				Taking over 100 damage summons a True Eye of Cthulhu
+				You can have up to 2 of these
+				Another True EoC stays over you and attacks at your cursor
+				'''
+			# LandSoulCrystal:
+			# TimeSoulCrystal:
+			# DeathSoulCrystal:
+
 			# Tools
 			RedAreusDrill:
 				'''
@@ -279,31 +416,18 @@ Mods: {
 				Taking damage while this is in your inventory will render this unusable for a time
 				'''
 
-			# Place-ables
-			AreusShard: A shard of limitless electricity
-			BionicBarItem: "'It still pulsates as if it has a heartbeat...'"
-			BionicOreItem: "'It pulsates as if it has a heartbeat...'"
-			CobaltWorkbenchItem: Used to completely skip having to gather mythril ore
-			PalladiumWorkbenchItem: Used to completely skip having to gather mythril ore
-
-			# Potions
-			BoneMarrowInjection: Strengthens your bones
-			ConductivityPotion:
-				'''
-				Increases areus weapon damage by 15% and duration of Electric Shock by 100%
-				All attacks inflict Electric Shock
-				'''
-			SoulInjection:
-				'''
-				Damages you but grants the following:
-				Increased damage, movement speed and defense
-				Grants life regen
-				'Bro I promise, injecting souls directly into your bloodstream is a good idea'
-				'''
-
 			# Weapons
 				# Ammo
 				# Areus
+			TheMourningStar:
+				'''
+				'The blade has turned dark and lost its electrical properties'
+				Absorbs blood on hitting enemies
+				Absorbs even more blood on killing enemies
+				Shooting projectiles costs 10 blood
+				Right click with 1000 blood to activate Shade State
+				Shade State increases damage by 15% and defense by 20
+				'''
 				# Magic
 			ScreamLantern:
 				'''
@@ -501,15 +625,18 @@ Mods: {
 		BuffName: {
 			BoneStrength: Bone Strength
 			Conductive: Conductive
+			ChargedFlight: Charged Flight
 			InjectionShock: Injection Shock
 			SoulInfused: Soul Infused
 		}
+
 		BuffDescription: {
 			BoneStrength: 
 				'''
 				10% increased damage and reduced damage taken by 20%
 				'Your bones are stronger'
 				'''
+			ChargedFlight: Increased flight time
 			Conductive:
 				'''
 				Increases areus weapon damage by 15% and duration of Electric Shock by 100%
@@ -519,6 +646,25 @@ Mods: {
 			SoulInfused: "Increased max life by 50, defense by 10 and damage by 15%"
 		}
 
+		Necronomicon: {
+			Active: Slayer Mode Active
+			GenericInfo:
+				'''
+				General Info:
+				Use on this page to toggle Slayer mode. Cannot be used while a boss is alive.
+				Bosses will drop every item in its loot table (in a stack of 1000 if the item is stackable), its slayer mode exclusive item and its Soul Crystal.
+				This boss is considered slain and cannot be fought again.
+				While Slayer mode is active, taking damage will reduce your defense. Defense will regenerate after a period of time.
+				'''
+			SoulCrystalInfo:
+				'''
+				Soul Crystal Info:
+				Absorbing a boss' Soul Crystal gives you it's powers. Be warned: absorbing too many Soul Crystals may descend you into madness.
+				Soul Crystals are removable by making a Soul Extracting Dagger.
+				'''
+			WipSoulEntry: This Soul Crystal needs further research. Please wait for this boss to be introduced into the mod.
+		}
+
 		BossDesc: {
 			NovaStellar: Lightning Valkyrie
 		}
@@ -526,6 +672,35 @@ Mods: {
 		ShopQuote: {
 			Atherian: {
 				ValkyrieCrest: "This was my Ex's..."
+				AreusKey: Can I interest you in performance enhancing drugs? Too bad, I have none of that. This is the closes thing though.
+				SlimeCrown: "A slimy crown, there's not much else to it"
+				SuspiciousLookingEye: Have you heard of the hit game Among Us? This has nothing to do with that.
+				BloodySpine: This... is disgusting.. how did this get in my inventory.
+				WormFood: Take this before my house gets a worm infestation!
+				Abeemination: NOT THE BEES! Wait, someone already made that reference.
+				ClothierVoodooDoll: Heeeello Terraria enthusiasts. My name is not James, and I would like you to buy this.
+				DeerThing: No comment.
+				GuideVoodooDoll: This looks... horrifyingly similar to The Guide...
+				QueenSlimeCrystal: This honestly looks tasty. Do I have a problem?
+				MechanicalWorm: "Great, now there's a worm infestation. Take it"
+				PrimeRework_WormRemote: "Great, now there's a worm infestation. Take it"
+				PrimeRework_BrainRemote: Unfortunately too big for cybernetic augmentation.
+				MechanicalSkull: Unfortunately the mechanical parts inside make cybernetic augmentation impossible.
+				PrimeRework_SkullRemote: Unfortunately the mechanical parts inside make cybernetic augmentation impossible.
+				MechanicalEye: Unfortunately too big for cybernetic augmentation.
+				PrimeRework_EyeRemote: Unfortunately too big for cybernetic augmentation.
+				PottedPlant:
+					'''
+					"What a lovely decoration, I sure would love to move it to my house!"
+					Oh what horrors awaited them.
+					'''
+				LihzahrdPowerCell: Last time I went to the store I accidentally bought Triple A batteries, now I still need Double A batteries.
+				TruffleWorm: "Great, now there's a bigger worm infestation. Take it"
+				EmpressButterfly: Such a colorful specimen, I wonder how it is possible.
+				CelestialSigil: Thus saith the lord.
+				# SpiderClock: Do you wish to challenge our goddess again? Sure, go for it.
+				# AreusSnakeScale: Do you wish to challenge our goddess again? Sure, go for it.
+				# AncientMedallion: Placeholder
 			}
 		}
 

@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.NPCs;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Projectiles.Tools;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,7 +18,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
 
         public override void SetStaticDefaults()
         {
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
 
             SoAGlobalItem.SlayerItem.Add(Type);
         }
@@ -95,4 +97,122 @@ namespace ShardsOfAtheria.Items.SoulCrystals
             return true;
         }
     }
+
+    public class KingSoulCrystal : SoulCrystal
+    {
+
+    }
+
+    public class EyeSoulCrystal : SoulCrystal
+    {
+        public override bool? UseItem(Player player)
+        {
+            if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsConfigClientSide>().instantAbsorb)
+            {
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<AllSeeingEye>()] <= 0)
+                {
+                    Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<AllSeeingEye>(), 0, 0f, player.whoAmI);
+                }
+            }
+            return base.UseItem(player);
+        }
+    }
+
+    public class BrainSoulCrystal : SoulCrystal
+    {
+        public override bool? UseItem(Player player)
+        {
+            if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsConfigClientSide>().instantAbsorb)
+            {
+                if (!player.HasBuff(ModContent.BuffType<CreeperShield>()))
+                {
+                    NPC.NewNPC(NPC.GetBossSpawnSource(player.whoAmI), (int)(player.Center.X + 20), (int)(player.Center.Y + 20), ModContent.NPCType<Creeper>());
+                    NPC.NewNPC(NPC.GetBossSpawnSource(player.whoAmI), (int)(player.Center.X - 20), (int)(player.Center.Y + 20), ModContent.NPCType<Creeper>());
+                    NPC.NewNPC(NPC.GetBossSpawnSource(player.whoAmI), (int)(player.Center.X + 20), (int)(player.Center.Y - 20), ModContent.NPCType<Creeper>());
+                    NPC.NewNPC(NPC.GetBossSpawnSource(player.whoAmI), (int)(player.Center.X - 20), (int)(player.Center.Y - 20), ModContent.NPCType<Creeper>());
+                }
+            }
+            return base.UseItem(player);
+        }
+    }
+
+    #region Create Soul Crystals
+    public class EaterSoulCrystal : SoulCrystal
+    {
+
+    }
+
+    public class BeeSoulCrystal : SoulCrystal
+    {
+
+    }
+
+    public class SkullSoulCrystal : SoulCrystal
+    {
+    }
+
+    public class ValkyrieSoulCrystal : SoulCrystal
+    {
+    }
+
+    public class DeerclopsSoulCrystal : SoulCrystal
+    {
+    }
+
+    public class WallSoulCrystal : SoulCrystal
+    {
+    }
+
+    public class QueenSoulCrystal : SoulCrystal
+    {
+    }
+
+    public class DestroyerSoulCrystal : SoulCrystal
+    {
+    }
+
+    public class PrimeSoulCrystal : SoulCrystal
+    {
+    }
+
+    public class TwinsSoulCrystal : SoulCrystal
+    {
+    }
+
+    public class PlantSoulCrystal : SoulCrystal
+    {
+    }
+
+    public class GolemSoulCrystal : SoulCrystal
+    {
+    }
+
+    public class DukeSoulCrystal : SoulCrystal // This and LunaticSoulCrystal actuall have stuff in them lmao
+    {
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Add(new TooltipLine(Mod, "SoulTeleport", string.Format("Press {0} to teleport", ShardsOfAtheria.SoulTeleport.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.SoulTeleport.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
+
+            base.ModifyTooltips(tooltips);
+        }
+    }
+
+    public class EmpressSoulCrystal : SoulCrystal
+    {
+    }
+
+    public class LunaticSoulCrystal : SoulCrystal
+    {
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips.Add(new TooltipLine(Mod, "SoulTeleport", string.Format("Press {0} to teleport", ShardsOfAtheria.SoulTeleport.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.SoulTeleport.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
+
+            base.ModifyTooltips(tooltips);
+        }
+    }
+
+    public class LordSoulCrystal : SoulCrystal
+    {
+    }
+    #endregion
 }
