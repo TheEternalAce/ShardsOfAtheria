@@ -3,14 +3,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items
+namespace ShardsOfAtheria.Items.Consumable
 {
-    class OverdriveEnergyPack : ModItem
+    public class OverdriveEnergyPack : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Refills Overdrive Time");
-
             SacrificeTotal = 30;
         }
 

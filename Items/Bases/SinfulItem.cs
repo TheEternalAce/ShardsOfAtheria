@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items
+namespace ShardsOfAtheria.Items.Bases
 {
     public abstract class SinfulItem : ModItem
     {

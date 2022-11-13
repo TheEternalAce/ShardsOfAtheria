@@ -1,24 +1,16 @@
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Players;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items
+namespace ShardsOfAtheria.Items.Consumable
 {
     public abstract class RepairKits : ModItem
     {
-        public override string Texture => "ShardsOfAtheria/Items/RepairKit";
-
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 30;
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            tooltips.Add(new TooltipLine(Mod, "Tooltip", "Another satisfied customer!"));
         }
 
         public override void SetDefaults()
@@ -43,14 +35,8 @@ namespace ShardsOfAtheria.Items
         }
     }
 
-    public class LesserRepairKit : RepairKits
+    public class RepairKit_Lesser : RepairKits
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("Repairs 20 defense");
-        }
-
         public override bool? UseItem(Player player)
         {
             player.GetModPlayer<SlayerPlayer>().defenseReduction -= 20;
@@ -60,12 +46,6 @@ namespace ShardsOfAtheria.Items
 
     public class RepairKit : RepairKits
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("Repairs 30 defense");
-        }
-
         public override bool? UseItem(Player player)
         {
             player.GetModPlayer<SlayerPlayer>().defenseReduction -= 30;
@@ -75,20 +55,14 @@ namespace ShardsOfAtheria.Items
         public override void AddRecipes()
         {
             CreateRecipe(5)
-                .AddIngredient(ModContent.ItemType<LesserRepairKit>(), 5)
+                .AddIngredient(ModContent.ItemType<RepairKit_Lesser>(), 5)
                 .AddIngredient(ItemID.HellstoneBar)
                 .Register();
         }
     }
 
-    public class GreaterRepairKit : RepairKit
+    public class RepairKit_Greater : RepairKit
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("Repairs 40 defense");
-        }
-
         public override bool? UseItem(Player player)
         {
             player.GetModPlayer<SlayerPlayer>().defenseReduction -= 40;
@@ -104,14 +78,8 @@ namespace ShardsOfAtheria.Items
         }
     }
 
-    public class SuperRepairKit : RepairKit
+    public class RepairKit_Super : RepairKit
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            Tooltip.SetDefault("Repairs 50 defense");
-        }
-
         public override bool? UseItem(Player player)
         {
             player.GetModPlayer<SlayerPlayer>().defenseReduction -= 50;
@@ -121,7 +89,7 @@ namespace ShardsOfAtheria.Items
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<GreaterRepairKit>())
+                .AddIngredient(ModContent.ItemType<RepairKit_Greater>())
                 .AddIngredient(ModContent.ItemType<FragmentEntropy>(), 16)
                 .Register();
         }
