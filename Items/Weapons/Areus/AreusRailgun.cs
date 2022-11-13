@@ -1,11 +1,10 @@
+using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Utilities;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Placeable;
-using Terraria;
-using Microsoft.Xna.Framework;
-using Terraria.GameContent.Creative;
-using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Globals;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {
@@ -15,7 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             Tooltip.SetDefault("Tears through enemy armor");
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
@@ -26,7 +25,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
 
             Item.damage = 100;
             Item.DamageType = DamageClass.Ranged;
-            Item.knockBack = 4f;
+            Item.knockBack = 10f;
             Item.crit = 6;
 
             Item.useTime = 48;
@@ -35,7 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.UseSound = SoundID.Item38;
             Item.noMelee = true;
 
-            Item.shootSpeed = 16f;
+            Item.shootSpeed = 20f;
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 2, 25);
             Item.shoot = ItemID.PurificationPowder;
@@ -56,6 +55,12 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-2, 0);
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            EffectsSystem.Shake.Set(8f);
+            return null;
         }
     }
 }
