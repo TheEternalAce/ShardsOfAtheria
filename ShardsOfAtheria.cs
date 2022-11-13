@@ -37,7 +37,6 @@ namespace ShardsOfAtheria
             QuickCharge = KeybindLoader.RegisterKeybind(this, "Quick Charge", "C");
             SoulTeleport = KeybindLoader.RegisterKeybind(this, "Soul Crystal Teleport", "V");
             ArmorSetBonusActive = KeybindLoader.RegisterKeybind(this, "Activate Armor Set Bonus", "Mouse4");
-
         }
 
         public override void PostSetupContent()
