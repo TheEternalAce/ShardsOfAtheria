@@ -1,5 +1,8 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Buffs
@@ -28,6 +31,17 @@ namespace ShardsOfAtheria.Buffs
                 npc.lifeRegen -= 20;
             }
         }
+
+        public override void DrawEffects(NPC npc, ref Color drawColor)
+        {
+            if (npc.HasBuff(ModContent.BuffType<ElectricShock>()) && Main.rand.NextBool(4))
+            {
+                int dust = Dust.NewDust(npc.position, npc.width + 4, npc.height + 4, DustID.Electric, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 1.8f;
+                Main.dust[dust].velocity.Y -= 0.5f;
+            }
+        }
     }
 
     public class ShockedPlayer : ModPlayer
@@ -42,10 +56,23 @@ namespace ShardsOfAtheria.Buffs
                     Player.lifeRegen = 0;
                 }
                 Player.lifeRegenTime = 0;
-                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes .5 life lost per second.
                 if (Main.keyState.IsKeyDown(Keys.Left) || Main.keyState.IsKeyDown(Keys.Right))
+                {
+                    // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 10 life lost per second, if the player is holding their left or right movement keys.
                     Player.lifeRegen -= 20;
-                else Player.lifeRegen -= 2;
+                }
+                else Player.lifeRegen -= 2; // This effect causes 1 life lost per second otherwise.
+            }
+        }
+
+        public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+        {
+            if (Player.HasBuff(ModContent.BuffType<ElectricShock>()) && Main.rand.NextBool(4))
+            {
+                int dust = Dust.NewDust(Player.position, Player.width + 4, Player.height + 4, DustID.Electric, Player.velocity.X * 0.4f, Player.velocity.Y * 0.4f, 100, default, 1f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 1.8f;
+                Main.dust[dust].velocity.Y -= 0.5f;
             }
         }
     }
