@@ -1,3 +1,0 @@
-﻿namespace ShardsOfAtheria.Items.SoulCrystals
-{
-}
