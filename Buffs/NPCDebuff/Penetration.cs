@@ -1,15 +1,12 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs
+namespace ShardsOfAtheria.Buffs.NPCDebuff
 {
     public class Penetration : ModBuff
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Penetration");
-            Description.SetDefault("Defense lowered\n" +
-                "'Don't get any ideas...'");
             Main.debuff[Type] = true;
         }
 

@@ -1,8 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Accessories;
 
 namespace ShardsOfAtheria.Buffs.Cooldowns
 {
@@ -10,8 +8,6 @@ namespace ShardsOfAtheria.Buffs.Cooldowns
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Clock Cooldown");
-            Description.SetDefault("You cannot use Spider's Mechanical Clock for now");
             Main.debuff[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }

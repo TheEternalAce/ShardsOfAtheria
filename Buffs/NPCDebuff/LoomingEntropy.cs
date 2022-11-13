@@ -1,17 +1,13 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs
+namespace ShardsOfAtheria.Buffs.NPCDebuff
 {
     public class LoomingEntropy : ModBuff
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Looming Entropy");
-            Description.SetDefault("'Heat death is Swiftly approaching..'\n" +
-                "Defense reduced and losing life");
             BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
         }
 

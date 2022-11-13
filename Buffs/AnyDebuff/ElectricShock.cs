@@ -5,14 +5,12 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs
+namespace ShardsOfAtheria.Buffs.AnyDebuff
 {
     public class ElectricShock : ModBuff
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Electric Shock");
-            Description.SetDefault("Moving hurts");
             Main.debuff[Type] = true;
         }
     }

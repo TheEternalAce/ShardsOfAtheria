@@ -2,14 +2,12 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs
+namespace ShardsOfAtheria.Buffs.PlayerDebuff
 {
     public class HeartBreak : ModBuff
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Heart Break");
-            Description.SetDefault("You cannot heal with Cross Dagger or Wand Of Healing");
             Main.debuff[Type] = true;
         }
 

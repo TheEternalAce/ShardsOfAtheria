@@ -8,8 +8,6 @@ namespace ShardsOfAtheria.Buffs.Cooldowns
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Soul Teleport Cool Down");
-            Description.SetDefault("You cannot use Soul Teleport right now");
             Main.debuff[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }

@@ -3,15 +3,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs
+namespace ShardsOfAtheria.Buffs.AnyDebuff
 {
     public class StunLock : ModBuff
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Stun Lock");
-            Description.SetDefault("Cannot move");
-
             Main.debuff[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }

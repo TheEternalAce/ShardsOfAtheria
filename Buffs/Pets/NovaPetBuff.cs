@@ -1,8 +1,7 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Pets;
-using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Players;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Buffs.Pets
 {
@@ -10,8 +9,6 @@ namespace ShardsOfAtheria.Buffs.Pets
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Smol Nova");
-            Description.SetDefault("Look at her now");
             Main.vanityPet[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }

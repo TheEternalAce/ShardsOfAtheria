@@ -1,16 +1,13 @@
-﻿using ShardsOfAtheria.NPCs;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
+﻿using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs
+namespace ShardsOfAtheria.Buffs.AnyDebuff
 {
     public class ZenovaJavelin : ModBuff
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Zenova Javelin");
-            Description.SetDefault("Defense lowered and losing life");
             Main.debuff[Type] = true;
         }
 

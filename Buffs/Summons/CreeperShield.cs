@@ -1,14 +1,12 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs
+namespace ShardsOfAtheria.Buffs.Summons
 {
     public class CreeperShield : ModBuff
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Creeper Shield");
-            Description.SetDefault("Immune to damage, cannot attack and summons severely weakened");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }

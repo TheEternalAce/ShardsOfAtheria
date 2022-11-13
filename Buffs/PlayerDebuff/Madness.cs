@@ -1,20 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Players;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs
+namespace ShardsOfAtheria.Buffs.PlayerDebuff
 {
     public class Madness : ModBuff
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Madness");
-            Description.SetDefault("Losing life and your vision is reduced\n" +
-                "'You're losing yourself...'");
             Main.debuff[Type] = true;
         }
 

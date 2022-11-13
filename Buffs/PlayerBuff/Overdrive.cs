@@ -1,17 +1,13 @@
 ﻿using ShardsOfAtheria.Players;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs
+namespace ShardsOfAtheria.Buffs.PlayerBuff
 {
     public class Overdrive : ModBuff
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Overdrive: ON");
-            Description.SetDefault("'Your systems are being pushed beyond their limits'\n" +
-                "Damage increased by 50%");
             Main.buffNoTimeDisplay[Type] = true;
         }
 
