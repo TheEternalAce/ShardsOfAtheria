@@ -272,7 +272,7 @@ Mods: {
 			P90: P90
 			Pantheon: Pantheon
 			PhantomRose: Phantom Rose
-			Scarlet: Scarlet
+			Scarlet: Scarlet Rose
 			TheAmbassador: The Ambassador
 				# Summon
 			DragonSpineWhip: Dragon Spine Whip
@@ -859,6 +859,7 @@ Mods: {
 			Yamiko: "'I'm not tsundere! You're tsundere!'"
 			Zenova:
 				'''
+				Use Right click to fire a continuous, accurate steam of weapons
 				Ignores a moderate amount of defense
 				'Zenith's older sister'
 				'RANDOM BULLS**T GO!'
@@ -1357,8 +1358,8 @@ Mods: {
 					'''				
 				NoUpgradableItem: Sorry pal, you don't have anything I can upgrade.
 				NotEnoughMaterial1: You don't have enough
-				NotEnoughMaterial2: ", I need at least"
-				NotEnoughMaterial3: . You have
+				NotEnoughMaterial2: I need at least
+				NotEnoughMaterial3: You have
 			}
 		}
 
