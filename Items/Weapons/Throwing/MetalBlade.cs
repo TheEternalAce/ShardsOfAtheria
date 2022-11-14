@@ -5,7 +5,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Weapons.Ranged
+namespace ShardsOfAtheria.Items.Weapons.Throwing
 {
     public class MetalBlade : ModItem
     {
@@ -23,7 +23,14 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.maxStack = 9999;
 
             Item.damage = 60;
-            Item.DamageType = DamageClass.Ranged;
+            if (ModContent.GetInstance<ShardsConfigServerSide>().throwingDamage)
+            {
+                Item.DamageType = DamageClass.Throwing;
+            }
+            else
+            {
+                Item.DamageType = DamageClass.Ranged;
+            }
             Item.knockBack = 3;
             Item.crit = 6;
 
