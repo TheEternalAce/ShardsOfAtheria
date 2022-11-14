@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -73,7 +74,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             if (charge == 199)
             {
                 SoundEngine.PlaySound(SoundID.MaxMana);
-                CombatText.NewText(player.getRect(), Color.SkyBlue, "Charge ready!");
+                CombatText.NewText(player.getRect(), Color.SkyBlue, Language.GetTextValue("Mods.ShardsOfAtheria.General.FullCharge"));
             }
         }
 

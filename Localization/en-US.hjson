@@ -8,6 +8,43 @@
 
 Mods: {
 	ShardsOfAtheria: {
+		General: {
+			FiringMode1: Semi-auto
+			FiringMode2: Burst fire
+			FiringMode3: Full-auto
+			FullCharge: "Charge Ready!"
+			SlayerItem: Slayer Item
+			PearlwoodSetBonus:
+				'''
+				6 defense
+				Increases maximum mana by 40
+				Increases damage and critical strike chance by 15%
+				Press {0} to summon 10 Soul Daggers that orbit around you
+				Press {0} again to send the daggers flying in the direction of your mouse
+				'''
+			AbsorbedBlood: Absorbed Blood
+			ShadeStateActive: Shade State already active
+			InsufficientBlood: Not enough blood
+			TeleportOnKeyPress: Allows teleportation on press of {0}
+			OverdriveInfo:
+				'''
+				Press {0} to activate or deactivate Overdrive
+				Overdrive increases all damage by 50%
+				Overdrive lasts until you get hit or run out of Overdrive time
+				'''
+			TomeOfOmniscience: Press {0} to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration
+			Combat: Combat
+			Conservation: Conservation
+			Exploration: Exploration
+			RushDrive:
+				'''
+				Press {0} to chose between two phase types:
+				Offensive: Sacrifice half of total defense for doubled damage and 5% increased crit chance
+				Defensive: Sacrifice half of total damage for doubled defense and 20% reduced damage
+				Always get 20% increased movement speed
+				'''
+		}
+
 		ItemName: {
 			# Accessories
 				# Gem cores
@@ -713,9 +750,6 @@ Mods: {
 
 			# Weapons
 				# Areus
-				'''
-
-				'''
 			AreusAssaultRifle:
 				'''
 				Right click to switch between 3 modes: Semi-auto, Burst Fire and Full-auto
@@ -775,26 +809,26 @@ Mods: {
 				Use RMB to bring up a shield, release RMB to throw the shield
 				This shield grants 20 defense and is capable of parrying and reflecting some projectiles
 				'''
-			GenesisAndRagnarokUpgrade1: Preforms a combo of a spear thrust and whip swing
-			GenesisAndRagnarokUpgrade2: Preforms a combo of a spear thrust, whip swing and spear throw
-			GenesisAndRagnarokUpgrade3:
+			GenesisAndRagnarokBase: Preforms a combo of a spear thrust and whip swing
+			GenesisAndRagnarokUpgrade1: Preforms a combo of a spear thrust, whip swing and spear throw
+			GenesisAndRagnarokUpgrade2:
 				'''
 				Preforms a combo of a spear thrust, whip swing and spear throw
 				Able to swing shield with LMB before it returns
 				'''
-			GenesisAndRagnarokUpgrade4:
+			GenesisAndRagnarokUpgrade3:
 				'''
 				Preforms a combo of a spear thrust, whip swing and spear throw
 				Able to swing shield with LMB before it returns
 				Attacks inflict 'On Fire!'
 				'''
-			GenesisAndRagnarokUpgrade5:
+			GenesisAndRagnarokUpgrade4:
 				'''
 				Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing
 				Able to swing shield with LMB before it returns
 				Attacks inflict 'On Fire!'
 				'''
-			GenesisAndRagnarokUpgrade6:
+			GenesisAndRagnarokUpgrade5:
 				'''
 				Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing
 				Able to swing shield with LMB before it returns
@@ -862,6 +896,7 @@ Mods: {
 				'''
 				Shoots an extra Phantom Bullet
 				48% chance to not consume ammo
+				'Scarlet's younger sister'
 				'''
 			Scarlet:
 				'''
@@ -1265,6 +1300,65 @@ Mods: {
 				# SpiderClock: Do you wish to challenge our goddess again? Sure, go for it.
 				# AreusSnakeScale: Do you wish to challenge our goddess again? Sure, go for it.
 				# AncientMedallion: Placeholder
+			}
+		}
+
+		NPCDialogue: {
+			NovaStellar: {
+				InitialSummon: Placeholder text
+				PhaseTransition: Placeholder text
+				Defeat: Placeholder text
+
+				# Slayer mode alt
+				InitialSummonAlt: Placeholder text
+				PhaseTransitionAlt: Placeholder text
+				Desperation: Placeholder text
+				Death: Placeholder text
+			}
+			Atherian: {
+				# On interact
+				DryadPresent: Show respect to your elders, I may be 240 years old but I still respect 
+				BaseGenesisAndRagnarok:
+					'''
+					What a peculiar weapon. It shows capabilities of transforming into several types of weapon, but it's locked in spear and whip form.
+					There's also memories sealed inside the shield. Perhaps something to unlock those memories will make it stronger?
+					'''
+				CSGOReference: "DOOR STUCK!"
+				KenobiReference: Hello there.
+				PleaseINeedMoreLinesForThisMan: "I used to have so many lines of dialogue what happened?"
+
+				# Upgrading
+				RefuseUpgrade: You may have everyone else fooled but I know.. I will not help you slay our guardians..
+				UpgradeGenesisAndRagnarok1:
+					'''
+					As I expected, the fragments did make them stronger.
+					Either way, Genesis is now able to take the form of a double-headed spear.
+					There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
+					'''
+				UpgradeGenesisAndRagnarok2:
+					'''
+					Genesis and Ragnarok are now stronger and Genesis can attach to Ragnarok for swinging.
+					There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
+					'''
+				UpgradeGenesisAndRagnarok3:
+					'''
+					Genesis and Ragnarok now stronger and can set enemies on fire.
+					There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
+					'''
+				UpgradeGenesisAndRagnarok4:
+					'''
+					Genesis and Ragnarok now stronger and can Genesis can transform into a sword.
+					There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
+					'''
+				UpgradeGenesisAndRagnarok5:
+					'''
+					Genesis and Ragnarok now stronger and their ice capabilities are revealed.
+					That's all the memory seals released, I cannot upgrade them further.
+					'''				
+				NoUpgradableItem: Sorry pal, you don't have anything I can upgrade.
+				NotEnoughMaterial1: You don't have enough
+				NotEnoughMaterial2: ", I need at least"
+				NotEnoughMaterial3: . You have
 			}
 		}
 

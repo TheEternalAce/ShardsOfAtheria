@@ -24,7 +24,6 @@ namespace ShardsOfAtheria
         public static ModKeybind TomeKey;
         public static ModKeybind EmeraldTeleportKey;
         public static ModKeybind PhaseSwitch;
-        public static ModKeybind QuickCharge;
         public static ModKeybind SoulTeleport;
         public static ModKeybind ArmorSetBonusActive;
 
@@ -34,7 +33,6 @@ namespace ShardsOfAtheria
             TomeKey = KeybindLoader.RegisterKeybind(this, "Cycle Knowledge Base", "N");
             EmeraldTeleportKey = KeybindLoader.RegisterKeybind(this, "Emerald Teleport", "Z");
             PhaseSwitch = KeybindLoader.RegisterKeybind(this, "Toggle Phase Type", "RightAlt");
-            QuickCharge = KeybindLoader.RegisterKeybind(this, "Quick Charge", "C");
             SoulTeleport = KeybindLoader.RegisterKeybind(this, "Soul Crystal Teleport", "V");
             ArmorSetBonusActive = KeybindLoader.RegisterKeybind(this, "Activate Armor Set Bonus", "Mouse4");
         }
@@ -53,7 +51,7 @@ namespace ShardsOfAtheria
                 {
                     if (ammunition.ammo > AmmoID.None)
                     {
-                        if (ammunition.rare < ItemRarityID.LightRed)
+                        if (ammunition.rare < ItemRarityID.LightRed && ammunition.rare != ItemRarityID.Expert && ammunition.rare != ItemRarityID.Master)
                         {
                             SoAGlobalItem.preHardmodeAmmo.Add(ammunition.type);
                         }
@@ -68,7 +66,7 @@ namespace ShardsOfAtheria
                     }
                     if (ammunition.ammo == AmmoID.Arrow)
                     {
-                        if (ammunition.rare < ItemRarityID.LightRed)
+                        if (ammunition.rare < ItemRarityID.LightRed && ammunition.rare != ItemRarityID.Expert  && ammunition.rare != ItemRarityID.Master)
                         {
                             SoAGlobalItem.preHardmodeArrows.Add(ammunition.type);
                         }
@@ -83,7 +81,7 @@ namespace ShardsOfAtheria
                     }
                     if (ammunition.ammo == AmmoID.Bullet)
                     {
-                        if (ammunition.rare < ItemRarityID.LightRed)
+                        if (ammunition.rare < ItemRarityID.LightRed && ammunition.rare != ItemRarityID.Expert  && ammunition.rare != ItemRarityID.Master)
                         {
                             SoAGlobalItem.preHardmodeBullets.Add(ammunition.type);
                         }
@@ -98,7 +96,7 @@ namespace ShardsOfAtheria
                     }
                     if (ammunition.ammo == AmmoID.Rocket)
                     {
-                        if (ammunition.rare < ItemRarityID.LightRed)
+                        if (ammunition.rare < ItemRarityID.LightRed && ammunition.rare != ItemRarityID.Expert  && ammunition.rare != ItemRarityID.Master)
                         {
                             SoAGlobalItem.preHardmodeRockets.Add(ammunition.type);
                         }

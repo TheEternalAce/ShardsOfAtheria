@@ -397,24 +397,25 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
         {
             switch (index)
             {
-                case 0: // Testing
+                default: // Testing
                     return "Placeholder Text";
+
                 case 1: // Initial summon
-                    return "";
+                    return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.InitialSummon");
                 case 2: // Defeat
-                    return "";
+                    return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Defeat");
                 case 3: // Phase 2 transition
-                    return "";
-                case 4: // Slayer mode 25% life
-                    return "";
-                case 5: // Slayer mode initial summon
-                    return "";
-                case 6: // Slayer mode defeat
-                    return "";
-                case 7: // Slayer mode phase 2 transition
-                    return "";
+                    return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.PhaseTransition");
+
+                case 4: // Slayer mode initial summon
+                    return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.InitialSummonAlt");
+                case 5: // Slayer mode phase 2 transition
+                    return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.PhaseTransitionAlt");
+                case 6: // Slayer mode 25% life
+                    return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Desperation");
+                case 7: // Slayer mode defeat
+                    return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Death");
             }
-            return "";
         }
     }
 }

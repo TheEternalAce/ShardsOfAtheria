@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
@@ -61,15 +62,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			var list = ShardsOfAtheria.EmeraldTeleportKey.GetAssignedKeys();
-			string keyname = "Not bound";
-
-			if (list.Count > 0)
-			{
-				keyname = list[0];
-			}
-
-			tooltips.Add(new TooltipLine(Mod, "Teleport", $"Allows teleportation on press of '[i:{keyname}]'"));
+			tooltips.Add(new TooltipLine(Mod, "Teleport", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.General.TeleportOnKeyPress"),
+					ShardsOfAtheria.EmeraldTeleportKey.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.EmeraldTeleportKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,

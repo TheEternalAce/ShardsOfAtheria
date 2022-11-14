@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories
@@ -48,17 +49,8 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            var list = ShardsOfAtheria.OverdriveKey.GetAssignedKeys();
-            string keyname = "Not bound";
-
-            if (list.Count > 0)
-            {
-                keyname = list[0];
-            }
-
-            tooltips.Add(new TooltipLine(Mod, "Damage", $"Press '[i:{keyname}]' to activate or deactivate Overdrive\n" +
-                "Overdrive doubles all damage\n" +
-                "Overdrive lasts until you get hit or run out of Overdrive time"));
+            tooltips.Add(new TooltipLine(Mod, "Overdrive", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.General.OverdriveInfo"),
+                    ShardsOfAtheria.OverdriveKey.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.OverdriveKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
         }
 
         public override void SetDefaults()

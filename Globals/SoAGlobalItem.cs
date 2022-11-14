@@ -15,6 +15,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Globals
@@ -226,11 +227,8 @@ namespace ShardsOfAtheria.Globals
         {
             if (set == "SoA:Pearlwood")
             {
-                player.setBonus = "6 defense\n" +
-                    "Increases maximum mana by 40\n" +
-                    "Increases damage and critical strike chance by 15%\n" +
-                    string.Format("Press {0} to summon 10 Soul Daggers that orbit around you\n" +
-                    "Press {0} again to send the daggers flying in the direction of your mouse", ShardsOfAtheria.ArmorSetBonusActive.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.ArmorSetBonusActive.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
+                player.setBonus = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.General.PearlwoodSetBonus"),
+                    ShardsOfAtheria.ArmorSetBonusActive.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.ArmorSetBonusActive.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
                 player.statDefense += 5;
                 player.statManaMax2 += 40;
                 player.GetDamage(DamageClass.Generic) += .15f;
@@ -261,7 +259,7 @@ namespace ShardsOfAtheria.Globals
         {
             if (SlayerItem.Contains(item.type))
             {
-                var line = new TooltipLine(Mod, "SlayerItem", "Slayer Item")
+                var line = new TooltipLine(Mod, "SlayerItem", Language.GetTextValue("Mods.ShardsOfAtheria.General.SlayerItem"))
                 {
                     OverrideColor = Color.Red
                 };

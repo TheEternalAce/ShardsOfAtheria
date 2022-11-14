@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -13,16 +12,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 		public override void SetStaticDefaults()
 		{
 			SacrificeTotal = 1;
-		}
-
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			var line = new TooltipLine(Mod, "Verbose:RemoveMe", "This tooltip won't show in-game");
-			line = new TooltipLine(Mod, "PhantomRose", "'Scarlet's younger sister'")
-			{
-				OverrideColor = Color.Red
-			};
-			tooltips.Add(line);
 		}
 
 		public override void SetDefaults()

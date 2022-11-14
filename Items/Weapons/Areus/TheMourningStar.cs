@@ -6,6 +6,7 @@ using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -43,7 +44,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "Blood", "Absorbed blood: " + blood));
+            tooltips.Add(new TooltipLine(Mod, "Blood", $"{Language.GetTextValue("Mods.ShardsOfAtheria.General.AbsorbedBlood")} {blood}"));
         }
 
         public override void SetDefaults()
@@ -91,11 +92,11 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 Item.noUseGraphic = false;
                 if (player.HasBuff(ModContent.BuffType<ShadeState>()))
                 {
-                    CombatText.NewText(player.getRect(), Color.DarkGray, "Shade State already active");
+                    CombatText.NewText(player.getRect(), Color.DarkGray, Language.GetTextValue("Mods.ShardsOfAtheria.General.ShadeStateActive"));
                 }
                 else if (blood < BloodCost)
                 {
-                    CombatText.NewText(player.getRect(), Color.Red, "Not enough blood");
+                    CombatText.NewText(player.getRect(), Color.Red, Language.GetTextValue("Mods.ShardsOfAtheria.General.InsufficientBlood"));
                 }
                 else
                 {

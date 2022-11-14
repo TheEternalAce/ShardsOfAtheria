@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
@@ -83,9 +84,9 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 					fullAuto = false;
 				else fullAuto = true;
 				if (!fullAuto)
-					CombatText.NewText(player.Hitbox, Color.White, "Semi-auto");
+					CombatText.NewText(player.Hitbox, Color.White, Language.GetTextValue("Mods.ShardsOfAtheria.General.FiringMode1"));
 				if (fullAuto)
-					CombatText.NewText(player.Hitbox, Color.White, "Full-auto");
+					CombatText.NewText(player.Hitbox, Color.White, Language.GetTextValue("Mods.ShardsOfAtheria.General.FiringMode3"));
 			}
 			else
 			{
@@ -112,9 +113,9 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			if (!fullAuto)
-				tooltips.Add(new TooltipLine(Mod, "Fire mode", "Semi-auto"));
+				tooltips.Add(new TooltipLine(Mod, "Fire mode", Language.GetTextValue("Mods.ShardsOfAtheria.General.FiringMode1")));
 			if (fullAuto)
-				tooltips.Add(new TooltipLine(Mod, "Fire mode", "Full-auto"));
+				tooltips.Add(new TooltipLine(Mod, "Fire mode", Language.GetTextValue("Mods.ShardsOfAtheria.General.FiringMode3")));
 		}
 	}
 }

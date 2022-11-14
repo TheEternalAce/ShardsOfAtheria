@@ -1,18 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.PlayerDebuff;
+using ShardsOfAtheria.Players;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Players;
 using Terraria.ModLoader.IO;
-using ShardsOfAtheria.Buffs.PlayerDebuff;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
     [AutoloadEquip(EquipType.Wings)]
-	public class MegaGemCore : ModItem
-	{
+    public class MegaGemCore : ModItem
+    {
         bool gravitation = true;
 
         public override void OnCreate(ItemCreationContext context)
@@ -34,23 +35,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         }
 
         public override void SetStaticDefaults()
-		{
-			Tooltip.SetDefault("Counts as wings\n" +
-                "Increases max life by 100\n" +
-                "Increases damage, movement speed and attack speed by 20%\n" +
-                "Increases knockback and melee size\n" +
-                "+8 extra minion slots\n" +
-                "20% chance to dodge attacks\n" +
-                "Gives a super dash to the wearer\n" +
-                "Attacks inflict Daybroken and Betsy's Curse\n" +
-                "Melee weapons autoswing\n" +
-                "Immunity to damage dealing, damage and defense reducing, anti-healing and cold debuffs and Chaos State\n" +
-                "Grants Ironskin and Endurance when dealing damage and Wrath, Rage and Inferno when taking damage\n" +
-                "Effects of Ankh Shield, Bundle of Balloons, Frozen Turtle Shell, Shiny Stone, Soaring Insignia and Terrasparrk Boots\n" +
-                "Permanent Thorns, Regeneration, Honey, Heart Lantern, Cozy Campfire, Heartreach and Gravitation buffs\n" +
-                "Use to disable Gravitation\n" +
-                "Grants infinite flight and slow fall");
-
+        {
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(100, 9f, 2.5f, true, 1f, 1f);
 
             SacrificeTotal = 1;
@@ -58,21 +43,14 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            var list = ShardsOfAtheria.EmeraldTeleportKey.GetAssignedKeys();
-            string keyname = "Not bound";
-
-            if (list.Count > 0)
-            {
-                keyname = list[0];
-            }
-
-            tooltips.Add(new TooltipLine(Mod, "Teleport", $"Allows teleportation on press of '[i:{keyname}]'"));
+            tooltips.Add(new TooltipLine(Mod, "Teleport", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.General.TeleportOnKeyPress"),
+                    ShardsOfAtheria.EmeraldTeleportKey.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.EmeraldTeleportKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
         }
 
         public override void SetDefaults()
-		{
-			Item.width = 32;
-			Item.height = 32;
+        {
+            Item.width = 32;
+            Item.height = 32;
             Item.accessory = true;
 
             Item.useStyle = ItemUseStyleID.HoldUp;
@@ -83,7 +61,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
             Item.rare = ItemRarityID.Red;
             Item.value = Item.sellPrice(0, 3);
-		}
+        }
 
         public override void AddRecipes()
         {

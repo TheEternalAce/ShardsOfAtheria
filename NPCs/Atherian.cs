@@ -134,7 +134,7 @@ namespace ShardsOfAtheria.NPCs
             int dryad = NPC.FindFirstNPC(NPCID.Dryad);
             if (dryad >= 0)
             {
-                chat.Add("Show respect to your elders, I may be 240 years old but I still respect " + Main.npc[dryad].GivenName, 1/4);
+                chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.DryadPresent") + Main.npc[dryad].GivenName + ".", 1/4);
             }
 
             if (!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
@@ -143,18 +143,14 @@ namespace ShardsOfAtheria.NPCs
                 {
                     if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 0)
                     {
-                        if (!Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragment>()))
-                            return "What a peculiar weapon. It shows capabilities of transforming into several types of weapon, but it's locked in spear and whip form.\n" +
-                            "There's also memories sealed inside the shield. Perhaps something to unlock those memories will make it stronger?";
-                        else
-                            return "Hmm, it seems that Memory Fragment could be the key to upgrading your weapon. Mind if I take a look?";
+                        return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.BaseGenesisAndRagnarok");
                     }
                 }
             }
 
-            chat.Add("DOOR STUCK!");
-            chat.Add("Hello there.");
-            chat.Add("I used to have so many lines of dialogue what happened?");
+            chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.CSGOReference"));
+            chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.KenobiReference"));
+            chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.PleaseINeedMoreLinesForThisMan"));
             return chat;
         }
 
@@ -174,7 +170,7 @@ namespace ShardsOfAtheria.NPCs
             {
                 if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
                 {
-                    Main.npcChatText = "You may have everyone else fooled but I know.. I will not help you slay our guardians..";
+                    Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.RefuseUpgrade");
                     return;
                 }
                 if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>() && (Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5
@@ -189,9 +185,7 @@ namespace ShardsOfAtheria.NPCs
                             {
                                 if (UpgradeItem(Main.LocalPlayer.HeldItem, materialID, 0))
                                 {
-                                    Main.npcChatText = "As I expected, the fragments did make them stronger.\n" +
-                                        "Either way, Genesis is now able to take the form of a double-headed spear.\n" +
-                                        "There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.";
+                                    Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok1");
                                 }
                             }
                             return;
@@ -201,8 +195,7 @@ namespace ShardsOfAtheria.NPCs
                             materialID = ItemID.ChlorophyteBar;
                             if (UpgradeItem(Main.LocalPlayer.HeldItem, materialID, 14))
                             {
-                                Main.npcChatText = "Genesis and Ragnarok are now stronger and Genesis can attach to Ragnarok for swinging.\n" +
-                                    "There are still seals to break, if you find any more of those Memory Fragments then be sure to see me.";
+                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok2");
                             }
                             return;
                         }
@@ -211,8 +204,7 @@ namespace ShardsOfAtheria.NPCs
                             materialID = ItemID.BeetleHusk;
                             if (UpgradeItem(Main.LocalPlayer.HeldItem, materialID, 16))
                             {
-                                Main.npcChatText = "Genesis and Ragnarok now stronger and can set enemies on fire.\n" +
-                                    "There are still seals to break, if you find any more of those Memory Fragments then be sure to see me.";
+                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok3");
                             }
                             return;
                         }
@@ -221,8 +213,7 @@ namespace ShardsOfAtheria.NPCs
                             materialID = ItemID.FragmentSolar;
                             if (UpgradeItem(Main.LocalPlayer.HeldItem, materialID, 18))
                             {
-                                Main.npcChatText = "Genesis and Ragnarok now stronger and can Genesis can transform into a sword.\n" +
-                                    "There are still seals to break, if you find any more of those Memory Fragments then be sure to see me.";
+                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok4");
                             }
                             return;
                         }
@@ -231,8 +222,7 @@ namespace ShardsOfAtheria.NPCs
                             materialID = ItemID.LunarBar;
                             if (UpgradeItem(Main.LocalPlayer.HeldItem, materialID, 20))
                             {
-                                Main.npcChatText = "Genesis and Ragnarok now stronger and their ice capabilities are revealed.\n" +
-                                    "That's all the memory seals released, I cannot upgrade them further.";
+                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok5");
                             }
                             return;
                         }
@@ -241,22 +231,8 @@ namespace ShardsOfAtheria.NPCs
 
                 if (Main.LocalPlayer.HeldItem.type != ModContent.ItemType<GenesisAndRagnarok>())
                 {
-                    Main.npcChatText = "Sorry pal, you don't have anything I can upgrade";
+                    Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NoUpgradableItem");
                     return;
-                }
-                else
-                {
-                    if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
-                    {
-                        Main.npcChatText = "I've already upgraded them to their full potential";
-
-                        return;
-                    }
-                    else if (!Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragment>()))
-                    {
-                        Main.npcChatText = "I need another Memory Fragment to upgrade the weapons.";
-                        return;
-                    }
                 }
             }
         }
@@ -278,10 +254,14 @@ namespace ShardsOfAtheria.NPCs
                     GenesisAndRagnarok upgradeItem = (item.ModItem as GenesisAndRagnarok);
                     upgradeItem.upgrades++;
                     Main.LocalPlayer.inventory[Main.LocalPlayer.FindItem(ModContent.ItemType<MemoryFragment>())].stack--;
+                    // Add some kind of seal breaking animation
                 }
             }
             else
             {
+                Main.npcChatText = $"{Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial1")} [i:{materialID}]" +
+                    $"{Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial2")} {minMaterial}" +
+                    $"{Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial3")} {(Main.LocalPlayer.HasItem(materialID) ? materialItem.stack : 0)} [i:{materialID}].";
                 Main.npcChatText = $"You don't have enough [i:{materialID}], I need at least {minMaterial}. You have {(Main.LocalPlayer.HasItem(materialID) ? materialItem.stack : 0)} [i:{materialID}].";
             }
             return materialItem.stack >= minMaterial;
