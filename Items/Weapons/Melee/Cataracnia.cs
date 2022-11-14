@@ -6,6 +6,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class Cataracnia : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            SacrificeTotal = 1;
+        }
+
         public override void SetDefaults()
         {
             Item.width = 36;

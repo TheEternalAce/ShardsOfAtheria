@@ -10,6 +10,11 @@ namespace ShardsOfAtheria.Items.Accessories
 {
     public class TomeOfOmniscience : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            SacrificeTotal = 1;
+        }
+
         public override void SetDefaults()
         {
             Item.width = 15;

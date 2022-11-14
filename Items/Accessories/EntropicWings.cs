@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 9f, 2.5f);
 
-            base.SetStaticDefaults();
+            SacrificeTotal = 1;
         }
 
         public override void SetDefaults()
