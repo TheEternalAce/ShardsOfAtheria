@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 		public override void SetStaticDefaults()
 		{
 			SacrificeTotal = 1;
+			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 		}
 
 		public override void SetDefaults()
@@ -55,10 +56,35 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 				.Register();
 		}
 
+		public override bool AltFunctionUse(Player player)
+		{
+			return true;
+		}
+
+		public override bool CanUseItem(Player player)
+		{
+			if (player.altFunctionUse == 2)
+			{
+				Item.useTime = 5;
+				Item.useAnimation = 5;
+				Item.reuseDelay = 0;
+			}
+			else
+			{
+				Item.useTime = 5;
+				Item.useAnimation = 25;
+				Item.reuseDelay = 10;
+			}
+			return base.CanUseItem(player);
+		}
+
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
 			SoundEngine.PlaySound(Item.UseSound);
-			velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
+			if (player.altFunctionUse != 2)
+			{
+				velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
+			}
 		}
 	}
 }
