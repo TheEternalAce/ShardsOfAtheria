@@ -1306,15 +1306,15 @@ Mods: {
 
 		NPCDialogue: {
 			NovaStellar: {
-				InitialSummon: Placeholder text
-				PhaseTransition: Placeholder text
-				Defeat: Placeholder text
+				InitialSummon: Hey, you! I've been looking for an opponent for a while, let us duel!
+				MidFight: Okay you're strong, I'll give you that. But let's see you handle this!
+				Defeat: placeholder
 
 				# Slayer mode alt
-				InitialSummonAlt: Placeholder text
-				PhaseTransitionAlt: Placeholder text
-				Desperation: Placeholder text
-				Death: Placeholder text
+				InitialSummonAlt: Your genocide has been short, but this is where you die!
+				MidFightAlt: Okay prick, you've asked for it!
+				Desperation: Shit, I can't lose to you! Not with lives on the line!
+				Death: No... Mother... I failed...
 			}
 			Atherian: {
 				# On interact

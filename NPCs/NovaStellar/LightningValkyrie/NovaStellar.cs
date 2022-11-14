@@ -4,6 +4,7 @@ using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.GrabBags;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.PetItems;
 using ShardsOfAtheria.Items.Placeable.Furniture.Trophies;
 using ShardsOfAtheria.Items.Placeable.Furniture.Trophies.Master;
 using ShardsOfAtheria.Items.SoulCrystals;
@@ -27,8 +28,6 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
     [AutoloadBossHead]
     public class NovaStellar : ModNPC
     {
-        public int dialogueTimer;
-
         public int attackType = 0;
         public int attackTimer = 0;
         public int attackCooldown = 40;
@@ -102,14 +101,21 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
             LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
             LeadingConditionRule slayerMode = new LeadingConditionRule(new IsSlayerMode());
 
-            notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<ValkyrieCrown>(), ModContent.ItemType<DownBow>(), ModContent.ItemType<PlumeCodex>()));
+            int[] drops = { ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<ValkyrieCrown>(), ModContent.ItemType<DownBow>(), ModContent.ItemType<PlumeCodex>() };
+
+            notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, drops));
             notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.GoldBar, 1, 10, 20));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ChargedFeather>(), 1, 15, 28));
             slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieSoulCrystal>()));
             slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieStormLance>()));
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<NovaRelic>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<NovaTrophy>(), 10));
-            //npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<NovaPet>(), 25));
+            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<SmallHardlightCrest>(), 25));
+
+            if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage) && !ShardsDownedSystem.downedValkyrie)
+            {
+                notExpertRule.OnSuccess(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
+            }
 
             // Finally add the leading rule
             npcLoot.Add(notExpertRule);
@@ -118,31 +124,33 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
 
         public override void OnKill()
         {
-            if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage) && !ShardsDownedSystem.downedValkyrie)
-            {
-                Item.NewItem(NPC.GetSource_Death(), NPC.getRect(), magicStorage.Find<ModItem>("ShadowDiamond").Type);
-            }
-
             NPC.SetEventFlagCleared(ref ShardsDownedSystem.downedValkyrie, -1);
             if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
+            {
                 ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie = true;
+            }
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (Main.expertMode)
+            {
                 target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
+            }
         }
 
         public override bool PreAI()
         {
             if (ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie)
             {
-                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Nova Stellar, the Lightning Valkyrie was slain..."), Color.White);
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Nova Stellar was slain..."), Color.White);
                 NPC.active = false;
             }
             return base.PreAI();
         }
+
+        private bool midFight = false;
+        private bool desperation = false;
 
         public override void AI()
         {
@@ -152,11 +160,13 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
                 NPC.TargetClosest();
             }
 
+            Player player = Main.player[NPC.target];
+            bool isSlayer = player.GetModPlayer<SlayerPlayer>().slayerMode;
+
             // death drama
             if (NPC.ai[3] > 0f)
             {
                 NPC.ai[3] += 1f; // increase our death timer.
-                                 //NPC.velocity = Vector2.UnitY * NPC.velocity.Length();
                 NPC.velocity = Vector2.Zero;
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
@@ -168,12 +178,10 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
                         proj.Kill();
                     }
                 }
-                //if (NPC.ai[3] > 1f && NPC.ai[3] == 2)
-                //{
-                //    if (Player.GetModPlayer<SlayerPlayer>().slayerMode)
-                //        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("");
-                //    else ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("");
-                //}
+                if (NPC.ai[3] == 2)
+                {
+                    UseDialogue(isSlayer ? 7 : 3);
+                }
                 if (NPC.ai[3] >= 120f)
                 {
                     NPC.life = 0;
@@ -182,8 +190,6 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
                 }
                 return;
             }
-
-            Player player = Main.player[NPC.target];
 
             if (player.dead)
             {
@@ -199,11 +205,22 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
                 if (Main.rand.NextFloat() <= .5f)
                     NPC.position = player.position - new Vector2(500, 250);
                 else NPC.position = player.position - new Vector2(-500, 250);
-                int isSlayer = player.GetModPlayer<SlayerPlayer>().slayerMode ? 1 : 5; // Use when dialogue options are finished
-                CombatText.NewText(NPC.getRect(), Color.DeepSkyBlue, GetDialogue(0));
+                UseDialogue(isSlayer ? 4 : 1);
                 NPC.localAI[0] = 1f;
             }
             NPC.spriteDirection = player.Center.X > NPC.Center.X ? 1 : -1;
+
+            if (NPC.life <= NPC.lifeMax * 0.5 && !midFight)
+            {
+                UseDialogue(isSlayer ? 5 : 2);
+                midFight = true;
+            }
+
+            if (NPC.life <= NPC.lifeMax * 0.25 && !desperation && player.GetModPlayer<SlayerPlayer>().slayerMode)
+            {
+                UseDialogue(6);
+                desperation = true;
+            }
 
             if (attackCooldown <= 0)
             {
@@ -393,28 +410,58 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
             NPC.netUpdate = true;
         }
 
-        string GetDialogue(int index)
+        void UseDialogue(int index)
         {
+            string dialogue = "";
+
             switch (index)
             {
                 default: // Testing
-                    return "Placeholder Text";
+                    dialogue = "Placeholder Text";
+                    break;
 
                 case 1: // Initial summon
-                    return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.InitialSummon");
-                case 2: // Defeat
-                    return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Defeat");
-                case 3: // Phase 2 transition
-                    return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.PhaseTransition");
+                    dialogue = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.InitialSummon");
+                    break;
+                case 2: // Mid fight
+                    dialogue = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.MidFight");
+                    break;
+                case 3: // Defeat
+                    dialogue = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Defeat");
+                    break;
 
                 case 4: // Slayer mode initial summon
-                    return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.InitialSummonAlt");
-                case 5: // Slayer mode phase 2 transition
-                    return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.PhaseTransitionAlt");
+                    dialogue = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.InitialSummonAlt");
+                    break;
+                case 5: // Slayer mode mid fight
+                    dialogue = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.MidFightAlt");
+                    break;
                 case 6: // Slayer mode 25% life
-                    return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Desperation");
+                    dialogue = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Desperation");
+                    break;
                 case 7: // Slayer mode defeat
-                    return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Death");
+                    dialogue = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Death");
+                    break;
+            }
+
+            CombatText.NewText(NPC.getRect(), Color.DeepSkyBlue, dialogue, true);
+        }
+
+        public override void DrawEffects(ref Color drawColor)
+        {
+            if (midFight && Main.rand.NextBool(4))
+            {
+                int dust = Dust.NewDust(NPC.position, NPC.width + 4, NPC.height + 4, DustID.Electric, NPC.velocity.X * 0.4f, NPC.velocity.Y * 0.4f, 100, default, 1f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 1.8f;
+                Main.dust[dust].velocity.Y -= 0.5f;
+            }
+            if (desperation && Main.rand.NextBool(8))
+            {
+                int dust = Dust.NewDust(NPC.position - new Vector2(2f, 2f), NPC.width + 4, NPC.height + 4, DustID.Blood, NPC.velocity.X * 0.4f, NPC.velocity.Y * 0.4f, 100, default, 1f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 1.8f;
+                Main.dust[dust].velocity.Y -= 0.5f;
             }
         }
     }
