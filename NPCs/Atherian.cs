@@ -259,10 +259,9 @@ namespace ShardsOfAtheria.NPCs
             }
             else
             {
-                Main.npcChatText = $"{Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial1")} [i:{materialID}]" +
-                    $"{Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial2")} {minMaterial}" +
+                Main.npcChatText = $"{Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial1")} [i:{materialID}]," +
+                    $"{Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial2")} {minMaterial}." +
                     $"{Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial3")} {(Main.LocalPlayer.HasItem(materialID) ? materialItem.stack : 0)} [i:{materialID}].";
-                Main.npcChatText = $"You don't have enough [i:{materialID}], I need at least {minMaterial}. You have {(Main.LocalPlayer.HasItem(materialID) ? materialItem.stack : 0)} [i:{materialID}].";
             }
             return materialItem.stack >= minMaterial;
         }

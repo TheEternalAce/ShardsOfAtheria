@@ -117,15 +117,13 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             int buffType = ModContent.BuffType<ZenovaJavelin>();
             switch (Projectile.frame)
             {
+                default:
+                    break;
                 case 1:
                     buffType = BuffID.Ichor;
                     break;
                 case 2:
                     buffType = BuffID.Venom;
-                    break;
-                case 9:
-                    buffType = ModContent.BuffType<ElectricShock>();
-                    Projectile.Kill();
                     break;
                 case 3:
                     buffType = ModContent.BuffType<ElectricShock>();
@@ -141,6 +139,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
                     break;
                 case 8:
                     buffType = 169;
+                    break;
+                case 9:
+                    buffType = ModContent.BuffType<ElectricShock>();
+                    Projectile.Kill();
                     break;
             }
             target.AddBuff(buffType, 900); // Adds the ExampleJavelin debuff for a very small DoT
