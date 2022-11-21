@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
+namespace ShardsOfAtheria.Items.SinfulSouls.Extras
 {
     public class VirtuousSoul : ModBuff
     {
@@ -83,6 +84,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
             Projectile.Center = Main.player[Projectile.owner].Center;
             if (Projectile.ai[0] == 0)
             {
+                EffectsSystem.Shake.Set(6f);
                 SoundEngine.PlaySound(SoundID.Item14);
                 Projectile.ai[0] = 1;
             }

@@ -1,12 +1,13 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Players;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.SevenDeadlySouls
+namespace ShardsOfAtheria.Items.SinfulSouls
 {
-    public class GreedSoul : SevenSouls
+    public class GreedSoul : SinfulSouls
     {
         public override void SetStaticDefaults()
         {
@@ -53,7 +54,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
         }
     }
 
-    public class GreedBuff : SevenSoulsBuff
+    public class GreedBuff : SinfulSoulBuff
     {
         public override void SetStaticDefaults()
         {
@@ -63,7 +64,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed = 3;
+            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 3;
             if (player.HasItem(ItemID.GoldCoin))
             {
                 for (int i = 0; i < player.inventory[player.FindItem(ItemID.GoldCoin)].stack; i++)

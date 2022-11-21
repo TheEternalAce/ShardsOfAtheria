@@ -4,7 +4,7 @@ using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.SoulCrystals;
-using ShardsOfAtheria.NPCs;
+using ShardsOfAtheria.NPCs.Misc;
 using ShardsOfAtheria.Projectiles.Minions;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Tools;
@@ -42,7 +42,6 @@ namespace ShardsOfAtheria.Players
         public int creeperSpawnTimer;
         public int valkyrieDashTimer = 2;
         public int beeSpawnTimer;
-        public bool markOfAnastasia;
         public int spinningTimer;
         public int theHungrySpawnTimer;
         public int yourTentacleSpawnTimer;
@@ -62,7 +61,6 @@ namespace ShardsOfAtheria.Players
         public override void ResetEffects()
         {
             creeperPet = false;
-            markOfAnastasia = false;
         }
 
         public override void Initialize()
@@ -333,17 +331,6 @@ namespace ShardsOfAtheria.Players
             if (soulCrystals.Contains(ModContent.ItemType<GolemSoulCrystal>()))
             {
                 Player.shinyStone = true;
-            }
-            if (markOfAnastasia)
-            {
-                if (Player.name == "Sophie" || Player.name == "Lilly" || Player.name == "Damien" || Player.name == "Ariiannah" || Player.name == "Arii" || Player.name == "Peter" || Player.name == "Shane")
-                {
-                    Player.moveSpeed += 1f;
-                }
-                else
-                {
-                    Player.moveSpeed += .5f;
-                }
             }
         }
 

@@ -5,8 +5,9 @@ using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon.Minion;
-using ShardsOfAtheria.NPCs;
 using ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie;
+using ShardsOfAtheria.NPCs.Town;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -41,7 +42,12 @@ namespace ShardsOfAtheria
         {
             if (ModContent.GetInstance<ShardsConfigClientSide>().windowTitle)
             {
-                Main.instance.Window.Title = "WALUIGI";
+                switch (Main.rand.Next(2))
+                {
+                    case 0:
+                        Main.instance.Window.Title = "WALUIGI";
+                        break;
+                }
             }
 
             for (int i = 1; i < ItemLoader.ItemCount; i++)

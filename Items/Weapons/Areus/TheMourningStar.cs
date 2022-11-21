@@ -51,7 +51,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             Item.width = 42;
             Item.height = 46;
-            Item.scale = 1.5f;
 
             Item.damage = 150;
             Item.DamageType = DamageClass.Melee;

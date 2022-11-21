@@ -4,6 +4,7 @@ using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Bases;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

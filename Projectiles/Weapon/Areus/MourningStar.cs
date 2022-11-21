@@ -1,13 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Areus;
-using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -29,6 +26,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
         {
             base.SetDefaults();
 
+            Projectile.scale = 1.5f;
             Projectile.width = Projectile.height = 90;
             hitboxOutwards = 50;
             rotationOffset = -MathHelper.PiOver4 * 3f;

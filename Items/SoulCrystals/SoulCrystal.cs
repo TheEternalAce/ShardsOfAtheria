@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.NPCs;
+using ShardsOfAtheria.NPCs.Misc;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Tools;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -187,7 +188,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
     {
     }
 
-    public class DukeSoulCrystal : SoulCrystal // This and LunaticSoulCrystal actuall have stuff in them lmao
+    public class DukeSoulCrystal : SoulCrystal // This and LunaticSoulCrystal actualy have stuff in them lmao
     {
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {

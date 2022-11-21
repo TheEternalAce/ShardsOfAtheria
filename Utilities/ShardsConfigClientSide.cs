@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Terraria.ModLoader.Config;
 
-namespace ShardsOfAtheria
+namespace ShardsOfAtheria.Utilities
 {
     [BackgroundColor(164, 153, 190)]
     [Label("Client Side")]
@@ -36,5 +36,11 @@ namespace ShardsOfAtheria
         [DefaultValue(true)]
         [ReloadRequired()]
         public bool windowTitle;
+
+        [Header("Visual")]
+        [Label("Screen-shake intensity")]
+        [Range(0f, 1f)]
+        [DefaultValue(1f)]
+        public float ScreenshakeIntensity { get; set; }
     }
 }

@@ -43,6 +43,7 @@ Mods: {
 				Defensive: Sacrifice half of total damage for doubled defense and 20% reduced damage
 				Always get 20% increased movement speed
 				'''
+			UpgradeableItem: Upgradeable Item
 		}
 
 		ItemName: {
@@ -101,8 +102,8 @@ Mods: {
 				# The Eternal Ace
 			AceOfSpades: Ace of Spades
 			AcesGoldFoxMask: "Rockman Zeta's Gold Fox Mask"
-			AcesJacket: "Rockman Zeta's Gold Fox Mask"
-			AcesPants: "Rockman Zeta's Gold Fox Mask"
+			AcesJacket: "Rockman Zeta's Jacket"
+			AcesPants: "Rockman Zeta's Pants"
 				# nightlight
 			CoatOfnight: "nightlight's Coat"
 			Nightlight: The nightlight
@@ -1308,7 +1309,8 @@ Mods: {
 			NovaStellar: {
 				InitialSummon: Hey, you! I've been looking for an opponent for a while, let us duel!
 				MidFight: Okay you're strong, I'll give you that. But let's see you handle this!
-				Defeat: placeholder
+				Defeat: Well fought, I better get going. Tell {0} I said hi.
+				Defeat2: Well fought, I better get going.
 
 				# Slayer mode alt
 				InitialSummonAlt: Your genocide has been short, but this is where you die!
@@ -1356,10 +1358,9 @@ Mods: {
 					Genesis and Ragnarok now stronger and their ice capabilities are revealed.
 					That's all the memory seals released, I cannot upgrade them further.
 					'''				
+				UpgradeAreusWeapon: That should do it. This is the best I can achieve. Use it well.
 				NoUpgradableItem: Sorry pal, you don't have anything I can upgrade.
-				NotEnoughMaterial1: You don't have enough
-				NotEnoughMaterial2: I need at least
-				NotEnoughMaterial3: You have
+				NotEnoughMaterial: "You don't have enough [i:{0}]. I need at least {1}. You have {2}."
 			}
 		}
 

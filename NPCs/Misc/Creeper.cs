@@ -9,7 +9,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.NPCs
+namespace ShardsOfAtheria.NPCs.Misc
 {
     public class Creeper : ModNPC
     {

@@ -87,12 +87,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(ModContent.BuffType<StunLock>(), 10);
+            target.AddBuff(BuffID.OnFire3, 600);
             base.OnHitNPC(target, damage, knockback, crit);
         }
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(ModContent.BuffType<StunLock>(), 10);
+            target.AddBuff(BuffID.OnFire3, 600);
             base.OnHitPlayer(target, damage, crit);
         }
     }

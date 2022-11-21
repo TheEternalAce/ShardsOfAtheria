@@ -1,12 +1,13 @@
 ﻿using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.SevenDeadlySouls
+namespace ShardsOfAtheria.Items.SinfulSouls
 {
-    public class LustSoul : SevenSouls
+    public class LustSoul : SinfulSouls
     {
         public override void SetStaticDefaults()
         {
@@ -55,7 +56,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
         }
     }
 
-    public class LustBuff : SevenSoulsBuff
+    public class LustBuff : SinfulSoulBuff
     {
         public override void SetStaticDefaults()
         {
@@ -65,7 +66,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed = 4;
+            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 4;
             player.maxMinions += 3;
             player.GetDamage(DamageClass.Generic) -= .2f;
             player.AddBuff(BuffID.Lovestruck, 2);

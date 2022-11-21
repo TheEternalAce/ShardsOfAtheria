@@ -2,9 +2,11 @@
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
+using ShardsOfAtheria.Utilities;
 using ShopQuotesMod;
 using System.Collections.Generic;
 using Terraria;
@@ -16,7 +18,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
-namespace ShardsOfAtheria.NPCs
+namespace ShardsOfAtheria.NPCs.Town
 {
     // [AutoloadHead] and NPC.townNPC are extremely important and absolutely both necessary for any Town NPC to work at all.
     [AutoloadHead]
@@ -134,7 +136,7 @@ namespace ShardsOfAtheria.NPCs
             int dryad = NPC.FindFirstNPC(NPCID.Dryad);
             if (dryad >= 0)
             {
-                chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.DryadPresent") + Main.npc[dryad].GivenName + ".", 1/4);
+                chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.DryadPresent", Main.npc[dryad].GivenName), 0.25);
             }
 
             if (!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
@@ -168,59 +170,60 @@ namespace ShardsOfAtheria.NPCs
             }
             else
             {
-                if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
+                Player player = Main.LocalPlayer;
+                if (player.GetModPlayer<SlayerPlayer>().slayerMode && !ModContent.GetInstance<ShardsConfigServerSide>().cluelessNPCs)
                 {
                     Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.RefuseUpgrade");
                     return;
                 }
-                if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>() && (Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5
-                    && Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragment>()))
+                if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>() && (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5
+                    && player.HasItem(ModContent.ItemType<MemoryFragment>()))
                 {
-                    if (Main.LocalPlayer.HasItem(ModContent.ItemType<MemoryFragment>()))
+                    if (player.HasItem(ModContent.ItemType<MemoryFragment>()))
                     {
                         int materialID = ModContent.ItemType<MemoryFragment>();
-                        if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 0)
+                        if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 0)
                         {
-                            if (Main.LocalPlayer.HasItem(materialID))
+                            if (player.HasItem(materialID))
                             {
-                                if (UpgradeItem(Main.LocalPlayer.HeldItem, materialID, 0))
+                                if (UpgradeItem(player, ItemID.None, player.HeldItem, materialID, 1))
                                 {
                                     Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok1");
                                 }
                             }
                             return;
                         }
-                        else if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 1)
+                        else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 1)
                         {
                             materialID = ItemID.ChlorophyteBar;
-                            if (UpgradeItem(Main.LocalPlayer.HeldItem, materialID, 14))
+                            if (UpgradeItem(player, ItemID.None, player.HeldItem, materialID, 14))
                             {
                                 Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok2");
                             }
                             return;
                         }
-                        else if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 2)
+                        else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 2)
                         {
                             materialID = ItemID.BeetleHusk;
-                            if (UpgradeItem(Main.LocalPlayer.HeldItem, materialID, 16))
+                            if (UpgradeItem(player, ItemID.None, player.HeldItem, materialID, 16))
                             {
                                 Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok3");
                             }
                             return;
                         }
-                        else if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 3)
+                        else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 3)
                         {
                             materialID = ItemID.FragmentSolar;
-                            if (UpgradeItem(Main.LocalPlayer.HeldItem, materialID, 18))
+                            if (UpgradeItem(player, ItemID.None, player.HeldItem, materialID, 18))
                             {
                                 Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok4");
                             }
                             return;
                         }
-                        else if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 4)
+                        else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 4)
                         {
                             materialID = ItemID.LunarBar;
-                            if (UpgradeItem(Main.LocalPlayer.HeldItem, materialID, 20))
+                            if (UpgradeItem(player, ItemID.None, player.HeldItem, materialID, 20))
                             {
                                 Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok5");
                             }
@@ -228,8 +231,19 @@ namespace ShardsOfAtheria.NPCs
                         }
                     }
                 }
-
-                if (Main.LocalPlayer.HeldItem.type != ModContent.ItemType<GenesisAndRagnarok>())
+                else if (player.HasItem(ModContent.ItemType<AreusDagger>()))
+                {
+                    if (!player.HasItem(ModContent.ItemType<AreusSword>()))
+                    {
+                        Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial", ModContent.ItemType<AreusSword>(), 1, 0);
+                        return;
+                    }
+                    else if (UpgradeItem(player, ModContent.ItemType<AreusSaber>(), player.HeldItem, ItemID.LunarBar, 14))
+                    {
+                        Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeAreusWeapon");
+                    }
+                }
+                else
                 {
                     Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NoUpgradableItem");
                     return;
@@ -237,31 +251,43 @@ namespace ShardsOfAtheria.NPCs
             }
         }
 
-        public bool UpgradeItem(Item item, int materialID, int minMaterial)
+        public bool UpgradeItem(Player player, int result, Item item, int materialID, int minMaterial)
         {
             Item materialItem = ContentSamples.ItemsByType[materialID];
-            if (Main.LocalPlayer.HasItem(materialID))
+            if (player.HasItem(materialID))
             {
-                materialItem = Main.LocalPlayer.inventory[Main.LocalPlayer.FindItem(materialID)];
+                materialItem = player.inventory[player.FindItem(materialID)];
             }
-            if (Main.LocalPlayer.HasItem(materialItem.type) && materialItem.stack >= minMaterial)
+            if (player.HasItem(materialItem.type) && materialItem.stack >= minMaterial)
             {
                 SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
                 materialItem.stack -= minMaterial;
 
                 if (item.type == ModContent.ItemType<GenesisAndRagnarok>())
                 {
-                    GenesisAndRagnarok upgradeItem = (item.ModItem as GenesisAndRagnarok);
+                    GenesisAndRagnarok upgradeItem = item.ModItem as GenesisAndRagnarok;
                     upgradeItem.upgrades++;
-                    Main.LocalPlayer.inventory[Main.LocalPlayer.FindItem(ModContent.ItemType<MemoryFragment>())].stack--;
-                    // Add some kind of seal breaking animation
+                    if (materialID != ModContent.ItemType<MemoryFragment>())
+                    {
+                        player.inventory[player.FindItem(ModContent.ItemType<MemoryFragment>())].stack--;
+                    }
+                    // Add some kind of seal breaking animation later
+                }
+                else if (item.type == ModContent.ItemType<AreusDagger>())
+                {
+                    player.inventory[player.FindItem(ModContent.ItemType<AreusSword>())].stack--;
+                    item.TurnToAir();
+                }
+
+                if (result >= ItemID.None)
+                {
+                    Item.NewItem(NPC.GetSource_FromThis(), NPC.getRect(), result);
                 }
             }
             else
             {
-                Main.npcChatText = $"{Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial1")} [i:{materialID}]," +
-                    $"{Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial2")} {minMaterial}." +
-                    $"{Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial3")} {(Main.LocalPlayer.HasItem(materialID) ? materialItem.stack : 0)} [i:{materialID}].";
+                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial", materialID, minMaterial,
+                    player.HasItem(materialID) ? materialItem.stack : 0);
             }
             return materialItem.stack >= minMaterial;
         }

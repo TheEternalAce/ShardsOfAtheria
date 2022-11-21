@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Utilities
 {
-    public class EffectsSystem
+    public class EffectsSystem : ModSystem
     {
         public class ScreenShake
         {
@@ -44,5 +46,28 @@ namespace ShardsOfAtheria.Utilities
         }
 
         public static ScreenShake Shake { get; private set; }
+
+        public override void Load()
+        {
+            Shake = new ScreenShake();
+        }
+
+        public override void Unload()
+        {
+            Shake = null;
+        }
+
+        public override void PreUpdatePlayers()
+        {
+            if (Main.netMode != NetmodeID.Server)
+            {
+                Shake.Update();
+            }
+        }
+
+        internal static void UpdateScreenPosition()
+        {
+            Main.screenPosition += Shake.GetScreenOffset() * ModContent.GetInstance<ShardsConfigClientSide>().ScreenshakeIntensity;
+        }
     }
 }

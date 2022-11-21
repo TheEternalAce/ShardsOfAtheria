@@ -36,15 +36,5 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.value = Item.sellPrice(0, 4, 57);
             Item.shoot = ModContent.ProjectileType<AreusSlash1>();
         }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<AreusDagger>(), 1)
-                .AddIngredient(ModContent.ItemType<AreusSword>(), 1)
-                .AddIngredient(ItemID.LunarBar, 14)
-                .AddTile(TileID.LunarCraftingStation)
-                .Register();
-        }
     }
 }

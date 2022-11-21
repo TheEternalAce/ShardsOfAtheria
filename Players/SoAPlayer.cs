@@ -5,13 +5,14 @@ using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Items.SevenDeadlySouls;
+using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Tools.Misc;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -27,24 +28,19 @@ namespace ShardsOfAtheria.Players
 {
     public class SoAPlayer : ModPlayer
     {
-        public bool areusBatteryElectrify;
-        public bool areusWings;
         public bool lesserSapphireCore;
         public bool sapphireCore;
         public bool superSapphireCore;
         public bool greaterRubyCore;
         public bool superRubyCore;
         public bool baseConservation;
-        public bool sapphireMinion;
         public bool lesserEmeraldCore;
         public bool emeraldCore;
         public bool superEmeraldCore;
         public bool areusKey;
         public bool megaGemCore;
-        public bool hallowedSeal;
-        public bool zenovaJavelin;
         public bool heartBreak;
-        public bool sMHealingItem;
+        public bool healingItem;
         public bool phaseOffense;
         public bool rushDrive;
         public bool areusChargePack;
@@ -81,8 +77,6 @@ namespace ShardsOfAtheria.Players
 
         public override void ResetEffects()
         {
-            areusBatteryElectrify = false;
-            areusWings = false;
             lesserSapphireCore = false;
             lesserEmeraldCore = false;
             sapphireCore = false;
@@ -90,14 +84,11 @@ namespace ShardsOfAtheria.Players
             greaterRubyCore = false;
             superRubyCore = false;
             baseConservation = false;
-            sapphireMinion = false;
             superEmeraldCore = false;
             areusKey = false;
             megaGemCore = false;
-            hallowedSeal = false;
-            zenovaJavelin = false;
             heartBreak = false;
-            sMHealingItem = false;
+            healingItem = false;
             rushDrive = false;
             valkyrieCrown = false;
 
@@ -145,10 +136,10 @@ namespace ShardsOfAtheria.Players
 
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
         {
-            if (!mediumCoreDeath && Player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed > 0)
+            if (!mediumCoreDeath && Player.GetModPlayer<SinfulPlayer>().SevenSoulUsed > 0)
                 return new[] { new Item(ModContent.ItemType<Necronomicon>()) };
 
-            if (Player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed == 0)
+            if (Player.GetModPlayer<SinfulPlayer>().SevenSoulUsed == 0)
             {
                 List<Item> list = new() {
                     new Item(ModContent.ItemType<SinfulSoul>())
@@ -421,15 +412,23 @@ namespace ShardsOfAtheria.Players
             }
         }
 
+        public override void ModifyScreenPosition()
+        {
+            EffectsSystem.UpdateScreenPosition();
+            Main.screenPosition = Main.screenPosition.Floor();
+        }
+
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
             inCombat = 300;
             if (valkyrieCrown)
+            {
                 target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
-            if (areusBatteryElectrify)
-                target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
+            }
             if (greaterRubyCore)
+            {
                 target.AddBuff(BuffID.OnFire, 600);
+            }
             if (superRubyCore)
             {
                 target.AddBuff(BuffID.CursedInferno, 600);
@@ -453,10 +452,6 @@ namespace ShardsOfAtheria.Players
                 {
                     target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
                 }
-                if (areusBatteryElectrify)
-                {
-                    target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
-                }
                 if (greaterRubyCore)
                 {
                     target.AddBuff(BuffID.OnFire, 600);
@@ -473,8 +468,6 @@ namespace ShardsOfAtheria.Players
                     Player.AddBuff(BuffID.Ironskin, 600);
                     Player.AddBuff(BuffID.Endurance, 600);
                 }
-                if (hallowedSeal && proj.DamageType == DamageClass.Melee)
-                    Player.statMana += 15;
             }
         }
 

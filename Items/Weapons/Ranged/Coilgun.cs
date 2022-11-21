@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
             Item.damage = 150;
             Item.DamageType = DamageClass.Ranged;
-            Item.knockBack = 10f;
+            Item.knockBack = 20f;
             Item.crit = 5;
 
             Item.useTime = 48;
@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.UseSound = SoundID.Item38;
             Item.noMelee = true;
 
-            Item.shootSpeed = 20f;
+            Item.shootSpeed = 32f;
             Item.rare = ItemRarityID.Yellow;
             Item.value = Item.sellPrice(0, 2, 75);
             Item.shoot = ItemID.PurificationPowder;
@@ -44,7 +44,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool? UseItem(Player player)
         {
-            EffectsSystem.Shake.Set(8f);
+            EffectsSystem.Shake.Set(11f);
             return null;
         }
     }

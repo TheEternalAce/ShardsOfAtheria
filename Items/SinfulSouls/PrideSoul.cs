@@ -3,9 +3,9 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.SevenDeadlySouls
+namespace ShardsOfAtheria.Items.SinfulSouls
 {
-    public class PrideSoul : SevenSouls
+    public class PrideSoul : SinfulSouls
     {
         public override void SetStaticDefaults()
         {
@@ -62,7 +62,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
         }
     }
 
-    public class PrideBuff : SevenSoulsBuff
+    public class PrideBuff : SinfulSoulBuff
     {
         public override void SetStaticDefaults()
         {
@@ -72,7 +72,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed = 5;
+            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 5;
             if (player.GetModPlayer<SoAPlayer>().inCombat > 0)
                 player.GetModPlayer<PridePlayer>().prideTimer++;
             if (player.GetModPlayer<PridePlayer>().prideTimer >= 600)

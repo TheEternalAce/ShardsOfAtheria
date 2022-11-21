@@ -1,11 +1,12 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Players;
+using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.SevenDeadlySouls
+namespace ShardsOfAtheria.Items.SinfulSouls
 {
-    public class EnvySoul : SevenSouls
+    public class EnvySoul : SinfulSouls
     {
         public override void SetStaticDefaults()
         {
@@ -102,7 +103,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
     public class EnvyTarget : ModBuff
     {
-        public override string Texture => "ShardsOfAtheria/Items/SevenDeadlySouls/EnvyBuff";
+        public override string Texture => "ShardsOfAtheria/Items/SinfulSouls/EnvyBuff";
 
         public override void SetStaticDefaults()
         {
@@ -110,7 +111,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
         }
     }
 
-    public class EnvyBuff : SevenSoulsBuff
+    public class EnvyBuff : SinfulSoulBuff
     {
         public override void SetStaticDefaults()
         {
@@ -120,7 +121,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed = 1;
+            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 1;
             player.AddBuff(BuffID.Darkness, 2);
             base.Update(player, ref buffIndex);
         }

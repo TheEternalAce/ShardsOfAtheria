@@ -1,4 +1,5 @@
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -30,6 +31,7 @@ namespace ShardsOfAtheria.Items.Potions
 		{
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<ChargedFeather>())
+				.AddIngredient(ModContent.ItemType<AreusShard>())
 				.AddIngredient(ItemID.BottledWater)
 				.AddTile(TileID.Bottles)
 				.Register();

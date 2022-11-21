@@ -1,5 +1,6 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -23,14 +24,7 @@ namespace ShardsOfAtheria.Items.Weapons.Throwing
             Item.maxStack = 9999;
 
             Item.damage = 60;
-            if (ModContent.GetInstance<ShardsConfigServerSide>().throwingDamage)
-            {
-                Item.DamageType = DamageClass.Throwing;
-            }
-            else
-            {
-                Item.DamageType = DamageClass.Ranged;
-            }
+            Item.DamageType = DamageClass.Throwing;
             Item.knockBack = 3;
             Item.crit = 6;
 

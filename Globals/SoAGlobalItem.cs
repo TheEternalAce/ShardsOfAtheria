@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Items.SevenDeadlySouls;
+using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Other;
@@ -9,6 +9,7 @@ using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -31,6 +32,7 @@ namespace ShardsOfAtheria.Globals
         public static List<int> SlayerItem = new();
         public static List<int> SinfulItem = new();
         public static List<int> Potions = new();
+        public static List<int> UpgradeableItem = new();
         #endregion
 
         #region Ammo lists for Ammo Bags
@@ -81,11 +83,7 @@ namespace ShardsOfAtheria.Globals
                 case ItemID.BouncyGrenade:
                 case ItemID.PartyGirlGrenade:
                     item.ammo = ItemID.Grenade;
-                    if (serverConfig.throwingDamage)
-                    {
-                        item.DamageType = DamageClass.Throwing;
-                        ThrowingWeapon.Add(item.type);
-                    }
+                    ThrowingWeapon.Add(item.type);
                     break;
                 #endregion
 
@@ -120,10 +118,7 @@ namespace ShardsOfAtheria.Globals
                 case ItemID.FrostDaggerfish:
                 case ItemID.Bone:
                 case ItemID.MolotovCocktail:
-                    if (serverConfig.throwingDamage)
-                    {
-                        ThrowingWeapon.Add(item.type);
-                    }
+                    ThrowingWeapon.Add(item.type);
                     break;
                 #endregion
 
@@ -263,6 +258,11 @@ namespace ShardsOfAtheria.Globals
                 {
                     OverrideColor = Color.Red
                 };
+                tooltips.Add(line);
+            }
+            if (UpgradeableItem.Contains(item.type))
+            {
+                var line = new TooltipLine(Mod, "UpgradeItem", Language.GetTextValue("Mods.ShardsOfAtheria.General.UpgradeableItem"));
                 tooltips.Add(line);
             }
         }

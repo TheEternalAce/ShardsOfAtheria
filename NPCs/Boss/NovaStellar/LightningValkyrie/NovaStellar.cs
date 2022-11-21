@@ -11,8 +11,10 @@ using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
+using ShardsOfAtheria.NPCs.Town;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Chat;
@@ -34,7 +36,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 1;
+            Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.Harpy];
 
             NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
             NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
@@ -65,6 +67,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
             Music = MusicID.Boss4;
             NPC.value = Item.buyPrice(0, 5, 0, 0);
             NPC.npcSlots = 15f;
+            AnimationType = NPCID.Harpy;
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -72,7 +75,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
             // Sets the description of this NPC that is listed in the bestiary
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
-                new FlavorTextBestiaryInfoElement("Bestiary entry in progress.")
+                new FlavorTextBestiaryInfoElement("Following her late father's footsteps, Nova became a noble knight. She wishes to rid the world of the Slayer Terrarian.")
             });
         }
 
@@ -347,6 +350,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
                         break;
                     case 2:
                         // Lance Dash
+                        NPC.rotation = 0;
                         if (attackTimer > 30)
                         {
                             NPC.velocity = Vector2.Normalize(player.Center + new Vector2(250 * (NPC.Center.X > player.Center.X ? 1 : -1), 0) - NPC.Center) * 12;
@@ -412,7 +416,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
 
         void UseDialogue(int index)
         {
-            string dialogue = "";
+            string dialogue;
 
             switch (index)
             {
@@ -427,7 +431,15 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
                     dialogue = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.MidFight");
                     break;
                 case 3: // Defeat
-                    dialogue = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Defeat");
+                    int atherian = NPC.FindFirstNPC(ModContent.NPCType<Atherian>());
+                    if (atherian >= 0)
+                    {
+                        dialogue = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Defeat", Main.npc[atherian].GivenName));
+                    }
+                    else
+                    {
+                        dialogue = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Defeat2");
+                    }
                     break;
 
                 case 4: // Slayer mode initial summon
@@ -444,7 +456,8 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
                     break;
             }
 
-            CombatText.NewText(NPC.getRect(), Color.DeepSkyBlue, dialogue, true);
+            int text = CombatText.NewText(NPC.getRect(), Color.DeepSkyBlue, dialogue, index == 6 || index == 5);
+            Main.combatText[text].lifeTime = 150;
         }
 
         public override void DrawEffects(ref Color drawColor)

@@ -1,12 +1,13 @@
-﻿using ShardsOfAtheria.Projectiles.Other;
+﻿using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Projectiles.Other;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.SevenDeadlySouls
+namespace ShardsOfAtheria.Items.SinfulSouls
 {
-    public class GluttonySoul : SevenSouls
+    public class GluttonySoul : SinfulSouls
     {
         public override void SetStaticDefaults()
         {
@@ -60,7 +61,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
         }
     }
 
-    public class GluttonyBuff : SevenSoulsBuff
+    public class GluttonyBuff : SinfulSoulBuff
     {
         public override void SetStaticDefaults()
         {
@@ -70,7 +71,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed = 2;
+            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 2;
             player.GetDamage(DamageClass.Melee) += .15f;
             player.statDefense -= 15;
             player.starving = true;

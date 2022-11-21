@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.Projectiles.Bases
     public abstract class EpicSwingSword : ModProjectile
     {
         public static Asset<Texture2D> SwishTexture => ModContent.Request<Texture2D>(typeof(EpicSwingSword).Namespace.Replace('.', '/') + "/Swish", AssetRequestMode.ImmediateLoad);
+        public static Asset<Texture2D> Swish2Texture => ModContent.Request<Texture2D>(typeof(EpicSwingSword).Namespace.Replace('.', '/') + "/Swish2", AssetRequestMode.ImmediateLoad);
         public static SoundStyle HeavySwing => SoundID.DD2_MonkStaffSwing;
 
         private bool _init;
@@ -107,6 +108,7 @@ namespace ShardsOfAtheria.Projectiles.Bases
 
         public virtual void UpdateSwing(float progress, float interpolatedSwingProgress)
         {
+
         }
 
         public virtual float SwingProgress(float progress)

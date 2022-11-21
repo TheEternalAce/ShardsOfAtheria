@@ -4,9 +4,9 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.SevenDeadlySouls
+namespace ShardsOfAtheria.Items.SinfulSouls
 {
-    public class WrathSoul : SevenSouls
+    public class WrathSoul : SinfulSouls
     {
         public override void SetStaticDefaults()
         {
@@ -65,7 +65,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
         }
     }
 
-    public class WrathBuff : SevenSoulsBuff
+    public class WrathBuff : SinfulSoulBuff
     {
         public override void SetStaticDefaults()
         {
@@ -82,7 +82,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed = 7;
+            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 7;
             player.GetDamage(DamageClass.Generic) += player.GetModPlayer<WrathPlayer>().anger;
             player.GetCritChance(DamageClass.Generic) += player.GetModPlayer<WrathPlayer>().rage;
             base.Update(player, ref buffIndex);

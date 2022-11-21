@@ -3,13 +3,15 @@ using ShardsOfAtheria.Items.Bases;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
+using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
+namespace ShardsOfAtheria.Items.SinfulSouls.Extras
 {
     public class SinfulArmament : SinfulItem
     {
@@ -35,7 +37,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
 
         public override bool CanUseItem(Player player)
         {
-            return player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed > 0;
+            return player.GetModPlayer<SinfulPlayer>().SevenSoulUsed > 0;
         }
 
         public override bool? UseItem(Player player)
@@ -45,7 +47,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
                 int weapon = 0;
                 string text = "";
                 Color color = new();
-                switch (player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed)
+                switch (player.GetModPlayer<SinfulPlayer>().SevenSoulUsed)
                 {
                     case 1:
                         // Envy

@@ -60,7 +60,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void UpdateInventory(Player player)
         {
-            player.GetModPlayer<SoAPlayer>().sMHealingItem = true;
+            player.GetModPlayer<SoAPlayer>().healingItem = true;
         }
     }
 }

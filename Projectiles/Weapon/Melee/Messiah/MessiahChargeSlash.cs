@@ -1,6 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Weapons.Melee;
+﻿using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
@@ -56,6 +57,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
             {
                 Projectile.timeLeft--;
             }
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            target.AddBuff(BuffID.OnFire3, 600);
+            EffectsSystem.Shake.Set(11f);
         }
 
         public override void PostAI()

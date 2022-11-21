@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -68,6 +69,10 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool? UseItem(Player player)
         {
+            if (charge >= 300)
+            {
+                EffectsSystem.Shake.Set(6f);
+            }
             charge = 0;
             SoundEngine.PlaySound(Item.UseSound.Value);
             return base.UseItem(player);

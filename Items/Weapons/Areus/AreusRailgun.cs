@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
 
             Item.damage = 100;
             Item.DamageType = DamageClass.Ranged;
-            Item.knockBack = 10f;
+            Item.knockBack = 20f;
             Item.crit = 6;
 
             Item.useTime = 48;
@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.UseSound = SoundID.Item38;
             Item.noMelee = true;
 
-            Item.shootSpeed = 20f;
+            Item.shootSpeed = 32f;
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 2, 25);
             Item.shoot = ItemID.PurificationPowder;

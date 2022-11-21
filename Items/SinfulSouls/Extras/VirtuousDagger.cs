@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
+namespace ShardsOfAtheria.Items.SinfulSouls.Extras
 {
     public class VirtuousDagger : ModItem
     {
@@ -30,9 +31,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
 
         public override bool CanUseItem(Player player)
         {
-            if (!(player.HasBuff(SevenSoulPlayer.SinfulBuffs[0]) || player.HasBuff(SevenSoulPlayer.SinfulBuffs[1]) || player.HasBuff(SevenSoulPlayer.SinfulBuffs[2])
-                || player.HasBuff(SevenSoulPlayer.SinfulBuffs[3]) || player.HasBuff(SevenSoulPlayer.SinfulBuffs[4]) || player.HasBuff(SevenSoulPlayer.SinfulBuffs[5])
-                || player.HasBuff(SevenSoulPlayer.SinfulBuffs[6])))
+            if (player.GetModPlayer<SinfulPlayer>().SevenSoulUsed == 0 || player.GetModPlayer<SinfulPlayer>().SevenSoulUsed == 8)
             {
                 return false;
             }
@@ -42,15 +41,15 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls.Extras
         public override bool? UseItem(Player player)
         {
             player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was purified into nothing."), player.statLifeMax2 / 5, -player.direction);
-            for (int i = 0; i < SevenSoulPlayer.SinfulBuffs.Length; i++)
+            for (int i = 0; i < SinfulPlayer.SinfulBuffs.Length; i++)
             {
-                if (player.HasBuff(SevenSoulPlayer.SinfulBuffs[i]))
+                if (i != SinfulPlayer.SinfulBuffs[7] && player.HasBuff(SinfulPlayer.SinfulBuffs[i]))
                 {
-                    player.ClearBuff(SevenSoulPlayer.SinfulBuffs[i]);
+                    player.ClearBuff(SinfulPlayer.SinfulBuffs[i]);
                     player.AddBuff(ModContent.BuffType<VirtuousSoul>(), 1800);
                 }
             }
-            player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed = 0;
+            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 8;
 
             for (int i = 0; i < 10; i++)
             {

@@ -7,7 +7,7 @@ using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
 using Terraria.IO;
 
-namespace ShardsOfAtheria
+namespace ShardsOfAtheria.Utilities
 {
     public class ShardsDownedSystem : ModSystem
     {
@@ -105,7 +105,7 @@ namespace ShardsOfAtheria
         public override void LoadWorldData(TagCompound tag)
         {
             if (tag.ContainsKey("downedValkyrie"))
-            downedValkyrie = tag.GetBool("downedValkyrie");
+                downedValkyrie = tag.GetBool("downedValkyrie");
             if (tag.ContainsKey("downedDeath"))
                 downedDeath = tag.GetBool("downedDeath");
             if (tag.ContainsKey("downedSenterra"))

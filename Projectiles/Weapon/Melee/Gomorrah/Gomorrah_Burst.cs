@@ -1,9 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 {
@@ -28,6 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
         {
             if (Projectile.ai[0] == 0)
             {
+                EffectsSystem.Shake.Set(6f);
                 SoundEngine.PlaySound(SoundID.Item14);
                 Projectile.ai[0] = 1;
             }

@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.SevenDeadlySouls
+namespace ShardsOfAtheria.Items.SinfulSouls
 {
-    public class SlothSoul : SevenSouls
+    public class SlothSoul : SinfulSouls
     {
         public override void SetDefaults()
         {
@@ -25,7 +26,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
     {
     }
 
-    public class SlothBuff : SevenSoulsBuff
+    public class SlothBuff : SinfulSoulBuff
     {
         public override void SetStaticDefaults()
         {
@@ -35,7 +36,7 @@ namespace ShardsOfAtheria.Items.SevenDeadlySouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SevenSoulPlayer>().SevenSoulUsed = 6;
+            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 6;
             if (player.velocity == Vector2.Zero)
             {
                 player.GetDamage(DamageClass.Generic) += .2f;
