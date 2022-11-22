@@ -387,10 +387,16 @@ namespace ShardsOfAtheria.Globals
 
         public override void UpdateInventory(Item item, Player player)
         {
-            if (!player.HasBuff(ModContent.BuffType<CreeperShield>()) && item.pick > 0 && item.axe > 0 && item.hammer > 0)
+            if (item.pick > 0 && item.axe > 0 && item.hammer > 0)
             {
-                Item copy = new(item.type);
-                item.damage = copy.damage;
+                if (player.HasBuff(ModContent.BuffType<CreeperShield>()))
+                {
+                    item.damage = 0;
+                }
+                else
+                {
+                    item.damage = ContentSamples.ItemsByType[item.type].damage;
+                }
             }
         }
     }
