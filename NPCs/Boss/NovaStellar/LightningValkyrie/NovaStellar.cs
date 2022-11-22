@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.ItemDropRules.Condition;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.GrabBags;
@@ -25,7 +26,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
+namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 {
     [AutoloadBossHead]
     public class NovaStellar : ModNPC
@@ -110,7 +111,6 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
             notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.GoldBar, 1, 10, 20));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ChargedFeather>(), 1, 15, 28));
             slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieSoulCrystal>()));
-            slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieStormLance>()));
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<NovaRelic>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<NovaTrophy>(), 10));
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<SmallHardlightCrest>(), 25));
@@ -119,6 +119,7 @@ namespace ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie
             {
                 notExpertRule.OnSuccess(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
             }
+            npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<ValkyrieStormLance>()));
 
             // Finally add the leading rule
             npcLoot.Add(notExpertRule);

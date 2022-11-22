@@ -1,7 +1,6 @@
-﻿using ShardsOfAtheria.Players;
-using Terraria;
+﻿using Terraria;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace ShardsOfAtheria.ItemDropRules.Conditions
 {
@@ -25,7 +24,7 @@ namespace ShardsOfAtheria.ItemDropRules.Conditions
 
         public string GetConditionDescription()
         {
-            return "Drops after Skeletron's defeat";
+            return Language.GetTextValue("Mods.ShardsOfAtheria.DropCondition.PostSkeletron");
         }
     }
 
@@ -48,7 +47,7 @@ namespace ShardsOfAtheria.ItemDropRules.Conditions
 
         public string GetConditionDescription()
         {
-            return "Drops after Golem's defeat";
+            return Language.GetTextValue("Mods.ShardsOfAtheria.DropCondition.PostGolem");
         }
     }
 
@@ -71,7 +70,7 @@ namespace ShardsOfAtheria.ItemDropRules.Conditions
 
         public string GetConditionDescription()
         {
-            return "Drops after Lunatic Cultist's defeat";
+            return Language.GetTextValue("Mods.ShardsOfAtheria.DropCondition.PostCultist");
         }
     }
     // Very simple drop condition: drop after Moon Lord's defeat
@@ -93,7 +92,7 @@ namespace ShardsOfAtheria.ItemDropRules.Conditions
 
         public string GetConditionDescription()
         {
-            return "Drops after Moon Lord's defeat";
+            return Language.GetTextValue("Mods.ShardsOfAtheria.DropCondition.PostMoonLord");
         }
     }
 }

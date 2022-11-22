@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.NPCDebuff;
+using ShardsOfAtheria.ItemDropRules.Condition;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Consumable;
@@ -31,12 +32,27 @@ namespace ShardsOfAtheria.Globals
 {
     public class SoAGlobalNPC : GlobalNPC
     {
+        public bool flawless = true;
         #region NPC Elements (for 1.0)
         public static List<int> MetalNPC = new();
         public static List<int> FireNPC = new();
         public static List<int> IceNPC = new();
         public static List<int> ElectricNPC = new();
         #endregion
+
+        public override bool InstancePerEntity => true;
+
+        public override void Load()
+        {
+            On.Terraria.NPC.Transform += NPC_Transform;
+        }
+
+        private void NPC_Transform(On.Terraria.NPC.orig_Transform orig, NPC self, int newType)
+        {
+            bool flawless = self.GetGlobalNPC<SoAGlobalNPC>().flawless;
+            orig(self, newType);
+            self.GetGlobalNPC<SoAGlobalNPC>().flawless = flawless;
+        }
 
         public override void SetDefaults(NPC npc)
         {
@@ -698,11 +714,12 @@ namespace ShardsOfAtheria.Globals
 
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            LeadingConditionRule notHardmode = new LeadingConditionRule(new Conditions.IsPreHardmode());
-            LeadingConditionRule firstTimeKillingPlantera = new LeadingConditionRule(new Conditions.FirstTimeKillingPlantera());
-            LeadingConditionRule downedGolem = new LeadingConditionRule(new DownedGolem());
-            LeadingConditionRule downedCultist = new LeadingConditionRule(new DownedLunaticCultist());
-            LeadingConditionRule downedMoonLord = new LeadingConditionRule(new DownedMoonLord());
+            LeadingConditionRule notHardmode = new(new Conditions.IsPreHardmode());
+            LeadingConditionRule firstTimeKillingPlantera = new(new Conditions.FirstTimeKillingPlantera());
+            LeadingConditionRule downedGolem = new(new DownedGolem());
+            LeadingConditionRule downedCultist = new(new DownedLunaticCultist());
+            LeadingConditionRule downedMoonLord = new(new DownedMoonLord());
+            LeadingConditionRule flawless = new(new FlawlessDropCondition());
             if (npc.type == NPCID.Mothron)
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BrokenHeroGun>(), 4));
@@ -711,12 +728,42 @@ namespace ShardsOfAtheria.Globals
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ReactorMeltdown>(), 4));
             }
+            #region Add former slayer loot to normal loot pool
+            if (npc.type == NPCID.EyeofCthulhu)
+            {
+                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<Cataracnia>()));
+            }
+            if (npc.type == NPCID.BrainofCthulhu)
+            {
+                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<TomeOfOmniscience>()));
+            }
+            if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
+            {
+                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<WormBloom>()));
+            }
+            if (npc.type == NPCID.Deerclops)
+            {
+                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<ScreamLantern>()));
+            }
             if (npc.type == NPCID.WallofFlesh)
             {
                 notHardmode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
                 npcLoot.Add(notHardmode);
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulSoul>()));
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulArmament>()));
+                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<FlailOfFlesh>()));
+            }
+            if (npc.type == NPCID.TheDestroyer || npc.type == NPCID.TheDestroyerBody || npc.type == NPCID.TheDestroyerTail)
+            {
+                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<Coilgun>()));
+            }
+            if (npc.type == NPCID.SkeletronPrime)
+            {
+                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<HandCanon>()));
+            }
+            if (npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism)
+            {
+                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<DoubleBow>()));
             }
             if (npc.type == NPCID.Plantera)
             {
@@ -738,6 +785,7 @@ namespace ShardsOfAtheria.Globals
                 downedMoonLord.OnFailedConditions(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
                 npcLoot.Add(downedMoonLord);
             }
+            #endregion
         }
 
         public override bool PreAI(NPC npc)

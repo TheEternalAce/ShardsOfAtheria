@@ -5,7 +5,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
+namespace ShardsOfAtheria.Projectiles.Weapon.Thowing
 {
     public class MetalBladeProj : ModProjectile
     {

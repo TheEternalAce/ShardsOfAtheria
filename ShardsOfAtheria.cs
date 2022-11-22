@@ -5,7 +5,7 @@ using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon.Minion;
-using ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie;
+using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using ShardsOfAtheria.NPCs.Town;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;

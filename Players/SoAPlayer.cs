@@ -3,6 +3,7 @@ using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Items.SinfulSouls;
@@ -549,7 +550,14 @@ namespace ShardsOfAtheria.Players
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
         {
             if (Player.HasBuff(ModContent.BuffType<Megamerged>()))
+            {
                 SoundEngine.PlaySound(SoundID.NPCHit4, Player.position);
+            }
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                if (Main.npc[i].active)
+                    Main.npc[i].GetGlobalNPC<SoAGlobalNPC>().flawless = false;
+            }
         }
 
         public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)

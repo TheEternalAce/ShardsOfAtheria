@@ -1,5 +1,6 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
+using ShardsOfAtheria.Projectiles.Weapon.Thowing;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;

@@ -1,12 +1,12 @@
 ﻿using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace ShardsOfAtheria.ItemDropRules.Conditions
 {
-    // Very simple drop condition: drop in slayer mode
-    public class IsSlayerMode : IItemDropRuleCondition
+	// Very simple drop condition: drop in slayer mode
+	public class IsSlayerMode : IItemDropRuleCondition
 	{
 		public bool CanDrop(DropAttemptInfo info)
 		{
@@ -24,7 +24,7 @@ namespace ShardsOfAtheria.ItemDropRules.Conditions
 
 		public string GetConditionDescription()
 		{
-			return "Drops while in Slayer Mode";
+			return Language.GetTextValue("Mods.ShardsOfAtheria.DropConditions.Slayer");
 		}
 	}
 }

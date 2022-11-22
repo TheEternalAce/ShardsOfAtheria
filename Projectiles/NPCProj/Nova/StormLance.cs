@@ -1,11 +1,11 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using System.Linq;
-using ShardsOfAtheria.NPCs.NovaStellar.LightningValkyrie;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
+using System.Linq;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {

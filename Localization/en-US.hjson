@@ -1266,6 +1266,37 @@ Mods: {
 			WipSoulEntry: This Soul Crystal needs further research. Please wait for this boss to be introduced into the mod.
 		}
 
+		#This is what displays during all of an NPC's happiness levels. Note that the localization key for these should always be "TownNPCMood.*NPCName*.*Mood*" or else it won't display properly.
+		TownNPCMood: {
+			Atherian: {
+				Content: I'm fine, thanks for checking on me.
+				NoHome: I would appreciate it if you'd make me a home.
+				FarFromHome: Looks like I wandered too far from home.
+
+				LoveSpace: So much space.. It feels strange but also nice.
+				DislikeCrowded: I've grown so accustomed to having so much space that this is uncomfortable now.
+
+				LoveBiome: I love {BiomeName}, It reminds me of Atheria.
+				LikeBiome: "Atheria doesn't have many lush forests, this is a nice change."
+				HateBiome: "I can't stand how boring {BiomeName} is. All the colors are buried under gray and maybe brown."
+				
+				LoveNPC: "{NPCName} makes me feel a certain way.. But regardless she does a great job doing my hair!"
+				LikeNPC: "Nobody gives {NPCName} enough credit. I mean come on, he knows the Soul of Eternity's whole crafting tree yet you have to look it up on Recipe Browser!"
+				LikeNPC_Princess: "{NPCName} reminds me of our queen in Atheria, I didn't know humans had royalty as well!"
+				DislikeNPC: ""
+				HateNPC: ""
+			}
+		}
+
+		DropConditions: {
+			Flawless: Defeat without getting hit
+			Slayer: Drops while in Slayer Mode
+			PostSkeletron: "Drops after Skeletron's defeat"
+			PostGolem: "Drops after Golem's defeat"
+			PostCultist: "Drops after Lunatic Cultist's defeat"
+			PostMoonLord: "Drops after Moon Lord's defeat"
+		}
+
 		BossDesc: {
 			NovaStellar: Lightning Valkyrie
 		}
@@ -1363,27 +1394,8 @@ Mods: {
 				NotEnoughMaterial: "You don't have enough [i:{0}]. I need at least {1}. You have {2}."
 			}
 		}
-
-		#This is what displays during all of an NPC's happiness levels. Note that the localization key for these should always be "TownNPCMood.*NPCName*.*Mood*" or else it won't display properly.
-		TownNPCMood: {
-			Atherian: {
-				Content: I'm fine, thanks for checking on me.
-				NoHome: I would appreciate it if you'd make me a home.
-				FarFromHome: Looks like I wandered too far from home.
-
-				LoveSpace: So much space.. It feels strange but also nice.
-				DislikeCrowded: I've grown so accustomed to having so much space that this is uncomfortable now.
-
-				LoveBiome: I love {BiomeName}, It reminds me of Atheria.
-				LikeBiome: "Atheria doesn't have many lush forests, this is a nice change."
-				HateBiome: "I can't stand how boring {BiomeName} is. All the colors are buried under gray and maybe brown."
-				
-				LoveNPC: "{NPCName} makes me feel a certain way.. But regardless she does a great job doing my hair!"
-				LikeNPC: "Nobody gives {NPCName} enough credit. I mean come on, he knows the Soul of Eternity's whole crafting tree yet you have to look it up on Recipe Browser!"
-				LikeNPC_Princess: "{NPCName} reminds me of our queen in Atheria, I didn't know humans had royalty as well!"
-				DislikeNPC: ""
-				HateNPC: ""
-			}
-		}
 	}
+}
+TownNPCMood_Princess:{
+	LoveNPC_ShardsOfAtheria/Atherian: "{NPCName}'s wings are just gorgeous!"
 }
