@@ -903,15 +903,18 @@ namespace ShardsOfAtheria.Globals
 
         public override bool PreAI(NPC npc)
         {
+            #region De-spawn bosses, and minions, that have been slain
             if (npc.type == NPCID.KingSlime && ModContent.GetInstance<ShardsDownedSystem>().slainKing)
             {
                 ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("King Slime was slain..."), Color.White);
                 npc.active = false;
+                return false;
             }
             if (npc.type == NPCID.EyeofCthulhu && ModContent.GetInstance<ShardsDownedSystem>().slainEOC)
             {
                 ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Eye of Cthulhu was slain..."), Color.White);
                 npc.active = false;
+                return false;
             }
             if (ModContent.GetInstance<ShardsDownedSystem>().slainBOC)
             {
@@ -919,9 +922,13 @@ namespace ShardsOfAtheria.Globals
                 {
                     ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Brain of Cthulhu was slain..."), Color.White);
                     npc.active = false;
+                    return false;
                 }
                 if (npc.type == NPCID.Creeper && ModContent.GetInstance<ShardsDownedSystem>().slainBOC)
+                {
                     npc.active = false;
+                    return false;
+                }
             }
             if (ModContent.GetInstance<ShardsDownedSystem>().slainEOW)
             {
@@ -929,14 +936,19 @@ namespace ShardsOfAtheria.Globals
                 {
                     ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Eater of Worlds was slain..."), Color.White);
                     npc.active = false;
+                    return false;
                 }
                 if (npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
+                {
                     npc.active = false;
+                    return false;
+                }
             }
             if (npc.type == NPCID.QueenBee && ModContent.GetInstance<ShardsDownedSystem>().slainBee)
             {
                 ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Queen Bee was slain..."), Color.White);
                 npc.active = false;
+                return false;
             }
             if (ModContent.GetInstance<ShardsDownedSystem>().slainSkull)
             {
@@ -944,14 +956,19 @@ namespace ShardsOfAtheria.Globals
                 {
                     ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Skeletron was slain..."), Color.White);
                     npc.active = false;
+                    return false;
                 }
                 if (npc.type == NPCID.SkeletronHand)
+                {
                     npc.active = false;
+                    return false;
+                }
             }
             if (npc.type == NPCID.Deerclops && ModContent.GetInstance<ShardsDownedSystem>().slainDeerclops)
             {
                 ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Deerclops was slain..."), Color.White);
                 npc.active = false;
+                return false;
             }
             if (ModContent.GetInstance<ShardsDownedSystem>().slainWall)
             {
@@ -959,14 +976,19 @@ namespace ShardsOfAtheria.Globals
                 {
                     ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("the Wall of Flesh was slain..."), Color.White);
                     npc.active = false;
+                    return false;
                 }
                 if (npc.type == NPCID.WallofFleshEye)
+                {
                     npc.active = false;
+                    return false;
+                }
             }
             if (npc.type == NPCID.QueenSlimeBoss && ModContent.GetInstance<ShardsDownedSystem>().slainQueen)
             {
                 ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Queen Slime was slain..."), Color.White);
                 npc.active = false;
+                return false;
             }
             if (ModContent.GetInstance<ShardsDownedSystem>().slainMechWorm)
             {
@@ -974,9 +996,13 @@ namespace ShardsOfAtheria.Globals
                 {
                     ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Destroyer was slain..."), Color.White);
                     npc.active = false;
+                    return false;
                 }
                 if (npc.type == NPCID.TheDestroyerBody || npc.type == NPCID.TheDestroyerTail)
+                {
                     npc.active = false;
+                    return false;
+                }
             }
             if (ModContent.GetInstance<ShardsDownedSystem>().slainTwins)
             {
@@ -984,11 +1010,13 @@ namespace ShardsOfAtheria.Globals
                 {
                     ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Spazmatism was slain..."), Color.White);
                     npc.active = false;
+                    return false;
                 }
                 if (npc.type == NPCID.Retinazer)
                 {
                     ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Retinazer was slain..."), Color.White);
                     npc.active = false;
+                    return false;
                 }
             }
             if (ModContent.GetInstance<ShardsDownedSystem>().slainPrime)
@@ -997,9 +1025,13 @@ namespace ShardsOfAtheria.Globals
                 {
                     ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Skeletron Prime was slain... (Again, how???)"), Color.White);
                     npc.active = false;
+                    return false;
                 }
                 if (npc.type == NPCID.PrimeCannon || npc.type == NPCID.PrimeLaser || npc.type == NPCID.PrimeSaw || npc.type == NPCID.PrimeVice)
+                {
                     npc.active = false;
+                    return false;
+                }
             }
             if (ModContent.GetInstance<ShardsDownedSystem>().slainPlant)
             {
@@ -1007,9 +1039,13 @@ namespace ShardsOfAtheria.Globals
                 {
                     ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Plantera was slain..."), Color.White);
                     npc.active = false;
+                    return false;
                 }
                 if (npc.type == NPCID.PlanterasHook || npc.type == NPCID.PlanterasTentacle)
+                {
                     npc.active = false;
+                    return false;
+                }
             }
             if (ModContent.GetInstance<ShardsDownedSystem>().slainGolem)
             {
@@ -1017,19 +1053,25 @@ namespace ShardsOfAtheria.Globals
                 {
                     ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Golem was slain..."), Color.White);
                     npc.active = false;
+                    return false;
                 }
                 if (npc.type == NPCID.GolemFistLeft || npc.type == NPCID.GolemFistRight || npc.type == NPCID.GolemHead)
+                {
                     npc.active = false;
+                    return false;
+                }
             }
             if (npc.type == NPCID.DukeFishron && ModContent.GetInstance<ShardsDownedSystem>().slainDuke)
             {
                 ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Duke Fishron was slain..."), Color.White);
                 npc.active = false;
+                return false;
             }
             if (npc.type == NPCID.HallowBoss && ModContent.GetInstance<ShardsDownedSystem>().slainEmpress)
             {
                 ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Empress of Light was slain..."), Color.White);
                 npc.active = false;
+                return false;
             }
             if (ModContent.GetInstance<ShardsDownedSystem>().slainLunatic)
             {
@@ -1037,39 +1079,48 @@ namespace ShardsOfAtheria.Globals
                 {
                     ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Lunatic Cultist was slain..."), Color.White);
                     npc.active = false;
+                    return false;
                 }
                 if (npc.type == NPCID.CultistTablet)
                 {
                     npc.active = false;
+                    return false;
                 }
                 if (npc.type == NPCID.CultistArcherBlue)
                 {
                     npc.active = false;
+                    return false;
                 }
                 if (npc.type == NPCID.CultistArcherWhite)
                 {
                     npc.active = false;
+                    return false;
                 }
                 if (npc.type == NPCID.CultistDevote)
                 {
                     npc.active = false;
+                    return false;
                 }
             }
             if (npc.type == NPCID.LunarTowerNebula && ModContent.GetInstance<ShardsDownedSystem>().slainPillarNebula)
             {
                 npc.active = false;
+                return false;
             }
             if (npc.type == NPCID.LunarTowerSolar && ModContent.GetInstance<ShardsDownedSystem>().slainPillarSolar)
             {
                 npc.active = false;
+                return false;
             }
             if (npc.type == NPCID.LunarTowerStardust && ModContent.GetInstance<ShardsDownedSystem>().slainPillarStardust)
             {
                 npc.active = false;
+                return false;
             }
             if (npc.type == NPCID.LunarTowerVortex && ModContent.GetInstance<ShardsDownedSystem>().slainPillarVortex)
             {
                 npc.active = false;
+                return false;
             }
             if (ModContent.GetInstance<ShardsDownedSystem>().slainMoonLord)
             {
@@ -1080,7 +1131,9 @@ namespace ShardsOfAtheria.Globals
                 }
                 if (npc.type == NPCID.MoonLordHand || npc.type == NPCID.MoonLordHead)
                     npc.active = false;
+                return false;
             }
+            #endregion
             return base.PreAI(npc);
         }
 

@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using Terraria;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Tiles;
 using Terraria.ModLoader.IO;
-using Terraria.WorldBuilding;
-using Terraria.IO;
 
 namespace ShardsOfAtheria.Utilities
 {
@@ -51,14 +47,13 @@ namespace ShardsOfAtheria.Utilities
             downedSenterra = false;
             downedGenesis = false;
 
-            slainDeath = false;
-            slainValkyrie = false;
             slainKing = false;
             slainEOC = false;
             slainBOC = false;
             slainEOW = false;
             slainBee = false;
             slainSkull = false;
+            slainValkyrie = false;
             slainDeerclops = false;
             slainWall = false;
             slainQueen = false;
@@ -71,6 +66,7 @@ namespace ShardsOfAtheria.Utilities
             slainEmpress = false;
             slainLunatic = false;
             slainMoonLord = false;
+            slainDeath = false;
         }
 
         public override void SaveWorldData(TagCompound tag)
@@ -80,7 +76,6 @@ namespace ShardsOfAtheria.Utilities
             tag["downedDeath"] = downedDeath;
             tag["downedValkyrie"] = downedValkyrie;
 
-            tag["slainDeath"] = slainDeath;
             tag["slainKing"] = slainKing;
             tag["slainEOC"] = slainEOC;
             tag["slainBOC"] = slainBOC;
@@ -100,6 +95,7 @@ namespace ShardsOfAtheria.Utilities
             tag["slainEmpress"] = slainEmpress;
             tag["slainLunatic"] = slainLunatic;
             tag["slainMoonLord"] = slainMoonLord;
+            tag["slainDeath"] = slainDeath;
         }
 
         public override void LoadWorldData(TagCompound tag)
@@ -113,6 +109,8 @@ namespace ShardsOfAtheria.Utilities
             if (tag.ContainsKey("downedGenesis"))
                 downedGenesis = tag.GetBool("downedGenesis");
 
+            if (tag.ContainsKey("slainKing"))
+                slainKing = tag.GetBool("slainKing");
             if (tag.ContainsKey("slainEOC"))
                 slainEOC = tag.GetBool("slainEOC");
             if (tag.ContainsKey("slainBOC"))
