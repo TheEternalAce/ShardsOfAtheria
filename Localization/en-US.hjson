@@ -568,7 +568,6 @@ Mods: {
 				'''
 				Consecutive strikes on an enemy will increase the damage they take by 1
 				Darkness debuff
-				'Oh the misery'
 				'''
 			GluttonySoul:
 				'''
@@ -589,14 +588,12 @@ Mods: {
 				Damage reduced by 20%
 				Lovestruck buff
 				Damaging enemies may cause them to drop hearts
-				'The only thing I know for real: there will be blood-shed!'
 				'''
 			PrideSoul: Every 10 seconds of not taking damage increases damage by 2%
 			SlothSoul:
 				'''
 				The lower your movement speed is, the greater your damage and defense are increased
 				While not moving damage is increased by 20% and defense by 10
-				'How very slothful of you'
 				'''
 			WrathSoul:
 				'''
@@ -785,7 +782,6 @@ Mods: {
 				'''
 				Fires a 2 burst of shockwaves that can bounce off of tiles
 				Shockwaves get faster after each bounce
-				'I like ya cut g'
 				'No voice to cry suffering'
 				'''
 			WormTench: "'Gross, absolutely vile..'"
@@ -968,6 +964,7 @@ Mods: {
 			GolemBeam: Golem Beam
 			HolyExplosion: Holy Fire Explosion
 			PhantasmalEye: Phantasmal Eye
+			SapphireShield: Sapphire Shell
 			ShadowTendrils: Shadow Tendrils
 			SpinPrime: Spin Skull Prime
 			SpinSkull: Spin Skull
