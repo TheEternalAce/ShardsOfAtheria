@@ -1,5 +1,6 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.ItemDropRules.Conditions;
+using ShardsOfAtheria.Systems;
 using System.Linq;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
@@ -65,7 +66,7 @@ namespace ShardsOfAtheria.Items.GrabBags
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AmmoBag>())
-                .AddIngredient(ItemID.RocketI, 100)
+                .AddRecipeGroup(ShardsRecipes.Rocket, 100)
                 .AddTile(TileID.WorkBenches)
                 .Register();
         }

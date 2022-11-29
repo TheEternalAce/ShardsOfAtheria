@@ -726,12 +726,7 @@ Mods: {
 			# DeathSoulCrystal:
 
 			# Tools
-			RedAreusDrill:
-				'''
-				Uses highly concentrated electricity to cut through stones and ores
-				'Extremely dangerous... and fun!'
-				'''
-			RedAreusPickaxe: Uses highly concentrated electricity to cut through stones and ores
+			RedAreusDrill: "'Extremely dangerous... and fun!'"
 			SoulExtractingDagger:
 				'''
 				Right click to cycle between absorbed Soul Crystals
