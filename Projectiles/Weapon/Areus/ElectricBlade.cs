@@ -1,6 +1,4 @@
-﻿using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.Potions;
+﻿using ShardsOfAtheria.Globals;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,7 +9,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.AreusProjectile.Add(Type);
+            SoAGlobalProjectile.AreusProjectile[Type] = true;
         }
 
         public override void SetDefaults()

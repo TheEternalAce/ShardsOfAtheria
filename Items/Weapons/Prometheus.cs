@@ -1,6 +1,6 @@
-using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.ID;
@@ -29,11 +29,11 @@ namespace ShardsOfAtheria.Items.Weapons
             Item.useTime = 30;
             Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.autoReuse = true;
-            Item.useTurn = true;
-            Item.noMelee = false;
-            Item.noUseGraphic = false;
+            Item.noMelee = true;
+            Item.noUseGraphic = true;
 
+            Item.shoot = ModContent.ProjectileType<EnergyScythe>();
+            Item.shootSpeed = 1;
             Item.value = Item.sellPrice(0, 3, 25);
             Item.rare = ItemRarityID.Red;
             Item.shoot = ProjectileID.None;
@@ -56,8 +56,6 @@ namespace ShardsOfAtheria.Items.Weapons
         {
             if (player.altFunctionUse == 2)
             {
-                Item.noMelee = true;
-                Item.noUseGraphic = true;
                 Item.useTime = 17;
                 Item.useAnimation = 17;
                 Item.damage = 97;
@@ -67,12 +65,9 @@ namespace ShardsOfAtheria.Items.Weapons
                 Item.UseSound = SoundID.Item20;
                 Item.shoot = ModContent.ProjectileType<PrometheusFire>();
                 Item.shootSpeed = 13f;
-                Item.useTurn = false;
             }
             else
             {
-                Item.noMelee = false;
-                Item.noUseGraphic = false;
                 Item.useTime = 30;
                 Item.useAnimation = 30;
                 Item.damage = 112;
@@ -80,21 +75,10 @@ namespace ShardsOfAtheria.Items.Weapons
                 Item.knockBack = 13;
                 Item.mana = 0;
                 Item.UseSound = SoundID.Item71;
-                Item.shoot = ProjectileID.None;
-                Item.useTurn = true;
+                Item.shoot = ModContent.ProjectileType<EnergyScythe>();
+                Item.shootSpeed = 1;
             }
             return base.CanUseItem(player);
-        }
-
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
-        {
-            if (player.HasBuff(ModContent.BuffType<Overdrive>()))
-            {
-                target.AddBuff(BuffID.CursedInferno, 10 * 60);
-                player.AddBuff(BuffID.Ichor, 10 * 60);
-            }
-            target.AddBuff(BuffID.OnFire, 10 * 60);
-            player.AddBuff(BuffID.WeaponImbueIchor, 10 * 60);
         }
     }
 }

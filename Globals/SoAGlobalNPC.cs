@@ -20,7 +20,6 @@ using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Utilities;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Chat;
 using Terraria.GameContent.ItemDropRules;
@@ -34,16 +33,17 @@ namespace ShardsOfAtheria.Globals
     {
         public bool flawless = true;
         #region NPC Elements (for 1.0)
-        public static List<int> MetalNPC = new();
-        public static List<int> FireNPC = new();
-        public static List<int> IceNPC = new();
-        public static List<int> ElectricNPC = new();
+        public static bool[] MetalNPC = new bool[ItemLoader.ItemCount];
+        public static bool[] FireNPC = new bool[ItemLoader.ItemCount];
+        public static bool[] IceNPC = new bool[ItemLoader.ItemCount];
+        public static bool[] ElectricNPC = new bool[ItemLoader.ItemCount];
         #endregion
 
         public override bool InstancePerEntity => true;
 
         public override void Load()
         {
+            //flawless continuity for EoW
             On.Terraria.NPC.Transform += NPC_Transform;
         }
 
@@ -62,47 +62,48 @@ namespace ShardsOfAtheria.Globals
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
             Player player = Main.LocalPlayer;
-            switch (type)
+            if (type == NPCID.Merchant)
             {
-                case NPCID.Merchant:
-                    if (player.GetModPlayer<SlayerPlayer>().slayerMode)
-                    {
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<RepairKit_Lesser>());
-                        nextSlot++;
-                    }
-                    break;
-                case NPCID.TravellingMerchant:
-                    // Sells during a Full Moon
-                    if (Main.moonPhase == 0)
-                    {
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusShard>());
-                        nextSlot++;
-                    }
-                    // Sells during a New Moon
-                    if (Main.moonPhase == 4)
-                    {
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<BionicOreItem>());
-                        nextSlot++;
-                    }
-                    break;
-                case NPCID.ArmsDealer:
-                    if (NPC.downedBoss3)
-                    {
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<AmmoBag>());
-                        nextSlot++;
-                    }
-                    break;
-                case NPCID.Wizard:
-                    if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
-                    {
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<SinfulSoul>());
-                        shop.item[nextSlot].shopCustomPrice = 250000;
-                        nextSlot++;
-                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<SinfulArmament>());
-                        shop.item[nextSlot].shopCustomPrice = 250000;
-                        nextSlot++;
-                    }
-                    break;
+                if (player.GetModPlayer<SlayerPlayer>().slayerMode)
+                {
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<RepairKit_Lesser>());
+                    nextSlot++;
+                }
+            }
+            if (type == NPCID.TravellingMerchant)
+            {
+                // Sells during a Full Moon
+                if (Main.moonPhase == 0)
+                {
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusShard>());
+                    nextSlot++;
+                }
+                // Sells during a New Moon
+                if (Main.moonPhase == 4)
+                {
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<BionicOreItem>());
+                    nextSlot++;
+                }
+            }
+            if (type == NPCID.ArmsDealer)
+            {
+                if (NPC.downedBoss3)
+                {
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<AmmoBag>());
+                    nextSlot++;
+                }
+            }
+            if (type == NPCID.Wizard)
+            {
+                if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
+                {
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<SinfulSoul>());
+                    shop.item[nextSlot].shopCustomPrice = 250000;
+                    nextSlot++;
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<SinfulArmament>());
+                    shop.item[nextSlot].shopCustomPrice = 250000;
+                    nextSlot++;
+                }
             }
 
             if (ModLoader.TryGetMod("AlchemistNPCLite", out Mod alchemistNPCLite))
@@ -126,6 +127,116 @@ namespace ShardsOfAtheria.Globals
                     nextSlot++;
                 }
             }
+        }
+
+        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        {
+            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            {
+                double modifier = 1.0;
+                if (SoAGlobalItem.FireWeapon[item.type])
+                {
+                    if (IceNPC[npc.type])
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (ElectricNPC[npc.type])
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalItem.IceWeapon[item.type])
+                {
+                    if (MetalNPC[npc.type])
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (FireNPC[npc.type])
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalItem.ElectricWeapon[item.type])
+                {
+                    if (FireNPC[npc.type])
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (MetalNPC[npc.type])
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalItem.MetalWeapon[item.type])
+                {
+                    if (ElectricNPC[npc.type])
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (IceNPC[npc.type])
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                damage = (int)Math.Ceiling(damage * modifier);
+            }
+
+            base.ModifyHitByItem(npc, player, item, ref damage, ref knockback, ref crit);
+        }
+
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            {
+                double modifier = 1.0;
+                if (SoAGlobalProjectile.FireProjectile[projectile.type])
+                {
+                    if (IceNPC[npc.type])
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (ElectricNPC[npc.type])
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalProjectile.IceProjectile[projectile.type])
+                {
+                    if (MetalNPC[npc.type])
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (FireNPC[npc.type])
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalProjectile.ElectricProjectile[projectile.type])
+                {
+                    if (FireNPC[npc.type])
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (MetalNPC[npc.type])
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalProjectile.MetalProjectile[projectile.type])
+                {
+                    if (ElectricNPC[npc.type])
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (IceNPC[npc.type])
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                damage = (int)Math.Ceiling(damage * modifier);
+            }
+
+            base.ModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
         }
 
         public override void OnKill(NPC npc)
@@ -719,7 +830,7 @@ namespace ShardsOfAtheria.Globals
             LeadingConditionRule downedGolem = new(new DownedGolem());
             LeadingConditionRule downedCultist = new(new DownedLunaticCultist());
             LeadingConditionRule downedMoonLord = new(new DownedMoonLord());
-            LeadingConditionRule flawless = new(new FlawlessDropCondition());
+
             if (npc.type == NPCID.Mothron)
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BrokenHeroGun>(), 4));
@@ -739,7 +850,9 @@ namespace ShardsOfAtheria.Globals
             }
             if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
             {
-                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<WormBloom>()));
+                LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new Conditions.LegacyHack_IsABoss());
+                leadingConditionRule.OnSuccess(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<WormBloom>()));
+                npcLoot.Add(leadingConditionRule);
             }
             if (npc.type == NPCID.Deerclops)
             {

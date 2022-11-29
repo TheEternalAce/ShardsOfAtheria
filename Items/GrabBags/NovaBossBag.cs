@@ -6,6 +6,7 @@ using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon.Minion;
+using ShardsOfAtheria.Items.Weapons.Throwing;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using Terraria;
 using Terraria.GameContent;
@@ -51,6 +52,7 @@ namespace ShardsOfAtheria.Items.GrabBags
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ChargedFeather>(), 1, 15, 28));
             itemLoot.Add(ItemDropRule.Common(ItemID.GoldBar, 1, 10, 20));
             itemLoot.Add(ItemDropRule.OneFromOptions(1, loot));
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<HardlightKnife>(), 5, 300, 600));
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<NovaStellar>()));
             base.ModifyItemLoot(itemLoot);
         }

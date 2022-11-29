@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -25,12 +24,12 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            
+
             Projectile.Center = player.Center + new Vector2(0, -200);
 
             if (++Projectile.ai[1] >= 20)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Normalize(player.Center - Projectile.Center) * 60f, ModContent.ProjectileType<LightningBolt>(), 50, 0, Main.myPlayer);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Normalize(player.Center - Projectile.Center) * 4f, ModContent.ProjectileType<LightningBolt>(), 50, 0, Main.myPlayer);
                 Projectile.ai[1] = 0;
             }
 

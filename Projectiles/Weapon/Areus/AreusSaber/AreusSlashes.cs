@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Items.Weapons.Melee;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -17,7 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 4;
-            SoAGlobalProjectile.AreusProjectile.Add(Type);
+            SoAGlobalProjectile.AreusProjectile[Type] = true;
         }
 
         public override void SetDefaults()

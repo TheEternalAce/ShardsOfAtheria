@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.UpgradeableItem.Add(Type);
+            SoAGlobalItem.UpgradeableItem[Type] = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Globals;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
 {
@@ -12,7 +9,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.AreusProjectile.Add(Type);
+            SoAGlobalProjectile.AreusProjectile[Type] = true;
         }
 
         public override void SetDefaults()

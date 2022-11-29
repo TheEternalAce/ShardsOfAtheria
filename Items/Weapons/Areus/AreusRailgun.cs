@@ -3,6 +3,7 @@ using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,7 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.AreusWeapon.Add(Type);
+            SoAGlobalItem.AreusWeapon[Type] = true;
         }
 
         public override void SetDefaults()
@@ -55,10 +56,18 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             return new Vector2(-2, 0);
         }
 
-        public override bool? UseItem(Player player)
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            if (type == ProjectileID.Bullet)
+            {
+                type = ProjectileID.BulletHighVelocity;
+            }
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             EffectsSystem.Shake.Set(8f);
-            return null;
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
     }
 }

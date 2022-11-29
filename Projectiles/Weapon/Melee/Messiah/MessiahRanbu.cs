@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using Terraria;
 using Terraria.Audio;
@@ -15,6 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 4;
+            SoAGlobalProjectile.FireProjectile[Type] = true;
         }
 
         public override void SetDefaults()

@@ -158,7 +158,7 @@ namespace ShardsOfAtheria.Systems
                 if ((recipe.TryGetIngredient(ItemID.Bottle, out Item _) || recipe.TryGetIngredient(ItemID.BottledWater, out Item _) || recipe.TryGetIngredient(ItemID.BottledHoney, out Item _))
                     && recipe.HasTile(TileID.Bottles))
                 {
-                    SoAGlobalItem.Potions.Add(recipe.createItem.type);
+                    SoAGlobalItem.Potions[recipe.createItem.type] = true;
                 }
             }
         }

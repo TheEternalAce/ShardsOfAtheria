@@ -1,8 +1,8 @@
 ﻿using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
-using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Globals
@@ -10,48 +10,55 @@ namespace ShardsOfAtheria.Globals
     public class SoAGlobalProjectile : GlobalProjectile
     {
         #region Projectile Categories
-        public static List<int> ThrowingProjectile = new();
+        public static bool[] ThrowingProjectile = new bool[ItemLoader.ItemCount];
         #endregion
 
         #region Projectile Elements (for 1.0)
-        public static List<int> ElectricProjectile = new();
-        public static List<int> FireProjectile = new();
-        public static List<int> IceProjectile = new();
-        public static List<int> MetalProjectile = new();
+        public static bool[] ElectricProjectile = new bool[ItemLoader.ItemCount];
+        public static bool[] FireProjectile = new bool[ItemLoader.ItemCount];
+        public static bool[] IceProjectile = new bool[ItemLoader.ItemCount];
+        public static bool[] MetalProjectile = new bool[ItemLoader.ItemCount];
 
         #region Projectile Sub-Elements
-        public static List<int> AreusProjectile = new();
-        public static List<int> BloodProjectile = new();
-        public static List<int> FrostfireProjectile = new();
+        public static bool[] AreusProjectile = new bool[ItemLoader.ItemCount];
+        public static bool[] BloodProjectile = new bool[ItemLoader.ItemCount];
+        public static bool[] FrostfireProjectile = new bool[ItemLoader.ItemCount];
         #endregion
 
         #endregion
 
         public override void SetDefaults(Projectile projectile)
         {
-            if (ThrowingProjectile.Contains(projectile.type))
+            if (ThrowingProjectile[projectile.type])
             {
                 projectile.DamageType = DamageClass.Throwing;
             }
 
             #region Assign Sub-Element projectile to a Base-Elements
-            if (BloodProjectile.Contains(projectile.type))
+            if (BloodProjectile[projectile.type])
             {
-                MetalProjectile.Add(projectile.type);
-                IceProjectile.Add(projectile.type);
+                MetalProjectile[projectile.type] = true;
+                IceProjectile[projectile.type] = true;
             }
-            if (FrostfireProjectile.Contains(projectile.type))
+            if (FrostfireProjectile[projectile.type])
             {
-                FireProjectile.Add(projectile.type);
-                IceProjectile.Add(projectile.type);
+                FireProjectile[projectile.type] = true;
+                IceProjectile[projectile.type] = true;
             }
-            if (AreusProjectile.Contains(projectile.type))
+            if (AreusProjectile[projectile.type])
             {
-                MetalProjectile.Add(projectile.type);
+                MetalProjectile[projectile.type] = true;
                 if (projectile.type != ModContent.ProjectileType<MourningStar>())
                 {
-                    ElectricProjectile.Add(projectile.type);
+                    ElectricProjectile[projectile.type] = true;
                 }
+            }
+            #endregion
+
+            #region Assign element to projectile
+            if (projectile.type == ProjectileID.Spark)
+            {
+                FireProjectile[projectile.type] = true;
             }
             #endregion
         }
@@ -60,7 +67,7 @@ namespace ShardsOfAtheria.Globals
         {
             Player player = Main.player[projectile.owner];
 
-            if (ElectricProjectile.Contains(projectile.type))
+            if (ElectricProjectile[projectile.type])
             {
                 target.AddBuff(ModContent.BuffType<ElectricShock>(), player.HasBuff(ModContent.BuffType<Conductive>()) ? 1200 : 600);
             }

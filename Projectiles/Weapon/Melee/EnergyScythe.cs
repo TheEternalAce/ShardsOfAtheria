@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
@@ -12,15 +11,10 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
+namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
-    public class AreusGlaive_Swing : EpicSwingSword
+    public class EnergyScythe : EpicSwingSword
     {
-        public override void SetStaticDefaults()
-        {
-            SoAGlobalProjectile.AreusProjectile[Type] = true;
-        }
-
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -28,6 +22,18 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
             Projectile.width = Projectile.height = 90;
             hitboxOutwards = 50;
             rotationOffset = -MathHelper.PiOver4 * 3f;
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            Player player = Main.player[Projectile.owner];
+            if (player.HasBuff(ModContent.BuffType<Overdrive>()))
+            {
+                target.AddBuff(BuffID.CursedInferno, 10 * 60);
+                player.AddBuff(BuffID.Ichor, 10 * 60);
+            }
+            target.AddBuff(BuffID.OnFire, 10 * 60);
+            player.AddBuff(BuffID.WeaponImbueIchor, 10 * 60);
         }
 
         protected override void Initialize(Player player, SoAPlayer shards)
@@ -62,6 +68,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
         {
             return GenericSwing2(progress);
         }
+
         public override float GetScale(float progress)
         {
             float scale = base.GetScale(progress);
@@ -100,8 +107,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
             bool flip = Main.player[Projectile.owner].direction == 1 ? combo > 0 : combo == 0;
             if (flip)
             {
-                Main.instance.LoadItem(ModContent.ItemType<Items.Weapons.Areus.AreusGlaive>());
-                texture = TextureAssets.Item[ModContent.ItemType<Items.Weapons.Areus.AreusGlaive>()].Value;
+                Main.instance.LoadItem(ModContent.ItemType<Items.Weapons.Prometheus>());
+                texture = TextureAssets.Item[ModContent.ItemType<Items.Weapons.Prometheus>()].Value;
             }
             var origin = new Vector2(0f, texture.Height);
 

@@ -10,6 +10,7 @@ using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Tools;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -336,6 +337,10 @@ namespace ShardsOfAtheria.Players
 
         public override void PreUpdate()
         {
+            if (slayerMode || soulCrystals.Count() > 0)
+            {
+
+            }
             if (omnicientTome)
             {
                 if (TomeKnowledge == 0)

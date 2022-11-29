@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
         {
             SacrificeTotal = 1;
 
-            SoAGlobalItem.SlayerItem.Add(Type);
+            SoAGlobalItem.SlayerItem[Type] = true;
         }
 
         public override void SetDefaults()

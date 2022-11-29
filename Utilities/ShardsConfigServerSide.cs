@@ -41,5 +41,12 @@ namespace ShardsOfAtheria.Utilities
         [Tooltip("Enable to allow the atherian to upgrade items even while in Slayer mode")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option.
         [DefaultValue(false)]
         public bool cluelessNPCs;
+
+        [Header("Mechanics")]
+        [Label("[i:893] Experimental Features")]
+        [Tooltip("Enables experimental/work in progress features")]
+        [DefaultValue(false)]
+        public bool experimental;
+
     }
 }

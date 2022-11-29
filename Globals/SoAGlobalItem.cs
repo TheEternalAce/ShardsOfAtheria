@@ -24,15 +24,15 @@ namespace ShardsOfAtheria.Globals
     public class SoAGlobalItem : GlobalItem
     {
         #region Weapon Categories
-        public static List<int> AreusWeapon = new();
-        public static List<int> ThrowingWeapon = new();
+        public static bool[] AreusWeapon = new bool[ItemLoader.ItemCount];
+        public static bool[] ThrowingWeapon = new bool[ItemLoader.ItemCount];
         #endregion
 
         #region Item Categories
-        public static List<int> SlayerItem = new();
-        public static List<int> SinfulItem = new();
-        public static List<int> Potions = new();
-        public static List<int> UpgradeableItem = new();
+        public static bool[] SlayerItem = new bool[ItemLoader.ItemCount];
+        public static bool[] SinfulItem = new bool[ItemLoader.ItemCount];
+        public static bool[] Potions = new bool[ItemLoader.ItemCount];
+        public static bool[] UpgradeableItem = new bool[ItemLoader.ItemCount];
         #endregion
 
         #region Ammo lists for Ammo Bags
@@ -54,14 +54,14 @@ namespace ShardsOfAtheria.Globals
         #endregion
 
         #region Weapon Elements (for 1.0)
-        public static List<int> MetalWeapon = new();
-        public static List<int> FireWeapon = new();
-        public static List<int> IceWeapon = new();
-        public static List<int> ElectricWeapon = new();
+        public static bool[] MetalWeapon = new bool[ItemLoader.ItemCount];
+        public static bool[] FireWeapon = new bool[ItemLoader.ItemCount];
+        public static bool[] IceWeapon = new bool[ItemLoader.ItemCount];
+        public static bool[] ElectricWeapon = new bool[ItemLoader.ItemCount];
 
         #region Weapon Sub-Elements
-        public static List<int> BloodWeapon = new();
-        public static List<int> FrostfireWeapon = new();
+        public static bool[] BloodWeapon = new bool[ItemLoader.ItemCount];
+        public static bool[] FrostfireWeapon = new bool[ItemLoader.ItemCount];
         #endregion
 
         #endregion
@@ -69,43 +69,41 @@ namespace ShardsOfAtheria.Globals
         public override void SetDefaults(Item item)
         {
             ShardsConfigServerSide serverConfig = ModContent.GetInstance<ShardsConfigServerSide>();
+            // Why don't silbr bullets deal extra damage to werewolves???
+            if (item.type == ItemID.SilverBullet)
+            {
+                item.shoot = ModContent.ProjectileType<SilverBullet>();
+            }
+            // Add new grenade ammo type and make grenades deal throwing damage
+            if (item.type == ItemID.Grenade || item.type == ItemID.Beenade || item.type == ItemID.StickyGrenade || item.type == ItemID.BouncyGrenade || item.type == ItemID.PartyGirlGrenade)
+            {
+                item.ammo = ItemID.Grenade;
+                ThrowingWeapon[item.type] = true;
+            }
+            // Buff Pearlwood
+            if (item.type == ItemID.PearlwoodHelmet || item.type == ItemID.PearlwoodBreastplate || item.type == ItemID.PearlwoodGreaves)
+            {
+                item.defense = 8;
+            }
+            if (item.type == ItemID.PearlwoodSword)
+            {
+                item.damage = 46;
+            }
+            if (item.type == ItemID.PearlwoodBow)
+            {
+                item.damage = 30;
+                item.autoReuse = true;
+            }
+
+            if (item.type == ItemID.ThrowingKnife || item.type == ItemID.Shuriken || item.type == ItemID.AleThrowingGlove || item.type == ItemID.Snowball ||
+                item.type == ItemID.RottenEgg || item.type == ItemID.PoisonedKnife || item.type == ItemID.StarAnise || item.type == ItemID.Javelin ||
+                item.type == ItemID.FrostDaggerfish || item.type == ItemID.Bone || item.type == ItemID.MolotovCocktail)
+            {
+
+            }
+
             switch (item.type)
             {
-                // Why don't silbr bullets deal extra damage to werewolves???
-                case ItemID.SilverBullet:
-                    item.shoot = ModContent.ProjectileType<SilverBullet>();
-                    break;
-
-                #region Add new grenade ammo type
-                case ItemID.Grenade:
-                case ItemID.Beenade:
-                case ItemID.StickyGrenade:
-                case ItemID.BouncyGrenade:
-                case ItemID.PartyGirlGrenade:
-                    item.ammo = ItemID.Grenade;
-                    ThrowingWeapon.Add(item.type);
-                    break;
-                #endregion
-
-                #region Buff Pearlwood gear
-                case ItemID.PearlwoodHelmet:
-                    item.defense = 8;
-                    break;
-                case ItemID.PearlwoodBreastplate:
-                    item.defense = 8;
-                    break;
-                case ItemID.PearlwoodGreaves:
-                    item.defense = 8;
-                    break;
-                case ItemID.PearlwoodSword:
-                    item.defense = 8;
-                    break;
-                case ItemID.PearlwoodBow:
-                    item.damage = 30;
-                    item.autoReuse = true;
-                    break;
-                #endregion
-
                 #region Make old 1.3 throwing weapons deal throwing damage if config is enabled
                 case ItemID.ThrowingKnife:
                 case ItemID.Shuriken:
@@ -118,7 +116,7 @@ namespace ShardsOfAtheria.Globals
                 case ItemID.FrostDaggerfish:
                 case ItemID.Bone:
                 case ItemID.MolotovCocktail:
-                    ThrowingWeapon.Add(item.type);
+                    ThrowingWeapon[item.type] = true;
                     break;
                 #endregion
 
@@ -159,62 +157,17 @@ namespace ShardsOfAtheria.Globals
                     }
                     break;
                     #endregion
-
-                    #region Janky ass rockets wtf
-                    //case ItemID.RocketI:
-                    //    item.shoot = ProjectileID.RocketI;
-                    //    break;
-                    //case ItemID.RocketII:
-                    //    item.shoot = ProjectileID.RocketII;
-                    //    break;
-                    //case ItemID.RocketIII:
-                    //    item.shoot = ProjectileID.RocketIII;
-                    //    break;
-                    //case ItemID.RocketIV:
-                    //    item.shoot = ProjectileID.RocketIV;
-                    //    break;
-                    //case ItemID.DryRocket:
-                    //    item.shoot = ProjectileID.DryRocket;
-                    //    break;
-                    //case ItemID.WetRocket:
-                    //    item.shoot = ProjectileID.WetRocket;
-                    //    break;
-                    //case ItemID.LavaRocket:
-                    //    item.shoot = ProjectileID.LavaRocket;
-                    //    break;
-                    //case ItemID.HoneyRocket:
-                    //    item.shoot = ProjectileID.HoneyRocket;
-                    //    break;
-                    //case ItemID.ClusterRocketI:
-                    //    item.shoot = ProjectileID.ClusterRocketI;
-                    //    break;
-                    //case ItemID.ClusterRocketII:
-                    //    item.shoot = ProjectileID.ClusterRocketII;
-                    //    break;
-                    //case ItemID.MiniNukeI:
-                    //    item.shoot = ProjectileID.MiniNukeRocketI;
-                    //    break;
-                    //case ItemID.MiniNukeII:
-                    //    item.shoot = ProjectileID.MiniNukeRocketII;
-                    //    break;
-                    #endregion
             }
 
-            if (ThrowingWeapon.Contains(item.type))
+            if (ThrowingWeapon[item.type])
             {
                 item.DamageType = DamageClass.Throwing;
             }
             #region Assign Sub-Element weapon to branching Base-Elements
-            if (BloodWeapon.Contains(item.type))
-            {
-                MetalWeapon.Add(item.type);
-                IceWeapon.Add(item.type);
-            }
-            if (FrostfireWeapon.Contains(item.type))
-            {
-                FireWeapon.Add(item.type);
-                IceWeapon.Add(item.type);
-            }
+            MetalWeapon[item.type] = BloodWeapon[item.type] || AreusWeapon[item.type];
+            IceWeapon[item.type] = BloodWeapon[item.type] || FrostfireWeapon[item.type];
+            FireWeapon[item.type] = FrostfireWeapon[item.type];
+            ElectricWeapon[item.type] = AreusWeapon[item.type];
             #endregion
         }
 
@@ -244,7 +197,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
-            if (player.HasBuff(ModContent.BuffType<Conductive>()) && AreusWeapon.Contains(item.type))
+            if (player.HasBuff(ModContent.BuffType<Conductive>()) && AreusWeapon[item.type])
             {
                 damage += .15f;
             }
@@ -252,7 +205,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if (SlayerItem.Contains(item.type))
+            if (SlayerItem[item.type])
             {
                 var line = new TooltipLine(Mod, "SlayerItem", Language.GetTextValue("Mods.ShardsOfAtheria.General.SlayerItem"))
                 {
@@ -260,7 +213,7 @@ namespace ShardsOfAtheria.Globals
                 };
                 tooltips.Add(line);
             }
-            if (UpgradeableItem.Contains(item.type))
+            if (UpgradeableItem[item.type])
             {
                 var line = new TooltipLine(Mod, "UpgradeItem", Language.GetTextValue("Mods.ShardsOfAtheria.General.UpgradeableItem"));
                 tooltips.Add(line);
@@ -359,7 +312,7 @@ namespace ShardsOfAtheria.Globals
 
         public override bool ConsumeItem(Item item, Player player)
         {
-            if (Potions.Contains(item.type))
+            if (Potions[item.type])
             {
                 Item.NewItem(item.GetSource_FromThis(), player.getRect(), ItemID.Bottle, 1);
             }

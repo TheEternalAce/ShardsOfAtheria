@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.ItemDropRules.Condition;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
@@ -12,6 +13,7 @@ using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
+using ShardsOfAtheria.Items.Weapons.Throwing;
 using ShardsOfAtheria.NPCs.Town;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
@@ -50,6 +52,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 				}
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            SoAGlobalNPC.IceNPC[Type] = true;
         }
 
         public override void SetDefaults()
@@ -108,6 +111,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             int[] drops = { ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<ValkyrieCrown>(), ModContent.ItemType<DownBow>(), ModContent.ItemType<PlumeCodex>() };
 
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, drops));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HardlightKnife>(), 5, 300, 600));
             notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.GoldBar, 1, 10, 20));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ChargedFeather>(), 1, 15, 28));
             slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieSoulCrystal>()));
@@ -298,7 +302,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                             for (int i = 0; i < 4; i++)
                             {
                                 Vector2 velocity = Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 1f;
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), center, velocity * 20f, ModContent.ProjectileType<LightningBolt>(), 18, 0f, Main.myPlayer);
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), center, velocity, ModContent.ProjectileType<LightningBolt>(), 18, 0f, Main.myPlayer);
                             }
                         }
                         break;

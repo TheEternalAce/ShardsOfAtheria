@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Globals;
 using System.Collections.Generic;
 using Terraria;
@@ -9,23 +8,23 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 {
-    public class Gomorrah_Javelin : ModProjectile
+	public class Gomorrah_Javelin : ModProjectile
 	{
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Gomorrah");
-            SoAGlobalProjectile.AreusProjectile.Add(Type);
-        }
+		{
+			DisplayName.SetDefault("Gomorrah");
+			SoAGlobalProjectile.AreusProjectile[Type] = true;
+		}
 
-        public override void SetDefaults()
-        {
-            Projectile.width = 8;
-            Projectile.height = 8;
-            Projectile.aiStyle = -1;
-            AIType = ProjectileID.BoneJavelin;
-            Projectile.tileCollide = false;
-            Projectile.ignoreWater = true;
-            Projectile.friendly = true;
+		public override void SetDefaults()
+		{
+			Projectile.width = 8;
+			Projectile.height = 8;
+			Projectile.aiStyle = -1;
+			AIType = ProjectileID.BoneJavelin;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.friendly = true;
 			Projectile.DamageType = DamageClass.Melee;
 			Projectile.light = 0.5f;
 			Projectile.penetrate = 3;
@@ -44,7 +43,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 			behindNPCsAndTiles.Add(index);
 		}
 
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
 			// Inflate some target hitboxes if they are beyond 8,8 size
 			if (targetHitbox.Width > 8 && targetHitbox.Height > 8)

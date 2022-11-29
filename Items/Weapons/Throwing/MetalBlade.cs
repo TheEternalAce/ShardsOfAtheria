@@ -1,9 +1,10 @@
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged;
-using ShardsOfAtheria.Projectiles.Weapon.Thowing;
+using ShardsOfAtheria.Projectiles.Weapon.Throwing;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,7 +15,9 @@ namespace ShardsOfAtheria.Items.Weapons.Throwing
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.ThrowingWeapon.Add(Type);
+
+            SoAGlobalItem.ThrowingWeapon[Type] = true;
+            SoAGlobalItem.MetalWeapon[Type] = true;
         }
 
         public override void SetDefaults()
@@ -47,17 +50,14 @@ namespace ShardsOfAtheria.Items.Weapons.Throwing
             return true;
         }
 
-        public override bool CanUseItem(Player player)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (player.altFunctionUse == 2)
             {
-                Item.shoot = ModContent.ProjectileType<MetalBladeProjStick>();
+                Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 1);
+                return false;
             }
-            else
-            {
-                Item.shoot = ModContent.ProjectileType<MetalBladeProj>();
-            }
-            return base.CanUseItem(player);
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 
         public override void AddRecipes()

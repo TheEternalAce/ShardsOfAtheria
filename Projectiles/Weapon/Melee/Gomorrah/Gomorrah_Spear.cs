@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Globals;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 {
@@ -13,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Gomorrah");
-            SoAGlobalProjectile.AreusProjectile.Add(Type);
+            SoAGlobalProjectile.AreusProjectile[Type] = true;
         }
 
         public override void SetDefaults()

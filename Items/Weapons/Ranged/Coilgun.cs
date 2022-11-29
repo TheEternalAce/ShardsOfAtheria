@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -42,10 +43,18 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             return new Vector2(-2, 0);
         }
 
-        public override bool? UseItem(Player player)
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            EffectsSystem.Shake.Set(11f);
-            return null;
+            if (type == ProjectileID.Bullet)
+            {
+                type = ProjectileID.BulletHighVelocity;
+            }
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            EffectsSystem.Shake.Set(8f);
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
     }
 }

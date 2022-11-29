@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Items.Bases
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.SinfulItem.Add(Type);
+            SoAGlobalItem.SinfulItem[Type] = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

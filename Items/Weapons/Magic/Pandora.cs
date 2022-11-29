@@ -67,7 +67,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 Item.mana = 20;
                 Item.knockBack = 0;
                 Item.shoot = ModContent.ProjectileType<LightningBoltFriendly>();
-                Item.shootSpeed = 16;
+                Item.shootSpeed = 2f;
             }
             else
             {
@@ -79,7 +79,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 Item.mana = 6;
                 Item.knockBack = 3;
                 Item.shoot = ModContent.ProjectileType<IceBolt>();
-                Item.shootSpeed = 16;
+                Item.shootSpeed = 16f;
             }
             return base.CanUseItem(player);
         }
@@ -88,7 +88,8 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             if (player.altFunctionUse == 2)
             {
-                Projectile.NewProjectile(source, Main.MouseWorld - new Vector2(0, 200), new Vector2(0, 10), type, damage, knockback, player.whoAmI);
+                Vector2 pos = Main.MouseWorld - new Vector2(0, 200);
+                Projectile.NewProjectile(source, pos, Vector2.Normalize(Main.MouseWorld - pos) * 2f, type, damage, knockback, player.whoAmI, 0, 1);
                 return false;
             }
             return true;

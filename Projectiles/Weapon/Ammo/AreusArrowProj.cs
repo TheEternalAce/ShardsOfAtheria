@@ -1,20 +1,19 @@
-﻿using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Terraria.Audio;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Globals;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
 {
     public class AreusArrowProj : ModProjectile
     {
         public static Asset<Texture2D> glowmask;
+
+        Point point;
 
         public override void Load()
         {
@@ -28,7 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
 
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.AreusProjectile.Add(Type);
+            SoAGlobalProjectile.AreusProjectile[Type] = true;
         }
 
         public override void SetDefaults()
@@ -57,10 +56,13 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
                 if (Projectile.ai[0] == 0f)
                 {
                     SoundEngine.PlaySound(SoundID.Item91, Projectile.position);
-                    Vector2 spawnPos = player.Center + Projectile.velocity + (Projectile.rotation - MathHelper.ToRadians(90)).ToRotationVector2().SafeNormalize(Vector2.Zero) * Vector2.Distance(player.Center, Main.MouseWorld);
-                    Projectile.NewProjectile(player.GetSource_FromThis(), spawnPos, Vector2.Zero, ModContent.ProjectileType<ArrowSpliter>(), 0, 0, player.whoAmI);
+                    point = (player.Center + Projectile.velocity + (Projectile.rotation - MathHelper.ToRadians(90)).ToRotationVector2().SafeNormalize(Vector2.Zero) * Vector2.Distance(player.Center, Main.MouseWorld)).ToPoint();
                     Projectile.tileCollide = true;
                     Projectile.ai[0] = 1f;
+                }
+                if (Projectile.getRect().Contains(point) && Projectile.ai[0] == 1f)
+                {
+                    Projectile.Kill();
                 }
                 if (Projectile.ai[0] == 2f)
                 {

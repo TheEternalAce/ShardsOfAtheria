@@ -1,9 +1,7 @@
-using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.AreusWeapon.Add(Type);
+            SoAGlobalItem.AreusWeapon[Type] = true;
         }
 
         public override void SetDefaults()
@@ -36,10 +34,10 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.noMelee = true;
             Item.staff[Item.type] = true;
 
-            Item.shootSpeed = 16f;
+            Item.shootSpeed = 12f;
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 4, 25);
-            Item.shoot = ModContent.ProjectileType<ElectricBolt>();
+            Item.shoot = ModContent.ProjectileType<ElectricOrb>();
         }
 
         public override void AddRecipes()
@@ -49,19 +47,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .AddIngredient(ItemID.FragmentVortex, 7)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
-        }
-
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            float numberProjectiles = 3;
-            float rotation = MathHelper.ToRadians(5);
-            position += Vector2.Normalize(velocity) * 10f;
-            for (int i = 0; i < numberProjectiles; i++)
-            {
-                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
-            }
-            return false;
         }
     }
 }

@@ -1,27 +1,25 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Projectiles.NPCProj;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Other
 {
-    public class SapphireShield : ModProjectile
-    {
-        public static Asset<Texture2D> glowmask;
+	public class SapphireShield : ModProjectile
+	{
+		public static Asset<Texture2D> glowmask;
 
-        public override void Load()
-        {
-            glowmask = ModContent.Request<Texture2D>(Texture);
-        }
+		public override void Load()
+		{
+			glowmask = ModContent.Request<Texture2D>(Texture);
+		}
 
-        public override void Unload()
-        {
-            glowmask = null;
-        }
+		public override void Unload()
+		{
+			glowmask = null;
+		}
 
 		public override void SetStaticDefaults()
 		{
@@ -29,15 +27,15 @@ namespace ShardsOfAtheria.Projectiles.Other
 		}
 
 		public override void SetDefaults()
-        {
-            Projectile.width = 64;
-            Projectile.height = 64;
-            Projectile.timeLeft = 35;
+		{
+			Projectile.width = 64;
+			Projectile.height = 64;
+			Projectile.timeLeft = 35;
 			Projectile.tileCollide = false;
 			Projectile.alpha = 100;
-        }
+		}
 
-        public override void AI()
+		public override void AI()
 		{
 			int frameSpeed = 6;
 			if (++Projectile.frameCounter >= frameSpeed)
@@ -48,7 +46,12 @@ namespace ShardsOfAtheria.Projectiles.Other
 				}
 			}
 			Player owner = Main.player[Projectile.owner];
-            Projectile.Center = owner.Center;
+			Projectile.Center = owner.Center;
+		}
+
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			overPlayers.Add(index);
 		}
 
 		public override void PostDraw(Color lightColor)

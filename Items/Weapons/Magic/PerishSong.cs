@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalItem.SlayerItem.Add(Type);
+            SoAGlobalItem.SlayerItem[Type] = true;
 
             SacrificeTotal = 1;
         }

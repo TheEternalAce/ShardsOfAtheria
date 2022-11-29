@@ -1,20 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
+namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
 {
-    public class MetalBladeProjStick : ModProjectile
+    public class MetalBladeProj : ModProjectile
     {
-        public override string Texture => "ShardsOfAtheria/Projectiles/Weapon/Ranged/MetalBladeProj";
-
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+
+            SoAGlobalProjectile.MetalProjectile[Type] = true;
         }
 
         public override void SetDefaults()
@@ -23,7 +24,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             Projectile.height = 30; // The height of projectile hitbox
             Projectile.aiStyle = -1; // The ai style of the projectile, please reference the source code of Terraria
             Projectile.friendly = true; // Can the projectile deal damage to enemies?
-            Projectile.DamageType = DamageClass.Ranged; // Is the projectile shoot by a ranged weapon?
+            Projectile.DamageType = DamageClass.Throwing; // Is the projectile shoot by a ranged weapon?
             Projectile.timeLeft = 600; // The live time for the projectile (60 = 1 second, so 600 is 10 seconds)
             Projectile.ignoreWater = true; // Does the projectile's speed be influenced by water?
             Projectile.extraUpdates = 1; // Set to above 0 if you want the projectile to update multiple time in a frame
@@ -51,7 +52,30 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            Projectile.velocity *= 0;
+            // If collide with tile, reduce the penetrate.
+            // So the projectile can reflect at most 5 times
+            Projectile.penetrate--;
+            if (Projectile.penetrate == 1 || Projectile.ai[0] == 1)
+            {
+                Projectile.velocity *= 0;
+            }
+            else if (Projectile.ai[0] == 0)
+            {
+                Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+                SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+
+                // If the projectile hits the left or right side of the tile, reverse the X velocity
+                if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon)
+                {
+                    Projectile.velocity.X = -oldVelocity.X;
+                }
+
+                // If the projectile hits the top or bottom side of the tile, reverse the Y velocity
+                if (Math.Abs(Projectile.velocity.Y - oldVelocity.Y) > float.Epsilon)
+                {
+                    Projectile.velocity.Y = -oldVelocity.Y;
+                }
+            }
 
             return false;
         }

@@ -14,6 +14,7 @@ using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
 using ShardsOfAtheria.Utilities;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -75,6 +76,17 @@ namespace ShardsOfAtheria.Players
         public int overdriveTimeMax;
         public int overdriveTimeMax2;
         internal int overdriveTimeRegenTimer = 0;
+
+        #region Player elemental effectiveness
+        public bool FireRes;
+        public bool IceRes;
+        public bool ElectricRes;
+        public bool MetalRes;
+        public bool FireVuln;
+        public bool IceVuln;
+        public bool ElectricVuln;
+        public bool MetalVuln;
+        #endregion
 
         public override void ResetEffects()
         {
@@ -510,6 +522,225 @@ namespace ShardsOfAtheria.Players
                 Player.balloon = -1;
             }
         }
+
+        #region Elemental Effectiveness
+        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+        {
+            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            {
+                double modifier = 1.0;
+                if (SoAGlobalNPC.FireNPC[npc.type])
+                {
+                    if (FireVuln)
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (FireRes)
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalNPC.IceNPC[npc.type])
+                {
+                    if (IceVuln)
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (IceRes)
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalNPC.ElectricNPC[npc.type])
+                {
+                    if (ElectricVuln)
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (ElectricRes)
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalNPC.MetalNPC[npc.type])
+                {
+                    if (MetalVuln)
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (MetalRes)
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                damage = (int)Math.Ceiling(damage * modifier);
+            }
+
+            base.ModifyHitByNPC(npc, ref damage, ref crit);
+        }
+
+        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        {
+            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            {
+                double modifier = 1.0;
+                if (SoAGlobalProjectile.FireProjectile[proj.type])
+                {
+                    if (FireVuln)
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (FireRes)
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalProjectile.IceProjectile[proj.type])
+                {
+                    if (IceVuln)
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (IceRes)
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalProjectile.ElectricProjectile[proj.type])
+                {
+                    if (ElectricVuln)
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (ElectricRes)
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalProjectile.MetalProjectile[proj.type])
+                {
+                    if (MetalVuln)
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (MetalRes)
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                damage = (int)Math.Ceiling(damage * modifier);
+            }
+            base.ModifyHitByProjectile(proj, ref damage, ref crit);
+        }
+
+        public override void ModifyHitPvp(Item item, Player target, ref int damage, ref bool crit)
+        {
+            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            {
+                double modifier = 1.0;
+                if (SoAGlobalItem.FireWeapon[item.type])
+                {
+                    if (FireVuln)
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (FireRes)
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalItem.IceWeapon[item.type])
+                {
+                    if (IceVuln)
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (IceRes)
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalItem.ElectricWeapon[item.type])
+                {
+                    if (ElectricVuln)
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (ElectricRes)
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalItem.MetalWeapon[item.type])
+                {
+                    if (MetalVuln)
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (MetalRes)
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                damage = (int)Math.Ceiling(damage * modifier);
+            }
+            base.ModifyHitPvp(item, target, ref damage, ref crit);
+        }
+
+        public override void ModifyHitPvpWithProj(Projectile proj, Player target, ref int damage, ref bool crit)
+        {
+            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            {
+                double modifier = 1.0;
+                if (SoAGlobalProjectile.FireProjectile[proj.type])
+                {
+                    if (FireVuln)
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (FireRes)
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalProjectile.IceProjectile[proj.type])
+                {
+                    if (IceVuln)
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (IceRes)
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalProjectile.ElectricProjectile[proj.type])
+                {
+                    if (ElectricVuln)
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (ElectricRes)
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                if (SoAGlobalProjectile.MetalProjectile[proj.type])
+                {
+                    if (MetalVuln)
+                    {
+                        modifier *= 2.0;
+                    }
+                    else if (MetalRes)
+                    {
+                        modifier *= 0.5;
+                    }
+                }
+                damage = (int)Math.Ceiling(damage * modifier);
+            }
+            base.ModifyHitPvpWithProj(proj, target, ref damage, ref crit);
+        }
+        #endregion
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {

@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 		{
 			SacrificeTotal = 1;
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
-			SoAGlobalItem.AreusWeapon.Add(Type);
+			SoAGlobalItem.AreusWeapon[Type] = true;
 		}
 
 		public override void SetDefaults()

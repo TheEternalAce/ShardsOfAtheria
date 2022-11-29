@@ -269,7 +269,6 @@ Mods: {
 			HecateII: Hecate II
 			HeroGun: Hero Gun
 			HuntingRifle: Hunting Rifle
-			MetalBlade: Metal Blade
 			P90: P90
 			Pantheon: Pantheon
 			PhantomRose: Phantom Rose
@@ -279,6 +278,9 @@ Mods: {
 			DragonSpineWhip: Dragon Spine Whip
 			FlailOfFlesh: Flail of Flesh
 			NestlingStaff: Nestling Staff
+				# Throwing
+			MetalBlade: Metal Blade
+			HardlightKnife: Hardlight Knife
 		}
 		
 		ItemTooltip: {
@@ -1004,7 +1006,7 @@ Mods: {
 			AreusSlash3: Areus Slash
 			AreusSlash4: Areus Slash
 			ElectricBlade: Electric Blade
-			ElectricBolt: Electric Bolt
+			ElectricOrb: Electric Orb
 				# Magic
 			DeathNote: Death Note
 			GunCorruption: Musket
@@ -1060,7 +1062,6 @@ Mods: {
 			FieryExplosion: Fiery Explosion
 			HeroBullet: Hero Bullet
 			LaserArrow: Laser Arrow
-			MetalBladeProj: Metal Blade
 			MetalBladeProjStick: Metal Blade
 			PhantomBullet: Phantom Bullet
 			PrometheusFire: Prometheus Fire
@@ -1069,6 +1070,9 @@ Mods: {
 			DragonSpineWhipProj: Dragon Spine
 			FlailOfFleshProj: Leashed Hungry
 			SoulDagger: Soul Dagger
+				# Throwing
+			MetalBladeProj: Metal Blade
+			HardlightKnifeProj: Hardlight Knife
 		}
 
 		NPCName: {

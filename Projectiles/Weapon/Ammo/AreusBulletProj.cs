@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.AreusProjectile.Add(Type);
+            SoAGlobalProjectile.AreusProjectile[Type] = true;
         }
 
         public override void SetDefaults()

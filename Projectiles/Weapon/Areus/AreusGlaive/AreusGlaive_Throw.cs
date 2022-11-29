@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
 
-            SoAGlobalProjectile.AreusProjectile.Add(Type);
+            SoAGlobalProjectile.AreusProjectile[Type] = true;
         }
 
         public override void AI()
