@@ -1,14 +1,12 @@
-﻿using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Weapons;
-using ShardsOfAtheria.Items.Accessories;
+﻿using ShardsOfAtheria.Items.DevItems.DaluyanMesses;
+using ShardsOfAtheria.Items.DevItems.nightlight;
+using ShardsOfAtheria.Items.DevItems.TheEternalAce;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
-using ShardsOfAtheria.Items.DevItems.nightlight;
-using ShardsOfAtheria.Items.DevItems.DaluyanMesses;
+using Terraria;
 using Terraria.GameContent.ItemDropRules;
-using ShardsOfAtheria.Items.DevItems.TheEternalAce;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Globals
 {
@@ -39,7 +37,7 @@ namespace ShardsOfAtheria.Globals
             }
             if (item.type == ItemID.QueenBeeBossBag)
             {
-                itemLoot.Add(ItemDropRule.OneFromOptions(1, ModContent.ItemType<HecateII>(), ModContent.ItemType<Glock80>()));
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Glock80>()));
             }
         }
     }
