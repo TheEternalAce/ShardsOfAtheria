@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -17,6 +15,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
 
         public override string Texture => "ShardsOfAtheria/Projectiles/Weapon/Areus/AreusGlaive/AreusGlaive_Thrust";
 
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.AreusProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 84;
@@ -29,7 +32,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
 
-            SoAGlobalProjectile.AreusProjectile[Type] = true;
+            SoAGlobalProjectile.AreusProj.Add(Type);
         }
 
         public override void AI()

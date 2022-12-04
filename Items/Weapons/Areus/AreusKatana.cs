@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 "'I am all out of milk'");
 
             SacrificeTotal = 1;
-            SoAGlobalItem.AreusWeapon[Type] = true;
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()

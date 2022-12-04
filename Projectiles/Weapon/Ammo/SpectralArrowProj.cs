@@ -1,13 +1,17 @@
-﻿using Terraria;
-using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
+using Terraria;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Terraria.Audio;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
 {
     public class SpectralArrowProj : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.PlasmaProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 8;

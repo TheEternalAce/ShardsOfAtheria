@@ -1,12 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 {
     public class PhantomBullet : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.PlasmaProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 2;

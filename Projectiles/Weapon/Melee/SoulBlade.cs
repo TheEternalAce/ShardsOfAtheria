@@ -1,9 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Weapon.Magic;
-using ShardsOfAtheria.Projectiles.Weapon.Summon;
+﻿using ShardsOfAtheria.Globals;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,6 +7,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
     public class SoulBlade : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.PlasmaProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 8;

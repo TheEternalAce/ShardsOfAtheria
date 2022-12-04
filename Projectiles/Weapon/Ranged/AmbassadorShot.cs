@@ -1,12 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Projectiles.NPCProj;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged;
+using ShardsOfAtheria.Globals;
 using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
@@ -28,6 +24,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 15;
+            SoAGlobalProjectile.AreusProj.Add(Type);
         }
 
         public override void SetDefaults()

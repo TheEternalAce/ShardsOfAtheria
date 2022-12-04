@@ -1,14 +1,15 @@
-﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Projectiles.NPCProj;
+﻿using ShardsOfAtheria.Globals;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Other
 {
     public class SpinSkull : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.OrganicProj.Add(Type);
+        }
         public override void SetDefaults()
         {
             Projectile.width = 80;

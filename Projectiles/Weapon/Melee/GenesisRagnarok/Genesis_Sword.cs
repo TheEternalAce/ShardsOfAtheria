@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
@@ -16,6 +17,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 {
     public class Genesis_Sword : EpicSwingSword
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.IceProj.Add(Type);
+            SoAGlobalProjectile.PlasmaProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();

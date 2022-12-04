@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Utilities;
+﻿using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -9,6 +10,11 @@ namespace ShardsOfAtheria.Projectiles.Other
     public class CrystalExplosion : ModProjectile
     {
         public override string Texture => "ShardsOfAtheria/Blank";
+
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.MetalProj.Add(Type);
+        }
 
         public override void SetDefaults()
         {

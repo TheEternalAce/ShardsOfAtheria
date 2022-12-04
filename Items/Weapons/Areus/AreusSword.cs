@@ -14,8 +14,8 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.AreusWeapon[Type] = true;
-            SoAGlobalItem.UpgradeableItem[Type] = true;
+            SoAGlobalItem.AreusWeapon.Add(Type);
+            SoAGlobalItem.UpgradeableItem.Add(Type);
         }
 
         public override void SetDefaults()

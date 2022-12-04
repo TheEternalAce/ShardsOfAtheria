@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using ShardsOfAtheria.Globals;
 using System;
 using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
 using Terraria.Audio;
-using ReLogic.Content;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Summon
 {
@@ -17,16 +18,17 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Projectile.type] = 3;
+			SoAGlobalProjectile.OrganicProj.Add(Type);
 		}
 
 		public override void SetDefaults()
-		 {
+		{
 			Projectile.width = 30;
 			Projectile.height = 30;
 			Projectile.friendly = true;
 			Projectile.penetrate = -1; // Make the flail infinitely penetrate like other flails
-			//	Projectile.aiStyle = 15; // The vanilla flails all use aiStyle 15, but we must not use it since we want to customize the range and behavior.
-            DrawOriginOffsetY = -6;
+									   //	Projectile.aiStyle = 15; // The vanilla flails all use aiStyle 15, but we must not use it since we want to customize the range and behavior.
+			DrawOriginOffsetY = -6;
 			DrawOffsetX = -6;
 		}
 

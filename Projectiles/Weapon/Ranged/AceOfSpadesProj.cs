@@ -1,12 +1,19 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.DevItems.TheEternalAce;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 {
     public class AceOfSpadesProj : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.FireProj.Add(Type);
+            SoAGlobalProjectile.OrganicProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 18;

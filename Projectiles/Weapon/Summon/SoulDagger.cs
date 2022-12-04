@@ -1,11 +1,10 @@
-﻿using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using System;
+using ShardsOfAtheria.Globals;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Summon
 {
@@ -22,6 +21,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon
         public override void Unload()
         {
             glowmask = null;
+        }
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.PlasmaProj.Add(Type);
         }
 
         public override void SetDefaults()

@@ -1,43 +1,45 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Projectiles.NPCProj;
+using ShardsOfAtheria.Globals;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Other
 {
-    public class SpinPrime : ModProjectile
-    {
-        public static Asset<Texture2D> glowmask;
+	public class SpinPrime : ModProjectile
+	{
+		public static Asset<Texture2D> glowmask;
 
-        public override void Load()
-        {
-            glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
-        }
+		public override void Load()
+		{
+			glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
+		}
 
-        public override void Unload()
-        {
-            glowmask = null;
-        }
+		public override void Unload()
+		{
+			glowmask = null;
+		}
+		public override void SetStaticDefaults()
+		{
+			SoAGlobalProjectile.MetalProj.Add(Type);
+		}
 
-        public override void SetDefaults()
-        {
-            Projectile.width = 134;
-            Projectile.height = 130;
-            Projectile.timeLeft = 300;
-            Projectile.friendly = true;
-            Projectile.penetrate = -1;
+		public override void SetDefaults()
+		{
+			Projectile.width = 134;
+			Projectile.height = 130;
+			Projectile.timeLeft = 300;
+			Projectile.friendly = true;
+			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
-        }
+		}
 
-        public override void AI()
+		public override void AI()
 		{
 			Player owner = Main.player[Projectile.owner];
 			Projectile.rotation -= .4f;
-            Projectile.Center = owner.Center;
+			Projectile.Center = owner.Center;
 		}
 
 		public override void PostDraw(Color lightColor)

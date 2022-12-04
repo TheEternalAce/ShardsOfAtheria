@@ -1,13 +1,18 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
 {
     public class BloodFeather : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.OrganicProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             Projectile refProj = new Projectile();

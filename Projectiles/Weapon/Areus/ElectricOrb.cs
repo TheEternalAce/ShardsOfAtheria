@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria;
 using Terraria.ModLoader;
@@ -12,6 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 2;
+            SoAGlobalProjectile.ElectricProj.Add(Type);
         }
 
         public override void SetDefaults()

@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Bases;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
@@ -6,13 +7,14 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Weapons.Ranged
+namespace ShardsOfAtheria.Items.Weapons.Areus
 {
     public class TheAmbassador : SinfulItem
     {
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()

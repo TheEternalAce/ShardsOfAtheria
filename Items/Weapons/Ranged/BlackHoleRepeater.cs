@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalItem.SlayerItem[Type] = true;
+            SoAGlobalItem.SlayerItem.Add(Type);
 
             SacrificeTotal = 1;
         }

@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
 
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.AreusProjectile[Type] = true;
+            SoAGlobalProjectile.ElectricProj.Add(Type);
         }
 
         public override void SetDefaults()
@@ -54,7 +54,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
             if (flightTimer == 50)
             {
                 Projectile.velocity = Vector2.Normalize(to - Projectile.Center) * 16f;
-                Projectile.tileCollide = true;
+                Projectile.netUpdate = true;
             }
             if (Main.rand.NextBool(20))
             {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,6 +8,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
     public class VileShot : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.OrganicProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 6; // The width of projectile hitbox

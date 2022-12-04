@@ -1,13 +1,16 @@
-﻿using Terraria;
-using Terraria.ID;
+﻿using ShardsOfAtheria.Globals;
+using Terraria;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
     public class GunCorruption : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.MetalProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 20;

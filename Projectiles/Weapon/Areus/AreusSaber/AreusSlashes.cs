@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 4;
-            SoAGlobalProjectile.AreusProjectile[Type] = true;
+            SoAGlobalProjectile.AreusProj.Add(Type);
         }
 
         public override void SetDefaults()

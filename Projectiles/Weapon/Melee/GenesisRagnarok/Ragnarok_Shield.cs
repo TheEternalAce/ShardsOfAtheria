@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Cooldowns;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using System;
 using Terraria;
@@ -11,6 +12,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 {
     public class Ragnarok_Shield : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.IceProj.Add(Type);
+            SoAGlobalProjectile.PlasmaProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 64;

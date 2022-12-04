@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Players;
 using System;
@@ -24,9 +25,10 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
             Main.projFrames[Projectile.type] = 3;
-		}
+            SoAGlobalProjectile.OrganicProj.Add(Type);
+        }
 
-		public override void SetDefaults()
+        public override void SetDefaults()
         {
             Projectile.width = 30;
             Projectile.height = 30;
@@ -39,7 +41,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
             Projectile.penetrate = 9;
 
             DrawOriginOffsetY = -6;
-			DrawOffsetX = -6;
+            DrawOffsetX = -6;
         }
 
         // Here you can decide if your minion breaks things like grass or pots
@@ -108,7 +110,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
                 degrees = Main.rand.NextFloat(360);
                 Projectile.ai[0] = 1;
             }
-            Vector2 idlePosition = owner.Center + Vector2.One.RotatedBy(MathHelper.ToRadians(degrees)) * 90;
+            Vector2 idlePosition = owner.Center + new Vector2(100 * owner.direction, 0);
             // If your minion doesn't aimlessly move around when it's idle, you need to "put" it into the line of other summoned minions
             // The index is projectile.minionPos
             float minionPositionOffsetX = (10 + Projectile.minionPos * 40) * -owner.direction;
@@ -181,7 +183,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
                 else
                 {
                     // Slow down the minion if closer to the player
-                    speed = 4f;
+                    speed = 6f;
                     inertia = 80f;
                 }
 
@@ -278,9 +280,9 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
         public override void Kill(int timeLeft)
         {
-			SoundEngine.PlaySound(SoundID.NPCDeath12);
-			Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-6, 7)), 132);
-			Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-6, 7)), 133);
+            SoundEngine.PlaySound(SoundID.NPCDeath12);
+            Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-6, 7)), 132);
+            Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-6, 7)), 133);
         }
     }
 }

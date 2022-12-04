@@ -1,14 +1,19 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
 {
     public class IceFeather : ModProjectile
     {
         public override string Texture => "Terraria/Images/Item_" + ItemID.IceFeather;
+
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.IceProj.Add(Type);
+        }
 
         public override void SetDefaults()
         {

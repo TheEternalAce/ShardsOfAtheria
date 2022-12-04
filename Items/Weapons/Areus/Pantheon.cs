@@ -8,7 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace ShardsOfAtheria.Items.Weapons.Ranged
+namespace ShardsOfAtheria.Items.Weapons.Areus
 {
     public class Pantheon : SinfulItem
     {
@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.AreusWeapon[Type] = true;
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()
@@ -78,7 +78,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void HoldItem(Player player)
         {
-            maxArrows = gold >= 5 ? 5 : (gold == 0 ? 1 : gold + 1);
+            maxArrows = gold >= 5 ? 5 : gold == 0 ? 1 : gold + 1;
             if (player.dead)
             {
                 gold = 0;

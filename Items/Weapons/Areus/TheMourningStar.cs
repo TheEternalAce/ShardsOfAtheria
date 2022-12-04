@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.AreusWeapon[Type] = true;
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

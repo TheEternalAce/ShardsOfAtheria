@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Minions;
 using Terraria;
 using Terraria.DataStructures;
@@ -13,6 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Minion
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
+            SoAGlobalItem.HardlightWeapon.Add(Type);
         }
 
         public override void SetDefaults()

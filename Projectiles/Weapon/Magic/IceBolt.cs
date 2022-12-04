@@ -1,13 +1,19 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
+using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Terraria.Audio;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
     public class IceBolt : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.IceProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 18;
@@ -18,7 +24,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             Projectile.tileCollide = true;
             Projectile.light = 1;
             Projectile.DamageType = DamageClass.Magic;
-            
+
             DrawOffsetX = 10;
         }
 

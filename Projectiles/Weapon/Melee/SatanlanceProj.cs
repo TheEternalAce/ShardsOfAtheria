@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Globals;
 using System;
-using System.Linq;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -22,6 +22,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             // Since the velocity of the projectile affects how far out the jousting lance will spawn, we want the
             // velocity to always be the same even if the player has increased attack speed.
             ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
+            SoAGlobalProjectile.MetalProj.Add(Type);
+            SoAGlobalProjectile.FireProj.Add(Type);
+            SoAGlobalProjectile.IceProj.Add(Type);
+            SoAGlobalProjectile.ElectricProj.Add(Type);
         }
 
         public override void SetDefaults()

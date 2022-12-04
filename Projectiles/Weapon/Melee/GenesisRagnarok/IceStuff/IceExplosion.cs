@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Utilities;
+﻿using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -8,6 +9,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff
 {
     public class IceExplosion : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.IceProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 120;

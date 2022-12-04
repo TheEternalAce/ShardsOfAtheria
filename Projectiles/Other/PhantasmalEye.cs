@@ -1,22 +1,30 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Other
 {
-    public class PhantasmalEye : ModProjectile
-    {
-        public override void SetDefaults()
-        {
-            Projectile.width = 18;
-            Projectile.height = 18;
-            Projectile.aiStyle = 0;
-            Projectile.friendly = true;
-            Projectile.timeLeft = 600;
-            Projectile.penetrate = 10;
-            Projectile.DamageType = DamageClass.Summon;
-        }
+	public class PhantasmalEye : ModProjectile
+	{
+		public override void SetStaticDefaults()
+		{
+			SoAGlobalProjectile.MetalProj.Add(Type);
+			SoAGlobalProjectile.FireProj.Add(Type);
+			SoAGlobalProjectile.IceProj.Add(Type);
+			SoAGlobalProjectile.ElectricProj.Add(Type);
+		}
+
+		public override void SetDefaults()
+		{
+			Projectile.width = 18;
+			Projectile.height = 18;
+			Projectile.aiStyle = 0;
+			Projectile.friendly = true;
+			Projectile.timeLeft = 600;
+			Projectile.penetrate = 10;
+			Projectile.DamageType = DamageClass.Summon;
+		}
 
 		// Custom AI
 		public override void AI()
@@ -72,5 +80,5 @@ namespace ShardsOfAtheria.Projectiles.Other
 
 			return closestNPC;
 		}
-    }
+	}
 }

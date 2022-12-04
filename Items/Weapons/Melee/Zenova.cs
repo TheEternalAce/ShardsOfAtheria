@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
@@ -12,8 +13,12 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 	{
 		public override void SetStaticDefaults()
 		{
-			SacrificeTotal = 1;
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+			SacrificeTotal = 1;
+			SoAGlobalItem.MetalWeapon.Add(Type);
+			SoAGlobalItem.FireWeapon.Add(Type);
+			SoAGlobalItem.IceWeapon.Add(Type);
+			SoAGlobalItem.ElectricWeapon.Add(Type);
 		}
 
 		public override void SetDefaults()

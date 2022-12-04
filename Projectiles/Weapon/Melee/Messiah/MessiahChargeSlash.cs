@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 4;
-            SoAGlobalProjectile.FireProjectile[Type] = true;
+            SoAGlobalProjectile.PlasmaProj.Add(Type);
         }
 
         public override void SetDefaults()

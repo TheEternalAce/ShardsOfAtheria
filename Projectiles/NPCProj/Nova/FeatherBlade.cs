@@ -1,13 +1,20 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using System;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Globals;
+using System;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {
     public class FeatherBlade : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.MetalProj.Add(Type);
+            SoAGlobalProjectile.ElectricProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 10;

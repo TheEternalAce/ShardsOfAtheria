@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             Projectile.height = 20;
 
             Projectile.aiStyle = -1;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.light = 1f;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 20;

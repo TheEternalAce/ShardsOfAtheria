@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ShardsOfAtheria.Globals;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Tools
 {
-    public class RedAreusDrillProj : ModProjectile
+	public class RedAreusDrillProj : ModProjectile
 	{
 		public static Asset<Texture2D> glowmask;
 
@@ -20,9 +20,13 @@ namespace ShardsOfAtheria.Projectiles.Tools
 		{
 			glowmask = null;
 		}
+		public override void SetStaticDefaults()
+		{
+			SoAGlobalProjectile.AreusProj.Add(Type);
+		}
 
-        public override void SetDefaults()
-        {
+		public override void SetDefaults()
+		{
 			Projectile.width = 30;
 			Projectile.height = 64;
 			Projectile.aiStyle = 20;

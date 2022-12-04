@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Other
@@ -47,6 +49,15 @@ namespace ShardsOfAtheria.Projectiles.Other
 			}
 			Player owner = Main.player[Projectile.owner];
 			Projectile.Center = owner.Center;
+			owner.immuneNoBlink = true;
+
+			if (Projectile.ai[0] == 0)
+			{
+				SoundEngine.PlaySound(SoundID.Tink.WithPitchOffset(-0.5f), Projectile.Center);
+				//SoundEngine.PlaySound(SoundID.Item37.WithPitchOffset(-0.5f), Projectile.Center);
+				//SoundEngine.PlaySound(SoundID.NPCHit4.WithPitchOffset(-0.5f), Projectile.Center);
+				Projectile.ai[0] = 1;
+			}
 		}
 
 		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)

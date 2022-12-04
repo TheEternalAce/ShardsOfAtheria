@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Players;
 using System;
@@ -10,78 +11,80 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Minions
 {
-    public class TrueEyeOfCthulhuAttack : ModProjectile
-    {
-        public static Asset<Texture2D> glowmask;
+	public class TrueEyeOfCthulhuAttack : ModProjectile
+	{
+		public static Asset<Texture2D> glowmask;
 
-        public override void Load()
-        {
-            glowmask = ModContent.Request<Texture2D>(Texture);
-        }
+		public override void Load()
+		{
+			glowmask = ModContent.Request<Texture2D>(Texture);
+		}
 
-        public override void Unload()
-        {
-            glowmask = null;
-        }
+		public override void Unload()
+		{
+			glowmask = null;
+		}
 
-        public override void SetStaticDefaults()
-        {
-            // This is necessary for right-click targeting
-            ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
+		public override void SetStaticDefaults()
+		{
+			// This is necessary for right-click targeting
+			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
-            Main.projPet[Projectile.type] = true; // Denotes that this projectile is a pet or minion
+			Main.projPet[Projectile.type] = true; // Denotes that this projectile is a pet or minion
 
-            ProjectileID.Sets.MinionSacrificable[Projectile.type] = true; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
-            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
-        }
+			ProjectileID.Sets.MinionSacrificable[Projectile.type] = true; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
+			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
+			SoAGlobalProjectile.PlasmaProj.Add(Type);
+			SoAGlobalProjectile.OrganicProj.Add(Type);
+		}
 
-        public override void SetDefaults()
-        {
-            Projectile.friendly = true;
-            Projectile.width = 32;
-            Projectile.height = 32;
-            Projectile.DamageType = DamageClass.Summon;
-            Projectile.penetrate = -1;
-            Projectile.tileCollide = false;
-            Projectile.aiStyle = -1;
-        }
+		public override void SetDefaults()
+		{
+			Projectile.friendly = true;
+			Projectile.width = 32;
+			Projectile.height = 32;
+			Projectile.DamageType = DamageClass.Summon;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.aiStyle = -1;
+		}
 
-        // Here you can decide if your minion breaks things like grass or pots
-        public override bool? CanCutTiles()
-        {
-            return false;
-        }
+		// Here you can decide if your minion breaks things like grass or pots
+		public override bool? CanCutTiles()
+		{
+			return false;
+		}
 
-        // This is mandatory if your minion deals contact damage (further related stuff in AI() in the Movement region)
-        public override bool MinionContactDamage()
-        {
-            return true;
-        }
+		// This is mandatory if your minion deals contact damage (further related stuff in AI() in the Movement region)
+		public override bool MinionContactDamage()
+		{
+			return true;
+		}
 
-        // The AI of this minion is split into multiple methods to avoid bloat. This method just passes values between calls actual parts of the AI.
-        public override void AI()
-        {
-            Player owner = Main.player[Projectile.owner];
+		// The AI of this minion is split into multiple methods to avoid bloat. This method just passes values between calls actual parts of the AI.
+		public override void AI()
+		{
+			Player owner = Main.player[Projectile.owner];
 
-            if (!CheckActive(owner))
-            {
-				Projectile.Kill();
-                return;
-            }
-
-            GeneralBehavior(owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition);
-            SearchForTargets(owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter);
-            Movement(foundTarget, distanceFromTarget, targetCenter, distanceToIdlePosition, vectorToIdlePosition);
-            Visuals();
-        }
-
-        // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
-        private bool CheckActive(Player owner)
+			if (!CheckActive(owner))
 			{
+				Projectile.Kill();
+				return;
+			}
+
+			GeneralBehavior(owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition);
+			SearchForTargets(owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter);
+			Movement(foundTarget, distanceFromTarget, targetCenter, distanceToIdlePosition, vectorToIdlePosition);
+			Visuals();
+		}
+
+		// This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
+		private bool CheckActive(Player owner)
+		{
 			if (owner.dead || !owner.active || !owner.GetModPlayer<SlayerPlayer>().soulCrystals.Contains(ModContent.ItemType<LordSoulCrystal>()))
 				return false;
 			else Projectile.timeLeft = 2;
-            return true;
+			return true;
 		}
 
 		private void GeneralBehavior(Player owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition)
@@ -275,39 +278,39 @@ namespace ShardsOfAtheria.Projectiles.Minions
 		}
 
 		public override void PostDraw(Color lightColor)
-        {
-            //TODO Generic glowmask draw, maybe generalize method
-            Player player = Main.player[Projectile.owner];
+		{
+			//TODO Generic glowmask draw, maybe generalize method
+			Player player = Main.player[Projectile.owner];
 
-            int offsetY = 0;
-            int offsetX = 0;
-            Texture2D glowmaskTexture = glowmask.Value;
-            float originX = (glowmaskTexture.Width - Projectile.width) * 0.5f + Projectile.width * 0.5f;
-            ProjectileLoader.DrawOffset(Projectile, ref offsetX, ref offsetY, ref originX);
+			int offsetY = 0;
+			int offsetX = 0;
+			Texture2D glowmaskTexture = glowmask.Value;
+			float originX = (glowmaskTexture.Width - Projectile.width) * 0.5f + Projectile.width * 0.5f;
+			ProjectileLoader.DrawOffset(Projectile, ref offsetX, ref offsetY, ref originX);
 
-            SpriteEffects spriteEffects = SpriteEffects.None;
-            if (Projectile.spriteDirection == -1)
-            {
-                spriteEffects = SpriteEffects.FlipHorizontally;
-            }
+			SpriteEffects spriteEffects = SpriteEffects.None;
+			if (Projectile.spriteDirection == -1)
+			{
+				spriteEffects = SpriteEffects.FlipHorizontally;
+			}
 
-            if (Projectile.ownerHitCheck && player.gravDir == -1f)
-            {
-                if (player.direction == 1)
-                {
-                    spriteEffects = SpriteEffects.FlipHorizontally;
-                }
-                else if (player.direction == -1)
-                {
-                    spriteEffects = SpriteEffects.None;
-                }
-            }
+			if (Projectile.ownerHitCheck && player.gravDir == -1f)
+			{
+				if (player.direction == 1)
+				{
+					spriteEffects = SpriteEffects.FlipHorizontally;
+				}
+				else if (player.direction == -1)
+				{
+					spriteEffects = SpriteEffects.None;
+				}
+			}
 
-            Vector2 drawPos = new Vector2(Projectile.position.X - Main.screenPosition.X + originX + offsetX, Projectile.position.Y - Main.screenPosition.Y + Projectile.height / 2 + Projectile.gfxOffY);
-            Rectangle sourceRect = glowmaskTexture.Frame(1, Main.projFrames[Projectile.type], 0, Projectile.frame);
-            Color glowColor = new Color(255, 255, 255, 255) * 0.7f * Projectile.Opacity;
-            Vector2 drawOrigin = new Vector2(originX, Projectile.height / 2 + offsetY);
-            Main.EntitySpriteDraw(glowmaskTexture, drawPos, sourceRect, glowColor, Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
-        }
-    }
+			Vector2 drawPos = new Vector2(Projectile.position.X - Main.screenPosition.X + originX + offsetX, Projectile.position.Y - Main.screenPosition.Y + Projectile.height / 2 + Projectile.gfxOffY);
+			Rectangle sourceRect = glowmaskTexture.Frame(1, Main.projFrames[Projectile.type], 0, Projectile.frame);
+			Color glowColor = new Color(255, 255, 255, 255) * 0.7f * Projectile.Opacity;
+			Vector2 drawOrigin = new Vector2(originX, Projectile.height / 2 + offsetY);
+			Main.EntitySpriteDraw(glowmaskTexture, drawPos, sourceRect, glowColor, Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
+		}
+	}
 }

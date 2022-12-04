@@ -1,19 +1,26 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles.NPCProj.Nova;
-using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Projectiles.NPCProj.Nova;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
     public class FeatherBladeFriendly : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.MetalProj.Add(Type);
+            SoAGlobalProjectile.ElectricProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ModContent.ProjectileType<FeatherBlade>());
-			Projectile.friendly = true;
-			Projectile.hostile = false;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
             Projectile.timeLeft = 120;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.tileCollide = false;

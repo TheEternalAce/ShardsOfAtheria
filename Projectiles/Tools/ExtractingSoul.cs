@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.ID;
@@ -10,6 +11,12 @@ namespace ShardsOfAtheria.Projectiles.Tools
     public class ExtractingSoul : ModProjectile
     {
         int pos = 48;
+
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.FireProj.Add(Type);
+            SoAGlobalProjectile.ElectricProj.Add(Type);
+        }
 
         public override void SetDefaults()
         {

@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 99;
-            SoAGlobalItem.AreusWeapon[Type] = true;
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()

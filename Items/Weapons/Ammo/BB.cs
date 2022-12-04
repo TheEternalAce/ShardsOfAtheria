@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using ShardsOfAtheria.Systems;
 using Terraria;
@@ -11,6 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
 		public override void SetStaticDefaults()
 		{
 			SacrificeTotal = 99;
+			SoAGlobalItem.MetalWeapon.Add(Type);
 		}
 
 		public override void SetDefaults()

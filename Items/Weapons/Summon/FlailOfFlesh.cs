@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
 using Terraria;
 using Terraria.DataStructures;
@@ -12,6 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
+            SoAGlobalItem.OrganicWeapon.Add(Type);
         }
 
         public override void SetDefaults()

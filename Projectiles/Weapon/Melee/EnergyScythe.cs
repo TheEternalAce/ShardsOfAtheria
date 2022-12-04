@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
@@ -15,6 +16,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
     public class EnergyScythe : EpicSwingSword
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.MetalProj.Add(Type);
+            SoAGlobalProjectile.FireProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();

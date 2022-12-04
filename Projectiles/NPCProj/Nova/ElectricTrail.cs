@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.AnyDebuff;
+﻿using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Globals;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,6 +8,11 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {
     public class ElectricTrail : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.ElectricProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 20;

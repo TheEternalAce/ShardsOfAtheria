@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
+using ShardsOfAtheria.Globals;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -8,7 +8,12 @@ using Terraria.ModLoader;
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff
 {
     public class IceShard : ModProjectile
-	{
+    {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.IceProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 8;

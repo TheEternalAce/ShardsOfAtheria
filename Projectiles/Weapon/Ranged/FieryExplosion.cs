@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -10,6 +11,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
     public class FieryExplosion : ModProjectile
     {
         public override string Texture => "ShardsOfAtheria/Blank";
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.FireProj.Add(Type);
+        }
 
         public override void SetDefaults()
         {

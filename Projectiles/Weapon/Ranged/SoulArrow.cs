@@ -1,10 +1,9 @@
-﻿using Terraria;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using Terraria.ID;
-using Terraria.Audio;
+using ShardsOfAtheria.Globals;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 {
@@ -20,6 +19,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         public override void Unload()
         {
             glowmask = null;
+        }
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.PlasmaProj.Add(Type);
         }
 
         public override void SetDefaults()

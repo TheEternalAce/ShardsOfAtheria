@@ -1,12 +1,16 @@
-﻿using Terraria;
-using Terraria.ID;
+﻿using ShardsOfAtheria.Globals;
+using Terraria;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 {
     public class BlackHole : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.PlasmaProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 100;

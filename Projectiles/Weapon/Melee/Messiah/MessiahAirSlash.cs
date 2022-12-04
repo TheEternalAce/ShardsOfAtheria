@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ModContent.ProjectileType<MessiahRanbu2>());
-            SoAGlobalProjectile.FireProjectile[Type] = true;
+            SoAGlobalProjectile.PlasmaProj.Add(Type);
         }
 
         public override void AI()

@@ -1,10 +1,16 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Globals;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
     public class GunCrimson : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.MetalProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 20;

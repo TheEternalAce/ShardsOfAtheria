@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -11,6 +12,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 4;
+            SoAGlobalProjectile.FireProj.Add(Type);
         }
 
         public override void SetDefaults()

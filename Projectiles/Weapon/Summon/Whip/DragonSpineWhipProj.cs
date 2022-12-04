@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Buffs.NPCDebuff;
+using ShardsOfAtheria.Globals;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
@@ -9,12 +10,14 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Summon.Whip
 {
-    public class DragonSpineWhipProj : ModProjectile
+	public class DragonSpineWhipProj : ModProjectile
 	{
 		public override void SetStaticDefaults()
 		{
 			// This makes the projectile use whip collision detection and allows flasks to be applied to it.
 			ProjectileID.Sets.IsAWhip[Type] = true;
+			SoAGlobalProjectile.PlasmaProj.Add(Type);
+			SoAGlobalProjectile.OrganicProj.Add(Type);
 		}
 
 		public override void SetDefaults()
@@ -135,5 +138,5 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon.Whip
 			}
 			return false;
 		}
-    }
+	}
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -9,6 +10,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
     public class LightningBoltFriendly : ModProjectile
     {
         public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.GolfBallDyedViolet}";
+
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.ElectricProj.Add(Type);
+        }
 
         public override void SetDefaults()
         {

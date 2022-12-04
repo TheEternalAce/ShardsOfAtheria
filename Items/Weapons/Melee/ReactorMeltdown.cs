@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.Audio;
@@ -11,6 +12,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 		public override void SetStaticDefaults()
 		{
 			SacrificeTotal = 1;
+			SoAGlobalItem.MetalWeapon.Add(Type);
+			SoAGlobalItem.ElectricWeapon.Add(Type);
 		}
 
 		public override void SetDefaults()

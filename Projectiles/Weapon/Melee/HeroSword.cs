@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
@@ -15,6 +15,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
     public class HeroSword : EpicSwingSword
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.MetalProj.Add(Type);
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();

@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using Terraria;
 using Terraria.ID;
@@ -10,6 +11,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 99;
+            SoAGlobalItem.PlasmaWeapon.Add(Type);
         }
 
         public override void SetDefaults()

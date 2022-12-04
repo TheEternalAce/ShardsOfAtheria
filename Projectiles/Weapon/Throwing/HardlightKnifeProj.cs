@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.MetalProjectile[Type] = true;
+            SoAGlobalProjectile.HardlightProj.Add(Type);
         }
 
         public override void SetDefaults()
