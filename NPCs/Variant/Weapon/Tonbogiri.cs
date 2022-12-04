@@ -1,10 +1,11 @@
-﻿using ShardsOfAtheria.Items.Materials;
+﻿using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace ShardsOfAtheria.NPCs.Variant.Weapon
 {
@@ -22,6 +23,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Weapon
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+            SoAGlobalNPC.PoisonNPC.Add(Type);
         }
 
         public override void SetDefaults()
@@ -35,6 +37,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Weapon
             NPC.DeathSound = SoundID.NPCDeath52;
             NPC.knockBackResist = 0.4f;
             NPC.aiStyle = 23;
+            NPC.SetElementEffectivenessByElement(Element.Ice);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -72,7 +75,9 @@ namespace ShardsOfAtheria.NPCs.Variant.Weapon
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             if (Main.rand.NextFloat() >= .5f)
+            {
                 target.AddBuff(BuffID.Bleeding, 10 * 60);
+            }
         }
     }
 }

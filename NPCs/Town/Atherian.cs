@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.Materials;
@@ -11,6 +13,7 @@ using ShopQuotesMod;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
@@ -38,15 +41,26 @@ namespace ShardsOfAtheria.NPCs.Town
             NPCID.Sets.HatOffsetY[Type] = 4;
 
             // Influences how the NPC looks in the Bestiary
-            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            {
-                Velocity = 1f, // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
-                Direction = 1 // -1 is left and 1 is right. NPCs are drawn facing the left by default but ExamplePerson will be drawn facing the right
-                              // Rotation = MathHelper.ToRadians(180) // You can also change the rotation of an NPC. Rotation is measured in radians
-                              // If you want to see an example of manually modifying these when the NPC is drawn, see PreDraw
-            };
+            //NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            //{
+            //    Velocity = 1f, // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
+            //    Direction = 1 // -1 is left and 1 is right. NPCs are drawn facing the left by default but ExamplePerson will be drawn facing the right
+            //                  // Rotation = MathHelper.ToRadians(180) // You can also change the rotation of an NPC. Rotation is measured in radians
+            //                  // If you want to see an example of manually modifying these when the NPC is drawn, see PreDraw
+            //};
 
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+            //NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+            {
+                SpecificallyImmuneTo = new int[] {
+                    BuffID.Poisoned,
+                    ModContent.BuffType<ElectricShock>(),
+
+                    BuffID.Confused // Most NPCs have this
+				}
+            };
+            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            SoAGlobalNPC.ElectricNPC.Add(Type);
 
             // Set Atherian's biome and neighbor preferences with the NPCHappiness hook. You can add happiness text and remarks with localization (See an example in ExampleMod/Localization/en-US.lang
             NPC.Happiness
@@ -79,6 +93,7 @@ namespace ShardsOfAtheria.NPCs.Town
             NPC.knockBackResist = 0.5f;
 
             AnimationType = NPCID.Stylist;
+            NPC.SetElementEffectivenessMultiplier(0.5, 1.0, 0.4, 2.0);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

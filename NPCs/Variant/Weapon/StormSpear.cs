@@ -1,9 +1,10 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Utilities;
+using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace ShardsOfAtheria.NPCs.Variant.Weapon
 {
@@ -21,6 +22,8 @@ namespace ShardsOfAtheria.NPCs.Variant.Weapon
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+            SoAGlobalNPC.MetalNPC.Add(Type);
+            SoAGlobalNPC.ElectricNPC.Add(Type);
         }
 
         public override void SetDefaults()
@@ -34,6 +37,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Weapon
             NPC.DeathSound = SoundID.NPCDeath52;
             NPC.knockBackResist = 0.4f;
             NPC.aiStyle = 23;
+            NPC.SetElementEffectivenessByElement(Element.Electric);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

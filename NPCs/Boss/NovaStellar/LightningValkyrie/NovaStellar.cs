@@ -52,7 +52,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 				}
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
-            SoAGlobalNPC.IceNPC[Type] = true;
+            SoAGlobalNPC.ElectricNPC.Add(Type);
         }
 
         public override void SetDefaults()
@@ -72,6 +72,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             NPC.value = Item.buyPrice(0, 5, 0, 0);
             NPC.npcSlots = 15f;
             AnimationType = NPCID.Harpy;
+            NPC.SetElementEffectivenessMultiplier(2.0, 0.8, 0.8, 1.5);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -107,6 +108,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
             LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
             LeadingConditionRule slayerMode = new LeadingConditionRule(new IsSlayerMode());
+            LeadingConditionRule flawless = new(new FlawlessDropCondition());
 
             int[] drops = { ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<ValkyrieCrown>(), ModContent.ItemType<DownBow>(), ModContent.ItemType<PlumeCodex>() };
 
@@ -123,7 +125,9 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             {
                 notExpertRule.OnSuccess(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
             }
-            npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<ValkyrieStormLance>()));
+
+            flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieStormLance>()));
+            npcLoot.Add(flawless);
 
             // Finally add the leading rule
             npcLoot.Add(notExpertRule);

@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
@@ -26,6 +28,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+            SoAGlobalNPC.ElectricNPC.Add(Type);
         }
 
         public override void SetDefaults()
@@ -37,6 +40,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<DesertHarpyBanner>();
+            NPC.SetElementEffectivenessByElement(Element.Electric);
         }
 
         public override void AI()
