@@ -20,6 +20,7 @@ using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Utilities;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Chat;
 using Terraria.GameContent.ItemDropRules;
@@ -33,10 +34,25 @@ namespace ShardsOfAtheria.Globals
     {
         public bool flawless = true;
         #region NPC Elements (for 1.0)
-        public static bool[] MetalNPC = new bool[ItemLoader.ItemCount];
-        public static bool[] FireNPC = new bool[ItemLoader.ItemCount];
-        public static bool[] IceNPC = new bool[ItemLoader.ItemCount];
-        public static bool[] ElectricNPC = new bool[ItemLoader.ItemCount];
+        public static List<int> MetalNPC = new();
+        public static List<int> FireNPC = new();
+        public static List<int> IceNPC = new();
+        public static List<int> ElectricNPC = new();
+        public double[] elementMultiplier = { 1.0, 1.0, 1.0, 1.0 };
+
+        #region Element Sub-types
+        public static List<int> AreusNPC = new();
+        public static List<int> FrostfireNPC = new();
+        public static List<int> HardlightNPC = new();
+        /// <summary>
+        /// For thing such as poison, venom, blood, etc.
+        /// </summary>
+        public static List<int> PoisonNPC = new();
+        /// <summary>
+        /// For thing such as plasma, ectoplasm, ethereal, eldritch, etc.
+        /// </summary>
+        public static List<int> PlasmaNPC = new();
+        #endregion
         #endregion
 
         public override bool InstancePerEntity => true;
@@ -134,49 +150,21 @@ namespace ShardsOfAtheria.Globals
             if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
             {
                 double modifier = 1.0;
-                if (SoAGlobalItem.FireWeapon[item.type])
+                if (SoAGlobalItem.FireWeapon.Contains(item.type))
                 {
-                    if (IceNPC[npc.type])
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (ElectricNPC[npc.type])
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Fire];
                 }
-                if (SoAGlobalItem.IceWeapon[item.type])
+                if (SoAGlobalItem.IceWeapon.Contains(item.type))
                 {
-                    if (MetalNPC[npc.type])
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (FireNPC[npc.type])
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Ice];
                 }
-                if (SoAGlobalItem.ElectricWeapon[item.type])
+                if (SoAGlobalItem.ElectricWeapon.Contains(item.type))
                 {
-                    if (FireNPC[npc.type])
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (MetalNPC[npc.type])
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Ice];
                 }
-                if (SoAGlobalItem.MetalWeapon[item.type])
+                if (SoAGlobalItem.MetalWeapon.Contains(item.type))
                 {
-                    if (ElectricNPC[npc.type])
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (IceNPC[npc.type])
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Ice];
                 }
                 damage = (int)Math.Ceiling(damage * modifier);
             }
@@ -189,49 +177,21 @@ namespace ShardsOfAtheria.Globals
             if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
             {
                 double modifier = 1.0;
-                if (SoAGlobalProjectile.FireProjectile[projectile.type])
+                if (SoAGlobalProjectile.FireProj.Contains(projectile.type))
                 {
-                    if (IceNPC[npc.type])
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (ElectricNPC[npc.type])
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Fire];
                 }
-                if (SoAGlobalProjectile.IceProjectile[projectile.type])
+                if (SoAGlobalProjectile.IceProj.Contains(projectile.type))
                 {
-                    if (MetalNPC[npc.type])
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (FireNPC[npc.type])
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Ice];
                 }
-                if (SoAGlobalProjectile.ElectricProjectile[projectile.type])
+                if (SoAGlobalProjectile.ElectricProj.Contains(projectile.type))
                 {
-                    if (FireNPC[npc.type])
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (MetalNPC[npc.type])
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Electric];
                 }
-                if (SoAGlobalProjectile.MetalProjectile[projectile.type])
+                if (SoAGlobalProjectile.MetalProj.Contains(projectile.type))
                 {
-                    if (ElectricNPC[npc.type])
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (IceNPC[npc.type])
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Metal];
                 }
                 damage = (int)Math.Ceiling(damage * modifier);
             }
@@ -387,7 +347,6 @@ namespace ShardsOfAtheria.Globals
                         // Expert mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.HiveBackpack);
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<Glock80>());
-                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<HecateII>());
 
                         // Master mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.QueenBeePetItem);
@@ -830,6 +789,7 @@ namespace ShardsOfAtheria.Globals
             LeadingConditionRule downedGolem = new(new DownedGolem());
             LeadingConditionRule downedCultist = new(new DownedLunaticCultist());
             LeadingConditionRule downedMoonLord = new(new DownedMoonLord());
+            LeadingConditionRule flawless = new(new FlawlessDropCondition());
 
             if (npc.type == NPCID.Mothron)
             {
@@ -839,24 +799,31 @@ namespace ShardsOfAtheria.Globals
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ReactorMeltdown>(), 4));
             }
-            #region Add former slayer loot to normal loot pool
+            #region Add former slayer loot to flawless loot pool
             if (npc.type == NPCID.EyeofCthulhu)
             {
-                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<Cataracnia>()));
+
+                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Cataracnia>()));
+                npcLoot.Add(flawless);
             }
             if (npc.type == NPCID.BrainofCthulhu)
             {
-                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<TomeOfOmniscience>()));
+
+                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<TomeOfOmniscience>()));
+                npcLoot.Add(flawless);
             }
             if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
             {
                 LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new Conditions.LegacyHack_IsABoss());
-                leadingConditionRule.OnSuccess(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<WormBloom>()));
-                npcLoot.Add(leadingConditionRule);
+
+                leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<WormBloom>()));
+                flawless.OnSuccess(leadingConditionRule);
+                npcLoot.Add(flawless);
             }
             if (npc.type == NPCID.Deerclops)
             {
-                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<ScreamLantern>()));
+                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ScreamLantern>()));
+                npcLoot.Add(flawless);
             }
             if (npc.type == NPCID.WallofFlesh)
             {
@@ -864,19 +831,24 @@ namespace ShardsOfAtheria.Globals
                 npcLoot.Add(notHardmode);
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulSoul>()));
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulArmament>()));
-                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<FlailOfFlesh>()));
+
+                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<FlailOfFlesh>()));
+                npcLoot.Add(flawless);
             }
             if (npc.type == NPCID.TheDestroyer || npc.type == NPCID.TheDestroyerBody || npc.type == NPCID.TheDestroyerTail)
             {
-                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<Coilgun>()));
+                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Coilgun>()));
+                npcLoot.Add(flawless);
             }
             if (npc.type == NPCID.SkeletronPrime)
             {
-                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<HandCanon>()));
+                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HandCanon>()));
+                npcLoot.Add(flawless);
             }
             if (npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism)
             {
-                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<DoubleBow>()));
+                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<DoubleBow>()));
+                npcLoot.Add(flawless);
             }
             if (npc.type == NPCID.Plantera)
             {
@@ -1128,10 +1100,13 @@ namespace ShardsOfAtheria.Globals
                 {
                     ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Moon Lord was slain..."), Color.White);
                     npc.active = false;
+                    return false;
                 }
                 if (npc.type == NPCID.MoonLordHand || npc.type == NPCID.MoonLordHead)
+                {
                     npc.active = false;
-                return false;
+                    return false;
+                }
             }
             #endregion
             return base.PreAI(npc);

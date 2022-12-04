@@ -23,16 +23,11 @@ namespace ShardsOfAtheria.Globals
 {
     public class SoAGlobalItem : GlobalItem
     {
-        #region Weapon Categories
-        public static bool[] AreusWeapon = new bool[ItemLoader.ItemCount];
-        public static bool[] ThrowingWeapon = new bool[ItemLoader.ItemCount];
-        #endregion
-
         #region Item Categories
-        public static bool[] SlayerItem = new bool[ItemLoader.ItemCount];
-        public static bool[] SinfulItem = new bool[ItemLoader.ItemCount];
-        public static bool[] Potions = new bool[ItemLoader.ItemCount];
-        public static bool[] UpgradeableItem = new bool[ItemLoader.ItemCount];
+        public static List<int> SlayerItem = new();
+        public static List<int> SinfulItem = new();
+        public static List<int> Potions = new();
+        public static List<int> UpgradeableItem = new();
         #endregion
 
         #region Ammo lists for Ammo Bags
@@ -54,14 +49,18 @@ namespace ShardsOfAtheria.Globals
         #endregion
 
         #region Weapon Elements (for 1.0)
-        public static bool[] MetalWeapon = new bool[ItemLoader.ItemCount];
-        public static bool[] FireWeapon = new bool[ItemLoader.ItemCount];
-        public static bool[] IceWeapon = new bool[ItemLoader.ItemCount];
-        public static bool[] ElectricWeapon = new bool[ItemLoader.ItemCount];
+        public static List<int> MetalWeapon = new();
+        public static List<int> FireWeapon = new();
+        public static List<int> IceWeapon = new();
+        public static List<int> ElectricWeapon = new();
 
         #region Weapon Sub-Elements
-        public static bool[] BloodWeapon = new bool[ItemLoader.ItemCount];
-        public static bool[] FrostfireWeapon = new bool[ItemLoader.ItemCount];
+        public static List<int> AreusWeapon = new();
+        public static List<int> BloodWeapon = new();
+        public static List<int> FrostfireWeapon = new();
+        public static List<int> HardlightWeapon = new();
+        public static List<int> PlasmaWeapon = new();
+        public static List<int> OrganicWeapon = new();
         #endregion
 
         #endregion
@@ -69,41 +68,32 @@ namespace ShardsOfAtheria.Globals
         public override void SetDefaults(Item item)
         {
             ShardsConfigServerSide serverConfig = ModContent.GetInstance<ShardsConfigServerSide>();
-            // Why don't silbr bullets deal extra damage to werewolves???
-            if (item.type == ItemID.SilverBullet)
-            {
-                item.shoot = ModContent.ProjectileType<SilverBullet>();
-            }
-            // Add new grenade ammo type and make grenades deal throwing damage
-            if (item.type == ItemID.Grenade || item.type == ItemID.Beenade || item.type == ItemID.StickyGrenade || item.type == ItemID.BouncyGrenade || item.type == ItemID.PartyGirlGrenade)
-            {
-                item.ammo = ItemID.Grenade;
-                ThrowingWeapon[item.type] = true;
-            }
-            // Buff Pearlwood
-            if (item.type == ItemID.PearlwoodHelmet || item.type == ItemID.PearlwoodBreastplate || item.type == ItemID.PearlwoodGreaves)
-            {
-                item.defense = 8;
-            }
-            if (item.type == ItemID.PearlwoodSword)
-            {
-                item.damage = 46;
-            }
-            if (item.type == ItemID.PearlwoodBow)
-            {
-                item.damage = 30;
-                item.autoReuse = true;
-            }
-
-            if (item.type == ItemID.ThrowingKnife || item.type == ItemID.Shuriken || item.type == ItemID.AleThrowingGlove || item.type == ItemID.Snowball ||
-                item.type == ItemID.RottenEgg || item.type == ItemID.PoisonedKnife || item.type == ItemID.StarAnise || item.type == ItemID.Javelin ||
-                item.type == ItemID.FrostDaggerfish || item.type == ItemID.Bone || item.type == ItemID.MolotovCocktail)
-            {
-
-            }
-
             switch (item.type)
             {
+                case ItemID.SilverBullet:
+                    // Why don't silbr bullets deal extra damage to werewolves???
+                    item.shoot = ModContent.ProjectileType<SilverBullet>();
+                    break;
+
+                #region Buff Pearlwood gear
+                case ItemID.PearlwoodHelmet:
+                    item.defense = 8;
+                    break;
+                case ItemID.PearlwoodBreastplate:
+                    item.defense = 8;
+                    break;
+                case ItemID.PearlwoodGreaves:
+                    item.defense = 8;
+                    break;
+                case ItemID.PearlwoodSword:
+                    item.defense = 8;
+                    break;
+                case ItemID.PearlwoodBow:
+                    item.damage = 30;
+                    item.autoReuse = true;
+                    break;
+                #endregion
+
                 #region Make old 1.3 throwing weapons deal throwing damage if config is enabled
                 case ItemID.ThrowingKnife:
                 case ItemID.Shuriken:
@@ -116,7 +106,20 @@ namespace ShardsOfAtheria.Globals
                 case ItemID.FrostDaggerfish:
                 case ItemID.Bone:
                 case ItemID.MolotovCocktail:
-                    ThrowingWeapon[item.type] = true;
+                case ItemID.BoneDagger:
+                case ItemID.BoneJavelin:
+                    item.DamageType = DamageClass.Throwing;
+                    break;
+                #endregion
+
+                #region Add new grenade ammo type
+                case ItemID.Grenade:
+                case ItemID.Beenade:
+                case ItemID.StickyGrenade:
+                case ItemID.BouncyGrenade:
+                case ItemID.PartyGirlGrenade:
+                    item.ammo = ItemID.Grenade;
+                    item.DamageType = DamageClass.Throwing;
                     break;
                 #endregion
 
@@ -153,22 +156,11 @@ namespace ShardsOfAtheria.Globals
                         item.useTime = 15;
                         item.useAnimation = 15;
                         item.autoReuse = true;
-                        item.useTurn = true;
                     }
+                    item.useTurn = true;
                     break;
                     #endregion
             }
-
-            if (ThrowingWeapon[item.type])
-            {
-                item.DamageType = DamageClass.Throwing;
-            }
-            #region Assign Sub-Element weapon to branching Base-Elements
-            MetalWeapon[item.type] = BloodWeapon[item.type] || AreusWeapon[item.type];
-            IceWeapon[item.type] = BloodWeapon[item.type] || FrostfireWeapon[item.type];
-            FireWeapon[item.type] = FrostfireWeapon[item.type];
-            ElectricWeapon[item.type] = AreusWeapon[item.type];
-            #endregion
         }
 
         public override void UpdateArmorSet(Player player, string set)
@@ -197,7 +189,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
-            if (player.HasBuff(ModContent.BuffType<Conductive>()) && AreusWeapon[item.type])
+            if (player.HasBuff(ModContent.BuffType<Conductive>()) && AreusWeapon.Contains(item.type))
             {
                 damage += .15f;
             }
@@ -205,7 +197,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if (SlayerItem[item.type])
+            if (SlayerItem.Contains(item.type))
             {
                 var line = new TooltipLine(Mod, "SlayerItem", Language.GetTextValue("Mods.ShardsOfAtheria.General.SlayerItem"))
                 {
@@ -213,7 +205,7 @@ namespace ShardsOfAtheria.Globals
                 };
                 tooltips.Add(line);
             }
-            if (UpgradeableItem[item.type])
+            if (UpgradeableItem.Contains(item.type))
             {
                 var line = new TooltipLine(Mod, "UpgradeItem", Language.GetTextValue("Mods.ShardsOfAtheria.General.UpgradeableItem"));
                 tooltips.Add(line);
@@ -312,7 +304,7 @@ namespace ShardsOfAtheria.Globals
 
         public override bool ConsumeItem(Item item, Player player)
         {
-            if (Potions[item.type])
+            if (Potions.Contains(item.type) && !ModLoader.TryGetMod("Overhaul", out _))
             {
                 Item.NewItem(item.GetSource_FromThis(), player.getRect(), ItemID.Bottle, 1);
             }
