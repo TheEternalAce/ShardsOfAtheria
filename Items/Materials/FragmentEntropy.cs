@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Items.Materials
             ItemID.Sets.ItemIconPulse[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
 
-            SoAGlobalItem.SlayerItem[Type] = true;
+            SoAGlobalItem.SlayerItem.Add(Type);
             SacrificeTotal = 25;
         }
 

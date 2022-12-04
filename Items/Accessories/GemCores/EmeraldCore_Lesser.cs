@@ -1,4 +1,5 @@
 ﻿using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,7 +26,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.StoneBlock, 10)
+                .AddRecipeGroup(ShardsRecipes.Gold, 10)
                 .AddIngredient(ItemID.StoneBlock, 10)
                 .AddIngredient(ItemID.Emerald, 5)
                 .AddTile(TileID.Anvils)

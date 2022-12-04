@@ -119,7 +119,7 @@ namespace ShardsOfAtheria
 							{
 								if (args[2] is int)
 								{
-									SoAGlobalItem.SlayerItem[(int)args[2]] = true;
+									SoAGlobalItem.SlayerItem.Add((int)args[2]);
 								}
 								else
 								{

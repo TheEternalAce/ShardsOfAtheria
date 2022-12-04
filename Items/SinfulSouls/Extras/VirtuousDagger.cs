@@ -31,11 +31,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
 
         public override bool CanUseItem(Player player)
         {
-            if (player.GetModPlayer<SinfulPlayer>().SevenSoulUsed == 0 || player.GetModPlayer<SinfulPlayer>().SevenSoulUsed == 8)
-            {
-                return false;
-            }
-            return !player.immune && player.immuneTime == 0;
+            return !player.immune && player.immuneTime == 0 && player.GetModPlayer<SinfulPlayer>().SevenSoulUsed > 0;
         }
 
         public override bool? UseItem(Player player)
@@ -43,13 +39,18 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was purified into nothing."), player.statLifeMax2 / 5, -player.direction);
             for (int i = 0; i < SinfulPlayer.SinfulBuffs.Length; i++)
             {
-                if (i != SinfulPlayer.SinfulBuffs[7] && player.HasBuff(SinfulPlayer.SinfulBuffs[i]))
+                if (player.HasBuff(SinfulPlayer.SinfulBuffs[i]))
                 {
                     player.ClearBuff(SinfulPlayer.SinfulBuffs[i]);
-                    player.AddBuff(ModContent.BuffType<VirtuousSoul>(), 1800);
                 }
             }
-            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 8;
+            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 0;
+            if (player.GetModPlayer<SinfulPlayer>().SevenSoulUsed < 8)
+            {
+                player.AddBuff(ModContent.BuffType<VirtuousSoul>(), 1800);
+                player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 8;
+            }
+
 
             for (int i = 0; i < 10; i++)
             {

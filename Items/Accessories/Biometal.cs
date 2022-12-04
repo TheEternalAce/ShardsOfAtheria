@@ -243,6 +243,8 @@ namespace ShardsOfAtheria.Items.Accessories
 
             //Here you'd be able to set an effect that happens when the dash first activates
             //Some examples include:  the larger smoke effect from the Master Ninja Gear and Tabi
+            Dust dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.Smoke, Player.velocity.X, Player.velocity.Y, 0, default, 1f);
+            dust.noGravity = true;
         }
     }
 }

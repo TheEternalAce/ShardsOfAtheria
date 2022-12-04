@@ -1,5 +1,6 @@
 ﻿using ShardsOfAtheria.Players;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Buffs.PlayerBuff
@@ -16,8 +17,9 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
             if (player.GetModPlayer<SoAPlayer>().overdriveTimeCurrent > 0)
             {
                 player.GetDamage(DamageClass.Generic) += 1f;
-                Lighting.AddLight(player.position, 0.5f, 0.5f, 0.5f);
+                Lighting.AddLight(player.position, TorchID.Corrupt);
                 player.buffTime[buffIndex] = 18000;
+                player.armorEffectDrawShadowEOCShield = true;
             }
             else
             {

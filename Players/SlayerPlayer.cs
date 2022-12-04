@@ -364,7 +364,7 @@ namespace ShardsOfAtheria.Players
 
         public override void PostUpdate()
         {
-            if (soulCrystals.Count >= 6)
+            if (soulCrystals.Count > 6)
             {
                 Player.AddBuff(ModContent.BuffType<Madness>(), 600);
             }
@@ -372,17 +372,17 @@ namespace ShardsOfAtheria.Players
             {
                 int oldDefense = Player.statDefense;
                 Player.statDefense -= defenseReduction;
-                if (Player.statDefense < -100)
+                if (Player.statDefense < 0)
                 {
-                    defenseReduction = oldDefense + 100;
+                    defenseReduction = oldDefense;
                 }
 
-                if (Player.GetModPlayer<SoAPlayer>().inCombat == 0)
+                if (defenseReduction > 0)
                 {
-                    defenseRegenTime++;
-                    if (defenseRegenTime >= 10 && defenseReduction > 0)
+                    defenseRegenTime--;
+                    if (defenseRegenTime <= 0)
                     {
-                        defenseRegenTime = 0;
+                        defenseRegenTime = 10;
                         defenseReduction--;
                     }
                 }
@@ -610,9 +610,10 @@ namespace ShardsOfAtheria.Players
                 totalDamageTaken += (int)damage;
                 lastDamageTaken = (int)damage;
 
-                if (Player.statDefense > -100)
+                if (Player.statDefense > 0)
                 {
-                    defenseReduction += (int)damage;
+                    defenseReduction += (int)damage / 2;
+                    defenseRegenTime = 200;
                 }
             }
 

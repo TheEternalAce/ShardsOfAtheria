@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ModLoader;
 namespace ShardsOfAtheria.Commands
 {
-    class GenericCommand : ModCommand
+	class GenericCommand : ModCommand
 	{
 		public override bool IsLoadingEnabled(Mod mod)
 		{

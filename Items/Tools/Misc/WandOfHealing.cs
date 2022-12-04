@@ -23,8 +23,8 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             Item.healLife = 50;
             Item.mana = 100;
 
-            Item.useTime = 20;
-            Item.useAnimation = 20;
+            Item.useTime = 50;
+            Item.useAnimation = 50;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.UseSound = SoundID.Item29;
 

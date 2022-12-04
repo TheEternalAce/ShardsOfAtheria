@@ -78,14 +78,7 @@ namespace ShardsOfAtheria.Players
         internal int overdriveTimeRegenTimer = 0;
 
         #region Player elemental effectiveness
-        public bool FireRes;
-        public bool IceRes;
-        public bool ElectricRes;
-        public bool MetalRes;
-        public bool FireVuln;
-        public bool IceVuln;
-        public bool ElectricVuln;
-        public bool MetalVuln;
+        public double[] elementMultiplier = { 1.0, 1.0, 1.0, 1.0 };
         #endregion
 
         public override void ResetEffects()
@@ -529,49 +522,21 @@ namespace ShardsOfAtheria.Players
             if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
             {
                 double modifier = 1.0;
-                if (SoAGlobalNPC.FireNPC[npc.type])
+                if (SoAGlobalNPC.FireNPC.Contains(npc.type))
                 {
-                    if (FireVuln)
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (FireRes)
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Fire];
                 }
-                if (SoAGlobalNPC.IceNPC[npc.type])
+                if (SoAGlobalNPC.IceNPC.Contains(npc.type))
                 {
-                    if (IceVuln)
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (IceRes)
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Ice];
                 }
-                if (SoAGlobalNPC.ElectricNPC[npc.type])
+                if (SoAGlobalNPC.ElectricNPC.Contains(npc.type))
                 {
-                    if (ElectricVuln)
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (ElectricRes)
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Electric];
                 }
-                if (SoAGlobalNPC.MetalNPC[npc.type])
+                if (SoAGlobalNPC.MetalNPC.Contains(npc.type))
                 {
-                    if (MetalVuln)
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (MetalRes)
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Metal];
                 }
                 damage = (int)Math.Ceiling(damage * modifier);
             }
@@ -584,49 +549,21 @@ namespace ShardsOfAtheria.Players
             if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
             {
                 double modifier = 1.0;
-                if (SoAGlobalProjectile.FireProjectile[proj.type])
+                if (SoAGlobalProjectile.FireProj.Contains(proj.type))
                 {
-                    if (FireVuln)
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (FireRes)
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Fire];
                 }
-                if (SoAGlobalProjectile.IceProjectile[proj.type])
+                if (SoAGlobalProjectile.IceProj.Contains(proj.type))
                 {
-                    if (IceVuln)
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (IceRes)
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Ice];
                 }
-                if (SoAGlobalProjectile.ElectricProjectile[proj.type])
+                if (SoAGlobalProjectile.ElectricProj.Contains(proj.type))
                 {
-                    if (ElectricVuln)
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (ElectricRes)
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Electric];
                 }
-                if (SoAGlobalProjectile.MetalProjectile[proj.type])
+                if (SoAGlobalProjectile.MetalProj.Contains(proj.type))
                 {
-                    if (MetalVuln)
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (MetalRes)
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Metal];
                 }
                 damage = (int)Math.Ceiling(damage * modifier);
             }
@@ -638,49 +575,21 @@ namespace ShardsOfAtheria.Players
             if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
             {
                 double modifier = 1.0;
-                if (SoAGlobalItem.FireWeapon[item.type])
+                if (SoAGlobalItem.FireWeapon.Contains(item.type))
                 {
-                    if (FireVuln)
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (FireRes)
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Fire];
                 }
-                if (SoAGlobalItem.IceWeapon[item.type])
+                if (SoAGlobalItem.IceWeapon.Contains(item.type))
                 {
-                    if (IceVuln)
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (IceRes)
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Ice];
                 }
-                if (SoAGlobalItem.ElectricWeapon[item.type])
+                if (SoAGlobalItem.ElectricWeapon.Contains(item.type))
                 {
-                    if (ElectricVuln)
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (ElectricRes)
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Electric];
                 }
-                if (SoAGlobalItem.MetalWeapon[item.type])
+                if (SoAGlobalItem.MetalWeapon.Contains(item.type))
                 {
-                    if (MetalVuln)
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (MetalRes)
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Metal];
                 }
                 damage = (int)Math.Ceiling(damage * modifier);
             }
@@ -692,49 +601,21 @@ namespace ShardsOfAtheria.Players
             if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
             {
                 double modifier = 1.0;
-                if (SoAGlobalProjectile.FireProjectile[proj.type])
+                if (SoAGlobalProjectile.FireProj.Contains(proj.type))
                 {
-                    if (FireVuln)
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (FireRes)
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Fire];
                 }
-                if (SoAGlobalProjectile.IceProjectile[proj.type])
+                if (SoAGlobalProjectile.IceProj.Contains(proj.type))
                 {
-                    if (IceVuln)
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (IceRes)
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Ice];
                 }
-                if (SoAGlobalProjectile.ElectricProjectile[proj.type])
+                if (SoAGlobalProjectile.ElectricProj.Contains(proj.type))
                 {
-                    if (ElectricVuln)
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (ElectricRes)
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Electric];
                 }
-                if (SoAGlobalProjectile.MetalProjectile[proj.type])
+                if (SoAGlobalProjectile.MetalProj.Contains(proj.type))
                 {
-                    if (MetalVuln)
-                    {
-                        modifier *= 2.0;
-                    }
-                    else if (MetalRes)
-                    {
-                        modifier *= 0.5;
-                    }
+                    modifier *= elementMultiplier[Element.Metal];
                 }
                 damage = (int)Math.Ceiling(damage * modifier);
             }
@@ -787,7 +668,9 @@ namespace ShardsOfAtheria.Players
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 if (Main.npc[i].active)
+                {
                     Main.npc[i].GetGlobalNPC<SoAGlobalNPC>().flawless = false;
+                }
             }
         }
 
@@ -803,9 +686,13 @@ namespace ShardsOfAtheria.Players
                 Player.AddBuff(BuffID.Inferno, 600);
             }
             if (superSapphireCore)
+            {
                 Player.AddBuff(BuffID.Inferno, 600);
+            }
             if (Player.HasItem(ModContent.ItemType<WandOfHealing>()) && !Player.HasBuff(ModContent.BuffType<HeartBreak>()))
-                Player.AddBuff(ModContent.BuffType<HeartBreak>(), 120);
+            {
+                Player.AddBuff(ModContent.BuffType<HeartBreak>(), 900);
+            }
         }
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)

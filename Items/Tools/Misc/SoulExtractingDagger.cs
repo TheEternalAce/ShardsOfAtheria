@@ -42,7 +42,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
 
         public override void SetStaticDefaults()
         {
-            SoAGlobalItem.SlayerItem[Type] = true;
+            SoAGlobalItem.SlayerItem.Add(Type);
 
             SacrificeTotal = 1;
         }

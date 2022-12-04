@@ -33,14 +33,11 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
         {
             if (Player.HasBuff(ModContent.BuffType<VirtuousSoul>()))
             {
-                if (target.life <= 0)
-                {
-                    purification++;
-                }
-                if (crit && purification >= 7)
+                purification++;
+                if ((crit || target.life <= 0) && purification >= 35)
                 {
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<HolyExplosion>(), item.damage * 3, item.knockBack, Player.whoAmI);
-                    purification -= 7;
+                    purification -= 35;
                 }
             }
         }
@@ -49,14 +46,11 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
         {
             if (Player.HasBuff(ModContent.BuffType<VirtuousSoul>()) && proj.type != ModContent.ProjectileType<HolyExplosion>())
             {
-                if (target.life <= 0)
-                {
-                    purification++;
-                }
-                if (crit && purification >= 7)
+                purification++;
+                if ((crit || target.life <= 0) && purification >= 35)
                 {
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<HolyExplosion>(), proj.damage * 3, proj.knockBack, Player.whoAmI);
-                    purification -= 7;
+                    purification -= 35;
                 }
             }
         }
@@ -75,8 +69,8 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             Projectile.penetrate = -1;
             Projectile.timeLeft = 10;
 
-            DrawOffsetX = 480;
-            DrawOriginOffsetY = 210;
+            DrawOffsetX = Projectile.width / 2 - 20;
+            DrawOriginOffsetY = Projectile.height / 2 - 90;
         }
 
         public override void AI()

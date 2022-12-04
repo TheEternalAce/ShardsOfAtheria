@@ -544,17 +544,13 @@ Mods: {
 			AreusShard: A shard of limitless electricity
 			BionicBarItem: "'It still pulsates as if it has a heartbeat...'"
 			BionicOreItem: "'It pulsates as if it has a heartbeat...'"
-			CobaltWorkbenchItem: Used to completely skip having to gather mythril ore
-			PalladiumWorkbenchItem: Used to completely skip having to gather mythril ore
+			CobaltWorkbenchItem: Works in place of Mythril Anvil
+			PalladiumWorkbenchItem: Works in place of Mythril Anvil
 
 			# Potions
 			BoneMarrowInjection: Strengthens your bones
 			ChargedFlightPotion: Increases flight time by 34
-			ConductivityPotion:
-				'''
-				Increases areus weapon damage by 15% and duration of Electric Shock by 100%
-				All attacks inflict Electric Shock
-				'''
+			ConductivityPotion: "Increases areus weapon damage by 15% and duration of Electric Shock by 100%"
 			SoulInjection:
 				'''
 				Damages you but grants the following:

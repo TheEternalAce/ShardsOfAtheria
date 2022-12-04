@@ -3,20 +3,14 @@ using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Chat;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Commands
 {
-    class ResetSlayer : ModCommand
-    {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return ShardsOfAtheria.DeveloperMode;
-        }
-
-        public override CommandType Type
+	class ResetSlayer : ModCommand
+	{
+		public override CommandType Type
 			=> CommandType.Chat;
 
 		public override string Command
@@ -62,5 +56,5 @@ namespace ShardsOfAtheria.Commands
 			ModContent.GetInstance<ShardsDownedSystem>().slainEverything = false;
 			ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Slayer mode reset"), Color.White, player.whoAmI);
 		}
-    }
+	}
 }

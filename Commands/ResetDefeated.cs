@@ -2,20 +2,14 @@
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Chat;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Commands
 {
-    class ResetDefeated : ModCommand
-    {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return ShardsOfAtheria.DeveloperMode;
-        }
-
-        public override CommandType Type
+	class ResetDefeated : ModCommand
+	{
+		public override CommandType Type
 			=> CommandType.Chat;
 
 		public override string Command
@@ -48,5 +42,5 @@ namespace ShardsOfAtheria.Commands
 			NPC.downedMoonlord = false;
 			ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Bosses have no longer been defeated"), Color.White, player.whoAmI);
 		}
-    }
+	}
 }
