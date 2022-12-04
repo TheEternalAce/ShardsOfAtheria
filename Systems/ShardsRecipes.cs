@@ -142,11 +142,13 @@ namespace ShardsOfAtheria.Systems
                 .Register();
 
             Recipe.Create(ItemID.RodofDiscord)
+                .AddIngredient(ItemID.Teleporter, 20)
                 .AddIngredient(ItemID.HallowedBar, 20)
                 .AddIngredient(ItemID.BeetleHusk, 18)
                 .AddIngredient(ItemID.SoulofFlight, 14)
                 .AddIngredient(ItemID.SoulofLight, 14)
-                .AddTile(TileID.MythrilAnvil)
+                .AddIngredient(ItemID.ChaosFish, 4)
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
 
@@ -158,7 +160,7 @@ namespace ShardsOfAtheria.Systems
                 if ((recipe.TryGetIngredient(ItemID.Bottle, out Item _) || recipe.TryGetIngredient(ItemID.BottledWater, out Item _) || recipe.TryGetIngredient(ItemID.BottledHoney, out Item _))
                     && recipe.HasTile(TileID.Bottles))
                 {
-                    SoAGlobalItem.Potions[recipe.createItem.type] = true;
+                    SoAGlobalItem.Potions.Add(recipe.createItem.type);
                 }
             }
         }
