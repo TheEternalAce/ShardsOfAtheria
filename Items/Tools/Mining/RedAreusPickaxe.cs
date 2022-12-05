@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Tools.Mining.Rock
+namespace ShardsOfAtheria.Items.Tools.Mining
 {
     public class RedAreusPickaxe : ModItem
     {

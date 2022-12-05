@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Tools.Mining.Rock
+namespace ShardsOfAtheria.Items.Tools.Mining
 {
     public class RedAreusDrill : ModItem
     {
@@ -33,15 +33,15 @@ namespace ShardsOfAtheria.Items.Tools.Mining.Rock
 
         public override void SetDefaults()
         {
-            Item.width = 30;
-            Item.height = 64;
+            Item.width = 64;
+            Item.height = 30;
 
             Item.pick = 225;
 
-            Item.damage = 20;
+            Item.damage = 50;
             Item.DamageType = DamageClass.Melee;
             Item.knockBack = 0;
-            Item.mana = 0;
+            Item.tileBoost += 3;
 
             Item.useTime = 2; //Actual Break 1 = FAST 50 = SUPER SLOW
             Item.useAnimation = 10;
