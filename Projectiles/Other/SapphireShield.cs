@@ -62,6 +62,7 @@ namespace ShardsOfAtheria.Projectiles.Other
 
 		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
 		{
+			Projectile.hide = true;
 			overPlayers.Add(index);
 		}
 

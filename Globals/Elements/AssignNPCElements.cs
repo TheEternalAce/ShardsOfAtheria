@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using ShardsOfAtheria.Utilities;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Globals.Elements
 {
-    public class AssignNPCElementEffectiveness : GlobalNPC
+    public class AssignNPCElements : GlobalNPC
     {
         List<int> FireNPC = SoAGlobalNPC.FireNPC;
         List<int> IceNPC = SoAGlobalNPC.IceNPC;
@@ -40,6 +41,7 @@ namespace ShardsOfAtheria.Globals.Elements
                 case NPCID.RedDevil:
                 case NPCID.DemonTaxCollector:
                     FireNPC.Add(type);
+                    npc.SetElementEffectivenessByElement(Element.Fire);
                     break;
 
                 case NPCID.DarkCaster:
@@ -55,6 +57,7 @@ namespace ShardsOfAtheria.Globals.Elements
                 case NPCID.AngryNimbus:
                 case NPCID.IceGolem:
                     IceNPC.Add(type);
+                    npc.SetElementEffectivenessByElement(Element.Ice);
                     break;
 
                 case NPCID.BlueJellyfish:
@@ -71,6 +74,7 @@ namespace ShardsOfAtheria.Globals.Elements
                 case NPCID.SandShark:
                 case NPCID.SandElemental:
                     ElectricNPC.Add(type);
+                    npc.SetElementEffectivenessByElement(Element.Electric);
                     break;
 
                 case NPCID.AngryBones:
@@ -124,6 +128,7 @@ namespace ShardsOfAtheria.Globals.Elements
                 case NPCID.GoblinThief:
                 case NPCID.GoblinWarrior:
                     MetalNPC.Add(type);
+                    npc.SetElementEffectivenessByElement(Element.Metal);
                     break;
 
                 case NPCID.Bee:
@@ -208,6 +213,7 @@ namespace ShardsOfAtheria.Globals.Elements
                 case NPCID.SandsharkCorrupt:
                 case NPCID.SandsharkCrimson:
                     PoisonNPC.Add(type);
+                    npc.SetElementEffectivenessByElement(Element.Poison);
                     break;
 
                 case NPCID.CursedSkull:
@@ -219,6 +225,7 @@ namespace ShardsOfAtheria.Globals.Elements
                 case NPCID.RaggedCaster:
                 case NPCID.RaggedCasterOpenCoat:
                     PlasmaNPC.Add(type);
+                    npc.SetElementEffectivenessByElement(Element.Plasma);
                     break;
 
                 case NPCID.MeteorHead:
@@ -234,12 +241,14 @@ namespace ShardsOfAtheria.Globals.Elements
                 case NPCID.ShadowFlameApparition:
                     FireNPC.Add(type);
                     MetalNPC.Add(type);
+                    npc.SetElementEffectivenessMultipliers(0.8, 1.5, 1.0, 0.6);
                     break;
 
                 case NPCID.Clinger:
                 case NPCID.Necromancer:
                     FireNPC.Add(type);
                     PoisonNPC.Add(type);
+                    npc.SetElementEffectivenessMultipliers(0.8, 2.0, 0.9, 0.8);
                     break;
 
                 case NPCID.BigMimicCorruption:
@@ -249,12 +258,14 @@ namespace ShardsOfAtheria.Globals.Elements
                 case NPCID.CursedHammer:
                     MetalNPC.Add(type);
                     PoisonNPC.Add(type);
+                    npc.SetElementEffectivenessMultipliers(0.8, 0.8, 2.0, 0.5);
                     break;
 
                 case NPCID.EnchantedSword:
                 case NPCID.BigMimicHallow:
                     MetalNPC.Add(type);
                     PlasmaNPC.Add(type);
+                    npc.SetElementEffectivenessMultipliers(0.8, 0.8, 2.0, 0.5);
                     break;
             }
         }

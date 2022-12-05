@@ -72,7 +72,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             NPC.value = Item.buyPrice(0, 5, 0, 0);
             NPC.npcSlots = 15f;
             AnimationType = NPCID.Harpy;
-            NPC.SetElementEffectivenessMultiplier(2.0, 0.8, 0.8, 1.5);
+            NPC.SetElementEffectivenessMultipliers(2.0, 0.8, 0.8, 1.5);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

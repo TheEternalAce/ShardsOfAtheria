@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<CorruptHarpyBanner>();
-            NPC.SetElementEffectivenessByElement(Element.Organic);
+            NPC.SetElementEffectivenessByElement(Element.Poison);
         }
 
         public override void AI()

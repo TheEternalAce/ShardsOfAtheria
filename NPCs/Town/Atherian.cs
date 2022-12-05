@@ -93,7 +93,7 @@ namespace ShardsOfAtheria.NPCs.Town
             NPC.knockBackResist = 0.5f;
 
             AnimationType = NPCID.Stylist;
-            NPC.SetElementEffectivenessMultiplier(0.5, 1.0, 0.4, 2.0);
+            NPC.SetElementEffectivenessMultipliers(0.5, 1.0, 0.4, 2.0);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

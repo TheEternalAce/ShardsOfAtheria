@@ -37,6 +37,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
             {
                 Projectile.Kill();
             }
+            if (++Projectile.frameCounter >= 10)
+            {
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= Main.projFrames[Projectile.type])
+                    Projectile.frame = 0;
+            }
         }
 
         public override void Kill(int timeLeft)

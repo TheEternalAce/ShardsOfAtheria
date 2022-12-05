@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Utilities
         public const int Areus = 4;
         public const int Frostfire = 5;
         public const int Hardlight = 6;
-        public const int Organic = 7;
+        public const int Poison = 7;
         public const int Plasma = 8;
     }
     public static class ShardsHelpers // General class full of helper methods
@@ -46,7 +46,7 @@ namespace ShardsOfAtheria.Utilities
         /// Sets NPC multipliers in the following order: Fire, Ice, Electric, Metal
         /// <para>This method should be called in the SetDefaults() override</para>
         /// </summary>
-        public static void SetElementEffectivenessMultiplier(this NPC npc, params double[] multipliers)
+        public static void SetElementEffectivenessMultipliers(this NPC npc, params double[] multipliers)
         {
             if (multipliers.Length > 4)
             {
@@ -125,7 +125,7 @@ namespace ShardsOfAtheria.Utilities
                     npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Electric] = 0.5;
                     npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Metal] = 0.5;
                     break;
-                case Element.Organic:
+                case Element.Poison:
                     npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Fire] = 2.0;
                     npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Ice] = 0.8;
                     npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Electric] = 1.5;

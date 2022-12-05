@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Weapon
             NPC.DeathSound = SoundID.NPCDeath52;
             NPC.knockBackResist = 0.4f;
             NPC.aiStyle = 23;
-            NPC.SetElementEffectivenessByElement(Element.Organic);
+            NPC.SetElementEffectivenessByElement(Element.Poison);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

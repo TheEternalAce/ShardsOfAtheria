@@ -44,6 +44,11 @@ Mods: {
 				Always get 20% increased movement speed
 				'''
 			UpgradeableItem: Upgradeable Item
+
+			ElementFire: Fire Element
+			ElementIce: Ice Element
+			ElementLightning: Lightning Element
+			ElementMetal: Metal Element
 		}
 
 		ItemName: {
@@ -208,6 +213,7 @@ Mods: {
 			# MagicOcarina: Magic Ocarina
 			Necronomicon: Necronomicon
 			RedAreusDrill: Red Areus Drill
+			RedAreusChainsaw: Red Areus Chainsaw
 			RedAreusPickaxe: Red Areus Pickaxe
 			SpidersMechanicalClock: "Spider's Mechanical Clock"
 			SoulExtractingDagger: Soul Extracting Dagger
@@ -720,6 +726,11 @@ Mods: {
 
 			# Tools
 			RedAreusDrill: "'Extremely dangerous... and fun!'"
+			RedAreusChainsaw:
+				'''
+				Can also cut down walls for some reason
+				Use right click to toggle breaking walls
+				'''
 			SoulExtractingDagger:
 				'''
 				Right click to cycle between absorbed Soul Crystals
@@ -975,6 +986,7 @@ Mods: {
 			AllSeeingEye: All Seeing Eye
 			ExtractingSoul: Soul Extracting Dagger
 			RedAreusDrillProj: Red Areus Drill
+			RedAreusChainsawProj: Red Areus Chainsaw
 
 			# Weapons
 				# Ammo
