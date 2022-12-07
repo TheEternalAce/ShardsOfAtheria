@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Globals;
+﻿using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.IceProj.Add(Type);
+            ProjectileElements.IceProj.Add(Type);
         }
 
         public override void SetDefaults()

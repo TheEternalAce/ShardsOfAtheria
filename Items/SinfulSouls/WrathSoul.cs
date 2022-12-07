@@ -74,9 +74,8 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void ModifyBuffTip(ref string tip, ref int rare)
         {
-            tip = Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.WrathSoul") +
-                $"\nCurrent damage increase: +{MathF.Round(Main.LocalPlayer.GetModPlayer<WrathPlayer>().anger, 3)}%\n" +
-                $"Current critical strike chance increase: +{Main.LocalPlayer.GetModPlayer<WrathPlayer>().rage}%";
+            tip = Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.WrathSoul", MathF.Round(Main.LocalPlayer.GetModPlayer<WrathPlayer>().anger, 3),
+                Main.LocalPlayer.GetModPlayer<WrathPlayer>().rage);
             base.ModifyBuffTip(ref tip, ref rare);
         }
 

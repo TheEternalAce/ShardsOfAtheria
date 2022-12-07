@@ -16,13 +16,13 @@ namespace ShardsOfAtheria.NPCs.Variant.Weapon
             NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
                 Velocity = 1f, // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
-                Direction = 1 // -1 is left and 1 is right. NPCs are drawn facing the left by default but ExamplePerson will be drawn facing the right
+                Direction = -1 // -1 is left and 1 is right. NPCs are drawn facing the left by default but ExamplePerson will be drawn facing the right
                               // Rotation = MathHelper.ToRadians(180) // You can also change the rotation of an NPC. Rotation is measured in radians
                               // If you want to see an example of manually modifying these when the NPC is drawn, see PreDraw
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-            SoAGlobalNPC.PoisonNPC.Add(Type);
+            SoAGlobalNPC.FireNPC.Add(Type);
         }
 
         public override void SetDefaults()
@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Weapon
             NPC.DeathSound = SoundID.NPCDeath52;
             NPC.knockBackResist = 0.4f;
             NPC.aiStyle = 23;
-            NPC.SetElementEffectivenessByElement(Element.Poison);
+            NPC.SetElementEffectivenessByElement(Element.Fire);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

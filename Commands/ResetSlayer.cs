@@ -53,7 +53,6 @@ namespace ShardsOfAtheria.Commands
 			ModContent.GetInstance<ShardsDownedSystem>().slainSenterra = false;
 			ModContent.GetInstance<ShardsDownedSystem>().slainGenesis = false;
 			ModContent.GetInstance<ShardsDownedSystem>().slainDeath = false;
-			ModContent.GetInstance<ShardsDownedSystem>().slainEverything = false;
 			ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Slayer mode reset"), Color.White, player.whoAmI);
 		}
 	}

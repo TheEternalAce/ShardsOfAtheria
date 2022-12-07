@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using Terraria;
 using Terraria.ID;
@@ -28,8 +28,8 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.MetalProj.Add(Type);
-            SoAGlobalProjectile.ElectricProj.Add(Type);
+            ProjectileElements.MetalProj.Add(Type);
+            ProjectileElements.ElectricProj.Add(Type);
         }
 
         public override void SetDefaults()
@@ -61,13 +61,13 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
             if (Projectile.spriteDirection == 1)
             {
-                DrawOffsetX = -54;
-                DrawOriginOffsetX = 26;
+                DrawOffsetX = -40;
+                DrawOriginOffsetX = 16;
             }
             else
             {
                 DrawOffsetX = 0;
-                DrawOriginOffsetX = -26;
+                DrawOriginOffsetX = -16;
             }
 
             if (Projectile.ai[1] == 0)

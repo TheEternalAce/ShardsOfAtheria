@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.ID;
@@ -14,8 +14,8 @@ namespace ShardsOfAtheria.Projectiles.Tools
 
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.FireProj.Add(Type);
-            SoAGlobalProjectile.ElectricProj.Add(Type);
+            ProjectileElements.FireProj.Add(Type);
+            ProjectileElements.ElectricProj.Add(Type);
         }
 
         public override void SetDefaults()

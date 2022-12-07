@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
 using Terraria;
 using Terraria.ID;
@@ -12,8 +12,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.MetalProj.Add(Type);
-            SoAGlobalProjectile.ElectricProj.Add(Type);
+            ProjectileElements.MetalProj.Add(Type);
+            ProjectileElements.ElectricProj.Add(Type);
         }
 
         public override void SetDefaults()

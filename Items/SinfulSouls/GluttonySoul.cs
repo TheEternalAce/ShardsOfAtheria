@@ -24,15 +24,45 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         public override bool? UseItem(Player player)
         {
             player.AddBuff(ModContent.BuffType<GluttonyBuff>(), 2);
+            player.AddBuff(BuffID.NeutralHunger, 18000);
             return base.UseItem(player);
         }
     }
 
     public class GluttonyPlayer : ModPlayer
     {
+        public bool gluttony = false;
+        public int feed = 100;
+        public int feedTimer = 60;
+
+        public override void ResetEffects()
+        {
+            gluttony = false;
+            if (!(Player.HasBuff(BuffID.WellFed) || Player.HasBuff(BuffID.WellFed2) || Player.HasBuff(BuffID.WellFed3)))
+            {
+                if (--feedTimer <= 0)
+                {
+                    feed--;
+                    feedTimer = 30;
+                }
+            }
+        }
+
+        public override void OnRespawn(Player player)
+        {
+            feed = 100;
+            feedTimer = 60;
+        }
+
+        public override void OnEnterWorld(Player player)
+        {
+            feed = 100;
+            feedTimer = 60;
+        }
+
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
-            if (Player.HasBuff(ModContent.BuffType<GluttonyBuff>()))
+            if (gluttony)
             {
                 if (target.life > 0 && crit)
                 {
@@ -47,7 +77,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            if (Player.HasBuff(ModContent.BuffType<GluttonyBuff>()))
+            if (gluttony)
             {
                 if (target.lifeMax > 5 && target.life > 0 && crit)
                 {
@@ -71,13 +101,17 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void Update(Player player, ref int buffIndex)
         {
+            GluttonyPlayer gluttonyPlayer = player.GetModPlayer<GluttonyPlayer>();
+
             player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 2;
+            gluttonyPlayer.gluttony = true;
             player.GetDamage(DamageClass.Melee) += .15f;
-            player.statDefense -= 15;
-            player.starving = true;
-            player.buffImmune[BuffID.WellFed] = true;
-            player.buffImmune[BuffID.WellFed2] = true;
-            player.buffImmune[BuffID.WellFed3] = true;
+            player.statDefense -= 7;
+
+            if (gluttonyPlayer.feed <= 0 && !(player.HasBuff(BuffID.WellFed) || player.HasBuff(BuffID.WellFed2) || player.HasBuff(BuffID.WellFed3)))
+            {
+                player.starving = true;
+            }
             base.Update(player, ref buffIndex);
         }
     }

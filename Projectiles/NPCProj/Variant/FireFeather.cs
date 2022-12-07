@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
 
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.FireProj.Add(Type);
+            ProjectileElements.FireProj.Add(Type);
         }
 
         public override void SetDefaults()

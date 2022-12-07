@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Globals;
+﻿using ShardsOfAtheria.Globals.Elements;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,7 +8,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.PlasmaProj.Add(Type);
+            ProjectileElements.FireProj.Add(Type);
         }
 
         public override void SetDefaults()

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.Materials;
@@ -12,9 +13,10 @@ using ShardsOfAtheria.Utilities;
 using ShopQuotesMod;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
 using Terraria.Localization;
@@ -44,7 +46,7 @@ namespace ShardsOfAtheria.NPCs.Town
             //NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             //{
             //    Velocity = 1f, // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
-            //    Direction = 1 // -1 is left and 1 is right. NPCs are drawn facing the left by default but ExamplePerson will be drawn facing the right
+            //    Direction = -1 // -1 is left and 1 is right. NPCs are drawn facing the left by default but ExamplePerson will be drawn facing the right
             //                  // Rotation = MathHelper.ToRadians(180) // You can also change the rotation of an NPC. Rotation is measured in radians
             //                  // If you want to see an example of manually modifying these when the NPC is drawn, see PreDraw
             //};
@@ -134,8 +136,12 @@ namespace ShardsOfAtheria.NPCs.Town
 
         public override bool PreAI()
         {
-            if (ModContent.GetInstance<ShardsDownedSystem>().slainSenterra)
+            if (ModContent.GetInstance<ShardsDownedSystem>().slainSenterra || ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie)
+            {
                 NPC.active = false;
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(NPC.GivenName + " has left."), Color.Red);
+                return false;
+            }
             return base.PreAI();
         }
 
@@ -148,13 +154,7 @@ namespace ShardsOfAtheria.NPCs.Town
         {
             WeightedRandom<string> chat = new();
 
-            int dryad = NPC.FindFirstNPC(NPCID.Dryad);
-            if (dryad >= 0)
-            {
-                chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.DryadPresent", Main.npc[dryad].GivenName), 0.25);
-            }
-
-            if (!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
+            if (!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode || ModContent.GetInstance<ShardsConfigServerSide>().cluelessNPCs)
             {
                 if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
                 {
@@ -189,74 +189,72 @@ namespace ShardsOfAtheria.NPCs.Town
                 if (player.GetModPlayer<SlayerPlayer>().slayerMode && !ModContent.GetInstance<ShardsConfigServerSide>().cluelessNPCs)
                 {
                     Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.RefuseUpgrade");
-                    return;
                 }
-                if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>() && (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5
-                    && player.HasItem(ModContent.ItemType<MemoryFragment>()))
+                else if (player.HasItem(ModContent.ItemType<GenesisAndRagnarok>()) && (player.inventory[player.FindItem(ModContent.ItemType<GenesisAndRagnarok>())].ModItem as GenesisAndRagnarok).upgrades < 5)
                 {
-                    if (player.HasItem(ModContent.ItemType<MemoryFragment>()))
+                    GenesisAndRagnarok GenesisRagnarok = player.inventory[player.FindItem(ModContent.ItemType<GenesisAndRagnarok>())].ModItem as GenesisAndRagnarok;
+                    if (GenesisRagnarok.upgrades == 0)
                     {
-                        int materialID = ModContent.ItemType<MemoryFragment>();
-                        if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 0)
-                        {
-                            if (player.HasItem(materialID))
-                            {
-                                if (UpgradeItem(player, ItemID.None, player.HeldItem, materialID, 1))
-                                {
-                                    Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok1");
-                                }
-                            }
-                            return;
-                        }
-                        else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 1)
-                        {
-                            materialID = ItemID.ChlorophyteBar;
-                            if (UpgradeItem(player, ItemID.None, player.HeldItem, materialID, 14))
-                            {
-                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok2");
-                            }
-                            return;
-                        }
-                        else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 2)
-                        {
-                            materialID = ItemID.BeetleHusk;
-                            if (UpgradeItem(player, ItemID.None, player.HeldItem, materialID, 16))
-                            {
-                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok3");
-                            }
-                            return;
-                        }
-                        else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 3)
-                        {
-                            materialID = ItemID.FragmentSolar;
-                            if (UpgradeItem(player, ItemID.None, player.HeldItem, materialID, 18))
-                            {
-                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok4");
-                            }
-                            return;
-                        }
-                        else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 4)
-                        {
-                            materialID = ItemID.LunarBar;
-                            if (UpgradeItem(player, ItemID.None, player.HeldItem, materialID, 20))
-                            {
-                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok5");
-                            }
-                            return;
-                        }
+                        ShardsHelpers.UpgrageMaterial[] materials = {
+                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
+                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1)
+                        };
+                        NPC.UpgradeItem(player, ItemID.None, materials);
+                    }
+                    else if (GenesisRagnarok.upgrades == 1)
+                    {
+                        ShardsHelpers.UpgrageMaterial[] materials = {
+                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
+                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1),
+                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ItemID.ChlorophyteBar], 14)
+                        };
+                        NPC.UpgradeItem(player, ItemID.None, materials);
+                    }
+                    else if (GenesisRagnarok.upgrades == 2)
+                    {
+                        ShardsHelpers.UpgrageMaterial[] materials = {
+                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
+                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1),
+                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ItemID.BeetleHusk], 16)
+                        };
+                        NPC.UpgradeItem(player, ItemID.None, materials);
+                    }
+                    else if (GenesisRagnarok.upgrades == 3)
+                    {
+                        ShardsHelpers.UpgrageMaterial[] materials = {
+                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
+                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1),
+                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ItemID.FragmentSolar], 18)
+                        };
+                        NPC.UpgradeItem(player, ItemID.None, materials);
+                    }
+                    else if (GenesisRagnarok.upgrades == 4)
+                    {
+                        ShardsHelpers.UpgrageMaterial[] materials = {
+                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
+                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1),
+                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ItemID.LunarBar], 20)
+                        };
+                        NPC.UpgradeItem(player, ItemID.None, materials);
                     }
                 }
                 else if (player.HasItem(ModContent.ItemType<AreusDagger>()))
                 {
-                    if (!player.HasItem(ModContent.ItemType<AreusSword>()))
-                    {
-                        Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial", ModContent.ItemType<AreusSword>(), 1, 0);
-                        return;
-                    }
-                    else if (UpgradeItem(player, ModContent.ItemType<AreusSaber>(), player.HeldItem, ItemID.LunarBar, 14))
-                    {
-                        Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeAreusWeapon");
-                    }
+                    ShardsHelpers.UpgrageMaterial[] materials = {
+                        new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusDagger>()], 0),
+                        new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusSword>()], 1),
+                        new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ItemID.LunarBar], 14)
+                    };
+                    NPC.UpgradeItem(player, ModContent.ItemType<AreusSaber>(), materials);
+                }
+                else if (player.HasItem(ModContent.ItemType<AreusKatana>()))
+                {
+                    ShardsHelpers.UpgrageMaterial[] materials = {
+                        new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusKatana>()], 1),
+                        new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ItemID.BeetleHusk], 20),
+                        new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ItemID.SoulofFright], 14)
+                    };
+                    NPC.UpgradeItem(player, ModContent.ItemType<TheMourningStar>(), materials);
                 }
                 else
                 {
@@ -266,51 +264,8 @@ namespace ShardsOfAtheria.NPCs.Town
             }
         }
 
-        public bool UpgradeItem(Player player, int result, Item item, int materialID, int minMaterial)
-        {
-            Item materialItem = ContentSamples.ItemsByType[materialID];
-            if (player.HasItem(materialID))
-            {
-                materialItem = player.inventory[player.FindItem(materialID)];
-            }
-            if (player.HasItem(materialItem.type) && materialItem.stack >= minMaterial)
-            {
-                SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
-                materialItem.stack -= minMaterial;
-
-                if (item.type == ModContent.ItemType<GenesisAndRagnarok>())
-                {
-                    GenesisAndRagnarok upgradeItem = item.ModItem as GenesisAndRagnarok;
-                    upgradeItem.upgrades++;
-                    if (materialID != ModContent.ItemType<MemoryFragment>())
-                    {
-                        player.inventory[player.FindItem(ModContent.ItemType<MemoryFragment>())].stack--;
-                    }
-                    // Add some kind of seal breaking animation later
-                }
-                else if (item.type == ModContent.ItemType<AreusDagger>())
-                {
-                    player.inventory[player.FindItem(ModContent.ItemType<AreusSword>())].stack--;
-                    item.TurnToAir();
-                }
-
-                if (result >= ItemID.None)
-                {
-                    Item.NewItem(NPC.GetSource_FromThis(), NPC.getRect(), result);
-                }
-            }
-            else
-            {
-                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial", materialID, minMaterial,
-                    player.HasItem(materialID) ? materialItem.stack : 0);
-            }
-            return materialItem.stack >= minMaterial;
-        }
-
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<ValkyrieCrest>());
-            nextSlot++;
             if (NPC.downedPlantBoss)
             {
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusKey>());
@@ -319,6 +274,8 @@ namespace ShardsOfAtheria.NPCs.Town
             }
             if (!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
             {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<ValkyrieCrest>());
+                nextSlot++;
                 if (NPC.downedSlimeKing)
                 {
                     shop.item[nextSlot].SetDefaults(ItemID.SlimeCrown);
@@ -465,6 +422,14 @@ namespace ShardsOfAtheria.NPCs.Town
                     nextSlot++;
                 }
             }
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            LeadingConditionRule isSlayer = new(new IsSlayerMode());
+
+            isSlayer.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieCrest>()));
+            npcLoot.Add(isSlayer);
         }
 
         // Make this Town NPC teleport to the King and/or Queen statue when triggered.

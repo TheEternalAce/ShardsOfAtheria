@@ -2,6 +2,7 @@ using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
@@ -12,6 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
+            SoAGlobalItem.ElectricWeapon.Add(Type);
         }
 
         public override void SetDefaults()
@@ -35,6 +37,16 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 4, 57);
             Item.shoot = ModContent.ProjectileType<AreusSlash1>();
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddCondition(NetworkText.FromKey("Mods.ShardsOfAtheria.RecipeConditions.Upgrade"), r => false)
+                .AddIngredient(ModContent.ItemType<AreusDagger>())
+                .AddIngredient(ModContent.ItemType<AreusSword>())
+                .AddIngredient(ItemID.LunarBar, 14)
+                .Register();
         }
     }
 }

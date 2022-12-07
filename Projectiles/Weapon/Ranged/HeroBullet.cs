@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Globals;
+﻿using ShardsOfAtheria.Globals.Elements;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-            SoAGlobalProjectile.MetalProj.Add(Type);
+            ProjectileElements.MetalProj.Add(Type);
         }
 
         public override void SetDefaults()

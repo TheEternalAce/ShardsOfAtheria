@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -9,10 +9,10 @@ namespace ShardsOfAtheria.Projectiles.Other
 	{
 		public override void SetStaticDefaults()
 		{
-			SoAGlobalProjectile.MetalProj.Add(Type);
-			SoAGlobalProjectile.FireProj.Add(Type);
-			SoAGlobalProjectile.IceProj.Add(Type);
-			SoAGlobalProjectile.ElectricProj.Add(Type);
+			ProjectileElements.MetalProj.Add(Type);
+			ProjectileElements.FireProj.Add(Type);
+			ProjectileElements.IceProj.Add(Type);
+			ProjectileElements.ElectricProj.Add(Type);
 		}
 
 		public override void SetDefaults()

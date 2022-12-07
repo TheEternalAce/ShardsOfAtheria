@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.OrganicWeapon.Add(Type);
+            SoAGlobalItem.IceWeapon.Add(Type);
         }
 
         public override void SetDefaults()

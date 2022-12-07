@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Globals;
+﻿using ShardsOfAtheria.Globals.Elements;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
 
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.OrganicProj.Add(Type);
+            ProjectileElements.IceProj.Add(Type);
         }
 
         public override void SetDefaults()

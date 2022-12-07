@@ -1,8 +1,10 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Dusts;
+using ShardsOfAtheria.Items.Placeable;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Placeable;
 
 namespace ShardsOfAtheria.Tiles
 {
@@ -22,7 +24,7 @@ namespace ShardsOfAtheria.Tiles
             name.SetDefault("Areus Ore");
             AddMapEntry(new Color(100, 150, 200), name);
 
-            DustType = DustID.Electric;
+            DustType = ModContent.DustType<AreusDust_Standard>();
             MinPick = 65;
             HitSound = SoundID.Tink;
         }
@@ -41,7 +43,7 @@ namespace ShardsOfAtheria.Tiles
 
         public override void FloorVisuals(Player player)
         {
-            player.AddBuff(BuffID.Electrified, 5*60);
+            player.AddBuff(ModContent.BuffType<ElectricShock>(), 5*60);
         }
     }
 }

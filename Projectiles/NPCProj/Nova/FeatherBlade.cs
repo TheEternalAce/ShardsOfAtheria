@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using System;
 using Terraria;
 using Terraria.ModLoader;
@@ -11,8 +11,8 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.MetalProj.Add(Type);
-            SoAGlobalProjectile.ElectricProj.Add(Type);
+            ProjectileElements.MetalProj.Add(Type);
+            ProjectileElements.ElectricProj.Add(Type);
         }
 
         public override void SetDefaults()

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff;
 using Terraria;
@@ -20,8 +20,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.IceProj.Add(Type);
-            SoAGlobalProjectile.PlasmaProj.Add(Type);
+            ProjectileElements.IceProj.Add(Type);
+            ProjectileElements.FireProj.Add(Type);
         }
 
         public override void SetDefaults()

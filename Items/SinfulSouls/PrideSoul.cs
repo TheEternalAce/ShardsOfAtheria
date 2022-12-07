@@ -1,5 +1,8 @@
-﻿using ShardsOfAtheria.Players;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Players;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -28,25 +31,67 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
     public class PridePlayer : ModPlayer
     {
-        public int prideTimer;
-        public float pride;
+        public int prideTimer = 0;
+        public float pride = 0;
+        public int shotsFired = 0;
+        public int shotsLanded = 0;
+        public int shotsTimer = 0;
+        public bool prideful = false;
 
         public override void PreUpdate()
         {
-            if (!Player.HasBuff(ModContent.BuffType<PrideBuff>()))
+            if (!Player.HasBuff(ModContent.BuffType<PrideBuff>()) && pride > 0)
             {
                 pride = 0;
                 prideTimer = 0;
+                shotsFired = 0;
+                shotsLanded = 0;
             }
-            else if (Player.GetModPlayer<SoAPlayer>().inCombat == 0 && pride > 0)
+            else
             {
-                prideTimer--;
-                if (prideTimer <= -60)
+                if (Player.GetModPlayer<SoAPlayer>().inCombat == 0 && pride > 0)
                 {
-                    pride -= .02f;
-                    prideTimer = 0;
+                    prideTimer--;
+                    if (prideTimer <= -60)
+                    {
+                        pride -= .02f;
+                        prideTimer = 0;
+                    }
+                }
+
+                if (shotsTimer > 0)
+                {
+                    if (--shotsTimer == 0)
+                    {
+                        if (shotsLanded < shotsFired)
+                        {
+                            Player.AddBuff(BuffID.Slow, 300);
+                            Player.AddBuff(BuffID.WitheredArmor, 300);
+                            Player.AddBuff(BuffID.WitheredWeapon, 300);
+                            shotsFired = 0;
+                            shotsLanded = 0;
+                            prideful = false;
+                        }
+                        else
+                        {
+                            prideful = true;
+                        }
+                        shotsTimer = -1;
+                    }
                 }
             }
+        }
+
+        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+        {
+            shotsLanded++;
+            base.OnHitNPC(item, target, damage, knockback, crit);
+        }
+
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        {
+            shotsLanded++;
+            base.OnHitNPCWithProj(proj, target, damage, knockback, crit);
         }
 
         public override void OnHitByNPC(NPC npc, int damage, bool crit)
@@ -62,6 +107,27 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         }
     }
 
+    public class PrideWeapon : GlobalItem
+    {
+        public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            if (player.HasBuff(ModContent.BuffType<PrideBuff>()))
+            {
+                PridePlayer pridePlayer = player.GetModPlayer<PridePlayer>();
+                if (item.damage > 0 && item.DamageType != DamageClass.Summon && type > ProjectileID.None)
+                {
+                    pridePlayer.shotsFired++;
+
+                    if (pridePlayer.shotsTimer <= 0)
+                    {
+                        pridePlayer.shotsTimer = 300;
+                    }
+                }
+            }
+            return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
+        }
+    }
+
     public class PrideBuff : SinfulSoulBuff
     {
         public override void SetStaticDefaults()
@@ -70,17 +136,30 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             base.SetStaticDefaults();
         }
 
+        public override void ModifyBuffTip(ref string tip, ref int rare)
+        {
+            PridePlayer pridePlayer = Main.LocalPlayer.GetModPlayer<PridePlayer>();
+            tip = Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.PrideSoul", pridePlayer.shotsFired, pridePlayer.shotsLanded);
+            base.ModifyBuffTip(ref tip, ref rare);
+        }
+
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 5;
             if (player.GetModPlayer<SoAPlayer>().inCombat > 0)
+            {
                 player.GetModPlayer<PridePlayer>().prideTimer++;
+            }
             if (player.GetModPlayer<PridePlayer>().prideTimer >= 600)
             {
                 player.GetModPlayer<PridePlayer>().pride += .02f;
                 player.GetModPlayer<PridePlayer>().prideTimer = 0;
             }
             player.GetDamage(DamageClass.Generic) += player.GetModPlayer<PridePlayer>().pride;
+            if (player.GetModPlayer<PridePlayer>().prideful)
+            {
+                player.GetDamage(DamageClass.Generic) += .05f;
+            }
             base.Update(player, ref buffIndex);
         }
     }

@@ -1,5 +1,5 @@
 ﻿using ShardsOfAtheria.Buffs.NPCDebuff;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 3;
-            SoAGlobalProjectile.PlasmaProj.Add(Type);
+            ProjectileElements.IceProj.Add(Type);
         }
 
         public override void SetDefaults()

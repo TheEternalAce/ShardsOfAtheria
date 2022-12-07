@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.Summons;
+using ShardsOfAtheria.Dusts;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -83,7 +84,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
         {
             for (int i = 0; i < 10; i++)
             {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Electric);
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<AreusDust_Standard>());
             }
             SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
         }

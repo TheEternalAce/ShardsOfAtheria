@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             SacrificeTotal = 1;
             SoAGlobalItem.IceWeapon.Add(Type);
-            SoAGlobalItem.PlasmaWeapon.Add(Type);
+            SoAGlobalItem.FireWeapon.Add(Type);
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -98,6 +98,40 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 .AddIngredient(ItemID.HellstoneBar, 18)
                 .AddIngredient(ModContent.ItemType<ChargedFeather>(), 7)
                 .AddTile(TileID.Anvils)
+                .Register();
+
+            CreateRecipe()
+                .AddCondition(NetworkText.FromKey("Mods.ShardsOfAtheria.RecipeConditions.Upgrade"), r => false)
+                .AddIngredient(ModContent.ItemType<GenesisAndRagnarok>())
+                .AddIngredient(ModContent.ItemType<MemoryFragment>())
+                .Register();
+
+            CreateRecipe()
+                .AddCondition(NetworkText.FromKey("Mods.ShardsOfAtheria.RecipeConditions.Upgrade"), r => false)
+                .AddIngredient(ModContent.ItemType<GenesisAndRagnarok>())
+                .AddIngredient(ModContent.ItemType<MemoryFragment>())
+                .AddIngredient(ItemID.ChlorophyteBar, 14)
+                .Register();
+
+            CreateRecipe()
+                .AddCondition(NetworkText.FromKey("Mods.ShardsOfAtheria.RecipeConditions.Upgrade"), r => false)
+                .AddIngredient(ModContent.ItemType<GenesisAndRagnarok>())
+                .AddIngredient(ModContent.ItemType<MemoryFragment>())
+                .AddIngredient(ItemID.BeetleHusk, 16)
+                .Register();
+
+            CreateRecipe()
+                .AddCondition(NetworkText.FromKey("Mods.ShardsOfAtheria.RecipeConditions.Upgrade"), r => false)
+                .AddIngredient(ModContent.ItemType<GenesisAndRagnarok>())
+                .AddIngredient(ModContent.ItemType<MemoryFragment>())
+                .AddIngredient(ItemID.FragmentSolar, 18)
+                .Register();
+
+            CreateRecipe()
+                .AddCondition(NetworkText.FromKey("Mods.ShardsOfAtheria.RecipeConditions.Upgrade"), r => false)
+                .AddIngredient(ModContent.ItemType<GenesisAndRagnarok>())
+                .AddIngredient(ModContent.ItemType<MemoryFragment>())
+                .AddIngredient(ItemID.LunarBar, 20)
                 .Register();
         }
 

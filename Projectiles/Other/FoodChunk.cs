@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
-using ShardsOfAtheria.Projectiles.NPCProj;
+using ShardsOfAtheria.Items.SinfulSouls;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -44,8 +42,8 @@ namespace ShardsOfAtheria.Projectiles.Other
             if (Projectile.Hitbox.Intersects(player.getRect()))
             {
                 Projectile.Kill();
-                player.statLife += Projectile.ai[0] == 1f ? (int)(player.statLifeMax2 * .2f) : 25;
-                player.HealEffect(Projectile.ai[0] == 1f ? (int)(player.statLifeMax2 * .2f) : 25);
+                player.Heal(Projectile.ai[0] == 1f ? (int)(player.statLifeMax2 * .2f) : 25);
+                player.GetModPlayer<GluttonyPlayer>().feed = 100;
             }
         }
 

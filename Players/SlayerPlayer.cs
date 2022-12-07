@@ -509,12 +509,12 @@ namespace ShardsOfAtheria.Players
                 if (soulCrystals.Contains(ModContent.ItemType<KingSoulCrystal>()) && !soulCrystals.Contains(ModContent.ItemType<QueenSoulCrystal>()))
                 {
                     Player.statLife += lastDamageTaken/4;
-                    Player.HealEffect(lastDamageTaken/4);
+                    Player.Heal(lastDamageTaken/4);
                 }
                 else if (soulCrystals.Contains(ModContent.ItemType<QueenSoulCrystal>()))
                 {
                     Player.statLife += lastDamageTaken/2;
-                    Player.HealEffect(lastDamageTaken/2);
+                    Player.Heal(lastDamageTaken/2);
                 }
                 lastDamageTaken = 0;
             }
@@ -540,13 +540,11 @@ namespace ShardsOfAtheria.Players
             {
                 if (soulCrystals.Contains(ModContent.ItemType<KingSoulCrystal>()) && !soulCrystals.Contains(ModContent.ItemType<QueenSoulCrystal>()))
                 {
-                    Player.statLife += lastDamageTaken/4;
-                    Player.HealEffect(lastDamageTaken/4);
+                    Player.Heal(lastDamageTaken/4);
                 }
                 else if (soulCrystals.Contains(ModContent.ItemType<QueenSoulCrystal>()))
                 {
-                    Player.statLife += lastDamageTaken/2;
-                    Player.HealEffect(lastDamageTaken/2);
+                    Player.Heal(lastDamageTaken/2);
                 }
                 lastDamageTaken = 0;
             }

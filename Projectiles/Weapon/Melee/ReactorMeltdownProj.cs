@@ -1,5 +1,5 @@
 ﻿using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -23,8 +23,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 10f;
             Main.projFrames[Projectile.type] = 2;
 
-            SoAGlobalProjectile.MetalProj.Add(Type);
-            SoAGlobalProjectile.ElectricProj.Add(Type);
+            ProjectileElements.MetalProj.Add(Type);
+            ProjectileElements.ElectricProj.Add(Type);
         }
         public override void SetDefaults()
         {

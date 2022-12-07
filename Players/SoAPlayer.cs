@@ -4,6 +4,7 @@ using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Items.SinfulSouls;
@@ -549,19 +550,19 @@ namespace ShardsOfAtheria.Players
             if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
             {
                 double modifier = 1.0;
-                if (SoAGlobalProjectile.FireProj.Contains(proj.type))
+                if (ProjectileElements.FireProj.Contains(proj.type))
                 {
                     modifier *= elementMultiplier[Element.Fire];
                 }
-                if (SoAGlobalProjectile.IceProj.Contains(proj.type))
+                if (ProjectileElements.IceProj.Contains(proj.type))
                 {
                     modifier *= elementMultiplier[Element.Ice];
                 }
-                if (SoAGlobalProjectile.ElectricProj.Contains(proj.type))
+                if (ProjectileElements.ElectricProj.Contains(proj.type))
                 {
                     modifier *= elementMultiplier[Element.Electric];
                 }
-                if (SoAGlobalProjectile.MetalProj.Contains(proj.type))
+                if (ProjectileElements.MetalProj.Contains(proj.type))
                 {
                     modifier *= elementMultiplier[Element.Metal];
                 }
@@ -601,19 +602,19 @@ namespace ShardsOfAtheria.Players
             if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
             {
                 double modifier = 1.0;
-                if (SoAGlobalProjectile.FireProj.Contains(proj.type))
+                if (ProjectileElements.FireProj.Contains(proj.type))
                 {
                     modifier *= elementMultiplier[Element.Fire];
                 }
-                if (SoAGlobalProjectile.IceProj.Contains(proj.type))
+                if (ProjectileElements.IceProj.Contains(proj.type))
                 {
                     modifier *= elementMultiplier[Element.Ice];
                 }
-                if (SoAGlobalProjectile.ElectricProj.Contains(proj.type))
+                if (ProjectileElements.ElectricProj.Contains(proj.type))
                 {
                     modifier *= elementMultiplier[Element.Electric];
                 }
-                if (SoAGlobalProjectile.MetalProj.Contains(proj.type))
+                if (ProjectileElements.MetalProj.Contains(proj.type))
                 {
                     modifier *= elementMultiplier[Element.Metal];
                 }
@@ -661,10 +662,6 @@ namespace ShardsOfAtheria.Players
 
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
         {
-            if (Player.HasBuff(ModContent.BuffType<Megamerged>()))
-            {
-                SoundEngine.PlaySound(SoundID.NPCHit4, Player.position);
-            }
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 if (Main.npc[i].active)

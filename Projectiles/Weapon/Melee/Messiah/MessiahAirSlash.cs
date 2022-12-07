@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Globals;
+﻿using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using Terraria;
 using Terraria.ID;
@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ModContent.ProjectileType<MessiahRanbu2>());
-            SoAGlobalProjectile.PlasmaProj.Add(Type);
+            ProjectileElements.FireProj.Add(Type);
         }
 
         public override void AI()

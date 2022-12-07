@@ -1,6 +1,6 @@
 displayName = Shards of Atheria (Splitting Skies)
-author = TheEternalAce
+author = Rockman Zeta
 version = 0.9
 homepage = https://forums.terraria.org/index.php?threads/shards-of-atheria-mod.112953/
-buildIgnore = SoA Demonstrations/*, Pallets/*, NPCs/NovaStellar/NovaStellar2.png, Items/PetItems/ShadowCrystal.png, Projectiles/Pets/MiracleOfShadow.png, ShardsOfAtheriaSprites.aseprite, UI/*, Items/Accessories/GemCoresGem/Cores redesign concepts.xcf
+buildIgnore = SoA Demonstrations/*, Pallets/*, NPCs/NovaStellar/NovaStellar2.png, ShardsOfAtheriaSprites.aseprite, UI/*, Items/Accessories/GemCoresGem/Cores redesign concepts.xcf
 modReferences = ShopQuotesMod

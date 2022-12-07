@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 
-            SoAGlobalProjectile.MetalProj.Add(Type);
+            ProjectileElements.MetalProj.Add(Type);
         }
 
         public override void SetDefaults()

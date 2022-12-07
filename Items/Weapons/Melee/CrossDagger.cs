@@ -55,8 +55,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             if (!player.GetModPlayer<SoAPlayer>().heartBreak)
             {
-                player.statLife += 100;
-                player.HealEffect(100);
+                player.Heal(100);
             }
         }
 

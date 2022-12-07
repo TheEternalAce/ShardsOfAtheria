@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Minion
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.HardlightWeapon.Add(Type);
+            SoAGlobalItem.MetalWeapon.Add(Type);
         }
 
         public override void SetDefaults()

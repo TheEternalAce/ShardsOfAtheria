@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.MetalProj.Add(Type);
+            ProjectileElements.MetalProj.Add(Type);
         }
 
         public override void SetDefaults()

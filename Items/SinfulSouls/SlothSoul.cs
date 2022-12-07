@@ -22,10 +22,6 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         }
     }
 
-    public class SlothPlayer : ModPlayer
-    {
-    }
-
     public class SlothBuff : SinfulSoulBuff
     {
         public override void SetStaticDefaults()
@@ -39,14 +35,11 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 6;
             if (player.velocity == Vector2.Zero)
             {
-                player.GetDamage(DamageClass.Generic) += .2f;
+                player.GetDamage(DamageClass.Generic) += 0.2f;
                 player.statDefense += 10;
             }
-            else
-            {
-                player.GetDamage(DamageClass.Generic) += (.15f / player.moveSpeed);
-                player.statDefense += (int)(.15f / player.moveSpeed);
-            }
+            player.chilled = true;
+            player.GetDamage(DamageClass.Summon) += 0.25f;
             base.Update(player, ref buffIndex);
         }
     }

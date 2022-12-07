@@ -54,15 +54,7 @@ namespace ShardsOfAtheria.Globals
         public static List<int> IceWeapon = new();
         public static List<int> ElectricWeapon = new();
 
-        #region Weapon Sub-Elements
         public static List<int> AreusWeapon = new();
-        public static List<int> BloodWeapon = new();
-        public static List<int> FrostfireWeapon = new();
-        public static List<int> HardlightWeapon = new();
-        public static List<int> PlasmaWeapon = new();
-        public static List<int> OrganicWeapon = new();
-        #endregion
-
         #endregion
 
         public override void SetDefaults(Item item)
@@ -74,8 +66,12 @@ namespace ShardsOfAtheria.Globals
                     // Why don't silbr bullets deal extra damage to werewolves???
                     item.shoot = ModContent.ProjectileType<SilverBullet>();
                     break;
+                case ItemID.TungstenBullet:
+                    item.shoot = ModContent.ProjectileType<TungstenBullet>();
+                    item.shootSpeed += 4f;
+                    break;
 
-                #region Buff Pearlwood gear
+                #region Buff Pearlwood gear, soon to be obsolete
                 case ItemID.PearlwoodHelmet:
                     item.defense = 8;
                     break;
@@ -108,6 +104,7 @@ namespace ShardsOfAtheria.Globals
                 case ItemID.MolotovCocktail:
                 case ItemID.BoneDagger:
                 case ItemID.BoneJavelin:
+                case ItemID.SpikyBall:
                     item.DamageType = DamageClass.Throwing;
                     break;
                 #endregion
@@ -156,8 +153,8 @@ namespace ShardsOfAtheria.Globals
                         item.useTime = 15;
                         item.useAnimation = 15;
                         item.autoReuse = true;
+                        item.useTurn = true;
                     }
-                    item.useTurn = true;
                     break;
                     #endregion
             }
@@ -165,7 +162,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void UpdateArmorSet(Player player, string set)
         {
-            if (set == "SoA:Pearlwood")
+            if (set == "Shards:Pearlwood")
             {
                 player.setBonus = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.General.PearlwoodSetBonus"),
                     ShardsOfAtheria.ArmorSetBonusActive.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.ArmorSetBonusActive.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
@@ -182,7 +179,7 @@ namespace ShardsOfAtheria.Globals
         {
             if (head.type == ItemID.PearlwoodHelmet && body.type == ItemID.PearlwoodBreastplate && legs.type == ItemID.PearlwoodGreaves)
             {
-                return "SoA:Pearlwood";
+                return "Shards:Pearlwood";
             }
             return base.IsArmorSet(head, body, legs);
         }
@@ -308,22 +305,24 @@ namespace ShardsOfAtheria.Globals
             {
                 Item.NewItem(item.GetSource_FromThis(), player.getRect(), ItemID.Bottle, 1);
             }
-            if (player.HasBuff(ModContent.BuffType<GluttonyBuff>()))
+
+            GluttonyPlayer gluttonyPlayer = player.GetModPlayer<GluttonyPlayer>();
+            if (gluttonyPlayer.gluttony)
             {
                 if (item.buffType == BuffID.WellFed)
                 {
-                    player.HealEffect(25);
-                    player.statLife += 25;
+                    player.Heal(25);
+                    gluttonyPlayer.feed = 50;
                 }
                 if (item.buffType == BuffID.WellFed2)
                 {
-                    player.HealEffect(50);
-                    player.statLife += 50;
+                    player.Heal(50);
+                    gluttonyPlayer.feed = 75;
                 }
                 if (item.buffType == BuffID.WellFed3)
                 {
-                    player.HealEffect(75);
-                    player.statLife += 75;
+                    player.Heal(75);
+                    gluttonyPlayer.feed = 100;
                 }
             }
 

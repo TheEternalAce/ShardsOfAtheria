@@ -1,4 +1,5 @@
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.Weapons.Areus;
@@ -140,7 +141,7 @@ namespace ShardsOfAtheria
 
                 if (type == ModContent.ProjectileType<MourningStar>())
                 {
-                    SoAGlobalProjectile.ElectricProj.Remove(type);
+                    ProjectileElements.ElectricProj.Remove(type);
                 }
                 #endregion
             }

@@ -44,11 +44,14 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
                     player.ClearBuff(SinfulPlayer.SinfulBuffs[i]);
                 }
             }
-            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 0;
             if (player.GetModPlayer<SinfulPlayer>().SevenSoulUsed < 8)
             {
                 player.AddBuff(ModContent.BuffType<VirtuousSoul>(), 1800);
                 player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 8;
+            }
+            else
+            {
+                player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 0;
             }
 
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gomorrah");
-			SoAGlobalProjectile.AreusProj.Add(Type);
+			ProjectileElements.AreusProj.Add(Type);
 		}
 
 		public override void SetDefaults()

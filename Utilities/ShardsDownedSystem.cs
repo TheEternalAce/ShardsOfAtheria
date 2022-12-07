@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -38,7 +39,8 @@ namespace ShardsOfAtheria.Utilities
         public bool slainMoonLord = false;
         public bool slainSenterra = false;
         public bool slainGenesis = false;
-        public bool slainEverything = false;
+
+        public static List<int> slainBosses = new();
 
         public override void OnWorldUnload()
         {
@@ -145,9 +147,6 @@ namespace ShardsOfAtheria.Utilities
                 slainMoonLord = tag.GetBool("slainMoonLord");
             if (tag.ContainsKey("slainDeath"))
                 slainDeath = tag.GetBool("slainDeath");
-
-            if (tag.ContainsKey("slainEverything"))
-                slainEverything = tag.GetBool("slainEverything");
         }
 
         public override void NetSend(BinaryWriter writer)
@@ -187,10 +186,8 @@ namespace ShardsOfAtheria.Utilities
             writer.Write(flags3);
 
             BitsByte flags4 = new BitsByte();
-            flags4[0] = slainEverything;
-
-            flags4[1] = downedSenterra;
-            flags4[2] = downedGenesis;
+            flags4[0] = downedSenterra;
+            flags4[1] = downedGenesis;
             writer.Write(flags4);
         }
 
@@ -229,10 +226,8 @@ namespace ShardsOfAtheria.Utilities
             slainGenesis = flags3[7];
 
             BitsByte flags4 = reader.ReadByte();
-            slainEverything = flags4[0];
-
-            downedSenterra = flags4[1];
-            downedGenesis = flags4[2];
+            downedSenterra = flags4[0];
+            downedGenesis = flags4[1];
 
         }
 

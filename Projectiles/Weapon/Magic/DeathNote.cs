@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using System;
 using Terraria;
 using Terraria.ModLoader;
@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 3;
-            SoAGlobalProjectile.PlasmaProj.Add(Type);
+            ProjectileElements.IceProj.Add(Type);
         }
 
         public override void SetDefaults()

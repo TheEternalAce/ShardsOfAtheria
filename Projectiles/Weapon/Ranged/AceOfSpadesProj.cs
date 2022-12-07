@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.DevItems.TheEternalAce;
 using Terraria;
 using Terraria.ModLoader;
@@ -10,8 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.FireProj.Add(Type);
-            SoAGlobalProjectile.OrganicProj.Add(Type);
+            ProjectileElements.FireProj.Add(Type);
         }
 
         public override void SetDefaults()

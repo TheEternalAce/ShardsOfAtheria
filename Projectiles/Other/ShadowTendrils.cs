@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Globals;
+﻿using ShardsOfAtheria.Globals.Elements;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -9,8 +9,8 @@ namespace ShardsOfAtheria.Projectiles.Other
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 3;
-            SoAGlobalProjectile.FireProj.Add(Type);
-            SoAGlobalProjectile.ElectricProj.Add(Type);
+            ProjectileElements.FireProj.Add(Type);
+            ProjectileElements.ElectricProj.Add(Type);
         }
 
         public override void SetDefaults()

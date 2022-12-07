@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         public override string Texture => "ShardsOfAtheria/Blank";
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.FireProj.Add(Type);
+            ProjectileElements.FireProj.Add(Type);
         }
 
         public override void SetDefaults()

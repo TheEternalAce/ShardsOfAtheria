@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Throwing
         {
             SacrificeTotal = 1;
 
-            SoAGlobalItem.HardlightWeapon.Add(Type);
+            SoAGlobalItem.MetalWeapon.Add(Type);
         }
 
         public override void SetDefaults()
@@ -28,18 +28,18 @@ namespace ShardsOfAtheria.Items.Weapons.Throwing
             Item.knockBack = 1;
             Item.crit = 6;
 
-            Item.useTime = 12;
-            Item.useAnimation = 12;
+            Item.useTime = 18;
+            Item.useAnimation = 18;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.noMelee = true;
             Item.noUseGraphic = true;
 
-            Item.shootSpeed = 16;
+            Item.shootSpeed = 1f;
             Item.rare = ItemRarityID.Green;
             Item.value = 6800;
-            Item.shoot = ModContent.ProjectileType<HardlightKnifeProj>();
+            Item.shoot = ModContent.ProjectileType<HardlightKnife_Swing>();
         }
 
         public override void AddRecipes()

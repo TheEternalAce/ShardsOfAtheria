@@ -47,7 +47,7 @@ Mods: {
 
 			ElementFire: Fire Element
 			ElementIce: Ice Element
-			ElementLightning: Lightning Element
+			ElementElectric: Electric Element
 			ElementMetal: Metal Element
 		}
 
@@ -574,8 +574,8 @@ Mods: {
 			GluttonySoul:
 				'''
 				Increases melee damage by 15%
-				Defense reduced by 15
-				Starving debuff
+				Defense reduced by 7
+				Lose life when not fed
 				Critical strikes on enemies creates a food chunk that will heal you when it makes contact
 				If an attack kills an enemy the food chunk will heal for more
 				'''
@@ -591,11 +591,20 @@ Mods: {
 				Lovestruck buff
 				Damaging enemies may cause them to drop hearts
 				'''
-			PrideSoul: Every 10 seconds of not taking damage increases damage by 2%
+			PrideSoul:
+				'''
+				Every 10 seconds of not taking damage increases damage by 2%
+				Using a weapon that fires a projectile increases Shots Fired
+				Damaging an enemy with a non-summon projectile increases Shots Landed
+				If Shots Landed is not equal to Shots Fired after 5 seconds, your are weakened severely
+				Otherwise, damage is increased by 50%
+				Shots Fired = {0} | Shots Landed = {1}
+				'''
 			SlothSoul:
 				'''
-				The lower your movement speed is, the greater your damage and defense are increased
-				While not moving damage is increased by 20% and defense by 10
+				Decreased movement speed by 25%
+				Increased summon damage by 25%
+				While not moving, all damage is increased by 20% and defense by 10
 				'''
 			WrathSoul:
 				'''
@@ -604,6 +613,8 @@ Mods: {
 				Dying increases both by 5%
 				There is no limit to these boosts
 				Boots slowly decrease while out of combat
+				Current damage increase: +{0}%
+				Current critical strike chance increase: +{1}%
 				'''
 			VirtuousDagger: Transforms into a weapon based on your sin
 			SinfulArmament:
@@ -725,6 +736,7 @@ Mods: {
 			# DeathSoulCrystal:
 
 			# Tools
+			#MagicOcarina: "'The instrument of a timely hero'"
 			RedAreusDrill: "'Extremely dangerous... and fun!'"
 			RedAreusChainsaw:
 				'''
@@ -759,6 +771,11 @@ Mods: {
 				'Ugh!'
 				'''
 			AreusBow: 'Brilliant light show'
+			AreusKatana:
+				'''
+				Holding this weapon increases your movement speed by 5%
+				'I am all out of milk'
+				'''
 			AreusMagnum: "'Headshots do not crit'"
 			AreusRailgun: Tears through enemy armor
 			AreusSaber: "'The pinnacle of areus weapon technology'"
@@ -778,7 +795,12 @@ Mods: {
 				Shade State increases damage by 15% and defense by 20
 				'''
 				# Magic
-			Gunsword: "'I think it's broken..'"
+			Gunsword:
+				'''
+				Fires a straight shooting musket in a corruption world or in the corruption biome
+				Fires a wild undertaker in a crimson world or in the crimson biome
+				'I think it's broken..'
+				'''
 			Pandora:
 				'''
 				Left Click to fire an ice bolt, Right click to summon lightning
@@ -1126,17 +1148,17 @@ Mods: {
 			BaseConservation: Knowledge Base: Conservation
 			BaseExploration: Knowledge Base: Exploration
 			CreeperRevenge: Creeper Revenge
-			MegaMerged: Mega-merged
+			Megamerged: Mega-merged
 			Overdrive: Overdrive: ON
 			ShadeState: Shade State
 				# Sinful Souls
-			EnvySoulBuff: Envy
-			GluttonySoulBuff: Gluttony
-			GreedSoulBuff: Greed
-			LustSoulBuff: Lust
-			PrideSoulBuff: Pride
-			SlothSoulBuff: Sloth
-			WrathSoulBuff: Wrath
+			EnvyBuff: Envy
+			GluttonyBuff: Gluttony
+			GreedBuff: Greed
+			LustBuff: Lust
+			PrideBuff: Pride
+			SlothBuff: Sloth
+			WrathBuff: Wrath
 			VirtuousSoul: Virtuous
 
 			# Player debuff
@@ -1301,6 +1323,10 @@ Mods: {
 			PostMoonLord: "Drops after Moon Lord's defeat"
 		}
 
+		RecipeConditions: {
+			Upgrade: Upgraded by Atherian
+		}
+
 		BossDesc: {
 			NovaStellar: Lightning Valkyrie
 		}
@@ -1354,8 +1380,7 @@ Mods: {
 				Death: No... Mother... I failed...
 			}
 			Atherian: {
-				# On interact
-				DryadPresent: Show respect to your elders, I may be 240 years old but I still respect 
+				# On interact 
 				BaseGenesisAndRagnarok:
 					'''
 					What a peculiar weapon. It shows capabilities of transforming into several types of weapon, but it's locked in spear and whip form.
@@ -1380,22 +1405,22 @@ Mods: {
 					'''
 				UpgradeGenesisAndRagnarok3:
 					'''
-					Genesis and Ragnarok now stronger and can set enemies on fire.
+					Genesis and Ragnarok are now stronger and can set enemies on fire.
 					There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
 					'''
 				UpgradeGenesisAndRagnarok4:
 					'''
-					Genesis and Ragnarok now stronger and can Genesis can transform into a sword.
+					Genesis and Ragnarok are now stronger and can Genesis can transform into a sword.
 					There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
 					'''
 				UpgradeGenesisAndRagnarok5:
 					'''
-					Genesis and Ragnarok now stronger and their ice capabilities are revealed.
-					That's all the memory seals released, I cannot upgrade them further.
+					Genesis and Ragnarok are now stronger and their ice capabilities are revealed.
+					All of the memory seals are now released, I cannot upgrade them further.
 					'''				
 				UpgradeAreusWeapon: That should do it. This is the best I can achieve. Use it well.
 				NoUpgradableItem: Sorry pal, you don't have anything I can upgrade.
-				NotEnoughMaterial: "You don't have enough [i:{0}]. I need at least {1}. You have {2}."
+				NotEnoughMaterial: "{0} - {1} [i:{2}]. I need at least {3}, you have {4}."
 			}
 		}
 	}

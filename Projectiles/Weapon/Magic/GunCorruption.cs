@@ -1,5 +1,8 @@
-﻿using ShardsOfAtheria.Globals;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals.Elements;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Magic
@@ -8,23 +11,33 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.MetalProj.Add(Type);
+            ProjectileElements.MetalProj.Add(Type);
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = 20;
-            Projectile.height = 20;
+            Projectile.width = 14;
+            Projectile.height = 14;
             Projectile.DamageType = DamageClass.Magic;
 
-            Projectile.aiStyle = -1;
+            Projectile.aiStyle = 0;
             Projectile.friendly = true;
-            Projectile.tileCollide = true;
+
+            DrawOffsetX = -2;
         }
 
         public override void AI()
         {
-            Projectile.rotation += 0.4f * (float)Projectile.direction;
+            if (Main.rand.NextBool(10) && Projectile.ai[0] > 0)
+            {
+                Projectile bullet = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 2, ProjectileID.Bullet, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                bullet.DamageType = DamageClass.Magic;
+                SoundEngine.PlaySound(SoundID.Item11);
+                Projectile.ai[1] = 0f;
+                Projectile.ai[0]--;
+            }
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
+            Projectile.spriteDirection = Projectile.direction;
         }
     }
 }

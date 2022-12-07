@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Globals;
+﻿using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.OrganicProj.Add(Type);
+            ProjectileElements.MetalProj.Add(Type);
         }
 
         public override void SetDefaults()

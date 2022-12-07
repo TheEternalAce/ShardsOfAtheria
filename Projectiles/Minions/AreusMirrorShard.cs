@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Dusts;
+using ShardsOfAtheria.Globals.Elements;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -20,7 +21,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
-            SoAGlobalProjectile.AreusProj.Add(Type);
+            ProjectileElements.AreusProj.Add(Type);
         }
 
         public override void SetDefaults()
@@ -74,7 +75,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
         {
             for (int i = 0; i < 10; i++)
             {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Electric);
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<AreusDust_Standard>());
             }
             SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
         }

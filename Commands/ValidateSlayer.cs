@@ -28,13 +28,13 @@ namespace ShardsOfAtheria.Commands
         {
             SlayerPlayer slayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
 
-            ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("" + slayer.soulCrystals.Count), Color.White, Main.LocalPlayer.whoAmI);
+            ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Soul Crystals count: " + slayer.soulCrystals.Count), Color.White, Main.LocalPlayer.whoAmI);
             for (int i = 0; i < entries.Count; i++)
             {
                 PageEntry entry = entries[i];
                 if (slayer.soulCrystals.Contains(entry.crystalItem))
                 {
-                    ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(entry.entryName), Color.White, Main.LocalPlayer.whoAmI);
+                    ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Entry at index (" + i + ") = " + entry.entryName), entry.entryColor, Main.LocalPlayer.whoAmI);
                 }
             }
         }

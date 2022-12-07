@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Tools;
 using ShardsOfAtheria.Utilities;
@@ -30,6 +31,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
             }
 
             SacrificeTotal = 1;
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()

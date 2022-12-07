@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 4;
-            SoAGlobalProjectile.FireProj.Add(Type);
+            ProjectileElements.FireProj.Add(Type);
         }
 
         public override void SetDefaults()
@@ -80,6 +80,18 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         public override void Kill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
+            for (int i = 0; i < 10; i++)
+            {
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Torch,
+                    Projectile.velocity.X * .2f, Projectile.velocity.Y * .2f, 200, Scale: 1.2f);
+                dust.velocity += Projectile.velocity * 0.3f;
+                dust.velocity *= 0.2f;
+
+                Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Torch,
+                    0, 0, 254, Scale: 0.3f);
+                dust2.velocity += Projectile.velocity * 0.5f;
+                dust2.velocity *= 0.5f;
+            }
             base.Kill(timeLeft);
         }
     }

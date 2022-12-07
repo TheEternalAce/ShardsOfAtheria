@@ -16,8 +16,6 @@ namespace ShardsOfAtheria.Items.Tools.Misc
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("'The instrument of a timely hero'");
-
             SacrificeTotal = 1;
         }
 

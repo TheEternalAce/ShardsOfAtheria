@@ -30,53 +30,55 @@ namespace ShardsOfAtheria.Items.SinfulSouls
     public class EnvyPlayer : ModPlayer
     {
         public bool targetFound;
+        public bool envy;
+        public NPC target;
         public int focusDamage;
 
         public override void ResetEffects()
         {
             targetFound = false;
+            envy = false;
         }
 
-        public override void PostUpdate()
+        public override void PreUpdate()
         {
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                if (Main.npc[i].HasBuff(ModContent.BuffType<EnvyTarget>()))
-                {
-                    targetFound = true;
-                }
-            }
-
-            base.PostUpdate();
+            targetFound = target != null;
         }
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
-            if (target.life <= 0 && target.HasBuff(ModContent.BuffType<EnvyTarget>()))
+            if (envy)
             {
-                targetFound = false;
-                focusDamage = 0;
+                if (target.life <= 0 && target.type == this.target.type)
+                {
+                    targetFound = false;
+                    focusDamage = 0;
+                }
             }
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            if (target.life <= 0 && target.HasBuff(ModContent.BuffType<EnvyTarget>()))
+            if (envy)
             {
-                targetFound = false;
-                focusDamage = 0;
+                if (target.life <= 0 && target == this.target)
+                {
+                    targetFound = false;
+                    focusDamage = 0;
+                }
             }
         }
 
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
-            if (Player.HasBuff(ModContent.BuffType<EnvyBuff>()))
+            if (envy)
             {
-                if (!target.HasBuff(ModContent.BuffType<EnvyTarget>()) && !targetFound)
+                if (target != this.target || !targetFound)
                 {
-                    target.AddBuff(ModContent.BuffType<EnvyTarget>(), 300);
+                    this.target = target;
+                    focusDamage = 0;
                 }
-                else if (target.HasBuff(ModContent.BuffType<EnvyTarget>()))
+                else if (target == this.target)
                 {
                     damage += focusDamage;
                     focusDamage++;
@@ -86,28 +88,19 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if (Player.HasBuff(ModContent.BuffType<EnvyBuff>()))
+            if (envy)
             {
-                if (!target.HasBuff(ModContent.BuffType<EnvyTarget>()) && !targetFound)
+                if (target != this.target || !targetFound)
                 {
-                    target.AddBuff(ModContent.BuffType<EnvyTarget>(), 300);
+                    this.target = target;
+                    focusDamage = 0;
                 }
-                else if (target.HasBuff(ModContent.BuffType<EnvyTarget>()))
+                else if (target == this.target)
                 {
                     damage += focusDamage;
                     focusDamage++;
                 }
             }
-        }
-    }
-
-    public class EnvyTarget : ModBuff
-    {
-        public override string Texture => "ShardsOfAtheria/Items/SinfulSouls/EnvyBuff";
-
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
         }
     }
 
@@ -122,6 +115,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 1;
+            player.GetModPlayer<EnvyPlayer>().envy = true;
             player.AddBuff(BuffID.Darkness, 2);
             base.Update(player, ref buffIndex);
         }

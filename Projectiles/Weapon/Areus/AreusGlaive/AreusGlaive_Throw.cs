@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
 
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.AreusProj.Add(Type);
+            ProjectileElements.AreusProj.Add(Type);
         }
 
         public override void SetDefaults()
@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
 
-            SoAGlobalProjectile.AreusProj.Add(Type);
+            ProjectileElements.AreusProj.Add(Type);
         }
 
         public override void AI()

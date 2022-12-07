@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -14,10 +14,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 10;
-            SoAGlobalProjectile.MetalProj.Add(Type);
-            SoAGlobalProjectile.FireProj.Add(Type);
-            SoAGlobalProjectile.IceProj.Add(Type);
-            SoAGlobalProjectile.ElectricProj.Add(Type);
+            ProjectileElements.MetalProj.Add(Type);
+            ProjectileElements.FireProj.Add(Type);
+            ProjectileElements.IceProj.Add(Type);
+            ProjectileElements.ElectricProj.Add(Type);
         }
 
         public override void SetDefaults()
