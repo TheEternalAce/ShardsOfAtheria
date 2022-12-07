@@ -12,6 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
+            SoAGlobalItem.ElectricWeapon.Add(Type);
         }
 
         public override void SetDefaults()

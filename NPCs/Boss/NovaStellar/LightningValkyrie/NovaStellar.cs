@@ -119,7 +119,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieSoulCrystal>()));
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<NovaRelic>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<NovaTrophy>(), 10));
-            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<SmallHardlightCrest>(), 25));
+            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<SmallHardlightCrest>(), 4));
 
             if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage) && !ShardsDownedSystem.downedValkyrie)
             {
@@ -136,10 +136,16 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
         public override void OnKill()
         {
+            Player lastPlayerToHitThisNPC = NPC.AnyInteractions() ? Main.player[NPC.lastInteraction] : null;
             NPC.SetEventFlagCleared(ref ShardsDownedSystem.downedValkyrie, -1);
             if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
             {
                 ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie = true;
+            }
+
+            if (lastPlayerToHitThisNPC != null && lastPlayerToHitThisNPC.GetModPlayer<SlayerPlayer>().slayerMode)
+            {
+                NPC.SlayBoss(lastPlayerToHitThisNPC);
             }
         }
 
@@ -179,7 +185,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             if (NPC.ai[3] > 0f)
             {
                 NPC.ai[3] += 1f; // increase our death timer.
-                NPC.velocity = Vector2.Zero;
+                NPC.velocity = isSlayer ? new Vector2(0, 1) * 8f : Vector2.Zero;
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
                     Projectile proj = Main.projectile[i];

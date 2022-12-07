@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10; // The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0; // The recording mode
-            SoAGlobalProjectile.PlasmaProj.Add(Type);
+            SoAGlobalProjectile.FireProj.Add(Type);
         }
 
         public override void SetDefaults()

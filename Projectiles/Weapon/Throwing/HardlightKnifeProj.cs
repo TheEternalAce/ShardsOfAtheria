@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Globals;
 using Terraria;
 using Terraria.ModLoader;
@@ -9,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.HardlightProj.Add(Type);
+            SoAGlobalProjectile.MetalProj.Add(Type);
         }
 
         public override void SetDefaults()
@@ -37,10 +38,30 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            Vector2 position = target.Center+Vector2.One.RotatedByRandom(360)*120;
-            Projectile.position = position;
-            Projectile.velocity = Vector2.Normalize(target.Center - position) * 16f;
-            Projectile.netUpdate = true;
+            if (Projectile.penetrate > 1)
+            {
+                Vector2 position = target.Center+Vector2.One.RotatedByRandom(360)*120;
+                Projectile.position = position;
+                for (int i = 0; i < 4; i++)
+                {
+                    Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Blue>());
+                    dust.noGravity = true;
+                    Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Pink>());
+                    dust2.noGravity = true;
+                }
+                Projectile.velocity = Vector2.Normalize(target.Center - position) * 16f;
+                Projectile.netUpdate = true;
+                Projectile.tileCollide = false;
+            }
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Blue>(), Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Pink>(), Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+            }
         }
     }
 }

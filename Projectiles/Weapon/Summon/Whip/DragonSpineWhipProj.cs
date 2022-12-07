@@ -16,8 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon.Whip
 		{
 			// This makes the projectile use whip collision detection and allows flasks to be applied to it.
 			ProjectileID.Sets.IsAWhip[Type] = true;
-			SoAGlobalProjectile.PlasmaProj.Add(Type);
-			SoAGlobalProjectile.OrganicProj.Add(Type);
+			SoAGlobalProjectile.IceProj.Add(Type);
 		}
 
 		public override void SetDefaults()

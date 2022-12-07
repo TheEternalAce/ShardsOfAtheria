@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.PlasmaWeapon.Add(Type);
+            SoAGlobalItem.FireWeapon.Add(Type);
         }
 
         public override void SetDefaults()

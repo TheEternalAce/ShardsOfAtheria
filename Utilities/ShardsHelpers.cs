@@ -1,27 +1,47 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Weapons.Areus;
+using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Utilities
 {
-    public static class Element
-    {
-        public const int Fire = 0;
-        public const int Ice = 1;
-        public const int Electric = 2;
-        public const int Metal = 3;
-        public const int Areus = 4;
-        public const int Frostfire = 5;
-        public const int Hardlight = 6;
-        public const int Poison = 7;
-        public const int Plasma = 8;
-    }
     public static class ShardsHelpers // General class full of helper methods
     {
+        public struct UpgrageMaterial
+        {
+            public Item item;
+            public int requiredStack;
+
+            public UpgrageMaterial(Item item, int stack)
+            {
+                this.item = item;
+                requiredStack = stack;
+            }
+        }
+
+        public static void DefaultToPotion(this Item potion, int buff, int buffTime)
+        {
+            potion.useTime = 17;
+            potion.useAnimation = 17;
+            potion.useStyle = ItemUseStyleID.DrinkLiquid;
+            potion.UseSound = SoundID.Item3;
+            potion.consumable = true;
+            potion.useTurn = true;
+
+            potion.buffType = buff;
+            potion.buffTime = buffTime;
+            SoAGlobalItem.Potions.Add(potion.type);
+        }
+
         /// <summary>
         /// Draws a basic single-frame glowmask for an item dropped in the world. Use in <see cref="Terraria.ModLoader.ModItem.PostDrawInWorld"/>
         /// </summary>
@@ -40,6 +60,11 @@ namespace ShardsOfAtheria.Utilities
                 scale,
                 SpriteEffects.None,
                 0f);
+        }
+
+        public static void SlayBoss(this NPC boss, Player player)
+        {
+            ShardsDownedSystem.slainBosses.Add(boss.type);
         }
 
         /// <summary>
@@ -119,39 +144,106 @@ namespace ShardsOfAtheria.Utilities
                     npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Electric] = 1.5;
                     npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Metal] = 0.8;
                     break;
-                case Element.Hardlight:
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Fire] = 0.75;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Ice] = 1.8;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Electric] = 0.5;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Metal] = 0.5;
-                    break;
-                case Element.Poison:
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Fire] = 2.0;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Ice] = 0.8;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Electric] = 1.5;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Metal] = 1.0;
-                    break;
-                case Element.Plasma:
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Fire] = 0.8;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Ice] = 0.8;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Electric] = 0.8;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Metal] = 0.5;
-                    break;
             }
         }
 
-        public static void DefaultToPotion(this Item potion, int buff, int buffTime)
+        public static void SetWeaknessToElement(this NPC npc, int element, double multiplier)
         {
-            potion.useTime = 17;
-            potion.useAnimation = 17;
-            potion.useStyle = ItemUseStyleID.DrinkLiquid;
-            potion.UseSound = SoundID.Item3;
-            potion.consumable = true;
-            potion.useTurn = true;
+            if (element < 4)
+            {
+                npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[element] = multiplier;
+            }
+            else
+            {
+                throw new IndexOutOfRangeException("Only pass a base element.");
+            }
+        }
 
-            potion.buffType = buff;
-            potion.buffTime = buffTime;
-            SoAGlobalItem.Potions.Add(potion.type);
+        /// <summary>
+        /// Insert useful summary here
+        /// </summary>
+        /// <param name="player"> Item to be upgraded</param>
+        /// <param name="materials"> an array of ShardsHelpers.UpgradeMaterials</param>
+        /// <param name="result"> Item to upgrade into</param>
+        public static void UpgradeItem(this NPC npc, Player player, int result, params UpgrageMaterial[] materials)
+        {
+            Main.npcChatCornerItem = result;
+            if (CanUpgradeItem(player, materials))
+            {
+                for (int i = 0; i < materials.Length; i++)
+                {
+                    player.inventory[player.FindItem(materials[i].item.type)].stack -= materials[i].requiredStack;
+                }
+                if (materials[0].item.ModItem is GenesisAndRagnarok)
+                {
+                    (player.inventory[player.FindItem(materials[0].item.type)].ModItem as GenesisAndRagnarok).upgrades++;
+                }
+                SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
+                if (result > 0)
+                {
+                    Item.NewItem(npc.GetSource_FromThis(), npc.getRect(), result);
+
+                    if (result == ModContent.ItemType<GenesisAndRagnarok>())
+                    {
+                        GenesisAndRagnarok genesisAndRagnarok = player.inventory[player.FindItem(materials[0].item.type)].ModItem as GenesisAndRagnarok;
+                        switch (genesisAndRagnarok.upgrades)
+                        {
+                            case 1:
+                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok1");
+                                break;
+                            case 2:
+                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok2");
+                                break;
+                            case 3:
+                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok3");
+                                break;
+                            case 4:
+                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok4");
+                                break;
+                            case 5:
+                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok5");
+                                break;
+                        }
+                    }
+                    else if (result == ModContent.ItemType<AreusSaber>() || result == ModContent.ItemType<TheMourningStar>())
+                    {
+                        Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeAreusWeapon");
+                    }
+                }
+            }
+            else
+            {
+                string insufficient = "I need the following items:\n";
+                for (int i = 0; i < materials.Length; i++)
+                {
+                    Item item = null;
+                    if (player.HasItem(materials[i].item.type))
+                    {
+                        item = player.inventory[player.FindItem(materials[i].item.type)];
+                    }
+                    insufficient += Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial", i++, materials[i].item.Name, materials[i].item.type,
+                        materials[i].requiredStack, item == null ? 0 : item.stack) + "\n";
+                    Main.npcChatText = insufficient;
+                }
+            }
+        }
+
+        public static bool CanUpgradeItem(Player player, UpgrageMaterial[] upgrageMaterials)
+        {
+            int requiredItems = upgrageMaterials.Length;
+            int playerItems = 0;
+            for (int i = 0; i < requiredItems; i++)
+            {
+                if (player.HasItem(upgrageMaterials[i].item.type))
+                {
+                    Item item = player.inventory[player.FindItem(upgrageMaterials[i].item.type)];
+                    if (item.stack >= upgrageMaterials[i].requiredStack)
+                    {
+                        playerItems++;
+                    }
+                }
+            }
+            return playerItems >= requiredItems;
         }
 
         public static Color UseA(this Color color, int alpha) => new Color(color.R, color.G, color.B, alpha);
@@ -183,5 +275,22 @@ namespace ShardsOfAtheria.Utilities
         {
             return minimum + ((float)Math.Sin(time) + 1f) / 2f * (maximum - minimum);
         }
+
+        internal static void LogSomething(string something)
+        {
+            ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(something), Color.White);
+            Console.WriteLine(something);
+        }
+    }
+
+    public static class Element
+    {
+        public const int Null = -1;
+        public const int Fire = 0;
+        public const int Ice = 1;
+        public const int Electric = 2;
+        public const int Metal = 3;
+        public const int Areus = 4;
+        public const int Frostfire = 5;
     }
 }

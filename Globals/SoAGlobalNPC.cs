@@ -39,20 +39,6 @@ namespace ShardsOfAtheria.Globals
         public static List<int> IceNPC = new();
         public static List<int> ElectricNPC = new();
         public double[] elementMultiplier = { 1.0, 1.0, 1.0, 1.0 };
-
-        #region Element Sub-types
-        public static List<int> AreusNPC = new();
-        public static List<int> FrostfireNPC = new();
-        public static List<int> HardlightNPC = new();
-        /// <summary>
-        /// For thing such as poison, venom, blood, etc.
-        /// </summary>
-        public static List<int> PoisonNPC = new();
-        /// <summary>
-        /// For thing such as plasma, ectoplasm, ethereal, eldritch, etc.
-        /// </summary>
-        public static List<int> PlasmaNPC = new();
-        #endregion
         #endregion
 
         public override bool InstancePerEntity => true;
@@ -238,8 +224,6 @@ namespace ShardsOfAtheria.Globals
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<KingSoulCrystal>());
-                        //Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SlimedKatana>());
-
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.Solidifier, 1000);
 
@@ -264,7 +248,6 @@ namespace ShardsOfAtheria.Globals
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<EyeSoulCrystal>());
-                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<Cataracnia>());
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.CrimtaneOre, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.CrimsonSeeds, 1000);
@@ -292,7 +275,6 @@ namespace ShardsOfAtheria.Globals
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<BrainSoulCrystal>());
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<StrangeTissueSample>());
-                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<TomeOfOmniscience>());
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.CrimtaneOre, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.TissueSample, 1000);
@@ -318,7 +300,6 @@ namespace ShardsOfAtheria.Globals
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<EaterSoulCrystal>());
-                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<WormTench>());
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DemoniteOre, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.ShadowScale, 1000);
@@ -378,7 +359,6 @@ namespace ShardsOfAtheria.Globals
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SkullSoulCrystal>());
-                        //Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<>());
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SkeletronTrophy);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SkeletronMasterTrophy);
@@ -406,8 +386,6 @@ namespace ShardsOfAtheria.Globals
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<DeerclopsSoulCrystal>());
-                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<ScreamLantern>());
-
                     }
 
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.DeerclopsTrophy);
@@ -438,7 +416,6 @@ namespace ShardsOfAtheria.Globals
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<WallSoulCrystal>());
-                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<FlailOfFlesh>());
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.WallofFleshTrophy);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.WallofFleshMasterTrophy);
@@ -466,7 +443,6 @@ namespace ShardsOfAtheria.Globals
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<QueenSoulCrystal>());
-                        //Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<>());
                     }
 
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.QueenSlimeTrophy);
@@ -488,7 +464,6 @@ namespace ShardsOfAtheria.Globals
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<DestroyerSoulCrystal>());
-                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<Coilgun>());
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SoulofMight, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.HallowedBar, 333);
@@ -512,7 +487,6 @@ namespace ShardsOfAtheria.Globals
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<TwinsSoulCrystal>());
-                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<DoubleBow>());
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SoulofSight, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.HallowedBar, 333);
@@ -537,7 +511,6 @@ namespace ShardsOfAtheria.Globals
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<PrimeSoulCrystal>());
-                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<HandCanon>());
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.SoulofFright, 1000);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.HallowedBar, 333);
@@ -573,7 +546,6 @@ namespace ShardsOfAtheria.Globals
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<PlantSoulCrystal>());
-                        //Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<>());
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.PlanteraTrophy);
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.PlanteraMasterTrophy);
@@ -658,7 +630,6 @@ namespace ShardsOfAtheria.Globals
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<EmpressSoulCrystal>());
-                        //Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<>());
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.HallowBossDye, 1000);
 
@@ -678,7 +649,6 @@ namespace ShardsOfAtheria.Globals
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<LunaticSoulCrystal>());
-                        //Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<>());
                     }
                     if (ModLoader.TryGetMod("NoMorePillars", out Mod foundMod))
                     {
@@ -772,7 +742,6 @@ namespace ShardsOfAtheria.Globals
 
                         // Slayer mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<LordSoulCrystal>());
-                        //Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<>());
                     }
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.LunarOre, 1000);
 
@@ -789,7 +758,6 @@ namespace ShardsOfAtheria.Globals
             LeadingConditionRule downedGolem = new(new DownedGolem());
             LeadingConditionRule downedCultist = new(new DownedLunaticCultist());
             LeadingConditionRule downedMoonLord = new(new DownedMoonLord());
-            LeadingConditionRule flawless = new(new FlawlessDropCondition());
 
             if (npc.type == NPCID.Mothron)
             {
@@ -799,31 +767,23 @@ namespace ShardsOfAtheria.Globals
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ReactorMeltdown>(), 4));
             }
-            #region Add former slayer loot to flawless loot pool
             if (npc.type == NPCID.EyeofCthulhu)
             {
-
-                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Cataracnia>()));
-                npcLoot.Add(flawless);
+                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<Cataracnia>()));
             }
             if (npc.type == NPCID.BrainofCthulhu)
             {
-
-                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<TomeOfOmniscience>()));
-                npcLoot.Add(flawless);
+                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<TomeOfOmniscience>()));
             }
             if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
             {
                 LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new Conditions.LegacyHack_IsABoss());
-
-                leadingConditionRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<WormBloom>()));
-                flawless.OnSuccess(leadingConditionRule);
-                npcLoot.Add(flawless);
+                leadingConditionRule.OnSuccess(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<WormTench>()));
+                npcLoot.Add(leadingConditionRule);
             }
             if (npc.type == NPCID.Deerclops)
             {
-                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ScreamLantern>()));
-                npcLoot.Add(flawless);
+                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<ScreamLantern>()));
             }
             if (npc.type == NPCID.WallofFlesh)
             {
@@ -832,23 +792,21 @@ namespace ShardsOfAtheria.Globals
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulSoul>()));
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulArmament>()));
 
-                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<FlailOfFlesh>()));
-                npcLoot.Add(flawless);
+                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<FlailOfFlesh>()));
             }
             if (npc.type == NPCID.TheDestroyer || npc.type == NPCID.TheDestroyerBody || npc.type == NPCID.TheDestroyerTail)
             {
-                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Coilgun>()));
-                npcLoot.Add(flawless);
+                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<Coilgun>()));
             }
             if (npc.type == NPCID.SkeletronPrime)
             {
-                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HandCanon>()));
-                npcLoot.Add(flawless);
+                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<HandCanon>()));
             }
             if (npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism)
             {
-                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<DoubleBow>()));
-                npcLoot.Add(flawless);
+                LeadingConditionRule leadingConditionRule = new(new Conditions.MissingTwin());
+                leadingConditionRule.OnSuccess(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<TomeOfOmniscience>()));
+                npcLoot.Add(leadingConditionRule);
             }
             if (npc.type == NPCID.Plantera)
             {
@@ -870,7 +828,6 @@ namespace ShardsOfAtheria.Globals
                 downedMoonLord.OnFailedConditions(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
                 npcLoot.Add(downedMoonLord);
             }
-            #endregion
         }
 
         public override bool PreAI(NPC npc)

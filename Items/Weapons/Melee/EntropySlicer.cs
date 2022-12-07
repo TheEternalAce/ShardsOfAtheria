@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             SoAGlobalItem.SlayerItem.Add(Type);
 
             SacrificeTotal = 1;
-            SoAGlobalItem.PlasmaWeapon.Add(Type);
+            SoAGlobalItem.IceWeapon.Add(Type);
         }
 
         public override void SetDefaults()

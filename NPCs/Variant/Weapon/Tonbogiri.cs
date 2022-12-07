@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Weapon
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-            SoAGlobalNPC.PoisonNPC.Add(Type);
+            SoAGlobalNPC.IceNPC.Add(Type);
         }
 
         public override void SetDefaults()

@@ -12,11 +12,6 @@ namespace ShardsOfAtheria.Globals.Elements
         List<int> IceNPC = SoAGlobalNPC.IceNPC;
         List<int> ElectricNPC = SoAGlobalNPC.ElectricNPC;
         List<int> MetalNPC = SoAGlobalNPC.MetalNPC;
-        List<int> AreusNPC = SoAGlobalNPC.AreusNPC;
-        List<int> FrostfireNPC = SoAGlobalNPC.FrostfireNPC;
-        List<int> HardlightNPC = SoAGlobalNPC.HardlightNPC;
-        List<int> PlasmaNPC = SoAGlobalNPC.PlasmaNPC;
-        List<int> PoisonNPC = SoAGlobalNPC.PoisonNPC;
 
         public override bool InstancePerEntity => true;
 
@@ -40,6 +35,34 @@ namespace ShardsOfAtheria.Globals.Elements
                 case NPCID.Lavabat:
                 case NPCID.RedDevil:
                 case NPCID.DemonTaxCollector:
+                case NPCID.Clinger:
+                case NPCID.Necromancer:
+                case NPCID.Hornet:
+                case NPCID.HornetFatty:
+                case NPCID.HornetHoney:
+                case NPCID.HornetLeafy:
+                case NPCID.HornetSpikey:
+                case NPCID.HornetStingy:
+                case NPCID.MossHornet:
+                case NPCID.BigHornetFatty:
+                case NPCID.BigHornetHoney:
+                case NPCID.BigHornetLeafy:
+                case NPCID.BigHornetSpikey:
+                case NPCID.BigHornetStingy:
+                case NPCID.BigMossHornet:
+                case NPCID.LittleHornetFatty:
+                case NPCID.LittleHornetHoney:
+                case NPCID.LittleHornetLeafy:
+                case NPCID.LittleHornetSpikey:
+                case NPCID.LittleHornetStingy:
+                case NPCID.LittleMossHornet:
+                case NPCID.Bee:
+                case NPCID.CorruptSlime:
+                case NPCID.Corruptor:
+                case NPCID.Crimslime:
+                case NPCID.CorruptBunny:
+                case NPCID.CorruptGoldfish:
+                case NPCID.CorruptPenguin:
                     FireNPC.Add(type);
                     npc.SetElementEffectivenessByElement(Element.Fire);
                     break;
@@ -56,6 +79,64 @@ namespace ShardsOfAtheria.Globals.Elements
                 case NPCID.IcyMerman:
                 case NPCID.AngryNimbus:
                 case NPCID.IceGolem:
+                case NPCID.BloodCrawler:
+                case NPCID.Crimera:
+                case NPCID.DoctorBones:
+                case NPCID.FaceMonster:
+                case NPCID.JungleBat:
+                case NPCID.JungleSlime:
+                case NPCID.SpikedJungleSlime:
+                case NPCID.MaggotZombie:
+                case NPCID.ManEater:
+                case NPCID.Snatcher:
+                case NPCID.ZombieMushroom:
+                case NPCID.WallCreeper:
+                case NPCID.WallCreeperWall:
+                case NPCID.Zombie:
+                case NPCID.AngryTrapper:
+                case NPCID.BlackRecluse:
+                case NPCID.BloodFeeder:
+                case NPCID.BloodJelly:
+                case NPCID.BloodMummy:
+                case NPCID.DarkMummy:
+                case NPCID.FloatyGross:
+                case NPCID.FlyingSnake:
+                case NPCID.GiantFlyingFox:
+                case NPCID.Herpling:
+                case NPCID.IchorSticker:
+                case NPCID.JungleCreeper:
+                case NPCID.DesertLamiaDark:
+                case NPCID.DesertLamiaLight:
+                case NPCID.LightMummy:
+                case NPCID.DesertScorpionWalk:
+                case NPCID.DesertScorpionWall:
+                case NPCID.Slimeling:
+                case NPCID.Slimer:
+                case NPCID.DesertGhoul:
+                case NPCID.DesertGhoulCorruption:
+                case NPCID.DesertGhoulCrimson:
+                case NPCID.DesertGhoulHallow:
+                case NPCID.ToxicSludge:
+                case NPCID.BloodEelHead:
+                case NPCID.BloodEelBody:
+                case NPCID.BloodEelTail:
+                case NPCID.BloodSquid:
+                case NPCID.BloodZombie:
+                case NPCID.BloodNautilus:
+                case NPCID.Drippler:
+                case NPCID.GoblinShark:
+                case NPCID.TheGroom:
+                case NPCID.TheBride:
+                case NPCID.CrimsonBunny:
+                case NPCID.CrimsonGoldfish:
+                case NPCID.CrimsonPenguin:
+                case NPCID.EyeballFlyingFish:
+                case NPCID.ZombieMerman:
+                case NPCID.SandsharkCorrupt:
+                case NPCID.SandsharkCrimson:
+                case NPCID.CursedSkull:
+                case NPCID.GiantCursedSkull:
+                case NPCID.Ghost:
                     IceNPC.Add(type);
                     npc.SetElementEffectivenessByElement(Element.Ice);
                     break;
@@ -77,6 +158,11 @@ namespace ShardsOfAtheria.Globals.Elements
                     npc.SetElementEffectivenessByElement(Element.Electric);
                     break;
 
+                case NPCID.DungeonSpirit:
+                case NPCID.ChaosElemental:
+                case NPCID.Pixie:
+                case NPCID.RaggedCaster:
+                case NPCID.RaggedCasterOpenCoat:
                 case NPCID.AngryBones:
                 case NPCID.AnomuraFungus:
                 case NPCID.Antlion:
@@ -127,105 +213,15 @@ namespace ShardsOfAtheria.Globals.Elements
                 case NPCID.SandsharkHallow:
                 case NPCID.GoblinThief:
                 case NPCID.GoblinWarrior:
+                case NPCID.BigMimicCorruption:
+                case NPCID.BigMimicCrimson:
+                case NPCID.BigMimicJungle:
+                case NPCID.CrimsonAxe:
+                case NPCID.CursedHammer:
+                case NPCID.EnchantedSword:
+                case NPCID.BigMimicHallow:
                     MetalNPC.Add(type);
                     npc.SetElementEffectivenessByElement(Element.Metal);
-                    break;
-
-                case NPCID.Bee:
-                case NPCID.BloodCrawler:
-                case NPCID.Crimera:
-                case NPCID.DoctorBones:
-                case NPCID.FaceMonster:
-                case NPCID.Hornet:
-                case NPCID.HornetFatty:
-                case NPCID.HornetHoney:
-                case NPCID.HornetLeafy:
-                case NPCID.HornetSpikey:
-                case NPCID.HornetStingy:
-                case NPCID.MossHornet:
-                case NPCID.BigHornetFatty:
-                case NPCID.BigHornetHoney:
-                case NPCID.BigHornetLeafy:
-                case NPCID.BigHornetSpikey:
-                case NPCID.BigHornetStingy:
-                case NPCID.BigMossHornet:
-                case NPCID.LittleHornetFatty:
-                case NPCID.LittleHornetHoney:
-                case NPCID.LittleHornetLeafy:
-                case NPCID.LittleHornetSpikey:
-                case NPCID.LittleHornetStingy:
-                case NPCID.LittleMossHornet:
-                case NPCID.JungleBat:
-                case NPCID.JungleSlime:
-                case NPCID.SpikedJungleSlime:
-                case NPCID.MaggotZombie:
-                case NPCID.ManEater:
-                case NPCID.Snatcher:
-                case NPCID.ZombieMushroom:
-                case NPCID.WallCreeper:
-                case NPCID.WallCreeperWall:
-                case NPCID.Zombie:
-                case NPCID.AngryTrapper:
-                case NPCID.BlackRecluse:
-                case NPCID.BloodFeeder:
-                case NPCID.BloodJelly:
-                case NPCID.BloodMummy:
-                case NPCID.CorruptSlime:
-                case NPCID.Corruptor:
-                case NPCID.Crimslime:
-                case NPCID.DarkMummy:
-                case NPCID.FloatyGross:
-                case NPCID.FlyingSnake:
-                case NPCID.GiantFlyingFox:
-                case NPCID.Herpling:
-                case NPCID.IchorSticker:
-                case NPCID.JungleCreeper:
-                case NPCID.DesertLamiaDark:
-                case NPCID.DesertLamiaLight:
-                case NPCID.LightMummy:
-                case NPCID.DesertScorpionWalk:
-                case NPCID.DesertScorpionWall:
-                case NPCID.Slimeling:
-                case NPCID.Slimer:
-                case NPCID.DesertGhoul:
-                case NPCID.DesertGhoulCorruption:
-                case NPCID.DesertGhoulCrimson:
-                case NPCID.DesertGhoulHallow:
-                case NPCID.ToxicSludge:
-                case NPCID.BloodEelHead:
-                case NPCID.BloodEelBody:
-                case NPCID.BloodEelTail:
-                case NPCID.BloodSquid:
-                case NPCID.BloodZombie:
-                case NPCID.CorruptBunny:
-                case NPCID.CorruptGoldfish:
-                case NPCID.CorruptPenguin:
-                case NPCID.BloodNautilus:
-                case NPCID.Drippler:
-                case NPCID.GoblinShark:
-                case NPCID.TheGroom:
-                case NPCID.TheBride:
-                case NPCID.CrimsonBunny:
-                case NPCID.CrimsonGoldfish:
-                case NPCID.CrimsonPenguin:
-                case NPCID.EyeballFlyingFish:
-                case NPCID.ZombieMerman:
-                case NPCID.SandsharkCorrupt:
-                case NPCID.SandsharkCrimson:
-                    PoisonNPC.Add(type);
-                    npc.SetElementEffectivenessByElement(Element.Poison);
-                    break;
-
-                case NPCID.CursedSkull:
-                case NPCID.GiantCursedSkull:
-                case NPCID.Ghost:
-                case NPCID.ChaosElemental:
-                case NPCID.DungeonSpirit:
-                case NPCID.Pixie:
-                case NPCID.RaggedCaster:
-                case NPCID.RaggedCasterOpenCoat:
-                    PlasmaNPC.Add(type);
-                    npc.SetElementEffectivenessByElement(Element.Plasma);
                     break;
 
                 case NPCID.MeteorHead:
@@ -242,30 +238,6 @@ namespace ShardsOfAtheria.Globals.Elements
                     FireNPC.Add(type);
                     MetalNPC.Add(type);
                     npc.SetElementEffectivenessMultipliers(0.8, 1.5, 1.0, 0.6);
-                    break;
-
-                case NPCID.Clinger:
-                case NPCID.Necromancer:
-                    FireNPC.Add(type);
-                    PoisonNPC.Add(type);
-                    npc.SetElementEffectivenessMultipliers(0.8, 2.0, 0.9, 0.8);
-                    break;
-
-                case NPCID.BigMimicCorruption:
-                case NPCID.BigMimicCrimson:
-                case NPCID.BigMimicJungle:
-                case NPCID.CrimsonAxe:
-                case NPCID.CursedHammer:
-                    MetalNPC.Add(type);
-                    PoisonNPC.Add(type);
-                    npc.SetElementEffectivenessMultipliers(0.8, 0.8, 2.0, 0.5);
-                    break;
-
-                case NPCID.EnchantedSword:
-                case NPCID.BigMimicHallow:
-                    MetalNPC.Add(type);
-                    PlasmaNPC.Add(type);
-                    npc.SetElementEffectivenessMultipliers(0.8, 0.8, 2.0, 0.5);
                     break;
             }
         }

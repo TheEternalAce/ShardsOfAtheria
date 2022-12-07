@@ -14,8 +14,6 @@ namespace ShardsOfAtheria.Items.BossSummons
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Summons Senterra, the Atherial Land\n" +
-                "Eventually");
             ItemID.Sets.SortingPriorityBossSpawns[Type] = 12; // This helps sort inventory know that this is a boss summoning Item.
 
             SacrificeTotal = 1;

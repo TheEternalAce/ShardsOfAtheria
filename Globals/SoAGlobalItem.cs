@@ -54,15 +54,7 @@ namespace ShardsOfAtheria.Globals
         public static List<int> IceWeapon = new();
         public static List<int> ElectricWeapon = new();
 
-        #region Weapon Sub-Elements
         public static List<int> AreusWeapon = new();
-        public static List<int> BloodWeapon = new();
-        public static List<int> FrostfireWeapon = new();
-        public static List<int> HardlightWeapon = new();
-        public static List<int> PlasmaWeapon = new();
-        public static List<int> OrganicWeapon = new();
-        #endregion
-
         #endregion
 
         public override void SetDefaults(Item item)
@@ -75,7 +67,7 @@ namespace ShardsOfAtheria.Globals
                     item.shoot = ModContent.ProjectileType<SilverBullet>();
                     break;
 
-                #region Buff Pearlwood gear
+                #region Buff Pearlwood gear, soon to be obsolete
                 case ItemID.PearlwoodHelmet:
                     item.defense = 8;
                     break;
@@ -108,6 +100,7 @@ namespace ShardsOfAtheria.Globals
                 case ItemID.MolotovCocktail:
                 case ItemID.BoneDagger:
                 case ItemID.BoneJavelin:
+                case ItemID.SpikyBall:
                     item.DamageType = DamageClass.Throwing;
                     break;
                 #endregion
@@ -156,8 +149,8 @@ namespace ShardsOfAtheria.Globals
                         item.useTime = 15;
                         item.useAnimation = 15;
                         item.autoReuse = true;
+                        item.useTurn = true;
                     }
-                    item.useTurn = true;
                     break;
                     #endregion
             }
@@ -165,7 +158,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void UpdateArmorSet(Player player, string set)
         {
-            if (set == "SoA:Pearlwood")
+            if (set == "Shards:Pearlwood")
             {
                 player.setBonus = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.General.PearlwoodSetBonus"),
                     ShardsOfAtheria.ArmorSetBonusActive.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.ArmorSetBonusActive.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
@@ -182,7 +175,7 @@ namespace ShardsOfAtheria.Globals
         {
             if (head.type == ItemID.PearlwoodHelmet && body.type == ItemID.PearlwoodBreastplate && legs.type == ItemID.PearlwoodGreaves)
             {
-                return "SoA:Pearlwood";
+                return "Shards:Pearlwood";
             }
             return base.IsArmorSet(head, body, legs);
         }

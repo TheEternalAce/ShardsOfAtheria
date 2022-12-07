@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             SacrificeTotal = 1;
             SoAGlobalItem.IceWeapon.Add(Type);
-            SoAGlobalItem.PlasmaWeapon.Add(Type);
+            SoAGlobalItem.FireWeapon.Add(Type);
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

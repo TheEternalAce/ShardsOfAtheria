@@ -11,7 +11,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         public override void SetStaticDefaults()
         {
             SoAGlobalProjectile.FireProj.Add(Type);
-            SoAGlobalProjectile.OrganicProj.Add(Type);
         }
 
         public override void SetDefaults()

@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 3;
-            SoAGlobalProjectile.PlasmaProj.Add(Type);
+            SoAGlobalProjectile.IceProj.Add(Type);
         }
 
         public override void SetDefaults()

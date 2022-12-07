@@ -39,7 +39,6 @@ namespace ShardsOfAtheria.Commands
 			ModContent.GetInstance<ShardsDownedSystem>().slainMoonLord = true;
 			ModContent.GetInstance<ShardsDownedSystem>().slainSenterra = true;
 			ModContent.GetInstance<ShardsDownedSystem>().slainGenesis = true;
-			ModContent.GetInstance<ShardsDownedSystem>().slainEverything = true;
 			ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("All bosses are slain"), Color.White, player.whoAmI);
 		}
 	}

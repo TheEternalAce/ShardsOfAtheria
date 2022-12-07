@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using System.Collections.Generic;
 using Terraria;
@@ -40,6 +39,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
+            SoAGlobalItem.ElectricWeapon.Add(Type);
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -117,17 +117,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             player.buffImmune[BuffID.Bleeding] = false;
             player.AddBuff(BuffID.Bleeding, 300);
-
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<AreusShard>(), 15)
-                .AddIngredient(ItemID.BeetleHusk, 20)
-                .AddIngredient(ItemID.SoulofFright, 20)
-                .AddTile(TileID.MythrilAnvil)
-                .Register();
         }
     }
 }

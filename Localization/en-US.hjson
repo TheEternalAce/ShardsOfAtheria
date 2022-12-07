@@ -725,6 +725,7 @@ Mods: {
 			# DeathSoulCrystal:
 
 			# Tools
+			#MagicOcarina: "'The instrument of a timely hero'"
 			RedAreusDrill: "'Extremely dangerous... and fun!'"
 			RedAreusChainsaw:
 				'''
@@ -759,6 +760,11 @@ Mods: {
 				'Ugh!'
 				'''
 			AreusBow: 'Brilliant light show'
+			AreusKatana:
+				'''
+				Holding this weapon increases your movement speed by 5%
+				'I am all out of milk'
+				'''
 			AreusMagnum: "'Headshots do not crit'"
 			AreusRailgun: Tears through enemy armor
 			AreusSaber: "'The pinnacle of areus weapon technology'"
@@ -1126,7 +1132,7 @@ Mods: {
 			BaseConservation: Knowledge Base: Conservation
 			BaseExploration: Knowledge Base: Exploration
 			CreeperRevenge: Creeper Revenge
-			MegaMerged: Mega-merged
+			Megamerged: Mega-merged
 			Overdrive: Overdrive: ON
 			ShadeState: Shade State
 				# Sinful Souls
@@ -1354,8 +1360,7 @@ Mods: {
 				Death: No... Mother... I failed...
 			}
 			Atherian: {
-				# On interact
-				DryadPresent: Show respect to your elders, I may be 240 years old but I still respect 
+				# On interact 
 				BaseGenesisAndRagnarok:
 					'''
 					What a peculiar weapon. It shows capabilities of transforming into several types of weapon, but it's locked in spear and whip form.
@@ -1380,22 +1385,22 @@ Mods: {
 					'''
 				UpgradeGenesisAndRagnarok3:
 					'''
-					Genesis and Ragnarok now stronger and can set enemies on fire.
+					Genesis and Ragnarok are now stronger and can set enemies on fire.
 					There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
 					'''
 				UpgradeGenesisAndRagnarok4:
 					'''
-					Genesis and Ragnarok now stronger and can Genesis can transform into a sword.
+					Genesis and Ragnarok are now stronger and can Genesis can transform into a sword.
 					There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
 					'''
 				UpgradeGenesisAndRagnarok5:
 					'''
-					Genesis and Ragnarok now stronger and their ice capabilities are revealed.
-					That's all the memory seals released, I cannot upgrade them further.
+					Genesis and Ragnarok are now stronger and their ice capabilities are revealed.
+					All of the memory seals are now released, I cannot upgrade them further.
 					'''				
 				UpgradeAreusWeapon: That should do it. This is the best I can achieve. Use it well.
 				NoUpgradableItem: Sorry pal, you don't have anything I can upgrade.
-				NotEnoughMaterial: "You don't have enough [i:{0}]. I need at least {1}. You have {2}."
+				NotEnoughMaterial: "{0} - {1} [i:{2}]. I need at least {3}, you have {4}."
 			}
 		}
 	}

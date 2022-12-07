@@ -18,7 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Projectile.type] = 3;
-			SoAGlobalProjectile.OrganicProj.Add(Type);
+			SoAGlobalProjectile.IceProj.Add(Type);
 		}
 
 		public override void SetDefaults()

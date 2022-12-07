@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Items.Potions;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Globals
@@ -16,11 +17,6 @@ namespace ShardsOfAtheria.Globals
 
         #region Projectile Sub-Elements
         public static List<int> AreusProj = new();
-        public static List<int> BloodProj = new();
-        public static List<int> FrostfireProj = new();
-        public static List<int> HardlightProj = new();
-        public static List<int> PlasmaProj = new();
-        public static List<int> OrganicProj = new();
         #endregion
 
         #endregion
@@ -28,10 +24,15 @@ namespace ShardsOfAtheria.Globals
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
         {
             Player player = Main.player[projectile.owner];
+            int type = projectile.type;
 
-            if (ElectricProj.Contains(projectile.type))
+            if (ElectricProj.Contains(type))
             {
                 target.AddBuff(ModContent.BuffType<ElectricShock>(), player.HasBuff(ModContent.BuffType<Conductive>()) ? 1200 : 600);
+            }
+            if (FireProj.Contains(type))
+            {
+                target.AddBuff(Main.hardMode ? BuffID.OnFire3 : BuffID.OnFire, 600);
             }
         }
     }

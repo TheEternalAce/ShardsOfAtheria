@@ -15,11 +15,10 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Holding this weapon increases your movement speed by 5%\n" +
-                "'I am all out of milk'");
-
             SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
+            SoAGlobalItem.ElectricWeapon.Add(Type);
+            SoAGlobalItem.UpgradeableItem.Add(Type);
         }
 
         public override void SetDefaults()

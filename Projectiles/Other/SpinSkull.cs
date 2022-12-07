@@ -8,7 +8,7 @@ namespace ShardsOfAtheria.Projectiles.Other
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.OrganicProj.Add(Type);
+            SoAGlobalProjectile.MetalProj.Add(Type);
         }
         public override void SetDefaults()
         {

@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-            SoAGlobalNPC.PoisonNPC.Add(Type);
+            SoAGlobalNPC.IceNPC.Add(Type);
         }
 
         public override void SetDefaults()
@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<CrimsonHarpyBanner>();
-            NPC.SetElementEffectivenessByElement(Element.Poison);
+            NPC.SetElementEffectivenessByElement(Element.Ice);
         }
 
         public override void AI()

@@ -46,6 +46,27 @@ namespace ShardsOfAtheria
 						{
 							throw new ArgumentException(args[1].GetType().Name + " is not a valid Player type.");
 						}
+					case "checkSlainBoss":
+						// Check if a boss has been slain
+						if (args[1] is int bossType)
+						{
+							return ShardsDownedSystem.slainBosses.Contains(bossType);
+						}
+						else
+						{
+							throw new ArgumentException(args[1].GetType().Name + " is not a valid int.");
+						}
+					case "addSlainBoss":
+						// Check if a boss has been slain
+						if (args[1] is int boss)
+						{
+							ShardsDownedSystem.slainBosses.Add(boss);
+						}
+						else
+						{
+							throw new ArgumentException(args[1].GetType().Name + " is not a valid int.");
+						}
+						break;
 					case "addNecronomiconEntry":
 						if (args[1] is not string) // Mod Name
 						{

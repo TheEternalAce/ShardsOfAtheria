@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.HardlightWeapon.Add(Type);
+            SoAGlobalItem.MetalWeapon.Add(Type);
         }
 
         public override void SetDefaults()
@@ -37,39 +37,18 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.shootSpeed = 32f;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(0, 1, 75);
-            Item.shoot = ModContent.ProjectileType<FeatherBladeFriendly>();
+            Item.shoot = ModContent.ProjectileType<HardlightBlade>();
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Vector2 target = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
-            float ceilingLimit = target.Y;
-            if (ceilingLimit < player.Center.Y + 200f)
+            if (Main.myPlayer == player.whoAmI)
             {
-                ceilingLimit = player.Center.Y + 200f;
-            }
-            // Loop these functions 3 times.
-            for (int i = 0; i < 3; i++)
-            {
-                position = new Vector2(Main.MouseWorld.X, Main.MouseWorld.Y) + new Vector2(Main.rand.NextFloat(200) * (Main.rand.NextBool(2) ? -1 : 1), 400f);
-                position.Y -= 100 * i;
-                Vector2 heading = target - position;
-
-                if (heading.Y > 0f)
+                for (int i = 0; i < 4; i++)
                 {
-                    heading.Y *= 1f;
+                    Vector2 vel = Main.MouseWorld + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 120f;
+                    Projectile.NewProjectile(source, vel, Vector2.Normalize(Main.MouseWorld - vel) * Item.shootSpeed, type, damage, knockback, player.whoAmI);
                 }
-
-                if (heading.Y > 20f)
-                {
-                    heading.Y = 20f;
-                }
-
-                heading.Normalize();
-                heading *= velocity.Length();
-                heading.Y += Main.rand.Next(-40, 41) * 0.02f;
-                Projectile proj = Projectile.NewProjectileDirect(source, position, heading, type, damage * 2, knockback, player.whoAmI, 0f, ceilingLimit);
-                proj.DamageType = DamageClass.Magic;
             }
             return false;
         }
