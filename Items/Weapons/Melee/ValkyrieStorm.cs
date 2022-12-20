@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.DataStructures;
@@ -13,8 +13,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.MetalWeapon.Add(Type);
-            SoAGlobalItem.ElectricWeapon.Add(Type);
+            WeaponElements.MetalWeapon.Add(Type);
+            WeaponElements.ElectricWeapon.Add(Type);
         }
 
         public override void SetDefaults()

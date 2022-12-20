@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
 using ShardsOfAtheria.Utilities;
@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-            SoAGlobalNPC.FireNPC.Add(Type);
+            NPCElements.FireNPC.Add(Type);
         }
 
         public override void SetDefaults()
@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<CorruptHarpyBanner>();
-            NPC.SetElementEffectivenessByElement(Element.Fire);
+            NPC.SetElementMultipliersByElement(Element.Fire);
         }
 
         public override void AI()

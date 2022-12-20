@@ -1,15 +1,12 @@
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
-using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon.Minion;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using ShardsOfAtheria.NPCs.Town;
-using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -45,14 +42,17 @@ namespace ShardsOfAtheria
         {
             if (ModContent.GetInstance<ShardsConfigClientSide>().windowTitle)
             {
-                switch (Main.rand.Next(2))
+                switch (Main.rand.Next(3))
                 {
                     case 0:
                         Main.instance.Window.Title = "Shards of Atheria: Splitting Skies";
                         break;
+                    case 1:
+                        Main.instance.Window.Title = "Shards of Atheria: The World Revolving";
+                        break;
                 }
             }
-
+            #region Add ammo to lists
             for (int i = 1; i < ItemLoader.ItemCount; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
@@ -121,40 +121,8 @@ namespace ShardsOfAtheria
                         }
                     }
                 }
-
-                #region Assign Base-Elements weapon to branching Sub-Element
-
-
-                if (type == ModContent.ItemType<TheMourningStar>())
-                {
-                    SoAGlobalItem.ElectricWeapon.Remove(type);
-                }
-                #endregion
             }
-
-            for (int i = 0; i < ProjectileLoader.ProjectileCount; i++)
-            {
-                Projectile projectile = ContentSamples.ProjectilesByType[i];
-                int type = projectile.type;
-
-                #region Assign Base-Elements projectile to branching Sub-Element
-
-                if (type == ModContent.ProjectileType<MourningStar>())
-                {
-                    ProjectileElements.ElectricProj.Remove(type);
-                }
-                #endregion
-            }
-
-            for (int i = 0; i < NPCLoader.NPCCount; i++)
-            {
-                NPC npc = ContentSamples.NpcsByNetId[i];
-                int type = npc.type;
-
-                #region Assign Base-Elements NPC to branching Sub-Element
-
-                #endregion
-            }
+            #endregion
 
             #region Mod calls
             if (ModLoader.TryGetMod("Census", out Mod foundMod))
@@ -205,6 +173,11 @@ namespace ShardsOfAtheria
                 rot.Call("BossDesc", ModContent.NPCType<NovaStellar>(), "Mods.ShardsOfAtheria.BossDesc.NovaStellar");
             }
             #endregion
+        }
+
+        public string ChoseTitleText()
+        {
+            return "";
         }
     }
 }

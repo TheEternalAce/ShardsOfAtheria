@@ -523,19 +523,19 @@ namespace ShardsOfAtheria.Players
             if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
             {
                 double modifier = 1.0;
-                if (SoAGlobalNPC.FireNPC.Contains(npc.type))
+                if (NPCElements.FireNPC.Contains(npc.type))
                 {
                     modifier *= elementMultiplier[Element.Fire];
                 }
-                if (SoAGlobalNPC.IceNPC.Contains(npc.type))
+                if (NPCElements.IceNPC.Contains(npc.type))
                 {
                     modifier *= elementMultiplier[Element.Ice];
                 }
-                if (SoAGlobalNPC.ElectricNPC.Contains(npc.type))
+                if (NPCElements.ElectricNPC.Contains(npc.type))
                 {
                     modifier *= elementMultiplier[Element.Electric];
                 }
-                if (SoAGlobalNPC.MetalNPC.Contains(npc.type))
+                if (NPCElements.MetalNPC.Contains(npc.type))
                 {
                     modifier *= elementMultiplier[Element.Metal];
                 }
@@ -576,19 +576,19 @@ namespace ShardsOfAtheria.Players
             if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
             {
                 double modifier = 1.0;
-                if (SoAGlobalItem.FireWeapon.Contains(item.type))
+                if (WeaponElements.FireWeapon.Contains(item.type))
                 {
                     modifier *= elementMultiplier[Element.Fire];
                 }
-                if (SoAGlobalItem.IceWeapon.Contains(item.type))
+                if (WeaponElements.IceWeapon.Contains(item.type))
                 {
                     modifier *= elementMultiplier[Element.Ice];
                 }
-                if (SoAGlobalItem.ElectricWeapon.Contains(item.type))
+                if (WeaponElements.ElectricWeapon.Contains(item.type))
                 {
                     modifier *= elementMultiplier[Element.Electric];
                 }
-                if (SoAGlobalItem.MetalWeapon.Contains(item.type))
+                if (WeaponElements.MetalWeapon.Contains(item.type))
                 {
                     modifier *= elementMultiplier[Element.Metal];
                 }

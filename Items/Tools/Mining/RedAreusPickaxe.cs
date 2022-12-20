@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using Terraria;
@@ -14,6 +15,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
         {
             SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
+            WeaponElements.FireWeapon.Add(Type);
         }
 
         public override void SetDefaults()

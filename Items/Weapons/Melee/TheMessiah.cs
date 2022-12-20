@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah;
 using Terraria;
 using Terraria.Audio;
@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.FireWeapon.Add(Type);
+            WeaponElements.FireWeapon.Add(Type);
         }
 
         public override void SetDefaults()

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
@@ -71,7 +72,7 @@ namespace ShardsOfAtheria.Utilities
         /// Sets NPC multipliers in the following order: Fire, Ice, Electric, Metal
         /// <para>This method should be called in the SetDefaults() override</para>
         /// </summary>
-        public static void SetElementEffectivenessMultipliers(this NPC npc, params double[] multipliers)
+        public static void SetCustomElementMultipliers(this NPC npc, params double[] multipliers)
         {
             if (multipliers.Length > 4)
             {
@@ -83,7 +84,7 @@ namespace ShardsOfAtheria.Utilities
             }
             for (int i = 0; i < multipliers.Length; i++)
             {
-                npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[i] = multipliers[i];
+                npc.GetGlobalNPC<NPCElements>().elementMultiplier[i] = multipliers[i];
             }
         }
 
@@ -104,45 +105,45 @@ namespace ShardsOfAtheria.Utilities
         /// <para>0 = Fire, 1 = Ice, 2 = Electric, 3 = Metal, 4 = Areus, 5 = Frostfire, 6 = Hardlight, 7 = Organic, 8 = Plasma</para>
         /// <para>This method should be called in the SetDefaults() override</para>
         /// </summary>
-        public static void SetElementEffectivenessByElement(this NPC npc, int element)
+        public static void SetElementMultipliersByElement(this NPC npc, int element)
         {
             switch (element)
             {
                 case Element.Fire:
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Fire] = 1.0;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Ice] = 0.5;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Electric] = 2.0;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Metal] = 1.0;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Fire] = 1.0;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Ice] = 0.5;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Electric] = 2.0;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Metal] = 1.0;
                     break;
                 case Element.Ice:
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Fire] = 2.0;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Ice] = 1.0;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Electric] = 1.0;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Metal] = 0.5;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Fire] = 2.0;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Ice] = 1.0;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Electric] = 1.0;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Metal] = 0.5;
                     break;
                 case Element.Electric:
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Fire] = 0.5;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Ice] = 1.0;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Electric] = 1.0;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Metal] = 2.0;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Fire] = 0.5;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Ice] = 1.0;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Electric] = 1.0;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Metal] = 2.0;
                     break;
                 case Element.Metal:
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Fire] = 1.0;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Ice] = 2.0;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Electric] = 0.5;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Metal] = 1.0;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Fire] = 1.0;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Ice] = 2.0;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Electric] = 0.5;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Metal] = 1.0;
                     break;
                 case Element.Areus:
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Fire] = 1.5;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Ice] = 1.0;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Electric] = 0.5;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Metal] = 0.5;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Fire] = 1.5;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Ice] = 1.0;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Electric] = 0.5;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Metal] = 0.5;
                     break;
                 case Element.Frostfire:
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Fire] = 0.8;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Ice] = 0.8;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Electric] = 1.5;
-                    npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[Element.Metal] = 0.8;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Fire] = 0.8;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Ice] = 0.8;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Electric] = 1.5;
+                    npc.GetGlobalNPC<NPCElements>().elementMultiplier[Element.Metal] = 0.8;
                     break;
             }
         }
@@ -151,7 +152,7 @@ namespace ShardsOfAtheria.Utilities
         {
             if (element < 4)
             {
-                npc.GetGlobalNPC<SoAGlobalNPC>().elementMultiplier[element] = multiplier;
+                npc.GetGlobalNPC<NPCElements>().elementMultiplier[element] = multiplier;
             }
             else
             {

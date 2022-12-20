@@ -30,6 +30,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
             Projectile.width = Projectile.height = 90;
             hitboxOutwards = 50;
             rotationOffset = -MathHelper.PiOver4 * 3f;
+            amountAllowedToHit = 5;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -44,6 +45,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
                     mourningStar.blood += 40;
                 }
             }
+            base.OnHitNPC(target, damage, knockback, crit);
         }
 
         protected override void Initialize(Player player, SoAPlayer shards)

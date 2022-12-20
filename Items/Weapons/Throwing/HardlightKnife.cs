@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Throwing;
 using Terraria;
@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Throwing
         {
             SacrificeTotal = 1;
 
-            SoAGlobalItem.MetalWeapon.Add(Type);
+            WeaponElements.MetalWeapon.Add(Type);
         }
 
         public override void SetDefaults()

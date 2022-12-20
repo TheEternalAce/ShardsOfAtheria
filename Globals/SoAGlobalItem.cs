@@ -28,6 +28,14 @@ namespace ShardsOfAtheria.Globals
         public static List<int> SinfulItem = new();
         public static List<int> Potions = new();
         public static List<int> UpgradeableItem = new();
+        /// <summary>
+        /// A list to let Conductive potion do it's work easily, automatically adds all items to ElectricWeapon list
+        /// </summary>
+        public static List<int> AreusWeapon = new();
+        /// <summary>
+        /// Same as AreusWeapon list, but doesn't add to ElectricWeapon list
+        /// </summary>
+        public static List<int> DarkAreusWeapon = new();
         #endregion
 
         #region Ammo lists for Ammo Bags
@@ -48,15 +56,6 @@ namespace ShardsOfAtheria.Globals
         public static List<int> postMoonLordRockets = new();
         #endregion
 
-        #region Weapon Elements (for 1.0)
-        public static List<int> MetalWeapon = new();
-        public static List<int> FireWeapon = new();
-        public static List<int> IceWeapon = new();
-        public static List<int> ElectricWeapon = new();
-
-        public static List<int> AreusWeapon = new();
-        #endregion
-
         public override void SetDefaults(Item item)
         {
             ShardsConfigServerSide serverConfig = ModContent.GetInstance<ShardsConfigServerSide>();
@@ -64,9 +63,11 @@ namespace ShardsOfAtheria.Globals
             {
                 case ItemID.SilverBullet:
                     // Why don't silbr bullets deal extra damage to werewolves???
-                    item.shoot = ModContent.ProjectileType<SilverBullet>();
+                    // Add penetration and extra damage to werewolves
+                    item.shoot = ModContent.ProjectileType<SilbrBullet>();
                     break;
                 case ItemID.TungstenBullet:
+                    // Add penetration and extra velocity
                     item.shoot = ModContent.ProjectileType<TungstenBullet>();
                     item.shootSpeed += 4f;
                     break;
@@ -186,7 +187,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
-            if (player.HasBuff(ModContent.BuffType<Conductive>()) && AreusWeapon.Contains(item.type))
+            if (player.HasBuff(ModContent.BuffType<Conductive>()) && (AreusWeapon.Contains(item.type) || DarkAreusWeapon.Contains(item.type)))
             {
                 damage += .15f;
             }

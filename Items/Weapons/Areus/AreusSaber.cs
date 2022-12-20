@@ -1,4 +1,5 @@
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber;
 using Terraria;
 using Terraria.ID;
@@ -13,7 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
-            SoAGlobalItem.ElectricWeapon.Add(Type);
+            WeaponElements.ElectricWeapon.Add(Type);
         }
 
         public override void SetDefaults()

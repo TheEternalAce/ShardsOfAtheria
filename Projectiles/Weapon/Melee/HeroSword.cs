@@ -27,6 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             Projectile.width = Projectile.height = 90;
             hitboxOutwards = 50;
             rotationOffset = -MathHelper.PiOver4 * 3f;
+            amountAllowedToHit = 3;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -34,6 +35,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             Player player = Main.player[Projectile.owner];
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, Vector2.Normalize(target.Center - player.Center) * 16f,
                 ModContent.ProjectileType<HeroBlade>(), (int)(Projectile.damage * .75), Projectile.knockBack, Projectile.owner);
+            base.OnHitNPC(target, damage, knockback, crit);
         }
 
         protected override void Initialize(Player player, SoAPlayer shards)

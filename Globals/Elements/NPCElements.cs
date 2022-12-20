@@ -1,4 +1,5 @@
 ﻿using ShardsOfAtheria.Utilities;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -8,12 +9,70 @@ namespace ShardsOfAtheria.Globals.Elements
 {
     public class NPCElements : GlobalNPC
     {
-        List<int> FireNPC = SoAGlobalNPC.FireNPC;
-        List<int> IceNPC = SoAGlobalNPC.IceNPC;
-        List<int> ElectricNPC = SoAGlobalNPC.ElectricNPC;
-        List<int> MetalNPC = SoAGlobalNPC.MetalNPC;
+        public static List<int> MetalNPC = new();
+        public static List<int> FireNPC = new();
+        public static List<int> IceNPC = new();
+        public static List<int> ElectricNPC = new();
+        /// <summary>
+        /// Elemental multipliers for a given NPC in the following order: Fire, Ice, Electric, Metal
+        /// </summary>
+        public double[] elementMultiplier = { 1.0, 1.0, 1.0, 1.0 };
 
         public override bool InstancePerEntity => true;
+
+        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        {
+            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            {
+                double modifier = 1.0;
+                if (WeaponElements.FireWeapon.Contains(item.type))
+                {
+                    modifier *= elementMultiplier[Element.Fire];
+                }
+                if (WeaponElements.IceWeapon.Contains(item.type))
+                {
+                    modifier *= elementMultiplier[Element.Ice];
+                }
+                if (WeaponElements.ElectricWeapon.Contains(item.type))
+                {
+                    modifier *= elementMultiplier[Element.Ice];
+                }
+                if (WeaponElements.MetalWeapon.Contains(item.type))
+                {
+                    modifier *= elementMultiplier[Element.Ice];
+                }
+                damage = (int)Math.Ceiling(damage * modifier);
+            }
+
+            base.ModifyHitByItem(npc, player, item, ref damage, ref knockback, ref crit);
+        }
+
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            {
+                double modifier = 1.0;
+                if (ProjectileElements.FireProj.Contains(projectile.type))
+                {
+                    modifier *= elementMultiplier[Element.Fire];
+                }
+                if (ProjectileElements.IceProj.Contains(projectile.type))
+                {
+                    modifier *= elementMultiplier[Element.Ice];
+                }
+                if (ProjectileElements.ElectricProj.Contains(projectile.type))
+                {
+                    modifier *= elementMultiplier[Element.Electric];
+                }
+                if (ProjectileElements.MetalProj.Contains(projectile.type))
+                {
+                    modifier *= elementMultiplier[Element.Metal];
+                }
+                damage = (int)Math.Ceiling(damage * modifier);
+            }
+
+            base.ModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
+        }
 
         public override void SetDefaults(NPC npc)
         {
@@ -39,6 +98,7 @@ namespace ShardsOfAtheria.Globals.Elements
                     case NPCID.DemonTaxCollector:
                     case NPCID.Clinger:
                     case NPCID.Necromancer:
+                    case NPCID.NecromancerArmored:
                     case NPCID.Hornet:
                     case NPCID.HornetFatty:
                     case NPCID.HornetHoney:
@@ -66,7 +126,7 @@ namespace ShardsOfAtheria.Globals.Elements
                     case NPCID.CorruptGoldfish:
                     case NPCID.CorruptPenguin:
                         FireNPC.Add(type);
-                        npc.SetElementEffectivenessByElement(Element.Fire);
+                        npc.SetElementMultipliersByElement(Element.Fire);
                         break;
 
                     case NPCID.DarkCaster:
@@ -140,7 +200,7 @@ namespace ShardsOfAtheria.Globals.Elements
                     case NPCID.GiantCursedSkull:
                     case NPCID.Ghost:
                         IceNPC.Add(type);
-                        npc.SetElementEffectivenessByElement(Element.Ice);
+                        npc.SetElementMultipliersByElement(Element.Ice);
                         break;
 
                     case NPCID.BlueJellyfish:
@@ -157,7 +217,7 @@ namespace ShardsOfAtheria.Globals.Elements
                     case NPCID.SandShark:
                     case NPCID.SandElemental:
                         ElectricNPC.Add(type);
-                        npc.SetElementEffectivenessByElement(Element.Electric);
+                        npc.SetElementMultipliersByElement(Element.Electric);
                         break;
 
                     case NPCID.DungeonSpirit:
@@ -223,7 +283,7 @@ namespace ShardsOfAtheria.Globals.Elements
                     case NPCID.EnchantedSword:
                     case NPCID.BigMimicHallow:
                         MetalNPC.Add(type);
-                        npc.SetElementEffectivenessByElement(Element.Metal);
+                        npc.SetElementMultipliersByElement(Element.Metal);
                         break;
 
                     case NPCID.MeteorHead:
@@ -239,7 +299,7 @@ namespace ShardsOfAtheria.Globals.Elements
                     case NPCID.ShadowFlameApparition:
                         FireNPC.Add(type);
                         MetalNPC.Add(type);
-                        npc.SetElementEffectivenessMultipliers(0.8, 1.5, 1.0, 0.6);
+                        npc.SetCustomElementMultipliers(0.8, 1.5, 1.0, 0.6);
                         break;
                 }
             }

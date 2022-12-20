@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.NPCs.Misc
             NPC.aiStyle = -1;
             NPC.noTileCollide = true;
             NPC.noGravity = true;
-            NPC.SetElementEffectivenessByElement(Element.Ice);
+            NPC.SetElementMultipliersByElement(Element.Ice);
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)

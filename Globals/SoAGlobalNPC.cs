@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.NPCDebuff;
-using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.ItemDropRules.Condition;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
@@ -21,7 +20,6 @@ using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Utilities;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Chat;
 using Terraria.GameContent.ItemDropRules;
@@ -34,13 +32,6 @@ namespace ShardsOfAtheria.Globals
     public class SoAGlobalNPC : GlobalNPC
     {
         public bool flawless = true;
-        #region NPC Elements (for 1.0)
-        public static List<int> MetalNPC = new();
-        public static List<int> FireNPC = new();
-        public static List<int> IceNPC = new();
-        public static List<int> ElectricNPC = new();
-        public double[] elementMultiplier = { 1.0, 1.0, 1.0, 1.0 };
-        #endregion
 
         public override bool InstancePerEntity => true;
 
@@ -130,60 +121,6 @@ namespace ShardsOfAtheria.Globals
                     nextSlot++;
                 }
             }
-        }
-
-        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
-        {
-            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
-            {
-                double modifier = 1.0;
-                if (SoAGlobalItem.FireWeapon.Contains(item.type))
-                {
-                    modifier *= elementMultiplier[Element.Fire];
-                }
-                if (SoAGlobalItem.IceWeapon.Contains(item.type))
-                {
-                    modifier *= elementMultiplier[Element.Ice];
-                }
-                if (SoAGlobalItem.ElectricWeapon.Contains(item.type))
-                {
-                    modifier *= elementMultiplier[Element.Ice];
-                }
-                if (SoAGlobalItem.MetalWeapon.Contains(item.type))
-                {
-                    modifier *= elementMultiplier[Element.Ice];
-                }
-                damage = (int)Math.Ceiling(damage * modifier);
-            }
-
-            base.ModifyHitByItem(npc, player, item, ref damage, ref knockback, ref crit);
-        }
-
-        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-        {
-            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
-            {
-                double modifier = 1.0;
-                if (ProjectileElements.FireProj.Contains(projectile.type))
-                {
-                    modifier *= elementMultiplier[Element.Fire];
-                }
-                if (ProjectileElements.IceProj.Contains(projectile.type))
-                {
-                    modifier *= elementMultiplier[Element.Ice];
-                }
-                if (ProjectileElements.ElectricProj.Contains(projectile.type))
-                {
-                    modifier *= elementMultiplier[Element.Electric];
-                }
-                if (ProjectileElements.MetalProj.Contains(projectile.type))
-                {
-                    modifier *= elementMultiplier[Element.Metal];
-                }
-                damage = (int)Math.Ceiling(damage * modifier);
-            }
-
-            base.ModifyHitByProjectile(npc, projectile, ref damage, ref knockback, ref crit, ref hitDirection);
         }
 
         public override void OnKill(NPC npc)

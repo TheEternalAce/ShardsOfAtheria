@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.ItemDropRules.Condition;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
@@ -52,7 +52,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 				}
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
-            SoAGlobalNPC.ElectricNPC.Add(Type);
+            NPCElements.ElectricNPC.Add(Type);
         }
 
         public override void SetDefaults()
@@ -72,7 +72,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             NPC.value = Item.buyPrice(0, 5, 0, 0);
             NPC.npcSlots = 15f;
             AnimationType = NPCID.Harpy;
-            NPC.SetElementEffectivenessMultipliers(2.0, 0.8, 0.8, 1.5);
+            NPC.SetCustomElementMultipliers(2.0, 0.8, 0.8, 1.5);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

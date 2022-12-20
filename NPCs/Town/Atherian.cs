@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
@@ -62,7 +62,7 @@ namespace ShardsOfAtheria.NPCs.Town
 				}
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
-            SoAGlobalNPC.ElectricNPC.Add(Type);
+            NPCElements.ElectricNPC.Add(Type);
 
             // Set Atherian's biome and neighbor preferences with the NPCHappiness hook. You can add happiness text and remarks with localization (See an example in ExampleMod/Localization/en-US.lang
             NPC.Happiness
@@ -95,7 +95,7 @@ namespace ShardsOfAtheria.NPCs.Town
             NPC.knockBackResist = 0.5f;
 
             AnimationType = NPCID.Stylist;
-            NPC.SetElementEffectivenessMultipliers(0.5, 1.0, 0.4, 2.0);
+            NPC.SetCustomElementMultipliers(0.5, 1.0, 0.4, 2.0);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

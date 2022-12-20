@@ -30,6 +30,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             Projectile.width = Projectile.height = 132;
             hitboxOutwards = 90;
             rotationOffset = -MathHelper.PiOver4 * 3f;
+            amountAllowedToHit = 5;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -46,6 +47,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<IceExplosion>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
                 }
             }
+            base.OnHitNPC(target, damage, knockback, crit);
         }
 
         protected override void Initialize(Player player, SoAPlayer shards)

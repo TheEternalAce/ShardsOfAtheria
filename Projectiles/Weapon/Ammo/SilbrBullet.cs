@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
 {
-    public class SilverBullet : ModProjectile
+    public class SilbrBullet : ModProjectile
     {
         public override void SetStaticDefaults()
         {

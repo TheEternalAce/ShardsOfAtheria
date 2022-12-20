@@ -29,6 +29,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             Projectile.width = Projectile.height = 90;
             hitboxOutwards = 50;
             rotationOffset = -MathHelper.PiOver4 * 3f;
+            amountAllowedToHit = 3;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -41,6 +42,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             }
             target.AddBuff(BuffID.OnFire, 10 * 60);
             player.AddBuff(BuffID.WeaponImbueIchor, 10 * 60);
+            base.OnHitNPC(target, damage, knockback, crit);
         }
 
         protected override void Initialize(Player player, SoAPlayer shards)

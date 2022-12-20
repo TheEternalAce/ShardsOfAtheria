@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
@@ -15,8 +15,8 @@ namespace ShardsOfAtheria.Items.Weapons
         {
             SacrificeTotal = 1;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
-            SoAGlobalItem.MetalWeapon.Add(Type);
-            SoAGlobalItem.FireWeapon.Add(Type);
+            WeaponElements.MetalWeapon.Add(Type);
+            WeaponElements.FireWeapon.Add(Type);
         }
 
         public override void SetDefaults()

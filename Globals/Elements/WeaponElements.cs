@@ -10,10 +10,10 @@ namespace ShardsOfAtheria.Globals.Elements
 {
     public class WeaponElements : GlobalItem
     {
-        List<int> FireWeapon = SoAGlobalItem.FireWeapon;
-        List<int> IceWeapon = SoAGlobalItem.IceWeapon;
-        List<int> ElectricWeapon = SoAGlobalItem.ElectricWeapon;
-        List<int> MetalWeapon = SoAGlobalItem.MetalWeapon;
+        public static List<int> MetalWeapon = new();
+        public static List<int> FireWeapon = new();
+        public static List<int> IceWeapon = new();
+        public static List<int> ElectricWeapon = new();
 
         public override bool InstancePerEntity => true;
 
@@ -515,6 +515,29 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.VortexHammer:
                         ElectricWeapon.Add(type);
                         break;
+                }
+                if (SoAGlobalItem.AreusWeapon.Contains(type))
+                {
+                    ElectricWeapon.Add(type);
+                }
+                if (item.shoot != ProjectileID.None)
+                {
+                    if (FireWeapon.Contains(type))
+                    {
+                        ProjectileElements.FireProj.Add(item.shoot);
+                    }
+                    if (IceWeapon.Contains(type))
+                    {
+                        ProjectileElements.IceProj.Add(item.shoot);
+                    }
+                    if (ElectricWeapon.Contains(type))
+                    {
+                        ProjectileElements.ElectricProj.Add(item.shoot);
+                    }
+                    if (MetalWeapon.Contains(type))
+                    {
+                        ProjectileElements.MetalProj.Add(item.shoot);
+                    }
                 }
             }
         }

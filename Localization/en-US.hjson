@@ -1057,11 +1057,11 @@ Mods: {
 			IceVortexShard: Ice Shard
 			MessiahAirSlash: Air Slash
 			MessiahChargedSlash: Charge Slash
-			MessiahRanbu1: Ranbu
-			MessiahRanbu2: Ranbu
-			MessiahRanbu3: Ranbu
-			MessiahRanbu4: Ranbu
-			MessiahRanbu5: Ranbu
+			MessiahRanbu1: Ranbu 1
+			MessiahRanbu2: Ranbu 2
+			MessiahRanbu3: Ranbu 3
+			MessiahRanbu4: Ranbu 4
+			MessiahRanbu5: Ranbu 5
 			ReactorMeltdownProj: Reactor Meltdown
 			SatanlanceProj: ecnalnataS
 			SoulBlade: Soul Blade
@@ -1180,7 +1180,7 @@ Mods: {
 
 		BuffDescription: {
 			# Any debuff
-			ElectricShock: Moving hurts
+			ElectricShock: Moving aches
 			StunLock: Cannot move
 			ZenovaJavelin: Defense lowered and losing life
 
