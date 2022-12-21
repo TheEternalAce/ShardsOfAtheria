@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Globals.Elements;
-using ShardsOfAtheria.Items.Potions;
 using Terraria;
 using Terraria.Enums;
 using Terraria.ID;
@@ -71,12 +69,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
             // Keep locked onto the player, but extend further based on the given velocity (Requires ShouldUpdatePosition returning false to work)
             Vector2 playerCenter = player.RotatedRelativePoint(player.MountedCenter, reverseRotation: false, addGfxOffY: false);
             Projectile.Center = playerCenter + Projectile.velocity * (Timer - 1f);
-
-            // Set spriteDirection based on moving left or right. Left -1, right 1
-            Projectile.spriteDirection = (Vector2.Dot(Projectile.velocity, Vector2.UnitX) >= 0f).ToDirectionInt();
-
-            // Point towards where it is moving, applied offset for top right of the sprite respecting spriteDirection
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2 - MathHelper.PiOver4 * Projectile.spriteDirection;
 
             // The code in this method is important to align the sprite with the hitbox how we want it to
             SetVisualOffsets();

@@ -57,7 +57,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             Item.useTime = 10;
             Item.useAnimation = 10;
 
-            Item.defense = 50;
+            Item.defense = 25;
 
             Item.rare = ItemRarityID.Red;
             Item.value = Item.sellPrice(0, 3);

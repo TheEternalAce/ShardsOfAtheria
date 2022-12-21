@@ -1,9 +1,9 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebmilioCommons.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -53,7 +53,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            EffectsSystem.Shake.Set(8f);
+            ScreenShake.ShakeScreen(8, 60);
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
     }

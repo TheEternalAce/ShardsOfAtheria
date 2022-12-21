@@ -17,6 +17,8 @@ namespace ShardsOfAtheria.Utilities
 {
     public static class ShardsHelpers // General class full of helper methods
     {
+        public static int DefaultMaxStack = 9999;
+
         public struct UpgrageMaterial
         {
             public Item item;

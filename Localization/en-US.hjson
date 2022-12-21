@@ -49,6 +49,9 @@ Mods: {
 			ElementIce: Ice Element
 			ElementElectric: Electric Element
 			ElementMetal: Metal Element
+
+			TitleText1: Shards of Atheria: Splitting Skies
+			TitleText2: Shards of Atheria: The World Revolving
 		}
 
 		ItemName: {

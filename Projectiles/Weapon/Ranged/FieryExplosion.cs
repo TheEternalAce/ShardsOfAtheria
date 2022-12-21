@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals.Elements;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebmilioCommons.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 {
@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
                 float distance = Vector2.Distance(Projectile.Center, Main.player[Projectile.owner].Center);
                 if (distance < 800)
                 {
-                    EffectsSystem.Shake.Set((int)(800f - distance) / 64f);
+                    ScreenShake.ShakeScreen((int)((800f - distance) / 64f), 60);
                 }
                 SoundEngine.PlaySound(SoundID.Item14);
                 Projectile.ai[0] = 1;

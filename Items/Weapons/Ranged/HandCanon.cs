@@ -1,10 +1,10 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using WebmilioCommons.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -71,7 +71,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             if (charge >= 300)
             {
-                EffectsSystem.Shake.Set(6f);
+                ScreenShake.ShakeScreen(6, 60);
             }
             charge = 0;
             SoundEngine.PlaySound(Item.UseSound.Value);

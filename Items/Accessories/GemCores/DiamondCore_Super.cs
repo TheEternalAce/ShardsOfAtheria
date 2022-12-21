@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			Item.height = 32;
 			Item.accessory = true;
 
-			Item.defense = 15;
+			Item.defense = 20;
 
 			Item.rare = ItemRarityID.Lime;
 			Item.value = Item.sellPrice(0, 3);

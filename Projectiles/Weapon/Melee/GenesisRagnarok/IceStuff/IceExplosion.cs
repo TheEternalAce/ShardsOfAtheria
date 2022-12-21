@@ -1,9 +1,9 @@
 ﻿using ShardsOfAtheria.Globals.Elements;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebmilioCommons.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff
 {
@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff
         {
             if (Projectile.ai[0] == 0)
             {
-                EffectsSystem.Shake.Set(6f);
+                ScreenShake.ShakeScreen(6, 60);
                 SoundEngine.PlaySound(SoundID.Item14);
                 Projectile.ai[0] = 1;
             }

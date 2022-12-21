@@ -419,12 +419,6 @@ namespace ShardsOfAtheria.Players
             }
         }
 
-        public override void ModifyScreenPosition()
-        {
-            EffectsSystem.UpdateScreenPosition();
-            Main.screenPosition = Main.screenPosition.Floor();
-        }
-
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
             inCombat = 300;
@@ -628,36 +622,37 @@ namespace ShardsOfAtheria.Players
         {
             if (!Player.immune)
             {
-                if (Player.whoAmI == Main.myPlayer && lesserSapphireCore && Main.rand.NextFloat() < 0.05f)
+                if (megaGemCore)
                 {
-                    Player.immune = true;
-                    Player.immuneTime = 60;
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SapphireShield>(), 0, 0, Player.whoAmI);
-                    return false;
+                    return TrySapphireDodge(0.2f);
                 }
-                if (Player.whoAmI == Main.myPlayer && sapphireCore && Main.rand.NextFloat() < 0.1f)
+                if (!megaGemCore && superSapphireCore)
                 {
-                    Player.immune = true;
-                    Player.immuneTime = 60;
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SapphireShield>(), 0, 0, Player.whoAmI);
-                    return false;
+                    return TrySapphireDodge(0.15f);
                 }
-                if (Player.whoAmI == Main.myPlayer && superSapphireCore && Main.rand.NextFloat() < 0.15f)
+                if (!megaGemCore && !superSapphireCore && sapphireCore)
                 {
-                    Player.immune = true;
-                    Player.immuneTime = 60;
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SapphireShield>(), 0, 0, Player.whoAmI);
-                    return false;
+                    return TrySapphireDodge(0.1f);
                 }
-                if (Player.whoAmI == Main.myPlayer && megaGemCore && Main.rand.NextFloat() < 0.2f)
+                if (!megaGemCore && !superSapphireCore && !sapphireCore && lesserSapphireCore)
                 {
-                    Player.immune = true;
-                    Player.immuneTime = 60;
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SapphireShield>(), 0, 0, Player.whoAmI);
-                    return false;
+                    return TrySapphireDodge(0.05f);
                 }
             }
             return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
+        }
+
+        public bool TrySapphireDodge(float percentChance)
+        {
+            float roll = Main.rand.NextFloat();
+            bool doDodge = roll < percentChance;
+            if (doDodge)
+            {
+                Player.immune = true;
+                Player.immuneTime = 60;
+                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SapphireShield>(), 0, 0, Player.whoAmI);
+            }
+            return doDodge;
         }
 
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)

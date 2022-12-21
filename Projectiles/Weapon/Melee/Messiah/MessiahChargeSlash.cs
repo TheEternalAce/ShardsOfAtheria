@@ -1,9 +1,9 @@
 ﻿using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebmilioCommons.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
 {
@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.OnFire3, 600);
-            EffectsSystem.Shake.Set(11f);
+            ScreenShake.ShakeScreen(11, 60);
         }
 
         public override void PostAI()

@@ -11,13 +11,14 @@ using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria
 {
     public partial class ShardsOfAtheria : Mod
     {
-        public static bool DeveloperMode = true;
+        public static bool DeveloperMode = false;
 
         public static int MaxNecronomiconPages = 2;
 
@@ -42,14 +43,9 @@ namespace ShardsOfAtheria
         {
             if (ModContent.GetInstance<ShardsConfigClientSide>().windowTitle)
             {
-                switch (Main.rand.Next(3))
+                if (Main.rand.NextBool(3))
                 {
-                    case 0:
-                        Main.instance.Window.Title = "Shards of Atheria: Splitting Skies";
-                        break;
-                    case 1:
-                        Main.instance.Window.Title = "Shards of Atheria: The World Revolving";
-                        break;
+                    Main.instance.Window.Title = ChooseTitleText(0);
                 }
             }
             #region Add ammo to lists
@@ -175,9 +171,16 @@ namespace ShardsOfAtheria
             #endregion
         }
 
-        public string ChoseTitleText()
+        public string ChooseTitleText(int id = 0)
         {
-            return "";
+            if (id == 0)
+            {
+                return Language.GetTextValue("Mods.ShardsOfAtheria.General.TitleText" + (Main.rand.Next(2) + 1));
+            }
+            else
+            {
+                return Language.GetTextValue("Mods.ShardsOfAtheria.General.TitleText"  + id);
+            }
         }
     }
 }

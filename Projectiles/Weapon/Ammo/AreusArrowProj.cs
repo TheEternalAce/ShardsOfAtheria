@@ -32,8 +32,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
 
         public override void SetDefaults()
         {
-            Projectile.width = 8;
-            Projectile.height = 8;
+            Projectile.width = 16;
+            Projectile.height = 16;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
@@ -58,11 +58,17 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
                     SoundEngine.PlaySound(SoundID.Item91, Projectile.position);
                     point = (player.Center + Projectile.velocity + (Projectile.rotation - MathHelper.ToRadians(90)).ToRotationVector2().SafeNormalize(Vector2.Zero) * Vector2.Distance(player.Center, Main.MouseWorld)).ToPoint();
                     Projectile.tileCollide = true;
+                    Projectile.velocity *= 0.9f;
                     Projectile.ai[0] = 1f;
                 }
-                if (Projectile.getRect().Contains(point) && Projectile.ai[0] == 1f)
+                if (Projectile.ai[0] == 1f)
                 {
-                    Projectile.Kill();
+                    Dust dust = Dust.NewDustPerfect(point.ToVector2(), DustID.Electric, Vector2.Zero);
+                    dust.noGravity = true;
+                    if (Projectile.Hitbox.Contains(point))
+                    {
+                        Projectile.Kill();
+                    }
                 }
                 if (Projectile.ai[0] == 2f)
                 {
