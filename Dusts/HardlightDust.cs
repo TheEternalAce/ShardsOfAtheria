@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Dusts
 
         public override bool Update(Dust dust)
         {
-            float scale = 0.5f;
+            float scale = 0.25f;
             Lighting.AddLight(dust.position, 0.74f * scale, 0.82f * scale, 0.95f * scale);
             return base.Update(dust);
         }
@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Dusts
 
         public override bool Update(Dust dust)
         {
-            float scale = 0.5f;
+            float scale = 0.25f;
             Lighting.AddLight(dust.position, 0.89f * scale, 0.71f * scale, 0.96f * scale);
             return base.Update(dust);
         }
