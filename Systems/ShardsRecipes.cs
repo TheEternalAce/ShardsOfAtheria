@@ -119,16 +119,6 @@ namespace ShardsOfAtheria.Systems
                 .AddIngredient(ItemID.TrueExcalibur)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
-            Recipe.Create(ItemID.LifeCrystal)
-                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 5)
-                .AddIngredient(ItemID.Ruby, 5)
-                .AddTile(TileID.Anvils)
-                .Register();
-            Recipe.Create(ItemID.LifeFruit)
-                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 5)
-                .AddIngredient(ItemID.JungleSpores, 5)
-                .AddTile(TileID.MythrilAnvil)
-                .Register();
             Recipe.Create(ItemID.GuideVoodooDoll)
                 .AddIngredient(ModContent.ItemType<BionicBarItem>(), 5)
                 .AddIngredient(ItemID.Silk, 5)
@@ -158,7 +148,7 @@ namespace ShardsOfAtheria.Systems
             {
                 Recipe recipe = Main.recipe[i];
                 if ((recipe.TryGetIngredient(ItemID.Bottle, out Item _) || recipe.TryGetIngredient(ItemID.BottledWater, out Item _) || recipe.TryGetIngredient(ItemID.BottledHoney, out Item _))
-                    && recipe.HasTile(TileID.Bottles))
+                    && recipe.HasTile(TileID.Bottles) && recipe.createItem.buffTime > 0)
                 {
                     SoAGlobalItem.Potions.Add(recipe.createItem.type);
                 }
