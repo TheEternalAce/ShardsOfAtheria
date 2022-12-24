@@ -34,6 +34,8 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         public bool gluttony = false;
         public int feed = 100;
         public int feedTimer = 60;
+        public int foodCoolDown = 0;
+        const int foodCoolDownMax = 300;
 
         public override void ResetEffects()
         {
@@ -45,6 +47,14 @@ namespace ShardsOfAtheria.Items.SinfulSouls
                     feed--;
                     feedTimer = 30;
                 }
+            }
+            if (foodCoolDown < 0)
+            {
+                foodCoolDown = 0;
+            }
+            else if (foodCoolDown > 0)
+            {
+                foodCoolDown--;
             }
         }
 
@@ -62,30 +72,34 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
-            if (gluttony)
+            if (gluttony && foodCoolDown <= 0)
             {
                 if (target.life > 0 && crit)
                 {
                     Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Player.Center - target.Center * 10f, ModContent.ProjectileType<FoodChunk>(), 0, 0, Player.whoAmI, 0f);
+                    foodCoolDown = foodCoolDownMax;
                 }
                 if (target.life <= 0)
                 {
                     Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Player.Center - target.Center * 10f, ModContent.ProjectileType<FoodChunk>(), 0, 0, Player.whoAmI, 1f);
+                    foodCoolDown = foodCoolDownMax;
                 }
             }
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            if (gluttony)
+            if (gluttony && foodCoolDown <= 0)
             {
                 if (target.lifeMax > 5 && target.life > 0 && crit)
                 {
                     Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Player.Center - target.Center * 10f, ModContent.ProjectileType<FoodChunk>(), 0, 0, Player.whoAmI, 0f);
+                    foodCoolDown = foodCoolDownMax;
                 }
                 if (target.life <= 0)
                 {
                     Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Player.Center - target.Center * 10f, ModContent.ProjectileType<FoodChunk>(), 0, 0, Player.whoAmI, 1f);
+                    foodCoolDown = foodCoolDownMax;
                 }
             }
         }
