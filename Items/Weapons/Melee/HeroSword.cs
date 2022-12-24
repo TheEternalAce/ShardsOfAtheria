@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 		{
 			CreateRecipe()
 				.AddIngredient(ItemID.BrokenHeroSword)
-				.AddRecipeGroup(RecipeGroupID.IronBar, 15)
+				.AddIngredient(ItemID.HallowedBar, 15)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}
