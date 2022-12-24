@@ -50,7 +50,6 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         public override void SetStaticDefaults()
         {
             Main.buffNoTimeDisplay[Type] = true;
-            Main.debuff[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             base.SetStaticDefaults();
         }
