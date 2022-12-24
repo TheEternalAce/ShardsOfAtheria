@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Bases;
-using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
@@ -105,15 +104,6 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
                 }
             }
             return true;
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 15)
-                .AddIngredient(ItemID.HellstoneBar, 15)
-                .AddTile(TileID.Hellforge)
-                .Register();
         }
     }
 }

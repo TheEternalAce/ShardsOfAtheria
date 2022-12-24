@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
-using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -40,16 +39,6 @@ namespace ShardsOfAtheria.Items.BossSummons
 
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.buyPrice(0, 5);
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddRecipeGroup(ShardsRecipes.Gold, 10)
-                .AddRecipeGroup(ShardsRecipes.EvilMaterial, 10)
-                .AddIngredient(ItemID.Feather, 5)
-                .AddTile(TileID.Anvils)
-                .Register();
         }
 
         // We use the CanUseItem hook to prevent a Player from using this item while the boss is present in the world.
