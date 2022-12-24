@@ -14,14 +14,6 @@ Mods: {
 			FiringMode3: Full-auto
 			FullCharge: "Charge Ready!"
 			SlayerItem: Slayer Item
-			PearlwoodSetBonus:
-				'''
-				6 defense
-				Increases maximum mana by 40
-				Increases damage and critical strike chance by 15%
-				Press {0} to summon 10 Soul Daggers that orbit around you
-				Press {0} again to send the daggers flying in the direction of your mouse
-				'''
 			AbsorbedBlood: Absorbed Blood
 			ShadeStateActive: Shade State already active
 			InsufficientBlood: Not enough blood
@@ -52,6 +44,25 @@ Mods: {
 
 			TitleText1: Shards of Atheria: Splitting Skies
 			TitleText2: Shards of Atheria: The World Revolving
+		}
+
+		SetBonus: {
+			Pearlwood:
+				'''
+				6 defense
+				Increases maximum mana by 40
+				Increases damage and critical strike chance by 15%
+				Press {0} to summon 10 Soul Daggers that orbit around you
+				Press {0} again to send the daggers flying in the direction of your mouse
+				'''
+			Slayer:
+				'''
+				Increases maximum mana by 40 and reduced mana usage by 10%
+				10% chance not to consume ammo
+				Increases your max number of minions by 3
+				Grants moderate life regen
+				Immunity to 'Madness'
+				'''
 		}
 
 		ItemName: {
@@ -1143,8 +1154,8 @@ Mods: {
 			EnvyTarget: "Envy's Target"
 
 			# Pet buff
-			CreeperPetBuff: Smol Nova
-			NovaPetBuff: Pet Creeper
+			CreeperPetBuff: Pet Creeper
+			NovaPetBuff: Smol Nova
 
 			# Player buff
 			BaseCombat: Knowledge Base: Combat

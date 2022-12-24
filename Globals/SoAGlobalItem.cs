@@ -83,7 +83,7 @@ namespace ShardsOfAtheria.Globals
                     item.defense = 8;
                     break;
                 case ItemID.PearlwoodSword:
-                    item.defense = 8;
+                    item.damage = 45;
                     break;
                 case ItemID.PearlwoodBow:
                     item.damage = 30;
@@ -165,7 +165,7 @@ namespace ShardsOfAtheria.Globals
         {
             if (set == "Shards:Pearlwood")
             {
-                player.setBonus = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.General.PearlwoodSetBonus"),
+                player.setBonus = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.SetBonus.Pearlwood"),
                     ShardsOfAtheria.ArmorSetBonusActive.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.ArmorSetBonusActive.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
                 player.statDefense += 5;
                 player.statManaMax2 += 40;

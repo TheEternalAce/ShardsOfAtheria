@@ -652,7 +652,7 @@ namespace ShardsOfAtheria.Players
                 Player.immuneTime = 60;
                 Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SapphireShield>(), 0, 0, Player.whoAmI);
             }
-            return doDodge;
+            return !doDodge;
         }
 
         public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)

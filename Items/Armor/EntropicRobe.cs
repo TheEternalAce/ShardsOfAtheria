@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Items.Armor
             Item.width = 18;
             Item.height = 18;
             Item.rare = ItemRarityID.Yellow;
-            Item.value = Item.sellPrice(0, 10, 0, 0);
+            Item.value = Item.sellPrice(0, 3, 50, 0);
             Item.defense = 28;
         }
 

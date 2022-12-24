@@ -4,6 +4,7 @@ using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Armor
@@ -23,7 +24,7 @@ namespace ShardsOfAtheria.Items.Armor
             Item.width = 18;
             Item.height = 18;
             Item.rare = ItemRarityID.Yellow;
-            Item.value = Item.sellPrice(0, 10, 0, 0);
+            Item.value = Item.sellPrice(0, 3, 50, 0);
             Item.defense = 20;
         }
 
@@ -42,12 +43,8 @@ namespace ShardsOfAtheria.Items.Armor
         // UpdateArmorSet allows you to give set bonuses to the armor.
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Increases maximum mana by 40 and reduces mana usage by 10%\n" +
-                "10% chance not to consume ammo\n" +
-                "Increases your max number of minions by 3\n" +
-                "Grants moderate life regen\n" +
-                "Immunity to 'Madness'";
-            player.manaCost -= 0.1f; // Reduces mana cost by 10%
+            player.setBonus = Language.GetTextValue("Mods.ShardsOfAtheria.SetBonus.Slayer");
+            player.manaCost -= 0.1f;
             player.statManaMax2 += 40;
             player.GetModPlayer<SlayerPlayer>().slayerSet = true;
             player.maxMinions += 3;

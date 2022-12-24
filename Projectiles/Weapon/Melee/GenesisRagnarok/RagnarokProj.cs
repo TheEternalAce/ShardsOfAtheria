@@ -27,7 +27,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             Projectile.DamageType = DamageClass.Melee;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
-            Projectile.light = .4f;
 
             DrawOffsetX = -4;
             DrawOriginOffsetY = -4;
@@ -65,16 +64,20 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 
             if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
             {
-                (player.HeldItem.ModItem as GenesisAndRagnarok).combo = 0;
+                GenesisAndRagnarok genesisAndRagnarok = player.HeldItem.ModItem as GenesisAndRagnarok;
+                genesisAndRagnarok.combo = 0;
 
-                for (int num72 = 0; num72 < 2; num72++)
+                if (genesisAndRagnarok.upgrades >= 3)
                 {
-                    Dust obj4 = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5 ? DustID.Torch : DustID.Frost, 0f, 0f, 100, default,
-                        (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5 ? 2f : .5f)];
-                    obj4.noGravity = true;
-                    obj4.velocity *= 2f;
-                    obj4.velocity += Projectile.localAI[0].ToRotationVector2();
-                    obj4.fadeIn = 1.5f;
+                    for (int num72 = 0; num72 < 2; num72++)
+                    {
+                        Dust obj4 = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5 ? DustID.Torch : DustID.Frost, 0f, 0f, 100, default,
+                            (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5 ? 2f : .5f)];
+                        obj4.noGravity = true;
+                        obj4.velocity *= 2f;
+                        obj4.velocity += Projectile.localAI[0].ToRotationVector2();
+                        obj4.fadeIn = 1.5f;
+                    }
                 }
 
                 if (Projectile.getRect().Intersects(player.getRect()) && Projectile.ai[1] > 20 || player.dead || (Main.mouseLeft && (Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades >= 2))

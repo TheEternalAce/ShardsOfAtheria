@@ -42,7 +42,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
             {
                 Vector2 position = target.Center+Vector2.One.RotatedByRandom(360)*120;
                 Projectile.position = position;
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Blue>());
                     dust.noGravity = true;
@@ -57,7 +57,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 2; i++)
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Blue>(), Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Pink>(), Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);

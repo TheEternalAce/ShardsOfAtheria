@@ -22,13 +22,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 			Projectile.height = 8;
 			Projectile.aiStyle = -1;
 			AIType = ProjectileID.BoneJavelin;
-			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
 			Projectile.friendly = true;
 			Projectile.DamageType = DamageClass.Melee;
-			Projectile.light = 0.5f;
 			Projectile.penetrate = 3;
-			Projectile.extraUpdates = 1;
 			Projectile.timeLeft = 120;
 			Projectile.usesLocalNPCImmunity = true;
 
@@ -61,13 +58,13 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 
 			// Please note the usage of MathHelper, please use this!
 			// We subtract 90 degrees as radians to the rotation vector to offset the sprite as its default rotation in the sprite isn't aligned properly.
-			Vector2 rotVector = (Projectile.rotation - MathHelper.ToRadians(90f)).ToRotationVector2(); // rotation vector to use for dust velocity
+			Vector2 rotVector = (Projectile.rotation - MathHelper.ToRadians(45f)).ToRotationVector2(); // rotation vector to use for dust velocity
 			usePos += rotVector * 16f;
 
 			// Declaring a constant in-line is fine as it will be optimized by the compiler
 			// It is however recommended to define it outside method scope if used elswhere as well
 			// They are useful to make numbers that don't change more descriptive
-			const int NUM_DUSTS = 20;
+			const int NUM_DUSTS = 40;
 
 			// Spawn some dusts upon javelin death
 			for (int i = 0; i < NUM_DUSTS; i++)
@@ -191,6 +188,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 			}
 		}
 
+		int gravityTimer = 0;
 		private void NormalAI()
 		{
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(45);
@@ -203,6 +201,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 			{
 				DrawOffsetX = 0;
 				DrawOriginOffsetX = -38;
+			}
+			if (++gravityTimer >= 15) // Use a timer to wait 15 ticks before applying gravity.
+			{
+				Projectile.velocity.Y = Projectile.velocity.Y + 0.1f;
+			}
+			if (Projectile.velocity.Y > 16f)
+			{
+				Projectile.velocity.Y = 16f;
 			}
 		}
 

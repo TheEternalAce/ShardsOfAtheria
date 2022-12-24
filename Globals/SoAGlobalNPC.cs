@@ -718,7 +718,7 @@ namespace ShardsOfAtheria.Globals
             }
             if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
             {
-                LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new Conditions.LegacyHack_IsABoss());
+                LeadingConditionRule leadingConditionRule = new(new Conditions.LegacyHack_IsABoss());
                 leadingConditionRule.OnSuccess(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<WormTench>()));
                 npcLoot.Add(leadingConditionRule);
             }
@@ -746,7 +746,7 @@ namespace ShardsOfAtheria.Globals
             if (npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism)
             {
                 LeadingConditionRule leadingConditionRule = new(new Conditions.MissingTwin());
-                leadingConditionRule.OnSuccess(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<TomeOfOmniscience>()));
+                leadingConditionRule.OnSuccess(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<DoubleBow>()));
                 npcLoot.Add(leadingConditionRule);
             }
             if (npc.type == NPCID.Plantera)
