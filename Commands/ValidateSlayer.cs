@@ -10,11 +10,6 @@ namespace ShardsOfAtheria.Commands
 {
     class Slayer : ModCommand
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return ShardsOfAtheria.DeveloperMode;
-        }
-
         public override CommandType Type
             => CommandType.Chat;
 

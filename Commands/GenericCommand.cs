@@ -7,11 +7,6 @@ namespace ShardsOfAtheria.Commands
 {
 	class GenericCommand : ModCommand
 	{
-		public override bool IsLoadingEnabled(Mod mod)
-		{
-			return ShardsOfAtheria.DeveloperMode;
-		}
-
 		public override CommandType Type
 			=> CommandType.Chat;
 

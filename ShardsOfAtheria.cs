@@ -18,8 +18,6 @@ namespace ShardsOfAtheria
 {
     public partial class ShardsOfAtheria : Mod
     {
-        public static bool DeveloperMode = false;
-
         public static int MaxNecronomiconPages = 2;
 
         public static ModKeybind OverdriveKey;
