@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
 using ShardsOfAtheria.Globals.Elements;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
 {
@@ -17,8 +14,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
 
         public override void SetDefaults()
         {
-            Projectile.width = 8;
-            Projectile.height = 8;
+            Projectile.width = 20;
+            Projectile.height = 20;
             Projectile.aiStyle = 19;
             Projectile.penetrate = -1;
             Projectile.scale = 1.3f;

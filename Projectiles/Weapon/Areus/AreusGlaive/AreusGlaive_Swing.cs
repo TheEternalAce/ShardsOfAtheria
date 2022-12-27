@@ -24,7 +24,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
         {
             base.SetDefaults();
 
-            Projectile.width = Projectile.height = 90;
+            Projectile.width = Projectile.height = 120;
+            Projectile.scale = 1.3f;
             hitboxOutwards = 50;
             rotationOffset = -MathHelper.PiOver4 * 3f;
         }

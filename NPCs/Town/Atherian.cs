@@ -139,7 +139,7 @@ namespace ShardsOfAtheria.NPCs.Town
 
         public override bool PreAI()
         {
-            if (ModContent.GetInstance<ShardsDownedSystem>().slainSenterra || ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie)
+            if ((ModContent.GetInstance<ShardsDownedSystem>().slainSenterra || ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie) && ModContent.GetInstance<ShardsServerSideConfig>().cluelessNPCs)
             {
                 NPC.active = false;
                 ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(NPC.GivenName + " has left."), Color.Red);
