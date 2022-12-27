@@ -2,6 +2,7 @@ using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
+using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -46,6 +47,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 10)
+                .AddRecipeGroup(ShardsRecipes.Gold, 3)
                 .AddIngredient(ItemID.FragmentVortex, 7)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();

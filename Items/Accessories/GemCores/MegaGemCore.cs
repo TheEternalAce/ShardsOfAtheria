@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "Teleport", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.General.TeleportOnKeyPress"),
+            tooltips.Add(new TooltipLine(Mod, "Teleport", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TeleportOnKeyPress"),
                     ShardsOfAtheria.EmeraldTeleportKey.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.EmeraldTeleportKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
         }
 

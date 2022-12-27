@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
@@ -8,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria
 {
-	partial class ShardsOfAtheria
+    partial class ShardsOfAtheria
 	{
 		// The following code allows other mods to "call" Example Mod data.
 		// This allows mod developers to access Example Mod's data without having to set it a reference.
@@ -176,7 +177,7 @@ namespace ShardsOfAtheria
 						}
 						break;
 					case "checkSoulConfig":
-						return ModContent.GetInstance<ShardsConfigClientSide>().instantAbsorb;
+						return ModContent.GetInstance<ShardsClientSideConfig>().instantAbsorb;
 				}
 			}
 

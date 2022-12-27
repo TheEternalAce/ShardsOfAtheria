@@ -42,7 +42,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "tip", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.General.RushDrive"),
+            tooltips.Add(new TooltipLine(Mod, "tip", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.RushDrive"),
                     ShardsOfAtheria.PhaseSwitch.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.PhaseSwitch.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
         }
     }

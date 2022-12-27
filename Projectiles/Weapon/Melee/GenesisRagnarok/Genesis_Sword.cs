@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
+using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff;
 using ShardsOfAtheria.Utilities;
 using System;
@@ -21,6 +23,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         {
             ProjectileElements.IceProj.Add(Type);
             ProjectileElements.FireProj.Add(Type);
+            SoAGlobalProjectile.Eraser.Add(Type);
         }
 
         public override void SetDefaults()
@@ -44,7 +47,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                 else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
                 {
                     target.AddBuff(BuffID.Frostburn, 600);
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<IceExplosion>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                    Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage,
+                        Projectile.knockBack, player.whoAmI, 0, 1);
+                    proj.DamageType = DamageClass.Melee;
                 }
             }
             base.OnHitNPC(target, damage, knockback, crit);
@@ -107,15 +112,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             return GenericSwing2(progress);
         }
 
-        public override float GetScale(float progress)
-        {
-            float scale = base.GetScale(progress);
-            if (progress > 0.4f && progress < 0.6f)
-            {
-                return scale + 0.7f * ShardsHelpers.Wave(SwingProgress((progress - 0.4f) / 0.2f), 0f, 1f);
-            }
-            return scale;
-        }
         public override float GetVisualOuter(float progress, float swingProgress)
         {
             if (progress > 0.8f)

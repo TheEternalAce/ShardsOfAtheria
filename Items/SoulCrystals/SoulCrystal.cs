@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
+using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.NPCs.Misc;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Tools;
-using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             TooltipLine line;
-            if (!ModContent.GetInstance<ShardsConfigClientSide>().instantAbsorb)
+            if (!ModContent.GetInstance<ShardsClientSideConfig>().instantAbsorb)
                 line = new TooltipLine(Mod, "SoulCrystal", "Hold left click for 5 seconds to absorb the soul inside, this grants you this boss's powers")
                 {
                     OverrideColor = Color.Purple
@@ -70,7 +70,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
             if (Main.rand.NextBool(3))
                 Dust.NewDustDirect(player.Center, 4, 4, DustID.SandstormInABottle, .2f, .2f, 0, Scale: 1.2f);
             Lighting.AddLight(player.Center, TorchID.Yellow);
-            if (absorbSoulTimer == 299 && !ModContent.GetInstance<ShardsConfigClientSide>().instantAbsorb)
+            if (absorbSoulTimer == 299 && !ModContent.GetInstance<ShardsClientSideConfig>().instantAbsorb)
                 SoundEngine.PlaySound(SoundID.Item46);
             if (absorbSoulTimer == 240)
                 SoundEngine.PlaySound(SoundID.Item43);
@@ -80,7 +80,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
                 SoundEngine.PlaySound(SoundID.Item43);
             if (absorbSoulTimer == 60)
                 SoundEngine.PlaySound(SoundID.Item43);
-            if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsConfigClientSide>().instantAbsorb)
+            if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsClientSideConfig>().instantAbsorb)
             {
                 for (int i = 0; i < 20; i++)
                 {
@@ -108,7 +108,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
     {
         public override bool? UseItem(Player player)
         {
-            if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsConfigClientSide>().instantAbsorb)
+            if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsClientSideConfig>().instantAbsorb)
             {
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<AllSeeingEye>()] <= 0)
                 {
@@ -123,7 +123,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
     {
         public override bool? UseItem(Player player)
         {
-            if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsConfigClientSide>().instantAbsorb)
+            if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsClientSideConfig>().instantAbsorb)
             {
                 if (!player.HasBuff(ModContent.BuffType<CreeperShield>()))
                 {

@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Utilities;
+using ShardsOfAtheria.Config;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.Items.BossSummons
         {
             Item.width = 32;
             Item.height = 32;
-            if (!ModContent.GetInstance<ShardsConfigServerSide>().nonConsumeBoss)
+            if (!ModContent.GetInstance<ShardsServerSideConfig>().nonConsumeBoss)
             {
                 Item.consumable = true;
             }

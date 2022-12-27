@@ -140,6 +140,78 @@ namespace ShardsOfAtheria.Systems
                 .AddIngredient(ItemID.ChaosFish, 4)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
+
+            #region Add ammo to lists
+            for (int i = 1; i < ItemLoader.ItemCount; i++)
+            {
+                Item item = ContentSamples.ItemsByType[i];
+                int type = item.type;
+
+                if (item.consumable)
+                {
+                    if (item.ammo > AmmoID.None)
+                    {
+                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert && item.rare != ItemRarityID.Master)
+                        {
+                            SoAGlobalItem.preHardmodeAmmo.Add(type);
+                        }
+                        else if (item.rare < ItemRarityID.Cyan)
+                        {
+                            SoAGlobalItem.hardmodeAmmo.Add(type);
+                        }
+                        else if (item.rare >= ItemRarityID.Cyan)
+                        {
+                            SoAGlobalItem.postMoonLordAmmo.Add(type);
+                        }
+                    }
+                    if (item.ammo == AmmoID.Arrow)
+                    {
+                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert  && item.rare != ItemRarityID.Master)
+                        {
+                            SoAGlobalItem.preHardmodeArrows.Add(type);
+                        }
+                        else if (item.rare < ItemRarityID.Cyan)
+                        {
+                            SoAGlobalItem.hardmodeArrows.Add(type);
+                        }
+                        else if (item.rare >= ItemRarityID.Cyan)
+                        {
+                            SoAGlobalItem.postMoonLordArrows.Add(type);
+                        }
+                    }
+                    if (item.ammo == AmmoID.Bullet)
+                    {
+                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert  && item.rare != ItemRarityID.Master)
+                        {
+                            SoAGlobalItem.preHardmodeBullets.Add(type);
+                        }
+                        else if (item.rare < ItemRarityID.Cyan)
+                        {
+                            SoAGlobalItem.hardmodeBullets.Add(type);
+                        }
+                        else if (item.rare >= ItemRarityID.Cyan)
+                        {
+                            SoAGlobalItem.postMoonLordBullets.Add(type);
+                        }
+                    }
+                    if (item.ammo == AmmoID.Rocket)
+                    {
+                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert  && item.rare != ItemRarityID.Master)
+                        {
+                            SoAGlobalItem.preHardmodeRockets.Add(type);
+                        }
+                        else if (item.rare < ItemRarityID.Cyan)
+                        {
+                            SoAGlobalItem.hardmodeRockets.Add(type);
+                        }
+                        else if (item.rare >= ItemRarityID.Cyan)
+                        {
+                            SoAGlobalItem.postMoonLordRockets.Add(type);
+                        }
+                    }
+                }
+            }
+            #endregion
         }
 
         public override void PostAddRecipes()

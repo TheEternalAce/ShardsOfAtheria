@@ -50,7 +50,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             if (++charge == 300)
             {
                 SoundEngine.PlaySound(SoundID.MaxMana);
-                CombatText.NewText(player.getRect(), Color.SkyBlue, Language.GetTextValue("Mods.ShardsOfAtheria.General.FullCharge"));
+                CombatText.NewText(player.getRect(), Color.SkyBlue, Language.GetTextValue("Mods.ShardsOfAtheria.Common.FullCharge"));
             }
             if (charge > 301)
             {

@@ -1,14 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
+using ShardsOfAtheria.Items.DataDisks;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Weapon.Areus;
+using ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSword;
 using ShardsOfAtheria.Utilities;
 using ShopQuotesMod;
 using System.Collections.Generic;
@@ -154,7 +156,7 @@ namespace ShardsOfAtheria.NPCs.Town
         {
             WeightedRandom<string> chat = new();
 
-            if (!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode || ModContent.GetInstance<ShardsConfigServerSide>().cluelessNPCs)
+            if (!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode || ModContent.GetInstance<ShardsServerSideConfig>().cluelessNPCs)
             {
                 if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
                 {
@@ -186,7 +188,7 @@ namespace ShardsOfAtheria.NPCs.Town
             else
             {
                 Player player = Main.LocalPlayer;
-                if (player.GetModPlayer<SlayerPlayer>().slayerMode && !ModContent.GetInstance<ShardsConfigServerSide>().cluelessNPCs)
+                if (player.GetModPlayer<SlayerPlayer>().slayerMode && !ModContent.GetInstance<ShardsServerSideConfig>().cluelessNPCs)
                 {
                     Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.RefuseUpgrade");
                 }
@@ -266,6 +268,9 @@ namespace ShardsOfAtheria.NPCs.Town
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusDataDisk>());
+            shop.item[nextSlot].shopCustomPrice = 15000;
+            nextSlot++;
             if (NPC.downedPlantBoss)
             {
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusKey>());

@@ -8,7 +8,7 @@
 
 Mods: {
 	ShardsOfAtheria: {
-		General: {
+		Common: {
 			FiringMode1: Semi-auto
 			FiringMode2: Burst fire
 			FiringMode3: Full-auto
@@ -44,6 +44,48 @@ Mods: {
 
 			TitleText1: Shards of Atheria: Splitting Skies
 			TitleText2: Shards of Atheria: The World Revolving
+
+			Eraser: Can erase projectiles
+		}
+
+		DiskFile: {
+			DiskError: "Error 0: File not found in database. Please use a different disk."
+			DataDisk1:
+				'''
+				Disk_001_Areus
+				A typically pale blue metal which crackles with electricity, areus is used for
+				everything in Atheria. Different circumstances of forging areus may get it to
+				change its color permanently: red areus is forged with extreme heat, yellow
+				areus is melted and cast, white areus is alloyed with gold. If areus were lose
+				its electrical properties, its color will turn dark and it will harden.
+				'''
+			DataDisk2:
+				'''
+				Disk_002_Atheria
+				A neighboring planet, close to Terraria, crackling with electricity and
+				glittering with gold, Atheria was created by the young goddess Senterra. She
+				took inspiration from the humans on Terraria and Earth to create her own
+				people: atherians.
+				'''
+			DataDisk3:
+				'''
+				Disk_003_Hardlight
+				A lightweight colorful material, hardlight is forged by the harpies in the sky.
+
+				'''
+			DataDisk4:
+				'''
+				Disk_004_Nova Stellar
+				Once an ordinary young harpy, Nova pursued the path of her late father as a
+				noble knight. As she grew she learned about the Five Terrarians.
+				'''
+			DataDisk5:
+				'''
+				Disk_005_Terrarians
+				The five Terrarians are divine beings forged from the powers of entropy,
+				nebula, solar, stardust, and vortex. The Entropy Terrarian seeks to make the
+				universe barren, while the rest strive to stop Entropy.
+				'''
 		}
 
 		SetBonus: {
@@ -136,6 +178,13 @@ Mods: {
 			AmmoBag_Rocket: Ammo Bag (Rocket)
 			NovaBossBag: Treasure Bag (Nova Stellar)
 
+			# Data Disks
+			AreusDataDisk: "Data Disk #001"
+			AtheriaDataDisk: "Data Disk #002"
+			HardlightDataDisk: "Data Disk #003"
+			NovaDataDisk: "Data Disk #004"
+			TerrariansDataDisk: "Data Disk #005"
+
 			# Materials
 			BrokenHeroGun: Broken Hero Gun
 			ChargedFeather: Charged Feather
@@ -217,14 +266,14 @@ Mods: {
 			EmpressSoulCrystal: "Soul Crystal (Empress of Light)"
 			LunaticSoulCrystal: "Soul Crystal (Lunatic Cultist)"
 			LordSoulCrystal: "Soul Crystal (Moon Lord)"
-			# LandSoulCrystal: "Soul Crystal (Senterra)"
-			# TimeSoulCrystal: "Soul Crystal (Genesis)"
-			# DeathSoulCrystal: "Soul Crystal (Elizabeth Norman)"
+			LandSoulCrystal: "Soul Crystal (Senterra)"
+			TimeSoulCrystal: "Soul Crystal (Genesis)"
+			DeathSoulCrystal: "Soul Crystal (Elizabeth Norman)"
 
 			# Slayer boxes coming in 1.0
 
 			# Tools
-			# MagicOcarina: Magic Ocarina
+			MagicOcarina: Magic Ocarina
 			Necronomicon: Necronomicon
 			RedAreusDrill: Red Areus Drill
 			RedAreusChainsaw: Red Areus Chainsaw
@@ -863,12 +912,14 @@ Mods: {
 				'''
 				Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing
 				Able to swing shield with LMB before it returns
+				Sword can erase projectiles
 				Attacks inflict 'On Fire!'
 				'''
 			GenesisAndRagnarokUpgrade5:
 				'''
 				Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing
 				Able to swing shield with LMB before it returns
+				Sword can erase projectiles
 				Attacks inflict Frostburn and create extra ice projectiles
 				'''
 			Gomorrah:
@@ -1414,22 +1465,22 @@ Mods: {
 					'''
 				UpgradeGenesisAndRagnarok2:
 					'''
-					Genesis and Ragnarok are now stronger and Genesis can attach to Ragnarok for swinging.
+					Genesis can now attach to Ragnarok for swinging.
 					There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
 					'''
 				UpgradeGenesisAndRagnarok3:
 					'''
-					Genesis and Ragnarok are now stronger and can set enemies on fire.
+					Genesis and Ragnarok can now set enemies on fire.
 					There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
 					'''
 				UpgradeGenesisAndRagnarok4:
 					'''
-					Genesis and Ragnarok are now stronger and can Genesis can transform into a sword.
+					Genesis is now capable of transforming into a sword.
 					There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
 					'''
 				UpgradeGenesisAndRagnarok5:
 					'''
-					Genesis and Ragnarok are now stronger and their ice capabilities are revealed.
+					Genesis and Ragnarok now have their ice capabilities are revealed.
 					All of the memory seals are now released, I cannot upgrade them further.
 					'''				
 				UpgradeAreusWeapon: That should do it. This is the best I can achieve. Use it well.

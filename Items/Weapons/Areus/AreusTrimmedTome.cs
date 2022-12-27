@@ -4,6 +4,7 @@ using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
+using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -47,6 +48,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 10)
+                .AddRecipeGroup(ShardsRecipes.Gold, 3)
                 .AddIngredient(ModContent.ItemType<SoulOfTwilight>(), 7)
                 .AddTile(TileID.Anvils)
                 .Register();

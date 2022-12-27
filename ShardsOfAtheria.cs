@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.Weapons.Magic;
@@ -39,84 +39,13 @@ namespace ShardsOfAtheria
 
         public override void PostSetupContent()
         {
-            if (ModContent.GetInstance<ShardsConfigClientSide>().windowTitle)
+            if (ModContent.GetInstance<ShardsClientSideConfig>().windowTitle)
             {
                 if (Main.rand.NextBool(3))
                 {
                     Main.instance.Window.Title = ChooseTitleText(0);
                 }
             }
-            #region Add ammo to lists
-            for (int i = 1; i < ItemLoader.ItemCount; i++)
-            {
-                Item item = ContentSamples.ItemsByType[i];
-                int type = item.type;
-
-                if (item.consumable)
-                {
-                    if (item.ammo > AmmoID.None)
-                    {
-                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert && item.rare != ItemRarityID.Master)
-                        {
-                            SoAGlobalItem.preHardmodeAmmo.Add(type);
-                        }
-                        else if (item.rare < ItemRarityID.Cyan)
-                        {
-                            SoAGlobalItem.hardmodeAmmo.Add(type);
-                        }
-                        else if (item.rare >= ItemRarityID.Cyan)
-                        {
-                            SoAGlobalItem.postMoonLordAmmo.Add(type);
-                        }
-                    }
-                    if (item.ammo == AmmoID.Arrow)
-                    {
-                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert  && item.rare != ItemRarityID.Master)
-                        {
-                            SoAGlobalItem.preHardmodeArrows.Add(type);
-                        }
-                        else if (item.rare < ItemRarityID.Cyan)
-                        {
-                            SoAGlobalItem.hardmodeArrows.Add(type);
-                        }
-                        else if (item.rare >= ItemRarityID.Cyan)
-                        {
-                            SoAGlobalItem.postMoonLordArrows.Add(type);
-                        }
-                    }
-                    if (item.ammo == AmmoID.Bullet)
-                    {
-                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert  && item.rare != ItemRarityID.Master)
-                        {
-                            SoAGlobalItem.preHardmodeBullets.Add(type);
-                        }
-                        else if (item.rare < ItemRarityID.Cyan)
-                        {
-                            SoAGlobalItem.hardmodeBullets.Add(type);
-                        }
-                        else if (item.rare >= ItemRarityID.Cyan)
-                        {
-                            SoAGlobalItem.postMoonLordBullets.Add(type);
-                        }
-                    }
-                    if (item.ammo == AmmoID.Rocket)
-                    {
-                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert  && item.rare != ItemRarityID.Master)
-                        {
-                            SoAGlobalItem.preHardmodeRockets.Add(type);
-                        }
-                        else if (item.rare < ItemRarityID.Cyan)
-                        {
-                            SoAGlobalItem.hardmodeRockets.Add(type);
-                        }
-                        else if (item.rare >= ItemRarityID.Cyan)
-                        {
-                            SoAGlobalItem.postMoonLordRockets.Add(type);
-                        }
-                    }
-                }
-            }
-            #endregion
 
             #region Mod calls
             if (ModLoader.TryGetMod("Census", out Mod foundMod))
@@ -173,11 +102,11 @@ namespace ShardsOfAtheria
         {
             if (id == 0)
             {
-                return Language.GetTextValue("Mods.ShardsOfAtheria.General.TitleText" + (Main.rand.Next(2) + 1));
+                return Language.GetTextValue("Mods.ShardsOfAtheria.Common.TitleText" + (Main.rand.Next(2) + 1));
             }
             else
             {
-                return Language.GetTextValue("Mods.ShardsOfAtheria.General.TitleText"  + id);
+                return Language.GetTextValue("Mods.ShardsOfAtheria.Common.TitleText"  + id);
             }
         }
     }

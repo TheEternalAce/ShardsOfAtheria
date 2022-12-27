@@ -1,9 +1,8 @@
-using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Projectiles.Weapon.Areus;
+using ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSword;
+using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,6 +17,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             SoAGlobalItem.AreusWeapon.Add(Type);
             WeaponElements.ElectricWeapon.Add(Type);
             SoAGlobalItem.UpgradeableItem.Add(Type);
+            SoAGlobalItem.Eraser.Add(Type);
         }
 
         public override void SetDefaults()
@@ -33,25 +33,23 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.UseSound = SoundID.Item1;
+            Item.noMelee = true;
+            Item.noUseGraphic = true;
 
-            Item.shootSpeed = 10;
+            Item.shootSpeed = 1f;
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 4, 25);
-            Item.shoot = ModContent.ProjectileType<ElectricBlade>();
+            Item.shoot = ModContent.ProjectileType<AreusSwordProj>();
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 20)
+                .AddRecipeGroup(ShardsRecipes.Gold, 8)
                 .AddIngredient(ItemID.FragmentVortex, 20)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
-        }
-
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(ModContent.BuffType<ElectricShock>(), player.HasBuff(ModContent.BuffType<Conductive>()) ? 1200 : 600);
         }
     }
 }

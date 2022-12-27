@@ -102,15 +102,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
             return GenericSwing2(progress);
         }
 
-        public override float GetScale(float progress)
-        {
-            float scale = base.GetScale(progress);
-            if (progress > 0.4f && progress < 0.6f)
-            {
-                return scale + 0.7f * ShardsHelpers.Wave(SwingProgress((progress - 0.4f) / 0.2f), 0f, 1f);
-            }
-            return scale;
-        }
         public override float GetVisualOuter(float progress, float swingProgress)
         {
             if (progress > 0.8f)

@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Utilities;
+﻿using ShardsOfAtheria.Config;
+using ShardsOfAtheria.Utilities;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -22,7 +23,7 @@ namespace ShardsOfAtheria.Globals.Elements
 
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
-            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
             {
                 double modifier = 1.0;
                 if (WeaponElements.FireWeapon.Contains(item.type))
@@ -49,7 +50,7 @@ namespace ShardsOfAtheria.Globals.Elements
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
             {
                 double modifier = 1.0;
                 if (ProjectileElements.FireProj.Contains(projectile.type))
@@ -77,7 +78,7 @@ namespace ShardsOfAtheria.Globals.Elements
         public override void SetDefaults(NPC npc)
         {
             int type = npc.type;
-            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
             {
                 switch (type)
                 {

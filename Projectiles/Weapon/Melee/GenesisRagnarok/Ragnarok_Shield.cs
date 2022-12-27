@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Cooldowns;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using System;
@@ -74,32 +75,35 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                 Projectile reflProjectile = Main.projectile[i];
                 if (hitbox.Intersects(reflProjectile.getRect()))
                 {
-                    if (reflProjectile.active && reflProjectile.velocity != Vector2.Zero && reflProjectile.hostile)
+                    if (SoAGlobalProjectile.ReflectAiList.Contains(reflProjectile.type))
                     {
-                        float damage = reflProjectile.damage;
-                        int penetrate = reflProjectile.penetrate;
-                        Vector2 velocity = -reflProjectile.velocity;
-                        int extraUpdates = reflProjectile.extraUpdates;
-                        float knockback = reflProjectile.knockBack;
-
-                        Vector2 dir = Main.MouseWorld - reflProjectile.position;
-                        dir.Normalize();
-                        dir *= (Math.Abs(reflProjectile.velocity.X) + Math.Abs(reflProjectile.velocity.Y));
-                        velocity = dir;
-                        if (reflProjectile.hostile)
+                        if (reflProjectile.active && reflProjectile.velocity != Vector2.Zero && reflProjectile.hostile)
                         {
-                            SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, Projectile.Center);
-                            SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, Projectile.Center);
-                            reflProjectile.hostile = false;
-                            reflProjectile.friendly = true;
-                            reflProjectile.damage = (int)damage;
-                            reflProjectile.penetrate = penetrate;
-                            reflProjectile.velocity = velocity;
-                            reflProjectile.extraUpdates = extraUpdates;
-                            reflProjectile.knockBack = knockback;
+                            float damage = reflProjectile.damage;
+                            int penetrate = reflProjectile.penetrate;
+                            Vector2 velocity = -reflProjectile.velocity;
+                            int extraUpdates = reflProjectile.extraUpdates;
+                            float knockback = reflProjectile.knockBack;
 
-                            player.immune = true;
-                            player.immuneTime = 60;
+                            Vector2 dir = Main.MouseWorld - reflProjectile.position;
+                            dir.Normalize();
+                            dir *= (Math.Abs(reflProjectile.velocity.X) + Math.Abs(reflProjectile.velocity.Y));
+                            velocity = dir;
+                            if (reflProjectile.hostile)
+                            {
+                                SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, Projectile.Center);
+                                SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, Projectile.Center);
+                                reflProjectile.hostile = false;
+                                reflProjectile.friendly = true;
+                                reflProjectile.damage = (int)damage;
+                                reflProjectile.penetrate = penetrate;
+                                reflProjectile.velocity = velocity;
+                                reflProjectile.extraUpdates = extraUpdates;
+                                reflProjectile.knockBack = knockback;
+
+                                player.immune = true;
+                                player.immuneTime = 60;
+                            }
                         }
                     }
                 }

@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "Blood", $"{Language.GetTextValue("Mods.ShardsOfAtheria.General.AbsorbedBlood")} {blood}"));
+            tooltips.Add(new TooltipLine(Mod, "Blood", $"{Language.GetTextValue("Mods.ShardsOfAtheria.Common.AbsorbedBlood")} {blood}"));
         }
 
         public override void SetDefaults()
@@ -90,11 +90,11 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 Item.noUseGraphic = false;
                 if (player.HasBuff(ModContent.BuffType<ShadeState>()))
                 {
-                    CombatText.NewText(player.getRect(), Color.DarkGray, Language.GetTextValue("Mods.ShardsOfAtheria.General.ShadeStateActive"));
+                    CombatText.NewText(player.getRect(), Color.DarkGray, Language.GetTextValue("Mods.ShardsOfAtheria.Common.ShadeStateActive"));
                 }
                 else if (blood < BloodCost)
                 {
-                    CombatText.NewText(player.getRect(), Color.Red, Language.GetTextValue("Mods.ShardsOfAtheria.General.InsufficientBlood"));
+                    CombatText.NewText(player.getRect(), Color.Red, Language.GetTextValue("Mods.ShardsOfAtheria.Common.InsufficientBlood"));
                 }
                 else
                 {

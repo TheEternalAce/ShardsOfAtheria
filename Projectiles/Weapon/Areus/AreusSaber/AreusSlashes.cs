@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Globals.Elements;
 using Terraria;
 using Terraria.Audio;
@@ -15,6 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber
         {
             Main.projFrames[Type] = 4;
             ProjectileElements.AreusProj.Add(Type);
+            SoAGlobalProjectile.Eraser.Add(Type);
         }
 
         public override void SetDefaults()

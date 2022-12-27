@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -50,7 +50,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "Overdrive", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.General.OverdriveInfo"),
+            tooltips.Add(new TooltipLine(Mod, "Overdrive", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.OverdriveInfo"),
                     ShardsOfAtheria.OverdriveKey.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.OverdriveKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
         }
 
@@ -82,7 +82,7 @@ namespace ShardsOfAtheria.Items.Accessories
             if (!player.HasBuff(ModContent.BuffType<Megamerged>()))
             {
                 player.AddBuff(ModContent.BuffType<Megamerged>(), 60);
-                if (ModContent.GetInstance<ShardsConfigClientSide>().biometalSound)
+                if (ModContent.GetInstance<ShardsClientSideConfig>().biometalSound)
                 {
                     if (player.Male)
                         SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/MegamergeMale"));
@@ -150,7 +150,7 @@ namespace ShardsOfAtheria.Items.Accessories
             if (!player.HasBuff(ModContent.BuffType<Megamerged>()))
             {
                 player.AddBuff(ModContent.BuffType<Megamerged>(), 60);
-                if (ModContent.GetInstance<ShardsConfigClientSide>().biometalSound)
+                if (ModContent.GetInstance<ShardsClientSideConfig>().biometalSound)
                 {
                     if (player.Male)
                         SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/MegamergeMale"));

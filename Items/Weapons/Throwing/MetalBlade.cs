@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Projectiles.Weapon.Throwing;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Throwing
             Item.useTime = 30;
             Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.UseSound = ModContent.GetInstance<ShardsConfigServerSide>().metalBladeSound ? new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/MetalBlade") : SoundID.Item1;
+            Item.UseSound = ModContent.GetInstance<ShardsServerSideConfig>().metalBladeSound ? new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/MetalBlade") : SoundID.Item1;
             Item.noMelee = true;
             Item.noUseGraphic = true;
 

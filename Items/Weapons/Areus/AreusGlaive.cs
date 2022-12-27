@@ -3,6 +3,7 @@ using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive;
+using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -49,6 +50,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 16)
+                .AddRecipeGroup(ShardsRecipes.Gold, 6)
                 .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 10)
                 .AddTile(TileID.Hellforge)
                 .Register();

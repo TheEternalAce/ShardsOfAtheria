@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff;
 using Terraria;
 using Terraria.ID;
@@ -59,6 +60,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                     obj4.velocity *= 2f;
                     obj4.velocity += Projectile.localAI[0].ToRotationVector2();
                     obj4.fadeIn = 1.5f;
+                }
+                if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5 && Main.rand.NextBool(10))
+                {
+                    Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize(Main.MouseWorld - Projectile.Center) * 5,
+                        ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                    proj.DamageType = DamageClass.Melee;
                 }
             }
 

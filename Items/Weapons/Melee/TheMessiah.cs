@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah;
 using Terraria;
@@ -38,6 +39,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             SacrificeTotal = 1;
             WeaponElements.FireWeapon.Add(Type);
+            SoAGlobalItem.Eraser.Add(Type);
         }
 
         public override void SetDefaults()
@@ -76,7 +78,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             if (charge == 199)
             {
                 SoundEngine.PlaySound(SoundID.MaxMana);
-                CombatText.NewText(player.getRect(), Color.SkyBlue, Language.GetTextValue("Mods.ShardsOfAtheria.General.FullCharge"));
+                CombatText.NewText(player.getRect(), Color.SkyBlue, Language.GetTextValue("Mods.ShardsOfAtheria.Common.FullCharge"));
             }
         }
 

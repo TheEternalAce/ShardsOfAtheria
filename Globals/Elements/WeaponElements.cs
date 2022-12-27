@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Utilities;
+using ShardsOfAtheria.Config;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -20,32 +20,32 @@ namespace ShardsOfAtheria.Globals.Elements
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
             int type = item.type;
-            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
             {
                 if (FireWeapon.Contains(type))
                 {
-                    tooltips.Add(new TooltipLine(Mod, "Element", Language.GetTextValue("Mods.ShardsOfAtheria.General.ElementFire"))
+                    tooltips.Add(new TooltipLine(Mod, "Element", Language.GetTextValue("Mods.ShardsOfAtheria.Common.ElementFire"))
                     {
                         OverrideColor = Color.Firebrick
                     });
                 }
                 if (IceWeapon.Contains(type))
                 {
-                    tooltips.Add(new TooltipLine(Mod, "Element", Language.GetTextValue("Mods.ShardsOfAtheria.General.ElementIce"))
+                    tooltips.Add(new TooltipLine(Mod, "Element", Language.GetTextValue("Mods.ShardsOfAtheria.Common.ElementIce"))
                     {
                         OverrideColor = Color.LightSkyBlue
                     });
                 }
                 if (ElectricWeapon.Contains(type))
                 {
-                    tooltips.Add(new TooltipLine(Mod, "Element", Language.GetTextValue("Mods.ShardsOfAtheria.General.ElementElectric"))
+                    tooltips.Add(new TooltipLine(Mod, "Element", Language.GetTextValue("Mods.ShardsOfAtheria.Common.ElementElectric"))
                     {
                         OverrideColor = Color.Cyan
                     });
                 }
                 if (MetalWeapon.Contains(type))
                 {
-                    tooltips.Add(new TooltipLine(Mod, "Element", Language.GetTextValue("Mods.ShardsOfAtheria.General.ElementMetal"))
+                    tooltips.Add(new TooltipLine(Mod, "Element", Language.GetTextValue("Mods.ShardsOfAtheria.Common.ElementMetal"))
                     {
                         OverrideColor = Color.Gray
                     });
@@ -56,7 +56,7 @@ namespace ShardsOfAtheria.Globals.Elements
         public override void SetDefaults(Item item)
         {
             int type = item.type;
-            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
             {
                 switch (type)
                 {

@@ -1,11 +1,11 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Cooldowns;
+using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Bases;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -47,7 +47,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
             target.AddBuff(BuffID.OnFire, 600);
-            target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
         }
 
         public override bool AltFunctionUse(Player player)
@@ -63,7 +62,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 string[] insult = { "How did you manage that? Dumbass.", "Good job idiot, you fatally cut yourself. ", "How could you be so stupid?" };
                 int i = Main.rand.Next(insult.Length);
                 string dying = $"{player.name} cut {(player.Male ? "himself" : " herself")}";
-                string die = ModContent.GetInstance<ShardsConfigServerSide>().insult ? insult[i] + " (" + dying + ")" : dying;
+                string die = ModContent.GetInstance<ShardsServerSideConfig>().insult ? insult[i] + " (" + dying + ")" : dying;
                 player.Hurt(PlayerDeathReason.ByCustomReason(die), 100, player.direction);
                 player.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
                 player.AddBuff(ModContent.BuffType<YamikoDashCooldown>(), 600);

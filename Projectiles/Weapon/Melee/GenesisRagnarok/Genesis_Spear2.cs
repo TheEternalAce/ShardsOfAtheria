@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff;
 using System;
 using Terraria;
@@ -60,7 +61,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             player.ChangeDir(newDirection);
             Projectile.direction = newDirection;
 
-            Projectile.rotation += 0.4f * (float)Projectile.direction;
+            Projectile.rotation += 0.4f * Projectile.direction;
 
             Projectile.ai[1]++;
             if (Projectile.ai[1] == 10)
@@ -73,8 +74,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                     {
                         for (int i = 0; i < 6; i++)
                         {
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize((Projectile.position + Projectile.velocity) - Projectile.Center).RotatedBy(MathHelper.ToRadians(60 * i)) * 16,
-                                ModContent.ProjectileType<IceShard>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                            Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize(Projectile.position + Projectile.velocity - Projectile.Center)
+                                .RotatedBy(MathHelper.ToRadians(60 * i)) * 5, ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                            proj.DamageType = DamageClass.Melee;
                         }
                     }
                 }
@@ -95,7 +97,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                 {
                     for (int num72 = 0; num72 < 2; num72++)
                     {
-                        Dust obj4 = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5 ? DustID.Torch : DustID.Frost, 0f, 0f, 100, default,
+                        Dust obj4 = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5 ? DustID.Torch : DustID.Electric, 0f, 0f, 100, default,
                             (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5 ? 2f : .5f)];
                         obj4.noGravity = true;
                         obj4.velocity *= 2f;

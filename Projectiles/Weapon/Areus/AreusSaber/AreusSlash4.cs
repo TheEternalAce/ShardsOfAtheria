@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Globals.Elements;
-using ShardsOfAtheria.Items.Potions;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber
@@ -13,6 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber
         public override void SetStaticDefaults()
         {
             ProjectileElements.AreusProj.Add(Type);
+            SoAGlobalProjectile.Eraser.Add(Type);
         }
 
         public override void SetDefaults()

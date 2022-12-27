@@ -34,23 +34,23 @@ namespace ShardsOfAtheria.Items.Accessories
         {
             SlayerPlayer slayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
 
-            tooltips.Add(new TooltipLine(Mod, "Tooltip", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.General.TomeOfOmniscience"),
+            tooltips.Add(new TooltipLine(Mod, "Tooltip", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TomeOfOmniscience"),
                     ShardsOfAtheria.TomeKey.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.TomeKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
 
             var line = new TooltipLine(Mod, "Verbose:RemoveMe", "This tooltip won't show in-game");
 
             if (slayer.TomeKnowledge == 0)
-                line = new TooltipLine(Mod, "CurrentKnowledgeBase", Language.GetTextValue("Mods.ShardsOfAtheria.General.Combat"))
+                line = new TooltipLine(Mod, "CurrentKnowledgeBase", Language.GetTextValue("Mods.ShardsOfAtheria.Common.Combat"))
                 {
                     OverrideColor = Color.Red
                 };
             if (slayer.TomeKnowledge == 1)
-                line = new TooltipLine(Mod, "CurrentKnowledgeBase", Language.GetTextValue("Mods.ShardsOfAtheria.General.Conservation"))
+                line = new TooltipLine(Mod, "CurrentKnowledgeBase", Language.GetTextValue("Mods.ShardsOfAtheria.Common.Conservation"))
                 {
                     OverrideColor = Color.Green
                 };
             if (slayer.TomeKnowledge == 2)
-                line = new TooltipLine(Mod, "CurrentKnowledgeBase", Language.GetTextValue("Mods.ShardsOfAtheria.General.Exploration"))
+                line = new TooltipLine(Mod, "CurrentKnowledgeBase", Language.GetTextValue("Mods.ShardsOfAtheria.Common.Exploration"))
                 {
                     OverrideColor = Color.Blue
                 };

@@ -224,7 +224,7 @@ namespace ShardsOfAtheria.Utilities
                     {
                         item = player.inventory[player.FindItem(materials[i].item.type)];
                     }
-                    insufficient += Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial", i++, materials[i].item.Name, materials[i].item.type,
+                    insufficient += Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial", i, materials[i].item.Name, materials[i].item.type,
                         materials[i].requiredStack, item == null ? 0 : item.stack) + "\n";
                     Main.npcChatText = insufficient;
                 }

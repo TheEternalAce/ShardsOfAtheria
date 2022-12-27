@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.Bases;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Chat;
 using Terraria.ID;
@@ -92,7 +92,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
                 }
                 int newItem = Item.NewItem(Item.GetSource_DropAsItem(), player.getRect(), weapon);
                 Main.item[newItem].noGrabDelay = 0; // Set the new item to be able to be picked up instantly
-                if (ModContent.GetInstance<ShardsConfigClientSide>().sinfulArmamentText)
+                if (ModContent.GetInstance<ShardsClientSideConfig>().sinfulArmamentText)
                 {
                     ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(text), color, player.whoAmI);
                 }

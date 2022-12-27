@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using Terraria;
@@ -17,6 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
         {
             Main.projFrames[Type] = 4;
             ProjectileElements.FireProj.Add(Type);
+            SoAGlobalProjectile.Eraser.Add(Type);
         }
 
         public override void SetDefaults()

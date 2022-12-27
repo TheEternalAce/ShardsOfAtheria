@@ -3,6 +3,7 @@ using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
+using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -45,9 +46,9 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<AreusShard>(), 7)
+                .AddIngredient(ModContent.ItemType<AreusShard>(), 16)
+                .AddRecipeGroup(ShardsRecipes.Gold, 6)
                 .AddIngredient(ModContent.ItemType<SoulOfTwilight>(), 10)
-                .AddIngredient(ItemID.HellstoneBar, 10)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

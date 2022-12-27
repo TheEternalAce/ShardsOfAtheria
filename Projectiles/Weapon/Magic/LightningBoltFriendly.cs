@@ -65,7 +65,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
                 }
 
                 if (crit)
+                {
                     CallStorm(1, 5);
+                }
             }
             Projectile.damage = (int)(Projectile.damage * 0.9f);
         }

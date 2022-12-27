@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel;
 using Terraria.ModLoader.Config;
 
-namespace ShardsOfAtheria.Utilities
+namespace ShardsOfAtheria.Config
 {
     [BackgroundColor(164, 153, 190)]
     [Label("Server Side")]
-    public class ShardsConfigServerSide : ModConfig
+    public class ShardsServerSideConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
@@ -41,6 +41,11 @@ namespace ShardsOfAtheria.Utilities
         [Tooltip("Enable to allow the atherian to upgrade items even while in Slayer mode")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option.
         [DefaultValue(false)]
         public bool cluelessNPCs;
+
+        [Label("[i:1] Directional Weapons*")] // A label is the text displayed next to the option. This should usually be a short description of what it does.
+        [Tooltip("Enable to make weapons without projectiles used in the horizontal direction of the cursor")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option.
+        [DefaultValue(true)]
+        public bool betterWeapon;
 
         [Label("[i:893] Experimental Features")]
         [Tooltip("Enables experimental/work in progress features")]

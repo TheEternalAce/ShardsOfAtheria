@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Systems;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -48,6 +49,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 15)
+                .AddRecipeGroup(ShardsRecipes.Gold, 4)
                 .AddIngredient(ItemID.FragmentVortex, 10)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
@@ -98,11 +100,11 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                     fireMode = 0;
 
                 if (fireMode == 0)
-                    CombatText.NewText(player.Hitbox, Color.White, Language.GetTextValue("Mods.ShardsOfAtheria.General.FiringMode1"));
+                    CombatText.NewText(player.Hitbox, Color.White, Language.GetTextValue("Mods.ShardsOfAtheria.Common.FiringMode1"));
                 if (fireMode == 1)
-                    CombatText.NewText(player.Hitbox, Color.White, Language.GetTextValue("Mods.ShardsOfAtheria.General.FiringMode2"));
+                    CombatText.NewText(player.Hitbox, Color.White, Language.GetTextValue("Mods.ShardsOfAtheria.Common.FiringMode2"));
                 if (fireMode == 2)
-                    CombatText.NewText(player.Hitbox, Color.White, Language.GetTextValue("Mods.ShardsOfAtheria.General.FiringMode3"));
+                    CombatText.NewText(player.Hitbox, Color.White, Language.GetTextValue("Mods.ShardsOfAtheria.Common.FiringMode3"));
             }
             else
             {
@@ -140,11 +142,11 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             if (fireMode == 0)
-                tooltips.Add(new TooltipLine(Mod, "Fire mode", Language.GetTextValue("Mods.ShardsOfAtheria.General.FiringMode1")));
+                tooltips.Add(new TooltipLine(Mod, "Fire mode", Language.GetTextValue("Mods.ShardsOfAtheria.Common.FiringMode1")));
             if (fireMode == 1)
-                tooltips.Add(new TooltipLine(Mod, "Fire mode", Language.GetTextValue("Mods.ShardsOfAtheria.General.FiringMode2")));
+                tooltips.Add(new TooltipLine(Mod, "Fire mode", Language.GetTextValue("Mods.ShardsOfAtheria.Common.FiringMode2")));
             if (fireMode == 2)
-                tooltips.Add(new TooltipLine(Mod, "Fire mode", Language.GetTextValue("Mods.ShardsOfAtheria.General.FiringMode3")));
+                tooltips.Add(new TooltipLine(Mod, "Fire mode", Language.GetTextValue("Mods.ShardsOfAtheria.Common.FiringMode3")));
             base.ModifyTooltips(tooltips);
         }
     }

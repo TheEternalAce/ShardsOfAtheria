@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff;
+using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Accessories;
@@ -78,9 +80,9 @@ namespace ShardsOfAtheria.Players
         public int overdriveTimeMax2;
         internal int overdriveTimeRegenTimer = 0;
 
-        #region Player elemental effectiveness
         public double[] elementMultiplier = { 1.0, 1.0, 1.0, 1.0 };
-        #endregion
+
+        public int readingDisk = 0;
 
         public override void ResetEffects()
         {
@@ -293,6 +295,10 @@ namespace ShardsOfAtheria.Players
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
+            if (Main.keyState.IsKeyDown(Keys.Escape))
+            {
+                readingDisk = 0;
+            }
             if (ShardsOfAtheria.ArmorSetBonusActive.JustReleased && !Player.HasBuff(ModContent.BuffType<SetBonusCooldown>()))
             {
                 if (pearlwoodSet && !Player.mouseInterface)
@@ -514,7 +520,7 @@ namespace ShardsOfAtheria.Players
         #region Elemental Effectiveness
         public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
         {
-            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
             {
                 double modifier = 1.0;
                 if (NPCElements.FireNPC.Contains(npc.type))
@@ -541,7 +547,7 @@ namespace ShardsOfAtheria.Players
 
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         {
-            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
             {
                 double modifier = 1.0;
                 if (ProjectileElements.FireProj.Contains(proj.type))
@@ -567,7 +573,7 @@ namespace ShardsOfAtheria.Players
 
         public override void ModifyHitPvp(Item item, Player target, ref int damage, ref bool crit)
         {
-            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
             {
                 double modifier = 1.0;
                 if (WeaponElements.FireWeapon.Contains(item.type))
@@ -593,7 +599,7 @@ namespace ShardsOfAtheria.Players
 
         public override void ModifyHitPvpWithProj(Projectile proj, Player target, ref int damage, ref bool crit)
         {
-            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
             {
                 double modifier = 1.0;
                 if (ProjectileElements.FireProj.Contains(proj.type))

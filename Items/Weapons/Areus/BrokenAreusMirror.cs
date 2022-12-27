@@ -5,6 +5,7 @@ using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Minions;
+using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -94,6 +95,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 16)
+                .AddRecipeGroup(ShardsRecipes.Gold, 6)
                 .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10)
                 .AddTile(TileID.Anvils)
                 .Register();

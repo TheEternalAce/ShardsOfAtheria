@@ -1,6 +1,6 @@
 ﻿using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Globals.Elements
         {
             int type = proj.type;
 
-            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
             {
                 switch (type)
                 {
@@ -199,7 +199,7 @@ namespace ShardsOfAtheria.Globals.Elements
 
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
         {
-            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental && Main.rand.NextBool(3))
+            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental && Main.rand.NextBool(3))
             {
                 int buffTime = 600;
                 if (Main.hardMode)
@@ -245,7 +245,7 @@ namespace ShardsOfAtheria.Globals.Elements
 
         public override void OnHitPlayer(Projectile projectile, Player target, int damage, bool crit)
         {
-            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental && Main.rand.NextBool(3))
+            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental && Main.rand.NextBool(3))
             {
                 int buffTime = 600;
                 if (Main.hardMode)
@@ -292,7 +292,7 @@ namespace ShardsOfAtheria.Globals.Elements
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
             int type = projectile.type;
-            if (ModContent.GetInstance<ShardsConfigServerSide>().experimental)
+            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
             {
                 if (Main.player[projectile.owner].HasBuff(ModContent.BuffType<Conductive>()) || Main.npc[projectile.owner].HasBuff(ModContent.BuffType<Conductive>()))
                 {

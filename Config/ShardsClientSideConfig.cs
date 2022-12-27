@@ -1,11 +1,8 @@
-﻿using System.ComponentModel;
-using Terraria.ModLoader.Config;
-
-namespace ShardsOfAtheria.Utilities
+﻿namespace ShardsOfAtheria.Config
 {
     [BackgroundColor(164, 153, 190)]
     [Label("Client Side")]
-    public class ShardsConfigClientSide : ModConfig
+    public class ShardsClientSideConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
 
@@ -29,6 +26,12 @@ namespace ShardsOfAtheria.Utilities
         [Tooltip("Toggles the sound played when Reactor Meltdown is spinning")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option.
         [DefaultValue(true)]
         public bool reactorBeep;
+
+        [Header("[i:3617] UI")]
+        [Label("[i:3617] Tablet Position")] // A label is the text displayed next to the option. This should usually be a short description of what it does.
+        [Tooltip("Move the lore tablet")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option.
+        [ReloadRequired()]
+        public Vector2 loreTabletOffset;
 
         [Header("[i:1344] Misc")]
         [Label("[i:3617] Sinful Armament dialogue")] // A label is the text displayed next to the option. This should usually be a short description of what it does.

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
+using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.SoulCrystals;
@@ -9,7 +10,6 @@ using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
-using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -36,6 +36,10 @@ namespace ShardsOfAtheria.Globals
         /// Same as AreusWeapon list, but doesn't add to ElectricWeapon list
         /// </summary>
         public static List<int> DarkAreusWeapon = new();
+        /// <summary>
+        /// A list of weapons that can erase projectiles
+        /// </summary>
+        public static List<int> Eraser = new List<int>();
         #endregion
 
         #region Ammo lists for Ammo Bags
@@ -58,7 +62,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void SetDefaults(Item item)
         {
-            ShardsConfigServerSide serverConfig = ModContent.GetInstance<ShardsConfigServerSide>();
+            ShardsServerSideConfig serverConfig = ModContent.GetInstance<ShardsServerSideConfig>();
             switch (item.type)
             {
                 case ItemID.SilverBullet:
@@ -159,6 +163,10 @@ namespace ShardsOfAtheria.Globals
                     break;
                     #endregion
             }
+            if (ModContent.GetInstance<ShardsServerSideConfig>().betterWeapon && item.damage > 0)
+            {
+                item.useTurn = false;
+            }
         }
 
         public override void UpdateArmorSet(Player player, string set)
@@ -197,7 +205,7 @@ namespace ShardsOfAtheria.Globals
         {
             if (SlayerItem.Contains(item.type))
             {
-                var line = new TooltipLine(Mod, "SlayerItem", Language.GetTextValue("Mods.ShardsOfAtheria.General.SlayerItem"))
+                var line = new TooltipLine(Mod, "SlayerItem", Language.GetTextValue("Mods.ShardsOfAtheria.Common.SlayerItem"))
                 {
                     OverrideColor = Color.Red
                 };
@@ -205,7 +213,12 @@ namespace ShardsOfAtheria.Globals
             }
             if (UpgradeableItem.Contains(item.type))
             {
-                var line = new TooltipLine(Mod, "UpgradeItem", Language.GetTextValue("Mods.ShardsOfAtheria.General.UpgradeableItem"));
+                var line = new TooltipLine(Mod, "UpgradeItem", Language.GetTextValue("Mods.ShardsOfAtheria.Common.UpgradeableItem"));
+                tooltips.Add(line);
+            }
+            if (Eraser.Contains(item.type))
+            {
+                var line = new TooltipLine(Mod, "Eraser", Language.GetTextValue("Mods.ShardsOfAtheria.Common.Eraser"));
                 tooltips.Add(line);
             }
         }
@@ -298,6 +311,15 @@ namespace ShardsOfAtheria.Globals
                 return false;
             }
             return base.CanUseItem(item, player);
+        }
+
+        public override bool? UseItem(Item item, Player player)
+        {
+            if (ModContent.GetInstance<ShardsServerSideConfig>().betterWeapon && item.shoot == ProjectileID.None)
+            {
+                player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
+            }
+            return base.UseItem(item, player);
         }
 
         public override bool ConsumeItem(Item item, Player player)

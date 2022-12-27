@@ -5,6 +5,7 @@ using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
+using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -48,6 +49,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 17)
+                .AddRecipeGroup(ShardsRecipes.Gold, 6)
                 .AddIngredient(ItemID.SoulofFlight, 10)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();

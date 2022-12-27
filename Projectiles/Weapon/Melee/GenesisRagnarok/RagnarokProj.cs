@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff;
 using Terraria;
 using Terraria.Audio;
@@ -77,6 +78,16 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                         obj4.velocity *= 2f;
                         obj4.velocity += Projectile.localAI[0].ToRotationVector2();
                         obj4.fadeIn = 1.5f;
+                    }
+                }
+
+                if (genesisAndRagnarok.upgrades == 5)
+                {
+                    for (int i = 0; i < 6; i++)
+                    {
+                        Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize(Projectile.position + Projectile.velocity - Projectile.Center)
+                            .RotatedBy(MathHelper.ToRadians(60 * i)) * 5, ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                        proj.DamageType = DamageClass.Melee;
                     }
                 }
 
