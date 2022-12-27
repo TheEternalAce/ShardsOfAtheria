@@ -5,6 +5,7 @@ using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Systems;
 using System;
 using Terraria;
 using Terraria.Audio;

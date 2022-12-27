@@ -1,11 +1,11 @@
 ﻿using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Utilities;
+using ShardsOfAtheria.Systems;
 using System;
 using Terraria;
 using Terraria.ModLoader;
 namespace ShardsOfAtheria.Commands
 {
-	class GenericCommand : ModCommand
+    class GenericCommand : ModCommand
 	{
 		public override CommandType Type
 			=> CommandType.Chat;

@@ -11,6 +11,7 @@ using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSword;
+using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using ShopQuotesMod;
 using System.Collections.Generic;

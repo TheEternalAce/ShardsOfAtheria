@@ -17,6 +17,7 @@ using ShardsOfAtheria.Items.Weapons.Throwing;
 using ShardsOfAtheria.NPCs.Town;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
+using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;

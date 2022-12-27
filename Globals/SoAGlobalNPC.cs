@@ -19,7 +19,7 @@ using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
-using ShardsOfAtheria.Utilities;
+using ShardsOfAtheria.Systems;
 using System;
 using Terraria;
 using Terraria.Chat;

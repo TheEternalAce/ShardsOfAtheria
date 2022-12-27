@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Utilities;
+using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.Chat;
 using Terraria.Localization;
@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Commands
 {
-	class ResetDefeated : ModCommand
+    class ResetDefeated : ModCommand
 	{
 		public override CommandType Type
 			=> CommandType.Chat;

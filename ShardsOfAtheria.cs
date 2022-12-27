@@ -7,7 +7,7 @@ using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon.Minion;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using ShardsOfAtheria.NPCs.Town;
-using ShardsOfAtheria.Utilities;
+using ShardsOfAtheria.Systems;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;

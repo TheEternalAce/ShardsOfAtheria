@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;

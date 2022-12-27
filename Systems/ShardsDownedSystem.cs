@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace ShardsOfAtheria.Utilities
+namespace ShardsOfAtheria.Systems
 {
     public class ShardsDownedSystem : ModSystem
     {
