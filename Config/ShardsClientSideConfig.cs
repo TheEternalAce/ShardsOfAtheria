@@ -1,4 +1,8 @@
-﻿namespace ShardsOfAtheria.Config
+﻿using Microsoft.Xna.Framework;
+using System.ComponentModel;
+using Terraria.ModLoader.Config;
+
+namespace ShardsOfAtheria.Config
 {
     [BackgroundColor(164, 153, 190)]
     [Label("Client Side")]
