@@ -37,17 +37,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
         public override void AI()
         {
             Projectile.spriteDirection = Projectile.direction = (Projectile.velocity.X > 0).ToDirectionInt();
-            if (Projectile.velocity != Vector2.Zero)
-            {
-                if (Projectile.direction == 1)
-                {
-                    Projectile.rotation -= 1f;
-                }
-                else
-                {
-                    Projectile.rotation += 1f;
-                }
-            }
+            Projectile.rotation += 0.2f * Projectile.direction;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

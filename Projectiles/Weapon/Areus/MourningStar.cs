@@ -89,7 +89,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
                     if (mourningStar.blood >= TheMourningStar.BloodProjCost)
                     {
                         Vector2 position = Projectile.Center;
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, AngleVector * Projectile.velocity.Length() * 16,
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, AngleVector * Projectile.velocity.Length() * 16f,
                             ModContent.ProjectileType<BloodCutter>(), (int)(Projectile.damage * 0.75), (int)(Projectile.knockBack * 0.75), player.whoAmI);
                         mourningStar.blood -= TheMourningStar.BloodProjCost;
                     }

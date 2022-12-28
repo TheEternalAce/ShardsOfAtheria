@@ -96,7 +96,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                         float numberProjectiles = 3;
                         float shardRotation = MathHelper.ToRadians(15);
                         Vector2 position = Projectile.position;
-                        Vector2 velocity = AngleVector * Projectile.velocity.Length() * 16;
+                        Vector2 velocity = AngleVector * Projectile.velocity.Length() * 16f;
                         for (int i = 0; i < numberProjectiles; i++)
                         {
                             Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-shardRotation, shardRotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
