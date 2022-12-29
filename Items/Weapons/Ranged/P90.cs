@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 			Item.width = 50;
 			Item.height = 20;
 
-			Item.damage = 30;
+			Item.damage = 46;
 			Item.DamageType = DamageClass.Ranged;
 			Item.knockBack = .1f;
 			Item.crit = 5;
