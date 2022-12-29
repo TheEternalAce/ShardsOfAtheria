@@ -5,7 +5,7 @@ namespace ShardsOfAtheria.Config
 {
     [BackgroundColor(164, 153, 190)]
     [Label("Server Side")]
-    public class ShardsServerSideConfig : ModConfig
+    public class ShardsServerConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
@@ -46,6 +46,17 @@ namespace ShardsOfAtheria.Config
         [Tooltip("Enable to make weapons without projectiles used in the horizontal direction of the cursor")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option.
         [DefaultValue(true)]
         public bool betterWeapon;
+
+        [Label("[i:46] Aggression")] // A label is the text displayed next to the option. This should usually be a short description of what it does.
+        [Tooltip("Damage, speed and aggro increases as you damage enemies")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option.
+        [DefaultValue(true)]
+        public bool aggression;
+
+        [Label("[i:3998] Aggression DR")] // A label is the text displayed next to the option. This should usually be a short description of what it does.
+        [Tooltip("Defense decreases by amount as you damage enemies\n" +
+            "Set to 0 to disable")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option.
+        [DefaultValue(1)]
+        public int aggressionDR;
 
         [Label("[i:893] Experimental Features")]
         [Tooltip("Enables experimental/work in progress features")]

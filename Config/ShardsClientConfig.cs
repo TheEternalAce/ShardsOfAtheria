@@ -6,7 +6,7 @@ namespace ShardsOfAtheria.Config
 {
     [BackgroundColor(164, 153, 190)]
     [Label("Client Side")]
-    public class ShardsClientSideConfig : ModConfig
+    public class ShardsClientConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
 
