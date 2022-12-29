@@ -106,6 +106,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
             if (Projectile.ai[0] == 1f)
             {
                 Projectile.ai[0] = 5f;
+                Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+                SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             }
             return base.OnTileCollide(oldVelocity);
         }

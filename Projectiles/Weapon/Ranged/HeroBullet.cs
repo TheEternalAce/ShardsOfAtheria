@@ -1,5 +1,7 @@
-﻿using ShardsOfAtheria.Globals.Elements;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals.Elements;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -28,6 +30,13 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             Projectile.extraUpdates = 1; // Set to above 0 if you want the projectile to update multiple time in a frame
 
             AIType = ProjectileID.Bullet; // Act exactly like default Bullet
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            return base.OnTileCollide(oldVelocity);
         }
     }
 }
