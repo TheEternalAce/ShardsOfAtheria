@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.Items.BossSummons
         {
             Item.width = 32;
             Item.height = 32;
-            if (!ModContent.GetInstance<ShardsServerSideConfig>().nonConsumeBoss)
+            if (!ModContent.GetInstance<ShardsServerConfig>().nonConsumeBoss)
             {
                 Item.consumable = true;
             }
