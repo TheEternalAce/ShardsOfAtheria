@@ -40,21 +40,6 @@ namespace ShardsOfAtheria.Buffs.PlayerDebuff
 
     public class MaddenedPlayer : ModPlayer
     {
-        public int madness;
-
-        public override void PostUpdate()
-        {
-            if (Player.HasBuff(ModContent.BuffType<Madness>()))
-            {
-                if (++madness >= 1800)
-                {
-                    //CombatText.NewText(Player.getRect(), Color.Purple, $"{GetMadnessText()}");
-                    madness = 0;
-                }
-            }
-            else madness = 0;
-        }
-
         public override void UpdateBadLifeRegen()
         {
             if (Player.HasBuff(ModContent.BuffType<Madness>()))
@@ -66,16 +51,6 @@ namespace ShardsOfAtheria.Buffs.PlayerDebuff
                 Player.lifeRegenTime = 0;
                 Player.lifeRegen -= Player.GetModPlayer<SlayerPlayer>().soulCrystals.Count;
             }
-        }
-
-        private static string GetMadnessText()
-        {
-            return Main.rand.Next(3) switch
-            {
-                0 => "Keep going",
-                1 => "I don't know what I've been told",
-                _ => "Oh the misery"
-            };
         }
     }
 
