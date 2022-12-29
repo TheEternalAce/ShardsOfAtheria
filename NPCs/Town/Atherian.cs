@@ -131,7 +131,8 @@ namespace ShardsOfAtheria.NPCs.Town
                 if (!player.active)
                     continue;
 
-                if (NPC.downedBoss2 && !(ModContent.GetInstance<ShardsDownedSystem>().slainSenterra || ModContent.GetInstance<ShardsDownedSystem>().slainGenesis))
+                if (NPC.downedBoss2 && !((ModContent.GetInstance<ShardsDownedSystem>().slainSenterra || ModContent.GetInstance<ShardsDownedSystem>().slainGenesis ||
+                    ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie) && ModContent.GetInstance<ShardsServerConfig>().cluelessNPCs))
                     return true;
             }
             return false;
@@ -139,11 +140,20 @@ namespace ShardsOfAtheria.NPCs.Town
 
         public override bool PreAI()
         {
-            if ((ModContent.GetInstance<ShardsDownedSystem>().slainSenterra || ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie) && ModContent.GetInstance<ShardsServerSideConfig>().cluelessNPCs)
+            if (!ModContent.GetInstance<ShardsServerConfig>().cluelessNPCs)
             {
-                NPC.active = false;
-                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(NPC.GivenName + " has left."), Color.Red);
-                return false;
+                if (ModContent.GetInstance<ShardsDownedSystem>().slainSenterra)
+                {
+                    NPC.active = false;
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(NPC.GivenName + " ceases to exist."), Color.Red);
+                    return false;
+                }
+                if (ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie)
+                {
+                    NPC.active = false;
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(NPC.GivenName + " leaves with Nova's death."), Color.Red);
+                    return false;
+                }
             }
             return base.PreAI();
         }
@@ -157,7 +167,7 @@ namespace ShardsOfAtheria.NPCs.Town
         {
             WeightedRandom<string> chat = new();
 
-            if (!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode || ModContent.GetInstance<ShardsServerSideConfig>().cluelessNPCs)
+            if (!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode || ModContent.GetInstance<ShardsServerConfig>().cluelessNPCs)
             {
                 if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
                 {
@@ -189,7 +199,7 @@ namespace ShardsOfAtheria.NPCs.Town
             else
             {
                 Player player = Main.LocalPlayer;
-                if (player.GetModPlayer<SlayerPlayer>().slayerMode && !ModContent.GetInstance<ShardsServerSideConfig>().cluelessNPCs)
+                if (player.GetModPlayer<SlayerPlayer>().slayerMode && !ModContent.GetInstance<ShardsServerConfig>().cluelessNPCs)
                 {
                     Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.RefuseUpgrade");
                 }

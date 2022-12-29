@@ -178,7 +178,7 @@ namespace ShardsOfAtheria
 						}
 						break;
 					case "checkSoulConfig":
-						return ModContent.GetInstance<ShardsClientSideConfig>().instantAbsorb;
+						return ModContent.GetInstance<ShardsClientConfig>().instantAbsorb;
 				}
 			}
 

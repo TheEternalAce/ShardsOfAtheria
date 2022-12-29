@@ -1,5 +1,4 @@
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah;
 using Terraria;
 using Terraria.ID;
@@ -14,7 +13,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             SacrificeTotal = 1;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
             SoAGlobalItem.AreusWeapon.Add(Type);
-            WeaponElements.ElectricWeapon.Add(Type);
         }
 
         public override void SetDefaults()

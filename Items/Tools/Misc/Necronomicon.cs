@@ -122,7 +122,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
                 for (int i = 0; i < entries.Count; i++)
                 {
                     PageEntry entry = entries[i];
-                    if (slayer.soulCrystals.Contains(entry.crystalItem) || ModContent.GetInstance<ShardsClientSideConfig>().entryView)
+                    if (slayer.soulCrystals.Contains(entry.crystalItem) || ModContent.GetInstance<ShardsClientConfig>().entryView)
                     {
                         tooltips.Add(new TooltipLine(Mod, "PageList", $"{entry.entryName} ({entry.mod})")
                         {
@@ -156,7 +156,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             if (page >= 3)
             {
                 PageEntry entry = entries[page - 3];
-                if (slayer.soulCrystals.Contains(entry.crystalItem) || ModContent.GetInstance<ShardsClientSideConfig>().entryView)
+                if (slayer.soulCrystals.Contains(entry.crystalItem) || ModContent.GetInstance<ShardsClientConfig>().entryView)
                 {
                     tooltips.Add(new TooltipLine(Mod, "Page", $"{entry.EntryText()}")
                     {
@@ -185,7 +185,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
                 page = ShardsOfAtheria.MaxNecronomiconPages;
             }
             SlayerPlayer slayer = player.GetModPlayer<SlayerPlayer>();
-            if (ModContent.GetInstance<ShardsClientSideConfig>().entryView)
+            if (ModContent.GetInstance<ShardsClientConfig>().entryView)
             {
                 return;
             }

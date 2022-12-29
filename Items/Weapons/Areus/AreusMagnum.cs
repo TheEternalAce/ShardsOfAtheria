@@ -1,5 +1,4 @@
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Systems;
@@ -14,8 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.AreusWeapon.Add(Type);
-            WeaponElements.ElectricWeapon.Add(Type);
+            SoAGlobalItem.DarkAreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()

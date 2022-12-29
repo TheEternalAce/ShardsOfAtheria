@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Projectiles.Weapon.Ranged;
+﻿using ShardsOfAtheria.Globals.Elements;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,6 +11,7 @@ namespace ShardsOfAtheria.Items.DevItems.TheEternalAce
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
+            WeaponElements.FireWeapon.Add(Type);
         }
 
         public override void SetDefaults()

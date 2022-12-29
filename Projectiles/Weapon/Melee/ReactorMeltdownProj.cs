@@ -23,7 +23,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 10f;
             Main.projFrames[Projectile.type] = 2;
 
-            ProjectileElements.MetalProj.Add(Type);
             ProjectileElements.ElectricProj.Add(Type);
         }
         public override void SetDefaults()
@@ -55,7 +54,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
                     SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/ReactorMeltdownAlarm")
                     {
                         Volume = 0.9f,
-                        PitchVariance = 0.2f,
                         MaxInstances = 3,
                     });
                 }

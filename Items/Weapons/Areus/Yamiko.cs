@@ -3,7 +3,6 @@ using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Bases;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
@@ -19,7 +18,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
-            WeaponElements.ElectricWeapon.Add(Type);
         }
 
         public override void SetDefaults()
@@ -62,10 +60,12 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 string[] insult = { "How did you manage that? Dumbass.", "Good job idiot, you fatally cut yourself. ", "How could you be so stupid?" };
                 int i = Main.rand.Next(insult.Length);
                 string dying = $"{player.name} cut {(player.Male ? "himself" : " herself")}";
-                string die = ModContent.GetInstance<ShardsServerSideConfig>().insult ? insult[i] + " (" + dying + ")" : dying;
-                player.Hurt(PlayerDeathReason.ByCustomReason(die), 100, player.direction);
-                player.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
-                player.AddBuff(ModContent.BuffType<YamikoDashCooldown>(), 600);
+                string die = ModContent.GetInstance<ShardsServerConfig>().insult ? insult[i] + " (" + dying + ")" : dying;
+                player.Hurt(PlayerDeathReason.ByCustomReason(die), 100, 0);
+                player.immune = true;
+                player.immuneTime = 30;
+                player.AddBuff(ModContent.BuffType<ElectricShock>(), 120);
+                player.AddBuff(ModContent.BuffType<YamikoDashCooldown>(), 120);
             }
             return null;
         }

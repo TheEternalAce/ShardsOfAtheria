@@ -15,7 +15,6 @@ namespace ShardsOfAtheria.Items.Weapons
         {
             SacrificeTotal = 1;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
-            WeaponElements.MetalWeapon.Add(Type);
             WeaponElements.FireWeapon.Add(Type);
         }
 

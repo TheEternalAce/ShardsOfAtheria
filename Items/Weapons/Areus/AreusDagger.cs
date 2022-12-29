@@ -1,5 +1,4 @@
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
@@ -16,7 +15,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
-            WeaponElements.ElectricWeapon.Add(Type);
             SoAGlobalItem.UpgradeableItem.Add(Type);
         }
 

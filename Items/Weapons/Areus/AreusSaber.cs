@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             WeaponElements.ElectricWeapon.Add(Type);
             SoAGlobalItem.AreusWeapon.Add(Type);
             SoAGlobalItem.Eraser.Add(Type);
+            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
         }
 
         public override void SetDefaults()
@@ -39,6 +40,24 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 4, 57);
             Item.shoot = ModContent.ProjectileType<AreusSlash1>();
+        }
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                Item.shoot = ModContent.ProjectileType<AreusSaberProj>();
+            }
+            else
+            {
+                Item.shoot = ModContent.ProjectileType<AreusSlash1>();
+            }
+            return base.CanUseItem(player);
         }
 
         public override void AddRecipes()

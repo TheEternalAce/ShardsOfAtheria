@@ -12,7 +12,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 		public override void SetStaticDefaults()
 		{
 			SacrificeTotal = 1;
-			WeaponElements.MetalWeapon.Add(Type);
 			WeaponElements.ElectricWeapon.Add(Type);
 		}
 
@@ -32,7 +31,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.UseSound = new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/ReactorMeltdownAlarm")
 			{
 				Volume = 0.9f,
-				PitchVariance = 0.2f,
 				MaxInstances = 3,
 			};
 			Item.noMelee = true;

@@ -82,7 +82,7 @@ namespace ShardsOfAtheria.Items.Accessories
             if (!player.HasBuff(ModContent.BuffType<Megamerged>()))
             {
                 player.AddBuff(ModContent.BuffType<Megamerged>(), 60);
-                if (ModContent.GetInstance<ShardsClientSideConfig>().biometalSound)
+                if (ModContent.GetInstance<ShardsClientConfig>().biometalSound)
                 {
                     if (player.Male)
                         SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/MegamergeMale"));
@@ -150,7 +150,7 @@ namespace ShardsOfAtheria.Items.Accessories
             if (!player.HasBuff(ModContent.BuffType<Megamerged>()))
             {
                 player.AddBuff(ModContent.BuffType<Megamerged>(), 60);
-                if (ModContent.GetInstance<ShardsClientSideConfig>().biometalSound)
+                if (ModContent.GetInstance<ShardsClientConfig>().biometalSound)
                 {
                     if (player.Male)
                         SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/MegamergeMale"));

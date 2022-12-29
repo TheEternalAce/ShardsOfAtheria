@@ -39,7 +39,7 @@ namespace ShardsOfAtheria
 
         public override void PostSetupContent()
         {
-            if (ModContent.GetInstance<ShardsClientSideConfig>().windowTitle)
+            if (ModContent.GetInstance<ShardsClientConfig>().windowTitle)
             {
                 if (Main.rand.NextBool(3))
                 {
@@ -100,14 +100,14 @@ namespace ShardsOfAtheria
 
         public string ChooseTitleText(int id = 0)
         {
-            if (id == 0)
+            List<string> title = new List<string>();
+            for (int i = 0; i < 2; i++)
             {
-                return Language.GetTextValue("Mods.ShardsOfAtheria.Common.TitleText" + (Main.rand.Next(2) + 1));
+                title.Add(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TitleText" + (i + 1)));
             }
-            else
-            {
-                return Language.GetTextValue("Mods.ShardsOfAtheria.Common.TitleText"  + id);
-            }
+            int ind = Main.rand.Next(2);
+
+            return title[ind];
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
@@ -10,39 +10,24 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Melee
+namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusTwinSabers
 {
-    public class EnergyScythe : EpicSwingSword
+    public class AreusSaberScissors : EpicSwingSword
     {
         public override void SetStaticDefaults()
         {
-            ProjectileElements.FireProj.Add(Type);
+            ProjectileElements.AreusProj.Add(Type);
+            SoAGlobalProjectile.Eraser.Add(Type);
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            Projectile.width = Projectile.height = 60;
-            Projectile.scale = 1.4f;
-            hitboxOutwards = 60;
+            Projectile.width = Projectile.height = 100;
+            hitboxOutwards = 70;
             rotationOffset = -MathHelper.PiOver4 * 3f;
-            amountAllowedToHit = 3;
-        }
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            Player player = Main.player[Projectile.owner];
-            if (player.HasBuff(ModContent.BuffType<Overdrive>()))
-            {
-                target.AddBuff(BuffID.CursedInferno, 10 * 60);
-                player.AddBuff(BuffID.Ichor, 10 * 60);
-            }
-            target.AddBuff(BuffID.OnFire, 10 * 60);
-            player.AddBuff(BuffID.WeaponImbueIchor, 10 * 60);
-            base.OnHitNPC(target, damage, knockback, crit);
         }
 
         protected override void Initialize(Player player, SoAPlayer shards)
@@ -88,7 +73,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             }
             if (progress < 0.35f)
             {
-                float p = 1f - (progress) / 0.35f;
+                float p = 1f - progress / 0.35f;
                 Projectile.alpha = (int)(p * 255);
                 return -20f * p;
             }
@@ -104,12 +89,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             var drawCoords = handPosition - Main.screenPosition;
             float size = texture.Size().Length();
             var effects = SpriteEffects.None;
-            bool flip = Main.player[Projectile.owner].direction == 1 ? combo > 0 : combo == 0;
-            if (flip)
-            {
-                Main.instance.LoadItem(ModContent.ItemType<Items.Weapons.Prometheus>());
-                texture = TextureAssets.Item[ModContent.ItemType<Items.Weapons.Prometheus>()].Value;
-            }
             var origin = new Vector2(0f, texture.Height);
 
             Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor, Projectile.rotation, origin, Projectile.scale, effects, 0);

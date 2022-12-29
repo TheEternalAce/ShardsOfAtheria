@@ -1,5 +1,4 @@
-﻿using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Config;
+﻿using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.Potions;
 using System.Collections.Generic;
 using Terraria;
@@ -31,22 +30,10 @@ namespace ShardsOfAtheria.Globals.Elements
         {
             int type = proj.type;
 
-            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
+            if (ModContent.GetInstance<ShardsServerConfig>().experimental)
             {
                 switch (type)
                 {
-                    // Arrow
-                    case ProjectileID.FlamingArrow:
-                    case ProjectileID.JestersArrow:
-                    case ProjectileID.HellfireArrow:
-                    case ProjectileID.CursedArrow:
-                    case ProjectileID.VenomArrow:
-
-                    // Bullet
-                    case ProjectileID.MeteorShot:
-                    case ProjectileID.CursedBullet:
-                    case ProjectileID.ExplosiveBullet:
-
                     // Rocket
                     case ProjectileID.RocketI:
                     case ProjectileID.RocketII:
@@ -102,10 +89,6 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ProjectileID.Celeb2RocketLarge:
                     case ProjectileID.Celeb2RocketExplosiveLarge:
 
-                    // Other ammo
-                    case ProjectileID.CursedDart:
-                    case ProjectileID.JackOLantern:
-
                     // Magic
                     case ProjectileID.Spark:
 
@@ -114,15 +97,6 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ProjectileID.ThornChakram:
                         FireProj.Add(type);
                         break;
-
-                    // Arrow
-                    case ProjectileID.UnholyArrow:
-                    case ProjectileID.HolyArrow:
-                    case ProjectileID.IchorArrow:
-
-                    // Bullet
-                    case ProjectileID.IchorBullet:
-                    case ProjectileID.VenomBullet:
 
                     // Rocket
                     case ProjectileID.WetRocket:
@@ -147,13 +121,6 @@ namespace ShardsOfAtheria.Globals.Elements
                         IceProj.Add(type);
                         break;
 
-                    // Arrow
-                    case ProjectileID.MoonlordArrow:
-
-                    // Bullet
-                    case ProjectileID.NanoBullet:
-                    case ProjectileID.MoonlordBullet:
-
                     // Rocket
                     case ProjectileID.ElectrosphereMissile:
                     case ProjectileID.Electrosphere:
@@ -165,126 +132,12 @@ namespace ShardsOfAtheria.Globals.Elements
                         ElectricProj.Add(type);
                         break;
 
-                    // Arrow
-                    case ProjectileID.WoodenArrowFriendly:
-                    case ProjectileID.ChlorophyteArrow:
-                    case ProjectileID.BoneArrow:
-                    //case ProjectileID.ShimmerArrow:
-
-                    // Bullet
-                    case ProjectileID.Bullet:
-                    case ProjectileID.CrystalBullet:
-                    case ProjectileID.ChlorophyteBullet:
-                    case ProjectileID.BulletHighVelocity:
-                    case ProjectileID.GoldenBullet:
-
-                    // Other ammo
-                    case ProjectileID.CrystalDart:
-
                     // Melee
                     case ProjectileID.TheRottedFork:
                     case ProjectileID.TheMeatball:
                     case ProjectileID.BallOHurt:
                         MetalProj.Add(type);
                         break;
-
-                    // Arrow
-                    case ProjectileID.FrostburnArrow:
-                        FireProj.Add(type);
-                        IceProj.Add(type);
-                        break;
-                }
-            }
-        }
-
-        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
-        {
-            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental && Main.rand.NextBool(3))
-            {
-                int buffTime = 600;
-                if (Main.hardMode)
-                {
-                    if (FireProj.Contains(projectile.type))
-                    {
-                        target.AddBuff(BuffID.OnFire3, buffTime);
-                    }
-                    if (IceProj.Contains(projectile.type))
-                    {
-                        target.AddBuff(BuffID.Frostburn2, buffTime);
-                    }
-                    if (ElectricProj.Contains(projectile.type))
-                    {
-                        if (conductive)
-                        {
-                            buffTime *= 2;
-                        }
-                        target.AddBuff(BuffID.Electrified, buffTime);
-                    }
-                }
-                else
-                {
-                    if (FireProj.Contains(projectile.type))
-                    {
-                        target.AddBuff(BuffID.OnFire, buffTime);
-                    }
-                    if (IceProj.Contains(projectile.type))
-                    {
-                        target.AddBuff(BuffID.Frostburn, buffTime);
-                    }
-                    if (ElectricProj.Contains(projectile.type))
-                    {
-                        if (conductive)
-                        {
-                            buffTime *= 2;
-                        }
-                        target.AddBuff(ModContent.BuffType<ElectricShock>(), buffTime);
-                    }
-                }
-            }
-        }
-
-        public override void OnHitPlayer(Projectile projectile, Player target, int damage, bool crit)
-        {
-            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental && Main.rand.NextBool(3))
-            {
-                int buffTime = 600;
-                if (Main.hardMode)
-                {
-                    if (FireProj.Contains(projectile.type))
-                    {
-                        target.AddBuff(BuffID.OnFire3, buffTime);
-                    }
-                    if (IceProj.Contains(projectile.type))
-                    {
-                        target.AddBuff(BuffID.Frostburn2, buffTime);
-                    }
-                    if (ElectricProj.Contains(projectile.type))
-                    {
-                        if (conductive)
-                        {
-                            buffTime *= 2;
-                        }
-                        target.AddBuff(BuffID.Electrified, buffTime);
-                    }
-                }
-                else
-                {
-                    if (FireProj.Contains(projectile.type))
-                    {
-                        target.AddBuff(BuffID.OnFire, buffTime);
-                    }
-                    if (IceProj.Contains(projectile.type))
-                    {
-                        target.AddBuff(BuffID.Frostburn, buffTime);
-                    }
-                    if (ElectricProj.Contains(projectile.type))
-                    {
-                        if (conductive)
-                        {
-                            buffTime *= 2;
-                        }
-                        target.AddBuff(ModContent.BuffType<ElectricShock>(), buffTime);
-                    }
                 }
             }
         }
@@ -292,7 +145,7 @@ namespace ShardsOfAtheria.Globals.Elements
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
             int type = projectile.type;
-            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
+            if (ModContent.GetInstance<ShardsServerConfig>().experimental)
             {
                 if (Main.player[projectile.owner].HasBuff(ModContent.BuffType<Conductive>()) || Main.npc[projectile.owner].HasBuff(ModContent.BuffType<Conductive>()))
                 {
@@ -303,34 +156,18 @@ namespace ShardsOfAtheria.Globals.Elements
                     int sourceEnemy = npc.type;
                     if (NPCElements.FireNPC.Contains(sourceEnemy))
                     {
-                        if (!FireProj.Contains(type))
-                        {
-                            FireProj.Add(type);
-                        }
                         tempFireProj = true;
                     }
                     if (NPCElements.IceNPC.Contains(sourceEnemy))
                     {
-                        if (!IceProj.Contains(type))
-                        {
-                            IceProj.Add(type);
-                        }
                         tempIceProj = true;
                     }
                     if (NPCElements.ElectricNPC.Contains(sourceEnemy))
                     {
-                        if (!ElectricProj.Contains(type))
-                        {
-                            ElectricProj.Add(type);
-                        }
                         tempElectricProj = true;
                     }
                     if (NPCElements.MetalNPC.Contains(sourceEnemy))
                     {
-                        if (!MetalProj.Contains(type))
-                        {
-                            MetalProj.Add(type);
-                        }
                         tempMetalProj = true;
                     }
                 }
@@ -339,34 +176,18 @@ namespace ShardsOfAtheria.Globals.Elements
                     int sourceProjType = proj.type;
                     if (FireProj.Contains(sourceProjType))
                     {
-                        if (!FireProj.Contains(type))
-                        {
-                            FireProj.Add(type);
-                        }
                         tempFireProj = true;
                     }
                     if (IceProj.Contains(sourceProjType))
                     {
-                        if (!IceProj.Contains(type))
-                        {
-                            IceProj.Add(type);
-                        }
                         tempIceProj = true;
                     }
                     if (ElectricProj.Contains(sourceProjType))
                     {
-                        if (!ElectricProj.Contains(type))
-                        {
-                            ElectricProj.Add(type);
-                        }
                         tempElectricProj = true;
                     }
                     if (MetalProj.Contains(sourceProjType))
                     {
-                        if (!MetalProj.Contains(type))
-                        {
-                            MetalProj.Add(type);
-                        }
                         tempMetalProj = true;
                     }
                 }

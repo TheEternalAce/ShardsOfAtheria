@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.Potions;
@@ -62,7 +63,8 @@ namespace ShardsOfAtheria.Globals
 
         public override void SetDefaults(Item item)
         {
-            ShardsServerSideConfig serverConfig = ModContent.GetInstance<ShardsServerSideConfig>();
+            base.SetDefaults(item);
+            ShardsServerConfig serverConfig = ModContent.GetInstance<ShardsServerConfig>();
             switch (item.type)
             {
                 case ItemID.SilverBullet:
@@ -163,7 +165,7 @@ namespace ShardsOfAtheria.Globals
                     break;
                     #endregion
             }
-            if (ModContent.GetInstance<ShardsServerSideConfig>().betterWeapon && item.damage > 0)
+            if (ModContent.GetInstance<ShardsServerConfig>().betterWeapon && item.damage > 0)
             {
                 item.useTurn = false;
             }
@@ -171,6 +173,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void UpdateArmorSet(Player player, string set)
         {
+            base.UpdateArmorSet(player, set);
             if (set == "Shards:Pearlwood")
             {
                 player.setBonus = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.SetBonus.Pearlwood"),
@@ -181,7 +184,6 @@ namespace ShardsOfAtheria.Globals
                 player.GetCritChance(DamageClass.Generic) += 15;
                 player.GetModPlayer<SoAPlayer>().pearlwoodSet = true;
             }
-            base.UpdateArmorSet(player, set);
         }
 
         public override string IsArmorSet(Item head, Item body, Item legs)
@@ -195,6 +197,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
+            base.ModifyWeaponDamage(item, player, ref damage);
             if (player.HasBuff(ModContent.BuffType<Conductive>()) && (AreusWeapon.Contains(item.type) || DarkAreusWeapon.Contains(item.type)))
             {
                 damage += .15f;
@@ -203,6 +206,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            base.ModifyTooltips(item, tooltips);
             if (SlayerItem.Contains(item.type))
             {
                 var line = new TooltipLine(Mod, "SlayerItem", Language.GetTextValue("Mods.ShardsOfAtheria.Common.SlayerItem"))
@@ -315,7 +319,7 @@ namespace ShardsOfAtheria.Globals
 
         public override bool? UseItem(Item item, Player player)
         {
-            if (ModContent.GetInstance<ShardsServerSideConfig>().betterWeapon && item.shoot == ProjectileID.None)
+            if (ModContent.GetInstance<ShardsServerConfig>().betterWeapon && item.shoot == ProjectileID.None)
             {
                 player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
             }
@@ -352,8 +356,51 @@ namespace ShardsOfAtheria.Globals
             return base.ConsumeItem(item, player);
         }
 
+        public override void OnHitNPC(Item item, Player player, NPC target, int damage, float knockBack, bool crit)
+        {
+            base.OnHitNPC(item, player, target, damage, knockBack, crit);
+            if (AreusWeapon.Contains(item.type))
+            {
+                int buffTime = 600;
+                if (player.HasBuff(ModContent.BuffType<Conductive>()))
+                {
+                    buffTime *= 2;
+                }
+                if (Main.hardMode)
+                {
+                    target.AddBuff(BuffID.Electrified, buffTime);
+                }
+                else
+                {
+                    target.AddBuff(ModContent.BuffType<ElectricShock>(), buffTime);
+                }
+            }
+        }
+
+        public override void OnHitPvp(Item item, Player player, Player target, int damage, bool crit)
+        {
+            base.OnHitPvp(item, player, target, damage, crit);
+            if (AreusWeapon.Contains(item.type))
+            {
+                int buffTime = 600;
+                if (player.HasBuff(ModContent.BuffType<Conductive>()))
+                {
+                    buffTime *= 2;
+                }
+                if (Main.hardMode)
+                {
+                    target.AddBuff(BuffID.Electrified, buffTime);
+                }
+                else
+                {
+                    target.AddBuff(ModContent.BuffType<ElectricShock>(), buffTime);
+                }
+            }
+        }
+
         public override void UpdateInventory(Item item, Player player)
         {
+            base.UpdateInventory(item, player);
             if (item.pick > 0 && item.axe > 0 && item.hammer > 0)
             {
                 if (player.HasBuff(ModContent.BuffType<CreeperShield>()))

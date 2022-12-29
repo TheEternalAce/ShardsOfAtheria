@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.Globals.Elements
 
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
-            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
+            if (ModContent.GetInstance<ShardsServerConfig>().experimental)
             {
                 double modifier = 1.0;
                 if (WeaponElements.FireWeapon.Contains(item.type))
@@ -50,22 +50,22 @@ namespace ShardsOfAtheria.Globals.Elements
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
+            if (ModContent.GetInstance<ShardsServerConfig>().experimental)
             {
                 double modifier = 1.0;
-                if (ProjectileElements.FireProj.Contains(projectile.type))
+                if (ProjectileElements.FireProj.Contains(projectile.type) || projectile.GetGlobalProjectile<ProjectileElements>().tempFireProj)
                 {
                     modifier *= elementMultiplier[Element.Fire];
                 }
-                if (ProjectileElements.IceProj.Contains(projectile.type))
+                if (ProjectileElements.IceProj.Contains(projectile.type) || projectile.GetGlobalProjectile<ProjectileElements>().tempIceProj)
                 {
                     modifier *= elementMultiplier[Element.Ice];
                 }
-                if (ProjectileElements.ElectricProj.Contains(projectile.type))
+                if (ProjectileElements.ElectricProj.Contains(projectile.type) || projectile.GetGlobalProjectile<ProjectileElements>().tempElectricProj)
                 {
                     modifier *= elementMultiplier[Element.Electric];
                 }
-                if (ProjectileElements.MetalProj.Contains(projectile.type))
+                if (ProjectileElements.MetalProj.Contains(projectile.type) || projectile.GetGlobalProjectile<ProjectileElements>().tempMetalProj)
                 {
                     modifier *= elementMultiplier[Element.Metal];
                 }
@@ -78,7 +78,7 @@ namespace ShardsOfAtheria.Globals.Elements
         public override void SetDefaults(NPC npc)
         {
             int type = npc.type;
-            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
+            if (ModContent.GetInstance<ShardsServerConfig>().experimental)
             {
                 switch (type)
                 {

@@ -1,5 +1,8 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Areus.AreusTwinSabers;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {
@@ -10,11 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
             SoAGlobalItem.Eraser.Add(Type);
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            tooltips.Add(new TooltipLine(Mod, "Blood", $"{Language.GetTextValue("Mods.ShardsOfAtheria.Common.AbsorbedBlood")} {blood}"));
+            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
         }
 
         public override void SetDefaults()
@@ -22,10 +21,8 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.width = 42;
             Item.height = 46;
 
-            Item.damage = 150;
+            Item.SetWeaponValues(76, 5, 6);
             Item.DamageType = DamageClass.Melee;
-            Item.knockBack = 6;
-            Item.crit = 50;
 
             Item.useTime = 24;
             Item.useAnimation = 24;
@@ -35,7 +32,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.noMelee = true;
             Item.noUseGraphic = true;
 
-            Item.shoot = ModContent.ProjectileType<MourningStar>();
+            Item.shoot = ModContent.ProjectileType<AreusSaberScissors>();
             Item.shootSpeed = 1;
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(1);
@@ -50,29 +47,28 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             if (player.altFunctionUse == 2)
             {
-                Item.shoot = ModContent.ProjectileType<AreusSaberProj>();
+                Item.damage = 152;
+
+                Item.useTime = 50;
+                Item.useAnimation = 50;
+
+                Item.shoot = ModContent.ProjectileType<AreusSaberScissors>();
             }
             else
             {
+                Item.damage = 76;
 
+                Item.useTime = 24;
+                Item.useAnimation = 24;
+
+                Item.shoot = ModContent.ProjectileType<AreusSaberTwin>();
             }
-            return true;
-        }
-
-        public override void HoldItem(Player player)
-        {
-            player.buffImmune[BuffID.Bleeding] = false;
-            player.AddBuff(BuffID.Bleeding, 300);
+            return base.CanUseItem(player);
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-                .AddCondition(NetworkText.FromKey("Mods.ShardsOfAtheria.RecipeConditions.Upgrade"), r => false)
-                .AddIngredient(ModContent.ItemType<AreusKatana>())
-                .AddIngredient(ItemID.BeetleHusk, 20)
-                .AddIngredient(ItemID.SoulofFright, 14)
-                .Register();
+
         }
     }
 }

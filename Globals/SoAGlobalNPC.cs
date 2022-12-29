@@ -1034,7 +1034,7 @@ namespace ShardsOfAtheria.Globals
             {
                 drawColor = Color.MediumPurple;
             }
-            if (npc.HasBuff(BuffID.Electrified) && Main.rand.NextBool(4) && ModContent.GetInstance<ShardsServerSideConfig>().experimental)
+            if (npc.HasBuff(BuffID.Electrified) && Main.rand.NextBool(4) && ModContent.GetInstance<ShardsServerConfig>().experimental)
             {
                 int dust = Dust.NewDust(npc.position, npc.width + 4, npc.height + 4, DustID.Electric, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1f);
                 Main.dust[dust].noGravity = true;
@@ -1045,7 +1045,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
-            if (npc.HasBuff(BuffID.Electrified) && ModContent.GetInstance<ShardsServerSideConfig>().experimental)
+            if (npc.HasBuff(BuffID.Electrified) && ModContent.GetInstance<ShardsServerConfig>().experimental)
             {
                 if (npc.lifeRegen > 0)
                 {

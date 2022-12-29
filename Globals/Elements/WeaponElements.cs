@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Globals.Elements
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
             int type = item.type;
-            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
+            if (ModContent.GetInstance<ShardsServerConfig>().experimental)
             {
                 if (FireWeapon.Contains(type))
                 {
@@ -56,13 +56,19 @@ namespace ShardsOfAtheria.Globals.Elements
         public override void SetDefaults(Item item)
         {
             int type = item.type;
-            if (ModContent.GetInstance<ShardsServerSideConfig>().experimental)
+            if (ModContent.GetInstance<ShardsServerConfig>().experimental)
             {
                 switch (type)
                 {
+                    // Pre-boss
+                    case ItemID.WoodenSword:
+                    case ItemID.WoodYoyo:
+                    case ItemID.WoodenBoomerang:
+                    case ItemID.PearlwoodSword:
+                    case ItemID.RichMahoganySword:
+
                     case ItemID.CopperBroadsword:
                     case ItemID.CopperShortsword:
-                    case ItemID.CopperBow:
                     case ItemID.AmethystStaff:
                     case ItemID.CopperPickaxe:
                     case ItemID.CopperAxe:
@@ -70,7 +76,6 @@ namespace ShardsOfAtheria.Globals.Elements
 
                     case ItemID.TinBroadsword:
                     case ItemID.TinShortsword:
-                    case ItemID.TinBow:
                     case ItemID.TopazStaff:
                     case ItemID.TinPickaxe:
                     case ItemID.TinAxe:
@@ -87,14 +92,12 @@ namespace ShardsOfAtheria.Globals.Elements
 
                     case ItemID.IronBroadsword:
                     case ItemID.IronShortsword:
-                    case ItemID.IronBow:
                     case ItemID.IronPickaxe:
                     case ItemID.IronAxe:
                     case ItemID.IronHammer:
 
                     case ItemID.LeadBroadsword:
                     case ItemID.LeadShortsword:
-                    case ItemID.LeadBow:
                     case ItemID.LeadPickaxe:
                     case ItemID.LeadAxe:
                     case ItemID.LeadHammer:
@@ -106,7 +109,6 @@ namespace ShardsOfAtheria.Globals.Elements
 
                     case ItemID.SilverBroadsword:
                     case ItemID.SilverShortsword:
-                    case ItemID.SilverBow:
                     case ItemID.SapphireStaff:
                     case ItemID.SilverPickaxe:
                     case ItemID.SilverAxe:
@@ -114,7 +116,6 @@ namespace ShardsOfAtheria.Globals.Elements
 
                     case ItemID.TungstenBroadsword:
                     case ItemID.TungstenShortsword:
-                    case ItemID.TungstenBow:
                     case ItemID.EmeraldStaff:
                     case ItemID.TungstenPickaxe:
                     case ItemID.TungstenAxe:
@@ -122,21 +123,18 @@ namespace ShardsOfAtheria.Globals.Elements
 
                     case ItemID.GoldBroadsword:
                     case ItemID.GoldShortsword:
-                    case ItemID.GoldBow:
                     case ItemID.RubyStaff:
                     case ItemID.GoldPickaxe:
                     case ItemID.GoldAxe:
                     case ItemID.GoldHammer:
 
+                    case ItemID.Sickle:
                     case ItemID.StylistKilLaKillScissorsIWish:
-                    case ItemID.EnchantedBoomerang:
-                    case ItemID.BoneDagger:
-                    case ItemID.BoneJavelin:
                     case ItemID.PartyGirlGrenade:
+                    case ItemID.BlandWhip:
 
                     case ItemID.PlatinumBroadsword:
                     case ItemID.PlatinumShortsword:
-                    case ItemID.PlatinumBow:
                     case ItemID.DiamondStaff:
                     case ItemID.PlatinumPickaxe:
                     case ItemID.PlatinumAxe:
@@ -148,7 +146,6 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.Katana:
                     case ItemID.DyeTradersScimitar:
                     case ItemID.Starfury:
-                    case ItemID.EnchantedSword:
                     case ItemID.Terragrim:
                     case ItemID.FalconBlade:
                     case ItemID.Rally:
@@ -158,7 +155,6 @@ namespace ShardsOfAtheria.Globals.Elements
 
                     case ItemID.BloodButcherer:
                     case ItemID.TheMeatball:
-                    case ItemID.TendonBow:
                     case ItemID.CrimsonYoyo:
                     case ItemID.TheRottedFork:
                     case ItemID.DeathbringerPickaxe:
@@ -166,7 +162,6 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.FleshGrinder:
 
                     case ItemID.LightsBane:
-                    case ItemID.DemonBow:
                     case ItemID.BallOHurt:
                     case ItemID.CorruptYoyo:
                     case ItemID.NightmarePickaxe:
@@ -182,6 +177,7 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.BlueMoon:
                     case ItemID.Muramasa:
                     case ItemID.NightsEdge:
+                    case ItemID.BoneWhip:
 
                     // Hardmode
                     case ItemID.BreakerBlade:
@@ -251,6 +247,7 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.MonkStaffT1:
                     case ItemID.RainbowRod:
                     case ItemID.DD2BallistraTowerT2Popper:
+                    case ItemID.SwordWhip:
 
                     case ItemID.PickaxeAxe:
                     case ItemID.Drax:
@@ -279,6 +276,8 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.TheEyeOfCthulhu:
                     case ItemID.TerraBlade:
                     case ItemID.PiranhaGun:
+                    case ItemID.MaceWhip:
+                    case ItemID.RainbowWhip:
 
                     // Post Golem
                     case ItemID.PossessedHatchet:
@@ -291,6 +290,31 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.RainbowCrystalStaff:
                     case ItemID.DD2BallistraTowerT3Popper:
 
+                    // Ammo
+                    case ItemID.WoodenArrow:
+                    case ItemID.ChlorophyteArrow:
+                    case ItemID.BoneArrow:
+                    case ItemID.MusketBall:
+                    case ItemID.SilverBullet:
+                    case ItemID.CrystalBullet:
+                    case ItemID.ChlorophyteBullet:
+                    case ItemID.HighVelocityBullet:
+                    case ItemID.GoldenBullet:
+                    case ItemID.PartyBullet:
+                    case ItemID.EndlessMusketPouch:
+                    case ItemID.EndlessQuiver:
+                    case ItemID.Stake:
+                    case ItemID.CrystalDart:
+                    case ItemID.Nail:
+                    case ItemID.SandBlock:
+                    case ItemID.EbonsandBlock:
+                    case ItemID.CrimsandBlock:
+                    case ItemID.PearlsandBlock:
+                    case ItemID.CopperCoin:
+                    case ItemID.SilverCoin:
+                    case ItemID.GoldCoin:
+                    case ItemID.PlatinumCoin:
+
                     // Tool
                     case ItemID.ShroomiteDiggingClaw:
                     case ItemID.Picksaw:
@@ -302,14 +326,16 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.Rockfish:
                     case ItemID.Pwnhammer:
                     //case 4317: // Haemorrhaxe
-                    case ItemID.Hammush:
+                    case ItemID.GravediggerShovel:
                         MetalWeapon.Add(type);
                         break;
 
+                    // Pre-boss
                     case ItemID.FlamingMace:
                     case ItemID.WandofSparking:
-                    case ItemID.FlareGun:
                     case ItemID.PoisonedKnife:
+                    case ItemID.EnchantedBoomerang:
+                    case ItemID.EnchantedSword:
 
                     // Post BoC/EoW
                     case ItemID.BluePhaseblade:
@@ -325,6 +351,7 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.DD2FlameburstTowerT1Popper:
 
                     // Post Skeletron
+                    case ItemID.BeeGun:
                     case ItemID.MagicMissile:
                     case ItemID.BookofSkulls:
                     case ItemID.DemonScythe:
@@ -337,7 +364,6 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.HellwingBow:
                     case ItemID.PhoenixBlaster:
                     case ItemID.BoneGlove:
-                    case ItemID.AleThrowingGlove:
                     case ItemID.HoundiusShootius:
                     case ItemID.HornetStaff:
                     case ItemID.ImpStaff:
@@ -361,8 +387,10 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.ShadowFlameBow:
                     case ItemID.SpiderStaff:
                     case ItemID.QueenSpiderStaff:
+                    case ItemID.FireWhip:
 
                     // Post Mechs
+                    case ItemID.MushroomSpear:
                     case ItemID.MonkStaffT2:
                     case ItemID.ShadowbeamStaff:
                     case ItemID.InfernoFork:
@@ -389,6 +417,39 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.EldMelter:
                     case ItemID.DD2ExplosiveTrapT3Popper:
                     case ItemID.DD2FlameburstTowerT3Popper:
+                    case ItemID.ScytheWhip:
+
+                    // Ammo
+                    case ItemID.Flare:
+                    case ItemID.BlueFlare:
+                    //case ItemID.SpelunkerFlare:
+                    //case ItemID.CursedFlare:
+                    //case ItemID.RainbowFlare:
+                    //case ItemID.ShimmerFlare:
+                    case ItemID.MeteorShot:
+                    case ItemID.CursedBullet:
+                    case ItemID.VenomBullet:
+                    case ItemID.ExplodingBullet:
+                    case ItemID.FlamingArrow:
+                    case ItemID.JestersArrow:
+                    case ItemID.HellfireArrow:
+                    case ItemID.CursedArrow:
+                    case ItemID.VenomArrow:
+                    case ItemID.RocketI:
+                    case ItemID.RocketII:
+                    case ItemID.RocketIII:
+                    case ItemID.RocketIV:
+                    case ItemID.ClusterRocketI:
+                    case ItemID.ClusterRocketII:
+                    case ItemID.DryRocket:
+                    case ItemID.LavaRocket:
+                    case ItemID.MiniNukeI:
+                    case ItemID.MiniNukeII:
+                    case ItemID.CursedDart:
+                    case ItemID.ExplosiveJackOLantern:
+                    case ItemID.Beenade:
+                    case ItemID.StyngerBolt:
+                    case ItemID.FallenStar:
 
                     // Tool
                     case ItemID.MoltenPickaxe:
@@ -401,12 +462,21 @@ namespace ShardsOfAtheria.Globals.Elements
                         FireWeapon.Add(type);
                         break;
 
+                    // Pre-boss
+                    case ItemID.BorealWoodSword:
+                    case ItemID.EbonwoodSword:
+                    case ItemID.ShadewoodSword:
+                    case ItemID.ZombieArm:
                     //case ItemID.WandofFrosting:
                     case ItemID.CandyCaneSword:
                     case ItemID.IceBlade:
                     case ItemID.IceBoomerang:
+                    case ItemID.Shroomerang:
+                    case ItemID.FruitcakeChakram:
                     case ItemID.SnowballCannon:
                     case ItemID.Snowball:
+                    case ItemID.StarAnise:
+                    case ItemID.PainterPaintballGun:
                     case ItemID.FlinxStaff:
                     case ItemID.AbigailsFlower:
                     case ItemID.SlimeStaff:
@@ -418,6 +488,7 @@ namespace ShardsOfAtheria.Globals.Elements
                     // Post Skeletron
                     case ItemID.AquaScepter:
                     case ItemID.WaterBolt:
+                    case ItemID.AleThrowingGlove:
 
                     // Hardmode
                     case ItemID.Frostbrand:
@@ -432,6 +503,8 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.NimbusRod:
                     case ItemID.IceBow:
                     case ItemID.SanguineStaff:
+                    case ItemID.ThornWhip:
+                    case ItemID.CoolWhip:
 
                     // Post Plantera
                     case ItemID.NorthPole:
@@ -452,6 +525,22 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.StardustDragonStaff:
                     case ItemID.StaffoftheFrostHydra:
 
+                    // Ammo
+                    case ItemID.IchorBullet:
+                    case ItemID.FrostburnArrow:
+                    case ItemID.UnholyArrow:
+                    case ItemID.HolyArrow:
+                    case ItemID.IchorArrow:
+                    //case ProjectileID.ShimmerArrow:
+                    case ItemID.WetRocket:
+                    case ItemID.HoneyRocket:
+                    case ItemID.PoisonDart:
+                    case ItemID.IchorDart:
+                    case ItemID.Seed:
+                    case ItemID.Gel:
+                    case ItemID.Ale:
+                    case ItemID.CandyCorn:
+
                     // Tool
                     case ItemID.Swordfish:
                     case ItemID.ReaverShark:
@@ -464,12 +553,20 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.LunarHamaxeStardust:
                     case ItemID.StardustAxe:
                     case ItemID.StardustHammer:
+                    case ItemID.Hammush:
                         IceWeapon.Add(type);
                         break;
 
+                    // Pre-boss
+                    case ItemID.PalmWoodSword:
                     case ItemID.ThunderSpear:
                     case ItemID.ThunderStaff:
                     case ItemID.BabyBirdStaff:
+                    case ItemID.PaperAirplaneA:
+                    case ItemID.PaperAirplaneB:
+
+                    case ItemID.BoneDagger:
+                    case ItemID.BoneJavelin:
 
                     // Post Skeletron
                     case ItemID.WeatherPain:
@@ -508,6 +605,11 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.XenoStaff:
                     case ItemID.MoonlordTurretStaff:
 
+                    // Ammo
+                    case ItemID.NanoBullet:
+                    case ItemID.MoonlordBullet:
+                    case ItemID.MoonlordArrow:
+
                     // Tool
                     case ItemID.VortexPickaxe:
                     case ItemID.LunarHamaxeVortex:
@@ -520,21 +622,21 @@ namespace ShardsOfAtheria.Globals.Elements
                 {
                     ElectricWeapon.Add(type);
                 }
-                if (item.shoot != ProjectileID.None)
+                if (item.shoot != ItemID.None && item.ammo != AmmoID.Rocket)
                 {
-                    if (FireWeapon.Contains(type))
+                    if (FireWeapon.Contains(type) && !ProjectileElements.FireProj.Contains(type))
                     {
                         ProjectileElements.FireProj.Add(item.shoot);
                     }
-                    if (IceWeapon.Contains(type))
+                    if (IceWeapon.Contains(type) && !ProjectileElements.IceProj.Contains(type))
                     {
                         ProjectileElements.IceProj.Add(item.shoot);
                     }
-                    if (ElectricWeapon.Contains(type))
+                    if (ElectricWeapon.Contains(type) && !ProjectileElements.ElectricProj.Contains(type))
                     {
                         ProjectileElements.ElectricProj.Add(item.shoot);
                     }
-                    if (MetalWeapon.Contains(type))
+                    if (MetalWeapon.Contains(type) && !ProjectileElements.MetalProj.Contains(type))
                     {
                         ProjectileElements.MetalProj.Add(item.shoot);
                     }
