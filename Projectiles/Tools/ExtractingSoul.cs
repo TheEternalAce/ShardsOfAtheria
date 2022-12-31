@@ -14,8 +14,8 @@ namespace ShardsOfAtheria.Projectiles.Tools
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.FireProj.Add(Type);
-            ProjectileElements.ElectricProj.Add(Type);
+            ProjectileElements.Fire.Add(Type);
+            ProjectileElements.Electric.Add(Type);
         }
 
         public override void SetDefaults()

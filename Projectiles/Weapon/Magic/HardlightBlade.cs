@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
     {
         public override void SetStaticDefaults()
         {
-            ProjectileElements.MetalProj.Add(Type);
+            ProjectileElements.Metal.Add(Type);
         }
 
         public override void SetDefaults()

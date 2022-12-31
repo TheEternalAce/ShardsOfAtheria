@@ -34,8 +34,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.IceProj.Add(Type);
-            ProjectileElements.FireProj.Add(Type);
+            ProjectileElements.Ice.Add(Type);
+            ProjectileElements.Fire.Add(Type);
         }
 
         public override void SetDefaults()

@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 10f;
             Main.projFrames[Projectile.type] = 2;
 
-            ProjectileElements.ElectricProj.Add(Type);
+            ProjectileElements.Electric.Add(Type);
         }
         public override void SetDefaults()
         {

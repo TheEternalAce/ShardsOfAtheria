@@ -12,10 +12,10 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            WeaponElements.MetalWeapon.Add(Type);
-            WeaponElements.FireWeapon.Add(Type);
-            WeaponElements.IceWeapon.Add(Type);
-            WeaponElements.ElectricWeapon.Add(Type);
+            WeaponElements.Metal.Add(Type);
+            WeaponElements.Fire.Add(Type);
+            WeaponElements.Ice.Add(Type);
+            WeaponElements.Electric.Add(Type);
         }
 
         public override void SetDefaults()

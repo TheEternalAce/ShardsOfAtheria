@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            WeaponElements.ElectricWeapon.Add(Type);
+            WeaponElements.Electric.Add(Type);
             SoAGlobalItem.AreusWeapon.Add(Type);
             SoAGlobalItem.Eraser.Add(Type);
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;

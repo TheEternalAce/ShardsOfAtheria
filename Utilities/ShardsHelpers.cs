@@ -295,6 +295,5 @@ namespace ShardsOfAtheria.Utilities
         public const int Electric = 2;
         public const int Metal = 3;
         public const int Areus = 4;
-        public const int Frostfire = 5;
     }
 }

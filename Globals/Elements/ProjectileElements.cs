@@ -10,17 +10,16 @@ namespace ShardsOfAtheria.Globals.Elements
 {
     public class ProjectileElements : GlobalProjectile
     {
-        public static List<int> FireProj = new();
-        public static List<int> IceProj = new();
-        public static List<int> ElectricProj = new();
-        public static List<int> MetalProj = new();
+        public static List<int> Fire = new();
+        public static List<int> Ice = new();
+        public static List<int> Electric = new();
+        public static List<int> Metal = new();
         public static List<int> AreusProj = new();
 
-        public bool tempFireProj = false;
-        public bool tempIceProj = false;
-        public bool tempElectricProj = false;
-        public bool tempMetalProj = false;
-        public bool tempAreusProj = false;
+        public bool tempFire = false;
+        public bool tempIce = false;
+        public bool tempElectric = false;
+        public bool tempMetal = false;
 
         public bool conductive = false;
 
@@ -95,7 +94,7 @@ namespace ShardsOfAtheria.Globals.Elements
                     // Melee
                     //case ProjectileID.BladeofGrassLeaf:
                     case ProjectileID.ThornChakram:
-                        FireProj.Add(type);
+                        Fire.Add(type);
                         break;
 
                     // Rocket
@@ -118,7 +117,7 @@ namespace ShardsOfAtheria.Globals.Elements
                     // Other projectile
                     case ProjectileID.PoisonDartBlowgun:
                     case ProjectileID.PoisonDartTrap:
-                        IceProj.Add(type);
+                        Ice.Add(type);
                         break;
 
                     // Rocket
@@ -129,14 +128,14 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ProjectileID.ThunderSpear:
                     case ProjectileID.ThunderSpearShot:
                     case ProjectileID.ThunderStaffShot:
-                        ElectricProj.Add(type);
+                        Electric.Add(type);
                         break;
 
                     // Melee
                     case ProjectileID.TheRottedFork:
                     case ProjectileID.TheMeatball:
                     case ProjectileID.BallOHurt:
-                        MetalProj.Add(type);
+                        Metal.Add(type);
                         break;
                 }
             }
@@ -156,39 +155,39 @@ namespace ShardsOfAtheria.Globals.Elements
                     int sourceEnemy = npc.type;
                     if (NPCElements.FireNPC.Contains(sourceEnemy))
                     {
-                        tempFireProj = true;
+                        tempFire = true;
                     }
                     if (NPCElements.IceNPC.Contains(sourceEnemy))
                     {
-                        tempIceProj = true;
+                        tempIce = true;
                     }
                     if (NPCElements.ElectricNPC.Contains(sourceEnemy))
                     {
-                        tempElectricProj = true;
+                        tempElectric = true;
                     }
                     if (NPCElements.MetalNPC.Contains(sourceEnemy))
                     {
-                        tempMetalProj = true;
+                        tempMetal = true;
                     }
                 }
                 if (source is EntitySource_Parent parentSourceProj && parentSourceProj.Entity is Projectile proj)
                 {
                     int sourceProjType = proj.type;
-                    if (FireProj.Contains(sourceProjType))
+                    if (Fire.Contains(sourceProjType))
                     {
-                        tempFireProj = true;
+                        tempFire = true;
                     }
-                    if (IceProj.Contains(sourceProjType))
+                    if (Ice.Contains(sourceProjType))
                     {
-                        tempIceProj = true;
+                        tempIce = true;
                     }
-                    if (ElectricProj.Contains(sourceProjType))
+                    if (Electric.Contains(sourceProjType))
                     {
-                        tempElectricProj = true;
+                        tempElectric = true;
                     }
-                    if (MetalProj.Contains(sourceProjType))
+                    if (Metal.Contains(sourceProjType))
                     {
-                        tempMetalProj = true;
+                        tempMetal = true;
                     }
                 }
                 //if (FireProj.Contains(type))
@@ -212,21 +211,21 @@ namespace ShardsOfAtheria.Globals.Elements
 
         public override void Kill(Projectile projectile, int timeLeft)
         {
-            if (tempFireProj)
+            if (tempFire)
             {
-                FireProj.Remove(projectile.type);
+                Fire.Remove(projectile.type);
             }
-            if (tempIceProj)
+            if (tempIce)
             {
-                IceProj.Remove(projectile.type);
+                Ice.Remove(projectile.type);
             }
-            if (tempElectricProj)
+            if (tempElectric)
             {
-                ElectricProj.Remove(projectile.type);
+                Electric.Remove(projectile.type);
             }
-            if (tempMetalProj)
+            if (tempMetal)
             {
-                MetalProj.Remove(projectile.type);
+                Metal.Remove(projectile.type);
             }
         }
     }

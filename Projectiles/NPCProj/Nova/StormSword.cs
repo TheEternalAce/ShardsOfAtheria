@@ -28,8 +28,8 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.MetalProj.Add(Type);
-            ProjectileElements.ElectricProj.Add(Type);
+            ProjectileElements.Metal.Add(Type);
+            ProjectileElements.Electric.Add(Type);
         }
 
         public override void SetDefaults()

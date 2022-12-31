@@ -15,8 +15,8 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             SacrificeTotal = 1;
             SoAGlobalItem.SlayerItem.Add(Type);
-            WeaponElements.FireWeapon.Add(Type);
-            WeaponElements.ElectricWeapon.Add(Type);
+            WeaponElements.Fire.Add(Type);
+            WeaponElements.Electric.Add(Type);
         }
 
         public override void SetDefaults()

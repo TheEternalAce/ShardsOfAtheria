@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
 		public override void SetStaticDefaults()
 		{
 			SacrificeTotal = 99;
-			WeaponElements.MetalWeapon.Add(Type);
+			WeaponElements.Metal.Add(Type);
 		}
 
 		public override void SetDefaults()

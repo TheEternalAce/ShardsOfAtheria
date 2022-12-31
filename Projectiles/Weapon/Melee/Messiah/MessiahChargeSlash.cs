@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 4;
-            ProjectileElements.FireProj.Add(Type);
+            ProjectileElements.Fire.Add(Type);
             SoAGlobalProjectile.Eraser.Add(Type);
         }
 

@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 
-            ProjectileElements.MetalProj.Add(Type);
+            ProjectileElements.Metal.Add(Type);
         }
 
         public override void SetDefaults()

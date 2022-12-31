@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Items.DevItems.TheEternalAce
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            WeaponElements.FireWeapon.Add(Type);
+            WeaponElements.Fire.Add(Type);
         }
 
         public override void SetDefaults()

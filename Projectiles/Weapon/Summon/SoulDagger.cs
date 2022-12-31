@@ -24,7 +24,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon
         }
         public override void SetStaticDefaults()
         {
-            ProjectileElements.FireProj.Add(Type);
+            ProjectileElements.Fire.Add(Type);
         }
 
         public override void SetDefaults()
