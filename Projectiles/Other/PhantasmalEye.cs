@@ -9,10 +9,10 @@ namespace ShardsOfAtheria.Projectiles.Other
 	{
 		public override void SetStaticDefaults()
 		{
-			ProjectileElements.MetalProj.Add(Type);
-			ProjectileElements.FireProj.Add(Type);
-			ProjectileElements.IceProj.Add(Type);
-			ProjectileElements.ElectricProj.Add(Type);
+			ProjectileElements.Metal.Add(Type);
+			ProjectileElements.Fire.Add(Type);
+			ProjectileElements.Ice.Add(Type);
+			ProjectileElements.Electric.Add(Type);
 		}
 
 		public override void SetDefaults()

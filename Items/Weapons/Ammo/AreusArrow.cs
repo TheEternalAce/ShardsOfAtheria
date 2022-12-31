@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
         {
             SacrificeTotal = 99;
             SoAGlobalItem.AreusWeapon.Add(Type);
-            WeaponElements.ElectricWeapon.Add(Type);
+            WeaponElements.Electric.Add(Type);
         }
 
         public override void SetDefaults()

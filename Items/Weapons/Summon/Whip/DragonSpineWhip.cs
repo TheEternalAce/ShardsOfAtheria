@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Whip
         {
             SacrificeTotal = 1;
             SoAGlobalItem.SlayerItem.Add(Type);
-            WeaponElements.IceWeapon.Add(Type);
+            WeaponElements.Ice.Add(Type);
         }
 
         public override void SetDefaults()

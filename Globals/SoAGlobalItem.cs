@@ -24,6 +24,7 @@ namespace ShardsOfAtheria.Globals
 {
     public class SoAGlobalItem : GlobalItem
     {
+
         #region Item Categories
         public static List<int> SlayerItem = new();
         public static List<int> SinfulItem = new();
@@ -165,7 +166,7 @@ namespace ShardsOfAtheria.Globals
                     break;
                     #endregion
             }
-            if (ModContent.GetInstance<ShardsServerConfig>().betterWeapon && item.damage > 0)
+            if ((serverConfig.betterWeapon.Equals("No Use Turn") || serverConfig.betterWeapon.Equals("Mouse Direction")) && item.damage > 0)
             {
                 item.useTurn = false;
             }
@@ -319,7 +320,7 @@ namespace ShardsOfAtheria.Globals
 
         public override bool? UseItem(Item item, Player player)
         {
-            if (ModContent.GetInstance<ShardsServerConfig>().betterWeapon && item.shoot == ProjectileID.None)
+            if (ModContent.GetInstance<ShardsServerConfig>().betterWeapon.Equals("Mouse direction") && item.shoot == ProjectileID.None)
             {
                 player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
             }

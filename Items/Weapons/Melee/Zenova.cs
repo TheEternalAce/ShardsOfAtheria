@@ -15,10 +15,10 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 		{
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 			SacrificeTotal = 1;
-			WeaponElements.MetalWeapon.Add(Type);
-			WeaponElements.FireWeapon.Add(Type);
-			WeaponElements.IceWeapon.Add(Type);
-			WeaponElements.ElectricWeapon.Add(Type);
+			WeaponElements.Metal.Add(Type);
+			WeaponElements.Fire.Add(Type);
+			WeaponElements.Ice.Add(Type);
+			WeaponElements.Electric.Add(Type);
 		}
 
 		public override void SetDefaults()

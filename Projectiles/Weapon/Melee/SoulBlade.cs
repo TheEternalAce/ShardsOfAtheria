@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
     {
         public override void SetStaticDefaults()
         {
-            ProjectileElements.FireProj.Add(Type);
+            ProjectileElements.Fire.Add(Type);
         }
 
         public override void SetDefaults()

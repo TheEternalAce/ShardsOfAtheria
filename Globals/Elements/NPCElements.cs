@@ -26,19 +26,19 @@ namespace ShardsOfAtheria.Globals.Elements
             if (ModContent.GetInstance<ShardsServerConfig>().experimental)
             {
                 double modifier = 1.0;
-                if (WeaponElements.FireWeapon.Contains(item.type))
+                if (WeaponElements.Fire.Contains(item.type))
                 {
                     modifier *= elementMultiplier[Element.Fire];
                 }
-                if (WeaponElements.IceWeapon.Contains(item.type))
+                if (WeaponElements.Ice.Contains(item.type))
                 {
                     modifier *= elementMultiplier[Element.Ice];
                 }
-                if (WeaponElements.ElectricWeapon.Contains(item.type))
+                if (WeaponElements.Electric.Contains(item.type))
                 {
                     modifier *= elementMultiplier[Element.Ice];
                 }
-                if (WeaponElements.MetalWeapon.Contains(item.type))
+                if (WeaponElements.Metal.Contains(item.type))
                 {
                     modifier *= elementMultiplier[Element.Ice];
                 }
@@ -52,20 +52,21 @@ namespace ShardsOfAtheria.Globals.Elements
         {
             if (ModContent.GetInstance<ShardsServerConfig>().experimental)
             {
+                ProjectileElements projectile1 = projectile.GetGlobalProjectile<ProjectileElements>();
                 double modifier = 1.0;
-                if (ProjectileElements.FireProj.Contains(projectile.type) || projectile.GetGlobalProjectile<ProjectileElements>().tempFireProj)
+                if (ProjectileElements.Fire.Contains(projectile.type) || projectile1.tempFire)
                 {
                     modifier *= elementMultiplier[Element.Fire];
                 }
-                if (ProjectileElements.IceProj.Contains(projectile.type) || projectile.GetGlobalProjectile<ProjectileElements>().tempIceProj)
+                if (ProjectileElements.Ice.Contains(projectile.type) || projectile1.tempIce)
                 {
                     modifier *= elementMultiplier[Element.Ice];
                 }
-                if (ProjectileElements.ElectricProj.Contains(projectile.type) || projectile.GetGlobalProjectile<ProjectileElements>().tempElectricProj)
+                if (ProjectileElements.Electric.Contains(projectile.type) || projectile1.tempElectric)
                 {
                     modifier *= elementMultiplier[Element.Electric];
                 }
-                if (ProjectileElements.MetalProj.Contains(projectile.type) || projectile.GetGlobalProjectile<ProjectileElements>().tempMetalProj)
+                if (ProjectileElements.Metal.Contains(projectile.type) || projectile1.tempMetal)
                 {
                     modifier *= elementMultiplier[Element.Metal];
                 }

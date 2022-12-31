@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 99;
-            WeaponElements.IceWeapon.Add(Type);
+            WeaponElements.Ice.Add(Type);
         }
 
         public override void SetDefaults()

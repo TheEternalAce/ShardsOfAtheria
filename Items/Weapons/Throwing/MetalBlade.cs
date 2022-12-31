@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons.Throwing
         {
             SacrificeTotal = 1;
 
-            WeaponElements.MetalWeapon.Add(Type);
+            WeaponElements.Metal.Add(Type);
         }
 
         public override void SetDefaults()

@@ -10,10 +10,10 @@ namespace ShardsOfAtheria.Globals.Elements
 {
     public class WeaponElements : GlobalItem
     {
-        public static List<int> MetalWeapon = new();
-        public static List<int> FireWeapon = new();
-        public static List<int> IceWeapon = new();
-        public static List<int> ElectricWeapon = new();
+        public static List<int> Fire = new();
+        public static List<int> Ice = new();
+        public static List<int> Electric = new();
+        public static List<int> Metal = new();
 
         public override bool InstancePerEntity => true;
 
@@ -22,28 +22,28 @@ namespace ShardsOfAtheria.Globals.Elements
             int type = item.type;
             if (ModContent.GetInstance<ShardsServerConfig>().experimental)
             {
-                if (FireWeapon.Contains(type))
+                if (Fire.Contains(type))
                 {
                     tooltips.Add(new TooltipLine(Mod, "Element", Language.GetTextValue("Mods.ShardsOfAtheria.Common.ElementFire"))
                     {
                         OverrideColor = Color.Firebrick
                     });
                 }
-                if (IceWeapon.Contains(type))
+                if (Ice.Contains(type))
                 {
                     tooltips.Add(new TooltipLine(Mod, "Element", Language.GetTextValue("Mods.ShardsOfAtheria.Common.ElementIce"))
                     {
                         OverrideColor = Color.LightSkyBlue
                     });
                 }
-                if (ElectricWeapon.Contains(type))
+                if (Electric.Contains(type))
                 {
                     tooltips.Add(new TooltipLine(Mod, "Element", Language.GetTextValue("Mods.ShardsOfAtheria.Common.ElementElectric"))
                     {
                         OverrideColor = Color.Cyan
                     });
                 }
-                if (MetalWeapon.Contains(type))
+                if (Metal.Contains(type))
                 {
                     tooltips.Add(new TooltipLine(Mod, "Element", Language.GetTextValue("Mods.ShardsOfAtheria.Common.ElementMetal"))
                     {
@@ -327,7 +327,7 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.Pwnhammer:
                     //case 4317: // Haemorrhaxe
                     case ItemID.GravediggerShovel:
-                        MetalWeapon.Add(type);
+                        Metal.Add(type);
                         break;
 
                     // Pre-boss
@@ -459,7 +459,7 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.LunarHamaxeSolar:
                     case ItemID.SolarFlareAxe:
                     case ItemID.SolarFlareHammer:
-                        FireWeapon.Add(type);
+                        Fire.Add(type);
                         break;
 
                     // Pre-boss
@@ -554,7 +554,7 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.StardustAxe:
                     case ItemID.StardustHammer:
                     case ItemID.Hammush:
-                        IceWeapon.Add(type);
+                        Ice.Add(type);
                         break;
 
                     // Pre-boss
@@ -615,30 +615,30 @@ namespace ShardsOfAtheria.Globals.Elements
                     case ItemID.LunarHamaxeVortex:
                     case ItemID.VortexAxe:
                     case ItemID.VortexHammer:
-                        ElectricWeapon.Add(type);
+                        Electric.Add(type);
                         break;
                 }
                 if (SoAGlobalItem.AreusWeapon.Contains(type))
                 {
-                    ElectricWeapon.Add(type);
+                    Electric.Add(type);
                 }
-                if (item.shoot != ItemID.None && item.ammo != AmmoID.Rocket)
+                if (item.shoot != ItemID.None && item.ammo != AmmoID.Rocket && item.useAmmo == AmmoID.None)
                 {
-                    if (FireWeapon.Contains(type) && !ProjectileElements.FireProj.Contains(type))
+                    if (Fire.Contains(type) && !ProjectileElements.Fire.Contains(type))
                     {
-                        ProjectileElements.FireProj.Add(item.shoot);
+                        ProjectileElements.Fire.Add(item.shoot);
                     }
-                    if (IceWeapon.Contains(type) && !ProjectileElements.IceProj.Contains(type))
+                    if (Ice.Contains(type) && !ProjectileElements.Ice.Contains(type))
                     {
-                        ProjectileElements.IceProj.Add(item.shoot);
+                        ProjectileElements.Ice.Add(item.shoot);
                     }
-                    if (ElectricWeapon.Contains(type) && !ProjectileElements.ElectricProj.Contains(type))
+                    if (Electric.Contains(type) && !ProjectileElements.Electric.Contains(type))
                     {
-                        ProjectileElements.ElectricProj.Add(item.shoot);
+                        ProjectileElements.Electric.Add(item.shoot);
                     }
-                    if (MetalWeapon.Contains(type) && !ProjectileElements.MetalProj.Contains(type))
+                    if (Metal.Contains(type) && !ProjectileElements.Metal.Contains(type))
                     {
-                        ProjectileElements.MetalProj.Add(item.shoot);
+                        ProjectileElements.Metal.Add(item.shoot);
                     }
                 }
             }

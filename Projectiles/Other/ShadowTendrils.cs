@@ -9,8 +9,8 @@ namespace ShardsOfAtheria.Projectiles.Other
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 3;
-            ProjectileElements.FireProj.Add(Type);
-            ProjectileElements.ElectricProj.Add(Type);
+            ProjectileElements.Fire.Add(Type);
+            ProjectileElements.Electric.Add(Type);
         }
 
         public override void SetDefaults()

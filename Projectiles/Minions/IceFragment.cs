@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
     {
         public override void SetStaticDefaults()
         {
-            ProjectileElements.IceProj.Add(Type);
+            ProjectileElements.Ice.Add(Type);
         }
 
         public override void SetDefaults()

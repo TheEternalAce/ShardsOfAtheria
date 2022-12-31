@@ -578,19 +578,19 @@ namespace ShardsOfAtheria.Players
             if (ModContent.GetInstance<ShardsServerConfig>().experimental)
             {
                 double modifier = 1.0;
-                if (ProjectileElements.FireProj.Contains(proj.type))
+                if (ProjectileElements.Fire.Contains(proj.type))
                 {
                     modifier *= elementMultiplier[Element.Fire];
                 }
-                if (ProjectileElements.IceProj.Contains(proj.type))
+                if (ProjectileElements.Ice.Contains(proj.type))
                 {
                     modifier *= elementMultiplier[Element.Ice];
                 }
-                if (ProjectileElements.ElectricProj.Contains(proj.type))
+                if (ProjectileElements.Electric.Contains(proj.type))
                 {
                     modifier *= elementMultiplier[Element.Electric];
                 }
-                if (ProjectileElements.MetalProj.Contains(proj.type))
+                if (ProjectileElements.Metal.Contains(proj.type))
                 {
                     modifier *= elementMultiplier[Element.Metal];
                 }
@@ -604,19 +604,19 @@ namespace ShardsOfAtheria.Players
             if (ModContent.GetInstance<ShardsServerConfig>().experimental)
             {
                 double modifier = 1.0;
-                if (WeaponElements.FireWeapon.Contains(item.type))
+                if (WeaponElements.Fire.Contains(item.type))
                 {
                     modifier *= elementMultiplier[Element.Fire];
                 }
-                if (WeaponElements.IceWeapon.Contains(item.type))
+                if (WeaponElements.Ice.Contains(item.type))
                 {
                     modifier *= elementMultiplier[Element.Ice];
                 }
-                if (WeaponElements.ElectricWeapon.Contains(item.type))
+                if (WeaponElements.Electric.Contains(item.type))
                 {
                     modifier *= elementMultiplier[Element.Electric];
                 }
-                if (WeaponElements.MetalWeapon.Contains(item.type))
+                if (WeaponElements.Metal.Contains(item.type))
                 {
                     modifier *= elementMultiplier[Element.Metal];
                 }
@@ -630,19 +630,19 @@ namespace ShardsOfAtheria.Players
             if (ModContent.GetInstance<ShardsServerConfig>().experimental)
             {
                 double modifier = 1.0;
-                if (ProjectileElements.FireProj.Contains(proj.type))
+                if (ProjectileElements.Fire.Contains(proj.type))
                 {
                     modifier *= elementMultiplier[Element.Fire];
                 }
-                if (ProjectileElements.IceProj.Contains(proj.type))
+                if (ProjectileElements.Ice.Contains(proj.type))
                 {
                     modifier *= elementMultiplier[Element.Ice];
                 }
-                if (ProjectileElements.ElectricProj.Contains(proj.type))
+                if (ProjectileElements.Electric.Contains(proj.type))
                 {
                     modifier *= elementMultiplier[Element.Electric];
                 }
-                if (ProjectileElements.MetalProj.Contains(proj.type))
+                if (ProjectileElements.Metal.Contains(proj.type))
                 {
                     modifier *= elementMultiplier[Element.Metal];
                 }

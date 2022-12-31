@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
     {
         public override void SetStaticDefaults()
         {
-            ProjectileElements.MetalProj.Add(Type);
+            ProjectileElements.Metal.Add(Type);
         }
 
         public override void SetDefaults()

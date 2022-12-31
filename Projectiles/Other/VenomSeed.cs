@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Other
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.PoisonSeedPlantera];
-            ProjectileElements.FireProj.Add(Type);
+            ProjectileElements.Fire.Add(Type);
         }
 
         public override void SetDefaults()

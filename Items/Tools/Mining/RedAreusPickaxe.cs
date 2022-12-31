@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
         {
             SacrificeTotal = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
-            WeaponElements.FireWeapon.Add(Type);
+            WeaponElements.Fire.Add(Type);
         }
 
         public override void SetDefaults()
