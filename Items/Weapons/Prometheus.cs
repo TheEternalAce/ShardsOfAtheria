@@ -26,7 +26,6 @@ namespace ShardsOfAtheria.Items.Weapons
             Item.damage = 112;
             Item.DamageType = DamageClass.Melee;
             Item.knockBack = 13;
-            Item.mana = 0;
 
             Item.useTime = 30;
             Item.useAnimation = 30;
@@ -63,7 +62,6 @@ namespace ShardsOfAtheria.Items.Weapons
                 Item.damage = 97;
                 Item.DamageType = DamageClass.Ranged;
                 Item.knockBack = 6;
-                Item.mana = 15;
                 Item.UseSound = SoundID.Item20;
                 Item.shoot = ModContent.ProjectileType<PrometheusFire>();
                 Item.shootSpeed = 13f;
@@ -75,7 +73,6 @@ namespace ShardsOfAtheria.Items.Weapons
                 Item.damage = 112;
                 Item.DamageType = DamageClass.Melee;
                 Item.knockBack = 13;
-                Item.mana = 0;
                 Item.UseSound = SoundID.Item71;
                 Item.shoot = ModContent.ProjectileType<EnergyScythe>();
                 Item.shootSpeed = 1;
