@@ -476,7 +476,7 @@ namespace ShardsOfAtheria.Players
                 {
                     aggression++;
                 }
-                else
+                else if (Vector2.Distance(Player.Center, target.Center) >= Main.screenWidth / 4)
                 {
                     aggression--;
                 }

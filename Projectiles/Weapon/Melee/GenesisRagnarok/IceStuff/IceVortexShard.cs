@@ -40,7 +40,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff
                 Projectile.ai[0] = 1;
             }
 
-            rotation += .5;
+            rotation += .2;
             Projectile.rotation = Vector2.Normalize(Projectile.Center - position).ToRotation() + MathHelper.ToRadians(180);
             Projectile.Center = position + Vector2.One.RotatedBy(rotation) * 45;
         }

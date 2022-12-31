@@ -34,6 +34,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+            target.AddBuff(BuffID.Electrified, 600);
             if (Projectile.ai[1] == 1)
             {
                 CallStorm(3);
@@ -86,9 +87,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             for (var i = 0; i < amount; i++)
             {
                 Projectile p = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(),
-                    new Vector2(Projectile.Center.X + Main.rand.Next(-60*amount, 60*amount), Projectile.Center.Y - 600), new Vector2(0, 5),
+                    new Vector2(Projectile.Center.X + Main.rand.Next(-60 * amount, 60 * amount), Projectile.Center.Y - 600), new Vector2(0, 5),
                     ModContent.ProjectileType<LightningBoltFriendly>(), (int)(Projectile.damage * 0.66f), Projectile.knockBack, Main.player[Projectile.owner].whoAmI);
                 p.penetrate = pierce;
+                p.DamageType = Projectile.DamageType;
             }
         }
 

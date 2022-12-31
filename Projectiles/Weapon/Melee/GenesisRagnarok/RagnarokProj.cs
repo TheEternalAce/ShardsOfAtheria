@@ -61,7 +61,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 
             Projectile.ai[1]++;
             if (Projectile.ai[1] >= 20)
-                Projectile.velocity = Vector2.Normalize(player.Center - Projectile.Center) *30;
+                Projectile.velocity = Vector2.Normalize(player.Center - Projectile.Center) * 30;
 
             if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
             {
@@ -83,11 +83,15 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 
                 if (genesisAndRagnarok.upgrades == 5)
                 {
-                    for (int i = 0; i < 6; i++)
+                    if (++Projectile.ai[0] >= 10f)
                     {
-                        Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize(Projectile.position + Projectile.velocity - Projectile.Center)
-                            .RotatedBy(MathHelper.ToRadians(60 * i)) * 5, ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
-                        proj.DamageType = DamageClass.Melee;
+                        Projectile.ai[0] = 0;
+                        for (int i = 0; i < 6; i++)
+                        {
+                            Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize(Projectile.position + Projectile.velocity - Projectile.Center)
+                                .RotatedBy(MathHelper.ToRadians(60 * i)) * 5, ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                            proj.DamageType = DamageClass.Melee;
+                        }
                     }
                 }
 

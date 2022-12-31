@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff;
+using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -27,7 +27,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                 else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
                 {
                     target.AddBuff(BuffID.Frostburn, 600);
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<IceExplosion>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                    Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage,
+                        Projectile.knockBack, player.whoAmI, 0, 1);
+                    proj.DamageType = DamageClass.Melee;
                 }
             }
         }

@@ -95,7 +95,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                     {
                         float numberProjectiles = 3;
                         float shardRotation = MathHelper.ToRadians(15);
-                        Vector2 position = Projectile.position;
+                        Vector2 position = Projectile.Center;
                         Vector2 velocity = AngleVector * Projectile.velocity.Length() * 16f;
                         for (int i = 0; i < numberProjectiles; i++)
                         {
