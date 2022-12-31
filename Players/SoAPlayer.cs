@@ -528,10 +528,10 @@ namespace ShardsOfAtheria.Players
         {
             if ((Biometal || BiometalForceVanity) && !BiometalHideVanity)
             {
-                var exampleCostume = ModContent.GetInstance<Biometal>();
-                Player.head = EquipLoader.GetEquipSlot(Mod, exampleCostume.Name, EquipType.Head);
-                Player.body = EquipLoader.GetEquipSlot(Mod, exampleCostume.Name, EquipType.Body);
-                Player.legs = EquipLoader.GetEquipSlot(Mod, exampleCostume.Name, EquipType.Legs);
+                var biometal = ModContent.GetInstance<Biometal>();
+                Player.head = EquipLoader.GetEquipSlot(Mod, biometal.Name, EquipType.Head);
+                Player.body = EquipLoader.GetEquipSlot(Mod, biometal.Name, EquipType.Body);
+                Player.legs = EquipLoader.GetEquipSlot(Mod, biometal.Name, EquipType.Legs);
 
                 Player.handon = -1;
                 Player.handoff = -1;
