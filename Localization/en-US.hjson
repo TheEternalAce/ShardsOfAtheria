@@ -15,8 +15,6 @@ Mods: {
 			FullCharge: "Charge Ready!"
 			SlayerItem: Slayer Item
 			AbsorbedBlood: Absorbed Blood
-			ShadeStateActive: Shade State already active
-			InsufficientBlood: Not enough blood
 			TeleportOnKeyPress: Allows teleportation on press of {0}
 			OverdriveInfo:
 				'''
@@ -854,8 +852,6 @@ Mods: {
 				Absorbs blood on hitting enemies
 				Absorbs even more blood on killing enemies
 				Shooting projectiles costs 10 blood
-				Right click with 1000 blood to activate Shade State
-				Shade State increases damage by 15% and defense by 20
 				'''
 				# Magic
 			Gunsword:

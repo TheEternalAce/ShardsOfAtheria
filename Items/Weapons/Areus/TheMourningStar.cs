@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using System.Collections.Generic;
@@ -15,7 +13,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
     {
         public int blood;
         public const int BloodProjCost = 10;
-        const int BloodCost = 1000;
 
         public override void OnCreate(ItemCreationContext context)
         {
@@ -43,7 +40,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "Blood", $"{Language.GetTextValue("Mods.ShardsOfAtheria.Common.AbsorbedBlood")} {blood}"));
+            tooltips.Add(new TooltipLine(Mod, "Blood", $"{Language.GetTextValue("Mods.ShardsOfAtheria.Common.AbsorbedBlood")}: {blood}"));
         }
 
         public override void SetDefaults()
@@ -73,43 +70,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
             damage += blood * 0.0001f;
-        }
-
-        public override bool AltFunctionUse(Player player)
-        {
-            return true;
-        }
-
-        public override bool CanUseItem(Player player)
-        {
-            if (player.altFunctionUse == 2)
-            {
-                Item.useStyle = ItemUseStyleID.HoldUp;
-                Item.UseSound = SoundID.Item82;
-                Item.shoot = ProjectileID.None;
-                Item.noUseGraphic = false;
-                if (player.HasBuff(ModContent.BuffType<ShadeState>()))
-                {
-                    CombatText.NewText(player.getRect(), Color.DarkGray, Language.GetTextValue("Mods.ShardsOfAtheria.Common.ShadeStateActive"));
-                }
-                else if (blood < BloodCost)
-                {
-                    CombatText.NewText(player.getRect(), Color.Red, Language.GetTextValue("Mods.ShardsOfAtheria.Common.InsufficientBlood"));
-                }
-                else
-                {
-                    player.AddBuff(ModContent.BuffType<ShadeState>(), 14400);
-                    blood -= 1000;
-                }
-            }
-            else
-            {
-                Item.useStyle = ItemUseStyleID.Shoot;
-                Item.UseSound = SoundID.Item1;
-                Item.shoot = ModContent.ProjectileType<MourningStar>();
-                Item.noUseGraphic = true;
-            }
-            return true;
         }
 
         public override void HoldItem(Player player)
