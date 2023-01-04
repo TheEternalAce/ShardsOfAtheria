@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Materials
@@ -39,6 +41,8 @@ namespace ShardsOfAtheria.Items.Materials
                 .AddIngredient(ItemID.FragmentStardust)
                 .AddIngredient(ItemID.FragmentVortex)
                 .AddTile(TileID.LunarCraftingStation)
+                .AddCondition(NetworkText.FromKey("Mods.ShardsOfAtheria.RecipeConditions.SlayerMode"),
+                    r => Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
                 .Register();
         }
     }
