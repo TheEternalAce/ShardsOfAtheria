@@ -520,12 +520,12 @@ Mods: {
 				# The Eternal Ace
 			AceOfSpades:
 				'''
-				Use RMB to detonate the cards
+				Use RMB to detonate thrown cards
 				'What is that object?'
 				'''
 			AcesGoldFoxMask: "'Great for impersonating devs!'"
 			AcesJacket:
-				''''
+				'''
 				'Great for impersonating devs!'
 				'Pockets included!'
 				'''
@@ -534,7 +534,7 @@ Mods: {
 			CoatOfnight:
 				'''
 				'Great for impersonating devs!'
-				'no capitalization on my name'
+				'no cap'
 				'''
 			Nightlight:
 				'''
@@ -545,20 +545,19 @@ Mods: {
 			StatueOfDaluyan:
 				'''
 				'Great for impersonating devs!'
-				'bro legit i have the perfect dev item'
 				'That's Fool's Gold! That ain't worth nothing!'
 				'''
 
 			# Grab bags
 			AmmoBag: Gives a stack of a random ammo
-			AmmoBag_Arrow: Gives a stack of a random arrow type
-			AmmoBag_Bullet: Gives a stack of a random bullet type
-			AmmoBag_Rocket: Gives a stack of a random rocket type
+			AmmoBag_Arrow: Gives a stack of a random arrow
+			AmmoBag_Bullet: Gives a stack of a random bullet
+			AmmoBag_Rocket: Gives a stack of a random rocket
 
 			# Materials
 			BrokenHeroGun: "'The broken gun of a long forgotten hero'"
 			ChargedFeather: "'Electricity flows between its barbs'"
-			FragmentEnntropy: "'Feelings of universal decay emanate from this fragment'"
+			FragmentEntropy: "'Feelings of universal decay emanate from this fragment'"
 			MemoryFragment:
 				'''
 				Can be used to upgrade Genesis and Ragnarok
@@ -1386,6 +1385,7 @@ Mods: {
 
 		RecipeConditions: {
 			Upgrade: Upgraded by Atherian
+			SlayerMode: Be in Slayer Mode
 		}
 
 		BossDesc: {
