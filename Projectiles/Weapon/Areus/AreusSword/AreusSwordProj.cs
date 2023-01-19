@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
@@ -18,7 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSword
     {
         public override void SetStaticDefaults()
         {
-            ProjectileElements.AreusProj.Add(Type);
+            SoAGlobalProjectile.AreusProj.Add(Type);
             SoAGlobalProjectile.Eraser.Add(Type);
         }
 
@@ -44,7 +43,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSword
         {
             for (int i = 0; i < 3; i++)
             {
-                Vector2 position = target.Center+Vector2.One.RotatedByRandom(360)*180;
+                Vector2 position = target.Center + Vector2.One.RotatedByRandom(360) * 180;
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, Vector2.Normalize(target.Center - position) * 20, ModContent.ProjectileType<ElectricBlade>(), 50, 6f, Projectile.owner);
             }
         }

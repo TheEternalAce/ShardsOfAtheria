@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Globals.Elements;
+using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -27,7 +28,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.AreusProj.Add(Type);
+            SoAGlobalProjectile.AreusProj.Add(Type);
         }
 
         public override void SetDefaults()
@@ -120,10 +121,15 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
                 SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
                 if (Projectile.ai[0] == 1f)
                 {
+                    int damage = Projectile.damage;
+                    if (!Projectile.GetGlobalProjectile<OverchargedProjectile>().overcharged)
+                    {
+                        damage /= 3;
+                    }
                     for (int i = 0; i < 6; i++)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(1, 0).RotatedBy(MathHelper.ToRadians(60 * i)) * 16,
-                            ModContent.ProjectileType<AreusArrowProj>(), Projectile.damage / 3, Projectile.knockBack, player.whoAmI, 2f);
+                            ModContent.ProjectileType<AreusArrowProj>(), damage, Projectile.knockBack, player.whoAmI, 2f);
                         Projectile.netUpdate = true;
                     }
                 }

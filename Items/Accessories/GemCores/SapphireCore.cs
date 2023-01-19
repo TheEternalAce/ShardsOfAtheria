@@ -7,6 +7,14 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
 	public class SapphireCore : ModItem
 	{
+		public override void Load()
+		{
+			if (Main.netMode != NetmodeID.Server)
+			{
+				EquipLoader.AddEquipTexture(Mod, "ShardsOfAtheria/Items/Accessories/GemCores/SapphireSpirit", EquipType.Balloon, this, "SapphireSpirit");
+			}
+		}
+
 		public override void SetStaticDefaults()
 		{
 			SacrificeTotal = 1;
@@ -17,6 +25,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			Item.width = 32;
 			Item.height = 32;
 			Item.accessory = true;
+			Item.canBePlacedInVanityRegardlessOfConditions = true;
 
 			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 1, 25);
@@ -34,6 +43,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
+			player.GetModPlayer<SoAPlayer>().sapphireSpirit = true;
 			player.GetModPlayer<SoAPlayer>().sapphireCore = true;
 		}
 	}

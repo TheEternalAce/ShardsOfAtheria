@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals.Elements;
+using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -17,7 +19,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.AreusProj.Add(Type);
+            SoAGlobalProjectile.AreusProj.Add(Type);
         }
 
         public override void SetDefaults()
@@ -32,7 +34,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
 
-            ProjectileElements.AreusProj.Add(Type);
+            SoAGlobalProjectile.AreusProj.Add(Type);
         }
 
         public override void AI()
@@ -52,6 +54,15 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
             {
                 SoundEngine.PlaySound(SoundID.Item71);
                 Projectile.ai[1] = 0;
+                if (Projectile.GetGlobalProjectile<OverchargedProjectile>().overcharged)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize(Projectile.position + Projectile.velocity - Projectile.Center)
+                            .RotatedBy(MathHelper.ToRadians(60 * i)) * 5, ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                        proj.DamageType = DamageClass.Melee;
+                    }
+                }
             }
 
             Projectile.ai[0]++;

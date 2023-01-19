@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals.Elements;
+using ShardsOfAtheria.Utilities;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             target.AddBuff(BuffID.Electrified, 600);
             if (Projectile.ai[1] == 1)
             {
-                CallStorm(3);
+                Projectile.CallStorm(3);
             }
             else if (Projectile.ai[1] == 2 && target.CanBeChasedBy())
             {
@@ -67,7 +67,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 
                 if (crit)
                 {
-                    CallStorm(1, 5);
+                    Projectile.CallStorm(1, 5);
                 }
             }
             Projectile.damage = (int)(Projectile.damage * 0.9f);
@@ -77,25 +77,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         {
             if (Projectile.ai[1] == 1)
             {
-                CallStorm(3);
-            }
-        }
-
-        private void CallStorm(int amount, int pierce = 1)
-        {
-            SoundEngine.PlaySound(SoundID.NPCDeath56, Projectile.Center);
-            for (var i = 0; i < amount; i++)
-            {
-                Projectile p = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(),
-                    new Vector2(Projectile.Center.X + Main.rand.Next(-60 * amount, 60 * amount), Projectile.Center.Y - 600), new Vector2(0, 5),
-                    ModContent.ProjectileType<LightningBoltFriendly>(), (int)(Projectile.damage * 0.66f), Projectile.knockBack, Main.player[Projectile.owner].whoAmI);
-                p.penetrate = pierce;
-                p.DamageType = Projectile.DamageType;
+                Projectile.CallStorm(3);
             }
         }
 
         public override void AI()
         {
+            Projectile.velocity.Normalize();
+            Projectile.velocity *= 4f;
             if (initialVel == Vector2.Zero)
             {
                 initialVel = Projectile.velocity;

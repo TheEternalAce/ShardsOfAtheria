@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals.Elements;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -9,6 +10,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 {
     public class PrometheusFire : ModProjectile
     {
+        int gravityTimer = 0;
+
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 4;
@@ -24,36 +27,24 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.arrow = false;
-            Projectile.light = 1f;
             Projectile.extraUpdates = 1;
             Projectile.timeLeft = 120;
+            Projectile.penetrate = 5;
         }
 
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation();
-            // Set both direction and spriteDirection to 1 or -1 (right and left respectively)
-            // Projectile.direction is automatically set correctly in Projectile.Update, but we need to set it here or the textures will draw incorrectly on the 1st frame.
-            Projectile.spriteDirection = Projectile.direction = (Projectile.velocity.X > 0).ToDirectionInt();
-            // Adding Pi to rotation if facing left corrects the drawing
-            Projectile.rotation = Projectile.velocity.ToRotation() + (Projectile.spriteDirection == 1 ? 0f : MathHelper.Pi);
-            if (Projectile.spriteDirection == 1) // facing right
+            CorrectRotation();
+            UpdateVisuals();
+            if (Projectile.ai[0] == 1)
             {
-                DrawOffsetX = -19;
-                DrawOriginOffsetX = 9;
-            }
-            else
-            {
-                DrawOffsetX = 0;
-                DrawOriginOffsetX = -9; // Math works out that this is negative of the other value.
-            }
-            // Loop through the 4 animation frames, spending 5 ticks on each.
-            if (++Projectile.frameCounter >= 15)
-            {
-                Projectile.frameCounter = 0;
-                if (++Projectile.frame >= 4)
+                if (++gravityTimer >= 15) // Use a timer to wait 15 ticks before applying gravity.
                 {
-                    Projectile.frame = 0;
+                    Projectile.velocity.Y = Projectile.velocity.Y + 0.1f;
+                }
+                if (Projectile.velocity.Y > 16f)
+                {
+                    Projectile.velocity.Y = 16f;
                 }
             }
             if (Main.rand.NextBool(3))
@@ -72,9 +63,96 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             }
         }
 
+        public void CorrectRotation()
+        {
+            Projectile.rotation = Projectile.velocity.ToRotation();
+            // Set both direction and spriteDirection to 1 or -1 (right and left respectively)
+            // Projectile.direction is automatically set correctly in Projectile.Update, but we need to set it here or the textures will draw incorrectly on the 1st frame.
+            Projectile.spriteDirection = Projectile.direction = (Projectile.velocity.X > 0).ToDirectionInt();
+            // Adding Pi to rotation if facing left corrects the drawing
+            Projectile.rotation = Projectile.velocity.ToRotation() + (Projectile.spriteDirection == 1 ? 0f : MathHelper.Pi);
+            if (Projectile.spriteDirection == 1) // facing right
+            {
+                DrawOffsetX = -19;
+                DrawOriginOffsetX = 9;
+            }
+            else
+            {
+                DrawOffsetX = 0;
+                DrawOriginOffsetX = -9; // Math works out that this is negative of the other value.
+            }
+        }
+
+        public void UpdateVisuals()
+        {
+            // Loop through the 4 animation frames, spending 5 ticks on each.
+            if (++Projectile.frameCounter >= 15)
+            {
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= 4)
+                {
+                    Projectile.frame = 0;
+                }
+            }
+        }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(BuffID.OnFire, 10 * 60);
+            target.AddBuff(BuffID.OnFire3, 10 * 60);
+            if (Projectile.ai[0] == 0 && Projectile.penetrate == 1)
+            {
+                Projectile.ai[0] = 1;
+                Projectile.timeLeft = 600;
+                Projectile.penetrate = 1;
+                Vector2 velocity = -Projectile.velocity;
+                velocity.Normalize();
+                Vector2 nextVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(45)) * (4f + Main.rand.Next(0, 4));
+                Projectile.velocity = nextVelocity;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    nextVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(45)) * (4f + Main.rand.Next(0, 4));
+                    Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, nextVelocity,
+                        ModContent.ProjectileType<PrometheusFire>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1);
+                    proj.timeLeft = 600;
+                    proj.penetrate = 1;
+                }
+            }
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            if (Projectile.ai[0] == 0)
+            {
+                Projectile.ai[0] = 1;
+                Projectile.timeLeft = 600;
+                Projectile.penetrate = 1;
+                Vector2 velocity = Projectile.velocity;
+                // If the projectile hits the left or right side of the tile, reverse the X velocity
+                if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon)
+                {
+                    velocity.X = -oldVelocity.X * 1.05f;
+                }
+                // If the projectile hits the top or bottom side of the tile, reverse the Y velocity
+                if (Math.Abs(Projectile.velocity.Y - oldVelocity.Y) > float.Epsilon)
+                {
+                    velocity.Y = -oldVelocity.Y * 1.05f;
+                }
+                velocity.Normalize();
+                Vector2 nextVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(45)) * (4f + Main.rand.Next(0, 4));
+                Projectile.velocity = nextVelocity;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    nextVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(45)) * (4f + Main.rand.Next(0, 4));
+                    Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, nextVelocity,
+                        ModContent.ProjectileType<PrometheusFire>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1);
+                    proj.timeLeft = 600;
+                    proj.penetrate = 1;
+                }
+                return false;
+            }
+            return base.OnTileCollide(oldVelocity);
         }
 
         public override void Kill(int timeLeft)
@@ -91,6 +169,20 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
                     0, 0, 254, Scale: 0.3f);
                 dust2.velocity += Projectile.velocity * 0.5f;
                 dust2.velocity *= 0.5f;
+            }
+
+            if (Projectile.ai[0] == 0)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    Vector2 velocity = Projectile.velocity;
+                    velocity.Normalize();
+                    Vector2 nextVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(45)) * (4f + Main.rand.Next(0, 4));
+                    Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, nextVelocity,
+                        ModContent.ProjectileType<PrometheusFire>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1);
+                    proj.timeLeft = 600;
+                    proj.penetrate = 1;
+                }
             }
             base.Kill(timeLeft);
         }

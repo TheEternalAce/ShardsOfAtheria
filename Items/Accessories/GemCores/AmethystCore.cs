@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,9 +8,29 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
     public class AmethystCore : ModItem
     {
+        public override void Load()
+        {
+            if (Main.netMode != NetmodeID.Server)
+            {
+                EquipLoader.AddEquipTexture(Mod, "ShardsOfAtheria/Items/Accessories/GemCores/AmethystMask", EquipType.Head, this, "AmethystMask");
+            }
+        }
+
+        public void SetupDrawing()
+        {
+            if (Main.netMode != NetmodeID.Server)
+            {
+                int equipSlotHead = EquipLoader.GetEquipSlot(Mod, "AmethystMask", EquipType.Head);
+                ArmorIDs.Head.Sets.DrawHead[equipSlotHead] = true;
+                ArmorIDs.Head.Sets.DrawFullHair[equipSlotHead] = true;
+            }
+        }
+
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
+
+            SetupDrawing();
         }
 
         public override void SetDefaults()
@@ -17,6 +38,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             Item.width = 32;
             Item.height = 32;
             Item.accessory = true;
+            Item.canBePlacedInVanityRegardlessOfConditions = true;
 
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(0, 1, 25);
@@ -34,6 +56,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.GetModPlayer<SoAPlayer>().amethystMask = true;
+
             AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
             mp.DashVelocity = 13f;
             AmethystDashPlayer.MAX_DASH_DELAY = 50;

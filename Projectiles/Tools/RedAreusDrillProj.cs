@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Globals.Elements;
+using ShardsOfAtheria.Globals;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Projectiles.Tools
 		}
 		public override void SetStaticDefaults()
 		{
-			ProjectileElements.AreusProj.Add(Type);
+			SoAGlobalProjectile.AreusProj.Add(Type);
 		}
 
 		public override void SetDefaults()

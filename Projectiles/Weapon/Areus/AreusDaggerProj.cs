@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals.Elements;
+using ShardsOfAtheria.Globals;
 using Terraria;
 using Terraria.Enums;
 using Terraria.ID;
@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.AreusProj.Add(Type);
+            SoAGlobalProjectile.AreusProj.Add(Type);
         }
 
         public override void SetDefaults()

@@ -2,7 +2,6 @@
 using ShardsOfAtheria.Items.DevItems.nightlight;
 using ShardsOfAtheria.Items.DevItems.TheEternalAce;
 using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Items.Weapons.Ranged;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -34,10 +33,6 @@ namespace ShardsOfAtheria.Globals
             if (item.type == ItemID.EaterOfWorldsBossBag)
             {
                 itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<WormBloom>()));
-            }
-            if (item.type == ItemID.QueenBeeBossBag)
-            {
-                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Glock80>()));
             }
         }
     }

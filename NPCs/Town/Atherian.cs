@@ -169,12 +169,11 @@ namespace ShardsOfAtheria.NPCs.Town
 
             if (!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode || ModContent.GetInstance<ShardsServerConfig>().cluelessNPCs)
             {
-                if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
+                SoAPlayer shardsPlayer = Main.LocalPlayer.GetModPlayer<SoAPlayer>();
+                int upgrades = shardsPlayer.genesisRagnarockUpgrades;
+                if (upgrades == 0)
                 {
-                    if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 0)
-                    {
-                        return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.BaseGenesisAndRagnarok");
-                    }
+                    return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.BaseGenesisAndRagnarok");
                 }
             }
 
@@ -199,56 +198,57 @@ namespace ShardsOfAtheria.NPCs.Town
             else
             {
                 Player player = Main.LocalPlayer;
+                SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+                int upgrades = shardsPlayer.genesisRagnarockUpgrades;
+
                 if (player.GetModPlayer<SlayerPlayer>().slayerMode && !ModContent.GetInstance<ShardsServerConfig>().cluelessNPCs)
                 {
                     Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.RefuseUpgrade");
                 }
-                else if (player.HasItem(ModContent.ItemType<GenesisAndRagnarok>()) && (player.inventory[player.FindItem(ModContent.ItemType<GenesisAndRagnarok>())].ModItem as GenesisAndRagnarok).upgrades < 5)
+                else if (player.HasItem(ModContent.ItemType<GenesisAndRagnarok>()) && upgrades < 5)
                 {
-                    GenesisAndRagnarok GenesisRagnarok = player.inventory[player.FindItem(ModContent.ItemType<GenesisAndRagnarok>())].ModItem as GenesisAndRagnarok;
-                    if (GenesisRagnarok.upgrades == 0)
+                    int result = ModContent.ItemType<GenesisAndRagnarok>();
+                    switch (upgrades)
                     {
-                        ShardsHelpers.UpgrageMaterial[] materials = {
-                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
-                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1)
-                        };
-                        NPC.UpgradeItem(player, ItemID.None, materials);
-                    }
-                    else if (GenesisRagnarok.upgrades == 1)
-                    {
-                        ShardsHelpers.UpgrageMaterial[] materials = {
-                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
-                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1),
-                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ItemID.ChlorophyteBar], 14)
-                        };
-                        NPC.UpgradeItem(player, ItemID.None, materials);
-                    }
-                    else if (GenesisRagnarok.upgrades == 2)
-                    {
-                        ShardsHelpers.UpgrageMaterial[] materials = {
-                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
-                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1),
-                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ItemID.BeetleHusk], 16)
-                        };
-                        NPC.UpgradeItem(player, ItemID.None, materials);
-                    }
-                    else if (GenesisRagnarok.upgrades == 3)
-                    {
-                        ShardsHelpers.UpgrageMaterial[] materials = {
-                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
-                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1),
-                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ItemID.FragmentSolar], 18)
-                        };
-                        NPC.UpgradeItem(player, ItemID.None, materials);
-                    }
-                    else if (GenesisRagnarok.upgrades == 4)
-                    {
-                        ShardsHelpers.UpgrageMaterial[] materials = {
-                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
-                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1),
-                            new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ItemID.LunarBar], 20)
-                        };
-                        NPC.UpgradeItem(player, ItemID.None, materials);
+                        case 0:
+                            ShardsHelpers.UpgrageMaterial[] materials = {
+                                new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
+                                new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1)
+                            };
+                            NPC.UpgradeItem(player, result, materials);
+                            break;
+                        case 1:
+                            ShardsHelpers.UpgrageMaterial[] materials1 = {
+                                new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
+                                new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1),
+                                new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ItemID.ChlorophyteBar], 14)
+                            };
+                            NPC.UpgradeItem(player, result, materials1);
+                            break;
+                        case 2:
+                            ShardsHelpers.UpgrageMaterial[] materials2 = {
+                                new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
+                                new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1),
+                                new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ItemID.BeetleHusk], 16)
+                            };
+                            NPC.UpgradeItem(player, result, materials2);
+                            break;
+                        case 3:
+                            ShardsHelpers.UpgrageMaterial[] materials3 = {
+                                new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
+                                new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1),
+                                new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ItemID.FragmentSolar], 18)
+                            };
+                            NPC.UpgradeItem(player, result, materials3);
+                            break;
+                        case 4:
+                            ShardsHelpers.UpgrageMaterial[] materials4 = {
+                                new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
+                                new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1),
+                                new ShardsHelpers.UpgrageMaterial(ContentSamples.ItemsByType[ItemID.LunarBar], 20)
+                            };
+                            NPC.UpgradeItem(player, result, materials4);
+                            break;
                     }
                 }
                 else if (player.HasItem(ModContent.ItemType<AreusDagger>()))

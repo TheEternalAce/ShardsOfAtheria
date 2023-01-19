@@ -5,7 +5,6 @@ using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
-using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff;
 using ShardsOfAtheria.Utilities;
 using System;
@@ -39,17 +38,19 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             Player player = Main.player[Projectile.owner];
+            SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+            int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
             {
-                if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5 && (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades >= 3)
+                if (upgrades < 5 && upgrades >= 3)
+                {
                     target.AddBuff(BuffID.OnFire, 600);
-                else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
+                }
+                else if (upgrades == 5)
                 {
                     target.AddBuff(BuffID.Frostburn, 600);
-                    Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage,
-                        Projectile.knockBack, player.whoAmI, 0, 1);
-                    proj.DamageType = DamageClass.Melee;
+                    Projectile.CallStorm(3);
                 }
             }
             base.OnHitNPC(target, damage, knockback, crit);
@@ -88,10 +89,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             if (progress == 0.5f && Main.myPlayer == Projectile.owner)
             {
                 Player player = Main.player[Projectile.owner];
+                SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+                int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
                 if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
                 {
-                    if ((Main.LocalPlayer.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
+                    if (upgrades == 5)
                     {
                         float numberProjectiles = 3;
                         float shardRotation = MathHelper.ToRadians(15);

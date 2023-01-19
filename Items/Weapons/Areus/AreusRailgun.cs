@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.DataStructures;
@@ -10,12 +11,12 @@ using WebmilioCommons.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {
-    public class AreusRailgun : ModItem
+    public class AreusRailgun : OverchargeWeapon
     {
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.DarkAreusWeapon.Add(Type);
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()
@@ -48,7 +49,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 20)
                 .AddRecipeGroup(ShardsRecipes.Gold, 8)
                 .AddIngredient(ItemID.SoulofMight, 7)
-                .AddIngredient(ItemID.SoulofFright, 7)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Placeable.Banner;
-using ShardsOfAtheria.Projectiles.NPCProj.Variant;
+using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.GameContent.Bestiary;
@@ -14,6 +16,13 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 {
     public class CaveHarpy : ModNPC
     {
+        Asset<Texture2D> glowmask;
+
+        public override void Unload()
+        {
+            glowmask = null;
+        }
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.Harpy];
@@ -41,6 +50,11 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<CaveHarpyBanner>();
             NPC.SetElementMultipliersByElement(Element.Metal);
+
+            if (!Main.dedServ)
+            {
+                glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
+            }
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -65,7 +79,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                 if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
                 {
                     int num729 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center).RotatedByRandom(MathHelper.ToRadians(15)) * 6f,
-                        ModContent.ProjectileType<BoneFeather>(), 9, 0f, Main.myPlayer);
+                        ModContent.ProjectileType<Stone>(), 9, 0f, Main.myPlayer);
                     Main.projectile[num729].timeLeft = 300;
                 }
             }
@@ -98,6 +112,20 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             {
                 target.AddBuff(BuffID.Stoned, 60);
             }
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Asset<Texture2D> texture = ModContent.Request<Texture2D>(Texture);
+            SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            NPC.BasicInWorldGlowmask(spriteBatch, texture.Value, drawColor, screenPos, effects);
+            return false;
+        }
+
+        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            NPC.BasicInWorldGlowmask(spriteBatch, glowmask.Value, Color.White, screenPos, effects);
         }
     }
 }

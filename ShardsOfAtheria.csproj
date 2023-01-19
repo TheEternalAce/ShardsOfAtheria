@@ -27,7 +27,6 @@
     <Folder Include="NPCs\Boss\Genesis\" />
     <Folder Include="NPCs\Boss\Senterra\" />
     <Folder Include="NPCs\Boss\NovaStellar\PhoenixWarrior\" />
-    <Folder Include="Projectiles\Weapon\Melee\GenesisRagnarok\LightningStuff\" />
     <Folder Include="Walls\" />
   </ItemGroup>
   <ItemGroup>

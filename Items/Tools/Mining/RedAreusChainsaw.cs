@@ -5,6 +5,7 @@ using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Tools;
+using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -41,7 +42,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
             Item.width = 68;
             Item.height = 24;
 
-            Item.axe = 30;
+            Item.axe = 135;
 
             Item.damage = 30;
             Item.DamageType = DamageClass.Melee;
@@ -95,6 +96,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 20)
+                .AddRecipeGroup(ShardsRecipes.Gold, 6)
                 .AddIngredient(ItemID.LunarBar, 12)
                 .AddIngredient(ItemID.Wire, 10)
                 .AddTile(TileID.MythrilAnvil)

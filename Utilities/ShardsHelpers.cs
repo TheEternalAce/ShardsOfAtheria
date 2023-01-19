@@ -5,6 +5,8 @@ using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Projectiles.Other;
+using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Systems;
 using System;
 using Terraria;
@@ -66,9 +68,72 @@ namespace ShardsOfAtheria.Utilities
                 0f);
         }
 
+        public static void BasicInWorldGlowmask(this NPC npc, SpriteBatch spriteBatch, Texture2D glowTexture, Color color, Vector2 screenPos, SpriteEffects effects)
+        {
+            Vector2 drawOrigin = new Vector2(glowTexture.Width * 0.5f, npc.height * 0.5f);
+            Vector2 drawPos = npc.Center - screenPos;
+            spriteBatch.Draw(glowTexture, drawPos, npc.frame, color, npc.rotation, npc.frame.Size() / 2f, npc.scale, effects, 0f);
+        }
+
         public static void SlayBoss(this NPC boss, Player player)
         {
-            ShardsDownedSystem.slainBosses.Add(boss.type);
+            SlayerPlayer slayer = player.GetModPlayer<SlayerPlayer>();
+            if (slayer.slayerMode)
+            {
+                ShardsDownedSystem.slainBosses.Add(boss.type);
+            }
+        }
+
+        public static void CallStorm(this Projectile projectile, int amount, int pierce = 1)
+        {
+            SoundEngine.PlaySound(SoundID.NPCDeath56, projectile.Center);
+            for (var i = 0; i < amount; i++)
+            {
+                Projectile p = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(),
+                    new Vector2(projectile.Center.X + Main.rand.Next(-60 * amount, 60 * amount), projectile.Center.Y - 600), new Vector2(0, 5),
+                    ModContent.ProjectileType<LightningBoltFriendly>(), (int)(projectile.damage * 0.66f), projectile.knockBack, Main.player[projectile.owner].whoAmI);
+                p.penetrate = pierce;
+                p.DamageType = projectile.DamageType;
+            }
+        }
+
+        public static void Explode(this Projectile proj, Vector2 position, int explosionSize = 120)
+        {
+            Projectile explosion = Projectile.NewProjectileDirect(proj.GetSource_FromThis(), position, Vector2.Zero,
+                ModContent.ProjectileType<ElementExplosion>(), proj.damage, proj.knockBack, proj.owner);
+            explosion.DamageType = proj.DamageType;
+            explosion.Size = new Vector2(explosionSize);
+            ProjectileElements elementExplosion = explosion.GetGlobalProjectile<ProjectileElements>();
+            int type = proj.type;
+            if (ProjectileElements.Fire.Contains(type))
+            {
+                elementExplosion.tempFire = true;
+            }
+            if (ProjectileElements.Ice.Contains(type))
+            {
+                elementExplosion.tempIce = true;
+            }
+            if (ProjectileElements.Electric.Contains(type))
+            {
+                elementExplosion.tempElectric = true;
+            }
+            if (ProjectileElements.Metal.Contains(type))
+            {
+                elementExplosion.tempMetal = true;
+            }
+        }
+
+        public static void TrackTarget(this Projectile projectile, NPC targetNPC, int speed = 16, int inertia = 16)
+        {
+            if (Vector2.Distance(projectile.Center, targetNPC.Center) > 40f)
+            {
+                // The immediate range around the target (so it doesn't latch onto it when close)
+                Vector2 direction = targetNPC.Center - projectile.Center;
+                direction.Normalize();
+                direction *= speed;
+
+                projectile.velocity = (projectile.velocity * (inertia - 1) + direction) / inertia;
+            }
         }
 
         /// <summary>
@@ -137,6 +202,8 @@ namespace ShardsOfAtheria.Utilities
         /// <param name="materials"> an array of ShardsHelpers.UpgradeMaterials</param>
         public static void UpgradeItem(this NPC npc, Player player, int result, params UpgrageMaterial[] materials)
         {
+            SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+
             Main.npcChatCornerItem = result;
             if (CanUpgradeItem(player, materials))
             {
@@ -146,38 +213,41 @@ namespace ShardsOfAtheria.Utilities
                 }
                 if (materials[0].item.ModItem is GenesisAndRagnarok)
                 {
-                    (player.inventory[player.FindItem(materials[0].item.type)].ModItem as GenesisAndRagnarok).upgrades++;
+                    shardsPlayer.genesisRagnarockUpgrades++;
                 }
                 SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
                 if (result > 0)
                 {
-                    Item.NewItem(npc.GetSource_FromThis(), npc.getRect(), result);
-
                     if (result == ModContent.ItemType<GenesisAndRagnarok>())
                     {
-                        GenesisAndRagnarok genesisAndRagnarok = player.inventory[player.FindItem(materials[0].item.type)].ModItem as GenesisAndRagnarok;
-                        switch (genesisAndRagnarok.upgrades)
+                        string key = "";
+                        switch (shardsPlayer.genesisRagnarockUpgrades)
                         {
                             case 1:
-                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok1");
+                                key = "Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok1";
                                 break;
                             case 2:
-                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok2");
+                                key = "Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok2";
                                 break;
                             case 3:
-                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok3");
+                                key = "Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok3";
                                 break;
                             case 4:
-                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok4");
+                                key = "Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok4";
                                 break;
                             case 5:
-                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok5");
+                                key = "Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok5";
                                 break;
                         }
+                        Main.npcChatText = Language.GetTextValue(key);
                     }
-                    else if (result == ModContent.ItemType<AreusSaber>() || result == ModContent.ItemType<TheMourningStar>())
+                    else
                     {
-                        Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeAreusWeapon");
+                        Item.NewItem(npc.GetSource_FromThis(), npc.getRect(), result);
+                        if (result == ModContent.ItemType<AreusSaber>() || result == ModContent.ItemType<TheMourningStar>())
+                        {
+                            Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeAreusWeapon");
+                        }
                     }
                 }
             }
@@ -246,10 +316,10 @@ namespace ShardsOfAtheria.Utilities
             return minimum + ((float)Math.Sin(time) + 1f) / 2f * (maximum - minimum);
         }
 
-        internal static void LogSomething(string something)
+        internal static void Log(string str)
         {
-            ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(something), Color.White);
-            Console.WriteLine(something);
+            ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(str), Color.White);
+            Console.WriteLine(str);
         }
     }
 

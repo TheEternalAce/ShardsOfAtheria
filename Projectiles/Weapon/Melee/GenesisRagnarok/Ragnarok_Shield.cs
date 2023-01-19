@@ -3,6 +3,7 @@ using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Players;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -69,6 +70,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         {
             Rectangle hitbox = new Rectangle((int)Projectile.position.X, (int)Projectile.position.Y, Projectile.width, Projectile.height);
             Player player = Main.player[Projectile.owner];
+            SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+            int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
@@ -119,12 +122,13 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                     player.AddBuff(ModContent.BuffType<ParryCooldown>(), 300);
                     player.AddBuff(BuffID.ParryDamageBuff, 300);
 
-                    if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
+                    if (upgrades < 5 && upgrades >= 3)
                     {
-                        if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades < 5 && (player.HeldItem.ModItem as GenesisAndRagnarok).upgrades >= 3)
-                            parryNPC.AddBuff(BuffID.OnFire, 600);
-                        else if ((player.HeldItem.ModItem as GenesisAndRagnarok).upgrades == 5)
-                            parryNPC.AddBuff(BuffID.Frostburn, 600);
+                        parryNPC.AddBuff(BuffID.OnFire, 600);
+                    }
+                    else if (upgrades == 5)
+                    {
+                        parryNPC.AddBuff(BuffID.Frostburn, 600);
                     }
                 }
             }

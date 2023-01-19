@@ -1,20 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Config;
-using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.SoulCrystals;
+using ShardsOfAtheria.NPCs.Variant.Harpy;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.Localization;
@@ -24,7 +28,6 @@ namespace ShardsOfAtheria.Globals
 {
     public class SoAGlobalItem : GlobalItem
     {
-
         #region Item Categories
         public static List<int> SlayerItem = new();
         public static List<int> SinfulItem = new();
@@ -62,6 +65,8 @@ namespace ShardsOfAtheria.Globals
         public static List<int> postMoonLordRockets = new();
         #endregion
 
+        public override bool InstancePerEntity => true;
+
         public override void SetDefaults(Item item)
         {
             base.SetDefaults(item);
@@ -77,6 +82,10 @@ namespace ShardsOfAtheria.Globals
                     // Add penetration and extra velocity
                     item.shoot = ModContent.ProjectileType<TungstenBullet>();
                     item.shootSpeed += 4f;
+                    break;
+
+                case ItemID.Feather:
+                    item.color = new Color(101, 187, 236);
                     break;
 
                 #region Buff Pearlwood gear, soon to be obsolete
@@ -199,7 +208,7 @@ namespace ShardsOfAtheria.Globals
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
             base.ModifyWeaponDamage(item, player, ref damage);
-            if (player.HasBuff(ModContent.BuffType<Conductive>()) && (AreusWeapon.Contains(item.type) || DarkAreusWeapon.Contains(item.type)))
+            if (player.GetModPlayer<SoAPlayer>().conductive && (AreusWeapon.Contains(item.type) || DarkAreusWeapon.Contains(item.type)))
             {
                 damage += .15f;
             }
@@ -363,7 +372,7 @@ namespace ShardsOfAtheria.Globals
             if (AreusWeapon.Contains(item.type))
             {
                 int buffTime = 600;
-                if (player.HasBuff(ModContent.BuffType<Conductive>()))
+                if (player.GetModPlayer<SoAPlayer>().conductive)
                 {
                     buffTime *= 2;
                 }
@@ -384,7 +393,7 @@ namespace ShardsOfAtheria.Globals
             if (AreusWeapon.Contains(item.type))
             {
                 int buffTime = 600;
-                if (player.HasBuff(ModContent.BuffType<Conductive>()))
+                if (player.GetModPlayer<SoAPlayer>().conductive)
                 {
                     buffTime *= 2;
                 }
@@ -413,6 +422,160 @@ namespace ShardsOfAtheria.Globals
                     item.damage = ContentSamples.ItemsByType[item.type].damage;
                 }
             }
+        }
+
+        public override void OnSpawn(Item item, IEntitySource source)
+        {
+            if (item.type == ItemID.Feather)
+            {
+                if (source is EntitySource_Loot parentSource && parentSource.Entity is NPC npc)
+                {
+                    if (npc.type == ModContent.NPCType<CaveHarpy>())
+                    {
+                        item.color = Color.Gray;
+                    }
+                    if (npc.type == ModContent.NPCType<CorruptHarpy>())
+                    {
+                        item.color = Color.Purple;
+                    }
+                    if (npc.type == ModContent.NPCType<CrimsonHarpy>())
+                    {
+                        item.color = Color.Red;
+                    }
+                    if (npc.type == ModContent.NPCType<DesertHarpy>())
+                    {
+                        item.color = Color.Yellow;
+                    }
+                    if (npc.type == ModContent.NPCType<ForestHarpy>())
+                    {
+                        item.color = Color.GreenYellow;
+                    }
+                    if (npc.type == ModContent.NPCType<HallowedHarpy>())
+                    {
+                        item.color = Color.Pink;
+                    }
+                    if (npc.type == NPCID.Harpy)
+                    {
+                        item.color = new Color(101, 187, 236);
+                    }
+                    if (npc.type == ModContent.NPCType<SnowHarpy>())
+                    {
+                        item.color = Color.LightBlue;
+                    }
+                    if (npc.type == ModContent.NPCType<OceanHarpy>())
+                    {
+                        item.color = Color.Cyan;
+                    }
+                    if (npc.type == ModContent.NPCType<VoidHarpy>())
+                    {
+                        item.color = Color.DarkGray;
+                    }
+                }
+            }
+        }
+
+        public override bool PreDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
+            if (item.type == ItemID.Feather)
+            {
+                Asset<Texture2D> feather = TextureAssets.Item[ItemID.Feather];
+                string path = "ShardsOfAtheria/Items/Materials/Feathers/";
+                if (item.color == Color.Gray)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Cave");
+                }
+                if (item.color == Color.Purple)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Corrupt");
+                }
+                if (item.color == Color.Red)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Crimson");
+                }
+                if (item.color == Color.Yellow)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Dessert");
+                }
+                if (item.color == Color.GreenYellow)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Forest");
+                }
+                if (item.color == Color.Pink)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Hallowed");
+                }
+                if (item.color == new Color(101, 187, 236))
+                {
+                    return true;
+                }
+                if (item.color == Color.LightBlue)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Snow");
+                }
+                if (item.color == Color.Cyan)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Ocean");
+                }
+                if (item.color == Color.DarkGray)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Void");
+                }
+                spriteBatch.Draw(feather.Value, position, null, drawColor, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+                return false;
+            }
+            return base.PreDrawInInventory(item, spriteBatch, position, frame, drawColor, itemColor, origin, scale);
+        }
+
+        public override bool PreDrawInWorld(Item item, SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+        {
+            if (item.type == ItemID.Feather)
+            {
+                Asset<Texture2D> feather = TextureAssets.Item[ItemID.Feather];
+                string path = "ShardsOfAtheria/Items/Materials/Feathers/";
+                if (item.color == Color.Gray)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Cave");
+                }
+                if (item.color == Color.Purple)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Corrupt");
+                }
+                if (item.color == Color.Red)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Crimson");
+                }
+                if (item.color == Color.Yellow)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Dessert");
+                }
+                if (item.color == Color.GreenYellow)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Forest");
+                }
+                if (item.color == Color.Pink)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Hallowed");
+                }
+                if (item.color == new Color(101, 187, 236))
+                {
+                    return true;
+                }
+                if (item.color == Color.LightBlue)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Snow");
+                }
+                if (item.color == Color.Cyan)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Ocean");
+                }
+                if (item.color == Color.DarkGray)
+                {
+                    feather = ModContent.Request<Texture2D>(path + "Void");
+                }
+                item.BasicInWorldGlowmask(spriteBatch, feather.Value, lightColor, rotation, scale);
+                return false;
+            }
+            return base.PreDrawInWorld(item, spriteBatch, lightColor, alphaColor, ref rotation, ref scale, whoAmI);
         }
     }
 }

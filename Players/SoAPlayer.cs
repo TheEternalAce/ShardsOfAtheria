@@ -8,6 +8,7 @@ using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Accessories;
+using ShardsOfAtheria.Items.Accessories.GemCores;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Tools.Misc;
@@ -44,6 +45,12 @@ namespace ShardsOfAtheria.Players
         public bool superEmeraldCore;
         public bool areusKey;
         public bool megaGemCore;
+        public bool amethystMask;
+        public bool emeraldWings;
+        public bool diamanodShield;
+        public bool rubyGauntlet;
+        public bool sapphireSpirit;
+        public bool topazNecklace;
         public bool heartBreak;
         public bool healingItem;
         public bool phaseOffense;
@@ -65,12 +72,10 @@ namespace ShardsOfAtheria.Players
         /// </summary>
         public ushort itemCombo;
 
-        // These 5 relate to Biometal.
-        public bool BiometalPrevious;
+        // These 10 relate to Biometal.
         public bool Biometal;
         public bool BiometalHideVanity;
         public bool BiometalForceVanity;
-
         public int overdriveTimeCurrent;
         public const int DefaultOverdriveTimeMax = 300;
         public int overdriveTimeMax;
@@ -82,6 +87,10 @@ namespace ShardsOfAtheria.Players
         public int readingDisk = 0;
 
         public int aggression = 0;
+
+        public bool conductive;
+        public int genesisRagnarockUpgrades = 0;
+        public bool showRagnarok;
 
         public override void ResetEffects()
         {
@@ -95,16 +104,21 @@ namespace ShardsOfAtheria.Players
             superEmeraldCore = false;
             areusKey = false;
             megaGemCore = false;
+            amethystMask = false;
+            diamanodShield = false;
+            emeraldWings = false;
+            rubyGauntlet = false;
+            sapphireSpirit = false;
+            topazNecklace = false;
             heartBreak = false;
             healingItem = false;
             rushDrive = false;
             valkyrieCrown = false;
+            showRagnarok = false;
 
             pearlwoodSet = false;
 
             ResetVariables();
-
-            BiometalPrevious = Biometal;
             Biometal = BiometalHideVanity = BiometalForceVanity = false;
 
             UpdateResource();
@@ -125,6 +139,8 @@ namespace ShardsOfAtheria.Players
             {
                 aggression = 0;
             }
+
+            conductive = false;
         }
 
         public override void UpdateDead()
@@ -521,11 +537,78 @@ namespace ShardsOfAtheria.Players
                     valkyrieCrownHideVanity = false;
                     valkyrieCrownForceVanity = true;
                 }
+                if (item.type == ModContent.ItemType<MegaGemCore>())
+                {
+                    amethystMask = true;
+                    diamanodShield = true;
+                    emeraldWings = true;
+                    rubyGauntlet = true;
+                    sapphireSpirit = true;
+                    topazNecklace = true;
+                }
+                else
+                {
+                    if (item.type == ModContent.ItemType<AmethystCore>() || item.type == ModContent.ItemType<AmethystCore_Greater>()
+                        || item.type == ModContent.ItemType<AmethystCore_Super>())
+                    {
+                        amethystMask = true;
+                    }
+                    if (item.type == ModContent.ItemType<DiamondCore>() || item.type == ModContent.ItemType<DiamondCore_Greater>()
+                        || item.type == ModContent.ItemType<DiamondCore_Super>())
+                    {
+                        diamanodShield = true;
+                    }
+                    if (item.type == ModContent.ItemType<EmeraldCore>() || item.type == ModContent.ItemType<EmeraldCore_Greater>()
+                        || item.type == ModContent.ItemType<EmeraldCore_Super>())
+                    {
+                        emeraldWings = true;
+                    }
+                    if (item.type == ModContent.ItemType<RubyCore>() || item.type == ModContent.ItemType<RubyCore_Greater>()
+                        || item.type == ModContent.ItemType<RubyCore_Super>())
+                    {
+                        rubyGauntlet = true;
+                    }
+                    if (item.type == ModContent.ItemType<SapphireCore>() || item.type == ModContent.ItemType<SapphireCore_Greater>()
+                        || item.type == ModContent.ItemType<SapphireCore_Super>())
+                    {
+                        sapphireSpirit = true;
+                    }
+                    if (item.type == ModContent.ItemType<TopazCore>() || item.type == ModContent.ItemType<TopazCore_Greater>()
+                        || item.type == ModContent.ItemType<TopazCore_Super>())
+                    {
+                        topazNecklace = true;
+                    }
+                }
             }
         }
 
         public override void FrameEffects()
         {
+            if (amethystMask)
+            {
+                Player.head = EquipLoader.GetEquipSlot(Mod, "AmethystMask", EquipType.Head);
+            }
+            if (diamanodShield)
+            {
+                Player.shield = (sbyte)EquipLoader.GetEquipSlot(Mod, "DiamondShield", EquipType.Shield);
+            }
+            if (emeraldWings)
+            {
+                Player.wings = (sbyte)EquipLoader.GetEquipSlot(Mod, "EmeraldWings", EquipType.Wings);
+            }
+            if (rubyGauntlet)
+            {
+                Player.handon = (sbyte)EquipLoader.GetEquipSlot(Mod, "RubyGauntlet", EquipType.HandsOn);
+                Player.handoff = (sbyte)EquipLoader.GetEquipSlot(Mod, "RubyGauntlet_Off", EquipType.HandsOff);
+            }
+            if (sapphireSpirit)
+            {
+                Player.balloon = (sbyte)EquipLoader.GetEquipSlot(Mod, "SapphireSpirit", EquipType.Balloon);
+            }
+            if (topazNecklace)
+            {
+                Player.neck = (sbyte)EquipLoader.GetEquipSlot(Mod, "TopazAmulet", EquipType.Neck);
+            }
             if ((Biometal || BiometalForceVanity) && !BiometalHideVanity)
             {
                 var biometal = ModContent.GetInstance<Biometal>();
@@ -542,6 +625,13 @@ namespace ShardsOfAtheria.Players
                 Player.neck = -1;
                 Player.face = -1;
                 Player.balloon = -1;
+            }
+            if (showRagnarok && Player.ownedProjectileCounts[ModContent.ProjectileType<Ragnarok_Shield>()] == 0
+                && Player.ownedProjectileCounts[ModContent.ProjectileType<RagnarokProj>()] == 0
+                && Player.ownedProjectileCounts[ModContent.ProjectileType<RagnarokProj2>()] == 0)
+            {
+                var ragnarok = ModContent.GetInstance<GenesisAndRagnarok>();
+                Player.shield = (sbyte)EquipLoader.GetEquipSlot(Mod, ragnarok.Name, EquipType.Shield);
             }
         }
 

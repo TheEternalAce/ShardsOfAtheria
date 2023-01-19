@@ -9,23 +9,25 @@
 Mods: {
 	ShardsOfAtheria: {
 		Common: {
+			AbsorbedBlood: Absorbed Blood
+			Combat: Combat
+			Conservation: Conservation
+			ElementFire: Fire Element
+			ElementIce: Ice Element
+			ElementElectric: Electric Element
+			ElementMetal: Metal Element
+			Eraser: Can erase projectiles
+			Exploration: Exploration
 			FiringMode1: Semi-auto
 			FiringMode2: Burst fire
 			FiringMode3: Full-auto
 			FullCharge: "Charge Ready!"
-			SlayerItem: Slayer Item
-			AbsorbedBlood: Absorbed Blood
-			TeleportOnKeyPress: Allows teleportation on press of {0}
 			OverdriveInfo:
 				'''
 				Press {0} to activate or deactivate Overdrive
 				Overdrive increases all damage by 50%
 				Overdrive lasts until you get hit or run out of Overdrive time
 				'''
-			TomeOfOmniscience: Press {0} to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration
-			Combat: Combat
-			Conservation: Conservation
-			Exploration: Exploration
 			RushDrive:
 				'''
 				Press {0} to chose between two phase types:
@@ -33,17 +35,17 @@ Mods: {
 				Defensive: Sacrifice half of total damage for doubled defense and 20% reduced damage
 				Always get 20% increased movement speed
 				'''
-			UpgradeableItem: Upgradeable Item
-
-			ElementFire: Fire Element
-			ElementIce: Ice Element
-			ElementElectric: Electric Element
-			ElementMetal: Metal Element
-
+			SlayerItem: Slayer Item
+			SinfulSoulCommonDesc:
+				'''
+				Only one may be active at a time
+				Can be removed with {0}
+				'''
+			TeleportOnKeyPress: Allows teleportation on press of {0}
 			TitleText1: Shards of Atheria: Splitting Skies
 			TitleText2: Shards of Atheria: The World Revolving
-
-			Eraser: Can erase projectiles
+			TomeOfOmniscience: Press {0} to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration
+			UpgradeableItem: Upgradeable Item
 		}
 
 		DiskFile: {
@@ -331,7 +333,6 @@ Mods: {
 			Coilgun: "Coil-gun"
 			DoubleBow: Double Bow
 			DownBow: Down Bow
-			Glock80: Glock 80
 			HandCanon: Hand Cannon
 			HecateII: Hecate II
 			HeroGun: Hero Gun
@@ -616,13 +617,13 @@ Mods: {
 			# Potions
 			BoneMarrowInjection: Strengthens your bones
 			ChargedFlightPotion: Increases flight time by 34
-			ConductivityPotion: "Increases areus weapon damage by 15% and duration of Electric Shock by 100%"
+			ConductivityPotion: "Increases electric weapon damage by 15% and duration of Electric Shock by 100%"
 			SoulInjection:
 				'''
 				Damages you but grants the following:
 				Increased damage, movement speed and defense
 				Grants life regen
-				'Bro I promise, injecting souls directly into your bloodstream is a good idea'
+				'Recommended by 0/10 doctors'
 				'''
 
 			# Sinful
@@ -676,12 +677,13 @@ Mods: {
 				Current damage increase: +{0}%
 				Current critical strike chance increase: +{1}%
 				'''
-			VirtuousDagger: Transforms into a weapon based on your sin
-			SinfulArmament:
+			VirtuousDagger:
 				'''
-				Cleanses your soul of sin
+				Replaces your current sin with a holy buff
+				Use another to remove this holy buff
 				Shatters on use
 				'''
+			SinfulArmament: Transforms into a weapon based on your sin
 
 			# Soul Crystals
 			KingSoulCrystal:

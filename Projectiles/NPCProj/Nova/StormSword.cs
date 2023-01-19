@@ -16,6 +16,8 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
         private double rotation;
         private int attacks = 4;
 
+        public override string Texture => "ShardsOfAtheria/Items/Weapons/Melee/ValkyrieBlade";
+
         public override void Load()
         {
             glowmask = ModContent.Request<Texture2D>(Texture);

@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using ShardsOfAtheria.Systems;
 using Terraria;
@@ -11,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {
-    public class AreusTrimmedTome : ModItem
+    public class AreusTrimmedTome : OverchargeWeapon
     {
         public override void SetStaticDefaults()
         {
@@ -63,6 +64,16 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
             }
             return false;
+        }
+
+        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
+        {
+            if (Main.myPlayer == player.whoAmI)
+            {
+                Projectile.NewProjectile(Item.GetSource_ItemUse(Item), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<ElectricOrb>(),
+                    (int)(Item.damage * damageMultiplier), Item.knockBack, player.whoAmI);
+                ConsumeOvercharge(player);
+            }
         }
     }
 }

@@ -52,6 +52,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             Item.width = 32;
             Item.height = 32;
             Item.accessory = true;
+            Item.canBePlacedInVanityRegardlessOfConditions = true;
 
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.useTime = 10;
@@ -90,6 +91,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             mp.DashVelocity = 20f;
             AmethystDashPlayerII.MAX_DASH_DELAY = 50;
             AmethystDashPlayerII.MAX_DASH_TIMER = 35;
+
+            player.GetModPlayer<SoAPlayer>().amethystMask = true;
+            player.GetModPlayer<SoAPlayer>().diamanodShield = true;
+            player.GetModPlayer<SoAPlayer>().rubyGauntlet = true;
+            player.GetModPlayer<SoAPlayer>().sapphireSpirit = true;
+            player.GetModPlayer<SoAPlayer>().topazNecklace = true;
 
             //Bundle of Balloons
             player.hasJumpOption_Cloud = true;
@@ -138,6 +145,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.statLifeMax2 += 100;
             player.GetModPlayer<SoAPlayer>().superEmeraldCore = true;
             player.GetModPlayer<SoAPlayer>().megaGemCore = true;
+            player.GetModPlayer<SoAPlayer>().topazNecklace = !hideVisual;
 
             player.buffImmune[BuffID.Venom] = true;
             player.buffImmune[BuffID.OnFire] = true;

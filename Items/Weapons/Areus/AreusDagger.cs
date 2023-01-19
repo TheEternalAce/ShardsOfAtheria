@@ -1,6 +1,7 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using ShardsOfAtheria.Systems;
 using Terraria;
@@ -9,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {
-    public class AreusDagger : ModItem
+    public class AreusDagger : OverchargeWeapon
     {
         public override void SetStaticDefaults()
         {
@@ -39,6 +40,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 0, 50);
             Item.shoot = ModContent.ProjectileType<AreusDaggerProj>();
+            chargeVelocity = 4f;
         }
 
         public override void AddRecipes()

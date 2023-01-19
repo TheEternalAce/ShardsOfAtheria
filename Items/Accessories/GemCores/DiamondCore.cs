@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Players;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -6,6 +7,14 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
 	public class DiamondCore : ModItem
 	{
+		public override void Load()
+		{
+			if (Main.netMode != NetmodeID.Server)
+			{
+				EquipLoader.AddEquipTexture(Mod, "ShardsOfAtheria/Items/Accessories/GemCores/DiamondShield", EquipType.Shield, this, "DiamondShield");
+			}
+		}
+
 		public override void SetStaticDefaults()
 		{
 			SacrificeTotal = 1;
@@ -16,6 +25,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			Item.width = 32;
 			Item.height = 32;
 			Item.accessory = true;
+			Item.canBePlacedInVanityRegardlessOfConditions = true;
 
 			Item.defense = 15;
 
@@ -35,6 +45,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
+			player.GetModPlayer<SoAPlayer>().diamanodShield = true;
 			player.noKnockback = true;
 		}
 	}
