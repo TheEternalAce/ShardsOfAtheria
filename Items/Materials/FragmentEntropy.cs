@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.ID;
@@ -15,7 +14,6 @@ namespace ShardsOfAtheria.Items.Materials
             ItemID.Sets.ItemIconPulse[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
 
-            SoAGlobalItem.SlayerItem.Add(Type);
             SacrificeTotal = 25;
         }
 

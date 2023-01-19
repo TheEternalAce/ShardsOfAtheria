@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria;
@@ -14,7 +13,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.SlayerItem.Add(Type);
             WeaponElements.Fire.Add(Type);
             WeaponElements.Electric.Add(Type);
         }

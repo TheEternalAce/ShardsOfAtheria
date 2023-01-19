@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.DataDisks
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            spriteBatch.Draw(disk.Value, position, null, drawColor * 0.95f, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(disk.Value, position, null, drawColor, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
             return !readingDisk;
         }
 

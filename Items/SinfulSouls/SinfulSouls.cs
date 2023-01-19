@@ -4,6 +4,7 @@ using ShardsOfAtheria.Players;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SinfulSouls
@@ -22,7 +23,8 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "SevenSoul", "Only one Sinful Soul may be active at a time"));
+            tooltips.Add(new TooltipLine(Mod, "SevenSoul", Language.GetTextValue("Mods.ShardsOfAtheria.Common.SinfulSoulCommonDesc",
+                Language.GetTextValue("Mods.ShardsOfAtheria.ItemName.VirtuousDagger"))));
             base.ModifyTooltips(tooltips);
         }
 

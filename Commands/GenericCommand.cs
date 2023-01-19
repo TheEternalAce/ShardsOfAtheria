@@ -1,11 +1,12 @@
 ﻿using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.ModLoader;
 namespace ShardsOfAtheria.Commands
 {
-    class GenericCommand : ModCommand
+	class GenericCommand : ModCommand
 	{
 		public override CommandType Type
 			=> CommandType.Chat;
@@ -24,9 +25,12 @@ namespace ShardsOfAtheria.Commands
 			Player player = Main.LocalPlayer;
 			SlayerPlayer slayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
 			SoAPlayer soaPlayer = Main.LocalPlayer.GetModPlayer<SoAPlayer>();
+			OverchargePlayer overchargePlayer = Main.LocalPlayer.GetModPlayer<OverchargePlayer>();
 			ShardsDownedSystem soaWorld = ModContent.GetInstance<ShardsDownedSystem>();
 
 			Console.WriteLine("----------Hello mod developer----------");
+			soaPlayer.genesisRagnarockUpgrades = 0;
+			ShardsHelpers.Log("Reset Genesis and Ragnarok upgrades", true);
 		}
 	}
 }

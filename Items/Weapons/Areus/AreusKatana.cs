@@ -1,8 +1,7 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Items.Potions;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using ShardsOfAtheria.Systems;
 using Terraria;
@@ -12,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {
-    public class AreusKatana : ModItem
+    public class AreusKatana : OverchargeWeapon
     {
         public override void SetStaticDefaults()
         {
@@ -41,25 +40,26 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 1, 50);
             Item.shoot = ModContent.ProjectileType<ElectricKunai>();
+            chargeAmount = 0.25f;
+            overchargeShoot = false;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 17)
-                .AddRecipeGroup(ShardsRecipes.Gold, 6)
+                .AddRecipeGroup(ShardsRecipes.Gold, 5)
                 .AddIngredient(ItemID.SoulofFlight, 10)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(ModContent.BuffType<ElectricShock>(), player.HasBuff(ModContent.BuffType<Conductive>()) ? 1200 : 600);
-        }
-
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            if (player.GetModPlayer<OverchargePlayer>().overcharged)
+            {
+                return false;
+            }
             float numberProjectiles = 3;
             float rotation = MathHelper.ToRadians(10);
             position += Vector2.Normalize(velocity) * 10f;
@@ -69,6 +69,12 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
             }
             return false; // return false to stop vanilla from calling Projectile.NewProjectile.
+        }
+
+        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
+        {
+            velocity.Normalize();
+            base.Overcharge(player, ModContent.ProjectileType<AreusKatanaProj>(), 4f, velocity, 0f);
         }
     }
 }

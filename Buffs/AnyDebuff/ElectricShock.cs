@@ -13,27 +13,46 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
         {
             Main.debuff[Type] = true;
         }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.GetModPlayer<ShockedPlayer>().shocked = true;
+        }
+
+        public override void Update(NPC npc, ref int buffIndex)
+        {
+            npc.GetGlobalNPC<ShockedNPC>().shocked = true;
+        }
     }
 
     public class ShockedNPC : GlobalNPC
     {
+        public bool shocked;
+
+        public override bool InstancePerEntity => true;
+
+        public override void ResetEffects(NPC npc)
+        {
+            shocked = false;
+        }
+
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
-            if (npc.HasBuff(ModContent.BuffType<ElectricShock>()))
+            if (shocked)
             {
                 // These lines zero out any positive lifeRegen. This is expected for all bad life regeneration effects.
                 if (npc.lifeRegen > 0)
                 {
                     npc.lifeRegen = 0;
                 }
-                npc.lifeRegen -= 20;
-                damage = 20;
+                npc.lifeRegen -= 10;
+                damage = 10;
             }
         }
 
         public override void DrawEffects(NPC npc, ref Color drawColor)
         {
-            if (npc.HasBuff(ModContent.BuffType<ElectricShock>()) && Main.rand.NextBool(4))
+            if (shocked && Main.rand.NextBool(8))
             {
                 int dust = Dust.NewDust(npc.position, npc.width + 4, npc.height + 4, DustID.Electric, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1f);
                 Main.dust[dust].noGravity = true;
@@ -45,9 +64,16 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
 
     public class ShockedPlayer : ModPlayer
     {
+        public bool shocked;
+
+        public override void ResetEffects()
+        {
+            shocked = false;
+        }
+
         public override void UpdateBadLifeRegen()
         {
-            if (Player.HasBuff(ModContent.BuffType<ElectricShock>()))
+            if (shocked)
             {
                 // These lines zero out any positive lifeRegen. This is expected for all bad life regeneration effects.
                 if (Player.lifeRegen > 0)
@@ -69,7 +95,7 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
 
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
-            if (Player.HasBuff(ModContent.BuffType<ElectricShock>()) && Main.rand.NextBool(4))
+            if (shocked && Main.rand.NextBool(8))
             {
                 int dust = Dust.NewDust(Player.position, Player.width + 4, Player.height + 4, DustID.Electric, Player.velocity.X * 0.4f, Player.velocity.Y * 0.4f, 100, default, 1f);
                 Main.dust[dust].noGravity = true;

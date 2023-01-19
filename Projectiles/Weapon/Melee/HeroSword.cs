@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
@@ -32,10 +32,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            Player player = Main.player[Projectile.owner];
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, Vector2.Normalize(target.Center - player.Center) * 16f,
-                ModContent.ProjectileType<HeroBlade>(), (int)(Projectile.damage * .75), Projectile.knockBack, Projectile.owner);
-            base.OnHitNPC(target, damage, knockback, crit);
+            FireProjectile(ModContent.ProjectileType<HeroBlade>(), (int)(Projectile.damage * .75), Projectile.knockBack);
         }
 
         protected override void Initialize(Player player, SoAPlayer shards)

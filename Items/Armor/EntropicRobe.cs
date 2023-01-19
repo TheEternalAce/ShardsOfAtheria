@@ -1,4 +1,3 @@
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using Terraria;
 using Terraria.ID;
@@ -11,8 +10,6 @@ namespace ShardsOfAtheria.Items.Armor
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalItem.SlayerItem.Add(Type);
-
             SacrificeTotal = 1;
         }
 

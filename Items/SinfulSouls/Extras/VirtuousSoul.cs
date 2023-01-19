@@ -78,6 +78,14 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             Projectile.Center = Main.player[Projectile.owner].Center;
             if (Projectile.ai[0] == 0)
             {
+                if (Main.myPlayer == Projectile.owner)
+                {
+                    Projectile.width = Main.screenWidth;
+                    Projectile.height = Main.screenHeight;
+
+                    DrawOffsetX = Projectile.width / 2 - 20;
+                    DrawOriginOffsetY = Projectile.height / 2 - 90;
+                }
                 ScreenShake.ShakeScreen(6, 60);
                 SoundEngine.PlaySound(SoundID.Item14);
                 Projectile.ai[0] = 1;

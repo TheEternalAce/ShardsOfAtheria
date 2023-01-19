@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals.Elements;
+using Microsoft.Xna.Framework.Graphics;
+using MMZeroElements;
+using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable.Banner;
-using ShardsOfAtheria.Projectiles.NPCProj.Variant;
+using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.GameContent.Bestiary;
@@ -27,7 +29,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-            NPCElements.FireNPC.Add(Type);
+            NPCElements.Fire.Add(Type);
         }
 
         public override void SetDefaults()
@@ -50,7 +52,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                 if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
                 {
                     int num729 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center).RotatedByRandom(MathHelper.ToRadians(15)) * 6f,
-                        ModContent.ProjectileType<VileFeather>(), 11, 0f, Main.myPlayer);
+                        ModContent.ProjectileType<Vile>(), 11, 0f, Main.myPlayer);
                     Main.projectile[num729].timeLeft = 300;
                 }
             }
@@ -93,6 +95,14 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
             target.AddBuff(BuffID.Weak, 60);
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Asset<Texture2D> texture = ModContent.Request<Texture2D>(Texture);
+            SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            NPC.BasicInWorldGlowmask(spriteBatch, texture.Value, drawColor, screenPos, effects);
+            return false;
         }
     }
 }

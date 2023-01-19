@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Throwing;
 using Terraria;
@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Items.Weapons.Throwing
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            SacrificeTotal = 999;
 
             WeaponElements.Metal.Add(Type);
         }
@@ -36,10 +36,10 @@ namespace ShardsOfAtheria.Items.Weapons.Throwing
             Item.noMelee = true;
             Item.noUseGraphic = true;
 
-            Item.shootSpeed = 1f;
+            Item.shootSpeed = 16f;
             Item.rare = ItemRarityID.Green;
             Item.value = 6800;
-            Item.shoot = ModContent.ProjectileType<HardlightKnife_Swing>();
+            Item.shoot = ModContent.ProjectileType<HardlightKnifeProj>();
         }
 
         public override void AddRecipes()

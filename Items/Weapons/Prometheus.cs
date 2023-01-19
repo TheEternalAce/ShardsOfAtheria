@@ -1,7 +1,7 @@
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.EnergyScythe;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.ID;
@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 7)
+                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 20)
                 .AddIngredient(ItemID.Ectoplasm, 5)
                 .AddIngredient(ItemID.HellstoneBar, 10)
                 .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10)

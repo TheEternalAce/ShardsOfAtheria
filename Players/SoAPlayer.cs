@@ -1,13 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using MMZeroElements;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff;
 using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Accessories;
+using ShardsOfAtheria.Items.Accessories.GemCores;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Tools.Misc;
@@ -16,7 +17,6 @@ using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
-using ShardsOfAtheria.Utilities;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -44,6 +44,12 @@ namespace ShardsOfAtheria.Players
         public bool superEmeraldCore;
         public bool areusKey;
         public bool megaGemCore;
+        public bool amethystMask;
+        public bool emeraldWings;
+        public bool diamanodShield;
+        public bool rubyGauntlet;
+        public bool sapphireSpirit;
+        public bool topazNecklace;
         public bool heartBreak;
         public bool healingItem;
         public bool phaseOffense;
@@ -65,12 +71,11 @@ namespace ShardsOfAtheria.Players
         /// </summary>
         public ushort itemCombo;
 
-        // These 5 relate to Biometal.
-        public bool BiometalPrevious;
+        // These 10 relate to Biometal.
         public bool Biometal;
+        public bool BiometalSound;
         public bool BiometalHideVanity;
         public bool BiometalForceVanity;
-
         public int overdriveTimeCurrent;
         public const int DefaultOverdriveTimeMax = 300;
         public int overdriveTimeMax;
@@ -82,6 +87,10 @@ namespace ShardsOfAtheria.Players
         public int readingDisk = 0;
 
         public int aggression = 0;
+
+        public bool conductive;
+        public int genesisRagnarockUpgrades = 0;
+        public bool showRagnarok;
 
         public override void ResetEffects()
         {
@@ -95,17 +104,22 @@ namespace ShardsOfAtheria.Players
             superEmeraldCore = false;
             areusKey = false;
             megaGemCore = false;
+            amethystMask = false;
+            diamanodShield = false;
+            emeraldWings = false;
+            rubyGauntlet = false;
+            sapphireSpirit = false;
+            topazNecklace = false;
             heartBreak = false;
             healingItem = false;
             rushDrive = false;
             valkyrieCrown = false;
+            showRagnarok = false;
 
             pearlwoodSet = false;
 
             ResetVariables();
-
-            BiometalPrevious = Biometal;
-            Biometal = BiometalHideVanity = BiometalForceVanity = false;
+            Biometal = BiometalSound = BiometalHideVanity = BiometalForceVanity = false;
 
             UpdateResource();
 
@@ -125,6 +139,8 @@ namespace ShardsOfAtheria.Players
             {
                 aggression = 0;
             }
+
+            conductive = false;
         }
 
         public override void UpdateDead()
@@ -183,12 +199,15 @@ namespace ShardsOfAtheria.Players
 
         public override void PostUpdate()
         {
-            if (!Player.HasBuff(ModContent.BuffType<Megamerged>()))
+            if (!Biometal)
             {
                 Player.ClearBuff(ModContent.BuffType<Overdrive>());
                 Player.buffImmune[ModContent.BuffType<Overdrive>()] = true;
             }
-            else Player.buffImmune[ModContent.BuffType<Overdrive>()] = false;
+            else
+            {
+                Player.buffImmune[ModContent.BuffType<Overdrive>()] = false;
+            }
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<Ragnarok_Shield>()] > 0)
             {
                 Player.statDefense += 20;
@@ -198,7 +217,7 @@ namespace ShardsOfAtheria.Players
 
         public override void PostUpdateBuffs()
         {
-            if (Player.HasBuff(ModContent.BuffType<Megamerged>()))
+            if (Biometal)
             {
                 Player.moveSpeed += .1f;
             }
@@ -246,8 +265,20 @@ namespace ShardsOfAtheria.Players
             {
                 Player.moveSpeed += .2f;
             }
-            if (Player.statLife <= Player.statLifeMax2 / 2 && rushDrive)
+            if (Player.statLife < Player.statLifeMax2 / 2 && rushDrive)
             {
+                if (phaseOffense)
+                {
+                    Player.GetDamage(DamageClass.Generic) += 1f;
+                    Player.GetCritChance(DamageClass.Generic) += 0.05f;
+                    Player.statDefense /= 2;
+                }
+                else
+                {
+                    Player.GetDamage(DamageClass.Generic) -= 0.5f;
+                    Player.endurance += 0.2f;
+                    Player.statDefense *= 2;
+                }
                 Player.moveSpeed += .2f;
             }
             if (Player.HeldItem.type == ModContent.ItemType<AreusKatana>())
@@ -262,7 +293,7 @@ namespace ShardsOfAtheria.Players
 
         public override void UpdateLifeRegen()
         {
-            if (Player.HasBuff(ModContent.BuffType<Megamerged>()) && !Player.HasBuff(ModContent.BuffType<Overdrive>()))
+            if (Biometal && !Player.HasBuff(ModContent.BuffType<Overdrive>()))
                 Player.lifeRegen += 4;
             if (Player.HasBuff(ModContent.BuffType<SoulInfused>()))
                 Player.lifeRegen += 4;
@@ -325,16 +356,19 @@ namespace ShardsOfAtheria.Players
             }
             if (ShardsOfAtheria.OverdriveKey.JustPressed)
             {
-                if (Player.HasBuff(ModContent.BuffType<Megamerged>()) && !Player.HasBuff(ModContent.BuffType<Overdrive>()) && overdriveTimeCurrent >= 0)
+                if (Biometal)
                 {
-                    Player.AddBuff(ModContent.BuffType<Overdrive>(), 2);
-                    CombatText.NewText(Player.Hitbox, Color.Green, "Overdrive: ON", true);
-                    SoundEngine.PlaySound(SoundID.Item4, Player.position);
-                }
-                else if (Player.HasBuff(ModContent.BuffType<Megamerged>()))
-                {
-                    Player.ClearBuff(ModContent.BuffType<Overdrive>());
-                    CombatText.NewText(Player.Hitbox, Color.Red, "Overdrive: OFF");
+                    if (overdriveTimeCurrent > 0 && !Player.HasBuff(ModContent.BuffType<Overdrive>()))
+                    {
+                        Player.AddBuff(ModContent.BuffType<Overdrive>(), 2);
+                        CombatText.NewText(Player.Hitbox, Color.Green, "Overdrive: ON", true);
+                        SoundEngine.PlaySound(SoundID.Item4, Player.position);
+                    }
+                    else
+                    {
+                        Player.ClearBuff(ModContent.BuffType<Overdrive>());
+                        CombatText.NewText(Player.Hitbox, Color.Red, "Overdrive: OFF");
+                    }
                 }
             }
             if (ShardsOfAtheria.EmeraldTeleportKey.JustPressed)
@@ -521,11 +555,78 @@ namespace ShardsOfAtheria.Players
                     valkyrieCrownHideVanity = false;
                     valkyrieCrownForceVanity = true;
                 }
+                if (item.type == ModContent.ItemType<MegaGemCore>())
+                {
+                    amethystMask = true;
+                    diamanodShield = true;
+                    emeraldWings = true;
+                    rubyGauntlet = true;
+                    sapphireSpirit = true;
+                    topazNecklace = true;
+                }
+                else
+                {
+                    if (item.type == ModContent.ItemType<AmethystCore>() || item.type == ModContent.ItemType<AmethystCore_Greater>()
+                        || item.type == ModContent.ItemType<AmethystCore_Super>())
+                    {
+                        amethystMask = true;
+                    }
+                    if (item.type == ModContent.ItemType<DiamondCore>() || item.type == ModContent.ItemType<DiamondCore_Greater>()
+                        || item.type == ModContent.ItemType<DiamondCore_Super>())
+                    {
+                        diamanodShield = true;
+                    }
+                    if (item.type == ModContent.ItemType<EmeraldCore>() || item.type == ModContent.ItemType<EmeraldCore_Greater>()
+                        || item.type == ModContent.ItemType<EmeraldCore_Super>())
+                    {
+                        emeraldWings = true;
+                    }
+                    if (item.type == ModContent.ItemType<RubyCore>() || item.type == ModContent.ItemType<RubyCore_Greater>()
+                        || item.type == ModContent.ItemType<RubyCore_Super>())
+                    {
+                        rubyGauntlet = true;
+                    }
+                    if (item.type == ModContent.ItemType<SapphireCore>() || item.type == ModContent.ItemType<SapphireCore_Greater>()
+                        || item.type == ModContent.ItemType<SapphireCore_Super>())
+                    {
+                        sapphireSpirit = true;
+                    }
+                    if (item.type == ModContent.ItemType<TopazCore>() || item.type == ModContent.ItemType<TopazCore_Greater>()
+                        || item.type == ModContent.ItemType<TopazCore_Super>())
+                    {
+                        topazNecklace = true;
+                    }
+                }
             }
         }
 
         public override void FrameEffects()
         {
+            if (amethystMask)
+            {
+                Player.head = EquipLoader.GetEquipSlot(Mod, "AmethystMask", EquipType.Head);
+            }
+            if (diamanodShield)
+            {
+                Player.shield = (sbyte)EquipLoader.GetEquipSlot(Mod, "DiamondShield", EquipType.Shield);
+            }
+            if (emeraldWings)
+            {
+                Player.wings = (sbyte)EquipLoader.GetEquipSlot(Mod, "EmeraldWings", EquipType.Wings);
+            }
+            if (rubyGauntlet)
+            {
+                Player.handon = (sbyte)EquipLoader.GetEquipSlot(Mod, "RubyGauntlet", EquipType.HandsOn);
+                Player.handoff = (sbyte)EquipLoader.GetEquipSlot(Mod, "RubyGauntlet_Off", EquipType.HandsOff);
+            }
+            if (sapphireSpirit)
+            {
+                Player.balloon = (sbyte)EquipLoader.GetEquipSlot(Mod, "SapphireSpirit", EquipType.Balloon);
+            }
+            if (topazNecklace)
+            {
+                Player.neck = (sbyte)EquipLoader.GetEquipSlot(Mod, "TopazAmulet", EquipType.Neck);
+            }
             if ((Biometal || BiometalForceVanity) && !BiometalHideVanity)
             {
                 var biometal = ModContent.GetInstance<Biometal>();
@@ -543,6 +644,13 @@ namespace ShardsOfAtheria.Players
                 Player.face = -1;
                 Player.balloon = -1;
             }
+            if (showRagnarok && Player.ownedProjectileCounts[ModContent.ProjectileType<Ragnarok_Shield>()] == 0
+                && Player.ownedProjectileCounts[ModContent.ProjectileType<RagnarokProj>()] == 0
+                && Player.ownedProjectileCounts[ModContent.ProjectileType<RagnarokProj2>()] == 0)
+            {
+                var ragnarok = ModContent.GetInstance<GenesisAndRagnarok>();
+                Player.shield = (sbyte)EquipLoader.GetEquipSlot(Mod, ragnarok.Name, EquipType.Shield);
+            }
         }
 
         #region Elemental Effectiveness
@@ -551,19 +659,19 @@ namespace ShardsOfAtheria.Players
             if (ModContent.GetInstance<ShardsServerConfig>().experimental)
             {
                 double modifier = 1.0;
-                if (NPCElements.FireNPC.Contains(npc.type))
+                if (NPCElements.Fire.Contains(npc.type))
                 {
                     modifier *= elementMultiplier[Element.Fire];
                 }
-                if (NPCElements.IceNPC.Contains(npc.type))
+                if (NPCElements.Ice.Contains(npc.type))
                 {
                     modifier *= elementMultiplier[Element.Ice];
                 }
-                if (NPCElements.ElectricNPC.Contains(npc.type))
+                if (NPCElements.Electric.Contains(npc.type))
                 {
                     modifier *= elementMultiplier[Element.Electric];
                 }
-                if (NPCElements.MetalNPC.Contains(npc.type))
+                if (NPCElements.Metal.Contains(npc.type))
                 {
                     modifier *= elementMultiplier[Element.Metal];
                 }

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah;
 using Terraria;
 using Terraria.Audio;

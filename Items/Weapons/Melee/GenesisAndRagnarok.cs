@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using System;
 using System.Collections.Generic;
@@ -9,41 +10,26 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
+    [AutoloadEquip(EquipType.Shield)]
     public class GenesisAndRagnarok : ModItem
     {
         public int combo = 0;
-        public int comboTimer;
-        public int upgrades = 0;
-
-        public override void OnCreate(ItemCreationContext context)
-        {
-            upgrades = 0;
-        }
-
-        public override void SaveData(TagCompound tag)
-        {
-            tag["upgrades"] = upgrades;
-        }
-
-        public override void LoadData(TagCompound tag)
-        {
-            if (tag.ContainsKey("upgrades"))
-                upgrades = tag.GetInt("upgrades");
-        }
 
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
             WeaponElements.Ice.Add(Type);
             WeaponElements.Fire.Add(Type);
+            WeaponElements.Electric.Add(Type);
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
+            SoAPlayer shardsPlayer = Main.LocalPlayer.GetModPlayer<SoAPlayer>();
+            int upgrades = shardsPlayer.genesisRagnarockUpgrades;
             if (upgrades == 0)
             {
                 tooltips.Add(new TooltipLine(Mod, "Tooltip", Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.GenesisAndRagnarokBase")));
@@ -135,26 +121,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 .Register();
         }
 
-        public override void HoldItem(Player player)
-        {
-            int comboTimerMax = 60;
-            // If the item is not being used, continue
-            if (player.itemAnimation == 0)
-            {
-                // If combo is not the spear, decrement the timer
-                if (combo > 0)
-                    comboTimer--;
-
-                // If the timer is 0, reset the timer and combo
-                if (comboTimer == 0)
-                {
-                    comboTimer = comboTimerMax;
-                    combo = 0;
-                }
-            }
-            else comboTimer = comboTimerMax;
-        }
-
         public override bool AltFunctionUse(Player player)
         {
             return true;
@@ -162,6 +128,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool CanUseItem(Player player)
         {
+            SoAPlayer shardsPlayer = Main.LocalPlayer.GetModPlayer<SoAPlayer>();
+            int upgrades = shardsPlayer.genesisRagnarockUpgrades;
+
             if (player.altFunctionUse == 2)
             {
                 Item.UseSound = SoundID.Item15;
@@ -218,9 +187,12 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool? UseItem(Player player)
         {
+            SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+            int upgrades = shardsPlayer.genesisRagnarockUpgrades;
+
             int comboExtra = upgrades >= 1 ? 1 : 0;
             int comboExtra2 = upgrades >= 4 ? 2 : 0;
-            if (combo == 1 + comboExtra + comboExtra2)
+            if (combo >= 1 + comboExtra + comboExtra2)
                 combo = 0;
             else combo++;
             return true;
@@ -228,6 +200,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
+            SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+            int upgrades = shardsPlayer.genesisRagnarockUpgrades;
+
             if (upgrades == 1)
                 damage += .5f;
             if (upgrades == 2)
@@ -238,6 +213,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 damage += 3f;
             if (upgrades == 5)
                 damage += 5.4f;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            player.GetModPlayer<SoAPlayer>().showRagnarok = true;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

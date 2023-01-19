@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
@@ -18,7 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber
     {
         public override void SetStaticDefaults()
         {
-            ProjectileElements.AreusProj.Add(Type);
+            SoAGlobalProjectile.AreusProj.Add(Type);
             SoAGlobalProjectile.Eraser.Add(Type);
         }
 
@@ -59,9 +58,33 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber
             }
         }
 
+        public override void UpdateSwing(float progress, float interpolatedSwingProgress)
+        {
+            if (Main.myPlayer == Projectile.owner && progress == 0.5f && Projectile.GetGlobalProjectile<OverchargedProjectile>().overcharged)
+            {
+                Player player = Main.player[Projectile.owner];
+                int numProjectiles = 5;
+                for (int i = 0; i < numProjectiles; i++)
+                {
+                    Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), player.Center, Vector2.Normalize(Projectile.position + Projectile.velocity - Projectile.Center)
+                        .RotatedBy(MathHelper.ToRadians(360 / numProjectiles * i)) * 16f, ModContent.ProjectileType<AreusSickle>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    proj.DamageType = DamageClass.Melee;
+                }
+            }
+        }
+
         public override float SwingProgress(float progress)
         {
             return GenericSwing2(progress);
+        }
+
+        public override Vector2 GetOffsetVector(float progress)
+        {
+            if (Projectile.GetGlobalProjectile<OverchargedProjectile>().overcharged)
+            {
+                return BaseAngleVector.RotatedBy((progress * MathHelper.TwoPi - MathHelper.PiOver2) * -swingDirection);
+            }
+            else return base.GetOffsetVector(progress);
         }
 
         public override float GetVisualOuter(float progress, float swingProgress)

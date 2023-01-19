@@ -1,5 +1,5 @@
 ﻿using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
 using Terraria;
 using Terraria.ID;

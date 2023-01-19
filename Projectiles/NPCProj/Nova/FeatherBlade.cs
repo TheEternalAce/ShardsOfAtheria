@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using System;
 using Terraria;
 using Terraria.ModLoader;

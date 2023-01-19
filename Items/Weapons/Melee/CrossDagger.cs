@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Systems;
 using Terraria;

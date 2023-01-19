@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Globals.Elements;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
     {
         public override void SetStaticDefaults()
         {
-            ProjectileElements.AreusProj.Add(Type);
+            SoAGlobalProjectile.AreusProj.Add(Type);
         }
 
         public override void SetDefaults()

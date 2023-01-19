@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using System;
 using Terraria;
 using Terraria.Audio;

@@ -64,8 +64,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 player.Hurt(PlayerDeathReason.ByCustomReason(die), 100, 0);
                 player.immune = true;
                 player.immuneTime = 30;
-                player.AddBuff(ModContent.BuffType<ElectricShock>(), 120);
-                player.AddBuff(ModContent.BuffType<YamikoDashCooldown>(), 120);
             }
             return null;
         }
@@ -80,9 +78,11 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 for (int i = 0; i < numberProjectiles; i++)
                 {
                     Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                    Projectile proj = Projectile.NewProjectileDirect(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
+                    Projectile proj = Projectile.NewProjectileDirect(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI, 2f);
                     proj.DamageType = DamageClass.Melee;
                 }
+                player.AddBuff(ModContent.BuffType<ElectricShock>(), 120);
+                player.AddBuff(ModContent.BuffType<YamikoDashCooldown>(), 120);
             }
             return false;
         }

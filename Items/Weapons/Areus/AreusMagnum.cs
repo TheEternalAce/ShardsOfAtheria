@@ -1,6 +1,7 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;
@@ -8,12 +9,12 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {
-    public class AreusMagnum : ModItem
+    public class AreusMagnum : OverchargeWeapon
     {
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.DarkAreusWeapon.Add(Type);
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()
@@ -44,7 +45,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 16)
-                .AddRecipeGroup(ShardsRecipes.Gold, 6)
+                .AddRecipeGroup(ShardsRecipes.Gold, 5)
                 .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 7)
                 .AddTile(TileID.Anvils)
                 .Register();

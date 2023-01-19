@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 7)
+                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 20)
                 .AddIngredient(ItemID.Ectoplasm, 5)
                 .AddIngredient(ItemID.IceBlock, 10)
                 .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10)

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Config;
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using ShardsOfAtheria.Projectiles.Weapon.Throwing;
 using Terraria;
 using Terraria.Audio;
@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Throwing
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            SacrificeTotal = 999;
 
             WeaponElements.Metal.Add(Type);
         }

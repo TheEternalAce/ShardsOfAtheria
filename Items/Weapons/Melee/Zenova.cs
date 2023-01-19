@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;

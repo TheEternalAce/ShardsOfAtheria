@@ -1,5 +1,4 @@
-﻿using ShardsOfAtheria.Globals;
-using Terraria;
+﻿using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,8 +10,6 @@ namespace ShardsOfAtheria.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalItem.SlayerItem.Add(Type);
-
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 9f, 2.5f);
 
             SacrificeTotal = 1;

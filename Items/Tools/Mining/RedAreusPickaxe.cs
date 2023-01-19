@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using MMZeroElements;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Globals.Elements;
-using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 20)
-                .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 13)
+                .AddRecipeGroup(ShardsRecipes.Gold, 6)
                 .AddIngredient(ItemID.Wire, 10)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();

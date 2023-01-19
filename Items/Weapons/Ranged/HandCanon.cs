@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -67,6 +68,18 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 damage += 1f;
         }
 
+        int projType;
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            projType = type;
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            return player.ownedProjectileCounts[projType] < 3;
+        }
+
         public override bool? UseItem(Player player)
         {
             if (charge >= 300)
@@ -75,6 +88,11 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             }
             charge = 0;
             SoundEngine.PlaySound(Item.UseSound.Value);
+            OverchargePlayer overchargePlayer = player.GetModPlayer<OverchargePlayer>();
+            if (overchargePlayer.overcharged)
+            {
+                overchargePlayer.overcharge = 0f;
+            }
             return base.UseItem(player);
         }
     }

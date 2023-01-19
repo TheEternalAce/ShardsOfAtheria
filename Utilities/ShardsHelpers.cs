@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MMZeroElements;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Projectiles.Other;
+using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Systems;
 using System;
 using Terraria;
@@ -66,68 +68,136 @@ namespace ShardsOfAtheria.Utilities
                 0f);
         }
 
+        public static void BasicInWorldGlowmask(this NPC npc, SpriteBatch spriteBatch, Texture2D glowTexture, Color color, Vector2 screenPos, SpriteEffects effects)
+        {
+            Vector2 drawOrigin = new Vector2(glowTexture.Width * 0.5f, npc.height * 0.5f);
+            Vector2 drawPos = npc.Center - screenPos;
+            spriteBatch.Draw(glowTexture, drawPos, npc.frame, color, npc.rotation, npc.frame.Size() / 2f, npc.scale, effects, 0f);
+        }
+
         public static void SlayBoss(this NPC boss, Player player)
         {
-            ShardsDownedSystem.slainBosses.Add(boss.type);
-        }
-
-        /// <summary>
-        /// Sets NPC multipliers in the following order: Fire, Ice, Electric, Metal
-        /// <para>This method should be called in the SetDefaults() override</para>
-        /// </summary>
-        public static void SetCustomElementMultipliers(this NPC npc, params double[] multipliers)
-        {
-            if (multipliers.Length > 4)
+            SlayerPlayer slayer = player.GetModPlayer<SlayerPlayer>();
+            if (slayer.slayerMode)
             {
-                throw new ArgumentException("Too many arguments, please use only four (4) decimal values");
-            }
-            else if (multipliers.Length < 4)
-            {
-                throw new ArgumentException("Too few arguments, please provide only four (4) decimal values");
-            }
-            for (int i = 0; i < multipliers.Length; i++)
-            {
-                npc.GetGlobalNPC<NPCElements>().elementMultiplier[i] = multipliers[i];
+                ShardsDownedSystem.slainBosses.Add(boss.type);
             }
         }
 
-        /// <summary>
-        /// Sets NPC multipliers based on given Element
-        /// <para>0 = Fire, 1 = Ice, 2 = Electric, 3 = Metal</para>
-        /// <para>This method should be called in the SetDefaults() override</para>
-        /// </summary>
-        public static void SetElementMultipliersByElement(this NPC npc, int element)
+        public static void CallStorm(this Projectile projectile, int amount, int pierce = 1)
         {
-            switch (element)
+            SoundEngine.PlaySound(SoundID.NPCDeath56, projectile.Center);
+            for (var i = 0; i < amount; i++)
             {
-                case Element.Fire:
-                    npc.SetElementMultiplier(Element.Electric, 2.0);
-                    npc.SetElementMultiplier(Element.Ice, 0.5);
-                    break;
-                case Element.Ice:
-                    npc.SetElementMultiplier(Element.Fire, 2.0);
-                    npc.SetElementMultiplier(Element.Metal, 0.5);
-                    break;
-                case Element.Electric:
-                    npc.SetElementMultiplier(Element.Metal, 2.0);
-                    npc.SetElementMultiplier(Element.Fire, 0.5);
-                    break;
-                case Element.Metal:
-                    npc.SetElementMultiplier(Element.Ice, 2.0);
-                    npc.SetElementMultiplier(Element.Electric, 0.5);
-                    break;
+                Projectile p = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(),
+                    new Vector2(projectile.Center.X + Main.rand.Next(-60 * amount, 60 * amount), projectile.Center.Y - 600), new Vector2(0, 5),
+                    ModContent.ProjectileType<LightningBoltFriendly>(), (int)(projectile.damage * 0.66f), projectile.knockBack, Main.player[projectile.owner].whoAmI);
+                p.penetrate = pierce;
+                p.DamageType = projectile.DamageType;
             }
         }
 
-        public static void SetElementMultiplier(this NPC npc, int element, double multiplier)
+        public static void Explode(this Projectile proj, Vector2 position, int explosionSize = 120)
         {
-            npc.GetGlobalNPC<NPCElements>().elementMultiplier[element] = multiplier;
+            Projectile explosion = Projectile.NewProjectileDirect(proj.GetSource_FromThis(), position, Vector2.Zero,
+                ModContent.ProjectileType<ElementExplosion>(), proj.damage, proj.knockBack, proj.owner);
+            explosion.DamageType = proj.DamageType;
+            explosion.Size = new Vector2(explosionSize);
+            ProjectileElements elementExplosion = explosion.GetGlobalProjectile<ProjectileElements>();
+            SoAGlobalProjectile globalExplosion = explosion.GetGlobalProjectile<SoAGlobalProjectile>();
+            int type = proj.type;
+            if (ProjectileElements.Fire.Contains(type))
+            {
+                elementExplosion.tempFire = true;
+            }
+            if (ProjectileElements.Ice.Contains(type))
+            {
+                elementExplosion.tempIce = true;
+            }
+            if (ProjectileElements.Electric.Contains(type))
+            {
+                elementExplosion.tempElectric = true;
+            }
+            if (ProjectileElements.Metal.Contains(type))
+            {
+                elementExplosion.tempMetal = true;
+            }
+            if (SoAGlobalProjectile.AreusProj.Contains(type))
+            {
+                globalExplosion.tempAreus = true;
+            }
         }
 
-        public static void SetElementMultiplier(this NPC npc, double[] multipliers)
+        public static void TrackTarget(this Projectile projectile, NPC targetNPC, int speed = 16, int inertia = 16)
         {
-            npc.GetGlobalNPC<NPCElements>().elementMultiplier = multipliers;
+            if (Vector2.Distance(projectile.Center, targetNPC.Center) > 40f)
+            {
+                // The immediate range around the target (so it doesn't latch onto it when close)
+                Vector2 direction = targetNPC.Center - projectile.Center;
+                direction.Normalize();
+                direction *= speed;
+
+                projectile.velocity = (projectile.velocity * (inertia - 1) + direction) / inertia;
+            }
         }
+
+        ///// <summary>
+        ///// Sets NPC multipliers in the following order: Fire, Ice, Electric, Metal
+        ///// <para>This method should be called in the SetDefaults() override</para>
+        ///// </summary>
+        //public static void SetCustomElementMultipliers(this NPC npc, params double[] multipliers)
+        //{
+        //    if (multipliers.Length > 4)
+        //    {
+        //        throw new ArgumentException("Too many arguments, please use only four (4) decimal values");
+        //    }
+        //    else if (multipliers.Length < 4)
+        //    {
+        //        throw new ArgumentException("Too few arguments, please provide only four (4) decimal values");
+        //    }
+        //    for (int i = 0; i < multipliers.Length; i++)
+        //    {
+        //        npc.GetGlobalNPC<NPCElements>().elementMultiplier[i] = multipliers[i];
+        //    }
+        //}
+
+        ///// <summary>
+        ///// Sets NPC multipliers based on given Element
+        ///// <para>0 = Fire, 1 = Ice, 2 = Electric, 3 = Metal</para>
+        ///// <para>This method should be called in the SetDefaults() override</para>
+        ///// </summary>
+        //public static void SetElementMultipliersByElement(this NPC npc, int element)
+        //{
+        //    switch (element)
+        //    {
+        //        case Element.Fire:
+        //            npc.SetElementMultiplier(Element.Electric, 2.0);
+        //            npc.SetElementMultiplier(Element.Ice, 0.5);
+        //            break;
+        //        case Element.Ice:
+        //            npc.SetElementMultiplier(Element.Fire, 2.0);
+        //            npc.SetElementMultiplier(Element.Metal, 0.5);
+        //            break;
+        //        case Element.Electric:
+        //            npc.SetElementMultiplier(Element.Metal, 2.0);
+        //            npc.SetElementMultiplier(Element.Fire, 0.5);
+        //            break;
+        //        case Element.Metal:
+        //            npc.SetElementMultiplier(Element.Ice, 2.0);
+        //            npc.SetElementMultiplier(Element.Electric, 0.5);
+        //            break;
+        //    }
+        //}
+
+        //public static void SetElementMultiplier(this NPC npc, int element, double multiplier)
+        //{
+        //    npc.GetGlobalNPC<NPCElements>().elementMultiplier[element] = multiplier;
+        //}
+
+        //public static void SetElementMultiplier(this NPC npc, double[] multipliers)
+        //{
+        //    npc.GetGlobalNPC<NPCElements>().elementMultiplier = multipliers;
+        //}
 
         /// <summary>
         /// Insert useful summary here
@@ -137,6 +207,8 @@ namespace ShardsOfAtheria.Utilities
         /// <param name="materials"> an array of ShardsHelpers.UpgradeMaterials</param>
         public static void UpgradeItem(this NPC npc, Player player, int result, params UpgrageMaterial[] materials)
         {
+            SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+
             Main.npcChatCornerItem = result;
             if (CanUpgradeItem(player, materials))
             {
@@ -146,38 +218,41 @@ namespace ShardsOfAtheria.Utilities
                 }
                 if (materials[0].item.ModItem is GenesisAndRagnarok)
                 {
-                    (player.inventory[player.FindItem(materials[0].item.type)].ModItem as GenesisAndRagnarok).upgrades++;
+                    shardsPlayer.genesisRagnarockUpgrades++;
                 }
                 SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
                 if (result > 0)
                 {
-                    Item.NewItem(npc.GetSource_FromThis(), npc.getRect(), result);
-
                     if (result == ModContent.ItemType<GenesisAndRagnarok>())
                     {
-                        GenesisAndRagnarok genesisAndRagnarok = player.inventory[player.FindItem(materials[0].item.type)].ModItem as GenesisAndRagnarok;
-                        switch (genesisAndRagnarok.upgrades)
+                        string key = "";
+                        switch (shardsPlayer.genesisRagnarockUpgrades)
                         {
                             case 1:
-                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok1");
+                                key = "Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok1";
                                 break;
                             case 2:
-                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok2");
+                                key = "Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok2";
                                 break;
                             case 3:
-                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok3");
+                                key = "Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok3";
                                 break;
                             case 4:
-                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok4");
+                                key = "Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok4";
                                 break;
                             case 5:
-                                Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok5");
+                                key = "Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok5";
                                 break;
                         }
+                        Main.npcChatText = Language.GetTextValue(key);
                     }
-                    else if (result == ModContent.ItemType<AreusSaber>() || result == ModContent.ItemType<TheMourningStar>())
+                    else
                     {
-                        Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeAreusWeapon");
+                        Item.NewItem(npc.GetSource_FromThis(), npc.getRect(), result);
+                        if (result == ModContent.ItemType<AreusSaber>() || result == ModContent.ItemType<TheMourningStar>())
+                        {
+                            Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeAreusWeapon");
+                        }
                     }
                 }
             }
@@ -246,20 +321,23 @@ namespace ShardsOfAtheria.Utilities
             return minimum + ((float)Math.Sin(time) + 1f) / 2f * (maximum - minimum);
         }
 
-        internal static void LogSomething(string something)
+        internal static void Log(string str, bool broadcastToChat = false)
         {
-            ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(something), Color.White);
-            Console.WriteLine(something);
+            if (broadcastToChat)
+            {
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(str), Color.White);
+            }
+            Console.WriteLine(str);
         }
     }
 
-    public static class Element
-    {
-        public const int Null = -1;
-        public const int Fire = 0;
-        public const int Ice = 1;
-        public const int Electric = 2;
-        public const int Metal = 3;
-        public const int Areus = 4;
-    }
+    //public static class Element
+    //{
+    //    public const int Null = -1;
+    //    public const int Fire = 0;
+    //    public const int Ice = 1;
+    //    public const int Electric = 2;
+    //    public const int Metal = 3;
+    //    public const int Areus = 4;
+    //}
 }

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -79,9 +79,9 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            if (!player.HasBuff(ModContent.BuffType<Megamerged>()))
+            SoAPlayer shardsPlayer = player.ShardsOfAtheria();
+            if (!shardsPlayer.BiometalSound)
             {
-                player.AddBuff(ModContent.BuffType<Megamerged>(), 60);
                 if (ModContent.GetInstance<ShardsClientConfig>().biometalSound)
                 {
                     if (player.Male)
@@ -90,19 +90,15 @@ namespace ShardsOfAtheria.Items.Accessories
                 }
             }
 
-            player.GetModPlayer<SoAPlayer>().Biometal = true;
-            player.GetModPlayer<SoAPlayer>().BiometalHideVanity = hideVisual;
+            shardsPlayer.Biometal = true;
+            shardsPlayer.BiometalSound = true;
+            shardsPlayer.BiometalHideVanity = hideVisual;
 
             player.extraFall += 45;
             player.GetDamage(DamageClass.Generic) += 0.25f;
             player.statLifeMax2 += 100;
             player.statManaMax2 += 40;
             player.noFallDmg = true;
-            player.buffImmune[BuffID.Bleeding] = true;
-            player.buffImmune[BuffID.Poisoned] = true;
-            player.buffImmune[BuffID.Weak] = true;
-            player.buffImmune[BuffID.WitheredWeapon] = true;
-            player.buffImmune[BuffID.Venom] = true;
             player.spikedBoots++;
 
             BiometalDashPlayer mp = player.GetModPlayer<BiometalDashPlayer>();
@@ -147,9 +143,16 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void UpdateVanity(Player player)
         {
-            if (!player.HasBuff(ModContent.BuffType<Megamerged>()))
+            SoAPlayer shardsPlayer = player.ShardsOfAtheria();
+            BiometalSound(player);
+            shardsPlayer.BiometalSound = true;
+        }
+
+        public void BiometalSound(Player player)
+        {
+            SoAPlayer shardsPlayer = player.ShardsOfAtheria();
+            if (!shardsPlayer.BiometalSound)
             {
-                player.AddBuff(ModContent.BuffType<Megamerged>(), 60);
                 if (ModContent.GetInstance<ShardsClientConfig>().biometalSound)
                 {
                     if (player.Male)
@@ -161,18 +164,19 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void UpdateInventory(Player player)
         {
-            if (player.HasBuff(ModContent.BuffType<Megamerged>()))
-            {
-                player.ClearBuff(ModContent.BuffType<Megamerged>());
-                SoundEngine.PlaySound(SoundID.Item4);
-            }
+            UnMegaMerge(player);
         }
 
         public override void HoldItem(Player player)
         {
-            if (player.HasBuff(ModContent.BuffType<Megamerged>()))
+            UnMegaMerge(player);
+        }
+
+        public void UnMegaMerge(Player player)
+        {
+            SoAPlayer shardsPlayer = player.ShardsOfAtheria();
+            if (shardsPlayer.Biometal)
             {
-                player.ClearBuff(ModContent.BuffType<Megamerged>());
                 SoundEngine.PlaySound(SoundID.Item4);
             }
         }

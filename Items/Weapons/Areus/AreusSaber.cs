@@ -1,5 +1,7 @@
+using Microsoft.Xna.Framework;
+using MMZeroElements;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Globals.Elements;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber;
 using Terraria;
 using Terraria.ID;
@@ -8,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {
-    public class AreusSaber : ModItem
+    public class AreusSaber : OverchargeWeapon
     {
         public override void SetStaticDefaults()
         {
@@ -49,8 +51,13 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
 
         public override bool CanUseItem(Player player)
         {
-            if (player.altFunctionUse == 2)
+            Item.useTime = Item.useAnimation = 20;
+            if (player.altFunctionUse == 2 || player.GetModPlayer<OverchargePlayer>().overcharged)
             {
+                if (player.GetModPlayer<OverchargePlayer>().overcharged)
+                {
+                    Item.useTime = Item.useAnimation = 40;
+                }
                 Item.shoot = ModContent.ProjectileType<AreusSaberProj>();
             }
             else
@@ -68,6 +75,11 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .AddIngredient(ModContent.ItemType<AreusSword>())
                 .AddIngredient(ItemID.LunarBar, 14)
                 .Register();
+        }
+
+        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
+        {
+            ConsumeOvercharge(player);
         }
     }
 }

@@ -46,13 +46,14 @@ namespace ShardsOfAtheria.Items.GrabBags
 
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            int[] loot = { ModContent.ItemType<ValkyrieCrown>(), ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<DownBow>(), ModContent.ItemType<PlumeCodex>(), ModContent.ItemType<NestlingStaff>() };
+            int[] loot = { ModContent.ItemType<NestlingStaff>(), ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<DownBow>(), ModContent.ItemType<PlumeCodex>(), ModContent.ItemType<NestlingStaff>() };
 
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<GildedValkyrieWings>()));
-            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ChargedFeather>(), 1, 15, 28));
-            itemLoot.Add(ItemDropRule.Common(ItemID.GoldBar, 1, 10, 20));
             itemLoot.Add(ItemDropRule.OneFromOptions(1, loot));
-            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<HardlightKnife>(), 5, 300, 600));
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<HardlightKnife>(), 5, 150, 180));
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ValkyrieCrown>(), 5));
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ChargedFeather>(), 1, 15, 28));
+            itemLoot.Add(ItemDropRule.Common(ItemID.GoldBar, 1, 8, 14));
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<NovaStellar>()));
             base.ModifyItemLoot(itemLoot);
         }

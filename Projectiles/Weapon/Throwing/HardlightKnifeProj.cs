@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Dusts;
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using Terraria;
 using Terraria.ModLoader;
 

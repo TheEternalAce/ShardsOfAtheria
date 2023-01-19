@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using MMZeroElements;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.ItemDropRules.Condition;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
@@ -13,6 +13,7 @@ using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
+using ShardsOfAtheria.Items.Weapons.Summon.Minion;
 using ShardsOfAtheria.Items.Weapons.Throwing;
 using ShardsOfAtheria.NPCs.Town;
 using ShardsOfAtheria.Players;
@@ -53,7 +54,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 				}
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
-            NPCElements.ElectricNPC.Add(Type);
+            NPCElements.Electric.Add(Type);
         }
 
         public override void SetDefaults()
@@ -111,12 +112,13 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             LeadingConditionRule slayerMode = new LeadingConditionRule(new IsSlayerMode());
             LeadingConditionRule flawless = new(new FlawlessDropCondition());
 
-            int[] drops = { ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<ValkyrieCrown>(), ModContent.ItemType<DownBow>(), ModContent.ItemType<PlumeCodex>() };
+            int[] drops = { ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<DownBow>(), ModContent.ItemType<PlumeCodex>(), ModContent.ItemType<NestlingStaff>() };
 
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, drops));
-            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HardlightKnife>(), 5, 300, 600));
-            notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.GoldBar, 1, 10, 20));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HardlightKnife>(), 5, 150, 180));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieCrown>(), 5));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ChargedFeather>(), 1, 15, 28));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.GoldBar, 1, 8, 14));
             slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieSoulCrystal>()));
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<NovaRelic>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<NovaTrophy>(), 10));
@@ -245,10 +247,13 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             {
                 if (NPC.life <= NPC.lifeMax / 4 * 3)
                 {
-                    attackType = Main.rand.Next(4);
                     if (NPC.life <= NPC.lifeMax / 2)
                     {
                         attackType = Main.rand.Next(5);
+                    }
+                    else
+                    {
+                        attackType = Main.rand.Next(4);
                     }
                 }
                 else

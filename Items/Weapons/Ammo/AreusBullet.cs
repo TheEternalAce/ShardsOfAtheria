@@ -1,5 +1,5 @@
+using MMZeroElements;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Globals.Elements;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using Terraria;
@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 99;
+            SacrificeTotal = 999;
             SoAGlobalItem.AreusWeapon.Add(Type);
             WeaponElements.Electric.Add(Type);
         }

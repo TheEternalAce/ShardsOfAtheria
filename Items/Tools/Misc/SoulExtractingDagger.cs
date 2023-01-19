@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Tools;
 using ShardsOfAtheria.Systems;
@@ -42,8 +41,6 @@ namespace ShardsOfAtheria.Items.Tools.Misc
 
         public override void SetStaticDefaults()
         {
-            SoAGlobalItem.SlayerItem.Add(Type);
-
             SacrificeTotal = 1;
         }
 

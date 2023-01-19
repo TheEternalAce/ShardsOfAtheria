@@ -18,7 +18,6 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
             {
                 player.GetDamage(DamageClass.Generic) += 1f;
                 Lighting.AddLight(player.position, TorchID.Corrupt);
-                player.spikedBoots++;
                 player.buffTime[buffIndex] = 18000;
             }
             else

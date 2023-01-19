@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Config;
@@ -23,6 +25,7 @@ using ShardsOfAtheria.Systems;
 using System;
 using Terraria;
 using Terraria.Chat;
+using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
@@ -33,6 +36,8 @@ namespace ShardsOfAtheria.Globals
     public class SoAGlobalNPC : GlobalNPC
     {
         public bool flawless = true;
+        Asset<Texture2D> harpy = TextureAssets.Npc[NPCID.Harpy];
+        Asset<Texture2D> skyHarpy = ModContent.Request<Texture2D>("ShardsOfAtheria/NPCs/Variant/Harpy/SkyHarpy");
 
         public override bool InstancePerEntity => true;
 
@@ -40,6 +45,11 @@ namespace ShardsOfAtheria.Globals
         {
             //flawless continuity for EoW
             On.Terraria.NPC.Transform += NPC_Transform;
+        }
+
+        public override void Unload()
+        {
+            TextureAssets.Npc[NPCID.Harpy] = harpy;
         }
 
         private void NPC_Transform(On.Terraria.NPC.orig_Transform orig, NPC self, int newType)
@@ -52,6 +62,7 @@ namespace ShardsOfAtheria.Globals
         public override void SetDefaults(NPC npc)
         {
             base.SetDefaults(npc);
+            TextureAssets.Npc[NPCID.Harpy] = skyHarpy;
         }
 
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
@@ -269,7 +280,6 @@ namespace ShardsOfAtheria.Globals
 
                         // Expert mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.HiveBackpack);
-                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<Glock80>());
 
                         // Master mode
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.QueenBeePetItem);
@@ -1034,7 +1044,7 @@ namespace ShardsOfAtheria.Globals
             {
                 drawColor = Color.MediumPurple;
             }
-            if (npc.HasBuff(BuffID.Electrified) && Main.rand.NextBool(4) && ModContent.GetInstance<ShardsServerConfig>().experimental)
+            if (npc.HasBuff(BuffID.Electrified) && Main.rand.NextBool(4))
             {
                 int dust = Dust.NewDust(npc.position, npc.width + 4, npc.height + 4, DustID.Electric, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1f);
                 Main.dust[dust].noGravity = true;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using ShardsOfAtheria.Items.DevItems.TheEternalAce;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -34,7 +35,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 
         public override void Kill(int timeLeft)
         {
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<FieryExplosion>(), Projectile.damage, 9, Main.player[Projectile.owner].whoAmI);
+            Projectile.Explode(Projectile.Center);
+            //Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<FieryExplosion>(), Projectile.damage, 9, Main.player[Projectile.owner].whoAmI);
             base.Kill(timeLeft);
         }
     }

@@ -24,7 +24,7 @@ namespace ShardsOfAtheria.Items.Materials
         public override void AddRecipes()
         {
             CreateRecipe(5)
-                .AddRecipeGroup(RecipeGroupID.IronBar, 2)
+                .AddIngredient(ItemID.IronBar, 2)
                 .AddIngredient(ItemID.Glass)
                 .AddTile(TileID.WorkBenches)
                 .Register();

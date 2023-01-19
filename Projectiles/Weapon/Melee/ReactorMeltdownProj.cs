@@ -1,5 +1,5 @@
 ﻿using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

@@ -93,7 +93,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 16)
-                .AddRecipeGroup(ShardsRecipes.Gold, 6)
+                .AddRecipeGroup(ShardsRecipes.Gold, 5)
                 .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10)
                 .AddTile(TileID.Anvils)
                 .Register();

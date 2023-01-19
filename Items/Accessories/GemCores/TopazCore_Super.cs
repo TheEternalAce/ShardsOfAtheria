@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Players;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,6 +17,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			Item.width = 32;
 			Item.height = 32;
 			Item.accessory = true;
+			Item.canBePlacedInVanityRegardlessOfConditions = true;
 
 			Item.rare = ItemRarityID.Lime;
 			Item.value = Item.sellPrice(0, 3);
@@ -33,6 +35,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
+			player.GetModPlayer<SoAPlayer>().topazNecklace = !hideVisual;
 			player.statLifeMax2 += 60;
 			player.shinyStone = true;
 			player.AddBuff(BuffID.Regeneration, 2);

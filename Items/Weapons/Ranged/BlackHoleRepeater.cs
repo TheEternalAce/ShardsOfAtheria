@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
@@ -14,8 +13,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalItem.SlayerItem.Add(Type);
-
             SacrificeTotal = 1;
         }
 

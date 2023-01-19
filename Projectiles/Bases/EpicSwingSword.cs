@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.EnergyScythe;
 using ShardsOfAtheria.Utilities;
 using System;
 using System.IO;
@@ -112,6 +113,13 @@ namespace ShardsOfAtheria.Projectiles.Bases
         public virtual void UpdateSwing(float progress, float interpolatedSwingProgress)
         {
 
+        }
+
+        public virtual void FireProjectile(int type, int damage, float knockback, float velocity = 16f)
+        {
+            Vector2 position = Projectile.Center;
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, AngleVector * Projectile.velocity.Length() * velocity,
+                        ModContent.ProjectileType<EnergyWave>(), damage, knockback, Projectile.owner);
         }
 
         public virtual float SwingProgress(float progress)

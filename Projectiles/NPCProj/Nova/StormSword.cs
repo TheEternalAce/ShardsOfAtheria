@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using Terraria;
 using Terraria.ID;
@@ -15,6 +15,8 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
         public static Asset<Texture2D> glowmask;
         private double rotation;
         private int attacks = 4;
+
+        public override string Texture => "ShardsOfAtheria/Items/Weapons/Melee/ValkyrieBlade";
 
         public override void Load()
         {

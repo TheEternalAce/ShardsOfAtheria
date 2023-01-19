@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using ShardsOfAtheria.Systems;
 using Terraria;
@@ -24,7 +24,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
 			Item.maxStack = 9999;
 			Item.consumable = true;
 			Item.knockBack = 1.5f;
-			Item.value = Item.sellPrice(copper: 1);
+			Item.value = 1;
 			Item.rare = ItemRarityID.Green;
 			Item.shoot = ModContent.ProjectileType<BBProj>();
 			Item.shootSpeed = 4f;

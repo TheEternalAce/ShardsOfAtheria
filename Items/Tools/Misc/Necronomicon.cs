@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Config;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using System.Collections.Generic;
 using Terraria;
@@ -26,8 +25,6 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             book = ModContent.Request<Texture2D>(Texture + "_Open");
 
             SacrificeTotal = 1;
-
-            SoAGlobalItem.SlayerItem.Add(Type);
         }
 
         public override void SetDefaults()

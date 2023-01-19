@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Config;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
@@ -10,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria
 {
-    partial class ShardsOfAtheria
+	partial class ShardsOfAtheria
 	{
 		// The following code allows other mods to "call" Example Mod data.
 		// This allows mod developers to access Example Mod's data without having to set it a reference.
@@ -37,12 +36,12 @@ namespace ShardsOfAtheria
 				{
 					default:
 						throw new ArgumentException("Unrecognized ModCall. Usable ModCalls for Shards of Atheria are as follows: " +
-							"checkSlayerMode, addNecronomiconEntry, addColoredNecronomiconEntry, wipNecronomiconEntry, and addSoulCrystalToList.");
+							"checkSlayer, checkSlainBoss, addSlainBoss, addNecronomiconEntry, addColoredNecronomiconEntry, wipNecronomiconEntry, and addSoulCrystal.");
 					case "checkSlayer":
 						// Checks if the player has Slayer Mode enabled
-						if (args[1] is Player player)
+						if (args[1] is Player slayer)
 						{
-							return player.GetModPlayer<SlayerPlayer>().slayerMode;
+							return slayer.GetModPlayer<SlayerPlayer>().slayerMode;
 						}
 						else
 						{
@@ -119,12 +118,83 @@ namespace ShardsOfAtheria
 						break;
 					case "wipNecronomiconEntry":
 						return Entry.WipEntry();
+					case "overcharge":
+						if (args[1] is Player ocPlayer)
+						{
+							if (args[2] is float chargeToAdd)
+							{
+								ocPlayer.GetModPlayer<OverchargePlayer>().overcharge += chargeToAdd;
+								break;
+							}
+							else if (args[2] is bool)
+							{
+								ocPlayer.GetModPlayer<OverchargePlayer>().overcharge = 0;
+								break;
+							}
+							{
+								return ocPlayer.GetModPlayer<OverchargePlayer>().overcharge;
+							}
+						}
+						else
+						{
+							throw new ArgumentException(args[2].GetType().Name + " is not a valid Player type.");
+						}
+					case "overcharged":
+						if (args[1] is Player ocedPlayer)
+						{
+							return ocedPlayer.GetModPlayer<OverchargePlayer>().overcharged;
+						}
+						else if (args[1] is Projectile ocedProj)
+						{
+							if (args[2] is bool oced)
+							{
+								ocedProj.GetGlobalProjectile<OverchargedProjectile>().overcharged = oced;
+								break;
+							}
+							else
+							{
+								return ocedProj.GetGlobalProjectile<OverchargedProjectile>().overcharged;
+							}
+						}
+						else
+						{
+							throw new ArgumentException(args[2].GetType().Name + " is not a valid Player type.");
+						}
+					case "invoke":
+						if (args[1] is string str)
+						{
+							switch (str)
+							{
+								case "callStorm":
+									if (args[2] is Projectile stormProj)
+									{
+										if (args[3] is int lightningAmount)
+										{
+											stormProj.CallStorm(lightningAmount);
+										}
+										else
+										{
+											stormProj.CallStorm(3);
+										}
+									}
+									else
+									{
+										throw new ArgumentException(args[2].GetType().Name + " is not a valid Projectile type.");
+									}
+									break;
+							}
+							break;
+						}
+						else
+						{
+							throw new ArgumentException(args[2].GetType().Name + " is not a valid string.");
+						}
 					case "checkHasSoulCrystal":
-						if (args[1] is Player player2)
+						if (args[1] is Player soulsPlayer)
 						{
 							if (args[2] is int sC)
 							{
-								return player2.GetModPlayer<SlayerPlayer>().soulCrystals.Contains(sC);
+								return soulsPlayer.GetModPlayer<SlayerPlayer>().soulCrystals.Contains(sC);
 							}
 							else
 							{
@@ -135,46 +205,21 @@ namespace ShardsOfAtheria
 						{
 							throw new ArgumentException(args[1].GetType().Name + " is not a valid SlayerPlayer type.");
 						}
-					case "addSoulCrystalToList":
-						if (args[1] is string context)
+					case "addSoulCrystal":
+						if (args[1] is Player soulsPlayer2)
 						{
-							if (context == "slayerItems")
+							if (args[2] is int)
 							{
-								if (args[2] is int)
-								{
-									SoAGlobalItem.SlayerItem.Add((int)args[2]);
-								}
-								else
-								{
-									throw new ArgumentException(args[2].GetType().Name + " is not a valid int.");
-								}
-							}
-							else if (context == "absorbedSouls")
-							{
-								if (args[2] is Player soulsPlayer)
-								{
-									if (args[3] is int)
-									{
-										soulsPlayer.GetModPlayer<SlayerPlayer>().soulCrystals.Add((int)args[3]);
-									}
-									else
-									{
-										throw new ArgumentException(args[3].GetType().Name + " is not a valid int.");
-									}
-								}
-								else
-								{
-									throw new ArgumentException(args[2].GetType().Name + " is not a Player type.");
-								}
+								soulsPlayer2.GetModPlayer<SlayerPlayer>().soulCrystals.Add((int)args[3]);
 							}
 							else
 							{
-								throw new ArgumentException("\"" + (string)args[1] + "\" is not a valid parameter, please use \"slayerItems\" or \"absorbedSouls\".");
+								throw new ArgumentException(args[3].GetType().Name + " is not a valid int.");
 							}
 						}
 						else
 						{
-							throw new ArgumentException(args[1].GetType().Name + " is not a valid string.");
+							throw new ArgumentException(args[2].GetType().Name + " is not a Player type.");
 						}
 						break;
 					case "checkSoulConfig":

@@ -1,5 +1,7 @@
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using ShardsOfAtheria.Systems;
 using Terraria;
@@ -8,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Areus
 {
-    public class AreusStaff : ModItem
+    public class AreusStaff : OverchargeWeapon
     {
         public override void SetStaticDefaults()
         {
@@ -49,6 +51,11 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .AddIngredient(ItemID.FragmentVortex, 7)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
+        }
+
+        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
+        {
+            ConsumeOvercharge(player);
         }
     }
 }

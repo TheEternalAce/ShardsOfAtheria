@@ -1,5 +1,5 @@
-using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Potions
 {
-    public class ConductivityPotion : ModItem
+	public class ConductivityPotion : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -43,16 +43,10 @@ namespace ShardsOfAtheria.Items.Potions
 		{
 			BuffID.Sets.IsAFlaskBuff[Type] = true;
 		}
-	}
 
-	public class ConductivePlayer : ModPlayer
-	{
-		public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+		public override void Update(Player player, ref int buffIndex)
 		{
-			if (Player.HasBuff(ModContent.BuffType<Conductive>()))
-			{
-				target.AddBuff(ModContent.BuffType<ElectricShock>(), Player.HasBuff(ModContent.BuffType<Conductive>()) ? 1200 : 600);
-			}
+			player.GetModPlayer<SoAPlayer>().conductive = true;
 		}
 	}
 }

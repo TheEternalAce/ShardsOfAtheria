@@ -9,23 +9,21 @@
 Mods: {
 	ShardsOfAtheria: {
 		Common: {
+			AbsorbedBlood: Absorbed Blood
+			Combat: Combat
+			Conservation: Conservation
+			Eraser: Can erase projectiles
+			Exploration: Exploration
 			FiringMode1: Semi-auto
 			FiringMode2: Burst fire
 			FiringMode3: Full-auto
 			FullCharge: "Charge Ready!"
-			SlayerItem: Slayer Item
-			AbsorbedBlood: Absorbed Blood
-			TeleportOnKeyPress: Allows teleportation on press of {0}
 			OverdriveInfo:
 				'''
 				Press {0} to activate or deactivate Overdrive
-				Overdrive increases all damage by 50%
+				Overdrive increases all damage by 100%
 				Overdrive lasts until you get hit or run out of Overdrive time
 				'''
-			TomeOfOmniscience: Press {0} to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration
-			Combat: Combat
-			Conservation: Conservation
-			Exploration: Exploration
 			RushDrive:
 				'''
 				Press {0} to chose between two phase types:
@@ -33,17 +31,16 @@ Mods: {
 				Defensive: Sacrifice half of total damage for doubled defense and 20% reduced damage
 				Always get 20% increased movement speed
 				'''
-			UpgradeableItem: Upgradeable Item
-
-			ElementFire: Fire Element
-			ElementIce: Ice Element
-			ElementElectric: Electric Element
-			ElementMetal: Metal Element
-
+			SinfulSoulCommonDesc:
+				'''
+				Only one may be active at a time
+				Can be removed with {0}
+				'''
+			TeleportOnKeyPress: Allows teleportation on press of {0}
 			TitleText1: Shards of Atheria: Splitting Skies
 			TitleText2: Shards of Atheria: The World Revolving
-
-			Eraser: Can erase projectiles
+			TomeOfOmniscience: Press {0} to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration
+			UpgradeableItem: Upgradeable Item
 		}
 
 		DiskFile: {
@@ -331,7 +328,6 @@ Mods: {
 			Coilgun: "Coil-gun"
 			DoubleBow: Double Bow
 			DownBow: Down Bow
-			Glock80: Glock 80
 			HandCanon: Hand Cannon
 			HecateII: Hecate II
 			HeroGun: Hero Gun
@@ -485,12 +481,11 @@ Mods: {
 				'''
 			Biometal:
 				'''
-				Equipping transforms the user into a Mega Man
+				Transforms the wearer into a Mega Man
 				25% Increased damage
 				Increases movement speed by 10%
-				Increased life regen
-				Increased life by 100 and mana by 40
-				Grants dash, wall sliding and immunity to fall damage and certain debuffs
+				Increased max life by 100 and max mana by 40
+				Grants dash, wall sliding and immunity to fall damage
 				'''
 			EntropicWings: Allows flight and grants slow fall
 			GildedValkyrieWings: "'The gold plating on the wings weighs you down slightly'"
@@ -616,13 +611,13 @@ Mods: {
 			# Potions
 			BoneMarrowInjection: Strengthens your bones
 			ChargedFlightPotion: Increases flight time by 34
-			ConductivityPotion: "Increases areus weapon damage by 15% and duration of Electric Shock by 100%"
+			ConductivityPotion: "Increases electric weapon damage by 15% and duration of Electric Shock by 100%"
 			SoulInjection:
 				'''
 				Damages you but grants the following:
 				Increased damage, movement speed and defense
 				Grants life regen
-				'Bro I promise, injecting souls directly into your bloodstream is a good idea'
+				'Recommended by 0/10 doctors'
 				'''
 
 			# Sinful
@@ -676,12 +671,13 @@ Mods: {
 				Current damage increase: +{0}%
 				Current critical strike chance increase: +{1}%
 				'''
-			VirtuousDagger: Transforms into a weapon based on your sin
-			SinfulArmament:
+			VirtuousDagger:
 				'''
-				Cleanses your soul of sin
+				Replaces your current sin with a holy buff
+				Use another to remove this holy buff
 				Shatters on use
 				'''
+			SinfulArmament: Transforms into a weapon based on your sin
 
 			# Soul Crystals
 			KingSoulCrystal:
@@ -789,7 +785,7 @@ Mods: {
 				'''
 				Taking over 100 damage summons a True Eye of Cthulhu
 				You can have up to 2 of these
-				Another True EoC stays over you and attacks at your cursor
+				Another True EoC stays beside you and attacks at your cursor
 				'''
 			# LandSoulCrystal:
 			# TimeSoulCrystal:
@@ -1034,14 +1030,14 @@ Mods: {
 			StormLance: Storm Lance
 			StormSword: Storm Sword
 				# Variant NPC
-			BloodFeather: Blood Feather
-			BoneFeather: Bone Feather
-			CrystalFeather: Crystal Feather
-			FireFeather: Fire Feather
-			IceFeather: Ice Feather
-			PoisonFeather: Poison Feather
-			StaticFeather: Static Feather
-			VileFeather: Vile Feather
+			Blood: Blood Feather
+			Stone: Stone Feather
+			Crystal: Crystal Feather
+			Void: Void Feather
+			Snow: Snow Feather
+			Poison: Poison Feather
+			Static: Static Feather
+			Vile: Vile Feather
 				# Other
 			CreeperHitbox: "Creeper, aw man"
 
@@ -1169,12 +1165,6 @@ Mods: {
 			OceanHarpy: Seaside Harpy
 			SnowHarpy: Arctic Harpy
 			VoidHarpy: Void Harpy
-
-			BoneSword: Bone Sword
-			ForestScythe: Forest Scythe
-			StormSpear: Storm Spear
-			ThornChakram: Thorn Chakram
-			Tonbogiri: Tonbogiri
 
 			Creeper: Creeper
 		}
@@ -1320,11 +1310,7 @@ Mods: {
 				'Your bones are stronger'
 				'''
 			ChargedFlight: Increased flight time
-			Conductive:
-				'''
-				Increases areus weapon damage by 15% and duration of Electric Shock by 100%
-				All attacks inflict Electric Shock
-				'''
+			Conductive: Increases electric weapon damage by 15% and duration of Electric Shock by 100%
 			SoulInfused: "Increased max life by 50, defense by 10 and damage by 15%"
 
 			# Summons
@@ -1394,7 +1380,8 @@ Mods: {
 
 		ShopQuote: {
 			Atherian: {
-				ValkyrieCrest: "This was my Ex's..."
+				AreusDataDisk: ""
+				ValkyrieCrest: "This belonged to my Ex..."
 				AreusKey: Can I interest you in performance enhancing drugs? Too bad, I have none of that. This is the closes thing though.
 				SlimeCrown: "A slimy crown, there's not much else to it"
 				SuspiciousLookingEye: Have you heard of the hit game Among Us? This has nothing to do with that.

@@ -27,10 +27,12 @@
     <Folder Include="NPCs\Boss\Genesis\" />
     <Folder Include="NPCs\Boss\Senterra\" />
     <Folder Include="NPCs\Boss\NovaStellar\PhoenixWarrior\" />
-    <Folder Include="Projectiles\Weapon\Melee\GenesisRagnarok\LightningStuff\" />
     <Folder Include="Walls\" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="MMZeroElements">
+      <HintPath>..\ModAssemblies\MMZeroElements_v0.1.dll</HintPath>
+    </Reference>
     <Reference Include="ShopQuotesMod">
       <HintPath>..\ModAssemblies\ShopQuotesMod_v1.0.0.1.dll</HintPath>
     </Reference>

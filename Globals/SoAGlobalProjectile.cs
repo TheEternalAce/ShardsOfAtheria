@@ -1,12 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Players;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Globals
 {
     public class SoAGlobalProjectile : GlobalProjectile
     {
+        public bool tempAreus = false;
+
         public static List<int> Eraser = new List<int>();
+        public static List<int> AreusProj = new List<int>();
 
         public static List<int> ReflectAiList = new List<int>
         {
@@ -83,6 +89,8 @@ namespace ShardsOfAtheria.Globals
             181
         };
 
+        public override bool InstancePerEntity => true;
+
         public override void PostAI(Projectile projectile)
         {
             int type = projectile.type;
@@ -98,6 +106,26 @@ namespace ShardsOfAtheria.Globals
                             proj.Kill();
                         }
                     }
+                }
+            }
+        }
+
+        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
+        {
+            if (AreusProj.Contains(projectile.type) || tempAreus)
+            {
+                int buffTime = 600;
+                if (Main.player[projectile.owner].GetModPlayer<SoAPlayer>().conductive)
+                {
+                    buffTime *= 2;
+                }
+                if (Main.hardMode)
+                {
+                    target.AddBuff(BuffID.Electrified, buffTime);
+                }
+                else
+                {
+                    target.AddBuff(ModContent.BuffType<ElectricShock>(), buffTime);
                 }
             }
         }

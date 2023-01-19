@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Globals.Elements;
+using MMZeroElements;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria;
 using Terraria.ID;

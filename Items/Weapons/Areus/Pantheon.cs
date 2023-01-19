@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.DarkAreusWeapon.Add(Type);
+            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()
@@ -117,7 +117,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            float numberProjectiles = maxArrows;
+            float numberProjectiles = arrows;
             if (numberProjectiles > 1)
             {
                 float rotation = MathHelper.ToRadians(5);

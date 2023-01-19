@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Config;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.NPCs.Misc;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Tools;
@@ -20,8 +19,6 @@ namespace ShardsOfAtheria.Items.SoulCrystals
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-
-            SoAGlobalItem.SlayerItem.Add(Type);
         }
 
         public override void SetDefaults()
@@ -34,6 +31,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
             Item.useAnimation = 1;
             Item.autoReuse = true;
             Item.useTurn = true;
+            Item.channel = true;
 
             Item.rare = ItemRarityID.Yellow;
         }

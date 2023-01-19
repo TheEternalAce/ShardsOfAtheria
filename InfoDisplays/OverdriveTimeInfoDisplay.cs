@@ -1,5 +1,4 @@
-﻿using ShardsOfAtheria.Buffs.PlayerBuff;
-using ShardsOfAtheria.Players;
+﻿using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -18,14 +17,14 @@ namespace ShardsOfAtheria.InfoDisplays
         // This dictates whether or not this info display should be active
         public override bool Active()
         {
-            return Main.LocalPlayer.HasBuff(ModContent.BuffType<Megamerged>());
+            return Main.LocalPlayer.ShardsOfAtheria().Biometal;
         }
 
         // Here we can change the value that will be displayed in the game
         public override string DisplayValue()
         {
             // This is the value that will show up when viewing this display in normal play, right next to the icon
-            return $"{Main.LocalPlayer.GetModPlayer<SoAPlayer>().overdriveTimeCurrent} / {Main.LocalPlayer.GetModPlayer<SoAPlayer>().overdriveTimeMax2}";
+            return $"{Main.LocalPlayer.ShardsOfAtheria().overdriveTimeCurrent} / {Main.LocalPlayer.ShardsOfAtheria().overdriveTimeMax2}";
         }
     }
 }
