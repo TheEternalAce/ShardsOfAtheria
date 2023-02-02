@@ -31,12 +31,13 @@ Mods: {
 				Defensive: Sacrifice half of total damage for doubled defense and 20% reduced damage
 				Always get 20% increased movement speed
 				'''
-			SinfulSoulCommonDesc:
-				'''
-				Only one may be active at a time
-				Can be removed with {0}
-				'''
-			TeleportOnKeyPress: Allows teleportation on press of {0}
+			UpgradeableItem: Upgradeable Item
+
+			ElementFire: Fire Element
+			ElementIce: Ice Element
+			ElementElectric: Electric Element
+			ElementMetal: Metal Element
+
 			TitleText1: Shards of Atheria: Splitting Skies
 			TitleText2: Shards of Atheria: The World Revolving
 			TomeOfOmniscience: Press {0} to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration
