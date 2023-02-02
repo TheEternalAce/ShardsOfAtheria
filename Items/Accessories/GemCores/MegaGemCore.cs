@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.PlayerDebuff;
+using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Players;
 using System.Collections.Generic;
 using Terraria;

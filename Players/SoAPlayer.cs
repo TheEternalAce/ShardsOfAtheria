@@ -4,7 +4,6 @@ using MMZeroElements;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Buffs.PlayerBuff;
-using ShardsOfAtheria.Buffs.PlayerDebuff;
 using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Accessories;
