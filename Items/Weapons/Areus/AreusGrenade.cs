@@ -26,7 +26,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.consumable = true;
             Item.ammo = ItemID.Grenade;
 
-            Item.damage = 100;
+            Item.damage = 70;
             Item.DamageType = DamageClass.Throwing;
             Item.knockBack = 7;
             Item.crit = 6;

@@ -1,6 +1,5 @@
-﻿using ShardsOfAtheria.Dusts;
-using MMZeroElements;
-using ShardsOfAtheria.Players;
+﻿using MMZeroElements;
+using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -27,7 +26,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
             Projectile.aiStyle = ProjAIStyleID.Explosive;
             Projectile.friendly = false;
             Projectile.DamageType = DamageClass.Throwing;
-            Projectile.timeLeft = 240;
+            Projectile.penetrate = 7;
 
             AIType = ProjectileID.Grenade;
         }
@@ -45,14 +44,25 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
                     dust.velocity *= 2f;
                 }
             }
+            if (armTimer == 240 && !Projectile.ShardsOfAtheria().explosion)
+            {
+                Projectile.Explode();
+                if (Projectile.Overcharged().overcharged)
+                {
+                    Projectile.CallStorm(3);
+                }
+            }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            Projectile.Explode(Projectile.Center);
-            if (Projectile.GetGlobalProjectile<OverchargedProjectile>().overcharged)
+            if (!Projectile.ShardsOfAtheria().explosion)
             {
-                Projectile.CallStorm(3);
+                Projectile.Explode();
+                if (Projectile.Overcharged().overcharged)
+                {
+                    Projectile.CallStorm(3);
+                }
             }
         }
     }

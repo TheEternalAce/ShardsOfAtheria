@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using MMZeroElements;
 using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Globals;
-using MMZeroElements;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -71,7 +72,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         {
             Rectangle hitbox = new Rectangle((int)Projectile.position.X, (int)Projectile.position.Y, Projectile.width, Projectile.height);
             Player player = Main.player[Projectile.owner];
-            SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             for (int i = 0; i < Main.maxProjectiles; i++)

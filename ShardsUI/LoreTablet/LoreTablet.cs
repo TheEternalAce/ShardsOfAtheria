@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Items.DataDisks;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.Localization;
@@ -85,7 +86,7 @@ namespace ShardsOfAtheria.UI.LoreTablet
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            SoAPlayer shardsPlayer = Main.LocalPlayer.GetModPlayer<SoAPlayer>();
+            ShardsPlayer shardsPlayer = Main.LocalPlayer.ShardsOfAtheria();
 
             if (Main.LocalPlayer.HeldItem.ModItem is DataDisk disk)
             {
@@ -133,7 +134,7 @@ namespace ShardsOfAtheria.UI.LoreTablet
                 Recalculate();
             }
 
-            SoAPlayer shardsPlayer = Main.LocalPlayer.GetModPlayer<SoAPlayer>();
+            ShardsPlayer shardsPlayer = Main.LocalPlayer.ShardsOfAtheria();
 
             switch (shardsPlayer.readingDisk)
             {

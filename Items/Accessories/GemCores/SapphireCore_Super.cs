@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Players;
+﻿using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -35,8 +35,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.GetModPlayer<SoAPlayer>().sapphireSpirit = true;
-			player.GetModPlayer<SoAPlayer>().superSapphireCore = true;
+			player.ShardsOfAtheria().sapphireSpirit = true;
+			player.ShardsOfAtheria().superSapphireCore = true;
 			player.maxMinions += 5;
 			player.AddBuff(BuffID.Thorns, 0);
 		}

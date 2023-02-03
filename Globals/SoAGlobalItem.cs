@@ -192,7 +192,7 @@ namespace ShardsOfAtheria.Globals
                 player.statManaMax2 += 40;
                 player.GetDamage(DamageClass.Generic) += .15f;
                 player.GetCritChance(DamageClass.Generic) += 15;
-                player.GetModPlayer<SoAPlayer>().pearlwoodSet = true;
+                player.ShardsOfAtheria().pearlwoodSet = true;
             }
         }
 
@@ -208,7 +208,7 @@ namespace ShardsOfAtheria.Globals
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
             base.ModifyWeaponDamage(item, player, ref damage);
-            if (player.GetModPlayer<SoAPlayer>().conductive && (AreusWeapon.Contains(item.type) || DarkAreusWeapon.Contains(item.type)))
+            if (player.ShardsOfAtheria().conductive && (AreusWeapon.Contains(item.type) || DarkAreusWeapon.Contains(item.type)))
             {
                 damage += .15f;
             }
@@ -243,8 +243,8 @@ namespace ShardsOfAtheria.Globals
             {
                 if (item.type == ItemID.PearlwoodBow)
                 {
-                    player.GetModPlayer<SoAPlayer>().pearlwoodBowShoot++;
-                    if (player.GetModPlayer<SoAPlayer>().pearlwoodBowShoot == 5)
+                    player.ShardsOfAtheria().pearlwoodBowShoot++;
+                    if (player.ShardsOfAtheria().pearlwoodBowShoot == 5)
                     {
                         float numberProjectiles = 5;
                         float rotation = MathHelper.ToRadians(15);
@@ -259,7 +259,7 @@ namespace ShardsOfAtheria.Globals
                         {
                             Dust.NewDust(player.position, player.width, player.height, DustID.PinkFairy);
                         }
-                        player.GetModPlayer<SoAPlayer>().pearlwoodBowShoot = 0;
+                        player.ShardsOfAtheria().pearlwoodBowShoot = 0;
                     }
                 }
 
@@ -372,7 +372,7 @@ namespace ShardsOfAtheria.Globals
             if (AreusWeapon.Contains(item.type))
             {
                 int buffTime = 600;
-                if (player.GetModPlayer<SoAPlayer>().conductive)
+                if (player.ShardsOfAtheria().conductive)
                 {
                     buffTime *= 2;
                 }
@@ -393,7 +393,7 @@ namespace ShardsOfAtheria.Globals
             if (AreusWeapon.Contains(item.type))
             {
                 int buffTime = 600;
-                if (player.GetModPlayer<SoAPlayer>().conductive)
+                if (player.ShardsOfAtheria().conductive)
                 {
                     buffTime *= 2;
                 }

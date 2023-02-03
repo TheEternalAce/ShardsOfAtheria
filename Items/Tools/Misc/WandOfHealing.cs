@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.GameContent.Creative;
@@ -45,13 +45,13 @@ namespace ShardsOfAtheria.Items.Tools.Misc
 
         public override bool CanUseItem(Player player)
         {
-            if (player.GetModPlayer<SoAPlayer>().heartBreak) return false;
+            if (player.ShardsOfAtheria().heartBreak) return false;
             else return true;
         }
 
         public override void UpdateInventory(Player player)
         {
-            player.GetModPlayer<SoAPlayer>().healingItem = true;
+            player.ShardsOfAtheria().healingItem = true;
         }
     }
 }

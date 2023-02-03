@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Players;
+﻿using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Buffs.Cooldowns
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SoAPlayer>().heartBreak = true;
+            player.ShardsOfAtheria().heartBreak = true;
         }
     }
 }

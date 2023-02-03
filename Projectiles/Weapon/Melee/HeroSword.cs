@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             FireProjectile(ModContent.ProjectileType<HeroBlade>(), (int)(Projectile.damage * .75), Projectile.knockBack);
         }
 
-        protected override void Initialize(Player player, SoAPlayer shards)
+        protected override void Initialize(Player player, ShardsPlayer shards)
         {
             base.Initialize(player, shards);
             if (shards.itemCombo > 0)

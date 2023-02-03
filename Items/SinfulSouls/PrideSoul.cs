@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             }
             else
             {
-                if (Player.GetModPlayer<SoAPlayer>().inCombat == 0 && pride > 0)
+                if (Player.ShardsOfAtheria().inCombat == 0 && pride > 0)
                 {
                     prideTimer--;
                     if (prideTimer <= -60)
@@ -145,8 +145,8 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 5;
-            if (player.GetModPlayer<SoAPlayer>().inCombat > 0)
+            player.Sinful().SevenSoulUsed = 5;
+            if (player.ShardsOfAtheria().inCombat > 0)
             {
                 player.GetModPlayer<PridePlayer>().prideTimer++;
             }

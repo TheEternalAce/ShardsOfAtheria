@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Cooldowns;
-using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -92,11 +92,11 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             AmethystDashPlayerII.MAX_DASH_DELAY = 50;
             AmethystDashPlayerII.MAX_DASH_TIMER = 35;
 
-            player.GetModPlayer<SoAPlayer>().amethystMask = true;
-            player.GetModPlayer<SoAPlayer>().diamanodShield = true;
-            player.GetModPlayer<SoAPlayer>().rubyGauntlet = true;
-            player.GetModPlayer<SoAPlayer>().sapphireSpirit = true;
-            player.GetModPlayer<SoAPlayer>().topazNecklace = true;
+            player.ShardsOfAtheria().amethystMask = true;
+            player.ShardsOfAtheria().diamanodShield = true;
+            player.ShardsOfAtheria().rubyGauntlet = true;
+            player.ShardsOfAtheria().sapphireSpirit = true;
+            player.ShardsOfAtheria().topazNecklace = true;
 
             //Bundle of Balloons
             player.hasJumpOption_Cloud = true;
@@ -138,14 +138,14 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
                 player.AddBuff(BuffID.Gravitation, 2);
             }
 
-            player.GetModPlayer<SoAPlayer>().megaGemCore = true;
+            player.ShardsOfAtheria().megaGemCore = true;
 
             player.GetDamage(DamageClass.Generic) += .2f;
             player.maxMinions += 8;
             player.statLifeMax2 += 100;
-            player.GetModPlayer<SoAPlayer>().superEmeraldCore = true;
-            player.GetModPlayer<SoAPlayer>().megaGemCore = true;
-            player.GetModPlayer<SoAPlayer>().topazNecklace = !hideVisual;
+            player.ShardsOfAtheria().superEmeraldCore = true;
+            player.ShardsOfAtheria().megaGemCore = true;
+            player.ShardsOfAtheria().topazNecklace = !hideVisual;
 
             player.buffImmune[BuffID.Venom] = true;
             player.buffImmune[BuffID.OnFire] = true;

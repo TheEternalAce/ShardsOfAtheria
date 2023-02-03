@@ -70,7 +70,7 @@ namespace ShardsOfAtheria.Projectiles.Bases
                 Projectile.timeLeft = 2;
             }
 
-            var shards = player.GetModPlayer<SoAPlayer>();
+            var shards = player.ShardsOfAtheria();
 
             player.heldProj = Projectile.whoAmI;
             if (!_init)
@@ -179,7 +179,7 @@ namespace ShardsOfAtheria.Projectiles.Bases
             }
         }
 
-        protected virtual void Initialize(Player player, SoAPlayer shards)
+        protected virtual void Initialize(Player player, ShardsPlayer shards)
         {
             AngleVector = Projectile.velocity;
             combo = shards.itemCombo;

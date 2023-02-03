@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Players;
+﻿using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Localization;
@@ -40,7 +40,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
                 anger = 0f;
                 rage = 0;
             }
-            if (Player.GetModPlayer<SoAPlayer>().inCombat == 0 && (anger > 0 || rage > 0))
+            if (Player.ShardsOfAtheria().inCombat == 0 && (anger > 0 || rage > 0))
             {
                 calming++;
                 if (calming == 60)
@@ -81,7 +81,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 7;
+            player.Sinful().SevenSoulUsed = 7;
             player.GetDamage(DamageClass.Generic) += player.GetModPlayer<WrathPlayer>().anger;
             player.GetCritChance(DamageClass.Generic) += player.GetModPlayer<WrathPlayer>().rage;
             base.Update(player, ref buffIndex);

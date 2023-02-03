@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using MMZeroElements;
+using ReLogic.Content;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             Player player = Main.player[Projectile.owner];
-            SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
@@ -67,7 +67,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         {
             Player player = Main.player[Projectile.owner]; // Since we access the owner player instance so much, it's useful to create a helper local variable for this
             int duration = player.itemAnimationMax; // Define the duration the projectile will exist in frames
-            SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             player.heldProj = Projectile.whoAmI; // Update the player's held projectile id

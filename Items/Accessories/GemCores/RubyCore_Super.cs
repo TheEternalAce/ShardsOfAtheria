@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Players;
+﻿using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -35,9 +35,9 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.GetModPlayer<SoAPlayer>().rubyGauntlet = !hideVisual;
+			player.ShardsOfAtheria().rubyGauntlet = !hideVisual;
 			player.GetDamage(DamageClass.Generic) += .15f;
-			player.GetModPlayer<SoAPlayer>().superRubyCore = true;
+			player.ShardsOfAtheria().superRubyCore = true;
 			player.autoReuseGlove = true;
 			player.GetAttackSpeed(DamageClass.Generic) += .15f;
 			player.GetKnockback(DamageClass.Generic) += 1.5f;

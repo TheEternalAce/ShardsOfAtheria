@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Projectiles.Other
             Projectile.tileCollide = false;
             Projectile.friendly = true;
             Projectile.light = 1f;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 7;
             Projectile.timeLeft = 10;
         }
 

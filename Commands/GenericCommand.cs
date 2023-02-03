@@ -24,9 +24,9 @@ namespace ShardsOfAtheria.Commands
 		public override void Action(CommandCaller caller, string input, string[] args)
 		{
 			Player player = Main.LocalPlayer;
-			SlayerPlayer slayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
-			SoAPlayer soaPlayer = Main.LocalPlayer.GetModPlayer<SoAPlayer>();
-			OverchargePlayer overchargePlayer = Main.LocalPlayer.GetModPlayer<OverchargePlayer>();
+			SlayerPlayer slayer = Main.LocalPlayer.Slayer();
+			ShardsPlayer soaPlayer = Main.LocalPlayer.ShardsOfAtheria();
+			OverchargePlayer overchargePlayer = Main.LocalPlayer.Overcharged();
 			ShardsDownedSystem soaWorld = ModContent.GetInstance<ShardsDownedSystem>();
 
 			Console.WriteLine("----------Hello mod developer----------");

@@ -1,5 +1,5 @@
 using MMZeroElements;
-using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;
@@ -53,7 +53,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
         {
-            if (!player.GetModPlayer<SoAPlayer>().heartBreak)
+            if (!player.ShardsOfAtheria().heartBreak)
             {
                 player.Heal(100);
             }
@@ -61,7 +61,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void UpdateInventory(Player player)
         {
-            player.GetModPlayer<SoAPlayer>().healingItem = true;
+            player.ShardsOfAtheria().healingItem = true;
         }
     }
 }

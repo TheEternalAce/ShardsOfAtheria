@@ -79,7 +79,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            SoAPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
             if (!shardsPlayer.BiometalSound)
             {
                 if (ModContent.GetInstance<ShardsClientConfig>().biometalSound)
@@ -143,14 +143,14 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void UpdateVanity(Player player)
         {
-            SoAPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
             BiometalSound(player);
             shardsPlayer.BiometalSound = true;
         }
 
         public void BiometalSound(Player player)
         {
-            SoAPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
             if (!shardsPlayer.BiometalSound)
             {
                 if (ModContent.GetInstance<ShardsClientConfig>().biometalSound)
@@ -174,7 +174,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public void UnMegaMerge(Player player)
         {
-            SoAPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
             if (shardsPlayer.Biometal)
             {
                 SoundEngine.PlaySound(SoundID.Item4);

@@ -30,7 +30,7 @@ using Terraria.ModLoader.IO;
 
 namespace ShardsOfAtheria.Players
 {
-    public class SoAPlayer : ModPlayer
+    public class ShardsPlayer : ModPlayer
     {
         public bool lesserSapphireCore;
         public bool sapphireCore;

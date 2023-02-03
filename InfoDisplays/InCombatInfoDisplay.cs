@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Players;
+﻿using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.InfoDisplays
         // This dictates whether or not this info display should be active
         public override bool Active()
         {
-            return Main.LocalPlayer.GetModPlayer<SoAPlayer>().inCombat > 0;
+            return Main.LocalPlayer.ShardsOfAtheria().inCombat > 0;
         }
 
         // Here we can change the value that will be displayed in the game

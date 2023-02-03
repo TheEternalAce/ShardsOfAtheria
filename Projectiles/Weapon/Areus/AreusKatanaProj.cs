@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
             rotationOffset = -MathHelper.PiOver4 * 3f;
         }
 
-        protected override void Initialize(Player player, SoAPlayer shards)
+        protected override void Initialize(Player player, ShardsPlayer shards)
         {
             base.Initialize(player, shards);
             combo = 1;

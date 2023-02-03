@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Players;
+﻿using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -24,7 +24,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.GetModPlayer<SoAPlayer>().areusKey = true;
+			player.ShardsOfAtheria().areusKey = true;
 			player.GetDamage(DamageClass.Generic) += .5f;
 			player.statLifeMax2 *= (int)1.5f;
 			player.moveSpeed += .25f;

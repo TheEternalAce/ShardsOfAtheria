@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Globals;
 using MMZeroElements;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             Player player = Main.player[Projectile.owner];
-            SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
@@ -57,7 +57,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             base.OnHitNPC(target, damage, knockback, crit);
         }
 
-        protected override void Initialize(Player player, SoAPlayer shards)
+        protected override void Initialize(Player player, ShardsPlayer shards)
         {
             base.Initialize(player, shards);
             if (shards.itemCombo > 0)
@@ -90,7 +90,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             if (progress == 0.5f && Main.myPlayer == Projectile.owner)
             {
                 Player player = Main.player[Projectile.owner];
-                SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+                ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
                 int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
                 if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())

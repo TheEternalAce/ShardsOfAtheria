@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             Player player = Main.player[Projectile.owner];
-            SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
@@ -61,7 +61,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
             player.itemAnimation = 10;
             player.itemTime = 10;

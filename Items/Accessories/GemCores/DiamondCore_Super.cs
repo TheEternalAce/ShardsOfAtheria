@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Players;
+﻿using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.GetModPlayer<SoAPlayer>().diamanodShield = true;
+			player.ShardsOfAtheria().diamanodShield = true;
 			if (player.statLife <= player.statLifeMax * 0.5)
 			{
 				player.AddBuff(62, 5);

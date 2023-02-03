@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Players;
+﻿using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.GetModPlayer<SoAPlayer>().overdriveTimeCurrent > 0)
+            if (player.ShardsOfAtheria().overdriveTimeCurrent > 0)
             {
                 player.GetDamage(DamageClass.Generic) += 1f;
                 Lighting.AddLight(player.position, TorchID.Corrupt);

@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -66,7 +67,7 @@ namespace ShardsOfAtheria.Players
             {
                 OverchargePlayer overchargePlayer = player.GetModPlayer<OverchargePlayer>();
                 if (SoAGlobalItem.AreusWeapon.Contains(Type) && ModContent.GetInstance<ShardsServerConfig>().experimental &&
-                    player.GetModPlayer<SoAPlayer>().inCombat > 0)
+                    player.ShardsOfAtheria().inCombat > 0)
                 {
                     if (Item.useTime != Item.useAnimation)
                     {

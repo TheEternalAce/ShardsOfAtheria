@@ -3,6 +3,7 @@ using MMZeroElements;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
+using ShardsOfAtheria.Utilities;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -28,7 +29,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            SoAPlayer shardsPlayer = Main.LocalPlayer.GetModPlayer<SoAPlayer>();
+            ShardsPlayer shardsPlayer = Main.LocalPlayer.ShardsOfAtheria();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
             if (upgrades == 0)
             {
@@ -128,7 +129,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool CanUseItem(Player player)
         {
-            SoAPlayer shardsPlayer = Main.LocalPlayer.GetModPlayer<SoAPlayer>();
+            ShardsPlayer shardsPlayer = Main.LocalPlayer.ShardsOfAtheria();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             if (player.altFunctionUse == 2)
@@ -187,7 +188,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool? UseItem(Player player)
         {
-            SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             int comboExtra = upgrades >= 1 ? 1 : 0;
@@ -200,7 +201,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             if (upgrades == 1)
@@ -217,7 +218,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void HoldItem(Player player)
         {
-            player.GetModPlayer<SoAPlayer>().showRagnarok = true;
+            player.ShardsOfAtheria().showRagnarok = true;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

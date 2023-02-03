@@ -224,7 +224,7 @@ namespace ShardsOfAtheria.Players
             }
             if (soulCrystals.Contains(ModContent.ItemType<SkullSoulCrystal>()) && !soulCrystals.Contains(ModContent.ItemType<PrimeSoulCrystal>()))
             {
-                if (Player.GetModPlayer<SoAPlayer>().inCombat > 0)
+                if (Player.ShardsOfAtheria().inCombat > 0)
                 {
                     spinningTimer++;
                     if (spinningTimer == 1800)
@@ -234,7 +234,7 @@ namespace ShardsOfAtheria.Players
                     }
                     if (spinningTimer >= 1800)
                     {
-                        Player.statDefense += Player.statDefense/2;
+                        Player.statDefense += Player.statDefense / 2;
                         Player.GetDamage(DamageClass.Generic) += .5f;
                     }
                     if (spinningTimer == 2100)
@@ -295,7 +295,7 @@ namespace ShardsOfAtheria.Players
             }
             if (soulCrystals.Contains(ModContent.ItemType<PrimeSoulCrystal>()))
             {
-                if (Player.GetModPlayer<SoAPlayer>().inCombat > 0)
+                if (Player.ShardsOfAtheria().inCombat > 0)
                 {
                     spinningTimer++;
                     if (spinningTimer == 1800)
@@ -429,7 +429,7 @@ namespace ShardsOfAtheria.Players
             }
             if (soulCrystals.Contains(ModContent.ItemType<BeeSoulCrystal>()))
             {
-                if (Player.GetModPlayer<SoAPlayer>().inCombat > 0)
+                if (Player.ShardsOfAtheria().inCombat > 0)
                 {
                     beeSpawnTimer++;
                     if (beeSpawnTimer >= 600)
@@ -508,13 +508,13 @@ namespace ShardsOfAtheria.Players
             {
                 if (soulCrystals.Contains(ModContent.ItemType<KingSoulCrystal>()) && !soulCrystals.Contains(ModContent.ItemType<QueenSoulCrystal>()))
                 {
-                    Player.statLife += lastDamageTaken/4;
-                    Player.Heal(lastDamageTaken/4);
+                    Player.statLife += lastDamageTaken / 4;
+                    Player.Heal(lastDamageTaken / 4);
                 }
                 else if (soulCrystals.Contains(ModContent.ItemType<QueenSoulCrystal>()))
                 {
-                    Player.statLife += lastDamageTaken/2;
-                    Player.Heal(lastDamageTaken/2);
+                    Player.statLife += lastDamageTaken / 2;
+                    Player.Heal(lastDamageTaken / 2);
                 }
                 lastDamageTaken = 0;
             }
@@ -529,7 +529,7 @@ namespace ShardsOfAtheria.Players
             }
             if (soulCrystals.Contains(ModContent.ItemType<EmpressSoulCrystal>()))
             {
-                Vector2 position = target.Center+Vector2.One.RotatedByRandom(360)*180;
+                Vector2 position = target.Center + Vector2.One.RotatedByRandom(360) * 180;
                 Projectile.NewProjectile(Player.GetSource_FromThis(), position, Vector2.Normalize(target.Center - position) * 20, ProjectileID.FairyQueenRangedItemShot, 50, 6f, Player.whoAmI);
             }
         }
@@ -540,11 +540,11 @@ namespace ShardsOfAtheria.Players
             {
                 if (soulCrystals.Contains(ModContent.ItemType<KingSoulCrystal>()) && !soulCrystals.Contains(ModContent.ItemType<QueenSoulCrystal>()))
                 {
-                    Player.Heal(lastDamageTaken/4);
+                    Player.Heal(lastDamageTaken / 4);
                 }
                 else if (soulCrystals.Contains(ModContent.ItemType<QueenSoulCrystal>()))
                 {
-                    Player.Heal(lastDamageTaken/2);
+                    Player.Heal(lastDamageTaken / 2);
                 }
                 lastDamageTaken = 0;
             }
@@ -562,7 +562,7 @@ namespace ShardsOfAtheria.Players
             }
             if (soulCrystals.Contains(ModContent.ItemType<EmpressSoulCrystal>()) && proj.type != ProjectileID.FairyQueenRangedItemShot)
             {
-                Vector2 position = target.Center+Vector2.One.RotatedByRandom(360)*180;
+                Vector2 position = target.Center + Vector2.One.RotatedByRandom(360) * 180;
                 Projectile.NewProjectile(Player.GetSource_FromThis(), position, Vector2.Normalize(target.Center - position) * 20, ProjectileID.FairyQueenRangedItemShot, 50, 6f, Player.whoAmI);
             }
         }
@@ -571,13 +571,13 @@ namespace ShardsOfAtheria.Players
         {
             if (soulCrystals.Contains(ModContent.ItemType<TwinsSoulCrystal>()))
             {
-                Vector2 position = npc.Center+Vector2.One.RotatedByRandom(360)*180;
+                Vector2 position = npc.Center + Vector2.One.RotatedByRandom(360) * 180;
                 int getDamage = 40;
                 Projectile.NewProjectile(Player.GetSource_OnHurt(npc), position, Vector2.Normalize(npc.Center - position) * 10, ProjectileID.FirstFractal, getDamage, 6f, Player.whoAmI);
             }
             if (soulCrystals.Contains(ModContent.ItemType<DeerclopsSoulCrystal>()))
             {
-                Vector2 position = npc.Center+Vector2.One.RotatedByRandom(360)*180;
+                Vector2 position = npc.Center + Vector2.One.RotatedByRandom(360) * 180;
                 Projectile.NewProjectile(Player.GetSource_OnHurt(npc), position, Vector2.Normalize(npc.Center - position) * 10, ProjectileID.InsanityShadowFriendly, 26, 6f, Player.whoAmI);
             }
         }

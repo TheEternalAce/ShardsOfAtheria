@@ -1,5 +1,5 @@
-﻿using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Systems;
+﻿using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.jumpBoost = true;
-            player.GetModPlayer<SoAPlayer>().lesserEmeraldCore = true;
+            player.ShardsOfAtheria().lesserEmeraldCore = true;
         }
     }
 }

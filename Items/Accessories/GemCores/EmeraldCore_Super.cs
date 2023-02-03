@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Players;
+﻿using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.GetModPlayer<SoAPlayer>().emeraldWings = true;
+			player.ShardsOfAtheria().emeraldWings = true;
 
 			// Terraspark Boots
 			player.waterWalk = true;
@@ -48,7 +48,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			player.hasJumpOption_Blizzard = true;
 			player.hasJumpOption_Sandstorm = true;
 			player.jumpBoost = true;
-			player.GetModPlayer<SoAPlayer>().superEmeraldCore = true;
+			player.ShardsOfAtheria().superEmeraldCore = true;
 		}
 
 		public override void AddRecipes()

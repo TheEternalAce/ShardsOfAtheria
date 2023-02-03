@@ -57,7 +57,7 @@ namespace ShardsOfAtheria.Items.DataDisks
 
         public override bool? UseItem(Player player)
         {
-            SoAPlayer shardsPlayer = player.GetModPlayer<SoAPlayer>();
+            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
             if (shardsPlayer.readingDisk != diskType)
             {
                 shardsPlayer.readingDisk = diskType;

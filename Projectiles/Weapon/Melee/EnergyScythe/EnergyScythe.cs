@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.EnergyScythe
             base.OnHitNPC(target, damage, knockback, crit);
         }
 
-        protected override void Initialize(Player player, SoAPlayer shards)
+        protected override void Initialize(Player player, ShardsPlayer shards)
         {
             base.Initialize(player, shards);
             if (shards.itemCombo > 0)

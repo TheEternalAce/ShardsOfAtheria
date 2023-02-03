@@ -1,5 +1,5 @@
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -46,7 +46,7 @@ namespace ShardsOfAtheria.Items.Potions
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<SoAPlayer>().conductive = true;
+			player.ShardsOfAtheria().conductive = true;
 		}
 	}
 }

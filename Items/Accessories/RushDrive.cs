@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Players;
+﻿using ShardsOfAtheria.Utilities;
 using ShardsOfAtheria.Systems;
 using System.Collections.Generic;
 using Terraria;
@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<SoAPlayer>().rushDrive = true;
+            player.ShardsOfAtheria().rushDrive = true;
         }
 
         public override void AddRecipes()
