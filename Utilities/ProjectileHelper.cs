@@ -1,11 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using MMZeroElements;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
+using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WebmilioCommons.Effects.ScreenShaking;
@@ -109,6 +112,48 @@ namespace ShardsOfAtheria.Utilities
                 projectile.velocity = (projectile.velocity * (inertia - 1) + direction) / inertia;
             }
         }
+
+        public const string Diamond = "DiamondBlur";
+        public const string Orb = "OrbBlur";
+        public static void DrawProjectilePrims(this Projectile projectile, Color color, string style)
+        {
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, null, null, null, null, Main.GameViewMatrix.ZoomMatrix);
+
+            Main.instance.LoadProjectile(projectile.type);
+            Texture2D texture = ModContent.Request<Texture2D>("ShardsOfAtheria/" + style).Value;
+            for (int k = 0; k < projectile.oldPos.Length; k++)
+            {
+                var offset = new Vector2(projectile.width / 2f, projectile.height / 2f);
+                var frame = texture.Frame(1, Main.projFrames[projectile.type], 0, projectile.frame);
+                Vector2 drawPos = (projectile.oldPos[k] - Main.screenPosition) + offset;
+                float sizec = projectile.scale * (projectile.oldPos.Length - k) / (projectile.oldPos.Length * 0.8f);
+                Color drawColor = color * (1f - projectile.alpha) * ((projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
+                float plusRot = style == Diamond ? MathHelper.ToRadians(90) : 0;
+                Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, projectile.oldRot[k] + plusRot, frame.Size() / 2, sizec, SpriteEffects.None, 0);
+            }
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Main.GameViewMatrix.ZoomMatrix);
+        }
+        //Credits to Aslysmic/Tewst Mod (so cool)
+
+        public static void DrawPrimsAfterImage(this Projectile projectile)
+        {
+            var texture = TextureAssets.Projectile[projectile.type].Value;
+            Rectangle frame = new Rectangle(0, 0, texture.Width, texture.Height);
+            Vector2 offset = new Vector2(projectile.width / 2, projectile.height / 2);
+            var effects = projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            var color = new Color(252, 122, 41, 135);
+            var origin = frame.Size() / 2f;
+            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
+            {
+                float progress = 1f / ProjectileID.Sets.TrailCacheLength[projectile.type] * i;
+                Main.spriteBatch.Draw(texture, projectile.oldPos[i] + offset - Main.screenPosition, frame, color * (1f - progress), projectile.rotation, origin, Math.Max(projectile.scale * (1f - progress), 0.1f), effects, 0f);
+            }
+
+            Main.spriteBatch.Draw(texture, projectile.position + offset - Main.screenPosition, null, Color.White, projectile.rotation, origin, projectile.scale, SpriteEffects.None, 0f);
+        }
+        //Credits to Aequus Mod (Omega Starite my beloved)
 
         public static SoAGlobalProjectile ShardsOfAtheria(this Projectile projectile)
         {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Dusts;
 using MMZeroElements;
+using ShardsOfAtheria.Dusts;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -37,6 +38,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
                 Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Blue>(), Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
                 Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Pink>(), Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
             }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Color color = new(227, 182, 245, 80);
+            Projectile.DrawProjectilePrims(color, ProjectileHelper.Diamond);
+            lightColor = Color.White;
+            return true;
         }
     }
 }

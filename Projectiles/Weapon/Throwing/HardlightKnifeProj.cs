@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Dusts;
 using MMZeroElements;
+using ShardsOfAtheria.Dusts;
+using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
@@ -11,6 +13,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
         public override void SetStaticDefaults()
         {
             ProjectileElements.Metal.Add(Type);
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
@@ -40,7 +44,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
         {
             if (Projectile.penetrate > 1)
             {
-                Vector2 position = target.Center+Vector2.One.RotatedByRandom(360)*120;
+                Vector2 position = target.Center + Vector2.One.RotatedByRandom(360) * 120;
                 Projectile.position = position;
                 for (int i = 0; i < 2; i++)
                 {
@@ -62,6 +66,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Blue>(), Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Pink>(), Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
             }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Color color = new(227, 182, 245, 80);
+            Projectile.DrawProjectilePrims(color, ProjectileHelper.Diamond);
+            lightColor = Color.White;
+            return true;
         }
     }
 }
