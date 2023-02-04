@@ -169,7 +169,8 @@ namespace ShardsOfAtheria.NPCs.Town
         {
             WeightedRandom<string> chat = new();
 
-            if (!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode || ModContent.GetInstance<ShardsServerConfig>().cluelessNPCs)
+            if ((!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode || ModContent.GetInstance<ShardsServerConfig>().cluelessNPCs) &&
+                Main.LocalPlayer.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
             {
                 ShardsPlayer shardsPlayer = Main.LocalPlayer.ShardsOfAtheria();
                 int upgrades = shardsPlayer.genesisRagnarockUpgrades;
