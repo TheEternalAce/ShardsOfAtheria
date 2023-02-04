@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.ShardsOfAtheria().sapphireSpirit = true;
+			player.ShardsOfAtheria().sapphireSpirit = !hideVisual;
 			player.ShardsOfAtheria().sapphireCore = true;
 		}
 	}

@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.ShardsOfAtheria().diamanodShield = true;
+			player.ShardsOfAtheria().diamanodShield = !hideVisual;
 			player.noKnockback = true;
 		}
 	}

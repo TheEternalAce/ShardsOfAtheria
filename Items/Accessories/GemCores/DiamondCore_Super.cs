@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.ShardsOfAtheria().diamanodShield = true;
+			player.ShardsOfAtheria().diamanodShield = !hideVisual;
 			if (player.statLife <= player.statLifeMax * 0.5)
 			{
 				player.AddBuff(62, 5);

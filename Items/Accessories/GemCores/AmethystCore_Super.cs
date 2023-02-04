@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ShardsOfAtheria().amethystMask = true;
+            player.ShardsOfAtheria().amethystMask = !hideVisual;
 
             AmethystDashPlayerII mp = player.GetModPlayer<AmethystDashPlayerII>();
             player.noKnockback = true;

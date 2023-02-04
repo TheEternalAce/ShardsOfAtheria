@@ -92,11 +92,11 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             AmethystDashPlayerII.MAX_DASH_DELAY = 50;
             AmethystDashPlayerII.MAX_DASH_TIMER = 35;
 
-            player.ShardsOfAtheria().amethystMask = true;
-            player.ShardsOfAtheria().diamanodShield = true;
-            player.ShardsOfAtheria().rubyGauntlet = true;
-            player.ShardsOfAtheria().sapphireSpirit = true;
-            player.ShardsOfAtheria().topazNecklace = true;
+            player.ShardsOfAtheria().amethystMask = !hideVisual;
+            player.ShardsOfAtheria().diamanodShield = !hideVisual;
+            player.ShardsOfAtheria().rubyGauntlet = !hideVisual;
+            player.ShardsOfAtheria().sapphireSpirit = !hideVisual;
+            player.ShardsOfAtheria().topazNecklace = !hideVisual;
 
             //Bundle of Balloons
             player.hasJumpOption_Cloud = true;

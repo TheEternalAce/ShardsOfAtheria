@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.ShardsOfAtheria().emeraldWings = true;
+			player.ShardsOfAtheria().emeraldWings = !hideVisual;
 
 			// Terraspark Boots
 			player.waterWalk = true;

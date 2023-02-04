@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.ShardsOfAtheria().sapphireSpirit = true;
+			player.ShardsOfAtheria().sapphireSpirit = !hideVisual;
 			player.ShardsOfAtheria().superSapphireCore = true;
 			player.maxMinions += 5;
 			player.AddBuff(BuffID.Thorns, 0);
