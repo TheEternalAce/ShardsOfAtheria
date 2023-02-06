@@ -50,7 +50,6 @@ namespace ShardsOfAtheria.Items.Potions
 			if (Player.HasBuff(ModContent.BuffType<ChargedFlight>()))
 			{
 				Player.wingTimeMax += 34;
-				Player.rocketTimeMax += 34;
 			}
 		}
 	}
