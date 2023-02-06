@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -27,42 +28,7 @@ namespace ShardsOfAtheria.Items.Bases
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            if (NPC.downedMechBoss1)
-            {
-                damage += .1f;
-            }
-            if (NPC.downedMechBoss2)
-            {
-                damage += .1f;
-            }
-            if (NPC.downedMechBoss3)
-            {
-                damage += .1f;
-            }
-            if (NPC.downedPlantBoss)
-            {
-                damage += .15f;
-            }
-            if (NPC.downedGolemBoss)
-            {
-                damage += .15f;
-            }
-            if (NPC.downedFishron)
-            {
-                damage += .2f;
-            }
-            if (NPC.downedEmpressOfLight)
-            {
-                damage += .2f;
-            }
-            if (NPC.downedAncientCultist)
-            {
-                damage += .5f;
-            }
-            if (NPC.downedMoonlord)
-            {
-                damage += .5f;
-            }
+            damage = ShardsHelpers.ScaleByProggression(damage);
         }
     }
 }

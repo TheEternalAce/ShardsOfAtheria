@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.noMelee = true;
             Item.autoReuse = true;
 
-            Item.shootSpeed = 32f;
+            Item.shootSpeed = 20f;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(0, 1, 75);
             Item.shoot = ModContent.ProjectileType<HardlightBlade>();

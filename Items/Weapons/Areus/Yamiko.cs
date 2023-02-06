@@ -60,7 +60,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 string[] insult = { "How did you manage that? Dumbass.", "Good job idiot, you fatally cut yourself. ", "How could you be so stupid?" };
                 int i = Main.rand.Next(insult.Length);
                 string dying = $"{player.name} cut {(player.Male ? "himself" : " herself")}";
-                string die = ModContent.GetInstance<ShardsServerConfig>().insult ? insult[i] + " (" + dying + ")" : dying;
+                string die = ModContent.GetInstance<ShardsServerConfig>().yamikoInsult ? insult[i] + " (" + dying + ")" : dying;
                 player.Hurt(PlayerDeathReason.ByCustomReason(die), 100, 0);
                 player.immune = true;
                 player.immuneTime = 30;

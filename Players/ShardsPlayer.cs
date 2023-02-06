@@ -230,7 +230,6 @@ namespace ShardsOfAtheria.Players
             }
             Player.GetDamage(DamageClass.Generic) += 0.01f * aggression;
             Player.moveSpeed += 0.01f * aggression;
-            Player.statDefense -= ModContent.GetInstance<ShardsServerConfig>().aggressionDR * aggression;
             Player.aggro += 1 * aggression;
         }
 

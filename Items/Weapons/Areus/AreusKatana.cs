@@ -4,6 +4,7 @@ using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -54,6 +55,21 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .Register();
         }
 
+        public override bool CanUseItem(Player player)
+        {
+            if (player.Overcharged().overcharged)
+            {
+                Item.noMelee = true;
+                Item.noUseGraphic = true;
+            }
+            else
+            {
+                Item.noMelee = false;
+                Item.noUseGraphic = false;
+            }
+            return base.CanUseItem(player);
+        }
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (player.GetModPlayer<OverchargePlayer>().overcharged)
@@ -66,7 +82,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             for (int i = 0; i < numberProjectiles; i++)
             {
                 Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, position, perturbedSpeed, type, damage / 3, knockback, player.whoAmI);
             }
             return false; // return false to stop vanilla from calling Projectile.NewProjectile.
         }

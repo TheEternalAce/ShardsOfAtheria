@@ -3,6 +3,7 @@ using System;
 using Terraria;
 using Terraria.Chat;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Utilities
 {
@@ -37,6 +38,50 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
+        public static int ScaleByProggression(int baseAmount = 1)
+        {
+            int multiplier = 1;
+            if (NPC.downedMoonlord)
+            {
+                multiplier = 5;
+            }
+            else if (NPC.downedGolemBoss)
+            {
+                multiplier = 4;
+            }
+            else if (Main.hardMode)
+            {
+                multiplier = 3;
+            }
+            else if (NPC.downedBoss3)
+            {
+                multiplier = 2;
+            }
+            return baseAmount * multiplier;
+        }
+
+        public static StatModifier ScaleByProggression(StatModifier baseAmount)
+        {
+            int multiplier = 1;
+            if (NPC.downedMoonlord)
+            {
+                multiplier = 5;
+            }
+            else if (NPC.downedGolemBoss)
+            {
+                multiplier = 4;
+            }
+            else if (Main.hardMode)
+            {
+                multiplier = 3;
+            }
+            else if (NPC.downedBoss3)
+            {
+                multiplier = 2;
+            }
+            return baseAmount * multiplier;
+        }
+
         public static float Wave(float time, float minimum, float maximum)
         {
             return minimum + ((float)Math.Sin(time) + 1f) / 2f * (maximum - minimum);
@@ -51,14 +96,4 @@ namespace ShardsOfAtheria.Utilities
             Console.WriteLine(str);
         }
     }
-
-    //public static class Element
-    //{
-    //    public const int Null = -1;
-    //    public const int Fire = 0;
-    //    public const int Ice = 1;
-    //    public const int Electric = 2;
-    //    public const int Metal = 3;
-    //    public const int Areus = 4;
-    //}
 }

@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.Globals
 
         public static List<int> Eraser = new List<int>();
         public static List<int> AreusProj = new List<int>();
+        public static List<int> DarkAreusProj = new List<int>();
 
         public static List<int> ReflectAiList = new List<int>
         {
