@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.AreusProj.Add(Type);
+            SoAGlobalProjectile.DarkAreusProj.Add(Type);
         }
 
         public override void SetDefaults()
