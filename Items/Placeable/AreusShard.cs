@@ -1,6 +1,5 @@
 using ShardsOfAtheria.Tiles;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,9 +9,6 @@ namespace ShardsOfAtheria.Items.Placeable
 	{
 		public override void SetStaticDefaults()
 		{
-			Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(5, 11));
-			ItemID.Sets.AnimatesAsSoul[Item.type] = true;
-
 			SacrificeTotal = 100;
 		}
 
