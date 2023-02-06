@@ -1199,7 +1199,6 @@ Mods: {
 			BaseConservation: Knowledge Base: Conservation
 			BaseExploration: Knowledge Base: Exploration
 			CreeperRevenge: Creeper Revenge
-			Megamerged: Mega-merged
 			Overdrive: Overdrive: ON
 			ShadeState: Shade State
 				# Sinful Souls
@@ -1276,7 +1275,6 @@ Mods: {
 				'You will never be lost'
 				'''
 			CreeperRevenge: "20% increase to all damage"
-			MegaMerged: "'BIOLINK ESTABLISHED! M.E.G.A. SYSTEM ONLINE!'"
 			Overdrive:
 				'''
 				'Your systems are being pushed beyond their limits'
@@ -1289,10 +1287,9 @@ Mods: {
 				'''
 			VirtuousSoul:
 				'''
-				Killing monsters increases purification by 1
-				Each Purification charge increases damage by 2%
-				When Purification charge reaches 7, the next critical hit creates a Holy Fire Explosion
-				This explosion damages all enemies on screen
+				Damaging monsters increases purification by 1
+				When Purification charge reaches 35, the next critical hit creates a Holy Fire Explosion
+				This explosion damages all enemies on the screen
 				'''
 
 			# Player debuff
@@ -1417,16 +1414,15 @@ Mods: {
 
 		NPCDialogue: {
 			NovaStellar: {
-				InitialSummon: Hey, you! I've been looking for an opponent for a while, let us duel!
+				InitialSummon: ""
 				MidFight: Okay you're strong, I'll give you that. But let's see you handle this!
-				Defeat: Well fought, I better get going. Tell {0} I said hi.
-				Defeat2: Well fought, I better get going.
+				Defeat: ""
 
 				# Slayer mode alt
-				InitialSummonAlt: Your genocide has been short, but this is where you die!
+				InitialSummonAlt: You... My crest... You bastard!
 				MidFightAlt: Okay prick, you've asked for it!
-				Desperation: Shit, I can't lose to you! Not with lives on the line!
-				Death: No... Mother... I failed...
+				Desperation: I cannot lose to you! Not Like this!
+				Death: No...  My judgment was clouded... I'm sorry Mother, I failed...
 			}
 			Atherian: {
 				# On interact 
@@ -1471,6 +1467,49 @@ Mods: {
 				NoUpgradableItem: Sorry pal, you don't have anything I can upgrade.
 				NotEnoughMaterial: "{0} - {1} [i:{2}]. I need at least {3}, you have {4}."
 			}
+		}
+
+		NPCBestiary: {
+			Atherian: "After the young goddess, Senterra, created her world, she populated it with beings called Atherians, their design inspired by the angels in a certain human culture."
+			NovaStellar: "Following her late father's footsteps, Nova became a noble knight. She wishes to rid the world of the Slayer Terrarian."
+		}
+
+		Config: {
+			ClientLabel: "Client Side"
+			ServerLabel: "Server Side"
+
+			ItemHeader: "[i:1] Items"
+			MetalBladeUseSound: "[i:ShardsOfAtheria/MetalBlade] Metal Blade Use Sound"
+			BossSummon: "[i:43] Non-consumable boss summons"
+			UpgradeItems: "[i:29] Upgrade items change"
+
+			DialogueHeader: "[i:3617] Dialogue"
+			YamikoInsult: "[i:ShardsOfAtheria/Yamiko] Yamiko Insult"
+
+			MechanicsHeader: "[i:4818] Mechanics"
+			Clueless: "[i:893] Clueless Atherian"
+			BetterWeapon: "[i:1] Directional Weapons*"
+			Aggression: "[i:46] Aggression"
+			Experimental: "[i:893] Experimental Features"
+		}
+
+		ConfigDesc: {
+			MetalBladeUseSound: "Enable for custom use sound, disable for vanilla use sound"
+			BossSummon: "Enable for to make Shards of Atheria boss summons non-consumable"
+			UpgradeItems:
+				'''
+				Enable for to enable changes to Life Crystal, Mana Crystal and Life Fruit
+				(Use time 15, auto reuse, use turn)
+				'''
+
+			YamikoInsult: Disable if you want to keep your feelings intact
+
+			Clueless: "Enable to allow the atherian to upgrade items even while in Slayer mode"
+			BetterWeaponOff: Off
+			BetterWeaponUseTurn: No Use Turn
+			BetterWeaponMouse: Mouse Direction
+			Aggression: "Damage, speed and aggro increases as you damage enemies"
+			Experimental: "Enables experimental/work in progress features"
 		}
 	}
 }

@@ -15,7 +15,6 @@ using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon.Minion;
 using ShardsOfAtheria.Items.Weapons.Throwing;
-using ShardsOfAtheria.NPCs.Town;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
 using ShardsOfAtheria.Systems;
@@ -82,7 +81,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             // Sets the description of this NPC that is listed in the bestiary
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
-                new FlavorTextBestiaryInfoElement("Following her late father's footsteps, Nova became a noble knight. She wishes to rid the world of the Slayer Terrarian.")
+                new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ShardsOfAtheria.NPCBestiary.NovaStellar"))
             });
         }
 
@@ -435,7 +434,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             NPC.netUpdate = true;
         }
 
-        void UseDialogue(int index)
+        static void UseDialogue(int index)
         {
             string dialogue;
 
@@ -446,39 +445,30 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                     break;
 
                 case 1: // Initial summon
-                    dialogue = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.InitialSummon");
+                    dialogue = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.InitialSummon";
                     break;
                 case 2: // Mid fight
-                    dialogue = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.MidFight");
+                    dialogue = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.MidFight";
                     break;
                 case 3: // Defeat
-                    int atherian = NPC.FindFirstNPC(ModContent.NPCType<Atherian>());
-                    if (atherian >= 0)
-                    {
-                        dialogue = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Defeat", Main.npc[atherian].GivenName));
-                    }
-                    else
-                    {
-                        dialogue = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Defeat2");
-                    }
+                    dialogue = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Defeat";
                     break;
 
                 case 4: // Slayer mode initial summon
-                    dialogue = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.InitialSummonAlt");
+                    dialogue = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.InitialSummonAlt";
                     break;
                 case 5: // Slayer mode mid fight
-                    dialogue = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.MidFightAlt");
+                    dialogue = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.MidFightAlt";
                     break;
                 case 6: // Slayer mode 25% life
-                    dialogue = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Desperation");
+                    dialogue = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Desperation";
                     break;
                 case 7: // Slayer mode defeat
-                    dialogue = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Death");
+                    dialogue = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Death";
                     break;
             }
 
-            int text = CombatText.NewText(NPC.getRect(), Color.DeepSkyBlue, dialogue, index == 6 || index == 5);
-            Main.combatText[text].lifeTime = 150;
+            ChatHelper.BroadcastChatMessage(NetworkText.FromKey(dialogue), Color.DeepSkyBlue);
         }
 
         public override void DrawEffects(ref Color drawColor)

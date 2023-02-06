@@ -112,7 +112,7 @@ namespace ShardsOfAtheria.NPCs.Town
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement("After the young goddess, Senterra, created her world, she populated it with beings called Atherians, their design inspired by the angels in a certain human culture..")
+				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ShardsOfAtheria.NPCBestiary.Atherian"))
             });
         }
 
