@@ -113,23 +113,32 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
-        public const string Diamond = "DiamondBlur";
-        public const string Orb = "OrbBlur";
-        public static void DrawProjectilePrims(this Projectile projectile, Color color, string style)
+        public const string DiamondX1 = "DiamondBlur1";
+        public const string DiamondX2 = "DiamondBlur2";
+        public const string OrbX1 = "OrbBlur1";
+        public const string OrbX2 = "OrbBlur2";
+        public const string LineX1 = "LineTrail1";
+        public const string LineX2 = "LineTrail2";
+        public static void DrawProjectilePrims(this Projectile projectile, Color color, string style, float scale = 1f)
         {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, null, null, null, null, Main.GameViewMatrix.ZoomMatrix);
 
             Main.instance.LoadProjectile(projectile.type);
             Texture2D texture = ModContent.Request<Texture2D>("ShardsOfAtheria/" + style).Value;
+            float plusRot = 0;
+            if (style == DiamondX1 || style == DiamondX2 || style == LineX1 || style == LineX2)
+            {
+                plusRot = MathHelper.ToRadians(90);
+            }
+
             for (int k = 0; k < projectile.oldPos.Length; k++)
             {
                 var offset = new Vector2(projectile.width / 2f, projectile.height / 2f);
                 var frame = texture.Frame(1, Main.projFrames[projectile.type], 0, projectile.frame);
                 Vector2 drawPos = (projectile.oldPos[k] - Main.screenPosition) + offset;
-                float sizec = projectile.scale * (projectile.oldPos.Length - k) / (projectile.oldPos.Length * 0.8f);
+                float sizec = scale * (projectile.oldPos.Length - k) / (projectile.oldPos.Length * 0.8f);
                 Color drawColor = color * (1f - projectile.alpha) * ((projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
-                float plusRot = style == Diamond ? MathHelper.ToRadians(90) : 0;
                 Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, projectile.oldRot[k] + plusRot, frame.Size() / 2, sizec, SpriteEffects.None, 0);
             }
             Main.spriteBatch.End();

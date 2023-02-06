@@ -71,7 +71,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
         public override bool PreDraw(ref Color lightColor)
         {
             Color color = new(227, 182, 245, 80);
-            Projectile.DrawProjectilePrims(color, ProjectileHelper.Diamond);
+            Projectile.DrawProjectilePrims(color, ProjectileHelper.DiamondX1);
             lightColor = Color.White;
             return true;
         }

@@ -3,6 +3,7 @@ using MMZeroElements;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Magic
@@ -12,6 +13,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         public override void SetStaticDefaults()
         {
             ProjectileElements.Metal.Add(Type);
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
@@ -29,6 +32,19 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
+
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                Projectile blade = Main.projectile[i];
+                if (blade.type == ModContent.ProjectileType<HardlightBlade>() && blade.whoAmI != Projectile.whoAmI)
+                {
+                    if (Projectile.Hitbox.Intersects(blade.Hitbox))
+                    {
+                        Projectile.Kill();
+                        blade.Kill();
+                    }
+                }
+            }
         }
 
         public override void Kill(int timeLeft)
@@ -43,7 +59,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         public override bool PreDraw(ref Color lightColor)
         {
             Color color = new(227, 182, 245, 80);
-            Projectile.DrawProjectilePrims(color, ProjectileHelper.Diamond);
+            Projectile.DrawProjectilePrims(color, ProjectileHelper.DiamondX1);
             lightColor = Color.White;
             return true;
         }
