@@ -36,8 +36,8 @@ namespace ShardsOfAtheria
 				{
 					default:
 						throw new ArgumentException("Unrecognized ModCall. Usable ModCalls for Shards of Atheria are as follows: " +
-							"checkSlayer, checkSlainBoss, addSlainBoss, addNecronomiconEntry, addColoredNecronomiconEntry, wipNecronomiconEntry, and addSoulCrystal.");
-					case "checkSlayer":
+							"checkSlayer, checkSlainBoss, checkCombat, addSlainBoss, addNecronomiconEntry, addColoredNecronomiconEntry, wipNecronomiconEntry, and addSoulCrystal.");
+					case ModCalls.FlagSlayer:
 						// Checks if the player has Slayer Mode enabled
 						if (args[1] is Player slayer)
 						{
@@ -45,9 +45,9 @@ namespace ShardsOfAtheria
 						}
 						else
 						{
-							throw new ArgumentException(args[1].GetType().Name + " is not a valid Player type.");
+							throw new ArgumentException(args[1].GetType().Name + ModCalls.InvalidPlayer);
 						}
-					case "checkSlainBoss":
+					case ModCalls.FlagSlainBoss:
 						// Check if a boss has been slain
 						if (args[1] is int bossType)
 						{
@@ -55,75 +55,88 @@ namespace ShardsOfAtheria
 						}
 						else
 						{
-							throw new ArgumentException(args[1].GetType().Name + " is not a valid int.");
+							throw new ArgumentException(args[1].GetType().Name + ModCalls.InvalidInt);
 						}
-					case "addSlainBoss":
+					case ModCalls.FlagCombat:
 						// Check if a boss has been slain
+						if (args[1] is Player combatPlayer)
+						{
+							return combatPlayer.ShardsOfAtheria().inCombat;
+						}
+						else
+						{
+							throw new ArgumentException(args[1].GetType().Name + ModCalls.InvalidPlayer);
+						}
+					case ModCalls.AddSlainBoss: // Probably should move into "invoke"
+												// Check if a boss has been slain
 						if (args[1] is int boss)
 						{
 							ShardsDownedSystem.slainBosses.Add(boss);
 						}
 						else
 						{
-							throw new ArgumentException(args[1].GetType().Name + " is not a valid int.");
+							throw new ArgumentException(args[1].GetType().Name + ModCalls.InvalidInt);
 						}
 						break;
-					case "addNecronomiconEntry":
+					case ModCalls.AddNecronomicon: // Probably should move into "invoke"
 						if (args[1] is not string) // Mod Name
 						{
-							throw new ArgumentException(args[1].GetType().Name + " is not a valid string.");
+							throw new ArgumentException(args[1].GetType().Name + ModCalls.InvalidString);
 						}
 						if (args[2] is not string) // Boss Name
 						{
-							throw new ArgumentException(args[2].GetType().Name + " is not a valid string.");
+							throw new ArgumentException(args[2].GetType().Name + ModCalls.InvalidString);
 						}
 						if (args[3] is not string) // Soul Crystal Tooltip
 						{
-							throw new ArgumentException(args[3].GetType().Name + " is not a valid string.");
+							throw new ArgumentException(args[3].GetType().Name + ModCalls.InvalidString);
 						}
 						if (args[4] is not int) // Soul Crystal Item ID
 						{
-							throw new ArgumentException(args[4].GetType().Name + " is not a valid int.");
+							throw new ArgumentException(args[4].GetType().Name + ModCalls.InvalidInt);
 						}
 						else
 						{
 							Entry.NewEntry((string)args[1], (string)args[2], (string)args[3], (int)args[4]);
 						}
 						break;
-					case "addColoredNecronomiconEntry":
+					case ModCalls.AddNecronomiconColor: // Probably should move into "invoke"
 						if (args[1] is not string) // Mod Name
 						{
-							throw new ArgumentException(args[1].GetType().Name + " is not a valid string.");
+							throw new ArgumentException(args[1].GetType().Name + ModCalls.InvalidString);
 						}
 						if (args[2] is not string) // Boss Name
 						{
-							throw new ArgumentException(args[2].GetType().Name + " is not a valid string.");
+							throw new ArgumentException(args[2].GetType().Name + ModCalls.InvalidString);
 						}
 						if (args[3] is not string) // Soul Crystal Tooltip
 						{
-							throw new ArgumentException(args[3].GetType().Name + " is not a valid string.");
+							throw new ArgumentException(args[3].GetType().Name + ModCalls.InvalidString);
 						}
 						if (args[4] is not Color)
 						{
-							throw new ArgumentException(args[4].GetType().Name + " is not a valid color.");
+							throw new ArgumentException(args[4].GetType().Name + ModCalls.InvalidColor);
 						}
 						if (args[5] is not int) // Soul Crystal Item ID
 						{
-							throw new ArgumentException(args[5].GetType().Name + " is not a valid int.");
+							throw new ArgumentException(args[5].GetType().Name + ModCalls.InvalidInt);
 						}
 						else
 						{
 							Entry.NewEntry((string)args[1], (string)args[2], (string)args[3], (Color)args[4], (int)args[5]);
 						}
 						break;
-					case "wipNecronomiconEntry":
+					case ModCalls.WIPNecronomicon: // Probably should move into "invoke"
 						return Entry.WipEntry();
-					case "overcharge":
+					case ModCalls.OverchargeSetResetGet: // Probably should move into "invoke"
 						if (args[1] is Player ocPlayer)
 						{
 							if (args[2] is float chargeToAdd)
 							{
-								ocPlayer.GetModPlayer<OverchargePlayer>().overcharge += chargeToAdd;
+								if (ocPlayer.ShardsOfAtheria().inCombat)
+								{
+									ocPlayer.Overcharged().overcharge += chargeToAdd;
+								}
 								break;
 							}
 							else if (args[2] is bool)
@@ -131,15 +144,16 @@ namespace ShardsOfAtheria
 								ocPlayer.GetModPlayer<OverchargePlayer>().overcharge = 0;
 								break;
 							}
+							else
 							{
 								return ocPlayer.GetModPlayer<OverchargePlayer>().overcharge;
 							}
 						}
 						else
 						{
-							throw new ArgumentException(args[2].GetType().Name + " is not a valid Player type.");
+							throw new ArgumentException(args[2].GetType().Name + ModCalls.InvalidPlayer);
 						}
-					case "overcharged":
+					case ModCalls.FlagOvercharge:
 						if (args[1] is Player ocedPlayer)
 						{
 							return ocedPlayer.GetModPlayer<OverchargePlayer>().overcharged;
@@ -158,14 +172,14 @@ namespace ShardsOfAtheria
 						}
 						else
 						{
-							throw new ArgumentException(args[2].GetType().Name + " is not a valid Player type.");
+							throw new ArgumentException(args[2].GetType().Name + ModCalls.InvalidPlayer);
 						}
-					case "invoke":
+					case ModCalls.Invoke:
 						if (args[1] is string str)
 						{
 							switch (str)
 							{
-								case "callStorm":
+								case ModCalls.CallStorm:
 									if (args[2] is Projectile stormProj)
 									{
 										if (args[3] is int lightningAmount)
@@ -179,7 +193,7 @@ namespace ShardsOfAtheria
 									}
 									else
 									{
-										throw new ArgumentException(args[2].GetType().Name + " is not a valid Projectile type.");
+										throw new ArgumentException(args[2].GetType().Name + ModCalls.InvalidProjectile);
 									}
 									break;
 							}
@@ -187,9 +201,9 @@ namespace ShardsOfAtheria
 						}
 						else
 						{
-							throw new ArgumentException(args[2].GetType().Name + " is not a valid string.");
+							throw new ArgumentException(args[2].GetType().Name + ModCalls.InvalidString);
 						}
-					case "checkHasSoulCrystal":
+					case ModCalls.FlagHasSoulCrystal:
 						if (args[1] is Player soulsPlayer)
 						{
 							if (args[2] is int sC)
@@ -198,14 +212,14 @@ namespace ShardsOfAtheria
 							}
 							else
 							{
-								throw new ArgumentException(args[2].GetType().Name + " is not a valid int.");
+								throw new ArgumentException(args[2].GetType().Name + ModCalls.InvalidInt);
 							}
 						}
 						else
 						{
 							throw new ArgumentException(args[1].GetType().Name + " is not a valid SlayerPlayer type.");
 						}
-					case "addSoulCrystal":
+					case ModCalls.AddSoulCrystal: // Probably should move into "invoke"
 						if (args[1] is Player soulsPlayer2)
 						{
 							if (args[2] is int)
@@ -214,15 +228,15 @@ namespace ShardsOfAtheria
 							}
 							else
 							{
-								throw new ArgumentException(args[3].GetType().Name + " is not a valid int.");
+								throw new ArgumentException(args[3].GetType().Name + ModCalls.InvalidInt);
 							}
 						}
 						else
 						{
-							throw new ArgumentException(args[2].GetType().Name + " is not a Player type.");
+							throw new ArgumentException(args[2].GetType().Name + ModCalls.InvalidPlayer);
 						}
 						break;
-					case "checkSoulConfig":
+					case ModCalls.FlagSoulCrystalConfig:
 						return ModContent.GetInstance<ShardsClientConfig>().instantAbsorb;
 				}
 			}
@@ -231,5 +245,34 @@ namespace ShardsOfAtheria
 			// This value can be anything you would like to provide as a default value.
 			return false;
 		}
+	}
+
+	public class ModCalls
+	{
+		// Mod flags
+		public const string FlagSlayer = "checkSlayer";
+		public const string FlagSlainBoss = "checkSlainBoss";
+		public const string FlagCombat = "checkCombat";
+		public const string FlagOvercharge = "overcharged";
+		public const string FlagHasSoulCrystal = "checkHasSoulCrystal";
+		public const string FlagSoulCrystalConfig = "checkSoulConfig";
+
+		// Uhhhhhh idk lmao
+		public const string Invoke = "invoke";
+		public const string CallStorm = "callStorm";
+		public const string AddSoulCrystal = "addSoulCrystal";
+		public const string OverchargeSetResetGet = "overcharge";
+		public const string WIPNecronomicon = "wipNecronomiconEntry";
+		public const string AddNecronomicon = "addNecronomiconEntry";
+		public const string AddNecronomiconColor = "addColoredNecronomiconEntry";
+		public const string AddSlainBoss = "addSlainBoss";
+
+		// Invalid end string
+		public const string InvalidPlayer = " is not a valid Player type.";
+		public const string InvalidBool = " is not a valid bool.";
+		public const string InvalidInt = " is not a valid int.";
+		public const string InvalidProjectile = " is not a valid Projectile type.";
+		public const string InvalidString = " is not a valid string.";
+		public const string InvalidColor = " is not a valid color.";
 	}
 }

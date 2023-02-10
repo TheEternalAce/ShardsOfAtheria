@@ -62,7 +62,8 @@ namespace ShardsOfAtheria.Players
         public bool pearlwoodSet;
         public int pearlwoodBowShoot;
 
-        public int inCombat;
+        public int combatTimer;
+        public bool inCombat;
         /// <summary>
         /// When above 0, you are in a combo. Ticks down by 1 every player update.
         /// <para>Item "combos" are used for determining what type of item action to use.</para>
@@ -122,9 +123,11 @@ namespace ShardsOfAtheria.Players
 
             UpdateResource();
 
-            if (inCombat > 0)
+            inCombat = false;
+            if (combatTimer > 0)
             {
-                inCombat--;
+                combatTimer--;
+                inCombat = true;
             }
             else if (aggression > 0)
             {
@@ -472,7 +475,7 @@ namespace ShardsOfAtheria.Players
 
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
-            inCombat = 300;
+            combatTimer = 300;
             if (ModContent.GetInstance<ShardsServerConfig>().aggression)
             {
                 aggression++;
@@ -501,7 +504,7 @@ namespace ShardsOfAtheria.Players
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            inCombat = 300;
+            combatTimer = 300;
             if (ModContent.GetInstance<ShardsServerConfig>().aggression)
             {
                 if (Vector2.Distance(Player.Center, target.Center) <= 150)
@@ -808,7 +811,7 @@ namespace ShardsOfAtheria.Players
 
         public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
         {
-            inCombat = 300;
+            combatTimer = 300;
             if (Player.HasBuff(ModContent.BuffType<Overdrive>()))
                 Player.ClearBuff(ModContent.BuffType<Overdrive>());
             if (megaGemCore)

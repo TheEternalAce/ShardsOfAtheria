@@ -63,11 +63,10 @@ namespace ShardsOfAtheria.Players
 
         public override bool? UseItem(Player player)
         {
-            if (player.whoAmI == Main.myPlayer)
+            if (player.whoAmI == Main.myPlayer && ModContent.GetInstance<ShardsServerConfig>().experimental)
             {
                 OverchargePlayer overchargePlayer = player.GetModPlayer<OverchargePlayer>();
-                if (SoAGlobalItem.AreusWeapon.Contains(Type) && ModContent.GetInstance<ShardsServerConfig>().experimental &&
-                    player.ShardsOfAtheria().inCombat > 0)
+                if (SoAGlobalItem.AreusWeapon.Contains(Type) && player.ShardsOfAtheria().inCombat)
                 {
                     if (Item.useTime != Item.useAnimation)
                     {

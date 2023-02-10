@@ -40,7 +40,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
                 anger = 0f;
                 rage = 0;
             }
-            if (Player.ShardsOfAtheria().inCombat == 0 && (anger > 0 || rage > 0))
+            if (Player.ShardsOfAtheria().combatTimer == 0 && (anger > 0 || rage > 0))
             {
                 calming++;
                 if (calming == 60)

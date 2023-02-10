@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             }
             else
             {
-                if (Player.ShardsOfAtheria().inCombat == 0 && pride > 0)
+                if (Player.ShardsOfAtheria().combatTimer == 0 && pride > 0)
                 {
                     prideTimer--;
                     if (prideTimer <= -60)
@@ -146,7 +146,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         public override void Update(Player player, ref int buffIndex)
         {
             player.Sinful().SevenSoulUsed = 5;
-            if (player.ShardsOfAtheria().inCombat > 0)
+            if (player.ShardsOfAtheria().inCombat)
             {
                 player.GetModPlayer<PridePlayer>().prideTimer++;
             }
