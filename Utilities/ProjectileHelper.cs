@@ -125,7 +125,7 @@ namespace ShardsOfAtheria.Utilities
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, null, null, null, null, Main.GameViewMatrix.ZoomMatrix);
 
             Main.instance.LoadProjectile(projectile.type);
-            Texture2D texture = ModContent.Request<Texture2D>("ShardsOfAtheria/" + style).Value;
+            Texture2D texture = ModContent.Request<Texture2D>("ShardsOfAtheria/BlurTrails/" + style).Value;
             float plusRot = 0;
             if (style == DiamondX1 || style == DiamondX2 || style == LineX1 || style == LineX2)
             {
