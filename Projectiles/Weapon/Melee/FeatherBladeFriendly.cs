@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.AnyDebuff;
 using MMZeroElements;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
 using Terraria;
 using Terraria.ID;
@@ -10,6 +10,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
     public class FeatherBladeFriendly : ModProjectile
     {
+        public override string Texture => "ShardsOfAtheria/Projectiles/NPCProj/Nova/FeatherBlade";
+
         public override void SetStaticDefaults()
         {
             ProjectileElements.Metal.Add(Type);

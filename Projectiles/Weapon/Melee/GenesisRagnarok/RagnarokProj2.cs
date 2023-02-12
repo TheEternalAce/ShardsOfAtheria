@@ -52,6 +52,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
             player.itemAnimation = 10;
             player.itemTime = 10;
+            var handPosition = Main.GetPlayerArmPosition(Projectile);
 
             if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
             {
@@ -77,15 +78,18 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             int mouseDirection = Main.MouseWorld.X > player.Center.X ? 1 : -1;
             if (Projectile.ai[0] == 0)
             {
-                if (mouseDirection == 1)
-                    rotation = -0.5;
-                else rotation = 2;
+                float startingDegrees;
+                startingDegrees = MathHelper.ToRadians(180);
+                if (mouseDirection == -1)
+                {
+                    startingDegrees = 0;
+                }
+                rotation = startingDegrees;
                 Projectile.ai[0] = 1;
             }
 
-            if (mouseDirection == 1)
-                rotation -= .33;
-            else rotation += .33;
+            float rotationToAdd = MathHelper.ToRadians(15);
+            rotation += rotationToAdd * -mouseDirection;
             player.itemAnimation = 10;
 
             int newDirection = Main.MouseWorld.X > player.Center.X ? 1 : -1;
@@ -97,7 +101,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             }
             else
             {
-                Projectile.Center = Main.GetPlayerArmPosition(Projectile) + Vector2.One.RotatedBy(rotation) * 180;
+                Projectile.Center = handPosition + new Vector2(1, 0).RotatedBy(rotation) * 280;
                 Projectile.netUpdate = true;
             }
 
@@ -157,13 +161,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 
             if (Projectile.alpha == 0)
             {
-                int direction = -1;
-                if (Main.MouseWorld.X < handPosition.X && Main.myPlayer == Projectile.owner)
-                    direction = 1;
-
-                if (direction == 1)
-                    player.itemRotation = 0;
-                else player.itemRotation = 0;
+                player.itemRotation = 0;
             }
 
             // This while loop draws the chain texture from the projectile to the player, looping to draw the chain texture along the path
@@ -177,7 +175,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 
                 // drawPosition is advanced along the vector back to the player by 12 pixels
                 // 12 comes from the height of ExampleFlailProjectileChain.png and the spacing that we desired between links
-                drawPosition += remainingVectorToPlayer * 14 / length;
+                drawPosition += remainingVectorToPlayer * 18 / length;
                 remainingVectorToPlayer = handPosition - drawPosition;
 
                 // Finally, we draw the texture at the coordinates using the lighting information of the tile coordinates of the chain section

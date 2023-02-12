@@ -19,12 +19,15 @@ using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon;
+using ShardsOfAtheria.Items.Weapons.Throwing;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Chat;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -63,6 +66,15 @@ namespace ShardsOfAtheria.Globals
         {
             base.SetDefaults(npc);
             TextureAssets.Npc[NPCID.Harpy] = skyHarpy;
+        }
+
+        public override void OnSpawn(NPC npc, IEntitySource source)
+        {
+            base.OnSpawn(npc, source);
+            if (npc.type == NPCID.Harpy)
+            {
+                npc.GivenName = Language.GetTextValue("Mods.ShardsOfAtheria.NPCName.SkyHarpy");
+            }
         }
 
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
@@ -719,6 +731,10 @@ namespace ShardsOfAtheria.Globals
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ReactorMeltdown>(), 4));
             }
+            if (npc.type == NPCID.KingSlime)
+            {
+                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<KingsKusarigama>()));
+            }
             if (npc.type == NPCID.EyeofCthulhu)
             {
                 npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<Cataracnia>()));
@@ -1019,6 +1035,26 @@ namespace ShardsOfAtheria.Globals
             }
             #endregion
             return base.PreAI(npc);
+        }
+
+        public override void AI(NPC npc)
+        {
+            if (npc.type == NPCID.Harpy)
+            {
+                if (npc.ai[0] == 30f || npc.ai[0] == 60f || npc.ai[0] == 90f)
+                {
+                    if (Main.rand.NextBool(3))
+                    {
+                        int dir = Main.rand.NextBool(2) ? 1 : -1;
+                        Vector2 position = Main.player[npc.target].Center;
+                        Projectile proj = Projectile.NewProjectileDirect(npc.GetSource_FromThis(), position, Vector2.Zero,
+                            ProjectileID.WaterGun, 0, 0f, Main.myPlayer);
+                        proj.CallStorm(3);
+                        proj.Kill();
+                    }
+                }
+            }
+            base.AI(npc);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

@@ -31,7 +31,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 				.AddIngredient(ModContent.ItemType<DiamondCore_Greater>())
 				.AddIngredient(ItemID.FragmentSolar, 5)
 				.AddIngredient(ItemID.FragmentVortex, 5)
-				.AddIngredient(ItemID.AnkhShield)
 				.AddTile(TileID.LunarCraftingStation)
 				.Register();
 		}
@@ -39,10 +38,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.ShardsOfAtheria().diamanodShield = !hideVisual;
-			if (player.statLife <= player.statLifeMax * 0.5)
-			{
-				player.AddBuff(62, 5);
-			}
 
 			player.buffImmune[BuffID.Poisoned] = true;
 			player.buffImmune[BuffID.Bleeding] = true;

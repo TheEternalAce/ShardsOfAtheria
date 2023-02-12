@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Systems
         public bool slainBOC = false;
         public bool slainEOW = false;
         public bool slainValkyrie = false;
+        public bool slainAtherian = false;
         public bool slainBee = false;
         public bool slainSkull = false;
         public bool slainDeerclops = false;
@@ -56,6 +57,7 @@ namespace ShardsOfAtheria.Systems
             slainBee = false;
             slainSkull = false;
             slainValkyrie = false;
+            slainAtherian = false;
             slainDeerclops = false;
             slainWall = false;
             slainQueen = false;
@@ -83,6 +85,7 @@ namespace ShardsOfAtheria.Systems
             tag["slainBOC"] = slainBOC;
             tag["slainEOW"] = slainEOW;
             tag["slainValkyrie"] = slainValkyrie;
+            tag["slainAtherian"] = slainAtherian;
             tag["slainBee"] = slainBee;
             tag["slainSkull"] = slainSkull;
             tag["slainDeerclops"] = slainDeerclops;
@@ -121,6 +124,8 @@ namespace ShardsOfAtheria.Systems
                 slainEOW = tag.GetBool("slainEOW");
             if (tag.ContainsKey("slainValkyrie"))
                 slainValkyrie = tag.GetBool("slainValkyrie");
+            if (tag.ContainsKey("slainAtherian"))
+                slainAtherian = tag.GetBool("slainAtherian");
             if (tag.ContainsKey("slainBee"))
                 slainBee = tag.GetBool("slainBee");
             if (tag.ContainsKey("slainSkull"))
@@ -188,6 +193,7 @@ namespace ShardsOfAtheria.Systems
             BitsByte flags4 = new BitsByte();
             flags4[0] = downedSenterra;
             flags4[1] = downedGenesis;
+            flags4[1] = slainAtherian;
             writer.Write(flags4);
         }
 
@@ -228,6 +234,7 @@ namespace ShardsOfAtheria.Systems
             BitsByte flags4 = reader.ReadByte();
             downedSenterra = flags4[0];
             downedGenesis = flags4[1];
+            slainAtherian = flags4[1];
 
         }
 

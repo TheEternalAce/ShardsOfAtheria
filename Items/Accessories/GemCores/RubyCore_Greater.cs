@@ -37,7 +37,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		{
 			player.ShardsOfAtheria().rubyGauntlet = !hideVisual;
 			player.GetDamage(DamageClass.Generic) += .1f;
-			player.autoReuseGlove = true;
 			player.GetAttackSpeed(DamageClass.Generic) += .1f;
 			player.GetKnockback(DamageClass.Generic) += 1;
 			player.meleeScaleGlove = true;

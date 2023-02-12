@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Systems;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 
 namespace ShardsOfAtheria.Utilities
 {
@@ -10,18 +11,32 @@ namespace ShardsOfAtheria.Utilities
     {
         public static void BasicInWorldGlowmask(this NPC npc, SpriteBatch spriteBatch, Texture2D glowTexture, Color color, Vector2 screenPos, SpriteEffects effects)
         {
-            Vector2 drawOrigin = new Vector2(glowTexture.Width * 0.5f, npc.height * 0.5f);
             Vector2 drawPos = npc.Center - screenPos;
             spriteBatch.Draw(glowTexture, drawPos, npc.frame, color, npc.rotation, npc.frame.Size() / 2f, npc.scale, effects, 0f);
         }
 
-        public static void SlayBoss(this NPC boss, Player player)
+        public static void SlayNPC(this NPC npc, Player player)
         {
             SlayerPlayer slayer = player.GetModPlayer<SlayerPlayer>();
             if (slayer.slayerMode)
             {
-                ShardsDownedSystem.slainBosses.Add(boss.type);
+                ShardsDownedSystem.slainBosses.Add(npc.type);
+                Main.ItemDropsDB.GetRulesForNPCID(npc.type, false);
             }
+        }
+
+        public static void DropFromItem(int itemType, Player player)
+        {
+            DropAttemptInfo info = new()
+            {
+                player = player,
+                item = itemType,
+                IsExpertMode = Main.expertMode,
+                IsMasterMode = Main.masterMode,
+                IsInSimulation = false,
+                rng = Main.rand
+            };
+            Main.ItemDropSolver.TryDropping(info);
         }
     }
 }

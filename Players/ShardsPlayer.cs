@@ -14,6 +14,7 @@ using ShardsOfAtheria.Items.Tools.Misc;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Projectiles.Other;
+using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
 using System;
@@ -58,6 +59,9 @@ namespace ShardsOfAtheria.Players
         public bool valkyrieCrown;
         public bool valkyrieCrownHideVanity;
         public bool valkyrieCrownForceVanity;
+        public bool hardlightBraces;
+        public int hardlightBracesCooldown;
+        public int hardlightBracesCooldownMax = 60;
 
         public bool pearlwoodSet;
         public int pearlwoodBowShoot;
@@ -115,7 +119,11 @@ namespace ShardsOfAtheria.Players
             rushDrive = false;
             valkyrieCrown = false;
             showRagnarok = false;
-
+            hardlightBraces = false;
+            if (hardlightBracesCooldown > 0)
+            {
+                hardlightBracesCooldown--;
+            }
             pearlwoodSet = false;
 
             ResetVariables();
@@ -262,10 +270,6 @@ namespace ShardsOfAtheria.Players
             {
                 Player.moveSpeed += .15f;
             }
-            if (megaGemCore)
-            {
-                Player.moveSpeed += .2f;
-            }
             if (Player.statLife < Player.statLifeMax2 / 2 && rushDrive)
             {
                 if (phaseOffense)
@@ -374,47 +378,7 @@ namespace ShardsOfAtheria.Players
             }
             if (ShardsOfAtheria.EmeraldTeleportKey.JustPressed)
             {
-                if (superEmeraldCore)
-                {
-                    Vector2 vector21 = default;
-                    vector21.X = Main.mouseX + Main.screenPosition.X;
-                    if (Player.gravDir == 1f)
-                    {
-                        vector21.Y = Main.mouseY + Main.screenPosition.Y - Player.height;
-                    }
-                    else
-                    {
-                        vector21.Y = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
-                    }
-                    vector21.X -= Player.width / 2;
-                    if (vector21.X > 50f && vector21.X < Main.maxTilesX * 16 - 50 && vector21.Y > 50f && vector21.Y < Main.maxTilesY * 16 - 50)
-                    {
-                        int num181 = (int)(vector21.X / 16f);
-                        int num182 = (int)(vector21.Y / 16f);
-                        if ((Main.tile[num181, num182].WallType != 87 || !(num182 > Main.worldSurface) || NPC.downedPlantBoss) && !Collision.SolidCollision(vector21, Player.width, Player.height))
-                        {
-                            Player.Teleport(vector21, 1);
-                            NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, Player.whoAmI, vector21.X, vector21.Y, 1);
-                            if (Player.chaosState)
-                            {
-                                Player.statLife -= Player.statLifeMax2 / 7;
-                                PlayerDeathReason damageSource = PlayerDeathReason.ByOther(13);
-                                if (Main.rand.NextBool(2))
-                                {
-                                    damageSource = PlayerDeathReason.ByOther(Player.Male ? 14 : 15);
-                                }
-                                if (Player.statLife <= 0)
-                                {
-                                    Player.KillMe(damageSource, 1.0, 0);
-                                }
-                                Player.lifeRegenCount = 0;
-                                Player.lifeRegenTime = 0;
-                            }
-                            Player.AddBuff(BuffID.ChaosState, 360);
-                        }
-                    }
-                }
-                if (megaGemCore)
+                if (megaGemCore || superEmeraldCore)
                 {
                     Vector2 vector21 = default;
                     vector21.X = Main.mouseX + Main.screenPosition.X;
@@ -473,6 +437,15 @@ namespace ShardsOfAtheria.Players
             }
         }
 
+        public override bool? CanAutoReuseItem(Item item)
+        {
+            if (megaGemCore || greaterRubyCore || superRubyCore)
+            {
+                return true;
+            }
+            return base.CanAutoReuseItem(item);
+        }
+
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
             combatTimer = 300;
@@ -500,6 +473,7 @@ namespace ShardsOfAtheria.Players
                 Player.AddBuff(BuffID.Ironskin, 600);
                 Player.AddBuff(BuffID.Endurance, 600);
             }
+            PreformHardlightBracesEffect(target);
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
@@ -510,10 +484,6 @@ namespace ShardsOfAtheria.Players
                 if (Vector2.Distance(Player.Center, target.Center) <= 150)
                 {
                     aggression++;
-                }
-                else if (Vector2.Distance(Player.Center, target.Center) >= Main.screenWidth / 4)
-                {
-                    aggression--;
                 }
             }
             if (proj.owner == Player.whoAmI)
@@ -538,6 +508,28 @@ namespace ShardsOfAtheria.Players
                     Player.AddBuff(BuffID.Ironskin, 600);
                     Player.AddBuff(BuffID.Endurance, 600);
                 }
+                if (proj.type != ModContent.ProjectileType<HardlightBlade>())
+                {
+                    PreformHardlightBracesEffect(target);
+                }
+            }
+        }
+
+        public void PreformHardlightBracesEffect(NPC target)
+        {
+            if (hardlightBraces && hardlightBracesCooldown == 0)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    Item braces = ModContent.GetInstance<HardlightBraces>().Item;
+                    Vector2 point = target.Center + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 120f;
+                    Vector2 velocity = Vector2.Normalize(target.Center - point) * braces.shootSpeed;
+                    Projectile blades = Projectile.NewProjectileDirect(Player.GetSource_Accessory(braces), point, velocity,
+                        braces.shoot, braces.damage, braces.knockBack, Player.whoAmI);
+                    blades.DamageType = DamageClass.Generic;
+                    blades.penetrate = 1;
+                }
+                hardlightBracesCooldown = hardlightBracesCooldownMax;
             }
         }
 
@@ -769,15 +761,15 @@ namespace ShardsOfAtheria.Players
                 {
                     return TrySapphireDodge(0.2f);
                 }
-                if (!megaGemCore && superSapphireCore)
+                else if (superSapphireCore)
                 {
                     return TrySapphireDodge(0.15f);
                 }
-                if (!megaGemCore && !superSapphireCore && sapphireCore)
+                else if (sapphireCore)
                 {
                     return TrySapphireDodge(0.1f);
                 }
-                if (!megaGemCore && !superSapphireCore && !sapphireCore && lesserSapphireCore)
+                else if (lesserSapphireCore)
                 {
                     return TrySapphireDodge(0.05f);
                 }

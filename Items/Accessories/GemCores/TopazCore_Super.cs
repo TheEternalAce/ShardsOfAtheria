@@ -37,9 +37,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		{
 			player.ShardsOfAtheria().topazNecklace = !hideVisual;
 			player.statLifeMax2 += 60;
-			player.shinyStone = true;
-			player.AddBuff(BuffID.Regeneration, 2);
-			player.AddBuff(BuffID.Honey, 2);
+			player.pStone = true;
+			player.lifeRegen += 1;
 			player.AddBuff(BuffID.Campfire, 2);
 			player.AddBuff(BuffID.HeartLamp, 2);
 		}

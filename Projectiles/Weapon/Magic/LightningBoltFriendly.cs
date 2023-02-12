@@ -99,7 +99,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             DustTimer++;
             if (DustTimer > 17 || Projectile.ai[1] == 2)
             {
-                Dust d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.GemDiamond); //204
+                Dust d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Electric);
                 d.velocity *= 0;
                 d.fadeIn = 1.3f;
                 d.noGravity = true;
@@ -111,8 +111,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             for (var i = 0; i < 28; i++)
             {
                 Vector2 speed = Main.rand.NextVector2CircularEdge(1f, 1f);
-                Dust d = Dust.NewDustPerfect(Projectile.Center, 91, speed * 2.4f); //204
-                                                                                   //d.velocity *= 0;
+                Dust d = Dust.NewDustPerfect(Projectile.Center, DustID.Electric, speed * 2.4f);
                 d.fadeIn = 1.3f;
                 d.noGravity = true;
             }

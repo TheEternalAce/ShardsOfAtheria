@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using MMZeroElements;
+using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable.Banner;
+using ShardsOfAtheria.Projectiles.NPCProj.Variant;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -65,7 +66,14 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.ai[0] += 1f;
             if (NPC.ai[0] == 30f || NPC.ai[0] == 60f || NPC.ai[0] == 90f)
             {
-                if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
+                if (Main.rand.NextBool(3))
+                {
+                    int dir = Main.rand.NextBool(2) ? 1 : -1;
+                    Vector2 position = Main.player[NPC.target].Center + new Vector2((130 + Main.rand.Next(100)) * dir, 0);
+                    Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), position, Vector2.Zero,
+                        ModContent.ProjectileType<FlamePillar>(), 12, 0f, Main.myPlayer);
+                }
+                else if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
                 {
                     int num729 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center).RotatedByRandom(MathHelper.ToRadians(15)) * 6f,
                         ModContent.ProjectileType<Void>(), 14, 0f, Main.myPlayer);

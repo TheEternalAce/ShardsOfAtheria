@@ -19,14 +19,14 @@ namespace ShardsOfAtheria.Tiles.Banner
     public class MonsterBanners : ModTile
     {
         public const int ForestHarpyBanner = 0;
-        public const int SnowHarpyBanner = 1;
-        public const int CaveHarpyBanner = 2;
-        public const int DesertHarpyBanner = 3;
-        public const int OceanHarpyBanner = 4;
+        public const int SnowHarpyBanner = 4;
+        public const int CaveHarpyBanner = 6;
+        public const int DesertHarpyBanner = 1;
+        public const int OceanHarpyBanner = 2;
         public const int VoidHarpyBanner = 5;
-        public const int CrimsonHarpyBanner = 6;
+        public const int CrimsonHarpyBanner = 8;
         public const int CorruptHarpyBanner = 7;
-        public const int HallowedHarpyBanner = 8;
+        public const int HallowedHarpyBanner = 3;
 
         public static List<int> bannerWindHack;
 

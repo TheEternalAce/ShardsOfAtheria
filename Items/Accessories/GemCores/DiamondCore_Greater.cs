@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<DiamondCore>())
 				.AddIngredient(ItemID.HallowedBar, 5)
-				.AddIngredient(ItemID.FrozenTurtleShell)
+				.AddIngredient(ItemID.AnkhCharm)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}
@@ -38,10 +38,17 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		{
 			player.ShardsOfAtheria().diamanodShield = !hideVisual;
 			player.noKnockback = true;
-			if (player.statLife <= player.statLifeMax * 0.5)
-			{
-				player.AddBuff(62, 5);
-			}
+			player.buffImmune[BuffID.Poisoned] = true;
+			player.buffImmune[BuffID.Bleeding] = true;
+			player.buffImmune[BuffID.Darkness] = true;
+			player.buffImmune[BuffID.Cursed] = true;
+			player.buffImmune[BuffID.Silenced] = true;
+			player.buffImmune[BuffID.Slow] = true;
+			player.buffImmune[BuffID.Confused] = true;
+			player.buffImmune[BuffID.BrokenArmor] = true;
+			player.buffImmune[BuffID.Weak] = true;
+			player.noKnockback = true;
+			player.fireWalk = true;
 		}
 	}
 }

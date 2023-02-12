@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using MMZeroElements;
+using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.GameContent.Bestiary;
@@ -49,7 +50,16 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.ai[0] += 1f;
             if (NPC.ai[0] == 30f || NPC.ai[0] == 60f || NPC.ai[0] == 90f)
             {
-                if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
+                if (Main.rand.NextBool(3))
+                {
+                    Vector2 velocity = Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center);
+                    Vector2 position = NPC.Center + Vector2.Normalize(velocity) * 10f;
+                    Projectile proj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), position, velocity * 7f,
+                        ModContent.ProjectileType<IceShard>(), 10, 0f, Main.myPlayer);
+                    proj.friendly = false;
+                    proj.hostile = true;
+                }
+                else if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
                 {
                     int num729 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center).RotatedByRandom(MathHelper.ToRadians(15)) * 6f,
                         ModContent.ProjectileType<Snow>(), 10, 0f, Main.myPlayer);

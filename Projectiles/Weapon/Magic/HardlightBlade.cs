@@ -33,15 +33,18 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
 
-            for (int i = 0; i < Main.maxProjectiles; i++)
+            if (Projectile.ai[0] == 1)
             {
-                Projectile blade = Main.projectile[i];
-                if (blade.type == ModContent.ProjectileType<HardlightBlade>() && blade.whoAmI != Projectile.whoAmI)
+                for (int i = 0; i < Main.maxProjectiles; i++)
                 {
-                    if (Projectile.Hitbox.Intersects(blade.Hitbox))
+                    Projectile blade = Main.projectile[i];
+                    if (blade.type == ModContent.ProjectileType<HardlightBlade>() && blade.whoAmI != Projectile.whoAmI && Projectile.active && blade.active)
                     {
-                        Projectile.Kill();
-                        blade.Kill();
+                        if (Projectile.Hitbox.Intersects(blade.Hitbox))
+                        {
+                            Projectile.Kill();
+                            blade.Kill();
+                        }
                     }
                 }
             }

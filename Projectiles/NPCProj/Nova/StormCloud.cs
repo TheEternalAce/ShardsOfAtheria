@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.AnyDebuff;
 using MMZeroElements;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -51,23 +51,22 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             Dust dustBottom = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.position.Y + (Projectile.height * 4)), Projectile.width, 1, DustID.Electric);
             dustBottom.noGravity = true;
 
-            if (!saferArea.Intersects(player.getRect()) && Projectile.ai[0] == 1)
+            Vector2 newCenter = player.Center;
+            int dirX = saferArea.Center.X < player.Center.X ? 1 : -1;
+            float distX = MathHelper.Distance(player.Center.X, saferArea.Center.X);
+            float distXMax = saferArea.Width / 2;
+            if (distX > distXMax)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), player.Center + new Vector2(0, -200), Vector2.Zero, ModContent.ProjectileType<StormCloudPunisher>(), 50, 0, Main.myPlayer);
-                Projectile.ai[0] = 2;
+                newCenter.X -= (distX - distXMax) * dirX;
             }
-            else if (saferArea.Intersects(player.getRect()))
+            int dirY = saferArea.Center.Y < player.Center.Y ? 1 : -1;
+            float distY = MathHelper.Distance(player.Center.Y, saferArea.Center.Y);
+            float distYMax = saferArea.Height / 2;
+            if (distY > distYMax)
             {
-                for (int i = 0; i < Main.maxProjectiles; i++)
-                {
-                    Projectile proj = Main.projectile[i];
-                    if (proj.owner == Main.myPlayer && proj.type == ModContent.ProjectileType<StormCloudPunisher>())
-                    {
-                        proj.Kill();
-                    }
-                }
-                Projectile.ai[0] = 1;
+                newCenter.Y -= (distY - distYMax) * dirY;
             }
+            player.Center = newCenter;
 
             if (++Projectile.ai[1] == 20 && Projectile.timeLeft > 20)
             {
@@ -85,18 +84,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.RainCloud, Scale: 2f);
                 dust.noGravity = true;
-            }
-
-            if (Projectile.timeLeft == 20)
-            {
-                for (int i = 0; i < Main.maxProjectiles; i++)
-                {
-                    Projectile proj = Main.projectile[i];
-                    if (proj.type == ModContent.ProjectileType<StormCloudPunisher>())
-                    {
-                        proj.Kill();
-                    }
-                }
             }
         }
 

@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Items.DevItems.TheEternalAce
             Item.height = 22;
 
             Item.damage = 70;
-            Item.DamageType = DamageClass.Ranged;
+            Item.DamageType = DamageClass.Throwing;
             Item.knockBack = 4;
             Item.crit = 4;
 

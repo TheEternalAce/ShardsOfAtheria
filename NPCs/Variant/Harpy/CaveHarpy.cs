@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using MMZeroElements;
 using ReLogic.Content;
+using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
@@ -116,7 +117,8 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Asset<Texture2D> texture = ModContent.Request<Texture2D>(Texture);
+            string alt = ModContent.GetInstance<ShardsServerConfig>().altCaveHarpy ? "_ALT" : "";
+            Asset<Texture2D> texture = ModContent.Request<Texture2D>(Texture + alt);
             SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             NPC.BasicInWorldGlowmask(spriteBatch, texture.Value, drawColor, screenPos, effects);
             return false;

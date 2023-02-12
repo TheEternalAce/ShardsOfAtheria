@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
         public override void SetStaticDefaults()
         {
-            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(100, 9f, 2.5f, true, 1f, 1f);
+            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(210, 9f, 2.5f, true, 1f, 1.5f);
 
             SacrificeTotal = 1;
         }
@@ -94,6 +94,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
             player.ShardsOfAtheria().amethystMask = !hideVisual;
             player.ShardsOfAtheria().diamanodShield = !hideVisual;
+            player.ShardsOfAtheria().emeraldWings = player.velocity.Y != 0 || !hideVisual;
             player.ShardsOfAtheria().rubyGauntlet = !hideVisual;
             player.ShardsOfAtheria().sapphireSpirit = !hideVisual;
             player.ShardsOfAtheria().topazNecklace = !hideVisual;
@@ -103,6 +104,10 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.hasJumpOption_Blizzard = true;
             player.hasJumpOption_Sandstorm = true;
             player.jumpBoost = true;
+
+            // Charm of Myths
+            player.pStone = true;
+            player.lifeRegen += 1;
 
             //Frostspark Boots
             player.accRunSpeed = 6.75f;
@@ -115,7 +120,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.fireWalk = true;
 
             //Fire Gauntlet
-            player.autoReuseGlove = true;
             player.GetAttackSpeed(DamageClass.Generic) += .20f;
             player.GetKnockback(DamageClass.Generic) += 2;
             player.meleeScaleGlove = true;
@@ -124,13 +128,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.panic = true;
             player.accFlipper = true;
 
-            player.shinyStone = true;
-
-            player.empressBrooch = true;
-
             player.AddBuff(BuffID.Thorns, 2);
-            player.AddBuff(BuffID.Regeneration, 2);
-            player.AddBuff(BuffID.Honey, 2);
             player.AddBuff(BuffID.Campfire, 2);
             player.AddBuff(BuffID.HeartLamp, 2);
             if (gravitation)
@@ -144,8 +142,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.maxMinions += 8;
             player.statLifeMax2 += 100;
             player.ShardsOfAtheria().superEmeraldCore = true;
-            player.ShardsOfAtheria().megaGemCore = true;
-            player.ShardsOfAtheria().topazNecklace = !hideVisual;
 
             player.buffImmune[BuffID.Venom] = true;
             player.buffImmune[BuffID.OnFire] = true;
@@ -155,18 +151,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.buffImmune[BuffID.Frozen] = true;
             player.buffImmune[BuffID.WitheredArmor] = true;
             player.buffImmune[BuffID.Ichor] = true;
-            player.buffImmune[BuffID.ChaosState] = true;
             player.buffImmune[BuffID.MoonLeech] = true;
-            player.buffImmune[BuffID.PotionSickness] = true;
             player.buffImmune[ModContent.BuffType<HeartBreak>()] = true;
-            player.potionDelay = 0;
-            player.potionDelayTime = 0;
-
-            // Frozen Turtle Shell
-            if (player.statLife <= player.statLifeMax * 0.5)
-            {
-                player.AddBuff(62, 5);
-            }
 
             // Ankh Shield
             player.buffImmune[BuffID.Poisoned] = true;

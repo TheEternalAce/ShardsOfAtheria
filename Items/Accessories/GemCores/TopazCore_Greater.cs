@@ -28,8 +28,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<TopazCore>())
 				.AddIngredient(ItemID.HallowedBar, 10)
-				.AddIngredient(ItemID.RegenerationPotion, 15)
-				.AddIngredient(ItemID.BottledHoney, 15)
+				.AddIngredient(ItemID.CharmofMyths)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}
@@ -38,8 +37,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		{
 			player.ShardsOfAtheria().topazNecklace = !hideVisual;
 			player.statLifeMax2 += 40;
-			player.AddBuff(BuffID.Regeneration, 2);
-			player.AddBuff(BuffID.Honey, 2);
+			player.pStone = true;
+			player.lifeRegen += 1;
 		}
 	}
 }

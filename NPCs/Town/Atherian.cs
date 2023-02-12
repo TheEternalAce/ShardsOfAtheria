@@ -132,9 +132,9 @@ namespace ShardsOfAtheria.NPCs.Town
                 Player player = Main.player[k];
                 if (!player.active)
                     continue;
-
-                if (NPC.downedBoss2 && !((ModContent.GetInstance<ShardsDownedSystem>().slainSenterra || ModContent.GetInstance<ShardsDownedSystem>().slainGenesis ||
-                    ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie) && ModContent.GetInstance<ShardsServerConfig>().cluelessNPCs))
+                ShardsDownedSystem shardsDowned = ModContent.GetInstance<ShardsDownedSystem>();
+                if (NPC.downedBoss2 && (!(shardsDowned.slainSenterra || shardsDowned.slainGenesis || shardsDowned.slainValkyrie) ||
+                    ModContent.GetInstance<ShardsServerConfig>().cluelessNPCs) && !shardsDowned.slainAtherian)
                     return true;
             }
             return false;
@@ -532,6 +532,15 @@ namespace ShardsOfAtheria.NPCs.Town
                     shop.item[nextSlot].shopCustomPrice = 50000;
                     nextSlot++;
                 }
+            }
+        }
+
+        public override void OnKill()
+        {
+            Player lastPlayerToHitThisNPC = NPC.AnyInteractions() ? Main.player[NPC.lastInteraction] : null;
+            if (lastPlayerToHitThisNPC != null && lastPlayerToHitThisNPC.GetModPlayer<SlayerPlayer>().slayerMode)
+            {
+                ModContent.GetInstance<ShardsDownedSystem>().slainAtherian = true;
             }
         }
 

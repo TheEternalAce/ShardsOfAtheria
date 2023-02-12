@@ -46,7 +46,21 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.ai[0] += 1f;
             if (NPC.ai[0] == 30f || NPC.ai[0] == 60f || NPC.ai[0] == 90f)
             {
-                if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
+                if (Main.rand.NextBool(3))
+                {
+                    Vector2 velocity = Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center);
+                    float numberProjectiles = 3;
+                    float rotation = MathHelper.ToRadians(5);
+                    Vector2 position = NPC.Center + Vector2.Normalize(velocity) * 10f;
+                    for (int i = 0; i < numberProjectiles; i++)
+                    {
+                        Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
+                        Projectile proj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), position, perturbedSpeed * 6f,
+                            ModContent.ProjectileType<Poison>(), 7, 0f, Main.myPlayer);
+                        proj.DamageType = DamageClass.Ranged;
+                    }
+                }
+                else if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
                 {
                     int num729 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center).RotatedByRandom(MathHelper.ToRadians(15)) * 6f,
                         ModContent.ProjectileType<Poison>(), 7, 0f, Main.myPlayer);

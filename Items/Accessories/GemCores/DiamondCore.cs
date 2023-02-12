@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			CreateRecipe()
 				.AddIngredient(ModContent.ItemType<DiamondCore_Lesser>())
 				.AddIngredient(ItemID.HellstoneBar, 5)
-				.AddIngredient(ItemID.CobaltShield)
+				.AddIngredient(ItemID.ObsidianShield)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
@@ -47,6 +47,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		{
 			player.ShardsOfAtheria().diamanodShield = !hideVisual;
 			player.noKnockback = true;
+			player.fireWalk = true;
 		}
 	}
 }

@@ -33,15 +33,11 @@ Mods: {
 				'''
 			UpgradeableItem: Upgradeable Item
 
-			ElementFire: Fire Element
-			ElementIce: Ice Element
-			ElementElectric: Electric Element
-			ElementMetal: Metal Element
-
 			TitleText1: Shards of Atheria: Splitting Skies
 			TitleText2: Shards of Atheria: The World Revolving
 			TomeOfOmniscience: Press {0} to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration
 			UpgradeableItem: Upgradeable Item
+			TeleportOnKeyPress: Press {0} to teleport to your cursor
 		}
 
 		DiskFile: {
@@ -140,6 +136,7 @@ Mods: {
 			Biometal: Biometal
 			EntropicWings: Entropic Wings
 			GildedValkyrieWings: Gilded Valkyrie Wings
+			HardlightBraces: Hardlight Braces
 			RushDrive: Rush Drive
 			TomeOfOmniscience: Tome of Omniscience
 			ValkyrieCrown: Valkyrie Crown
@@ -180,6 +177,10 @@ Mods: {
 			HardlightDataDisk: "Data Disk #003"
 			NovaDataDisk: "Data Disk #004"
 			TerrariansDataDisk: "Data Disk #005"
+
+			# Hooks
+			AreusTether: Areus Tether
+			HardlightNeedle: Hardlight Needle
 
 			# Materials
 			BrokenHeroGun: Broken Hero Gun
@@ -318,7 +319,7 @@ Mods: {
 			Satanlance: ecnatnataS
 			TheMessiah: The Messiah
 			TheMourningStar: The Mourning Star
-			ValkyrieBlade: Valkyrie Blade
+			ValkyrieBlade: Hardlight Blade
 			ValkyrieStorm: Valkyrie Storm
 			ValkyrieStormLance: Storm Lance
 			WormBloom: Worm Bloom
@@ -343,6 +344,7 @@ Mods: {
 			FlailOfFlesh: Flail of Flesh
 			NestlingStaff: Nestling Staff
 				# Throwing
+			KingsKusarigama: "King's Kusarigama"
 			MetalBlade: Metal Blade
 			HardlightKnife: Hardlight Knife
 		}
@@ -369,12 +371,12 @@ Mods: {
 				DiamondCore_Greater:
 					'''
 					Grants immunity to knockback
-					Effect of Frozen Turtle Shell
+					Effects of Ankh Shield
 					'''
 				DiamondCore_Super:
 					'''
 					Grants immunity to defense reducing debuffs and knockback
-					Effects of Ankh Shield and Frozen Turtle Shell
+					Effects of Ankh Shield
 					'''
 					# Emerald
 				EmeraldCore_Lesser:
@@ -418,7 +420,7 @@ Mods: {
 					Increases knockback
 					Increased melee size
 					Attacks inflict 'Hellfire'
-					Melee weapons autoswing
+					All weapons autoswing
 					'''
 				RubyCore_Super:
 					'''
@@ -426,7 +428,7 @@ Mods: {
 					Increased knockback, attack speed and melee size
 					Attacks inflict 'Cursed Inferno' and 'Ichor'
 					Grants immunity to damage reducing and anti attacking debuffs
-					Melee weapons autoswing
+					All weapons autoswing
 					'''
 					# Sapphire
 				SapphireCore_Lesser: 5% chance to dodge attacks
@@ -449,31 +451,32 @@ Mods: {
 				TopazCore_Greater:
 					'''
 					Increases max life by 40
-					Honey and Regeneration buffs
+					Effects of Charm of Myths
 					'''
 				TopazCore_Super:
 					'''
 					Increases max life by 60
-					Honey, Regeneration, Cozy Campfire and Heart Lantern buffs
-					Effects of Shiny Stone
+					Effects of Charm of Myths
+					Cozy Campfire and Heart Lantern buffs
 					'''
 				MegaGemCore:
 					'''
 					Counts as wings
 					Increases max life by 100
-					Increases damage, movement speed and attack speed by 20%
+					Increases damage, attack speed by 20%
+					Increases movement speed by 15%
 					Increases knockback and melee size
 					+8 extra minion slots
 					20% chance to dodge attacks
 					Gives a super dash to the wearer
 					Attacks inflict Daybroken and Betsy's Curse
-					Melee weapons autoswing
-					Grants immunity to damage dealing, damage and defense reducing, anti-healing and cold debuffs and Chaos State
+					All weapons autoswing
+					Grants immunity to damage dealing, damage and defense reducing, most anti-healing and cold debuffs
 					Grants Ironskin and Endurance when dealing damage and Wrath, Rage and Inferno when taking damage
-					Effects of Ankh Shield, Bundle of Balloons, Frozen Turtle Shell, Shiny Stone, Soaring Insignia and Terrasparrk Boots
-					Permanent Thorns, Regeneration, Honey, Heart Lantern, Cozy Campfire, Heartreach and Gravitation buffs
+					Effects of Ankh Shield, Bundle of Balloons, Charm of Myths, Frozen Turtle Shell, and Terrasparrk Boots
+					Permanent Thorns, Heart Lantern, Cozy Campfire, Heartreach and Gravitation buffs
 					Use to disable Gravitation
-					Grants infinite flight and slow fall
+					Grants flight and slow fall
 					'''
 			AreusKey:
 				'''
@@ -490,6 +493,7 @@ Mods: {
 				'''
 			EntropicWings: Allows flight and grants slow fall
 			GildedValkyrieWings: "'The gold plating on the wings weighs you down slightly'"
+			HardlightBraces: Attacks create 4 hardlight blades to inflict further damage
 			RushDrive: Gives the user a 'phase 2' when below 50% life
 			TomeOfOmniscience:
 				'''
@@ -1001,9 +1005,20 @@ Mods: {
 				'Your very own Hungry as a pet! Adorable..?'
 				'''
 			NestlingStaff: Summons a fledgling harpy knight to fight for you
+				# Throwing
+				KingsKusarigama:
+					'''
+					Swings a gel kusarigama
+					Use RMB to throw a gravity affected kusarigama
+					'Cowabunga it is'
+					'''
 		}
 
 		ProjectileName: {
+			# Hooks
+			AreusTetherHook: Areus Tether
+			HardlightNeedleHook: Hardlight Needle
+
 			# Minions
 			AreusMirror: Areus Mirror
 			AreusMirrorShard: Areus Mirror Shard
@@ -1039,11 +1054,13 @@ Mods: {
 			Poison: Poison Feather
 			Static: Static Feather
 			Vile: Vile Feather
+			TidalWave: Tidal Wave
+			CactusNeedle: Cactus Needle
+			FlamePillar: Flame Pillar
 				# Other
 			CreeperHitbox: "Creeper, aw man"
 
 			# Other
-			ArrowSpliter: Arrow Splitter
 			CrystalExplosion: CrystalExplosion
 			ElectricTrailFriendly: Electric Trail
 			FoodChunk: Food Chunk
@@ -1150,6 +1167,7 @@ Mods: {
 			FlailOfFleshProj: Leashed Hungry
 			SoulDagger: Soul Dagger
 				# Throwing
+			KusarigamaKing: "King's Kusarigama"
 			MetalBladeProj: Metal Blade
 			HardlightKnifeProj: Hardlight Knife
 		}
@@ -1164,6 +1182,7 @@ Mods: {
 			ForestHarpy: Forest Harpy
 			HallowedHarpy: Holy Harpy
 			OceanHarpy: Seaside Harpy
+			SkyHarpy: Atmospheric Harpy
 			SnowHarpy: Arctic Harpy
 			VoidHarpy: Void Harpy
 
@@ -1415,7 +1434,7 @@ Mods: {
 		NPCDialogue: {
 			NovaStellar: {
 				InitialSummon: ""
-				MidFight: Okay you're strong, I'll give you that. But let's see you handle this!
+				MidFight: ""
 				Defeat: ""
 
 				# Slayer mode alt
@@ -1491,6 +1510,9 @@ Mods: {
 			BetterWeapon: "[i:1] Directional Weapons*"
 			Aggression: "[i:46] Aggression"
 			Experimental: "[i:893] Experimental Features"
+
+			MiscHeader: "Misc"
+			AltCaveHarpy: "[i:48] Alt Cavern Harpy"
 		}
 
 		ConfigDesc: {
@@ -1510,6 +1532,8 @@ Mods: {
 			BetterWeaponMouse: Mouse Direction
 			Aggression: "Damage, speed and aggro increases as you damage enemies"
 			Experimental: "Enables experimental/work in progress features"
+
+			AltCaveHarpy: "Makes a slight change to the Cavern Harpy sprite"
 		}
 	}
 }

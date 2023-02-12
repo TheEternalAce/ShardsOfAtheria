@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MMZeroElements;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Summons;
@@ -208,7 +209,7 @@ namespace ShardsOfAtheria.Globals
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
             base.ModifyWeaponDamage(item, player, ref damage);
-            if (player.ShardsOfAtheria().conductive && (AreusWeapon.Contains(item.type) || DarkAreusWeapon.Contains(item.type)))
+            if (player.ShardsOfAtheria().conductive && WeaponElements.Electric.Contains(item.type))
             {
                 damage += .15f;
             }

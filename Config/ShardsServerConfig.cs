@@ -58,5 +58,11 @@ namespace ShardsOfAtheria.Config
         [DefaultValue(false)]
         [ReloadRequired]
         public bool experimental;
+
+        [Header("$Mods.ShardsOfAtheria.Config.MiscHeader")]
+        [Label("$Mods.ShardsOfAtheria.Config.AltCaveHarpy")] // A label is the text displayed next to the option. This should usually be a short description of what it does.
+        [Tooltip("$Mods.ShardsOfAtheria.ConfigDesc.AltCaveHarpy")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option.
+        [DefaultValue(false)]
+        public bool altCaveHarpy;
     }
 }

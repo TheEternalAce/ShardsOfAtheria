@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using MMZeroElements;
+using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.ItemDropRules.Condition;
 using ShardsOfAtheria.ItemDropRules.Conditions;
@@ -21,6 +23,7 @@ using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
@@ -37,6 +40,10 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
         public int attackType = 0;
         public int attackTimer = 0;
         public int attackCooldown = 40;
+
+        int frameX = 0;
+        int frameY = 0;
+        int maxFrameY = 6;
 
         public override void SetStaticDefaults()
         {
@@ -58,8 +65,8 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
         public override void SetDefaults()
         {
-            NPC.width = 86;
-            NPC.height = 60;
+            NPC.width = 24;
+            NPC.height = 38;
             NPC.damage = 30;
             NPC.defense = 8;
             NPC.lifeMax = 5200;
@@ -72,7 +79,6 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             Music = MusicID.Boss4;
             NPC.value = Item.buyPrice(0, 5, 0, 0);
             NPC.npcSlots = 15f;
-            AnimationType = NPCID.Harpy;
             NPC.SetCustomElementMultipliers(2.0, 0.8, 0.8, 1.5);
         }
 
@@ -87,6 +93,10 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
         public override bool CheckDead()
         {
+            attackType = 0;
+            attackTimer = 0;
+            attackCooldown = 0;
+            frameX = 1;
             if (NPC.ai[3] == 0f)
             {
                 NPC.ai[3] = 1f;
@@ -147,7 +157,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
             if (lastPlayerToHitThisNPC != null && lastPlayerToHitThisNPC.GetModPlayer<SlayerPlayer>().slayerMode)
             {
-                NPC.SlayBoss(lastPlayerToHitThisNPC);
+                NPC.SlayNPC(lastPlayerToHitThisNPC);
             }
         }
 
@@ -171,6 +181,13 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
         private bool midFight = false;
         private bool desperation = false;
+        const int ElectricDash = 0;
+        const int FeatherBarrage = 1;
+        const int LanceDash = 2;
+        const int StormCloud = 3;
+        const int SwordsDance = 4;
+        const int BowShoot = 5;
+        const int SwordSwing = 6;
 
         public override void AI()
         {
@@ -230,10 +247,15 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             }
             NPC.spriteDirection = player.Center.X > NPC.Center.X ? 1 : -1;
 
+            bool transitioning = false;
             if (NPC.life <= NPC.lifeMax * 0.5 && !midFight)
             {
+                transitioning = true;
                 UseDialogue(isSlayer ? 5 : 2);
-                midFight = true;
+                attackCooldown = 120;
+                attackTimer = 0;
+                attackType = -1;
+                DoPhase2Transition();
             }
 
             if (NPC.life <= NPC.lifeMax * 0.25 && !desperation && player.GetModPlayer<SlayerPlayer>().slayerMode)
@@ -242,200 +264,321 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 desperation = true;
             }
 
-            if (attackCooldown <= 0)
+            if (!transitioning)
             {
-                if (NPC.life <= NPC.lifeMax / 4 * 3)
+                if (attackCooldown <= 0)
                 {
-                    if (NPC.life <= NPC.lifeMax / 2)
-                    {
-                        attackType = Main.rand.Next(5);
-                    }
-                    else
-                    {
-                        attackType = Main.rand.Next(4);
-                    }
+                    ChoseAttacks();
+                }
+
+                if (attackTimer > 0)
+                {
+                    CycleAttack(player);
+                    attackTimer--;
                 }
                 else
                 {
-                    attackType = Main.rand.Next(3);
+                    if (midFight)
+                    {
+                        frameX = 1;
+                    }
+                    else
+                    {
+                        frameX = 0;
+                    }
+                    // decrease wait timer when attack done
+                    attackCooldown--;
                 }
-
-                switch (attackType)
-                {
-                    default:
-                        break;
-                    case 0:
-                        // Electric Dash
-                        attackTimer = 60;
-                        attackCooldown = 60;
-                        break;
-                    case 1:
-                        // Feather Blade Barrage
-                        attackTimer = 240;
-                        attackCooldown = 60;
-                        break;
-                    case 2:
-                        // Lance Dash
-                        attackTimer = 120;
-                        attackCooldown = 60;
-                        break;
-                    case 3:
-                        // Storm Cloud
-                        attackTimer = 320;
-                        attackCooldown = 60;
-                        break;
-                    case 4:
-                        // Sword Dance
-                        attackTimer = 9 * 60;
-                        attackCooldown = 60;
-                        break;
-                }
-            }
-
-            if (attackTimer > 0)
-            {
-                NPC.netUpdate = true;
-                Vector2 center = NPC.Center;
-                Vector2 targetPosition = player.Center;
-                Vector2 toTarget = targetPosition - center;
-                switch (attackType)
-                {
-                    default:
-                        break;
-                    case 0:
-                        // Electric Dash
-                        if (attackTimer == 60)
-                        {
-                            NPC.velocity = Vector2.Normalize(toTarget) * 10;
-                        }
-                        if (attackTimer % 2 == 0)
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), center, Vector2.Zero, ModContent.ProjectileType<ElectricTrail>(), 18, 0f, Main.myPlayer);
-                        }
-                        if (NPC.life < NPC.lifeMax / 2 && attackTimer == 1)
-                        {
-                            for (int i = 0; i < 4; i++)
-                            {
-                                Vector2 velocity = Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 1f;
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), center, velocity, ModContent.ProjectileType<LightningBolt>(), 18, 0f, Main.myPlayer);
-                            }
-                        }
-                        break;
-                    case 1:
-                        // Feather Blade Barrage
-                        if (attackTimer == 240)
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), center, Vector2.Normalize(toTarget) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
-                        }
-                        // + pattern
-                        if (attackTimer < 240 && attackTimer > 180)
-                        {
-                            for (int i = 0; i < 4; i++)
-                            {
-                                Vector2 dustPos = targetPosition + new Vector2(1.425f, 0).RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
-                                Dust dust = Dust.NewDustPerfect(dustPos, DustID.Electric);
-                                dust.noGravity = true;
-                            }
-                        }
-                        if (attackTimer == 180)
-                        {
-                            for (int i = 0; i < 4; i++)
-                            {
-                                Vector2 projPos = targetPosition + new Vector2(1.425f, 0).RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), projPos, Vector2.Normalize(targetPosition - projPos) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 0, 60f);
-                            }
-                        }
-                        if (attackTimer == 120)
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), center, Vector2.Normalize(toTarget) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
-                        }
-                        // X pattern
-                        if (attackTimer < 120 && attackTimer > 60)
-                        {
-                            for (int i = 0; i < 4; i++)
-                            {
-                                Vector2 dustPos = targetPosition + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 150f;
-                                Dust dust = Dust.NewDustPerfect(dustPos, DustID.Electric);
-                                dust.noGravity = true;
-                            }
-                        }
-                        if (attackTimer == 60)
-                        {
-                            for (int i = 0; i < 4; i++)
-                            {
-                                Vector2 projPos = targetPosition + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 150f;
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), projPos, Vector2.Normalize(targetPosition - projPos) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 0, 60f);
-                            }
-                        }
-                        break;
-                    case 2:
-                        // Lance Dash
-                        NPC.rotation = 0;
-                        if (attackTimer > 30)
-                        {
-                            NPC.velocity = Vector2.Normalize(player.Center + new Vector2(250 * (NPC.Center.X > player.Center.X ? 1 : -1), 0) - NPC.Center) * 12;
-                        }
-                        if (attackTimer == 30)
-                        {
-                            NPC.velocity = Vector2.Normalize(player.Center + player.velocity * 12 - center) * 16;
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), center, NPC.velocity * 0.75f, ModContent.ProjectileType<StormLance>(), 16, 0, Main.myPlayer);
-                        }
-                        break;
-                    case 3:
-                        // Storm Cloud
-                        if (attackTimer > 160)
-                        {
-                            NPC.velocity = Vector2.Normalize(player.Center + new Vector2(500 * (NPC.Center.X > player.Center.X ? 1 : -1), -200) - NPC.Center) * 12;
-                        }
-                        else
-                        {
-                            NPC.Center = player.Center + new Vector2(500 * (NPC.Center.X > player.Center.X ? 1 : -1), -200);
-                        }
-                        if (attackTimer == 320)
-                        {
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center + new Vector2(0, -400), Vector2.Zero, ModContent.ProjectileType<StormCloud>(), 16, 0, Main.myPlayer);
-                        }
-                        if (attackTimer == 1)
-                        {
-                            NPC.velocity = Vector2.Zero;
-                        }
-                        break;
-                    case 4:
-                        // Sword Dance
-                        if (attackTimer > 8 * 60)
-                        {
-                            NPC.velocity = Vector2.Normalize(player.Center + new Vector2(500 * (NPC.Center.X > player.Center.X ? 1 : -1), -200) - NPC.Center) * 12;
-                        }
-                        else
-                        {
-                            NPC.Center = player.Center + new Vector2(500 * (NPC.Center.X > player.Center.X ? 1 : -1), -200);
-                        }
-                        if (attackTimer == 9 * 60)
-                        {
-                            for (int i = 0; i < 7; i++)
-                            {
-                                Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<StormSword>(), 16, 0, Main.myPlayer, i);
-                            }
-                        }
-                        if (attackTimer == 1)
-                        {
-                            NPC.velocity = Vector2.Zero;
-                        }
-                        break;
-                }
-                attackTimer--;
-            }
-            else
-            {
-                // decrease wait timer when attack done
-                attackCooldown--;
             }
 
             NPC.netUpdate = true;
         }
 
+        void ChoseAttacks()
+        {
+            if (NPC.life <= NPC.lifeMax / 4 * 3)
+            {
+                if (NPC.life <= NPC.lifeMax / 2)
+                {
+                    attackType = Main.rand.Next(7);
+                }
+                else
+                {
+                    attackType = Main.rand.Next(5);
+                }
+            }
+            else
+            {
+                attackType = Main.rand.Next(3);
+            }
+
+            switch (attackType)
+            {
+                default:
+                    break;
+                case ElectricDash:
+                    attackTimer = 60;
+                    attackCooldown = 60;
+                    break;
+                case FeatherBarrage:
+                    attackTimer = 260;
+                    attackCooldown = 60;
+                    break;
+                case LanceDash:
+                    attackTimer = 120;
+                    attackCooldown = 60;
+                    break;
+                case StormCloud:
+                    attackTimer = 340;
+                    attackCooldown = 60;
+                    break;
+                case SwordsDance:
+                    attackTimer = 9 * 60;
+                    attackCooldown = 60;
+                    break;
+                case BowShoot:
+                    attackTimer = 56;
+                    attackCooldown = 20;
+                    break;
+                case SwordSwing:
+                    attackTimer = 360;
+                    attackCooldown = 20;
+                    break;
+            }
+        }
+
+        void CycleAttack(Player player)
+        {
+            NPC.netUpdate = true;
+            Vector2 center = NPC.Center;
+            Vector2 targetPosition = player.Center;
+            Vector2 toTarget = targetPosition - center;
+            switch (attackType)
+            {
+                default:
+                    break;
+                case ElectricDash:
+                    DoElectricDash(center, toTarget);
+                    break;
+                case FeatherBarrage:
+                    DoFeatherBarrage(center, toTarget, targetPosition);
+                    break;
+                case LanceDash:
+                    DoLanceDash(player, targetPosition, center);
+                    break;
+                case StormCloud:
+                    DoStormCloud(targetPosition);
+                    break;
+                case SwordsDance:
+                    DoSwordsDance(targetPosition);
+                    break;
+                case BowShoot:
+                    DoBowShoot(center, toTarget);
+                    break;
+                case SwordSwing:
+                    DoBladeSwing(player);
+                    break;
+            }
+        }
+
+        void DoElectricDash(Vector2 center, Vector2 toTarget)
+        {
+            if (attackTimer == 60)
+            {
+                NPC.velocity = Vector2.Normalize(toTarget) * 10;
+            }
+            if (attackTimer % 2 == 0)
+            {
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), center, Vector2.Zero, ModContent.ProjectileType<ElectricTrail>(), 18, 0f, Main.myPlayer);
+            }
+            if (NPC.life < NPC.lifeMax / 2 && attackTimer == 1)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    Vector2 velocity = Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 1f;
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), center, velocity, ModContent.ProjectileType<LightningBolt>(), 18, 0f, Main.myPlayer);
+                }
+            }
+        }
+
+        void DoFeatherBarrage(Vector2 center, Vector2 toTarget, Vector2 targetPosition)
+        {
+            if (attackTimer > 240)
+            {
+                return;
+            }
+            Item novaBook = ModContent.GetInstance<PlumeCodex>().Item;
+            if (attackTimer == 240)
+            {
+                SoundEngine.PlaySound(novaBook.UseSound);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), center, Vector2.Normalize(toTarget) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+            }
+            // + pattern
+            if (attackTimer < 240 && attackTimer > 180)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    Vector2 dustPos = targetPosition + new Vector2(1.425f, 0).RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
+                    Dust dust = Dust.NewDustPerfect(dustPos, DustID.Electric);
+                    dust.noGravity = true;
+                }
+            }
+            if (attackTimer == 180)
+            {
+                SoundEngine.PlaySound(novaBook.UseSound);
+                for (int i = 0; i < 4; i++)
+                {
+                    Vector2 projPos = targetPosition + new Vector2(1.425f, 0).RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), projPos, Vector2.Normalize(targetPosition - projPos) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 0, 60f);
+                }
+            }
+            if (attackTimer == 120)
+            {
+                SoundEngine.PlaySound(novaBook.UseSound);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), center, Vector2.Normalize(toTarget) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer);
+            }
+            // X pattern
+            if (attackTimer < 120 && attackTimer > 60)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    Vector2 dustPos = targetPosition + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 150f;
+                    Dust dust = Dust.NewDustPerfect(dustPos, DustID.Electric);
+                    dust.noGravity = true;
+                }
+            }
+            if (attackTimer == 60)
+            {
+                SoundEngine.PlaySound(novaBook.UseSound);
+                for (int i = 0; i < 4; i++)
+                {
+                    Vector2 projPos = targetPosition + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 150f;
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), projPos, Vector2.Normalize(targetPosition - projPos) * 7f, ModContent.ProjectileType<FeatherBlade>(), 18, 0f, Main.myPlayer, 0, 60f);
+                }
+            }
+        }
+
+        void DoLanceDash(Player player, Vector2 targetPosition, Vector2 center)
+        {
+            if (attackTimer > 30)
+            {
+                float speed = 8f;
+                Vector2 toPosition = targetPosition + new Vector2(250 * (NPC.Center.X > targetPosition.X ? 1 : -1), 0);
+                if (Vector2.Distance(toPosition, NPC.Center) <= 25)
+                {
+                    speed = 1f;
+                }
+                NPC.position += Vector2.Normalize(toPosition - NPC.Center) * speed;
+            }
+            if (attackTimer == 30)
+            {
+                NPC.velocity = Vector2.Normalize(targetPosition + player.velocity * 12 - center) * 16;
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), center, NPC.velocity * 0.75f, ModContent.ProjectileType<StormLance>(), 16, 0, Main.myPlayer);
+            }
+        }
+
+        void DoStormCloud(Vector2 targetPosition)
+        {
+            if (attackTimer > 320)
+            {
+                return;
+            }
+            float speed = 8f;
+            Vector2 toPosition = targetPosition + new Vector2(500 * (NPC.Center.X > targetPosition.X ? 1 : -1), -200);
+            if (Vector2.Distance(toPosition, NPC.Center) <= 25)
+            {
+                speed = 1f;
+            }
+            NPC.position += Vector2.Normalize(toPosition - NPC.Center) * speed;
+            if (attackTimer == 320)
+            {
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(0, -400), Vector2.Zero, ModContent.ProjectileType<StormCloud>(), 16, 0, Main.myPlayer);
+            }
+            if (attackTimer == 1)
+            {
+                NPC.velocity = Vector2.Zero;
+            }
+        }
+
+        void DoSwordsDance(Vector2 targetPosition)
+        {
+            float speed = 8f;
+            Vector2 toPosition = targetPosition + new Vector2(500 * (NPC.Center.X > targetPosition.X ? 1 : -1), -200);
+            if (Vector2.Distance(toPosition, NPC.Center) <= 25)
+            {
+                speed = 1f;
+            }
+            NPC.position += Vector2.Normalize(toPosition - NPC.Center) * speed;
+            if (attackTimer == 9 * 60)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition, Vector2.Zero, ModContent.ProjectileType<StormSword>(), 16, 0, Main.myPlayer, i);
+                }
+            }
+            if (attackTimer == 1)
+            {
+                NPC.velocity = Vector2.Zero;
+            }
+        }
+
+        void DoBowShoot(Vector2 center, Vector2 toTarget)
+        {
+            Player player = Main.player[NPC.target];
+            NPC.spriteDirection = player.Center.X > NPC.Center.X ? 1 : -1;
+            if (attackTimer % 12 == 0 && attackTimer <= 36)
+            {
+                SoundEngine.PlaySound(SoundID.Item5);
+                float numberProjectiles = 3;
+                float rotation = MathHelper.ToRadians(5);
+                toTarget.Normalize();
+                center += Vector2.Normalize(toTarget) * 10f;
+                for (int i = 0; i < numberProjectiles; i++)
+                {
+                    Vector2 perturbedSpeed = toTarget.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
+                    Projectile proj = Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), center, perturbedSpeed * 16f,
+                        ModContent.ProjectileType<FeatherBlade>(), 11, 3, Main.myPlayer);
+                    proj.DamageType = DamageClass.Ranged;
+                }
+            }
+        }
+
+        void DoBladeSwing(Player player)
+        {
+            NPC.position += Vector2.Normalize(player.Center - NPC.Center) * 8f;
+        }
+
+        int transitionTime = 120;
+        void DoPhase2Transition()
+        {
+            if (transitionTime == 120)
+            {
+                SoundEngine.PlaySound(SoundID.Thunder);
+                for (int i = 0; i < 4; i++)
+                {
+                    Vector2 velocity = Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 1f;
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<LightningBolt>(), 18, 0f, Main.myPlayer);
+                }
+            }
+            NPC.velocity *= 0;
+            attackCooldown = transitionTime;
+            if (transitionTime > 100)
+            {
+                frameX = 5;
+            }
+            else
+            {
+                frameX = 6;
+            }
+            if (--transitionTime == 0)
+            {
+                midFight = true;
+            }
+        }
+
         static void UseDialogue(int index)
         {
+            return;
             string dialogue;
 
             switch (index)
@@ -487,6 +630,63 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 Main.dust[dust].velocity *= 1.8f;
                 Main.dust[dust].velocity.Y -= 0.5f;
             }
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Asset<Texture2D> texture = ModContent.Request<Texture2D>(Texture);
+            SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            Vector2 drawOrigin = new(texture.Value.Width * 0.5f, NPC.height * 0.5f);
+            Vector2 drawPos = NPC.Center - screenPos;
+            if (attackTimer > 0)
+            {
+                switch (attackType)
+                {
+                    default:
+                        if (midFight)
+                        {
+                            frameX = 1;
+                        }
+                        else
+                        {
+                            frameX = 0;
+                        }
+                        maxFrameY = 6;
+                        break;
+                    case FeatherBarrage:
+                    case StormCloud:
+                        if (midFight)
+                        {
+                            frameX = 2;
+                        }
+                        else
+                        {
+                            frameX = 0;
+                        }
+                        maxFrameY = 6;
+                        break;
+                    case BowShoot:
+                        frameX = 3;
+                        maxFrameY = 6;
+                        break;
+                    case SwordSwing:
+                        frameX = 4;
+                        maxFrameY = 6;
+                        break;
+                }
+            }
+
+            if (++NPC.frameCounter >= 5)
+            {
+                if (++frameY >= maxFrameY)
+                {
+                    frameY = 0;
+                }
+                NPC.frameCounter = 0;
+            }
+            Rectangle frame = new(100 * frameX, 100 * frameY, 100, 100);
+            spriteBatch.Draw(texture.Value, drawPos, frame, drawColor, NPC.rotation, frame.Size() / 2f, NPC.scale, effects, 0f);
+            return false;
         }
     }
 }

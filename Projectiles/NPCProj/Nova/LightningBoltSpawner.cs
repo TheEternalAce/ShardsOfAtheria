@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -29,6 +30,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override void Kill(int timeLeft)
         {
+            SoundEngine.PlaySound(SoundID.Item43);
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(0, 1) * 2f, ModContent.ProjectileType<LightningBolt>(), 16, Projectile.knockBack, Main.myPlayer);
         }
     }
