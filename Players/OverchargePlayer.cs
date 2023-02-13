@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Utilities;
@@ -63,7 +62,7 @@ namespace ShardsOfAtheria.Players
 
         public override bool? UseItem(Player player)
         {
-            if (player.whoAmI == Main.myPlayer && ModContent.GetInstance<ShardsServerConfig>().experimental)
+            if (player.whoAmI == Main.myPlayer)
             {
                 OverchargePlayer overchargePlayer = player.GetModPlayer<OverchargePlayer>();
                 if (SoAGlobalItem.AreusWeapon.Contains(Type) && player.ShardsOfAtheria().inCombat)
@@ -72,12 +71,12 @@ namespace ShardsOfAtheria.Players
                     {
                         if (!(player.itemAnimation < Item.useAnimation - 2))
                         {
-                            overchargePlayer.overcharge += chargeAmount;
+                            //overchargePlayer.overcharge += chargeAmount;
                         }
                     }
                     else
                     {
-                        overchargePlayer.overcharge += chargeAmount;
+                        //overchargePlayer.overcharge += chargeAmount;
                     }
                 }
                 if (overchargePlayer.overcharged)

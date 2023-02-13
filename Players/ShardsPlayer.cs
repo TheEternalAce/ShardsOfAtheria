@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using MMZeroElements;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Buffs.PlayerBuff;
-using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Accessories.GemCores;
@@ -17,7 +15,6 @@ using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -449,10 +446,6 @@ namespace ShardsOfAtheria.Players
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
             combatTimer = 300;
-            if (ModContent.GetInstance<ShardsServerConfig>().aggression)
-            {
-                aggression++;
-            }
             if (valkyrieCrown)
             {
                 target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
@@ -479,13 +472,6 @@ namespace ShardsOfAtheria.Players
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
             combatTimer = 300;
-            if (ModContent.GetInstance<ShardsServerConfig>().aggression)
-            {
-                if (Vector2.Distance(Player.Center, target.Center) <= 150)
-                {
-                    aggression++;
-                }
-            }
             if (proj.owner == Player.whoAmI)
             {
                 if (valkyrieCrown)
@@ -645,113 +631,6 @@ namespace ShardsOfAtheria.Players
                 Player.shield = (sbyte)EquipLoader.GetEquipSlot(Mod, ragnarok.Name, EquipType.Shield);
             }
         }
-
-        #region Elemental Effectiveness
-        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
-        {
-            if (ModContent.GetInstance<ShardsServerConfig>().experimental)
-            {
-                double modifier = 1.0;
-                if (NPCElements.Fire.Contains(npc.type))
-                {
-                    modifier *= elementMultiplier[Element.Fire];
-                }
-                if (NPCElements.Ice.Contains(npc.type))
-                {
-                    modifier *= elementMultiplier[Element.Ice];
-                }
-                if (NPCElements.Electric.Contains(npc.type))
-                {
-                    modifier *= elementMultiplier[Element.Electric];
-                }
-                if (NPCElements.Metal.Contains(npc.type))
-                {
-                    modifier *= elementMultiplier[Element.Metal];
-                }
-                damage = (int)Math.Ceiling(damage * modifier);
-            }
-
-            base.ModifyHitByNPC(npc, ref damage, ref crit);
-        }
-
-        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
-        {
-            if (ModContent.GetInstance<ShardsServerConfig>().experimental)
-            {
-                double modifier = 1.0;
-                if (ProjectileElements.Fire.Contains(proj.type))
-                {
-                    modifier *= elementMultiplier[Element.Fire];
-                }
-                if (ProjectileElements.Ice.Contains(proj.type))
-                {
-                    modifier *= elementMultiplier[Element.Ice];
-                }
-                if (ProjectileElements.Electric.Contains(proj.type))
-                {
-                    modifier *= elementMultiplier[Element.Electric];
-                }
-                if (ProjectileElements.Metal.Contains(proj.type))
-                {
-                    modifier *= elementMultiplier[Element.Metal];
-                }
-                damage = (int)Math.Ceiling(damage * modifier);
-            }
-            base.ModifyHitByProjectile(proj, ref damage, ref crit);
-        }
-
-        public override void ModifyHitPvp(Item item, Player target, ref int damage, ref bool crit)
-        {
-            if (ModContent.GetInstance<ShardsServerConfig>().experimental)
-            {
-                double modifier = 1.0;
-                if (WeaponElements.Fire.Contains(item.type))
-                {
-                    modifier *= elementMultiplier[Element.Fire];
-                }
-                if (WeaponElements.Ice.Contains(item.type))
-                {
-                    modifier *= elementMultiplier[Element.Ice];
-                }
-                if (WeaponElements.Electric.Contains(item.type))
-                {
-                    modifier *= elementMultiplier[Element.Electric];
-                }
-                if (WeaponElements.Metal.Contains(item.type))
-                {
-                    modifier *= elementMultiplier[Element.Metal];
-                }
-                damage = (int)Math.Ceiling(damage * modifier);
-            }
-            base.ModifyHitPvp(item, target, ref damage, ref crit);
-        }
-
-        public override void ModifyHitPvpWithProj(Projectile proj, Player target, ref int damage, ref bool crit)
-        {
-            if (ModContent.GetInstance<ShardsServerConfig>().experimental)
-            {
-                double modifier = 1.0;
-                if (ProjectileElements.Fire.Contains(proj.type))
-                {
-                    modifier *= elementMultiplier[Element.Fire];
-                }
-                if (ProjectileElements.Ice.Contains(proj.type))
-                {
-                    modifier *= elementMultiplier[Element.Ice];
-                }
-                if (ProjectileElements.Electric.Contains(proj.type))
-                {
-                    modifier *= elementMultiplier[Element.Electric];
-                }
-                if (ProjectileElements.Metal.Contains(proj.type))
-                {
-                    modifier *= elementMultiplier[Element.Metal];
-                }
-                damage = (int)Math.Ceiling(damage * modifier);
-            }
-            base.ModifyHitPvpWithProj(proj, target, ref damage, ref crit);
-        }
-        #endregion
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
         {

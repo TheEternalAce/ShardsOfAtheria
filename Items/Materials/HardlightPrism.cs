@@ -1,4 +1,3 @@
-using ShardsOfAtheria.Config;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,7 +8,7 @@ namespace ShardsOfAtheria.Items.Materials
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return ModContent.GetInstance<ShardsServerConfig>().experimental;
+            return false;
         }
 
         public override void SetStaticDefaults()

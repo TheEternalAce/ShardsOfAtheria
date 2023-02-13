@@ -48,17 +48,6 @@ namespace ShardsOfAtheria.Config
         [ReloadRequired]
         public string betterWeapon;
 
-        [Label("$Mods.ShardsOfAtheria.Config.Aggression")] // A label is the text displayed next to the option. This should usually be a short description of what it does.
-        [Tooltip("$Mods.ShardsOfAtheria.ConfigDesc.Aggression")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option.
-        [DefaultValue(true)]
-        public bool aggression;
-
-        [Label("$Mods.ShardsOfAtheria.Config.Experimental")]
-        [Tooltip("$Mods.ShardsOfAtheria.ConfigDesc.Experimental")]
-        [DefaultValue(false)]
-        [ReloadRequired]
-        public bool experimental;
-
         [Header("$Mods.ShardsOfAtheria.Config.MiscHeader")]
         [Label("$Mods.ShardsOfAtheria.Config.AltCaveHarpy")] // A label is the text displayed next to the option. This should usually be a short description of what it does.
         [Tooltip("$Mods.ShardsOfAtheria.ConfigDesc.AltCaveHarpy")] // A tooltip is a description showed when you hover your mouse over the option. It can be used as a more in-depth explanation of the option.

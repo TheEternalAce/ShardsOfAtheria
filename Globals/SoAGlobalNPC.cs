@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.NPCDebuff;
-using ShardsOfAtheria.Config;
 using ShardsOfAtheria.ItemDropRules.Condition;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
@@ -1082,7 +1081,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
-            if (npc.HasBuff(BuffID.Electrified) && ModContent.GetInstance<ShardsServerConfig>().experimental)
+            if (npc.HasBuff(BuffID.Electrified))
             {
                 if (npc.lifeRegen > 0)
                 {
