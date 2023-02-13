@@ -54,9 +54,6 @@ namespace ShardsOfAtheria.Players
         public int totalDamageTaken;
         public int lastDamageTaken;
 
-        public int defenseReduction;
-        public int defenseRegenTime;
-
         public int soulCrystalProjectileCooldown;
 
         public override void ResetEffects()
@@ -368,29 +365,6 @@ namespace ShardsOfAtheria.Players
             {
                 Player.AddBuff(ModContent.BuffType<Madness>(), 600);
             }
-            if (slayerMode)
-            {
-                int oldDefense = Player.statDefense;
-                Player.statDefense -= defenseReduction;
-                if (Player.statDefense < 0)
-                {
-                    defenseReduction = oldDefense;
-                }
-
-                if (defenseReduction > 0)
-                {
-                    defenseRegenTime--;
-                    if (defenseRegenTime <= 0)
-                    {
-                        defenseRegenTime = 10;
-                        defenseReduction--;
-                    }
-                }
-            }
-            else
-            {
-                defenseReduction = 0;
-            }
 
             if (soulCrystalProjectileCooldown > 0)
             {
@@ -607,12 +581,6 @@ namespace ShardsOfAtheria.Players
             {
                 totalDamageTaken += (int)damage;
                 lastDamageTaken = (int)damage;
-
-                if (Player.statDefense > 0)
-                {
-                    defenseReduction += (int)damage / 2;
-                    defenseRegenTime = 200;
-                }
             }
 
             if (soulCrystals.Contains(ModContent.ItemType<QueenSoulCrystal>()))
@@ -667,7 +635,6 @@ namespace ShardsOfAtheria.Players
 
         public override void OnRespawn(Player player)
         {
-            defenseReduction = 0;
             if (soulCrystals.Contains(ModContent.ItemType<EyeSoulCrystal>()))
             {
                 Projectile.NewProjectile(player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<AllSeeingEye>(), 0, 0f, player.whoAmI);

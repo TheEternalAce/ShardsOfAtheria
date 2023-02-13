@@ -7,7 +7,6 @@ using ShardsOfAtheria.Config;
 using ShardsOfAtheria.ItemDropRules.Condition;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
-using ShardsOfAtheria.Items.Consumable;
 using ShardsOfAtheria.Items.GrabBags;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.PetItems;
@@ -80,14 +79,6 @@ namespace ShardsOfAtheria.Globals
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
             Player player = Main.LocalPlayer;
-            if (type == NPCID.Merchant)
-            {
-                if (player.GetModPlayer<SlayerPlayer>().slayerMode)
-                {
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<RepairKit_Lesser>());
-                    nextSlot++;
-                }
-            }
             if (type == NPCID.TravellingMerchant)
             {
                 // Sells during a Full Moon
