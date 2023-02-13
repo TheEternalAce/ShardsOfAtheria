@@ -54,9 +54,9 @@ namespace ShardsOfAtheria.Items.Accessories.Hooks
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.GemHookAmethyst); // Copies the attributes of the Amethyst hook's projectile.
-            Projectile.width = 36;
-            Projectile.height = 36;
-            DrawOffsetX = 13;
+            Projectile.width = 10;
+            Projectile.height = 10;
+            //DrawOffsetX = 13;
         }
 
         // Use this hook for hooks that can have multiple hooks mid-flight: Dual Hook, Web Slinger, Fish Hook, Static Hook, Lunar Hook.
