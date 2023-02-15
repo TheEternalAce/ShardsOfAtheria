@@ -2,6 +2,7 @@
 using MMZeroElements;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,8 +15,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Metal.Add(Type);
             ProjectileElements.Electric.Add(Type);
+            ProjectileElements.Metal.Add(Type);
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
@@ -25,7 +28,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             Projectile.hostile = false;
             Projectile.timeLeft = 120;
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
             Projectile.extraUpdates = 0;
         }
 
@@ -54,6 +57,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Color color = new(227, 182, 245, 80);
+            Projectile.DrawProjectilePrims(color, ProjectileHelper.DiamondX1);
+            lightColor = Color.White;
+            return true;
         }
     }
 }

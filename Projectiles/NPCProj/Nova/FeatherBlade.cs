@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.AnyDebuff;
 using MMZeroElements;
+using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
@@ -11,8 +13,10 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
     {
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Metal.Add(Type);
             ProjectileElements.Electric.Add(Type);
+            ProjectileElements.Metal.Add(Type);
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
@@ -48,6 +52,14 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             {
                 target.AddBuff(ModContent.BuffType<ElectricShock>(), 300);
             }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Color color = new(227, 182, 245, 80);
+            Projectile.DrawProjectilePrims(color, ProjectileHelper.DiamondX1);
+            lightColor = Color.White;
+            return true;
         }
     }
 }

@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Weapons.Melee;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -13,7 +14,6 @@ namespace ShardsOfAtheria.Systems
     {
         // A place to store the recipe group so we can easily use it later
         public static RecipeGroup EvilMaterial;
-        public static RecipeGroup EvilGun;
         public static RecipeGroup Copper;
         public static RecipeGroup Silver;
         public static RecipeGroup Gold;
@@ -31,7 +31,6 @@ namespace ShardsOfAtheria.Systems
         public override void Unload()
         {
             EvilMaterial = null;
-            EvilGun = null;
             Copper = null;
             Silver = null;
             Gold = null;
@@ -45,6 +44,8 @@ namespace ShardsOfAtheria.Systems
 
         public override void AddRecipeGroups()
         {
+            AddAmmoToLists();
+
             EvilMaterial = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Evil Material",
                    ItemID.ShadowScale, ItemID.TissueSample);
             RecipeGroup.RegisterGroup("Shards:EvilMaterials", EvilMaterial);
@@ -82,18 +83,31 @@ namespace ShardsOfAtheria.Systems
                    ModContent.ItemType<SoulOfTwilight>(), ModContent.ItemType<SoulOfSpite>());
             RecipeGroup.RegisterGroup("Shards:Souls", Soul);
 
+            List<int> arrows = new();
+            arrows.AddRange(SoAGlobalItem.preHardmodeArrows);
+            arrows.AddRange(SoAGlobalItem.hardmodeArrows);
+            arrows.AddRange(SoAGlobalItem.postMoonLordArrows);
+
             Arrow = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} arrow",
-                   ItemID.WoodenArrow);
+                   arrows.ToArray());
             RecipeGroup.RegisterGroup("Shards:Arrows", Arrow);
 
+            List<int> bullets = new();
+            bullets.AddRange(SoAGlobalItem.preHardmodeBullets);
+            bullets.AddRange(SoAGlobalItem.hardmodeBullets);
+            bullets.AddRange(SoAGlobalItem.postMoonLordBullets);
             Bullet = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} bullet",
-                   ItemID.MusketBall);
+                   bullets.ToArray());
             RecipeGroup.RegisterGroup("Shards:Bullets", Bullet);
 
-            Rocket = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} rocket",
-                   ItemID.RocketI);
-            RecipeGroup.RegisterGroup("Shards:Rockets", Rocket);
+            List<int> rockets = new();
+            rockets.AddRange(SoAGlobalItem.preHardmodeRockets);
+            rockets.AddRange(SoAGlobalItem.hardmodeRockets);
+            rockets.AddRange(SoAGlobalItem.postMoonLordRockets);
 
+            Rocket = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} rocket",
+                   rockets.ToArray());
+            RecipeGroup.RegisterGroup("Shards:Rockets", Rocket);
 
             if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
             {
@@ -140,8 +154,23 @@ namespace ShardsOfAtheria.Systems
                 .AddIngredient(ItemID.ChaosFish, 4)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
+        }
 
-            #region Add ammo to lists
+        public override void PostAddRecipes()
+        {
+            for (var i = 0; i < Recipe.maxRecipes; i++)
+            {
+                Recipe recipe = Main.recipe[i];
+                if ((recipe.TryGetIngredient(ItemID.Bottle, out Item _) || recipe.TryGetIngredient(ItemID.BottledWater, out Item _) || recipe.TryGetIngredient(ItemID.BottledHoney, out Item _))
+                    && recipe.HasTile(TileID.Bottles) && recipe.createItem.buffTime > 0)
+                {
+                    SoAGlobalItem.Potions.Add(recipe.createItem.type);
+                }
+            }
+        }
+
+        void AddAmmoToLists()
+        {
             for (int i = 1; i < ItemLoader.ItemCount; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
@@ -166,7 +195,7 @@ namespace ShardsOfAtheria.Systems
                     }
                     if (item.ammo == AmmoID.Arrow)
                     {
-                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert  && item.rare != ItemRarityID.Master)
+                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert && item.rare != ItemRarityID.Master)
                         {
                             SoAGlobalItem.preHardmodeArrows.Add(type);
                         }
@@ -181,7 +210,7 @@ namespace ShardsOfAtheria.Systems
                     }
                     if (item.ammo == AmmoID.Bullet)
                     {
-                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert  && item.rare != ItemRarityID.Master)
+                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert && item.rare != ItemRarityID.Master)
                         {
                             SoAGlobalItem.preHardmodeBullets.Add(type);
                         }
@@ -196,7 +225,7 @@ namespace ShardsOfAtheria.Systems
                     }
                     if (item.ammo == AmmoID.Rocket)
                     {
-                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert  && item.rare != ItemRarityID.Master)
+                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert && item.rare != ItemRarityID.Master)
                         {
                             SoAGlobalItem.preHardmodeRockets.Add(type);
                         }
@@ -209,20 +238,6 @@ namespace ShardsOfAtheria.Systems
                             SoAGlobalItem.postMoonLordRockets.Add(type);
                         }
                     }
-                }
-            }
-            #endregion
-        }
-
-        public override void PostAddRecipes()
-        {
-            for (var i = 0; i < Recipe.maxRecipes; i++)
-            {
-                Recipe recipe = Main.recipe[i];
-                if ((recipe.TryGetIngredient(ItemID.Bottle, out Item _) || recipe.TryGetIngredient(ItemID.BottledWater, out Item _) || recipe.TryGetIngredient(ItemID.BottledHoney, out Item _))
-                    && recipe.HasTile(TileID.Bottles) && recipe.createItem.buffTime > 0)
-                {
-                    SoAGlobalItem.Potions.Add(recipe.createItem.type);
                 }
             }
         }

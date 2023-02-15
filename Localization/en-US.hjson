@@ -83,7 +83,7 @@ Mods: {
 		SetBonus: {
 			Pearlwood:
 				'''
-				6 defense
+				5 defense
 				Increases maximum mana by 40
 				Increases damage and critical strike chance by 15%
 				Press {0} to summon 10 Soul Daggers that orbit around you
@@ -1038,7 +1038,7 @@ Mods: {
 			# NPCs
 				# Nova Stellar
 			ElectricTrail: Electric Trail
-			FeatherBlade: Feather Blade
+			FeatherBlade: Hardlight Feather
 			LightningBolt: Lightning Bolt
 			LightningBoltSpawner: Lightning Bolt Spawner
 			StormCloud: Storm Cloud
@@ -1117,7 +1117,7 @@ Mods: {
 			CorruptRose: Corrupt Rose
 			EntropyBlade: Entropy Blade
 			EntropySlash: Entropy Slash
-			FeatherBladeFriendly: Feather Blade
+			FeatherBladeFriendly: Hardlight Feather
 			Genesis_Spear: Genesis
 			Genesis_Spear2: Genesis
 			Genesis_Sword: Genesis

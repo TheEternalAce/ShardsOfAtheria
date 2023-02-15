@@ -457,7 +457,7 @@ namespace ShardsOfAtheria.Globals
                     }
                     if (npc.type == NPCID.Harpy)
                     {
-                        item.color = new Color(101, 187, 236);
+                        item.color = default;
                     }
                     if (npc.type == ModContent.NPCType<SnowHarpy>())
                     {
@@ -479,48 +479,7 @@ namespace ShardsOfAtheria.Globals
         {
             if (item.type == ItemID.Feather)
             {
-                Asset<Texture2D> feather = TextureAssets.Item[ItemID.Feather];
-                string path = "ShardsOfAtheria/Items/Materials/Feathers/";
-                if (item.color == Color.Gray)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Cave");
-                }
-                if (item.color == Color.Purple)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Corrupt");
-                }
-                if (item.color == Color.Red)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Crimson");
-                }
-                if (item.color == Color.Yellow)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Dessert");
-                }
-                if (item.color == Color.GreenYellow)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Forest");
-                }
-                if (item.color == Color.Pink)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Hallowed");
-                }
-                if (item.color == new Color(101, 187, 236))
-                {
-                    return true;
-                }
-                if (item.color == Color.LightBlue)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Snow");
-                }
-                if (item.color == Color.Cyan)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Ocean");
-                }
-                if (item.color == Color.DarkGray)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Void");
-                }
+                Asset<Texture2D> feather = AltFeatherSpriteItem(item);
                 spriteBatch.Draw(feather.Value, position, null, drawColor, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
                 return false;
             }
@@ -531,52 +490,67 @@ namespace ShardsOfAtheria.Globals
         {
             if (item.type == ItemID.Feather)
             {
-                Asset<Texture2D> feather = TextureAssets.Item[ItemID.Feather];
-                string path = "ShardsOfAtheria/Items/Materials/Feathers/";
-                if (item.color == Color.Gray)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Cave");
-                }
-                if (item.color == Color.Purple)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Corrupt");
-                }
-                if (item.color == Color.Red)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Crimson");
-                }
-                if (item.color == Color.Yellow)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Dessert");
-                }
-                if (item.color == Color.GreenYellow)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Forest");
-                }
-                if (item.color == Color.Pink)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Hallowed");
-                }
-                if (item.color == new Color(101, 187, 236))
-                {
-                    return true;
-                }
-                if (item.color == Color.LightBlue)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Snow");
-                }
-                if (item.color == Color.Cyan)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Ocean");
-                }
-                if (item.color == Color.DarkGray)
-                {
-                    feather = ModContent.Request<Texture2D>(path + "Void");
-                }
+                Asset<Texture2D> feather = AltFeatherSpriteItem(item);
                 item.BasicInWorldGlowmask(spriteBatch, feather.Value, lightColor, rotation, scale);
                 return false;
             }
             return base.PreDrawInWorld(item, spriteBatch, lightColor, alphaColor, ref rotation, ref scale, whoAmI);
+        }
+
+        Asset<Texture2D> AltFeatherSpriteItem(Item item)
+        {
+            Asset<Texture2D> feather;
+            string path = "ShardsOfAtheria/Items/Materials/Feathers/";
+            if (AltFeather(item) == "Default")
+            {
+                feather = TextureAssets.Item[ItemID.Feather];
+            }
+            else
+            {
+                feather = ModContent.Request<Texture2D>(path + AltFeather(item));
+            }
+            return feather;
+        }
+
+        string AltFeather(Item item)
+        {
+            if (item.color == Color.Gray)
+            {
+                return "Cave";
+            }
+            if (item.color == Color.Purple)
+            {
+                return "Corrupt";
+            }
+            if (item.color == Color.Red)
+            {
+                return "Crimson";
+            }
+            if (item.color == Color.Yellow)
+            {
+                return "Dessert";
+            }
+            if (item.color == Color.GreenYellow)
+            {
+                return "Forest";
+            }
+            if (item.color == Color.Pink)
+            {
+                return "Hallowed";
+            }
+            if (item.color == Color.LightBlue)
+            {
+                return "Snow";
+            }
+            if (item.color == Color.Cyan)
+            {
+                return "Ocean";
+            }
+            if (item.color == Color.DarkGray)
+            {
+                return "Void";
+            }
+            return "Default";
         }
     }
 }
