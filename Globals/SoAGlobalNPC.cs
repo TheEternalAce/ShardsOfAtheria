@@ -1041,6 +1041,7 @@ namespace ShardsOfAtheria.Globals
                             ProjectileID.WaterGun, 0, 0f, Main.myPlayer);
                         proj.CallStorm(3);
                         proj.Kill();
+                        npc.ai[0] = 91;
                     }
                 }
             }
