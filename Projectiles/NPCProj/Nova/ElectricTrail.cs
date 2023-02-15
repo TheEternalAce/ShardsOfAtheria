@@ -1,5 +1,5 @@
-﻿using ShardsOfAtheria.Buffs.AnyDebuff;
-using MMZeroElements;
+﻿using MMZeroElements;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,6 +8,8 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {
     public class ElectricTrail : ModProjectile
     {
+        public override string Texture => "ShardsOfAtheria/Blank";
+
         public override void SetStaticDefaults()
         {
             ProjectileElements.Electric.Add(Type);
