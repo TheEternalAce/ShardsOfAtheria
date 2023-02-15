@@ -57,6 +57,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                         ProjectileID.QueenSlimeMinionBlueSpike, 10, 0f, Main.myPlayer);
                     proj.friendly = false;
                     proj.hostile = true;
+                    NPC.ai[0] = 91;
                 }
                 else if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
                 {

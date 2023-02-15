@@ -69,9 +69,10 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                 if (Main.rand.NextBool(3))
                 {
                     int dir = Main.rand.NextBool(2) ? 1 : -1;
-                    Vector2 position = Main.player[NPC.target].Center + new Vector2((130 + Main.rand.Next(100)) * dir, 0);
+                    Vector2 position = Main.player[NPC.target].Center + new Vector2((230) * dir, 0);
                     Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), position, Vector2.Zero,
                         ModContent.ProjectileType<FlamePillar>(), 12, 0f, Main.myPlayer);
+                    NPC.ai[0] = 91;
                 }
                 else if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
                 {

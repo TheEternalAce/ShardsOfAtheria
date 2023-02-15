@@ -57,6 +57,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                     Vector2 position = NPC.Center + Vector2.Normalize(velocity) * 10f;
                     Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), position, velocity * 7f,
                         ModContent.ProjectileType<TidalWave>(), 10, 0f, Main.myPlayer);
+                    NPC.ai[0] = 91;
                 }
                 else if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
                 {

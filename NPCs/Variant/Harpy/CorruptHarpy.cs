@@ -52,6 +52,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                 if (Main.rand.NextBool(3))
                 {
                     NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCID.VileSpit);
+                    NPC.ai[0] = 91;
                 }
                 else if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
                 {
