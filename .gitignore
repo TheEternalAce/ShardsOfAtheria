@@ -9,6 +9,8 @@
 /.vs/ShardsOfAtheria/v16
 /.vs
 /bin/Debug/net6.0
-/SoA Demonstrations
-/NPCs/NovaStellar/NPC_48.png
-/Shards Of Atheria Sprites.aseprite
+/ShardsOfAtheriaSprites.aseprite
+/.csproj
+/.sln
+/.user
+/.editorconfig

@@ -10,10 +10,13 @@
   <ItemGroup>
     <Compile Remove="Items\ModItems\**" />
     <Compile Remove="SoA Demonstrations\**" />
+    <Compile Remove="Walls\**" />
     <EmbeddedResource Remove="Items\ModItems\**" />
     <EmbeddedResource Remove="SoA Demonstrations\**" />
+    <EmbeddedResource Remove="Walls\**" />
     <None Remove="Items\ModItems\**" />
     <None Remove="SoA Demonstrations\**" />
+    <None Remove="Walls\**" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
@@ -27,7 +30,6 @@
     <Folder Include="NPCs\Boss\Genesis\" />
     <Folder Include="NPCs\Boss\Senterra\" />
     <Folder Include="NPCs\Boss\NovaStellar\PhoenixWarrior\" />
-    <Folder Include="Walls\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MMZeroElements">
