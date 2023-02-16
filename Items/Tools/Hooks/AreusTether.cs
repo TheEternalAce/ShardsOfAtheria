@@ -1,15 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Accessories.Hooks
+namespace ShardsOfAtheria.Items.Tools.Hooks
 {
-    internal class HardlightNeedle : ModItem
+    internal class AreusTether : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -21,28 +21,30 @@ namespace ShardsOfAtheria.Items.Accessories.Hooks
             // Copy values from the Amethyst Hook
             Item.CloneDefaults(ItemID.AmethystHook);
             Item.shootSpeed = 18f; // This defines how quickly the hook is shot.
-            Item.shoot = ModContent.ProjectileType<HardlightNeedleHook>(); // Makes the item shoot the hook's projectile when used.
+            Item.shoot = ModContent.ProjectileType<AreusTetherHook>(); // Makes the item shoot the hook's projectile when used.
         }
 
         // Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<ChargedFeather>(), 16)
-                .AddRecipeGroup(ShardsRecipes.Gold, 16)
-                .AddTile(TileID.Anvils)
+                .AddIngredient(ModContent.ItemType<AreusShard>(), 16)
+                .AddRecipeGroup(ShardsRecipes.Gold, 5)
+                .AddIngredient(ItemID.LunarBar, 8)
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
     }
 
-    internal class HardlightNeedleHook : ModProjectile
+    internal class AreusTetherHook : ModProjectile
     {
         private static Asset<Texture2D> chainTexture;
+        private const int hookAmount = 4;
 
         public override void Load()
         { // This is called once on mod (re)load when this piece of content is being loaded.
           // This is the path to the texture that we'll use for the hook's chain. Make sure to update it.
-            chainTexture = ModContent.Request<Texture2D>("ShardsOfAtheria/Items/Accessories/Hooks/HardlightNeedle_Chain");
+            chainTexture = ModContent.Request<Texture2D>("ShardsOfAtheria/Items/Tools/Hooks/AreusTether_Chain");
         }
 
         public override void Unload()
@@ -54,9 +56,6 @@ namespace ShardsOfAtheria.Items.Accessories.Hooks
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.GemHookAmethyst); // Copies the attributes of the Amethyst hook's projectile.
-            Projectile.width = 10;
-            Projectile.height = 10;
-            //DrawOffsetX = 13;
         }
 
         // Use this hook for hooks that can have multiple hooks mid-flight: Dual Hook, Web Slinger, Fish Hook, Static Hook, Lunar Hook.
@@ -71,7 +70,7 @@ namespace ShardsOfAtheria.Items.Accessories.Hooks
                 }
             }
 
-            return hooksOut <= 3;
+            return hooksOut <= hookAmount;
         }
 
         // Return true if it is like: Hook, CandyCaneHook, BatHook, GemHooks
@@ -113,7 +112,7 @@ namespace ShardsOfAtheria.Items.Accessories.Hooks
 
         public override void NumGrappleHooks(Player player, ref int numHooks)
         {
-            numHooks = 3; // The amount of hooks that can be shot out
+            numHooks = hookAmount; // The amount of hooks that can be shot out
         }
 
         // default is 11, Lunar is 24
@@ -124,7 +123,7 @@ namespace ShardsOfAtheria.Items.Accessories.Hooks
 
         public override void GrapplePullSpeed(Player player, ref float speed)
         {
-            speed = 22; // How fast you get pulled to the grappling hook projectile's landing position
+            speed = 30; // How fast you get pulled to the grappling hook projectile's landing position
         }
 
         // Draws the grappling hook's chain.
