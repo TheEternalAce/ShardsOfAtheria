@@ -9,8 +9,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {
     public class StormCloud : ModProjectile
     {
-        public override string Texture => "ShardsOfAtheria/Blank";
-
         public override void SetStaticDefaults()
         {
             ProjectileElements.Electric.Add(Type);
@@ -43,13 +41,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
                 Height = Projectile.height * 4,
                 Location = Projectile.position.ToPoint()
             };
-
-            Dust dustLeft = Dust.NewDustDirect(Projectile.position, 1, Projectile.height * 4, DustID.Electric);
-            dustLeft.noGravity = true;
-            Dust dustRight = Dust.NewDustDirect(new Vector2(Projectile.position.X + Projectile.width, Projectile.position.Y), 1, Projectile.height * 4, DustID.Electric);
-            dustRight.noGravity = true;
-            Dust dustBottom = Dust.NewDustDirect(new Vector2(Projectile.position.X, Projectile.position.Y + (Projectile.height * 4)), Projectile.width, 1, DustID.Electric);
-            dustBottom.noGravity = true;
 
             Vector2 newCenter = player.Center;
             int dirX = saferArea.Center.X < player.Center.X ? 1 : -1;
@@ -96,6 +87,12 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
         {
             Projectile.velocity = Vector2.Zero;
             return false;
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            lightColor = Color.White;
+            return base.PreDraw(ref lightColor);
         }
     }
 }

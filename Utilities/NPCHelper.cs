@@ -25,6 +25,18 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
+        public static void MoveToPoint(this NPC npc, Vector2 point, float speed)
+        {
+            if (Vector2.Distance(point, npc.Center) <= 10)
+            {
+                npc.Center = point;
+            }
+            else
+            {
+                npc.position += Vector2.Normalize(point - npc.Center) * speed;
+            }
+        }
+
         public static void DropFromItem(int itemType, Player player)
         {
             DropAttemptInfo info = new()

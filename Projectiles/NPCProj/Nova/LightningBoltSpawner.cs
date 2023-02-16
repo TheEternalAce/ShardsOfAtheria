@@ -8,8 +8,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {
     public class LightningBoltSpawner : ModProjectile
     {
-        public override string Texture => "ShardsOfAtheria/Blank";
-
         public override void SetDefaults()
         {
             Projectile.width = 20;
@@ -24,7 +22,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override void AI()
         {
-            Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, 700, DustID.Electric);
+            Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Electric);
             dust.noGravity = true;
         }
 
@@ -32,6 +30,12 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
         {
             SoundEngine.PlaySound(SoundID.Item43);
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(0, 1) * 2f, ModContent.ProjectileType<LightningBolt>(), 16, Projectile.knockBack, Main.myPlayer);
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            lightColor = Color.White;
+            return base.PreDraw(ref lightColor);
         }
     }
 }
