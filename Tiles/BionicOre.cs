@@ -1,8 +1,8 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Placeable;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Placeable;
 
 namespace ShardsOfAtheria.Tiles
 {
@@ -14,8 +14,8 @@ namespace ShardsOfAtheria.Tiles
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileLighted[Type] = true;
-			Main.tileSpelunker[Type] = true; // The tile will be affected by spelunker highlighting
-			Main.tileOreFinderPriority[Type] = 410;
+            Main.tileSpelunker[Type] = true; // The tile will be affected by spelunker highlighting
+            Main.tileOreFinderPriority[Type] = 240;
 
             ItemDrop = ModContent.ItemType<BionicOreItem>();
 

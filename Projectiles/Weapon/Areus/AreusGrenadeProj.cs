@@ -40,7 +40,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
                 Projectile.friendly = true;
                 for (int i = 0; i < 5; i++)
                 {
-                    Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<AreusDust_Standard>());
+                    Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<AreusDust>());
                     dust.velocity *= 2f;
                 }
             }

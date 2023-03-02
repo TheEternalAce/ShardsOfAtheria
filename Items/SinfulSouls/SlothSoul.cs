@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -22,6 +22,16 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         }
     }
 
+    public class SlothPlayer : ModPlayer
+    {
+        public bool sloth;
+
+        public override void ResetEffects()
+        {
+            sloth = false;
+        }
+    }
+
     public class SlothBuff : SinfulSoulBuff
     {
         public override void SetStaticDefaults()
@@ -32,7 +42,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 6;
+            player.Sloth().sloth = true;
             if (player.velocity == Vector2.Zero)
             {
                 player.GetDamage(DamageClass.Generic) += 0.2f;

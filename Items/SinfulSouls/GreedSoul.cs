@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Players;
+﻿using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -30,9 +30,16 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
     public class GreedPlayer : ModPlayer
     {
+        public bool greed;
+
+        public override void ResetEffects()
+        {
+            greed = false;
+        }
+
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
-            if (Player.HasBuff(ModContent.BuffType<GreedBuff>()))
+            if (greed)
             {
                 if (Player.HasItem(ItemID.PlatinumCoin))
                 {
@@ -64,7 +71,6 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 3;
             if (player.HasItem(ItemID.GoldCoin))
             {
                 for (int i = 0; i < player.inventory[player.FindItem(ItemID.GoldCoin)].stack; i++)
@@ -73,6 +79,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
                     player.statDefense -= 2;
                 }
             }
+            player.Greed().greed = true;
             base.Update(player, ref buffIndex);
         }
     }

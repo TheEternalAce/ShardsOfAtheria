@@ -1,5 +1,5 @@
-﻿using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Other;
+﻿using ShardsOfAtheria.Projectiles.Other;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -115,9 +115,8 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            GluttonyPlayer gluttonyPlayer = player.GetModPlayer<GluttonyPlayer>();
+            GluttonyPlayer gluttonyPlayer = player.Gluttony();
 
-            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 2;
             gluttonyPlayer.gluttony = true;
             player.GetDamage(DamageClass.Melee) += .15f;
             player.statDefense -= 7;

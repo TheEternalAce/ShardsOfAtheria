@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Systems;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,6 +22,7 @@ namespace ShardsOfAtheria.Items.Tools.Hooks
             Item.CloneDefaults(ItemID.AmethystHook);
             Item.shootSpeed = 18f; // This defines how quickly the hook is shot.
             Item.shoot = ModContent.ProjectileType<HardlightNeedleHook>(); // Makes the item shoot the hook's projectile when used.
+            Item.rare = ItemRarityID.Green;
         }
 
         // Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
@@ -110,7 +110,7 @@ namespace ShardsOfAtheria.Items.Tools.Hooks
         // Travel 16 tiles
         public override float GrappleRange()
         {
-            return (int)Math.Pow(16, 2);
+            return 320;
         }
 
         public override void NumGrappleHooks(Player player, ref int numHooks)
@@ -126,7 +126,7 @@ namespace ShardsOfAtheria.Items.Tools.Hooks
 
         public override void GrapplePullSpeed(Player player, ref float speed)
         {
-            speed = 22; // How fast you get pulled to the grappling hook projectile's landing position
+            speed = 17; // How fast you get pulled to the grappling hook projectile's landing position
         }
 
         // Draws the grappling hook's chain.

@@ -58,6 +58,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                         ModContent.ProjectileType<IceShard>(), 10, 0f, Main.myPlayer);
                     proj.friendly = false;
                     proj.hostile = true;
+                    proj.tileCollide = false;
                     NPC.ai[0] = 91;
                 }
                 else if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))

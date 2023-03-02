@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using MMZeroElements;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -43,9 +44,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 2; i++)
             {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Stone, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 0, new Color(0, 200, 255), 0.75f);
+                Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Blue>(), Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
+                Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Pink>(), Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
             }
         }
 

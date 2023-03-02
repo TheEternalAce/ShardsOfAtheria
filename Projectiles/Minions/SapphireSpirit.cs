@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.Summons;
-using ShardsOfAtheria.Dusts;
-using ShardsOfAtheria.Globals;
+using MMZeroElements;
+using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -10,37 +9,44 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Minions
 {
-    public class AreusMirrorShard : ModProjectile
+    public class SapphireSpirit : ModProjectile
     {
+        int shootTimer = 0;
+        int idleTimer = 0;
+        bool sleep = false;
+        bool grounded = false;
+
         public override void SetStaticDefaults()
         {
+            Main.projFrames[Type] = 5;
             // This is necessary for right-click targeting
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
             Main.projPet[Projectile.type] = true; // Denotes that this projectile is a pet or minion
 
-            ProjectileID.Sets.MinionSacrificable[Projectile.type] = true; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
+            ProjectileID.Sets.MinionSacrificable[Projectile.type] = false; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
-            SoAGlobalProjectile.AreusProj.Add(Type);
+            ProjectileElements.Metal.Add(Type);
+            ProjectileElements.Electric.Add(Type);
         }
 
         public override void SetDefaults()
         {
-            Projectile.friendly = true;
-            Projectile.width = 10;
-            Projectile.height = 10;
-            Projectile.DamageType = DamageClass.Summon;
+            Projectile.netImportant = true;
+            Projectile.width = 22;
+            Projectile.height = 38;
+            Projectile.aiStyle = -1;
             Projectile.penetrate = -1;
+            Projectile.timeLeft *= 5;
+            Projectile.minion = true;
+            Projectile.minionSlots = 0f;
             Projectile.tileCollide = false;
-            Projectile.damage = 3;
-            Projectile.ArmorPenetration = 100;
-            Projectile.usesLocalNPCImmunity = true; // Used for hit cooldown changes in the ai hook
-            Projectile.localNPCHitCooldown = 60; // This facilitates custom hit cooldown logic
-            Projectile.minion = true; // Declares this as a minion (has many effects)
-            Projectile.minionSlots = 0.16f; // Amount of slots this minion occupies from the total minion slots available to the player (more on that later)
-            Projectile.usesLocalNPCImmunity = true;
+            Projectile.ignoreWater = true;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Summon;
 
             DrawOffsetX = -6;
+            DrawOriginOffsetY = -4;
         }
 
         // Here you can decide if your minion breaks things like grass or pots
@@ -52,47 +58,45 @@ namespace ShardsOfAtheria.Projectiles.Minions
         // This is mandatory if your minion deals contact damage (further related stuff in AI() in the Movement region)
         public override bool MinionContactDamage()
         {
-            return true;
+            return false;
         }
 
-        // The AI of this minion is split into multiple methods to avoid bloat. This method just passes values between calls actual parts of the AI.
         public override void AI()
         {
             Player owner = Main.player[Projectile.owner];
 
+            Projectile.netUpdate = true;
             if (!CheckActive(owner))
             {
+                Projectile.Kill();
                 return;
             }
 
-            GeneralBehavior(owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition);
-            SearchForTargets(owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter);
-            Movement(foundTarget, distanceFromTarget, targetCenter, distanceToIdlePosition, vectorToIdlePosition);
             Visuals();
-        }
-
-        public override void Kill(int timeLeft)
-        {
-            for (int i = 0; i < 10; i++)
+            GeneralBehavior(owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition);
+            bool foundTarget = false;
+            float distanceFromTarget = 0;
+            Vector2 targetCenter = Vector2.Zero;
+            if (owner.ShardsOfAtheria().superSapphireCore)
             {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<AreusDust>());
+                SearchForTargets(owner, out foundTarget, out distanceFromTarget, out targetCenter);
             }
-            SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
-        }
-
-        // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
-        private bool CheckActive(Player owner)
-        {
-            if (owner.dead || !owner.active || !owner.HasBuff(ModContent.BuffType<AreusMirrorBuff>()))
-                return false;
-            else Projectile.timeLeft = 2;
-            return true;
+            if (sleep && !foundTarget)
+            {
+                DoSleep();
+            }
+            else
+            {
+                Projectile.tileCollide = false;
+                Movement(foundTarget, distanceFromTarget, targetCenter, distanceToIdlePosition, vectorToIdlePosition);
+            }
         }
 
         private void GeneralBehavior(Player owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition)
         {
             Vector2 idlePosition = owner.Center;
-            idlePosition.Y -= 50f; // Go up 48 coordinates (three tiles from the center of the player)
+            idlePosition.X += 48f * owner.direction; // Go up 48 coordinates (three tiles from the center of the player)
+            idlePosition.Y -= 48f; // Go up 48 coordinates (three tiles from the center of the player)
 
             // If your minion doesn't aimlessly move around when it's idle, you need to "put" it into the line of other summoned minions
             // The index is projectile.minionPos
@@ -193,40 +197,59 @@ namespace ShardsOfAtheria.Projectiles.Minions
                     }
                 }
             }
-
-            // friendly needs to be set to true so the minion can deal contact damage
-            // friendly needs to be set to false so it doesn't damage things like target dummies while idling
-            // Both things depend on if it has a target or not, so it's just one assignment here
-            // You don't need this assignment if your minion is shooting things instead of dealing contact damage
-            Projectile.friendly = foundTarget;
+            else
+            {
+                sleep = false;
+                idleTimer = 0;
+                Projectile.frame = 0;
+                Projectile.frameCounter = 0;
+            }
         }
 
-        public int moveTimer = 0;
         private void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
         {
             // Default movement parameters (here for attacking)
-            float speed = 64f;
+            float speed = 16f;
             float inertia = 20f;
 
             if (foundTarget)
             {
-                // Minion has a target: attack (here, fly towards the enemy)
-                if (distanceFromTarget > 40f)
-                {
-                    // The immediate range around the target (so it doesn't latch onto it when close)
-                    Vector2 direction = targetCenter - Projectile.Center;
-                    direction.Normalize();
-                    direction *= speed;
+                Projectile.hostile = false;
+                speed = 4f;
+                inertia = 80f;
+                Vector2 newIdlePosition = targetCenter - Projectile.Center;
+                newIdlePosition.Y -= 124f;
 
-                    if (++moveTimer >= 5)
+                newIdlePosition.Normalize();
+                newIdlePosition *= speed;
+
+                Projectile.velocity = (Projectile.velocity * (inertia - 1) + newIdlePosition) / inertia;
+
+                if (Projectile.damage == 0)
+                {
+                    return;
+                }
+                if (++shootTimer >= 120)
+                {
+                    Projectile.frame = 2;
+                    Projectile.frameCounter = 0;
+                    Projectile.damage = 50;
+                    Projectile.spriteDirection = targetCenter.X < Projectile.Center.X ? -1 : 1;
+                    float numberProjectiles = 3; // 3 shots
+                    float rotation = MathHelper.ToRadians(5);
+                    for (int i = 0; i < numberProjectiles; i++)
                     {
-                        Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
-                        moveTimer = 0;
+                        Vector2 vel = Vector2.Normalize(targetCenter - Projectile.Center);
+                        Vector2 perturbedSpeed = vel.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * 10f; // Watch out for dividing by 0 if there is only 1 projectile.
+                        Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, perturbedSpeed,
+                            ModContent.ProjectileType<SapphireBolt>(), Projectile.damage, 0, Projectile.owner);
                     }
+                    shootTimer = 0;
                 }
             }
             else
             {
+                shootTimer = 0;
                 // Minion doesn't have a target: return to player and idle
                 if (distanceToIdlePosition > 600f)
                 {
@@ -241,6 +264,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
                     inertia = 80f;
                 }
 
+                sleep = false;
                 if (distanceToIdlePosition > 20f)
                 {
                     // The immediate range around the player (when it passively floats about)
@@ -256,15 +280,101 @@ namespace ShardsOfAtheria.Projectiles.Minions
                     Projectile.velocity.X = -0.15f;
                     Projectile.velocity.Y = -0.05f;
                 }
+                else if (++idleTimer >= 600)
+                {
+                    sleep = true;
+                    Projectile.velocity.X = 0;
+                }
             }
+        }
+
+        void DoSleep()
+        {
+            Player owner = Main.player[Projectile.owner];
+
+            Projectile.tileCollide = true;
+            if (++Projectile.velocity.Y >= 16f)
+            {
+                Projectile.velocity.Y = 16f;
+            }
+            if (Projectile.velocity.X != 0)
+            {
+                Projectile.velocity.X = 0;
+            }
+            Projectile.frame = 4;
+            Projectile.frameCounter = 0;
+            Projectile.rotation = 0;
+
+            if (Vector2.Distance(owner.Center, Projectile.Center) >= 200)
+            {
+                sleep = false;
+                idleTimer = 0;
+                grounded = false;
+            }
+        }
+
+        // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
+        private bool CheckActive(Player owner)
+        {
+            if (owner.dead || !owner.active || !owner.ShardsOfAtheria().sapphireSpirit)
+                return false;
+            else Projectile.timeLeft = 2;
+            return true;
         }
 
         private void Visuals()
         {
+            if (sleep)
+            {
+                return;
+            }
+
             // So it will lean slightly towards the direction it's moving
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
-            // Some visuals here
-            Lighting.AddLight(Projectile.Center, Color.White.ToVector3() * 0.78f);
+            Projectile.rotation = Projectile.velocity.X * 0.05f;
+
+            if (idleTimer >= 400)
+            {
+                Projectile.frame = 1;
+                return;
+            }
+
+            // This is a simple "loop through all frames from top to bottom" animation
+            int frameTime = 5;
+            if (Projectile.frame == 0)
+            {
+                frameTime = 120;
+            }
+            if (Projectile.frame == 1)
+            {
+                frameTime = 60;
+            }
+            if (Projectile.frame == 2)
+            {
+                frameTime = 20;
+            }
+
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter >= frameTime)
+            {
+                Projectile.spriteDirection = 1;
+                Projectile.frameCounter = 0;
+                Projectile.frame++;
+
+                if (Projectile.frame >= 3)
+                {
+                    Projectile.frame = 0;
+                }
+            }
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            if (!grounded)
+            {
+                SoundEngine.PlaySound(SoundID.Item53);
+                grounded = true;
+            }
+            return false;
         }
     }
 }

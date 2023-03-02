@@ -16,15 +16,15 @@ namespace ShardsOfAtheria.Tiles
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileLighted[Type] = true;
-            Main.tileOreFinderPriority[Type] = 725;
+            Main.tileOreFinderPriority[Type] = 260;
 
             ItemDrop = ModContent.ItemType<AreusShard>();
 
             ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Areus Ore");
+            name.SetDefault("Areus Shard");
             AddMapEntry(new Color(100, 150, 200), name);
 
-            DustType = ModContent.DustType<AreusDust_Standard>();
+            DustType = ModContent.DustType<AreusDust>();
             MinPick = 65;
             HitSound = SoundID.Tink;
         }
@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Tiles
 
         public override void FloorVisuals(Player player)
         {
-            player.AddBuff(ModContent.BuffType<ElectricShock>(), 5*60);
+            player.AddBuff(ModContent.BuffType<ElectricShock>(), 5 * 60);
         }
     }
 }

@@ -4,19 +4,16 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Dusts
 {
-    public class AreusDust_Standard : ModDust
+    public class AreusDusts : ModDust
     {
+        internal int colorType;
+        internal Vector3 color;
+
         public override string Texture => "ShardsOfAtheria/Dusts/AreusDusts"; // If we want to use vanilla texture
 
         public override void OnSpawn(Dust dust)
         {
-            dust.velocity *= 1f; // Multiply the dust's start velocity by 0.4, slowing it down
-            dust.noGravity = false; // Makes the dust have no gravity.
-            dust.noLight = false; // Makes the dust emit no light.
-            dust.noLightEmittence = false;
-            dust.scale *= 1f; // Multiplies the dust's initial scale by 1.5.
-
-            int desiredDustTexture = 0;
+            int desiredDustTexture = colorType;
             int frameX = desiredDustTexture * 10 % 1000;
             int frameY = desiredDustTexture * 10 / 1000 * 30 + Main.rand.Next(3) * 10;
             dust.frame = new Rectangle(frameX, frameY, 8, 8);
@@ -24,9 +21,57 @@ namespace ShardsOfAtheria.Dusts
 
         public override bool Update(Dust dust)
         {
-            float scale = 0.25f;
-            Lighting.AddLight(dust.position, 0 * scale, 1 * scale, 1 * scale);
+            Lighting.AddLight(dust.position, color);
             return base.Update(dust);
+        }
+
+        public override Color? GetAlpha(Dust dust, Color lightColor)
+        {
+            return base.GetAlpha(dust, Color.White);
+        }
+    }
+
+    public class AreusDust : AreusDusts
+    {
+        public override void OnSpawn(Dust dust)
+        {
+            colorType = 0;
+            float scale = 0.25f;
+            color = new(0 * scale, 1 * scale, 1 * scale);
+            base.OnSpawn(dust);
+        }
+    }
+
+    public class AreusDust_Gray : AreusDusts
+    {
+        public override void OnSpawn(Dust dust)
+        {
+            colorType = 1;
+            float scale = 0.25f;
+            color = new(1 * scale, 1 * scale, 1 * scale);
+            base.OnSpawn(dust);
+        }
+    }
+
+    public class AreusDust_Red : AreusDusts
+    {
+        public override void OnSpawn(Dust dust)
+        {
+            colorType = 2;
+            float scale = 0.25f;
+            color = new(1 * scale, 0 * scale, 0 * scale);
+            base.OnSpawn(dust);
+        }
+    }
+
+    public class AreusDust_Yellow : AreusDusts
+    {
+        public override void OnSpawn(Dust dust)
+        {
+            colorType = 3;
+            float scale = 0.25f;
+            color = new(1 * scale, 1 * scale, 0 * scale);
+            base.OnSpawn(dust);
         }
     }
 }

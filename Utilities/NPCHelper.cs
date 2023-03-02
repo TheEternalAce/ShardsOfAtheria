@@ -3,7 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Systems;
 using Terraria;
+using Terraria.Chat;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.Localization;
 
 namespace ShardsOfAtheria.Utilities
 {
@@ -13,6 +16,38 @@ namespace ShardsOfAtheria.Utilities
         {
             Vector2 drawPos = npc.Center - screenPos;
             spriteBatch.Draw(glowTexture, drawPos, npc.frame, color, npc.rotation, npc.frame.Size() / 2f, npc.scale, effects, 0f);
+        }
+
+        public static void UseDialogue(this NPC npc, string text, Color color)
+        {
+            string dialogue = $"<{npc.GivenName}> {text}";
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                for (int i = 0; i < Main.maxPlayers; i++)
+                {
+                    Player player = Main.player[i];
+                    if (Vector2.Distance(player.Center, npc.Center) <= 500)
+                    {
+                        ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(dialogue), color, player.whoAmI);
+                    }
+                }
+            }
+        }
+
+        public static void UseDialogueWithKey(this NPC npc, string key, Color color)
+        {
+            string dialogue = $"<{npc.GivenName}> {Language.GetTextValue(key)}";
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                for (int i = 0; i < Main.maxPlayers; i++)
+                {
+                    Player player = Main.player[i];
+                    if (Vector2.Distance(player.Center, npc.Center) <= 500)
+                    {
+                        ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(dialogue), color, player.whoAmI);
+                    }
+                }
+            }
         }
 
         public static void SlayNPC(this NPC npc, Player player)

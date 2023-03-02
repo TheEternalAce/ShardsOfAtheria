@@ -7,14 +7,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
 	public class SapphireCore : ModItem
 	{
-		public override void Load()
-		{
-			if (Main.netMode != NetmodeID.Server)
-			{
-				EquipLoader.AddEquipTexture(Mod, "ShardsOfAtheria/Items/Accessories/GemCores/SapphireSpirit", EquipType.Balloon, this, "SapphireSpirit");
-			}
-		}
-
 		public override void SetStaticDefaults()
 		{
 			SacrificeTotal = 1;

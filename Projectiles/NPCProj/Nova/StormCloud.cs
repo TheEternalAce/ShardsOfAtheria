@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using MMZeroElements;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Items.Weapons.Magic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -26,6 +28,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             Projectile.timeLeft = 220;
         }
 
+        Vector2[] spawnPoints = new Vector2[8];
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -33,6 +36,22 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             {
                 Projectile.Center = player.Center + new Vector2(0, -400);
                 Projectile.ai[0] = 1;
+            }
+
+            if (++Projectile.ai[1] == 1)
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    spawnPoints[i] = Projectile.position + new Vector2(Main.rand.Next(Projectile.width), 100);
+                }
+            }
+
+            for (int i = 0; i < 8; i++)
+            {
+                if (spawnPoints != null)
+                {
+                    Dust.NewDustPerfect(spawnPoints[i], DustID.Electric);
+                }
             }
 
             Rectangle saferArea = new()
@@ -58,17 +77,18 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
                 newCenter.Y -= (distY - distYMax) * dirY;
             }
             player.Center = newCenter;
-
-            if (++Projectile.ai[1] == 20 && Projectile.timeLeft > 20)
-            {
-                for (int i = 0; i < 12; i++)
-                {
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.position + new Vector2(Main.rand.Next(Projectile.width), 100), Vector2.Zero, ModContent.ProjectileType<LightningBoltSpawner>(), 10, 0, Main.myPlayer);
-                }
-            }
             if (Projectile.ai[1] >= 60)
             {
+                Item novaBook = ModContent.GetInstance<PlumeCodex>().Item;
+                SoundEngine.PlaySound(novaBook.UseSound);
                 Projectile.ai[1] = 0;
+                Vector2 velocity = new(0, 2);
+                for (int i = 0; i < 8; i++)
+                {
+                    var proj = Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPoints[i], velocity,
+                        ModContent.ProjectileType<LightningBolt>(), Projectile.damage, 0, Main.myPlayer);
+                    Main.projectile[proj].tileCollide = false;
+                }
             }
 
             for (int i = 0; i < 50; i++)

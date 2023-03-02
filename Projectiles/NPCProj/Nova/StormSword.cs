@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MMZeroElements;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using MMZeroElements;
+using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -32,6 +34,8 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
         {
             ProjectileElements.Metal.Add(Type);
             ProjectileElements.Electric.Add(Type);
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
@@ -115,40 +119,21 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             }
         }
 
-        public override void PostDraw(Color lightColor)
+        public override void Kill(int timeLeft)
         {
-            //TODO Generic glowmask draw, maybe generalize method
-            Player player = Main.player[Projectile.owner];
-
-            int offsetY = 0;
-            int offsetX = 0;
-            Texture2D glowmaskTexture = glowmask.Value;
-            float originX = (glowmaskTexture.Width - Projectile.width) * 0.5f + Projectile.width * 0.5f;
-            ProjectileLoader.DrawOffset(Projectile, ref offsetX, ref offsetY, ref originX);
-
-            SpriteEffects spriteEffects = SpriteEffects.None;
-            if (Projectile.spriteDirection == -1)
+            for (int i = 0; i < 2; i++)
             {
-                spriteEffects = SpriteEffects.FlipHorizontally;
+                Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Blue>(), Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
+                Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Pink>(), Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
             }
+        }
 
-            if (Projectile.ownerHitCheck && player.gravDir == -1f)
-            {
-                if (player.direction == 1)
-                {
-                    spriteEffects = SpriteEffects.FlipHorizontally;
-                }
-                else if (player.direction == -1)
-                {
-                    spriteEffects = SpriteEffects.None;
-                }
-            }
-
-            Vector2 drawPos = new Vector2(Projectile.position.X - Main.screenPosition.X + originX + offsetX, Projectile.position.Y - Main.screenPosition.Y + Projectile.height / 2 + Projectile.gfxOffY);
-            Rectangle sourceRect = glowmaskTexture.Frame(1, Main.projFrames[Projectile.type], 0, Projectile.frame);
-            Color glowColor = new Color(255, 255, 255, 255) * 0.7f * Projectile.Opacity;
-            Vector2 drawOrigin = new Vector2(originX, Projectile.height / 2 + offsetY);
-            Main.EntitySpriteDraw(glowmaskTexture, drawPos, sourceRect, glowColor, Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Color color = new(227, 182, 245, 80);
+            Projectile.DrawProjectilePrims(color, ProjectileHelper.DiamondX1, MathHelper.ToRadians(45f));
+            lightColor = Color.White;
+            return true;
         }
     }
 }

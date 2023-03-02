@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using MMZeroElements;
 using ReLogic.Content;
-using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -41,13 +39,37 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
             player.itemAnimation = 10;
             player.itemTime = 10;
 
-            if (Projectile.ai[1] == 0)
+            var handPosition = Main.GetPlayerArmPosition(Projectile);
+            Projectile.rotation = (Projectile.Center - handPosition).ToRotation() + MathHelper.ToRadians(90);
+            if (Projectile.Distance(handPosition) >= 200)
             {
-                DoSwingAI(player);
+                Projectile.tileCollide = true;
+            }
+            if (returning)
+            {
+                DoReturnAI(player);
+            }
+            else if (Projectile.ai[1] == 0)
+            {
+                DoThrownAI(player);
             }
             else
             {
-                DoThrownAI(player);
+                DoSwingAI(player);
+            }
+        }
+
+        void DoReturnAI(Player player)
+        {
+            if (Projectile.tileCollide)
+            {
+                Projectile.tileCollide = false;
+            }
+            Projectile.velocity = Vector2.Normalize(player.Center - Projectile.Center) * 32;
+            Projectile.spriteDirection = Projectile.direction;
+            if (Projectile.getRect().Intersects(player.getRect()))
+            {
+                Projectile.Kill();
             }
         }
 
@@ -79,7 +101,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
             rotation += rotationToAdd;
             player.itemAnimation = 10;
 
-            Projectile.rotation = (Projectile.Center - handPosition).ToRotation() + MathHelper.ToRadians(90) + rotationToAdd;
+            Projectile.rotation += rotationToAdd;
 
             int newDirection = Main.MouseWorld.X > player.Center.X ? 1 : -1;
             player.ChangeDir(newDirection);
@@ -88,7 +110,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
             if (!Main.mouseLeft || player.dead || !player.active)
             {
                 returning = true;
-                Projectile.ai[1] = 1;
+                Projectile.ai[1] = 0;
             }
             else
             {
@@ -105,48 +127,30 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
         bool returning = false;
         void DoThrownAI(Player player)
         {
-            if (!Projectile.tileCollide)
-            {
-                Projectile.tileCollide = true;
-            }
-
             var handPosition = Main.GetPlayerArmPosition(Projectile);
 
             Projectile.spriteDirection = -Projectile.direction;
-            Projectile.rotation = (Projectile.Center - handPosition).ToRotation() + MathHelper.ToRadians(90);
             rotation = (Projectile.Center - handPosition).ToRotation();
 
-            int gravityTimerMax = 15;
-            if (returning)
-            {
-                if (Projectile.tileCollide)
-                {
-                    Projectile.tileCollide = false;
-                }
-                Projectile.velocity = Vector2.Normalize(player.Center - Projectile.Center) * 32;
-                Projectile.spriteDirection = Projectile.direction;
-                if (Projectile.getRect().Intersects(player.getRect()))
-                {
-                    Projectile.Kill();
-                }
-            }
-            else if (++gravityTimer >= gravityTimerMax)
+            int gravityTimerMax = 26;
+            if (++gravityTimer >= gravityTimerMax)
             {
                 if (++Projectile.velocity.Y >= 16)
                 {
                     Projectile.velocity.Y = 16;
                 }
             }
+            if (Main.myPlayer == player.whoAmI)
+            {
+                var dist = Vector2.Distance(handPosition, Projectile.Center);
+                if (Main.mouseLeft && dist >= 180 && dist <= 200)
+                {
+                    Projectile.ai[1] = 1;
+                }
+            }
             if (Vector2.Distance(handPosition, Projectile.Center) >= 500 && !returning)
             {
                 returning = true;
-            }
-            if (Main.myPlayer == player.whoAmI)
-            {
-                if (Main.mouseLeft)
-                {
-                    Projectile.ai[1] = 0;
-                }
             }
         }
 
@@ -161,7 +165,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
             Player player = Main.player[Projectile.owner];
 
             float collisionPoint4 = 0f;
-            if (Projectile.ai[1] != 0)
+            if (Projectile.ai[1] == 0 || returning)
             {
                 return base.Colliding(projHitbox, targetHitbox);
             }
@@ -175,7 +179,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
         public override bool PreDraw(ref Color lightColor)
         {
             var player = Main.player[Projectile.owner];
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
 
             Vector2 handPosition = Main.GetPlayerArmPosition(Projectile);
             Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>(ChainTexturePath);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -11,7 +12,6 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
     {
         public override void SetStaticDefaults()
         {
-            Main.debuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             BuffID.Sets.TimeLeftDoesNotDecrease[Type] = true;
@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
 
         public override void Update(Player player, ref int buffIndex)
         {
+            player.Sinful().SevenSoulUsed = Type;
             player.statDefense += 10;
             player.GetDamage(DamageClass.Generic) += .1f;
             player.thorns = 1;

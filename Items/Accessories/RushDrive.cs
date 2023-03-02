@@ -1,5 +1,4 @@
 ﻿using ShardsOfAtheria.Utilities;
-using ShardsOfAtheria.Systems;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -30,20 +29,11 @@ namespace ShardsOfAtheria.Items.Accessories
             player.ShardsOfAtheria().rushDrive = true;
         }
 
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddRecipeGroup(ShardsRecipes.EvilBar, 15)
-                .AddRecipeGroup(ShardsRecipes.EvilMaterial, 5)
-                .AddIngredient(ItemID.Bone, 5)
-                .AddTile(TileID.Hellforge)
-                .Register();
-        }
-
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "tip", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.RushDrive"),
-                    ShardsOfAtheria.PhaseSwitch.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.PhaseSwitch.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
+            List<string> phaseKey = ShardsOfAtheria.PhaseSwitch.GetAssignedKeys();
+            tooltips.Insert(tooltips.GetIndex("Tooltip#"), new TooltipLine(Mod, "Tooltip#", Language.GetTextValue("Mods.ShardsOfAtheria.Common.RushDrive",
+                    phaseKey.Count > 0 ? phaseKey[0] : "[Unbounded Hotkey]")));
         }
     }
 }

@@ -52,14 +52,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
             bool flag = Main.rand.NextBool(2);
             for (int i = 0; i < 4; i++)
             {
-                Vector2 projPos = Projectile.Center + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
+                Vector2 vector = Projectile.Center + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
                 if (flag)
                 {
-                    projPos = Projectile.Center + new Vector2(1.425f, 0).RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
+                    vector = Projectile.Center + new Vector2(1, 0).RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
                 }
-
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize(projPos - Projectile.Center) * 2f, ModContent.ProjectileType<LightningBoltFriendly>(),
-                    Projectile.damage, Projectile.knockBack, Main.myPlayer);
+                Vector2 point = this.point.ToVector2();
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), point, Vector2.Normalize(vector - point),
+                    ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
             }
             if (Projectile.GetGlobalProjectile<OverchargedProjectile>().overcharged)
             {

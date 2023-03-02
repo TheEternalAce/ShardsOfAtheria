@@ -35,7 +35,7 @@ Mods: {
 
 			TitleText1: Shards of Atheria: Splitting Skies
 			TitleText2: Shards of Atheria: The World Revolving
-			TomeOfOmniscience: Press {0} to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration
+			TomeOfOmniscience: Press {0} to cycle between the 3 Knowledge Bases
 			UpgradeableItem: Upgradeable Item
 			TeleportOnKeyPress: Press {0} to teleport to your cursor
 		}
@@ -135,7 +135,7 @@ Mods: {
 			AreusKey: Areus Key
 			Biometal: Biometal
 			EntropicWings: Entropic Wings
-			GildedValkyrieWings: Gilded Valkyrie Wings
+			GildedValkyrieWings: Hardlight Wings
 			HardlightBraces: Hardlight Braces
 			RushDrive: Rush Drive
 			TomeOfOmniscience: Tome of Omniscience
@@ -313,7 +313,6 @@ Mods: {
 			GenesisAndRagnarok: Genesis and Ragnarok
 			Gomorrah: Gomorrah
 			HeroSword: Hero Sword
-			Masamune: Masamune
 			Prometheus: Energy Scythe
 			ReactorMeltdown: Reactor Meltdown
 			Satanlance: ecnatnataS
@@ -338,7 +337,7 @@ Mods: {
 			Pantheon: Pantheon
 			PhantomRose: Phantom Rose
 			Scarlet: Scarlet Rose
-			TheAmbassador: The Ambassador
+			TheAmbassador: Magnus
 				# Summon
 			DragonSpineWhip: Dragon Spine Whip
 			FlailOfFlesh: Flail of Flesh
@@ -492,14 +491,15 @@ Mods: {
 				Grants dash, wall sliding and immunity to fall damage
 				'''
 			EntropicWings: Allows flight and grants slow fall
-			GildedValkyrieWings: "'The gold plating on the wings weighs you down slightly'"
+			GildedValkyrieWings: "'The hardlight grants extra protection without impeding movement'"
 			HardlightBraces: Attacks create 4 hardlight blades to inflict further damage
 			RushDrive: Gives the user a 'phase 2' when below 50% life
-			TomeOfOmniscience:
+			TomeOfOmniscience: "Allows the wearer to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration"
+			ValkyrieCrown:
 				'''
-
+				Attacks shock enemies briefly
+				Summons two orbiting Hardlight Swords
 				'''
-			ValkyrieCrown: Attacks shock enemies briefly
 
 			# Armor
 			EntropicHood: 6% increased damage and critical strike chance
@@ -655,10 +655,10 @@ Mods: {
 				'''
 				Every 10 seconds of not taking damage increases damage by 2%
 				Using a weapon that fires a projectile increases Shots Fired
-				Damaging an enemy with a non-summon projectile increases Shots Landed
+				Damaging an enemy with a non-summon projectile increases Shots Hit
 				If Shots Landed is not equal to Shots Fired after 5 seconds, your are weakened severely
 				Otherwise, damage is increased by 50%
-				Shots Fired = {0} | Shots Landed = {1}
+				Shots Fired = {0} | Shots Hit = {1}
 				'''
 			SlothSoul:
 				'''
@@ -924,7 +924,6 @@ Mods: {
 				Sticking 8 spears into the same target causes a large burst of damage
 				'''
 			HeroSword: "'The sword of a long forgotten hero'"
-			Masamune: "'I will... never be a memory.'"
 			Prometheus:
 				'''
 				Left Click to swing an energy scythe, Right click to throw a fireball
@@ -991,7 +990,6 @@ Mods: {
 			TheAmbassador:
 				'''
 				'Never miss a shot again. Not like I could anyway.'
-				'Gun Spy TF2'
 				'''
 				# Summon
 			DragonSpineWhip:
@@ -1152,7 +1150,7 @@ Mods: {
 			ZenovaWoodenSword: Wooden Sword
 				# Ranged
 			AceOfSpadesProj: Ace of Spades
-			AmbassadorShot: Ambassador Shot
+			AmbassadorShot: Magnus Bullet
 			BlackHole: Black Hole
 			BlackHoleBolt: Black Hole Bolt
 			FieryExplosion: Fiery Explosion
@@ -1219,7 +1217,6 @@ Mods: {
 			BaseExploration: Knowledge Base: Exploration
 			CreeperRevenge: Creeper Revenge
 			Overdrive: Overdrive: ON
-			ShadeState: Shade State
 				# Sinful Souls
 			EnvyBuff: Envy
 			GluttonyBuff: Gluttony
@@ -1228,7 +1225,7 @@ Mods: {
 			PrideBuff: Pride
 			SlothBuff: Sloth
 			WrathBuff: Wrath
-			VirtuousSoul: Virtuous
+			VirtuousSoul: Righteous
 
 			# Player debuff
 			HeartBreak: Heart Break
@@ -1433,15 +1430,15 @@ Mods: {
 
 		NPCDialogue: {
 			NovaStellar: {
-				InitialSummon: ""
-				MidFight: ""
-				Defeat: ""
+				InitialSummon: "Terrarian! You're chaos has not gone unnoticed, I will bring you down!"
+				MidFight: "Hmph. You don't go down easily huh? Well try surviving this!"
+				Defeat: "You haven't killed me... Perhaps I misjudged you. Farewell for now then."
 
 				# Slayer mode alt
 				InitialSummonAlt: You... My crest... You bastard!
 				MidFightAlt: Okay prick, you've asked for it!
 				Desperation: I cannot lose to you! Not Like this!
-				Death: No...  My judgment was clouded... I'm sorry Mother, I failed...
+				Death: No... My judgment was clouded... I'm sorry Mother, I failed...
 			}
 			Atherian: {
 				# On interact 

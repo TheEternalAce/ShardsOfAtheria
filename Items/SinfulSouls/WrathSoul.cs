@@ -29,13 +29,19 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
     public class WrathPlayer : ModPlayer
     {
+        public bool wrath;
         public float anger;
         public int rage;
         public int calming;
 
+        public override void ResetEffects()
+        {
+            wrath = false;
+        }
+
         public override void PreUpdate()
         {
-            if (!Player.HasBuff(ModContent.BuffType<WrathBuff>()))
+            if (!wrath)
             {
                 anger = 0f;
                 rage = 0;
@@ -56,7 +62,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
         {
-            if (Player.HasBuff(ModContent.BuffType<WrathBuff>()))
+            if (wrath)
             {
                 anger += .01f;
                 if (anger > .05f)
@@ -81,7 +87,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.Sinful().SevenSoulUsed = 7;
+            player.Wrath().wrath = true;
             player.GetDamage(DamageClass.Generic) += player.GetModPlayer<WrathPlayer>().anger;
             player.GetCritChance(DamageClass.Generic) += player.GetModPlayer<WrathPlayer>().rage;
             base.Update(player, ref buffIndex);

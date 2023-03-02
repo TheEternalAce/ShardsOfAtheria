@@ -4,3 +4,4 @@ version = 0.9.3
 homepage = https://forums.terraria.org/index.php?threads/shards-of-atheria-mod.112953/
 buildIgnore = Pallets/*, NPCs/NovaStellar/NovaStellar2.png, ShardsOfAtheriaSprites.aseprite, UI/*, Items/Accessories/GemCores/Gem Cores redesign concepts.xcf
 modReferences = ShopQuotesMod, WebmilioCommons, MMZeroElements
+includeSource = true

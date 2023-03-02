@@ -31,31 +31,37 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
     public class PridePlayer : ModPlayer
     {
-        public int prideTimer = 0;
-        public float pride = 0;
+        public bool pride;
+        public int noHitTimer = 0;
+        public float noHitTime = 0;
         public int shotsFired = 0;
         public int shotsLanded = 0;
         public int shotsTimer = 0;
         public bool prideful = false;
 
+        public override void ResetEffects()
+        {
+            pride = false;
+        }
+
         public override void PreUpdate()
         {
-            if (!Player.HasBuff(ModContent.BuffType<PrideBuff>()) && pride > 0)
+            if (!pride && noHitTimer > 0)
             {
-                pride = 0;
-                prideTimer = 0;
+                noHitTime = 0;
+                noHitTimer = 0;
                 shotsFired = 0;
                 shotsLanded = 0;
             }
             else
             {
-                if (Player.ShardsOfAtheria().combatTimer == 0 && pride > 0)
+                if (Player.ShardsOfAtheria().combatTimer == 0 && noHitTime > 0)
                 {
-                    prideTimer--;
-                    if (prideTimer <= -60)
+                    noHitTimer--;
+                    if (noHitTimer <= -60)
                     {
-                        pride -= .02f;
-                        prideTimer = 0;
+                        noHitTime -= .02f;
+                        noHitTimer = 0;
                     }
                 }
 
@@ -63,7 +69,11 @@ namespace ShardsOfAtheria.Items.SinfulSouls
                 {
                     if (--shotsTimer == 0)
                     {
-                        if (shotsLanded < shotsFired)
+                        if (shotsLanded > shotsFired * 0.8)
+                        {
+                            prideful = true;
+                        }
+                        else if (shotsLanded < shotsFired * 0.5)
                         {
                             Player.AddBuff(BuffID.Slow, 300);
                             Player.AddBuff(BuffID.WitheredArmor, 300);
@@ -72,38 +82,39 @@ namespace ShardsOfAtheria.Items.SinfulSouls
                             shotsLanded = 0;
                             prideful = false;
                         }
-                        else
-                        {
-                            prideful = true;
-                        }
                         shotsTimer = -1;
                     }
                 }
             }
         }
 
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
-        {
-            shotsLanded++;
-            base.OnHitNPC(item, target, damage, knockback, crit);
-        }
-
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            shotsLanded++;
-            base.OnHitNPCWithProj(proj, target, damage, knockback, crit);
+            if (pride && proj.DamageType != DamageClass.Summon)
+            {
+                shotsLanded++;
+            }
         }
 
-        public override void OnHitByNPC(NPC npc, int damage, bool crit)
+        public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
         {
-            pride = 0;
-            prideTimer = 0;
+            if (pride)
+            {
+                noHitTime = 0;
+                noHitTimer = 0;
+            }
         }
 
-        public override void OnHitByProjectile(Projectile proj, int damage, bool crit)
+        public override void UpdateDead()
         {
-            pride = 0;
-            prideTimer = 0;
+            if (pride)
+            {
+                prideful = false;
+                noHitTime = 0;
+                noHitTimer = 0;
+                shotsFired = 0;
+                shotsLanded = 0;
+            }
         }
     }
 
@@ -111,16 +122,19 @@ namespace ShardsOfAtheria.Items.SinfulSouls
     {
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (player.HasBuff(ModContent.BuffType<PrideBuff>()))
+            if (player.Pride().pride)
             {
-                PridePlayer pridePlayer = player.GetModPlayer<PridePlayer>();
-                if (item.damage > 0 && item.DamageType != DamageClass.Summon && type > ProjectileID.None)
+                if (player.ShardsOfAtheria().inCombat && item.DamageType != DamageClass.Summon)
                 {
-                    pridePlayer.shotsFired++;
-
-                    if (pridePlayer.shotsTimer <= 0)
+                    PridePlayer pridePlayer = player.Pride();
+                    if (item.damage > 0 && item.DamageType != DamageClass.Summon && type > ProjectileID.None)
                     {
-                        pridePlayer.shotsTimer = 300;
+                        pridePlayer.shotsFired++;
+
+                        if (pridePlayer.shotsTimer <= 0)
+                        {
+                            pridePlayer.shotsTimer = 300;
+                        }
                     }
                 }
             }
@@ -138,27 +152,27 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void ModifyBuffTip(ref string tip, ref int rare)
         {
-            PridePlayer pridePlayer = Main.LocalPlayer.GetModPlayer<PridePlayer>();
+            PridePlayer pridePlayer = Main.LocalPlayer.Pride();
             tip = Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.PrideSoul", pridePlayer.shotsFired, pridePlayer.shotsLanded);
             base.ModifyBuffTip(ref tip, ref rare);
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.Sinful().SevenSoulUsed = 5;
+            player.Pride().pride = true;
             if (player.ShardsOfAtheria().inCombat)
             {
-                player.GetModPlayer<PridePlayer>().prideTimer++;
+                player.Pride().noHitTimer++;
             }
-            if (player.GetModPlayer<PridePlayer>().prideTimer >= 600)
+            if (player.Pride().noHitTimer >= 600)
             {
-                player.GetModPlayer<PridePlayer>().pride += .02f;
-                player.GetModPlayer<PridePlayer>().prideTimer = 0;
+                player.Pride().noHitTime += .02f;
+                player.Pride().noHitTimer = 0;
             }
-            player.GetDamage(DamageClass.Generic) += player.GetModPlayer<PridePlayer>().pride;
-            if (player.GetModPlayer<PridePlayer>().prideful)
+            player.GetDamage(DamageClass.Generic) += player.Pride().noHitTime;
+            if (player.Pride().prideful)
             {
-                player.GetDamage(DamageClass.Generic) += .05f;
+                player.GetDamage(DamageClass.Generic) += .5f;
             }
             base.Update(player, ref buffIndex);
         }

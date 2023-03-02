@@ -272,6 +272,14 @@ namespace ShardsOfAtheria.NPCs.Town
                     };
                     UpgradeItem(player, ModContent.ItemType<TheMourningStar>(), materials);
                 }
+                else if (player.HasItem(ModContent.ItemType<War>()))
+                {
+                    UpgrageMaterial[] materials = {
+                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<War>()], 0),
+                        new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.HallowedBar], 20)
+                    };
+                    UpgradeItem(player, ModContent.ItemType<War>(), materials);
+                }
                 else
                 {
                     Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NoUpgradableItem");
@@ -301,6 +309,10 @@ namespace ShardsOfAtheria.NPCs.Town
                 {
                     shardsPlayer.genesisRagnarockUpgrades++;
                 }
+                if (materials[0].item.ModItem is War war)
+                {
+                    (player.inventory[player.FindItem(materials[0].item.type)].ModItem as War).upgraded = true;
+                }
                 SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
                 if (result > 0)
                 {
@@ -326,6 +338,10 @@ namespace ShardsOfAtheria.NPCs.Town
                                 break;
                         }
                         Main.npcChatText = Language.GetTextValue(key);
+                    }
+                    else if (result == ModContent.ItemType<War>())
+                    {
+                        Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeAreusWeapon");
                     }
                     else
                     {
@@ -376,6 +392,9 @@ namespace ShardsOfAtheria.NPCs.Town
         {
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusDataDisk>());
             shop.item[nextSlot].shopCustomPrice = 15000;
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<RushDrive>());
+            shop.item[nextSlot].shopCustomPrice = 150000;
             nextSlot++;
             if (NPC.downedPlantBoss)
             {
@@ -446,10 +465,10 @@ namespace ShardsOfAtheria.NPCs.Town
                 {
                     if (ModLoader.TryGetMod("PrimeRework", out Mod foundMod))
                     {
-                        shop.item[nextSlot].SetDefaults(foundMod.Find<ModItem>("WormRemote").Type);
+                        shop.item[nextSlot].SetDefaults(foundMod.Find<ModItem>("BrainRemote").Type);
                         shop.item[nextSlot].shopCustomPrice = 50000;
                         nextSlot++;
-                        shop.item[nextSlot].SetDefaults(foundMod.Find<ModItem>("BrainRemote").Type);
+                        shop.item[nextSlot].SetDefaults(foundMod.Find<ModItem>("WormRemote").Type);
                     }
                     else
                     {
@@ -538,9 +557,12 @@ namespace ShardsOfAtheria.NPCs.Town
         public override void OnKill()
         {
             Player lastPlayerToHitThisNPC = NPC.AnyInteractions() ? Main.player[NPC.lastInteraction] : null;
-            if (lastPlayerToHitThisNPC != null && lastPlayerToHitThisNPC.GetModPlayer<SlayerPlayer>().slayerMode)
+            if (lastPlayerToHitThisNPC != null)
             {
-                ModContent.GetInstance<ShardsDownedSystem>().slainAtherian = true;
+                if (lastPlayerToHitThisNPC.Slayer().slayerMode)
+                {
+                    ModContent.GetInstance<ShardsDownedSystem>().slainAtherian = true;
+                }
             }
         }
 

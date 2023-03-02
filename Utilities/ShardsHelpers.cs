@@ -23,6 +23,21 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
+        public static int ToHours(this int num)
+        {
+            return num * (int)Math.Pow(60, 3);
+        }
+
+        public static int ToMinutes(this int num)
+        {
+            return num * (int)Math.Pow(60, 2);
+        }
+
+        public static int ToSeconds(this int num)
+        {
+            return num * 60;
+        }
+
         public static Color UseA(this Color color, int alpha) => new Color(color.R, color.G, color.B, alpha);
 
         public static Color UseA(this Color color, float alpha) => new Color(color.R, color.G, color.B, (int)(alpha * 255));
@@ -87,7 +102,7 @@ namespace ShardsOfAtheria.Utilities
             return minimum + ((float)Math.Sin(time) + 1f) / 2f * (maximum - minimum);
         }
 
-        internal static void Log(string str, bool broadcastToChat = false)
+        internal static void Log(this string str, bool broadcastToChat = false)
         {
             if (broadcastToChat)
             {

@@ -1,5 +1,4 @@
-﻿using ShardsOfAtheria.Players;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -103,7 +102,6 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 4;
             player.maxMinions += 3;
             player.GetDamage(DamageClass.Generic) -= .2f;
             player.GetModPlayer<LustPlayer>().lust = true;

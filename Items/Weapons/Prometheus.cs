@@ -68,8 +68,8 @@ namespace ShardsOfAtheria.Items.Weapons
             }
             else
             {
-                Item.useTime = 30;
-                Item.useAnimation = 30;
+                Item.useTime = 24;
+                Item.useAnimation = 24;
                 Item.damage = 112;
                 Item.DamageType = DamageClass.Melee;
                 Item.knockBack = 13;

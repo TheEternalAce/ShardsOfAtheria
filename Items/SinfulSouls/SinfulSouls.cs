@@ -1,6 +1,7 @@
 ﻿using ShardsOfAtheria.Items.Bases;
 using ShardsOfAtheria.Items.SinfulSouls.Extras;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -58,6 +59,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void Update(Player player, ref int buffIndex)
         {
+            player.Sinful().SevenSoulUsed = Type;
             player.buffTime[buffIndex] = 18000;
             base.Update(player, ref buffIndex);
         }

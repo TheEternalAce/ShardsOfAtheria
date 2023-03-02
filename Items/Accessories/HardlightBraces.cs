@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories
 {
+	[AutoloadEquip(EquipType.HandsOn, EquipType.HandsOff)]
 	public class HardlightBraces : ModItem
 	{
 		public override void SetStaticDefaults()
@@ -24,7 +25,8 @@ namespace ShardsOfAtheria.Items.Accessories
 			Item.height = 22;
 			Item.accessory = true;
 
-			Item.damage = 26;
+			Item.damage = 13;
+			Item.DamageType = DamageClass.Magic;
 			Item.knockBack = 4;
 			Item.crit = 2;
 

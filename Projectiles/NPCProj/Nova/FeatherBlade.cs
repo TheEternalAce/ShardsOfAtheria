@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using MMZeroElements;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Utilities;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -39,10 +39,20 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
 
-            if (Projectile.ai[0] == 0 && Projectile.ai[1] > 0)
+            if (Projectile.ai[0] == 1)
             {
-                Projectile.timeLeft = Convert.ToInt32(Projectile.ai[1]);
-                Projectile.ai[0] = 1;
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    Projectile blade = Main.projectile[i];
+                    if (blade.type == ModContent.ProjectileType<FeatherBlade>() && blade.whoAmI != Projectile.whoAmI && Projectile.active && blade.active)
+                    {
+                        if (Projectile.Hitbox.Intersects(blade.Hitbox))
+                        {
+                            Projectile.Kill();
+                            blade.Kill();
+                        }
+                    }
+                }
             }
         }
 
@@ -51,6 +61,15 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             if (Main.expertMode)
             {
                 target.AddBuff(ModContent.BuffType<ElectricShock>(), 300);
+            }
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Blue>(), Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
+                Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Pink>(), Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
             }
         }
 

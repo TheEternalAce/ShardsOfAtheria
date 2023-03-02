@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -31,7 +32,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
 
         public override bool CanUseItem(Player player)
         {
-            return !player.immune && player.immuneTime == 0 && player.GetModPlayer<SinfulPlayer>().SevenSoulUsed > 0;
+            return !player.immune && player.immuneTime == 0 && player.Sinful().SevenSoulUsed > 0;
         }
 
         public override bool? UseItem(Player player)
@@ -44,14 +45,14 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
                     player.ClearBuff(SinfulPlayer.SinfulBuffs[i]);
                 }
             }
-            if (player.GetModPlayer<SinfulPlayer>().SevenSoulUsed < 8)
+            if (player.Sinful().SevenSoulUsed != ModContent.BuffType<VirtuousSoul>())
             {
                 player.AddBuff(ModContent.BuffType<VirtuousSoul>(), 1800);
-                player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 8;
+                player.Sinful().SevenSoulUsed = ModContent.BuffType<VirtuousSoul>();
             }
             else
             {
-                player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 0;
+                player.Sinful().SevenSoulUsed = 0;
             }
 
 

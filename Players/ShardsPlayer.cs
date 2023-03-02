@@ -11,6 +11,7 @@ using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Tools.Misc;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Projectiles.Minions;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
@@ -267,21 +268,38 @@ namespace ShardsOfAtheria.Players
             {
                 Player.moveSpeed += .15f;
             }
-            if (Player.statLife < Player.statLifeMax2 / 2 && rushDrive)
+            if (sapphireSpirit)
             {
-                if (phaseOffense)
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpirit>()] == 0)
                 {
-                    Player.GetDamage(DamageClass.Generic) += 1f;
-                    Player.GetCritChance(DamageClass.Generic) += 0.05f;
-                    Player.statDefense /= 2;
+                    Item core = ModContent.GetInstance<SapphireCore>().Item;
+                    int damage = 0;
+                    if (superSapphireCore)
+                    {
+                        damage = 50;
+                    }
+                    Projectile.NewProjectile(Player.GetSource_Accessory(core), Player.Center, Vector2.One,
+                        ModContent.ProjectileType<SapphireSpirit>(), damage, 0, Player.whoAmI);
                 }
-                else
+            }
+            if (rushDrive)
+            {
+                if (Player.statLife < Player.statLifeMax2 / 2)
                 {
-                    Player.GetDamage(DamageClass.Generic) -= 0.5f;
-                    Player.endurance += 0.2f;
-                    Player.statDefense *= 2;
+                    if (phaseOffense)
+                    {
+                        Player.GetDamage(DamageClass.Generic) += 1f;
+                        Player.GetCritChance(DamageClass.Generic) += 0.05f;
+                        Player.statDefense /= 2;
+                    }
+                    else
+                    {
+                        Player.GetDamage(DamageClass.Generic) -= 0.5f;
+                        Player.endurance += 0.2f;
+                        Player.statDefense *= 2;
+                    }
+                    Player.moveSpeed += .2f;
                 }
-                Player.moveSpeed += .2f;
             }
             if (Player.HeldItem.type == ModContent.ItemType<AreusKatana>())
             {
@@ -511,7 +529,7 @@ namespace ShardsOfAtheria.Players
                     Vector2 point = target.Center + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 120f;
                     Vector2 velocity = Vector2.Normalize(target.Center - point) * braces.shootSpeed;
                     Projectile blades = Projectile.NewProjectileDirect(Player.GetSource_Accessory(braces), point, velocity,
-                        braces.shoot, braces.damage, braces.knockBack, Player.whoAmI);
+                        braces.shoot, Player.GetWeaponDamage(braces), Player.GetWeaponKnockback(braces), Player.whoAmI);
                     blades.DamageType = DamageClass.Generic;
                     blades.penetrate = 1;
                 }
@@ -597,10 +615,6 @@ namespace ShardsOfAtheria.Players
             {
                 Player.handon = (sbyte)EquipLoader.GetEquipSlot(Mod, "RubyGauntlet", EquipType.HandsOn);
                 Player.handoff = (sbyte)EquipLoader.GetEquipSlot(Mod, "RubyGauntlet_Off", EquipType.HandsOff);
-            }
-            if (sapphireSpirit)
-            {
-                Player.balloon = (sbyte)EquipLoader.GetEquipSlot(Mod, "SapphireSpirit", EquipType.Balloon);
             }
             if (topazNecklace)
             {

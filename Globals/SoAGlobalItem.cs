@@ -330,7 +330,7 @@ namespace ShardsOfAtheria.Globals
 
         public override bool? UseItem(Item item, Player player)
         {
-            if (ModContent.GetInstance<ShardsServerConfig>().betterWeapon.Equals("Mouse direction") && item.shoot == ProjectileID.None)
+            if (ModContent.GetInstance<ShardsServerConfig>().betterWeapon.Equals("Mouse Direction") && item.shoot == ProjectileID.None)
             {
                 player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
             }

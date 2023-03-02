@@ -1,4 +1,6 @@
-﻿using ShardsOfAtheria.Utilities;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,6 +24,11 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.accessory = true;
             Item.canBePlacedInVanityRegardlessOfConditions = true;
 
+            Item.damage = 16;
+            Item.DamageType = DamageClass.Melee;
+            Item.knockBack = 2;
+            Item.crit = 3;
+
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(0, 0, 50);
         }
@@ -29,6 +36,15 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.ShardsOfAtheria().valkyrieCrown = true;
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<HardlightSword>()] < 2)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero,
+                        ModContent.ProjectileType<HardlightSword>(), (int)player.GetWeaponKnockback(Item),
+                        player.GetWeaponKnockback(Item), player.whoAmI, i);
+                }
+            }
         }
     }
 }

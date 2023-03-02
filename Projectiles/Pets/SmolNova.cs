@@ -1,27 +1,25 @@
-﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.Pets;
-using ShardsOfAtheria.Players;
-using System;
+﻿using ShardsOfAtheria.Buffs.Pets;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Pets
 {
-    public class SmolNova : ModProjectile
+	public class SmolNova : ModProjectile
 	{
 		public override void SetStaticDefaults()
-        {
-            Main.projPet[Projectile.type] = true;
+		{
+			Main.projPet[Projectile.type] = true;
 			Main.projFrames[Type] = 10;
-        }
+		}
 
-        public override void SetDefaults()
-        {
-            Projectile.CloneDefaults(ProjectileID.LilHarpy); // Copy the stats of the Lil' Harpy
-
-            AIType = ProjectileID.LilHarpy; // Copy the AI of the Lil' Harpy.
-        }
+		public override void SetDefaults()
+		{
+			Projectile.CloneDefaults(ProjectileID.LilHarpy); // Copy the stats of the Lil' Harpy
+			AIType = ProjectileID.LilHarpy; // Copy the AI of the Lil' Harpy.
+			DrawOffsetX = -16;
+			DrawOriginOffsetY = -16;
+		}
 
 		public override bool PreAI()
 		{

@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Players;
+﻿using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -114,8 +114,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<SinfulPlayer>().SevenSoulUsed = 1;
-            player.GetModPlayer<EnvyPlayer>().envy = true;
+            player.Envy().envy = true;
             player.AddBuff(BuffID.Darkness, 2);
             base.Update(player, ref buffIndex);
         }

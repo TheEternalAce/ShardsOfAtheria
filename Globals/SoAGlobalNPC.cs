@@ -708,6 +708,7 @@ namespace ShardsOfAtheria.Globals
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             LeadingConditionRule notHardmode = new(new Conditions.IsPreHardmode());
+            LeadingConditionRule flawless = new(new FlawlessDropCondition());
             LeadingConditionRule firstTimeKillingPlantera = new(new Conditions.FirstTimeKillingPlantera());
             LeadingConditionRule downedGolem = new(new DownedGolem());
             LeadingConditionRule downedCultist = new(new DownedLunaticCultist());
@@ -723,25 +724,30 @@ namespace ShardsOfAtheria.Globals
             }
             if (npc.type == NPCID.KingSlime)
             {
-                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<KingsKusarigama>()));
+                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KingsKusarigama>()));
+                npcLoot.Add(flawless);
             }
             if (npc.type == NPCID.EyeofCthulhu)
             {
-                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<Cataracnia>()));
+                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Cataracnia>()));
+                npcLoot.Add(flawless);
             }
             if (npc.type == NPCID.BrainofCthulhu)
             {
-                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<TomeOfOmniscience>()));
+                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<TomeOfOmniscience>()));
+                npcLoot.Add(flawless);
             }
             if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
             {
                 LeadingConditionRule leadingConditionRule = new(new Conditions.LegacyHack_IsABoss());
-                leadingConditionRule.OnSuccess(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<WormTench>()));
+                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<WormTench>()));
+                leadingConditionRule.OnSuccess(flawless);
                 npcLoot.Add(leadingConditionRule);
             }
             if (npc.type == NPCID.Deerclops)
             {
-                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<ScreamLantern>()));
+                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ScreamLantern>()));
+                npcLoot.Add(flawless);
             }
             if (npc.type == NPCID.WallofFlesh)
             {
@@ -750,20 +756,24 @@ namespace ShardsOfAtheria.Globals
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulSoul>()));
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulArmament>()));
 
-                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<FlailOfFlesh>()));
+                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<FlailOfFlesh>()));
+                npcLoot.Add(flawless);
             }
             if (npc.type == NPCID.TheDestroyer || npc.type == NPCID.TheDestroyerBody || npc.type == NPCID.TheDestroyerTail)
             {
-                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<Coilgun>()));
+                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Coilgun>()));
+                npcLoot.Add(flawless);
             }
             if (npc.type == NPCID.SkeletronPrime)
             {
-                npcLoot.Add(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<HandCanon>()));
+                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HandCanon>()));
+                npcLoot.Add(flawless);
             }
             if (npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism)
             {
                 LeadingConditionRule leadingConditionRule = new(new Conditions.MissingTwin());
-                leadingConditionRule.OnSuccess(ItemDropRule.ByCondition(new FlawlessDropCondition(), ModContent.ItemType<DoubleBow>()));
+                flawless.OnSuccess(ItemDropRule.Common(ModContent.ItemType<DoubleBow>()));
+                leadingConditionRule.OnSuccess(flawless);
                 npcLoot.Add(leadingConditionRule);
             }
             if (npc.type == NPCID.Plantera)

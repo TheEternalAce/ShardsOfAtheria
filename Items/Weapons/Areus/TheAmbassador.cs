@@ -3,7 +3,6 @@ using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Bases;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -34,17 +33,22 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             Item.UseSound = SoundID.Item41;
             Item.noMelee = true;
 
-            Item.shootSpeed = 16f;
+            Item.shootSpeed = 0f;
             Item.rare = ItemRarityID.Red;
             Item.value = Item.sellPrice(0, 10, 25);
-            Item.shoot = ProjectileID.PurificationPowder;
+            Item.shoot = ModContent.ProjectileType<AmbassadorShot>();
             Item.useAmmo = AmmoID.Bullet;
         }
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            Projectile.NewProjectile(source, Main.MouseWorld + new Vector2(-10, -10), Vector2.Zero, ModContent.ProjectileType<AmbassadorShot>(), Item.damage, Item.knockBack, player.whoAmI);
-            return base.Shoot(player, source, position, velocity, type, damage, knockback);
+            if (player.whoAmI == Main.myPlayer)
+            {
+                type = Item.shoot;
+                velocity = Vector2.Zero;
+                position = Main.MouseWorld + new Vector2(-6, -6);
+            }
+            base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
         }
 
         public override Vector2? HoldoutOffset()

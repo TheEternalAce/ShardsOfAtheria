@@ -119,7 +119,7 @@ namespace ShardsOfAtheria.Utilities
         public const string OrbX2 = "OrbBlur2";
         public const string LineX1 = "LineTrail1";
         public const string LineX2 = "LineTrail2";
-        public static void DrawProjectilePrims(this Projectile projectile, Color color, string style, float scale = 1f)
+        public static void DrawProjectilePrims(this Projectile projectile, Color color, string style, float angleAdd = 0f, float scale = 1f)
         {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, null, null, null, null, Main.GameViewMatrix.ZoomMatrix);
@@ -139,20 +139,19 @@ namespace ShardsOfAtheria.Utilities
                 Vector2 drawPos = (projectile.oldPos[k] - Main.screenPosition) + offset;
                 float sizec = scale * (projectile.oldPos.Length - k) / (projectile.oldPos.Length * 0.8f);
                 Color drawColor = color * (1f - projectile.alpha) * ((projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
-                Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, projectile.oldRot[k] + plusRot, frame.Size() / 2, sizec, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, projectile.oldRot[k] + plusRot + angleAdd, frame.Size() / 2, sizec, SpriteEffects.None, 0);
             }
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Main.GameViewMatrix.ZoomMatrix);
         }
         //Credits to Aslysmic/Tewst Mod (so cool)
 
-        public static void DrawPrimsAfterImage(this Projectile projectile)
+        public static void DrawPrimsAfterImage(this Projectile projectile, Color color)
         {
             var texture = TextureAssets.Projectile[projectile.type].Value;
             Rectangle frame = new Rectangle(0, 0, texture.Width, texture.Height);
             Vector2 offset = new Vector2(projectile.width / 2, projectile.height / 2);
             var effects = projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            var color = new Color(252, 122, 41, 135);
             var origin = frame.Size() / 2f;
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
             {
