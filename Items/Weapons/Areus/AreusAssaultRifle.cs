@@ -151,12 +151,12 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             base.ModifyTooltips(tooltips);
         }
 
-        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 1f)
+        public override void DoOverchargeEffect(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 1f)
         {
             switch (fireMode)
             {
                 case 0:
-                    base.Overcharge(player, ModContent.ProjectileType<LightningBoltFriendly>(), damageMultiplier, velocity, ai1);
+                    base.DoOverchargeEffect(player, ModContent.ProjectileType<LightningBoltFriendly>(), damageMultiplier, velocity, ai1);
                     break;
                 case 1:
                     for (int i = 0; i < 3; i++)
@@ -168,7 +168,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                     }
                     break;
                 case 2:
-                    base.Overcharge(player, ModContent.ProjectileType<AreusGrenadeProj>(), damageMultiplier, velocity, 0f);
+                    base.DoOverchargeEffect(player, ModContent.ProjectileType<AreusGrenadeProj>(), damageMultiplier, velocity, 0f);
                     break;
             }
         }

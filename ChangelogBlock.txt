@@ -1,0 +1,9 @@
+﻿1. Enabled Overcharge mechanic.
+(Overcharge will generate when using Overcharge capable weapons while in combat.)
+2. Added the ability to increase Overcharge gain.
+3. Added Mod.Calls for Overcharge compatibility.
+4. The target of Envy Soul players will take 3 more damage with every hit.
+5. Lihzarhd Power Cells and Truffle Worms work properly with the Non-Consumable Boss Summons config.
+6. Non-Consumable Boss Summons config now does not change stack size or research requirement of boss summons.
+7. Atherian no longer refuses upgrades.
+8. Atherian dialogue rework.

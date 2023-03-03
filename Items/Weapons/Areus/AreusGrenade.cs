@@ -46,9 +46,9 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             overchargeShoot = false;
         }
 
-        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 1)
+        public override void DoOverchargeEffect(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 1)
         {
-            base.Overcharge(player, ModContent.ProjectileType<AreusGrenadeProj>(), damageMultiplier, velocity, ai1);
+            base.DoOverchargeEffect(player, ModContent.ProjectileType<AreusGrenadeProj>(), damageMultiplier, velocity, ai1);
         }
 
         public override void AddRecipes()

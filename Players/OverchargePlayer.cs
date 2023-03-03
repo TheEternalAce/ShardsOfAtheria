@@ -13,10 +13,12 @@ namespace ShardsOfAtheria.Players
     public class OverchargePlayer : ModPlayer
     {
         public float overcharge = 0f;
+        public float charge;
         public bool overcharged = false;
 
         public override void ResetEffects()
         {
+            charge = 0f;
             overcharged = overcharge >= 1f;
         }
     }
@@ -65,25 +67,26 @@ namespace ShardsOfAtheria.Players
             if (player.whoAmI == Main.myPlayer)
             {
                 OverchargePlayer overchargePlayer = player.GetModPlayer<OverchargePlayer>();
-                if (SoAGlobalItem.AreusWeapon.Contains(Type) && player.ShardsOfAtheria().inCombat)
+                if (player.ShardsOfAtheria().inCombat)
                 {
+                    float chargeToAdd = chargeAmount + overchargePlayer.charge;
                     if (Item.useTime != Item.useAnimation)
                     {
                         if (!(player.itemAnimation < Item.useAnimation - 2))
                         {
-                            //overchargePlayer.overcharge += chargeAmount;
+                            overchargePlayer.overcharge += chargeToAdd;
                         }
                     }
                     else
                     {
-                        //overchargePlayer.overcharge += chargeAmount;
+                        overchargePlayer.overcharge += chargeToAdd;
                     }
                 }
                 if (overchargePlayer.overcharged)
                 {
                     SoundEngine.PlaySound(SoundID.NPCDeath56.WithVolumeScale(0.5f), player.Center);
                     Vector2 velocity = Vector2.Normalize(Main.MouseWorld - player.Center) * chargeVelocity;
-                    Overcharge(player, ModContent.ProjectileType<LightningBoltFriendly>(), 2f, velocity, 1f);
+                    DoOverchargeEffect(player, ModContent.ProjectileType<LightningBoltFriendly>(), 2f, velocity, 1f);
                     for (int i = 0; i < 20; i++)
                     {
                         Dust dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.Electric);
@@ -103,7 +106,7 @@ namespace ShardsOfAtheria.Players
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 
-        public virtual void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
+        public virtual void DoOverchargeEffect(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
         {
             if (Main.myPlayer == player.whoAmI)
             {

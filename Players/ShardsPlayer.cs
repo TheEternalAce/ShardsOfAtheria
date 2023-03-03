@@ -363,7 +363,7 @@ namespace ShardsOfAtheria.Players
             {
                 readingDisk = 0;
             }
-            if (ShardsOfAtheria.ArmorSetBonusActive.JustReleased && !Player.HasBuff(ModContent.BuffType<SetBonusCooldown>()))
+            if (ShardsOfAtheriaMod.ArmorSetBonusActive.JustReleased && !Player.HasBuff(ModContent.BuffType<SetBonusCooldown>()))
             {
                 if (pearlwoodSet && !Player.mouseInterface)
                 {
@@ -374,7 +374,7 @@ namespace ShardsOfAtheria.Players
                     Player.AddBuff(ModContent.BuffType<SetBonusCooldown>(), 120);
                 }
             }
-            if (ShardsOfAtheria.OverdriveKey.JustPressed)
+            if (ShardsOfAtheriaMod.OverdriveKey.JustPressed)
             {
                 if (Biometal)
                 {
@@ -391,7 +391,7 @@ namespace ShardsOfAtheria.Players
                     }
                 }
             }
-            if (ShardsOfAtheria.EmeraldTeleportKey.JustPressed)
+            if (ShardsOfAtheriaMod.EmeraldTeleportKey.JustPressed)
             {
                 if (megaGemCore || superEmeraldCore)
                 {
@@ -434,7 +434,7 @@ namespace ShardsOfAtheria.Players
                     }
                 }
             }
-            if (ShardsOfAtheria.PhaseSwitch.JustPressed)
+            if (ShardsOfAtheriaMod.PhaseSwitch.JustPressed)
             {
                 if (Player.statLife >= Player.statLifeMax2 / 2 && rushDrive)
                 {

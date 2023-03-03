@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria
 {
-	partial class ShardsOfAtheria
+	partial class ShardsOfAtheriaMod
 	{
 		// The following code allows other mods to "call" Example Mod data.
 		// This allows mod developers to access Example Mod's data without having to set it a reference.

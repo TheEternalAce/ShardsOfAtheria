@@ -20,7 +20,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -29,6 +28,7 @@ namespace ShardsOfAtheria.Globals
 {
     public class SoAGlobalItem : GlobalItem
     {
+        ShardsServerConfig ServerConfig;
         #region Item Categories
         public static List<int> SlayerItem = new();
         public static List<int> SinfulItem = new();
@@ -67,6 +67,14 @@ namespace ShardsOfAtheria.Globals
         #endregion
 
         public override bool InstancePerEntity => true;
+
+        public override void SetStaticDefaults()
+        {
+            if (ServerConfig == null)
+            {
+                ServerConfig = ModContent.GetInstance<ShardsServerConfig>();
+            }
+        }
 
         public override void SetDefaults(Item item)
         {
@@ -156,8 +164,6 @@ namespace ShardsOfAtheria.Globals
                     if (serverConfig.nonConsumeBoss)
                     {
                         item.consumable = false;
-                        item.maxStack = 1;
-                        CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[item.type] = 1;
                     }
                     break;
                 #endregion
@@ -188,7 +194,7 @@ namespace ShardsOfAtheria.Globals
             if (set == "Shards:Pearlwood")
             {
                 player.setBonus = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.SetBonus.Pearlwood"),
-                    ShardsOfAtheria.ArmorSetBonusActive.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.ArmorSetBonusActive.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
+                    ShardsOfAtheriaMod.ArmorSetBonusActive.GetAssignedKeys().Count > 0 ? ShardsOfAtheriaMod.ArmorSetBonusActive.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
                 player.statDefense += 5;
                 player.statManaMax2 += 40;
                 player.GetDamage(DamageClass.Generic) += .15f;
@@ -235,6 +241,11 @@ namespace ShardsOfAtheria.Globals
             {
                 var line = new TooltipLine(Mod, "Eraser", Language.GetTextValue("Mods.ShardsOfAtheria.Common.Eraser"));
                 tooltips.Add(line);
+            }
+            if (item.ArmorPenetration > 0)
+            {
+                var line = new TooltipLine(Mod, "ArmorPenetration", Language.GetTextValue("Mods.ShardsOfAtheria.Common.ArmorPenetration", item.ArmorPenetration));
+                tooltips.Insert(TooltipHelper.GetIndex(tooltips, "Speed"), line);
             }
         }
 
@@ -330,7 +341,7 @@ namespace ShardsOfAtheria.Globals
 
         public override bool? UseItem(Item item, Player player)
         {
-            if (ModContent.GetInstance<ShardsServerConfig>().betterWeapon.Equals("Mouse Direction") && item.shoot == ProjectileID.None)
+            if (ServerConfig.betterWeapon.Equals("Mouse Direction") && item.shoot == ProjectileID.None)
             {
                 player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
             }
@@ -361,6 +372,14 @@ namespace ShardsOfAtheria.Globals
                 {
                     player.Heal(75);
                     gluttonyPlayer.feed = 100;
+                }
+            }
+
+            if (ServerConfig.nonConsumeBoss)
+            {
+                if (item.type == ItemID.LihzahrdPowerCell || item.type == ItemID.TruffleWorm)
+                {
+                    Item.NewItem(item.GetSource_FromThis(), player.getRect(), item.type, 1);
                 }
             }
 

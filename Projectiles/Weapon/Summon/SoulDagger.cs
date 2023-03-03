@@ -59,7 +59,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon
                 }
                 Projectile.ai[1] = 1;
             }
-            if (player == Main.player[Projectile.owner] && ShardsOfAtheria.ArmorSetBonusActive.JustPressed && Projectile.ai[1] == 1)
+            if (player == Main.player[Projectile.owner] && ShardsOfAtheriaMod.ArmorSetBonusActive.JustPressed && Projectile.ai[1] == 1)
             {
                 if (!Main.LocalPlayer.mouseInterface)
                 {

@@ -146,9 +146,8 @@ namespace ShardsOfAtheria.Utilities
         }
         //Credits to Aslysmic/Tewst Mod (so cool)
 
-        public static void DrawPrimsAfterImage(this Projectile projectile, Color color)
+        public static void DrawPrimsAfterImage(this Projectile projectile, Color color, Texture2D texture)
         {
-            var texture = TextureAssets.Projectile[projectile.type].Value;
             Rectangle frame = new Rectangle(0, 0, texture.Width, texture.Height);
             Vector2 offset = new Vector2(projectile.width / 2, projectile.height / 2);
             var effects = projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
@@ -160,6 +159,12 @@ namespace ShardsOfAtheria.Utilities
             }
 
             Main.spriteBatch.Draw(texture, projectile.position + offset - Main.screenPosition, null, Color.White, projectile.rotation, origin, projectile.scale, SpriteEffects.None, 0f);
+        }
+
+        public static void DrawPrimsAfterImage(this Projectile projectile, Color color)
+        {
+            var texture = TextureAssets.Projectile[projectile.type].Value;
+            projectile.DrawPrimsAfterImage(color, texture);
         }
         //Credits to Aequus Mod (Omega Starite my beloved)
 

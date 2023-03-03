@@ -145,7 +145,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             }
 
             // Soul Crystal effects
-            if (page > ShardsOfAtheria.MaxNecronomiconPages)
+            if (page > ShardsOfAtheriaMod.MaxNecronomiconPages)
             {
                 page = 0;
             }
@@ -177,9 +177,9 @@ namespace ShardsOfAtheria.Items.Tools.Misc
 
         public override void UpdateInventory(Player player)
         {
-            if (page > ShardsOfAtheria.MaxNecronomiconPages)
+            if (page > ShardsOfAtheriaMod.MaxNecronomiconPages)
             {
-                page = ShardsOfAtheria.MaxNecronomiconPages;
+                page = ShardsOfAtheriaMod.MaxNecronomiconPages;
             }
             SlayerPlayer slayer = player.GetModPlayer<SlayerPlayer>();
             if (ModContent.GetInstance<ShardsClientConfig>().entryView)
@@ -195,9 +195,9 @@ namespace ShardsOfAtheria.Items.Tools.Misc
                     {
                         page--;
                     }
-                    if (page > ShardsOfAtheria.MaxNecronomiconPages)
+                    if (page > ShardsOfAtheriaMod.MaxNecronomiconPages)
                     {
-                        page = ShardsOfAtheria.MaxNecronomiconPages;
+                        page = ShardsOfAtheriaMod.MaxNecronomiconPages;
                     }
                 }
                 else
@@ -207,7 +207,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
                     {
                         page++;
                     }
-                    if (page > ShardsOfAtheria.MaxNecronomiconPages)
+                    if (page > ShardsOfAtheriaMod.MaxNecronomiconPages)
                     {
                         page = 0;
                     }

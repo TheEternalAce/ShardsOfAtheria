@@ -190,7 +190,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
     {
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "SoulTeleport", string.Format("Press {0} to teleport", ShardsOfAtheria.SoulTeleport.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.SoulTeleport.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
+            tooltips.Add(new TooltipLine(Mod, "SoulTeleport", string.Format("Press {0} to teleport", ShardsOfAtheriaMod.SoulTeleport.GetAssignedKeys().Count > 0 ? ShardsOfAtheriaMod.SoulTeleport.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
 
             base.ModifyTooltips(tooltips);
         }
@@ -204,7 +204,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
     {
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "SoulTeleport", string.Format("Press {0} to teleport", ShardsOfAtheria.SoulTeleport.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.SoulTeleport.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
+            tooltips.Add(new TooltipLine(Mod, "SoulTeleport", string.Format("Press {0} to teleport", ShardsOfAtheriaMod.SoulTeleport.GetAssignedKeys().Count > 0 ? ShardsOfAtheriaMod.SoulTeleport.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
 
             base.ModifyTooltips(tooltips);
         }

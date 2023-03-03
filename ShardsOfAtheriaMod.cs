@@ -19,7 +19,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria
 {
-    public partial class ShardsOfAtheria : Mod
+    public partial class ShardsOfAtheriaMod : Mod
     {
         public static int MaxNecronomiconPages = 2;
 

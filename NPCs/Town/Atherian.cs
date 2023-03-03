@@ -34,6 +34,8 @@ namespace ShardsOfAtheria.NPCs.Town
     [AutoloadHead]
     public class Atherian : ModNPC
     {
+        public Item[] inventory = new Item[50];
+
         public override void SetStaticDefaults()
         {
             // DisplayName automatically assigned from .lang files, but the commented line below is the normal approach.
@@ -47,22 +49,11 @@ namespace ShardsOfAtheria.NPCs.Town
             NPCID.Sets.AttackAverageChance[Type] = 30;
             NPCID.Sets.HatOffsetY[Type] = 4;
 
-            // Influences how the NPC looks in the Bestiary
-            //NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
-            //{
-            //    Velocity = 1f, // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
-            //    Direction = -1 // -1 is left and 1 is right. NPCs are drawn facing the left by default but ExamplePerson will be drawn facing the right
-            //                  // Rotation = MathHelper.ToRadians(180) // You can also change the rotation of an NPC. Rotation is measured in radians
-            //                  // If you want to see an example of manually modifying these when the NPC is drawn, see PreDraw
-            //};
-
-            //NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+            NPCDebuffImmunityData debuffData = new()
             {
                 SpecificallyImmuneTo = new int[] {
                     BuffID.Poisoned,
                     ModContent.BuffType<ElectricShock>(),
-
                     BuffID.Confused // Most NPCs have this
 				}
             };
@@ -144,16 +135,30 @@ namespace ShardsOfAtheria.NPCs.Town
         {
             if (!ModContent.GetInstance<ShardsServerConfig>().cluelessNPCs)
             {
-                if (ModContent.GetInstance<ShardsDownedSystem>().slainSenterra)
+                ShardsDownedSystem downedSystem = ModContent.GetInstance<ShardsDownedSystem>();
+                bool oneDead = downedSystem.slainSenterra || downedSystem.slainGenesis || downedSystem.slainValkyrie;
+                bool allDead = downedSystem.slainSenterra && downedSystem.slainGenesis && downedSystem.slainValkyrie;
+                if (oneDead)
                 {
+                    NetworkText text = NetworkText.FromLiteral("");
+                    if (allDead)
+                    {
+                        text = NetworkText.FromKey("Mods.ShardsOfAtheria.Dialogue.Atherian.AllDeath", NPC.GivenName);
+                    }
+                    else if (downedSystem.slainSenterra)
+                    {
+                        text = NetworkText.FromKey("Mods.ShardsOfAtheria.Dialogue.Atherian.SenterraDeath", NPC.GivenName);
+                    }
+                    else if (downedSystem.slainGenesis)
+                    {
+                        text = NetworkText.FromKey("Mods.ShardsOfAtheria.Dialogue.Atherian.GenesisDeath", NPC.GivenName);
+                    }
+                    else if (downedSystem.slainValkyrie)
+                    {
+                        text = NetworkText.FromKey("Mods.ShardsOfAtheria.Dialogue.Atherian.NovaDeath", NPC.GivenName);
+                    }
                     NPC.active = false;
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(NPC.GivenName + " ceases to exist."), Color.Red);
-                    return false;
-                }
-                if (ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie)
-                {
-                    NPC.active = false;
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(NPC.GivenName + " leaves with Nova's death."), Color.Red);
+                    ChatHelper.BroadcastChatMessage(text, Color.Red);
                     return false;
                 }
             }
@@ -180,8 +185,6 @@ namespace ShardsOfAtheria.NPCs.Town
                 }
             }
 
-            chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.CSGOReference"));
-            chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.KenobiReference"));
             chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.PleaseINeedMoreLinesForThisMan"));
             return chat;
         }
@@ -204,11 +207,7 @@ namespace ShardsOfAtheria.NPCs.Town
                 ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
                 int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
-                if (player.Slayer().slayerMode && !ModContent.GetInstance<ShardsServerConfig>().cluelessNPCs)
-                {
-                    Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.RefuseUpgrade");
-                }
-                else if (player.HasItem(ModContent.ItemType<GenesisAndRagnarok>()) && upgrades < 5)
+                if (player.HasItem(ModContent.ItemType<GenesisAndRagnarok>()) && upgrades < 5)
                 {
                     int result = ModContent.ItemType<GenesisAndRagnarok>();
                     switch (upgrades)

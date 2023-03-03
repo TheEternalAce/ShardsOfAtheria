@@ -66,7 +66,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             return false;
         }
 
-        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
+        public override void DoOverchargeEffect(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
         {
             if (Main.myPlayer == player.whoAmI)
             {

@@ -87,10 +87,10 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             return false; // return false to stop vanilla from calling Projectile.NewProjectile.
         }
 
-        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
+        public override void DoOverchargeEffect(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
         {
             velocity.Normalize();
-            base.Overcharge(player, ModContent.ProjectileType<AreusKatanaProj>(), 4f, velocity, 0f);
+            base.DoOverchargeEffect(player, ModContent.ProjectileType<AreusKatanaProj>(), 4f, velocity, 0f);
         }
     }
 }

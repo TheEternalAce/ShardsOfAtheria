@@ -51,7 +51,7 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Add(new TooltipLine(Mod, "Overdrive", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.OverdriveInfo"),
-                    ShardsOfAtheria.OverdriveKey.GetAssignedKeys().Count > 0 ? ShardsOfAtheria.OverdriveKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
+                    ShardsOfAtheriaMod.OverdriveKey.GetAssignedKeys().Count > 0 ? ShardsOfAtheriaMod.OverdriveKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
         }
 
         public override void SetDefaults()
@@ -85,8 +85,8 @@ namespace ShardsOfAtheria.Items.Accessories
                 if (ModContent.GetInstance<ShardsClientConfig>().biometalSound)
                 {
                     if (player.Male)
-                        SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/MegamergeMale"));
-                    else SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/MegamergeFemale"));
+                        SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheriaMod)}/Sounds/Item/MegamergeMale"));
+                    else SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheriaMod)}/Sounds/Item/MegamergeFemale"));
                 }
             }
 
@@ -156,8 +156,8 @@ namespace ShardsOfAtheria.Items.Accessories
                 if (ModContent.GetInstance<ShardsClientConfig>().biometalSound)
                 {
                     if (player.Male)
-                        SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/MegamergeMale"));
-                    else SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/MegamergeFemale"));
+                        SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheriaMod)}/Sounds/Item/MegamergeMale"));
+                    else SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheriaMod)}/Sounds/Item/MegamergeFemale"));
                 }
             }
         }

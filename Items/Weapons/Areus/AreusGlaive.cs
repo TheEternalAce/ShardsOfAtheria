@@ -118,7 +118,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             return true;
         }
 
-        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
+        public override void DoOverchargeEffect(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
         {
             switch (combo)
             {
@@ -137,7 +137,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
 
                 case 2:
                 case 3:
-                    base.Overcharge(player, projType, damageMultiplier, velocity, ai1);
+                    base.DoOverchargeEffect(player, projType, damageMultiplier, velocity, ai1);
                     break;
             }
             ConsumeOvercharge(player);

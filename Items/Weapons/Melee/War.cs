@@ -7,6 +7,7 @@ using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -60,6 +61,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.DamageType = DamageClass.Melee;
 			Item.knockBack = 6;
 			Item.crit = 6;
+			Item.ArmorPenetration = 20;
 
 			Item.useTime = 25;
 			Item.useAnimation = 25;
@@ -71,8 +73,16 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
 			Item.shoot = ModContent.ProjectileType<Warframe>();
 			Item.shootSpeed = 1;
-			Item.rare = ItemRarityID.Red;
+			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.sellPrice(0, 2, 50);
+		}
+
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
+		{
+			if (upgraded)
+			{
+				damage += 0.12f;
+			}
 		}
 
 		public override void AddRecipes()
@@ -82,6 +92,12 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 				.AddIngredient(ItemID.BluePhasesaber)
 				.AddIngredient(ItemID.BluePhasesaber)
 				.AddTile(TileID.MythrilAnvil)
+				.Register();
+
+			CreateRecipe()
+				.AddCondition(NetworkText.FromKey("Mods.ShardsOfAtheria.RecipeConditions.Upgrade"), r => false)
+				.AddIngredient(Type)
+				.AddIngredient(ItemID.HallowedBar, 20)
 				.Register();
 		}
 
@@ -103,7 +119,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 		{
 			if (upgraded)
 			{
-				Item.BasicInWorldGlowmask(spriteBatch, glowmask.Value, Color.White, 0f, 1f);
+				Item.BasicInWorldGlowmask(spriteBatch, glowmask.Value, Color.White, rotation, 1f);
 			}
 		}
 	}

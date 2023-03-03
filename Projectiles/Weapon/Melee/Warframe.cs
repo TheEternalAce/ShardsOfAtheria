@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using MMZeroElements;
 using ReLogic.Content;
-using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
@@ -12,12 +11,12 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebmilioCommons.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
     public class Warframe : EpicSwingSword
     {
-        public override string Texture => "ShardsOfAtheria/Items/Weapons/Melee/War";
         public static Asset<Texture2D> glowmask;
 
         public override void Unload()
@@ -33,6 +32,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             }
 
             ProjectileElements.Electric.Add(Type);
+            ProjectileID.Sets.TrailingMode[Type] = 3;
+            ProjectileID.Sets.TrailCacheLength[Type] = 13;
         }
 
         public override void SetDefaults()
@@ -54,6 +55,16 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             }
         }
 
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            bool upgraded = Projectile.ai[0] == 1;
+            if (upgraded)
+            {
+                target.AddBuff(BuffID.Electrified, 600);
+            }
+            ScreenShake.ShakeScreen(6, 60);
+        }
+
         public override Color? GetAlpha(Color lightColor)
         {
             return Color.White;
@@ -62,6 +73,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         public override void AI()
         {
             base.AI();
+            bool upgraded = Projectile.ai[0] == 1;
+            if (upgraded)
+            {
+                Projectile.Size = new Vector2(150);
+                hitboxOutwards = 80;
+            }
             if (Main.player[Projectile.owner].itemAnimation <= 1)
             {
                 Main.player[Projectile.owner].ShardsOfAtheria().itemCombo = (ushort)(combo == 0 ? 20 : 0);
@@ -70,6 +87,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             {
                 playedSound = true;
                 SoundEngine.PlaySound(SoundID.Item1.WithPitchOffset(-1f), Projectile.Center);
+            }
+            if (Main.rand.NextBool(2) && upgraded)
+            {
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Electric);
+                dust.velocity = AngleVector * Projectile.velocity.Length() * 4;
             }
         }
 
@@ -99,22 +121,19 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         {
             var texture = TextureAssets.Projectile[Type].Value;
             var texture2 = glowmask.Value;
-            var center = Main.player[Projectile.owner].Center;
             var handPosition = Main.GetPlayerArmPosition(Projectile) + AngleVector * visualOutwards;
             var drawColor = Projectile.GetAlpha(lightColor) * Projectile.Opacity;
-            var drawCoords = handPosition - Main.screenPosition;
             float size = texture.Size().Length();
             var effects = SpriteEffects.None;
-            bool flip = Main.player[Projectile.owner].direction == 1 ? combo > 0 : combo == 0;
-            if (flip)
-            {
-                Main.instance.LoadItem(ModContent.ItemType<War>());
-                texture = TextureAssets.Item[ModContent.ItemType<War>()].Value;
-            }
             var origin = new Vector2(0f, texture.Height);
+            bool upgraded = Projectile.ai[0] == 1;
 
+            if (upgraded)
+            {
+                Projectile.DrawPrimsAfterImage(Color.White, texture2);
+            }
             Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor, Projectile.rotation, origin, Projectile.scale, effects, 0);
-            if (Projectile.ai[0] == 1)
+            if (upgraded)
             {
                 Main.EntitySpriteDraw(texture2, handPosition - Main.screenPosition, null, drawColor, Projectile.rotation, origin, Projectile.scale, effects, 0);
             }

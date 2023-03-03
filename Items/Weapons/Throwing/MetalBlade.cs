@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Throwing
             Item.useTime = 30;
             Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.UseSound = ModContent.GetInstance<ShardsServerConfig>().metalBladeSound ? new SoundStyle($"{nameof(ShardsOfAtheria)}/Sounds/Item/MetalBlade") : SoundID.Item1;
+            Item.UseSound = ModContent.GetInstance<ShardsServerConfig>().metalBladeSound ? new SoundStyle($"{nameof(ShardsOfAtheriaMod)}/Sounds/Item/MetalBlade") : SoundID.Item1;
             Item.noMelee = true;
             Item.noUseGraphic = true;
 

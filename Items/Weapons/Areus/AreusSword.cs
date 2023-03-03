@@ -52,7 +52,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .Register();
         }
 
-        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
+        public override void DoOverchargeEffect(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
         {
             float numberProjectiles = 5;
             float shardRotation = MathHelper.ToRadians(15);

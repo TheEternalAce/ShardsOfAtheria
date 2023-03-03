@@ -99,7 +99,7 @@ namespace ShardsOfAtheria.Players
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
             ModPacket packet = Mod.GetPacket();
-            packet.Write((byte)ShardsOfAtheria.MessageType.SyncSoulCrystals);
+            packet.Write((byte)ShardsOfAtheriaMod.MessageType.SyncSoulCrystals);
             packet.Write((byte)Player.whoAmI);
             for (int i = 0; i < soulCrystals.Count; i++)
             {
@@ -119,7 +119,7 @@ namespace ShardsOfAtheria.Players
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-            if (ShardsOfAtheria.TomeKey.JustPressed && omnicientTome)
+            if (ShardsOfAtheriaMod.TomeKey.JustPressed && omnicientTome)
             {
                 if (TomeKnowledge == 2)
                 {
@@ -129,7 +129,7 @@ namespace ShardsOfAtheria.Players
                 SoundEngine.PlaySound(SoundID.Item1, Player.position);
             }
 
-            if ((soulCrystals.Contains(ModContent.ItemType<LunaticSoulCrystal>()) || soulCrystals.Contains(ModContent.ItemType<DukeSoulCrystal>())) && ShardsOfAtheria.SoulTeleport.JustPressed
+            if ((soulCrystals.Contains(ModContent.ItemType<LunaticSoulCrystal>()) || soulCrystals.Contains(ModContent.ItemType<DukeSoulCrystal>())) && ShardsOfAtheriaMod.SoulTeleport.JustPressed
                 && !Player.HasBuff(ModContent.BuffType<SoulTeleportCooldown>()))
             {
                 Vector2 vector21 = default;

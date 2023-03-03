@@ -10,6 +10,7 @@ Mods: {
 	ShardsOfAtheria: {
 		Common: {
 			AbsorbedBlood: Absorbed Blood
+			ArmorPenetration: "{0} armor penetration"
 			Combat: Combat
 			Conservation: Conservation
 			Eraser: Can erase projectiles
@@ -321,6 +322,7 @@ Mods: {
 			ValkyrieBlade: Hardlight Blade
 			ValkyrieStorm: Valkyrie Storm
 			ValkyrieStormLance: Storm Lance
+			War: Providence Claymore
 			WormBloom: Worm Bloom
 			Yamiko: Yamiko
 			Zenova: Zenova
@@ -628,7 +630,7 @@ Mods: {
 			# Sinful
 			EnvySoul:
 				'''
-				Consecutive strikes on an enemy will increase the damage they take by 1
+				Consecutive strikes on an enemy will increase the damage they take by 3
 				Darkness debuff
 				'''
 			GluttonySoul:
@@ -758,6 +760,10 @@ Mods: {
 				Melee hits inflict both debuffs
 				Taking damage summons a shadow double of you to strike back with 100% of damage taken
 				'''
+			TerminatorSoulCrystal:
+				'''
+
+				'''
 			PlantSoulCrystal:
 				'''
 				Spawn up to 8 tentacles over the course of 40 seconds
@@ -838,7 +844,6 @@ Mods: {
 				'I am all out of milk'
 				'''
 			AreusMagnum: "'Headshots do not crit'"
-			AreusRailgun: Tears through enemy armor
 			AreusSaber: "'The pinnacle of areus weapon technology'"
 			BrokenAreusMirror:
 				'''
@@ -939,11 +944,11 @@ Mods: {
 				'''
 			ValkyrieStorm: "'Rains feather blades on your enemies!'"
 			ValkyrieStormLance: Briefly shocks enemies
+			War: 
 			Yamiko: "'I'm not tsundere! You're tsundere!'"
 			Zenova:
 				'''
 				Use Right click to fire a continuous, accurate steam of weapons
-				Ignores a moderate amount of defense
 				'Zenith's older sister'
 				'RANDOM BULLS**T GO!'
 				'''
@@ -951,9 +956,8 @@ Mods: {
 			BlackHoleRepeater: Converts regular arrows into powerful Black Hole Bolts
 			Coilgun:
 				'''
-				Tears through enemy armor
 				'Uses electromagnetic coils to fire projectiles at insane velocities'
-				'Areus Railgun's older brother'
+				'Areus Rail-gun's older brother'
 				'''
 			DoubleBow:
 				'''
@@ -1440,6 +1444,7 @@ Mods: {
 				Desperation: I cannot lose to you! Not Like this!
 				Death: No... My judgment was clouded... I'm sorry Mother, I failed...
 			}
+
 			Atherian: {
 				# On interact 
 				BaseGenesisAndRagnarok:
@@ -1447,12 +1452,14 @@ Mods: {
 					What a peculiar weapon. It shows capabilities of transforming into several types of weapon, but it's locked in spear and whip form.
 					There's also memories sealed inside the shield. Perhaps something to unlock those memories will make it stronger?
 					'''
-				CSGOReference: "DOOR STUCK!"
-				KenobiReference: Hello there.
-				PleaseINeedMoreLinesForThisMan: "I used to have so many lines of dialogue what happened?"
+					ExComment: "My ex? Ah yes, Nova, I'm sure you've already guessed by now."
+
+				NovaDeath: "{0} leaves with Nova's death. 'She didn't deserve this...'"
+				SenterraDeath: "{0} leaves with Senterra's death. 'Curse you till the end of time!'"
+				GenesisDeath: "{0} leaves with Genesis's death. 'Curse you till the end of time!'"
+				AllDeath: "{0} leaves from your genocide. 'Suffer beyond eternity!'"
 
 				# Upgrading
-				RefuseUpgrade: You may have everyone else fooled but I know. I will not help you kill our world.
 				UpgradeGenesisAndRagnarok1:
 					'''
 					As I expected, the fragments did make them stronger.

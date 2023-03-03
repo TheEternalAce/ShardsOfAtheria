@@ -98,7 +98,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 
-        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 1)
+        public override void DoOverchargeEffect(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 1)
         {
             ConsumeOvercharge(player);
         }

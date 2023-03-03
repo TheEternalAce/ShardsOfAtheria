@@ -5,7 +5,7 @@ using Terraria;
 namespace ShardsOfAtheria
 {
 	// This is a partial class, meaning some of its parts were split into other files. See ExampleMod.*.cs for other portions.
-	partial class ShardsOfAtheria
+	partial class ShardsOfAtheriaMod
 	{
 		internal enum MessageType : byte
 		{
