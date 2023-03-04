@@ -25,12 +25,10 @@ Mods: {
 				Overdrive increases all damage by 100%
 				Overdrive lasts until you get hit or run out of Overdrive time
 				'''
-			RushDrive:
+			OverchargeCapable:
 				'''
-				Press {0} to chose between two phase types:
-				Offensive: Sacrifice half of total defense for doubled damage and 5% increased crit chance
-				Defensive: Sacrifice half of total damage for doubled defense and 20% reduced damage
-				Always get 20% increased movement speed
+				Capable of Overcharge
+				Increases charge by {0}
 				'''
 			UpgradeableItem: Upgradeable Item
 
@@ -495,7 +493,14 @@ Mods: {
 			EntropicWings: Allows flight and grants slow fall
 			GildedValkyrieWings: "'The hardlight grants extra protection without impeding movement'"
 			HardlightBraces: Attacks create 4 hardlight blades to inflict further damage
-			RushDrive: Gives the user a 'phase 2' when below 50% life
+			RushDrive:
+				'''
+				Gives the user a 'phase 2' when below 50% life
+				Press {0} to chose between two phase types:
+				Offensive: Sacrifice half of total defense for doubled damage and 5% increased crit chance
+				Defensive: Sacrifice half of total damage for doubled defense and 20% reduced damage
+				Always get 20% increased movement speed
+				'''
 			TomeOfOmniscience: "Allows the wearer to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration"
 			ValkyrieCrown:
 				'''
@@ -1356,28 +1361,6 @@ Mods: {
 			WipSoulEntry: This Soul Crystal needs further research. Please wait for this boss to be introduced into the mod.
 		}
 
-		#This is what displays during all of an NPC's happiness levels. Note that the localization key for these should always be "TownNPCMood.*NPCName*.*Mood*" or else it won't display properly.
-		TownNPCMood: {
-			Atherian: {
-				Content: I'm fine, thanks for checking on me.
-				NoHome: I would appreciate it if you'd make me a home.
-				FarFromHome: Looks like I wandered too far from home.
-
-				LoveSpace: So much space.. It feels strange but also nice.
-				DislikeCrowded: I've grown so accustomed to having so much space that this is uncomfortable now.
-
-				LoveBiome: I love {BiomeName}, It reminds me of Atheria.
-				LikeBiome: "Atheria doesn't have many lush forests, this is a nice change."
-				HateBiome: "I can't stand how boring {BiomeName} is. All the colors are buried under gray and maybe brown."
-				
-				LoveNPC: "{NPCName} makes me feel a certain way.. But regardless she does a great job doing my hair!"
-				LikeNPC: "Nobody gives {NPCName} enough credit. I mean come on, he knows the Soul of Eternity's whole crafting tree yet you have to look it up on Recipe Browser!"
-				LikeNPC_Princess: "{NPCName} reminds me of our queen in Atheria, I didn't know humans had royalty as well!"
-				DislikeNPC: ""
-				HateNPC: ""
-			}
-		}
-
 		DropConditions: {
 			Flawless: Defeat without getting hit
 			Slayer: Drops while in Slayer Mode
@@ -1396,10 +1379,33 @@ Mods: {
 			NovaStellar: Lightning Valkyrie
 		}
 
+		#This is what displays during all of an NPC's happiness levels. Note that the localization key for these should always be "TownNPCMood.*NPCName*.*Mood*" or else it won't display properly.
+		TownNPCMood: {
+			Atherian: {
+				Content: I'm fine, thanks for checking on me.
+				NoHome: I would appreciate it if you'd make me a home.
+				FarFromHome: Looks like I wandered too far from home.
+
+				LoveSpace: So much space.. It feels strange but also nice.
+				DislikeCrowded: I've grown so accustomed to having so much space that this is uncomfortable now.
+
+				LoveBiome: "{BiomeName} reminds me of Atheria, bright and colorful. I like it here."
+				LikeBiome: "Ah the {BiomeName}, filled with so much plant life. Didja know green is my favorite color?"
+				HateBiome: "I can't stand how boring {BiomeName} is. All the colors are buried under gray and maybe brown."
+				
+				LoveNPC: "I love how {NPCName} does my hair! What's this about a crush? I-I don't know what you're talking about!"
+				LikeNPC: "Nobody gives {NPCName} enough credit. I mean come on, he knows the Soul of Eternity's whole crafting tree yet you have to look it up on Recipe Browser!"
+				LikeNPC_Princess: "I tried to teach {NPCName} the language of my people. Turns out humans are incapable of producing the sounds we can make.. Well she had fun trying regardless!"
+				DislikeNPC: ""
+				HateNPC: ""
+			}
+		}
+
 		ShopQuote: {
 			Atherian: {
 				AreusDataDisk: ""
 				ValkyrieCrest: "This belonged to my Ex..."
+				RushDrive: ""
 				AreusKey: Can I interest you in performance enhancing drugs? Too bad, I have none of that. This is the closes thing though.
 				SlimeCrown: "A slimy crown, there's not much else to it"
 				SuspiciousLookingEye: Have you heard of the hit game Among Us? This has nothing to do with that.
@@ -1452,12 +1458,18 @@ Mods: {
 					What a peculiar weapon. It shows capabilities of transforming into several types of weapon, but it's locked in spear and whip form.
 					There's also memories sealed inside the shield. Perhaps something to unlock those memories will make it stronger?
 					'''
-					ExComment: "My ex? Ah yes, Nova, I'm sure you've already guessed by now."
+				AtheriaComment: "Atheria is a lovely place, but there's an overpopulation problem. You see our goddess, Senterra, wasn't too keen on giving us such a short lifespan like humans. So she made us nigh-immortal and, turns out, that just made things worse. Many of us suggested to make Atheria bigger, heh, as if it were that simple. Bigger planet means stronger gravity and more strain on Senterra's end."
+				ExComment: "My ex? Ah. Yes, Nova, I'm sure you've already guessed by now. We didn't separate on exactly good terms."
+				GoldCrownCompliment: "Yes yes, the Gold Crown does suit you well!"
+				GoldCrownThought: "Hmm.. I recon a Gold Crown would suit you well!"
+				MorshuMoment: "Sorry {0}, what is this 'credit'? Come back when you have something to offer!"
 
 				NovaDeath: "{0} leaves with Nova's death. 'She didn't deserve this...'"
 				SenterraDeath: "{0} leaves with Senterra's death. 'Curse you till the end of time!'"
 				GenesisDeath: "{0} leaves with Genesis's death. 'Curse you till the end of time!'"
 				AllDeath: "{0} leaves from your genocide. 'Suffer beyond eternity!'"
+
+				TemporaryLeave: "{0} leaves to visit Atheria."
 
 				# Upgrading
 				UpgradeGenesisAndRagnarok1:
@@ -1488,6 +1500,7 @@ Mods: {
 					'''				
 				UpgradeAreusWeapon: That should do it. This is the best I can achieve. Use it well.
 				NoUpgradableItem: Sorry pal, you don't have anything I can upgrade.
+				NoUpgradeMoney: Sorry pal, you don't have enough coins.
 				NotEnoughMaterial: "{0} - {1} [i:{2}]. I need at least {3}, you have {4}."
 			}
 		}
@@ -1541,6 +1554,6 @@ Mods: {
 		}
 	}
 }
-TownNPCMood_Princess:{
+TownNPCMood_Princess: {
 	LoveNPC_ShardsOfAtheria/Atherian: "{NPCName}'s wings are just gorgeous!"
 }

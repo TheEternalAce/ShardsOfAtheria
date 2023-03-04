@@ -35,11 +35,17 @@ namespace ShardsOfAtheria.NPCs.Town
     public class Atherian : ModNPC
     {
         public Item[] inventory = new Item[50];
+        public Item[] initialInventory = new Item[] {
+            ModContent.GetInstance<AreusKey>().Item,
+            ModContent.GetInstance<AreusDataDisk>().Item,
+            //ModContent.GetInstance<AreusProcessor>().Item,
+            //ModContent.GetInstance<RingOfResonance>().Item,
+            //ModContent.GetInstance<BlankAreusChip>().Item,
+            ContentSamples.ItemsByType[ItemID.GoldCrown],
+        };
 
         public override void SetStaticDefaults()
         {
-            // DisplayName automatically assigned from .lang files, but the commented line below is the normal approach.
-            // DisplayName.SetDefault("Example Person");
             Main.npcFrameCount[Type] = 26;
             NPCID.Sets.ExtraFramesCount[Type] = 9;
             NPCID.Sets.AttackFrameCount[Type] = 5;
@@ -65,6 +71,7 @@ namespace ShardsOfAtheria.NPCs.Town
                 //Biomes
                 .SetBiomeAffection<HallowBiome>(AffectionLevel.Love)
                 .SetBiomeAffection<ForestBiome>(AffectionLevel.Like)
+                .SetBiomeAffection<JungleBiome>(AffectionLevel.Like)
                 .SetBiomeAffection<UndergroundBiome>(AffectionLevel.Hate)
                 //NPCs
                 .SetNPCAffection(NPCID.Stylist, AffectionLevel.Love)
@@ -162,6 +169,16 @@ namespace ShardsOfAtheria.NPCs.Town
                     return false;
                 }
             }
+            if (Main.time == 4 * 3600 + 30 * 60)
+            {
+                if (Main.rand.NextBool(5))
+                {
+                    NPC.active = false;
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Mods.ShardsOfAtheria.Dialogue.Atherian.TemporaryLeave",
+                        NPC.GivenName), Color.Red);
+                    return false;
+                }
+            }
             return base.PreAI();
         }
 
@@ -174,8 +191,7 @@ namespace ShardsOfAtheria.NPCs.Town
         {
             WeightedRandom<string> chat = new();
 
-            if ((!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode || ModContent.GetInstance<ShardsServerConfig>().cluelessNPCs) &&
-                Main.LocalPlayer.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
+            if (Main.LocalPlayer.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
             {
                 ShardsPlayer shardsPlayer = Main.LocalPlayer.ShardsOfAtheria();
                 int upgrades = shardsPlayer.genesisRagnarockUpgrades;
@@ -191,8 +207,12 @@ namespace ShardsOfAtheria.NPCs.Town
 
         public override void SetChatButtons(ref string button, ref string button2)
         {
-            button = Language.GetTextValue("LegacyInterface.28");
+            button = "Barter";
             button2 = "Upgrade";
+            if (Main.LocalPlayer.Slayer().slayerMode)
+            {
+                button2 += " (18 gold, 78 silver)";
+            }
         }
 
         public override void OnChatButtonClicked(bool firstButton, ref bool shop)
@@ -204,8 +224,18 @@ namespace ShardsOfAtheria.NPCs.Town
             else
             {
                 Player player = Main.LocalPlayer;
+                SlayerPlayer slayer = player.Slayer();
                 ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
                 int upgrades = shardsPlayer.genesisRagnarockUpgrades;
+                if (slayer.slayerMode)
+                {
+                    int slayerUpgradeCost = 187800;
+                    if (!player.CanBuyItem(slayerUpgradeCost))
+                    {
+                        Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NoUpgradeMoney");
+                        return;
+                    }
+                }
 
                 if (player.HasItem(ModContent.ItemType<GenesisAndRagnarok>()) && upgrades < 5)
                 {
@@ -300,6 +330,10 @@ namespace ShardsOfAtheria.NPCs.Town
             Main.npcChatCornerItem = result;
             if (CanUpgradeItem(player, materials))
             {
+                if (player.Slayer().slayerMode)
+                {
+                    player.BuyItem(187800);
+                }
                 for (int i = 0; i < materials.Length; i++)
                 {
                     player.inventory[player.FindItem(materials[i].item.type)].stack -= materials[i].requiredStack;
@@ -308,9 +342,10 @@ namespace ShardsOfAtheria.NPCs.Town
                 {
                     shardsPlayer.genesisRagnarockUpgrades++;
                 }
-                if (materials[0].item.ModItem is War war)
+                if (materials[0].item.ModItem is War)
                 {
-                    (player.inventory[player.FindItem(materials[0].item.type)].ModItem as War).upgraded = true;
+                    War war = player.inventory[player.FindItem(materials[0].item.type)].ModItem as War;
+                    war.upgraded = true;
                 }
                 SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
                 if (result > 0)
