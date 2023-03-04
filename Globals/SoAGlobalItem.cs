@@ -28,7 +28,6 @@ namespace ShardsOfAtheria.Globals
 {
     public class SoAGlobalItem : GlobalItem
     {
-        ShardsServerConfig ServerConfig;
         #region Item Categories
         public static List<int> SlayerItem = new();
         public static List<int> SinfulItem = new();
@@ -67,14 +66,6 @@ namespace ShardsOfAtheria.Globals
         #endregion
 
         public override bool InstancePerEntity => true;
-
-        public override void SetStaticDefaults()
-        {
-            if (ServerConfig == null)
-            {
-                ServerConfig = ModContent.GetInstance<ShardsServerConfig>();
-            }
-        }
 
         public override void SetDefaults(Item item)
         {
@@ -341,7 +332,7 @@ namespace ShardsOfAtheria.Globals
 
         public override bool? UseItem(Item item, Player player)
         {
-            if (ServerConfig.betterWeapon.Equals("Mouse Direction") && item.shoot == ProjectileID.None)
+            if (ShardsOfAtheriaMod.ServerConfig.betterWeapon.Equals("Mouse Direction") && item.shoot == ProjectileID.None)
             {
                 player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
             }
@@ -375,7 +366,7 @@ namespace ShardsOfAtheria.Globals
                 }
             }
 
-            if (ServerConfig.nonConsumeBoss)
+            if (ShardsOfAtheriaMod.ServerConfig.nonConsumeBoss)
             {
                 if (item.type == ItemID.LihzahrdPowerCell || item.type == ItemID.TruffleWorm)
                 {
