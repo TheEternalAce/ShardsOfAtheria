@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Utilities;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Players
@@ -48,18 +49,20 @@ namespace ShardsOfAtheria.Players
         public float chargeAmount = 0.1f;
         public float chargeVelocity = 16f;
         /// <summary>
-        /// 
+        /// Prevents the weapon from firing projectiles when overcharged.
         /// </summary>
         public bool overchargeShoot = true;
-
-        public override void SetStaticDefaults()
-        {
-            SoAGlobalItem.AreusWeapon.Add(Type);
-        }
 
         public override void SetDefaults()
         {
             chargeVelocity = Item.shootSpeed;
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            string key = "Mods.ShardsOfAtheria.Common.OverchargeCapable";
+            var line = new TooltipLine(Mod, "OverchargeCapable", Language.GetTextValue(key, chargeAmount));
+            tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
         }
 
         public override bool? UseItem(Player player)

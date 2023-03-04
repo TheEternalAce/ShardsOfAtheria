@@ -174,6 +174,7 @@ namespace ShardsOfAtheria.Players
         {
             tag["overdriveTimeCurrent"] = overdriveTimeCurrent;
             tag["phaseOffense"] = phaseOffense;
+            tag["genesisRagnarockUpgrades"] = genesisRagnarockUpgrades;
         }
 
         public override void LoadData(TagCompound tag)
@@ -182,6 +183,8 @@ namespace ShardsOfAtheria.Players
                 overdriveTimeCurrent = (int)tag["overdriveTimeCurrent"];
             if (tag.ContainsKey("phaseOffense"))
                 phaseOffense = tag.GetBool("phaseOffense");
+            if (tag.ContainsKey("genesisRagnarockUpgrades"))
+                genesisRagnarockUpgrades = tag.GetInt("genesisRagnarockUpgrades");
         }
 
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
@@ -193,7 +196,6 @@ namespace ShardsOfAtheria.Players
             {
                 List<Item> list = new() {
                     new Item(ModContent.ItemType<SinfulSoul>())
-                    //new Item(ModContent.ItemType<SinfulArmament>())
                 };
 
                 if (!mediumCoreDeath)
