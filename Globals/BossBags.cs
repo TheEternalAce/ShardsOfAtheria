@@ -1,6 +1,6 @@
-﻿using ShardsOfAtheria.Items.DevItems.DaluyanMesses;
-using ShardsOfAtheria.Items.DevItems.nightlight;
-using ShardsOfAtheria.Items.DevItems.TheEternalAce;
+﻿using ShardsOfAtheria.Items.DedicatedItems.DaluyanMesses;
+using ShardsOfAtheria.Items.DedicatedItems.nightlight;
+using ShardsOfAtheria.Items.DedicatedItems.TheEternalAce;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
