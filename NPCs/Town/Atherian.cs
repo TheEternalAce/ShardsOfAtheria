@@ -7,6 +7,7 @@ using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.DataDisks;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
@@ -191,6 +192,10 @@ namespace ShardsOfAtheria.NPCs.Town
         {
             WeightedRandom<string> chat = new();
 
+            if (!Main.LocalPlayer.HasItem(ModContent.ItemType<ValkyrieCrest>()))
+            {
+
+            }
             if (Main.LocalPlayer.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
             {
                 ShardsPlayer shardsPlayer = Main.LocalPlayer.ShardsOfAtheria();
@@ -424,6 +429,8 @@ namespace ShardsOfAtheria.NPCs.Town
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusShard>());
+            nextSlot++;
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusDataDisk>());
             shop.item[nextSlot].shopCustomPrice = 15000;
             nextSlot++;
@@ -438,8 +445,6 @@ namespace ShardsOfAtheria.NPCs.Town
             }
             if (!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
             {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<ValkyrieCrest>());
-                nextSlot++;
                 if (NPC.downedSlimeKing)
                 {
                     shop.item[nextSlot].SetDefaults(ItemID.SlimeCrown);

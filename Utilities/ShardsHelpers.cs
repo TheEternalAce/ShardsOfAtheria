@@ -23,17 +23,17 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
-        public static int ToHours(this int num)
+        public static int Hours(this int num)
         {
             return num * (int)Math.Pow(60, 3);
         }
 
-        public static int ToMinutes(this int num)
+        public static int Minutes(this int num)
         {
             return num * (int)Math.Pow(60, 2);
         }
 
-        public static int ToSeconds(this int num)
+        public static int Seconds(this int num)
         {
             return num * 60;
         }

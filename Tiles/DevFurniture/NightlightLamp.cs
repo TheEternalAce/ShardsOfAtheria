@@ -1,11 +1,11 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.DedicatedItems.nightlight;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 using Terraria.ObjectData;
-using Terraria.Enums;
-using Terraria.DataStructures;
-using ShardsOfAtheria.Items.DevItems.nightlight;
 
 namespace ShardsOfAtheria.Tiles.DevFurniture
 {

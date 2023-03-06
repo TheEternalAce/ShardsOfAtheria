@@ -43,7 +43,6 @@ namespace ShardsOfAtheria.Players
         public bool areusKey;
         public bool megaGemCore;
         public bool amethystMask;
-        public bool emeraldWings;
         public bool diamanodShield;
         public bool rubyGauntlet;
         public bool sapphireSpirit;
@@ -108,7 +107,6 @@ namespace ShardsOfAtheria.Players
             megaGemCore = false;
             amethystMask = false;
             diamanodShield = false;
-            emeraldWings = false;
             rubyGauntlet = false;
             sapphireSpirit = false;
             topazNecklace = false;
@@ -558,7 +556,6 @@ namespace ShardsOfAtheria.Players
                 {
                     amethystMask = true;
                     diamanodShield = true;
-                    emeraldWings = true;
                     rubyGauntlet = true;
                     sapphireSpirit = true;
                     topazNecklace = true;
@@ -574,11 +571,6 @@ namespace ShardsOfAtheria.Players
                         || item.type == ModContent.ItemType<DiamondCore_Super>())
                     {
                         diamanodShield = true;
-                    }
-                    if (item.type == ModContent.ItemType<EmeraldCore>() || item.type == ModContent.ItemType<EmeraldCore_Greater>()
-                        || item.type == ModContent.ItemType<EmeraldCore_Super>())
-                    {
-                        emeraldWings = true;
                     }
                     if (item.type == ModContent.ItemType<RubyCore>() || item.type == ModContent.ItemType<RubyCore_Greater>()
                         || item.type == ModContent.ItemType<RubyCore_Super>())
@@ -608,10 +600,6 @@ namespace ShardsOfAtheria.Players
             if (diamanodShield)
             {
                 Player.shield = (sbyte)EquipLoader.GetEquipSlot(Mod, "DiamondShield", EquipType.Shield);
-            }
-            if (emeraldWings)
-            {
-                Player.wings = (sbyte)EquipLoader.GetEquipSlot(Mod, "EmeraldWings", EquipType.Wings);
             }
             if (rubyGauntlet)
             {
