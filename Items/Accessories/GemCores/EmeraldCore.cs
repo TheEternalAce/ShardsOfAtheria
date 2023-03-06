@@ -1,5 +1,4 @@
-﻿using ShardsOfAtheria.Utilities;
-using Terraria;
+﻿using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,14 +8,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 	[AutoloadEquip(EquipType.Wings)]
 	public class EmeraldCore : ModItem
 	{
-		public override void Load()
-		{
-			if (Main.netMode != NetmodeID.Server)
-			{
-				EquipLoader.AddEquipTexture(Mod, "ShardsOfAtheria/Items/Accessories/GemCores/EmeraldWings", EquipType.Wings, this, "EmeraldWings");
-			}
-		}
-
 		public override void SetStaticDefaults()
 		{
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(30, .5f, .5f);
@@ -47,8 +38,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.ShardsOfAtheria().emeraldWings = player.velocity.Y != 0 || !hideVisual;
-
 			player.jumpBoost = true;
 		}
 
