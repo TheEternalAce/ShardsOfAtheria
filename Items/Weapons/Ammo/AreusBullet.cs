@@ -2,6 +2,7 @@ using MMZeroElements;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -38,7 +39,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
             CreateRecipe(100)
                 .AddIngredient(ItemID.MusketBall, 100)
                 .AddIngredient(ModContent.ItemType<AreusShard>())
-                .AddTile(TileID.Anvils)
+                .AddTile(ModContent.TileType<AreusFabricator>())
                 .Register();
         }
     }
