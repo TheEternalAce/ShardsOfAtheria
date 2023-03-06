@@ -24,8 +24,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             Projectile.tileCollide = true;
             Projectile.light = 1;
             Projectile.DamageType = DamageClass.Magic;
-
-            DrawOffsetX = 10;
         }
 
         public override void AI()
