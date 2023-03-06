@@ -1,5 +1,6 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -40,7 +41,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "Blood", $"{Language.GetTextValue("Mods.ShardsOfAtheria.Common.AbsorbedBlood")}: {blood}"));
+            tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "Blood", $"{Language.GetTextValue("Mods.ShardsOfAtheria.Common.AbsorbedBlood")}: {blood}"));
         }
 
         public override void SetDefaults()

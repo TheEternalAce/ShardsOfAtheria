@@ -153,7 +153,7 @@ Mods: {
 
 			# Dev items
 				# The Eternal Ace
-			AceOfSpades: Ace of Spades
+			AceOfSpades: Deck of Cards
 			AcesGoldFoxMask: "Rockman Zeta's Gold Fox Mask"
 			AcesJacket: "Rockman Zeta's Jacket"
 			AcesPants: "Rockman Zeta's Pants"
@@ -872,7 +872,8 @@ Mods: {
 				'''
 			Pandora:
 				'''
-				Left Click to fire an ice bolt, Right click to summon lightning
+				Summons 2 Frostspark Drones to fight for you
+				Alt-fire shoots ice bolts
 				'Destiny of destruction awaits'
 				'''
 			PerishSong: "'I M  D E A D'"
@@ -949,7 +950,7 @@ Mods: {
 				'''
 			ValkyrieStorm: "'Rains feather blades on your enemies!'"
 			ValkyrieStormLance: Briefly shocks enemies
-			War: 
+			War: ""
 			Yamiko: "'I'm not tsundere! You're tsundere!'"
 			Zenova:
 				'''
@@ -1040,7 +1041,7 @@ Mods: {
 			TrueEyeOfCthulhu: True Eye of Cthulhu
 			TrueEyeOfCthulhuAttack: True Eye of Cthulhu
 			YoungHarpy: Fledgling Knight
-			YourTentacle: Your Tentacle
+			YourTentacle: Plantera Tentacle
 
 			# NPCs
 				# Nova Stellar
@@ -1249,6 +1250,7 @@ Mods: {
 
 			# Summons
 			AreusMirrorBuff: Areus Mirror
+			FrostsparkDroneBuff: Frostspark Drone
 			CreeperShield: Creeper Shield
 			JuvenileHarpy: Fledgling Harpy
 		}
@@ -1338,6 +1340,7 @@ Mods: {
 
 			# Summons
 			AreusMirrorBuff: The Areus Mirror will fight for you
+			FrostsparkDroneBuff: The Frostspark Drone will fight for you
 			CreeperShield: Immune to damage, cannot attack and summons severely weakened
 			JuvenileHarpy: The harpy will fight along side you
 		}
