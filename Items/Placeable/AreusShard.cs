@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Items.Placeable
 			Item.autoReuse = true;
 			Item.useTurn = true;
 
-			Item.value = Item.sellPrice(0, 1, 50);
+			Item.value = 150;
 			Item.rare = ItemRarityID.Cyan;
 
 			Item.createTile = ModContent.TileType<AreusOre>();
