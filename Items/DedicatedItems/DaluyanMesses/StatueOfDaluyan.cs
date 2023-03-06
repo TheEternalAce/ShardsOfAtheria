@@ -2,10 +2,9 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.DevItems.TheEternalAce
+namespace ShardsOfAtheria.Items.DedicatedItems.DaluyanMesses
 {
-    [AutoloadEquip(EquipType.Body)]
-    public class AcesJacket : ModItem
+    public class StatueOfDaluyan : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -14,10 +13,9 @@ namespace ShardsOfAtheria.Items.DevItems.TheEternalAce
 
         public override void SetDefaults()
         {
-            Item.width = 30;
-            Item.height = 20;
+            Item.width = 38;
+            Item.height = 36;
             Item.rare = ItemRarityID.Cyan;
-            Item.vanity = true;
         }
     }
 }

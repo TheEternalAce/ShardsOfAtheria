@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.DevItems.nightlight
+namespace ShardsOfAtheria.Items.DedicatedItems.nightlight
 {
     public class Nightlight : ModItem
     {

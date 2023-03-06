@@ -2,10 +2,17 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.DevItems.DaluyanMesses
+namespace ShardsOfAtheria.Items.DedicatedItems.nightlight
 {
-    public class StatueOfDaluyan : ModItem
+    [AutoloadEquip(EquipType.Body)]
+    public class CoatOfnight : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            ModLoader.TryGetMod("excels", out Mod excels);
+            return excels == null;
+        }
+
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
@@ -16,6 +23,7 @@ namespace ShardsOfAtheria.Items.DevItems.DaluyanMesses
             Item.width = 38;
             Item.height = 36;
             Item.rare = ItemRarityID.Cyan;
+            Item.vanity = true;
         }
     }
 }
