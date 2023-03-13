@@ -1,5 +1,7 @@
 ﻿using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.SinfulSouls.Extras;
+using System.Collections.Generic;
+using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -38,6 +40,19 @@ namespace ShardsOfAtheria.Players
             {
                 SevenSoulUsed = tag.GetInt("SevenSoulUsed");
             }
+        }
+
+        public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
+        {
+            if (Player.GetModPlayer<SinfulPlayer>().SevenSoulUsed == 0)
+            {
+                List<Item> list = new() {
+                    new Item(ModContent.ItemType<SinfulSoul>())
+                };
+                return list;
+            }
+
+            return base.AddStartingItems(mediumCoreDeath);
         }
 
         public override void PostUpdate()

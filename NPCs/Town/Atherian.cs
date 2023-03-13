@@ -191,14 +191,16 @@ namespace ShardsOfAtheria.NPCs.Town
         public override string GetChat()
         {
             WeightedRandom<string> chat = new();
+            ShardsPlayer shardsPlayer = Main.LocalPlayer.ShardsOfAtheria();
 
-            if (!Main.LocalPlayer.HasItem(ModContent.ItemType<ValkyrieCrest>()))
+            if (!shardsPlayer.crestRecieved)
             {
-
+                Item.NewItem(NPC.GetSource_FromThis("Gift"), NPC.getRect(), ModContent.ItemType<ValkyrieCrest>());
+                shardsPlayer.crestRecieved = true;
+                return "a";
             }
             if (Main.LocalPlayer.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
             {
-                ShardsPlayer shardsPlayer = Main.LocalPlayer.ShardsOfAtheria();
                 int upgrades = shardsPlayer.genesisRagnarockUpgrades;
                 if (upgrades == 0)
                 {

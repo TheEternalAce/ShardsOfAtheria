@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Cooldowns;
+using ShardsOfAtheria.Items.Accessories.GemCores.SuperCores;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;

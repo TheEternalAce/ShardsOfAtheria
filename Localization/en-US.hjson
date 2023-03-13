@@ -1098,6 +1098,7 @@ Mods: {
 			BBProj: BB
 			SpectralArrowProj: Spectral Arrow
 			SpectralBulletProj: Spectral Bullet
+
 				# Areus
 			AreusArrow: Areus Arrow
 			AreusDaggerProj: Areus Dagger
@@ -1111,14 +1112,7 @@ Mods: {
 			AreusSlash4: Areus Slash
 			ElectricBlade: Electric Blade
 			ElectricOrb: Electric Orb
-				# Magic
-			DeathNote: Death Note
-			GunCorruption: Musket
-			CunCrimson: The Undertaker
-			IceBolt: Ice Bolt
-			LightningBoltFriendly: Lightning Bolt
-			ScreamShockwave: Scream Shock Wave
-			VileShot: Vile Shot
+
 				# Melee
 			BloodCutter: Blood Cutter
 			CorruptPetal: Corrupt Petal
@@ -1148,6 +1142,7 @@ Mods: {
 			SatanlanceProj: ecnalnataS
 			SoulBlade: Soul Blade
 			ValkyrieStormLanceProj: Storm Lance
+			Warframe: Providence Claymore
 			ZenovaAreusSword: Areus Sword
 			ZenovaBoneJavelin: Bone Javelin
 			ZenovaBreakerBlade: Breaker Blade
@@ -1159,7 +1154,6 @@ Mods: {
 		 	ZenovaSatanlance: ecnalnataS
 			ZenovaWoodenSword: Wooden Sword
 				# Ranged
-			AceOfSpadesProj: Ace of Spades
 			AmbassadorShot: Magnus Bullet
 			BlackHole: Black Hole
 			BlackHoleBolt: Black Hole Bolt
@@ -1170,14 +1164,27 @@ Mods: {
 			PhantomBullet: Phantom Bullet
 			PrometheusFire: Prometheus Fire
 			SoulArrow: Soul Arrow
+				# Throwing
+			AceOfClubs: Ace of Clubs
+			AceOfDiamonds: Ace of Diamonds
+			AceOfHearts: Ace of Hearts
+			AceOfSpadesProj: Ace of Spades
+			HardlightKnifeProj: Hardlight Knife
+			KusarigamaKing: "King's Kusarigama"
+			MetalBladeProj: Metal Blade
+
+				# Magic
+			DeathNote: Death Note
+			GunCorruption: Musket
+			CunCrimson: The Undertaker
+			IceBolt: Ice Bolt
+			LightningBoltFriendly: Lightning Bolt
+			ScreamShockwave: Scream Shock Wave
+			VileShot: Vile Shot
 				# Summon
 			DragonSpineWhipProj: Dragon Spine
 			FlailOfFleshProj: Leashed Hungry
 			SoulDagger: Soul Dagger
-				# Throwing
-			KusarigamaKing: "King's Kusarigama"
-			MetalBladeProj: Metal Blade
-			HardlightKnifeProj: Hardlight Knife
 		}
 
 		NPCName: {

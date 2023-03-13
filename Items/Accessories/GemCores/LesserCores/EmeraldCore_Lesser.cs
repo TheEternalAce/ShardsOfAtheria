@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Accessories.GemCores
+namespace ShardsOfAtheria.Items.Accessories.GemCores.LesserCores
 {
     public class EmeraldCore_Lesser : ModItem
     {

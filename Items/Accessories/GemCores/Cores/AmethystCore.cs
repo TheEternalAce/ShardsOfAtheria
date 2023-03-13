@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Accessories.GemCores.LesserCores;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Accessories.GemCores
+namespace ShardsOfAtheria.Items.Accessories.GemCores.Cores
 {
     public class AmethystCore : ModItem
     {
@@ -77,7 +78,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             {
                 Vector2 newVelocity = player.velocity;
 
-                if ((mp.DashDir == AmethystDashPlayer.DashLeft && player.velocity.X > -mp.DashVelocity) || (mp.DashDir == AmethystDashPlayer.DashRight && player.velocity.X < mp.DashVelocity))
+                if (mp.DashDir == AmethystDashPlayer.DashLeft && player.velocity.X > -mp.DashVelocity || mp.DashDir == AmethystDashPlayer.DashRight && player.velocity.X < mp.DashVelocity)
                 {
                     //X-velocity is set here
                     int dashDirection = mp.DashDir == AmethystDashPlayer.DashRight ? 1 : -1;

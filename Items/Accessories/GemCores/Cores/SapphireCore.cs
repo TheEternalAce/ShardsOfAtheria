@@ -1,12 +1,12 @@
-﻿using ShardsOfAtheria.Utilities;
-using ShardsOfAtheria.Systems;
+﻿using ShardsOfAtheria.Items.Accessories.GemCores.LesserCores;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Accessories.GemCores
+namespace ShardsOfAtheria.Items.Accessories.GemCores.Cores
 {
-    public class TopazCore_Lesser : ModItem
+    public class SapphireCore : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -20,24 +20,24 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             Item.accessory = true;
             Item.canBePlacedInVanityRegardlessOfConditions = true;
 
-            Item.value = Item.sellPrice(0, 0, 15);
-            Item.rare = ItemRarityID.White;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(0, 1, 25);
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddRecipeGroup(ShardsRecipes.Gold, 10)
-                .AddIngredient(ItemID.StoneBlock, 10)
-                .AddIngredient(ItemID.Topaz, 5)
+                .AddIngredient(ModContent.ItemType<SapphireCore_Lesser>())
+                .AddIngredient(ItemID.HellstoneBar, 5)
+                .AddIngredient(ItemID.Bone, 20)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ShardsOfAtheria().topazNecklace = !hideVisual;
-            player.statLifeMax2 += 20;
+            player.ShardsOfAtheria().sapphireSpirit = !hideVisual;
+            player.ShardsOfAtheria().sapphireCore = true;
         }
     }
 }

@@ -6,8 +6,10 @@ using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Accessories.GemCores;
+using ShardsOfAtheria.Items.Accessories.GemCores.Cores;
+using ShardsOfAtheria.Items.Accessories.GemCores.GreaterCores;
+using ShardsOfAtheria.Items.Accessories.GemCores.SuperCores;
 using ShardsOfAtheria.Items.Potions;
-using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Tools.Misc;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
@@ -16,7 +18,6 @@ using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
@@ -56,9 +57,12 @@ namespace ShardsOfAtheria.Players
         public bool valkyrieCrown;
         public bool valkyrieCrownHideVanity;
         public bool valkyrieCrownForceVanity;
+
         public bool hardlightBraces;
         public int hardlightBracesCooldown;
         public int hardlightBracesCooldownMax = 60;
+
+        public bool crestRecieved = false;
 
         public bool pearlwoodSet;
         public int pearlwoodBowShoot;
@@ -173,6 +177,7 @@ namespace ShardsOfAtheria.Players
             tag["overdriveTimeCurrent"] = overdriveTimeCurrent;
             tag["phaseOffense"] = phaseOffense;
             tag["genesisRagnarockUpgrades"] = genesisRagnarockUpgrades;
+            tag["crestRecieved"] = crestRecieved;
         }
 
         public override void LoadData(TagCompound tag)
@@ -183,26 +188,8 @@ namespace ShardsOfAtheria.Players
                 phaseOffense = tag.GetBool("phaseOffense");
             if (tag.ContainsKey("genesisRagnarockUpgrades"))
                 genesisRagnarockUpgrades = tag.GetInt("genesisRagnarockUpgrades");
-        }
-
-        public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
-        {
-            if (!mediumCoreDeath && Player.GetModPlayer<SinfulPlayer>().SevenSoulUsed > 0)
-                return new[] { new Item(ModContent.ItemType<Necronomicon>()) };
-
-            if (Player.GetModPlayer<SinfulPlayer>().SevenSoulUsed == 0)
-            {
-                List<Item> list = new() {
-                    new Item(ModContent.ItemType<SinfulSoul>())
-                };
-
-                if (!mediumCoreDeath)
-                    list.Add(new Item(ModContent.ItemType<Necronomicon>()));
-
-                return list;
-            }
-
-            return base.AddStartingItems(mediumCoreDeath);
+            if (tag.ContainsKey("crestRecieved"))
+                crestRecieved = tag.GetBool("crestRecieved");
         }
 
         public override void PostUpdate()
