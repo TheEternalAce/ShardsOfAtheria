@@ -69,7 +69,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             if (!theMessiah && Main.myPlayer == player.whoAmI)
             {
-                SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheriaMod)}/Sounds/Item/TheMessiah"));
+                SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/TheMessiah"));
                 theMessiah = true;
             }
             if (charge < 200)
