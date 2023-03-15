@@ -34,6 +34,7 @@ Mods: {
 
 			TitleText1: Shards of Atheria: Splitting Skies
 			TitleText2: Shards of Atheria: The World Revolving
+			TitleText3: Shards of Atheria: Shattered Atheria
 			TomeOfOmniscience: Press {0} to cycle between the 3 Knowledge Bases
 			UpgradeableItem: Upgradeable Item
 			TeleportOnKeyPress: Press {0} to teleport to your cursor
@@ -840,16 +841,46 @@ Mods: {
 				'''
 				Right click to switch between 3 modes: Semi-auto, Burst Fire and Full-auto
 				66% chance to not consume ammo
-				'Ugh!'
+				Overcharge depends on fire mode:
+				Semi-auto converts bullets into lightning bolts
+				Burst fire fires a spread of lightning bolts
+				Full-auto launches an Areus Grenade
 				'''
-			AreusBow: 'Brilliant light show'
+			AreusBow:
+				'''
+				'Brilliant light show'
+				Overcharge fires a volley of Areus Arrows
+				'''
+			AreusDagger: Overcharge fires a lightning bolt
+			AreusGlaive:
+				'''
+				Overdrive depends on combo
+				Swings create electric blades
+				Thrusts fire lightning bolts
+				Thrown creates a spread lightning bolts during travel
+				'''
+			AreusGrenade: Overcharge creates a lightning storm after exploding
 			AreusKatana:
 				'''
 				Holding this weapon increases your movement speed by 5%
 				'I am all out of milk'
+				Overcharge swings the katana in a large arc
 				'''
-			AreusMagnum: "'Headshots do not crit'"
-			AreusSaber: "'The pinnacle of areus weapon technology'"
+			AreusMagnum:
+				'''
+				'Headshots do not crit'
+				Overcharge converts bullets into lightning bolts
+				'''
+			AreusRailgun: Overcharge converts bullets into lightning bolts
+			AreusSaber:
+				'''
+				'The pinnacle of areus weapon technology'
+				Overcharge swings the saber in a circle and fires homing Areus Sickles
+				'''
+			AreusStaff: Overcharge creates a lightning storm
+			AreusSword: Overcharge creates a spread electric blades
+			AreusTrimmedTome: Overcharge creates a lightning orb at the cursor
+			AreusTwinSabers: Overcharge throws a combined saber
 			BrokenAreusMirror:
 				'''
 				Summons a broken Areus Mirror that shoots homing Mirror Shards
@@ -946,7 +977,7 @@ Mods: {
 				'''
 				Passively charges while in hand and not in use
 				Max charge level increases damage by 200% and critical strike chance by 60%
-				'I am the messiah!'"
+				'I am the messiah!'
 				'''
 			ValkyrieStorm: "'Rains feather blades on your enemies!'"
 			ValkyrieStormLance: Briefly shocks enemies
@@ -1413,38 +1444,10 @@ Mods: {
 
 		ShopQuote: {
 			Atherian: {
+				AreusShard: ""
 				AreusDataDisk: ""
-				ValkyrieCrest: "This belonged to my Ex..."
 				RushDrive: ""
 				AreusKey: Can I interest you in performance enhancing drugs? Too bad, I have none of that. This is the closes thing though.
-				SlimeCrown: "A slimy crown, there's not much else to it"
-				SuspiciousLookingEye: Have you heard of the hit game Among Us? This has nothing to do with that.
-				BloodySpine: This... is disgusting.. how did this get in my inventory.
-				WormFood: Take this before my house gets a worm infestation!
-				Abeemination: NOT THE BEES! Wait, someone already made that reference.
-				ClothierVoodooDoll: Heeeello Terraria enthusiasts. My name is not James, and I would like you to buy this.
-				DeerThing: No comment.
-				GuideVoodooDoll: This looks... horrifyingly similar to The Guide...
-				QueenSlimeCrystal: This honestly looks tasty. Do I have a problem?
-				MechanicalWorm: "Great, now there's a worm infestation. Take it"
-				PrimeRework_WormRemote: "Great, now there's a worm infestation. Take it"
-				PrimeRework_BrainRemote: Unfortunately too big for cybernetic augmentation.
-				MechanicalSkull: Unfortunately the mechanical parts inside make cybernetic augmentation impossible.
-				PrimeRework_SkullRemote: Unfortunately the mechanical parts inside make cybernetic augmentation impossible.
-				MechanicalEye: Unfortunately too big for cybernetic augmentation.
-				PrimeRework_EyeRemote: Unfortunately too big for cybernetic augmentation.
-				PottedPlant:
-					'''
-					"What a lovely decoration, I sure would love to move it to my house!"
-					Oh what horrors awaited them.
-					'''
-				LihzahrdPowerCell: Last time I went to the store I accidentally bought Triple A batteries, now I still need Double A batteries.
-				TruffleWorm: "Great, now there's a bigger worm infestation. Take it"
-				EmpressButterfly: Such a colorful specimen, I wonder how it is possible.
-				CelestialSigil: Thus saith the lord.
-				# SpiderClock: Do you wish to challenge our goddess again? Sure, go for it.
-				# AreusSnakeScale: Do you wish to challenge our goddess again? Sure, go for it.
-				# AncientMedallion: Placeholder
 			}
 		}
 
@@ -1471,8 +1474,9 @@ Mods: {
 				AtheriaComment: "Atheria is a lovely place, but there's an overpopulation problem. You see our goddess, Senterra, wasn't too keen on giving us such a short lifespan like humans. So she made us nigh-immortal and, turns out, that just made things worse. Many of us suggested to make Atheria bigger, heh, as if it were that simple. Bigger planet means stronger gravity and more strain on Senterra's end."
 				ExComment: "My ex? Ah. Yes, Nova, I'm sure you've already guessed by now. We didn't separate on exactly good terms."
 				GoldCrownCompliment: "Yes yes, the Gold Crown does suit you well!"
-				GoldCrownThought: "Hmm.. I recon a Gold Crown would suit you well!"
+				GoldCrownThought: "Hmm.. I reckon a Gold Crown would suit you well!"
 				MorshuMoment: "Sorry {0}, what is this 'credit'? Come back when you have something to offer!"
+				GiftCrest: "Hey {0}. "
 
 				NovaDeath: "{0} leaves with Nova's death. 'She didn't deserve this...'"
 				SenterraDeath: "{0} leaves with Senterra's death. 'Curse you till the end of time!'"
