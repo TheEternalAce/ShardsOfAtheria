@@ -62,7 +62,7 @@ namespace ShardsOfAtheria.Players
         {
             string key = "Mods.ShardsOfAtheria.Common.OverchargeCapable";
             var line = new TooltipLine(Mod, "OverchargeCapable", Language.GetTextValue(key, chargeAmount));
-            tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
+            tooltips.AddTooltip(line);
         }
 
         public override bool? UseItem(Player player)
@@ -114,7 +114,7 @@ namespace ShardsOfAtheria.Players
             if (Main.myPlayer == player.whoAmI)
             {
                 Projectile proj = Projectile.NewProjectileDirect(Item.GetSource_ItemUse(Item), player.Center, velocity, projType,
-                    (int)(Item.damage * damageMultiplier), Item.knockBack, player.whoAmI, 0f, ai1);
+                    (int)(player.GetWeaponDamage(Item) * damageMultiplier), Item.knockBack, player.whoAmI, 0f, ai1);
                 proj.GetGlobalProjectile<OverchargedProjectile>().overcharged = true;
                 proj.DamageType = Item.DamageType;
                 ConsumeOvercharge(player);

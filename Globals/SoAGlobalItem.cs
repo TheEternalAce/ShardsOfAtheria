@@ -221,22 +221,22 @@ namespace ShardsOfAtheria.Globals
                 {
                     OverrideColor = Color.Red
                 };
-                tooltips.Add(line);
+                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
             }
             if (UpgradeableItem.Contains(item.type))
             {
                 var line = new TooltipLine(Mod, "UpgradeItem", Language.GetTextValue("Mods.ShardsOfAtheria.Common.UpgradeableItem"));
-                tooltips.Add(line);
+                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
             }
             if (Eraser.Contains(item.type))
             {
                 var line = new TooltipLine(Mod, "Eraser", Language.GetTextValue("Mods.ShardsOfAtheria.Common.Eraser"));
-                tooltips.Add(line);
+                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
             }
             if (item.ArmorPenetration > 0)
             {
                 var line = new TooltipLine(Mod, "ArmorPenetration", Language.GetTextValue("Mods.ShardsOfAtheria.Common.ArmorPenetration", item.ArmorPenetration));
-                tooltips.Insert(TooltipHelper.GetIndex(tooltips, "Speed"), line);
+                tooltips.Insert(tooltips.GetIndex("Speed"), line);
             }
         }
 

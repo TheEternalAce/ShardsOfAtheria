@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MMZeroElements;
 using ShardsOfAtheria.Config;
@@ -11,6 +12,7 @@ using ShardsOfAtheria.Items.Weapons.Summon.Minion;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using ShardsOfAtheria.NPCs.Town;
 using ShardsOfAtheria.Systems;
+using ShopQuotesMod;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -112,6 +114,12 @@ namespace ShardsOfAtheria
                 WeaponElements.Electric.Add(item);
             }
 
+            // Weak Shop Quotes reference
+            if (ModLoader.HasMod("ShopQuotesMod"))
+            {
+                TryAddingShopQuotes();
+            }
+
             // Mod calls
             if (ModLoader.TryGetMod("Census", out Mod foundMod))
             {
@@ -162,14 +170,22 @@ namespace ShardsOfAtheria
             }
         }
 
+        [JITWhenModsEnabled("ShopQuotesMod")]
+        internal void TryAddingShopQuotes()
+        {
+            ModContent.GetInstance<QuoteDatabase>()
+                .AddNPC(ModContent.NPCType<Atherian>(), this, "Mods.ShardsOfAtheria.ShopQuote.")
+                .UseColor(Color.Cyan);
+        }
+
         public string ChooseTitleText(int id = 0)
         {
             List<string> title = new List<string>();
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 3; i++)
             {
                 title.Add(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TitleText" + (i + 1)));
             }
-            int index = Main.rand.Next(2);
+            int index = Main.rand.Next(3);
 
             return title[index];
         }

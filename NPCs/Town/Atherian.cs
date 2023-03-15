@@ -14,7 +14,6 @@ using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSword;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
-using ShopQuotesMod;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -77,10 +76,6 @@ namespace ShardsOfAtheria.NPCs.Town
                 //NPCs
                 .SetNPCAffection(NPCID.Stylist, AffectionLevel.Love)
                 .SetNPCAffection(NPCID.Guide, AffectionLevel.Like);
-
-            ModContent.GetInstance<QuoteDatabase>()
-                .AddNPC(Type, Mod, "Mods.ShardsOfAtheria.ShopQuote.")
-                .UseColor(Color.Cyan);
         }
 
         public override void SetDefaults()
@@ -193,12 +188,6 @@ namespace ShardsOfAtheria.NPCs.Town
             WeightedRandom<string> chat = new();
             ShardsPlayer shardsPlayer = Main.LocalPlayer.ShardsOfAtheria();
 
-            if (!shardsPlayer.crestRecieved)
-            {
-                Item.NewItem(NPC.GetSource_FromThis("Gift"), NPC.getRect(), ModContent.ItemType<ValkyrieCrest>());
-                shardsPlayer.crestRecieved = true;
-                return "a";
-            }
             if (Main.LocalPlayer.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
             {
                 int upgrades = shardsPlayer.genesisRagnarockUpgrades;
@@ -214,7 +203,7 @@ namespace ShardsOfAtheria.NPCs.Town
 
         public override void SetChatButtons(ref string button, ref string button2)
         {
-            button = "Barter";
+            button = Language.GetTextValue("LegacyInterface.28");
             button2 = "Upgrade";
             if (Main.LocalPlayer.Slayer().slayerMode)
             {
@@ -445,152 +434,19 @@ namespace ShardsOfAtheria.NPCs.Town
                 shop.item[nextSlot].shopCustomPrice = 50000;
                 nextSlot++;
             }
-            if (!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
+            for (int i = 0; i < shop.item.Length; i++)
             {
-                if (NPC.downedSlimeKing)
+                Item item = shop.item[i];
+                if (item.type == ItemID.TeleportationPylonHallow)
                 {
-                    shop.item[nextSlot].SetDefaults(ItemID.SlimeCrown);
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (NPC.downedBoss1)
-                {
-                    shop.item[nextSlot].SetDefaults(ItemID.SuspiciousLookingEye);
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (NPC.downedBoss2)
-                {
-                    if (WorldGen.crimson)
+                    Player player = Main.LocalPlayer;
+                    ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+                    if (!shardsPlayer.crestRecieved)
                     {
-                        shop.item[nextSlot].SetDefaults(ItemID.BloodySpine);
+                        Item.NewItem(NPC.GetSource_FromThis("Gift"), NPC.getRect(), ModContent.ItemType<ValkyrieCrest>());
+                        ChatHelper.SendChatMessageToClient(NetworkText.FromKey("", player.name), Color.Cyan, player.whoAmI);
+                        shardsPlayer.crestRecieved = true;
                     }
-                    else
-                    {
-                        shop.item[nextSlot].SetDefaults(ItemID.WormFood);
-                    }
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (NPC.downedQueenBee)
-                {
-                    shop.item[nextSlot].SetDefaults(ItemID.Abeemination);
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (NPC.downedBoss3)
-                {
-                    shop.item[nextSlot].SetDefaults(ItemID.ClothierVoodooDoll);
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (NPC.downedDeerclops)
-                {
-                    shop.item[nextSlot].SetDefaults(ItemID.DeerThing);
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (Main.hardMode)
-                {
-                    shop.item[nextSlot].SetDefaults(ItemID.GuideVoodooDoll);
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (NPC.downedQueenSlime)
-                {
-                    shop.item[nextSlot].SetDefaults(ItemID.QueenSlimeCrystal);
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (NPC.downedMechBoss1)
-                {
-                    if (ModLoader.TryGetMod("PrimeRework", out Mod foundMod))
-                    {
-                        shop.item[nextSlot].SetDefaults(foundMod.Find<ModItem>("BrainRemote").Type);
-                        shop.item[nextSlot].shopCustomPrice = 50000;
-                        nextSlot++;
-                        shop.item[nextSlot].SetDefaults(foundMod.Find<ModItem>("WormRemote").Type);
-                    }
-                    else
-                    {
-                        shop.item[nextSlot].SetDefaults(ItemID.MechanicalWorm);
-                    }
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (NPC.downedMechBoss2)
-                {
-                    if (ModLoader.TryGetMod("PrimeRework", out Mod foundMod))
-                    {
-                        shop.item[nextSlot].SetDefaults(foundMod.Find<ModItem>("EyeRemote").Type);
-                    }
-                    else
-                    {
-                        shop.item[nextSlot].SetDefaults(ItemID.MechanicalEye);
-                    }
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (NPC.downedMechBoss3)
-                {
-                    if (ModLoader.TryGetMod("PrimeRework", out Mod foundMod))
-                    {
-                        shop.item[nextSlot].SetDefaults(foundMod.Find<ModItem>("SkullRemote").Type);
-                    }
-                    else
-                    {
-                        shop.item[nextSlot].SetDefaults(ItemID.MechanicalSkull);
-                    }
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (NPC.downedPlantBoss)
-                {
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<PottedPlant>());
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (NPC.downedGolemBoss)
-                {
-                    shop.item[nextSlot].SetDefaults(ItemID.LihzahrdPowerCell);
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (NPC.downedFishron)
-                {
-                    shop.item[nextSlot].SetDefaults(ItemID.TruffleWorm);
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (NPC.downedEmpressOfLight)
-                {
-                    shop.item[nextSlot].SetDefaults(ItemID.EmpressButterfly);
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (NPC.downedMoonlord)
-                {
-                    shop.item[nextSlot].SetDefaults(ItemID.CelestialSigil);
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (ShardsDownedSystem.downedGenesis)
-                {
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpiderClock>());
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (ShardsDownedSystem.downedSenterra)
-                {
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusSnakeScale>());
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
-                }
-                if (ShardsDownedSystem.downedDeath)
-                {
-                    //shop.item[nextSlot].SetDefaults(ModContent.ItemType<AncientMedalion>());
-                    shop.item[nextSlot].shopCustomPrice = 50000;
-                    nextSlot++;
                 }
             }
         }
