@@ -162,14 +162,15 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 case 1:
                     for (int i = 0; i < 3; i++)
                     {
-                        Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center).RotatedByRandom(MathHelper.ToRadians(20f)) * velocity;
+                        Vector2 vel = Vector2.Normalize(velocity).RotatedByRandom(MathHelper.ToRadians(20f)) * Item.shootSpeed;
                         Projectile proj = Projectile.NewProjectileDirect(Item.GetSource_ItemUse(Item), player.Center, vel,
-                            ModContent.ProjectileType<LightningBoltFriendly>(), (int)(Item.damage * damageMultiplier), Item.knockBack, player.whoAmI, 0f, 0f);
+                            ModContent.ProjectileType<LightningBoltFriendly>(), (int)(player.GetWeaponDamage(Item) * damageMultiplier), Item.knockBack, player.whoAmI, 0f, 0f);
                         proj.DamageType = DamageClass.Ranged;
                     }
+                    ConsumeOvercharge(player);
                     break;
                 case 2:
-                    base.DoOverchargeEffect(player, ModContent.ProjectileType<AreusGrenadeProj>(), damageMultiplier, velocity, 0f);
+                    base.DoOverchargeEffect(player, ModContent.ProjectileType<AreusGrenadeProj>(), damageMultiplier, velocity * 8, 0f);
                     break;
             }
         }
