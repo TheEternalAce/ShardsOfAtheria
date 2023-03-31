@@ -170,7 +170,7 @@ namespace ShardsOfAtheria.NPCs.Town
                 if (Main.rand.NextBool(5))
                 {
                     NPC.active = false;
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Mods.ShardsOfAtheria.Dialogue.Atherian.TemporaryLeave",
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Mods.ShardsOfAtheria.NPCDialogue.Atherian.TemporaryLeave",
                         NPC.GivenName), Color.Red);
                     return false;
                 }

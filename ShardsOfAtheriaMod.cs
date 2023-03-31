@@ -183,7 +183,8 @@ namespace ShardsOfAtheria
             List<string> title = new List<string>();
             for (int i = 0; i < 3; i++)
             {
-                title.Add(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TitleText" + (i + 1)));
+                string key = "Mods.ShardsOfAtheria.Common.TitleText" + (i + 1);
+                title.Add(Language.GetTextValue(key));
             }
             int index = Main.rand.Next(3);
 
