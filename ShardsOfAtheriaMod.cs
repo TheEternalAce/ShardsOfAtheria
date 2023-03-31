@@ -30,6 +30,9 @@ namespace ShardsOfAtheria
         public static ModKeybind SoulTeleport;
         public static ModKeybind ArmorSetBonusActive;
 
+        public static ShardsServerConfig ServerConfig;
+        public static ShardsClientConfig ClientConfig;
+
         public override void Load()
         {
             OverdriveKey = KeybindLoader.RegisterKeybind(this, "Toggle Overdrive", "F");
@@ -38,6 +41,9 @@ namespace ShardsOfAtheria
             PhaseSwitch = KeybindLoader.RegisterKeybind(this, "Toggle Phase Type", "RightAlt");
             SoulTeleport = KeybindLoader.RegisterKeybind(this, "Soul Crystal Teleport", "V");
             ArmorSetBonusActive = KeybindLoader.RegisterKeybind(this, "Activate Armor Set Bonus", "Mouse4");
+
+            ServerConfig = ModContent.GetInstance<ShardsServerConfig>();
+            ClientConfig = ModContent.GetInstance<ShardsClientConfig>();
 
             ModLoader.TryGetMod("Wikithis", out Mod wikithis);
             if (wikithis != null && !Main.dedServ)

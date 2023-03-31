@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
 using MMZeroElements;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah;
 using Terraria;
 using Terraria.Audio;
@@ -69,7 +69,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             if (!theMessiah && Main.myPlayer == player.whoAmI)
             {
-                SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheriaMod)}/Sounds/Item/TheMessiah"));
+                SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/TheMessiah"));
                 theMessiah = true;
             }
             if (charge < 200)

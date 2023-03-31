@@ -31,8 +31,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.ShardsOfAtheria().emeraldWings = player.velocity.Y != 0 || !hideVisual;
-
 			// Terraspark Boots
 			player.waterWalk = true;
 			player.fireWalk = true;

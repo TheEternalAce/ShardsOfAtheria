@@ -20,7 +20,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -156,8 +155,6 @@ namespace ShardsOfAtheria.Globals
                     if (serverConfig.nonConsumeBoss)
                     {
                         item.consumable = false;
-                        item.maxStack = 1;
-                        CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[item.type] = 1;
                     }
                     break;
                 #endregion
@@ -366,6 +363,14 @@ namespace ShardsOfAtheria.Globals
                 {
                     player.Heal(75);
                     gluttonyPlayer.feed = 100;
+                }
+            }
+
+            if (ShardsOfAtheriaMod.ServerConfig.nonConsumeBoss)
+            {
+                if (item.type == ItemID.LihzahrdPowerCell || item.type == ItemID.TruffleWorm)
+                {
+                    Item.NewItem(item.GetSource_FromThis(), player.getRect(), item.type, 1);
                 }
             }
 

@@ -30,8 +30,8 @@ namespace ShardsOfAtheria.Items.BossSummons
             if (!ModContent.GetInstance<ShardsServerConfig>().nonConsumeBoss)
             {
                 Item.consumable = true;
-                Item.maxStack = 9999;
             }
+            Item.maxStack = 9999;
 
             Item.useTime = 45;
             Item.useAnimation = 45;

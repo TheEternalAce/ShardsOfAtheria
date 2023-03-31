@@ -94,7 +94,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
             player.ShardsOfAtheria().amethystMask = !hideVisual;
             player.ShardsOfAtheria().diamanodShield = !hideVisual;
-            player.ShardsOfAtheria().emeraldWings = player.velocity.Y != 0 || !hideVisual;
             player.ShardsOfAtheria().rubyGauntlet = !hideVisual;
             player.ShardsOfAtheria().sapphireSpirit = !hideVisual;
             player.ShardsOfAtheria().topazNecklace = !hideVisual;
