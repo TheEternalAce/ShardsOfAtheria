@@ -4,7 +4,6 @@ using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using ShardsOfAtheria.Systems;
-using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
@@ -52,7 +51,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 17)
                 .AddRecipeGroup(ShardsRecipes.Gold, 5)
                 .AddIngredient(ItemID.SoulofFlight, 10)
-                .AddTile(ModContent.TileType<AreusFabricator>())
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 
@@ -88,10 +87,10 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             return false; // return false to stop vanilla from calling Projectile.NewProjectile.
         }
 
-        public override void DoOverchargeEffect(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
+        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
         {
             velocity.Normalize();
-            base.DoOverchargeEffect(player, ModContent.ProjectileType<AreusKatanaProj>(), 4f, velocity, 0f);
+            base.Overcharge(player, ModContent.ProjectileType<AreusKatanaProj>(), 4f, velocity, 0f);
         }
     }
 }

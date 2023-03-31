@@ -51,7 +51,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
                 if (++Projectile.frame >= 2)
                 {
                     Projectile.frame = 0;
-                    SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/ReactorMeltdownAlarm")
+                    SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheriaMod)}/Sounds/Item/ReactorMeltdownAlarm")
                     {
                         Volume = 0.9f,
                         MaxInstances = 3,

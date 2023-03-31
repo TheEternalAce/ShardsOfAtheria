@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.useTime = 25;
 			Item.useAnimation = 25;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.UseSound = new SoundStyle("ShardsOfAtheria/Sounds/Item/ReactorMeltdownAlarm")
+			Item.UseSound = new SoundStyle($"{nameof(ShardsOfAtheriaMod)}/Sounds/Item/ReactorMeltdownAlarm")
 			{
 				Volume = 0.9f,
 				MaxInstances = 3,

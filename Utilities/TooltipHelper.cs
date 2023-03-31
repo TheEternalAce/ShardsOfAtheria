@@ -6,6 +6,7 @@ namespace ShardsOfAtheria.Utilities
 {
     public static class TooltipHelper
     {
+
         internal static readonly string[] VanillaTooltipNames = new string[]
         {
                 "ItemName",

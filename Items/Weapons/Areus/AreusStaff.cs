@@ -4,7 +4,6 @@ using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Areus;
 using ShardsOfAtheria.Systems;
-using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -50,11 +49,11 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 10)
                 .AddRecipeGroup(ShardsRecipes.Gold, 3)
                 .AddIngredient(ItemID.FragmentVortex, 7)
-                .AddTile(ModContent.TileType<AreusFabricator>())
+                .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
 
-        public override void DoOverchargeEffect(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
+        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
         {
             ConsumeOvercharge(player);
         }

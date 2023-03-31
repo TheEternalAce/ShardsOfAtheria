@@ -4,7 +4,6 @@ using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.SoulCrystals;
-using ShardsOfAtheria.Items.Tools.Misc;
 using ShardsOfAtheria.NPCs.Misc;
 using ShardsOfAtheria.Projectiles.Minions;
 using ShardsOfAtheria.Projectiles.Other;
@@ -107,16 +106,6 @@ namespace ShardsOfAtheria.Players
                 packet.Write(soulCrystals[i]);
             }
             packet.Send(toWho, fromWho);
-        }
-
-        public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
-        {
-            if (!mediumCoreDeath)
-            {
-                return new[] { new Item(ModContent.ItemType<Necronomicon>()) };
-            }
-
-            return base.AddStartingItems(mediumCoreDeath);
         }
 
         public override bool CanConsumeAmmo(Item weapon, Item ammo)

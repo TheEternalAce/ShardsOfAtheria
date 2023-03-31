@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         public bool targetFound;
         public bool envy;
         public NPC target;
-        public int targetHitAmount;
+        public int focusDamage;
 
         public override void ResetEffects()
         {
@@ -52,7 +52,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
                 if (target.life <= 0 && target.type == this.target.type)
                 {
                     targetFound = false;
-                    targetHitAmount = 0;
+                    focusDamage = 0;
                 }
             }
         }
@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
                 if (target.life <= 0 && target == this.target)
                 {
                     targetFound = false;
-                    targetHitAmount = 0;
+                    focusDamage = 0;
                 }
             }
         }
@@ -76,12 +76,12 @@ namespace ShardsOfAtheria.Items.SinfulSouls
                 if (target != this.target || !targetFound)
                 {
                     this.target = target;
-                    targetHitAmount = 0;
+                    focusDamage = 0;
                 }
                 else if (target == this.target)
                 {
-                    damage += targetHitAmount * 3;
-                    targetHitAmount++;
+                    damage += focusDamage;
+                    focusDamage++;
                 }
             }
         }
@@ -93,12 +93,12 @@ namespace ShardsOfAtheria.Items.SinfulSouls
                 if (target != this.target || !targetFound)
                 {
                     this.target = target;
-                    targetHitAmount = 0;
+                    focusDamage = 0;
                 }
                 else if (target == this.target)
                 {
-                    damage += targetHitAmount;
-                    targetHitAmount++;
+                    damage += focusDamage;
+                    focusDamage++;
                 }
             }
         }

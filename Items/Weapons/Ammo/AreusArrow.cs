@@ -2,7 +2,6 @@ using MMZeroElements;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
-using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -40,7 +39,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
                 .AddIngredient(ItemID.WoodenArrow, 100)
                 .AddIngredient(ItemID.SoulofFlight, 10)
                 .AddIngredient(ModContent.ItemType<AreusShard>())
-                .AddTile(ModContent.TileType<AreusFabricator>())
+                .AddTile(TileID.Anvils)
                 .Register();
         }
     }

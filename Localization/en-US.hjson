@@ -25,16 +25,17 @@ Mods: {
 				Overdrive increases all damage by 100%
 				Overdrive lasts until you get hit or run out of Overdrive time
 				'''
-			OverchargeCapable:
+			RushDrive:
 				'''
-				Capable of Overcharge
-				Increases charge by {0}
+				Press {0} to chose between two phase types:
+				Offensive: Sacrifice half of total defense for doubled damage and 5% increased crit chance
+				Defensive: Sacrifice half of total damage for doubled defense and 20% reduced damage
+				Always get 20% increased movement speed
 				'''
 			UpgradeableItem: Upgradeable Item
 
 			TitleText1: Shards of Atheria: Splitting Skies
 			TitleText2: Shards of Atheria: The World Revolving
-			TitleText3: Shards of Atheria: Shattered Atheria
 			TomeOfOmniscience: Press {0} to cycle between the 3 Knowledge Bases
 			UpgradeableItem: Upgradeable Item
 			TeleportOnKeyPress: Press {0} to teleport to your cursor
@@ -154,7 +155,7 @@ Mods: {
 
 			# Dev items
 				# The Eternal Ace
-			AceOfSpades: Deck of Cards
+			AceOfSpades: Ace of Spades
 			AcesGoldFoxMask: "Rockman Zeta's Gold Fox Mask"
 			AcesJacket: "Rockman Zeta's Jacket"
 			AcesPants: "Rockman Zeta's Pants"
@@ -494,14 +495,7 @@ Mods: {
 			EntropicWings: Allows flight and grants slow fall
 			GildedValkyrieWings: "'The hardlight grants extra protection without impeding movement'"
 			HardlightBraces: Attacks create 4 hardlight blades to inflict further damage
-			RushDrive:
-				'''
-				Gives the user a 'phase 2' when below 50% life
-				Press {0} to chose between two phase types:
-				Offensive: Sacrifice half of total defense for doubled damage and 5% increased crit chance
-				Defensive: Sacrifice half of total damage for doubled defense and 20% reduced damage
-				Always get 20% increased movement speed
-				'''
+			RushDrive: Gives the user a 'phase 2' when below 50% life
 			TomeOfOmniscience: "Allows the wearer to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration"
 			ValkyrieCrown:
 				'''
@@ -636,7 +630,7 @@ Mods: {
 			# Sinful
 			EnvySoul:
 				'''
-				Consecutive strikes on an enemy will increase the damage they take by 3
+				Consecutive strikes on an enemy will increase the damage they take by 1
 				Darkness debuff
 				'''
 			GluttonySoul:
@@ -766,10 +760,6 @@ Mods: {
 				Melee hits inflict both debuffs
 				Taking damage summons a shadow double of you to strike back with 100% of damage taken
 				'''
-			TerminatorSoulCrystal:
-				'''
-
-				'''
 			PlantSoulCrystal:
 				'''
 				Spawn up to 8 tentacles over the course of 40 seconds
@@ -841,46 +831,16 @@ Mods: {
 				'''
 				Right click to switch between 3 modes: Semi-auto, Burst Fire and Full-auto
 				66% chance to not consume ammo
-				Overcharge depends on fire mode:
-				Semi-auto converts bullets into lightning bolts
-				Burst fire fires a spread of lightning bolts
-				Full-auto launches an Areus Grenade
+				'Ugh!'
 				'''
-			AreusBow:
-				'''
-				'Brilliant light show'
-				Overcharge fires a volley of Areus Arrows
-				'''
-			AreusDagger: Overcharge fires a lightning bolt
-			AreusGlaive:
-				'''
-				Overdrive depends on combo
-				Swings create electric blades
-				Thrusts fire lightning bolts
-				Thrown creates a spread lightning bolts during travel
-				'''
-			AreusGrenade: Overcharge creates a lightning storm after exploding
+			AreusBow: 'Brilliant light show'
 			AreusKatana:
 				'''
 				Holding this weapon increases your movement speed by 5%
 				'I am all out of milk'
-				Overcharge swings the katana in a large arc
 				'''
-			AreusMagnum:
-				'''
-				'Headshots do not crit'
-				Overcharge converts bullets into lightning bolts
-				'''
-			AreusRailgun: Overcharge converts bullets into lightning bolts
-			AreusSaber:
-				'''
-				'The pinnacle of areus weapon technology'
-				Overcharge swings the saber in a circle and fires homing Areus Sickles
-				'''
-			AreusStaff: Overcharge creates a lightning storm
-			AreusSword: Overcharge creates a spread electric blades
-			AreusTrimmedTome: Overcharge creates a lightning orb at the cursor
-			AreusTwinSabers: Overcharge throws a combined saber
+			AreusMagnum: "'Headshots do not crit'"
+			AreusSaber: "'The pinnacle of areus weapon technology'"
 			BrokenAreusMirror:
 				'''
 				Summons a broken Areus Mirror that shoots homing Mirror Shards
@@ -903,8 +863,7 @@ Mods: {
 				'''
 			Pandora:
 				'''
-				Summons 2 Frostspark Drones to fight for you
-				Alt-fire shoots ice bolts
+				Left Click to fire an ice bolt, Right click to summon lightning
 				'Destiny of destruction awaits'
 				'''
 			PerishSong: "'I M  D E A D'"
@@ -971,17 +930,17 @@ Mods: {
 				Left Click to swing an energy scythe, Right click to throw a fireball
 				'It seems like you're worthy of playing his little game, his game of destiny!'
 				'''
-			ReactorMeltdown: "'It seems I am not the only impostor'"
+			ReactorMeltdown: "'Sussus Moogus'"
 			Satanlance: "'You feel like you can do anything'"
 			TheMessiah:
 				'''
 				Passively charges while in hand and not in use
 				Max charge level increases damage by 200% and critical strike chance by 60%
-				'I am the messiah!'
+				'I am the messiah!'"
 				'''
 			ValkyrieStorm: "'Rains feather blades on your enemies!'"
 			ValkyrieStormLance: Briefly shocks enemies
-			War: ""
+			War: 
 			Yamiko: "'I'm not tsundere! You're tsundere!'"
 			Zenova:
 				'''
@@ -1072,7 +1031,7 @@ Mods: {
 			TrueEyeOfCthulhu: True Eye of Cthulhu
 			TrueEyeOfCthulhuAttack: True Eye of Cthulhu
 			YoungHarpy: Fledgling Knight
-			YourTentacle: Plantera Tentacle
+			YourTentacle: Your Tentacle
 
 			# NPCs
 				# Nova Stellar
@@ -1129,7 +1088,6 @@ Mods: {
 			BBProj: BB
 			SpectralArrowProj: Spectral Arrow
 			SpectralBulletProj: Spectral Bullet
-
 				# Areus
 			AreusArrow: Areus Arrow
 			AreusDaggerProj: Areus Dagger
@@ -1143,7 +1101,14 @@ Mods: {
 			AreusSlash4: Areus Slash
 			ElectricBlade: Electric Blade
 			ElectricOrb: Electric Orb
-
+				# Magic
+			DeathNote: Death Note
+			GunCorruption: Musket
+			CunCrimson: The Undertaker
+			IceBolt: Ice Bolt
+			LightningBoltFriendly: Lightning Bolt
+			ScreamShockwave: Scream Shock Wave
+			VileShot: Vile Shot
 				# Melee
 			BloodCutter: Blood Cutter
 			CorruptPetal: Corrupt Petal
@@ -1173,7 +1138,6 @@ Mods: {
 			SatanlanceProj: ecnalnataS
 			SoulBlade: Soul Blade
 			ValkyrieStormLanceProj: Storm Lance
-			Warframe: Providence Claymore
 			ZenovaAreusSword: Areus Sword
 			ZenovaBoneJavelin: Bone Javelin
 			ZenovaBreakerBlade: Breaker Blade
@@ -1185,6 +1149,7 @@ Mods: {
 		 	ZenovaSatanlance: ecnalnataS
 			ZenovaWoodenSword: Wooden Sword
 				# Ranged
+			AceOfSpadesProj: Ace of Spades
 			AmbassadorShot: Magnus Bullet
 			BlackHole: Black Hole
 			BlackHoleBolt: Black Hole Bolt
@@ -1195,27 +1160,14 @@ Mods: {
 			PhantomBullet: Phantom Bullet
 			PrometheusFire: Prometheus Fire
 			SoulArrow: Soul Arrow
-				# Throwing
-			AceOfClubs: Ace of Clubs
-			AceOfDiamonds: Ace of Diamonds
-			AceOfHearts: Ace of Hearts
-			AceOfSpadesProj: Ace of Spades
-			HardlightKnifeProj: Hardlight Knife
-			KusarigamaKing: "King's Kusarigama"
-			MetalBladeProj: Metal Blade
-
-				# Magic
-			DeathNote: Death Note
-			GunCorruption: Musket
-			CunCrimson: The Undertaker
-			IceBolt: Ice Bolt
-			LightningBoltFriendly: Lightning Bolt
-			ScreamShockwave: Scream Shock Wave
-			VileShot: Vile Shot
 				# Summon
 			DragonSpineWhipProj: Dragon Spine
 			FlailOfFleshProj: Leashed Hungry
 			SoulDagger: Soul Dagger
+				# Throwing
+			KusarigamaKing: "King's Kusarigama"
+			MetalBladeProj: Metal Blade
+			HardlightKnifeProj: Hardlight Knife
 		}
 
 		NPCName: {
@@ -1288,7 +1240,6 @@ Mods: {
 
 			# Summons
 			AreusMirrorBuff: Areus Mirror
-			FrostsparkDroneBuff: Frostspark Drone
 			CreeperShield: Creeper Shield
 			JuvenileHarpy: Fledgling Harpy
 		}
@@ -1378,7 +1329,6 @@ Mods: {
 
 			# Summons
 			AreusMirrorBuff: The Areus Mirror will fight for you
-			FrostsparkDroneBuff: The Frostspark Drone will fight for you
 			CreeperShield: Immune to damage, cannot attack and summons severely weakened
 			JuvenileHarpy: The harpy will fight along side you
 		}
@@ -1402,6 +1352,28 @@ Mods: {
 			WipSoulEntry: This Soul Crystal needs further research. Please wait for this boss to be introduced into the mod.
 		}
 
+		#This is what displays during all of an NPC's happiness levels. Note that the localization key for these should always be "TownNPCMood.*NPCName*.*Mood*" or else it won't display properly.
+		TownNPCMood: {
+			Atherian: {
+				Content: I'm fine, thanks for checking on me.
+				NoHome: I would appreciate it if you'd make me a home.
+				FarFromHome: Looks like I wandered too far from home.
+
+				LoveSpace: So much space.. It feels strange but also nice.
+				DislikeCrowded: I've grown so accustomed to having so much space that this is uncomfortable now.
+
+				LoveBiome: I love {BiomeName}, It reminds me of Atheria.
+				LikeBiome: "Atheria doesn't have many lush forests, this is a nice change."
+				HateBiome: "I can't stand how boring {BiomeName} is. All the colors are buried under gray and maybe brown."
+				
+				LoveNPC: "{NPCName} makes me feel a certain way.. But regardless she does a great job doing my hair!"
+				LikeNPC: "Nobody gives {NPCName} enough credit. I mean come on, he knows the Soul of Eternity's whole crafting tree yet you have to look it up on Recipe Browser!"
+				LikeNPC_Princess: "{NPCName} reminds me of our queen in Atheria, I didn't know humans had royalty as well!"
+				DislikeNPC: ""
+				HateNPC: ""
+			}
+		}
+
 		DropConditions: {
 			Flawless: Defeat without getting hit
 			Slayer: Drops while in Slayer Mode
@@ -1420,34 +1392,39 @@ Mods: {
 			NovaStellar: Lightning Valkyrie
 		}
 
-		#This is what displays during all of an NPC's happiness levels. Note that the localization key for these should always be "TownNPCMood.*NPCName*.*Mood*" or else it won't display properly.
-		TownNPCMood: {
-			Atherian: {
-				Content: I'm fine, thanks for checking on me.
-				NoHome: I would appreciate it if you'd make me a home.
-				FarFromHome: Looks like I wandered too far from home.
-
-				LoveSpace: So much space.. It feels strange but also nice.
-				DislikeCrowded: I've grown so accustomed to having so much space that this is uncomfortable now.
-
-				LoveBiome: "{BiomeName} reminds me of Atheria, bright and colorful. I like it here."
-				LikeBiome: "Ah the {BiomeName}, filled with so much plant life. Didja know green is my favorite color?"
-				HateBiome: "I can't stand how boring {BiomeName} is. All the colors are buried under gray and maybe brown."
-				
-				LoveNPC: "I love how {NPCName} does my hair! What's this about a crush? I-I don't know what you're talking about!"
-				LikeNPC: "Nobody gives {NPCName} enough credit. I mean come on, he knows the Soul of Eternity's whole crafting tree yet you have to look it up on Recipe Browser!"
-				LikeNPC_Princess: "I tried to teach {NPCName} the language of my people. Turns out humans are incapable of producing the sounds we can make.. Well she had fun trying regardless!"
-				DislikeNPC: ""
-				HateNPC: ""
-			}
-		}
-
 		ShopQuote: {
 			Atherian: {
-				AreusShard: ""
 				AreusDataDisk: ""
-				RushDrive: ""
+				ValkyrieCrest: "This belonged to my Ex..."
 				AreusKey: Can I interest you in performance enhancing drugs? Too bad, I have none of that. This is the closes thing though.
+				SlimeCrown: "A slimy crown, there's not much else to it"
+				SuspiciousLookingEye: Have you heard of the hit game Among Us? This has nothing to do with that.
+				BloodySpine: This... is disgusting.. how did this get in my inventory.
+				WormFood: Take this before my house gets a worm infestation!
+				Abeemination: NOT THE BEES! Wait, someone already made that reference.
+				ClothierVoodooDoll: Heeeello Terraria enthusiasts. My name is not James, and I would like you to buy this.
+				DeerThing: No comment.
+				GuideVoodooDoll: This looks... horrifyingly similar to The Guide...
+				QueenSlimeCrystal: This honestly looks tasty. Do I have a problem?
+				MechanicalWorm: "Great, now there's a worm infestation. Take it"
+				PrimeRework_WormRemote: "Great, now there's a worm infestation. Take it"
+				PrimeRework_BrainRemote: Unfortunately too big for cybernetic augmentation.
+				MechanicalSkull: Unfortunately the mechanical parts inside make cybernetic augmentation impossible.
+				PrimeRework_SkullRemote: Unfortunately the mechanical parts inside make cybernetic augmentation impossible.
+				MechanicalEye: Unfortunately too big for cybernetic augmentation.
+				PrimeRework_EyeRemote: Unfortunately too big for cybernetic augmentation.
+				PottedPlant:
+					'''
+					"What a lovely decoration, I sure would love to move it to my house!"
+					Oh what horrors awaited them.
+					'''
+				LihzahrdPowerCell: Last time I went to the store I accidentally bought Triple A batteries, now I still need Double A batteries.
+				TruffleWorm: "Great, now there's a bigger worm infestation. Take it"
+				EmpressButterfly: Such a colorful specimen, I wonder how it is possible.
+				CelestialSigil: Thus saith the lord.
+				# SpiderClock: Do you wish to challenge our goddess again? Sure, go for it.
+				# AreusSnakeScale: Do you wish to challenge our goddess again? Sure, go for it.
+				# AncientMedallion: Placeholder
 			}
 		}
 
@@ -1463,7 +1440,6 @@ Mods: {
 				Desperation: I cannot lose to you! Not Like this!
 				Death: No... My judgment was clouded... I'm sorry Mother, I failed...
 			}
-
 			Atherian: {
 				# On interact 
 				BaseGenesisAndRagnarok:
@@ -1471,21 +1447,12 @@ Mods: {
 					What a peculiar weapon. It shows capabilities of transforming into several types of weapon, but it's locked in spear and whip form.
 					There's also memories sealed inside the shield. Perhaps something to unlock those memories will make it stronger?
 					'''
-				AtheriaComment: "Atheria is a lovely place, but there's an overpopulation problem. You see our goddess, Senterra, wasn't too keen on giving us such a short lifespan like humans. So she made us nigh-immortal and, turns out, that just made things worse. Many of us suggested to make Atheria bigger, heh, as if it were that simple. Bigger planet means stronger gravity and more strain on Senterra's end."
-				ExComment: "My ex? Ah. Yes, Nova, I'm sure you've already guessed by now. We didn't separate on exactly good terms."
-				GoldCrownCompliment: "Yes yes, the Gold Crown does suit you well!"
-				GoldCrownThought: "Hmm.. I reckon a Gold Crown would suit you well!"
-				MorshuMoment: "Sorry {0}, what is this 'credit'? Come back when you have something to offer!"
-				GiftCrest: "Hey {0}. "
-
-				NovaDeath: "{0} leaves with Nova's death. 'She didn't deserve this...'"
-				SenterraDeath: "{0} leaves with Senterra's death. 'Curse you till the end of time!'"
-				GenesisDeath: "{0} leaves with Genesis's death. 'Curse you till the end of time!'"
-				AllDeath: "{0} leaves from your genocide. 'Suffer beyond eternity!'"
-
-				TemporaryLeave: "{0} leaves to visit Atheria."
+				CSGOReference: "DOOR STUCK!"
+				KenobiReference: Hello there.
+				PleaseINeedMoreLinesForThisMan: "I used to have so many lines of dialogue what happened?"
 
 				# Upgrading
+				RefuseUpgrade: You may have everyone else fooled but I know. I will not help you kill our world.
 				UpgradeGenesisAndRagnarok1:
 					'''
 					As I expected, the fragments did make them stronger.
@@ -1514,7 +1481,6 @@ Mods: {
 					'''				
 				UpgradeAreusWeapon: That should do it. This is the best I can achieve. Use it well.
 				NoUpgradableItem: Sorry pal, you don't have anything I can upgrade.
-				NoUpgradeMoney: Sorry pal, you don't have enough coins.
 				NotEnoughMaterial: "{0} - {1} [i:{2}]. I need at least {3}, you have {4}."
 			}
 		}
@@ -1568,6 +1534,6 @@ Mods: {
 		}
 	}
 }
-TownNPCMood_Princess: {
+TownNPCMood_Princess:{
 	LoveNPC_ShardsOfAtheria/Atherian: "{NPCName}'s wings are just gorgeous!"
 }

@@ -7,13 +7,13 @@ using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.DataDisks;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSword;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
+using ShopQuotesMod;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -34,18 +34,10 @@ namespace ShardsOfAtheria.NPCs.Town
     [AutoloadHead]
     public class Atherian : ModNPC
     {
-        public Item[] inventory = new Item[50];
-        public Item[] initialInventory = new Item[] {
-            ModContent.GetInstance<AreusKey>().Item,
-            ModContent.GetInstance<AreusDataDisk>().Item,
-            //ModContent.GetInstance<AreusProcessor>().Item,
-            //ModContent.GetInstance<RingOfResonance>().Item,
-            //ModContent.GetInstance<BlankAreusChip>().Item,
-            ContentSamples.ItemsByType[ItemID.GoldCrown],
-        };
-
         public override void SetStaticDefaults()
         {
+            // DisplayName automatically assigned from .lang files, but the commented line below is the normal approach.
+            // DisplayName.SetDefault("Example Person");
             Main.npcFrameCount[Type] = 26;
             NPCID.Sets.ExtraFramesCount[Type] = 9;
             NPCID.Sets.AttackFrameCount[Type] = 5;
@@ -55,11 +47,22 @@ namespace ShardsOfAtheria.NPCs.Town
             NPCID.Sets.AttackAverageChance[Type] = 30;
             NPCID.Sets.HatOffsetY[Type] = 4;
 
-            NPCDebuffImmunityData debuffData = new()
+            // Influences how the NPC looks in the Bestiary
+            //NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            //{
+            //    Velocity = 1f, // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
+            //    Direction = -1 // -1 is left and 1 is right. NPCs are drawn facing the left by default but ExamplePerson will be drawn facing the right
+            //                  // Rotation = MathHelper.ToRadians(180) // You can also change the rotation of an NPC. Rotation is measured in radians
+            //                  // If you want to see an example of manually modifying these when the NPC is drawn, see PreDraw
+            //};
+
+            //NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
             {
                 SpecificallyImmuneTo = new int[] {
                     BuffID.Poisoned,
                     ModContent.BuffType<ElectricShock>(),
+
                     BuffID.Confused // Most NPCs have this
 				}
             };
@@ -71,11 +74,14 @@ namespace ShardsOfAtheria.NPCs.Town
                 //Biomes
                 .SetBiomeAffection<HallowBiome>(AffectionLevel.Love)
                 .SetBiomeAffection<ForestBiome>(AffectionLevel.Like)
-                .SetBiomeAffection<JungleBiome>(AffectionLevel.Like)
                 .SetBiomeAffection<UndergroundBiome>(AffectionLevel.Hate)
                 //NPCs
                 .SetNPCAffection(NPCID.Stylist, AffectionLevel.Love)
                 .SetNPCAffection(NPCID.Guide, AffectionLevel.Like);
+
+            ModContent.GetInstance<QuoteDatabase>()
+                .AddNPC(Type, Mod, "Mods.ShardsOfAtheria.ShopQuote.")
+                .UseColor(Color.Cyan);
         }
 
         public override void SetDefaults()
@@ -138,40 +144,16 @@ namespace ShardsOfAtheria.NPCs.Town
         {
             if (!ModContent.GetInstance<ShardsServerConfig>().cluelessNPCs)
             {
-                ShardsDownedSystem downedSystem = ModContent.GetInstance<ShardsDownedSystem>();
-                bool oneDead = downedSystem.slainSenterra || downedSystem.slainGenesis || downedSystem.slainValkyrie;
-                bool allDead = downedSystem.slainSenterra && downedSystem.slainGenesis && downedSystem.slainValkyrie;
-                if (oneDead)
+                if (ModContent.GetInstance<ShardsDownedSystem>().slainSenterra)
                 {
-                    NetworkText text = NetworkText.FromLiteral("");
-                    if (allDead)
-                    {
-                        text = NetworkText.FromKey("Mods.ShardsOfAtheria.Dialogue.Atherian.AllDeath", NPC.GivenName);
-                    }
-                    else if (downedSystem.slainSenterra)
-                    {
-                        text = NetworkText.FromKey("Mods.ShardsOfAtheria.Dialogue.Atherian.SenterraDeath", NPC.GivenName);
-                    }
-                    else if (downedSystem.slainGenesis)
-                    {
-                        text = NetworkText.FromKey("Mods.ShardsOfAtheria.Dialogue.Atherian.GenesisDeath", NPC.GivenName);
-                    }
-                    else if (downedSystem.slainValkyrie)
-                    {
-                        text = NetworkText.FromKey("Mods.ShardsOfAtheria.Dialogue.Atherian.NovaDeath", NPC.GivenName);
-                    }
                     NPC.active = false;
-                    ChatHelper.BroadcastChatMessage(text, Color.Red);
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(NPC.GivenName + " ceases to exist."), Color.Red);
                     return false;
                 }
-            }
-            if (Main.time == 4 * 3600 + 30 * 60)
-            {
-                if (Main.rand.NextBool(5))
+                if (ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie)
                 {
                     NPC.active = false;
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey("Mods.ShardsOfAtheria.NPCDialogue.Atherian.TemporaryLeave",
-                        NPC.GivenName), Color.Red);
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(NPC.GivenName + " leaves with Nova's death."), Color.Red);
                     return false;
                 }
             }
@@ -186,10 +168,11 @@ namespace ShardsOfAtheria.NPCs.Town
         public override string GetChat()
         {
             WeightedRandom<string> chat = new();
-            ShardsPlayer shardsPlayer = Main.LocalPlayer.ShardsOfAtheria();
 
-            if (Main.LocalPlayer.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
+            if ((!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode || ModContent.GetInstance<ShardsServerConfig>().cluelessNPCs) &&
+                Main.LocalPlayer.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
             {
+                ShardsPlayer shardsPlayer = Main.LocalPlayer.ShardsOfAtheria();
                 int upgrades = shardsPlayer.genesisRagnarockUpgrades;
                 if (upgrades == 0)
                 {
@@ -197,6 +180,8 @@ namespace ShardsOfAtheria.NPCs.Town
                 }
             }
 
+            chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.CSGOReference"));
+            chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.KenobiReference"));
             chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.PleaseINeedMoreLinesForThisMan"));
             return chat;
         }
@@ -205,10 +190,6 @@ namespace ShardsOfAtheria.NPCs.Town
         {
             button = Language.GetTextValue("LegacyInterface.28");
             button2 = "Upgrade";
-            if (Main.LocalPlayer.Slayer().slayerMode)
-            {
-                button2 += " (18 gold, 78 silver)";
-            }
         }
 
         public override void OnChatButtonClicked(bool firstButton, ref bool shop)
@@ -220,20 +201,14 @@ namespace ShardsOfAtheria.NPCs.Town
             else
             {
                 Player player = Main.LocalPlayer;
-                SlayerPlayer slayer = player.Slayer();
                 ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
                 int upgrades = shardsPlayer.genesisRagnarockUpgrades;
-                if (slayer.slayerMode)
-                {
-                    int slayerUpgradeCost = 187800;
-                    if (!player.CanBuyItem(slayerUpgradeCost))
-                    {
-                        Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NoUpgradeMoney");
-                        return;
-                    }
-                }
 
-                if (player.HasItem(ModContent.ItemType<GenesisAndRagnarok>()) && upgrades < 5)
+                if (player.Slayer().slayerMode && !ModContent.GetInstance<ShardsServerConfig>().cluelessNPCs)
+                {
+                    Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.RefuseUpgrade");
+                }
+                else if (player.HasItem(ModContent.ItemType<GenesisAndRagnarok>()) && upgrades < 5)
                 {
                     int result = ModContent.ItemType<GenesisAndRagnarok>();
                     switch (upgrades)
@@ -326,10 +301,6 @@ namespace ShardsOfAtheria.NPCs.Town
             Main.npcChatCornerItem = result;
             if (CanUpgradeItem(player, materials))
             {
-                if (player.Slayer().slayerMode)
-                {
-                    player.BuyItem(187800);
-                }
                 for (int i = 0; i < materials.Length; i++)
                 {
                     player.inventory[player.FindItem(materials[i].item.type)].stack -= materials[i].requiredStack;
@@ -338,10 +309,9 @@ namespace ShardsOfAtheria.NPCs.Town
                 {
                     shardsPlayer.genesisRagnarockUpgrades++;
                 }
-                if (materials[0].item.ModItem is War)
+                if (materials[0].item.ModItem is War war)
                 {
-                    War war = player.inventory[player.FindItem(materials[0].item.type)].ModItem as War;
-                    war.upgraded = true;
+                    (player.inventory[player.FindItem(materials[0].item.type)].ModItem as War).upgraded = true;
                 }
                 SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
                 if (result > 0)
@@ -420,8 +390,6 @@ namespace ShardsOfAtheria.NPCs.Town
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusShard>());
-            nextSlot++;
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusDataDisk>());
             shop.item[nextSlot].shopCustomPrice = 15000;
             nextSlot++;
@@ -434,19 +402,154 @@ namespace ShardsOfAtheria.NPCs.Town
                 shop.item[nextSlot].shopCustomPrice = 50000;
                 nextSlot++;
             }
-            for (int i = 0; i < shop.item.Length; i++)
+            if (!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
             {
-                Item item = shop.item[i];
-                if (item.type == ItemID.TeleportationPylonHallow)
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<ValkyrieCrest>());
+                nextSlot++;
+                if (NPC.downedSlimeKing)
                 {
-                    Player player = Main.LocalPlayer;
-                    ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
-                    if (!shardsPlayer.crestRecieved)
+                    shop.item[nextSlot].SetDefaults(ItemID.SlimeCrown);
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (NPC.downedBoss1)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.SuspiciousLookingEye);
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (NPC.downedBoss2)
+                {
+                    if (WorldGen.crimson)
                     {
-                        Item.NewItem(NPC.GetSource_FromThis("Gift"), NPC.getRect(), ModContent.ItemType<ValkyrieCrest>());
-                        ChatHelper.SendChatMessageToClient(NetworkText.FromKey("", player.name), Color.Cyan, player.whoAmI);
-                        shardsPlayer.crestRecieved = true;
+                        shop.item[nextSlot].SetDefaults(ItemID.BloodySpine);
                     }
+                    else
+                    {
+                        shop.item[nextSlot].SetDefaults(ItemID.WormFood);
+                    }
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (NPC.downedQueenBee)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.Abeemination);
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (NPC.downedBoss3)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.ClothierVoodooDoll);
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (NPC.downedDeerclops)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.DeerThing);
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (Main.hardMode)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.GuideVoodooDoll);
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (NPC.downedQueenSlime)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.QueenSlimeCrystal);
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (NPC.downedMechBoss1)
+                {
+                    if (ModLoader.TryGetMod("PrimeRework", out Mod foundMod))
+                    {
+                        shop.item[nextSlot].SetDefaults(foundMod.Find<ModItem>("BrainRemote").Type);
+                        shop.item[nextSlot].shopCustomPrice = 50000;
+                        nextSlot++;
+                        shop.item[nextSlot].SetDefaults(foundMod.Find<ModItem>("WormRemote").Type);
+                    }
+                    else
+                    {
+                        shop.item[nextSlot].SetDefaults(ItemID.MechanicalWorm);
+                    }
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (NPC.downedMechBoss2)
+                {
+                    if (ModLoader.TryGetMod("PrimeRework", out Mod foundMod))
+                    {
+                        shop.item[nextSlot].SetDefaults(foundMod.Find<ModItem>("EyeRemote").Type);
+                    }
+                    else
+                    {
+                        shop.item[nextSlot].SetDefaults(ItemID.MechanicalEye);
+                    }
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (NPC.downedMechBoss3)
+                {
+                    if (ModLoader.TryGetMod("PrimeRework", out Mod foundMod))
+                    {
+                        shop.item[nextSlot].SetDefaults(foundMod.Find<ModItem>("SkullRemote").Type);
+                    }
+                    else
+                    {
+                        shop.item[nextSlot].SetDefaults(ItemID.MechanicalSkull);
+                    }
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (NPC.downedPlantBoss)
+                {
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<PottedPlant>());
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (NPC.downedGolemBoss)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.LihzahrdPowerCell);
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (NPC.downedFishron)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.TruffleWorm);
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (NPC.downedEmpressOfLight)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.EmpressButterfly);
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (NPC.downedMoonlord)
+                {
+                    shop.item[nextSlot].SetDefaults(ItemID.CelestialSigil);
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (ShardsDownedSystem.downedGenesis)
+                {
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<SpiderClock>());
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (ShardsDownedSystem.downedSenterra)
+                {
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusSnakeScale>());
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
+                }
+                if (ShardsDownedSystem.downedDeath)
+                {
+                    //shop.item[nextSlot].SetDefaults(ModContent.ItemType<AncientMedalion>());
+                    shop.item[nextSlot].shopCustomPrice = 50000;
+                    nextSlot++;
                 }
             }
         }

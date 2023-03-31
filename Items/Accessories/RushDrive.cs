@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.accessory = true;
 
             Item.rare = ItemRarityID.Blue;
-            Item.value = 146500;
+            Item.value = Item.sellPrice(0, 1, 25);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -31,14 +31,9 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            for (int i = 0; i < 5; i++)
-            {
-                tooltips.Remove(tooltips[tooltips.GetIndex("Tooltip" + i)]);
-            }
             List<string> phaseKey = ShardsOfAtheriaMod.PhaseSwitch.GetAssignedKeys();
-            string lineText = Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.RushDrive",
-                    phaseKey.Count > 0 ? phaseKey[0] : "[Unbounded Hotkey]");
-            tooltips.AddTooltip(new TooltipLine(Mod, "Tooltip", lineText));
+            tooltips.Insert(tooltips.GetIndex("Tooltip#"), new TooltipLine(Mod, "Tooltip#", Language.GetTextValue("Mods.ShardsOfAtheria.Common.RushDrive",
+                    phaseKey.Count > 0 ? phaseKey[0] : "[Unbounded Hotkey]")));
         }
     }
 }

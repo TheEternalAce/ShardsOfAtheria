@@ -5,7 +5,6 @@ using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using ShardsOfAtheria.Systems;
-using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -54,7 +53,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .AddRecipeGroup(ShardsRecipes.Gold, 3)
                 .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 7)
                 .AddIngredient(ModContent.ItemType<ChargedFeather>(), 10)
-                .AddTile(ModContent.TileType<AreusFabricator>())
+                .AddTile(TileID.Anvils)
                 .Register();
         }
 
@@ -99,7 +98,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 
-        public override void DoOverchargeEffect(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 1)
+        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 1)
         {
             ConsumeOvercharge(player);
         }

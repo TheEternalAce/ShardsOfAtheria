@@ -6,7 +6,6 @@ using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Tools;
 using ShardsOfAtheria.Systems;
-using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -71,7 +70,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
                 .AddRecipeGroup(ShardsRecipes.Gold, 6)
                 .AddIngredient(ItemID.LunarBar, 10)
                 .AddIngredient(ItemID.Wire, 10)
-                .AddTile(ModContent.TileType<AreusFabricator>())
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 

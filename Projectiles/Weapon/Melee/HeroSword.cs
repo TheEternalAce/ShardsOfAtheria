@@ -32,9 +32,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            Vector2 position = target.Center + Vector2.One.RotatedByRandom(360) * 180;
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, Vector2.Normalize(target.Center - position) * 20,
-                ModContent.ProjectileType<HeroBlade>(), 50, 6f, Projectile.owner);
+            FireProjectile(ModContent.ProjectileType<HeroBlade>(), (int)(Projectile.damage * .75), Projectile.knockBack);
         }
 
         protected override void Initialize(Player player, ShardsPlayer shards)

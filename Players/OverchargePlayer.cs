@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Utilities;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Players
@@ -14,12 +13,10 @@ namespace ShardsOfAtheria.Players
     public class OverchargePlayer : ModPlayer
     {
         public float overcharge = 0f;
-        public float charge;
         public bool overcharged = false;
 
         public override void ResetEffects()
         {
-            charge = 0f;
             overcharged = overcharge >= 1f;
         }
     }
@@ -49,20 +46,18 @@ namespace ShardsOfAtheria.Players
         public float chargeAmount = 0.1f;
         public float chargeVelocity = 16f;
         /// <summary>
-        /// Prevents the weapon from firing projectiles when overcharged.
+        /// 
         /// </summary>
         public bool overchargeShoot = true;
+
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalItem.AreusWeapon.Add(Type);
+        }
 
         public override void SetDefaults()
         {
             chargeVelocity = Item.shootSpeed;
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            string key = "Mods.ShardsOfAtheria.Common.OverchargeCapable";
-            var line = new TooltipLine(Mod, "OverchargeCapable", Language.GetTextValue(key, chargeAmount));
-            tooltips.AddTooltip(line);
         }
 
         public override bool? UseItem(Player player)
@@ -70,26 +65,25 @@ namespace ShardsOfAtheria.Players
             if (player.whoAmI == Main.myPlayer)
             {
                 OverchargePlayer overchargePlayer = player.GetModPlayer<OverchargePlayer>();
-                if (player.ShardsOfAtheria().inCombat)
+                if (SoAGlobalItem.AreusWeapon.Contains(Type) && player.ShardsOfAtheria().inCombat)
                 {
-                    float chargeToAdd = chargeAmount + overchargePlayer.charge;
                     if (Item.useTime != Item.useAnimation)
                     {
                         if (!(player.itemAnimation < Item.useAnimation - 2))
                         {
-                            overchargePlayer.overcharge += chargeToAdd;
+                            //overchargePlayer.overcharge += chargeAmount;
                         }
                     }
                     else
                     {
-                        overchargePlayer.overcharge += chargeToAdd;
+                        //overchargePlayer.overcharge += chargeAmount;
                     }
                 }
                 if (overchargePlayer.overcharged)
                 {
                     SoundEngine.PlaySound(SoundID.NPCDeath56.WithVolumeScale(0.5f), player.Center);
                     Vector2 velocity = Vector2.Normalize(Main.MouseWorld - player.Center) * chargeVelocity;
-                    DoOverchargeEffect(player, ModContent.ProjectileType<LightningBoltFriendly>(), 2f, velocity, 1f);
+                    Overcharge(player, ModContent.ProjectileType<LightningBoltFriendly>(), 2f, velocity, 1f);
                     for (int i = 0; i < 20; i++)
                     {
                         Dust dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.Electric);
@@ -109,12 +103,12 @@ namespace ShardsOfAtheria.Players
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 
-        public virtual void DoOverchargeEffect(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
+        public virtual void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
         {
             if (Main.myPlayer == player.whoAmI)
             {
                 Projectile proj = Projectile.NewProjectileDirect(Item.GetSource_ItemUse(Item), player.Center, velocity, projType,
-                    (int)(player.GetWeaponDamage(Item) * damageMultiplier), Item.knockBack, player.whoAmI, 0f, ai1);
+                    (int)(Item.damage * damageMultiplier), Item.knockBack, player.whoAmI, 0f, ai1);
                 proj.GetGlobalProjectile<OverchargedProjectile>().overcharged = true;
                 proj.DamageType = Item.DamageType;
                 ConsumeOvercharge(player);

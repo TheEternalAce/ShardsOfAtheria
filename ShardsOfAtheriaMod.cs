@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MMZeroElements;
 using ShardsOfAtheria.Config;
@@ -12,7 +11,6 @@ using ShardsOfAtheria.Items.Weapons.Summon.Minion;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using ShardsOfAtheria.NPCs.Town;
 using ShardsOfAtheria.Systems;
-using ShopQuotesMod;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -32,9 +30,6 @@ namespace ShardsOfAtheria
         public static ModKeybind SoulTeleport;
         public static ModKeybind ArmorSetBonusActive;
 
-        public static ShardsServerConfig ServerConfig;
-        public static ShardsClientConfig ClientConfig;
-
         public override void Load()
         {
             OverdriveKey = KeybindLoader.RegisterKeybind(this, "Toggle Overdrive", "F");
@@ -43,9 +38,6 @@ namespace ShardsOfAtheria
             PhaseSwitch = KeybindLoader.RegisterKeybind(this, "Toggle Phase Type", "RightAlt");
             SoulTeleport = KeybindLoader.RegisterKeybind(this, "Soul Crystal Teleport", "V");
             ArmorSetBonusActive = KeybindLoader.RegisterKeybind(this, "Activate Armor Set Bonus", "Mouse4");
-
-            ServerConfig = ModContent.GetInstance<ShardsServerConfig>();
-            ClientConfig = ModContent.GetInstance<ShardsClientConfig>();
 
             ModLoader.TryGetMod("Wikithis", out Mod wikithis);
             if (wikithis != null && !Main.dedServ)
@@ -114,12 +106,6 @@ namespace ShardsOfAtheria
                 WeaponElements.Electric.Add(item);
             }
 
-            // Weak Shop Quotes reference
-            if (ModLoader.HasMod("ShopQuotesMod"))
-            {
-                TryAddingShopQuotes();
-            }
-
             // Mod calls
             if (ModLoader.TryGetMod("Census", out Mod foundMod))
             {
@@ -170,23 +156,14 @@ namespace ShardsOfAtheria
             }
         }
 
-        [JITWhenModsEnabled("ShopQuotesMod")]
-        internal void TryAddingShopQuotes()
-        {
-            ModContent.GetInstance<QuoteDatabase>()
-                .AddNPC(ModContent.NPCType<Atherian>(), this, "Mods.ShardsOfAtheria.ShopQuote.")
-                .UseColor(Color.Cyan);
-        }
-
         public string ChooseTitleText(int id = 0)
         {
             List<string> title = new List<string>();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
-                string key = "Mods.ShardsOfAtheria.Common.TitleText" + (i + 1);
-                title.Add(Language.GetTextValue(key));
+                title.Add(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TitleText" + (i + 1)));
             }
-            int index = Main.rand.Next(3);
+            int index = Main.rand.Next(2);
 
             return title[index];
         }

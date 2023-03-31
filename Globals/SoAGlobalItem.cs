@@ -20,6 +20,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -155,6 +156,8 @@ namespace ShardsOfAtheria.Globals
                     if (serverConfig.nonConsumeBoss)
                     {
                         item.consumable = false;
+                        item.maxStack = 1;
+                        CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[item.type] = 1;
                     }
                     break;
                 #endregion
@@ -221,22 +224,22 @@ namespace ShardsOfAtheria.Globals
                 {
                     OverrideColor = Color.Red
                 };
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
+                tooltips.Add(line);
             }
             if (UpgradeableItem.Contains(item.type))
             {
                 var line = new TooltipLine(Mod, "UpgradeItem", Language.GetTextValue("Mods.ShardsOfAtheria.Common.UpgradeableItem"));
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
+                tooltips.Add(line);
             }
             if (Eraser.Contains(item.type))
             {
                 var line = new TooltipLine(Mod, "Eraser", Language.GetTextValue("Mods.ShardsOfAtheria.Common.Eraser"));
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
+                tooltips.Add(line);
             }
             if (item.ArmorPenetration > 0)
             {
                 var line = new TooltipLine(Mod, "ArmorPenetration", Language.GetTextValue("Mods.ShardsOfAtheria.Common.ArmorPenetration", item.ArmorPenetration));
-                tooltips.Insert(tooltips.GetIndex("Speed"), line);
+                tooltips.Insert(TooltipHelper.GetIndex(tooltips, "Speed"), line);
             }
         }
 
@@ -332,7 +335,7 @@ namespace ShardsOfAtheria.Globals
 
         public override bool? UseItem(Item item, Player player)
         {
-            if (ShardsOfAtheriaMod.ServerConfig.betterWeapon.Equals("Mouse Direction") && item.shoot == ProjectileID.None)
+            if (ModContent.GetInstance<ShardsServerConfig>().betterWeapon.Equals("Mouse Direction") && item.shoot == ProjectileID.None)
             {
                 player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
             }
@@ -363,14 +366,6 @@ namespace ShardsOfAtheria.Globals
                 {
                     player.Heal(75);
                     gluttonyPlayer.feed = 100;
-                }
-            }
-
-            if (ShardsOfAtheriaMod.ServerConfig.nonConsumeBoss)
-            {
-                if (item.type == ItemID.LihzahrdPowerCell || item.type == ItemID.TruffleWorm)
-                {
-                    Item.NewItem(item.GetSource_FromThis(), player.getRect(), item.type, 1);
                 }
             }
 

@@ -6,7 +6,6 @@ using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive;
 using ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSword;
 using ShardsOfAtheria.Systems;
-using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -54,7 +53,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 16)
                 .AddRecipeGroup(ShardsRecipes.Gold, 5)
                 .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 10)
-                .AddTile(ModContent.TileType<AreusFabricator>())
+                .AddTile(TileID.Hellforge)
                 .Register();
         }
 
@@ -119,7 +118,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
             return true;
         }
 
-        public override void DoOverchargeEffect(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
+        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
         {
             switch (combo)
             {
@@ -138,7 +137,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
 
                 case 2:
                 case 3:
-                    base.DoOverchargeEffect(player, projType, damageMultiplier, velocity, ai1);
+                    base.Overcharge(player, projType, damageMultiplier, velocity, ai1);
                     break;
             }
             ConsumeOvercharge(player);

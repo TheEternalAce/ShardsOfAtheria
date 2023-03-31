@@ -3,7 +3,6 @@ using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Systems;
-using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -50,7 +49,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 20)
                 .AddRecipeGroup(ShardsRecipes.Gold, 6)
                 .AddIngredient(ItemID.SoulofMight, 7)
-                .AddTile(ModContent.TileType<AreusFabricator>())
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 
