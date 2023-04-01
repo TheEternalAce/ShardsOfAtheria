@@ -85,8 +85,8 @@ namespace ShardsOfAtheria.Items.Accessories
                 if (ModContent.GetInstance<ShardsClientConfig>().biometalSound)
                 {
                     if (player.Male)
-                        SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheriaMod)}/Sounds/Item/MegamergeMale"));
-                    else SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheriaMod)}/Sounds/Item/MegamergeFemale"));
+                        SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeMale"));
+                    else SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeFemale"));
                 }
             }
 
@@ -156,8 +156,8 @@ namespace ShardsOfAtheria.Items.Accessories
                 if (ModContent.GetInstance<ShardsClientConfig>().biometalSound)
                 {
                     if (player.Male)
-                        SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheriaMod)}/Sounds/Item/MegamergeMale"));
-                    else SoundEngine.PlaySound(new SoundStyle($"{nameof(ShardsOfAtheriaMod)}/Sounds/Item/MegamergeFemale"));
+                        SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeMale"));
+                    else SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeFemale"));
                 }
             }
         }
