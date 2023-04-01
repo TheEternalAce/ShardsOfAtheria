@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Items.DataDisks;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.Localization;
@@ -156,6 +157,44 @@ namespace ShardsOfAtheria.UI.LoreTablet
                 case 5:
                     text.SetText(Language.GetTextValue("Mods.ShardsOfAtheria.DiskFile.DataDisk5"));
                     break;
+            }
+        }
+    }
+    class ShardsUI : ModSystem
+    {
+        internal ScreenState TabletScreenState;
+        private UserInterface _tabletScreenState;
+
+        public override void Load()
+        {
+            if (!Main.dedServ)
+            {
+                TabletScreenState = new();
+                _tabletScreenState = new();
+                _tabletScreenState.SetState(TabletScreenState);
+                //TabletScreenState.Activate();
+            }
+        }
+
+        public override void UpdateUI(GameTime gameTime)
+        {
+            _tabletScreenState?.Update(gameTime);
+        }
+
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+        {
+            int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
+            if (mouseTextIndex != -1)
+            {
+                layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
+                    "ShardsOfAtheria: Data Tablet",
+                    delegate
+                    {
+                        _tabletScreenState.Draw(Main.spriteBatch, new GameTime());
+                        return true;
+                    },
+                    InterfaceScaleType.UI)
+                );
             }
         }
     }

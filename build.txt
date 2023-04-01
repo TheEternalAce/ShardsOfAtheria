@@ -1,6 +1,6 @@
 displayName = Shards of Atheria (Splitting Skies)
 author = Rockman Zeta
-version = 0.9.3
+version = 0.9.3.1
 homepage = https://forums.terraria.org/index.php?threads/shards-of-atheria-mod.112953/
 modReferences = ShopQuotesMod, WebmilioCommons, MMZeroElements
 includeSource = true
