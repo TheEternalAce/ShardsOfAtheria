@@ -10,7 +10,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace ShardsOfAtheria.UI.LoreTablet
+namespace ShardsOfAtheria.ShardsUI.DataTablet
 {
     internal class ScreenState : UIState
     {
@@ -68,13 +68,13 @@ namespace ShardsOfAtheria.UI.LoreTablet
             area.Width.Set(700, 0f); // We will be placing the following 2 UIElements within this 700x500 area.
             area.Height.Set(500, 0f);
 
-            screen = new UIImage(ModContent.Request<Texture2D>("ShardsOfAtheria/ShardsUI/LoreTablet/Tablet")); // Tablet image
+            screen = new UIImage(ModContent.Request<Texture2D>("ShardsOfAtheria/ShardsUI/DataTablet/Tablet")); // Tablet image
             screen.Left.Set(0, 0f);
             screen.Top.Set(0, 0f);
             screen.Width.Set(700, 0f);
             screen.Height.Set(500, 0f);
 
-            text = new UIText("Loading", 1f); // text to read disk contents
+            text = new UIText("Loading...", 1f); // text to read disk contents
             text.Left.Set(40, 0f);
             text.Top.Set(40, 0f);
             text.Width.Set(624, 0f);
@@ -137,6 +137,10 @@ namespace ShardsOfAtheria.UI.LoreTablet
 
             ShardsPlayer shardsPlayer = Main.LocalPlayer.ShardsOfAtheria();
 
+            string key = "Mods.ShardsOfAtheria.DiskFile.DataDisk" + shardsPlayer.readingDisk;
+            text.SetText(Language.GetTextValue(key));
+            return;
+
             switch (shardsPlayer.readingDisk)
             {
                 default:
@@ -160,6 +164,7 @@ namespace ShardsOfAtheria.UI.LoreTablet
             }
         }
     }
+
     class ShardsUI : ModSystem
     {
         internal ScreenState TabletScreenState;
@@ -172,7 +177,6 @@ namespace ShardsOfAtheria.UI.LoreTablet
                 TabletScreenState = new();
                 _tabletScreenState = new();
                 _tabletScreenState.SetState(TabletScreenState);
-                //TabletScreenState.Activate();
             }
         }
 
