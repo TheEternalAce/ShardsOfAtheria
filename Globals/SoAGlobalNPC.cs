@@ -6,7 +6,6 @@ using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.ItemDropRules.Condition;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
-using ShardsOfAtheria.Items.GrabBags;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.PetItems;
 using ShardsOfAtheria.Items.Placeable;
@@ -90,14 +89,6 @@ namespace ShardsOfAtheria.Globals
                 if (Main.moonPhase == 4)
                 {
                     shop.item[nextSlot].SetDefaults(ModContent.ItemType<BionicOreItem>());
-                    nextSlot++;
-                }
-            }
-            if (type == NPCID.ArmsDealer)
-            {
-                if (NPC.downedBoss3)
-                {
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<AmmoBag>());
                     nextSlot++;
                 }
             }
