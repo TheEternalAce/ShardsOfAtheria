@@ -1,10 +1,9 @@
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Weapons.Areus
+namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class Gomorrah : ModItem
     {
@@ -12,7 +11,6 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
         {
             SacrificeTotal = 1;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
-            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()

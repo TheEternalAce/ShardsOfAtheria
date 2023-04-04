@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Cooldowns;
-using ShardsOfAtheria.Config;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Bases;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
@@ -10,14 +8,13 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Weapons.Areus
+namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class Yamiko : SinfulItem
     {
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
         public override void SetDefaults()
@@ -60,7 +57,7 @@ namespace ShardsOfAtheria.Items.Weapons.Areus
                 string[] insult = { "How did you manage that? Dumbass.", "Good job idiot, you fatally cut yourself. ", "How could you be so stupid?" };
                 int i = Main.rand.Next(insult.Length);
                 string dying = $"{player.name} cut {(player.Male ? "himself" : " herself")}";
-                string die = ModContent.GetInstance<ShardsServerConfig>().yamikoInsult ? insult[i] + " (" + dying + ")" : dying;
+                string die = SoA.ServerConfig.yamikoInsult ? insult[i] + " (" + dying + ")" : dying;
                 player.Hurt(PlayerDeathReason.ByCustomReason(die), 100, 0);
                 player.immune = true;
                 player.immuneTime = 30;

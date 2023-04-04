@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.Bases;
-using ShardsOfAtheria.Items.Weapons.Areus;
+using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -46,7 +47,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
                 SwitchSoulType(player, out int weapon, out string text, out Color color);
                 int newItem = Item.NewItem(Item.GetSource_DropAsItem(), player.getRect(), weapon);
                 Main.item[newItem].noGrabDelay = 0; // Set the new item to be able to be picked up instantly
-                if (ModContent.GetInstance<ShardsClientConfig>().sinfulArmamentText)
+                if (ModContent.GetInstance<ShardsClient>().sinfulArmamentText)
                 {
                     ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(text), color, player.whoAmI);
                 }
@@ -92,7 +93,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             }
             else if (player.Pride().pride)
             {
-                armament = ModContent.ItemType<TheAmbassador>();
+                armament = ModContent.ItemType<Magnus>();
                 text = "I am The Ambassador, the only weapon you'll ever need.";
                 color = Color.White;
             }
