@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
@@ -92,8 +93,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
             bool flip = Main.player[Projectile.owner].direction == 1 ? combo > 0 : combo == 0;
             if (!flip)
             {
-                Main.instance.LoadItem(ModContent.ItemType<Items.Weapons.Areus.AreusKatana>());
-                texture = TextureAssets.Item[ModContent.ItemType<Items.Weapons.Areus.AreusKatana>()].Value;
+                Main.instance.LoadItem(ModContent.ItemType<AreusKatana>());
+                texture = TextureAssets.Item[ModContent.ItemType<AreusKatana>()].Value;
             }
             var origin = new Vector2(0f, texture.Height);
 

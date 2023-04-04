@@ -116,8 +116,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber
             bool flip = Main.player[Projectile.owner].direction == 1 ? combo > 0 : combo == 0;
             if (flip)
             {
-                Main.instance.LoadItem(ModContent.ItemType<Items.Weapons.Areus.AreusSaber>());
-                texture = TextureAssets.Item[ModContent.ItemType<Items.Weapons.Areus.AreusSaber>()].Value;
+                Main.instance.LoadItem(ModContent.ItemType<Items.Weapons.Melee.AreusSaber>());
+                texture = TextureAssets.Item[ModContent.ItemType<Items.Weapons.Melee.AreusSaber>()].Value;
             }
             var origin = new Vector2(0f, texture.Height);
 

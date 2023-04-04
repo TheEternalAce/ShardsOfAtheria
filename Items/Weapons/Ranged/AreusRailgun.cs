@@ -9,7 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WebmilioCommons.Effects.ScreenShaking;
 
-namespace ShardsOfAtheria.Items.Weapons.Areus
+namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class AreusRailgun : OverchargeWeapon
     {

@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Weapons.Areus
+namespace ShardsOfAtheria.Items.Weapons.Magic
 {
     public class AreusStaff : OverchargeWeapon
     {

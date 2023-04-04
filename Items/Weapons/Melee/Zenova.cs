@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using MMZeroElements;
-using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.Audio;
@@ -9,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
-	public class Zenova : ModItem
+    public class Zenova : ModItem
 	{
 		public override void SetStaticDefaults()
 		{

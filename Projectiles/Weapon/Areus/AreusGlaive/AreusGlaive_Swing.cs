@@ -92,8 +92,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
             bool flip = Main.player[Projectile.owner].direction == 1 ? combo > 0 : combo == 0;
             if (flip)
             {
-                Main.instance.LoadItem(ModContent.ItemType<Items.Weapons.Areus.AreusGlaive>());
-                texture = TextureAssets.Item[ModContent.ItemType<Items.Weapons.Areus.AreusGlaive>()].Value;
+                Main.instance.LoadItem(ModContent.ItemType<Items.Weapons.Melee.AreusGlaive>());
+                texture = TextureAssets.Item[ModContent.ItemType<Items.Weapons.Melee.AreusGlaive>()].Value;
             }
             var origin = new Vector2(0f, texture.Height);
 
