@@ -63,14 +63,16 @@ Mods: {
 			DataDisk3:
 				'''
 				Disk_003_Hardlight
-				A lightweight colorful material, hardlight is forged by the harpies in the sky.
-
+				This unique material was discovered by the harpies in the world. Combining
+				their feathers with light and gold, they create a durable and extremely
+				lightweight material. This material is used for armor and weapons and is
+				commonly produced by the harpies dwelling in the sky and caverns due to easy
+				access to light and gold respectively.
 				'''
 			DataDisk4:
 				'''
 				Disk_004_Nova Stellar
-				Once an ordinary young harpy, Nova pursued the path of her late father as a
-				noble knight. As she grew she learned about the Five Terrarians.
+
 				'''
 			DataDisk5:
 				'''
@@ -335,11 +337,11 @@ Mods: {
 			HecateII: Hecate II
 			HeroGun: Hero Gun
 			HuntingRifle: Hunting Rifle
+			Magnus: Magnus
 			P90: P90
 			Pantheon: Pantheon
 			PhantomRose: Phantom Rose
 			Scarlet: Scarlet Rose
-			TheAmbassador: Magnus
 				# Summon
 			DragonSpineWhip: Dragon Spine Whip
 			FlailOfFlesh: Flail of Flesh
@@ -474,7 +476,7 @@ Mods: {
 					All weapons autoswing
 					Grants immunity to damage dealing, damage and defense reducing, most anti-healing and cold debuffs
 					Grants Ironskin and Endurance when dealing damage and Wrath, Rage and Inferno when taking damage
-					Effects of Ankh Shield, Bundle of Balloons, Charm of Myths, Frozen Turtle Shell, and Terrasparrk Boots
+					Effects of Ankh Shield, Bundle of Balloons, Charm of Myths, Frozen Turtle Shell, and Terraspark Boots
 					Permanent Thorns, Heart Lantern, Cozy Campfire, Heartreach and Gravitation buffs
 					Use to disable Gravitation
 					Grants flight and slow fall
@@ -525,36 +527,12 @@ Mods: {
 				Use RMB to detonate thrown cards
 				'What is that object?'
 				'''
-			AcesGoldFoxMask: "'Great for impersonating devs!'"
-			AcesJacket:
-				'''
-				'Great for impersonating devs!'
-				'Pockets included!'
-				'''
-			AcesPants: "'Great for impersonating devs!'"
+			AcesJacket: "'Pockets included!'"
 				# nightlight
-			CoatOfnight:
-				'''
-				'Great for impersonating devs!'
-				'no cap'
-				'''
-			Nightlight:
-				'''
-				'Great for impersonating devs!'
-				'This is what peak performance looks like!'
-				'''
+			CoatOfnight: "'no cap'"
+			Nightlight: "'This is what peak performance looks like!'"
 				# DaluyanMesses
-			StatueOfDaluyan:
-				'''
-				'Great for impersonating devs!'
-				'That's Fool's Gold! That ain't worth nothing!'
-				'''
-
-			# Grab bags
-			AmmoBag: Gives a stack of a random ammo
-			AmmoBag_Arrow: Gives a stack of a random arrow
-			AmmoBag_Bullet: Gives a stack of a random bullet
-			AmmoBag_Rocket: Gives a stack of a random rocket
+			StatueOfDaluyan: "'That's Fool's Gold! That ain't worth nothing!'"
 
 			# Materials
 			BrokenHeroGun: "'The broken gun of a long forgotten hero'"
@@ -630,7 +608,7 @@ Mods: {
 			# Sinful
 			EnvySoul:
 				'''
-				Consecutive strikes on an enemy will increase the damage they take by 1
+				Consecutive strikes on an enemy will increase the damage they take by 3
 				Darkness debuff
 				'''
 			GluttonySoul:
@@ -658,7 +636,7 @@ Mods: {
 				Every 10 seconds of not taking damage increases damage by 2%
 				Using a weapon that fires a projectile increases Shots Fired
 				Damaging an enemy with a non-summon projectile increases Shots Hit
-				If Shots Landed is not equal to Shots Fired after 5 seconds, your are weakened severely
+				If Shots Landed is not equal to Shots Fired after 5 seconds, you are weakened severely
 				Otherwise, damage is increased by 50%
 				Shots Fired = {0} | Shots Hit = {1}
 				'''
@@ -751,7 +729,7 @@ Mods: {
 			PrimeSoulCrystal:
 				'''
 				While in combat enter a "spin phase" for 5 seconds every 30 seconds
-				This "spin phase" inceases defense and damage by 100% and damages nearby enemies
+				This "spin phase" increases defense and damage by 100% and damages nearby enemies
 				Attacks fire either a laser, rocket or grenade
 				'''
 			TwinsSoulCrystal:
@@ -1176,7 +1154,7 @@ Mods: {
 			CaveHarpy: Cavern Harpy
 			CorruptHarpy: Infested Harpy
 			CrimsonHarpy: Hemorrhaging Harpy
-			DesertHarpy: Dust Storm Harpy
+			DesertHarpy: Arid Harpy
 			ForestHarpy: Forest Harpy
 			HallowedHarpy: Holy Harpy
 			OceanHarpy: Seaside Harpy
@@ -1396,35 +1374,7 @@ Mods: {
 			Atherian: {
 				AreusDataDisk: ""
 				ValkyrieCrest: "This belonged to my Ex..."
-				AreusKey: Can I interest you in performance enhancing drugs? Too bad, I have none of that. This is the closes thing though.
-				SlimeCrown: "A slimy crown, there's not much else to it"
-				SuspiciousLookingEye: Have you heard of the hit game Among Us? This has nothing to do with that.
-				BloodySpine: This... is disgusting.. how did this get in my inventory.
-				WormFood: Take this before my house gets a worm infestation!
-				Abeemination: NOT THE BEES! Wait, someone already made that reference.
-				ClothierVoodooDoll: Heeeello Terraria enthusiasts. My name is not James, and I would like you to buy this.
-				DeerThing: No comment.
-				GuideVoodooDoll: This looks... horrifyingly similar to The Guide...
-				QueenSlimeCrystal: This honestly looks tasty. Do I have a problem?
-				MechanicalWorm: "Great, now there's a worm infestation. Take it"
-				PrimeRework_WormRemote: "Great, now there's a worm infestation. Take it"
-				PrimeRework_BrainRemote: Unfortunately too big for cybernetic augmentation.
-				MechanicalSkull: Unfortunately the mechanical parts inside make cybernetic augmentation impossible.
-				PrimeRework_SkullRemote: Unfortunately the mechanical parts inside make cybernetic augmentation impossible.
-				MechanicalEye: Unfortunately too big for cybernetic augmentation.
-				PrimeRework_EyeRemote: Unfortunately too big for cybernetic augmentation.
-				PottedPlant:
-					'''
-					"What a lovely decoration, I sure would love to move it to my house!"
-					Oh what horrors awaited them.
-					'''
-				LihzahrdPowerCell: Last time I went to the store I accidentally bought Triple A batteries, now I still need Double A batteries.
-				TruffleWorm: "Great, now there's a bigger worm infestation. Take it"
-				EmpressButterfly: Such a colorful specimen, I wonder how it is possible.
-				CelestialSigil: Thus saith the lord.
-				# SpiderClock: Do you wish to challenge our goddess again? Sure, go for it.
-				# AreusSnakeScale: Do you wish to challenge our goddess again? Sure, go for it.
-				# AncientMedallion: Placeholder
+				AreusKey: Can I interest you in performance enhancing drugs? Too bad, I have none of that. This is the closest thing though.
 			}
 		}
 
@@ -1441,7 +1391,7 @@ Mods: {
 				Death: No... My judgment was clouded... I'm sorry Mother, I failed...
 			}
 			Atherian: {
-				# On interact 
+				# Interaction
 				BaseGenesisAndRagnarok:
 					'''
 					What a peculiar weapon. It shows capabilities of transforming into several types of weapon, but it's locked in spear and whip form.
@@ -1505,7 +1455,6 @@ Mods: {
 			MechanicsHeader: "[i:4818] Mechanics"
 			Clueless: "[i:893] Clueless Atherian"
 			BetterWeapon: "[i:1] Directional Weapons*"
-			Aggression: "[i:46] Aggression"
 			Experimental: "[i:893] Experimental Features"
 
 			MiscHeader: "Misc"
@@ -1527,7 +1476,6 @@ Mods: {
 			BetterWeaponOff: Off
 			BetterWeaponUseTurn: No Use Turn
 			BetterWeaponMouse: Mouse Direction
-			Aggression: "Damage, speed and aggro increases as you damage enemies"
 			Experimental: "Enables experimental/work in progress features"
 
 			AltCaveHarpy: "Makes a slight change to the Cavern Harpy sprite"
