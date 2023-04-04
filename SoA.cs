@@ -9,8 +9,9 @@ using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon.Minion;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
-using ShardsOfAtheria.NPCs.Town;
+using ShardsOfAtheria.NPCs.Town.TheAtherian;
 using ShardsOfAtheria.Systems;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -19,7 +20,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria
 {
-    public partial class ShardsOfAtheriaMod : Mod
+    public partial class SoA : Mod
     {
         public static int MaxNecronomiconPages = 2;
 
@@ -30,8 +31,10 @@ namespace ShardsOfAtheria
         public static ModKeybind SoulTeleport;
         public static ModKeybind ArmorSetBonusActive;
 
-        public static ShardsServerConfig ServerConfig;
-        public static ShardsClientConfig ClientConfig;
+        public static ShardsServer ServerConfig;
+        public static ShardsClient ClientConfig;
+        public static ShardsDownedSystem DownedSystem;
+        public static bool AprilFools => DateTime.Now is DateTime { Month: 4 };
 
         public override void Load()
         {
@@ -42,8 +45,8 @@ namespace ShardsOfAtheria
             SoulTeleport = KeybindLoader.RegisterKeybind(this, "Soul Crystal Teleport", "V");
             ArmorSetBonusActive = KeybindLoader.RegisterKeybind(this, "Activate Armor Set Bonus", "Mouse4");
 
-            ServerConfig = ModContent.GetInstance<ShardsServerConfig>();
-            ClientConfig = ModContent.GetInstance<ShardsClientConfig>();
+            ServerConfig = ModContent.GetInstance<ShardsServer>();
+            ClientConfig = ModContent.GetInstance<ShardsClient>();
 
             ModLoader.TryGetMod("Wikithis", out Mod wikithis);
             if (wikithis != null && !Main.dedServ)
@@ -98,7 +101,7 @@ namespace ShardsOfAtheria
 
         public override void PostSetupContent()
         {
-            if (ModContent.GetInstance<ShardsClientConfig>().windowTitle)
+            if (ModContent.GetInstance<ShardsClient>().windowTitle)
             {
                 if (Main.rand.NextBool(3))
                 {

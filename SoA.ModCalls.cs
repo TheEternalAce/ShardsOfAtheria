@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria
 {
-	partial class ShardsOfAtheriaMod
+	partial class SoA
 	{
 		// The following code allows other mods to "call" Example Mod data.
 		// This allows mod developers to access Example Mod's data without having to set it a reference.
@@ -237,7 +237,7 @@ namespace ShardsOfAtheria
 						}
 						break;
 					case ModCalls.FlagSoulCrystalConfig:
-						return ModContent.GetInstance<ShardsClientConfig>().instantAbsorb;
+						return ModContent.GetInstance<ShardsClient>().instantAbsorb;
 				}
 			}
 

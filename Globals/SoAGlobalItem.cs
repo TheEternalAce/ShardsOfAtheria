@@ -4,7 +4,6 @@ using MMZeroElements;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Summons;
-using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.NPCs.Variant.Harpy;
@@ -70,7 +69,6 @@ namespace ShardsOfAtheria.Globals
         public override void SetDefaults(Item item)
         {
             base.SetDefaults(item);
-            ShardsServerConfig serverConfig = ModContent.GetInstance<ShardsServerConfig>();
             switch (item.type)
             {
                 case ItemID.SilverBullet:
@@ -152,7 +150,7 @@ namespace ShardsOfAtheria.Globals
                 case ItemID.TruffleWorm:
                 case ItemID.EmpressButterfly:
                 case ItemID.CelestialSigil:
-                    if (serverConfig.nonConsumeBoss)
+                    if (SoA.ServerConfig.nonConsumeBoss)
                     {
                         item.consumable = false;
                     }
@@ -163,7 +161,7 @@ namespace ShardsOfAtheria.Globals
                 case ItemID.LifeCrystal:
                 case ItemID.ManaCrystal:
                 case ItemID.LifeFruit:
-                    if (serverConfig.upgradeChange)
+                    if (SoA.ServerConfig.upgradeChange)
                     {
                         item.useTime = 15;
                         item.useAnimation = 15;
@@ -173,7 +171,7 @@ namespace ShardsOfAtheria.Globals
                     break;
                     #endregion
             }
-            if ((serverConfig.betterWeapon.Equals("No Use Turn") || serverConfig.betterWeapon.Equals("Mouse Direction")) && item.damage > 0)
+            if ((SoA.ServerConfig.betterWeapon.Equals("No Use Turn") || SoA.ServerConfig.betterWeapon.Equals("Mouse Direction")) && item.damage > 0)
             {
                 item.useTurn = false;
             }
@@ -185,7 +183,7 @@ namespace ShardsOfAtheria.Globals
             if (set == "Shards:Pearlwood")
             {
                 player.setBonus = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.SetBonus.Pearlwood"),
-                    ShardsOfAtheriaMod.ArmorSetBonusActive.GetAssignedKeys().Count > 0 ? ShardsOfAtheriaMod.ArmorSetBonusActive.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
+                    SoA.ArmorSetBonusActive.GetAssignedKeys().Count > 0 ? SoA.ArmorSetBonusActive.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
                 player.statDefense += 5;
                 player.statManaMax2 += 40;
                 player.GetDamage(DamageClass.Generic) += .15f;
@@ -332,7 +330,7 @@ namespace ShardsOfAtheria.Globals
 
         public override bool? UseItem(Item item, Player player)
         {
-            if (ModContent.GetInstance<ShardsServerConfig>().betterWeapon.Equals("Mouse Direction") && item.shoot == ProjectileID.None)
+            if (SoA.ServerConfig.betterWeapon.Equals("Mouse Direction") && item.shoot == ProjectileID.None)
             {
                 player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
             }
@@ -366,7 +364,7 @@ namespace ShardsOfAtheria.Globals
                 }
             }
 
-            if (ShardsOfAtheriaMod.ServerConfig.nonConsumeBoss)
+            if (SoA.ServerConfig.nonConsumeBoss)
             {
                 if (item.type == ItemID.LihzahrdPowerCell || item.type == ItemID.TruffleWorm)
                 {

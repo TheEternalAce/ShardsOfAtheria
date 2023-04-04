@@ -5,7 +5,7 @@ namespace ShardsOfAtheria.Config
 {
     [BackgroundColor(164, 153, 190)]
     [Label("$Mods.ShardsOfAtheria.Config.ServerLabel")]
-    public class ShardsServerConfig : ModConfig
+    public class ShardsServer : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 

@@ -119,7 +119,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
                 for (int i = 0; i < entries.Count; i++)
                 {
                     PageEntry entry = entries[i];
-                    if (slayer.soulCrystals.Contains(entry.crystalItem) || ModContent.GetInstance<ShardsClientConfig>().entryView)
+                    if (slayer.soulCrystals.Contains(entry.crystalItem) || ModContent.GetInstance<ShardsClient>().entryView)
                     {
                         tooltips.Add(new TooltipLine(Mod, "PageList", $"{entry.entryName} ({entry.mod})")
                         {
@@ -145,7 +145,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             }
 
             // Soul Crystal effects
-            if (page > ShardsOfAtheriaMod.MaxNecronomiconPages)
+            if (page > SoA.MaxNecronomiconPages)
             {
                 page = 0;
             }
@@ -153,7 +153,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             if (page >= 3)
             {
                 PageEntry entry = entries[page - 3];
-                if (slayer.soulCrystals.Contains(entry.crystalItem) || ModContent.GetInstance<ShardsClientConfig>().entryView)
+                if (slayer.soulCrystals.Contains(entry.crystalItem) || ModContent.GetInstance<ShardsClient>().entryView)
                 {
                     tooltips.Add(new TooltipLine(Mod, "Page", $"{entry.EntryText()}")
                     {
@@ -177,12 +177,12 @@ namespace ShardsOfAtheria.Items.Tools.Misc
 
         public override void UpdateInventory(Player player)
         {
-            if (page > ShardsOfAtheriaMod.MaxNecronomiconPages)
+            if (page > SoA.MaxNecronomiconPages)
             {
-                page = ShardsOfAtheriaMod.MaxNecronomiconPages;
+                page = SoA.MaxNecronomiconPages;
             }
             SlayerPlayer slayer = player.GetModPlayer<SlayerPlayer>();
-            if (ModContent.GetInstance<ShardsClientConfig>().entryView)
+            if (ModContent.GetInstance<ShardsClient>().entryView)
             {
                 return;
             }
@@ -195,9 +195,9 @@ namespace ShardsOfAtheria.Items.Tools.Misc
                     {
                         page--;
                     }
-                    if (page > ShardsOfAtheriaMod.MaxNecronomiconPages)
+                    if (page > SoA.MaxNecronomiconPages)
                     {
-                        page = ShardsOfAtheriaMod.MaxNecronomiconPages;
+                        page = SoA.MaxNecronomiconPages;
                     }
                 }
                 else
@@ -207,7 +207,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
                     {
                         page++;
                     }
-                    if (page > ShardsOfAtheriaMod.MaxNecronomiconPages)
+                    if (page > SoA.MaxNecronomiconPages)
                     {
                         page = 0;
                     }

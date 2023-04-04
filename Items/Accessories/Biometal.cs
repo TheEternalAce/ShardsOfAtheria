@@ -51,7 +51,7 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Add(new TooltipLine(Mod, "Overdrive", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.OverdriveInfo"),
-                    ShardsOfAtheriaMod.OverdriveKey.GetAssignedKeys().Count > 0 ? ShardsOfAtheriaMod.OverdriveKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
+                    SoA.OverdriveKey.GetAssignedKeys().Count > 0 ? SoA.OverdriveKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
         }
 
         public override void SetDefaults()
@@ -82,7 +82,7 @@ namespace ShardsOfAtheria.Items.Accessories
             ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
             if (!shardsPlayer.BiometalSound)
             {
-                if (ModContent.GetInstance<ShardsClientConfig>().biometalSound)
+                if (ModContent.GetInstance<ShardsClient>().biometalSound)
                 {
                     if (player.Male)
                         SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeMale"));
@@ -153,7 +153,7 @@ namespace ShardsOfAtheria.Items.Accessories
             ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
             if (!shardsPlayer.BiometalSound)
             {
-                if (ModContent.GetInstance<ShardsClientConfig>().biometalSound)
+                if (ModContent.GetInstance<ShardsClient>().biometalSound)
                 {
                     if (player.Male)
                         SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeMale"));

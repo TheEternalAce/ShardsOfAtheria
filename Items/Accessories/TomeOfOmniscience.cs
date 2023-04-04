@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Accessories
             SlayerPlayer slayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
 
             tooltips.Add(new TooltipLine(Mod, "Tooltip", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TomeOfOmniscience"),
-                    ShardsOfAtheriaMod.TomeKey.GetAssignedKeys().Count > 0 ? ShardsOfAtheriaMod.TomeKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
+                    SoA.TomeKey.GetAssignedKeys().Count > 0 ? SoA.TomeKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
 
             var line = new TooltipLine(Mod, "Verbose:RemoveMe", "This tooltip won't show in-game");
 

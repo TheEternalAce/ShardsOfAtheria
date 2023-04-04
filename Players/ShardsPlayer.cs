@@ -9,7 +9,6 @@ using ShardsOfAtheria.Items.Accessories.GemCores;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Tools.Misc;
-using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Projectiles.Minions;
 using ShardsOfAtheria.Projectiles.Other;
@@ -361,7 +360,7 @@ namespace ShardsOfAtheria.Players
             {
                 readingDisk = 0;
             }
-            if (ShardsOfAtheriaMod.ArmorSetBonusActive.JustReleased && !Player.HasBuff(ModContent.BuffType<SetBonusCooldown>()))
+            if (SoA.ArmorSetBonusActive.JustReleased && !Player.HasBuff(ModContent.BuffType<SetBonusCooldown>()))
             {
                 if (pearlwoodSet && !Player.mouseInterface)
                 {
@@ -372,7 +371,7 @@ namespace ShardsOfAtheria.Players
                     Player.AddBuff(ModContent.BuffType<SetBonusCooldown>(), 120);
                 }
             }
-            if (ShardsOfAtheriaMod.OverdriveKey.JustPressed)
+            if (SoA.OverdriveKey.JustPressed)
             {
                 if (Biometal)
                 {
@@ -389,7 +388,7 @@ namespace ShardsOfAtheria.Players
                     }
                 }
             }
-            if (ShardsOfAtheriaMod.EmeraldTeleportKey.JustPressed)
+            if (SoA.EmeraldTeleportKey.JustPressed)
             {
                 if (megaGemCore || superEmeraldCore)
                 {
@@ -432,7 +431,7 @@ namespace ShardsOfAtheria.Players
                     }
                 }
             }
-            if (ShardsOfAtheriaMod.PhaseSwitch.JustPressed)
+            if (SoA.PhaseSwitch.JustPressed)
             {
                 if (Player.statLife >= Player.statLifeMax2 / 2 && rushDrive)
                 {

@@ -1,4 +1,3 @@
-using ShardsOfAtheria.Config;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -23,7 +22,7 @@ namespace ShardsOfAtheria.Items.BossSummons
         {
             Item.width = 32;
             Item.height = 32;
-            if (!ModContent.GetInstance<ShardsServerConfig>().nonConsumeBoss)
+            if (!SoA.ServerConfig.nonConsumeBoss)
             {
                 Item.consumable = true;
                 Item.maxStack = 9999;

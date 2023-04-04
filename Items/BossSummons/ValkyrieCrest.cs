@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Config;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using Terraria;
 using Terraria.Audio;
@@ -27,7 +26,7 @@ namespace ShardsOfAtheria.Items.BossSummons
         {
             Item.width = 32;
             Item.height = 32;
-            if (!ModContent.GetInstance<ShardsServerConfig>().nonConsumeBoss)
+            if (!SoA.ServerConfig.nonConsumeBoss)
             {
                 Item.consumable = true;
             }
