@@ -47,55 +47,15 @@ namespace ShardsOfAtheria
 
             ServerConfig = ModContent.GetInstance<ShardsServer>();
             ClientConfig = ModContent.GetInstance<ShardsClient>();
+            DownedSystem = ModContent.GetInstance<ShardsDownedSystem>();
 
             ModLoader.TryGetMod("Wikithis", out Mod wikithis);
             if (wikithis != null && !Main.dedServ)
             {
                 wikithis.Call("AddModURL", this, "terrariamods.wiki.gg$Shards_of_Atheria");
 
-                // You can also use call ID for some calls!
-                //wikithis.Call(0, this, "https://terrariamods.wiki.gg$Shards_of_Atheria");
-
-                // Alternatively, you can use this instead, if your wiki is on terrariamods.fandom.com
-                //wikithis.Call(0, this, "https://terrariamods.fandom.com/wiki/Example_Mod/{}");
-                //wikithis.Call("AddModURL", this, "https://terrariamods.fandom.com/wiki/Example_Mod/{}");
-
-                // If there wiki on other languages (such as russian, spanish, chinese, etch), then you can also call that:
-                //wikithis.Call(0, this, "https://examplemod.wiki.gg/zh/wiki/{}", GameCulture.CultureName.Chinese)
-
                 // If you want to replace default icon for your mod, then call this. Icon should be 30x30, either way it will be cut.
                 wikithis.Call("AddWikiTexture", this, ModContent.Request<Texture2D>("ShardsOfAtheria/icon_small"));
-                //wikithis.Call(3, this, ModContent.Request<Texture2D>(pathToIcon));
-
-                // If you want to add wiki entries to your custom element (for example, mod enchantments, buffs, etch, literally anything).
-                // Example of adding wiki pages for projectiles:
-                //wikithis.Call("CustomWiki",
-                //    this, // instance of your mod
-                //    "ProjectileWiki", // name of wiki
-                //    new Func<object, IConvertible>(x => (x as Projectile).type), // type of your entry (can be anything)
-                //    new Action<Func<object, bool>, Action<object, IConvertible, string>, Func<string, Mod, string>>((hasEntryFunc, addEntryFunc, defaultSearchStr) =>
-                //    {
-                //        foreach (Projectile proj in ContentSamples.ProjectilesByType.Values) // iterate through each instance
-                //        {
-                //                if (hasEntryFunc(proj.type)) // check if entry exists, and if it does, then skip
-                //                    continue;
-                //                
-                //                // get projectile name
-                //                string name = proj.type < ProjectileID.Count
-                //                    ? Language.GetTextValue($"ProjectileName.{ProjectileID.Search.GetName(proj.type)}")
-                //                    : Language.GetTextValue($"Mods.{proj.ModProjectile.Mod.Name}.ProjectileName.{proj.ModProjectile.Name}");
-                //                
-                //                addEntryFunc(proj, proj.type, defaultSearchStr(name, proj.ModProjectile?.Mod)); // add entry
-                //        }
-                //    }
-                //
-                // Whenever you want to open your custom wiki page, then you should use this mod call:
-                //wikithis.Call("OpenCustomWiki",
-                //    this, // instance of your mod
-                //    "ProjectileWiki",
-                //    (int)ProjectileID.AdamantiteChainsaw, // id of projectile. should match type of your entry (Projectile.type is int)
-                //    true // forces check for keybind, you would most likely want to keep this as it is
-                //    );
             }
         }
 
@@ -105,7 +65,7 @@ namespace ShardsOfAtheria
             {
                 if (Main.rand.NextBool(3))
                 {
-                    Main.instance.Window.Title = ChooseTitleText(0);
+                    Main.instance.Window.Title = ChooseTitleText();
                 }
             }
 
@@ -165,12 +125,12 @@ namespace ShardsOfAtheria
             }
         }
 
-        public string ChooseTitleText(int id = 0)
+        public string ChooseTitleText()
         {
             List<string> title = new List<string>();
             for (int i = 0; i < 2; i++)
             {
-                title.Add(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TitleText" + (i + 1)));
+                title.Add(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TitleText" + i));
             }
             int index = Main.rand.Next(2);
 
