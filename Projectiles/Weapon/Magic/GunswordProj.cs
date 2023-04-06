@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Enums;
@@ -22,11 +21,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         {
             get => (int)Projectile.ai[0];
             set => Projectile.ai[0] = value;
-        }
-
-        public override void SetStaticDefaults()
-        {
-            SoAGlobalProjectile.AreusProj.Add(Type);
         }
 
         public override void SetDefaults()
@@ -61,39 +55,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
                 player.heldProj = Projectile.whoAmI;
                 if (player.statMana >= 6)
                 {
-                    if (Timer == TotalDuration/2)
+                    if (Timer == TotalDuration / 2 && player.ownedProjectileCounts[ModContent.ProjectileType<GunswordGun>()] < 5)
                     {
-                        int type = ModContent.ProjectileType<GunCorruption>();
-                        int ammo = 1;
-                        int divisor = 2;
-                        if (player.ZoneCrimson)
-                        {
-                            type = ModContent.ProjectileType<GunCrimson>();
-                            ammo = 6;
-                            divisor = 6;
-                        }
-                        else if (player.ZoneCorrupt)
-                        {
-                            type = ModContent.ProjectileType<GunCorruption>();
-                            ammo = 1;
-                            divisor = 2;
-                        }
-                        else if (WorldGen.crimson)
-                        {
-                            type = ModContent.ProjectileType<GunCrimson>();
-                            ammo = 6;
-                            divisor = 6;
-                        }
-                        else if (!WorldGen.crimson)
-                        {
-                            type = ModContent.ProjectileType<GunCorruption>();
-                            ammo = 1;
-                            divisor = 2;
-                        }
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 4f, type, Projectile.damage / divisor,
-                            Projectile.knockBack, Projectile.owner, ammo);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity,
+                            ModContent.ProjectileType<GunswordGun>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
                         SoundEngine.PlaySound(SoundID.Item11);
-                        player.manaRegenDelay = 40;
+                        player.manaRegenDelay = 120;
                         player.statMana -= 6;
                     }
                 }

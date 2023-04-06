@@ -1,4 +1,3 @@
-using MMZeroElements;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria;
 using Terraria.ID;
@@ -11,7 +10,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            WeaponElements.Metal.Add(Type);
         }
 
         public override void SetDefaults()
@@ -19,7 +17,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.width = 50;
             Item.height = 50;
 
-            Item.damage = 30;
+            Item.damage = 16;
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 6;
             Item.crit = 4;
@@ -42,25 +40,13 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             CreateRecipe()
                 .AddIngredient(ItemID.PlatinumBroadsword)
-                .AddIngredient(ItemID.Musket)
-                .AddTile(TileID.Anvils)
-                .Register();
-
-            CreateRecipe()
-                .AddIngredient(ItemID.PlatinumBroadsword)
-                .AddIngredient(ItemID.TheUndertaker)
+                .AddIngredient(ItemID.Revolver)
                 .AddTile(TileID.Anvils)
                 .Register();
 
             CreateRecipe()
                 .AddIngredient(ItemID.GoldBroadsword)
-                .AddIngredient(ItemID.Musket)
-                .AddTile(TileID.Anvils)
-                .Register();
-
-            CreateRecipe()
-                .AddIngredient(ItemID.GoldBroadsword)
-                .AddIngredient(ItemID.TheUndertaker)
+                .AddIngredient(ItemID.Revolver)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
