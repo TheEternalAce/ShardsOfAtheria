@@ -15,7 +15,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            WeaponElements.Metal.Add(Type);
             WeaponElements.Electric.Add(Type);
         }
 

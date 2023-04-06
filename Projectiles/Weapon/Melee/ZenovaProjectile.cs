@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 10;
-            ProjectileElements.Metal.Add(Type);
+            
             ProjectileElements.Fire.Add(Type);
             ProjectileElements.Ice.Add(Type);
             ProjectileElements.Electric.Add(Type);

@@ -16,7 +16,6 @@ namespace ShardsOfAtheria.Items.Accessories
 		{
 			SacrificeTotal = 1;
 			WeaponElements.Electric.Add(Type);
-			WeaponElements.Metal.Add(Type);
 		}
 
 		public override void SetDefaults()

@@ -22,7 +22,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             // velocity to always be the same even if the player has increased attack speed.
             ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
 
-            ProjectileElements.Metal.Add(Type);
             ProjectileElements.Electric.Add(Type);
         }
 

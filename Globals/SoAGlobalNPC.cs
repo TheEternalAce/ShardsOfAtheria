@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using AlchemistNPCLite.NPCs;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
@@ -6,6 +7,7 @@ using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.ItemDropRules.Condition;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
+using ShardsOfAtheria.Items.GrabBags;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.PetItems;
 using ShardsOfAtheria.Items.Placeable;
@@ -16,7 +18,6 @@ using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon;
-using ShardsOfAtheria.Items.Weapons.Throwing;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Systems;
@@ -109,23 +110,45 @@ namespace ShardsOfAtheria.Globals
             {
                 if (type == alchemistNPCLite.Find<ModNPC>("Operator").Type)
                 {
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<SoulOfDaylight>());
-                    nextSlot++;
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<SoulOfSpite>());
-                    nextSlot++;
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<SoulOfTwilight>());
-                    nextSlot++;
+                    if (OperatorMaterialsShop)
+                    {
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<SoulOfDaylight>());
+                        nextSlot++;
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<SoulOfSpite>());
+                        nextSlot++;
+                        shop.item[nextSlot].SetDefaults(ModContent.ItemType<SoulOfTwilight>());
+                        nextSlot++;
+                        if (ShardsDownedSystem.downedValkyrie)
+                        {
+                            shop.item[nextSlot].SetDefaults(ModContent.ItemType<ChargedFeather>());
+                            nextSlot++;
+                        }
+                    }
+                    else if (OperatorBagsShop3)
+                    {
+                        if (NPC.downedBoss3)
+                        {
+                            if (ShardsDownedSystem.downedValkyrie)
+                            {
+                                shop.item[nextSlot].SetDefaults(ModContent.ItemType<NovaBossBag>());
+                                nextSlot++;
+                            }
+                        }
+                    }
                 }
             }
+        }
 
-            if (ModLoader.TryGetMod("Fargowiltas", out Mod mutantMod))
-            {
-                if (type == mutantMod.Find<ModNPC>("Mutant").Type && ShardsDownedSystem.downedValkyrie)
-                {
-                    //shop.item[nextSlot].SetDefaults(ModContent.ItemType<ValkyrieCrest>());
-                    nextSlot++;
-                }
-            }
+        [JITWhenModsEnabled("AlchemistNPCLite")]
+        bool OperatorMaterialsShop
+        {
+            get { return Operator.Shop2; }
+        }
+
+        [JITWhenModsEnabled("AlchemistNPCLite")]
+        bool OperatorBagsShop3
+        {
+            get { return Operator.Shop6; }
         }
 
         public override void OnKill(NPC npc)

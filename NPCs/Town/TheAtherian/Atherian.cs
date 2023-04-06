@@ -379,16 +379,23 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusDataDisk>());
-            shop.item[nextSlot].shopCustomPrice = 15000;
-            nextSlot++;
+            if (!Main.LocalPlayer.Slayer().slayerMode)
+            {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<ValkyrieCrest>());
+                nextSlot++;
+            }
             shop.item[nextSlot].SetDefaults(ModContent.ItemType<RushDrive>());
-            shop.item[nextSlot].shopCustomPrice = 150000;
             nextSlot++;
+            shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusDataDisk>());
+            nextSlot++;
+            if (ShardsDownedSystem.downedValkyrie)
+            {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<NovaDataDisk>());
+                nextSlot++;
+            }
             if (NPC.downedPlantBoss)
             {
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusKey>());
-                shop.item[nextSlot].shopCustomPrice = 50000;
                 nextSlot++;
             }
         }

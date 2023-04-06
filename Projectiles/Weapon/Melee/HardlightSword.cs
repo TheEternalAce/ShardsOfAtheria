@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         public override void SetStaticDefaults()
         {
             ProjectileElements.Electric.Add(Type);
-            ProjectileElements.Metal.Add(Type);
+            
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 30;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 3;
         }

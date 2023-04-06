@@ -31,13 +31,13 @@ namespace ShardsOfAtheria.Items.BossSummons
                 Item.consumable = true;
             }
             Item.maxStack = 9999;
+            Item.value = 50000;
 
             Item.useTime = 45;
             Item.useAnimation = 45;
             Item.useStyle = ItemUseStyleID.HoldUp;
 
             Item.rare = ItemRarityID.Blue;
-            Item.value = Item.buyPrice(0, 5);
         }
 
         // We use the CanUseItem hook to prevent a Player from using this item while the boss is present in the world.

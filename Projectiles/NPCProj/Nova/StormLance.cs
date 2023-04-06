@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MMZeroElements;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using MMZeroElements;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using System.Linq;
 using Terraria;
@@ -26,7 +26,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Metal.Add(Type);
             ProjectileElements.Electric.Add(Type);
         }
 

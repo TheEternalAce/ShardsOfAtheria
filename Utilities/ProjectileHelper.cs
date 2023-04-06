@@ -52,14 +52,6 @@ namespace ShardsOfAtheria.Utilities
             {
                 elementExplosion.tempElectric = true;
             }
-            if (ProjectileElements.Metal.Contains(type))
-            {
-                elementExplosion.tempMetal = true;
-            }
-            if (SoAGlobalProjectile.AreusProj.Contains(type))
-            {
-                globalExplosion.tempAreus = true;
-            }
         }
 
         public static void Explode(this Projectile proj, int explosionSize = 120)
@@ -90,22 +82,58 @@ namespace ShardsOfAtheria.Utilities
                     Dust dust = Dust.NewDustDirect(proj.position, proj.height, proj.width, DustID.Electric);
                     dust.velocity *= 4f;
                 }
-                if (ProjectileElements.Metal.Contains(proj.type))
-                {
-                    Dust dust = Dust.NewDustDirect(proj.position, proj.height, proj.width, DustID.Iron, Scale: 1.3f);
-                    dust.velocity *= 4f;
-                }
                 Dust dust2 = Dust.NewDustDirect(proj.position, proj.height, proj.width, DustID.Smoke, Scale: 1.5f);
                 dust2.velocity *= 2f;
             }
         }
 
-        public static void TrackTarget(this Projectile projectile, NPC targetNPC, int speed = 16, int inertia = 16)
+        /// <summary>
+        /// Finding the closest NPC to attack within maxDetectDistance range.
+        /// If not found then returns null.
+        /// </summary>
+        /// <param name="maxDetectDistance"></param>
+        /// <returns></returns>
+        public static NPC FindClosestNPC(this Projectile projectile, float maxDetectDistance)
         {
-            if (Vector2.Distance(projectile.Center, targetNPC.Center) > 40f)
+            NPC closestNPC = null;
+
+            // Using squared values in distance checks will let us skip square root calculations, drastically improving this method's speed.
+            float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
+
+            // Loop through all NPCs(max always 200)
+            for (int k = 0; k < Main.maxNPCs; k++)
+            {
+                NPC target = Main.npc[k];
+                // Check if NPC able to be targeted. It means that NPC is
+                // 1. active (alive)
+                // 2. chaseable (e.g. not a cultist archer)
+                // 3. max life bigger than 5 (e.g. not a critter)
+                // 4. can take damage (e.g. moonlord core after all it's parts are downed)
+                // 5. hostile (!friendly)
+                // 6. not immortal (e.g. not a target dummy)
+                if (target.CanBeChasedBy())
+                {
+                    // The DistanceSquared function returns a squared distance between 2 points, skipping relatively expensive square root calculations
+                    float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, projectile.Center);
+
+                    // Check if it is within the radius
+                    if (sqrDistanceToTarget < sqrMaxDetectDistance)
+                    {
+                        sqrMaxDetectDistance = sqrDistanceToTarget;
+                        closestNPC = target;
+                    }
+                }
+            }
+
+            return closestNPC;
+        }
+
+        public static void ChaseNPC(this Projectile projectile, NPC npc, float maxDist, float speed = 16f, float inertia = 16f)
+        {
+            if (Vector2.Distance(projectile.Center, npc.Center) < maxDist)
             {
                 // The immediate range around the target (so it doesn't latch onto it when close)
-                Vector2 direction = targetNPC.Center - projectile.Center;
+                Vector2 direction = npc.Center - projectile.Center;
                 direction.Normalize();
                 direction *= speed;
 

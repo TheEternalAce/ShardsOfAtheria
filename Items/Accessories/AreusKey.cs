@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Items.Accessories
 			Item.accessory = true;
 
 			Item.rare = ItemRarityID.Cyan;
-			Item.value = Item.buyPrice(0, 10);
+			Item.value = 200000;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

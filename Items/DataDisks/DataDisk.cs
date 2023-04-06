@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Items.DataDisks
     {
         public int diskType = 0;
         public bool readingDisk = false;
+        public string mod = "ShardsOfAtheria";
 
         Asset<Texture2D> disk = ModContent.Request<Texture2D>("ShardsOfAtheria/Items/DataDisks/DataDisk");
 
@@ -26,6 +27,7 @@ namespace ShardsOfAtheria.Items.DataDisks
             Item.width = 34;
             Item.height = 34;
             Item.maxStack = 1;
+            Item.value = 50000;
 
             Item.useTime = 15;
             Item.useAnimation = 15;
@@ -99,6 +101,11 @@ namespace ShardsOfAtheria.Items.DataDisks
 
     public class NovaDataDisk : DataDisk
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -108,6 +115,11 @@ namespace ShardsOfAtheria.Items.DataDisks
 
     public class TerrariansDataDisk : DataDisk
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();

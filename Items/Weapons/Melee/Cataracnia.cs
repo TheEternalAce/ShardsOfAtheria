@@ -1,4 +1,3 @@
-using MMZeroElements;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,7 +9,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            WeaponElements.Metal.Add(Type);
         }
 
         public override void SetDefaults()

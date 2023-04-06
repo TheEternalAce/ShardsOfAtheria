@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10; // The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0; // The recording mode
-            ProjectileElements.Metal.Add(Type);
+            
             ProjectileElements.Electric.Add(Type);
         }
 

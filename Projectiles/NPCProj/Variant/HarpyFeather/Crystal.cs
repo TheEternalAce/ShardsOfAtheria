@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,11 +7,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather
 {
     public class Crystal : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            ProjectileElements.Metal.Add(Type);
-        }
-
         public override void SetDefaults()
         {
             Projectile refProj = new Projectile();

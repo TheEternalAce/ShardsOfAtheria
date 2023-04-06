@@ -8,13 +8,12 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
-    public class Zenova : ModItem
+	public class Zenova : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 			SacrificeTotal = 1;
-			WeaponElements.Metal.Add(Type);
 			WeaponElements.Fire.Add(Type);
 			WeaponElements.Ice.Add(Type);
 			WeaponElements.Electric.Add(Type);

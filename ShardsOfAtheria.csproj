@@ -32,6 +32,9 @@
     <Folder Include="NPCs\Boss\NovaStellar\PhoenixWarrior\" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="AlchemistNPCLite">
+      <HintPath>..\..\ModReader\AlchemistNPCLite\AlchemistNPCLite.dll</HintPath>
+    </Reference>
     <Reference Include="MMZeroElements">
       <HintPath>..\ModAssemblies\MMZeroElements_v0.1.dll</HintPath>
     </Reference>

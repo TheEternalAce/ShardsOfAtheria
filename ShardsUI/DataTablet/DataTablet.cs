@@ -111,7 +111,11 @@ namespace ShardsOfAtheria.ShardsUI.DataTablet
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (display && area.ContainsPoint(Main.MouseScreen))
+            if (!display)
+            {
+                return;
+            }
+            if (area.ContainsPoint(Main.MouseScreen))
             {
                 Main.LocalPlayer.mouseInterface = true;
             }
@@ -136,32 +140,24 @@ namespace ShardsOfAtheria.ShardsUI.DataTablet
             }
 
             ShardsPlayer shardsPlayer = Main.LocalPlayer.ShardsOfAtheria();
+            int readingDisk = shardsPlayer.readingDisk;
 
-            string key = "Mods.ShardsOfAtheria.DiskFile.DataDisk" + shardsPlayer.readingDisk;
-            text.SetText(Language.GetTextValue(key));
-            return;
-
-            switch (shardsPlayer.readingDisk)
+            string key = "Mods.";
+            if (Main.LocalPlayer.HeldItem.ModItem is DataDisk disk)
             {
-                default:
-                    text.SetText(Language.GetTextValue("Mods.ShardsOfAtheria.DiskFile.DiskError"));
-                    break;
-                case 1:
-                    text.SetText(Language.GetTextValue("Mods.ShardsOfAtheria.DiskFile.DataDisk1"));
-                    break;
-                case 2:
-                    text.SetText(Language.GetTextValue("Mods.ShardsOfAtheria.DiskFile.DataDisk2"));
-                    break;
-                case 3:
-                    text.SetText(Language.GetTextValue("Mods.ShardsOfAtheria.DiskFile.DataDisk3"));
-                    break;
-                case 4:
-                    text.SetText(Language.GetTextValue("Mods.ShardsOfAtheria.DiskFile.DataDisk4"));
-                    break;
-                case 5:
-                    text.SetText(Language.GetTextValue("Mods.ShardsOfAtheria.DiskFile.DataDisk5"));
-                    break;
+                key += disk.mod;
             }
+            key += ".DiskFile.DataDisk";
+            if (readingDisk < 100)
+            {
+                key += "0";
+            }
+            if (readingDisk < 10)
+            {
+                key += "0";
+            }
+            key += readingDisk;
+            text.SetText(Language.GetTextValue(key));
         }
     }
 

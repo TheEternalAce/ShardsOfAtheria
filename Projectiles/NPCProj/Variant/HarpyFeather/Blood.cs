@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather
     {
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Metal.Add(Type);
+            ProjectileElements.Ice.Add(Type);
         }
 
         public override void SetDefaults()

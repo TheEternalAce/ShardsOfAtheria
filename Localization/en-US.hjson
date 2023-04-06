@@ -34,16 +34,16 @@ Mods: {
 				'''
 			UpgradeableItem: Upgradeable Item
 
-			TitleText1: Shards of Atheria: Splitting Skies
-			TitleText2: Shards of Atheria: The World Revolving
+			TitleText0: Shards of Atheria: Splitting Skies
+			TitleText1: Shards of Atheria: The World Revolving
 			TomeOfOmniscience: Press {0} to cycle between the 3 Knowledge Bases
 			UpgradeableItem: Upgradeable Item
 			TeleportOnKeyPress: Press {0} to teleport to your cursor
 		}
 
 		DiskFile: {
-			DiskError: "Error 0: File not found in database. Please use a different disk."
-			DataDisk1:
+			DataDisk000: "Error 0: File not found in database. Please use a different disk."
+			DataDisk001:
 				'''
 				Disk_001_Areus
 				A typically pale blue metal which crackles with electricity, areus is used for
@@ -52,7 +52,7 @@ Mods: {
 				areus is melted and cast, white areus is alloyed with gold. If areus were lose
 				its electrical properties, its color will turn dark and it will harden.
 				'''
-			DataDisk2:
+			DataDisk002:
 				'''
 				Disk_002_Atheria
 				A neighboring planet, close to Terraria, crackling with electricity and
@@ -60,7 +60,7 @@ Mods: {
 				took inspiration from the humans on Terraria and Earth to create her own
 				people: atherians.
 				'''
-			DataDisk3:
+			DataDisk003:
 				'''
 				Disk_003_Hardlight
 				This unique material was discovered by the harpies in the world. Combining
@@ -69,12 +69,12 @@ Mods: {
 				commonly produced by the harpies dwelling in the sky and caverns due to easy
 				access to light and gold respectively.
 				'''
-			DataDisk4:
+			DataDisk004:
 				'''
 				Disk_004_Nova Stellar
 
 				'''
-			DataDisk5:
+			DataDisk005:
 				'''
 				Disk_005_Terrarians
 				The five Terrarians are divine beings forged from the powers of entropy,

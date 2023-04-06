@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
         public override void SetStaticDefaults()
         {
             ProjectileElements.Electric.Add(Type);
-            ProjectileElements.Metal.Add(Type);
+
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
