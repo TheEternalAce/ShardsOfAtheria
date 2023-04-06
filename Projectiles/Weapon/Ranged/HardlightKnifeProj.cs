@@ -6,13 +6,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
+namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 {
     public class HardlightKnifeProj : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Metal.Add(Type);
+            ProjectileElements.Electric.Add(Type);
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }

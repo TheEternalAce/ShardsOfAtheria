@@ -1,10 +1,10 @@
 using MMZeroElements;
-using ShardsOfAtheria.Projectiles.Weapon.Throwing;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Weapons.Throwing
+namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class KingsKusarigama : ModItem
     {
@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Items.Weapons.Throwing
             Item.height = 50;
 
             Item.damage = 22;
-            Item.DamageType = DamageClass.Throwing;
+            Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 4;
             Item.crit = 3;
 

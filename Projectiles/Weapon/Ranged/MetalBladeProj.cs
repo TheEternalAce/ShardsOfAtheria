@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
+namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 {
     public class MetalBladeProj : ModProjectile
     {
@@ -14,8 +13,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-
-            ProjectileElements.Metal.Add(Type);
         }
 
         public override void SetDefaults()

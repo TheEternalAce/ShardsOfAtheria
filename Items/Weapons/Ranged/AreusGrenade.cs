@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Weapons.Throwing
+namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class AreusGrenade : OverchargeWeapon
     {
@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Items.Weapons.Throwing
             Item.ammo = ItemID.Grenade;
 
             Item.damage = 70;
-            Item.DamageType = DamageClass.Throwing;
+            Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 7;
             Item.crit = 6;
 

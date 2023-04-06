@@ -1,19 +1,16 @@
-using MMZeroElements;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Throwing;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Weapons.Throwing
+namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class HardlightKnife : ModItem
     {
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 999;
-
-            WeaponElements.Metal.Add(Type);
         }
 
         public override void SetDefaults()
@@ -24,7 +21,7 @@ namespace ShardsOfAtheria.Items.Weapons.Throwing
             Item.maxStack = 9999;
 
             Item.damage = 15;
-            Item.DamageType = DamageClass.Throwing;
+            Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 1;
             Item.crit = 6;
 

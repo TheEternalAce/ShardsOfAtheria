@@ -5,7 +5,7 @@ using ReLogic.Content;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Throwing
+namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 {
     public class KusarigamaKing : ModProjectile
     {
