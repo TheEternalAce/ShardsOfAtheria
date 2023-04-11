@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusGlaive
         public int airTime = 0;
         public int airTimeMax = 15;
 
-        public override string Texture => "ShardsOfAtheria/Projectiles/Weapon/Areus/AreusGlaive/AreusGlaive_Thrust";
+        public override string Texture => "ShardsOfAtheria/Projectiles/Weapon/Melee/AreusGlaive/AreusGlaive_Thrust";
 
         public override void SetStaticDefaults()
         {

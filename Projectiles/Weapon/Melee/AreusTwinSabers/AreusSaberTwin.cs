@@ -91,7 +91,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusTwinSabers
             bool flip = Main.player[Projectile.owner].direction == 1 ? combo > 0 : combo == 0;
             if (flip)
             {
-                texture = ModContent.Request<Texture2D>("ShardsOfAtheria/Projectiles/Weapon/Areus/AreusTwinSabers/AreusSaberTwin2").Value;
+                texture = ModContent.Request<Texture2D>("ShardsOfAtheria/Projectiles/Weapon/Melee/AreusTwinSabers/AreusSaberTwin2").Value;
             }
             var origin = new Vector2(0f, texture.Height);
 
