@@ -49,11 +49,6 @@ namespace ShardsOfAtheria.Projectiles.Other
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric);
                 dust.velocity *= 4f;
             }
-            if (elementExplosion.tempMetal)
-            {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Iron, Scale: 1.3f);
-                dust.velocity *= 4f;
-            }
             Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Smoke, Scale: 1.5f);
             dust2.velocity *= 2f;
         }

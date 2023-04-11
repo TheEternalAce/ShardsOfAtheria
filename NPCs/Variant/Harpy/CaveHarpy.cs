@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Placeable.Banner;
@@ -48,7 +47,6 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<CaveHarpyBanner>();
-            NPC.SetElementMultipliersByElement(Element.Metal);
 
             if (!Main.dedServ)
             {
