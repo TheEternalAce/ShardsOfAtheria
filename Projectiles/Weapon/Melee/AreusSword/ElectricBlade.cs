@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSword
+namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSword
 {
     public class ElectricBlade : ModProjectile
     {

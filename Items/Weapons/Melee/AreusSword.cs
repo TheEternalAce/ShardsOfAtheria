@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSword;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSword;
 using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;

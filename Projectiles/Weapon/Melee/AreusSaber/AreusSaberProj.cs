@@ -11,7 +11,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber
+namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSaber
 {
     public class AreusSaberProj : EpicSwingSword
     {

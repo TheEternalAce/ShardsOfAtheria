@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using MMZeroElements;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSaber;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSaber;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;

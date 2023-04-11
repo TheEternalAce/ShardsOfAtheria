@@ -8,7 +8,7 @@ using ShardsOfAtheria.Items.DataDisks;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Weapon.Areus.AreusSword;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSword;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;

@@ -1,5 +1,5 @@
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Projectiles.Weapon.Areus.AreusTwinSabers;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusTwinSabers;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

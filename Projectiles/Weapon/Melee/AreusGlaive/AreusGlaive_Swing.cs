@@ -11,7 +11,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
+namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusGlaive
 {
     public class AreusGlaive_Swing : EpicSwingSword
     {
@@ -73,7 +73,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
             }
             if (progress < 0.35f)
             {
-                float p = 1f - (progress) / 0.35f;
+                float p = 1f - progress / 0.35f;
                 Projectile.alpha = (int)(p * 255);
                 return -20f * p;
             }

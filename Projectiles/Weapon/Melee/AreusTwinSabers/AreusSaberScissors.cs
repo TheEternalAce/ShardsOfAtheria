@@ -10,7 +10,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusTwinSabers
+namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusTwinSabers
 {
     public class AreusSaberScissors : EpicSwingSword
     {

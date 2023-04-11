@@ -3,7 +3,7 @@ using ShardsOfAtheria.Globals;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
+namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusGlaive
 {
     public class AreusGlaive_Thrust2 : ModProjectile
     {

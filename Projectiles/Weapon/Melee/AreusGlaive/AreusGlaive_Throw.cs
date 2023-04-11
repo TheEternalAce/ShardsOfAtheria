@@ -8,7 +8,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Areus.AreusGlaive
+namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusGlaive
 {
     public class AreusGlaive_Throw : ModProjectile
     {
