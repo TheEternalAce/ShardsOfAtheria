@@ -35,9 +35,19 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[Type] = 26;
-            NPCID.Sets.ExtraFramesCount[Type] = 9;
-            NPCID.Sets.AttackFrameCount[Type] = 5;
+            if (SoA.AprilFools)
+            {
+                Main.npcFrameCount[Type] = 25; // The total amount of frames the NPC has
+
+                NPCID.Sets.ExtraFramesCount[Type] = 9; // Generally for Town NPCs, but this is how the NPC does extra things such as sitting in a chair and talking to other NPCs. This is the remaining frames after the walking frames.
+                NPCID.Sets.AttackFrameCount[Type] = 4; // The amount of frames in the attacking animation.
+            }
+            else
+            {
+                Main.npcFrameCount[Type] = 26;
+                NPCID.Sets.ExtraFramesCount[Type] = 9;
+                NPCID.Sets.AttackFrameCount[Type] = 5;
+            }
             NPCID.Sets.DangerDetectRange[Type] = 700;
             NPCID.Sets.AttackType[Type] = 0;
             NPCID.Sets.AttackTime[Type] = 90;
@@ -88,8 +98,15 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.knockBackResist = 0.5f;
 
-            AnimationType = NPCID.Stylist;
-            NPC.SetCustomElementMultipliers(0.5, 1.0, 0.4, 2.0);
+            if (SoA.AprilFools)
+            {
+                AnimationType = NPCID.Guide;
+            }
+            else
+            {
+                AnimationType = NPCID.Stylist;
+            }
+            NPC.SetCustomElementMultipliers(0.5f, 1.0f, 0.4f, 2.0f);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

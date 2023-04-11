@@ -80,7 +80,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             Music = MusicID.Boss4;
             NPC.value = Item.buyPrice(0, 5, 0, 0);
             NPC.npcSlots = 15f;
-            NPC.SetCustomElementMultipliers(2.0, 0.8, 0.8, 1.5);
+            NPC.SetCustomElementMultipliers(2.0f, 0.8f, 0.8f, 1.5f);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
