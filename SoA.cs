@@ -36,6 +36,9 @@ namespace ShardsOfAtheria
         public static ShardsDownedSystem DownedSystem;
         public static bool AprilFools => DateTime.Now is DateTime { Month: 4 };
 
+        public static string Blank_String = "ShardsOfAtheria/Blank";
+        public static string Placeholder_String = "ShardsOfAtheria/PlaceholderSprite";
+
         public override void Load()
         {
             OverdriveKey = KeybindLoader.RegisterKeybind(this, "Toggle Overdrive", "F");

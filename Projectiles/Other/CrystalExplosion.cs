@@ -8,7 +8,7 @@ namespace ShardsOfAtheria.Projectiles.Other
 {
     public class CrystalExplosion : ModProjectile
     {
-        public override string Texture => "ShardsOfAtheria/Blank";
+        public override string Texture => SoA.Blank_String;
 
         public override void SetDefaults()
         {

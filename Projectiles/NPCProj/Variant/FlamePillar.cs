@@ -7,7 +7,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
 {
     public class FlamePillar : ModProjectile
     {
-        public override string Texture => "ShardsOfAtheria/Blank";
+        public override string Texture => SoA.Blank_String;
 
 
         public override void SetStaticDefaults()
