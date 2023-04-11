@@ -26,28 +26,22 @@ namespace ShardsOfAtheria.Utilities
                 for (int i = 0; i < Main.maxPlayers; i++)
                 {
                     Player player = Main.player[i];
-                    if (Vector2.Distance(player.Center, npc.Center) <= 500)
+                    if (Vector2.Distance(player.Center, npc.Center) <= 2000 || player.whoAmI == npc.target)
                     {
                         ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(dialogue), color, player.whoAmI);
                     }
                 }
+            }
+            else
+            {
+                Main.NewText(dialogue, color);
             }
         }
 
         public static void UseDialogueWithKey(this NPC npc, string key, Color color)
         {
             string dialogue = $"<{npc.GivenName}> {Language.GetTextValue(key)}";
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-            {
-                for (int i = 0; i < Main.maxPlayers; i++)
-                {
-                    Player player = Main.player[i];
-                    if (Vector2.Distance(player.Center, npc.Center) <= 500)
-                    {
-                        ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(dialogue), color, player.whoAmI);
-                    }
-                }
-            }
+            npc.UseDialogue(Language.GetTextValue(dialogue), color);
         }
 
         public static void SlayNPC(this NPC npc, Player player)
