@@ -36,7 +36,7 @@
       <HintPath>..\..\ModReader\AlchemistNPCLite\AlchemistNPCLite.dll</HintPath>
     </Reference>
     <Reference Include="MMZeroElements">
-      <HintPath>..\ModAssemblies\MMZeroElements_v0.1.dll</HintPath>
+      <HintPath>..\ModAssemblies\MMZeroElements_v1.0.dll</HintPath>
     </Reference>
     <Reference Include="ShopQuotesMod">
       <HintPath>..\ModAssemblies\ShopQuotesMod_v1.0.0.1.dll</HintPath>
