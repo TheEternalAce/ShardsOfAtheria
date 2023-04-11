@@ -1352,18 +1352,23 @@ Mods: {
 			}
 		}
 
-		DropConditions: {
+		Conditions: {
+			# NPC Loot
 			Flawless: Defeat without getting hit
 			Slayer: Drops while in Slayer Mode
 			PostSkeletron: "Drops after Skeletron's defeat"
 			PostGolem: "Drops after Golem's defeat"
 			PostCultist: "Drops after Lunatic Cultist's defeat"
 			PostMoonLord: "Drops after Moon Lord's defeat"
-		}
 
-		RecipeConditions: {
+			# Recipe
 			Upgrade: Upgraded by Atherian
 			SlayerMode: Be in Slayer Mode
+
+			# Shop
+			NotSlayer: Slayer Mode disabled
+			Plantera: "Sold after Plantera's defeat"
+			Nova: "Sold after Nova Stellar's defeat"
 		}
 
 		BossDesc: {
