@@ -14,6 +14,9 @@ namespace ShardsOfAtheria.Items.Accessories
 {
     public class Biometal : ModItem
     {
+        private static SoundStyle MegamergeMale;
+        private static SoundStyle MegamergeFemale;
+
         public override void Load()
         {
             // Since the equipment textures weren't loaded on the server, we can't have this code running server-side
@@ -23,6 +26,9 @@ namespace ShardsOfAtheria.Items.Accessories
             EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Head}", EquipType.Head, this);
             EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Body}", EquipType.Body, this);
             EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Legs}", EquipType.Legs, this);
+
+            MegamergeMale = new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeMale");
+            MegamergeFemale = new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeFemale");
         }
 
         // Called in SetStaticDefaults
@@ -85,8 +91,8 @@ namespace ShardsOfAtheria.Items.Accessories
                 if (ModContent.GetInstance<ShardsClient>().biometalSound)
                 {
                     if (player.Male)
-                        SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeMale"));
-                    else SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeFemale"));
+                        SoundEngine.PlaySound(MegamergeMale);
+                    else SoundEngine.PlaySound(MegamergeFemale);
                 }
             }
 

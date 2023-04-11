@@ -14,6 +14,7 @@ using ShardsOfAtheria.Systems;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -38,6 +39,7 @@ namespace ShardsOfAtheria
 
         public static string Blank_String = "ShardsOfAtheria/Blank";
         public static string Placeholder_String = "ShardsOfAtheria/PlaceholderSprite";
+        public static SoundStyle ReactorAlarm;
 
         public override void Load()
         {
@@ -60,6 +62,12 @@ namespace ShardsOfAtheria
                 // If you want to replace default icon for your mod, then call this. Icon should be 30x30, either way it will be cut.
                 wikithis.Call("AddWikiTexture", this, ModContent.Request<Texture2D>("ShardsOfAtheria/icon_small"));
             }
+
+            ReactorAlarm = new SoundStyle("ShardsOfAtheria/Sounds/Item/ReactorMeltdownAlarm")
+            {
+                Volume = 0.9f,
+                MaxInstances = 3,
+            };
         }
 
         public override void PostSetupContent()

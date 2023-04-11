@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public int charge;
         public bool theMessiah;
+        private SoundStyle inventorySound;
 
         public override void OnCreate(ItemCreationContext context)
         {
@@ -33,6 +34,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             {
                 theMessiah = tag.GetBool("theMessiah");
             }
+        }
+
+        public override void Load()
+        {
+            inventorySound = new SoundStyle("ShardsOfAtheria/Sounds/Item/TheMessiah");
         }
 
         public override void SetStaticDefaults()
@@ -61,7 +67,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
             Item.shootSpeed = 15;
             Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(1);
+            Item.value = 5000000;
             Item.shoot = ModContent.ProjectileType<MessiahAirSlash>();
         }
 
@@ -69,7 +75,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             if (!theMessiah && Main.myPlayer == player.whoAmI)
             {
-                SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/TheMessiah"));
+                SoundEngine.PlaySound(inventorySound);
                 theMessiah = true;
             }
             if (charge < 200)
