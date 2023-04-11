@@ -2,7 +2,7 @@ using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Weapon.Areus;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;

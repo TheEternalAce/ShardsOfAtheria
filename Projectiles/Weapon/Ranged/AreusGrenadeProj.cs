@@ -6,7 +6,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Areus
+namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 {
     public class AreusGrenadeProj : ModProjectile
     {

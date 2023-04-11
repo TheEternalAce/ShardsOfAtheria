@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using MMZeroElements;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Areus
+namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
     public class ElectricOrb : ModProjectile
     {
@@ -57,9 +56,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
                 {
                     vector = Projectile.Center + new Vector2(1, 0).RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
                 }
-                Vector2 point = this.point.ToVector2();
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), point, Vector2.Normalize(vector - point),
-                    ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize(vector - Projectile.Center),
+                    ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
             if (Projectile.GetGlobalProjectile<OverchargedProjectile>().overcharged)
             {

@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Areus
+namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
     public class ElectricSpike : ModProjectile
     {
@@ -26,7 +26,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
             Projectile.DamageType = DamageClass.Magic;
             Projectile.tileCollide = false;
             Projectile.light = 1;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 180;
             Projectile.penetrate = -1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 8;

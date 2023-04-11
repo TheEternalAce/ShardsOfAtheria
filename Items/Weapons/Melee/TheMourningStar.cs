@@ -1,5 +1,5 @@
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Projectiles.Weapon.Areus;
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;

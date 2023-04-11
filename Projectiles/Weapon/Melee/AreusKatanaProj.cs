@@ -4,7 +4,6 @@ using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -13,44 +12,30 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Areus
+namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
-    public class MourningStar : EpicSwingSword
+    public class AreusKatanaProj : EpicSwingSword
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.DarkAreusProj.Add(Type);
+            SoAGlobalProjectile.AreusProj.Add(Type);
+            SoAGlobalProjectile.Eraser.Add(Type);
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            Projectile.scale = 1.5f;
-            Projectile.width = Projectile.height = 90;
-            hitboxOutwards = 50;
+            Projectile.width = Projectile.height = 80;
+            Projectile.scale = 2f;
+            hitboxOutwards = 100;
             rotationOffset = -MathHelper.PiOver4 * 3f;
-            amountAllowedToHit = 5;
-        }
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            Player player = Main.player[Projectile.owner];
-            if (player.HeldItem.type == ModContent.ItemType<TheMourningStar>())
-            {
-                TheMourningStar mourningStar = Main.LocalPlayer.HeldItem.ModItem as TheMourningStar;
-                mourningStar.blood += 20;
-                if (target.life <= 0)
-                {
-                    mourningStar.blood += 40;
-                }
-            }
-            base.OnHitNPC(target, damage, knockback, crit);
         }
 
         protected override void Initialize(Player player, ShardsPlayer shards)
         {
             base.Initialize(player, shards);
+            combo = 1;
             if (shards.itemCombo > 0)
             {
                 swingDirection *= -1;
@@ -73,27 +58,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
             {
                 playedSound = true;
                 SoundEngine.PlaySound(SoundID.Item1.WithPitchOffset(-1f), Projectile.Center);
-            }
-        }
-
-        public override void UpdateSwing(float progress, float interpolatedSwingProgress)
-        {
-            if (progress == 0.5f && Main.myPlayer == Projectile.owner)
-            {
-                Player player = Main.player[Projectile.owner];
-
-                if (player.HeldItem.type == ModContent.ItemType<TheMourningStar>())
-                {
-                    TheMourningStar mourningStar = Main.LocalPlayer.HeldItem.ModItem as TheMourningStar;
-
-                    if (mourningStar.blood >= TheMourningStar.BloodProjCost)
-                    {
-                        Vector2 position = Projectile.Center;
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, AngleVector * Projectile.velocity.Length() * 16f,
-                            ModContent.ProjectileType<BloodCutter>(), (int)(Projectile.damage * 0.75), (int)(Projectile.knockBack * 0.75), player.whoAmI);
-                        mourningStar.blood -= TheMourningStar.BloodProjCost;
-                    }
-                }
             }
         }
 
@@ -122,17 +86,15 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Areus
         public override bool PreDraw(ref Color lightColor)
         {
             var texture = TextureAssets.Projectile[Type].Value;
-            var center = Main.player[Projectile.owner].Center;
             var handPosition = Main.GetPlayerArmPosition(Projectile) + AngleVector * visualOutwards;
             var drawColor = Projectile.GetAlpha(lightColor) * Projectile.Opacity;
-            var drawCoords = handPosition - Main.screenPosition;
             float size = texture.Size().Length();
             var effects = SpriteEffects.None;
             bool flip = Main.player[Projectile.owner].direction == 1 ? combo > 0 : combo == 0;
-            if (flip)
+            if (!flip)
             {
-                Main.instance.LoadItem(ModContent.ItemType<TheMourningStar>());
-                texture = TextureAssets.Item[ModContent.ItemType<TheMourningStar>()].Value;
+                Main.instance.LoadItem(ModContent.ItemType<AreusKatana>());
+                texture = TextureAssets.Item[ModContent.ItemType<AreusKatana>()].Value;
             }
             var origin = new Vector2(0f, texture.Height);
 
