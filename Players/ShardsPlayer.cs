@@ -122,7 +122,7 @@ namespace ShardsOfAtheria.Players
             pearlwoodSet = false;
 
             ResetVariables();
-            Biometal = BiometalSound = BiometalHideVanity = BiometalForceVanity = false;
+            Biometal = BiometalHideVanity = BiometalForceVanity = false;
 
             UpdateResource();
 

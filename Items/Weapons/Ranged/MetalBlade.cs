@@ -10,6 +10,13 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class MetalBlade : ModItem
     {
+        private static SoundStyle MetalBladeSound;
+
+        public override void Load()
+        {
+            MetalBladeSound = new SoundStyle("ShardsOfAtheria/Sounds/Item/MetalBlade");
+        }
+
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 999;
@@ -30,7 +37,12 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.useTime = 30;
             Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.UseSound = SoA.ServerConfig.metalBladeSound ? new SoundStyle("ShardsOfAtheria/Sounds/Item/MetalBlade") : SoundID.Item1;
+            SoundStyle useSound = MetalBladeSound;
+            if (!SoA.ServerConfig.metalBladeSound)
+            {
+                useSound = SoundID.Item1;
+            }
+            Item.UseSound = useSound;
             Item.noMelee = true;
             Item.noUseGraphic = true;
 

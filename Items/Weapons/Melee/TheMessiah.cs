@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public int charge;
         public bool theMessiah;
-        private SoundStyle inventorySound;
+        private static SoundStyle inventorySound;
 
         public override void OnCreate(ItemCreationContext context)
         {
@@ -38,6 +38,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void Load()
         {
+            if (Main.netMode == NetmodeID.Server)
+                return;
+
             inventorySound = new SoundStyle("ShardsOfAtheria/Sounds/Item/TheMessiah");
         }
 
@@ -75,8 +78,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             if (!theMessiah && Main.myPlayer == player.whoAmI)
             {
-                SoundEngine.PlaySound(inventorySound);
                 theMessiah = true;
+                SoundEngine.PlaySound(inventorySound);
             }
             if (charge < 200)
                 charge += 1;

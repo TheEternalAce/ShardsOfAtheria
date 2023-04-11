@@ -86,15 +86,7 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
-            if (!shardsPlayer.BiometalSound)
-            {
-                if (ModContent.GetInstance<ShardsClient>().biometalSound)
-                {
-                    if (player.Male)
-                        SoundEngine.PlaySound(MegamergeMale);
-                    else SoundEngine.PlaySound(MegamergeFemale);
-                }
-            }
+            BiometalSound(player);
 
             shardsPlayer.Biometal = true;
             shardsPlayer.BiometalSound = true;
@@ -157,13 +149,14 @@ namespace ShardsOfAtheria.Items.Accessories
         public void BiometalSound(Player player)
         {
             ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
-            if (!shardsPlayer.BiometalSound)
+            if (ModContent.GetInstance<ShardsClient>().biometalSound)
             {
-                if (ModContent.GetInstance<ShardsClient>().biometalSound)
+                if (!shardsPlayer.BiometalSound)
                 {
                     if (player.Male)
-                        SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeMale"));
-                    else SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeFemale"));
+                        SoundEngine.PlaySound(MegamergeMale);
+                    else SoundEngine.PlaySound(MegamergeFemale);
+                    shardsPlayer.BiometalSound = true;
                 }
             }
         }
@@ -181,9 +174,10 @@ namespace ShardsOfAtheria.Items.Accessories
         public void UnMegaMerge(Player player)
         {
             ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
-            if (shardsPlayer.Biometal)
+            if (shardsPlayer.BiometalSound)
             {
                 SoundEngine.PlaySound(SoundID.Item4);
+                shardsPlayer.BiometalSound = false;
             }
         }
 
