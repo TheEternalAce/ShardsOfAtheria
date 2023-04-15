@@ -1,4 +1,4 @@
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.Enums;
@@ -12,10 +12,10 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            
-            WeaponElements.Fire.Add(Type);
-            WeaponElements.Ice.Add(Type);
-            WeaponElements.Electric.Add(Type);
+
+            Item.AddFire();
+            Item.AddIce();
+            Item.AddElec();
         }
 
         public override void SetDefaults()

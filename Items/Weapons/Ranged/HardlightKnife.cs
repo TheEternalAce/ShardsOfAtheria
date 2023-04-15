@@ -1,3 +1,4 @@
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
@@ -11,6 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 999;
+            Item.AddElec();
         }
 
         public override void SetDefaults()

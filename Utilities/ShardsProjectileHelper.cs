@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Elements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Other;
@@ -15,7 +16,7 @@ using WebmilioCommons.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Utilities
 {
-    public static class ProjectileHelper
+    public static class ShardsProjectileHelper
     {
 
         public static void CallStorm(this Projectile projectile, int amount, int pierce = 1)
@@ -38,27 +39,30 @@ namespace ShardsOfAtheria.Utilities
             explosion.DamageType = proj.DamageType;
             explosion.Size = new Vector2(explosionSize);
             ProjectileElements elementExplosion = explosion.GetGlobalProjectile<ProjectileElements>();
-            SoAGlobalProjectile globalExplosion = explosion.GetGlobalProjectile<SoAGlobalProjectile>();
             int type = proj.type;
-            if (ProjectileElements.Fire.Contains(type))
+            if (proj.IsFire())
             {
                 elementExplosion.tempFire = true;
             }
-            if (ProjectileElements.Ice.Contains(type))
+            if (proj.IsIce())
             {
                 elementExplosion.tempIce = true;
             }
-            if (ProjectileElements.Electric.Contains(type))
+            if (proj.IsElec())
             {
                 elementExplosion.tempElectric = true;
             }
+            if (proj.IsWood())
+            {
+                elementExplosion.tempWood = true;
+            }
+            proj.hide = true;
+            proj.alpha = 255;
         }
 
         public static void Explode(this Projectile proj, int explosionSize = 120)
         {
             Vector2 newExplosionSize = new Vector2(explosionSize);
-            SoAGlobalProjectile globalExplosion = proj.GetGlobalProjectile<SoAGlobalProjectile>();
-            globalExplosion.explosion = true;
             proj.timeLeft = 10;
             proj.velocity *= 0f;
             proj.position += (proj.Size - newExplosionSize) / 2;
@@ -67,17 +71,17 @@ namespace ShardsOfAtheria.Utilities
             SoundEngine.PlaySound(SoundID.Item14);
             for (int i = 0; i < 10; i++)
             {
-                if (ProjectileElements.Fire.Contains(proj.type))
+                if (proj.IsFire())
                 {
                     Dust dust = Dust.NewDustDirect(proj.position, proj.height, proj.width, DustID.Torch, Scale: 1.3f);
                     dust.velocity *= 4f;
                 }
-                if (ProjectileElements.Ice.Contains(proj.type))
+                if (proj.IsIce())
                 {
                     Dust dust = Dust.NewDustDirect(proj.position, proj.height, proj.width, DustID.Ice);
                     dust.velocity *= 4f;
                 }
-                if (ProjectileElements.Electric.Contains(proj.type))
+                if (proj.IsElec())
                 {
                     Dust dust = Dust.NewDustDirect(proj.position, proj.height, proj.width, DustID.Electric);
                     dust.velocity *= 4f;

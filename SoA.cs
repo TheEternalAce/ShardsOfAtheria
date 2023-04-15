@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Accessories;
@@ -80,10 +80,10 @@ namespace ShardsOfAtheria
                 }
             }
 
-            // Add Areus weapons to Electric element list
+            // Add Areus weapons to Electric weapons list
             foreach (int item in SoAGlobalItem.AreusWeapon)
             {
-                WeaponElements.Electric.Add(item);
+                item.AddElecItem();
             }
 
             // Mod calls

@@ -1,28 +1,37 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusGlaive
+namespace ShardsOfAtheria.Projectiles.Weapon.Melee.HeroSword
 {
-    public class AreusGlaive_Swing : SwordProjectileBase
+    public class HeroSwordProj : SwordProjectileBase
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.AreusProj.Add(Type);
+            Projectile.AddFire();
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            Projectile.width = Projectile.height = 120;
+            Projectile.width = Projectile.height = 30;
             swordReach = 100;
             rotationOffset = -MathHelper.PiOver4 * 3f;
+            amountAllowedToHit = 3;
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            Vector2 position = target.Center + Vector2.One.RotatedByRandom(360) * 180;
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, Vector2.Normalize(target.Center - position) * 20,
+                ModContent.ProjectileType<HeroBlade>(), 50, 6f, Projectile.owner);
         }
 
         protected override void Initialize(Player player, ShardsPlayer shards)
@@ -55,7 +64,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusGlaive
 
         public override Vector2 GetOffsetVector(float progress)
         {
-            return BaseAngleVector.RotatedBy((progress * (MathHelper.Pi * 1.5f) - (MathHelper.PiOver2 * 1.5f)) * -swingDirection * 1.1f);
+            return BaseAngleVector.RotatedBy((progress * (MathHelper.Pi * 1.5f) - MathHelper.PiOver2 * 1.5f) * -swingDirection * 1.1f);
         }
 
         public override float SwingProgress(float progress)

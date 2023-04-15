@@ -1,16 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSword
+namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs
 {
     public class ElectricBlade : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Electric.Add(Type);
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()

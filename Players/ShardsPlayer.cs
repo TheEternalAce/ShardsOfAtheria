@@ -525,10 +525,8 @@ namespace ShardsOfAtheria.Players
                     Item braces = ModContent.GetInstance<HardlightBraces>().Item;
                     Vector2 point = target.Center + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 120f;
                     Vector2 velocity = Vector2.Normalize(target.Center - point) * braces.shootSpeed;
-                    Projectile blades = Projectile.NewProjectileDirect(Player.GetSource_Accessory(braces), point, velocity,
-                        braces.shoot, Player.GetWeaponDamage(braces), Player.GetWeaponKnockback(braces), Player.whoAmI);
-                    blades.DamageType = DamageClass.Generic;
-                    blades.penetrate = 1;
+                    Projectile.NewProjectileDirect(Player.GetSource_Accessory(braces), point, velocity, braces.shoot,
+                        Player.GetWeaponDamage(braces), Player.GetWeaponKnockback(braces), Player.whoAmI);
                 }
                 hardlightBracesCooldown = hardlightBracesCooldownMax;
             }

@@ -1,19 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
-using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSword
+namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs
 {
-    public class AreusSwordProj : EpicSwingSword
+    public class AreusSwordProj : SwordProjectileBase
     {
         public override void SetStaticDefaults()
         {
@@ -25,8 +23,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSword
         {
             base.SetDefaults();
 
-            Projectile.width = Projectile.height = 90;
-            hitboxOutwards = 50;
+            Projectile.width = Projectile.height = 30;
+            swordReach = 100;
             rotationOffset = -MathHelper.PiOver4 * 3f;
         }
 
@@ -67,6 +65,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSword
             }
         }
 
+        public override Vector2 GetOffsetVector(float progress)
+        {
+            return BaseAngleVector.RotatedBy((progress * (MathHelper.Pi * 1.5f) - (MathHelper.PiOver2 * 1.5f)) * -swingDirection * 1.1f);
+        }
+
         public override float SwingProgress(float progress)
         {
             return GenericSwing2(progress);
@@ -91,36 +94,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSword
 
         public override bool PreDraw(ref Color lightColor)
         {
-            var texture = TextureAssets.Projectile[Type].Value;
-            var center = Main.player[Projectile.owner].Center;
-            var handPosition = Main.GetPlayerArmPosition(Projectile) + AngleVector * visualOutwards;
-            var drawColor = Projectile.GetAlpha(lightColor) * Projectile.Opacity;
-            var drawCoords = handPosition - Main.screenPosition;
-            float size = texture.Size().Length();
-            var effects = SpriteEffects.None;
-            bool flip = Main.player[Projectile.owner].direction == 1 ? combo > 0 : combo == 0;
-            if (flip)
-            {
-                Main.instance.LoadItem(ModContent.ItemType<Items.Weapons.Melee.AreusSword>());
-                texture = TextureAssets.Item[ModContent.ItemType<Items.Weapons.Melee.AreusSword>()].Value;
-            }
-            var origin = new Vector2(0f, texture.Height);
-
-            Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor, Projectile.rotation, origin, Projectile.scale, effects, 0);
-
-            if (AnimProgress > 0.35f && AnimProgress < 0.75f)
-            {
-                float intensity = (float)Math.Sin((AnimProgress - 0.35f) / 0.4f * MathHelper.Pi);
-                Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor.UseA(0) * intensity * 0.5f, Projectile.rotation, origin, Projectile.scale, effects, 0);
-
-                var swish = SwishTexture.Value;
-                var swishOrigin = swish.Size() / 2f;
-                var swishColor = new Color(100, 120, 140, 80) * intensity * intensity * Projectile.Opacity * 0.5f;
-                float r = BaseAngleVector.ToRotation() + ((AnimProgress - 0.45f) / 0.2f * 2f - 1f) * -swingDirection * 0.6f;
-                var swishLocation = Main.player[Projectile.owner].Center - Main.screenPosition + r.ToRotationVector2() * (size - 20f) * scale;
-                Main.EntitySpriteDraw(swish, swishLocation, null, swishColor.UseA(0), r + MathHelper.PiOver2, swishOrigin, 1f, effects, 0);
-            }
-            return false;
+            return SingleEdgeSwordDraw<AreusSword>(lightColor);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.ItemDropRules.Condition;
@@ -61,7 +61,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 				}
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
-            NPCElements.Electric.Add(Type);
+            NPC.AddElec();
         }
 
         public override void SetDefaults()
@@ -80,7 +80,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             Music = MusicID.Boss4;
             NPC.value = Item.buyPrice(0, 5, 0, 0);
             NPC.npcSlots = 15f;
-            NPC.SetCustomElementMultipliers(2.0f, 0.8f, 0.8f, 1.5f);
+            NPC.SetElementMultiplier(2.0f, 0.8f, 0.8f, 1.5f);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -221,7 +221,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 }
                 if (NPC.ai[3] == 2)
                 {
-                    UseDialogue(isSlayer ? 7 : 3);
+                    UseDialogue(isSlayer ? Death : Defeat);
                 }
                 if (NPC.ai[3] >= 120f)
                 {
@@ -249,7 +249,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 if (Main.rand.NextFloat() <= .5f)
                     NPC.position = player.position - new Vector2(500, 250);
                 else NPC.position = player.position - new Vector2(-500, 250);
-                UseDialogue(isSlayer ? 4 : 1);
+                UseDialogue(isSlayer ? SlayerSummon : Summon);
                 NPC.localAI[0] = 1f;
             }
             NPC.spriteDirection = player.Center.X > NPC.Center.X ? 1 : -1;
@@ -258,7 +258,6 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             if (NPC.life <= NPC.lifeMax * 0.5 && !midFight)
             {
                 transitioning = true;
-                UseDialogue(isSlayer ? 5 : 2);
                 attackCooldown = 120;
                 attackTimer = 0;
                 attackType = -1;
@@ -267,7 +266,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
             if (NPC.life <= NPC.lifeMax * 0.25 && !desperation && player.GetModPlayer<SlayerPlayer>().slayerMode)
             {
-                UseDialogue(6);
+                UseDialogue(Desperation);
                 desperation = true;
             }
 
@@ -572,6 +571,10 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
         {
             if (transitionTime == 120)
             {
+                Player player = Main.player[NPC.target];
+                bool isSlayer = player.GetModPlayer<SlayerPlayer>().slayerMode;
+
+                UseDialogue(isSlayer ? SlayerMidFight : MidFight);
                 NPC.dontTakeDamage = true;
                 KillProjectiles();
                 SoundEngine.PlaySound(SoundID.Thunder);
@@ -598,6 +601,14 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             }
         }
 
+        const int Summon = 1;
+        const int MidFight = 2;
+        const int Defeat = 3;
+        const int SlayerSummon = 4;
+        const int SlayerMidFight = 5;
+        const int Desperation = 6;
+        const int Death = 7;
+
         void UseDialogue(int index)
         {
             string key;
@@ -608,26 +619,26 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                     key = "Placeholder Text";
                     break;
 
-                case 1: // Initial summon
+                case Summon:
                     key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.InitialSummon";
                     break;
-                case 2: // Mid fight
+                case MidFight:
                     key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.MidFight";
                     break;
-                case 3: // Defeat
+                case Defeat:
                     key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Defeat";
                     break;
 
-                case 4: // Slayer mode initial summon
+                case SlayerSummon:
                     key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.InitialSummonAlt";
                     break;
-                case 5: // Slayer mode mid fight
+                case SlayerMidFight:
                     key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.MidFightAlt";
                     break;
-                case 6: // Slayer mode 25% life
+                case Desperation:
                     key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Desperation";
                     break;
-                case 7: // Slayer mode defeat
+                case Death:
                     key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Death";
                     break;
             }

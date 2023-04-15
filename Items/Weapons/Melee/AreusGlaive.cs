@@ -4,7 +4,7 @@ using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusGlaive;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSword;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs;
 using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;

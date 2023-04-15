@@ -1,4 +1,4 @@
-﻿using MMZeroElements;
+﻿using MMZeroElements.Utilities;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Systems;
@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			SacrificeTotal = 1;
-			WeaponElements.Electric.Add(Type);
+			Item.AddElec();
 		}
 
 		public override void SetDefaults()

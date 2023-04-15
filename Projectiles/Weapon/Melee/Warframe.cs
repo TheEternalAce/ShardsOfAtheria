@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
@@ -15,7 +15,7 @@ using WebmilioCommons.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
-    public class Warframe : EpicSwingSword
+    public class Warframe : SwordProjectileBase
     {
         public static Asset<Texture2D> glowmask;
 
@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
                 glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
             }
 
-            ProjectileElements.Electric.Add(Type);
+            Projectile.AddElec();
             ProjectileID.Sets.TrailingMode[Type] = 3;
             ProjectileID.Sets.TrailCacheLength[Type] = 13;
         }
@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             base.SetDefaults();
 
             Projectile.width = Projectile.height = 120;
-            hitboxOutwards = 60;
+            swordReach = 60;
             rotationOffset = -MathHelper.PiOver4 * 3f;
             amountAllowedToHit = 3;
         }
@@ -77,7 +77,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             if (upgraded)
             {
                 Projectile.Size = new Vector2(150);
-                hitboxOutwards = 80;
+                swordReach = 80;
             }
             if (Main.player[Projectile.owner].itemAnimation <= 1)
             {

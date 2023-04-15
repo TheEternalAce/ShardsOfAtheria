@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
 using Terraria;
 using Terraria.DataStructures;
@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            WeaponElements.Ice.Add(Type);
+            Item.AddIce();
         }
 
         public override void SetDefaults()

@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.Audio;
@@ -14,9 +14,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 		{
 			ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
 			SacrificeTotal = 1;
-			WeaponElements.Fire.Add(Type);
-			WeaponElements.Ice.Add(Type);
-			WeaponElements.Electric.Add(Type);
+			Item.AddFire();
+			Item.AddIce();
+			Item.AddElec();
 		}
 
 		public override void SetDefaults()

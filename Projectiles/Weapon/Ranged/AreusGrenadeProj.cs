@@ -1,4 +1,4 @@
-﻿using MMZeroElements;
+﻿using MMZeroElements.Utilities;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Electric.Add(Type);
+            Projectile.AddElec();
             Main.projFrames[Type] = 2;
         }
 
@@ -44,7 +44,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
                     dust.velocity *= 2f;
                 }
             }
-            if (armTimer == 240 && !Projectile.ShardsOfAtheria().explosion)
+            if (armTimer == 240 && Projectile.alpha == 0)
             {
                 Projectile.Explode();
                 if (Projectile.Overcharged().overcharged)
@@ -56,7 +56,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (!Projectile.ShardsOfAtheria().explosion)
+            if (Projectile.alpha == 0)
             {
                 Projectile.Explode();
                 if (Projectile.Overcharged().overcharged)

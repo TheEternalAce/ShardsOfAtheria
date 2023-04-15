@@ -1,4 +1,4 @@
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.ID;
@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             SacrificeTotal = 1;
 
-            WeaponElements.Ice.Add(Type);
+            Item.AddIce();
         }
 
         public override void SetDefaults()

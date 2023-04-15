@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 3;
-            ProjectileElements.Ice.Add(Type);
+            Projectile.AddIce();
         }
 
         public override void SetDefaults()

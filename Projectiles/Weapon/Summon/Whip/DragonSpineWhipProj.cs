@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Buffs.NPCDebuff;
-using MMZeroElements;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon.Whip
 		{
 			// This makes the projectile use whip collision detection and allows flasks to be applied to it.
 			ProjectileID.Sets.IsAWhip[Type] = true;
-			ProjectileElements.Ice.Add(Type);
+			Projectile.AddIce();
 		}
 
 		public override void SetDefaults()

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Players;
@@ -26,7 +26,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
             Main.projFrames[Projectile.type] = 4;
-            ProjectileElements.Ice.Add(Type);
+            Projectile.AddIce();
         }
 
         public override void SetDefaults()

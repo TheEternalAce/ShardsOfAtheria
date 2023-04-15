@@ -1,4 +1,5 @@
-using MMZeroElements;
+using MMZeroElements.Utilities;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.HeroSword;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,8 +11,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 		public override void SetStaticDefaults()
 		{
 			SacrificeTotal = 1;
-
-			WeaponElements.Fire.Add(Type);
+			Item.AddFire();
 		}
 
 		public override void SetDefaults()
@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
 
-			Item.shoot = ModContent.ProjectileType<Projectiles.Weapon.Melee.HeroSword>();
+			Item.shoot = ModContent.ProjectileType<HeroSwordProj>();
 			Item.shootSpeed = 1;
 			Item.rare = ItemRarityID.Red;
 			Item.value = Item.sellPrice(0, 2, 50);

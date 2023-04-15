@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Electric.Add(Type);
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()

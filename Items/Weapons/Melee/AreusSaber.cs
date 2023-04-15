@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSaber;
@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            WeaponElements.Electric.Add(Type);
+            Item.AddElec();
             SoAGlobalItem.AreusWeapon.Add(Type);
             SoAGlobalItem.Eraser.Add(Type);
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;

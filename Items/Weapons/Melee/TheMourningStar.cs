@@ -1,5 +1,7 @@
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -36,6 +38,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             SacrificeTotal = 1;
             SoAGlobalItem.DarkAreusWeapon.Add(Type);
+            Item.AddIce();
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -47,6 +50,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             Item.width = 42;
             Item.height = 46;
+            Item.scale = 1.5f;
 
             Item.damage = 150;
             Item.DamageType = DamageClass.Melee;
@@ -60,6 +64,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.autoReuse = true;
             Item.noMelee = true;
             Item.noUseGraphic = true;
+            Item.channel = true;
 
             Item.shoot = ModContent.ProjectileType<MourningStar>();
             Item.shootSpeed = 1;
@@ -76,6 +81,12 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             player.buffImmune[BuffID.Bleeding] = false;
             player.AddBuff(BuffID.Bleeding, 300);
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            Item.FixSwing(player);
+            return true;
         }
 
         public override void AddRecipes()

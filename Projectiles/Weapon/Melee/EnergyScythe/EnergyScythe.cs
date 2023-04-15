@@ -1,33 +1,30 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Buffs.PlayerBuff;
-using MMZeroElements;
+using ShardsOfAtheria.Items.Weapons;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
-using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.EnergyScythe
 {
-    public class EnergyScythe : EpicSwingSword
+    public class EnergyScythe : SwordProjectileBase
     {
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Fire.Add(Type);
+            Projectile.AddFire();
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            Projectile.width = Projectile.height = 60;
-            Projectile.scale = 1.4f;
-            hitboxOutwards = 60;
+            Projectile.width = Projectile.height = 30;
+            swordReach = 50;
             rotationOffset = -MathHelper.PiOver4 * 3f;
             amountAllowedToHit = 3;
         }
@@ -77,7 +74,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.EnergyScythe
         {
             if (progress == 0.5f && Main.myPlayer == Projectile.owner)
             {
-                FireProjectile(ModContent.ProjectileType<EnergyWave>(), (int)(Projectile.damage * 0.75), (int)(Projectile.knockBack * 0.75));
+                //FireProjectile(ModContent.ProjectileType<EnergyWave>(), (int)(Projectile.damage * 0.75), (int)(Projectile.knockBack * 0.75));
             }
             base.UpdateSwing(progress, interpolatedSwingProgress);
         }
@@ -106,36 +103,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.EnergyScythe
 
         public override bool PreDraw(ref Color lightColor)
         {
-            var texture = TextureAssets.Projectile[Type].Value;
-            var center = Main.player[Projectile.owner].Center;
-            var handPosition = Main.GetPlayerArmPosition(Projectile) + AngleVector * visualOutwards;
-            var drawColor = Projectile.GetAlpha(lightColor) * Projectile.Opacity;
-            var drawCoords = handPosition - Main.screenPosition;
-            float size = texture.Size().Length();
-            var effects = SpriteEffects.None;
-            bool flip = Main.player[Projectile.owner].direction == 1 ? combo > 0 : combo == 0;
-            if (flip)
-            {
-                Main.instance.LoadItem(ModContent.ItemType<Items.Weapons.Prometheus>());
-                texture = TextureAssets.Item[ModContent.ItemType<Items.Weapons.Prometheus>()].Value;
-            }
-            var origin = new Vector2(0f, texture.Height);
-
-            Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor, Projectile.rotation, origin, Projectile.scale, effects, 0);
-
-            if (AnimProgress > 0.35f && AnimProgress < 0.75f)
-            {
-                float intensity = (float)Math.Sin((AnimProgress - 0.35f) / 0.4f * MathHelper.Pi);
-                Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor.UseA(0) * intensity * 0.5f, Projectile.rotation, origin, Projectile.scale, effects, 0);
-
-                var swish = SwishTexture.Value;
-                var swishOrigin = swish.Size() / 2f;
-                var swishColor = new Color(100, 120, 140, 80) * intensity * intensity * Projectile.Opacity * 0.5f;
-                float r = BaseAngleVector.ToRotation() + ((AnimProgress - 0.45f) / 0.2f * 2f - 1f) * -swingDirection * 0.6f;
-                var swishLocation = Main.player[Projectile.owner].Center - Main.screenPosition + r.ToRotationVector2() * (size - 20f) * scale;
-                Main.EntitySpriteDraw(swish, swishLocation, null, swishColor.UseA(0), r + MathHelper.PiOver2, swishOrigin, 1f, effects, 0);
-            }
-            return false;
+            return SingleEdgeSwordDraw<Prometheus>(lightColor);
         }
     }
 }

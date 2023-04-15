@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSaber
 {
-    public class AreusSaberProj : EpicSwingSword
+    public class AreusSaberProj : SwordProjectileBase
     {
         public override void SetStaticDefaults()
         {
@@ -26,7 +26,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSaber
             base.SetDefaults();
 
             Projectile.width = Projectile.height = 90;
-            hitboxOutwards = 50;
+            swordReach = 50;
             rotationOffset = -MathHelper.PiOver4 * 3f;
         }
 

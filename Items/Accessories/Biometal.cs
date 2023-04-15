@@ -42,9 +42,6 @@ namespace ShardsOfAtheria.Items.Accessories
             int equipSlotLegs = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Legs);
 
             ArmorIDs.Head.Sets.DrawHead[equipSlotHead] = true;
-            ArmorIDs.Body.Sets.HidesTopSkin[equipSlotBody] = true;
-            ArmorIDs.Body.Sets.HidesArms[equipSlotBody] = true;
-            ArmorIDs.Legs.Sets.HidesBottomSkin[equipSlotLegs] = true;
         }
 
         public override void SetStaticDefaults()

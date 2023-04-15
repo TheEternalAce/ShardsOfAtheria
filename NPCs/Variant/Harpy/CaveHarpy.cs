@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Placeable.Banner;
@@ -52,6 +53,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             {
                 glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
             }
+            NPC.SetElementMultiplier(2.0f, 0.8f, 0.5f, 1.0f);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

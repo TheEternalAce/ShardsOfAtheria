@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using MMZeroElements.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -12,6 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
+            Item.AddElec();
         }
 
         public override void SetDefaults()

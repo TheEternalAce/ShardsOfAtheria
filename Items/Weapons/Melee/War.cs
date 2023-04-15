@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Utilities;
@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			}
 
 			SacrificeTotal = 1;
-			WeaponElements.Electric.Add(Type);
+			Item.AddElec();
 		}
 
 		public override void SetDefaults()

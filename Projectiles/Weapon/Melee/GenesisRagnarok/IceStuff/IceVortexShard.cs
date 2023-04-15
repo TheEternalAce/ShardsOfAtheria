@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Ice.Add(Type);
+            Projectile.AddIce();
         }
 
         public override void SetDefaults()

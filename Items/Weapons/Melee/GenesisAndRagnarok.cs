@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
@@ -22,9 +22,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            WeaponElements.Ice.Add(Type);
-            WeaponElements.Fire.Add(Type);
-            WeaponElements.Electric.Add(Type);
+            Item.AddIce();
+            Item.AddFire();
+            Item.AddElec();
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

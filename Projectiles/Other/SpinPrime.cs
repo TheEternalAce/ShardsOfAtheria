@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using Terraria;
 using Terraria.ModLoader;
@@ -22,8 +22,8 @@ namespace ShardsOfAtheria.Projectiles.Other
 		}
 		public override void SetStaticDefaults()
 		{
-			ProjectileElements.Fire.Add(Type);
-			ProjectileElements.Electric.Add(Type);
+			Projectile.AddFire();
+			Projectile.AddElec();
 		}
 
 		public override void SetDefaults()

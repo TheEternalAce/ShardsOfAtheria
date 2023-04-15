@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using Terraria;
 using Terraria.ModLoader;
@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Ice.Add(Type);
+            Projectile.AddIce();
         }
 
         public override void SetDefaults()

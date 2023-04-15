@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
@@ -8,7 +8,7 @@ using ShardsOfAtheria.Items.DataDisks;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSword;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
 				}
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
-            NPCElements.Electric.Add(Type);
+            NPC.AddElec();
 
             // Set Atherian's biome and neighbor preferences with the NPCHappiness hook. You can add happiness text and remarks with localization (See an example in ExampleMod/Localization/en-US.lang
             NPC.Happiness
@@ -106,7 +106,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             {
                 AnimationType = NPCID.Stylist;
             }
-            NPC.SetCustomElementMultipliers(0.5f, 1.0f, 0.4f, 2.0f);
+            NPC.SetElementMultiplier(0.5f, 1.0f, 0.4f, 2.0f);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

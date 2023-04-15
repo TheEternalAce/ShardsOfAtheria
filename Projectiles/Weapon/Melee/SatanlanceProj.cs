@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using System;
 using Terraria;
 using Terraria.GameContent;
@@ -23,9 +23,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             // velocity to always be the same even if the player has increased attack speed.
             ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
             
-            ProjectileElements.Fire.Add(Type);
-            ProjectileElements.Ice.Add(Type);
-            ProjectileElements.Electric.Add(Type);
+            Projectile.AddFire();
+            Projectile.AddIce();
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()

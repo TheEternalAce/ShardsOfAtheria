@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Summons;
@@ -204,7 +204,7 @@ namespace ShardsOfAtheria.Globals
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
             base.ModifyWeaponDamage(item, player, ref damage);
-            if (player.ShardsOfAtheria().conductive && WeaponElements.Electric.Contains(item.type))
+            if (player.ShardsOfAtheria().conductive && item.IsElec())
             {
                 damage += .15f;
             }
@@ -234,7 +234,7 @@ namespace ShardsOfAtheria.Globals
             if (item.ArmorPenetration > 0)
             {
                 var line = new TooltipLine(Mod, "ArmorPenetration", Language.GetTextValue("Mods.ShardsOfAtheria.Common.ArmorPenetration", item.ArmorPenetration));
-                tooltips.Insert(TooltipHelper.GetIndex(tooltips, "Speed"), line);
+                tooltips.Insert(ShardsTooltipHelper.GetIndex(tooltips, "Speed"), line);
             }
         }
 

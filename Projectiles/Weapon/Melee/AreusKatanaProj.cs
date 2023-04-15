@@ -14,7 +14,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
-    public class AreusKatanaProj : EpicSwingSword
+    public class AreusKatanaProj : SwordProjectileBase
     {
         public override void SetStaticDefaults()
         {
@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
             Projectile.width = Projectile.height = 80;
             Projectile.scale = 2f;
-            hitboxOutwards = 100;
+            swordReach = 100;
             rotationOffset = -MathHelper.PiOver4 * 3f;
         }
 

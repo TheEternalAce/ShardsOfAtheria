@@ -5,7 +5,7 @@ using Terraria;
 
 namespace ShardsOfAtheria.Utilities
 {
-    public static class PlayerHelper
+    public static class ShardsPlayerHelper
     {
         public static ShardsPlayer ShardsOfAtheria(this Player player)
         {

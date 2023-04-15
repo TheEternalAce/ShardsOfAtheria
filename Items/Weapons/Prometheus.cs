@@ -1,4 +1,4 @@
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.EnergyScythe;
@@ -15,13 +15,14 @@ namespace ShardsOfAtheria.Items.Weapons
         {
             SacrificeTotal = 1;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
-            WeaponElements.Fire.Add(Type);
+            Item.AddFire();
         }
 
         public override void SetDefaults()
         {
             Item.width = 54;
             Item.height = 52;
+            Item.scale = 1.4f;
 
             Item.damage = 112;
             Item.DamageType = DamageClass.Melee;

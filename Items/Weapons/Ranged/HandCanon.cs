@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.Audio;
@@ -16,6 +17,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
+            Item.AddFire();
         }
 
         public override void SetDefaults()

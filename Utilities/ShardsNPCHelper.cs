@@ -10,7 +10,7 @@ using Terraria.Localization;
 
 namespace ShardsOfAtheria.Utilities
 {
-    public static class NPCHelper
+    public static class ShardsNPCHelper
     {
         public static void BasicInWorldGlowmask(this NPC npc, SpriteBatch spriteBatch, Texture2D glowTexture, Color color, Vector2 screenPos, SpriteEffects effects)
         {
@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Utilities
 
         public static void UseDialogue(this NPC npc, string text, Color color)
         {
-            string dialogue = $"<{npc.GivenName}> {text}";
+            string dialogue = $"<{npc.GivenOrTypeName}> {text}";
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 for (int i = 0; i < Main.maxPlayers; i++)
@@ -40,7 +40,7 @@ namespace ShardsOfAtheria.Utilities
 
         public static void UseDialogueWithKey(this NPC npc, string key, Color color)
         {
-            string dialogue = $"<{npc.GivenName}> {Language.GetTextValue(key)}";
+            string dialogue = Language.GetTextValue(key);
             npc.UseDialogue(Language.GetTextValue(dialogue), color);
         }
 

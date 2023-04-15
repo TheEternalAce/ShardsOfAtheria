@@ -1,4 +1,4 @@
-﻿using MMZeroElements;
+﻿using MMZeroElements.Elements;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

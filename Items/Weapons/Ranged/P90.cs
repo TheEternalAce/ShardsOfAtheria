@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using MMZeroElements.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -14,6 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 		public override void SetStaticDefaults()
 		{
 			SacrificeTotal = 1;
+			Item.AddWood();
 		}
 
 		public override void SetDefaults()

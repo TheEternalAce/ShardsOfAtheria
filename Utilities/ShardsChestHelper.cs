@@ -7,7 +7,7 @@ using Terraria;
 
 namespace ShardsOfAtheria.Utilities
 {
-    public static class ChestHelper
+    public static class ShardsChestHelper
     {
         public static Item DefaultItem(int type)
         {

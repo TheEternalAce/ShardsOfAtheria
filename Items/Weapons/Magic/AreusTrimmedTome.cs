@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.width = 60;
             Item.height = 60;
 
-            Item.damage = 50;
+            Item.damage = 34;
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 3.75f;
             Item.crit = 16;

@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
@@ -15,8 +15,8 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             SacrificeTotal = 1;
-            WeaponElements.Ice.Add(Type);
-            WeaponElements.Electric.Add(Type);
+            Item.AddIce();
+            Item.AddElec();
         }
 
         public override void SetDefaults()

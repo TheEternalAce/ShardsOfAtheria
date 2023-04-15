@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -15,6 +16,7 @@ namespace ShardsOfAtheria.Items.Accessories
             ArmorIDs.Head.Sets.DrawHatHair[Item.faceSlot] = true;
 
             SacrificeTotal = 1;
+            Item.AddElec();
         }
 
         public override void SetDefaults()
@@ -41,7 +43,7 @@ namespace ShardsOfAtheria.Items.Accessories
                 for (int i = 0; i < 2; i++)
                 {
                     Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero,
-                        ModContent.ProjectileType<HardlightSword>(), (int)player.GetWeaponKnockback(Item),
+                        ModContent.ProjectileType<HardlightSword>(), player.GetWeaponDamage(Item),
                         player.GetWeaponKnockback(Item), player.whoAmI, i);
                 }
             }

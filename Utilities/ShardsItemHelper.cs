@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Globals;
+using System;
 using Terraria;
 using Terraria.ID;
 
 namespace ShardsOfAtheria.Utilities
 {
-    public static class ItemHelper
+    public static class ShardsItemHelper
     {
         public static void DefaultToPotion(this Item potion, int buff, int buffTime)
         {
@@ -20,6 +21,20 @@ namespace ShardsOfAtheria.Utilities
             potion.buffType = buff;
             potion.buffTime = buffTime;
             SoAGlobalItem.Potions.Add(potion.type);
+        }
+
+        public static void FixSwing(this Item item, Player player)
+        {
+            //Main.NewText(player.itemTime);
+            //Main.NewText(player.toolTime, Color.Orange);
+            //Main.NewText(player.itemAnimation + "|" + player.itemAnimationMax, Color.Beige);
+            if (item.pick > 0 || item.axe > 0 || item.hammer > 0)
+            {
+                if ((player.toolTime > 0 && player.itemTime == 0) || !player.controlUseItem)
+                    return;
+                player.itemAnimation = Math.Min(player.itemAnimation, player.toolTime);
+            }
+            player.itemAnimation = player.itemAnimationMax;
         }
 
         /// <summary>
