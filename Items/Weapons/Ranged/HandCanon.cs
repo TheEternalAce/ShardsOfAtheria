@@ -1,11 +1,11 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Players;
+using MMZeroElements.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using WebmilioCommons.Effects.ScreenShaking;
+//using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -15,7 +15,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
+            Item.AddFireDefault();
         }
 
         public override void SetDefaults()
@@ -82,17 +83,12 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool? UseItem(Player player)
         {
-            if (charge >= 300)
-            {
-                ScreenShake.ShakeScreen(6, 60);
-            }
+            //if (charge >= 300)
+            //{
+            //    ScreenShake.ShakeScreen(6, 60);
+            //}
             charge = 0;
             SoundEngine.PlaySound(Item.UseSound.Value);
-            OverchargePlayer overchargePlayer = player.GetModPlayer<OverchargePlayer>();
-            if (overchargePlayer.overcharged)
-            {
-                overchargePlayer.overcharge = 0f;
-            }
             return base.UseItem(player);
         }
     }

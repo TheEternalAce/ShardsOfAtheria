@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -32,8 +33,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Metal.Add(Type);
-            ProjectileElements.Electric.Add(Type);
+            Projectile.AddElec();
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -94,6 +94,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
                 {
                     Projectile.timeLeft = 121;
                     Projectile.velocity = Vector2.Normalize(player.Center - Projectile.Center) * 6f;
+                    SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
                     Projectile.ai[1] = 1;
                 }
             }
@@ -111,7 +112,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (Main.expertMode)
             {
@@ -131,7 +132,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
         public override bool PreDraw(ref Color lightColor)
         {
             Color color = new(227, 182, 245, 80);
-            Projectile.DrawProjectilePrims(color, ProjectileHelper.DiamondX1, MathHelper.ToRadians(45f));
+            Projectile.DrawProjectilePrims(color, ShardsProjectileHelper.DiamondX1, MathHelper.ToRadians(45f));
             lightColor = Color.White;
             return true;
         }

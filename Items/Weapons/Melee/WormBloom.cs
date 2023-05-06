@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.ID;
@@ -11,8 +11,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 	{
 		public override void SetStaticDefaults()
 		{
-			SacrificeTotal = 1;
-			WeaponElements.Ice.Add(Type);
+			Item.ResearchUnlockCount = 1;
+			Item.AddIceDefault();
 		}
 
 		public override void SetDefaults()
@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.value = Item.sellPrice(0, 2, 25);
 		}
 
-		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			// Add the Onfire buff to the NPC for 1 second when the weapon hits an NPC
 			// 60 frames = 1 second
@@ -43,7 +43,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			target.AddBuff(BuffID.Weak, 600);
 			target.AddBuff(BuffID.Chilled, 600);
 
-			Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<CorruptRose>(), damage, knockback, player.whoAmI);
+			Projectile.NewProjectile(Item.GetSource_FromThis(), target.Center, Vector2.Zero,
+				ModContent.ProjectileType<CorruptRose>(), hit.Damage, hit.Knockback, player.whoAmI);
 		}
 	}
 }

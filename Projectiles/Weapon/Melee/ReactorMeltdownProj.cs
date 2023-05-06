@@ -1,4 +1,4 @@
-﻿using MMZeroElements;
+﻿using MMZeroElements.Utilities;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using Terraria;
 using Terraria.Audio;
@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 10f;
             Main.projFrames[Projectile.type] = 2;
 
-            ProjectileElements.Electric.Add(Type);
+            Projectile.AddElec();
         }
         public override void SetDefaults()
         {
@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             Projectile.scale = 1f;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
         }
@@ -51,11 +51,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
                 if (++Projectile.frame >= 2)
                 {
                     Projectile.frame = 0;
-                    SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/ReactorMeltdownAlarm")
-                    {
-                        Volume = 0.9f,
-                        MaxInstances = 3,
-                    });
+                    SoundEngine.PlaySound(SoA.ReactorAlarm);
                 }
             }
             base.AI();

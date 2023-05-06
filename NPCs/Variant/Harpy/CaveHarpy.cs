@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
-using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
@@ -38,7 +37,6 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-            NPCElements.Metal.Add(Type);
         }
 
         public override void SetDefaults()
@@ -50,12 +48,12 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<CaveHarpyBanner>();
-            NPC.SetElementMultipliersByElement(Element.Metal);
 
             if (!Main.dedServ)
             {
                 glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
             }
+            NPC.SetElementMultiplier(2.0f, 0.8f, 0.5f, 1.0f);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -111,7 +109,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             npcLoot.Add(ItemDropRule.OneFromOptions(5, ItemID.Amethyst, ItemID.Diamond, ItemID.Emerald, ItemID.Ruby, ItemID.Sapphire, ItemID.Topaz, ItemID.Amber));
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if ((Main.expertMode || Main.hardMode) && Main.rand.NextBool(10))
             {
@@ -121,7 +119,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            string alt = ModContent.GetInstance<ShardsServerConfig>().altCaveHarpy ? "_ALT" : "";
+            string alt = SoA.ServerConfig.altCaveHarpy ? "_ALT" : "";
             Asset<Texture2D> texture = ModContent.Request<Texture2D>(Texture + alt);
             SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             NPC.BasicInWorldGlowmask(spriteBatch, texture.Value, drawColor, screenPos, effects);

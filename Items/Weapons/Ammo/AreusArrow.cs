@@ -1,7 +1,8 @@
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,9 +13,9 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 999;
+            Item.ResearchUnlockCount = 999;
             SoAGlobalItem.AreusWeapon.Add(Type);
-            WeaponElements.Electric.Add(Type);
+            Item.AddElecDefault();
         }
 
         public override void SetDefaults()
@@ -39,7 +40,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
                 .AddIngredient(ItemID.WoodenArrow, 100)
                 .AddIngredient(ItemID.SoulofFlight, 10)
                 .AddIngredient(ModContent.ItemType<AreusShard>())
-                .AddTile(TileID.Anvils)
+                .AddTile(ModContent.TileType<AreusFabricator>())
                 .Register();
         }
     }

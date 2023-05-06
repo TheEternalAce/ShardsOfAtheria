@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Summons;
-using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.NPCs.Variant.Harpy;
@@ -70,14 +69,8 @@ namespace ShardsOfAtheria.Globals
         public override void SetDefaults(Item item)
         {
             base.SetDefaults(item);
-            ShardsServerConfig serverConfig = ModContent.GetInstance<ShardsServerConfig>();
             switch (item.type)
             {
-                case ItemID.SilverBullet:
-                    // Why don't silbr bullets deal extra damage to werewolves???
-                    // Add penetration and extra damage to werewolves
-                    item.shoot = ModContent.ProjectileType<SilbrBullet>();
-                    break;
                 case ItemID.TungstenBullet:
                     // Add penetration and extra velocity
                     item.shoot = ModContent.ProjectileType<TungstenBullet>();
@@ -88,7 +81,7 @@ namespace ShardsOfAtheria.Globals
                     item.color = new Color(101, 187, 236);
                     break;
 
-                #region Buff Pearlwood gear, soon to be obsolete
+                #region Several item buffs
                 case ItemID.PearlwoodHelmet:
                     item.defense = 8;
                     break;
@@ -99,30 +92,24 @@ namespace ShardsOfAtheria.Globals
                     item.defense = 8;
                     break;
                 case ItemID.PearlwoodSword:
-                    item.damage = 45;
+                    item.shoot = ModContent.ProjectileType<SoulBlade>();
+                    item.shootSpeed = 16;
+                    item.scale = 1.5f;
                     break;
                 case ItemID.PearlwoodBow:
                     item.damage = 30;
                     item.autoReuse = true;
                     break;
-                #endregion
 
-                #region Make old 1.3 throwing weapons deal throwing damage if config is enabled
-                case ItemID.ThrowingKnife:
-                case ItemID.Shuriken:
-                case ItemID.AleThrowingGlove:
-                case ItemID.Snowball:
-                case ItemID.RottenEgg:
-                case ItemID.PoisonedKnife:
-                case ItemID.StarAnise:
-                case ItemID.Javelin:
-                case ItemID.FrostDaggerfish:
-                case ItemID.Bone:
-                case ItemID.MolotovCocktail:
-                case ItemID.BoneDagger:
-                case ItemID.BoneJavelin:
-                case ItemID.SpikyBall:
-                    item.DamageType = DamageClass.Throwing;
+                case ItemID.BladedGlove:
+                    item.useTime = 4;
+                    item.useAnimation = 4;
+                    item.damage = 28;
+                    break;
+
+                case ItemID.ChainKnife:
+                    item.damage = 24;
+                    item.shootSpeed = 16;
                     break;
                 #endregion
 
@@ -133,7 +120,6 @@ namespace ShardsOfAtheria.Globals
                 case ItemID.BouncyGrenade:
                 case ItemID.PartyGirlGrenade:
                     item.ammo = ItemID.Grenade;
-                    item.DamageType = DamageClass.Throwing;
                     break;
                 #endregion
 
@@ -152,7 +138,7 @@ namespace ShardsOfAtheria.Globals
                 case ItemID.TruffleWorm:
                 case ItemID.EmpressButterfly:
                 case ItemID.CelestialSigil:
-                    if (serverConfig.nonConsumeBoss)
+                    if (SoA.ServerConfig.nonConsumeBoss)
                     {
                         item.consumable = false;
                     }
@@ -163,7 +149,7 @@ namespace ShardsOfAtheria.Globals
                 case ItemID.LifeCrystal:
                 case ItemID.ManaCrystal:
                 case ItemID.LifeFruit:
-                    if (serverConfig.upgradeChange)
+                    if (SoA.ServerConfig.upgradeChange)
                     {
                         item.useTime = 15;
                         item.useAnimation = 15;
@@ -173,7 +159,7 @@ namespace ShardsOfAtheria.Globals
                     break;
                     #endregion
             }
-            if ((serverConfig.betterWeapon.Equals("No Use Turn") || serverConfig.betterWeapon.Equals("Mouse Direction")) && item.damage > 0)
+            if ((SoA.ServerConfig.betterWeapon.Equals("No Use Turn") || SoA.ServerConfig.betterWeapon.Equals("Mouse Direction")) && item.damage > 0)
             {
                 item.useTurn = false;
             }
@@ -185,12 +171,12 @@ namespace ShardsOfAtheria.Globals
             if (set == "Shards:Pearlwood")
             {
                 player.setBonus = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.SetBonus.Pearlwood"),
-                    ShardsOfAtheriaMod.ArmorSetBonusActive.GetAssignedKeys().Count > 0 ? ShardsOfAtheriaMod.ArmorSetBonusActive.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
+                    SoA.ArmorSetBonusActive.GetAssignedKeys().Count > 0 ? SoA.ArmorSetBonusActive.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
                 player.statDefense += 5;
                 player.statManaMax2 += 40;
                 player.GetDamage(DamageClass.Generic) += .15f;
                 player.GetCritChance(DamageClass.Generic) += 15;
-                player.ShardsOfAtheria().pearlwoodSet = true;
+                player.Shards().pearlwoodSet = true;
             }
         }
 
@@ -206,7 +192,7 @@ namespace ShardsOfAtheria.Globals
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
             base.ModifyWeaponDamage(item, player, ref damage);
-            if (player.ShardsOfAtheria().conductive && WeaponElements.Electric.Contains(item.type))
+            if (player.Shards().conductive && item.IsElec())
             {
                 damage += .15f;
             }
@@ -236,7 +222,7 @@ namespace ShardsOfAtheria.Globals
             if (item.ArmorPenetration > 0)
             {
                 var line = new TooltipLine(Mod, "ArmorPenetration", Language.GetTextValue("Mods.ShardsOfAtheria.Common.ArmorPenetration", item.ArmorPenetration));
-                tooltips.Insert(TooltipHelper.GetIndex(tooltips, "Speed"), line);
+                tooltips.Insert(ShardsTooltipHelper.GetIndex(tooltips, "Speed"), line);
             }
         }
 
@@ -246,8 +232,8 @@ namespace ShardsOfAtheria.Globals
             {
                 if (item.type == ItemID.PearlwoodBow)
                 {
-                    player.ShardsOfAtheria().pearlwoodBowShoot++;
-                    if (player.ShardsOfAtheria().pearlwoodBowShoot == 5)
+                    player.Shards().pearlwoodBowShoot++;
+                    if (player.Shards().pearlwoodBowShoot == 5)
                     {
                         float numberProjectiles = 5;
                         float rotation = MathHelper.ToRadians(15);
@@ -262,7 +248,7 @@ namespace ShardsOfAtheria.Globals
                         {
                             Dust.NewDust(player.position, player.width, player.height, DustID.PinkFairy);
                         }
-                        player.ShardsOfAtheria().pearlwoodBowShoot = 0;
+                        player.Shards().pearlwoodBowShoot = 0;
                     }
                 }
 
@@ -332,7 +318,7 @@ namespace ShardsOfAtheria.Globals
 
         public override bool? UseItem(Item item, Player player)
         {
-            if (ModContent.GetInstance<ShardsServerConfig>().betterWeapon.Equals("Mouse Direction") && item.shoot == ProjectileID.None)
+            if (SoA.ServerConfig.betterWeapon.Equals("Mouse Direction") && item.shoot == ProjectileID.None)
             {
                 player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
             }
@@ -366,7 +352,7 @@ namespace ShardsOfAtheria.Globals
                 }
             }
 
-            if (ShardsOfAtheriaMod.ServerConfig.nonConsumeBoss)
+            if (SoA.ServerConfig.nonConsumeBoss)
             {
                 if (item.type == ItemID.LihzahrdPowerCell || item.type == ItemID.TruffleWorm)
                 {
@@ -377,13 +363,13 @@ namespace ShardsOfAtheria.Globals
             return base.ConsumeItem(item, player);
         }
 
-        public override void OnHitNPC(Item item, Player player, NPC target, int damage, float knockBack, bool crit)
+
+        public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitNPC(item, player, target, damage, knockBack, crit);
             if (AreusWeapon.Contains(item.type))
             {
                 int buffTime = 600;
-                if (player.ShardsOfAtheria().conductive)
+                if (player.Shards().conductive)
                 {
                     buffTime *= 2;
                 }
@@ -398,13 +384,12 @@ namespace ShardsOfAtheria.Globals
             }
         }
 
-        public override void OnHitPvp(Item item, Player player, Player target, int damage, bool crit)
+        public override void OnHitPvp(Item item, Player player, Player target, Player.HurtInfo hurtInfo)
         {
-            base.OnHitPvp(item, player, target, damage, crit);
             if (AreusWeapon.Contains(item.type))
             {
                 int buffTime = 600;
-                if (player.ShardsOfAtheria().conductive)
+                if (player.Shards().conductive)
                 {
                     buffTime *= 2;
                 }
@@ -490,7 +475,7 @@ namespace ShardsOfAtheria.Globals
             if (item.type == ItemID.Feather)
             {
                 Asset<Texture2D> feather = AltFeatherSpriteItem(item);
-                spriteBatch.Draw(feather.Value, position, null, drawColor, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+                spriteBatch.Draw(feather.Value, position, frame, drawColor, 0f, frame.Size() * 0.5f, scale, SpriteEffects.None, 0f);
                 return false;
             }
             return base.PreDrawInInventory(item, spriteBatch, position, frame, drawColor, itemColor, origin, scale);

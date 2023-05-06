@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -14,8 +14,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Electric.Add(Type);
-            ProjectileElements.Metal.Add(Type);
+            Projectile.AddElec();
+            
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 30;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 3;
         }
@@ -66,7 +66,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         bool CheckActive(Player player)
         {
-            if (player == null || player.dead || !player.active || !player.ShardsOfAtheria().valkyrieCrown)
+            if (player == null || player.dead || !player.active || !player.Shards().valkyrieCrown)
             {
                 return false;
             }

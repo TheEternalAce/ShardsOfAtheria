@@ -6,6 +6,8 @@ namespace ShardsOfAtheria.Buffs.NPCDebuff
 {
     public class LoomingEntropy : ModBuff
     {
+        public static readonly int TagDamage = 26;
+
         public override void SetStaticDefaults()
         {
             BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
@@ -40,23 +42,19 @@ namespace ShardsOfAtheria.Buffs.NPCDebuff
 
     public class EntropyNPC : GlobalNPC
     {
-        public override void UpdateLifeRegen(NPC npc, ref int damage)
-        {
-            if (npc.HasBuff(ModContent.BuffType<LoomingEntropy>()))
-            {
-                if (npc.lifeRegen > 0)
-                {
-                    npc.lifeRegen = 0;
-                }
-                npc.lifeRegen -= 50;
-            }
-        }
-        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
             // Only player attacks should benefit from this buff, hence the NPC and trap checks.
-            if (npc.HasBuff(ModContent.BuffType<LoomingEntropy>()) && !projectile.npcProj && !projectile.trap && (projectile.minion || ProjectileID.Sets.MinionShot[projectile.type]))
+            if (projectile.npcProj || projectile.trap || !projectile.IsMinionOrSentryRelated)
+                return;
+
+
+            // SummonTagDamageMultiplier scales down tag damage for some specific minion and sentry projectiles for balance purposes.
+            var projTagMultiplier = ProjectileID.Sets.SummonTagDamageMultiplier[projectile.type];
+            if (npc.HasBuff<LoomingEntropy>())
             {
-                damage += 26;
+                // Apply a flat bonus to every hit
+                modifiers.FlatBonusDamage += LoomingEntropy.TagDamage * projTagMultiplier;
             }
         }
     }

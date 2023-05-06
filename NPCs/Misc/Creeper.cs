@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj;
-using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -30,13 +30,7 @@ namespace ShardsOfAtheria.NPCs.Misc
             NPC.aiStyle = -1;
             NPC.noTileCollide = true;
             NPC.noGravity = true;
-            NPC.SetElementMultipliersByElement(Element.Ice);
-        }
-
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            NPC.lifeMax = NPC.lifeMax;
-            NPC.damage = NPC.damage;
+            NPC.SetElementMultiplier(Element.IceAqua);
         }
 
         public override bool PreAI()

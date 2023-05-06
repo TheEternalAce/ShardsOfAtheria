@@ -1,4 +1,4 @@
-﻿using MMZeroElements;
+﻿using MMZeroElements.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,12 +7,12 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
 {
     public class FlamePillar : ModProjectile
     {
-        public override string Texture => "ShardsOfAtheria/Blank";
+        public override string Texture => SoA.BlankTexture_String;
 
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Fire.Add(Type);
+            Projectile.AddFire();
         }
 
         public override void SetDefaults()
@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.OnFire, 60);
         }

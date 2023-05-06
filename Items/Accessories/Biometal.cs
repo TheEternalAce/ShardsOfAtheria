@@ -14,6 +14,9 @@ namespace ShardsOfAtheria.Items.Accessories
 {
     public class Biometal : ModItem
     {
+        private static SoundStyle MegamergeMale;
+        private static SoundStyle MegamergeFemale;
+
         public override void Load()
         {
             // Since the equipment textures weren't loaded on the server, we can't have this code running server-side
@@ -23,6 +26,9 @@ namespace ShardsOfAtheria.Items.Accessories
             EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Head}", EquipType.Head, this);
             EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Body}", EquipType.Body, this);
             EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Legs}", EquipType.Legs, this);
+
+            MegamergeMale = new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeMale");
+            MegamergeFemale = new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeFemale");
         }
 
         // Called in SetStaticDefaults
@@ -36,14 +42,11 @@ namespace ShardsOfAtheria.Items.Accessories
             int equipSlotLegs = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Legs);
 
             ArmorIDs.Head.Sets.DrawHead[equipSlotHead] = true;
-            ArmorIDs.Body.Sets.HidesTopSkin[equipSlotBody] = true;
-            ArmorIDs.Body.Sets.HidesArms[equipSlotBody] = true;
-            ArmorIDs.Legs.Sets.HidesBottomSkin[equipSlotLegs] = true;
         }
 
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
 
             SetupDrawing();
         }
@@ -51,7 +54,7 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Add(new TooltipLine(Mod, "Overdrive", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.OverdriveInfo"),
-                    ShardsOfAtheriaMod.OverdriveKey.GetAssignedKeys().Count > 0 ? ShardsOfAtheriaMod.OverdriveKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
+                    SoA.OverdriveKey.GetAssignedKeys().Count > 0 ? SoA.OverdriveKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
         }
 
         public override void SetDefaults()
@@ -60,7 +63,6 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.height = 32;
             Item.scale = .7f;
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
             Item.defense = 20;
 
             Item.rare = ItemRarityID.Blue;
@@ -79,16 +81,8 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
-            if (!shardsPlayer.BiometalSound)
-            {
-                if (ModContent.GetInstance<ShardsClientConfig>().biometalSound)
-                {
-                    if (player.Male)
-                        SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeMale"));
-                    else SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeFemale"));
-                }
-            }
+            ShardsPlayer shardsPlayer = player.Shards();
+            BiometalSound(player);
 
             shardsPlayer.Biometal = true;
             shardsPlayer.BiometalSound = true;
@@ -143,21 +137,22 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void UpdateVanity(Player player)
         {
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             BiometalSound(player);
             shardsPlayer.BiometalSound = true;
         }
 
         public void BiometalSound(Player player)
         {
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
-            if (!shardsPlayer.BiometalSound)
+            ShardsPlayer shardsPlayer = player.Shards();
+            if (ModContent.GetInstance<ShardsClient>().biometalSound)
             {
-                if (ModContent.GetInstance<ShardsClientConfig>().biometalSound)
+                if (!shardsPlayer.BiometalSound)
                 {
                     if (player.Male)
-                        SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeMale"));
-                    else SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/MegamergeFemale"));
+                        SoundEngine.PlaySound(MegamergeMale);
+                    else SoundEngine.PlaySound(MegamergeFemale);
+                    shardsPlayer.BiometalSound = true;
                 }
             }
         }
@@ -174,10 +169,11 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public void UnMegaMerge(Player player)
         {
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
-            if (shardsPlayer.Biometal)
+            ShardsPlayer shardsPlayer = player.Shards();
+            if (shardsPlayer.BiometalSound)
             {
                 SoundEngine.PlaySound(SoundID.Item4);
+                shardsPlayer.BiometalSound = false;
             }
         }
 

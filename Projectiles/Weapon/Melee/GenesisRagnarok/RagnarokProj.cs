@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
@@ -16,9 +16,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
     {
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Ice.Add(Type);
-            ProjectileElements.Fire.Add(Type);
-            ProjectileElements.Electric.Add(Type);
+            Projectile.AddIceAqua();
+            Projectile.AddFire();
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()
@@ -36,10 +36,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             DrawOriginOffsetY = -4;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[Projectile.owner];
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
@@ -57,7 +57,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
             player.itemAnimation = 10;
             player.itemTime = 10;
@@ -110,7 +110,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         public override void Kill(int timeLeft)
         {
             Player player = Main.player[Projectile.owner];
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
             if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
             {

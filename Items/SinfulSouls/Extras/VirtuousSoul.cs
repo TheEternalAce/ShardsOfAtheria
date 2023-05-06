@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WebmilioCommons.Effects.ScreenShaking;
+//using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Items.SinfulSouls.Extras
 {
@@ -30,12 +30,12 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
     {
         public int purification;
 
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Player.HasBuff(ModContent.BuffType<VirtuousSoul>()))
             {
                 purification++;
-                if ((crit || target.life <= 0) && purification >= 35)
+                if ((hit.Crit || target.life <= 0) && purification >= 35)
                 {
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<HolyExplosion>(), item.damage * 3, item.knockBack, Player.whoAmI);
                     purification -= 35;
@@ -43,12 +43,12 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             }
         }
 
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Player.HasBuff(ModContent.BuffType<VirtuousSoul>()) && proj.type != ModContent.ProjectileType<HolyExplosion>())
             {
                 purification++;
-                if ((crit || target.life <= 0) && purification >= 35)
+                if ((hit.Crit || target.life <= 0) && purification >= 35)
                 {
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<HolyExplosion>(), proj.damage * 3, proj.knockBack, Player.whoAmI);
                     purification -= 35;
@@ -87,7 +87,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
                     DrawOffsetX = Projectile.width / 2 - 20;
                     DrawOriginOffsetY = Projectile.height / 2 - 90;
                 }
-                ScreenShake.ShakeScreen(6, 60);
+                //ScreenShake.ShakeScreen(6, 60);
                 SoundEngine.PlaySound(SoundID.Item14);
                 Projectile.ai[0] = 1;
             }

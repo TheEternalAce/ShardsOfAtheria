@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Items.Placeable;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Tiles
@@ -19,9 +20,7 @@ namespace ShardsOfAtheria.Tiles
 
             ItemDrop = ModContent.ItemType<BionicOreItem>();
 
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Bionic Ore");
-            AddMapEntry(new Color(100, 100, 100), name);
+            AddMapEntry(new Color(100, 100, 100), Language.GetText("MapObject.BionicOre.MapEntry"));
 
             DustType = DustID.Platinum;
             HitSound = SoundID.Tink;

@@ -18,7 +18,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
 
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()
@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             TooltipLine line;
-            if (!ModContent.GetInstance<ShardsClientConfig>().instantAbsorb)
+            if (!ModContent.GetInstance<ShardsClient>().instantAbsorb)
                 line = new TooltipLine(Mod, "SoulCrystal", "Hold left click for 5 seconds to absorb the soul inside, this grants you this boss's powers")
                 {
                     OverrideColor = Color.Purple
@@ -68,7 +68,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
             if (Main.rand.NextBool(3))
                 Dust.NewDustDirect(player.Center, 4, 4, DustID.SandstormInABottle, .2f, .2f, 0, Scale: 1.2f);
             Lighting.AddLight(player.Center, TorchID.Yellow);
-            if (absorbSoulTimer == 299 && !ModContent.GetInstance<ShardsClientConfig>().instantAbsorb)
+            if (absorbSoulTimer == 299 && !ModContent.GetInstance<ShardsClient>().instantAbsorb)
                 SoundEngine.PlaySound(SoundID.Item46);
             if (absorbSoulTimer == 240)
                 SoundEngine.PlaySound(SoundID.Item43);
@@ -78,7 +78,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
                 SoundEngine.PlaySound(SoundID.Item43);
             if (absorbSoulTimer == 60)
                 SoundEngine.PlaySound(SoundID.Item43);
-            if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsClientConfig>().instantAbsorb)
+            if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsClient>().instantAbsorb)
             {
                 for (int i = 0; i < 20; i++)
                 {
@@ -106,7 +106,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
     {
         public override bool? UseItem(Player player)
         {
-            if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsClientConfig>().instantAbsorb)
+            if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsClient>().instantAbsorb)
             {
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<AllSeeingEye>()] <= 0)
                 {
@@ -121,7 +121,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
     {
         public override bool? UseItem(Player player)
         {
-            if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsClientConfig>().instantAbsorb)
+            if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsClient>().instantAbsorb)
             {
                 if (!player.HasBuff(ModContent.BuffType<CreeperShield>()))
                 {
@@ -190,7 +190,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
     {
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "SoulTeleport", string.Format("Press {0} to teleport", ShardsOfAtheriaMod.SoulTeleport.GetAssignedKeys().Count > 0 ? ShardsOfAtheriaMod.SoulTeleport.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
+            tooltips.Add(new TooltipLine(Mod, "SoulTeleport", string.Format("Press {0} to teleport", SoA.SoulTeleport.GetAssignedKeys().Count > 0 ? SoA.SoulTeleport.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
 
             base.ModifyTooltips(tooltips);
         }
@@ -204,7 +204,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
     {
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "SoulTeleport", string.Format("Press {0} to teleport", ShardsOfAtheriaMod.SoulTeleport.GetAssignedKeys().Count > 0 ? ShardsOfAtheriaMod.SoulTeleport.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
+            tooltips.Add(new TooltipLine(Mod, "SoulTeleport", string.Format("Press {0} to teleport", SoA.SoulTeleport.GetAssignedKeys().Count > 0 ? SoA.SoulTeleport.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
 
             base.ModifyTooltips(tooltips);
         }

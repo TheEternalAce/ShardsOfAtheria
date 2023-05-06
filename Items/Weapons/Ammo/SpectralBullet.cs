@@ -1,4 +1,4 @@
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using Terraria;
 using Terraria.ID;
@@ -10,8 +10,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 999;
-            WeaponElements.Ice.Add(Type);
+            Item.ResearchUnlockCount = 999;
+            Item.AddIceDefault();
         }
 
         public override void SetDefaults()

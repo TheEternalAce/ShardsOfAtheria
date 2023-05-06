@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Buffs.NPCDebuff;
-using MMZeroElements;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon.Whip
 		{
 			// This makes the projectile use whip collision detection and allows flasks to be applied to it.
 			ProjectileID.Sets.IsAWhip[Type] = true;
-			ProjectileElements.Ice.Add(Type);
+			Projectile.AddIceAqua();
 		}
 
 		public override void SetDefaults()
@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon.Whip
 			set => Projectile.ai[1] = value;
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(ModContent.BuffType<LoomingEntropy>(), 240);
 			Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;

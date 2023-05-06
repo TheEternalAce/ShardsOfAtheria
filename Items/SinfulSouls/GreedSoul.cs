@@ -2,7 +2,6 @@
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SinfulSouls
@@ -65,7 +64,6 @@ namespace ShardsOfAtheria.Items.SinfulSouls
     {
         public override void SetStaticDefaults()
         {
-            Description.SetDefault(Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.GreedSoul"));
             base.SetStaticDefaults();
         }
 

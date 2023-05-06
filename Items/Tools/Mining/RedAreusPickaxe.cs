@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,9 +15,9 @@ namespace ShardsOfAtheria.Items.Tools.Mining
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
-            WeaponElements.Fire.Add(Type);
+            Item.AddFireDefault();
         }
 
         public override void SetDefaults()
@@ -48,7 +49,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 20)
                 .AddRecipeGroup(ShardsRecipes.Gold, 6)
                 .AddIngredient(ItemID.Wire, 10)
-                .AddTile(TileID.MythrilAnvil)
+                .AddTile(ModContent.TileType<AreusFabricator>())
                 .Register();
         }
 

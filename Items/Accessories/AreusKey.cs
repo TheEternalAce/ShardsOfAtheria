@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Items.Accessories
 	{
 		public override void SetStaticDefaults()
 		{
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 
 		public override void SetDefaults()
@@ -19,12 +19,12 @@ namespace ShardsOfAtheria.Items.Accessories
 			Item.accessory = true;
 
 			Item.rare = ItemRarityID.Cyan;
-			Item.value = Item.buyPrice(0, 10);
+			Item.value = 200000;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.ShardsOfAtheria().areusKey = true;
+			player.Shards().areusKey = true;
 			player.GetDamage(DamageClass.Generic) += .5f;
 			player.statLifeMax2 *= (int)1.5f;
 			player.moveSpeed += .25f;

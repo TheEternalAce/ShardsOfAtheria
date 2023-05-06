@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -9,11 +8,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
 {
     public class BBProj : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            ProjectileElements.Metal.Add(Type);
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 6; // The width of projectile hitbox
@@ -32,6 +26,19 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
 
         public override void AI()
         {
+            if (Projectile.ai[0] == 0)
+            {
+                if (Main.rand.NextBool(7))
+                {
+                    SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Tin);
+                    }
+                    Projectile.Kill();
+                }
+                Projectile.ai[0] = 1;
+            }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
         }
 

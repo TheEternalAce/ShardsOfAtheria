@@ -1,4 +1,3 @@
-using ShardsOfAtheria.Config;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -16,14 +15,14 @@ namespace ShardsOfAtheria.Items.BossSummons
             // write this in the bosses file instead
             NPCID.Sets.MPAllowedEnemies[NPCID.Plantera] = true;
 
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()
         {
             Item.width = 32;
             Item.height = 32;
-            if (!ModContent.GetInstance<ShardsServerConfig>().nonConsumeBoss)
+            if (!SoA.ServerConfig.nonConsumeBoss)
             {
                 Item.consumable = true;
                 Item.maxStack = 9999;
@@ -75,7 +74,7 @@ namespace ShardsOfAtheria.Items.BossSummons
                 {
                     // If the Player is in multiPlayer, request a spawn
                     // This will only work if NPCID.Sets.MPAllowedEnemies[type] is true, which we set in MinionBossBody
-                    NetMessage.SendData(MessageID.SpawnBoss, number: player.whoAmI, number2: type);
+                    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: type);
                 }
             }
 

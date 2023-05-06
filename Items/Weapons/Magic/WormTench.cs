@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria;
 using Terraria.DataStructures;
@@ -12,8 +12,8 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
-            WeaponElements.Ice.Add(Type);
+            Item.ResearchUnlockCount = 1;
+            Item.AddIceDefault();
         }
 
         public override void SetDefaults()

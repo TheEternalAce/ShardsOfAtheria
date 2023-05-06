@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
@@ -23,9 +23,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Ice.Add(Type);
-            ProjectileElements.Fire.Add(Type);
-            ProjectileElements.Electric.Add(Type);
+            Projectile.AddIceAqua();
+            Projectile.AddFire();
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()
@@ -48,7 +48,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
             player.itemAnimation = 10;
             player.itemTime = 10;
@@ -109,10 +109,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                 Projectile.Kill();
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[Projectile.owner];
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
@@ -148,7 +148,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         public override bool PreDraw(ref Color lightColor)
         {
             var player = Main.player[Projectile.owner];
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             Vector2 handPosition = Main.GetPlayerArmPosition(Projectile);

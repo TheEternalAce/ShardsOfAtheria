@@ -1,23 +1,23 @@
-Shards of Atheria is a mod that adds many new items, weapons, accessories and random stuff I feel like adding. Soon the mod will emphasize more on making coherent lore. (unlike Terraria "lore", which will also be rewritten)
+Shards of Atheria is an ambitious project where we (I) aim to bring a cohesive story into Terraria, while also (hopefully) adding fun and interesting content (terraria mod #283637263). Currently it only adds content and there isn't much lore.
 
-Join the Discord/Guilded server to report bugs, see spoilers and other things. Invite link in Forum.
-View the Forum page for more info: https://forums.terraria.org/index.php?threads/shards-of-atheria-mod.112953/
+Join the Discord/Guilded server to report bugs, see spoilers and other things. Invite links in the Forum thread.
+Visit the Forum thread for more info: https://forums.terraria.org/index.php?threads/shards-of-atheria-mod.112953/
 
 --- Contributions ---
-
 Sprites:
 Torra th
 nightlight
 Dyl.
 Daluyan Messes
-TheEternalAce
+Rockman Zeta
 DJ-Orca
-Caustic Warrior
+CausticWarrior
 
 Code:
-TheEternalAce (Discord)
+Rockman Zeta
+Torra th
 
-Huge thank you to the TML team and others in the server for the huge help otherwise I would have never gotten this far in making the mod
+Huge thank you to the TML team and others in the server for the huge help otherwise I would have never gotten this far in making the mod.
 
 As well as the following from other mods:
 The creator of the Parrying Daggers mod for letting me use their reflecting code, link to the mod: https://steamcommunity.com/sharedfiles/filedetails/?id=2765225124

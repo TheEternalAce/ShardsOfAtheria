@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -29,6 +30,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
         public override void SetStaticDefaults()
         {
             SoAGlobalProjectile.AreusProj.Add(Type);
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()
@@ -57,7 +59,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
                 if (Projectile.ai[0] == 0f)
                 {
                     SoundEngine.PlaySound(SoundID.Item91, Projectile.position);
-                    point = (player.Center + Projectile.velocity + (Projectile.rotation - MathHelper.ToRadians(90)).ToRotationVector2().SafeNormalize(Vector2.Zero) * Vector2.Distance(player.Center, Main.MouseWorld)).ToPoint();
+                    point = (player.MountedCenter + Projectile.velocity + (Projectile.rotation - MathHelper.ToRadians(90)).ToRotationVector2().SafeNormalize(Vector2.Zero) * Vector2.Distance(player.Center, Main.MouseWorld)).ToPoint();
                     Projectile.tileCollide = true;
                     Projectile.velocity *= 0.9f;
                     Projectile.ai[0] = 1f;
@@ -90,7 +92,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
                     float maxDetectRadius = 400f; // The maximum radius at which a projectile can detect a target
 
                     // Trying to find NPC closest to the projectile
-                    NPC closestNPC = FindClosestNPC(maxDetectRadius);
+                    NPC closestNPC = Projectile.FindClosestNPC(maxDetectRadius);
                     if (closestNPC == null)
                         return;
 
@@ -122,10 +124,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
                 if (Projectile.ai[0] == 1f)
                 {
                     int damage = Projectile.damage;
-                    if (!Projectile.GetGlobalProjectile<OverchargedProjectile>().overcharged)
-                    {
-                        damage /= 3;
-                    }
+                    damage /= 3;
                     for (int i = 0; i < 6; i++)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(1, 0).RotatedBy(MathHelper.ToRadians(60 * i)) * 16,
@@ -134,43 +133,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
                     }
                 }
             }
-        }
-
-        // Finding the closest NPC to attack within maxDetectDistance range
-        // If not found then returns null
-        public NPC FindClosestNPC(float maxDetectDistance)
-        {
-            NPC closestNPC = null;
-
-            // Using squared values in distance checks will let us skip square root calculations, drastically improving this method's speed.
-            float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
-
-            // Loop through all NPCs(max always 200)
-            for (int k = 0; k < Main.maxNPCs; k++)
-            {
-                NPC target = Main.npc[k];
-                // Check if NPC able to be targeted. It means that NPC is
-                // 1. active (alive)
-                // 2. chaseable (e.g. not a cultist archer)
-                // 3. max life bigger than 5 (e.g. not a critter)
-                // 4. can take damage (e.g. moonlord core after all it's parts are downed)
-                // 5. hostile (!friendly)
-                // 6. not immortal (e.g. not a target dummy)
-                if (target.CanBeChasedBy())
-                {
-                    // The DistanceSquared function returns a squared distance between 2 points, skipping relatively expensive square root calculations
-                    float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, Projectile.Center);
-
-                    // Check if it is within the radius
-                    if (sqrDistanceToTarget < sqrMaxDetectDistance)
-                    {
-                        sqrMaxDetectDistance = sqrDistanceToTarget;
-                        closestNPC = target;
-                    }
-                }
-            }
-
-            return closestNPC;
         }
 
         public override void PostDraw(Color lightColor)

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -13,7 +12,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
-            ProjectileElements.Metal.Add(Type);
         }
 
         public override void SetDefaults()

@@ -1,4 +1,4 @@
-﻿# You may find this .hjson file approach to translations easier for your mod.
+# You may find this .hjson file approach to translations easier for your mod.
 # .hjson files contain translations for the language specified in the filename. (Make sure this file is UTF-8 encoded only.)
 # The possible languages are: English ("en-US"), German ("de-DE"), Italian ("it-IT"), French ("fr-FR"), Spanish ("es-ES"), Russian ("ru-RU"), Chinese ("zh-Hans"), Portuguese ("pt-BR"), and Polish ("pl-PL")
 # Here in ExampleMod we have organized these files in a folder called Localization. A single file per language makes it extremely easy to to integrate and maintain translations.
@@ -18,7 +18,7 @@ Mods: {
 			FiringMode1: Semi-auto
 			FiringMode2: Burst fire
 			FiringMode3: Full-auto
-			FullCharge: "Charge Ready!"
+			FullCharge: Charge Ready!
 			OverdriveInfo:
 				'''
 				Press {0} to activate or deactivate Overdrive
@@ -33,17 +33,16 @@ Mods: {
 				Always get 20% increased movement speed
 				'''
 			UpgradeableItem: Upgradeable Item
-
-			TitleText1: Shards of Atheria: Splitting Skies
-			TitleText2: Shards of Atheria: The World Revolving
+			TitleText0: Shards of Atheria: Splitting Skies
+			TitleText1: Shards of Atheria: The World Revolving
+			TitleText2: Shards of Atheria: Shattered Atheria
 			TomeOfOmniscience: Press {0} to cycle between the 3 Knowledge Bases
-			UpgradeableItem: Upgradeable Item
 			TeleportOnKeyPress: Press {0} to teleport to your cursor
 		}
 
 		DiskFile: {
-			DiskError: "Error 0: File not found in database. Please use a different disk."
-			DataDisk1:
+			DataDisk000: Error 0: File not found in database. Please use a different disk.
+			DataDisk001:
 				'''
 				Disk_001_Areus
 				A typically pale blue metal which crackles with electricity, areus is used for
@@ -52,7 +51,7 @@ Mods: {
 				areus is melted and cast, white areus is alloyed with gold. If areus were lose
 				its electrical properties, its color will turn dark and it will harden.
 				'''
-			DataDisk2:
+			DataDisk002:
 				'''
 				Disk_002_Atheria
 				A neighboring planet, close to Terraria, crackling with electricity and
@@ -60,19 +59,21 @@ Mods: {
 				took inspiration from the humans on Terraria and Earth to create her own
 				people: atherians.
 				'''
-			DataDisk3:
+			DataDisk003:
 				'''
 				Disk_003_Hardlight
-				A lightweight colorful material, hardlight is forged by the harpies in the sky.
-
+				This unique material was discovered by the harpies in the world. Combining
+				their feathers with light and gold, they create a durable and extremely
+				lightweight material. This material is used for armor and weapons and is
+				commonly produced by the harpies dwelling in the sky and caverns due to easy
+				access to light and gold respectively.
 				'''
-			DataDisk4:
+			DataDisk004:
 				'''
 				Disk_004_Nova Stellar
-				Once an ordinary young harpy, Nova pursued the path of her late father as a
-				noble knight. As she grew she learned about the Five Terrarians.
+
 				'''
-			DataDisk5:
+			DataDisk005:
 				'''
 				Disk_005_Terrarians
 				The five Terrarians are divine beings forged from the powers of entropy,
@@ -100,299 +101,93 @@ Mods: {
 				'''
 		}
 
-		ItemName: {
+		Items: {
 			# Accessories
-				# Gem cores
-					# Amethyst
-				AmethystCore_Lesser: Lesser Amethyst Core
-				AmethystCore: Amethyst Core
-				AmethystCore_Greater: Greater Amethyst Core
-				AmethystCore_Super: Super Amethyst Core
-					# Diamond
-				DiamondCore_Lesser: Lesser Diamond Core
-				DiamondCore: Diamond Core
-				DiamondCore_Greater: Greater Diamond Core
-				DiamondCore_Super: Super Diamond Core
-					# Emerald
-				EmeraldCore_Lesser: Lesser Emerald Core
-				EmeraldCore: Emerald Core
-				EmeraldCore_Greater: Greater Emerald Core
-				EmeraldCore_Super: Super Emerald Core
-					# Ruby
-				RubyCore_Lesser: Lesser Ruby Core
-				RubyCore: Ruby Core
-				RubyCore_Greater: Greater Ruby Core
-				RubyCore_Super: Super Ruby Core
-					# Sapphire
-				SapphireCore_Lesser: Lesser Sapphire Core
-				SapphireCore: Sapphire Core
-				SapphireCore_Greater: Greater Sapphire Core
-				SapphireCore_Super: Super Sapphire Core
-					# Topaz
-				TopazCore_Lesser: Lesser Topaz Core
-				TopazCore: Topaz Core
-				TopazCore_Greater: Greater Topaz Core
-				TopazCore_Super: Super Topaz Core
-			AreusKey: Areus Key
-			Biometal: Biometal
-			EntropicWings: Entropic Wings
-			GildedValkyrieWings: Hardlight Wings
-			HardlightBraces: Hardlight Braces
-			RushDrive: Rush Drive
-			TomeOfOmniscience: Tome of Omniscience
-			ValkyrieCrown: Valkyrie Crown
+			
+			# Gem cores
+			# Amethyst
+			AmethystCore_Lesser: {
+				DisplayName: Lesser Amethyst Core
+				Tooltip: Gives a short dash to the wearer
+			}
 
-			# Armor
-			EntropicHood: Entropic Hood
-			EntropicRobe: Entropic Robes
-			EntropicLeggings: Entropic Leggings
+			AmethystCore: {
+				DisplayName: Amethyst Core
+				Tooltip: Gives a dash to the wearer
+			}
 
-			# Boss summons
-			# AreusSnakeScale: Areus Snake Scale
-			PottedPlant: Potted Plant
-			# SpiderClock: Areus Spider Clock
-			ValkyrieCrest: Hardlight Crest
-
-			# Dev items
-				# The Eternal Ace
-			AceOfSpades: Ace of Spades
-			AcesGoldFoxMask: "Rockman Zeta's Gold Fox Mask"
-			AcesJacket: "Rockman Zeta's Jacket"
-			AcesPants: "Rockman Zeta's Pants"
-				# nightlight
-			CoatOfnight: "nightlight's Coat"
-			Nightlight: The nightlight
-				# DaluyanMesses
-			StatueOfDaluyan: Golden Hat Statue
-
-			# Grab bags
-			AmmoBag: Ammo Bag
-			AmmoBag_Arrow: Ammo Bag (Arrow)
-			AmmoBag_Bullet: Ammo Bag (Bullet)
-			AmmoBag_Rocket: Ammo Bag (Rocket)
-			NovaBossBag: Treasure Bag (Nova Stellar)
-
-			# Data Disks
-			AreusDataDisk: "Data Disk #001"
-			AtheriaDataDisk: "Data Disk #002"
-			HardlightDataDisk: "Data Disk #003"
-			NovaDataDisk: "Data Disk #004"
-			TerrariansDataDisk: "Data Disk #005"
-
-			# Hooks
-			AreusTether: Areus Tether
-			HardlightNeedle: Hardlight Needle
-
-			# Materials
-			BrokenHeroGun: Broken Hero Gun
-			ChargedFeather: Charged Feather
-			EmptyNeedle: Empty Needle
-			FragmentEntropy: Entropic Fragment
-			MemoryFragment: Memory Fragment
-			SoulOfDaylight: Soul of Daylight
-			SoulOfSpite: Soul of Spite
-			SoulOfTwilight: Soul of Twilight
-
-			# Misc
-			OverdriveEnergyPack: Overdrive Energy Pack
-			RepairKit_Lesser: Lesser Repair Kit
-			RepairKit: Repair Kit
-			RepairKit_Greater: Greater Repair Kit
-			RepairKit_Super: Super Repair Kit
-
-			# Pet items
-			StrangeTissueSample: Strange Tissue Sample
-			SmallHardlightCrest: Small Hardlight Crest
-
-			# Place-ables
-				# Banners
-			CaveHarpyBanner: Cavern Harpy Banner
-			CrimsonHarpyBanner: Hemorrhaging Harpy Banner
-			CorruptHarpyBanner: Infested Harpy Banner
-			DesertHarpyBanner: Dust Storm Harpy Banner
-			ForestHarpyBanner: Forest Harpy Banner
-			HallowedHarpyBanner: Holy Harpy Banner
-			OceanHarpyBanner: Seaside Harpy Banner
-			SnowHarpyBanner: Arctic Harpy Banner
-				# Crafting
-			CobaltWorkbenchItem: Cobalt Workbench
-			PalladiumWorkbenchItem: Palladium Workbench
-				# Furniture
-			VoidHarpyBanner: Void Harpy Banner
-			NovaTrophy: Nova Stellar's Trophy
-			NovaRelic: Nova Stellar Relic
-			OmegaChestItem: Omega Chest
-				# Ores & Bars
-			AreusShard: Areus Shard
-			BionicBarItem: Bionic Bar
-			BionicOreItem: Bionic Ore
-
-			# Potions
-			BoneMarrowInjection: Bone Marrow Injection
-			ChargedFlightPotion: Charged Flight Potion
-			ConductivityPotion: Conductivity Potion
-			SoulInjection: Soul Injection
-
-			# Sinful
-			EnvySoul: Envy Soul
-			GluttonySoul: Gluttony Soul
-			GreedSoul: Greed Soul
-			LustSoul: Lust Soul
-			PrideSoul: Pride Soul
-			SlothSoul: Sloth Soul
-			WrathSoul: Wrath Soul
-			VirtuousDagger: Virtuous Dagger
-			SinfulArmament: Sinful Armament
-
-			# Soul crystals
-			KingSoulCrystal: "Soul Crystal (King Slime)"
-			EyeSoulCrystal: "Soul Crystal (Eye of Cthulhu)"
-			BrainSoulCrystal: "Soul Crystal (Brain of Cthulhu)"
-			EaterSoulCrystal: "Soul Crystal (Eater of Worlds)"
-			BeeSoulCrystal: "Soul Crystal (Queen Bee)"
-			SkullSoulCrystal: "Soul Crystal (Skeletron)"
-			ValkyrieSoulCrystal: "Soul Crystal (Nova Stellar)"
-			DeerclopsSoulCrystal: "Soul Crystal (Deerclops)"
-			WallSoulCrystal: "Soul Crystal (Wall of Flesh)"
-			QueenSoulCrystal: "Soul Crystal (Queen Slime)"
-			DestroyerSoulCrystal: "Soul Crystal (The Destroyer)"
-			PrimeSoulCrystal: "Soul Crystal (Skeletron Prime)"
-			TwinsSoulCrystal: "Soul Crystal (The Twins)"
-			PlantSoulCrystal: "Soul Crystal (Plantera)"
-			GolemSoulCrystal: "Soul Crystal (Golem)"
-			DukeSoulCrystal: "Soul Crystal (Duke Fishron)"
-			EmpressSoulCrystal: "Soul Crystal (Empress of Light)"
-			LunaticSoulCrystal: "Soul Crystal (Lunatic Cultist)"
-			LordSoulCrystal: "Soul Crystal (Moon Lord)"
-			LandSoulCrystal: "Soul Crystal (Senterra)"
-			TimeSoulCrystal: "Soul Crystal (Genesis)"
-			DeathSoulCrystal: "Soul Crystal (Elizabeth Norman)"
-
-			# Slayer boxes coming in 1.0
-
-			# Tools
-			MagicOcarina: Magic Ocarina
-			Necronomicon: Necronomicon
-			RedAreusDrill: Red Areus Drill
-			RedAreusChainsaw: Red Areus Chainsaw
-			RedAreusPickaxe: Red Areus Pickaxe
-			SpidersMechanicalClock: "Spider's Mechanical Clock"
-			SoulExtractingDagger: Soul Extracting Dagger
-
-			# Weapons
-				# Ammo
-			AreusBullet: Areus Bullet
-			BB: BB
-			SpectralArrow: Spectral Arrow
-			SpectralBullet: Spectral Bullet
-				# Areus
-			AreusAssaultRifle: Areus Assault Rifle
-			AreusBow: Areus Bow
-			AreusDagger: Areus Dagger
-			AreusGlaive: Areus Glaive
-			AreusKatana: Areus Katana
-			AreusMagnum: Areus Magnum
-			AreusRailgun: "Areus Rail-gun"
-			AreusSaber: Areus Saber
-			AreusStaff: Areus Staff
-			AreusSword: Areus Sword
-			AreusTrimmedTome: Areus Trimmed Tome
-			BrokenAreusMirror: Broken Areus Mirror
-			TheMourningStar: The Mourning Star
-				# Magic
-			Gunsword: "Gun-Sword"
-			Pandora: Frostspark Staff
-			PerishSong: Perish Song
-			PlumeCodex: Plume Codex
-			ScreamLantern: Trapped Soul Lantern
-			WormTench: Worm Tench
-				# Melee
-			BloodScythe: Blood Scythe
-			Cataracnia: Cataracnia
-			CrossDagger: Cross Dagger
-			EntropySlicer: Entropy Slicer
-			GenesisAndRagnarok: Genesis and Ragnarok
-			Gomorrah: Gomorrah
-			HeroSword: Hero Sword
-			Prometheus: Energy Scythe
-			ReactorMeltdown: Reactor Meltdown
-			Satanlance: ecnatnataS
-			TheMessiah: The Messiah
-			TheMourningStar: The Mourning Star
-			ValkyrieBlade: Hardlight Blade
-			ValkyrieStorm: Valkyrie Storm
-			ValkyrieStormLance: Storm Lance
-			War: Providence Claymore
-			WormBloom: Worm Bloom
-			Yamiko: Yamiko
-			Zenova: Zenova
-				# Ranged
-			BlackHoleRepeater: Black Hole Repeater
-			Coilgun: "Coil-gun"
-			DoubleBow: Double Bow
-			DownBow: Down Bow
-			HandCanon: Hand Cannon
-			HecateII: Hecate II
-			HeroGun: Hero Gun
-			HuntingRifle: Hunting Rifle
-			P90: P90
-			Pantheon: Pantheon
-			PhantomRose: Phantom Rose
-			Scarlet: Scarlet Rose
-			TheAmbassador: Magnus
-				# Summon
-			DragonSpineWhip: Dragon Spine Whip
-			FlailOfFlesh: Flail of Flesh
-			NestlingStaff: Nestling Staff
-				# Throwing
-			KingsKusarigama: "King's Kusarigama"
-			MetalBlade: Metal Blade
-			HardlightKnife: Hardlight Knife
-		}
-		
-		ItemTooltip: {
-			# Accessories
-				# Gem cores
-					# Amethyst
-				AmethystCore_Lesser: Gives a short dash to the wearer
-				AmethystCore: Gives a dash to the wearer
-				AmethystCore_Greater:
+			AmethystCore_Greater: {
+				DisplayName: Greater Amethyst Core
+				Tooltip:
 					'''
 					Gives a dash to the wearer
 					Grants immunity to 'Ichor' and 'Cursed Inferno'
 					'''
-				AmethystCore_Super:
+			}
+
+			AmethystCore_Super: {
+				DisplayName: Super Amethyst Core
+				Tooltip:
 					'''
 					Gives a great dash to the wearer
 					Grants immunity to knockback, 'Poison', 'Venom', 'On Fire', cold debuffs, lava and fire blocks
 					Master Ninja Gear effects
 					'''
-					# Diamond
-				DiamondCore: Grants immunity to knockback
-				DiamondCore_Greater:
+			}
+
+			# Diamond
+			DiamondCore_Lesser: {
+				DisplayName: Lesser Diamond Core
+				Tooltip: ""
+			}
+
+			DiamondCore: {
+				DisplayName: Diamond Core
+				Tooltip: Grants immunity to knockback
+			}
+
+			DiamondCore_Greater: {
+				DisplayName: Greater Diamond Core
+				Tooltip:
 					'''
 					Grants immunity to knockback
 					Effects of Ankh Shield
 					'''
-				DiamondCore_Super:
+			}
+
+			DiamondCore_Super: {
+				DisplayName: Super Diamond Core
+				Tooltip:
 					'''
 					Grants immunity to defense reducing debuffs and knockback
 					Effects of Ankh Shield
 					'''
-					# Emerald
-				EmeraldCore_Lesser:
+			}
+
+			# Emerald
+			EmeraldCore_Lesser: {
+				DisplayName: Lesser Emerald Core
+				Tooltip:
 					'''
 					5% increased movement speed
 					Increased jump height
 					'''
-				EmeraldCore:
+			}
+
+			EmeraldCore: {
+				DisplayName: Emerald Core
+				Tooltip:
 					'''
 					Counts as wings
 					10% increased movement speed
 					Increased jump height
 					Grants flight and slowfall
 					'''
-				EmeraldCore_Greater:
+			}
+
+			EmeraldCore_Greater: {
+				DisplayName: Greater Emerald Core
+				Tooltip:
 					'''
 					Counts as wings
 					10% increased movement speed
@@ -400,21 +195,37 @@ Mods: {
 					Panic Necklace, Terraspark Boots and Flippers effects
 					Grants flight and slowfall
 					'''
-				EmeraldCore_Super:
+			}
+
+			EmeraldCore_Super: {
+				DisplayName: Super Emerald Core
+				Tooltip:
 					'''
 					Counts as wings
 					15% increased movement speed
 					Bundle of Balloons, Panic Necklace, Terraspark Boots, and Flippers effects
 					Grants flight, slowfall and immunity to cold debuffs
 					'''
-					# Ruby
-				RubyCore_Lesser: "5% increased damage"
-				RubyCore:
+			}
+
+			# Ruby
+			RubyCore_Lesser: {
+				DisplayName: Lesser Ruby Core
+				Tooltip: 5% increased damage
+			}
+
+			RubyCore: {
+				DisplayName: Ruby Core
+				Tooltip:
 					'''
 					10% increased damage
 					Attacks inflict 'On Fire!'
 					'''
-				RubyCore_Greater:
+			}
+
+			RubyCore_Greater: {
+				DisplayName: Greater Ruby Core
+				Tooltip:
 					'''
 					10% increased damage
 					Increases attack speed by 10%
@@ -423,7 +234,11 @@ Mods: {
 					Attacks inflict 'Hellfire'
 					All weapons autoswing
 					'''
-				RubyCore_Super:
+			}
+
+			RubyCore_Super: {
+				DisplayName: Super Ruby Core
+				Tooltip:
 					'''
 					15% increased damage
 					Increased knockback, attack speed and melee size
@@ -431,36 +246,1197 @@ Mods: {
 					Grants immunity to damage reducing and anti attacking debuffs
 					All weapons autoswing
 					'''
-					# Sapphire
-				SapphireCore_Lesser: 5% chance to dodge attacks
-				SapphireCore: 10% chance to dodge attacks
-				SapphireCore_Greater:
+			}
+
+			# Sapphire
+			SapphireCore_Lesser: {
+				DisplayName: Lesser Sapphire Core
+				Tooltip: 5% chance to dodge attacks
+			}
+
+			SapphireCore: {
+				DisplayName: Sapphire Core
+				Tooltip: 10% chance to dodge attacks
+			}
+
+			SapphireCore_Greater: {
+				DisplayName: Greater Sapphire Core
+				Tooltip:
 					'''
 					10% chance to dodge attacks
 					Thorns effect
 					'''
-				SapphireCore_Super:
+			}
+
+			SapphireCore_Super: {
+				DisplayName: Super Sapphire Core
+				Tooltip:
 					'''
 					15% chance to dodge attacks
 					+5 additional minion slots
 					Thorns effect
 					Inferno effect when taking damage
 					'''
-					# Topaz
-				TopazCore_Lesser: Increases max Life by 20
-				TopazCore: Increases max Life by 40
-				TopazCore_Greater:
+			}
+
+			# Topaz
+			TopazCore_Lesser: {
+				DisplayName: Lesser Topaz Core
+				Tooltip: Increases max Life by 20
+			}
+
+			TopazCore: {
+				DisplayName: Topaz Core
+				Tooltip: Increases max Life by 40
+			}
+
+			TopazCore_Greater: {
+				DisplayName: Greater Topaz Core
+				Tooltip:
 					'''
 					Increases max life by 40
 					Effects of Charm of Myths
 					'''
-				TopazCore_Super:
+			}
+
+			TopazCore_Super: {
+				DisplayName: Super Topaz Core
+				Tooltip:
 					'''
 					Increases max life by 60
 					Effects of Charm of Myths
 					Cozy Campfire and Heart Lantern buffs
 					'''
-				MegaGemCore:
+			}
+
+			AreusKey: {
+				DisplayName: Areus Key
+				Tooltip:
+					'''
+					Unlocks your true potential
+					'Now, nothing but your own competence holds you back!'
+					'''
+			}
+
+			Biometal: {
+				DisplayName: Biometal
+				Tooltip:
+					'''
+					Transforms the wearer into a Mega Man
+					25% Increased damage
+					Increases movement speed by 10%
+					Increased max life by 100 and max mana by 40
+					Grants dash, wall sliding and immunity to fall damage
+					'''
+			}
+
+			EntropicWings: {
+				DisplayName: Entropic Wings
+				Tooltip: Allows flight and grants slow fall
+			}
+
+			GildedValkyrieWings: {
+				DisplayName: Hardlight Wings
+				Tooltip: "'The hardlight grants extra protection without impeding movement'"
+			}
+
+			HardlightBraces: {
+				DisplayName: Hardlight Braces
+				Tooltip: Attacks create 4 hardlight blades to inflict further damage
+			}
+
+			RushDrive: {
+				DisplayName: Rush Drive
+				Tooltip: Gives the user a 'phase 2' when below 50% life
+			}
+
+			TomeOfOmniscience: {
+				DisplayName: Tome of Omniscience
+				Tooltip: Allows the wearer to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration
+			}
+
+			ValkyrieCrown: {
+				DisplayName: Valkyrie Crown
+				Tooltip:
+					'''
+					Attacks shock enemies briefly
+					Summons two orbiting Hardlight Swords
+					'''
+			}
+
+			EntropicHood: {
+				# Armor
+				DisplayName: Entropic Hood
+				# Armor
+				Tooltip: 6% increased damage and critical strike chance
+			}
+
+			EntropicRobe: {
+				DisplayName: Entropic Robes
+				Tooltip: 12% increased damage and critical strike chance
+			}
+
+			EntropicLeggings: {
+				DisplayName: Entropic Leggings
+				Tooltip:
+					'''
+					8% increased damage and critical strike chance
+					10% increased movement speed
+					'''
+			}
+
+			PottedPlant: {
+				# Boss summons
+				# AreusSnakeScale: Areus Snake Scale
+				DisplayName: Potted Plant
+				# Boss summons
+				# AreusSnakeScale: Summons the Goddess of Life and Earth
+				Tooltip: Summons Plantera in the Underground Jungle
+			}
+
+			ValkyrieCrest: {
+				# SpiderClock: Areus Spider Clock
+				DisplayName: Hardlight Crest
+				# SpiderClock: Summons the Goddess of Time and Magic
+				Tooltip: Summons a powerful Valkyrie
+			}
+
+			# Dev items
+			# The Eternal Ace
+			DeckOfCards: {
+				DisplayName: Deck Of Cards
+				Tooltip:
+					'''
+					Use RMB to choose between four cards
+					Spades explode on impact
+					Hearts lifesteal
+					Clubs extend buff duration
+					Diamonds crit and pierce
+					'What is that object?'
+					'''
+			}
+
+			AcesGoldFoxMask: {
+				DisplayName: Rockman Zeta's Gold Fox Mask
+				Tooltip: ""
+			}
+
+			AcesJacket: {
+				DisplayName: Rockman Zeta's Jacket
+				Tooltip: "'Pockets included!'"
+			}
+
+			AcesPants: {
+				DisplayName: Rockman Zeta's Pants
+				Tooltip: ""
+			}
+
+			CoatOfnight: {
+				# nightlight
+				DisplayName: nightlight's Coat
+				# nightlight
+				Tooltip: "'no cap'"
+			}
+
+			Nightlight: {
+				DisplayName: The nightlight
+				Tooltip: "'This is what peak performance looks like!'"
+			}
+
+			StatueOfDaluyan: {
+				# DaluyanMesses
+				DisplayName: Golden Hat Statue
+				# DaluyanMesses
+				Tooltip: "'That's Fool's Gold! That ain't worth nothing!'"
+			}
+
+			# Grab bags
+			NovaBossBag: {
+				DisplayName: Treasure Bag (Nova Stellar)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			AreusDataDisk: {
+				# Data Disks
+				DisplayName: Data Disk #001
+				Tooltip: ""
+			}
+
+			AtheriaDataDisk: {
+				DisplayName: Data Disk #002
+				Tooltip: ""
+			}
+
+			HardlightDataDisk: {
+				DisplayName: Data Disk #003
+				Tooltip: ""
+			}
+
+			NovaDataDisk.DisplayName: Data Disk #004
+			TerrariansDataDisk.DisplayName: Data Disk #005
+
+			AreusTether: {
+				# Hooks
+				DisplayName: Areus Tether
+				Tooltip: ""
+			}
+
+			HardlightNeedle: {
+				DisplayName: Hardlight Needle
+				Tooltip: ""
+			}
+
+			# Materials
+			BrokenHeroGun: {
+				DisplayName: Broken Hero Gun
+				Tooltip: "'The broken gun of a long forgotten hero'"
+			}
+
+			ChargedFeather: {
+				DisplayName: Charged Feather
+				Tooltip: "'Electricity flows between its barbs'"
+			}
+
+			EmptyNeedle: {
+				DisplayName: Empty Needle
+				Tooltip: ""
+			}
+
+			FragmentEntropy: {
+				DisplayName: Entropic Fragment
+				Tooltip: "'Feelings of universal decay emanate from this fragment'"
+			}
+
+			MemoryFragment: {
+				DisplayName: Memory Fragment
+				Tooltip:
+					'''
+					Can be used to upgrade Genesis and Ragnarok
+					'The faint voice of a young boy echoes from within'
+					'''
+			}
+
+			SoulOfDaylight: {
+				DisplayName: Soul of Daylight
+				Tooltip:
+					'''
+					'The essence of daytime creatures'
+					Disappears after the sunset
+					'''
+			}
+
+			SoulOfSpite: {
+				DisplayName: Soul of Spite
+				Tooltip: "'The essence of hateful creatures'"
+			}
+
+			SoulOfTwilight: {
+				DisplayName: Soul of Twilight
+				Tooltip:
+					'''
+					'The essence of nighttime creatures'
+					Disappears after the sunset
+					'''
+			}
+
+			# Misc
+			OverdriveEnergyPack: {
+				DisplayName: Overdrive Energy Pack
+				Tooltip: Refills Overdrive Time
+			}
+
+			# Pet items
+			StrangeTissueSample: {
+				DisplayName: Strange Tissue Sample
+				Tooltip: Summons a pet Creeper to follow you
+			}
+
+			SmallHardlightCrest: {
+				DisplayName: Small Hardlight Crest
+				Tooltip:
+					'''
+					Summons a miniature Nova Stellar
+					'Adorableness from the heavens'
+					'''
+			}
+
+			# Place-ables
+			# Banners
+			CaveHarpyBanner: {
+				DisplayName: Cavern Harpy Banner
+				Tooltip: ""
+			}
+
+			CrimsonHarpyBanner: {
+				DisplayName: Hemorrhaging Harpy Banner
+				Tooltip: ""
+			}
+
+			CorruptHarpyBanner: {
+				DisplayName: Infested Harpy Banner
+				Tooltip: ""
+			}
+
+			DesertHarpyBanner: {
+				DisplayName: Dust Storm Harpy Banner
+				Tooltip: ""
+			}
+
+			ForestHarpyBanner: {
+				DisplayName: Forest Harpy Banner
+				Tooltip: ""
+			}
+
+			HallowedHarpyBanner: {
+				DisplayName: Holy Harpy Banner
+				Tooltip: ""
+			}
+
+			OceanHarpyBanner: {
+				DisplayName: Seaside Harpy Banner
+				Tooltip: ""
+			}
+
+			SnowHarpyBanner: {
+				DisplayName: Arctic Harpy Banner
+				Tooltip: ""
+			}
+
+			AreusFabricatorItem: {
+				DisplayName: Areus Fabricator
+				Tooltip: Used to make areus equipment
+			}
+
+			VoidHarpyBanner: {
+				# Furniture
+				DisplayName: Void Harpy Banner
+				Tooltip: ""
+			}
+
+			NovaTrophy: {
+				DisplayName: Nova Stellar's Trophy
+				Tooltip: ""
+			}
+
+			NovaRelic: {
+				DisplayName: Nova Stellar Relic
+				Tooltip: ""
+			}
+
+			OmegaChestItem: {
+				DisplayName: Omega Chest
+				Tooltip: ""
+			}
+
+			# Ores & Bars
+			AreusShard: {
+				DisplayName: Areus Shard
+				Tooltip: A shard of limitless electricity
+			}
+
+			BionicBarItem: {
+				DisplayName: Bionic Bar
+				Tooltip: "'It still pulsates as if it has a heartbeat...'"
+			}
+
+			BionicOreItem: {
+				DisplayName: Bionic Ore
+				Tooltip: "'It pulsates as if it has a heartbeat...'"
+			}
+
+			Jade: {
+				DisplayName: Jade
+				Tooltip: ""
+			}
+
+			# Potions
+			BoneMarrowInjection: {
+				DisplayName: Bone Marrow Injection
+				Tooltip: Strengthens your bones
+			}
+
+			ChargedFlightPotion: {
+				DisplayName: Charged Flight Potion
+				Tooltip: Increases flight time by 34
+			}
+
+			ConductivityPotion: {
+				DisplayName: Conductivity Potion
+				Tooltip: Increases electric weapon damage by 15% and duration of Electric Shock by 100%
+			}
+
+			SoulInjection: {
+				DisplayName: Soul Injection
+				Tooltip:
+					'''
+					Damages you but grants the following:
+					Increased damage, movement speed and defense
+					Grants life regen
+					'Recommended by 0/10 doctors'
+					'''
+			}
+
+			EnvySoul: {
+				# Sinful
+				DisplayName: Envy Soul
+				# Sinful
+				Tooltip:
+					'''
+					Consecutive strikes on an enemy will increase the damage they take by 3
+					Darkness debuff
+					'''
+			}
+
+			GluttonySoul: {
+				DisplayName: Gluttony Soul
+				Tooltip:
+					'''
+					Increases melee damage by 15%
+					Defense reduced by 7
+					Lose life when not fed
+					Critical strikes on enemies creates a food chunk that will heal you when it makes contact
+					If an attack kills an enemy the food chunk will heal for more
+					'''
+			}
+
+			GreedSoul: {
+				DisplayName: Greed Soul
+				Tooltip:
+					'''
+					Every gold coin in your inventory increases damage by 5% and reduces defense by 2
+					All coins disappear on death
+					'''
+			}
+
+			LustSoul: {
+				DisplayName: Lust Soul
+				Tooltip:
+					'''
+					Increases max minions by 3
+					Damage reduced by 20%
+					Lovestruck buff
+					Damaging enemies may cause them to drop hearts
+					'''
+			}
+
+			PrideSoul: {
+				DisplayName: Pride Soul
+				Tooltip:
+					'''
+					Every 10 seconds of not taking damage increases damage by 2%
+					Using a weapon that fires a projectile increases Shots Fired
+					Damaging an enemy with a non-summon projectile increases Shots Hit
+					If Shots Landed is not equal to Shots Fired after 5 seconds, you are weakened severely
+					Otherwise, damage is increased by 50%
+					Shots Fired = {0} | Shots Hit = {1}
+					'''
+			}
+
+			SlothSoul: {
+				DisplayName: Sloth Soul
+				Tooltip:
+					'''
+					Decreased movement speed by 25%
+					Increased summon damage by 25%
+					While not moving, all damage is increased by 20% and defense by 10
+					'''
+			}
+
+			WrathSoul: {
+				DisplayName: Wrath Soul
+				Tooltip:
+					'''
+					Each time damage is taken damage is increased by 1%
+					Once damage bonus goes to 5% increase, crit chance starts to go up by 1% as well
+					Dying increases both by 5%
+					There is no limit to these boosts
+					Boots slowly decrease while out of combat
+					Current damage increase: +{0}%
+					Current critical strike chance increase: +{1}%
+					'''
+			}
+
+			VirtuousDagger: {
+				DisplayName: Virtuous Dagger
+				Tooltip:
+					'''
+					Replaces your current sin with a holy buff
+					Use another to remove this holy buff
+					Shatters on use
+					'''
+			}
+
+			SinfulArmament: {
+				DisplayName: Sinful Armament
+				Tooltip: Transforms into a weapon based on your sin
+			}
+
+			KingSoulCrystal: {
+				# Soul crystals
+				DisplayName: Soul Crystal (King Slime)
+				# Soul Crystals
+				Tooltip:
+					'''
+					Increased life and mana regen
+					After taking damage, your next hit will heal 25% of that damage taken
+					'''
+			}
+
+			EyeSoulCrystal: {
+				DisplayName: Soul Crystal (Eye of Cthulhu)
+				Tooltip:
+					'''
+					Summon 3 Servants after 5 seconds, these Servants will chase down enemies
+					Also creates an All Seeing Eye that lights up the cursor and marks enemies, making them take 10% more damage
+					'''
+			}
+
+			BrainSoulCrystal: {
+				DisplayName: Soul Crystal (Brain of Cthulhu)
+				Tooltip:
+					'''
+					Spawns 4 Creepers
+					While Creepers are alive you are invulnerable and cannot attack
+					Gain a temporary 20% damage boost when all of the creepers die
+					Creepers take 1 minute to respawn
+					Cannot be immune to knockback
+					'''
+			}
+
+			EaterSoulCrystal: {
+				DisplayName: Soul Crystal (Eater of Worlds)
+				Tooltip:
+					'''
+					Grants one revive and shoots a vile shot when using a weapon
+					Revive has a 5 minute cooldown
+					'''
+			}
+
+			BeeSoulCrystal: {
+				DisplayName: Soul Crystal (Queen Bee)
+				Tooltip:
+					'''
+					Attacks inflict Poisoned and shoot stingers
+					Spawn a bee every 10 seconds while in combat
+					'''
+			}
+
+			SkullSoulCrystal: {
+				DisplayName: Soul Crystal (Skeletron)
+				Tooltip:
+					'''
+					While in combat enter a "spin phase" for 5 seconds every 30 seconds
+					This "spin phase" increases defense and damage by 50% and damages nearby enemies
+					Attacks fire a homing skull
+					'''
+			}
+
+			ValkyrieSoulCrystal: {
+				DisplayName: Soul Crystal (Nova Stellar)
+				Tooltip:
+					'''
+					Grants 8 defense, wing flight time boost and a dash that leaves behind an electric trail
+					Attacks create 4 closing feather blades in an x pattern
+					Getting hit by an enemy gives them Electric Shock
+					'''
+			}
+
+			DeerclopsSoulCrystal: {
+				DisplayName: Soul Crystal (Deerclops)
+				Tooltip:
+					'''
+					For every nearby NPC your damage is increased by 5% and your defense is increased by 10
+					This increase caps at 15% increased damage and 15 defense
+					Summons shadow hands on taking damage
+					'''
+			}
+
+			WallSoulCrystal: {
+				DisplayName: Soul Crystal (Wall of Flesh)
+				Tooltip: Summon 5 friendly The Hungry over the course of 5 seconds
+			}
+
+			QueenSoulCrystal: {
+				DisplayName: Soul Crystal (Queen Slime)
+				Tooltip:
+					'''
+					Increased life and mana regen
+					After taking damage, your next hit will heal 50% of that damage
+					'''
+			}
+
+			DestroyerSoulCrystal: {
+				DisplayName: Soul Crystal (The Destroyer)
+				Tooltip:
+					'''
+					Summon a Destroyer's Probe that fires at your cursor besides you
+					Taking over 100 damage spawns another temporary Destroyer's Probe that will fire at nearby enemies
+					You can have up to five of these "attack probes"
+					'''
+			}
+
+			PrimeSoulCrystal: {
+				DisplayName: Soul Crystal (Skeletron Prime)
+				Tooltip:
+					'''
+					While in combat enter a "spin phase" for 5 seconds every 30 seconds
+					This "spin phase" increases defense and damage by 100% and damages nearby enemies
+					Attacks fire either a laser, rocket or grenade
+					'''
+			}
+
+			TwinsSoulCrystal: {
+				DisplayName: Soul Crystal (The Twins)
+				Tooltip:
+					'''
+					Projectiles inflict either Ichor or Cursed Inferno
+					Melee hits inflict both debuffs
+					Taking damage summons a shadow double of you to strike back with 100% of damage taken
+					'''
+			}
+
+			PlantSoulCrystal: {
+				DisplayName: Soul Crystal (Plantera)
+				Tooltip:
+					'''
+					Spawn up to 8 tentacles over the course of 40 seconds
+					Attacks fire a petal that inflicts venom
+					Passive 15% increase in movement speed, 10% damage increase and increased life regen
+					'''
+			}
+
+			GolemSoulCrystal: {
+				DisplayName: Soul Crystal (Golem)
+				Tooltip:
+					'''
+					Grants the effects of Shiny Stone
+					While under 50% max life, gain increased life regen and summon a Golem head above you
+					'''
+			}
+
+			DukeSoulCrystal: {
+				DisplayName: Soul Crystal (Duke Fishron)
+				Tooltip:
+					'''
+					Increased max flight time
+					Summon a Sharknado over your head
+					'''
+			}
+
+			EmpressSoulCrystal: {
+				DisplayName: Soul Crystal (Empress of Light)
+				Tooltip:
+					'''
+					Increased max flight time and permanent Shine and Night Owl buffs
+					Daytime increased damage by 20% and nighttime increases defense by 20
+					Hitting enemies summons a twilight lance for a second strike
+					'''
+			}
+
+			LunaticSoulCrystal: {
+				DisplayName: Soul Crystal (Lunatic Cultist)
+				Tooltip:
+					'''
+					Summons a magic circle behind you that fires ice fragments at your cursor
+					Gives a chance to dodge attacks
+					Every dodge increases ice fragments fired by 1, up to 5 total
+					'''
+			}
+
+			LordSoulCrystal: {
+				DisplayName: Soul Crystal (Moon Lord)
+				Tooltip:
+					'''
+					Taking over 100 damage summons a True Eye of Cthulhu
+					You can have up to 2 of these
+					Another True EoC stays beside you and attacks at your cursor
+					'''
+			}
+
+			LandSoulCrystal.DisplayName: Soul Crystal (Senterra)
+			TimeSoulCrystal.DisplayName: Soul Crystal (Genesis)
+			DeathSoulCrystal.DisplayName: Soul Crystal (Elizabeth Norman)
+
+			# Slayer boxes coming eventually
+			
+			# Tools
+			MagicOcarina: {
+				DisplayName: Magic Ocarina
+				Tooltip: "'The instrument of a timely hero'"
+			}
+
+			Necronomicon: {
+				DisplayName: Necronomicon
+				Tooltip: ""
+			}
+
+			RedAreusDrill: {
+				DisplayName: Red Areus Drill
+				Tooltip: "'Extremely dangerous... and fun!'"
+			}
+
+			RedAreusChainsaw: {
+				DisplayName: Red Areus Chainsaw
+				Tooltip:
+					'''
+					Can also cut down walls for some reason
+					Use right click to toggle breaking walls
+					'''
+			}
+
+			RedAreusPickaxe: {
+				DisplayName: Red Areus Pickaxe
+				Tooltip: ""
+			}
+
+			SpidersMechanicalClock: {
+				DisplayName: Spider's Mechanical Clock
+				Tooltip:
+					'''
+					Saves your current position after 5 seconds, use to teleport to saved position
+					All stats you had in that save are regained
+					There's an engraving on the back
+					'-A gift to you, my beloved little sister <3'
+					Must be used in hot-bar
+					'''
+			}
+
+			SoulExtractingDagger: {
+				DisplayName: Soul Extracting Dagger
+				Tooltip:
+					'''
+					Right click to cycle between absorbed Soul Crystals
+					Use to extract the currently selected Soul Crystal
+					'''
+			}
+
+			AreusBullet: {
+				# Weapons
+				# Ammo
+				DisplayName: Areus Bullet
+				Tooltip: ""
+			}
+
+			BB: {
+				DisplayName: Cheap Round
+				Tooltip: May shatter when firing
+			}
+
+			SpectralArrow: {
+				DisplayName: Spectral Arrow
+				Tooltip: ""
+			}
+
+			SpectralBullet: {
+				DisplayName: Spectral Bullet
+				Tooltip: ""
+			}
+
+			AreusAssaultRifle: {
+				# Areus
+				DisplayName: Areus Assault Rifle
+				# Weapons
+				# Areus
+				Tooltip:
+					'''
+					Right click to switch between 3 modes: Semi-auto, Burst Fire and Full-auto
+					66% chance to not consume ammo
+					'Ugh!'
+					'''
+			}
+
+			AreusBow: {
+				DisplayName: Areus Bow
+				Tooltip: Brilliant light show
+			}
+
+			AreusDagger: {
+				DisplayName: Areus Dagger
+				Tooltip: ""
+			}
+
+			AreusGlaive: {
+				DisplayName: Areus Glaive
+				Tooltip: ""
+			}
+
+			AreusKatana: {
+				DisplayName: Areus Katana
+				Tooltip:
+					'''
+					Holding this weapon increases your movement speed by 5%
+					'I am all out of milk'
+					'''
+			}
+
+			AreusMagnum: {
+				DisplayName: Areus Magnum
+				Tooltip: "'Headshots do not crit'"
+			}
+
+			AreusRailgun: {
+				DisplayName: Areus Rail-gun
+				Tooltip: ""
+			}
+
+			AreusSaber: {
+				DisplayName: Areus Saber
+				Tooltip: "'The pinnacle of areus weapon technology'"
+			}
+
+			AreusStaff: {
+				DisplayName: Areus Staff
+				Tooltip: ""
+			}
+
+			AreusSword: {
+				DisplayName: Areus Sword
+				Tooltip: ""
+			}
+
+			AreusTrimmedTome: {
+				DisplayName: Areus Trimmed Tome
+				Tooltip: ""
+			}
+
+			BrokenAreusMirror: {
+				DisplayName: Broken Areus Mirror
+				Tooltip:
+					'''
+					Summons a broken Areus Mirror that shoots homing Mirror Shards
+					Use again to shatter the mirror into 6 shards that deal 1/3 damage each
+					Only one mirror can be out at a time
+					'''
+			}
+
+			TheMourningStar: {
+				DisplayName: The Mourning Star
+				Tooltip:
+					'''
+					'The blade has turned dark and lost its electrical properties'
+					Absorbs blood on hitting enemies
+					Absorbs even more blood on killing enemies
+					Shooting projectiles costs 10 blood
+					'''
+			}
+
+			AlphaSpectrum: {
+				DisplayName: Alpha Spectrum
+				Tooltip:
+					'''
+					Hold use to charge with mana
+					Release use to fire off a barrage of lasers
+					'This is your final warning'
+					'''
+			}
+
+			Gunsword: {
+				DisplayName: Gun-Sword
+				# Magic
+				Tooltip:
+					'''
+					Fires a straight shooting musket in a corruption world or in the corruption biome
+					Fires a wild undertaker in a crimson world or in the crimson biome
+					'I think it's broken..'
+					'''
+			}
+
+			Pandora: {
+				DisplayName: Frostspark Staff
+				Tooltip:
+					'''
+					Summons 2 Frostspark Drones to fight for you
+					Alt-fire shoots ice bolts
+					'Destiny of destruction awaits'
+					'''
+			}
+
+			PerishSong: {
+				DisplayName: Perish Song
+				Tooltip: "'I M  D E A D'"
+			}
+
+			PlumeCodex: {
+				DisplayName: Plume Codex
+				Tooltip: ""
+			}
+
+			ScreamLantern: {
+				DisplayName: Trapped Soul Lantern
+				Tooltip:
+					'''
+					Fires a 2 burst of shockwaves that can bounce off of tiles
+					Shockwaves get faster after each bounce
+					'No voice to cry suffering'
+					'''
+			}
+
+			WormTench: {
+				DisplayName: Worm Tench
+				Tooltip: "'Gross, absolutely vile..'"
+			}
+
+			# Melee
+			BloodScythe.DisplayName: Blood Scythe
+
+			Cataracnia: {
+				DisplayName: Cataracnia
+				# Melee
+				Tooltip: "'The blade wielded by the All Seer'"
+			}
+
+			CrossDagger: {
+				DisplayName: Cross Dagger
+				Tooltip:
+					'''
+					A blade that heals 100 Life after striking an enemy
+					Taking damage while this is in your inventory will disable this effect for a time
+					'''
+			}
+
+			EntropySlicer: {
+				DisplayName: Entropy Slicer
+				Tooltip:
+					'''
+					Dashing increases damage for a short time
+					'Cut through the very fabric of life and escalate the heat death of the universe'
+					'''
+			}
+
+			GenesisAndRagnarok: {
+				DisplayName: Genesis and Ragnarok
+				Tooltip:
+					'''
+					If an attack is not followed up after an attack, the combo will reset
+					Use RMB to bring up a shield, release RMB to throw the shield
+					This shield grants 20 defense and is capable of parrying and reflecting some projectiles
+					'''
+			}
+
+			Gomorrah: {
+				DisplayName: Gomorrah
+				Tooltip:
+					'''
+					Use RMB to throw a spear
+					Sticking 8 spears into the same target causes a large burst of damage
+					'''
+			}
+
+			HeroSword: {
+				DisplayName: Hero Sword
+				Tooltip: "'The sword of a long forgotten hero'"
+			}
+
+			Prometheus: {
+				DisplayName: Energy Scythe
+				Tooltip:
+					'''
+					Left Click to swing an energy scythe, Right click to throw a fireball
+					'It seems like you're worthy of playing his little game, his game of destiny!'
+					'''
+			}
+
+			ReactorMeltdown: {
+				DisplayName: Reactor Meltdown
+				Tooltip: "'Sussus Moogus'"
+			}
+
+			Satanlance: {
+				DisplayName: ecnatnataS
+				Tooltip: "'You feel like you can do anything'"
+			}
+
+			TheMessiah: {
+				DisplayName: The Messiah
+				Tooltip:
+					'''
+					Passively charges while in hand and not in use
+					Max charge level increases damage by 200% and critical strike chance by 60%
+					'I am the messiah!'"
+					'''
+			}
+
+			ValkyrieBlade: {
+				DisplayName: Hardlight Blade
+				Tooltip: ""
+			}
+
+			ValkyrieStorm: {
+				DisplayName: Valkyrie Storm
+				Tooltip: "'Rains feather blades on your enemies!'"
+			}
+
+			ValkyrieStormLance: {
+				DisplayName: Storm Lance
+				Tooltip: Briefly shocks enemies
+			}
+
+			War: {
+				DisplayName: Providence Claymore
+				Tooltip: ""
+			}
+
+			WormBloom: {
+				DisplayName: Worm Bloom
+				Tooltip: ""
+			}
+
+			Yamiko: {
+				DisplayName: Yamiko
+				Tooltip: "'I'm not tsundere! You're tsundere!'"
+			}
+
+			Zenova: {
+				DisplayName: Zenova
+				Tooltip:
+					'''
+					Use Right click to fire a continuous, accurate steam of weapons
+					'Zenith's older sister'
+					'RANDOM BULLS**T GO!'
+					'''
+			}
+
+			BlackHoleRepeater: {
+				DisplayName: Black Hole Repeater
+				# Ranged
+				Tooltip: Converts regular arrows into powerful Black Hole Bolts
+			}
+
+			Coilgun: {
+				# Ranged
+				DisplayName: Coil-gun
+				Tooltip:
+					'''
+					'Uses electromagnetic coils to fire projectiles at insane velocities'
+					'Areus Rail-gun's older brother'
+					'''
+			}
+
+			DoubleBow: {
+				DisplayName: Double Bow
+				Tooltip:
+					'''
+					Fires Cursed Arrows, Ichor arrows and lasers
+					'It's called 'Double Bow' and shoots 3 projectiles???'
+					'''
+			}
+
+			DownBow: {
+				DisplayName: Down Bow
+				Tooltip: ""
+			}
+
+			HandCanon: {
+				DisplayName: Hand Cannon
+				Tooltip:
+					'''
+					Charges passively when not in use
+					After 5 seconds of charging damage is increased and fire a burst of 3 grenades
+					'Demoman TF2'
+					'''
+			}
+
+			HecateII.DisplayName: Hecate II
+
+			HeroGun: {
+				DisplayName: Hero Gun
+				Tooltip: "'The gun of a long forgotten hero'"
+			}
+
+			HuntingRifle: {
+				DisplayName: Hunting Rifle
+				Tooltip: ""
+			}
+
+			Magnus: {
+				DisplayName: Magnus
+				Tooltip: ""
+			}
+
+			P90: {
+				DisplayName: P90
+				Tooltip: Right click to switch between 2 modes: Semi and Full-auto
+			}
+
+			Pantheon: {
+				DisplayName: Pantheon
+				Tooltip:
+					'''
+					Right click with Gold or Platinum bars in inventory to increase projectiles fired by 1
+					Fires up to 5 projectiles
+					Resets after death
+					'''
+			}
+
+			PhantomRose: {
+				DisplayName: Phantom Rose
+				Tooltip:
+					'''
+					Shoots an extra Phantom Bullet
+					48% chance to not consume ammo
+					'Scarlet's younger sister'
+					'''
+			}
+
+			Scarlet: {
+				DisplayName: Scarlet Rose
+				Tooltip:
+					'''
+					Shoots powerful Luminite Bullets
+					66% chance to not consume ammo
+					'''
+			}
+
+			DragonSpineWhip: {
+				DisplayName: Dragon Spine Whip
+				# Summon
+				Tooltip:
+					'''
+					26 summon tag damage
+					Your summons will focus struck enemies
+					'''
+			}
+
+			FlailOfFlesh: {
+				# Summon
+				DisplayName: Flail of Flesh
+				Tooltip:
+					'''
+					Throws 3-6 Hungry
+					'Your very own Hungry as a pet! Adorable..?'
+					'''
+			}
+
+			NestlingStaff: {
+				DisplayName: Nestling Staff
+				Tooltip: Summons a fledgling harpy knight to fight for you
+			}
+
+			KingsKusarigama: {
+				DisplayName: King's Kusarigama
+				# Throwing
+				Tooltip:
+					'''
+					Swings a gel kusarigama
+					Use RMB to throw a gravity affected kusarigama
+					'Cowabunga it is'
+					'''
+			}
+
+			MetalBlade: {
+				# Throwing
+				DisplayName: Metal Blade
+				Tooltip: "'Cut a new path for your foes, a path of pain!'"
+			}
+
+			HardlightKnife: {
+				DisplayName: Hardlight Knife
+				Tooltip: ""
+			}
+
+			MegaGemCore: {
+				DisplayName: Mega Gem Core
+				Tooltip:
 					'''
 					Counts as wings
 					Increases max life by 100
@@ -474,863 +1450,539 @@ Mods: {
 					All weapons autoswing
 					Grants immunity to damage dealing, damage and defense reducing, most anti-healing and cold debuffs
 					Grants Ironskin and Endurance when dealing damage and Wrath, Rage and Inferno when taking damage
-					Effects of Ankh Shield, Bundle of Balloons, Charm of Myths, Frozen Turtle Shell, and Terrasparrk Boots
+					Effects of Ankh Shield, Bundle of Balloons, Charm of Myths, Frozen Turtle Shell, and Terraspark Boots
 					Permanent Thorns, Heart Lantern, Cozy Campfire, Heartreach and Gravitation buffs
 					Use to disable Gravitation
 					Grants flight and slow fall
 					'''
-			AreusKey:
-				'''
-				Unlocks your true potential
-				'Now, nothing but your own competence holds you back!'
-				'''
-			Biometal:
-				'''
-				Transforms the wearer into a Mega Man
-				25% Increased damage
-				Increases movement speed by 10%
-				Increased max life by 100 and max mana by 40
-				Grants dash, wall sliding and immunity to fall damage
-				'''
-			EntropicWings: Allows flight and grants slow fall
-			GildedValkyrieWings: "'The hardlight grants extra protection without impeding movement'"
-			HardlightBraces: Attacks create 4 hardlight blades to inflict further damage
-			RushDrive: Gives the user a 'phase 2' when below 50% life
-			TomeOfOmniscience: "Allows the wearer to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration"
-			ValkyrieCrown:
-				'''
-				Attacks shock enemies briefly
-				Summons two orbiting Hardlight Swords
-				'''
+			}
 
-			# Armor
-			EntropicHood: 6% increased damage and critical strike chance
-			EntropicRobe: 12% increased damage and critical strike chance
-			EntropicLeggings:
-				'''
-				8% increased damage and critical strike chance
-				10% increased movement speed
-				'''
+			OmegaKey: {
+				DisplayName: Omega Key
+				Tooltip: ""
+			}
 
-			# Boss summons
-			# AreusSnakeScale: Summons the Goddess of Life and Earth
-			PottedPlant: Summons Plantera in the Underground Jungle
-			# SpiderClock: Summons the Goddess of Time and Magic
-			ValkyrieCrest: Summons a powerful Valkyrie
+			SinfulSoul: {
+				DisplayName: Sinful Soul
+				Tooltip: ""
+			}
 
-			# Dev items
-				# The Eternal Ace
-			AceOfSpades:
-				'''
-				Use RMB to detonate thrown cards
-				'What is that object?'
-				'''
-			AcesGoldFoxMask: "'Great for impersonating devs!'"
-			AcesJacket:
-				'''
-				'Great for impersonating devs!'
-				'Pockets included!'
-				'''
-			AcesPants: "'Great for impersonating devs!'"
-				# nightlight
-			CoatOfnight:
-				'''
-				'Great for impersonating devs!'
-				'no cap'
-				'''
-			Nightlight:
-				'''
-				'Great for impersonating devs!'
-				'This is what peak performance looks like!'
-				'''
-				# DaluyanMesses
-			StatueOfDaluyan:
-				'''
-				'Great for impersonating devs!'
-				'That's Fool's Gold! That ain't worth nothing!'
-				'''
+			WandOfHealing: {
+				DisplayName: Wand Of Healing
+				Tooltip:
+					'''
+					'Converts Mana into Life'
+					Taking damage while this is in your inventory will render this unusable for a time
+					'''
+			}
 
-			# Grab bags
-			AmmoBag: Gives a stack of a random ammo
-			AmmoBag_Arrow: Gives a stack of a random arrow
-			AmmoBag_Bullet: Gives a stack of a random bullet
-			AmmoBag_Rocket: Gives a stack of a random rocket
+			AreusArrow: {
+				DisplayName: Areus Arrow
+				Tooltip: ""
+			}
 
-			# Materials
-			BrokenHeroGun: "'The broken gun of a long forgotten hero'"
-			ChargedFeather: "'Electricity flows between its barbs'"
-			FragmentEntropy: "'Feelings of universal decay emanate from this fragment'"
-			MemoryFragment:
-				'''
-				Can be used to upgrade Genesis and Ragnarok
-				'The faint voice of a young boy echoes from within'
-				'''
-			SoulOfDaylight:
-				'''
-				'The essence of daytime creatures'
-				Disappears after the sunset
-				'''
-			SoulOfSpite: "'The essence of hateful creatures'"
-			SoulOfTwilight:
-				'''
-				'The essence of nighttime creatures'
-				Disappears after the sunset
-				'''
+			AreusTwinSabers: {
+				DisplayName: Areus Twin Sabers
+				Tooltip: ""
+			}
 
-			# Misc
-			OverdriveEnergyPack: Refills Overdrive Time
-			RepairKit_Lesser:
-				'''
-				Repairs 20 defense
-				'Another satisfied customer!'
-				'''
-			RepairKit:
-				'''
-				Repairs 30 defense
-				'Another satisfied customer!'
-				'''
-			RepairKit_Greater:
-				'''
-				Repairs 40 defense
-				'Another satisfied customer!'
-				'''
-			RepairKit_Super:
-				'''
-				Repairs 50 defense
-				'Another satisfied customer!'
-				'''
+			AreusGrenade: {
+				DisplayName: Areus Grenade
+				Tooltip: ""
+			}
 
-			# Pet items
-			StrangeTissueSample: Summons a pet Creeper to follow you
-			SmallHardlightCrest:
-				'''
-				Summons a miniature Nova Stellar
-				'Adorableness from the heavens'
-				'''
-
-			# Place-ables
-			AreusShard: A shard of limitless electricity
-			BionicBarItem: "'It still pulsates as if it has a heartbeat...'"
-			BionicOreItem: "'It pulsates as if it has a heartbeat...'"
-			CobaltWorkbenchItem: Works in place of Mythril Anvil
-			PalladiumWorkbenchItem: Works in place of Mythril Anvil
-
-			# Potions
-			BoneMarrowInjection: Strengthens your bones
-			ChargedFlightPotion: Increases flight time by 34
-			ConductivityPotion: "Increases electric weapon damage by 15% and duration of Electric Shock by 100%"
-			SoulInjection:
-				'''
-				Damages you but grants the following:
-				Increased damage, movement speed and defense
-				Grants life regen
-				'Recommended by 0/10 doctors'
-				'''
-
-			# Sinful
-			EnvySoul:
-				'''
-				Consecutive strikes on an enemy will increase the damage they take by 1
-				Darkness debuff
-				'''
-			GluttonySoul:
-				'''
-				Increases melee damage by 15%
-				Defense reduced by 7
-				Lose life when not fed
-				Critical strikes on enemies creates a food chunk that will heal you when it makes contact
-				If an attack kills an enemy the food chunk will heal for more
-				'''
-			GreedSoul:
-				'''
-				Every gold coin in your inventory increases damage by 5% and reduces defense by 2
-				All coins disappear on death
-				'''
-			LustSoul:
-				'''
-				Increases max minions by 3
-				Damage reduced by 20%
-				Lovestruck buff
-				Damaging enemies may cause them to drop hearts
-				'''
-			PrideSoul:
-				'''
-				Every 10 seconds of not taking damage increases damage by 2%
-				Using a weapon that fires a projectile increases Shots Fired
-				Damaging an enemy with a non-summon projectile increases Shots Hit
-				If Shots Landed is not equal to Shots Fired after 5 seconds, your are weakened severely
-				Otherwise, damage is increased by 50%
-				Shots Fired = {0} | Shots Hit = {1}
-				'''
-			SlothSoul:
-				'''
-				Decreased movement speed by 25%
-				Increased summon damage by 25%
-				While not moving, all damage is increased by 20% and defense by 10
-				'''
-			WrathSoul:
-				'''
-				Each time damage is taken damage is increased by 1%
-				Once damage bonus goes to 5% increase, crit chance starts to go up by 1% as well
-				Dying increases both by 5%
-				There is no limit to these boosts
-				Boots slowly decrease while out of combat
-				Current damage increase: +{0}%
-				Current critical strike chance increase: +{1}%
-				'''
-			VirtuousDagger:
-				'''
-				Replaces your current sin with a holy buff
-				Use another to remove this holy buff
-				Shatters on use
-				'''
-			SinfulArmament: Transforms into a weapon based on your sin
-
-			# Soul Crystals
-			KingSoulCrystal:
-				'''
-				Increased life and mana regen
-				After taking damage, your next hit will heal 25% of that damage taken
-				'''
-			EyeSoulCrystal:
-				'''
-				Summon 3 Servants after 5 seconds, these Servants will chase down enemies
-				Also creates an All Seeing Eye that lights up the cursor and marks enemies, making them take 10% more damage
-				'''
-			BrainSoulCrystal:
-				'''
-				Spawns 4 Creepers
-				While Creepers are alive you are invulnerable and cannot attack
-				Gain a temporary 20% damage boost when all of the creepers die
-				Creepers take 1 minute to respawn
-				Cannot be immune to knockback
-				'''
-			EaterSoulCrystal:
-				'''
-				Grants one revive and shoots a vile shot when using a weapon
-				Revive has a 5 minute cooldown
-				'''
-			BeeSoulCrystal:
-				'''
-				Attacks inflict Poisoned and shoot stingers
-				Spawn a bee every 10 seconds while in combat
-				'''
-			SkullSoulCrystal:
-				'''
-				While in combat enter a "spin phase" for 5 seconds every 30 seconds
-				This "spin phase" increases defense and damage by 50% and damages nearby enemies
-				Attacks fire a homing skull
-				'''
-			ValkyrieSoulCrystal:
-				'''
-				Grants 8 defense, wing flight time boost and a dash that leaves behind an electric trail
-				Attacks create 4 closing feather blades in an x pattern
-				Getting hit by an enemy gives them Electric Shock
-				'''
-			DeerclopsSoulCrystal:
-				'''
-				For every nearby NPC your damage is increased by 5% and your defense is increased by 10
-				This increase caps at 15% increased damage and 15 defense
-				Summons shadow hands on taking damage
-				'''
-			WallSoulCrystal:
-				'''
-				Summon 5 friendly The Hungry over the course of 5 seconds
-				'''
-			QueenSoulCrystal:
-				'''
-				Increased life and mana regen
-				After taking damage, your next hit will heal 50% of that damage
-				'''
-			DestroyerSoulCrystal:
-				'''
-				Summon a Destroyer's Probe that fires at your cursor besides you
-				Taking over 100 damage spawns another temporary Destroyer's Probe that will fire at nearby enemies
-				You can have up to five of these "attack probes"
-				'''
-			PrimeSoulCrystal:
-				'''
-				While in combat enter a "spin phase" for 5 seconds every 30 seconds
-				This "spin phase" inceases defense and damage by 100% and damages nearby enemies
-				Attacks fire either a laser, rocket or grenade
-				'''
-			TwinsSoulCrystal:
-				'''
-				Projectiles inflict either Ichor or Cursed Inferno
-				Melee hits inflict both debuffs
-				Taking damage summons a shadow double of you to strike back with 100% of damage taken
-				'''
-			PlantSoulCrystal:
-				'''
-				Spawn up to 8 tentacles over the course of 40 seconds
-				Attacks fire a petal that inflicts venom
-				Passive 15% increase in movement speed, 10% damage increase and increased life regen
-				'''
-			GolemSoulCrystal:
-				'''
-				Grants the effects of Shiny Stone
-				While under 50% max life, gain increased life regen and summon a Golem head above you
-				'''
-			DukeSoulCrystal:
-				'''
-				Increased max flight time
-				Summon a Sharknado over your head
-				'''
-			EmpressSoulCrystal:
-				'''
-				Increased max flight time and permanent Shine and Night Owl buffs
-				Daytime increased damage by 20% and nighttime increases defense by 20
-				Hitting enemies summons a twilight lance for a second strike
-				'''
-			LunaticSoulCrystal:
-				'''
-				Summons a magic circle behind you that fires ice fragments at your cursor
-				Gives a chance to dodge attacks
-				Every dodge increases ice fragments fired by 1, up to 5 total
-				'''
-			LordSoulCrystal:
-				'''
-				Taking over 100 damage summons a True Eye of Cthulhu
-				You can have up to 2 of these
-				Another True EoC stays beside you and attacks at your cursor
-				'''
-			# LandSoulCrystal:
-			# TimeSoulCrystal:
-			# DeathSoulCrystal:
-
-			# Tools
-			#MagicOcarina: "'The instrument of a timely hero'"
-			RedAreusDrill: "'Extremely dangerous... and fun!'"
-			RedAreusChainsaw:
-				'''
-				Can also cut down walls for some reason
-				Use right click to toggle breaking walls
-				'''
-			SoulExtractingDagger:
-				'''
-				Right click to cycle between absorbed Soul Crystals
-				Use to extract the currently selected Soul Crystal
-				'''
-			SpidersMechanicalClock:
-				'''
-				Saves your current position after 5 seconds, use to teleport to saved position
-				All stats you had in that save are regained
-				There's an engraving on the back
-				'-A gift to you, my beloved little sister <3'
-				Must be used in hot-bar
-				'''
-			WandOfHealing:
-				'''
-				'Converts Mana into Life'
-				Taking damage while this is in your inventory will render this unusable for a time
-				'''
-
-			# Weapons
-				# Areus
-			AreusAssaultRifle:
-				'''
-				Right click to switch between 3 modes: Semi-auto, Burst Fire and Full-auto
-				66% chance to not consume ammo
-				'Ugh!'
-				'''
-			AreusBow: 'Brilliant light show'
-			AreusKatana:
-				'''
-				Holding this weapon increases your movement speed by 5%
-				'I am all out of milk'
-				'''
-			AreusMagnum: "'Headshots do not crit'"
-			AreusSaber: "'The pinnacle of areus weapon technology'"
-			BrokenAreusMirror:
-				'''
-				Summons a broken Areus Mirror that shoots homing Mirror Shards
-				Use again to shatter the mirror into 6 shards that deal 1/3 damage each
-				Only one mirror can be out at a time
-				'''
-			TheMourningStar:
-				'''
-				'The blade has turned dark and lost its electrical properties'
-				Absorbs blood on hitting enemies
-				Absorbs even more blood on killing enemies
-				Shooting projectiles costs 10 blood
-				'''
-				# Magic
-			Gunsword:
-				'''
-				Fires a straight shooting musket in a corruption world or in the corruption biome
-				Fires a wild undertaker in a crimson world or in the crimson biome
-				'I think it's broken..'
-				'''
-			Pandora:
-				'''
-				Left Click to fire an ice bolt, Right click to summon lightning
-				'Destiny of destruction awaits'
-				'''
-			PerishSong: "'I M  D E A D'"
-			ScreamLantern:
-				'''
-				Fires a 2 burst of shockwaves that can bounce off of tiles
-				Shockwaves get faster after each bounce
-				'No voice to cry suffering'
-				'''
-			WormTench: "'Gross, absolutely vile..'"
-				# Melee
-			Cataracnia: "'The blade wielded by the All Seer'"
-			CrossDagger:
-				'''
-				A blade that heals 100 Life after striking an enemy
-				Taking damage while this is in your inventory will disable this effect for a time
-				'''
-			EntropySlicer:
-				'''
-				Dashing increases damage for a short time
-				'Cut through the very fabric of life and escalate the heat death of the universe'
-				'''
-			GenesisAndRagnarok:
-				'''
-				If an attack is not followed up after an attack, the combo will reset
-				Use RMB to bring up a shield, release RMB to throw the shield
-				This shield grants 20 defense and is capable of parrying and reflecting some projectiles
-				'''
-			GenesisAndRagnarokBase: Preforms a combo of a spear thrust and whip swing
-			GenesisAndRagnarokUpgrade1: Preforms a combo of a spear thrust, whip swing and spear throw
-			GenesisAndRagnarokUpgrade2:
+			GenesisAndRagnarokBase.Tooltip: Preforms a combo of a spear thrust and whip swing
+			GenesisAndRagnarokUpgrade1.Tooltip: Preforms a combo of a spear thrust, whip swing and spear throw
+			GenesisAndRagnarokUpgrade2.Tooltip:
 				'''
 				Preforms a combo of a spear thrust, whip swing and spear throw
 				Able to swing shield with LMB before it returns
 				'''
-			GenesisAndRagnarokUpgrade3:
+			GenesisAndRagnarokUpgrade3.Tooltip:
 				'''
 				Preforms a combo of a spear thrust, whip swing and spear throw
 				Able to swing shield with LMB before it returns
 				Attacks inflict 'On Fire!'
 				'''
-			GenesisAndRagnarokUpgrade4:
+			GenesisAndRagnarokUpgrade4.Tooltip:
 				'''
 				Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing
 				Able to swing shield with LMB before it returns
 				Sword can erase projectiles
 				Attacks inflict 'On Fire!'
 				'''
-			GenesisAndRagnarokUpgrade5:
+			GenesisAndRagnarokUpgrade5.Tooltip:
 				'''
 				Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing
 				Able to swing shield with LMB before it returns
 				Sword can erase projectiles
 				Attacks inflict Frostburn and create extra ice projectiles
 				'''
-			Gomorrah:
-				'''
-				Use RMB to throw a spear
-				Sticking 8 spears into the same target causes a large burst of damage
-				'''
-			HeroSword: "'The sword of a long forgotten hero'"
-			Prometheus:
-				'''
-				Left Click to swing an energy scythe, Right click to throw a fireball
-				'It seems like you're worthy of playing his little game, his game of destiny!'
-				'''
-			ReactorMeltdown: "'Sussus Moogus'"
-			Satanlance: "'You feel like you can do anything'"
-			TheMessiah:
-				'''
-				Passively charges while in hand and not in use
-				Max charge level increases damage by 200% and critical strike chance by 60%
-				'I am the messiah!'"
-				'''
-			ValkyrieStorm: "'Rains feather blades on your enemies!'"
-			ValkyrieStormLance: Briefly shocks enemies
-			War: ""
-			Yamiko: "'I'm not tsundere! You're tsundere!'"
-			Zenova:
-				'''
-				Use Right click to fire a continuous, accurate steam of weapons
-				'Zenith's older sister'
-				'RANDOM BULLS**T GO!'
-				'''
-				# Ranged
-			BlackHoleRepeater: Converts regular arrows into powerful Black Hole Bolts
-			Coilgun:
-				'''
-				'Uses electromagnetic coils to fire projectiles at insane velocities'
-				'Areus Rail-gun's older brother'
-				'''
-			DoubleBow:
-				'''
-				Fires Cursed Arrows, Ichor arrows and lasers
-				'It's called 'Double Bow' and shoots 3 projectiles???'
-				'''
-			Glock80: "'Automatic shotgun pistol, because it's funny'"
-			HandCanon:
-				'''
-				Charges passively when not in use
-				After 5 seconds of charging damage is increased and fire a burst of 3 grenades
-				'Demoman TF2'
-				'''
-			HeroGun: "'The gun of a long forgotten hero'"
-			MetalBlade: "'Cut a new path for your foes, a path of pain!'"
-			P90: Right click to switch between 2 modes: Semi and Full-auto
-			Pantheon:
-				'''
-				Right click with Gold or Platinum bars in inventory to increase projectiles fired by 1
-				Fires up to 5 projectiles
-				Resets after death
-				'''
-			PhantomRose:
-				'''
-				Shoots an extra Phantom Bullet
-				48% chance to not consume ammo
-				'Scarlet's younger sister'
-				'''
-			Scarlet:
-				'''
-				Shoots powerful Luminite Bullets
-				66% chance to not consume ammo
-				'''
-			TheAmbassador:
-				'''
-				'Never miss a shot again. Not like I could anyway.'
-				'''
-				# Summon
-			DragonSpineWhip:
-				'''
-				26 summon tag damage
-				Your summons will focus struck enemies
-				'''
-			FlailOfFlesh:
-				'''
-				Throws 3-6 Hungry
-				'Your very own Hungry as a pet! Adorable..?'
-				'''
-			NestlingStaff: Summons a fledgling harpy knight to fight for you
-				# Throwing
-				KingsKusarigama:
-					'''
-					Swings a gel kusarigama
-					Use RMB to throw a gravity affected kusarigama
-					'Cowabunga it is'
-					'''
+			Glock80.Tooltip: "'Automatic shotgun pistol, because it's funny'"
+			TheAmbassador.Tooltip: "'Never miss a shot again. Not like I could anyway.'"
+
+			GigavoltDelicacy: {
+				DisplayName: Gigavolt Delicacy
+				Tooltip: ""
+			}
+
+			HardlightPrism: {
+				DisplayName: Hardlight Prism
+				Tooltip: ""
+			}
 		}
 
-		ProjectileName: {
+		Projectiles: {
 			# Hooks
-			AreusTetherHook: Areus Tether
-			HardlightNeedleHook: Hardlight Needle
-
+			AreusTetherHook.DisplayName: Areus Tether
+			HardlightNeedleHook.DisplayName: Hardlight Needle
 			# Minions
-			AreusMirror: Areus Mirror
-			AreusMirrorShard: Areus Mirror Shard
-			CultistRitual: Ice Circle
-			GolemHead: Golem Head
-			IceFragment: Ice Fragment
-			Servant: Servant of You
-			Sharknado: Sharknado
-			TheDestroyersProbe: "The Destroyer's Probe"
-			TheDestroyersProbeAttack: "The Destroyer's Probe"
-			TheHungry: The Hungry
-			TrueEyeOfCthulhu: True Eye of Cthulhu
-			TrueEyeOfCthulhuAttack: True Eye of Cthulhu
-			YoungHarpy: Fledgling Knight
-			YourTentacle: Your Tentacle
-
+			AreusMirror.DisplayName: Areus Mirror
+			AreusMirrorShard.DisplayName: Areus Mirror Shard
+			CultistRitual.DisplayName: Ice Circle
+			GolemHead.DisplayName: Golem Head
+			IceFragment.DisplayName: Ice Fragment
+			Servant.DisplayName: Servant of You
+			Sharknado.DisplayName: Sharknado
+			TheDestroyersProbe.DisplayName: The Destroyer's Probe
+			TheDestroyersProbeAttack.DisplayName: The Destroyer's Probe
+			TheHungry.DisplayName: The Hungry
+			TrueEyeOfCthulhu.DisplayName: True Eye of Cthulhu
+			TrueEyeOfCthulhuAttack.DisplayName: True Eye of Cthulhu
+			YoungHarpy.DisplayName: Fledgling Knight
+			YourTentacle.DisplayName: Your Tentacle
 			# NPCs
-				# Nova Stellar
-			ElectricTrail: Electric Trail
-			FeatherBlade: Hardlight Feather
-			LightningBolt: Lightning Bolt
-			LightningBoltSpawner: Lightning Bolt Spawner
-			StormCloud: Storm Cloud
-			StormCloudPunisher: Storm Cloud Fatal
-			StormLance: Storm Lance
-			StormSword: Storm Sword
-				# Variant NPC
-			Blood: Blood Feather
-			Stone: Stone Feather
-			Crystal: Crystal Feather
-			Void: Void Feather
-			Snow: Snow Feather
-			Poison: Poison Feather
-			Static: Static Feather
-			Vile: Vile Feather
-			TidalWave: Tidal Wave
-			CactusNeedle: Cactus Needle
-			FlamePillar: Flame Pillar
-				# Other
-			CreeperHitbox: "Creeper, aw man"
-
+			# Nova Stellar
+			ElectricTrail.DisplayName: Electric Trail
+			FeatherBlade.DisplayName: Hardlight Feather
+			LightningBolt.DisplayName: Lightning Bolt
+			LightningBoltSpawner.DisplayName: Lightning Bolt Spawner
+			StormCloud.DisplayName: Storm Cloud
+			StormCloudPunisher.DisplayName: Storm Cloud Fatal
+			StormLance.DisplayName: Storm Lance
+			StormSword.DisplayName: Storm Sword
+			# Variant NPC
+			Blood.DisplayName: Blood Feather
+			Stone.DisplayName: Stone Feather
+			Crystal.DisplayName: Crystal Feather
+			Void.DisplayName: Void Feather
+			Snow.DisplayName: Snow Feather
+			Poison.DisplayName: Poison Feather
+			Static.DisplayName: Static Feather
+			Vile.DisplayName: Vile Feather
+			TidalWave.DisplayName: Tidal Wave
+			CactusNeedle.DisplayName: Cactus Needle
+			FlamePillar.DisplayName: Flame Pillar
 			# Other
-			CrystalExplosion: CrystalExplosion
-			ElectricTrailFriendly: Electric Trail
-			FoodChunk: Food Chunk
-			GolemBeam: Golem Beam
-			HolyExplosion: Holy Fire Explosion
-			PhantasmalEye: Phantasmal Eye
-			SapphireShield: Sapphire Shell
-			ShadowTendrils: Shadow Tendrils
-			SpinPrime: Spin Skull Prime
-			SpinSkull: Spin Skull
-			Stinger: Stinger
-			VenomSeed: Venom Seed
-
+			CreeperHitbox.DisplayName: Creeper, aw man
+			CrystalExplosion.DisplayName: CrystalExplosion
+			ElectricTrailFriendly.DisplayName: Electric Trail
+			FoodChunk.DisplayName: Food Chunk
+			GolemBeam.DisplayName: Golem Beam
+			HolyExplosion.DisplayName: Holy Fire Explosion
+			PhantasmalEye.DisplayName: Phantasmal Eye
+			SapphireShield.DisplayName: Sapphire Shell
+			ShadowTendrils.DisplayName: Shadow Tendrils
+			SpinPrime.DisplayName: Spin Skull Prime
+			SpinSkull.DisplayName: Spin Skull
+			Stinger.DisplayName: Stinger
+			VenomSeed.DisplayName: Venom Seed
 			# Pets
-			PetCreeper: Pet Creeper
-			SmolNova: Smol Nova
-
+			PetCreeper.DisplayName: Pet Creeper
+			SmolNova.DisplayName: Smol Nova
 			# Tools
-			AllSeeingEye: All Seeing Eye
-			ExtractingSoul: Soul Extracting Dagger
-			RedAreusDrillProj: Red Areus Drill
-			RedAreusChainsawProj: Red Areus Chainsaw
-
+			AllSeeingEye.DisplayName: All Seeing Eye
+			ExtractingSoul.DisplayName: Soul Extracting Dagger
+			RedAreusDrillProj.DisplayName: Red Areus Drill
+			RedAreusChainsawProj.DisplayName: Red Areus Chainsaw
 			# Weapons
-				# Ammo
-			AreusBulletProj: Areus Bullet
-			BBProj: BB
-			SpectralArrowProj: Spectral Arrow
-			SpectralBulletProj: Spectral Bullet
-				# Areus
-			AreusArrow: Areus Arrow
-			AreusDaggerProj: Areus Dagger
-			AreusGlaive_Swing: Areus Glaive
-			AreusGlaive_Throw: Areus Glaive
-			AreusGlaive_Thrust: Areus Glaive
-			AreusGlaive_Thrust2: Areus Glaive
-			AreusSlash1: Areus Slash
-			AreusSlash2: Areus Slash
-			AreusSlash3: Areus Slash
-			AreusSlash4: Areus Slash
-			ElectricBlade: Electric Blade
-			ElectricOrb: Electric Orb
-				# Magic
-			DeathNote: Death Note
-			GunCorruption: Musket
-			CunCrimson: The Undertaker
-			IceBolt: Ice Bolt
-			LightningBoltFriendly: Lightning Bolt
-			ScreamShockwave: Scream Shock Wave
-			VileShot: Vile Shot
-				# Melee
-			BloodCutter: Blood Cutter
-			CorruptPetal: Corrupt Petal
-			CorruptRose: Corrupt Rose
-			EntropyBlade: Entropy Blade
-			EntropySlash: Entropy Slash
-			FeatherBladeFriendly: Hardlight Feather
-			Genesis_Spear: Genesis
-			Genesis_Spear2: Genesis
-			Genesis_Sword: Genesis
-			Genesis_Whip: Genesis
-			Gomorrah_Burst: Gomorrah Explosion
-			Gomorrah_Javelin: Gomorrah
-			Gomorrah_Spear: Gomorrah
-			HeroBlade: Hero Blade
-			IceExplosion: Ice Explosion
-			IceShard: Ice Shard
-			IceVortexShard: Ice Shard
-			MessiahAirSlash: Air Slash
-			MessiahChargedSlash: Charge Slash
-			MessiahRanbu1: Ranbu 1
-			MessiahRanbu2: Ranbu 2
-			MessiahRanbu3: Ranbu 3
-			MessiahRanbu4: Ranbu 4
-			MessiahRanbu5: Ranbu 5
-			ReactorMeltdownProj: Reactor Meltdown
-			SatanlanceProj: ecnalnataS
-			SoulBlade: Soul Blade
-			ValkyrieStormLanceProj: Storm Lance
-			ZenovaAreusSword: Areus Sword
-			ZenovaBoneJavelin: Bone Javelin
-			ZenovaBreakerBlade: Breaker Blade
-			ZenovaChlorophyteSaber: Chlorophyte Saber
-			ZenovaDaybreak: Daybreak
-			ZenovaLostNail: Lost Nail
-			ZenovaProj: Zenova
-			ZenovaProjectile: Zenova Weapons
-		 	ZenovaSatanlance: ecnalnataS
-			ZenovaWoodenSword: Wooden Sword
-				# Ranged
-			AceOfSpadesProj: Ace of Spades
-			AmbassadorShot: Magnus Bullet
-			BlackHole: Black Hole
-			BlackHoleBolt: Black Hole Bolt
-			FieryExplosion: Fiery Explosion
-			HeroBullet: Hero Bullet
-			LaserArrow: Laser Arrow
-			MetalBladeProjStick: Metal Blade
-			PhantomBullet: Phantom Bullet
-			PrometheusFire: Prometheus Fire
-			SoulArrow: Soul Arrow
-				# Summon
-			DragonSpineWhipProj: Dragon Spine
-			FlailOfFleshProj: Leashed Hungry
-			SoulDagger: Soul Dagger
-				# Throwing
-			KusarigamaKing: "King's Kusarigama"
-			MetalBladeProj: Metal Blade
-			HardlightKnifeProj: Hardlight Knife
+			# Ammo
+			AreusBulletProj.DisplayName: Areus Bullet
+			BBProj.DisplayName: Cheap Round
+			SpectralArrowProj.DisplayName: Spectral Arrow
+			SpectralBulletProj.DisplayName: Spectral Bullet
+			# Areus
+			AreusArrow.DisplayName: Areus Arrow
+			AreusDaggerProj.DisplayName: Areus Dagger
+			AreusGlaive_Swing.DisplayName: Areus Glaive
+			AreusGlaive_Throw.DisplayName: Areus Glaive
+			AreusGlaive_Thrust.DisplayName: Areus Glaive
+			AreusGlaive_Thrust2.DisplayName: Areus Glaive
+			ElectricBlade.DisplayName: Electric Blade
+			ElectricOrb.DisplayName: Electric Orb
+			# Magic
+			DeathNote.DisplayName: Death Note
+			GunCorruption.DisplayName: Musket
+			CunCrimson.DisplayName: The Undertaker
+			IceBolt.DisplayName: Ice Bolt
+			LightningBoltFriendly.DisplayName: Lightning Bolt
+			ScreamShockwave.DisplayName: Scream Shock Wave
+			VileShot.DisplayName: Vile Shot
+			# Melee
+			BloodCutter.DisplayName: Blood Cutter
+			CorruptPetal.DisplayName: Corrupt Petal
+			CorruptRose.DisplayName: Corrupt Rose
+			EntropyBlade.DisplayName: Entropy Blade
+			EntropySlash.DisplayName: Entropy Slash
+			FeatherBladeFriendly.DisplayName: Hardlight Feather
+			Genesis_Spear.DisplayName: Genesis
+			Genesis_Spear2.DisplayName: Genesis
+			Genesis_Sword.DisplayName: Genesis
+			Genesis_Whip.DisplayName: Genesis
+			Gomorrah_Burst.DisplayName: Gomorrah Explosion
+			Gomorrah_Javelin.DisplayName: Gomorrah
+			Gomorrah_Spear.DisplayName: Gomorrah
+			HeroBlade.DisplayName: Hero Blade
+			IceExplosion.DisplayName: Ice Explosion
+			IceShard.DisplayName: Ice Shard
+			IceVortexShard.DisplayName: Ice Shard
+			MessiahAirSlash.DisplayName: The Messiah
+			MessiahChargeSlash.DisplayName: The Messiah
+			MessiahRanbu1.DisplayName: The Messiah
+			MessiahRanbu2.DisplayName: The Messiah
+			MessiahRanbu3.DisplayName: The Messiah
+			MessiahRanbu4.DisplayName: The Messiah
+			MessiahRanbu5.DisplayName: The Messiah
+			ReactorMeltdownProj.DisplayName: Reactor Meltdown
+			SatanlanceProj.DisplayName: ecnalnataS
+			SoulBlade.DisplayName: Soul Blade
+			ZenovaProjectile.DisplayName: Zenova Weapons
+			# Ranged
+			AceOfSpades.DisplayName: Ace of Spades
+			AceOfHearts.DisplayName: Ace of Hearts
+			AceOfClubs.DisplayName: Ace of Clubs
+			AceOfDiamonds.DisplayName: Ace of Diamonds
+			AmbassadorShot.DisplayName: Magnus Bullet
+			BlackHole.DisplayName: Black Hole
+			BlackHoleBolt.DisplayName: Black Hole Bolt
+			FieryExplosion.DisplayName: Fiery Explosion
+			HeroBullet.DisplayName: Hero Bullet
+			LaserArrow.DisplayName: Laser Arrow
+			MetalBladeProjStick.DisplayName: Metal Blade
+			PhantomBullet.DisplayName: Phantom Bullet
+			PrometheusFire.DisplayName: Prometheus Fire
+			SoulArrow.DisplayName: Soul Arrow
+			# Summon
+			DragonSpineWhipProj.DisplayName: Dragon Spine
+			FlailOfFleshProj.DisplayName: Leashed Hungry
+			SoulDagger.DisplayName: Soul Dagger
+			# Throwing
+			KusarigamaKing.DisplayName: King's Kusarigama
+			MetalBladeProj.DisplayName: Metal Blade
+			HardlightKnifeProj.DisplayName: Hardlight Knife
+			SapphireBolt.DisplayName: Sapphire Bolt
+			SapphireSpirit.DisplayName: Sapphire Spirit
+			Sea.DisplayName: Sea
+			ElementExplosion.DisplayName: Element Explosion
+			AreusArrowProj.DisplayName: Areus Arrow
+			SilbrBullet.DisplayName: Silbr Bullet
+			TungstenBullet.DisplayName: Tungsten Bullet
+			ElectricSpike.DisplayName: Electric Spike
+			GunswordGun.DisplayName: Gunsword Gun
+			GunswordProj.DisplayName: Gunsword
+			HardlightBlade.DisplayName: Hardlight Blade
+			AreusKatanaProj.DisplayName: Areus Katana
+			AreusSaberProj.DisplayName: Areus Saber
+			AreusSickle.DisplayName: Areus Sickle
+			AreusSwordProj.DisplayName: Areus Sword
+			AreusSaberScissors.DisplayName: Areus Saber Scissors
+			AreusSaberTwin.DisplayName: Areus Saber Twin
+			MourningStar.DisplayName: Mourning Star
+			ElectricKunai.DisplayName: Electric Kunai
+			EnergyScythe.DisplayName: Energy Scythe
+			EnergyWave.DisplayName: Energy Wave
+			Ragnarok_Shield.DisplayName: Ragnarok
+			RagnarokProj.DisplayName: Ragnarok
+			RagnarokProj2.DisplayName: Ragnarok
+			HardlightSword.DisplayName: Hardlight Sword
+			HeroSwordProj.DisplayName: Hero Sword Proj
+			Warframe.DisplayName: Warframe
+			AreusGrenadeProj.DisplayName: Areus Grenade
+			GerdGun.DisplayName: Alpha Spectrum
+			SpectrumLaser.DisplayName: Spectrum Laser
+			FrostsparkDrone.DisplayName: Frostspark Drone
+			HardlightFeatherMagic.DisplayName: Hardlight Feather
+			AreusSlash1.DisplayName: Areus Slash1
+			AreusSlash2.DisplayName: Areus Slash2
+			AreusSlash3.DisplayName: Areus Slash3
+			AreusSlash4.DisplayName: Areus Slash4
+			ValkyrieStormLanceProj.DisplayName: Valkyrie Storm Lance Proj
 		}
 
-		NPCName: {
-			NovaStellar: Nova Stellar
-
-			CaveHarpy: Cavern Harpy
-			CorruptHarpy: Infested Harpy
-			CrimsonHarpy: Hemorrhaging Harpy
-			DesertHarpy: Dust Storm Harpy
-			ForestHarpy: Forest Harpy
-			HallowedHarpy: Holy Harpy
-			OceanHarpy: Seaside Harpy
-			SkyHarpy: Atmospheric Harpy
-			SnowHarpy: Arctic Harpy
-			VoidHarpy: Void Harpy
-
-			Creeper: Creeper
+		NPCs: {
+			NovaStellar.DisplayName: Nova Stellar
+			CaveHarpy.DisplayName: Cavern Harpy
+			CorruptHarpy.DisplayName: Infested Harpy
+			CrimsonHarpy.DisplayName: Hemorrhaging Harpy
+			DesertHarpy.DisplayName: Arid Harpy
+			ForestHarpy.DisplayName: Forest Harpy
+			HallowedHarpy.DisplayName: Holy Harpy
+			OceanHarpy.DisplayName: Seaside Harpy
+			SkyHarpy.DisplayName: Atmospheric Harpy
+			SnowHarpy.DisplayName: Arctic Harpy
+			VoidHarpy.DisplayName: Void Harpy
+			Creeper.DisplayName: Creeper
+			Atherian.DisplayName: Atherian
 		}
 
-		BuffName: {
-			# Any debuff
-			ElectricShock: Electric Shock
-			StunLock: Stun Lock
-			ZenovaJavelin: Zenova Javelin
+		Buffs: {
+			ElectricShock: {
+				# Any debuff
+				DisplayName: Electric Shock
+				# Any debuff
+				Description: Moving aches
+			}
 
-			# Cool-down
-			ClockCooldown: Clock Cool-down
-			EaterReviveCooldown: "Eater's Revive Cool-down"
-			ParryCooldown: Parry Cool-down
-			SetBonusCooldown: Active Armor Set Bonus Cool-down
-			SoulTeleportCooldown: Soul Teleport Cool-down
-			YamikoDashCooldown: Yamiko Dash Cool-down
+			StunLock: {
+				DisplayName: Stun Lock
+				Description: Cannot move
+			}
 
-			# NPC debuff
-			LoomingEntropy: Looming Entropy
-			Marked: Marked
-			Penetration: Armor Penetrated
-			EnvyTarget: "Envy's Target"
+			ZenovaJavelin: {
+				DisplayName: Zenova Javelin
+				Description: Defense lowered and losing life
+			}
 
-			# Pet buff
-			CreeperPetBuff: Pet Creeper
-			NovaPetBuff: Smol Nova
+			ClockCooldown: {
+				# Cool-down
+				DisplayName: Clock Cool-down
+				# Cool-down
+				Description: You cannot use Spider's Mechanical Clock for now
+			}
 
-			# Player buff
-			BaseCombat: Knowledge Base: Combat
-			BaseConservation: Knowledge Base: Conservation
-			BaseExploration: Knowledge Base: Exploration
-			CreeperRevenge: Creeper Revenge
-			Overdrive: Overdrive: ON
+			EaterReviveCooldown: {
+				DisplayName: Eater's Revive Cool-down
+				Description: You cannot be revived by the Eater of Worlds' soul crystal for now
+			}
+
+			ParryCooldown: {
+				DisplayName: Parry Cool-down
+				Description: You cannot parry for now
+			}
+
+			SetBonusCooldown: {
+				DisplayName: Active Armor Set Bonus Cool-down
+				Description: You cannot activate your armor set bonus for now
+			}
+
+			SoulTeleportCooldown: {
+				DisplayName: Soul Teleport Cool-down
+				Description: You cannot use your Soul Crystal Teleport right now
+			}
+
+			YamikoDashCooldown: {
+				DisplayName: Yamiko Dash Cool-down
+				Description: You cannot use Yamiko's Dash ability for now
+			}
+
+			LoomingEntropy: {
+				# NPC debuff
+				DisplayName: Looming Entropy
+				# NPC debuff
+				Description:
+					'''
+					'Heat death is Swiftly approaching..'
+					Defense reduced and losing life
+					'''
+			}
+
+			Marked: {
+				DisplayName: Marked
+				Description: Taking 10% extra damage
+			}
+
+			Penetration: {
+				DisplayName: Armor Penetrated
+				Description: Defense lowered
+			}
+
+			EnvyTarget: {
+				DisplayName: Envy's Target
+				Description: Taking extra damage
+			}
+
+			CreeperPetBuff: {
+				# Pet buff
+				DisplayName: Pet Creeper
+				# Pet buff
+				Description: Strangely cute
+			}
+
+			NovaPetBuff: {
+				DisplayName: Smol Nova
+				Description: Look at her now
+			}
+
+			BaseCombat: {
+				# Player buff
+				DisplayName: Knowledge Base: Combat
+				# Player buff
+				Description:
+					'''
+					10% increased damage and 10 defense
+					Thorns effect
+					'You excel in combat'
+					'''
+			}
+
+			BaseConservation: {
+				DisplayName: Knowledge Base: Conservation
+				Description:
+					'''
+					10% reduced mana cost and 15% chance to not consume ammo
+					'You are efficient with your resources'
+					'''
+			}
+
+			BaseExploration: {
+				DisplayName: Knowledge Base: Exploration
+				Description:
+					'''
+					10% increased movement speed and max run speed
+					Mining, Builder, Shine, Night Owl, Dangersense, Hunter and Calming potions effects
+					'You will never be lost'
+					'''
+			}
+
+			CreeperRevenge: {
+				DisplayName: Creeper Revenge
+				Description: 20% increase to all damage
+			}
+
+			Overdrive: {
+				DisplayName: Overdrive: ON
+				Description:
+					'''
+					'Your systems are being pushed beyond their limits'
+					Damage increased by 50%
+					'''
+			}
+
+			EnvyBuff: {
 				# Sinful Souls
-			EnvyBuff: Envy
-			GluttonyBuff: Gluttony
-			GreedBuff: Greed
-			LustBuff: Lust
-			PrideBuff: Pride
-			SlothBuff: Sloth
-			WrathBuff: Wrath
-			VirtuousSoul: Righteous
+				DisplayName: Envy
+				Description: Mods.ShardsOfAtheria.Items.EnvySoul.Tooltip
+			}
 
-			# Player debuff
-			HeartBreak: Heart Break
-			InjectionShock: Injection Shock
-			Madness: Madness
+			GluttonyBuff: {
+				DisplayName: Gluttony
+				Description: Mods.ShardsOfAtheria.Items.GluttonySoul.Tooltip
+			}
 
-			# Potion buff
-			BoneStrength: Bone Strength
-			Conductive: Conductive
-			ChargedFlight: Charged Flight
-			SoulInfused: Soul Infused
+			GreedBuff: {
+				DisplayName: Greed
+				Description: Mods.ShardsOfAtheria.Items.GreedSoul.Tooltip
+			}
 
-			# Summons
-			AreusMirrorBuff: Areus Mirror
-			CreeperShield: Creeper Shield
-			JuvenileHarpy: Fledgling Harpy
-		}
+			LustBuff: {
+				DisplayName: Lust
+				Description: Mods.ShardsOfAtheria.Items.LustSoul.Tooltip
+			}
 
-		BuffDescription: {
-			# Any debuff
-			ElectricShock: Moving aches
-			StunLock: Cannot move
-			ZenovaJavelin: Defense lowered and losing life
+			PrideBuff: {
+				DisplayName: Pride
+				Description: Mods.ShardsOfAtheria.Items.PrideSoul.Tooltip
+			}
 
-			# Cool-down
-			ClockCooldown: "You cannot use Spider's Mechanical Clock for now"
-			EaterReviveCooldown: "You cannot be revived by the Eater of Worlds' soul crystal for now"
-			ParryCooldown: You cannot parry for now
-			SetBonusCooldown: You cannot activate your armor set bonus for now
-			SoulTeleportCooldown: You cannot use your Soul Crystal Teleport right now
-			YamikoDashCooldown: "You cannot use Yamiko's Dash ability for now"
+			SlothBuff: {
+				DisplayName: Sloth
+				Description: Mods.ShardsOfAtheria.Items.SlothSoul.Tooltip
+			}
 
-			# NPC debuff
-			LoomingEntropy:
-				'''
-				'Heat death is Swiftly approaching..'
-				Defense reduced and losing life
-				'''
-			Marked: "Taking 10% extra damage"
-			Penetration: Defense lowered
-			EnvyTarget: Taking extra damage
+			WrathBuff: {
+				DisplayName: Wrath
+				Description: Mods.ShardsOfAtheria.Items.WrathSoul.Tooltip
+			}
 
-			# Pet buff
-			CreeperPetBuff: Strangely cute
-			NovaPetBuff: Look at her now
+			VirtuousSoul: {
+				DisplayName: Righteous
+				Description:
+					'''
+					Damaging monsters increases purification by 1
+					When Purification charge reaches 35, the next critical hit creates a Holy Fire Explosion
+					This explosion damages all enemies on the screen
+					'''
+			}
 
-			# Player buff
-			BaseCombat:
-				'''
-				10% increased damage and 10 defense
-				Thorns effect
-				'You excel in combat'
-				'''
-			BaseConservation:
-				'''
-				10% reduced mana cost and 15% chance to not consume ammo
-				'You are efficient with your resources'
-				'''
-			BaseExploration:
-				'''
-				10% increased movement speed and max run speed
-				Mining, Builder, Shine, Night Owl, Dangersense, Hunter and Calming potions effects
-				'You will never be lost'
-				'''
-			CreeperRevenge: "20% increase to all damage"
-			Overdrive:
-				'''
-				'Your systems are being pushed beyond their limits'
-				Damage increased by 50%
-				'''
-			ShadeState:
+			HeartBreak: {
+				# Player debuff
+				DisplayName: Heart Break
+				# Player debuff
+				Description: You cannot heal with Cross Dagger or Wand Of Healing
+			}
+
+			InjectionShock: {
+				DisplayName: Injection Shock
+				Description: You cannot use another injection, cannot regenerate life and mild blood loss
+			}
+
+			Madness: {
+				DisplayName: Madness
+				Description:
+					'''
+					Losing life and your vision is reduced
+					'You're losing yourself...'
+					'''
+			}
+
+			BoneStrength: {
+				# Potion buff
+				DisplayName: Bone Strength
+				# Potion Buff
+				Description:
+					'''
+					10% increased damage and reduced damage taken by 20%
+					'Your bones are stronger'
+					'''
+			}
+
+			Conductive: {
+				DisplayName: Conductive
+				Description: Increases electric weapon damage by 15% and duration of Electric Shock by 100%
+			}
+
+			ChargedFlight: {
+				DisplayName: Charged Flight
+				Description: Increased flight time
+			}
+
+			SoulInfused: {
+				DisplayName: Soul Infused
+				Description: Increased max life by 50, defense by 10 and damage by 15%
+			}
+
+			AreusMirrorBuff: {
+				# Summons
+				DisplayName: Areus Mirror
+				# Summons
+				Description: The Areus Mirror will fight for you
+			}
+
+			CreeperShield: {
+				DisplayName: Creeper Shield
+				Description: Immune to damage, cannot attack and summons severely weakened
+			}
+
+			JuvenileHarpy: {
+				DisplayName: Fledgling Harpy
+				Description: The harpy will fight along side you
+			}
+
+			ShadeState.Description:
 				'''
 				Increased damage by 15%
 				Increased defense by 20
 				'''
-			VirtuousSoul:
-				'''
-				Damaging monsters increases purification by 1
-				When Purification charge reaches 35, the next critical hit creates a Holy Fire Explosion
-				This explosion damages all enemies on the screen
-				'''
 
-			# Player debuff
-			HeartBreak: You cannot heal with Cross Dagger or Wand Of Healing
-			InjectionShock: "You cannot use another injection, cannot regenerate life and mild blood loss"
-			Madness:
-				'''
-				Losing life and your vision is reduced
-				'You're losing yourself...'
-				'''
+			FrostsparkDroneBuff: {
+				DisplayName: Frostspark Drone Buff
+				Description: Mods.ShardsOfAtheria.Buffs.FrostsparkDroneBuff.Description
+			}
 
-			# Potion Buff
-			BoneStrength: 
-				'''
-				10% increased damage and reduced damage taken by 20%
-				'Your bones are stronger'
-				'''
-			ChargedFlight: Increased flight time
-			Conductive: Increases electric weapon damage by 15% and duration of Electric Shock by 100%
-			SoulInfused: "Increased max life by 50, defense by 10 and damage by 15%"
-
-			# Summons
-			AreusMirrorBuff: The Areus Mirror will fight for you
-			CreeperShield: Immune to damage, cannot attack and summons severely weakened
-			JuvenileHarpy: The harpy will fight along side you
+			Perish: {
+				DisplayName: Perish
+				Description: Mods.ShardsOfAtheria.Buffs.Perish.Description
+			}
 		}
 
 		Necronomicon: {
@@ -1358,101 +2010,73 @@ Mods: {
 				Content: I'm fine, thanks for checking on me.
 				NoHome: I would appreciate it if you'd make me a home.
 				FarFromHome: Looks like I wandered too far from home.
-
 				LoveSpace: So much space.. It feels strange but also nice.
 				DislikeCrowded: I've grown so accustomed to having so much space that this is uncomfortable now.
-
 				LoveBiome: I love {BiomeName}, It reminds me of Atheria.
-				LikeBiome: "Atheria doesn't have many lush forests, this is a nice change."
-				HateBiome: "I can't stand how boring {BiomeName} is. All the colors are buried under gray and maybe brown."
-				
+				LikeBiome: Atheria doesn't have many lush forests, this is a nice change.
+				HateBiome: I can't stand how boring {BiomeName} is. All the colors are buried under gray and maybe brown.
 				LoveNPC: "{NPCName} makes me feel a certain way.. But regardless she does a great job doing my hair!"
-				LikeNPC: "Nobody gives {NPCName} enough credit. I mean come on, he knows the Soul of Eternity's whole crafting tree yet you have to look it up on Recipe Browser!"
+				LikeNPC: Nobody gives {NPCName} enough credit. I mean come on, he knows the Soul of Eternity's whole crafting tree yet you have to look it up on Recipe Browser!
 				LikeNPC_Princess: "{NPCName} reminds me of our queen in Atheria, I didn't know humans had royalty as well!"
 				DislikeNPC: ""
 				HateNPC: ""
 			}
 		}
 
-		DropConditions: {
-			Flawless: Defeat without getting hit
+		Conditions: {
+			# NPC Loot
 			Slayer: Drops while in Slayer Mode
-			PostSkeletron: "Drops after Skeletron's defeat"
-			PostGolem: "Drops after Golem's defeat"
-			PostCultist: "Drops after Lunatic Cultist's defeat"
-			PostMoonLord: "Drops after Moon Lord's defeat"
-		}
-
-		RecipeConditions: {
+			PostSkeletron: Drops after Skeletron's defeat
+			PostGolem: Drops after Golem's defeat
+			PostCultist: Drops after Lunatic Cultist's defeat
+			PostMoonLord: Drops after Moon Lord's defeat
 			Upgrade: Upgraded by Atherian
 			SlayerMode: Be in Slayer Mode
+			NotSlayer: Slayer Mode disabled
+			DefeatPlantera: Sold after Plantera's defeat
+			DefeatNova: Sold after Nova Stellar's defeat
 		}
 
-		BossDesc: {
-			NovaStellar: Lightning Valkyrie
-		}
+		BossDesc.NovaStellar: Lightning Valkyrie
 
 		ShopQuote: {
 			Atherian: {
 				AreusDataDisk: ""
-				ValkyrieCrest: "This belonged to my Ex..."
-				AreusKey: Can I interest you in performance enhancing drugs? Too bad, I have none of that. This is the closes thing though.
-				SlimeCrown: "A slimy crown, there's not much else to it"
-				SuspiciousLookingEye: Have you heard of the hit game Among Us? This has nothing to do with that.
-				BloodySpine: This... is disgusting.. how did this get in my inventory.
-				WormFood: Take this before my house gets a worm infestation!
-				Abeemination: NOT THE BEES! Wait, someone already made that reference.
-				ClothierVoodooDoll: Heeeello Terraria enthusiasts. My name is not James, and I would like you to buy this.
-				DeerThing: No comment.
-				GuideVoodooDoll: This looks... horrifyingly similar to The Guide...
-				QueenSlimeCrystal: This honestly looks tasty. Do I have a problem?
-				MechanicalWorm: "Great, now there's a worm infestation. Take it"
-				PrimeRework_WormRemote: "Great, now there's a worm infestation. Take it"
-				PrimeRework_BrainRemote: Unfortunately too big for cybernetic augmentation.
-				MechanicalSkull: Unfortunately the mechanical parts inside make cybernetic augmentation impossible.
-				PrimeRework_SkullRemote: Unfortunately the mechanical parts inside make cybernetic augmentation impossible.
-				MechanicalEye: Unfortunately too big for cybernetic augmentation.
-				PrimeRework_EyeRemote: Unfortunately too big for cybernetic augmentation.
-				PottedPlant:
-					'''
-					"What a lovely decoration, I sure would love to move it to my house!"
-					Oh what horrors awaited them.
-					'''
-				LihzahrdPowerCell: Last time I went to the store I accidentally bought Triple A batteries, now I still need Double A batteries.
-				TruffleWorm: "Great, now there's a bigger worm infestation. Take it"
-				EmpressButterfly: Such a colorful specimen, I wonder how it is possible.
-				CelestialSigil: Thus saith the lord.
-				# SpiderClock: Do you wish to challenge our goddess again? Sure, go for it.
-				# AreusSnakeScale: Do you wish to challenge our goddess again? Sure, go for it.
-				# AncientMedallion: Placeholder
+				ValkyrieCrest: This belonged to my Ex...
+				AreusKey: Can I interest you in performance enhancing drugs? Too bad, I have none of that. This is the closest thing though.
 			}
 		}
 
 		NPCDialogue: {
 			NovaStellar: {
-				InitialSummon: "Terrarian! You're chaos has not gone unnoticed, I will bring you down!"
-				MidFight: "Hmph. You don't go down easily huh? Well try surviving this!"
-				Defeat: "You haven't killed me... Perhaps I misjudged you. Farewell for now then."
-
+				InitialSummon: Terrarian! You're chaos has not gone unnoticed, I will bring you down!
+				MidFight: Hmph. You don't go down easily huh? Well try surviving this!
+				Defeat: You haven't killed me... Perhaps I misjudged you. Farewell for now then.
 				# Slayer mode alt
 				InitialSummonAlt: You... My crest... You bastard!
 				MidFightAlt: Okay prick, you've asked for it!
 				Desperation: I cannot lose to you! Not Like this!
 				Death: No... My judgment was clouded... I'm sorry Mother, I failed...
 			}
+
 			Atherian: {
-				# On interact 
+				# On interact
 				BaseGenesisAndRagnarok:
 					'''
 					What a peculiar weapon. It shows capabilities of transforming into several types of weapon, but it's locked in spear and whip form.
 					There's also memories sealed inside the shield. Perhaps something to unlock those memories will make it stronger?
 					'''
-				CSGOReference: "DOOR STUCK!"
-				KenobiReference: Hello there.
-				PleaseINeedMoreLinesForThisMan: "I used to have so many lines of dialogue what happened?"
-
+				AtheriaComment: Atheria is a lovely place, but there's an overpopulation problem. You see our goddess, Senterra, wasn't too keen on giving us such a short lifespan like humans. So she made us nigh-immortal and, turns out, that just made things worse. Many of us suggested to make Atheria bigger, heh, as if it were that simple. Bigger planet means stronger gravity and more strain on Senterra's end.
+				ExComment: My ex? Ah. Yes, Nova, I'm sure you've already guessed by now. We didn't separate on exactly good terms.
+				GoldCrownThought: Hmm.. I reckon a Gold Crown would suit you well!
+				GoldCrownCompliment: Yes yes, the Gold Crown does suit you well!
+				MorshuMoment: Sorry {0}, what is this 'credit'? Come back when you have something to offer!
+				CSGOReference: Last blood moon I heard {0} shouting 'Door stuck,' what's that about?
+				NovaDeath: "{0} leaves with Nova's death. 'She didn't deserve this...'"
+				SenterraDeath: "{0} leaves with Senterra's death. 'Curse you till the end of time!'"
+				GenesisDeath: "{0} leaves with Genesis's death. 'Curse you till the end of time!'"
+				AllDeath: "{0} leaves from your genocide. 'Suffer beyond eternity!'"
 				# Upgrading
-				RefuseUpgrade: You may have everyone else fooled but I know. I will not help you kill our world.
 				UpgradeGenesisAndRagnarok1:
 					'''
 					As I expected, the fragments did make them stronger.
@@ -1478,62 +2102,92 @@ Mods: {
 					'''
 					Genesis and Ragnarok now have their ice capabilities are revealed.
 					All of the memory seals are now released, I cannot upgrade them further.
-					'''				
+					'''
 				UpgradeAreusWeapon: That should do it. This is the best I can achieve. Use it well.
 				NoUpgradableItem: Sorry pal, you don't have anything I can upgrade.
+				NoUpgradeMoney: Sorry pal, you don't have enough coins.
 				NotEnoughMaterial: "{0} - {1} [i:{2}]. I need at least {3}, you have {4}."
 			}
 		}
 
 		NPCBestiary: {
-			Atherian: "After the young goddess, Senterra, created her world, she populated it with beings called Atherians, their design inspired by the angels in a certain human culture."
-			NovaStellar: "Following her late father's footsteps, Nova became a noble knight. She wishes to rid the world of the Slayer Terrarian."
+			Atherian: After the young goddess, Senterra, created her world, she populated it with beings called Atherians, their design inspired by the angels in a certain human culture.
+			NovaStellar: Following her late father's footsteps, Nova became a noble knight. She wishes to rid the world of the Slayer Terrarian.
 		}
 
 		Config: {
-			ClientLabel: "Client Side"
-			ServerLabel: "Server Side"
-
+			ClientLabel: Client Side
+			ServerLabel: Server Side
 			ItemHeader: "[i:1] Items"
 			MetalBladeUseSound: "[i:ShardsOfAtheria/MetalBlade] Metal Blade Use Sound"
 			BossSummon: "[i:43] Non-consumable boss summons"
 			UpgradeItems: "[i:29] Upgrade items change"
-
 			DialogueHeader: "[i:3617] Dialogue"
 			YamikoInsult: "[i:ShardsOfAtheria/Yamiko] Yamiko Insult"
-
 			MechanicsHeader: "[i:4818] Mechanics"
 			Clueless: "[i:893] Clueless Atherian"
 			BetterWeapon: "[i:1] Directional Weapons*"
-			Aggression: "[i:46] Aggression"
 			Experimental: "[i:893] Experimental Features"
-
-			MiscHeader: "Misc"
+			MiscHeader: Misc
 			AltCaveHarpy: "[i:48] Alt Cavern Harpy"
 		}
 
 		ConfigDesc: {
-			MetalBladeUseSound: "Enable for custom use sound, disable for vanilla use sound"
-			BossSummon: "Enable for to make Shards of Atheria boss summons non-consumable"
+			MetalBladeUseSound: Enable for custom use sound, disable for vanilla use sound
+			BossSummon: Enable for to make Shards of Atheria boss summons non-consumable
 			UpgradeItems:
 				'''
 				Enable for to enable changes to Life Crystal, Mana Crystal and Life Fruit
 				(Use time 15, auto reuse, use turn)
 				'''
-
 			YamikoInsult: Disable if you want to keep your feelings intact
-
-			Clueless: "Enable to allow the atherian to upgrade items even while in Slayer mode"
+			Clueless: Enable to allow the atherian to upgrade items even while in Slayer mode
 			BetterWeaponOff: Off
 			BetterWeaponUseTurn: No Use Turn
 			BetterWeaponMouse: Mouse Direction
-			Aggression: "Damage, speed and aggro increases as you damage enemies"
-			Experimental: "Enables experimental/work in progress features"
+			Experimental: Enables experimental/work in progress features
+			AltCaveHarpy: Makes a slight change to the Cavern Harpy sprite
+		}
 
-			AltCaveHarpy: "Makes a slight change to the Cavern Harpy sprite"
+		InfoDisplays: {
+			InCombatInfoDisplay.DisplayName: In Combat
+			OverdriveTimeInfoDisplay.DisplayName: Overdrive Time
+		}
+
+		MapObject: {
+			OmegaChest: {
+				ContainerName: Omega Chest
+				MapEntry: Omega Chest
+			}
+
+			OmegaChest_Locked.MapEntry: Locked Omega Chest
+			AreusOre.MapEntry: Areus Shard
+			Banners.MapEntry: Banners
+			BionicBar.MapEntry: Bionic Bar
+			BionicOre.MapEntry: Bionic Ore
+			AreusFabricator.MapEntry: Areus Fabricator
+		}
+
+		Keybinds: {
+			"Toggle Overdrive.DisplayName": Mods.ShardsOfAtheria.Keybinds.Toggle Overdrive.DisplayName
+			"Cycle Knowledge Base.DisplayName": Mods.ShardsOfAtheria.Keybinds.Cycle Knowledge Base.DisplayName
+			"Emerald Teleport.DisplayName": Mods.ShardsOfAtheria.Keybinds.Emerald Teleport.DisplayName
+			"Toggle Phase Type.DisplayName": Mods.ShardsOfAtheria.Keybinds.Toggle Phase Type.DisplayName
+			"Soul Crystal Teleport.DisplayName": Mods.ShardsOfAtheria.Keybinds.Soul Crystal Teleport.DisplayName
+			"Activate Armor Set Bonus.DisplayName": Mods.ShardsOfAtheria.Keybinds.Activate Armor Set Bonus.DisplayName
+		}
+
+		Condotions: {
+			NotSlayer: Mods.ShardsOfAtheria.Condotions.NotSlayer
+			DefeatNova: Mods.ShardsOfAtheria.Condotions.DefeatNova
+			DefeatPlantera: Mods.ShardsOfAtheria.Condotions.DefeatPlantera
+		}
+
+		RecipeConditions: {
+			SlayerMode: Mods.ShardsOfAtheria.RecipeConditions.SlayerMode
+			Upgrade: Mods.ShardsOfAtheria.RecipeConditions.Upgrade
 		}
 	}
 }
-TownNPCMood_Princess:{
-	LoveNPC_ShardsOfAtheria/Atherian: "{NPCName}'s wings are just gorgeous!"
-}
+
+TownNPCMood_Princess.LoveNPC_ShardsOfAtheria/Atherian: "{NPCName}'s wings are just gorgeous!"

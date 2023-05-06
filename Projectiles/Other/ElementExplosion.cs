@@ -1,15 +1,15 @@
-﻿using MMZeroElements;
+﻿using MMZeroElements.Elements;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WebmilioCommons.Effects.ScreenShaking;
+//using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Projectiles.Other
 {
     public class ElementExplosion : ModProjectile
     {
-        public override string Texture => "ShardsOfAtheria/Blank";
+        public override string Texture => SoA.BlankTexture_String;
 
         public override void SetDefaults()
         {
@@ -28,30 +28,25 @@ namespace ShardsOfAtheria.Projectiles.Other
         {
             if (Projectile.ai[0] == 0)
             {
-                ScreenShake.ShakeScreen(6, 60);
+                //ScreenShake.ShakeScreen(6, 60);
                 SoundEngine.PlaySound(SoundID.Item14);
                 Projectile.ai[0] = 1;
             }
 
             ProjectileElements elementExplosion = Projectile.GetGlobalProjectile<ProjectileElements>();
-            if (elementExplosion.tempFire)
+            if (elementExplosion.isFire)
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Torch, Scale: 1.3f);
                 dust.velocity *= 4f;
             }
-            if (elementExplosion.tempIce)
+            if (elementExplosion.isIceAqua)
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Ice);
                 dust.velocity *= 4f;
             }
-            if (elementExplosion.tempElectric)
+            if (elementExplosion.isElec)
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric);
-                dust.velocity *= 4f;
-            }
-            if (elementExplosion.tempMetal)
-            {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Iron, Scale: 1.3f);
                 dust.velocity *= 4f;
             }
             Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Smoke, Scale: 1.5f);

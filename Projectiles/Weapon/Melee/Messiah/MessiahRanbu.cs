@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Globals;
-using MMZeroElements;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using Terraria;
 using Terraria.Audio;
@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 4;
-            ProjectileElements.Fire.Add(Type);
+            Projectile.AddFire();
             SoAGlobalProjectile.Eraser.Add(Type);
         }
 
@@ -88,18 +88,16 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
             return base.PreAI();
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<StunLock>(), 10);
             target.AddBuff(BuffID.OnFire3, 600);
-            base.OnHitNPC(target, damage, knockback, crit);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hit)
         {
             target.AddBuff(ModContent.BuffType<StunLock>(), 10);
             target.AddBuff(BuffID.OnFire3, 600);
-            base.OnHitPlayer(target, damage, crit);
         }
     }
 
@@ -259,9 +257,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
             Projectile.netUpdate = true;
         }
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            crit = true;
+            modifiers.SetCrit();
         }
     }
 

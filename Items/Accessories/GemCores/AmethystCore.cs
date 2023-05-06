@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
 
             SetupDrawing();
         }
@@ -38,7 +38,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             Item.width = 32;
             Item.height = 32;
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
 
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(0, 1, 25);
@@ -56,7 +55,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ShardsOfAtheria().amethystMask = !hideVisual;
+            player.Shards().amethystMask = !hideVisual;
 
             AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
             mp.DashVelocity = 13f;

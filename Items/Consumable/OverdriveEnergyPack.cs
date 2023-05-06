@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Items.Consumable
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 30;
+            Item.ResearchUnlockCount = 30;
         }
 
         public override void SetDefaults()
@@ -40,12 +40,12 @@ namespace ShardsOfAtheria.Items.Consumable
 
         public override bool CanUseItem(Player player)
         {
-            return player.ShardsOfAtheria().overdriveTimeCurrent != player.ShardsOfAtheria().overdriveTimeMax2;
+            return player.Shards().overdriveTimeCurrent != player.Shards().overdriveTimeMax2;
         }
 
         public override bool? UseItem(Player player)
         {
-            player.ShardsOfAtheria().overdriveTimeCurrent = 300;
+            player.Shards().overdriveTimeCurrent = 300;
             return true;
         }
     }

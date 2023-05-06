@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
     {
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Electric.Add(Type);
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()
@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Bleeding, 60);
         }

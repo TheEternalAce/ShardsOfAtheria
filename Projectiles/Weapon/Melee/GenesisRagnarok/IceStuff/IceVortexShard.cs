@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Ice.Add(Type);
+            Projectile.AddIceAqua();
         }
 
         public override void SetDefaults()
@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff
             Projectile.Center = position + Vector2.One.RotatedBy(rotation) * 45;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Frostburn, 600);
         }

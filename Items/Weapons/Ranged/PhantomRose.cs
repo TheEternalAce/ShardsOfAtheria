@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.DataStructures;
@@ -11,7 +12,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 	{
 		public override void SetStaticDefaults()
 		{
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
+			Item.AddIceDefault();
 		}
 
 		public override void SetDefaults()

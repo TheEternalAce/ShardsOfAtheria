@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using MMZeroElements;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using System.Linq;
 using Terraria;
@@ -26,8 +26,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Metal.Add(Type);
-            ProjectileElements.Electric.Add(Type);
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()
@@ -69,7 +68,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (Main.expertMode)
             {

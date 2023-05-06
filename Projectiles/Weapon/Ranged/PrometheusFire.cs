@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 4;
-            ProjectileElements.Fire.Add(Type);
+            Projectile.AddFire();
         }
 
         public override void SetDefaults()
@@ -81,7 +81,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.OnFire3, 10 * 60);
             if (Projectile.ai[0] == 0 && Projectile.penetrate == 1)

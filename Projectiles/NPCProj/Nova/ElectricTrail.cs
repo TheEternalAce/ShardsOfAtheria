@@ -1,4 +1,4 @@
-﻿using MMZeroElements;
+﻿using MMZeroElements.Utilities;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using Terraria;
 using Terraria.ID;
@@ -8,11 +8,11 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {
     public class ElectricTrail : ModProjectile
     {
-        public override string Texture => "ShardsOfAtheria/Blank";
+        public override string Texture => SoA.BlankTexture_String;
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Electric.Add(Type);
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()
@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             dust.noGravity = true;
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<ElectricShock>(), 300);
         }

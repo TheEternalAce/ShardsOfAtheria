@@ -1,11 +1,12 @@
 using Microsoft.Xna.Framework;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WebmilioCommons.Effects.ScreenShaking;
+//using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -13,7 +14,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
+            Item.AddIceDefault();
         }
 
         public override void SetDefaults()
@@ -43,7 +45,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             if (Main.rand.NextBool(5))
             {
-                ScreenShake.ShakeScreen(6, 60);
+                //ScreenShake.ShakeScreen(6, 60);
                 const int NumProjectiles = 4; // The number of projectiles that this gun will shoot.
 
                 for (int i = 0; i < NumProjectiles; i++)

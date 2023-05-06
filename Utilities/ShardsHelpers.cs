@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Chat;
+using Terraria.GameContent;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ShardsOfAtheria.Utilities
 {
@@ -21,6 +24,23 @@ namespace ShardsOfAtheria.Utilities
                 this.item = item;
                 requiredStack = stack;
             }
+        }
+
+        public static void DrawLine(this SpriteBatch sb, int thickness, Vector2 start, Vector2 end, Color color)
+        {
+            Vector2 edge = end - start;
+            float angle = (float)Math.Atan(edge.Y / edge.X);
+
+            if (edge.X < 0)
+            {
+                angle = MathHelper.Pi + angle;
+            }
+
+            sb.Draw(TextureAssets.MagicPixel.Value,
+                new Rectangle((int)start.X, (int)start.Y, (int)edge.Length(), thickness),
+                null,
+                color, angle, new Vector2(0, 500f),
+                SpriteEffects.None, 0);
         }
 
         public static int ToHours(this int num)
@@ -109,6 +129,25 @@ namespace ShardsOfAtheria.Utilities
                 ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(str), Color.White);
             }
             Console.WriteLine(str);
+        }
+
+        public static bool DeathrayHitbox(Vector2 center, Rectangle targetHitbox, float rotation, float length, float size, float startLength = 0f)
+        {
+            return DeathrayHitbox(center, targetHitbox, rotation.ToRotationVector2(), length, size, startLength);
+        }
+        public static bool DeathrayHitbox(Vector2 center, Rectangle targetHitbox, Vector2 normal, float length, float size, float startLength = 0f)
+        {
+            return DeathrayHitbox(center + normal * startLength, center + normal * startLength + normal * length, targetHitbox, size);
+        }
+        public static bool DeathrayHitbox(Vector2 from, Vector2 to, Rectangle targetHitbox, float size)
+        {
+            float _ = float.NaN;
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), from, to, size, ref _);
+        }
+
+        public static bool[] GetBoolArray(this TagCompound tagCompound, string key)
+        {
+            return tagCompound.Get<bool[]>(key);
         }
     }
 }

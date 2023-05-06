@@ -1,5 +1,5 @@
 ﻿using ShardsOfAtheria.Globals;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using Terraria;
 using Terraria.ID;
@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ModContent.ProjectileType<MessiahRanbu2>());
-            ProjectileElements.Fire.Add(Type);
+            Projectile.AddFire();
             SoAGlobalProjectile.Eraser.Add(Type);
         }
 
@@ -48,7 +48,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.OnFire3, 600);
         }

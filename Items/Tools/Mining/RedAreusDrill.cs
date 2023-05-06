@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Tools;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -17,6 +18,15 @@ namespace ShardsOfAtheria.Items.Tools.Mining
     {
         public static Asset<Texture2D> glowmask;
 
+        public override void Load()
+        {
+
+            if (!Main.dedServ)
+            {
+                glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
+            }
+        }
+
         public override void Unload()
         {
             glowmask = null;
@@ -26,14 +36,9 @@ namespace ShardsOfAtheria.Items.Tools.Mining
         {
             ItemID.Sets.IsDrill[Type] = true;
 
-            if (!Main.dedServ)
-            {
-                glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
-            }
-
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
-            WeaponElements.Fire.Add(Type);
+            Item.AddFireDefault();
         }
 
         public override void SetDefaults()
@@ -70,7 +75,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
                 .AddRecipeGroup(ShardsRecipes.Gold, 6)
                 .AddIngredient(ItemID.LunarBar, 10)
                 .AddIngredient(ItemID.Wire, 10)
-                .AddTile(TileID.MythrilAnvil)
+                .AddTile(ModContent.TileType<AreusFabricator>())
                 .Register();
         }
 

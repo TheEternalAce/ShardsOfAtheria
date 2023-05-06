@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.Audio;
@@ -12,7 +13,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
+            Item.AddElecDefault();
         }
 
         public override void SetDefaults()

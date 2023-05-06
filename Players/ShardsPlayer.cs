@@ -9,13 +9,13 @@ using ShardsOfAtheria.Items.Accessories.GemCores;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Tools.Misc;
-using ShardsOfAtheria.Items.Weapons.Areus;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Projectiles.Minions;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -42,9 +42,11 @@ namespace ShardsOfAtheria.Players
         public bool superEmeraldCore;
         public bool areusKey;
         public bool megaGemCore;
+        public bool[] megaGemCoreToggles = { true, true, true, true, true, true };
         public bool amethystMask;
         public bool diamanodShield;
         public bool rubyGauntlet;
+        public bool sapphireSpiritPrevious;
         public bool sapphireSpirit;
         public bool topazNecklace;
         public bool heartBreak;
@@ -108,6 +110,7 @@ namespace ShardsOfAtheria.Players
             amethystMask = false;
             diamanodShield = false;
             rubyGauntlet = false;
+            sapphireSpiritPrevious = sapphireSpirit;
             sapphireSpirit = false;
             topazNecklace = false;
             heartBreak = false;
@@ -123,7 +126,7 @@ namespace ShardsOfAtheria.Players
             pearlwoodSet = false;
 
             ResetVariables();
-            Biometal = BiometalSound = BiometalHideVanity = BiometalForceVanity = false;
+            Biometal = BiometalHideVanity = BiometalForceVanity = false;
 
             UpdateResource();
 
@@ -172,6 +175,7 @@ namespace ShardsOfAtheria.Players
         {
             tag["overdriveTimeCurrent"] = overdriveTimeCurrent;
             tag["phaseOffense"] = phaseOffense;
+            tag[nameof(megaGemCoreToggles)] = megaGemCoreToggles;
         }
 
         public override void LoadData(TagCompound tag)
@@ -180,6 +184,8 @@ namespace ShardsOfAtheria.Players
                 overdriveTimeCurrent = (int)tag["overdriveTimeCurrent"];
             if (tag.ContainsKey("phaseOffense"))
                 phaseOffense = tag.GetBool("phaseOffense");
+            if (tag.ContainsKey(nameof(megaGemCoreToggles)))
+                megaGemCoreToggles = tag.GetBoolArray(nameof(megaGemCoreToggles));
         }
 
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
@@ -266,7 +272,7 @@ namespace ShardsOfAtheria.Players
             {
                 Player.moveSpeed += .15f;
             }
-            if (sapphireSpirit)
+            if (sapphireSpiritPrevious)
             {
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<SapphireSpirit>()] == 0)
                 {
@@ -361,7 +367,7 @@ namespace ShardsOfAtheria.Players
             {
                 readingDisk = 0;
             }
-            if (ShardsOfAtheriaMod.ArmorSetBonusActive.JustReleased && !Player.HasBuff(ModContent.BuffType<SetBonusCooldown>()))
+            if (SoA.ArmorSetBonusActive.JustReleased && !Player.HasBuff(ModContent.BuffType<SetBonusCooldown>()))
             {
                 if (pearlwoodSet && !Player.mouseInterface)
                 {
@@ -372,7 +378,7 @@ namespace ShardsOfAtheria.Players
                     Player.AddBuff(ModContent.BuffType<SetBonusCooldown>(), 120);
                 }
             }
-            if (ShardsOfAtheriaMod.OverdriveKey.JustPressed)
+            if (SoA.OverdriveKey.JustPressed)
             {
                 if (Biometal)
                 {
@@ -389,7 +395,7 @@ namespace ShardsOfAtheria.Players
                     }
                 }
             }
-            if (ShardsOfAtheriaMod.EmeraldTeleportKey.JustPressed)
+            if (SoA.EmeraldTeleportKey.JustPressed)
             {
                 if (megaGemCore || superEmeraldCore)
                 {
@@ -411,7 +417,7 @@ namespace ShardsOfAtheria.Players
                         if ((Main.tile[num181, num182].WallType != 87 || !(num182 > Main.worldSurface) || NPC.downedPlantBoss) && !Collision.SolidCollision(vector21, Player.width, Player.height))
                         {
                             Player.Teleport(vector21, 1);
-                            NetMessage.SendData(MessageID.Teleport, -1, -1, null, 0, Player.whoAmI, vector21.X, vector21.Y, 1);
+                            NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, Player.whoAmI, vector21.X, vector21.Y, 1);
                             if (Player.chaosState)
                             {
                                 Player.statLife -= Player.statLifeMax2 / 7;
@@ -432,7 +438,7 @@ namespace ShardsOfAtheria.Players
                     }
                 }
             }
-            if (ShardsOfAtheriaMod.PhaseSwitch.JustPressed)
+            if (SoA.PhaseSwitch.JustPressed)
             {
                 if (Player.statLife >= Player.statLifeMax2 / 2 && rushDrive)
                 {
@@ -459,7 +465,7 @@ namespace ShardsOfAtheria.Players
             return base.CanAutoReuseItem(item);
         }
 
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
             combatTimer = 300;
             if (valkyrieCrown)
@@ -485,35 +491,32 @@ namespace ShardsOfAtheria.Players
             PreformHardlightBracesEffect(target);
         }
 
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
             combatTimer = 300;
-            if (proj.owner == Player.whoAmI)
+            if (valkyrieCrown)
             {
-                if (valkyrieCrown)
-                {
-                    target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
-                }
-                if (greaterRubyCore)
-                {
-                    target.AddBuff(BuffID.OnFire, 600);
-                }
-                if (superRubyCore)
-                {
-                    target.AddBuff(BuffID.CursedInferno, 600);
-                    target.AddBuff(BuffID.Ichor, 600);
-                }
-                if (megaGemCore)
-                {
-                    target.AddBuff(BuffID.Daybreak, 600);
-                    target.AddBuff(BuffID.BetsysCurse, 600);
-                    Player.AddBuff(BuffID.Ironskin, 600);
-                    Player.AddBuff(BuffID.Endurance, 600);
-                }
-                if (proj.type != ModContent.ProjectileType<HardlightBlade>())
-                {
-                    PreformHardlightBracesEffect(target);
-                }
+                target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
+            }
+            if (greaterRubyCore)
+            {
+                target.AddBuff(BuffID.OnFire, 600);
+            }
+            if (superRubyCore)
+            {
+                target.AddBuff(BuffID.CursedInferno, 600);
+                target.AddBuff(BuffID.Ichor, 600);
+            }
+            if (megaGemCore)
+            {
+                target.AddBuff(BuffID.Daybreak, 600);
+                target.AddBuff(BuffID.BetsysCurse, 600);
+                Player.AddBuff(BuffID.Ironskin, 600);
+                Player.AddBuff(BuffID.Endurance, 600);
+            }
+            if (proj.type != ModContent.ProjectileType<HardlightFeatherMagic>())
+            {
+                PreformHardlightBracesEffect(target);
             }
         }
 
@@ -526,10 +529,8 @@ namespace ShardsOfAtheria.Players
                     Item braces = ModContent.GetInstance<HardlightBraces>().Item;
                     Vector2 point = target.Center + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 120f;
                     Vector2 velocity = Vector2.Normalize(target.Center - point) * braces.shootSpeed;
-                    Projectile blades = Projectile.NewProjectileDirect(Player.GetSource_Accessory(braces), point, velocity,
-                        braces.shoot, Player.GetWeaponDamage(braces), Player.GetWeaponKnockback(braces), Player.whoAmI);
-                    blades.DamageType = DamageClass.Generic;
-                    blades.penetrate = 1;
+                    Projectile.NewProjectileDirect(Player.GetSource_Accessory(braces), point, velocity, braces.shoot,
+                        Player.GetWeaponDamage(braces), Player.GetWeaponKnockback(braces), Player.whoAmI);
                 }
                 hardlightBracesCooldown = hardlightBracesCooldownMax;
             }
@@ -552,11 +553,11 @@ namespace ShardsOfAtheria.Players
                 }
                 if (item.type == ModContent.ItemType<MegaGemCore>())
                 {
-                    amethystMask = true;
-                    diamanodShield = true;
-                    rubyGauntlet = true;
-                    sapphireSpirit = true;
-                    topazNecklace = true;
+                    amethystMask = megaGemCoreToggles[0];
+                    diamanodShield = megaGemCoreToggles[1];
+                    rubyGauntlet = megaGemCoreToggles[2];
+                    sapphireSpirit = megaGemCoreToggles[3];
+                    topazNecklace = megaGemCoreToggles[4];
                 }
                 else
                 {
@@ -634,44 +635,43 @@ namespace ShardsOfAtheria.Players
             }
         }
 
-        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
+        public override bool FreeDodge(Player.HurtInfo info)
         {
-            if (!Player.immune)
+            if (megaGemCore)
             {
-                if (megaGemCore)
-                {
-                    return TrySapphireDodge(0.2f);
-                }
-                else if (superSapphireCore)
-                {
-                    return TrySapphireDodge(0.15f);
-                }
-                else if (sapphireCore)
-                {
-                    return TrySapphireDodge(0.1f);
-                }
-                else if (lesserSapphireCore)
-                {
-                    return TrySapphireDodge(0.05f);
-                }
+                return TrySapphireDodge(0.2f);
             }
-            return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, ref cooldownCounter);
+            else if (superSapphireCore)
+            {
+                return TrySapphireDodge(0.15f);
+            }
+            else if (sapphireCore)
+            {
+                return TrySapphireDodge(0.1f);
+            }
+            else if (lesserSapphireCore)
+            {
+                return TrySapphireDodge(0.05f);
+            }
+
+            return false;
         }
 
         public bool TrySapphireDodge(float percentChance)
         {
             float roll = Main.rand.NextFloat();
             bool doDodge = roll < percentChance;
+            Main.rand.NextBool();
             if (doDodge)
             {
-                Player.immune = true;
-                Player.immuneTime = 60;
-                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SapphireShield>(), 0, 0, Player.whoAmI);
+                Player.SetImmuneTimeForAllTypes(Player.longInvince ? 100 : 60);
+                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero,
+                    ModContent.ProjectileType<SapphireShield>(), 0, 0, Player.whoAmI);
             }
-            return !doDodge;
+            return doDodge;
         }
 
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+        public override void OnHurt(Player.HurtInfo info)
         {
             for (int i = 0; i < Main.maxNPCs; i++)
             {
@@ -682,7 +682,7 @@ namespace ShardsOfAtheria.Players
             }
         }
 
-        public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+        public override void PostHurt(Player.HurtInfo info)
         {
             combatTimer = 300;
             if (Player.HasBuff(ModContent.BuffType<Overdrive>()))

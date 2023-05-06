@@ -1,7 +1,6 @@
 ﻿using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SinfulSouls
@@ -32,7 +31,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         public bool targetFound;
         public bool envy;
         public NPC target;
-        public int focusDamage;
+        public int targetStrikes;
 
         public override void ResetEffects()
         {
@@ -45,60 +44,60 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             targetFound = target != null;
         }
 
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
-        {
-            if (envy)
-            {
-                if (target.life <= 0 && target.type == this.target.type)
-                {
-                    targetFound = false;
-                    focusDamage = 0;
-                }
-            }
-        }
-
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (envy)
             {
                 if (target.life <= 0 && target == this.target)
                 {
                     targetFound = false;
-                    focusDamage = 0;
+                    targetStrikes = 0;
                 }
             }
         }
 
-        public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (envy)
+            {
+                if (target.life <= 0 && target == this.target)
+                {
+                    targetFound = false;
+                    targetStrikes = 0;
+                }
+            }
+        }
+
+        public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
         {
             if (envy)
             {
                 if (target != this.target || !targetFound)
                 {
                     this.target = target;
-                    focusDamage = 0;
+                    targetStrikes = 0;
                 }
                 else if (target == this.target)
                 {
-                    damage += focusDamage;
-                    focusDamage++;
+                    modifiers.FlatBonusDamage += targetStrikes * 3;
+                    targetStrikes++;
                 }
             }
         }
 
-        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
         {
             if (envy)
             {
                 if (target != this.target || !targetFound)
                 {
                     this.target = target;
-                    focusDamage = 0;
+                    targetStrikes = 0;
                 }
                 else if (target == this.target)
                 {
-                    damage += focusDamage;
-                    focusDamage++;
+                    modifiers.FlatBonusDamage += targetStrikes * 3;
+                    targetStrikes++;
                 }
             }
         }
@@ -108,7 +107,6 @@ namespace ShardsOfAtheria.Items.SinfulSouls
     {
         public override void SetStaticDefaults()
         {
-            Description.SetDefault(Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.EnvySoul"));
             base.SetStaticDefaults();
         }
 

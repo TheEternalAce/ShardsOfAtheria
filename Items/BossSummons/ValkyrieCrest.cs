@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Config;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using Terraria;
 using Terraria.Audio;
@@ -20,25 +19,25 @@ namespace ShardsOfAtheria.Items.BossSummons
             // write this in the bosses file instead
             NPCID.Sets.MPAllowedEnemies[ModContent.NPCType<NovaStellar>()] = true;
 
-            SacrificeTotal = 3;
+            Item.ResearchUnlockCount = 3;
         }
 
         public override void SetDefaults()
         {
             Item.width = 32;
             Item.height = 32;
-            if (!ModContent.GetInstance<ShardsServerConfig>().nonConsumeBoss)
+            if (!SoA.ServerConfig.nonConsumeBoss)
             {
                 Item.consumable = true;
             }
             Item.maxStack = 9999;
+            Item.value = 50000;
 
             Item.useTime = 45;
             Item.useAnimation = 45;
             Item.useStyle = ItemUseStyleID.HoldUp;
 
             Item.rare = ItemRarityID.Blue;
-            Item.value = Item.buyPrice(0, 5);
         }
 
         // We use the CanUseItem hook to prevent a Player from using this item while the boss is present in the world.
@@ -79,7 +78,7 @@ namespace ShardsOfAtheria.Items.BossSummons
                 {
                     // If the Player is in multiPlayer, request a spawn
                     // This will only work if NPCID.Sets.MPAllowedEnemies[type] is true, which we set in MinionBossBody
-                    NetMessage.SendData(MessageID.SpawnBoss, number: player.whoAmI, number2: type);
+                    NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: type);
                 }
             }
 

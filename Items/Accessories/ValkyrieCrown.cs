@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -14,7 +15,8 @@ namespace ShardsOfAtheria.Items.Accessories
         {
             ArmorIDs.Head.Sets.DrawHatHair[Item.faceSlot] = true;
 
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
+            Item.AddElecDefault();
         }
 
         public override void SetDefaults()
@@ -22,7 +24,6 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.width = 32;
             Item.height = 32;
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
 
             Item.damage = 16;
             Item.DamageType = DamageClass.Melee;
@@ -35,13 +36,13 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ShardsOfAtheria().valkyrieCrown = true;
+            player.Shards().valkyrieCrown = true;
             if (player.ownedProjectileCounts[ModContent.ProjectileType<HardlightSword>()] < 2)
             {
                 for (int i = 0; i < 2; i++)
                 {
                     Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero,
-                        ModContent.ProjectileType<HardlightSword>(), (int)player.GetWeaponKnockback(Item),
+                        ModContent.ProjectileType<HardlightSword>(), player.GetWeaponDamage(Item),
                         player.GetWeaponKnockback(Item), player.whoAmI, i);
                 }
             }

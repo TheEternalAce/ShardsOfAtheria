@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -26,8 +26,8 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = false; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
-            ProjectileElements.Metal.Add(Type);
-            ProjectileElements.Electric.Add(Type);
+
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()
@@ -77,7 +77,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
             bool foundTarget = false;
             float distanceFromTarget = 0;
             Vector2 targetCenter = Vector2.Zero;
-            if (owner.ShardsOfAtheria().superSapphireCore)
+            if (owner.Shards().superSapphireCore)
             {
                 SearchForTargets(owner, out foundTarget, out distanceFromTarget, out targetCenter);
             }
@@ -88,6 +88,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
             else
             {
                 Projectile.tileCollide = false;
+                grounded = false;
                 Movement(foundTarget, distanceFromTarget, targetCenter, distanceToIdlePosition, vectorToIdlePosition);
             }
         }
@@ -273,6 +274,10 @@ namespace ShardsOfAtheria.Projectiles.Minions
                     vectorToIdlePosition.Normalize();
                     vectorToIdlePosition *= speed;
                     Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
+                    if (idleTimer > 0)
+                    {
+                        idleTimer--;
+                    }
                 }
                 else if (Projectile.velocity == Vector2.Zero)
                 {
@@ -316,7 +321,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
         private bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || !owner.ShardsOfAtheria().sapphireSpirit)
+            if (owner.dead || !owner.active || !owner.Shards().sapphireSpirit)
                 return false;
             else Projectile.timeLeft = 2;
             return true;

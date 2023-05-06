@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
         public override void Update(Player player, ref int buffIndex)
         {
             player.manaCost -= .1f;
-            player.ShardsOfAtheria().baseConservation = true;
+            player.Shards().baseConservation = true;
         }
     }
 }

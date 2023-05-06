@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
@@ -17,9 +17,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
     {
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Ice.Add(Type);
-            ProjectileElements.Fire.Add(Type);
-            ProjectileElements.Electric.Add(Type);
+            Projectile.AddIceAqua();
+            Projectile.AddFire();
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()
@@ -72,7 +72,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         {
             Rectangle hitbox = new Rectangle((int)Projectile.position.X, (int)Projectile.position.Y, Projectile.width, Projectile.height);
             Player player = Main.player[Projectile.owner];
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             for (int i = 0; i < Main.maxProjectiles; i++)

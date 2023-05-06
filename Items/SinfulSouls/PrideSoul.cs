@@ -55,7 +55,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             }
             else
             {
-                if (Player.ShardsOfAtheria().combatTimer == 0 && noHitTime > 0)
+                if (Player.Shards().combatTimer == 0 && noHitTime > 0)
                 {
                     noHitTimer--;
                     if (noHitTimer <= -60)
@@ -88,7 +88,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             }
         }
 
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (pride && proj.DamageType != DamageClass.Summon)
             {
@@ -96,7 +96,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             }
         }
 
-        public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+        public override void OnHurt(Player.HurtInfo info)
         {
             if (pride)
             {
@@ -124,7 +124,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         {
             if (player.Pride().pride)
             {
-                if (player.ShardsOfAtheria().inCombat && item.DamageType != DamageClass.Summon)
+                if (player.Shards().inCombat && item.DamageType != DamageClass.Summon)
                 {
                     PridePlayer pridePlayer = player.Pride();
                     if (item.damage > 0 && item.DamageType != DamageClass.Summon && type > ProjectileID.None)
@@ -144,23 +144,16 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
     public class PrideBuff : SinfulSoulBuff
     {
-        public override void SetStaticDefaults()
-        {
-            Description.SetDefault(Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.PrideSoul"));
-            base.SetStaticDefaults();
-        }
-
-        public override void ModifyBuffTip(ref string tip, ref int rare)
+        public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
         {
             PridePlayer pridePlayer = Main.LocalPlayer.Pride();
-            tip = Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.PrideSoul", pridePlayer.shotsFired, pridePlayer.shotsLanded);
-            base.ModifyBuffTip(ref tip, ref rare);
+            tip = Language.GetTextValue("Mods.ShardsOfAtheria.Items.PrideSoul.Tooltip", pridePlayer.shotsFired, pridePlayer.shotsLanded);
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
             player.Pride().pride = true;
-            if (player.ShardsOfAtheria().inCombat)
+            if (player.Shards().inCombat)
             {
                 player.Pride().noHitTimer++;
             }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Buffs.Summons;
-using MMZeroElements;
 using ShardsOfAtheria.Projectiles.Minions;
 using Terraria;
 using Terraria.DataStructures;
@@ -13,8 +13,8 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Minion
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
-            WeaponElements.Metal.Add(Type);
+            Item.ResearchUnlockCount = 1;
+            Item.AddElecDefault();
         }
 
         public override void SetDefaults()

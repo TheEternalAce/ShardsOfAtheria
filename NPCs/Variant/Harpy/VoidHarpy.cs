@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MMZeroElements;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
@@ -45,7 +46,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-            NPCElements.Fire.Add(Type);
+            NPC.AddFire();
         }
 
         public override void SetDefaults()
@@ -119,7 +120,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             npcLoot.Add(hardmode);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (Main.expertMode || Main.hardMode)
             {

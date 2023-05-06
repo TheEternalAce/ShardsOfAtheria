@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.AnyDebuff;
+﻿using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -11,7 +10,6 @@ namespace ShardsOfAtheria.Globals
     public class SoAGlobalProjectile : GlobalProjectile
     {
         public bool tempAreus = false;
-        public bool explosion = false;
 
         public static List<int> Eraser = new List<int>();
         public static List<int> AreusProj = new List<int>();
@@ -113,12 +111,12 @@ namespace ShardsOfAtheria.Globals
             }
         }
 
-        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (AreusProj.Contains(projectile.type) || tempAreus)
             {
                 int buffTime = 600;
-                if (Main.player[projectile.owner].ShardsOfAtheria().conductive)
+                if (Main.player[projectile.owner].Shards().conductive)
                 {
                     buffTime *= 2;
                 }
@@ -131,11 +129,6 @@ namespace ShardsOfAtheria.Globals
                     target.AddBuff(ModContent.BuffType<ElectricShock>(), buffTime);
                 }
             }
-        }
-
-        public override bool PreDraw(Projectile projectile, ref Color lightColor)
-        {
-            return !explosion;
         }
     }
 }

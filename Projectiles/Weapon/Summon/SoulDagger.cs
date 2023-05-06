@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using Terraria;
 using Terraria.ID;
@@ -24,7 +24,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon
         }
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Fire.Add(Type);
+            Projectile.AddFire();
         }
 
         public override void SetDefaults()
@@ -59,7 +59,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon
                 }
                 Projectile.ai[1] = 1;
             }
-            if (player == Main.player[Projectile.owner] && ShardsOfAtheriaMod.ArmorSetBonusActive.JustPressed && Projectile.ai[1] == 1)
+            if (player == Main.player[Projectile.owner] && SoA.ArmorSetBonusActive.JustPressed && Projectile.ai[1] == 1)
             {
                 if (!Main.LocalPlayer.mouseInterface)
                 {

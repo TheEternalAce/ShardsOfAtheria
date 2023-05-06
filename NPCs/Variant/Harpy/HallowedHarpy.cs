@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
@@ -29,7 +29,6 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-            NPCElements.Metal.Add(Type);
         }
 
         public override void SetDefaults()
@@ -41,7 +40,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<HallowedHarpyBanner>();
-            NPC.SetElementMultipliersByElement(Element.Metal);
+            NPC.SetElementMultiplier(2.0f, 0.8f, 0.5f, 1.0f);
         }
 
         public override void AI()
@@ -101,7 +100,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             npcLoot.Add(ItemDropRule.Common(ItemID.UnicornHorn, 3, 1, 3));
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (Main.expertMode || Main.hardMode)
             {

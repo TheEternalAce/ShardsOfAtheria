@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()
@@ -19,19 +19,19 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.width = 32;
             Item.height = 32;
             Item.accessory = true;
+            Item.value = 150000;
 
             Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 1, 25);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ShardsOfAtheria().rushDrive = true;
+            player.Shards().rushDrive = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            List<string> phaseKey = ShardsOfAtheriaMod.PhaseSwitch.GetAssignedKeys();
+            List<string> phaseKey = SoA.PhaseSwitch.GetAssignedKeys();
             tooltips.Insert(tooltips.GetIndex("Tooltip#"), new TooltipLine(Mod, "Tooltip#", Language.GetTextValue("Mods.ShardsOfAtheria.Common.RushDrive",
                     phaseKey.Count > 0 ? phaseKey[0] : "[Unbounded Hotkey]")));
         }

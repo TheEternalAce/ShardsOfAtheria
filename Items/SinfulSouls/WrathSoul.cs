@@ -46,7 +46,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
                 anger = 0f;
                 rage = 0;
             }
-            if (Player.ShardsOfAtheria().combatTimer == 0 && (anger > 0 || rage > 0))
+            if (Player.Shards().combatTimer == 0 && (anger > 0 || rage > 0))
             {
                 calming++;
                 if (calming == 60)
@@ -60,7 +60,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             }
         }
 
-        public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+        public override void OnHurt(Player.HurtInfo info)
         {
             if (wrath)
             {
@@ -78,11 +78,10 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             base.SetStaticDefaults();
         }
 
-        public override void ModifyBuffTip(ref string tip, ref int rare)
+        public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
         {
             tip = Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.WrathSoul", MathF.Round(Main.LocalPlayer.GetModPlayer<WrathPlayer>().anger, 3),
                 Main.LocalPlayer.GetModPlayer<WrathPlayer>().rage);
-            base.ModifyBuffTip(ref tip, ref rare);
         }
 
         public override void Update(Player player, ref int buffIndex)

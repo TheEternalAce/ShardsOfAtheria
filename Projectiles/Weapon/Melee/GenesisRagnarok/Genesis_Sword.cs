@@ -1,28 +1,25 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff;
 using ShardsOfAtheria.Utilities;
-using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 {
-    public class Genesis_Sword : EpicSwingSword
+    public class Genesis_Sword : SwordProjectileBase
     {
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Ice.Add(Type);
-            ProjectileElements.Fire.Add(Type);
-            ProjectileElements.Electric.Add(Type);
+            Projectile.AddIceAqua();
+            Projectile.AddFire();
+            Projectile.AddElec();
             SoAGlobalProjectile.Eraser.Add(Type);
         }
 
@@ -30,16 +27,16 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         {
             base.SetDefaults();
 
-            Projectile.width = Projectile.height = 132;
-            hitboxOutwards = 90;
+            Projectile.width = Projectile.height = 30;
+            swordReach = 190;
             rotationOffset = -MathHelper.PiOver4 * 3f;
             amountAllowedToHit = 5;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[Projectile.owner];
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
@@ -54,7 +51,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                     Projectile.CallStorm(3);
                 }
             }
-            base.OnHitNPC(target, damage, knockback, crit);
+            base.OnHitNPC(target, hit, damageDone);
         }
 
         protected override void Initialize(Player player, ShardsPlayer shards)
@@ -76,7 +73,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             base.AI();
             if (Main.player[Projectile.owner].itemAnimation <= 1)
             {
-                Main.player[Projectile.owner].ShardsOfAtheria().itemCombo = (ushort)(combo == 0 ? 20 : 0);
+                Main.player[Projectile.owner].Shards().itemCombo = (ushort)(combo == 0 ? 20 : 0);
             }
             if (!playedSound && AnimProgress > 0.4f)
             {
@@ -90,7 +87,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             if (progress == 0.5f && Main.myPlayer == Projectile.owner)
             {
                 Player player = Main.player[Projectile.owner];
-                ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+                ShardsPlayer shardsPlayer = player.Shards();
                 int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
                 if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
@@ -109,6 +106,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                     }
                 }
             }
+        }
+
+        public override Vector2 GetOffsetVector(float progress)
+        {
+            return BaseAngleVector.RotatedBy((progress * (MathHelper.Pi * 1.5f) - (MathHelper.PiOver2 * 1.5f)) * -swingDirection * 1.1f);
         }
 
         public override float SwingProgress(float progress)
@@ -135,30 +137,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 
         public override bool PreDraw(ref Color lightColor)
         {
-            var texture = TextureAssets.Projectile[Type].Value;
-            var center = Main.player[Projectile.owner].Center;
-            var handPosition = Main.GetPlayerArmPosition(Projectile) + AngleVector * visualOutwards;
-            var drawColor = Projectile.GetAlpha(lightColor) * Projectile.Opacity;
-            var drawCoords = handPosition - Main.screenPosition;
-            float size = texture.Size().Length();
-            var effects = SpriteEffects.None;
-            var origin = new Vector2(0f, texture.Height);
-
-            Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor, Projectile.rotation, origin, Projectile.scale, effects, 0);
-
-            if (AnimProgress > 0.35f && AnimProgress < 0.75f)
-            {
-                float intensity = (float)Math.Sin((AnimProgress - 0.35f) / 0.4f * MathHelper.Pi);
-                Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor.UseA(0) * intensity * 0.5f, Projectile.rotation, origin, Projectile.scale, effects, 0);
-
-                var swish = SwishTexture.Value;
-                var swishOrigin = swish.Size() / 2f;
-                var swishColor = new Color(100, 120, 140, 80) * intensity * intensity * Projectile.Opacity * 0.5f;
-                float r = BaseAngleVector.ToRotation() + ((AnimProgress - 0.45f) / 0.2f * 2f - 1f) * -swingDirection * 0.6f;
-                var swishLocation = Main.player[Projectile.owner].Center - Main.screenPosition + r.ToRotationVector2() * (size - 20f) * scale;
-                Main.EntitySpriteDraw(swish, swishLocation, null, swishColor.UseA(0), r + MathHelper.PiOver2, swishOrigin, 1f, effects, 0);
-            }
-            return false;
+            return GenericSwordDraw(lightColor);
         }
     }
 }

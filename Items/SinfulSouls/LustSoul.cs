@@ -35,13 +35,18 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             lust = false;
         }
 
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (lust && Main.rand.NextBool(50))
-                Item.NewItem(target.GetSource_OnHurt(item), target.getRect(), ItemID.Heart);
+            if (lust)
+            {
+                if (Main.rand.NextBool(50))
+                {
+                    Item.NewItem(target.GetSource_OnHurt(item), target.getRect(), ItemID.Heart);
+                }
+            }
         }
 
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (lust)
             {
@@ -59,7 +64,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             }
         }
 
-        public override void PostHurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
             if (lust)
             {
@@ -86,7 +91,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
                 }
                 if (Main.rand.NextFloat() < critChance)
                 {
-                    damage *= 2;
+                    modifiers.FinalDamage *= 2;
                 }
             }
         }
@@ -94,10 +99,9 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
     public class LustBuff : SinfulSoulBuff
     {
-        public override void SetStaticDefaults()
+        public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
         {
-            Description.SetDefault(Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.LustSoul"));
-            base.SetStaticDefaults();
+            tip = Language.GetTextValue("Mods.ShardsOfAtheria.Items.LustSoul.Tooltip");
         }
 
         public override void Update(Player player, ref int buffIndex)

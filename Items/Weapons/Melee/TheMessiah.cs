@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah;
 using Terraria;
@@ -15,12 +15,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     public class TheMessiah : ModItem
     {
         public int charge;
-        public bool theMessiah;
-
-        public override void OnCreate(ItemCreationContext context)
-        {
-            theMessiah = false;
-        }
+        public bool theMessiah = false;
+        private static SoundStyle inventorySound;
 
         public override void SaveData(TagCompound tag)
         {
@@ -35,10 +31,18 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             }
         }
 
+        public override void Load()
+        {
+            if (Main.netMode == NetmodeID.Server)
+                return;
+
+            inventorySound = new SoundStyle("ShardsOfAtheria/Sounds/Item/TheMessiah");
+        }
+
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
-            WeaponElements.Fire.Add(Type);
+            Item.ResearchUnlockCount = 1;
+            Item.AddFireDefault();
             SoAGlobalItem.Eraser.Add(Type);
         }
 
@@ -61,7 +65,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
             Item.shootSpeed = 15;
             Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(1);
+            Item.value = 5000000;
             Item.shoot = ModContent.ProjectileType<MessiahAirSlash>();
         }
 
@@ -69,8 +73,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             if (!theMessiah && Main.myPlayer == player.whoAmI)
             {
-                SoundEngine.PlaySound(new SoundStyle("ShardsOfAtheria/Sounds/Item/TheMessiah"));
                 theMessiah = true;
+                SoundEngine.PlaySound(inventorySound);
             }
             if (charge < 200)
                 charge += 1;

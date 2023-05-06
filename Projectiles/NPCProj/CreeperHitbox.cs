@@ -1,4 +1,4 @@
-﻿using MMZeroElements;
+﻿using MMZeroElements.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -6,11 +6,11 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
 {
     public class CreeperHitbox : ModProjectile
     {
-        public override string Texture => "ShardsOfAtheria/Blank";
+        public override string Texture => SoA.BlankTexture_String;
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Ice.Add(Type);
+            Projectile.AddIceAqua();
         }
 
         public override void SetDefaults()

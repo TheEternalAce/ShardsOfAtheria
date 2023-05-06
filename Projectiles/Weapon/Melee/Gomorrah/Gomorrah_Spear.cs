@@ -9,7 +9,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gomorrah");
             SoAGlobalProjectile.AreusProj.Add(Type);
         }
 

@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             Item.useTime = Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.HoldUp;
 
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -69,7 +69,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()

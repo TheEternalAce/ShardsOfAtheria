@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -18,7 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Projectile.type] = 3;
-			ProjectileElements.Ice.Add(Type);
+			Projectile.AddIceAqua();
 		}
 
 		public override void SetDefaults()

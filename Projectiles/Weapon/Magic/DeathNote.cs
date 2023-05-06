@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
+using ShardsOfAtheria.Buffs.NPCDebuff;
+using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.ModLoader;
@@ -11,7 +13,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 3;
-            ProjectileElements.Ice.Add(Type);
+            Projectile.AddFire();
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()
@@ -21,7 +24,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 240;
 
-            Projectile.penetrate = -1;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
         }
@@ -37,6 +39,13 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             // Set both direction and spriteDirection to 1 or -1 (right and left respectively)
             // Projectile.direction is automatically set correctly in Projectile.Update, but we need to set it here or the textures will draw incorrectly on the 1st frame.
             Projectile.spriteDirection = Projectile.direction = (Projectile.velocity.X < 0).ToDirectionInt();
+
+            NPC target = Projectile.FindClosestNPC(400);
+            if (target == null)
+            {
+                return;
+            }
+            Projectile.ChaseNPC(target, 400, 16f, 20f);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -54,6 +63,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             }
 
             return false;
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<Perish>(), 600);
         }
     }
 }

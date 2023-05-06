@@ -13,12 +13,13 @@ namespace ShardsOfAtheria.Items.DataDisks
     {
         public int diskType = 0;
         public bool readingDisk = false;
+        public string mod = "ShardsOfAtheria";
 
         Asset<Texture2D> disk = ModContent.Request<Texture2D>("ShardsOfAtheria/Items/DataDisks/DataDisk");
 
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()
@@ -26,6 +27,7 @@ namespace ShardsOfAtheria.Items.DataDisks
             Item.width = 34;
             Item.height = 34;
             Item.maxStack = 1;
+            Item.value = 50000;
 
             Item.useTime = 15;
             Item.useAnimation = 15;
@@ -36,7 +38,7 @@ namespace ShardsOfAtheria.Items.DataDisks
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            spriteBatch.Draw(disk.Value, position, null, drawColor, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(disk.Value, position, frame, drawColor, 0f, disk.Value.Size() * 0.5f, scale, SpriteEffects.None, 0f);
             return !readingDisk;
         }
 
@@ -57,7 +59,7 @@ namespace ShardsOfAtheria.Items.DataDisks
 
         public override bool? UseItem(Player player)
         {
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             if (shardsPlayer.readingDisk != diskType)
             {
                 shardsPlayer.readingDisk = diskType;
@@ -99,6 +101,11 @@ namespace ShardsOfAtheria.Items.DataDisks
 
     public class NovaDataDisk : DataDisk
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -108,6 +115,11 @@ namespace ShardsOfAtheria.Items.DataDisks
 
     public class TerrariansDataDisk : DataDisk
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();

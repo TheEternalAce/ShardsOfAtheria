@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -16,8 +16,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10; // The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0; // The recording mode
-            ProjectileElements.Metal.Add(Type);
-            ProjectileElements.Electric.Add(Type);
+            
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()
@@ -44,7 +44,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Projectile.damage > 1)
             {

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Utilities;
 using Terraria;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SinfulSouls
@@ -36,7 +35,6 @@ namespace ShardsOfAtheria.Items.SinfulSouls
     {
         public override void SetStaticDefaults()
         {
-            Description.SetDefault(Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.SlothSoul"));
             base.SetStaticDefaults();
         }
 

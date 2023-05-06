@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
@@ -16,8 +16,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override void SetStaticDefaults()
         {
-            ProjectileElements.Electric.Add(Type);
-            ProjectileElements.Metal.Add(Type);
+            Projectile.AddElec();
+
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
@@ -51,12 +51,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hit)
         {
             target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
         }
@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         public override bool PreDraw(ref Color lightColor)
         {
             Color color = new(227, 182, 245, 80);
-            Projectile.DrawProjectilePrims(color, ProjectileHelper.DiamondX1);
+            Projectile.DrawProjectilePrims(color, ShardsProjectileHelper.DiamondX1);
             lightColor = Color.White;
             return true;
         }

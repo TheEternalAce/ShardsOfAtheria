@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using System;
 using Terraria;
 using Terraria.GameContent;
@@ -22,10 +22,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             // Since the velocity of the projectile affects how far out the jousting lance will spawn, we want the
             // velocity to always be the same even if the player has increased attack speed.
             ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
-            ProjectileElements.Metal.Add(Type);
-            ProjectileElements.Fire.Add(Type);
-            ProjectileElements.Ice.Add(Type);
-            ProjectileElements.Electric.Add(Type);
+
+            Projectile.AddFire();
+            Projectile.AddIceAqua();
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()
@@ -142,19 +142,13 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             }
         }
 
-        // This will increase or decrease the knockback of the Jousting Lance depending on how fast the player is moving.
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (damage > 0)
-            {
-                knockback *= Main.player[Projectile.owner].velocity.Length() / 7f;
-            }
-        }
+            // This will increase or decrease the knockback of the Jousting Lance depending on how fast the player is moving.
+            modifiers.Knockback *= Main.player[Projectile.owner].velocity.Length() / 7f;
 
-        // This will increase or decrease the damage of the Jousting Lance depending on how fast the player is moving.
-        public override void ModifyDamageScaling(ref float damageScale)
-        {
-            damageScale *= 0.1f + Main.player[Projectile.owner].velocity.Length() / 7f * 0.9f;
+            // This will increase or decrease the damage of the Jousting Lance depending on how fast the player is moving.
+            modifiers.SourceDamage *= 0.1f + Main.player[Projectile.owner].velocity.Length() / 7f * 0.9f;
         }
 
         // This is the custom collision that Jousting Lances uses. 
@@ -240,7 +234,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             return false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             var buffChooser = new WeightedRandom<int>();
             buffChooser.Add(BuffID.Ichor);
@@ -248,7 +242,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             buffChooser.Add(BuffID.Frostburn);
 
             if (!(target.HasBuff(BuffID.CursedInferno) || target.HasBuff(BuffID.Frostburn) || target.HasBuff(BuffID.Ichor)))
-                target.AddBuff(buffChooser, 10*60);
+                target.AddBuff(buffChooser, 10 * 60);
         }
     }
 }

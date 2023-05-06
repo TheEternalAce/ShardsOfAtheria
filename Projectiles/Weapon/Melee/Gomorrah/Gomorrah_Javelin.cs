@@ -12,7 +12,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gomorrah");
 			SoAGlobalProjectile.AreusProj.Add(Type);
 		}
 
@@ -96,7 +95,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 		private const int MAX_STICKY_JAVELINS = 7; // This is the max. amount of javelins being able to attach
 		private readonly Point[] _stickingJavelins = new Point[MAX_STICKY_JAVELINS]; // The point array holding for sticking javelins
 
-		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			IsStickingToTarget = true; // we are sticking to a target
 			TargetWhoAmI = target.whoAmI; // Set the target whoAmI

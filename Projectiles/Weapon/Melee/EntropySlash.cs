@@ -1,5 +1,5 @@
 ﻿using ShardsOfAtheria.Buffs.NPCDebuff;
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 3;
-            ProjectileElements.Ice.Add(Type);
+            Projectile.AddIceAqua();
         }
 
         public override void SetDefaults()
@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<LoomingEntropy>(), 600);
         }

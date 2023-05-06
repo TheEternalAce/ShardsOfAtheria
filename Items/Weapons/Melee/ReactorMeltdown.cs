@@ -1,7 +1,6 @@
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,8 +10,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 	{
 		public override void SetStaticDefaults()
 		{
-			SacrificeTotal = 1;
-			WeaponElements.Electric.Add(Type);
+			Item.ResearchUnlockCount = 1;
+			Item.AddElecDefault();
 		}
 
 		public override void SetDefaults()
@@ -28,11 +27,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 			Item.useTime = 25;
 			Item.useAnimation = 25;
 			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.UseSound = new SoundStyle("ShardsOfAtheria/Sounds/Item/ReactorMeltdownAlarm")
-			{
-				Volume = 0.9f,
-				MaxInstances = 3,
-			};
+			Item.UseSound = SoA.ReactorAlarm;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
 			Item.channel = true;

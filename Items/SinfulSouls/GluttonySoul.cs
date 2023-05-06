@@ -2,7 +2,6 @@
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SinfulSouls
@@ -58,23 +57,23 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             }
         }
 
-        public override void OnRespawn(Player player)
+        public override void OnRespawn()
         {
             feed = 100;
             feedTimer = 60;
         }
 
-        public override void OnEnterWorld(Player player)
+        public override void OnEnterWorld()
         {
             feed = 100;
             feedTimer = 60;
         }
 
-        public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (gluttony && foodCoolDown <= 0)
             {
-                if (target.life > 0 && crit)
+                if (target.lifeMax > 5 && target.life > 0 && hit.Crit)
                 {
                     Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Player.Center - target.Center * 10f, ModContent.ProjectileType<FoodChunk>(), 0, 0, Player.whoAmI, 0f);
                     foodCoolDown = foodCoolDownMax;
@@ -87,11 +86,11 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             }
         }
 
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (gluttony && foodCoolDown <= 0)
             {
-                if (target.lifeMax > 5 && target.life > 0 && crit)
+                if (target.lifeMax > 5 && target.life > 0 && hit.Crit)
                 {
                     Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Player.Center - target.Center * 10f, ModContent.ProjectileType<FoodChunk>(), 0, 0, Player.whoAmI, 0f);
                     foodCoolDown = foodCoolDownMax;
@@ -107,12 +106,6 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
     public class GluttonyBuff : SinfulSoulBuff
     {
-        public override void SetStaticDefaults()
-        {
-            Description.SetDefault(Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.GluttonySoul"));
-            base.SetStaticDefaults();
-        }
-
         public override void Update(Player player, ref int buffIndex)
         {
             GluttonyPlayer gluttonyPlayer = player.Gluttony();

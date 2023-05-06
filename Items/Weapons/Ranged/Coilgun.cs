@@ -1,9 +1,10 @@
 using Microsoft.Xna.Framework;
+using MMZeroElements.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WebmilioCommons.Effects.ScreenShaking;
+//using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -11,7 +12,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
+            Item.AddElecDefault();
         }
 
         public override void SetDefaults()
@@ -21,7 +23,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
             Item.damage = 150;
             Item.DamageType = DamageClass.Ranged;
-            Item.knockBack = 20f;
+            Item.knockBack = 7f;
             Item.crit = 5;
 
             Item.useTime = 48;
@@ -53,7 +55,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            ScreenShake.ShakeScreen(8, 60);
+            //ScreenShake.ShakeScreen(8, 60);
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
     }

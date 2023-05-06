@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Items.Materials
             ItemID.Sets.ItemIconPulse[Item.type] = true;
             ItemID.Sets.ItemNoGravity[Item.type] = true;
 
-            SacrificeTotal = 25;
+            Item.ResearchUnlockCount = 25;
         }
 
         public override void SetDefaults()
@@ -39,8 +39,8 @@ namespace ShardsOfAtheria.Items.Materials
                 .AddIngredient(ItemID.FragmentStardust)
                 .AddIngredient(ItemID.FragmentVortex)
                 .AddTile(TileID.LunarCraftingStation)
-                .AddCondition(NetworkText.FromKey("Mods.ShardsOfAtheria.RecipeConditions.SlayerMode"),
-                    r => Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
+                .AddCondition(Language.GetOrRegister("Mods.ShardsOfAtheria.RecipeConditions.SlayerMode"),
+                    () => Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
                 .Register();
         }
     }

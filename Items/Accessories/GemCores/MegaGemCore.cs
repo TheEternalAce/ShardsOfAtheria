@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Cooldowns;
+using ShardsOfAtheria.Players;
+using ShardsOfAtheria.ShardsUI.MegaGemCoreToggles;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -7,44 +9,23 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
     [AutoloadEquip(EquipType.Wings)]
     public class MegaGemCore : ModItem
     {
-        bool gravitation = true;
-
-        public override void OnCreate(ItemCreationContext context)
-        {
-            gravitation = true;
-        }
-
-        public override void SaveData(TagCompound tag)
-        {
-            tag["gravitation"] = gravitation;
-        }
-
-        public override void LoadData(TagCompound tag)
-        {
-            if (tag.ContainsKey("gravitation"))
-            {
-                gravitation = tag.GetBool("gravitation");
-            }
-        }
-
         public override void SetStaticDefaults()
         {
             ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(210, 9f, 2.5f, true, 1f, 1.5f);
 
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Add(new TooltipLine(Mod, "Teleport", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TeleportOnKeyPress"),
-                    ShardsOfAtheriaMod.EmeraldTeleportKey.GetAssignedKeys().Count > 0 ? ShardsOfAtheriaMod.EmeraldTeleportKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
+                    SoA.EmeraldTeleportKey.GetAssignedKeys().Count > 0 ? SoA.EmeraldTeleportKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
         }
 
         public override void SetDefaults()
@@ -52,13 +33,11 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             Item.width = 32;
             Item.height = 32;
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
+            Item.defense = 25;
 
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.useTime = 10;
             Item.useAnimation = 10;
-
-            Item.defense = 25;
 
             Item.rare = ItemRarityID.Red;
             Item.value = Item.sellPrice(0, 3);
@@ -81,7 +60,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
         public override bool? UseItem(Player player)
         {
-            gravitation = !gravitation;
+            MGCToggleUI toggleUI = ModContent.GetInstance<MGCToggleUI>();
+            toggleUI.ToggleToggles();
             return true;
         }
 
@@ -92,11 +72,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             AmethystDashPlayerII.MAX_DASH_DELAY = 50;
             AmethystDashPlayerII.MAX_DASH_TIMER = 35;
 
-            player.ShardsOfAtheria().amethystMask = !hideVisual;
-            player.ShardsOfAtheria().diamanodShield = !hideVisual;
-            player.ShardsOfAtheria().rubyGauntlet = !hideVisual;
-            player.ShardsOfAtheria().sapphireSpirit = !hideVisual;
-            player.ShardsOfAtheria().topazNecklace = !hideVisual;
+            ShardsPlayer shards = player.Shards();
+            shards.amethystMask = shards.megaGemCoreToggles[0];
+            shards.diamanodShield = shards.megaGemCoreToggles[1];
+            shards.rubyGauntlet = shards.megaGemCoreToggles[2];
+            shards.sapphireSpirit = shards.megaGemCoreToggles[3];
+            shards.topazNecklace = shards.megaGemCoreToggles[4];
 
             //Bundle of Balloons
             player.hasJumpOption_Cloud = true;
@@ -130,17 +111,17 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.AddBuff(BuffID.Thorns, 2);
             player.AddBuff(BuffID.Campfire, 2);
             player.AddBuff(BuffID.HeartLamp, 2);
-            if (gravitation)
+            if (shards.megaGemCoreToggles[5])
             {
                 player.AddBuff(BuffID.Gravitation, 2);
             }
 
-            player.ShardsOfAtheria().megaGemCore = true;
+            player.Shards().megaGemCore = true;
 
             player.GetDamage(DamageClass.Generic) += .2f;
             player.maxMinions += 8;
             player.statLifeMax2 += 100;
-            player.ShardsOfAtheria().superEmeraldCore = true;
+            player.Shards().superEmeraldCore = true;
 
             player.buffImmune[BuffID.Venom] = true;
             player.buffImmune[BuffID.OnFire] = true;

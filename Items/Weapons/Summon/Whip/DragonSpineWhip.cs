@@ -1,4 +1,4 @@
-using MMZeroElements;
+using MMZeroElements.Utilities;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Summon.Whip;
 using Terraria;
@@ -11,8 +11,8 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Whip
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
-            WeaponElements.Ice.Add(Type);
+            Item.ResearchUnlockCount = 1;
+            Item.AddIceDefault();
         }
 
         public override void SetDefaults()

@@ -1,6 +1,6 @@
-﻿using ShardsOfAtheria.Items.DevItems.DaluyanMesses;
-using ShardsOfAtheria.Items.DevItems.nightlight;
-using ShardsOfAtheria.Items.DevItems.TheEternalAce;
+﻿using ShardsOfAtheria.Items.DedicatedItems.DaluyanMesses;
+using ShardsOfAtheria.Items.DedicatedItems.nightlight;
+using ShardsOfAtheria.Items.DedicatedItems.TheEternalAce;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Globals
             if (ItemID.Sets.BossBag[item.type])
             {
                 LeadingConditionRule hardmodeDevSet = new LeadingConditionRule(new Conditions.IsHardmode());
-                IItemDropRule aceDrop = ItemDropRule.Common(ModContent.ItemType<AceOfSpades>());
+                IItemDropRule aceDrop = ItemDropRule.Common(ModContent.ItemType<DeckOfCards>());
                 aceDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AcesGoldFoxMask>()));
                 aceDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AcesJacket>()));
                 aceDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AcesPants>()));

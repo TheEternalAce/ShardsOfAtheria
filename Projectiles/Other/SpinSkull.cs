@@ -1,15 +1,10 @@
-﻿using MMZeroElements;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Other
 {
     public class SpinSkull : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            ProjectileElements.Metal.Add(Type);
-        }
         public override void SetDefaults()
         {
             Projectile.width = 80;

@@ -6,7 +6,6 @@ using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon.Minion;
-using ShardsOfAtheria.Items.Weapons.Throwing;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using Terraria;
 using Terraria.GameContent;
@@ -20,12 +19,10 @@ namespace ShardsOfAtheria.Items.GrabBags
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
-
             ItemID.Sets.BossBag[Type] = true; // This set is one that every boss bag should have, it, for example, lets our boss bag drop dev armor..
             ItemID.Sets.PreHardmodeLikeBossBag[Type] = true; // ..But this set ensures that dev armor will only be dropped on special world seeds, since that's the behavior of pre-hardmode boss bags
 
-            SacrificeTotal = 3;
+            Item.ResearchUnlockCount = 3;
         }
 
         public override void SetDefaults()
@@ -52,7 +49,7 @@ namespace ShardsOfAtheria.Items.GrabBags
             itemLoot.Add(ItemDropRule.OneFromOptions(1, loot));
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<HardlightKnife>(), 5, 150, 180));
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ValkyrieCrown>(), 5));
-            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ChargedFeather>(), 1, 15, 28));
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<HardlightPrism>(), 1, 15, 28));
             itemLoot.Add(ItemDropRule.Common(ItemID.GoldBar, 1, 8, 14));
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<NovaStellar>()));
             base.ModifyItemLoot(itemLoot);

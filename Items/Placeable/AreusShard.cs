@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Items.Placeable
 	{
 		public override void SetStaticDefaults()
 		{
-			SacrificeTotal = 100;
+			Item.ResearchUnlockCount = 100;
 		}
 
 		public override void SetDefaults()

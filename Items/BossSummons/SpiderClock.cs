@@ -1,4 +1,3 @@
-using ShardsOfAtheria.Config;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,14 +15,14 @@ namespace ShardsOfAtheria.Items.BossSummons
         {
             ItemID.Sets.SortingPriorityBossSpawns[Type] = 12; // This helps sort inventory know that this is a boss summoning Item.
 
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()
         {
             Item.width = 32;
             Item.height = 32;
-            if (!ModContent.GetInstance<ShardsServerConfig>().nonConsumeBoss)
+            if (!SoA.ServerConfig.nonConsumeBoss)
             {
                 Item.consumable = true;
             }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,11 +7,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather
 {
     public class Stone : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            ProjectileElements.Metal.Add(Type);
-        }
-
         public override void SetDefaults()
         {
             Projectile refProj = new Projectile();
@@ -31,7 +25,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if ((Main.expertMode || Main.hardMode) && Main.rand.NextBool(10))
             {
