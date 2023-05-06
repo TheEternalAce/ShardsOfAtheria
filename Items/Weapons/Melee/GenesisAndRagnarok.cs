@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using MMZeroElements.Utilities;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.ModCondition;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Utilities;
@@ -21,15 +22,15 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
-            Item.AddIce();
-            Item.AddFire();
-            Item.AddElec();
+            Item.ResearchUnlockCount = 1;
+            Item.AddIceDefault();
+            Item.AddFireDefault();
+            Item.AddElecDefault();
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            ShardsPlayer shardsPlayer = Main.LocalPlayer.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = Main.LocalPlayer.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
             if (upgrades == 0)
             {
@@ -83,39 +84,39 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             CreateRecipe()
                 .AddIngredient(ItemID.HellstoneBar, 18)
-                .AddIngredient(ModContent.ItemType<ChargedFeather>(), 7)
+                .AddIngredient(ModContent.ItemType<HardlightPrism>(), 7)
                 .AddTile(TileID.Anvils)
                 .Register();
 
             CreateRecipe()
-                .AddCondition(NetworkText.FromKey("Mods.ShardsOfAtheria.RecipeConditions.Upgrade"), r => false)
+                .AddCondition(SoAConditions.Upgrade)
                 .AddIngredient(ModContent.ItemType<GenesisAndRagnarok>())
                 .AddIngredient(ModContent.ItemType<MemoryFragment>())
                 .Register();
 
             CreateRecipe()
-                .AddCondition(NetworkText.FromKey("Mods.ShardsOfAtheria.RecipeConditions.Upgrade"), r => false)
+                .AddCondition(SoAConditions.Upgrade)
                 .AddIngredient(ModContent.ItemType<GenesisAndRagnarok>())
                 .AddIngredient(ModContent.ItemType<MemoryFragment>())
                 .AddIngredient(ItemID.ChlorophyteBar, 14)
                 .Register();
 
             CreateRecipe()
-                .AddCondition(NetworkText.FromKey("Mods.ShardsOfAtheria.RecipeConditions.Upgrade"), r => false)
+                .AddCondition(SoAConditions.Upgrade)
                 .AddIngredient(ModContent.ItemType<GenesisAndRagnarok>())
                 .AddIngredient(ModContent.ItemType<MemoryFragment>())
                 .AddIngredient(ItemID.BeetleHusk, 16)
                 .Register();
 
             CreateRecipe()
-                .AddCondition(NetworkText.FromKey("Mods.ShardsOfAtheria.RecipeConditions.Upgrade"), r => false)
+                .AddCondition(SoAConditions.Upgrade)
                 .AddIngredient(ModContent.ItemType<GenesisAndRagnarok>())
                 .AddIngredient(ModContent.ItemType<MemoryFragment>())
                 .AddIngredient(ItemID.FragmentSolar, 18)
                 .Register();
 
             CreateRecipe()
-                .AddCondition(NetworkText.FromKey("Mods.ShardsOfAtheria.RecipeConditions.Upgrade"), r => false)
+                .AddCondition(SoAConditions.Upgrade)
                 .AddIngredient(ModContent.ItemType<GenesisAndRagnarok>())
                 .AddIngredient(ModContent.ItemType<MemoryFragment>())
                 .AddIngredient(ItemID.LunarBar, 20)
@@ -129,7 +130,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool CanUseItem(Player player)
         {
-            ShardsPlayer shardsPlayer = Main.LocalPlayer.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = Main.LocalPlayer.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             if (player.altFunctionUse == 2)
@@ -188,7 +189,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool? UseItem(Player player)
         {
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             int comboExtra = upgrades >= 1 ? 1 : 0;
@@ -201,7 +202,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             if (upgrades == 1)
@@ -218,7 +219,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void HoldItem(Player player)
         {
-            player.ShardsOfAtheria().showRagnarok = true;
+            player.Shards().showRagnarok = true;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

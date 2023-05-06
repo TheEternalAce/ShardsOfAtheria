@@ -2,21 +2,20 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
-    public class AreusBow : OverchargeWeapon
+    public class AreusBow : ModItem
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
@@ -42,8 +41,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.value = Item.sellPrice(0, 5);
             Item.shoot = ProjectileID.PurificationPowder;
             Item.useAmmo = AmmoID.Arrow;
-            chargeAmount = 0.167f;
-            overchargeShoot = false;
         }
 
         public override void AddRecipes()
@@ -52,8 +49,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 11)
                 .AddRecipeGroup(ShardsRecipes.Gold, 3)
                 .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 7)
-                .AddIngredient(ModContent.ItemType<ChargedFeather>(), 10)
-                .AddTile(TileID.Anvils)
+                .AddIngredient(ModContent.ItemType<HardlightPrism>(), 10)
+                .AddTile(ModContent.TileType<AreusFabricator>())
                 .Register();
         }
 
@@ -63,44 +60,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             {
                 type = ModContent.ProjectileType<AreusArrowProj>();
             }
-        }
-
-        public override bool CanUseItem(Player player)
-        {
-            if (player.GetModPlayer<OverchargePlayer>().overcharged)
-            {
-                Item.useTime = 5;
-                Item.useAnimation = 25;
-                Item.reuseDelay = 10;
-            }
-            else
-            {
-                Item.useTime = 20;
-                Item.useAnimation = 20;
-                Item.reuseDelay = 0;
-            }
-            return base.CanUseItem(player);
-        }
-
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            OverchargePlayer overchargePlayer = player.GetModPlayer<OverchargePlayer>();
-            if (overchargePlayer.overcharged)
-            {
-                Projectile proj = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
-                proj.GetGlobalProjectile<OverchargedProjectile>().overcharged = true;
-                if (player.itemAnimation == 5)
-                {
-                    overchargePlayer.overcharge = 0f;
-                }
-                return false;
-            }
-            return base.Shoot(player, source, position, velocity, type, damage, knockback);
-        }
-
-        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 1)
-        {
-            ConsumeOvercharge(player);
         }
 
         public override Vector2? HoldoutOffset()

@@ -1,16 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
 using ShardsOfAtheria.NPCs.Variant.Harpy;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
-using Terraria.GameContent.Drawing;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -28,77 +23,10 @@ namespace ShardsOfAtheria.Tiles.Banner
         public const int CorruptHarpyBanner = 7;
         public const int HallowedHarpyBanner = 3;
 
-        public static List<int> bannerWindHack;
-
-        public override void Load()
-        {
-            try
-            {
-                _addSpecialPointSpecialPositions = typeof(TileDrawing).GetField("_specialPositions", BindingFlags.NonPublic | BindingFlags.Instance);
-                _addSpecialPointSpecialsCount = typeof(TileDrawing).GetField("_specialsCount", BindingFlags.NonPublic | BindingFlags.Instance);
-            }
-            catch (Exception e)
-            {
-                Logging.PublicLogger.Debug(e);
-            }
-
-            bannerWindHack = new List<int>();
-            IL.Terraria.GameContent.Drawing.TileDrawing.DrawMultiTileVines += TileDrawing_DrawMultiTileVines;
-        }
-        private static void TileDrawing_DrawMultiTileVines(ILContext il)
-        {
-
-            ILCursor c = new ILCursor(il);
-
-            if (!c.TryGotoNext(MoveType.After,
-                i => i.MatchLdloc(9),
-                i => i.MatchLdnull(),
-                i => i.MatchCall(out _),
-                i => i.MatchBrfalse(out _),
-                i => i.MatchLdloca(9),
-                i => i.MatchCall(out _),
-                i => i.MatchBrfalse(out _)
-                ))
-                return;
-
-            c.Emit(OpCodes.Ldloc, 9);
-            c.EmitDelegate((Tile tile) =>
-            {
-                if (bannerWindHack.Contains(tile.TileType))
-                {
-                    return 3;
-                }
-                return 1;
-            });
-            c.Emit(OpCodes.Stloc, 8);
-        }
-
-        public override void Unload()
-        {
-            bannerWindHack?.Clear();
-            bannerWindHack = null;
-            _addSpecialPointSpecialPositions = null;
-            _addSpecialPointSpecialsCount = null;
-        }
-
-        private static FieldInfo _addSpecialPointSpecialPositions;
-        private static FieldInfo _addSpecialPointSpecialsCount;
-
-        public static void AddSpecialPoint(TileDrawing renderer, int x, int y, int type)
-        {
-            if (_addSpecialPointSpecialPositions?.GetValue(renderer) is Point[][] _specialPositions)
-            {
-                if (_addSpecialPointSpecialsCount?.GetValue(renderer) is int[] _specialsCount)
-                {
-                    _specialPositions[type][_specialsCount[type]++] = new Point(x, y);
-                }
-            }
-        }
-
         public static int BannerToItem(int style)
         {
             int npc = BannerToNPC(style);
-            if (npc > Main.maxNPCTypes)
+            if (npc > NPCID.Count)
             {
                 return NPCLoader.GetNPC(npc).BannerItem;
             }
@@ -119,8 +47,7 @@ namespace ShardsOfAtheria.Tiles.Banner
             TileObjectData.addTile(Type);
             DustType = -1;
             TileID.Sets.DisableSmartCursor[Type] = true;
-            AddMapEntry(new Color(13, 88, 130), CreateMapEntryName("Banners"));
-            bannerWindHack.Add(Type);
+            AddMapEntry(new Color(13, 88, 130), Language.GetText("MapObject.Banners.MapEntry"));
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
@@ -156,16 +83,6 @@ namespace ShardsOfAtheria.Tiles.Banner
             {
                 spriteEffects = SpriteEffects.None;
             }
-        }
-
-        public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
-        {
-            if (Main.tile[i, j].TileFrameX % 18 == 0 && Main.tile[i, j].TileFrameY % 54 == 0)
-            {
-                AddSpecialPoint(Main.instance.TilesRenderer, i, j, 5);
-            }
-
-            return false;
         }
 
         public static int BannerToNPC(int style)

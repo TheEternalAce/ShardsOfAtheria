@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Buffs.Cooldowns
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.ShardsOfAtheria().heartBreak = true;
+            player.Shards().heartBreak = true;
         }
     }
 }

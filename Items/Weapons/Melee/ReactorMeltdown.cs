@@ -10,8 +10,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 	{
 		public override void SetStaticDefaults()
 		{
-			SacrificeTotal = 1;
-			Item.AddElec();
+			Item.ResearchUnlockCount = 1;
+			Item.AddElecDefault();
 		}
 
 		public override void SetDefaults()

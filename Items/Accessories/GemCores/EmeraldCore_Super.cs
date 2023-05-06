@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 		{
 			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 9f, 2.5f);
 
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 
 		public override void SetDefaults()
@@ -23,7 +23,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			Item.width = 32;
 			Item.height = 32;
 			Item.accessory = true;
-			Item.canBePlacedInVanityRegardlessOfConditions = true;
 
 			Item.rare = ItemRarityID.Lime;
 			Item.value = Item.sellPrice(0, 3);
@@ -46,7 +45,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			player.hasJumpOption_Blizzard = true;
 			player.hasJumpOption_Sandstorm = true;
 			player.jumpBoost = true;
-			player.ShardsOfAtheria().superEmeraldCore = true;
+			player.Shards().superEmeraldCore = true;
 		}
 
 		public override void AddRecipes()

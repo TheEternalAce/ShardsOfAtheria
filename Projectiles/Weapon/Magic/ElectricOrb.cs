@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using MMZeroElements.Utilities;
-using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -58,10 +56,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
                 }
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Normalize(vector - Projectile.Center),
                     ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-            }
-            if (Projectile.GetGlobalProjectile<OverchargedProjectile>().overcharged)
-            {
-                Projectile.CallStorm(5);
             }
         }
     }

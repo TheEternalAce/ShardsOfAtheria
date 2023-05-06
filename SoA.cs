@@ -37,8 +37,8 @@ namespace ShardsOfAtheria
         public static ShardsDownedSystem DownedSystem;
         public static bool AprilFools => DateTime.Now is DateTime { Month: 4 };
 
-        public static string Blank_String = "ShardsOfAtheria/Blank";
-        public static string Placeholder_String = "ShardsOfAtheria/PlaceholderSprite";
+        public static string BlankTexture_String = "ShardsOfAtheria/Blank";
+        public static string PlaceholderTexture_String = "ShardsOfAtheria/PlaceholderSprite";
         public static SoundStyle ReactorAlarm;
 
         public override void Load()
@@ -72,11 +72,14 @@ namespace ShardsOfAtheria
 
         public override void PostSetupContent()
         {
-            if (ModContent.GetInstance<ShardsClient>().windowTitle)
+            if (!Main.dedServ)
             {
-                if (Main.rand.NextBool(3))
+                if (ModContent.GetInstance<ShardsClient>().windowTitle)
                 {
-                    Main.instance.Window.Title = ChooseTitleText();
+                    if (Main.rand.NextBool(3))
+                    {
+                        Main.instance.Window.Title = ChooseTitleText();
+                    }
                 }
             }
 

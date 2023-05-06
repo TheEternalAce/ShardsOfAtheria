@@ -11,11 +11,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
     {
         float rotation;
         int gravityTimer;
-        private const string ChainTexturePath = "ShardsOfAtheria/Projectiles/Weapon/Throwing/KingsKusarigama_Chain";
+        private const string ChainTexturePath = "ShardsOfAtheria/Projectiles/Weapon/Ranged/KingsKusarigama_Chain";
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddIce();
+            Projectile.AddIceAqua();
         }
 
         public override void SetDefaults()
@@ -75,6 +75,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 
         void DoSwingAI(Player player)
         {
+            if (Projectile.tileCollide)
+            {
+                Projectile.tileCollide = false;
+            }
             if (Projectile.velocity != Vector2.Zero)
             {
                 Projectile.velocity *= 0;
@@ -208,9 +212,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
                 remainingVectorToPlayer = handPosition - drawPosition;
 
                 // Finally, we draw the texture at the coordinates using the lighting information of the tile coordinates of the chain section
-                Main.spriteBatch.Draw(chainTexture.Value, drawPosition - Main.screenPosition, null, Color.White, rotation, chainTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
+                Main.spriteBatch.Draw(chainTexture.Value, drawPosition - Main.screenPosition, null, lightColor, rotation, chainTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
             }
-            lightColor = Color.White;
 
             return true;
         }

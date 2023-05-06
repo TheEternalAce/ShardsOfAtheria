@@ -13,9 +13,9 @@ namespace ShardsOfAtheria.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
-            Item.AddFire();
+            Item.AddFireDefault();
         }
 
         public override void SetDefaults()

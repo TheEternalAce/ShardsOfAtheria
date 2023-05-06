@@ -30,18 +30,11 @@ namespace ShardsOfAtheria.Tiles.Furniture
 
 			DustType = DustID.Adamantite;
 			AdjTiles = new int[] { TileID.Containers };
-			ChestDrop = ModContent.ItemType<OmegaChestItem>();
 
 			// Names
-			ContainerName.SetDefault("Omega Chest");
+			AddMapEntry(new Color(160, 0, 80), Language.GetText("MapObject.OmegaChest.MapEntry"), MapChestName);
 
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Omega Chest");
-			AddMapEntry(new Color(160, 0, 80), name, MapChestName);
-
-			name = CreateMapEntryName(Name + "_Locked"); // With multiple map entries, you need unique translation keys.
-			name.SetDefault("Locked Omega Chest");
-			AddMapEntry(new Color(80, 0, 40), name, MapChestName);
+			AddMapEntry(new Color(80, 0, 40), Language.GetText("MapObject.OmegaChest_Locked.MapEntry"), MapChestName);
 
 			// Placement
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
@@ -104,7 +97,6 @@ namespace ShardsOfAtheria.Tiles.Furniture
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ChestDrop);
 			Chest.DestroyChest(i, j);
 		}
 
@@ -171,7 +163,7 @@ namespace ShardsOfAtheria.Tiles.Furniture
 					{
 						if (Main.netMode == NetmodeID.MultiplayerClient)
 						{
-							NetMessage.SendData(MessageID.Unlock, -1, -1, null, player.whoAmI, 1f, left, top);
+							NetMessage.SendData(MessageID.LockAndUnlock, -1, -1, null, player.whoAmI, 1f, left, top);
 						}
 					}
 				}

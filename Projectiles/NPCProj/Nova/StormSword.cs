@@ -7,6 +7,7 @@ using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -93,6 +94,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
                 {
                     Projectile.timeLeft = 121;
                     Projectile.velocity = Vector2.Normalize(player.Center - Projectile.Center) * 6f;
+                    SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
                     Projectile.ai[1] = 1;
                 }
             }
@@ -110,7 +112,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (Main.expertMode)
             {

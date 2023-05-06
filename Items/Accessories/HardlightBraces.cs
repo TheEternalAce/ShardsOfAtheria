@@ -9,47 +9,47 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories
 {
-	[AutoloadEquip(EquipType.HandsOn, EquipType.HandsOff)]
-	public class HardlightBraces : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			SacrificeTotal = 1;
-			Item.AddElec();
-		}
+    [AutoloadEquip(EquipType.HandsOn, EquipType.HandsOff)]
+    public class HardlightBraces : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            Item.ResearchUnlockCount = 1;
+            Item.AddElecDefault();
+        }
 
-		public override void SetDefaults()
-		{
-			Item.width = 44;
-			Item.height = 22;
-			Item.accessory = true;
+        public override void SetDefaults()
+        {
+            Item.width = 44;
+            Item.height = 22;
+            Item.accessory = true;
 
-			Item.damage = 13;
-			Item.DamageType = DamageClass.Magic;
-			Item.knockBack = 4;
-			Item.crit = 2;
+            Item.damage = 13;
+            Item.DamageType = DamageClass.Magic;
+            Item.knockBack = 4;
+            Item.crit = 2;
 
-			Item.shoot = ModContent.ProjectileType<HardlightBlade>();
-			Item.shootSpeed = 16;
+            Item.shoot = ModContent.ProjectileType<HardlightFeatherMagic>();
+            Item.shootSpeed = 16;
 
-			Item.rare = ItemRarityID.Green;
-			Item.value = Item.buyPrice(0, 10);
-		}
+            Item.rare = ItemRarityID.Green;
+            Item.value = Item.buyPrice(0, 10);
+        }
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			player.ShardsOfAtheria().hardlightBraces = true;
-			player.statDefense += 8;
-			player.wingTimeMax += 10;
-		}
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            player.Shards().hardlightBraces = true;
+            player.statDefense += 8;
+            player.wingTimeMax += 10;
+        }
 
-		public override void AddRecipes()
-		{
-			CreateRecipe()
-				.AddIngredient(ModContent.ItemType<ChargedFeather>(), 15)
-				.AddRecipeGroup(ShardsRecipes.Gold, 6)
-				.AddTile(TileID.Anvils)
-				.Register();
-		}
-	}
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<HardlightPrism>(), 15)
+                .AddRecipeGroup(ShardsRecipes.Gold, 6)
+                .AddTile(TileID.Anvils)
+                .Register();
+        }
+    }
 }

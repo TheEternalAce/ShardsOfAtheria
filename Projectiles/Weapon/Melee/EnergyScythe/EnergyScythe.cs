@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.EnergyScythe
             amountAllowedToHit = 3;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[Projectile.owner];
             if (player.HasBuff(ModContent.BuffType<Overdrive>()))
@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.EnergyScythe
             }
             target.AddBuff(BuffID.OnFire3, 10 * 60);
             player.AddBuff(BuffID.WeaponImbueIchor, 10 * 60);
-            base.OnHitNPC(target, damage, knockback, crit);
+            base.OnHitNPC(target, hit, damageDone);
         }
 
         protected override void Initialize(Player player, ShardsPlayer shards)
@@ -61,7 +61,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.EnergyScythe
             base.AI();
             if (Main.player[Projectile.owner].itemAnimation <= 1)
             {
-                Main.player[Projectile.owner].ShardsOfAtheria().itemCombo = (ushort)(combo == 0 ? 20 : 0);
+                Main.player[Projectile.owner].Shards().itemCombo = (ushort)(combo == 0 ? 20 : 0);
             }
             if (!playedSound && AnimProgress > 0.4f)
             {
@@ -74,7 +74,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.EnergyScythe
         {
             if (progress == 0.5f && Main.myPlayer == Projectile.owner)
             {
-                //FireProjectile(ModContent.ProjectileType<EnergyWave>(), (int)(Projectile.damage * 0.75), (int)(Projectile.knockBack * 0.75));
+                FireProjectile(ModContent.ProjectileType<EnergyWave>(), (int)(Projectile.damage * 0.75), (int)(Projectile.knockBack * 0.75));
             }
             base.UpdateSwing(progress, interpolatedSwingProgress);
         }

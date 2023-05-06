@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Items.DataDisks
 
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()
@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Items.DataDisks
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            spriteBatch.Draw(disk.Value, position, null, drawColor, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(disk.Value, position, frame, drawColor, 0f, disk.Value.Size() * 0.5f, scale, SpriteEffects.None, 0f);
             return !readingDisk;
         }
 
@@ -59,7 +59,7 @@ namespace ShardsOfAtheria.Items.DataDisks
 
         public override bool? UseItem(Player player)
         {
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             if (shardsPlayer.readingDisk != diskType)
             {
                 shardsPlayer.readingDisk = diskType;

@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()
@@ -49,9 +49,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             return false;
         }
 
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (!player.ShardsOfAtheria().heartBreak)
+            if (!player.Shards().heartBreak)
             {
                 player.Heal(100);
             }
@@ -59,7 +59,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void UpdateInventory(Player player)
         {
-            player.ShardsOfAtheria().healingItem = true;
+            player.Shards().healingItem = true;
         }
     }
 }

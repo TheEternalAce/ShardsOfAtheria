@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Placeable
 			ItemID.Sets.ItemIconPulse[Item.type] = true;
 			ItemID.Sets.SortingPriorityMaterials[Item.type] = 59;
 
-			SacrificeTotal = 25;
+			Item.ResearchUnlockCount = 25;
 		}
 
 		public override void SetDefaults()

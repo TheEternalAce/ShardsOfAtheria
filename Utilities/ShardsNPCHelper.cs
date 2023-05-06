@@ -54,11 +54,15 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
-        public static void MoveToPoint(this NPC npc, Vector2 point, float speed)
+        public static void MoveToPoint(this NPC npc, Vector2 point, float speed, bool precise = false)
         {
-            if (Vector2.Distance(point, npc.Center) <= 10)
+            if (Vector2.Distance(point, npc.Center) <= speed * 1.5f)
             {
-                npc.Center = point;
+                if (precise)
+                {
+                    npc.position = point;
+                    npc.velocity *= 0;
+                }
             }
             else
             {

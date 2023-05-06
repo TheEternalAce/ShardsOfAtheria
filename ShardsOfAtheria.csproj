@@ -38,11 +38,5 @@
     <Reference Include="MMZeroElements">
       <HintPath>..\ModAssemblies\MMZeroElements_v1.0.dll</HintPath>
     </Reference>
-    <Reference Include="ShopQuotesMod">
-      <HintPath>..\ModAssemblies\ShopQuotesMod_v1.0.0.1.dll</HintPath>
-    </Reference>
-    <Reference Include="WebmilioCommons">
-      <HintPath>..\ModAssemblies\WebmilioCommons_v0.5.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>

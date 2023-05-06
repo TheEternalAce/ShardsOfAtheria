@@ -90,7 +90,7 @@ namespace ShardsOfAtheria.Projectiles.Bases
                 player.ownedProjectileCounts[Type]--;
             }
 
-            var shards = player.ShardsOfAtheria();
+            var shards = player.Shards();
 
             player.heldProj = Projectile.whoAmI;
             if (!_init)
@@ -273,7 +273,7 @@ namespace ShardsOfAtheria.Projectiles.Bases
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             amountAllowedToHit--;
         }

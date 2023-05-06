@@ -15,13 +15,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     public class TheMessiah : ModItem
     {
         public int charge;
-        public bool theMessiah;
+        public bool theMessiah = false;
         private static SoundStyle inventorySound;
-
-        public override void OnCreate(ItemCreationContext context)
-        {
-            theMessiah = false;
-        }
 
         public override void SaveData(TagCompound tag)
         {
@@ -46,8 +41,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
-            Item.AddFire();
+            Item.ResearchUnlockCount = 1;
+            Item.AddFireDefault();
             SoAGlobalItem.Eraser.Add(Type);
         }
 

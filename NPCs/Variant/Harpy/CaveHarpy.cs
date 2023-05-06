@@ -109,7 +109,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             npcLoot.Add(ItemDropRule.OneFromOptions(5, ItemID.Amethyst, ItemID.Diamond, ItemID.Emerald, ItemID.Ruby, ItemID.Sapphire, ItemID.Topaz, ItemID.Amber));
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if ((Main.expertMode || Main.hardMode) && Main.rand.NextBool(10))
             {

@@ -8,7 +8,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddIce();
+            Projectile.AddIceAqua();
         }
 
         public override void SetDefaults()

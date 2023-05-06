@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword
             amountAllowedToHit = 5;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[Projectile.owner];
             if (player.HeldItem.type == ModContent.ItemType<TheMourningStar>())
@@ -42,7 +42,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword
                     mourningStar.blood += 40;
                 }
             }
-            base.OnHitNPC(target, damage, knockback, crit);
+            base.OnHitNPC(target, hit, damageDone);
         }
 
         protected override void Initialize(Player player, ShardsPlayer shards)
@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword
             base.AI();
             if (Main.player[Projectile.owner].itemAnimation <= 1)
             {
-                Main.player[Projectile.owner].ShardsOfAtheria().itemCombo = (ushort)(combo == 0 ? 20 : 0);
+                Main.player[Projectile.owner].Shards().itemCombo = (ushort)(combo == 0 ? 20 : 0);
             }
             if (!playedSound && AnimProgress > 0.4f)
             {

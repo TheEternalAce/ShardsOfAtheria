@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             Projectile.scale = 1f;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
         }

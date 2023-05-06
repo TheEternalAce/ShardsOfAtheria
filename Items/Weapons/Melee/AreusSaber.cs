@@ -1,21 +1,19 @@
-using Microsoft.Xna.Framework;
 using MMZeroElements.Utilities;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Players;
+using ShardsOfAtheria.ModCondition;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSaber;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
-    public class AreusSaber : OverchargeWeapon
+    public class AreusSaber : ModItem
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
-            Item.AddElec();
+            Item.ResearchUnlockCount = 1;
+            Item.AddElecDefault();
             SoAGlobalItem.AreusWeapon.Add(Type);
             SoAGlobalItem.Eraser.Add(Type);
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
@@ -49,37 +47,14 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             return true;
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            Item.useTime = Item.useAnimation = 20;
-            if (player.altFunctionUse == 2 || player.GetModPlayer<OverchargePlayer>().overcharged)
-            {
-                if (player.GetModPlayer<OverchargePlayer>().overcharged)
-                {
-                    Item.useTime = Item.useAnimation = 40;
-                }
-                Item.shoot = ModContent.ProjectileType<AreusSaberProj>();
-            }
-            else
-            {
-                Item.shoot = ModContent.ProjectileType<AreusSlash1>();
-            }
-            return base.CanUseItem(player);
-        }
-
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddCondition(NetworkText.FromKey("Mods.ShardsOfAtheria.RecipeConditions.Upgrade"), r => false)
+                .AddCondition(SoAConditions.Upgrade)
                 .AddIngredient(ModContent.ItemType<AreusDagger>())
                 .AddIngredient(ModContent.ItemType<AreusSword>())
                 .AddIngredient(ItemID.LunarBar, 14)
                 .Register();
-        }
-
-        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
-        {
-            ConsumeOvercharge(player);
         }
     }
 }

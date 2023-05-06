@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddIce();
+            Projectile.AddIceAqua();
         }
 
         public override void SetDefaults()
@@ -40,7 +40,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Frostburn, 10 * 60);
         }

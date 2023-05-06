@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         int initialDmg = 0;
         int DustTimer = 0;
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Electrified, 600);
             if (Projectile.ai[1] == 1)
@@ -65,7 +65,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
                     initialVel = Projectile.velocity;
                 }
 
-                if (crit)
+                if (hit.Crit)
                 {
                     Projectile.CallStorm(1, 5);
                 }
@@ -73,7 +73,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             Projectile.damage = (int)(Projectile.damage * 0.9f);
         }
 
-        public override void OnHitPvp(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (Projectile.ai[1] == 1)
             {

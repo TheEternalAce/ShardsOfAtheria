@@ -18,7 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon
 		public override void SetStaticDefaults()
 		{
 			Main.projFrames[Projectile.type] = 3;
-			Projectile.AddIce();
+			Projectile.AddIceAqua();
 		}
 
 		public override void SetDefaults()

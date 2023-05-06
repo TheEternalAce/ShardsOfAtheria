@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.Bleeding, 60);
         }

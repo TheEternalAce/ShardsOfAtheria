@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Items.Placeable
 		{
 			ItemID.Sets.ItemIconPulse[Item.type] = true;
 
-			SacrificeTotal = 100;
+			Item.ResearchUnlockCount = 100;
 		}
 
 		public override void SetDefaults()

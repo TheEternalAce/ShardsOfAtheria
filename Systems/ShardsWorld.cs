@@ -18,7 +18,7 @@ namespace ShardsOfAtheria.Systems
         public bool omegaShrine;
         public bool underworldDecaShrine;
 
-        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
             int ShiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shinies"));
             if (ShiniesIndex != -1)
@@ -78,13 +78,7 @@ namespace ShardsOfAtheria.Systems
             for (int k = 0; k < (int)(Main.maxTilesX * Main.maxTilesY * 6E-05); k++)
             {
                 int x = WorldGen.genRand.Next(0, Main.maxTilesX);
-                int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
-                WorldGen.TileRunner(x, y, WorldGen.genRand.Next(3, 6), WorldGen.genRand.Next(2, 6), ModContent.TileType<AreusOre>());
-            }
-            for (int k = 0; k < (int)(Main.maxTilesX * Main.maxTilesY * 6E-05); k++)
-            {
-                int x = WorldGen.genRand.Next(0, Main.maxTilesX);
-                int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
+                int y = WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY);
                 WorldGen.TileRunner(x, y, WorldGen.genRand.Next(6, 6), WorldGen.genRand.Next(2, 6), ModContent.TileType<BionicOre>());
             }
         }

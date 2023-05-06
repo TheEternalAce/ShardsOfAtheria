@@ -15,8 +15,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
-            Item.AddElec();
+            Item.ResearchUnlockCount = 1;
+            Item.AddElecDefault();
         }
 
         public override void SetDefaults()
@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<PrometheusFire>();
         }
 
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.OnFire, 600);
         }

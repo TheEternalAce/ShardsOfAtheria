@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using MMZeroElements.Utilities;
+using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -12,7 +13,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 3;
-            Projectile.AddIce();
+            Projectile.AddFire();
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()
@@ -22,7 +24,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 240;
 
-            Projectile.penetrate = 8;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
         }
@@ -62,6 +63,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             }
 
             return false;
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<Perish>(), 600);
         }
     }
 }

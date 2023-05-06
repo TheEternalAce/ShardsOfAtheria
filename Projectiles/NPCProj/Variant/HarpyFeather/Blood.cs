@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddIce();
+            Projectile.AddIceAqua();
         }
 
         public override void SetDefaults()
@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (Main.expertMode || Main.hardMode)
             {

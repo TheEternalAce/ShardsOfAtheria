@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using MMZeroElements.Elements;
 using MMZeroElements.Utilities;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using System;
@@ -12,7 +11,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WebmilioCommons.Effects.ScreenShaking;
+//using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Utilities
 {
@@ -42,22 +41,20 @@ namespace ShardsOfAtheria.Utilities
             int type = proj.type;
             if (proj.IsFire())
             {
-                elementExplosion.tempFire = true;
+                elementExplosion.isFire = true;
             }
-            if (proj.IsIce())
+            if (proj.IsIceAqua())
             {
-                elementExplosion.tempIce = true;
+                elementExplosion.isIceAqua = true;
             }
             if (proj.IsElec())
             {
-                elementExplosion.tempElectric = true;
+                elementExplosion.isElec = true;
             }
             if (proj.IsWood())
             {
-                elementExplosion.tempWood = true;
+                elementExplosion.isWood = true;
             }
-            proj.hide = true;
-            proj.alpha = 255;
         }
 
         public static void Explode(this Projectile proj, int explosionSize = 120)
@@ -67,7 +64,11 @@ namespace ShardsOfAtheria.Utilities
             proj.velocity *= 0f;
             proj.position += (proj.Size - newExplosionSize) / 2;
             proj.Size = newExplosionSize;
-            ScreenShake.ShakeScreen(6, 60);
+            proj.hide = true;
+            proj.alpha = 255;
+            proj.tileCollide = false;
+            proj.ownerHitCheck = true;
+            //ScreenShake.ShakeScreen(6, 60);
             SoundEngine.PlaySound(SoundID.Item14);
             for (int i = 0; i < 10; i++)
             {
@@ -76,7 +77,7 @@ namespace ShardsOfAtheria.Utilities
                     Dust dust = Dust.NewDustDirect(proj.position, proj.height, proj.width, DustID.Torch, Scale: 1.3f);
                     dust.velocity *= 4f;
                 }
-                if (proj.IsIce())
+                if (proj.IsIceAqua())
                 {
                     Dust dust = Dust.NewDustDirect(proj.position, proj.height, proj.width, DustID.Ice);
                     dust.velocity *= 4f;
@@ -203,11 +204,6 @@ namespace ShardsOfAtheria.Utilities
         public static SoAGlobalProjectile ShardsOfAtheria(this Projectile projectile)
         {
             return projectile.GetGlobalProjectile<SoAGlobalProjectile>();
-        }
-
-        public static OverchargedProjectile Overcharged(this Projectile projectile)
-        {
-            return projectile.GetGlobalProjectile<OverchargedProjectile>();
         }
     }
 }

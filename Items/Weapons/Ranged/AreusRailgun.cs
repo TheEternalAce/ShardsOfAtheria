@@ -1,21 +1,21 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WebmilioCommons.Effects.ScreenShaking;
+//using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
-    public class AreusRailgun : OverchargeWeapon
+    public class AreusRailgun : ModItem
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
@@ -26,7 +26,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
             Item.damage = 100;
             Item.DamageType = DamageClass.Ranged;
-            Item.knockBack = 20f;
+            Item.knockBack = 7f;
             Item.crit = 6;
 
             Item.useTime = 48;
@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 20)
                 .AddRecipeGroup(ShardsRecipes.Gold, 6)
                 .AddIngredient(ItemID.SoulofMight, 7)
-                .AddTile(TileID.MythrilAnvil)
+                .AddTile(ModContent.TileType<AreusFabricator>())
                 .Register();
         }
 
@@ -68,7 +68,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            ScreenShake.ShakeScreen(8, 60);
+            //ScreenShake.ShakeScreen(8, 60);
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
     }

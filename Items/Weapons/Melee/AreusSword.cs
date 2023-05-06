@@ -1,20 +1,19 @@
-using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
-    public class AreusSword : OverchargeWeapon
+    public class AreusSword : ModItem
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
             SoAGlobalItem.UpgradeableItem.Add(Type);
             SoAGlobalItem.Eraser.Add(Type);
@@ -48,22 +47,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 20)
                 .AddRecipeGroup(ShardsRecipes.Gold, 6)
                 .AddIngredient(ItemID.FragmentVortex, 20)
-                .AddTile(TileID.LunarCraftingStation)
+                .AddTile(ModContent.TileType<AreusFabricator>())
                 .Register();
-        }
-
-        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
-        {
-            float numberProjectiles = 5;
-            float shardRotation = MathHelper.ToRadians(15);
-            Vector2 position = player.Center;
-            for (int i = 0; i < numberProjectiles; i++)
-            {
-                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-shardRotation, shardRotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                Projectile.NewProjectile(player.GetSource_FromThis(), position, perturbedSpeed, ModContent.ProjectileType<ElectricBlade>(),
-                    (int)(Item.damage * damageMultiplier), Item.knockBack, player.whoAmI);
-            }
-            ConsumeOvercharge(player);
         }
     }
 }

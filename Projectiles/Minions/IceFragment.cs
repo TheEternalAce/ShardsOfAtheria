@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddIce();
+            Projectile.AddIceAqua();
         }
 
         public override void SetDefaults()

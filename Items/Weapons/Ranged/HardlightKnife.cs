@@ -11,8 +11,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 999;
-            Item.AddElec();
+            Item.ResearchUnlockCount = 999;
+            Item.AddElecDefault();
         }
 
         public override void SetDefaults()
@@ -44,7 +44,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void AddRecipes()
         {
             CreateRecipe(300)
-                .AddIngredient(ModContent.ItemType<ChargedFeather>(), 5)
+                .AddIngredient(ModContent.ItemType<HardlightPrism>(), 5)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
         public override void SetStaticDefaults()
         {
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()
@@ -45,13 +45,13 @@ namespace ShardsOfAtheria.Items.Tools.Misc
 
         public override bool CanUseItem(Player player)
         {
-            if (player.ShardsOfAtheria().heartBreak) return false;
+            if (player.Shards().heartBreak) return false;
             else return true;
         }
 
         public override void UpdateInventory(Player player)
         {
-            player.ShardsOfAtheria().healingItem = true;
+            player.Shards().healingItem = true;
         }
     }
 }

@@ -47,22 +47,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             if (armTimer == 240 && Projectile.alpha == 0)
             {
                 Projectile.Explode();
-                if (Projectile.Overcharged().overcharged)
-                {
-                    Projectile.CallStorm(3);
-                }
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Projectile.alpha == 0)
             {
                 Projectile.Explode();
-                if (Projectile.Overcharged().overcharged)
-                {
-                    Projectile.CallStorm(3);
-                }
             }
         }
     }

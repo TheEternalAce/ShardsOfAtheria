@@ -1,25 +1,23 @@
-using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusGlaive;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
-    public class AreusGlaive : OverchargeWeapon
+    public class AreusGlaive : ModItem
     {
         public int combo = 0;
         public int comboTimer;
 
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
@@ -53,7 +51,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 16)
                 .AddRecipeGroup(ShardsRecipes.Gold, 5)
                 .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 10)
-                .AddTile(TileID.Hellforge)
+                .AddTile(ModContent.TileType<AreusFabricator>())
                 .Register();
         }
 
@@ -116,31 +114,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 combo = 0;
             else combo++;
             return true;
-        }
-
-        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
-        {
-            switch (combo)
-            {
-                case 0:
-                case 1:
-                    float numberProjectiles = 3;
-                    float shardRotation = MathHelper.ToRadians(15);
-                    Vector2 position = player.Center;
-                    for (int i = 0; i < numberProjectiles; i++)
-                    {
-                        Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-shardRotation, shardRotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                        Projectile.NewProjectile(player.GetSource_FromThis(), position, perturbedSpeed, ModContent.ProjectileType<ElectricBlade>(),
-                            (int)(Item.damage * damageMultiplier), Item.knockBack, player.whoAmI);
-                    }
-                    break;
-
-                case 2:
-                case 3:
-                    base.Overcharge(player, projType, damageMultiplier, velocity, ai1);
-                    break;
-            }
-            ConsumeOvercharge(player);
         }
     }
 }

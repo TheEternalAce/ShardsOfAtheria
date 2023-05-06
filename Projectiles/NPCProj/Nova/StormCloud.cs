@@ -48,9 +48,12 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
             for (int i = 0; i < 8; i++)
             {
-                if (spawnPoints != null)
+                if (Projectile.timeLeft > 60)
                 {
-                    Dust.NewDustPerfect(spawnPoints[i], DustID.Electric);
+                    if (spawnPoints != null)
+                    {
+                        Dust.NewDustPerfect(spawnPoints[i], DustID.Electric);
+                    }
                 }
             }
 
@@ -98,7 +101,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(ModContent.BuffType<ElectricShock>(), 10 * 60);
         }

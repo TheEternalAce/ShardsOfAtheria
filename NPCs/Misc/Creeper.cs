@@ -33,12 +33,6 @@ namespace ShardsOfAtheria.NPCs.Misc
             NPC.SetElementMultiplier(Element.IceAqua);
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            NPC.lifeMax = NPC.lifeMax;
-            NPC.damage = NPC.damage;
-        }
-
         public override bool PreAI()
         {
             return true;

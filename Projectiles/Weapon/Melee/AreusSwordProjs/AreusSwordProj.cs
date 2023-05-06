@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -56,7 +56,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs
             base.AI();
             if (Main.player[Projectile.owner].itemAnimation <= 1)
             {
-                Main.player[Projectile.owner].ShardsOfAtheria().itemCombo = (ushort)(combo == 0 ? 20 : 0);
+                Main.player[Projectile.owner].Shards().itemCombo = (ushort)(combo == 0 ? 20 : 0);
             }
             if (!playedSound && AnimProgress > 0.4f)
             {

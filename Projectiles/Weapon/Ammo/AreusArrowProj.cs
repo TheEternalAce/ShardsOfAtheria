@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -30,6 +30,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
         public override void SetStaticDefaults()
         {
             SoAGlobalProjectile.AreusProj.Add(Type);
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()
@@ -58,7 +59,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
                 if (Projectile.ai[0] == 0f)
                 {
                     SoundEngine.PlaySound(SoundID.Item91, Projectile.position);
-                    point = (player.Center + Projectile.velocity + (Projectile.rotation - MathHelper.ToRadians(90)).ToRotationVector2().SafeNormalize(Vector2.Zero) * Vector2.Distance(player.Center, Main.MouseWorld)).ToPoint();
+                    point = (player.MountedCenter + Projectile.velocity + (Projectile.rotation - MathHelper.ToRadians(90)).ToRotationVector2().SafeNormalize(Vector2.Zero) * Vector2.Distance(player.Center, Main.MouseWorld)).ToPoint();
                     Projectile.tileCollide = true;
                     Projectile.velocity *= 0.9f;
                     Projectile.ai[0] = 1f;
@@ -123,10 +124,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
                 if (Projectile.ai[0] == 1f)
                 {
                     int damage = Projectile.damage;
-                    if (!Projectile.GetGlobalProjectile<OverchargedProjectile>().overcharged)
-                    {
-                        damage /= 3;
-                    }
+                    damage /= 3;
                     for (int i = 0; i < 6; i++)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(1, 0).RotatedBy(MathHelper.ToRadians(60 * i)) * 16,

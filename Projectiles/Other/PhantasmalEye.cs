@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Other
 		public override void SetStaticDefaults()
 		{
 			Projectile.AddFire();
-			Projectile.AddIce();
+			Projectile.AddIceAqua();
 			Projectile.AddElec();
 		}
 

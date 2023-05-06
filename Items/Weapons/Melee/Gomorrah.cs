@@ -10,9 +10,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
-            Item.AddElec();
+            Item.AddElecDefault();
         }
 
         public override void SetDefaults()

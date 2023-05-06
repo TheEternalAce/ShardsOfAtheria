@@ -1,8 +1,8 @@
-displayName = Shards of Atheria (Splitting Skies)
+displayName = Shards of Atheria (Shattered Atheria)
 author = Rockman Zeta
-version = 0.9.4.1
+version = 1.0
 homepage = https://forums.terraria.org/index.php?threads/shards-of-atheria-mod.112953/
-modReferences = WebmilioCommons, MMZeroElements
+modReferences = MMZeroElements
 weakReferences = AlchemistNPCLite
 includeSource = true
-sortAfter = WebmilioCommons, MMZeroElements
+sortAfter = MMZeroElements

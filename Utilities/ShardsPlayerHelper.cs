@@ -7,15 +7,11 @@ namespace ShardsOfAtheria.Utilities
 {
     public static class ShardsPlayerHelper
     {
-        public static ShardsPlayer ShardsOfAtheria(this Player player)
+        public static ShardsPlayer Shards(this Player player)
         {
             return player.GetModPlayer<ShardsPlayer>();
         }
 
-        public static OverchargePlayer Overcharged(this Player player)
-        {
-            return player.GetModPlayer<OverchargePlayer>();
-        }
         #region sinful players
         public static SinfulPlayer Sinful(this Player player)
         {
@@ -57,9 +53,14 @@ namespace ShardsOfAtheria.Utilities
             return player.GetModPlayer<WrathPlayer>();
         }
         #endregion
+
         public static SlayerPlayer Slayer(this Player player)
         {
             return player.GetModPlayer<SlayerPlayer>();
+        }
+        public static bool IsSlayer(this Player player)
+        {
+            return player.Slayer().slayerMode;
         }
 
         public static float CappedMeleeScale(this Player player)

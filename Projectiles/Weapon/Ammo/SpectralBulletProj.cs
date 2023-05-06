@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddIce();
+            Projectile.AddIceAqua();
         }
 
         public override void SetDefaults()

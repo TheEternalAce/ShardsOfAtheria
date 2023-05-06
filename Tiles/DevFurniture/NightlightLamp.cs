@@ -5,11 +5,11 @@ using Microsoft.Xna.Framework;
 using Terraria.ObjectData;
 using Terraria.Enums;
 using Terraria.DataStructures;
-using ShardsOfAtheria.Items.DevItems.nightlight;
+using ShardsOfAtheria.Items.DedicatedItems.nightlight;
 
 namespace ShardsOfAtheria.Tiles.DevFurniture
 {
-	public class NightlightLamp : ModTile
+    public class NightlightLamp : ModTile
 	{
 		public override void SetStaticDefaults()
 		{

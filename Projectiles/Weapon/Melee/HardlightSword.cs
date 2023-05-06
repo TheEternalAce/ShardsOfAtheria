@@ -66,7 +66,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         bool CheckActive(Player player)
         {
-            if (player == null || player.dead || !player.active || !player.ShardsOfAtheria().valkyrieCrown)
+            if (player == null || player.dead || !player.active || !player.Shards().valkyrieCrown)
             {
                 return false;
             }

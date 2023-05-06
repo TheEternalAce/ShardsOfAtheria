@@ -10,8 +10,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 999;
-            Item.AddIce();
+            Item.ResearchUnlockCount = 999;
+            Item.AddIceDefault();
         }
 
         public override void SetDefaults()

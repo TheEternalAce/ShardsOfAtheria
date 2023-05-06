@@ -48,7 +48,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusTwinSabers
             base.AI();
             if (Main.player[Projectile.owner].itemAnimation <= 1)
             {
-                Main.player[Projectile.owner].ShardsOfAtheria().itemCombo = (ushort)(combo == 0 ? 20 : 0);
+                Main.player[Projectile.owner].Shards().itemCombo = (ushort)(combo == 0 ? 20 : 0);
             }
             if (!playedSound && AnimProgress > 0.4f)
             {

@@ -99,7 +99,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             hardmode.OnSuccess(ItemDropRule.Common(ItemID.Ichor, 5, 1, 3));
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.Ichor, 60);
         }

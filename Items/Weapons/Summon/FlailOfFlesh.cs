@@ -12,8 +12,8 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
-            Item.AddIce();
+            Item.ResearchUnlockCount = 1;
+            Item.AddIceDefault();
         }
 
         public override void SetDefaults()

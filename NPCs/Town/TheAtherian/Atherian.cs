@@ -1,17 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
 using MMZeroElements.Utilities;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.ItemDropRules.Conditions;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.DataDisks;
+using ShardsOfAtheria.Items.DedicatedItems.Webmillio;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.ModCondition.ItemDrop;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
@@ -122,7 +125,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             });
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             int num = NPC.life > 0 ? 1 : 5;
             for (int k = 0; k < num; k++)
@@ -131,7 +134,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             }
         }
 
-        public override bool CanTownNPCSpawn(int numTownNPCs, int money)
+        public override bool CanTownNPCSpawn(int numTownNPCs)
         {
             for (int k = 0; k < 255; k++)
             {
@@ -174,11 +177,12 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
         public override string GetChat()
         {
             WeightedRandom<string> chat = new();
+            Player player = Main.LocalPlayer;
 
-            if ((!Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode || SoA.ServerConfig.cluelessNPCs) &&
-                Main.LocalPlayer.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
+            if ((!player.GetModPlayer<SlayerPlayer>().slayerMode || SoA.ServerConfig.cluelessNPCs) &&
+                player.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
             {
-                ShardsPlayer shardsPlayer = Main.LocalPlayer.ShardsOfAtheria();
+                ShardsPlayer shardsPlayer = player.Shards();
                 int upgrades = shardsPlayer.genesisRagnarockUpgrades;
                 if (upgrades == 0)
                 {
@@ -186,9 +190,32 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 }
             }
 
-            chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.CSGOReference"));
-            chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.KenobiReference"));
-            chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.PleaseINeedMoreLinesForThisMan"));
+            chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.AtheriaComment"));
+            bool goldCrown = false;
+            for (int i = 0; i < player.armor.Count(); i++)
+            {
+                Item item = player.armor[i];
+                if (item.type == ItemID.GoldCrown)
+                {
+                    chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.GoldCrownCompliment"));
+                    goldCrown = true;
+                    break;
+                }
+            }
+            if (!goldCrown)
+            {
+                chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.GoldCrownThought"));
+            }
+            if (ShardsDownedSystem.downedValkyrie)
+            {
+                chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.ExComment"));
+            }
+            int guide = NPC.FindFirstNPC(NPCID.Guide);
+            if (guide >= 0)
+            {
+                chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.CSGOReference", Main.npc[guide].GivenName));
+            }
+            chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.MorshuMoment", player.name));
             return chat;
         }
 
@@ -198,16 +225,16 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             button2 = "Upgrade";
         }
 
-        public override void OnChatButtonClicked(bool firstButton, ref bool shop)
+        public override void OnChatButtonClicked(bool firstButton, ref string shopName)
         {
             if (firstButton)
             {
-                shop = true;
+                shopName = "Shop";
             }
             else
             {
                 Player player = Main.LocalPlayer;
-                ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+                ShardsPlayer shardsPlayer = player.Shards();
                 int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
                 if (player.Slayer().slayerMode && !SoA.ServerConfig.cluelessNPCs)
@@ -302,7 +329,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
         /// <param name="materials"> an array of UpgradeMaterials</param>
         public void UpgradeItem(Player player, int result, params UpgrageMaterial[] materials)
         {
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
 
             Main.npcChatCornerItem = result;
             if (CanUpgradeItem(player, materials))
@@ -394,27 +421,19 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             return playerItems >= requiredItems;
         }
 
-        public override void SetupShop(Chest shop, ref int nextSlot)
+        public override void AddShops()
         {
-            if (!Main.LocalPlayer.Slayer().slayerMode)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<ValkyrieCrest>());
-                nextSlot++;
-            }
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<RushDrive>());
-            nextSlot++;
-            shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusDataDisk>());
-            nextSlot++;
-            if (ShardsDownedSystem.downedValkyrie)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<NovaDataDisk>());
-                nextSlot++;
-            }
-            if (NPC.downedPlantBoss)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<AreusKey>());
-                nextSlot++;
-            }
+            var npcShop = new NPCShop(Type, "Shop")
+                .Add<ValkyrieCrest>(new Condition("Mods.ShardsOfAtheria.Condotions.NotSlayer",
+                    () => !Main.LocalPlayer.Slayer().slayerMode))
+                .Add<AreusShard>()
+                .Add<AreusDataDisk>()
+                .Add<RushDrive>()
+                .Add<NovaDataDisk>(new Condition("Mods.ShardsOfAtheria.Condotions.DefeatNova",
+                    () => ShardsDownedSystem.downedValkyrie))
+                .Add<AreusKey>(new Condition("Mods.ShardsOfAtheria.Condotions.DefeatPlantera",
+                    () => NPC.downedPlantBoss));
+            npcShop.Register();
         }
 
         public override void OnKill()

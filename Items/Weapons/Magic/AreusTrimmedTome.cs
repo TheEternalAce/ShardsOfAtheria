@@ -2,9 +2,9 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -12,11 +12,11 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Magic
 {
-    public class AreusTrimmedTome : OverchargeWeapon
+    public class AreusTrimmedTome : ModItem
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 10)
                 .AddRecipeGroup(ShardsRecipes.Gold, 3)
                 .AddIngredient(ModContent.ItemType<SoulOfTwilight>(), 7)
-                .AddTile(TileID.Anvils)
+                .AddTile(ModContent.TileType<AreusFabricator>())
                 .Register();
         }
 
@@ -64,16 +64,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
             }
             return false;
-        }
-
-        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 0)
-        {
-            if (Main.myPlayer == player.whoAmI)
-            {
-                Projectile.NewProjectile(Item.GetSource_ItemUse(Item), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<ElectricOrb>(),
-                    (int)(Item.damage * damageMultiplier), Item.knockBack, player.whoAmI);
-                ConsumeOvercharge(player);
-            }
         }
     }
 }

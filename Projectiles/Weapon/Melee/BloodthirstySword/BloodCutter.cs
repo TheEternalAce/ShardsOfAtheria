@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddIce();
+            Projectile.AddIceAqua();
         }
 
         public override void SetDefaults()

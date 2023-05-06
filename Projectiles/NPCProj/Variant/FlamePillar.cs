@@ -7,7 +7,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
 {
     public class FlamePillar : ModProjectile
     {
-        public override string Texture => SoA.Blank_String;
+        public override string Texture => SoA.BlankTexture_String;
 
 
         public override void SetStaticDefaults()
@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff(BuffID.OnFire, 60);
         }

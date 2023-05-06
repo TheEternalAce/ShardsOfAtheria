@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Items.Potions
 	{
 		public override void SetStaticDefaults()
 		{
-			SacrificeTotal = 30;
+			Item.ResearchUnlockCount = 30;
 		}
 
 		public override void SetDefaults()
@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Items.Potions
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.ShardsOfAtheria().conductive = true;
+			player.Shards().conductive = true;
 		}
 	}
 }

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,7 +14,7 @@ namespace ShardsOfAtheria.Items.Tools.Hooks
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1; // Amount of this item needed to research and become available in Journey mode's duplication menu. Amount based on vanilla hooks' amount needed
+            Item.ResearchUnlockCount = 1; // Amount of this item needed to research and become available in Journey mode's duplication menu. Amount based on vanilla hooks' amount needed
         }
 
         public override void SetDefaults()
@@ -31,7 +32,7 @@ namespace ShardsOfAtheria.Items.Tools.Hooks
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 16)
                 .AddRecipeGroup(ShardsRecipes.Gold, 5)
                 .AddIngredient(ItemID.LunarBar, 8)
-                .AddTile(TileID.LunarCraftingStation)
+                .AddTile(ModContent.TileType<AreusFabricator>())
                 .Register();
         }
     }
@@ -42,9 +43,13 @@ namespace ShardsOfAtheria.Items.Tools.Hooks
         private const int hookAmount = 4;
 
         public override void Load()
-        { // This is called once on mod (re)load when this piece of content is being loaded.
-          // This is the path to the texture that we'll use for the hook's chain. Make sure to update it.
-            chainTexture = ModContent.Request<Texture2D>("ShardsOfAtheria/Items/Tools/Hooks/AreusTether_Chain");
+        {
+            // This is called once on mod (re)load when this piece of content is being loaded.
+            // This is the path to the texture that we'll use for the hook's chain. Make sure to update it.
+            if (Main.netMode != NetmodeID.Server)
+            {
+                chainTexture = ModContent.Request<Texture2D>("ShardsOfAtheria/Items/Tools/Hooks/AreusTether_Chain");
+            }
         }
 
         public override void Unload()

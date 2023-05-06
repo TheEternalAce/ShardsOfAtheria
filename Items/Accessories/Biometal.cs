@@ -46,7 +46,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
 
             SetupDrawing();
         }
@@ -63,7 +63,6 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.height = 32;
             Item.scale = .7f;
             Item.accessory = true;
-            Item.canBePlacedInVanityRegardlessOfConditions = true;
             Item.defense = 20;
 
             Item.rare = ItemRarityID.Blue;
@@ -82,7 +81,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             BiometalSound(player);
 
             shardsPlayer.Biometal = true;
@@ -138,14 +137,14 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void UpdateVanity(Player player)
         {
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             BiometalSound(player);
             shardsPlayer.BiometalSound = true;
         }
 
         public void BiometalSound(Player player)
         {
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             if (ModContent.GetInstance<ShardsClient>().biometalSound)
             {
                 if (!shardsPlayer.BiometalSound)
@@ -170,7 +169,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public void UnMegaMerge(Player player)
         {
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             if (shardsPlayer.BiometalSound)
             {
                 SoundEngine.PlaySound(SoundID.Item4);

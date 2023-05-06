@@ -2,13 +2,13 @@
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WebmilioCommons.Effects.ScreenShaking;
+//using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 {
     public class Gomorrah_Burst : ModProjectile
     {
-        public override string Texture => SoA.Blank_String;
+        public override string Texture => SoA.BlankTexture_String;
 
         public override void SetDefaults()
         {
@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
         {
             if (Projectile.ai[0] == 0)
             {
-                ScreenShake.ShakeScreen(6, 60);
+                //ScreenShake.ShakeScreen(6, 60);
                 SoundEngine.PlaySound(SoundID.Item14);
                 Projectile.ai[0] = 1;
             }
@@ -61,7 +61,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Ichor, 600);
         }

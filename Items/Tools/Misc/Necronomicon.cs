@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Players;
 using System.Collections.Generic;
@@ -18,13 +17,10 @@ namespace ShardsOfAtheria.Items.Tools.Misc
     public class Necronomicon : ModItem
     {
         public int page;
-        public static Asset<Texture2D> book;
 
         public override void SetStaticDefaults()
         {
-            book = ModContent.Request<Texture2D>(Texture + "_Open");
-
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()
@@ -76,13 +72,16 @@ namespace ShardsOfAtheria.Items.Tools.Misc
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
+            frame = new(0, 0, 68, 64);
+            Main.instance.LoadItem(ModContent.ItemType<Necronomicon>());
+            var book = TextureAssets.Item[ModContent.ItemType<Necronomicon>()].Value;
             if (page > 0)
             {
-                spriteBatch.Draw(book.Value, position - book.Size() * 0.5f + TextureAssets.Item[Item.type].Size() * 0.5f, null, drawColor * 0.95f, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
-                return false;
+                frame.Y += 64;
             }
 
-            return base.PreDrawInInventory(spriteBatch, position, frame, drawColor, itemColor, origin, scale);
+            spriteBatch.Draw(book, position, frame, drawColor, 0f, frame.Size() * 0.5f, scale * 2f, SpriteEffects.None, 0f);
+            return false;
         }
 
         public override bool? UseItem(Player player)

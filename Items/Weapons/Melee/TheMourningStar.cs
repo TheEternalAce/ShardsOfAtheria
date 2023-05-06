@@ -1,5 +1,6 @@
 using MMZeroElements.Utilities;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.ModCondition;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
@@ -13,13 +14,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class TheMourningStar : ModItem
     {
-        public int blood;
+        public int blood = 0;
         public const int BloodProjCost = 10;
-
-        public override void OnCreate(ItemCreationContext context)
-        {
-            blood = 0;
-        }
 
         public override void SaveData(TagCompound tag)
         {
@@ -36,9 +32,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             SoAGlobalItem.DarkAreusWeapon.Add(Type);
-            Item.AddIce();
+            Item.AddIceDefault();
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -92,7 +88,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddCondition(NetworkText.FromKey("Mods.ShardsOfAtheria.RecipeConditions.Upgrade"), r => false)
+                .AddCondition(SoAConditions.Upgrade)
                 .AddIngredient(ModContent.ItemType<AreusKatana>())
                 .AddIngredient(ItemID.BeetleHusk, 20)
                 .AddIngredient(ItemID.SoulofFright, 14)

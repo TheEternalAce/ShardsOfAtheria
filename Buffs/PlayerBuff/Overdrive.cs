@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.ShardsOfAtheria().overdriveTimeCurrent > 0)
+            if (player.Shards().overdriveTimeCurrent > 0)
             {
                 player.GetDamage(DamageClass.Generic) += 1f;
                 Lighting.AddLight(player.position, TorchID.Corrupt);

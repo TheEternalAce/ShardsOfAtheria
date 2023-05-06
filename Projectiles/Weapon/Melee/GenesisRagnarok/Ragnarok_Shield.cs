@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddIce();
+            Projectile.AddIceAqua();
             Projectile.AddFire();
             Projectile.AddElec();
         }
@@ -72,7 +72,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         {
             Rectangle hitbox = new Rectangle((int)Projectile.position.X, (int)Projectile.position.Y, Projectile.width, Projectile.height);
             Player player = Main.player[Projectile.owner];
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             for (int i = 0; i < Main.maxProjectiles; i++)

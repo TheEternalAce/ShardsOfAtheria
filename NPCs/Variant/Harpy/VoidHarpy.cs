@@ -120,7 +120,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             npcLoot.Add(hardmode);
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (Main.expertMode || Main.hardMode)
             {

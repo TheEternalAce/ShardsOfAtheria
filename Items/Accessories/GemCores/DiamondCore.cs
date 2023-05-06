@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void SetStaticDefaults()
 		{
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 
 		public override void SetDefaults()
@@ -25,8 +25,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 			Item.width = 32;
 			Item.height = 32;
 			Item.accessory = true;
-			Item.canBePlacedInVanityRegardlessOfConditions = true;
-
 			Item.defense = 15;
 
 			Item.rare = ItemRarityID.Blue;
@@ -45,7 +43,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.ShardsOfAtheria().diamanodShield = !hideVisual;
+			player.Shards().diamanodShield = !hideVisual;
 			player.noKnockback = true;
 			player.fireWalk = true;
 		}

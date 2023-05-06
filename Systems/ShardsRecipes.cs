@@ -108,13 +108,6 @@ namespace ShardsOfAtheria.Systems
             Rocket = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} rocket",
                    rockets.ToArray());
             RecipeGroup.RegisterGroup("Shards:Rockets", Rocket);
-
-            if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
-            {
-                HMAnvil = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} {Lang.GetItemNameValue(ItemID.MythrilAnvil)}\"",
-                       ModContent.ItemType<CobaltWorkbenchItem>(), ModContent.ItemType<PalladiumWorkbenchItem>());
-                RecipeGroup.RegisterGroup("MagicStorage:AnyHmAnvil", HMAnvil);
-            }
         }
 
         public override void AddRecipes()

@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
             SoAGlobalItem.Eraser.Add(Type);
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;

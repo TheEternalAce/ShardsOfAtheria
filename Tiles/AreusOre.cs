@@ -4,6 +4,7 @@ using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Items.Placeable;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Tiles
@@ -20,9 +21,7 @@ namespace ShardsOfAtheria.Tiles
 
             ItemDrop = ModContent.ItemType<AreusShard>();
 
-            ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Areus Shard");
-            AddMapEntry(new Color(100, 150, 200), name);
+            AddMapEntry(new Color(200, 200, 200), Language.GetText("MapObject.AreusShard.MapEntry"));
 
             DustType = ModContent.DustType<AreusDust>();
             MinPick = 65;

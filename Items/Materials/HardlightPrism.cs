@@ -6,14 +6,9 @@ namespace ShardsOfAtheria.Items.Materials
 {
     public class HardlightPrism : ModItem
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return false;
-        }
-
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 99;
+            Item.ResearchUnlockCount = 99;
         }
 
         public override void SetDefaults()

@@ -1,20 +1,19 @@
-using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
-    public class AreusGrenade : OverchargeWeapon
+    public class AreusGrenade : ModItem
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 999;
+            Item.ResearchUnlockCount = 999;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
@@ -43,12 +42,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.value = 10000;
             Item.rare = ItemRarityID.Cyan;
             Item.shoot = ModContent.ProjectileType<AreusGrenadeProj>();
-            overchargeShoot = false;
-        }
-
-        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 1)
-        {
-            base.Overcharge(player, ModContent.ProjectileType<AreusGrenadeProj>(), damageMultiplier, velocity, ai1);
         }
 
         public override void AddRecipes()
@@ -57,7 +50,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 3)
                 .AddIngredient(ItemID.GoldBar)
                 .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 2)
-                .AddTile(TileID.Anvils)
+                .AddTile(ModContent.TileType<AreusFabricator>())
                 .Register();
         }
     }

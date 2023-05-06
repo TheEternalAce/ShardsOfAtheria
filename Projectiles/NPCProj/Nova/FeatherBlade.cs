@@ -56,7 +56,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             }
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             if (Main.expertMode)
             {

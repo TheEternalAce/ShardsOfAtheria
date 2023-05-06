@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
         }
 
         public override void SetDefaults()
@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.ShardsOfAtheria().lesserSapphireCore = true;
+            player.Shards().lesserSapphireCore = true;
         }
     }
 }

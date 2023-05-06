@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.AnyDebuff;
 using MMZeroElements.Utilities;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -14,9 +14,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 10;
-            
+
             Projectile.AddFire();
-            Projectile.AddIce();
+            Projectile.AddIceAqua();
             Projectile.AddElec();
         }
 
@@ -111,7 +111,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         private const int MAX_STICKY_JAVELINS = 20; // This is the max. amount of javelins being able to attach
         private readonly Point[] _stickingJavelins = new Point[MAX_STICKY_JAVELINS]; // The point array holding for sticking javelins
 
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             IsStickingToTarget = true; // we are sticking to a target
             TargetWhoAmI = target.whoAmI; // Set the target whoAmI
@@ -156,7 +156,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
             // It is recommended to split your code into separate methods to keep code clean and clear
             UpdateStickyJavelins(target);
-
         }
 
         /*
@@ -272,16 +271,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             { // Otherwise, kill the projectile
                 Projectile.Kill();
             }
-        }
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
-            target.AddBuff(BuffID.Blackout, 3600);
-            target.AddBuff(BuffID.Ichor, 600);
-            target.AddBuff(BuffID.Weak, 600);
-            target.AddBuff(BuffID.Chilled, 600);
-            target.AddBuff(BuffID.Daybreak, 600);
         }
     }
 }

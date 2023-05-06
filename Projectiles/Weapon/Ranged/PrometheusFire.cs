@@ -81,7 +81,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.OnFire3, 10 * 60);
             if (Projectile.ai[0] == 0 && Projectile.penetrate == 1)

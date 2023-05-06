@@ -106,7 +106,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             npcLoot.Add(ItemDropRule.Common(ItemID.Mushroom, 1, 3, 6));
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.Poisoned, 60);
         }

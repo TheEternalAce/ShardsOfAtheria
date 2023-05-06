@@ -11,7 +11,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WebmilioCommons.Effects.ScreenShaking;
+//using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
@@ -55,14 +55,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             bool upgraded = Projectile.ai[0] == 1;
             if (upgraded)
             {
                 target.AddBuff(BuffID.Electrified, 600);
             }
-            ScreenShake.ShakeScreen(6, 60);
+            //ScreenShake.ShakeScreen(6, 60);
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -81,7 +81,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             }
             if (Main.player[Projectile.owner].itemAnimation <= 1)
             {
-                Main.player[Projectile.owner].ShardsOfAtheria().itemCombo = (ushort)(combo == 0 ? 20 : 0);
+                Main.player[Projectile.owner].Shards().itemCombo = (ushort)(combo == 0 ? 20 : 0);
             }
             if (!playedSound && AnimProgress > 0.4f)
             {

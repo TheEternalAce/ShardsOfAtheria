@@ -1,10 +1,8 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Weapon.Magic;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Tiles.Crafting;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -13,13 +11,13 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
-    public class AreusAssaultRifle : OverchargeWeapon
+    public class AreusAssaultRifle : ModItem
     {
         private int fireMode;
 
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
         }
 
@@ -32,7 +30,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.damage = 96;
             Item.knockBack = 4f;
             Item.crit = 5;
-            chargeVelocity = 4f;
 
             Item.UseSound = SoundID.Item11;
 
@@ -46,7 +43,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 15)
                 .AddRecipeGroup(ShardsRecipes.Gold, 5)
                 .AddIngredient(ItemID.FragmentVortex, 10)
-                .AddTile(TileID.LunarCraftingStation)
+                .AddTile(ModContent.TileType<AreusFabricator>())
                 .Register();
         }
 
@@ -83,7 +80,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             if (player.altFunctionUse == 2)
             {
-                chargeAmount = 0f;
                 Item.useTime = 6;
                 Item.useAnimation = 6;
                 Item.reuseDelay = 20;
@@ -105,7 +101,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             else
             {
                 Item.shoot = ProjectileID.PurificationPowder;
-                chargeAmount = 0.1f;
                 if (fireMode == 0)
                 {
                     Item.UseSound = SoundID.Item11;
@@ -149,28 +144,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                     break;
             }
             base.ModifyTooltips(tooltips);
-        }
-
-        public override void Overcharge(Player player, int projType, float damageMultiplier, Vector2 velocity, float ai1 = 1f)
-        {
-            switch (fireMode)
-            {
-                case 0:
-                    base.Overcharge(player, ModContent.ProjectileType<LightningBoltFriendly>(), damageMultiplier, velocity, ai1);
-                    break;
-                case 1:
-                    for (int i = 0; i < 3; i++)
-                    {
-                        Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center).RotatedByRandom(MathHelper.ToRadians(20f)) * velocity;
-                        Projectile proj = Projectile.NewProjectileDirect(Item.GetSource_ItemUse(Item), player.Center, vel,
-                            ModContent.ProjectileType<LightningBoltFriendly>(), (int)(Item.damage * damageMultiplier), Item.knockBack, player.whoAmI, 0f, 0f);
-                        proj.DamageType = DamageClass.Ranged;
-                    }
-                    break;
-                case 2:
-                    base.Overcharge(player, ModContent.ProjectileType<AreusGrenadeProj>(), damageMultiplier, velocity, 0f);
-                    break;
-            }
         }
     }
 }

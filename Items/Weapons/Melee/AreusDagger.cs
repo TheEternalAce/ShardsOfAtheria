@@ -1,20 +1,20 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
-    public class AreusDagger : OverchargeWeapon
+    public class AreusDagger : ModItem
     {
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 1;
+            Item.ResearchUnlockCount = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
             SoAGlobalItem.UpgradeableItem.Add(Type);
         }
@@ -40,7 +40,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 0, 50);
             Item.shoot = ModContent.ProjectileType<AreusDaggerProj>();
-            chargeVelocity = 4f;
         }
 
         public override void AddRecipes()
@@ -49,7 +48,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 16)
                 .AddRecipeGroup(ShardsRecipes.Gold, 5)
                 .AddIngredient(ModContent.ItemType<SoulOfTwilight>(), 10)
-                .AddTile(TileID.Anvils)
+                .AddTile(ModContent.TileType<AreusFabricator>())
                 .Register();
         }
     }

@@ -10,16 +10,11 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class MetalBlade : ModItem
     {
-        private static SoundStyle MetalBladeSound;
-
-        public override void Load()
-        {
-            MetalBladeSound = new SoundStyle("ShardsOfAtheria/Sounds/Item/MetalBlade");
-        }
+        private static SoundStyle MetalBladeSound = new SoundStyle("ShardsOfAtheria/Sounds/Item/MetalBlade");
 
         public override void SetStaticDefaults()
         {
-            SacrificeTotal = 999;
+            Item.ResearchUnlockCount = 999;
         }
 
         public override void SetDefaults()

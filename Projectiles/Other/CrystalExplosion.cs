@@ -2,13 +2,13 @@
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WebmilioCommons.Effects.ScreenShaking;
+//using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Projectiles.Other
 {
     public class CrystalExplosion : ModProjectile
     {
-        public override string Texture => SoA.Blank_String;
+        public override string Texture => SoA.BlankTexture_String;
 
         public override void SetDefaults()
         {
@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Other
         {
             if (Projectile.ai[0] == 0)
             {
-                ScreenShake.ShakeScreen(6, 60);
+                //ScreenShake.ShakeScreen(6, 60);
                 SoundEngine.PlaySound(SoundID.Item14);
                 Projectile.ai[0] = 1;
             }

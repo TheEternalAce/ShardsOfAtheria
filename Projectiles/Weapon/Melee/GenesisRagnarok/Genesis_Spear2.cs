@@ -17,10 +17,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         public int airTime = 0;
         public int airTimeMax = 15;
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[Projectile.owner];
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
@@ -40,7 +40,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddIce();
+            Projectile.AddIceAqua();
             Projectile.AddFire();
             Projectile.AddElec();
         }
@@ -61,7 +61,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            ShardsPlayer shardsPlayer = player.ShardsOfAtheria();
+            ShardsPlayer shardsPlayer = player.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
             player.itemAnimation = 10;
             player.itemTime = 10;

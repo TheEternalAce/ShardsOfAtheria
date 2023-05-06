@@ -26,6 +26,19 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
 
         public override void AI()
         {
+            if (Projectile.ai[0] == 0)
+            {
+                if (Main.rand.NextBool(7))
+                {
+                    SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Tin);
+                    }
+                    Projectile.Kill();
+                }
+                Projectile.ai[0] = 1;
+            }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
         }
 

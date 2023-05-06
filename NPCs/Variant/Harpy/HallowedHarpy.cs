@@ -100,7 +100,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             npcLoot.Add(ItemDropRule.Common(ItemID.UnicornHorn, 3, 1, 3));
         }
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
+        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             if (Main.expertMode || Main.hardMode)
             {

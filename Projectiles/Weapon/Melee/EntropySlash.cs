@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 3;
-            Projectile.AddIce();
+            Projectile.AddIceAqua();
         }
 
         public override void SetDefaults()
@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<LoomingEntropy>(), 600);
         }

@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSaber
             base.AI();
             if (Main.player[Projectile.owner].itemAnimation <= 1)
             {
-                Main.player[Projectile.owner].ShardsOfAtheria().itemCombo = (ushort)(combo == 0 ? 20 : 0);
+                Main.player[Projectile.owner].Shards().itemCombo = (ushort)(combo == 0 ? 20 : 0);
             }
             if (!playedSound && AnimProgress > 0.4f)
             {
@@ -58,33 +58,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSaber
             }
         }
 
-        public override void UpdateSwing(float progress, float interpolatedSwingProgress)
-        {
-            if (Main.myPlayer == Projectile.owner && progress == 0.5f && Projectile.GetGlobalProjectile<OverchargedProjectile>().overcharged)
-            {
-                Player player = Main.player[Projectile.owner];
-                int numProjectiles = 5;
-                for (int i = 0; i < numProjectiles; i++)
-                {
-                    Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), player.Center, Vector2.Normalize(Projectile.position + Projectile.velocity - Projectile.Center)
-                        .RotatedBy(MathHelper.ToRadians(360 / numProjectiles * i)) * 16f, ModContent.ProjectileType<AreusSickle>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                    proj.DamageType = DamageClass.Melee;
-                }
-            }
-        }
-
         public override float SwingProgress(float progress)
         {
             return GenericSwing2(progress);
-        }
-
-        public override Vector2 GetOffsetVector(float progress)
-        {
-            if (Projectile.GetGlobalProjectile<OverchargedProjectile>().overcharged)
-            {
-                return BaseAngleVector.RotatedBy((progress * MathHelper.TwoPi - MathHelper.PiOver2) * -swingDirection);
-            }
-            else return base.GetOffsetVector(progress);
         }
 
         public override float GetVisualOuter(float progress, float swingProgress)

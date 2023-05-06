@@ -8,7 +8,7 @@ namespace ShardsOfAtheria.Items.Placeable.Furniture
 	{
 		public override void SetStaticDefaults()
 		{
-			SacrificeTotal = 1;
+			Item.ResearchUnlockCount = 1;
 		}
 
 		public override void SetDefaults()
@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.Placeable.Furniture
 	{
 		public override void SetStaticDefaults()
 		{
-			SacrificeTotal = 3; // Biome keys usually take 1 item to research instead.
+			Item.ResearchUnlockCount = 3; // Biome keys usually take 1 item to research instead.
 		}
 
 		public override void SetDefaults()

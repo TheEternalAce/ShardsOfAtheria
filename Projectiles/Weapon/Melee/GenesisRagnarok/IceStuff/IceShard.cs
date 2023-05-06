@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddIce();
+            Projectile.AddIceAqua();
         }
 
         public override void SetDefaults()
@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Frostburn, 600);
         }
