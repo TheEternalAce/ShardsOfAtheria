@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using MMZeroElements.Utilities;
+using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria;
 using Terraria.DataStructures;
@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddIceDefault();
+            Item.AddAquaDefault();
         }
 
         public override void SetDefaults()

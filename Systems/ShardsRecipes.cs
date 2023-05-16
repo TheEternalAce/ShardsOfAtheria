@@ -159,6 +159,26 @@ namespace ShardsOfAtheria.Systems
                 {
                     SoAGlobalItem.Potions.Add(recipe.createItem.type);
                 }
+                else if (recipe.createItem.type == ItemID.PearlwoodHelmet)
+                {
+                    recipe.AddIngredient(ItemID.SoulofLight, 10);
+                }
+                else if (recipe.createItem.type == ItemID.PearlwoodBreastplate)
+                {
+                    recipe.AddIngredient(ItemID.SoulofLight, 15);
+                }
+                else if (recipe.createItem.type == ItemID.PearlwoodGreaves)
+                {
+                    recipe.AddIngredient(ItemID.SoulofLight, 12);
+                }
+                else if (recipe.createItem.type == ItemID.PearlwoodSword)
+                {
+                    recipe.AddIngredient(ItemID.SoulofLight, 7);
+                }
+                else if (recipe.createItem.type == ItemID.PearlwoodBow)
+                {
+                    recipe.AddIngredient(ItemID.SoulofLight, 10);
+                }
             }
         }
 

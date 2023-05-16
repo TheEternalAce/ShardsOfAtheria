@@ -53,15 +53,15 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "Overdrive", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.OverdriveInfo"),
-                    SoA.OverdriveKey.GetAssignedKeys().Count > 0 ? SoA.OverdriveKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
+            var tooltip = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.OverdriveInfo"),
+                    SoA.OverdriveKey.GetAssignedKeys().Count > 0 ? SoA.OverdriveKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
+            tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "Overdrive", tooltip));
         }
 
         public override void SetDefaults()
         {
             Item.width = 32;
             Item.height = 32;
-            Item.scale = .7f;
             Item.accessory = true;
             Item.defense = 20;
 
@@ -88,9 +88,7 @@ namespace ShardsOfAtheria.Items.Accessories
             shardsPlayer.BiometalSound = true;
             shardsPlayer.BiometalHideVanity = hideVisual;
 
-            player.extraFall += 45;
-            player.GetDamage(DamageClass.Generic) += 0.25f;
-            player.statLifeMax2 += 100;
+            player.GetDamage(DamageClass.Generic) += 0.15f;
             player.statManaMax2 += 40;
             player.noFallDmg = true;
             player.spikedBoots++;

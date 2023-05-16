@@ -1,5 +1,7 @@
-﻿using MMZeroElements.Utilities;
-using ShardsOfAtheria.Buffs.AnyDebuff;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -24,6 +26,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             Main.projFrames[Projectile.type] = 2;
 
             Projectile.AddElec();
+            Projectile.AddWood();
         }
         public override void SetDefaults()
         {
@@ -40,7 +43,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
+            target.AddBuff(BuffID.Electrified, 600);
+            Projectile.Explode(Projectile.Center, Projectile.damage);
         }
 
         public override void AI()
@@ -48,13 +52,68 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             if (++Projectile.frameCounter >= 60)
             {
                 Projectile.frameCounter = 0;
-                if (++Projectile.frame >= 2)
+                if (++Projectile.frame == 1)
                 {
-                    Projectile.frame = 0;
                     SoundEngine.PlaySound(SoA.ReactorAlarm);
                 }
+                else if (Projectile.frame >= 2)
+                {
+                    Projectile.frame = 0;
+                }
             }
+            if (Projectile.frame == 1)
+            {
+                RadioactiveAura();
+            }
+
             base.AI();
+        }
+
+        int radiationRadius = 100;
+        void RadioactiveAura()
+        {
+            for (var i = 0; i < 20; i++)
+            {
+                Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2CircularEdge(radiationRadius, radiationRadius);
+                Vector2 offset = spawnPos - Main.LocalPlayer.Center;
+                if (Math.Abs(offset.X) > Main.screenWidth * 0.6f || Math.Abs(offset.Y) > Main.screenHeight * 0.6f) //dont spawn dust if its pointless
+                    continue;
+                Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, DustID.Stone, 0, 0, 100, Color.GreenYellow);
+                dust.velocity = Projectile.velocity;
+                if (Main.rand.NextBool(3))
+                {
+                    dust.velocity += Vector2.Normalize(Projectile.Center - dust.position) * Main.rand.NextFloat(5f);
+                    dust.position += dust.velocity * 5f;
+                }
+                dust.noGravity = true;
+            }
+            Radiation();
+        }
+
+        void Radiation()
+        {
+            foreach (NPC npc in Main.npc)
+            {
+                if (npc.active)
+                {
+                    var distToNPC = Vector2.Distance(npc.Center, Projectile.Center);
+                    if (distToNPC <= radiationRadius)
+                    {
+                        npc.AddBuff(BuffID.Venom, 600);
+                    }
+                }
+            }
+            foreach (Player player in Main.player)
+            {
+                if (player.active && !player.dead)
+                {
+                    var distToNPC = Vector2.Distance(player.Center, Projectile.Center);
+                    if (distToNPC <= radiationRadius)
+                    {
+                        player.AddBuff(BuffID.Venom, 600);
+                    }
+                }
+            }
         }
 
         public override void PostAI()
@@ -67,5 +126,4 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             }
         }
     }
-
 }

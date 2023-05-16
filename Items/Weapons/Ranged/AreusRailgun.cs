@@ -1,13 +1,12 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-//using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -32,13 +31,15 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.useTime = 48;
             Item.useAnimation = 48;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.UseSound = SoundID.Item38;
+            Item.UseSound = SoundID.Item61;
+            Item.channel = true;
             Item.noMelee = true;
+            Item.noUseGraphic = true;
 
-            Item.shootSpeed = 32f;
+            Item.shootSpeed = 0f;
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 2, 25);
-            Item.shoot = ItemID.PurificationPowder;
+            Item.shoot = ModContent.ProjectileType<AreusRailgunProj>();
             Item.useAmmo = AmmoID.Bullet;
             Item.ArmorPenetration = 20;
         }
@@ -53,23 +54,9 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 .Register();
         }
 
-        public override Vector2? HoldoutOffset()
-        {
-            return new Vector2(-2, 0);
-        }
-
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (type == ProjectileID.Bullet)
-            {
-                type = ProjectileID.BulletHighVelocity;
-            }
-        }
-
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            //ScreenShake.ShakeScreen(8, 60);
-            return base.Shoot(player, source, position, velocity, type, damage, knockback);
+            type = ModContent.ProjectileType<AreusRailgunProj>();
         }
     }
 }

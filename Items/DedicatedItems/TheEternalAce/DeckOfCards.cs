@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using MMZeroElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged.DeckOfCards;
 using Terraria;
 using Terraria.ID;
@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
         {
             Item.ResearchUnlockCount = 1;
             Item.AddFireDefault();
-            Item.AddIceDefault();
+            Item.AddAquaDefault();
             Item.AddElecDefault();
             Item.AddWoodDefault();
         }
@@ -26,7 +26,7 @@ namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
             Item.height = 22;
 
             Item.damage = 70;
-            Item.DamageType = DamageClass.Throwing;
+            Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 4;
             Item.crit = 4;
 

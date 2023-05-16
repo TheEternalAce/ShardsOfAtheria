@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using MMZeroElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
@@ -287,15 +287,6 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                             break;
                     }
                 }
-                else if (player.HasItem(ModContent.ItemType<AreusDagger>()))
-                {
-                    UpgrageMaterial[] materials = {
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusDagger>()], 0),
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusSword>()], 1),
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.LunarBar], 14)
-                    };
-                    UpgradeItem(player, ModContent.ItemType<AreusSaber>(), materials);
-                }
                 else if (player.HasItem(ModContent.ItemType<AreusKatana>()))
                 {
                     UpgrageMaterial[] materials = {
@@ -379,7 +370,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                     else
                     {
                         Item.NewItem(NPC.GetSource_FromThis(), NPC.getRect(), result);
-                        if (result == ModContent.ItemType<AreusSaber>() || result == ModContent.ItemType<TheMourningStar>())
+                        if (result == ModContent.ItemType<TheMourningStar>())
                         {
                             Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeAreusWeapon");
                         }

@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BattleNetworkElements.Elements;
+using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements.Elements;
-using MMZeroElements.Utilities;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
@@ -31,21 +31,22 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
-        public static void Explode(this Projectile proj, Vector2 position, int explosionSize = 120)
+        public static void Explode(this Projectile proj, Vector2 position, int damage, bool hostile = false, int explosionSize = 120)
         {
             Projectile explosion = Projectile.NewProjectileDirect(proj.GetSource_FromThis(), position, Vector2.Zero,
-                ModContent.ProjectileType<ElementExplosion>(), proj.damage, proj.knockBack, proj.owner);
+                ModContent.ProjectileType<ElementExplosion>(), damage, proj.knockBack, proj.owner);
             explosion.DamageType = proj.DamageType;
             explosion.Size = new Vector2(explosionSize);
+            explosion.hostile = hostile;
             ProjectileElements elementExplosion = explosion.GetGlobalProjectile<ProjectileElements>();
             int type = proj.type;
             if (proj.IsFire())
             {
                 elementExplosion.isFire = true;
             }
-            if (proj.IsIceAqua())
+            if (proj.IsAqua())
             {
-                elementExplosion.isIceAqua = true;
+                elementExplosion.isAqua = true;
             }
             if (proj.IsElec())
             {
@@ -77,7 +78,7 @@ namespace ShardsOfAtheria.Utilities
                     Dust dust = Dust.NewDustDirect(proj.position, proj.height, proj.width, DustID.Torch, Scale: 1.3f);
                     dust.velocity *= 4f;
                 }
-                if (proj.IsIceAqua())
+                if (proj.IsAqua())
                 {
                     Dust dust = Dust.NewDustDirect(proj.position, proj.height, proj.width, DustID.Ice);
                     dust.velocity *= 4f;

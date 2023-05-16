@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,18 +27,40 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.useStyle = ItemUseStyleID.Swing;
             Item.UseSound = SoundID.Item1;
 
+            Item.shootSpeed = 16;
             Item.rare = ItemRarityID.Yellow;
             Item.value = Item.sellPrice(0, 10);
         }
 
-        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        public override bool AltFunctionUse(Player player)
         {
-            target.AddBuff(BuffID.Ichor, 120);
-            player.AddBuff(BuffID.Shine, 7200);
-            player.AddBuff(BuffID.NightOwl, 7200);
-            player.AddBuff(BuffID.Spelunker, 7200);
-            player.AddBuff(BuffID.Hunter, 7200);
-            player.AddBuff(BuffID.Dangersense, 7200);
+            return true;
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            foreach (Projectile projectile in Main.projectile)
+            {
+                if (projectile.active)
+                {
+                    if (projectile.type == ModContent.ProjectileType<CataracniaEye>())
+                    {
+                        if (projectile.owner == player.whoAmI)
+                        {
+                            projectile.Kill();
+                        }
+                    }
+                }
+            }
+            if (player.altFunctionUse == 2)
+            {
+                Item.shoot = ModContent.ProjectileType<CataracniaEye>();
+            }
+            else
+            {
+                Item.shoot = ProjectileID.None;
+            }
+            return base.CanUseItem(player);
         }
     }
 }

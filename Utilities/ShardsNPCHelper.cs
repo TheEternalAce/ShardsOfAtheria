@@ -18,9 +18,14 @@ namespace ShardsOfAtheria.Utilities
             spriteBatch.Draw(glowTexture, drawPos, npc.frame, color, npc.rotation, npc.frame.Size() / 2f, npc.scale, effects, 0f);
         }
 
+        public static void UseDialogueWithKey(this NPC npc, string key, Color color)
+        {
+            string dialogue = Language.GetTextValue(key);
+            npc.UseDialogue(Language.GetTextValue(dialogue), color);
+        }
         public static void UseDialogue(this NPC npc, string text, Color color)
         {
-            string dialogue = $"<{npc.GivenOrTypeName}> {text}";
+            string dialogue = $"<{npc.GivenOrTypeName}>: {text}";
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 for (int i = 0; i < Main.maxPlayers; i++)
@@ -36,12 +41,6 @@ namespace ShardsOfAtheria.Utilities
             {
                 Main.NewText(dialogue, color);
             }
-        }
-
-        public static void UseDialogueWithKey(this NPC npc, string key, Color color)
-        {
-            string dialogue = Language.GetTextValue(key);
-            npc.UseDialogue(Language.GetTextValue(dialogue), color);
         }
 
         public static void SlayNPC(this NPC npc, Player player)

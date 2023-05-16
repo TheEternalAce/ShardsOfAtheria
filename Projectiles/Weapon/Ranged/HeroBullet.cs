@@ -18,7 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         {
             Projectile.width = 6; // The width of projectile hitbox
             Projectile.height = 6; // The height of projectile hitbox
-            Projectile.aiStyle = 0; // The ai style of the projectile, please reference the source code of Terraria
+            Projectile.aiStyle = 1; // The ai style of the projectile, please reference the source code of Terraria
             Projectile.friendly = true; // Can the projectile deal damage to enemies?
             Projectile.DamageType = DamageClass.Ranged; // Is the projectile shoot by a ranged weapon?
             Projectile.timeLeft = 600; // The live time for the projectile (60 = 1 second, so 600 is 10 seconds)

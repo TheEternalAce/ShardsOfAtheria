@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -33,9 +34,9 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             SlayerPlayer slayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
-
-            tooltips.Add(new TooltipLine(Mod, "Tooltip", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TomeOfOmniscience"),
-                    SoA.TomeKey.GetAssignedKeys().Count > 0 ? SoA.TomeKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
+            var tooltip = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TomeOfOmniscience"),
+                    SoA.TomeKey.GetAssignedKeys().Count > 0 ? SoA.TomeKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
+            tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new(Mod, "Tooltip", tooltip));
 
             var line = new TooltipLine(Mod, "Verbose:RemoveMe", "This tooltip won't show in-game");
 
@@ -55,7 +56,7 @@ namespace ShardsOfAtheria.Items.Accessories
                     OverrideColor = Color.Blue
                 };
 
-            tooltips.Add(line);
+            tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
             base.ModifyTooltips(tooltips);
         }
     }

@@ -1,4 +1,4 @@
-using MMZeroElements.Utilities;
+using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah;
 using Terraria;
 using Terraria.ID;

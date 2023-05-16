@@ -1,4 +1,4 @@
-﻿using MMZeroElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 
         public override void AI()
         {
-            if (++armTimer == 10)
+            if (++armTimer == 5)
             {
                 SoundEngine.PlaySound(SoundID.Unlock.WithPitchOffset(-1f).WithVolumeScale(0.6f));
                 Projectile.frame = 1;

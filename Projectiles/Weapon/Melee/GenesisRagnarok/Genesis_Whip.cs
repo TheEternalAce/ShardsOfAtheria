@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements.Utilities;
+using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
@@ -33,14 +33,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                     //Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage,
                     //Projectile.knockBack, player.whoAmI, 0, 1);
                     //proj.DamageType = DamageClass.Melee;
-                    Projectile.Explode(target.Center);
+                    Projectile.Explode(target.Center, Projectile.damage);
                 }
             }
         }
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddIceAqua();
+            Projectile.AddAqua();
             Projectile.AddFire();
             Projectile.AddElec();
         }

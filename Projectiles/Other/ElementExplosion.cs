@@ -1,4 +1,4 @@
-﻿using MMZeroElements.Elements;
+﻿using BattleNetworkElements.Elements;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -34,20 +34,23 @@ namespace ShardsOfAtheria.Projectiles.Other
             }
 
             ProjectileElements elementExplosion = Projectile.GetGlobalProjectile<ProjectileElements>();
-            if (elementExplosion.isFire)
+            if (Main.rand.NextBool(3))
             {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Torch, Scale: 1.3f);
-                dust.velocity *= 4f;
-            }
-            if (elementExplosion.isIceAqua)
-            {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Ice);
-                dust.velocity *= 4f;
-            }
-            if (elementExplosion.isElec)
-            {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric);
-                dust.velocity *= 4f;
+                if (elementExplosion.isFire)
+                {
+                    Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Torch, Scale: 1.3f);
+                    dust.velocity *= 4f;
+                }
+                if (elementExplosion.isAqua)
+                {
+                    Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Ice);
+                    dust.velocity *= 4f;
+                }
+                if (elementExplosion.isElec)
+                {
+                    Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric);
+                    dust.velocity *= 4f;
+                }
             }
             Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Smoke, Scale: 1.5f);
             dust2.velocity *= 2f;

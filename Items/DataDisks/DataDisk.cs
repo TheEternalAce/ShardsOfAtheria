@@ -101,11 +101,6 @@ namespace ShardsOfAtheria.Items.DataDisks
 
     public class NovaDataDisk : DataDisk
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return false;
-        }
-
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -115,11 +110,6 @@ namespace ShardsOfAtheria.Items.DataDisks
 
     public class TerrariansDataDisk : DataDisk
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return false;
-        }
-
         public override void SetDefaults()
         {
             base.SetDefaults();

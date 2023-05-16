@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using MMZeroElements.Utilities;
+using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.ID;
@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 		public override void SetStaticDefaults()
 		{
 			Item.ResearchUnlockCount = 1;
-			Item.AddIceDefault();
+			Item.AddAquaDefault();
 		}
 
 		public override void SetDefaults()

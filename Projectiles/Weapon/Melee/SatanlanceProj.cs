@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements.Utilities;
+using BattleNetworkElements.Utilities;
 using System;
 using Terraria;
 using Terraria.GameContent;
@@ -24,7 +24,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
 
             Projectile.AddFire();
-            Projectile.AddIceAqua();
+            Projectile.AddAqua();
             Projectile.AddElec();
         }
 

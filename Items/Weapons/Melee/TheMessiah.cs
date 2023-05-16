@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using MMZeroElements.Utilities;
+using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah;
 using Terraria;

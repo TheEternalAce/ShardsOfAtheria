@@ -1,12 +1,11 @@
+using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.ModCondition;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Utilities;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -99,17 +98,19 @@ namespace ShardsOfAtheria.Items.DedicatedItems.Webmillio
                 .Register();
         }
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, upgraded ? 1 : 0);
-            return false;
+            if (upgraded)
+            {
+                type = ModContent.ProjectileType<Warframe_Upgrade>();
+            }
         }
 
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             if (upgraded)
             {
-                spriteBatch.Draw(glowmask.Value, position, null, drawColor, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+                spriteBatch.Draw(glowmask.Value, position, frame, drawColor, 0f, glowmask.Value.Size() * 0.5f, scale, SpriteEffects.None, 0f);
             }
         }
 

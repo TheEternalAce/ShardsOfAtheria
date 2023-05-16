@@ -1,31 +1,29 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Cooldowns;
+using ShardsOfAtheria.Items.Accessories.GemCores.Super;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.ShardsUI.MegaGemCoreToggles;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
 {
-    [AutoloadEquip(EquipType.Wings)]
     public class MegaGemCore : ModItem
     {
         public override void SetStaticDefaults()
         {
-            ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(210, 9f, 2.5f, true, 1f, 1.5f);
-
             Item.ResearchUnlockCount = 1;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "Teleport", string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TeleportOnKeyPress"),
-                    SoA.EmeraldTeleportKey.GetAssignedKeys().Count > 0 ? SoA.EmeraldTeleportKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
+            var tooltip = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TeleportOnKeyPress"),
+                    SoA.EmeraldTeleportKey.GetAssignedKeys().Count > 0 ? SoA.EmeraldTeleportKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
+            tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "Teleport", tooltip));
         }
 
         public override void SetDefaults()
@@ -52,8 +50,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
                 .AddIngredient(ModContent.ItemType<RubyCore_Super>())
                 .AddIngredient(ModContent.ItemType<SapphireCore_Super>())
                 .AddIngredient(ModContent.ItemType<TopazCore_Super>())
-                .AddIngredient(ItemID.Amber, 5)
-                .AddIngredient(ItemID.LunarBar, 5)
+                .AddIngredient(ItemID.Amber, 24)
+                .AddIngredient(ItemID.LunarBar, 20)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
@@ -73,11 +71,15 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             AmethystDashPlayerII.MAX_DASH_TIMER = 35;
 
             ShardsPlayer shards = player.Shards();
-            shards.amethystMask = shards.megaGemCoreToggles[0];
-            shards.diamanodShield = shards.megaGemCoreToggles[1];
-            shards.rubyGauntlet = shards.megaGemCoreToggles[2];
-            shards.sapphireSpirit = shards.megaGemCoreToggles[3];
-            shards.topazNecklace = shards.megaGemCoreToggles[4];
+            if (!hideVisual)
+            {
+                shards.amethystMask = shards.megaGemCoreToggles[0];
+                shards.diamondShield = shards.megaGemCoreToggles[1];
+                shards.emeraldBoots = shards.megaGemCoreToggles[2];
+                shards.rubyGauntlet = shards.megaGemCoreToggles[3];
+                shards.sapphireSpirit = shards.megaGemCoreToggles[4];
+                shards.topazNecklace = shards.megaGemCoreToggles[5];
+            }
 
             //Bundle of Balloons
             player.hasJumpOption_Cloud = true;
@@ -111,7 +113,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.AddBuff(BuffID.Thorns, 2);
             player.AddBuff(BuffID.Campfire, 2);
             player.AddBuff(BuffID.HeartLamp, 2);
-            if (shards.megaGemCoreToggles[5])
+            if (shards.megaGemCoreToggles[6])
             {
                 player.AddBuff(BuffID.Gravitation, 2);
             }
@@ -122,6 +124,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.maxMinions += 8;
             player.statLifeMax2 += 100;
             player.Shards().superEmeraldCore = true;
+            player.wingTimeMax += 25;
 
             player.buffImmune[BuffID.Venom] = true;
             player.buffImmune[BuffID.OnFire] = true;
@@ -191,22 +194,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
                 mp.DashTimer = AmethystDashPlayerII.MAX_DASH_TIMER;
                 mp.DashActive = false;
             }
-        }
-
-        public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
-            ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
-        {
-            ascentWhenFalling = 0.85f;
-            ascentWhenRising = 0.15f;
-            maxCanAscendMultiplier = 1f;
-            maxAscentMultiplier = 3f;
-            constantAscend = 0.135f;
-        }
-
-        public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
-        {
-            speed = 9f;
-            acceleration *= 2.5f;
         }
     }
 }

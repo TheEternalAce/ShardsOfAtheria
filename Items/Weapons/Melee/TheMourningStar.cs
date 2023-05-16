@@ -1,4 +1,4 @@
-using MMZeroElements.Utilities;
+using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.ModCondition;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword;
@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             Item.ResearchUnlockCount = 1;
             SoAGlobalItem.DarkAreusWeapon.Add(Type);
-            Item.AddIceDefault();
+            Item.AddAquaDefault();
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

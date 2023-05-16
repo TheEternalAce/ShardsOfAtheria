@@ -6,6 +6,9 @@ using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Accessories.GemCores;
+using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
+using ShardsOfAtheria.Items.Accessories.GemCores.Regular;
+using ShardsOfAtheria.Items.Accessories.GemCores.Super;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Tools.Misc;
@@ -42,9 +45,10 @@ namespace ShardsOfAtheria.Players
         public bool superEmeraldCore;
         public bool areusKey;
         public bool megaGemCore;
-        public bool[] megaGemCoreToggles = { true, true, true, true, true, true };
+        public bool[] megaGemCoreToggles = { true, true, true, true, true, true, true };
         public bool amethystMask;
-        public bool diamanodShield;
+        public bool diamondShield;
+        public bool emeraldBoots;
         public bool rubyGauntlet;
         public bool sapphireSpiritPrevious;
         public bool sapphireSpirit;
@@ -108,7 +112,8 @@ namespace ShardsOfAtheria.Players
             areusKey = false;
             megaGemCore = false;
             amethystMask = false;
-            diamanodShield = false;
+            diamondShield = false;
+            emeraldBoots = false;
             rubyGauntlet = false;
             sapphireSpiritPrevious = sapphireSpirit;
             sapphireSpirit = false;
@@ -554,10 +559,11 @@ namespace ShardsOfAtheria.Players
                 if (item.type == ModContent.ItemType<MegaGemCore>())
                 {
                     amethystMask = megaGemCoreToggles[0];
-                    diamanodShield = megaGemCoreToggles[1];
-                    rubyGauntlet = megaGemCoreToggles[2];
-                    sapphireSpirit = megaGemCoreToggles[3];
-                    topazNecklace = megaGemCoreToggles[4];
+                    diamondShield = megaGemCoreToggles[1];
+                    emeraldBoots = megaGemCoreToggles[2];
+                    rubyGauntlet = megaGemCoreToggles[3];
+                    sapphireSpirit = megaGemCoreToggles[4];
+                    topazNecklace = megaGemCoreToggles[5];
                 }
                 else
                 {
@@ -569,7 +575,7 @@ namespace ShardsOfAtheria.Players
                     if (item.type == ModContent.ItemType<DiamondCore>() || item.type == ModContent.ItemType<DiamondCore_Greater>()
                         || item.type == ModContent.ItemType<DiamondCore_Super>())
                     {
-                        diamanodShield = true;
+                        diamondShield = true;
                     }
                     if (item.type == ModContent.ItemType<RubyCore>() || item.type == ModContent.ItemType<RubyCore_Greater>()
                         || item.type == ModContent.ItemType<RubyCore_Super>())
@@ -596,9 +602,13 @@ namespace ShardsOfAtheria.Players
             {
                 Player.head = EquipLoader.GetEquipSlot(Mod, "AmethystMask", EquipType.Head);
             }
-            if (diamanodShield)
+            if (diamondShield)
             {
                 Player.shield = (sbyte)EquipLoader.GetEquipSlot(Mod, "DiamondShield", EquipType.Shield);
+            }
+            if (emeraldBoots)
+            {
+                Player.shoe = (sbyte)EquipLoader.GetEquipSlot(Mod, "EmeraldBoots", EquipType.Shoes);
             }
             if (rubyGauntlet)
             {

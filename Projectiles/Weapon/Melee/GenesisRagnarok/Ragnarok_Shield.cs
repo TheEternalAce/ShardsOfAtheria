@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements.Utilities;
+using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddIceAqua();
+            Projectile.AddAqua();
             Projectile.AddFire();
             Projectile.AddElec();
         }

@@ -1,4 +1,4 @@
-using MMZeroElements.Utilities;
+using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.ID;
@@ -11,8 +11,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-
-            Item.AddIceDefault();
+            ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
+            Item.AddAquaDefault();
         }
 
         public override void SetDefaults()
@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.width = 18;
             Item.height = 50;
 
-            Item.damage = 22;
+            Item.damage = 16;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 4;
             Item.crit = 3;

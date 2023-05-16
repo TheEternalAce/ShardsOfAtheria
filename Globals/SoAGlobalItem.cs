@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements.Utilities;
+using BattleNetworkElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Summons;
@@ -110,6 +110,10 @@ namespace ShardsOfAtheria.Globals
                 case ItemID.ChainKnife:
                     item.damage = 24;
                     item.shootSpeed = 16;
+                    break;
+
+                case ItemID.SharpTears:
+                    item.damage = 20;
                     break;
                 #endregion
 
@@ -361,6 +365,18 @@ namespace ShardsOfAtheria.Globals
             }
 
             return base.ConsumeItem(item, player);
+        }
+
+        public override bool? CanConsumeBait(Player player, Item bait)
+        {
+            if (SoA.ServerConfig.nonConsumeBoss)
+            {
+                if (bait.type == ItemID.TruffleWorm)
+                {
+                    return false;
+                }
+            }
+            return base.CanConsumeBait(player, bait);
         }
 
 

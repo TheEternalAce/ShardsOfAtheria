@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BattleNetworkElements;
+using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
-using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-            NPC.AddIce();
+            NPC.AddAqua();
         }
 
         public override void SetDefaults()
@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<SnowHarpyBanner>();
-            NPC.SetElementMultipliersByElement(Element.IceAqua);
+            NPC.SetElementMultipliersByElement(Element.Aqua);
         }
 
         public override void AI()
@@ -64,9 +64,11 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                 }
                 else if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
                 {
-                    int num729 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center).RotatedByRandom(MathHelper.ToRadians(15)) * 6f,
+                    var projectile = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(),
+                        NPC.Center, Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center).RotatedByRandom(MathHelper.ToRadians(15)) * 6f,
                         ModContent.ProjectileType<Snow>(), 10, 0f, Main.myPlayer);
-                    Main.projectile[num729].timeLeft = 300;
+                    projectile.timeLeft = 300;
+                    projectile.tileCollide = true;
                 }
             }
             else if (NPC.ai[0] >= 400 + Main.rand.Next(400))

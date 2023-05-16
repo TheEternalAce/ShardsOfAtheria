@@ -1,5 +1,5 @@
+using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
-using MMZeroElements.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
+            ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
             Item.AddFireDefault();
         }
 

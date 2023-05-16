@@ -19,6 +19,9 @@
     <None Remove="Walls\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Localization\pt-BR.hjson" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
@@ -30,13 +33,14 @@
     <Folder Include="NPCs\Boss\Genesis\" />
     <Folder Include="NPCs\Boss\Senterra\" />
     <Folder Include="NPCs\Boss\NovaStellar\PhoenixWarrior\" />
+    <Folder Include="NPCs\Town\Archivist\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="AlchemistNPCLite">
       <HintPath>..\..\ModReader\AlchemistNPCLite\AlchemistNPCLite.dll</HintPath>
     </Reference>
-    <Reference Include="MMZeroElements">
-      <HintPath>..\ModAssemblies\MMZeroElements_v1.0.dll</HintPath>
+    <Reference Include="BattleNetworkElements">
+      <HintPath>..\..\..\tModLoader-preview\ModReader\BattleNetworkElements\BattleNetworkElements.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

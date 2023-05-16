@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Accessories;
@@ -185,15 +185,9 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             return base.PreAI();
         }
 
-        private bool midFight = false;
+        private bool phase2 = false;
         private bool desperation = false;
-        const int ElectricDash = 0;
-        const int FeatherBarrage = 1;
-        const int LanceDash = 2;
-        const int StormCloud = 3;
-        const int SwordsDance = 4;
-        const int BowShoot = 5;
-        const int SwordSwing = 6;
+        bool AlreadyDefeated = ShardsDownedSystem.downedValkyrie;
 
         public override void AI()
         {
@@ -223,7 +217,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 }
                 if (NPC.ai[3] == 2)
                 {
-                    UseDialogue(isSlayer ? Death : Defeat);
+                    UseDialogue(isSlayer ? Death : AlreadyDefeated ? ReDefeat : Defeat);
                 }
                 if (NPC.ai[3] >= 120f)
                 {
@@ -251,13 +245,13 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 if (Main.rand.NextFloat() <= .5f)
                     NPC.position = player.position - new Vector2(500, 250);
                 else NPC.position = player.position - new Vector2(-500, 250);
-                UseDialogue(isSlayer ? SlayerSummon : Summon);
+                UseDialogue(isSlayer ? SlayerSummon : AlreadyDefeated ? ReSummon : Summon);
                 NPC.localAI[0] = 1f;
             }
             NPC.spriteDirection = player.Center.X > NPC.Center.X ? 1 : -1;
 
             bool transitioning = false;
-            if (NPC.life <= NPC.lifeMax * 0.5 && !midFight)
+            if (NPC.life <= NPC.lifeMax * 0.5 && !phase2)
             {
                 transitioning = true;
                 attackCooldown = 120;
@@ -286,7 +280,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 }
                 else
                 {
-                    if (midFight)
+                    if (phase2)
                     {
                         frameX = 1;
                     }
@@ -302,13 +296,20 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
         }
 
         int damage = 0;
+        const int ElectricDash = 0;
+        const int FeatherBarrage = 1;
+        const int LanceDash = 2;
+        const int StormCloud = 3;
+        const int SwordsDance = 4;
+        const int BowShoot = 5;
+        const int SwordSwing = 6;
+        const int KnifeThrow = 7;
         List<int> blacklistedAttacks = new();
         void ChoseAttacks()
         {
             WeightedRandom<int> random = new WeightedRandom<int>();
             AddNonBlacklistedAttack(ref random, ElectricDash);
             AddNonBlacklistedAttack(ref random, FeatherBarrage);
-            AddNonBlacklistedAttack(ref random, LanceDash);
             if (NPC.life <= NPC.lifeMax / 4 * 3)
             {
                 if (NPC.life <= NPC.lifeMax / 2)
@@ -318,6 +319,14 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 }
                 AddNonBlacklistedAttack(ref random, StormCloud);
                 AddNonBlacklistedAttack(ref random, SwordsDance);
+            }
+            if (Main.expertMode)
+            {
+                AddNonBlacklistedAttack(ref random, KnifeThrow);
+            }
+            if (Main.masterMode)
+            {
+                AddNonBlacklistedAttack(ref random, LanceDash);
             }
             attackType = random;
             if (attackTypeNext > -1)
@@ -336,6 +345,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
         }
         void SetAttackStats()
         {
+            attackTypeNext = -1;
             switch (attackType)
             {
                 default:
@@ -345,7 +355,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                     attackCooldown = 60;
                     damage = 18;
                     attackTypeNext = FeatherBarrage;
-                    if (NPC.life <= NPC.lifeMax / 2)
+                    if (phase2)
                     {
                         attackTypeNext = BowShoot;
                     }
@@ -354,8 +364,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                     attackTimer = 260;
                     attackCooldown = 60;
                     damage = 18;
-                    attackTypeNext = -1;
-                    if (NPC.life <= NPC.lifeMax / 2)
+                    if (phase2)
                     {
                         attackTypeNext = BowShoot;
                     }
@@ -364,7 +373,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                     attackTimer = 120;
                     attackCooldown = 60;
                     damage = 20;
-                    attackTypeNext = -1;
+                    attackTypeNext = KnifeThrow;
                     break;
                 case StormCloud:
                     attackTimer = 340;
@@ -376,7 +385,6 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                     attackTimer = 9 * 60;
                     attackCooldown = 60;
                     damage = 16;
-                    attackTypeNext = -1;
                     if (NPC.life <= NPC.lifeMax / 2)
                     {
                         attackTypeNext = SwordSwing;
@@ -386,19 +394,24 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                     attackTimer = 56;
                     attackCooldown = 20;
                     damage = 11;
-                    attackTypeNext = -1;
-                    if (NPC.life <= NPC.lifeMax / 2)
-                    {
-                        attackTypeNext = SwordSwing;
-                    }
+                    attackTypeNext = SwordSwing;
                     break;
                 case SwordSwing:
                     attackTimer = 360;
                     attackCooldown = 20;
-                    attackTypeNext = -1;
                     blacklistedAttacks.Add(SwordsDance);
                     blacklistedAttacks.Add(BowShoot);
                     break;
+                case KnifeThrow:
+                    attackTimer = 60;
+                    attackCooldown = 20;
+                    damage = 10;
+                    blacklistedAttacks.Add(KnifeThrow);
+                    break;
+            }
+            if (Main.masterMode || Main.getGoodWorld)
+            {
+                attackCooldown = attackCooldown * 3 / 4;
             }
         }
         void CycleAttack(Player player)
@@ -431,6 +444,9 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                     break;
                 case SwordSwing:
                     DoBladeSwing(player);
+                    break;
+                case KnifeThrow:
+                    DoKnifeThrow(player);
                     break;
             }
         }
@@ -540,10 +556,6 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
         void DoStormCloud(Vector2 targetPosition)
         {
-            if (attackTimer > 320)
-            {
-                return;
-            }
             float speed = 8f;
             Vector2 toPosition = targetPosition + new Vector2(500 * (NPC.Center.X > targetPosition.X ? 1 : -1), -200);
             NPC.MoveToPoint(toPosition, speed, true);
@@ -551,6 +563,13 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             {
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(0, -400), Vector2.Zero,
                     ModContent.ProjectileType<StormCloud>(), damage, 0, Main.myPlayer);
+            }
+            if (Main.getGoodWorld)
+            {
+                if (attackTimer % 6 == 0)
+                {
+                    DoBowShoot(NPC.Center, targetPosition - NPC.Center);
+                }
             }
         }
 
@@ -573,7 +592,14 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
         {
             Player player = Main.player[NPC.target];
             NPC.spriteDirection = player.Center.X > NPC.Center.X ? 1 : -1;
-            if (attackTimer % 12 == 0 && attackTimer <= 36)
+            int rate = 12;
+            bool shouldFire = attackTimer <= 36;
+            if (attackType == StormCloud)
+            {
+                rate = 12;
+                shouldFire = Main.rand.NextBool(10);
+            }
+            if (attackTimer % rate == 0 && shouldFire)
             {
                 SoundEngine.PlaySound(SoundID.Item5);
                 float numberProjectiles = 3;
@@ -600,6 +626,18 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             }
         }
 
+        void DoKnifeThrow(Player player)
+        {
+            var vectorToPlayer = player.Center - NPC.Center;
+            vectorToPlayer.Normalize();
+            vectorToPlayer = vectorToPlayer.RotatedByRandom(MathHelper.ToRadians(10));
+            if (attackTimer % 10 == 0)
+            {
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, vectorToPlayer * 16f,
+                    ModContent.ProjectileType<HardlightKnifeHostile>(), damage, 0, Main.myPlayer);
+            }
+        }
+
         int transitionTime = 120;
         void DoPhase2Transition()
         {
@@ -608,7 +646,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 Player player = Main.player[NPC.target];
                 bool isSlayer = player.GetModPlayer<SlayerPlayer>().slayerMode;
 
-                UseDialogue(isSlayer ? SlayerMidFight : MidFight);
+                UseDialogue(isSlayer ? SlayerMidFight : AlreadyDefeated ? ReMidFight : MidFight);
                 NPC.dontTakeDamage = true;
                 KillProjectiles();
                 SoundEngine.PlaySound(SoundID.Thunder);
@@ -630,7 +668,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             }
             if (--transitionTime == 0)
             {
-                midFight = true;
+                phase2 = true;
                 NPC.dontTakeDamage = false;
             }
         }
@@ -638,10 +676,13 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
         const int Summon = 1;
         const int MidFight = 2;
         const int Defeat = 3;
-        const int SlayerSummon = 4;
-        const int SlayerMidFight = 5;
-        const int Desperation = 6;
-        const int Death = 7;
+        const int ReSummon = 4;
+        const int ReMidFight = 5;
+        const int ReDefeat = 6;
+        const int SlayerSummon = 7;
+        const int SlayerMidFight = 8;
+        const int Desperation = 9;
+        const int Death = 10;
 
         void UseDialogue(int index)
         {
@@ -661,6 +702,16 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                     break;
                 case Defeat:
                     key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Defeat";
+                    break;
+
+                case ReSummon:
+                    key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.InitialSummonRe";
+                    break;
+                case ReMidFight:
+                    key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.MidFightRe";
+                    break;
+                case ReDefeat:
+                    key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.DefeatRe";
                     break;
 
                 case SlayerSummon:
@@ -697,7 +748,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
         public override void DrawEffects(ref Color drawColor)
         {
-            if (midFight && Main.rand.NextBool(4))
+            if (phase2 && Main.rand.NextBool(4))
             {
                 int dust = Dust.NewDust(NPC.position, NPC.width + 4, NPC.height + 4, DustID.Electric, NPC.velocity.X * 0.4f, NPC.velocity.Y * 0.4f, 100, default, 1f);
                 Main.dust[dust].noGravity = true;
@@ -724,7 +775,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 switch (attackType)
                 {
                     default:
-                        if (midFight)
+                        if (phase2)
                         {
                             frameX = 1;
                         }
@@ -736,7 +787,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                         break;
                     case FeatherBarrage:
                     case StormCloud:
-                        if (midFight)
+                        if (phase2)
                         {
                             frameX = 2;
                         }

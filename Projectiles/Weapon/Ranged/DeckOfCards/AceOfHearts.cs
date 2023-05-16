@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using MMZeroElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -9,14 +9,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.DeckOfCards
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddIceAqua();
+            Projectile.AddAqua();
         }
 
         public override void SetDefaults()
         {
             Projectile.width = 18;
             Projectile.height = 18;
-            Projectile.DamageType = DamageClass.Throwing;
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
         }

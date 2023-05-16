@@ -1,5 +1,5 @@
 ﻿using ShardsOfAtheria.Globals;
-using MMZeroElements.Utilities;
+using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using Terraria;
 using Terraria.ID;

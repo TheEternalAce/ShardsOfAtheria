@@ -2,7 +2,6 @@
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Items.Placeable.Crafting;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -20,6 +19,7 @@ namespace ShardsOfAtheria.Tiles.Crafting
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
             TileObjectData.newTile.CoordinateHeights = new[] { 16, 16 };
             TileObjectData.addTile(Type);
+            RegisterItemDrop(ModContent.ItemType<AreusFabricatorItem>());
             AddMapEntry(new Color(200, 200, 200), Language.GetText("MapObject.AreusFabricator.MapEntry"));
             DustType = ModContent.DustType<AreusDust>();
             TileID.Sets.DisableSmartCursor[Type] = true;
@@ -28,11 +28,6 @@ namespace ShardsOfAtheria.Tiles.Crafting
         public override void NumDust(int i, int j, bool fail, ref int num)
         {
             num = fail ? 1 : 3;
-        }
-
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, ModContent.ItemType<AreusFabricatorItem>());
         }
     }
 }

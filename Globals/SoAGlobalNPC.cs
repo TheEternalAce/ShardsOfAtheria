@@ -155,6 +155,13 @@ namespace ShardsOfAtheria.Globals
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ReactorMeltdown>(), 4));
             }
+            if (npc.type == NPCID.GoblinShark)
+            {
+                npcLoot.RemoveWhere(
+                    rule => rule is CommonDrop drop
+                    && drop.itemId == ItemID.SharpTears
+                );
+            }
             if (npc.type == NPCID.KingSlime)
             {
                 master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KingsKusarigama>()));

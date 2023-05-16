@@ -1,5 +1,5 @@
+using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements.Utilities;
 using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Accessories;

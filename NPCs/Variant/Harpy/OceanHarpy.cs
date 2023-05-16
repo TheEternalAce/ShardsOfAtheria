@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
-using MMZeroElements.Utilities;
+using BattleNetworkElements;
+using BattleNetworkElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-            NPC.AddIce();
+            NPC.AddAqua();
         }
 
         public override void SetDefaults()
@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<OceanHarpyBanner>();
-            NPC.SetElementMultiplier(Element.IceAqua);
+            NPC.SetElementMultiplier(Element.Aqua);
         }
 
         public override void AI()

@@ -1,4 +1,4 @@
-﻿using MMZeroElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,7 +8,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddIceAqua();
+            Projectile.AddAqua();
         }
 
         public override void SetDefaults()

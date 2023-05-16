@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using MMZeroElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.DeckOfCards
         {
             Projectile.width = 18;
             Projectile.height = 18;
-            Projectile.DamageType = DamageClass.Throwing;
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = 5;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;

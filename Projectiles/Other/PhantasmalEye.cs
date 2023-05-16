@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements.Utilities;
+using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Other
 		public override void SetStaticDefaults()
 		{
 			Projectile.AddFire();
-			Projectile.AddIceAqua();
+			Projectile.AddAqua();
 			Projectile.AddElec();
 		}
 

@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
         private Rectangle panelRect = new(0, 0, 160, 190);
         private UIHoverImageButton amethystToggle;
         private UIHoverImageButton diamondToggle;
+        private UIHoverImageButton emeraldToggle;
         private UIHoverImageButton rubyToggle;
         private UIHoverImageButton sapphireToggle;
         private UIHoverImageButton topazToggle;
@@ -44,41 +45,40 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
             closeButton.OnLeftClick += new MouseEvent(CloseButtonClicked);
             panel.Append(closeButton);
 
-            MakeToggle(ref amethystToggle, "Amethyst", new(10, 40));
+            MakeToggle(ref amethystToggle, "Amethyst", 0, new(10, 40));
             amethystToggle.OnLeftClick += new(ToggleAmethyst);
 
-            MakeToggle(ref diamondToggle, "Diamond", new(60, 40));
+            MakeToggle(ref diamondToggle, "Diamond", 1, new(60, 40));
             diamondToggle.OnLeftClick += new(ToggleDiamond);
 
-            MakeToggle(ref rubyToggle, "Ruby", new(110, 40));
+            MakeToggle(ref emeraldToggle, "Emerald", 2, new(110, 40));
+            emeraldToggle.OnLeftClick += new(ToggleEmerald);
+
+            MakeToggle(ref rubyToggle, "Ruby", 3, new(10, 90));
             rubyToggle.OnLeftClick += new(ToggleRuby);
 
-            MakeToggle(ref sapphireToggle, "Sapphire", new(10, 90));
+            MakeToggle(ref sapphireToggle, "Sapphire", 4, new(60, 90));
             sapphireToggle.OnLeftClick += new(ToggleSapphire);
 
-            MakeToggle(ref topazToggle, "Topaz", new(60, 90));
+            MakeToggle(ref topazToggle, "Topaz", 5, new(110, 90));
             topazToggle.OnLeftClick += new(ToggleTopaz);
 
-            MakeGravityToggle(ref gravToggle, new(110, 90));
+            MakeGravityToggle(ref gravToggle, new(10, 140));
             gravToggle.OnLeftClick += new(ToggleGrav);
 
-            MakeAllToggle(ref toggleAll, new(10, 140));
+            MakeAllToggle(ref toggleAll, new(60, 140));
             toggleAll.OnLeftClick += new(ToggleAll);
 
             Append(panel);
         }
 
-        void MakeToggle(ref UIHoverImageButton toggle, string name, Vector2 pos, bool mega = false)
+        void MakeToggle(ref UIHoverImageButton toggle, string name, int index, Vector2 pos)
         {
-            string pathBase = "ShardsOfAtheria/Items/Accessories/GemCores/";
+            string pathBase = "ShardsOfAtheria/Items/Accessories/GemCores/Super/";
             toggle = new(toggleBack_Highlight, "Toggle " + name);
             Vector2 dimensions = new(40, 40);
             toggle.SetRectangle(pos, dimensions);
-            string path = pathBase + name + "Core";
-            if (!mega)
-            {
-                path += "_Super";
-            }
+            string path = pathBase + name + "Core_Super";
             UIImage gemCoreImage = new(ModContent.Request<Texture2D>(path));
             gemCoreImage.SetRectangle(5, 5, 30, 30);
             toggle.Append(gemCoreImage);
@@ -119,19 +119,24 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
             Toggle(diamondToggle, 1);
         }
 
+        private void ToggleEmerald(UIMouseEvent evt, UIElement listeningElement)
+        {
+            Toggle(emeraldToggle, 2);
+        }
+
         private void ToggleRuby(UIMouseEvent evt, UIElement listeningElement)
         {
-            Toggle(rubyToggle, 2);
+            Toggle(rubyToggle, 3);
         }
 
         private void ToggleSapphire(UIMouseEvent evt, UIElement listeningElement)
         {
-            Toggle(sapphireToggle, 3);
+            Toggle(sapphireToggle, 4);
         }
 
         private void ToggleTopaz(UIMouseEvent evt, UIElement listeningElement)
         {
-            Toggle(topazToggle, 4);
+            Toggle(topazToggle, 5);
         }
 
         private void ToggleAll(UIMouseEvent evt, UIElement listeningElement)
@@ -146,7 +151,7 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
 
         private void ToggleGrav(UIMouseEvent evt, UIElement listeningElement)
         {
-            Toggle(gravToggle, 5);
+            Toggle(gravToggle, 6);
         }
 
         private void Toggle(UIHoverImageButton toggle, int index)
@@ -169,6 +174,41 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
         void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
             ModContent.GetInstance<MGCToggleUI>().ToggleToggles();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            var shards = Main.LocalPlayer.Shards();
+            var toggles = shards.megaGemCoreToggles;
+            if (!toggles[0])
+            {
+                amethystToggle.SetImage(toggleBack);
+            }
+            if (!toggles[1])
+            {
+                diamondToggle.SetImage(toggleBack);
+            }
+            if (!toggles[2])
+            {
+                emeraldToggle.SetImage(toggleBack);
+            }
+            if (!toggles[3])
+            {
+                rubyToggle.SetImage(toggleBack);
+            }
+            if (!toggles[4])
+            {
+                sapphireToggle.SetImage(toggleBack);
+            }
+            if (!toggles[5])
+            {
+                topazToggle.SetImage(toggleBack);
+            }
+            if (!toggles[6])
+            {
+                gravToggle.SetImage(toggleBack);
+            }
         }
     }
 

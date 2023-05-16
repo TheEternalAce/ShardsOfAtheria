@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using MMZeroElements.Utilities;
+using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using System.Collections.Generic;
 using Terraria;
@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             Main.projFrames[Type] = 10;
 
             Projectile.AddFire();
-            Projectile.AddIceAqua();
+            Projectile.AddAqua();
             Projectile.AddElec();
         }
 

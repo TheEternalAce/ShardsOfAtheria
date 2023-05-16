@@ -6,6 +6,8 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
 {
     public class ZenovaJavelin : ModBuff
     {
+        public static readonly int DefenseReduction = 26;
+
         public override void SetStaticDefaults()
         {
             Main.debuff[Type] = true;
@@ -13,17 +15,21 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.statDefense -= 26;
-        }
-
-        public override void Update(NPC npc, ref int buffIndex)
-        {
-            npc.defense -= 26;
+            player.statDefense -= DefenseReduction;
         }
     }
 
     public class ZenJavelinNPC : GlobalNPC
     {
+        public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
+        {
+            if (npc.HasBuff<ZenovaJavelin>())
+            {
+                modifiers.Defense.Flat -= ZenovaJavelin.DefenseReduction;
+            }
+            base.ModifyIncomingHit(npc, ref modifiers);
+        }
+
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
             if (npc.HasBuff(ModContent.BuffType<ZenovaJavelin>()))

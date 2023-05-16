@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using MMZeroElements.Utilities;
+using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.ModCondition;
 using ShardsOfAtheria.Players;
@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddIceDefault();
+            Item.AddAquaDefault();
             Item.AddFireDefault();
             Item.AddElecDefault();
         }

@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BattleNetworkElements;
+using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MMZeroElements;
-using MMZeroElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-            NPC.AddIce();
+            NPC.AddAqua();
         }
 
         public override void SetDefaults()
@@ -42,7 +42,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<CrimsonHarpyBanner>();
-            NPC.SetElementMultipliersByElement(Element.IceAqua);
+            NPC.SetElementMultipliersByElement(Element.Aqua);
         }
 
         public override void AI()
@@ -96,6 +96,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
             npcLoot.Add(ItemDropRule.Common(ItemID.Feather, 2));
             npcLoot.Add(ItemDropRule.Common(ItemID.ViciousMushroom, 1, 3, 6));
+            npcLoot.Add(ItemDropRule.Common(ItemID.SharpTears, 8));
             hardmode.OnSuccess(ItemDropRule.Common(ItemID.Ichor, 5, 1, 3));
         }
 

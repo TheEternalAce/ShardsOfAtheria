@@ -1,6 +1,6 @@
-using MMZeroElements.Utilities;
+using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.EntropyCutter;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddIceDefault();
+            Item.AddAquaDefault();
         }
 
         public override void SetDefaults()
@@ -25,21 +25,17 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.knockBack = 4;
             Item.crit = 8;
 
-            Item.useTime = 30;
-            Item.useAnimation = 30;
+            Item.useTime = 15;
+            Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item71;
+            Item.autoReuse = true;
             Item.noMelee = true;
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 15f;
             Item.rare = ItemRarityID.Yellow;
             Item.shoot = ModContent.ProjectileType<EntropyBlade>();
-        }
-
-        public override bool CanUseItem(Player player)
-        {
-            return player.ownedProjectileCounts[ModContent.ProjectileType<EntropyBlade>()] < 1;
         }
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)

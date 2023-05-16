@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using MMZeroElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -210,11 +210,12 @@ namespace ShardsOfAtheria.Projectiles.Minions
         private void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
         {
             // Default movement parameters (here for attacking)
-            float speed = 16f;
-            float inertia = 20f;
+            float speed;
+            float inertia;
 
             if (foundTarget)
             {
+                idleTimer = 0;
                 Projectile.hostile = false;
                 speed = 4f;
                 inertia = 80f;
@@ -251,6 +252,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
             else
             {
                 shootTimer = 0;
+                sleep = false;
                 // Minion doesn't have a target: return to player and idle
                 if (distanceToIdlePosition > 600f)
                 {
@@ -265,7 +267,6 @@ namespace ShardsOfAtheria.Projectiles.Minions
                     inertia = 80f;
                 }
 
-                sleep = false;
                 if (distanceToIdlePosition > 20f)
                 {
                     // The immediate range around the player (when it passively floats about)

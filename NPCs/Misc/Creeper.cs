@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using MMZeroElements;
-using MMZeroElements.Utilities;
+﻿using BattleNetworkElements;
+using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.SoulCrystals;
@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.NPCs.Misc
             NPC.aiStyle = -1;
             NPC.noTileCollide = true;
             NPC.noGravity = true;
-            NPC.SetElementMultiplier(Element.IceAqua);
+            NPC.SetElementMultiplier(Element.Aqua);
         }
 
         public override bool PreAI()

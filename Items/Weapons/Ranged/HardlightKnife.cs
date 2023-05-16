@@ -1,4 +1,4 @@
-using MMZeroElements.Utilities;
+using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
@@ -12,6 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 999;
+            ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
             Item.AddElecDefault();
         }
 
@@ -22,7 +23,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.consumable = true;
             Item.maxStack = 9999;
 
-            Item.damage = 15;
+            Item.damage = 20;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 1;
             Item.crit = 6;

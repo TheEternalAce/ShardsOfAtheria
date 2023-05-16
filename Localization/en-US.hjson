@@ -70,7 +70,7 @@ Mods: {
 				'''
 			DataDisk004:
 				'''
-				Disk_004_Nova Stellar
+				Disk_004_Nova_Stellar
 
 				'''
 			DataDisk005:
@@ -319,13 +319,13 @@ Mods: {
 			}
 
 			Biometal: {
-				DisplayName: Biometal
+				DisplayName: Livemetal
 				Tooltip:
 					'''
-					Transforms the wearer into a Mega Man
-					25% Increased damage
+					Transforms the wearer into a MegaMan
+					15% Increased damage
 					Increases movement speed by 10%
-					Increased max life by 100 and max mana by 40
+					Increased max mana by 40
 					Grants dash, wall sliding and immunity to fall damage
 					'''
 			}
@@ -472,8 +472,15 @@ Mods: {
 				Tooltip: ""
 			}
 
-			NovaDataDisk.DisplayName: Data Disk #004
-			TerrariansDataDisk.DisplayName: Data Disk #005
+			NovaDataDisk: {
+				DisplayName: Data Disk #004
+				Tooltip: ""
+			}
+
+			TerrariansDataDisk: {
+				DisplayName: Data Disk #005
+				Tooltip: ""
+			}
 
 			AreusTether: {
 				# Hooks
@@ -1530,6 +1537,11 @@ Mods: {
 				DisplayName: Hardlight Prism
 				Tooltip: ""
 			}
+
+			AreusScepter: {
+				DisplayName: Areus Scepter
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -1707,6 +1719,14 @@ Mods: {
 			AreusSlash3.DisplayName: Areus Slash3
 			AreusSlash4.DisplayName: Areus Slash4
 			ValkyrieStormLanceProj.DisplayName: Valkyrie Storm Lance Proj
+			AreusRailgunProj.DisplayName: Areus Railgun Proj
+			CoilgunProj.DisplayName: Coilgun Proj
+			HardlightKnifeHostile.DisplayName: Hardlight Knife Hostile
+			ScarletSpark.DisplayName: Scarlet Spark
+			Warframe_Upgrade.DisplayName: Warframe_ Upgrade
+			EntropySickle.DisplayName: Entropy Sickle
+			CataracniaEye.DisplayName: Cataracnia Eye
+			AreusShardProj.DisplayName: Areus Shard Proj
 		}
 
 		NPCs: {
@@ -2049,10 +2069,14 @@ Mods: {
 
 		NPCDialogue: {
 			NovaStellar: {
-				InitialSummon: Terrarian! You're chaos has not gone unnoticed, I will bring you down!
+				InitialSummon: You! How did you get that!? No matter, I will take you down, Slayer!
 				MidFight: Hmph. You don't go down easily huh? Well try surviving this!
 				Defeat: You haven't killed me... Perhaps I misjudged you. Farewell for now then.
-				# Slayer mode alt
+				# Refight
+				InitialSummonRe: Come to humiliate me again? Or did you not get what you wanted?
+				MidFightRe: Valkyrie form!
+				DefeatRe: I must go now. Farewell.
+				# Slayer Alts
 				InitialSummonAlt: You... My crest... You bastard!
 				MidFightAlt: Okay prick, you've asked for it!
 				Desperation: I cannot lose to you! Not Like this!
@@ -2066,7 +2090,7 @@ Mods: {
 					What a peculiar weapon. It shows capabilities of transforming into several types of weapon, but it's locked in spear and whip form.
 					There's also memories sealed inside the shield. Perhaps something to unlock those memories will make it stronger?
 					'''
-				AtheriaComment: Atheria is a lovely place, but there's an overpopulation problem. You see our goddess, Senterra, wasn't too keen on giving us such a short lifespan like humans. So she made us nigh-immortal and, turns out, that just made things worse. Many of us suggested to make Atheria bigger, heh, as if it were that simple. Bigger planet means stronger gravity and more strain on Senterra's end.
+				AtheriaComment: Atheria is a lovely place, but there's an overpopulation problem. You see our goddess, Senterra, wasn't too keen on giving us such a short lifespan like humans. So she made us nigh-immortal and, turns out, that just made things worse.
 				ExComment: My ex? Ah. Yes, Nova, I'm sure you've already guessed by now. We didn't separate on exactly good terms.
 				GoldCrownThought: Hmm.. I reckon a Gold Crown would suit you well!
 				GoldCrownCompliment: Yes yes, the Gold Crown does suit you well!

@@ -1,4 +1,4 @@
-using MMZeroElements.Utilities;
+using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.Enums;
@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.ResearchUnlockCount = 1;
 
             Item.AddFireDefault();
-            Item.AddIceDefault();
+            Item.AddAquaDefault();
             Item.AddElecDefault();
         }
 
