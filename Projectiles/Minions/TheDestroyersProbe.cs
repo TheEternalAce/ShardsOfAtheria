@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.SoulCrystals;
-using ShardsOfAtheria.Items.Tools.Misc;
+using ShardsOfAtheria.Items.Tools.Misc.Slayer;
 using ShardsOfAtheria.Players;
 using Terraria;
 using Terraria.ID;

@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Magic
@@ -13,6 +14,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 3;
+            ProjectileID.Sets.CultistIsResistantTo[Type] = true;
+            ProjectileID.Sets.TrailCacheLength[Type] = 30;
+            ProjectileID.Sets.TrailingMode[Type] = 3;
             Projectile.AddFire();
             Projectile.AddElec();
         }
@@ -45,7 +49,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             {
                 return;
             }
-            Projectile.ChaseNPC(target, 400, 16f, 20f);
+            Projectile.Track(target, 400, 16f, 20f);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -68,6 +72,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<Perish>(), 600);
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            var color = new Color(90, 10, 120);
+            lightColor = Color.White;
+            Projectile.DrawProjectilePrims(color, ShardsProjectileHelper.OrbX1);
+            return base.PreDraw(ref lightColor);
         }
     }
 }

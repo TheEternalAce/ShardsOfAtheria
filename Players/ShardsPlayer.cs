@@ -1,8 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BattleNetworkElements;
+using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Buffs.PlayerDebuff;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Accessories.GemCores;
@@ -11,7 +14,7 @@ using ShardsOfAtheria.Items.Accessories.GemCores.Regular;
 using ShardsOfAtheria.Items.Accessories.GemCores.Super;
 using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.Items.SinfulSouls;
-using ShardsOfAtheria.Items.Tools.Misc;
+using ShardsOfAtheria.Items.Tools.Misc.Slayer;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Projectiles.Minions;
 using ShardsOfAtheria.Projectiles.Other;
@@ -57,7 +60,13 @@ namespace ShardsOfAtheria.Players
         public bool healingItem;
         public bool phaseOffense;
         public bool rushDrive;
-        public bool areusChargePack;
+        public bool areusProcessor;
+        public int processorElement = Element.Fire;
+        public bool resonator;
+        public bool areusRod = false;
+        public int mourningStarKills = 0;
+        public bool acidTrip;
+        public bool powerTrip;
 
         public bool valkyrieCrown;
         public bool valkyrieCrownHideVanity;
@@ -88,6 +97,7 @@ namespace ShardsOfAtheria.Players
         public int overdriveTimeMax;
         public int overdriveTimeMax2;
         internal int overdriveTimeRegenTimer = 0;
+        public bool Overdrive => Player.HasBuff<Overdrive>();
 
         public double[] elementMultiplier = { 1.0, 1.0, 1.0, 1.0 };
 
@@ -129,6 +139,10 @@ namespace ShardsOfAtheria.Players
                 hardlightBracesCooldown--;
             }
             pearlwoodSet = false;
+            areusProcessor = false;
+            resonator = false;
+            acidTrip = false;
+            powerTrip = false;
 
             ResetVariables();
             Biometal = BiometalHideVanity = BiometalForceVanity = false;
@@ -181,6 +195,8 @@ namespace ShardsOfAtheria.Players
             tag["overdriveTimeCurrent"] = overdriveTimeCurrent;
             tag["phaseOffense"] = phaseOffense;
             tag[nameof(megaGemCoreToggles)] = megaGemCoreToggles;
+            tag[nameof(areusRod)] = areusRod;
+            tag[nameof(mourningStarKills)] = mourningStarKills;
         }
 
         public override void LoadData(TagCompound tag)
@@ -191,6 +207,10 @@ namespace ShardsOfAtheria.Players
                 phaseOffense = tag.GetBool("phaseOffense");
             if (tag.ContainsKey(nameof(megaGemCoreToggles)))
                 megaGemCoreToggles = tag.GetBoolArray(nameof(megaGemCoreToggles));
+            if (tag.ContainsKey(nameof(areusRod)))
+                areusRod = tag.GetBool(nameof(areusRod));
+            if (tag.ContainsKey(nameof(mourningStarKills)))
+                mourningStarKills = tag.GetInt(nameof(mourningStarKills));
         }
 
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
@@ -400,6 +420,16 @@ namespace ShardsOfAtheria.Players
                     }
                 }
             }
+            if (SoA.ProcessorElement.JustReleased)
+            {
+                if (areusProcessor)
+                {
+                    if (++processorElement > 3)
+                    {
+                        processorElement = 0;
+                    }
+                }
+            }
             if (SoA.EmeraldTeleportKey.JustPressed)
             {
                 if (megaGemCore || superEmeraldCore)
@@ -470,6 +500,16 @@ namespace ShardsOfAtheria.Players
             return base.CanAutoReuseItem(item);
         }
 
+        public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.FinalDamage *= ResonatorRing.ModifyElements(Player, item, target);
+        }
+
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.FinalDamage *= ResonatorRing.ModifyElements(Player, proj, target);
+        }
+
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
             combatTimer = 300;
@@ -493,7 +533,21 @@ namespace ShardsOfAtheria.Players
                 Player.AddBuff(BuffID.Ironskin, 600);
                 Player.AddBuff(BuffID.Endurance, 600);
             }
-            PreformHardlightBracesEffect(target);
+            HardlightBraces.OnHitEffect(Player, target);
+            if (areusRod)
+            {
+                if (item.IsElec())
+                {
+                    if (NPC.downedPlantBoss)
+                    {
+                        target.AddBuff(BuffID.Electrified, 600);
+                    }
+                    else
+                    {
+                        target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
+                    }
+                }
+            }
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
@@ -521,23 +575,21 @@ namespace ShardsOfAtheria.Players
             }
             if (proj.type != ModContent.ProjectileType<HardlightFeatherMagic>())
             {
-                PreformHardlightBracesEffect(target);
+                HardlightBraces.OnHitEffect(Player, target);
             }
-        }
-
-        public void PreformHardlightBracesEffect(NPC target)
-        {
-            if (hardlightBraces && hardlightBracesCooldown == 0)
+            if (areusRod)
             {
-                for (int i = 0; i < 4; i++)
+                if (proj.IsElec())
                 {
-                    Item braces = ModContent.GetInstance<HardlightBraces>().Item;
-                    Vector2 point = target.Center + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 120f;
-                    Vector2 velocity = Vector2.Normalize(target.Center - point) * braces.shootSpeed;
-                    Projectile.NewProjectileDirect(Player.GetSource_Accessory(braces), point, velocity, braces.shoot,
-                        Player.GetWeaponDamage(braces), Player.GetWeaponKnockback(braces), Player.whoAmI);
+                    if (NPC.downedPlantBoss)
+                    {
+                        target.AddBuff(BuffID.Electrified, 600);
+                    }
+                    else
+                    {
+                        target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
+                    }
                 }
-                hardlightBracesCooldown = hardlightBracesCooldownMax;
             }
         }
 
@@ -707,9 +759,48 @@ namespace ShardsOfAtheria.Players
             {
                 Player.AddBuff(BuffID.Inferno, 600);
             }
-            if (Player.HasItem(ModContent.ItemType<WandOfHealing>()) && !Player.HasBuff(ModContent.BuffType<HeartBreak>()))
+            if (healingItem && !heartBreak)
             {
                 Player.AddBuff(ModContent.BuffType<HeartBreak>(), 900);
+            }
+            if (powerTrip)
+            {
+                Item trip = ModContent.GetInstance<AcidTrip>().Item;
+                switch (processorElement)
+                {
+                    case 0:
+                        TripEffect(trip, ProjectileID.Flames);
+                        break;
+                    case 1:
+                        TripEffect(trip, ProjectileID.BallofFrost);
+                        break;
+                    case 2:
+                        TripEffect(trip, ProjectileID.ThunderStaffShot);
+                        break;
+                    case 3:
+                        TripEffect(trip, ProjectileID.ToxicCloud);
+                        break;
+                }
+            }
+            if (acidTrip)
+            {
+                Item trip = ModContent.GetInstance<AcidTrip>().Item;
+                TripEffect(trip, ProjectileID.ToxicCloud);
+            }
+        }
+
+        void TripEffect(Item trip, int projType)
+        {
+            if (projType == ProjectileID.ToxicCloud)
+            {
+                projType += Main.rand.Next(3);
+            }
+            for (int i = 0; i < 8; i++)
+            {
+                var vector = Vector2.One * 8 * Main.rand.NextFloat();
+                Projectile.NewProjectile(Player.GetSource_Accessory(trip), Player.Center,
+                    vector.RotatedByRandom(MathHelper.ToRadians(360)), projType,
+                    Player.GetWeaponDamage(trip), Player.GetWeaponKnockback(trip), Player.whoAmI);
             }
         }
 
@@ -724,7 +815,7 @@ namespace ShardsOfAtheria.Players
 
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
-            if (Player.HasBuff(ModContent.BuffType<InjectionShock>()))
+            if (Player.HasBuff(ModContent.BuffType<InjectionShock>()) || Player.HasBuff(ModContent.BuffType<CorruptedBlood>()))
             {
                 if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)
                 {

@@ -1,6 +1,5 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusGlaive;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;

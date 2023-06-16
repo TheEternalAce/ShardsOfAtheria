@@ -6,6 +6,7 @@ using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using System;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -17,7 +18,6 @@ namespace ShardsOfAtheria.Utilities
 {
     public static class ShardsProjectileHelper
     {
-
         public static void CallStorm(this Projectile projectile, int amount, int pierce = 1)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath56, projectile.Center);
@@ -99,12 +99,16 @@ namespace ShardsOfAtheria.Utilities
         /// </summary>
         /// <param name="maxDetectDistance"></param>
         /// <returns></returns>
-        public static NPC FindClosestNPC(this Projectile projectile, float maxDetectDistance)
+        public static NPC FindClosestNPC(this Projectile projectile, float maxDetectDistance, params int[] blaclkistedWhoAmI)
         {
             NPC closestNPC = null;
 
             // Using squared values in distance checks will let us skip square root calculations, drastically improving this method's speed.
             float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
+            if (maxDetectDistance < 0)
+            {
+                sqrMaxDetectDistance = float.PositiveInfinity;
+            }
 
             // Loop through all NPCs(max always 200)
             for (int k = 0; k < Main.maxNPCs; k++)
@@ -125,8 +129,12 @@ namespace ShardsOfAtheria.Utilities
                     // Check if it is within the radius
                     if (sqrDistanceToTarget < sqrMaxDetectDistance)
                     {
-                        sqrMaxDetectDistance = sqrDistanceToTarget;
-                        closestNPC = target;
+                        // Check if NPC.whoAmI is not blacklisted
+                        if (!blaclkistedWhoAmI.Contains(target.whoAmI))
+                        {
+                            sqrMaxDetectDistance = sqrDistanceToTarget;
+                            closestNPC = target;
+                        }
                     }
                 }
             }
@@ -134,12 +142,25 @@ namespace ShardsOfAtheria.Utilities
             return closestNPC;
         }
 
-        public static void ChaseNPC(this Projectile projectile, NPC npc, float maxDist, float speed = 16f, float inertia = 16f)
+        public static void Track(this Projectile projectile, NPC npc, float maxDist, float speed = 16f, float inertia = 16f)
         {
-            if (Vector2.Distance(projectile.Center, npc.Center) < maxDist)
+            if (npc == null) return;
+            projectile.Track(npc.Center, maxDist, speed, inertia);
+        }
+        public static void Track(this Projectile projectile, Vector2 position, float maxDist, float speed = 16f, float inertia = 16f)
+        {
+            bool shouldTrack = true;
+            if (maxDist > 0)
+            {
+                if (Vector2.Distance(projectile.Center, position) > maxDist)
+                {
+                    shouldTrack = false;
+                }
+            }
+            if (shouldTrack)
             {
                 // The immediate range around the target (so it doesn't latch onto it when close)
-                Vector2 direction = npc.Center - projectile.Center;
+                Vector2 direction = position - projectile.Center;
                 direction.Normalize();
                 direction *= speed;
 
@@ -169,7 +190,7 @@ namespace ShardsOfAtheria.Utilities
             for (int k = 0; k < projectile.oldPos.Length; k++)
             {
                 var offset = new Vector2(projectile.width / 2f, projectile.height / 2f);
-                var frame = texture.Frame(1, Main.projFrames[projectile.type], 0, projectile.frame);
+                var frame = texture.Frame(1, 1, 0, 0);
                 Vector2 drawPos = (projectile.oldPos[k] - Main.screenPosition) + offset;
                 float sizec = scale * (projectile.oldPos.Length - k) / (projectile.oldPos.Length * 0.8f);
                 Color drawColor = color * (1f - projectile.alpha) * ((projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
@@ -205,6 +226,23 @@ namespace ShardsOfAtheria.Utilities
         public static SoAGlobalProjectile ShardsOfAtheria(this Projectile projectile)
         {
             return projectile.GetGlobalProjectile<SoAGlobalProjectile>();
+        }
+
+        public static void AddAreus(this Projectile projectile, bool dark = false)
+        {
+            projectile.type.AddAreusProj(dark);
+            projectile.AddElec();
+        }
+        public static void AddAreusProj(this int projID, bool dark)
+        {
+            if (dark)
+            {
+                SoAGlobalProjectile.DarkAreusProj.Add(projID);
+            }
+            else
+            {
+                SoAGlobalProjectile.AreusProj.Add(projID);
+            }
         }
     }
 }

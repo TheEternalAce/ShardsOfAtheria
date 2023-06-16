@@ -17,8 +17,8 @@ namespace ShardsOfAtheria.Items.Weapons
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddAquaDefault();
-            Item.AddElecDefault();
+            Item.AddAqua();
+            Item.AddElec();
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
         }
 

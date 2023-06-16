@@ -46,6 +46,8 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
         int frameY = 0;
         int maxFrameY = 6;
 
+        public override string BossHeadTexture => "ShardsOfAtheria/Items/BossSummons/ValkyrieCrest";
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.Harpy];
@@ -80,7 +82,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             Music = MusicID.Boss4;
             NPC.value = Item.buyPrice(0, 5, 0, 0);
             NPC.npcSlots = 15f;
-            NPC.SetElementMultiplier(2.0f, 0.8f, 0.8f, 1.5f);
+            NPC.ElementMultipliers() = new[] { 2.0f, 0.8f, 0.8f, 1.5f };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -409,6 +411,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                     blacklistedAttacks.Add(KnifeThrow);
                     break;
             }
+            blacklistedAttacks.Add(attackType);
             if (Main.masterMode || Main.getGoodWorld)
             {
                 attackCooldown = attackCooldown * 3 / 4;
@@ -543,7 +546,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 float speed = 8f;
                 int direction = (NPC.Center.X > targetPosition.X ? 1 : -1);
                 Vector2 toPosition = targetPosition + new Vector2(250 * direction, 0);
-                NPC.MoveToPoint(toPosition, speed, true);
+                NPC.Track(toPosition, speed, speed);
             }
             if (attackTimer == 30)
             {
@@ -558,7 +561,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
         {
             float speed = 8f;
             Vector2 toPosition = targetPosition + new Vector2(500 * (NPC.Center.X > targetPosition.X ? 1 : -1), -200);
-            NPC.MoveToPoint(toPosition, speed, true);
+            NPC.Track(toPosition, speed, speed);
             if (attackTimer == 320)
             {
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(0, -400), Vector2.Zero,
@@ -577,7 +580,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
         {
             float speed = 8f;
             Vector2 toPosition = targetPosition + new Vector2(500 * (NPC.Center.X > targetPosition.X ? 1 : -1), -200);
-            NPC.MoveToPoint(toPosition, speed, true);
+            NPC.Track(toPosition, speed, speed);
             if (attackTimer == 9 * 60)
             {
                 for (int i = 0; i < 7; i++)
@@ -618,7 +621,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
         void DoBladeSwing(Player player)
         {
-            NPC.MoveToPoint(player.Center, 6);
+            NPC.Track(player.Center, 6, 6);
             if (frameY == 0)
             {
                 var swordItem = ModContent.GetInstance<ValkyrieBlade>().Item;

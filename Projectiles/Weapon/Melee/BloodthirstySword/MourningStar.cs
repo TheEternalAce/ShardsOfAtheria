@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
@@ -17,7 +18,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 70;
             ProjectileID.Sets.TrailingMode[Type] = -1;
-            SoAGlobalProjectile.DarkAreusProj.Add(Type);
+            Projectile.AddAreus(true);
+            Projectile.AddAqua();
         }
 
         public override void SetDefaults()
@@ -25,7 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword
             base.SetDefaults();
 
             Projectile.width = Projectile.height = 30;
-            swordReach = 45;
+            swordReach = 50;
             rotationOffset = -MathHelper.PiOver4 * 3f;
             amountAllowedToHit = 5;
         }
@@ -33,15 +35,13 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[Projectile.owner];
-            if (player.HeldItem.type == ModContent.ItemType<TheMourningStar>())
+            if (target.life <= 0)
             {
-                TheMourningStar mourningStar = Main.LocalPlayer.HeldItem.ModItem as TheMourningStar;
-                mourningStar.blood += 20;
-                if (target.life <= 0)
-                {
-                    mourningStar.blood += 40;
-                }
+                var shards = player.Shards();
+                shards.mourningStarKills++;
             }
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero,
+                ProjectileID.VampireHeal, 0, 0, Projectile.owner, 0, 2);
             base.OnHitNPC(target, hit, damageDone);
         }
 
@@ -51,6 +51,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword
             if (shards.itemCombo > 0)
             {
                 swingDirection *= -1;
+            }
+            if (swingDirection == -Projectile.direction)
+            {
+                swordReach = 100;
             }
         }
 
@@ -97,19 +101,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword
 
             if (progress == 0.5f && Main.myPlayer == Projectile.owner)
             {
-                Player player = Main.player[Projectile.owner];
-
-                if (player.HeldItem.type == ModContent.ItemType<TheMourningStar>())
+                if (swingDirection == Projectile.direction)
                 {
-                    TheMourningStar mourningStar = Main.LocalPlayer.HeldItem.ModItem as TheMourningStar;
-
-                    if (mourningStar.blood >= TheMourningStar.BloodProjCost)
-                    {
-                        Vector2 position = Projectile.Center;
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, AngleVector * Projectile.velocity.Length() * 16f,
-                            ModContent.ProjectileType<BloodCutter>(), (int)(Projectile.damage * 0.75), (int)(Projectile.knockBack * 0.75), player.whoAmI);
-                        mourningStar.blood -= TheMourningStar.BloodProjCost;
-                    }
+                    var spawnpos = Main.MouseWorld + Vector2.One.RotatedByRandom(MathHelper.ToRadians(360)) * 130f;
+                    var vector = Vector2.Normalize(Main.MouseWorld - spawnpos) * 32;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), spawnpos, vector,
+                        ModContent.ProjectileType<BloodCutter>(), Projectile.damage / 2, 0f, Projectile.owner);
                 }
             }
         }
@@ -126,6 +123,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword
 
         public override bool PreDraw(ref Color lightColor)
         {
+            if (swingDirection == -Projectile.direction)
+            {
+                string path = "ShardsOfAtheria/Projectiles/Weapon/Melee/BloodthirstySword/MourningStarBloodEdge";
+                return SingleEdgeSwordDraw(lightColor, path);
+            }
             return SingleEdgeSwordDraw<TheMourningStar>(lightColor);
         }
     }

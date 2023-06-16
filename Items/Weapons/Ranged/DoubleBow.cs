@@ -1,5 +1,5 @@
-using Microsoft.Xna.Framework;
 using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.DataStructures;
@@ -13,13 +13,14 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddFireDefault();
+            Item.AddFire();
         }
 
         public override void SetDefaults()
         {
             Item.width = 42;
             Item.height = 80;
+            Item.master = true;
 
             Item.damage = 70;
             Item.DamageType = DamageClass.Ranged;
@@ -33,7 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.autoReuse = true;
 
             Item.shootSpeed = 16;
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.Master;
             Item.value = Item.sellPrice(0, 2, 75);
             Item.shoot = ItemID.PurificationPowder;
             Item.useAmmo = AmmoID.Arrow;

@@ -23,9 +23,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddAquaDefault();
-            Item.AddFireDefault();
-            Item.AddElecDefault();
+            Item.AddAqua();
+            Item.AddFire();
+            Item.AddElec();
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

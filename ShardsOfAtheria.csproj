@@ -26,7 +26,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Items\SlayerBoxes\" />
-    <Folder Include="Items\Weapons\Summon\Sentry\" />
     <Folder Include="NPCs\Boss\AnnahStellar\" />
     <Folder Include="NPCs\Boss\Exodus\" />
     <Folder Include="NPCs\Boss\Andromeda\" />
@@ -40,7 +39,7 @@
       <HintPath>..\..\ModReader\AlchemistNPCLite\AlchemistNPCLite.dll</HintPath>
     </Reference>
     <Reference Include="BattleNetworkElements">
-      <HintPath>..\..\..\tModLoader-preview\ModReader\BattleNetworkElements\BattleNetworkElements.dll</HintPath>
+      <HintPath>..\ModAssemblies\BattleNetworkElements_v1.0.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

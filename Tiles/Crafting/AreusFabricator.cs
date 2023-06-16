@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Tiles.Crafting
             TileObjectData.newTile.CoordinateHeights = new[] { 16, 16 };
             TileObjectData.addTile(Type);
             RegisterItemDrop(ModContent.ItemType<AreusFabricatorItem>());
-            AddMapEntry(new Color(200, 200, 200), Language.GetText("MapObject.AreusFabricator.MapEntry"));
+            AddMapEntry(new Color(200, 200, 200), Language.GetText("Mods.ShardsOfAtheria.MapObject.AreusFabricator.MapEntry"));
             DustType = ModContent.DustType<AreusDust>();
             TileID.Sets.DisableSmartCursor[Type] = true;
         }

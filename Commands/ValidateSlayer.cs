@@ -1,14 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Players;
-using Terraria;
-using Terraria.Chat;
-using Terraria.Localization;
+﻿using ShardsOfAtheria.Players;
 using Terraria.ModLoader;
-using static ShardsOfAtheria.Utilities.Entry;
 
 namespace ShardsOfAtheria.Commands
 {
-    class Slayer : ModCommand
+    class ValidateSlayer : ModCommand
     {
         public override CommandType Type
             => CommandType.Chat;
@@ -21,17 +16,13 @@ namespace ShardsOfAtheria.Commands
 
         public override void Action(CommandCaller caller, string input, string[] args)
         {
-            SlayerPlayer slayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
-
-            ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Soul Crystals count: " + slayer.soulCrystals.Count), Color.White, Main.LocalPlayer.whoAmI);
-            for (int i = 0; i < entries.Count; i++)
-            {
-                PageEntry entry = entries[i];
-                if (slayer.soulCrystals.Contains(entry.crystalItem))
-                {
-                    ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Entry at index (" + i + ") = " + entry.entryName), entry.entryColor, Main.LocalPlayer.whoAmI);
-                }
-            }
+            SlayerPlayer slayer = caller.Player.GetModPlayer<SlayerPlayer>();
+            SoA.Log("/validateSlayer command: ", "All Slayer mode fields", true);
+            SoA.Log("Slayer mode enabled: ", slayer.slayerMode, true);
+            SoA.Log("Entropy set bonusactive: ", slayer.slayerSet);
+            SoA.Log("Soul crystals: ", slayer.soulCrystals);
+            SoA.Log("Soul crystal teleports: ", slayer.soulTeleports);
+            SoA.Log("Cultist circle fragments: ", slayer.lunaticCircleFragments);
         }
     }
 }

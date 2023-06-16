@@ -47,6 +47,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
             player.Shards().diamondShield = !hideVisual;
             player.noKnockback = true;
             player.fireWalk = true;
+            player.hasRaisableShield = true;
         }
     }
 }

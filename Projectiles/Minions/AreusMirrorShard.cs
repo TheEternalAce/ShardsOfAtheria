@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Dusts;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
-            SoAGlobalProjectile.AreusProj.Add(Type);
+            Projectile.AddAreus();
         }
 
         public override void SetDefaults()

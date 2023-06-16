@@ -1,7 +1,7 @@
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged.AreusUltrakillGun;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
@@ -22,7 +22,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             Item.width = 44;
             Item.height = 26;
-            Item.scale = .85f;
 
             Item.damage = 37;
             Item.DamageType = DamageClass.Ranged;
@@ -32,10 +31,11 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.UseSound = SoundID.Item41;
             Item.noMelee = true;
+            Item.noUseGraphic = true;
+            Item.channel = true;
 
-            Item.shootSpeed = 16f;
+            Item.shootSpeed = 0f;
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 0, 25);
             Item.shoot = ItemID.PurificationPowder;
@@ -50,6 +50,11 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 7)
                 .AddTile(ModContent.TileType<AreusFabricator>())
                 .Register();
+        }
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            type = ModContent.ProjectileType<AreusMagnumProj>();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Systems;
@@ -15,7 +16,7 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddElecDefault();
+            Item.AddElec();
         }
 
         public override void SetDefaults()
@@ -50,6 +51,23 @@ namespace ShardsOfAtheria.Items.Accessories
                 .AddRecipeGroup(ShardsRecipes.Gold, 6)
                 .AddTile(TileID.Anvils)
                 .Register();
+        }
+
+        public static void OnHitEffect(Player player, NPC target)
+        {
+            var shards = player.Shards();
+            if (shards.hardlightBraces && shards.hardlightBracesCooldown == 0)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    Item braces = ModContent.GetInstance<HardlightBraces>().Item;
+                    Vector2 point = target.Center + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 120f;
+                    Vector2 velocity = Vector2.Normalize(target.Center - point) * braces.shootSpeed;
+                    Projectile.NewProjectileDirect(player.GetSource_Accessory(braces), point, velocity, braces.shoot,
+                        player.GetWeaponDamage(braces), player.GetWeaponKnockback(braces), player.whoAmI);
+                }
+                shards.hardlightBracesCooldown = shards.hardlightBracesCooldownMax;
+            }
         }
     }
 }

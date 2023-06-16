@@ -1,5 +1,5 @@
-using Microsoft.Xna.Framework;
 using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.Audio;
@@ -14,9 +14,10 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
             Item.ResearchUnlockCount = 1;
-            Item.AddFireDefault();
-            Item.AddAquaDefault();
-            Item.AddElecDefault();
+            Item.AddFire();
+            Item.AddAqua();
+            Item.AddElec();
+            Item.AddWood();
         }
 
         public override void SetDefaults()

@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
         {
             Item.ResearchUnlockCount = 1;
             SoAGlobalItem.AreusWeapon.Add(Type);
-            Item.AddFireDefault();
+            Item.AddFire();
         }
 
         public override void SetDefaults()
@@ -57,7 +57,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
         {
             if (Main.rand.NextBool(5))
             {
-                Dust.NewDust(hitbox.TopLeft(), hitbox.Width, hitbox.Height, ModContent.DustType<AreusDust_Red>());
+                Dust.NewDust(hitbox.TopLeft(), hitbox.Width, hitbox.Height, ModContent.DustType<AreusDust>());
             }
         }
     }

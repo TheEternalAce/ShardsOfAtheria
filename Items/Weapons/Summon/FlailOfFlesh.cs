@@ -1,5 +1,5 @@
-using Microsoft.Xna.Framework;
 using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
 using Terraria;
 using Terraria.DataStructures;
@@ -13,13 +13,14 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddAquaDefault();
+            Item.AddAqua();
         }
 
         public override void SetDefaults()
         {
             Item.width = 42;
             Item.height = 38;
+            Item.master = true;
 
             Item.damage = 50;
             Item.DamageType = DamageClass.Summon;
@@ -35,7 +36,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 
             Item.shootSpeed = 20f;
             Item.value = Item.sellPrice(0, 2, 25);
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.Master;
             Item.shoot = ModContent.ProjectileType<FlailOfFleshProj>();
         }
 

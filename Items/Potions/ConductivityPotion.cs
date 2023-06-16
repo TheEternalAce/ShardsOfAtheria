@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Potions
 {
-	public class ConductivityPotion : ModItem
+    public class ConductivityPotion : ModItem
 	{
 		public override void SetStaticDefaults()
 		{

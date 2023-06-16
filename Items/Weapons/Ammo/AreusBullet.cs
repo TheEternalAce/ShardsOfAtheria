@@ -1,6 +1,6 @@
 using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
         {
             Item.ResearchUnlockCount = 999;
             SoAGlobalItem.AreusWeapon.Add(Type);
-            Item.AddElecDefault();
+            Item.AddElec();
         }
 
         public override void SetDefaults()

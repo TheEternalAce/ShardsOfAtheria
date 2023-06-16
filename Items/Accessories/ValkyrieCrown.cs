@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Items.Accessories
             ArmorIDs.Head.Sets.DrawHatHair[Item.faceSlot] = true;
 
             Item.ResearchUnlockCount = 1;
-            Item.AddElecDefault();
+            Item.AddElec();
         }
 
         public override void SetDefaults()

@@ -12,13 +12,14 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddElecDefault();
+            Item.AddElec();
         }
 
         public override void SetDefaults()
         {
             Item.width = 44;
             Item.height = 26;
+            Item.master = true;
 
             Item.damage = 150;
             Item.DamageType = DamageClass.Ranged;
@@ -34,11 +35,16 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 0f;
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.Master;
             Item.value = Item.sellPrice(0, 2, 75);
             Item.shoot = ModContent.ProjectileType<CoilgunProj>();
             Item.useAmmo = AmmoID.Bullet;
             Item.ArmorPenetration = 20;
+        }
+
+        public override bool CanConsumeAmmo(Item ammo, Player player)
+        {
+            return false;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

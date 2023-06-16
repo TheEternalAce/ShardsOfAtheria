@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
 
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.AreusProj.Add(Type);
+            Projectile.AddAreus();
             Projectile.AddElec();
         }
 

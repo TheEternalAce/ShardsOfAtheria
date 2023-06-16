@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;

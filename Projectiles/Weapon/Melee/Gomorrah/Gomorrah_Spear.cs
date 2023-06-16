@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.AreusProj.Add(Type);
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()

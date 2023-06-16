@@ -1,6 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BattleNetworkElements.Utilities;
+using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.GameContent;
@@ -109,8 +110,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
             float playerVelocity = owner.velocity.Length();
 
+            callStorm = false;
+            if (stormCooldown > 0)
+            {
+                stormCooldown--;
+            }
             if (playerVelocity > minimumDustVelocity && movementInLanceDirection > 0.8f)
             {
+                callStorm = true;
                 // The chance for the dust to spawn. The actual chance (see below) is 1/dustChance. We make the chance higher the faster the player is moving by making the denominator smaller.
                 int dustChance = 8;
                 if (playerVelocity > minimumDustVelocity + 1f)
@@ -146,6 +153,18 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
             // This will increase or decrease the damage of the Jousting Lance depending on how fast the player is moving.
             modifiers.SourceDamage *= 0.1f + Main.player[Projectile.owner].velocity.Length() / 7f * 0.9f;
+        }
+
+        bool callStorm = false;
+        int stormCooldown = 0;
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (callStorm && stormCooldown == 0)
+            {
+                Projectile.CallStorm(3);
+                stormCooldown = 30;
+            }
+            base.OnHitNPC(target, hit, damageDone);
         }
 
         // This is the custom collision that Jousting Lances uses. 

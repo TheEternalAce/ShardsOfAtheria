@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using BattleNetworkElements;
+﻿using BattleNetworkElements;
 using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<OceanHarpyBanner>();
-            NPC.SetElementMultiplier(Element.Aqua);
+            NPC.SetElementMultipliersByElement(Element.Aqua);
         }
 
         public override void AI()

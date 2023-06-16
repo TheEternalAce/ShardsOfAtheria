@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusGlaive
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.AreusProj.Add(Type);
+            Projectile.AddAreus();
         }
 
         public override void SetDefaults()

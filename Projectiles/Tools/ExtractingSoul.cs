@@ -1,6 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,7 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Tools
             Projectile.tileCollide = false;
             Projectile.hostile = true;
             Projectile.damage = 100;
-            Projectile.timeLeft = 300;
+            Projectile.timeLeft = 120;
 
             DrawOffsetX = -21;
             DrawOriginOffsetX = 15;
@@ -52,6 +53,15 @@ namespace ShardsOfAtheria.Projectiles.Tools
             return false;
         }
 
+        public override bool CanHitPlayer(Player target)
+        {
+            if (target.whoAmI == Projectile.owner)
+            {
+                return true;
+            }
+            return base.CanHitPlayer(target);
+        }
+
         public override void OnHitPlayer(Player target, Player.HurtInfo hit)
         {
             Projectile.Kill();
@@ -68,7 +78,7 @@ namespace ShardsOfAtheria.Projectiles.Tools
         {
             if (Main.myPlayer == Projectile.owner)
             {
-                SlayerPlayer slayer = Main.player[Projectile.owner].GetModPlayer<SlayerPlayer>();
+                SlayerPlayer slayer = Main.player[Projectile.owner].Slayer();
                 PageEntry entry = entries[(int)Projectile.ai[1]];
 
                 slayer.soulCrystals.Remove(entry.crystalItem);
@@ -81,6 +91,8 @@ namespace ShardsOfAtheria.Projectiles.Tools
                 {
                     NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
                 }
+
+                SoA.Log("New Soul Crystal list: ", slayer.soulCrystals);
             }
         }
     }

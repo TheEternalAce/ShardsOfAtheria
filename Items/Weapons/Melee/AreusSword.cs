@@ -1,5 +1,5 @@
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;

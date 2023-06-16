@@ -1,5 +1,5 @@
-using Microsoft.Xna.Framework;
 using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddAquaDefault();
+            Item.AddAqua();
         }
 
         public override void SetDefaults()

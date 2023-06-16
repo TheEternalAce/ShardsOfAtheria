@@ -19,10 +19,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = -1f;
             // YoyosMaximumRange is the maximum distance the yoyo sleep away from the player. 
             // Vanilla values range from 130f(Wood) to 400f(Terrarian), and defaults to 200f
-            ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 279;
+            ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 300;
             // YoyosTopSpeed is top speed of the yoyo Projectile. 
             // Vanilla values range from 9f(Wood) to 17.5f(Terrarian), and defaults to 10f
-            ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 10f;
+            ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 14f;
             Main.projFrames[Projectile.type] = 2;
 
             Projectile.AddElec();
@@ -49,14 +49,19 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override void AI()
         {
+            base.AI();
+
             if (++Projectile.frameCounter >= 60)
             {
                 Projectile.frameCounter = 0;
                 if (++Projectile.frame == 1)
                 {
-                    SoundEngine.PlaySound(SoA.ReactorAlarm);
+                    if (SoA.ClientConfig.reactorBeep)
+                    {
+                        SoundEngine.PlaySound(SoA.ReactorAlarm);
+                    }
                 }
-                else if (Projectile.frame >= 2)
+                if (Projectile.frame >= Main.projFrames[Type])
                 {
                     Projectile.frame = 0;
                 }
@@ -65,8 +70,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             {
                 RadioactiveAura();
             }
-
-            base.AI();
         }
 
         int radiationRadius = 100;

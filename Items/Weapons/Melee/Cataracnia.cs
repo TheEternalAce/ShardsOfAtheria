@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             Item.width = 36;
             Item.height = 54;
+            Item.master = true;
 
             Item.damage = 20;
             Item.DamageType = DamageClass.Melee;
@@ -28,7 +29,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.UseSound = SoundID.Item1;
 
             Item.shootSpeed = 16;
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.Master;
             Item.value = Item.sellPrice(0, 10);
         }
 

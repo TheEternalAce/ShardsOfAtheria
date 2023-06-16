@@ -162,6 +162,14 @@ namespace ShardsOfAtheria.Globals
                     && drop.itemId == ItemID.SharpTears
                 );
             }
+            if (npc.type == NPCID.BlackRecluse ||
+                npc.type == NPCID.BlackRecluseWall ||
+                npc.type == NPCID.JungleCreeper ||
+                npc.type == NPCID.JungleCreeperWall)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AcidTrip>(), 8));
+            }
+
             if (npc.type == NPCID.KingSlime)
             {
                 master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KingsKusarigama>()));

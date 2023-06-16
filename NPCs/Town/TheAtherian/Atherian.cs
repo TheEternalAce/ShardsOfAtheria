@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
-using ShardsOfAtheria.Items.DataDisks;
 using ShardsOfAtheria.Items.DedicatedItems.Webmillio;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.ModCondition.ItemDrop;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs;
@@ -109,7 +109,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             {
                 AnimationType = NPCID.Stylist;
             }
-            NPC.SetElementMultiplier(0.5f, 1.0f, 0.4f, 2.0f);
+            NPC.ElementMultipliers() = new[] { 0.5f, 1.0f, 0.4f, 2.0f };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -241,68 +241,87 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 {
                     Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.RefuseUpgrade");
                 }
-                else if (player.HasItem(ModContent.ItemType<GenesisAndRagnarok>()) && upgrades < 5)
+                else if (PlayerHasItem<GenesisAndRagnarok>(player) && upgrades < 5)
                 {
                     int result = ModContent.ItemType<GenesisAndRagnarok>();
+                    var materials = new UpgrageMaterial[0];
                     switch (upgrades)
                     {
                         case 0:
-                            UpgrageMaterial[] materials = {
+                            materials = new[] {
                                 new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1)
+                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()])
                             };
-                            UpgradeItem(player, result, materials);
                             break;
                         case 1:
-                            UpgrageMaterial[] materials1 = {
+                            materials = new[] {
                                 new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1),
+                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()]),
                                 new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.ChlorophyteBar], 14)
                             };
-                            UpgradeItem(player, result, materials1);
                             break;
                         case 2:
-                            UpgrageMaterial[] materials2 = {
+                            materials = new[] {
                                 new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1),
+                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()]),
                                 new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.BeetleHusk], 16)
                             };
-                            UpgradeItem(player, result, materials2);
                             break;
                         case 3:
-                            UpgrageMaterial[] materials3 = {
+                            materials = new[] {
                                 new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1),
+                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()]),
                                 new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.FragmentSolar], 18)
                             };
-                            UpgradeItem(player, result, materials3);
                             break;
                         case 4:
-                            UpgrageMaterial[] materials4 = {
+                            materials = new[] {
                                 new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()], 1),
+                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()]),
                                 new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.LunarBar], 20)
                             };
-                            UpgradeItem(player, result, materials4);
                             break;
                     }
+                    UpgradeItem<GenesisAndRagnarok>(player, materials);
                 }
-                else if (player.HasItem(ModContent.ItemType<AreusKatana>()))
+                else if (PlayerHasItem<AreusKatana>(player))
                 {
                     UpgrageMaterial[] materials = {
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusKatana>()], 1),
+                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusKatana>()]),
                         new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.BeetleHusk], 20),
                         new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.SoulofFright], 14)
                     };
-                    UpgradeItem(player, ModContent.ItemType<TheMourningStar>(), materials);
+                    UpgradeItem<TheMourningStar>(player, materials);
                 }
-                else if (player.HasItem(ModContent.ItemType<War>()))
+                else if (PlayerHasItem<War>(player))
                 {
                     UpgrageMaterial[] materials = {
                         new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<War>()], 0),
                         new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.HallowedBar], 20)
                     };
-                    UpgradeItem(player, ModContent.ItemType<War>(), materials);
+                    UpgradeItem<War>(player, materials);
+                }
+                else if (PlayerHasItem<AreusRailgun>(player))
+                {
+                    UpgrageMaterial[] materials = {
+                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusRailgun>()]),
+                        new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.Flamethrower]),
+                        new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.BeetleHusk], 14)
+                    };
+                    UpgradeItem<AreusFlameCannon>(player, materials);
+                }
+                else if (PlayerHasItem<AreusGambit>(player))
+                {
+                    UpgrageMaterial[] materials = {
+                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusGambit>()]),
+                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusSword>()]),
+                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusDagger>()]),
+                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusMagnum>()]),
+                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusRailgun>()]),
+                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusBow>()]),
+                        new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.BeetleHusk], 15)
+                    };
+                    UpgradeItem<AreusGauntlet>(player, materials);
                 }
                 else
                 {
@@ -312,16 +331,21 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             }
         }
 
+        bool PlayerHasItem<T>(Player player) where T : ModItem
+        {
+            return player.HasItem(ModContent.ItemType<T>());
+        }
+
         /// <summary>
         /// Insert useful summary here
         /// </summary>
         /// <param name="player"> Player with the item to be upgraded</param>
-        /// <param name="result"> Item to upgrade into</param>
         /// <param name="materials"> an array of UpgradeMaterials</param>
-        public void UpgradeItem(Player player, int result, params UpgrageMaterial[] materials)
+        public void UpgradeItem<T>(Player player, params UpgrageMaterial[] materials) where T : ModItem
         {
             ShardsPlayer shardsPlayer = player.Shards();
 
+            int result = ModContent.ItemType<T>();
             Main.npcChatCornerItem = result;
             if (CanUpgradeItem(player, materials))
             {
@@ -418,10 +442,11 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 .Add<ValkyrieCrest>(new Condition("Mods.ShardsOfAtheria.Condotions.NotSlayer",
                     () => !Main.LocalPlayer.Slayer().slayerMode))
                 .Add<AreusShard>()
-                .Add<AreusDataDisk>()
                 .Add<RushDrive>()
-                .Add<NovaDataDisk>(new Condition("Mods.ShardsOfAtheria.Condotions.DefeatNova",
-                    () => ShardsDownedSystem.downedValkyrie))
+                .Add<AreusProcessor>()
+                .Add<ResonatorRing>()
+                .Add<Bytecrusher>(new Condition("Mods.ShardsOfAtheria.Conditions.AnyMech",
+                    () => NPC.downedMechBossAny))
                 .Add<AreusKey>(new Condition("Mods.ShardsOfAtheria.Condotions.DefeatPlantera",
                     () => NPC.downedPlantBoss));
             npcShop.Register();

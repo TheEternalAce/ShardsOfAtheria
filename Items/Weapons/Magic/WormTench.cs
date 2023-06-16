@@ -1,5 +1,5 @@
-using Microsoft.Xna.Framework;
 using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria;
 using Terraria.DataStructures;
@@ -13,13 +13,14 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddAquaDefault();
+            Item.AddAqua();
         }
 
         public override void SetDefaults()
         {
             Item.width = 50;
             Item.height = 26;
+            Item.master = true;
 
             Item.damage = 17;
             Item.DamageType = DamageClass.Magic;
@@ -34,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.noMelee = true;
 
             Item.shootSpeed = 16f;
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.Master;
             Item.value = Item.sellPrice(0, 1, 25);
             Item.shoot = ModContent.ProjectileType<VileShot>();
         }

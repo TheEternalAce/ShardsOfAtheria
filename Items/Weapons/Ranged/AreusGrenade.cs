@@ -1,6 +1,5 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;

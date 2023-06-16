@@ -2,6 +2,7 @@ using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.Enums;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
@@ -11,11 +12,12 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddElecDefault();
+            Item.AddElec();
         }
 
         public override void SetDefaults()
         {
+            Item.master = true;
             // A special method that sets a variety of item parameters that make the item act like a spear weapon.
             // To see everything DefaultToSpear() does, right click the method in Visual Studios and choose "Go To Definition" (or press F12).
             // The shoot speed will affect how far away the projectile spawns from the player's hand.
@@ -28,6 +30,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.SetWeaponValues(50, 6f, 6); // A special method that sets the damage, knockback, and bonus critical strike chance.
 
             Item.SetShopValues(ItemRarityColor.Yellow8, Item.buyPrice(0, 2)); // A special method that sets the rarity and value.
+            Item.rare = ItemRarityID.Master;
 
             Item.channel = true; // Channel is important for our projectile.
 

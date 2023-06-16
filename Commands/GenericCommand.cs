@@ -1,7 +1,6 @@
 ﻿using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
-using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -23,14 +22,15 @@ namespace ShardsOfAtheria.Commands
         //Reset before debugging
         public override void Action(CommandCaller caller, string input, string[] args)
         {
-            Player player = Main.LocalPlayer;
-            SlayerPlayer slayer = Main.LocalPlayer.Slayer();
-            ShardsPlayer soaPlayer = Main.LocalPlayer.Shards();
+            Player player = caller.Player;
+            SlayerPlayer slayer = player.Slayer();
+            ShardsPlayer shards = player.Shards();
             ShardsDownedSystem soaWorld = ModContent.GetInstance<ShardsDownedSystem>();
 
-            Console.WriteLine("----------Hello mod developer----------");
-            soaPlayer.genesisRagnarockUpgrades = 0;
-            ShardsHelpers.Log("Reset Genesis and Ragnarok upgrades", true);
+            shards.genesisRagnarockUpgrades = 0;
+            SoA.Log("/generic command:", "Reset Genesis and Ragnarok upgrades", true);
+            shards.areusRod = false;
+            SoA.Log("/generic command:", "Disabled Areus Rod effects", true);
         }
     }
 }

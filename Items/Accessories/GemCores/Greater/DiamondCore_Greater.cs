@@ -48,6 +48,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             player.buffImmune[BuffID.Weak] = true;
             player.noKnockback = true;
             player.fireWalk = true;
+            player.hasRaisableShield = true;
         }
     }
 }

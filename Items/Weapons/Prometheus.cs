@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
-            Item.AddFireDefault();
+            Item.AddFire();
         }
 
         public override void SetDefaults()

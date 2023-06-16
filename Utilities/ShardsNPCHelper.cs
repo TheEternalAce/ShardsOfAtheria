@@ -53,20 +53,13 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
-        public static void MoveToPoint(this NPC npc, Vector2 point, float speed, bool precise = false)
+        public static void Track(this NPC npc, Vector2 position, float speed, float inertia)
         {
-            if (Vector2.Distance(point, npc.Center) <= speed * 1.5f)
-            {
-                if (precise)
-                {
-                    npc.position = point;
-                    npc.velocity *= 0;
-                }
-            }
-            else
-            {
-                npc.position += Vector2.Normalize(point - npc.Center) * speed;
-            }
+            // The immediate range around the target (so it doesn't latch onto it when close)
+            Vector2 direction = position - npc.Center;
+            direction.Normalize();
+            direction *= speed;
+            npc.velocity = (npc.velocity * (inertia - 1) + direction) / inertia;
         }
 
         public static void DropFromItem(int itemType, Player player)

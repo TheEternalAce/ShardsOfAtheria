@@ -309,6 +309,39 @@ Mods: {
 					'''
 			}
 
+			MegaGemCore: {
+				DisplayName: Mega Gem Core
+				Tooltip:
+					'''
+					Counts as wings
+					Increases max life by 100
+					Increases damage, attack speed by 20%
+					Increases movement speed by 15%
+					Increases knockback and melee size
+					+8 extra minion slots
+					20% chance to dodge attacks
+					Gives a super dash to the wearer
+					Attacks inflict Daybroken and Betsy's Curse
+					All weapons autoswing
+					Grants immunity to damage dealing, damage and defense reducing, most anti-healing and cold debuffs
+					Grants Ironskin and Endurance when dealing damage and Wrath, Rage and Inferno when taking damage
+					Effects of Ankh Shield, Bundle of Balloons, Charm of Myths, Frozen Turtle Shell, and Terraspark Boots
+					Permanent Thorns, Heart Lantern, Cozy Campfire, Heartreach and Gravitation buffs
+					Use to disable Gravitation
+					Grants flight and slow fall
+					'''
+			}
+
+			AcidTrip: {
+				DisplayName: Acid Trip
+				Tooltip:
+					'''
+					Spray acidic clouds when injured
+					May confuse enemies
+					'Woah dude!'
+					'''
+			}
+
 			AreusKey: {
 				DisplayName: Areus Key
 				Tooltip:
@@ -316,6 +349,11 @@ Mods: {
 					Unlocks your true potential
 					'Now, nothing but your own competence holds you back!'
 					'''
+			}
+
+			AreusProcessor: {
+				DisplayName: Areus Processor
+				Tooltip: Changes projectile attacks to a chosen element
 			}
 
 			Biometal: {
@@ -345,6 +383,26 @@ Mods: {
 				Tooltip: Attacks create 4 hardlight blades to inflict further damage
 			}
 
+			PowerTrip: {
+				DisplayName: Power Trip
+				Tooltip:
+					'''
+					Changes projectile attacks to a chosen element
+					Release cloud based on chosen element when injured
+					May confuse enemies
+					'We're going Sub-Zero'
+					'''
+			}
+
+			ResonatorRing: {
+				DisplayName: Resonance Ring
+				Tooltip:
+					'''
+					Effective elements deal double normal damage
+					Ineffective elements deal half normal damage
+					'''
+			}
+
 			RushDrive: {
 				DisplayName: Rush Drive
 				Tooltip: Gives the user a 'phase 2' when below 50% life
@@ -364,10 +422,9 @@ Mods: {
 					'''
 			}
 
+			# Armor
 			EntropicHood: {
-				# Armor
 				DisplayName: Entropic Hood
-				# Armor
 				Tooltip: 6% increased damage and critical strike chance
 			}
 
@@ -385,19 +442,20 @@ Mods: {
 					'''
 			}
 
+			# Boss summons
+			# AreusSnakeScale.DisplayName: Areus Snake Scale
+			# AreusSnakeScale.Tooltip: Summons the Goddess of Life and Earth
+			
 			PottedPlant: {
-				# Boss summons
-				# AreusSnakeScale: Areus Snake Scale
 				DisplayName: Potted Plant
-				# Boss summons
-				# AreusSnakeScale: Summons the Goddess of Life and Earth
 				Tooltip: Summons Plantera in the Underground Jungle
 			}
 
+			# SpiderClock.DisplayName: Areus Spider Clock
+			# SpiderClock.Tooltip: Summons the Goddess of Time and Magic
+			
 			ValkyrieCrest: {
-				# SpiderClock: Areus Spider Clock
 				DisplayName: Hardlight Crest
-				# SpiderClock: Summons the Goddess of Time and Magic
 				Tooltip: Summons a powerful Valkyrie
 			}
 
@@ -431,10 +489,9 @@ Mods: {
 				Tooltip: ""
 			}
 
+			# nightlight
 			CoatOfnight: {
-				# nightlight
 				DisplayName: nightlight's Coat
-				# nightlight
 				Tooltip: "'no cap'"
 			}
 
@@ -443,11 +500,21 @@ Mods: {
 				Tooltip: "'This is what peak performance looks like!'"
 			}
 
+			# DaluyanMesses
 			StatueOfDaluyan: {
-				# DaluyanMesses
 				DisplayName: Golden Hat Statue
-				# DaluyanMesses
 				Tooltip: "'That's Fool's Gold! That ain't worth nothing!'"
+			}
+
+			# Mr.Gerd26
+			AlphaSpectrum: {
+				DisplayName: Alpha Spectrum
+				Tooltip:
+					'''
+					Hold use to charge with mana
+					Release use to fire off a barrage of lasers
+					'This is your final warning'
+					'''
 			}
 
 			# Grab bags
@@ -514,6 +581,11 @@ Mods: {
 				Tooltip: "'Feelings of universal decay emanate from this fragment'"
 			}
 
+			HardlightPrism: {
+				DisplayName: Hardlight Prism
+				Tooltip: ""
+			}
+
 			MemoryFragment: {
 				DisplayName: Memory Fragment
 				Tooltip:
@@ -550,6 +622,15 @@ Mods: {
 			OverdriveEnergyPack: {
 				DisplayName: Overdrive Energy Pack
 				Tooltip: Refills Overdrive Time
+			}
+
+			AreusRod: {
+				DisplayName: Areus Rod
+				Tooltip:
+					'''
+					Permanently makes Elec attacks inflict Electric Shock
+					After defeating Plantera, Elec attacks inflict Electrified
+					'''
 			}
 
 			# Pet items
@@ -670,6 +751,11 @@ Mods: {
 			ConductivityPotion: {
 				DisplayName: Conductivity Potion
 				Tooltip: Increases electric weapon damage by 15% and duration of Electric Shock by 100%
+			}
+
+			GigavoltDelicacy: {
+				DisplayName: Gigavolt Delicacy
+				Tooltip: "{$CommonItemTooltip.MediumStats}"
 			}
 
 			SoulInjection: {
@@ -978,12 +1064,12 @@ Mods: {
 			}
 
 			RedAreusDrill: {
-				DisplayName: Red Areus Drill
+				DisplayName: Areus Drill
 				Tooltip: "'Extremely dangerous... and fun!'"
 			}
 
 			RedAreusChainsaw: {
-				DisplayName: Red Areus Chainsaw
+				DisplayName: Areus Chainsaw
 				Tooltip:
 					'''
 					Can also cut down walls for some reason
@@ -992,7 +1078,7 @@ Mods: {
 			}
 
 			RedAreusPickaxe: {
-				DisplayName: Red Areus Pickaxe
+				DisplayName: Areus Pickaxe
 				Tooltip: ""
 			}
 
@@ -1017,9 +1103,14 @@ Mods: {
 					'''
 			}
 
+			# Weapons
+			# Ammo
+			AreusArrow: {
+				DisplayName: Areus Arrow
+				Tooltip: ""
+			}
+
 			AreusBullet: {
-				# Weapons
-				# Ammo
 				DisplayName: Areus Bullet
 				Tooltip: ""
 			}
@@ -1039,65 +1130,30 @@ Mods: {
 				Tooltip: ""
 			}
 
-			AreusAssaultRifle: {
-				# Areus
-				DisplayName: Areus Assault Rifle
-				# Weapons
-				# Areus
+			# Magic
+			AreusGambit: {
+				DisplayName: Areus Gambit
+				Tooltip: "'Great for losing your life savings!'"
+			}
+
+			AreusGauntlet: {
+				DisplayName: Areus Gauntlet
 				Tooltip:
 					'''
-					Right click to switch between 3 modes: Semi-auto, Burst Fire and Full-auto
-					66% chance to not consume ammo
-					'Ugh!'
+					Capable of manifesting various electrical weaponry
+					Alt-use to change weapon
+					Striks with different weapons increase damage
+					'The epitome of areus weapon technology'
 					'''
 			}
 
-			AreusBow: {
-				DisplayName: Areus Bow
-				Tooltip: Brilliant light show
-			}
-
-			AreusDagger: {
-				DisplayName: Areus Dagger
+			AreusScepter: {
+				DisplayName: Areus Scepter
 				Tooltip: ""
-			}
-
-			AreusGlaive: {
-				DisplayName: Areus Glaive
-				Tooltip: ""
-			}
-
-			AreusKatana: {
-				DisplayName: Areus Katana
-				Tooltip:
-					'''
-					Holding this weapon increases your movement speed by 5%
-					'I am all out of milk'
-					'''
-			}
-
-			AreusMagnum: {
-				DisplayName: Areus Magnum
-				Tooltip: "'Headshots do not crit'"
-			}
-
-			AreusRailgun: {
-				DisplayName: Areus Rail-gun
-				Tooltip: ""
-			}
-
-			AreusSaber: {
-				DisplayName: Areus Saber
-				Tooltip: "'The pinnacle of areus weapon technology'"
 			}
 
 			AreusStaff: {
 				DisplayName: Areus Staff
-				Tooltip: ""
-			}
-
-			AreusSword: {
-				DisplayName: Areus Sword
 				Tooltip: ""
 			}
 
@@ -1116,30 +1172,13 @@ Mods: {
 					'''
 			}
 
-			TheMourningStar: {
-				DisplayName: The Mourning Star
-				Tooltip:
-					'''
-					'The blade has turned dark and lost its electrical properties'
-					Absorbs blood on hitting enemies
-					Absorbs even more blood on killing enemies
-					Shooting projectiles costs 10 blood
-					'''
-			}
-
-			AlphaSpectrum: {
-				DisplayName: Alpha Spectrum
-				Tooltip:
-					'''
-					Hold use to charge with mana
-					Release use to fire off a barrage of lasers
-					'This is your final warning'
-					'''
+			Bytecrusher: {
+				DisplayName: Bytecrusher
+				Tooltip: "'Does not crush bits'"
 			}
 
 			Gunsword: {
 				DisplayName: Gun-Sword
-				# Magic
 				Tooltip:
 					'''
 					Fires a straight shooting musket in a corruption world or in the corruption biome
@@ -1154,6 +1193,7 @@ Mods: {
 					'''
 					Summons 2 Frostspark Drones to fight for you
 					Alt-fire shoots ice bolts
+					Your summons focus struck enemies by ice bolts
 					'Destiny of destruction awaits'
 					'''
 			}
@@ -1184,11 +1224,34 @@ Mods: {
 			}
 
 			# Melee
+			AreusDagger: {
+				DisplayName: Areus Dagger
+				Tooltip: ""
+			}
+
+			AreusGlaive: {
+				DisplayName: Areus Glaive
+				Tooltip: ""
+			}
+
+			AreusKatana: {
+				DisplayName: Areus Katana
+				Tooltip:
+					'''
+					Holding this weapon increases your movement speed by 5%
+					'I am all out of milk'
+					'''
+			}
+
+			AreusSword: {
+				DisplayName: Areus Sword
+				Tooltip: ""
+			}
+
 			BloodScythe.DisplayName: Blood Scythe
 
 			Cataracnia: {
 				DisplayName: Cataracnia
-				# Melee
 				Tooltip: "'The blade wielded by the All Seer'"
 			}
 
@@ -1202,7 +1265,7 @@ Mods: {
 			}
 
 			EntropySlicer: {
-				DisplayName: Entropy Slicer
+				DisplayName: Melancholy
 				Tooltip:
 					'''
 					Dashing increases damage for a short time
@@ -1249,7 +1312,7 @@ Mods: {
 			}
 
 			Satanlance: {
-				DisplayName: ecnatnataS
+				DisplayName: Satanlance
 				Tooltip: "'You feel like you can do anything'"
 			}
 
@@ -1260,6 +1323,18 @@ Mods: {
 					Passively charges while in hand and not in use
 					Max charge level increases damage by 200% and critical strike chance by 60%
 					'I am the messiah!'"
+					'''
+			}
+
+			TheMourningStar: {
+				DisplayName: The Mourning Star
+				Tooltip:
+					'''
+					'The blade has turned dark and lost its electrical properties'
+					Tracks kills made with this weapon
+					Downward swings increase size
+					Upward swings create a Blood Cut
+					Inflicts Corrupted Blood while held
 					'''
 			}
 
@@ -1303,29 +1378,73 @@ Mods: {
 					'''
 			}
 
+			# Ranged
+			AreusAssaultRifle: {
+				DisplayName: Areus Assault Rifle
+				# Weapons
+				Tooltip:
+					'''
+					Right click to switch between 3 modes: Semi-auto, Burst Fire and Full-auto
+					66% chance to not consume ammo
+					'Ugh!'
+					'''
+			}
+
+			AreusBow: {
+				DisplayName: Areus Bow
+				Tooltip: Brilliant light show
+			}
+
+			AreusFlameCannon: {
+				DisplayName: Areus Flame Cannon
+				Tooltip: "'We fire the cannon!'"
+			}
+
+			AreusGrenade: {
+				DisplayName: Areus Grenade
+				Tooltip: ""
+			}
+
+			AreusMagnum: {
+				DisplayName: Areus Magnum
+				Tooltip: "'Headshots do not crit'"
+			}
+
+			AreusRailgun: {
+				DisplayName: Areus Railgun
+				Tooltip: ""
+			}
+
+			AreusRecursor: {
+				DisplayName: Areus Recursor
+				Tooltip:
+					'''
+					Spread decreases after each shot
+					Eventually spread increases instead
+					Alt-Use to reset spread
+					Alt-Use shot increases damage based on increased spread
+					'I'll frikin' do it again!'
+					'''
+			}
+
+			AreusRocketLauncher: {
+				DisplayName: Areus Rocket Launcher
+				Tooltip: "'If Senterra had wanted you to live, she would not have created me!'"
+			}
+
 			BlackHoleRepeater: {
-				DisplayName: Black Hole Repeater
-				# Ranged
+				DisplayName: Event Horizon
 				Tooltip: Converts regular arrows into powerful Black Hole Bolts
 			}
 
 			Coilgun: {
-				# Ranged
-				DisplayName: Coil-gun
-				Tooltip:
-					'''
-					'Uses electromagnetic coils to fire projectiles at insane velocities'
-					'Areus Rail-gun's older brother'
-					'''
+				DisplayName: Coilgun
+				Tooltip: Uses electromagnetic coils to fire projectiles at high velocities
 			}
 
 			DoubleBow: {
 				DisplayName: Double Bow
-				Tooltip:
-					'''
-					Fires Cursed Arrows, Ichor arrows and lasers
-					'It's called 'Double Bow' and shoots 3 projectiles???'
-					'''
+				Tooltip: Fires Cursed Arrows, Ichor arrows and lasers
 			}
 
 			DownBow: {
@@ -1343,7 +1462,10 @@ Mods: {
 					'''
 			}
 
-			HecateII.DisplayName: Hecate II
+			HardlightKnife: {
+				DisplayName: Hardlight Knife
+				Tooltip: ""
+			}
 
 			HeroGun: {
 				DisplayName: Hero Gun
@@ -1355,9 +1477,24 @@ Mods: {
 				Tooltip: ""
 			}
 
+			KingsKusarigama: {
+				DisplayName: King's Kusarigama
+				Tooltip:
+					'''
+					Swings a gel kusarigama
+					Use RMB to throw a gravity affected kusarigama
+					'Cowabunga it is'
+					'''
+			}
+
 			Magnus: {
 				DisplayName: Magnus
 				Tooltip: ""
+			}
+
+			MetalBlade: {
+				DisplayName: Metal Blade
+				Tooltip: "'Cut a new path for your foes, a path of pain!'"
 			}
 
 			P90: {
@@ -1394,18 +1531,28 @@ Mods: {
 					'''
 			}
 
+			TheBall: {
+				DisplayName: The Ball
+				Tooltip: "'Frick it, we ball'"
+			}
+
+			# Summon
+			AreusCrate: {
+				DisplayName: Areus Crate
+				Tooltip: ""
+			}
+
 			DragonSpineWhip: {
-				DisplayName: Dragon Spine Whip
-				# Summon
+				DisplayName: Dragon Slayer
 				Tooltip:
 					'''
 					26 summon tag damage
 					Your summons will focus struck enemies
+					Strikes scatter dragon bone fragments
 					'''
 			}
 
 			FlailOfFlesh: {
-				# Summon
 				DisplayName: Flail of Flesh
 				Tooltip:
 					'''
@@ -1417,51 +1564,6 @@ Mods: {
 			NestlingStaff: {
 				DisplayName: Nestling Staff
 				Tooltip: Summons a fledgling harpy knight to fight for you
-			}
-
-			KingsKusarigama: {
-				DisplayName: King's Kusarigama
-				# Throwing
-				Tooltip:
-					'''
-					Swings a gel kusarigama
-					Use RMB to throw a gravity affected kusarigama
-					'Cowabunga it is'
-					'''
-			}
-
-			MetalBlade: {
-				# Throwing
-				DisplayName: Metal Blade
-				Tooltip: "'Cut a new path for your foes, a path of pain!'"
-			}
-
-			HardlightKnife: {
-				DisplayName: Hardlight Knife
-				Tooltip: ""
-			}
-
-			MegaGemCore: {
-				DisplayName: Mega Gem Core
-				Tooltip:
-					'''
-					Counts as wings
-					Increases max life by 100
-					Increases damage, attack speed by 20%
-					Increases movement speed by 15%
-					Increases knockback and melee size
-					+8 extra minion slots
-					20% chance to dodge attacks
-					Gives a super dash to the wearer
-					Attacks inflict Daybroken and Betsy's Curse
-					All weapons autoswing
-					Grants immunity to damage dealing, damage and defense reducing, most anti-healing and cold debuffs
-					Grants Ironskin and Endurance when dealing damage and Wrath, Rage and Inferno when taking damage
-					Effects of Ankh Shield, Bundle of Balloons, Charm of Myths, Frozen Turtle Shell, and Terraspark Boots
-					Permanent Thorns, Heart Lantern, Cozy Campfire, Heartreach and Gravitation buffs
-					Use to disable Gravitation
-					Grants flight and slow fall
-					'''
 			}
 
 			OmegaKey: {
@@ -1481,21 +1583,6 @@ Mods: {
 					'Converts Mana into Life'
 					Taking damage while this is in your inventory will render this unusable for a time
 					'''
-			}
-
-			AreusArrow: {
-				DisplayName: Areus Arrow
-				Tooltip: ""
-			}
-
-			AreusTwinSabers: {
-				DisplayName: Areus Twin Sabers
-				Tooltip: ""
-			}
-
-			AreusGrenade: {
-				DisplayName: Areus Grenade
-				Tooltip: ""
 			}
 
 			GenesisAndRagnarokBase.Tooltip: Preforms a combo of a spear thrust and whip swing
@@ -1525,23 +1612,6 @@ Mods: {
 				Sword can erase projectiles
 				Attacks inflict Frostburn and create extra ice projectiles
 				'''
-			Glock80.Tooltip: "'Automatic shotgun pistol, because it's funny'"
-			TheAmbassador.Tooltip: "'Never miss a shot again. Not like I could anyway.'"
-
-			GigavoltDelicacy: {
-				DisplayName: Gigavolt Delicacy
-				Tooltip: ""
-			}
-
-			HardlightPrism: {
-				DisplayName: Hardlight Prism
-				Tooltip: ""
-			}
-
-			AreusScepter: {
-				DisplayName: Areus Scepter
-				Tooltip: ""
-			}
 		}
 
 		Projectiles: {
@@ -1563,14 +1633,14 @@ Mods: {
 			TrueEyeOfCthulhuAttack.DisplayName: True Eye of Cthulhu
 			YoungHarpy.DisplayName: Fledgling Knight
 			YourTentacle.DisplayName: Your Tentacle
-			# NPCs
+			# NPC projs
+			AreusGrenadeHostile.DisplayName: Areus Grenade
 			# Nova Stellar
 			ElectricTrail.DisplayName: Electric Trail
 			FeatherBlade.DisplayName: Hardlight Feather
+			HardlightKnifeHostile.DisplayName: Hardlight Knife
 			LightningBolt.DisplayName: Lightning Bolt
-			LightningBoltSpawner.DisplayName: Lightning Bolt Spawner
 			StormCloud.DisplayName: Storm Cloud
-			StormCloudPunisher.DisplayName: Storm Cloud Fatal
 			StormLance.DisplayName: Storm Lance
 			StormSword.DisplayName: Storm Sword
 			# Variant NPC
@@ -1580,6 +1650,7 @@ Mods: {
 			Void.DisplayName: Void Feather
 			Snow.DisplayName: Snow Feather
 			Poison.DisplayName: Poison Feather
+			Sea.DisplayName: Sea Feather
 			Static.DisplayName: Static Feather
 			Vile.DisplayName: Vile Feather
 			TidalWave.DisplayName: Tidal Wave
@@ -1587,7 +1658,7 @@ Mods: {
 			FlamePillar.DisplayName: Flame Pillar
 			# Other
 			CreeperHitbox.DisplayName: Creeper, aw man
-			CrystalExplosion.DisplayName: CrystalExplosion
+			CrystalExplosion.DisplayName: Crystal Explosion
 			ElectricTrailFriendly.DisplayName: Electric Trail
 			FoodChunk.DisplayName: Food Chunk
 			GolemBeam.DisplayName: Golem Beam
@@ -1605,36 +1676,62 @@ Mods: {
 			# Tools
 			AllSeeingEye.DisplayName: All Seeing Eye
 			ExtractingSoul.DisplayName: Soul Extracting Dagger
-			RedAreusDrillProj.DisplayName: Red Areus Drill
-			RedAreusChainsawProj.DisplayName: Red Areus Chainsaw
+			RedAreusDrillProj.DisplayName: Areus Drill
+			RedAreusChainsawProj.DisplayName: Areus Chainsaw
 			# Weapons
+			ElementExplosion.DisplayName: Element Explosion
 			# Ammo
+			AreusArrowProj.DisplayName: Areus Arrow
 			AreusBulletProj.DisplayName: Areus Bullet
 			BBProj.DisplayName: Cheap Round
+			SilbrBullet.DisplayName: Silbr Bullet
 			SpectralArrowProj.DisplayName: Spectral Arrow
 			SpectralBulletProj.DisplayName: Spectral Bullet
-			# Areus
-			AreusArrow.DisplayName: Areus Arrow
+			TungstenBullet.DisplayName: Tungsten Bullet
+			# Magic
+			AreusShardProj.DisplayName: Areus Shard
+			BitBlock.DisplayName: Bit Block
+			ByteBlock.DisplayName: Byte Block
+			DeathNote.DisplayName: Death Note
+			ElecBlade.DisplayName: Elec Blade
+			ElecCannon.DisplayName: Elec Cannon
+			ElecCoin.DisplayName: Elec Coin
+			ElecCrossbow.DisplayName: Elec Crossbow
+			ElecDagger.DisplayName: Elec Dagger
+			ElecKnuckle.DisplayName: Elec Knuckle
+			ElecPistol.DisplayName: Elec Pistol
+			ElecScorpionTail.DisplayName: Elec Scorpion Tail
+			ElectricSpike.DisplayName: Electric Spike
+			ElectricOrb.DisplayName: Electric Orb
+			GerdGun.DisplayName: Alpha Spectrum
+			GunswordGun.DisplayName: Gunsword Gun
+			GunswordProj.DisplayName: Gunsword
+			HardlightFeatherMagic.DisplayName: Hardlight Feather
+			IceBolt.DisplayName: Ice Bolt
+			LightningBoltFriendly.DisplayName: Lightning Bolt
+			ScreamShockwave.DisplayName: Scream Shockwave
+			SpectrumLaser.DisplayName: Spectrum Laser
+			VileShot.DisplayName: Vile Shot
+			# Melee
 			AreusDaggerProj.DisplayName: Areus Dagger
+			AreusDaggerCurrent.DisplayName: Areus Current
 			AreusGlaive_Swing.DisplayName: Areus Glaive
 			AreusGlaive_Throw.DisplayName: Areus Glaive
 			AreusGlaive_Thrust.DisplayName: Areus Glaive
 			AreusGlaive_Thrust2.DisplayName: Areus Glaive
-			ElectricBlade.DisplayName: Electric Blade
-			ElectricOrb.DisplayName: Electric Orb
-			# Magic
-			DeathNote.DisplayName: Death Note
-			GunCorruption.DisplayName: Musket
-			CunCrimson.DisplayName: The Undertaker
-			IceBolt.DisplayName: Ice Bolt
-			LightningBoltFriendly.DisplayName: Lightning Bolt
-			ScreamShockwave.DisplayName: Scream Shock Wave
-			VileShot.DisplayName: Vile Shot
-			# Melee
-			BloodCutter.DisplayName: Blood Cutter
+			AreusKatanaProj.DisplayName: Areus Katana
+			AreusSaberProj.DisplayName: Areus Saber
+			AreusSickle.DisplayName: Areus Sickle
+			AreusSwordProj.DisplayName: Areus Sword
+			BloodCutter.DisplayName: Blood Cut
+			CataracniaEye.DisplayName: Cataracnia Eye
 			CorruptPetal.DisplayName: Corrupt Petal
 			CorruptRose.DisplayName: Corrupt Rose
+			ElectricBlade.DisplayName: Electric Blade
+			EnergyScythe.DisplayName: Energy Scythe
+			EnergyWave.DisplayName: Energy Wave
 			EntropyBlade.DisplayName: Entropy Blade
+			EntropySickle.DisplayName: Entropy Sickle
 			EntropySlash.DisplayName: Entropy Slash
 			FeatherBladeFriendly.DisplayName: Hardlight Feather
 			Genesis_Spear.DisplayName: Genesis
@@ -1644,20 +1741,27 @@ Mods: {
 			Gomorrah_Burst.DisplayName: Gomorrah Explosion
 			Gomorrah_Javelin.DisplayName: Gomorrah
 			Gomorrah_Spear.DisplayName: Gomorrah
+			HardlightSword.DisplayName: Hardlight Sword
 			HeroBlade.DisplayName: Hero Blade
+			HeroSwordProj.DisplayName: Hero Sword
+			HolyBloodHeal.DisplayName: Holy Blood
+			HolyBloodOffense.DisplayName: Holy Blood
 			IceExplosion.DisplayName: Ice Explosion
 			IceShard.DisplayName: Ice Shard
 			IceVortexShard.DisplayName: Ice Shard
-			MessiahAirSlash.DisplayName: The Messiah
-			MessiahChargeSlash.DisplayName: The Messiah
-			MessiahRanbu1.DisplayName: The Messiah
-			MessiahRanbu2.DisplayName: The Messiah
-			MessiahRanbu3.DisplayName: The Messiah
-			MessiahRanbu4.DisplayName: The Messiah
-			MessiahRanbu5.DisplayName: The Messiah
+			MessiahRanbu.DisplayName: The Messiah
+			Messiah.DisplayName: Messiah
+			MourningStar.DisplayName: The Mourning Star
+			Ragnarok_Shield.DisplayName: Ragnarok
+			RagnarokProj.DisplayName: Ragnarok
+			RagnarokProj2.DisplayName: Ragnarok
 			ReactorMeltdownProj.DisplayName: Reactor Meltdown
-			SatanlanceProj.DisplayName: ecnalnataS
+			SatanlanceProj.DisplayName: Satanlance
 			SoulBlade.DisplayName: Soul Blade
+			ValkyrieStormLanceProj.DisplayName: Storm Lance
+			ValkyrieStormSword.DisplayName: Valkyrie Storm
+			Warframe.DisplayName: Warframe
+			Warframe_Upgrade.DisplayName: Warframe Upgrade
 			ZenovaProjectile.DisplayName: Zenova Weapons
 			# Ranged
 			AceOfSpades.DisplayName: Ace of Spades
@@ -1665,72 +1769,52 @@ Mods: {
 			AceOfClubs.DisplayName: Ace of Clubs
 			AceOfDiamonds.DisplayName: Ace of Diamonds
 			AmbassadorShot.DisplayName: Magnus Bullet
+			AreusArrow.DisplayName: Areus Arrow
+			AreusGrenadeProj.DisplayName: Areus Grenade
+			AreusLaser.DisplayName: Areus Laser
+			AreusMagnumProj.DisplayName: Areus Magnum Proj
+			AreusRailgunProj.DisplayName: Areus Railgun
+			BallinBall.DisplayName: The Ball
 			BlackHole.DisplayName: Black Hole
 			BlackHoleBolt.DisplayName: Black Hole Bolt
+			CoilgunProj.DisplayName: Coilgun
+			ElectricKunai.DisplayName: Electric Kunai
 			FieryExplosion.DisplayName: Fiery Explosion
+			FlameCannon.DisplayName: Areus Flame Cannon
+			FireCannon_Fire1.DisplayName: Charged Fireball
+			FireCannon_Fire2.DisplayName: Charged Fireball
+			FireCannon_Fire3.DisplayName: Charged Fireball
+			HardlightKnifeProj.DisplayName: Hardlight Knife
 			HeroBullet.DisplayName: Hero Bullet
+			KusarigamaKing.DisplayName: King's Kusarigama
 			LaserArrow.DisplayName: Laser Arrow
-			MetalBladeProjStick.DisplayName: Metal Blade
+			MetalBladeProj.DisplayName: Metal Blade
 			PhantomBullet.DisplayName: Phantom Bullet
 			PrometheusFire.DisplayName: Prometheus Fire
+			ScarletSpark.DisplayName: Scarlet Spark
 			SoulArrow.DisplayName: Soul Arrow
 			# Summon
-			DragonSpineWhipProj.DisplayName: Dragon Spine
+			AreusCrateProj.DisplayName: Areus Crate
+			AreusTurret.DisplayName: Areus Turret
+			DragonBone.DisplayName: Dragon Bone
+			DragonSpineWhipProj.DisplayName: Dragon Slayer
 			FlailOfFleshProj.DisplayName: Leashed Hungry
-			SoulDagger.DisplayName: Soul Dagger
-			# Throwing
-			KusarigamaKing.DisplayName: King's Kusarigama
-			MetalBladeProj.DisplayName: Metal Blade
-			HardlightKnifeProj.DisplayName: Hardlight Knife
+			FrostsparkDrone.DisplayName: Frostspark Drone
 			SapphireBolt.DisplayName: Sapphire Bolt
 			SapphireSpirit.DisplayName: Sapphire Spirit
-			Sea.DisplayName: Sea
-			ElementExplosion.DisplayName: Element Explosion
-			AreusArrowProj.DisplayName: Areus Arrow
-			SilbrBullet.DisplayName: Silbr Bullet
-			TungstenBullet.DisplayName: Tungsten Bullet
-			ElectricSpike.DisplayName: Electric Spike
-			GunswordGun.DisplayName: Gunsword Gun
-			GunswordProj.DisplayName: Gunsword
-			HardlightBlade.DisplayName: Hardlight Blade
-			AreusKatanaProj.DisplayName: Areus Katana
-			AreusSaberProj.DisplayName: Areus Saber
-			AreusSickle.DisplayName: Areus Sickle
-			AreusSwordProj.DisplayName: Areus Sword
-			AreusSaberScissors.DisplayName: Areus Saber Scissors
-			AreusSaberTwin.DisplayName: Areus Saber Twin
-			MourningStar.DisplayName: Mourning Star
-			ElectricKunai.DisplayName: Electric Kunai
-			EnergyScythe.DisplayName: Energy Scythe
-			EnergyWave.DisplayName: Energy Wave
-			Ragnarok_Shield.DisplayName: Ragnarok
-			RagnarokProj.DisplayName: Ragnarok
-			RagnarokProj2.DisplayName: Ragnarok
-			HardlightSword.DisplayName: Hardlight Sword
-			HeroSwordProj.DisplayName: Hero Sword Proj
-			Warframe.DisplayName: Warframe
-			AreusGrenadeProj.DisplayName: Areus Grenade
-			GerdGun.DisplayName: Alpha Spectrum
-			SpectrumLaser.DisplayName: Spectrum Laser
-			FrostsparkDrone.DisplayName: Frostspark Drone
-			HardlightFeatherMagic.DisplayName: Hardlight Feather
-			AreusSlash1.DisplayName: Areus Slash1
-			AreusSlash2.DisplayName: Areus Slash2
-			AreusSlash3.DisplayName: Areus Slash3
-			AreusSlash4.DisplayName: Areus Slash4
-			ValkyrieStormLanceProj.DisplayName: Valkyrie Storm Lance Proj
-			AreusRailgunProj.DisplayName: Areus Railgun Proj
-			CoilgunProj.DisplayName: Coilgun Proj
-			HardlightKnifeHostile.DisplayName: Hardlight Knife Hostile
-			ScarletSpark.DisplayName: Scarlet Spark
-			Warframe_Upgrade.DisplayName: Warframe_ Upgrade
-			EntropySickle.DisplayName: Entropy Sickle
-			CataracniaEye.DisplayName: Cataracnia Eye
-			AreusShardProj.DisplayName: Areus Shard Proj
+			SoulDagger.DisplayName: Soul Dagger
 		}
 
 		NPCs: {
-			NovaStellar.DisplayName: Nova Stellar
+			NovaStellar: {
+				DisplayName: Nova Stellar
+
+				BossChecklistIntegration: {
+					SpawnInfo: Use a [i:5691] on the surface
+					DespawnMessage: Nova Stellar leaves in triumph
+				}
+			}
+
 			CaveHarpy.DisplayName: Cavern Harpy
 			CorruptHarpy.DisplayName: Infested Harpy
 			CrimsonHarpy.DisplayName: Hemorrhaging Harpy
@@ -1742,14 +1826,36 @@ Mods: {
 			SnowHarpy.DisplayName: Arctic Harpy
 			VoidHarpy.DisplayName: Void Harpy
 			Creeper.DisplayName: Creeper
-			Atherian.DisplayName: Atherian
+
+			Atherian: {
+				DisplayName: Atherian
+
+				TownNPCMood: {
+					Content: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.Content}"
+					NoHome: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.NoHome}"
+					FarFromHome: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.FarFromHome}"
+					LoveSpace: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LoveSpace}"
+					DislikeCrowded: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.DislikeCrowded}"
+					HateCrowded: I hate how crowded I am.
+					LoveBiome: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LoveBiome}"
+					LikeBiome: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LikeBiome}"
+					HateBiome: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.HateBiome}"
+					LoveNPC: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LoveNPC}"
+					LikeNPC: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LikeNPC}"
+					LikeNPC_Princess: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LikeNPC_Princess}"
+					Princess_LovesNPC: "{$TownNPCMood_Princess.LoveNPC_ShardsOfAtheria/Atherian}"
+				}
+
+				Census.SpawnCondition: Defeat your world's evil boss while not in Slayer mode.
+			}
+
+			AreusMortar.DisplayName: Areus Mortar
 		}
 
 		Buffs: {
+			# Any debuff
 			ElectricShock: {
-				# Any debuff
 				DisplayName: Electric Shock
-				# Any debuff
 				Description: Moving aches
 			}
 
@@ -1763,42 +1869,40 @@ Mods: {
 				Description: Defense lowered and losing life
 			}
 
+			# Cooldown
 			ClockCooldown: {
-				# Cool-down
-				DisplayName: Clock Cool-down
-				# Cool-down
+				DisplayName: Clock Cooldown
 				Description: You cannot use Spider's Mechanical Clock for now
 			}
 
 			EaterReviveCooldown: {
-				DisplayName: Eater's Revive Cool-down
+				DisplayName: Eater's Revive Cooldown
 				Description: You cannot be revived by the Eater of Worlds' soul crystal for now
 			}
 
 			ParryCooldown: {
-				DisplayName: Parry Cool-down
+				DisplayName: Parry Cooldown
 				Description: You cannot parry for now
 			}
 
 			SetBonusCooldown: {
-				DisplayName: Active Armor Set Bonus Cool-down
+				DisplayName: Active Armor Set Bonus Cooldown
 				Description: You cannot activate your armor set bonus for now
 			}
 
 			SoulTeleportCooldown: {
-				DisplayName: Soul Teleport Cool-down
+				DisplayName: Soul Teleport Cooldown
 				Description: You cannot use your Soul Crystal Teleport right now
 			}
 
 			YamikoDashCooldown: {
-				DisplayName: Yamiko Dash Cool-down
+				DisplayName: Yamiko Dash Cooldown
 				Description: You cannot use Yamiko's Dash ability for now
 			}
 
+			# NPC debuff
 			LoomingEntropy: {
-				# NPC debuff
-				DisplayName: Looming Entropy
-				# NPC debuff
+				DisplayName: Draconic Venom
 				Description:
 					'''
 					'Heat death is Swiftly approaching..'
@@ -1811,20 +1915,14 @@ Mods: {
 				Description: Taking 10% extra damage
 			}
 
-			Penetration: {
-				DisplayName: Armor Penetrated
-				Description: Defense lowered
+			Perish: {
+				DisplayName: Perish
+				Description: Mods.ShardsOfAtheria.Buffs.Perish.Description
 			}
 
-			EnvyTarget: {
-				DisplayName: Envy's Target
-				Description: Taking extra damage
-			}
-
+			# Pet buff
 			CreeperPetBuff: {
-				# Pet buff
 				DisplayName: Pet Creeper
-				# Pet buff
 				Description: Strangely cute
 			}
 
@@ -1833,10 +1931,9 @@ Mods: {
 				Description: Look at her now
 			}
 
+			# Player buff
 			BaseCombat: {
-				# Player buff
 				DisplayName: Knowledge Base: Combat
-				# Player buff
 				Description:
 					'''
 					10% increased damage and 10 defense
@@ -1878,8 +1975,8 @@ Mods: {
 					'''
 			}
 
+			# Sinful Souls
 			EnvyBuff: {
-				# Sinful Souls
 				DisplayName: Envy
 				Description: Mods.ShardsOfAtheria.Items.EnvySoul.Tooltip
 			}
@@ -1924,10 +2021,9 @@ Mods: {
 					'''
 			}
 
+			# Player debuff
 			HeartBreak: {
-				# Player debuff
 				DisplayName: Heart Break
-				# Player debuff
 				Description: You cannot heal with Cross Dagger or Wand Of Healing
 			}
 
@@ -1945,10 +2041,14 @@ Mods: {
 					'''
 			}
 
+			CorruptedBlood: {
+				DisplayName: Corrupted Blood
+				Description: Your own blood hurts you
+			}
+
+			# Potion buff
 			BoneStrength: {
-				# Potion buff
 				DisplayName: Bone Strength
-				# Potion Buff
 				Description:
 					'''
 					10% increased damage and reduced damage taken by 20%
@@ -1971,10 +2071,9 @@ Mods: {
 				Description: Increased max life by 50, defense by 10 and damage by 15%
 			}
 
+			# Summons
 			AreusMirrorBuff: {
-				# Summons
 				DisplayName: Areus Mirror
-				# Summons
 				Description: The Areus Mirror will fight for you
 			}
 
@@ -1988,20 +2087,14 @@ Mods: {
 				Description: The harpy will fight along side you
 			}
 
-			ShadeState.Description:
-				'''
-				Increased damage by 15%
-				Increased defense by 20
-				'''
-
 			FrostsparkDroneBuff: {
 				DisplayName: Frostspark Drone Buff
-				Description: Mods.ShardsOfAtheria.Buffs.FrostsparkDroneBuff.Description
+				Description: The Frostspark Drones will fight for you
 			}
 
-			Perish: {
-				DisplayName: Perish
-				Description: Mods.ShardsOfAtheria.Buffs.Perish.Description
+			MessiahRekkoha: {
+				DisplayName: Messiah Rekkoha
+				Description: Mods.ShardsOfAtheria.Buffs.MessiahRekkoha.Description
 			}
 		}
 
@@ -2031,7 +2124,7 @@ Mods: {
 				NoHome: I would appreciate it if you'd make me a home.
 				FarFromHome: Looks like I wandered too far from home.
 				LoveSpace: So much space.. It feels strange but also nice.
-				DislikeCrowded: I've grown so accustomed to having so much space that this is uncomfortable now.
+				DislikeCrowded: Don't mean to be rude, but I left Atheria to get out of an overpopulated area, not to go into another.
 				LoveBiome: I love {BiomeName}, It reminds me of Atheria.
 				LikeBiome: Atheria doesn't have many lush forests, this is a nice change.
 				HateBiome: I can't stand how boring {BiomeName} is. All the colors are buried under gray and maybe brown.
@@ -2053,8 +2146,11 @@ Mods: {
 			Upgrade: Upgraded by Atherian
 			SlayerMode: Be in Slayer Mode
 			NotSlayer: Slayer Mode disabled
+			AnyMech: Defeat any mech boss
 			DefeatPlantera: Sold after Plantera's defeat
 			DefeatNova: Sold after Nova Stellar's defeat
+			OperatorMaterials: Mods.ShardsOfAtheria.Conditions.OperatorMaterials
+			OperatorBags3: Mods.ShardsOfAtheria.Conditions.OperatorBags3
 		}
 
 		BossDesc.NovaStellar: Lightning Valkyrie
@@ -2139,40 +2235,6 @@ Mods: {
 			NovaStellar: Following her late father's footsteps, Nova became a noble knight. She wishes to rid the world of the Slayer Terrarian.
 		}
 
-		Config: {
-			ClientLabel: Client Side
-			ServerLabel: Server Side
-			ItemHeader: "[i:1] Items"
-			MetalBladeUseSound: "[i:ShardsOfAtheria/MetalBlade] Metal Blade Use Sound"
-			BossSummon: "[i:43] Non-consumable boss summons"
-			UpgradeItems: "[i:29] Upgrade items change"
-			DialogueHeader: "[i:3617] Dialogue"
-			YamikoInsult: "[i:ShardsOfAtheria/Yamiko] Yamiko Insult"
-			MechanicsHeader: "[i:4818] Mechanics"
-			Clueless: "[i:893] Clueless Atherian"
-			BetterWeapon: "[i:1] Directional Weapons*"
-			Experimental: "[i:893] Experimental Features"
-			MiscHeader: Misc
-			AltCaveHarpy: "[i:48] Alt Cavern Harpy"
-		}
-
-		ConfigDesc: {
-			MetalBladeUseSound: Enable for custom use sound, disable for vanilla use sound
-			BossSummon: Enable for to make Shards of Atheria boss summons non-consumable
-			UpgradeItems:
-				'''
-				Enable for to enable changes to Life Crystal, Mana Crystal and Life Fruit
-				(Use time 15, auto reuse, use turn)
-				'''
-			YamikoInsult: Disable if you want to keep your feelings intact
-			Clueless: Enable to allow the atherian to upgrade items even while in Slayer mode
-			BetterWeaponOff: Off
-			BetterWeaponUseTurn: No Use Turn
-			BetterWeaponMouse: Mouse Direction
-			Experimental: Enables experimental/work in progress features
-			AltCaveHarpy: Makes a slight change to the Cavern Harpy sprite
-		}
-
 		InfoDisplays: {
 			InCombatInfoDisplay.DisplayName: In Combat
 			OverdriveTimeInfoDisplay.DisplayName: Overdrive Time
@@ -2190,6 +2252,7 @@ Mods: {
 			BionicBar.MapEntry: Bionic Bar
 			BionicOre.MapEntry: Bionic Ore
 			AreusFabricator.MapEntry: Areus Fabricator
+			Trophy.MapEntry: Trophy
 		}
 
 		Keybinds: {
@@ -2199,6 +2262,7 @@ Mods: {
 			"Toggle Phase Type.DisplayName": Mods.ShardsOfAtheria.Keybinds.Toggle Phase Type.DisplayName
 			"Soul Crystal Teleport.DisplayName": Mods.ShardsOfAtheria.Keybinds.Soul Crystal Teleport.DisplayName
 			"Activate Armor Set Bonus.DisplayName": Mods.ShardsOfAtheria.Keybinds.Activate Armor Set Bonus.DisplayName
+			"Cycle Element Affinity.DisplayName": Cycle  Element  Affinity
 		}
 
 		Condotions: {
@@ -2210,6 +2274,113 @@ Mods: {
 		RecipeConditions: {
 			SlayerMode: Mods.ShardsOfAtheria.RecipeConditions.SlayerMode
 			Upgrade: Mods.ShardsOfAtheria.RecipeConditions.Upgrade
+		}
+
+		Configs: {
+			ShardsClient: {
+				DisplayName: Client Side
+
+				Headers: {
+					Mechanics: "[i:4818] Mechanics"
+					Sounds: "[i:890] Sounds"
+					UI: "[i:3617] UI"
+					Misc: "[i:1344] Misc"
+				}
+
+				instantAbsorb: {
+					Label: "[i:583] Instant Soul Crystal Absorption"
+					Tooltip: Toggles the wait for absorbing Soul Crystals
+				}
+
+				entryView: {
+					Label: "[i:149] View All entries"
+					Tooltip:
+						'''
+						Toggles the ability to view all Necronomicon entries
+						regardless of whether or not the Soul Crystal is absorbed or not
+						'''
+				}
+
+				biometalSound: {
+					Label: "[i:890] Biometal Equip Sound"
+					Tooltip: Toggles the sound played when Biometal is equipped
+				}
+
+				reactorBeep: {
+					Label: "[i:890] Reactor Meltdown Sound"
+					Tooltip: Toggles the sound played when Reactor Meltdown is spinning
+				}
+
+				loreTabletOffset: {
+					Label: "[i:3617] Tablet Position"
+					Tooltip: Move the lore tablet
+				}
+
+				sinfulArmamentText: {
+					Label: "[i:3617] Sinful Armament dialogue"
+					Tooltip: Toggles the dialogue when using Sinful Armament
+				}
+
+				windowTitle: {
+					Label: "[i:3617] Window Title"
+					Tooltip: Toggles changing the window title
+				}
+
+				debug: {
+					Label: debug
+					Tooltip: ""
+				}
+			}
+
+			ShardsServer: {
+				DisplayName: Shards Server Config
+
+				Headers: {
+					Item: "[i:1] Items"
+					Dialogue: "[i:3617] Dialogue"
+					Mechanics: "[i:4818] Mechanics"
+					Misc: Misc
+				}
+
+				metalBladeSound: {
+					Label: "[i:ShardsOfAtheria/MetalBlade] Metal Blade Use Sound"
+					Tooltip: Enable for custom use sound, disable for vanilla use sound
+				}
+
+				nonConsumeBoss: {
+					Label: "[i:43] Non-consumable boss summons"
+					Tooltip: Enable for to make Vanilla and Shards of Atheria boss summons non-consumable
+				}
+
+				upgradeChange: {
+					Label: "[i:29] Upgrade items change"
+					Tooltip:
+						'''
+						Enable for to enable changes to Life Crystal, Mana Crystal and Life Fruit
+						(Use time 15, auto reuse, use turn)
+						'''
+				}
+
+				yamikoInsult: {
+					Label: "[i:ShardsOfAtheria/Yamiko] Yamiko Insult"
+					Tooltip: Disable if you want to keep your feelings intact
+				}
+
+				cluelessNPCs: {
+					Label: "[i:893] Clueless Atherian"
+					Tooltip: Enable to allow the atherian to upgrade items even while in Slayer mode
+				}
+
+				betterWeapon: {
+					Label: "[i:1] Directional Weapons*"
+					Tooltip: ""
+				}
+
+				altCaveHarpy: {
+					Label: "[i:48] Alt Cavern Harpy"
+					Tooltip: Makes a slight change to the Cavern Harpy sprite
+				}
+			}
 		}
 	}
 }

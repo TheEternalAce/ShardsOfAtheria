@@ -1,4 +1,5 @@
 using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Globals;
@@ -9,12 +10,13 @@ using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon.Minion;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
-using ShardsOfAtheria.NPCs.Town.TheAtherian;
 using ShardsOfAtheria.Systems;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -31,15 +33,21 @@ namespace ShardsOfAtheria
         public static ModKeybind PhaseSwitch;
         public static ModKeybind SoulTeleport;
         public static ModKeybind ArmorSetBonusActive;
+        public static ModKeybind ProcessorElement;
 
         public static ShardsServer ServerConfig;
         public static ShardsClient ClientConfig;
         public static ShardsDownedSystem DownedSystem;
         public static bool AprilFools => DateTime.Now is DateTime { Month: 4 };
 
-        public static string BlankTexture_String = "ShardsOfAtheria/Blank";
-        public static string PlaceholderTexture_String = "ShardsOfAtheria/PlaceholderSprite";
+        public const string BlankTexture = "ShardsOfAtheria/Blank";
+        public const string PlaceholderTexture = "ShardsOfAtheria/PlaceholderSprite";
+        public const string BuffTemplate = "ShardsOfAtheria/Buffs/BuffTemp";
+        public const string DebuffTemplate = "ShardsOfAtheria/Buffs/DebuffTemp";
         public static SoundStyle ReactorAlarm;
+        public static SoundStyle TheMessiah;
+        public static SoundStyle Rekkoha;
+        public static SoundStyle Coin;
 
         public override void Load()
         {
@@ -49,25 +57,32 @@ namespace ShardsOfAtheria
             PhaseSwitch = KeybindLoader.RegisterKeybind(this, "Toggle Phase Type", "RightAlt");
             SoulTeleport = KeybindLoader.RegisterKeybind(this, "Soul Crystal Teleport", "V");
             ArmorSetBonusActive = KeybindLoader.RegisterKeybind(this, "Activate Armor Set Bonus", "Mouse4");
+            ProcessorElement = KeybindLoader.RegisterKeybind(this, "Cycle Element Affinity", "C");
 
             ServerConfig = ModContent.GetInstance<ShardsServer>();
             ClientConfig = ModContent.GetInstance<ShardsClient>();
             DownedSystem = ModContent.GetInstance<ShardsDownedSystem>();
 
-            ModLoader.TryGetMod("Wikithis", out Mod wikithis);
-            if (wikithis != null && !Main.dedServ)
+            if (!Main.dedServ)
             {
-                wikithis.Call("AddModURL", this, "terrariamods.wiki.gg$Shards_of_Atheria");
+                ModLoader.TryGetMod("Wikithis", out Mod wikithis);
+                if (wikithis != null)
+                {
+                    wikithis.Call("AddModURL", this, "terrariamods.wiki.gg$Shards_of_Atheria");
 
-                // If you want to replace default icon for your mod, then call this. Icon should be 30x30, either way it will be cut.
-                wikithis.Call("AddWikiTexture", this, ModContent.Request<Texture2D>("ShardsOfAtheria/icon_small"));
+                    // If you want to replace default icon for your mod, then call this. Icon should be 30x30, either way it will be cut.
+                    wikithis.Call("AddWikiTexture", this, ModContent.Request<Texture2D>("ShardsOfAtheria/icon_small"));
+                }
+
+                ReactorAlarm = new SoundStyle("ShardsOfAtheria/Sounds/Item/ReactorMeltdownAlarm")
+                {
+                    Volume = 0.9f,
+                    MaxInstances = 3,
+                };
+                TheMessiah = new SoundStyle("ShardsOfAtheria/Sounds/Item/TheMessiah");
+                Rekkoha = new SoundStyle("ShardsOfAtheria/Sounds/Item/MessiahRekkoha");
+                Coin = new SoundStyle("ShardsOfAtheria/Sounds/Item/Coin");
             }
-
-            ReactorAlarm = new SoundStyle("ShardsOfAtheria/Sounds/Item/ReactorMeltdownAlarm")
-            {
-                Volume = 0.9f,
-                MaxInstances = 3,
-            };
         }
 
         public override void PostSetupContent()
@@ -87,12 +102,6 @@ namespace ShardsOfAtheria
             foreach (int item in SoAGlobalItem.AreusWeapon)
             {
                 item.AddElecItem();
-            }
-
-            // Mod calls
-            if (ModLoader.TryGetMod("Census", out Mod foundMod))
-            {
-                foundMod.Call("TownNPCCondition", ModContent.NPCType<Atherian>(), "Defeat Eater of Worlds/Brain of Cthulhu while not in Slayer mode.");
             }
 
             if (ModLoader.TryGetMod("BossChecklist", out Mod foundMod1))
@@ -149,6 +158,55 @@ namespace ShardsOfAtheria
             int index = Main.rand.Next(2);
 
             return title[index];
+        }
+
+        private static bool ConsoleDebug => ClientConfig.debug == "Console only";
+        private static bool ConsoleAndChatDebug => ClientConfig.debug == "Console and Chat";
+        internal static void Log(string label, object value, bool ignoreDebugConfig = false)
+        {
+            Log(label, value, Color.White, ignoreDebugConfig);
+        }
+        internal static void Log(string label, object value, Color color, bool ignoreDebugConfig = false)
+        {
+            var debug = "[Shards of Atheria Debug] " + label;
+            if (ConsoleDebug || ConsoleAndChatDebug || ignoreDebugConfig)
+            {
+                Console.WriteLine(debug + value);
+                if (value is IList list)
+                {
+                    Console.WriteLine("--List items--");
+                    if (list.Count == 0)
+                    {
+                        Console.WriteLine("None");
+                    }
+                    else
+                    {
+                        foreach (object item in list)
+                        {
+                            Console.WriteLine(item);
+                        }
+                    }
+                }
+            }
+            if (ConsoleAndChatDebug || ignoreDebugConfig)
+            {
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(debug + value.ToString()), color);
+                if (value is IList list)
+                {
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("--List items--"), color);
+                    if (list.Count == 0)
+                    {
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("None"), color);
+                    }
+                    else
+                    {
+                        foreach (object item in list)
+                        {
+                            ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(item.ToString()), color);
+                        }
+                    }
+                }
+            }
         }
     }
 }

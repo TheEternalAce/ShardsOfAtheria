@@ -21,8 +21,9 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.width = 15;
             Item.height = 22;
             Item.accessory = true;
+            Item.master = true;
 
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.Master;
             Item.value = Item.sellPrice(0, 1);
         }
 

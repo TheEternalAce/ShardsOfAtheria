@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;

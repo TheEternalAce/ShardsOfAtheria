@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon.Whip
         {
             // This makes the projectile use whip collision detection and allows flasks to be applied to it.
             ProjectileID.Sets.IsAWhip[Type] = true;
-            Projectile.AddAqua();
+            Projectile.AddWood();
         }
 
         public override void SetDefaults()
@@ -35,16 +35,24 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon.Whip
             set => Projectile.ai[0] = value;
         }
 
-        private float ChargeTime
-        {
-            get => Projectile.ai[1];
-            set => Projectile.ai[1] = value;
-        }
-
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<LoomingEntropy>(), 240);
-            Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
+            var player = Main.player[Projectile.owner];
+            player.MinionAttackTargetNPC = target.whoAmI;
+
+            if (Projectile.ai[1] == 0)
+            {
+                int fragments = 4 + Main.rand.Next(0, 7);
+                for (int i = 0; i < fragments; i++)
+                {
+                    var vector = Vector2.One.RotatedByRandom(MathHelper.ToRadians(360));
+                    vector *= 5f * Main.rand.NextFloat(0.8f, 1.1f);
+                    Projectile.NewProjectile(player.GetSource_OnHit(target), target.Center, vector,
+                        ModContent.ProjectileType<DragonBone>(), Projectile.damage / 5, 0, player.whoAmI);
+                }
+                Projectile.ai[1] = 1;
+            }
         }
 
         // This method draws a line between all points of the whip, in case there's empty space between the sprites.
@@ -61,10 +69,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon.Whip
                 Vector2 diff = list[i + 1] - element;
 
                 float rotation = diff.ToRotation() - MathHelper.PiOver2;
-                Color color = Lighting.GetColor(element.ToTileCoordinates(), Color.White);
+                Color color = new Color(90, 10, 120);
                 Vector2 scale = new Vector2(1, (diff.Length() + 2) / frame.Height);
 
-                Main.EntitySpriteDraw(texture, pos - Main.screenPosition, frame, Color.Black, rotation, origin, scale, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(texture, pos - Main.screenPosition, frame, color, rotation, origin, scale, SpriteEffects.None, 0);
 
                 pos += diff;
             }

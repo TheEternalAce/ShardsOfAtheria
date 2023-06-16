@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BattleNetworkElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Placeable.Banner;
@@ -53,7 +53,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             {
                 glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
             }
-            NPC.SetElementMultiplier(2.0f, 0.8f, 0.5f, 1.0f);
+            NPC.ElementMultipliers() = new[] { 2.0f, 0.8f, 0.5f, 1.0f };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -104,9 +104,31 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.Feather, 2));
-            npcLoot.Add(ItemDropRule.OneFromOptions(1, ItemID.CopperOre, ItemID.TinOre, ItemID.IronOre, ItemID.LeadOre, ItemID.SilverOre, ItemID.TungstenOre, ItemID.GoldOre, ItemID.PlatinumOre,
-                ModContent.ItemType<BionicOreItem>(), ModContent.ItemType<AreusShard>()));
-            npcLoot.Add(ItemDropRule.OneFromOptions(5, ItemID.Amethyst, ItemID.Diamond, ItemID.Emerald, ItemID.Ruby, ItemID.Sapphire, ItemID.Topaz, ItemID.Amber));
+            int[] ores = new[] {
+                ItemID.CopperOre,
+                ItemID.TinOre,
+                ItemID.IronOre,
+                ItemID.LeadOre,
+                ItemID.SilverOre,
+                ItemID.TungstenOre,
+                ItemID.GoldOre,
+                ItemID.PlatinumOre,
+                ModContent.ItemType<BionicOreItem>()
+            };
+
+            npcLoot.Add(ItemDropRule.OneFromOptions(1, ores));
+            int[] gems = new[]
+            {
+                ItemID.Amethyst,
+                ItemID.Diamond,
+                ItemID.Emerald,
+                ItemID.Ruby,
+                ItemID.Sapphire,
+                ItemID.Topaz,
+                ItemID.Amber,
+                ModContent.ItemType<Jade>()
+            };
+            npcLoot.Add(ItemDropRule.OneFromOptions(5, gems));
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)

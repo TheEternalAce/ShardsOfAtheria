@@ -8,7 +8,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah
 {
     public class Gomorrah_Burst : ModProjectile
     {
-        public override string Texture => SoA.BlankTexture_String;
+        public override string Texture => SoA.BlankTexture;
 
         public override void SetDefaults()
         {

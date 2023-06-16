@@ -2,9 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.Chat;
 using Terraria.GameContent;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -19,7 +17,7 @@ namespace ShardsOfAtheria.Utilities
             public Item item;
             public int requiredStack;
 
-            public UpgrageMaterial(Item item, int stack)
+            public UpgrageMaterial(Item item, int stack = 1)
             {
                 this.item = item;
                 requiredStack = stack;
@@ -122,15 +120,6 @@ namespace ShardsOfAtheria.Utilities
             return minimum + ((float)Math.Sin(time) + 1f) / 2f * (maximum - minimum);
         }
 
-        internal static void Log(this string str, bool broadcastToChat = false)
-        {
-            if (broadcastToChat)
-            {
-                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(str), Color.White);
-            }
-            Console.WriteLine(str);
-        }
-
         public static bool DeathrayHitbox(Vector2 center, Rectangle targetHitbox, float rotation, float length, float size, float startLength = 0f)
         {
             return DeathrayHitbox(center, targetHitbox, rotation.ToRotationVector2(), length, size, startLength);
@@ -148,6 +137,49 @@ namespace ShardsOfAtheria.Utilities
         public static bool[] GetBoolArray(this TagCompound tagCompound, string key)
         {
             return tagCompound.Get<bool[]>(key);
+        }
+
+        public static Color MaxRGBA(this Color color, byte amt)
+        {
+            return color.MaxRGBA(amt, amt);
+        }
+        public static Color MaxRGBA(this Color color, byte amt, byte a)
+        {
+            return color.MaxRGBA(amt, amt, amt, a);
+        }
+        public static Color MaxRGBA(this Color color, byte r, byte g, byte b, byte a)
+        {
+            color.R = Math.Max(color.R, r);
+            color.G = Math.Max(color.G, g);
+            color.B = Math.Max(color.B, b);
+            color.A = Math.Max(color.A, a);
+            return color;
+        }
+
+        public static Vector2 RotateTowards(Vector2 currentPosition, Vector2 currentVelocity, Vector2 targetPosition, float maxChange)
+        {
+            float scaleFactor = currentVelocity.Length();
+            float targetAngle = currentPosition.AngleTo(targetPosition);
+            return currentVelocity.ToRotation().AngleTowards(targetAngle, maxChange).ToRotationVector2() * scaleFactor;
+        }
+
+        public static Rectangle Frame(this Rectangle rectangle, int frameX, int frameY, int sizeOffsetX = 0, int sizeOffsetY = 0)
+        {
+            return new Rectangle(rectangle.X + (rectangle.Width - sizeOffsetX) * frameX, rectangle.Y + (rectangle.Width - sizeOffsetY) * frameY, rectangle.Width, rectangle.Height);
+        }
+        public static Rectangle Frame(this Projectile projectile)
+        {
+            return TextureAssets.Projectile[projectile.type].Value.Frame(1, Main.projFrames[projectile.type], 0, projectile.frame);
+        }
+
+        public static SpriteEffects GetSpriteEffect(this Projectile projectile)
+        {
+            return (-projectile.spriteDirection).ToSpriteEffect();
+        }
+
+        public static SpriteEffects ToSpriteEffect(this int value)
+        {
+            return value == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BattleNetworkElements.Utilities;
 using ReLogic.Content;
 using Terraria;
 using Terraria.ModLoader;
@@ -107,9 +107,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 
             Projectile.rotation += rotationToAdd;
 
-            int newDirection = Main.MouseWorld.X > player.Center.X ? 1 : -1;
-            player.ChangeDir(newDirection);
-            Projectile.direction = newDirection;
+            player.ChangeDir(mouseDirection);
+            Projectile.direction = Projectile.Center.X > player.Center.X ? 1 : -1;
             Projectile.spriteDirection = -mouseDirection;
             if (!Main.mouseLeft || player.dead || !player.active)
             {
@@ -120,11 +119,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             {
                 Projectile.Center = handPosition + new Vector2(1, 0).RotatedBy(rotation) * 180;
                 Projectile.netUpdate = true;
-            }
-
-            if (Projectile.getRect().Intersects(player.getRect()))
-            {
-                Projectile.Kill();
             }
         }
 

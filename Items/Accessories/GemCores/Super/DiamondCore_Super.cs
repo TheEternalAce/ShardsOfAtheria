@@ -49,6 +49,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             player.buffImmune[BuffID.Weak] = true;
             player.noKnockback = true;
             player.fireWalk = true;
+            player.hasRaisableShield = true;
 
             player.buffImmune[BuffID.WitheredArmor] = true;
             player.buffImmune[BuffID.Ichor] = true;

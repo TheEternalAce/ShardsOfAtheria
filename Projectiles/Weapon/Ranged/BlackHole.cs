@@ -1,4 +1,6 @@
 ﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -23,6 +25,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             Projectile.usesLocalNPCImmunity = true;
 
             Projectile.timeLeft = 25;
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            var color = new Color(90, 10, 120);
+            lightColor = Color.White;
+            Projectile.DrawProjectilePrims(color, ShardsProjectileHelper.OrbX1);
+            return base.PreDraw(ref lightColor);
         }
     }
 }

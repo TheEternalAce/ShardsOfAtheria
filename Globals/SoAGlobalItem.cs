@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BattleNetworkElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Summons;
@@ -33,15 +33,15 @@ namespace ShardsOfAtheria.Globals
         public static List<int> Potions = new();
         public static List<int> UpgradeableItem = new();
         /// <summary>
-        /// A list to let Conductive potion do it's work easily, automatically adds all items to ElectricWeapon list
+        /// A list to let Conductive potion do it's work easily, automatically adds all items to ElecWeapon list
         /// </summary>
         public static List<int> AreusWeapon = new();
         /// <summary>
-        /// Same as AreusWeapon list, but doesn't add to ElectricWeapon list
+        /// Same as AreusWeapon list, but doesn't add to ElecWeapon list
         /// </summary>
         public static List<int> DarkAreusWeapon = new();
         /// <summary>
-        /// A list of weapons that can erase projectiles
+        /// A list of weapons that can erase projectiles or spawn projectiles that can erase other projectiles
         /// </summary>
         public static List<int> Eraser = new List<int>();
         #endregion
@@ -324,7 +324,7 @@ namespace ShardsOfAtheria.Globals
         {
             if (SoA.ServerConfig.betterWeapon.Equals("Mouse Direction") && item.shoot == ProjectileID.None)
             {
-                player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
+                player.ChangeDir(player.Center.X < Main.MouseWorld.X ? 1 : -1);
             }
             return base.UseItem(item, player);
         }

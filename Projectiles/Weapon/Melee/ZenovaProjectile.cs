@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using System.Collections.Generic;
 using Terraria;
@@ -18,6 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             Projectile.AddFire();
             Projectile.AddAqua();
             Projectile.AddElec();
+            Projectile.AddWood();
         }
 
         public override void SetDefaults()

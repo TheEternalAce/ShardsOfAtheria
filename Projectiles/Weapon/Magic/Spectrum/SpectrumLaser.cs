@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Spectrum
     {
         public Color laserColor = Color.Purple;
 
-        public override string Texture => SoA.BlankTexture_String;
+        public override string Texture => SoA.BlankTexture;
 
         public override void SetStaticDefaults()
         {

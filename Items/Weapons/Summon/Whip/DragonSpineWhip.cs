@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Whip
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddAquaDefault();
+            Item.AddWood();
         }
 
         public override void SetDefaults()

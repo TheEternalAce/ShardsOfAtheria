@@ -17,13 +17,14 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
-            Item.AddFireDefault();
+            Item.AddFire();
         }
 
         public override void SetDefaults()
         {
             Item.width = 34;
             Item.height = 24;
+            Item.master = true;
 
             Item.damage = 65;
             Item.DamageType = DamageClass.Ranged;
@@ -37,7 +38,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noMelee = true;
 
             Item.shootSpeed = 20f;
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.Master;
             Item.value = 22500;
             Item.shoot = ProjectileID.Grenade;
             Item.useAmmo = ItemID.Grenade;

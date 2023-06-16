@@ -14,10 +14,10 @@ namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddFireDefault();
-            Item.AddAquaDefault();
-            Item.AddElecDefault();
-            Item.AddWoodDefault();
+            Item.AddFire();
+            Item.AddAqua();
+            Item.AddElec();
+            Item.AddWood();
         }
 
         public override void SetDefaults()

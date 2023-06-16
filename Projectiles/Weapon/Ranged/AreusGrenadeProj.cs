@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 
             Projectile.aiStyle = ProjAIStyleID.Explosive;
             Projectile.friendly = false;
-            Projectile.DamageType = DamageClass.Throwing;
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = 7;
 
             AIType = ProjectileID.Grenade;

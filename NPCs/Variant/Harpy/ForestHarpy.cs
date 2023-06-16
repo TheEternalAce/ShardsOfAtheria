@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BattleNetworkElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<ForestHarpyBanner>();
-            NPC.SetElementMultiplier(2.0f, 1.0f, 0.5f, 0.8f);
+            NPC.ElementMultipliers() = new[] { 2.0f, 1.0f, 0.5f, 0.8f };
         }
 
         public override void AI()

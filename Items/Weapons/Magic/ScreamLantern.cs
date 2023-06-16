@@ -1,5 +1,5 @@
-using Microsoft.Xna.Framework;
 using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using Terraria;
 using Terraria.DataStructures;
@@ -15,14 +15,14 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddElecDefault();
+            Item.AddElec();
         }
 
         public override void SetDefaults()
         {
             Item.width = 18;
             Item.height = 36;
-            Item.scale = .75f;
+            Item.master = true;
 
             Item.damage = 40;
             Item.DamageType = DamageClass.Magic;
@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.holdStyle = ItemHoldStyleID.HoldLamp;
 
             Item.shootSpeed = 20f;
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemRarityID.Master;
             Item.value = Item.sellPrice(0, 1, 25);
             Item.shoot = ModContent.ProjectileType<ScreamShockwave>();
         }

@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Tiles
 
             RegisterItemDrop(ModContent.ItemType<BionicOreItem>());
 
-            AddMapEntry(new Color(100, 100, 100), Language.GetText("MapObject.BionicOre.MapEntry"));
+            AddMapEntry(new Color(100, 100, 100), Language.GetText("Mods.ShardsOfAtheria.MapObject.BionicOre.MapEntry"));
 
             DustType = DustID.Platinum;
             HitSound = SoundID.Tink;

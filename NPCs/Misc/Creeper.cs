@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.NPCs.Misc
             NPC.aiStyle = -1;
             NPC.noTileCollide = true;
             NPC.noGravity = true;
-            NPC.SetElementMultiplier(Element.Aqua);
+            NPC.SetElementMultipliersByElement(Element.Aqua);
         }
 
         public override bool PreAI()

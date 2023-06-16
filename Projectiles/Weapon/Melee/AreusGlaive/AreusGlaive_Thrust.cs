@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusGlaive
     {
         public override void SetStaticDefaults()
         {
-            SoAGlobalProjectile.AreusProj.Add(Type);
+            Projectile.AddAreus();
         }
 
         public override void SetDefaults()

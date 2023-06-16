@@ -149,6 +149,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.buffImmune[BuffID.Weak] = true;
             player.noKnockback = true;
             player.fireWalk = true;
+            player.hasRaisableShield = true;
 
             //If the dash is not active, immediately return so we don't do any of the logic for it
             if (!mp.DashActive)

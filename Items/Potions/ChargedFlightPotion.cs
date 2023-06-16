@@ -1,5 +1,4 @@
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;

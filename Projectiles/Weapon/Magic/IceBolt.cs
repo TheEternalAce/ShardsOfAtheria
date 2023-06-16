@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -43,6 +43,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Frostburn, 10 * 60);
+            if (Projectile.ai[0] == 0)
+            {
+                Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
+            }
         }
 
         public override void Kill(int timeLeft)

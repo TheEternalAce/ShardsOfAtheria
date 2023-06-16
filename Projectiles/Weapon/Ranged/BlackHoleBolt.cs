@@ -1,5 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -11,6 +12,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
     {
         public override void SetStaticDefaults()
         {
+            ProjectileID.Sets.TrailCacheLength[Type] = 30;
+            ProjectileID.Sets.TrailingMode[Type] = 3;
             Projectile.AddAqua();
         }
 
@@ -34,6 +37,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         {
             SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<BlackHole>(), 180, 0, Main.player[Projectile.owner].whoAmI);
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            var color = new Color(90, 10, 120);
+            lightColor = Color.White;
+            Projectile.DrawProjectilePrims(color, ShardsProjectileHelper.DiamondX1);
+            return base.PreDraw(ref lightColor);
         }
     }
 }

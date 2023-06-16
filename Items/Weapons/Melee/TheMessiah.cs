@@ -1,12 +1,12 @@
-using Microsoft.Xna.Framework;
 using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.OmegaSword;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -16,7 +16,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public int charge;
         public bool theMessiah = false;
-        private static SoundStyle inventorySound;
 
         public override void SaveData(TagCompound tag)
         {
@@ -31,18 +30,10 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             }
         }
 
-        public override void Load()
-        {
-            if (Main.netMode == NetmodeID.Server)
-                return;
-
-            inventorySound = new SoundStyle("ShardsOfAtheria/Sounds/Item/TheMessiah");
-        }
-
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddFireDefault();
+            Item.AddFire();
             SoAGlobalItem.Eraser.Add(Type);
         }
 
@@ -62,11 +53,12 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.UseSound = SoundID.Item1;
             Item.noMelee = true;
             Item.noUseGraphic = true;
+            Item.channel = true;
 
             Item.shootSpeed = 15;
-            Item.rare = ItemRarityID.Blue;
+            Item.rare = ItemRarityID.Red;
             Item.value = 5000000;
-            Item.shoot = ModContent.ProjectileType<MessiahAirSlash>();
+            Item.shoot = ModContent.ProjectileType<MessiahRanbu>();
         }
 
         public override void UpdateInventory(Player player)
@@ -74,51 +66,28 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             if (!theMessiah && Main.myPlayer == player.whoAmI)
             {
                 theMessiah = true;
-                SoundEngine.PlaySound(inventorySound);
+                SoundEngine.PlaySound(SoA.TheMessiah);
             }
-            if (charge < 200)
-                charge += 1;
-            else charge = 200;
-            if (charge == 199)
-            {
-                SoundEngine.PlaySound(SoundID.MaxMana);
-                CombatText.NewText(player.getRect(), Color.SkyBlue, Language.GetTextValue("Mods.ShardsOfAtheria.Common.FullCharge"));
-            }
+            player.Shards().overdriveTimeCurrent = player.Shards().overdriveTimeMax;
         }
 
-        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (charge >= 200)
+            if (player.Shards().Overdrive && (player.controlUp || player.controlDown))
             {
-                damage += charge * .1f;
+                velocity = new(0, 4f);
+                type = ModContent.ProjectileType<Messiah>();
             }
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (charge == 200)
-            {
-                float numberProjectiles = 5;
-                float rotation = MathHelper.ToRadians(15);
-                position += Vector2.Normalize(velocity) * 10f;
-                velocity = velocity.RotatedBy(MathHelper.ToRadians(15 * (Main.MouseWorld.X > player.Center.X ? -1 : 1)));
-                for (int i = 0; i < numberProjectiles; i++)
-                {
-                    Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                    Projectile.NewProjectile(source, position, (perturbedSpeed / 15f) * 10f, ProjectileID.Spark, damage, knockback, player.whoAmI);
-                }
-                Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<MessiahChargeSlash>(), damage, knockback, player.whoAmI);
-                return false;
-            }
-            else if (player.velocity.Y == 0)
-            {
-                Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<MessiahRanbu1>(), damage, knockback, player.whoAmI);
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            return player.ownedProjectileCounts[ModContent.ProjectileType<Messiah>()] == 0;
         }
     }
 }

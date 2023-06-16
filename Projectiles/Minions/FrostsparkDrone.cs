@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using System;
@@ -206,6 +206,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
                 float shootSpeed;
                 int projType;
                 SoundStyle soundType;
+                float ai0;
                 if (Projectile.ai[1] == 0)
                 {
                     foundTargetIdlePos = Vector2.One.RotatedByRandom(MathHelper.ToRadians(360)) * 150;
@@ -219,19 +220,21 @@ namespace ShardsOfAtheria.Projectiles.Minions
                     shootSpeed = 1;
                     projType = ModContent.ProjectileType<LightningBoltFriendly>();
                     soundType = SoundID.Item43;
+                    ai0 = 0;
                 }
                 else
                 {
                     shootSpeed = 16;
                     projType = ModContent.ProjectileType<IceBolt>();
                     soundType = SoundID.Item28;
+                    ai0 = 1;
                 }
 
                 if (++shootTimer >= 120)
                 {
                     Vector2 vel = Vector2.Normalize(targetCenter - Projectile.Center) * shootSpeed;
                     Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, vel,
-                        projType, Projectile.damage, 0, Projectile.owner);
+                        projType, Projectile.damage, 0, Projectile.owner, ai0);
                     SoundEngine.PlaySound(soundType);
                     Projectile.ai[1] = 0;
                     shootTimer = 0;

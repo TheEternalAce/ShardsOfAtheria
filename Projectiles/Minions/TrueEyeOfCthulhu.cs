@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.SoulCrystals;
-using ShardsOfAtheria.Items.Tools.Misc;
+using ShardsOfAtheria.Items.Tools.Misc.Slayer;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Other;
 using Terraria;

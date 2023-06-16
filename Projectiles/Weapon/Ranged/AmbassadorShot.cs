@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 15;
-            SoAGlobalProjectile.AreusProj.Add(Type);
+            Projectile.AddElec();
         }
 
         public override void SetDefaults()

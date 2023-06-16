@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
@@ -117,7 +117,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC parryNPC = Main.npc[i];
-                if (hitbox.Intersects(parryNPC.getRect()) && !player.HasBuff(ModContent.BuffType<ParryCooldown>()) && !parryNPC.friendly && parryNPC.damage > 0)
+                if (hitbox.Intersects(parryNPC.getRect()) && !player.HasBuff(ModContent.BuffType<ParryCooldown>()) && parryNPC.CanBeChasedBy() && parryNPC.damage > 0)
                 {
                     player.immune = true;
                     player.immuneTime = 60;

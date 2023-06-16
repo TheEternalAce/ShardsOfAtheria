@@ -12,13 +12,14 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
-            Item.AddAquaDefault();
+            Item.AddAqua();
         }
 
         public override void SetDefaults()
         {
             Item.width = 18;
             Item.height = 50;
+            Item.master = true;
 
             Item.damage = 16;
             Item.DamageType = DamageClass.Ranged;
@@ -34,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 16f;
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Master;
             Item.value = 17400;
             Item.shoot = ModContent.ProjectileType<KusarigamaKing>();
         }

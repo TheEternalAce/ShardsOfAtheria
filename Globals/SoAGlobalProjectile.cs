@@ -1,7 +1,10 @@
-﻿using ShardsOfAtheria.Buffs.AnyDebuff;
+﻿using BattleNetworkElements;
+using BattleNetworkElements.Utilities;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,9 +14,9 @@ namespace ShardsOfAtheria.Globals
     {
         public bool tempAreus = false;
 
-        public static List<int> Eraser = new List<int>();
         public static List<int> AreusProj = new List<int>();
         public static List<int> DarkAreusProj = new List<int>();
+        public static List<int> Eraser = new List<int>();
 
         public static List<int> ReflectAiList = new List<int>
         {
@@ -91,6 +94,45 @@ namespace ShardsOfAtheria.Globals
         };
 
         public override bool InstancePerEntity => true;
+
+        public override void OnSpawn(Projectile projectile, IEntitySource source)
+        {
+            foreach (Player player in Main.player)
+            {
+                if (projectile.active)
+                {
+                    if (projectile.owner == player.whoAmI)
+                    {
+                        if (player.active && !player.dead && projectile.friendly)
+                        {
+                            if (player.Shards().areusProcessor)
+                            {
+                                projectile.Elements().isFire = false;
+                                projectile.Elements().isAqua = false;
+                                projectile.Elements().isElec = false;
+                                projectile.Elements().isWood = false;
+
+                                switch (player.Shards().processorElement)
+                                {
+                                    case Element.Fire:
+                                        projectile.Elements().isFire = true;
+                                        break;
+                                    case Element.Aqua:
+                                        projectile.Elements().isAqua = true;
+                                        break;
+                                    case Element.Elec:
+                                        projectile.Elements().isElec = true;
+                                        break;
+                                    case Element.Wood:
+                                        projectile.Elements().isWood = true;
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         public override void PostAI(Projectile projectile)
         {

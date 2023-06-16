@@ -17,6 +17,9 @@ Code:
 Rockman Zeta
 Torra th
 
+Translation:
+Ertila007 (Brazilian Portuguese)
+
 Huge thank you to the TML team and others in the server for the huge help otherwise I would have never gotten this far in making the mod.
 
 As well as the following from other mods:

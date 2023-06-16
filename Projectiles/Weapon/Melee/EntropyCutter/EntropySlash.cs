@@ -40,9 +40,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.EntropyCutter
         public override bool PreDraw(ref Color lightColor)
         {
             var color = new Color(90, 10, 120);
+            lightColor = Color.White;
             var rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
             Projectile.DrawProjectilePrims(color, ShardsProjectileHelper.DiamondX1, rotation);
-            Projectile.DrawPrimsAfterImage(Color.White);
+            Projectile.DrawPrimsAfterImage(lightColor);
             return base.PreDraw(ref lightColor);
         }
     }

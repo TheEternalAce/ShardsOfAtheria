@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 		public override void SetStaticDefaults()
 		{
 			Item.ResearchUnlockCount = 1;
-			Item.AddAquaDefault();
+			Item.AddAqua();
 		}
 
 		public override void SetDefaults()

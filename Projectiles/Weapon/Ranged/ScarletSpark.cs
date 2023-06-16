@@ -73,7 +73,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSaber
                 return;
             }
 
-            Projectile.ChaseNPC(targetNPC, maxDetectRadius, 32f);
+            Projectile.Track(targetNPC, maxDetectRadius, 32f);
         }
 
         public override bool PreDraw(ref Color lightColor)

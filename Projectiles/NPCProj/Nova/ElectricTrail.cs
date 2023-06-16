@@ -8,7 +8,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {
     public class ElectricTrail : ModProjectile
     {
-        public override string Texture => SoA.BlankTexture_String;
+        public override string Texture => SoA.BlankTexture;
 
         public override void SetStaticDefaults()
         {

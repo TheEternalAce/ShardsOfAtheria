@@ -367,7 +367,12 @@ namespace ShardsOfAtheria.Projectiles.Bases
 
         public bool SingleEdgeSwordDraw(Color lightColor)
         {
-            var texture = TextureAssets.Projectile[Type].Value;
+            return SingleEdgeSwordDraw(lightColor, Texture);
+        }
+
+        public bool SingleEdgeSwordDraw(Color lightColor, string path)
+        {
+            var texture = ModContent.Request<Texture2D>(path).Value;
             var center = Main.player[Projectile.owner].Center;
             var handPosition = Main.GetPlayerArmPosition(Projectile) + AngleVector * visualOutwards;
             var drawColor = Projectile.GetAlpha(lightColor) * Projectile.Opacity;
@@ -378,7 +383,7 @@ namespace ShardsOfAtheria.Projectiles.Bases
             bool flip = Main.player[Projectile.owner].direction == 1 ? combo > 0 : combo == 0;
             if (flip)
             {
-                texture = ModContent.Request<Texture2D>(Texture + "_Flip").Value;
+                texture = ModContent.Request<Texture2D>(path + "_Flip").Value;
             }
 
             Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor, Projectile.rotation, origin, Projectile.scale, effects, 0);

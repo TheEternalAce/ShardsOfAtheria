@@ -2,8 +2,8 @@
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Config;
 using ShardsOfAtheria.NPCs.Misc;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Tools;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -80,17 +80,19 @@ namespace ShardsOfAtheria.Items.SoulCrystals
                 SoundEngine.PlaySound(SoundID.Item43);
             if (absorbSoulTimer == 0 || ModContent.GetInstance<ShardsClient>().instantAbsorb)
             {
+                var slayer = player.Slayer();
                 for (int i = 0; i < 20; i++)
                 {
                     if (Main.rand.NextBool(3))
                         Dust.NewDustDirect(player.Center, 4, 4, DustID.SandstormInABottle, .2f, .2f, 0, default, 1.2f);
                     Lighting.AddLight(player.Center, TorchID.Yellow);
                 }
-                if (!player.GetModPlayer<SlayerPlayer>().soulCrystals.Contains(Type))
+                if (!slayer.soulCrystals.Contains(Type))
                 {
-                    player.GetModPlayer<SlayerPlayer>().soulCrystals.Add(Type);
+                    slayer.soulCrystals.Add(Type);
                     Item.TurnToAir();
                     SoundEngine.PlaySound(SoundID.Item4);
+                    SoA.Log("Soul crystals: ", slayer.soulCrystals);
                 }
             }
             return true;

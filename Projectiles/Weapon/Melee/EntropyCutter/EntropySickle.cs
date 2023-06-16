@@ -11,6 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.EntropyCutter
     {
         public override void SetStaticDefaults()
         {
+            ProjectileID.Sets.CultistIsResistantTo[Type] = true;
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
             ProjectileID.Sets.TrailingMode[Type] = 3;
             Projectile.AddAqua();
@@ -52,14 +53,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.EntropyCutter
                 return;
             }
 
-            Projectile.ChaseNPC(targetNPC, maxDetectRadius, 32f);
+            Projectile.Track(targetNPC, maxDetectRadius, 32f);
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
             var color = new Color(90, 10, 120);
+            lightColor = Color.White;
             Projectile.DrawProjectilePrims(color, ShardsProjectileHelper.OrbX1);
-            //Projectile.DrawPrimsAfterImage(Color.White);
             return base.PreDraw(ref lightColor);
         }
     }

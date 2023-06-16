@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
@@ -52,6 +52,11 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 .AddIngredient(ItemID.SoulofMight, 7)
                 .AddTile(ModContent.TileType<AreusFabricator>())
                 .Register();
+        }
+
+        public override bool CanConsumeAmmo(Item ammo, Player player)
+        {
+            return false;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
