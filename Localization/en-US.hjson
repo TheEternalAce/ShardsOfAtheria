@@ -38,6 +38,8 @@ Mods: {
 			TitleText2: Shards of Atheria: Shattered Atheria
 			TomeOfOmniscience: Press {0} to cycle between the 3 Knowledge Bases
 			TeleportOnKeyPress: Press {0} to teleport to your cursor
+			RemoveChip: Hover over this and press <Remove Areus Chip> to remove the inserted chip
+			NoChip: No chip inserted
 		}
 
 		DiskFile: {
@@ -442,18 +444,52 @@ Mods: {
 					'''
 			}
 
+			GuardHelmet: {
+				DisplayName: Areus Guard Helmet
+				Tooltip: ""
+			}
+
+			GuardMail: {
+				DisplayName: Areus Guard Mail
+				Tooltip: ""
+			}
+
+			GuardLeggings: {
+				DisplayName: Areus Guard Leggings
+				Tooltip: ""
+			}
+
+			# Armor chips
+			AreusArmorChip: {
+				DisplayName: Unwritten Areus Chip
+				Tooltip:
+					'''
+					Can be written to provide additional effects to areus armors
+					To insert a chip, hover over a chip with the armor piece and right click
+					'''
+			}
+
+			WarriorChip: {
+				DisplayName: Warrior's Chip
+				Tooltip: Makes areus armor set bonus melee themed
+			}
+
 			# Boss summons
-			# AreusSnakeScale.DisplayName: Areus Snake Scale
-			# AreusSnakeScale.Tooltip: Summons the Goddess of Life and Earth
-			
+			AreusSnakeScale: {
+				DisplayName: Areus Snake Scale
+				Tooltip: Summons Atheria's goddess of Land and Life
+			}
+
 			PottedPlant: {
 				DisplayName: Potted Plant
 				Tooltip: Summons Plantera in the Underground Jungle
 			}
 
-			# SpiderClock.DisplayName: Areus Spider Clock
-			# SpiderClock.Tooltip: Summons the Goddess of Time and Magic
-			
+			SpiderClock: {
+				DisplayName: Areus Spider Clock
+				Tooltip: Summons Atheria's goddess of Time and Magic
+			}
+
 			ValkyrieCrest: {
 				DisplayName: Hardlight Crest
 				Tooltip: Summons a powerful Valkyrie
@@ -1405,6 +1441,11 @@ Mods: {
 				Tooltip: ""
 			}
 
+			AreusJavelin: {
+				DisplayName: Areus Javelin
+				Tooltip: Slashes struck enemies
+			}
+
 			AreusMagnum: {
 				DisplayName: Areus Magnum
 				Tooltip: "'Headshots do not crit'"
@@ -1612,6 +1653,11 @@ Mods: {
 				Sword can erase projectiles
 				Attacks inflict Frostburn and create extra ice projectiles
 				'''
+
+			AncientMedalion: {
+				DisplayName: Ancient Medalion
+				Tooltip: "Summons Death"
+			}
 		}
 
 		Projectiles: {
@@ -1643,6 +1689,13 @@ Mods: {
 			StormCloud.DisplayName: Storm Cloud
 			StormLance.DisplayName: Storm Lance
 			StormSword.DisplayName: Storm Sword
+			# Elizabeth Norman
+			BloodArrowHostile.DisplayName: Blood Arrow Hostile
+			BloodBubbleHostile.DisplayName: Blood Bubble Hostile
+			BloodJavelinHostile.DisplayName: Blood Javelin Hostile
+			BloodNeedleHostile.DisplayName: Blood Needle Hostile
+			BloodSickleHostile.DisplayName: Blood Sickle Hostile
+			SilverBoltHostile.DisplayName: Silver Bolt Hostile
 			# Variant NPC
 			Blood.DisplayName: Blood Feather
 			Stone.DisplayName: Stone Feather
@@ -1719,8 +1772,6 @@ Mods: {
 			AreusGlaive_Throw.DisplayName: Areus Glaive
 			AreusGlaive_Thrust.DisplayName: Areus Glaive
 			AreusGlaive_Thrust2.DisplayName: Areus Glaive
-			AreusKatanaProj.DisplayName: Areus Katana
-			AreusSaberProj.DisplayName: Areus Saber
 			AreusSickle.DisplayName: Areus Sickle
 			AreusSwordProj.DisplayName: Areus Sword
 			BloodCutter.DisplayName: Blood Cut
@@ -1771,6 +1822,7 @@ Mods: {
 			AmbassadorShot.DisplayName: Magnus Bullet
 			AreusArrow.DisplayName: Areus Arrow
 			AreusGrenadeProj.DisplayName: Areus Grenade
+			AreusJavelinThrown.DisplayName: Areus Javelin
 			AreusLaser.DisplayName: Areus Laser
 			AreusMagnumProj.DisplayName: Areus Magnum Proj
 			AreusRailgunProj.DisplayName: Areus Railgun
@@ -1778,7 +1830,10 @@ Mods: {
 			BlackHole.DisplayName: Black Hole
 			BlackHoleBolt.DisplayName: Black Hole Bolt
 			CoilgunProj.DisplayName: Coilgun
-			ElectricKunai.DisplayName: Electric Kunai
+			ElecKatana.DisplayName: Areus Katana
+			ElecKunai.DisplayName: Electric Kunai
+			ElecKunaiHoming.DisplayName: Elec Kunai
+			ElecShuriken.DisplayName: Electric Shuriken
 			FieryExplosion.DisplayName: Fiery Explosion
 			FlameCannon.DisplayName: Areus Flame Cannon
 			FireCannon_Fire1.DisplayName: Charged Fireball
@@ -1808,27 +1863,53 @@ Mods: {
 		NPCs: {
 			NovaStellar: {
 				DisplayName: Nova Stellar
+				Bestiary: Following her late father's footsteps, Nova became a noble knight. She wishes to rid the world of the Slayer Terrarian.
 
 				BossChecklistIntegration: {
-					SpawnInfo: Use a [i:5691] on the surface
+					SpawnInfo: Use a [i:ShardsOfAtheria/ValkyrieCrest] on the surface
 					DespawnMessage: Nova Stellar leaves in triumph
+				}
+
+				Dialogue: {
+					InitialSummon: You! How did you get that!? No matter, I will take you down, Slayer!
+					MidFight: Hmph. You don't go down easily huh? Well try surviving this!
+					Defeat: You haven't killed me... Perhaps I misjudged you. Farewell for now then.
+					# Refight
+					InitialSummonRe: Come to humiliate me again? Or did you not get what you wanted?
+					MidFightRe: Valkyrie form!
+					DefeatRe: I must go now. Farewell.
+					# Slayer
+					InitialSummonSlayer: You... My crest... You bastard!
+					MidFightSlayer: Okay prick, you've asked for it!
+					Desperation: I cannot lose to you! Not Like this!
+					Death: No... My judgment was clouded... I'm sorry Mother, I failed...
 				}
 			}
 
-			CaveHarpy.DisplayName: Cavern Harpy
-			CorruptHarpy.DisplayName: Infested Harpy
-			CrimsonHarpy.DisplayName: Hemorrhaging Harpy
-			DesertHarpy.DisplayName: Arid Harpy
-			ForestHarpy.DisplayName: Forest Harpy
-			HallowedHarpy.DisplayName: Holy Harpy
-			OceanHarpy.DisplayName: Seaside Harpy
-			SkyHarpy.DisplayName: Atmospheric Harpy
-			SnowHarpy.DisplayName: Arctic Harpy
-			VoidHarpy.DisplayName: Void Harpy
-			Creeper.DisplayName: Creeper
+			Death: {
+				DisplayName: Elizabeth Norman, Death
+				Bestiary: ""
+				BossChecklistIntegration.SpawnInfo: Use an [i:ShardsOfAtheria/AncientMedalion] Ancient Medalion on the surface at night.
+
+				Dialogue: {
+					InitialSummon: You dare challenge me mortal? Interesting. Fine then, I'll entertain you for a bit.
+					MidFight: You're pretty strong huh? I wonder how you handle this.
+					Defeat: Congratulations, you've defeated Death herself. Will you try to face me again? I wonder.
+					# Refight
+					InitialSummonRe: ""
+					MidFightRe: ""
+					DefeatRe: ""
+					# Slayer
+					InitialSummonSlayer: Your first mistake was starting this path. Your final mistake is crossing paths with me.
+					MidFightSlayer: You won't kill me so easily. Try this on for size.
+					Desperation: Seems like I underestimated you... (This isn't good... I must do something...)
+					Death: ""
+				}
+			}
 
 			Atherian: {
 				DisplayName: Atherian
+				Bestiary: After the young goddess, Senterra, created her world, she populated it with beings called Atherians, their design inspired by the angels in a certain human culture.
 
 				TownNPCMood: {
 					Content: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.Content}"
@@ -1846,9 +1927,69 @@ Mods: {
 					Princess_LovesNPC: "{$TownNPCMood_Princess.LoveNPC_ShardsOfAtheria/Atherian}"
 				}
 
+				Dialogue: {
+					# On interact
+					BaseGenesisAndRagnarok:
+						'''
+						What a peculiar weapon. It shows capabilities of transforming into several types of weapon, but it's locked in spear and whip form.
+						There's also memories sealed inside the shield. Perhaps something to unlock those memories will make it stronger?
+						'''
+					AtheriaComment: Atheria is a lovely place, but there's an overpopulation problem. You see our goddess, Senterra, wasn't too keen on giving us such a short lifespan like humans. So she made us nigh-immortal and, turns out, that makes things not so great for a small planet.
+					ExComment: My ex? Ah. Yes, Nova, I'm sure you've already guessed by now. We didn't separate on exactly good terms.
+					GoldCrownThought: Hmm.. I reckon a Gold Crown would suit you well!
+					GoldCrownCompliment: Yes yes, the Gold Crown does suit you well!
+					MorshuMoment: Sorry {0}, what is this 'credit'? Come back when you have some coin! Or maybe you wanna chat? That's fine too.
+					CSGOReference: Last blood moon I heard {0} shouting 'Door stuck,' what's that about?
+					NovaDeath: "{0} leaves with Nova's death. 'She didn't deserve this...'"
+					GoddessDeath: "{0} leaves with the death of his goddess. 'Curse you till the end of time!'"
+					AllDeath: "{0} leaves from your genocide. 'Suffer beyond eternity!'"
+					# Upgrading
+					UpgradeGenesisAndRagnarok1:
+						'''
+						As I expected, the fragments did make them stronger.
+						Either way, Genesis is now able to take the form of a double-headed spear.
+						There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
+						'''
+					UpgradeGenesisAndRagnarok2:
+						'''
+						Genesis can now attach to Ragnarok for swinging.
+						There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
+						'''
+					UpgradeGenesisAndRagnarok3:
+						'''
+						Genesis and Ragnarok can now set enemies on fire.
+						There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
+						'''
+					UpgradeGenesisAndRagnarok4:
+						'''
+						Genesis is now capable of transforming into a sword.
+						There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
+						'''
+					UpgradeGenesisAndRagnarok5:
+						'''
+						Genesis and Ragnarok now have their ice capabilities are revealed.
+						All of the memory seals are now released, I cannot upgrade them further.
+						'''
+					UpgradeAreusWeapon: That should do it. This is the best I can achieve. Use it well.
+					NoUpgradableItem: I don't think I could upgrade anything you have. If you find an areus weapon, I could probably upgrade that.
+					NoUpgradeMoney: Sorry pal, you don't have enough coins.
+					NotEnoughMaterial: "{0} - {1} [i:{2}]. I need at least {3}, you have {4}."
+				}
+
 				Census.SpawnCondition: Defeat your world's evil boss while not in Slayer mode.
 			}
 
+			CaveHarpy.DisplayName: Cavern Harpy
+			CorruptHarpy.DisplayName: Infested Harpy
+			CrimsonHarpy.DisplayName: Hemorrhaging Harpy
+			DesertHarpy.DisplayName: Arid Harpy
+			ForestHarpy.DisplayName: Forest Harpy
+			HallowedHarpy.DisplayName: Holy Harpy
+			OceanHarpy.DisplayName: Seaside Harpy
+			SkyHarpy.DisplayName: Atmospheric Harpy
+			SnowHarpy.DisplayName: Arctic Harpy
+			VoidHarpy.DisplayName: Void Harpy
+			Creeper.DisplayName: Creeper
 			AreusMortar.DisplayName: Areus Mortar
 		}
 
@@ -2096,6 +2237,11 @@ Mods: {
 				DisplayName: Messiah Rekkoha
 				Description: Mods.ShardsOfAtheria.Buffs.MessiahRekkoha.Description
 			}
+
+			DeathBleed: {
+				DisplayName: Death Bleed
+				Description: Mods.ShardsOfAtheria.Buffs.DeathBleed.Description
+			}
 		}
 
 		Necronomicon: {
@@ -2115,25 +2261,6 @@ Mods: {
 				Soul Crystals are removable by making a Soul Extracting Dagger.
 				'''
 			WipSoulEntry: This Soul Crystal needs further research. Please wait for this boss to be introduced into the mod.
-		}
-
-		#This is what displays during all of an NPC's happiness levels. Note that the localization key for these should always be "TownNPCMood.*NPCName*.*Mood*" or else it won't display properly.
-		TownNPCMood: {
-			Atherian: {
-				Content: I'm fine, thanks for checking on me.
-				NoHome: I would appreciate it if you'd make me a home.
-				FarFromHome: Looks like I wandered too far from home.
-				LoveSpace: So much space.. It feels strange but also nice.
-				DislikeCrowded: Don't mean to be rude, but I left Atheria to get out of an overpopulated area, not to go into another.
-				LoveBiome: I love {BiomeName}, It reminds me of Atheria.
-				LikeBiome: Atheria doesn't have many lush forests, this is a nice change.
-				HateBiome: I can't stand how boring {BiomeName} is. All the colors are buried under gray and maybe brown.
-				LoveNPC: "{NPCName} makes me feel a certain way.. But regardless she does a great job doing my hair!"
-				LikeNPC: Nobody gives {NPCName} enough credit. I mean come on, he knows the Soul of Eternity's whole crafting tree yet you have to look it up on Recipe Browser!
-				LikeNPC_Princess: "{NPCName} reminds me of our queen in Atheria, I didn't know humans had royalty as well!"
-				DislikeNPC: ""
-				HateNPC: ""
-			}
 		}
 
 		Conditions: {
@@ -2163,78 +2290,6 @@ Mods: {
 			}
 		}
 
-		NPCDialogue: {
-			NovaStellar: {
-				InitialSummon: You! How did you get that!? No matter, I will take you down, Slayer!
-				MidFight: Hmph. You don't go down easily huh? Well try surviving this!
-				Defeat: You haven't killed me... Perhaps I misjudged you. Farewell for now then.
-				# Refight
-				InitialSummonRe: Come to humiliate me again? Or did you not get what you wanted?
-				MidFightRe: Valkyrie form!
-				DefeatRe: I must go now. Farewell.
-				# Slayer Alts
-				InitialSummonAlt: You... My crest... You bastard!
-				MidFightAlt: Okay prick, you've asked for it!
-				Desperation: I cannot lose to you! Not Like this!
-				Death: No... My judgment was clouded... I'm sorry Mother, I failed...
-			}
-
-			Atherian: {
-				# On interact
-				BaseGenesisAndRagnarok:
-					'''
-					What a peculiar weapon. It shows capabilities of transforming into several types of weapon, but it's locked in spear and whip form.
-					There's also memories sealed inside the shield. Perhaps something to unlock those memories will make it stronger?
-					'''
-				AtheriaComment: Atheria is a lovely place, but there's an overpopulation problem. You see our goddess, Senterra, wasn't too keen on giving us such a short lifespan like humans. So she made us nigh-immortal and, turns out, that just made things worse.
-				ExComment: My ex? Ah. Yes, Nova, I'm sure you've already guessed by now. We didn't separate on exactly good terms.
-				GoldCrownThought: Hmm.. I reckon a Gold Crown would suit you well!
-				GoldCrownCompliment: Yes yes, the Gold Crown does suit you well!
-				MorshuMoment: Sorry {0}, what is this 'credit'? Come back when you have something to offer!
-				CSGOReference: Last blood moon I heard {0} shouting 'Door stuck,' what's that about?
-				NovaDeath: "{0} leaves with Nova's death. 'She didn't deserve this...'"
-				SenterraDeath: "{0} leaves with Senterra's death. 'Curse you till the end of time!'"
-				GenesisDeath: "{0} leaves with Genesis's death. 'Curse you till the end of time!'"
-				AllDeath: "{0} leaves from your genocide. 'Suffer beyond eternity!'"
-				# Upgrading
-				UpgradeGenesisAndRagnarok1:
-					'''
-					As I expected, the fragments did make them stronger.
-					Either way, Genesis is now able to take the form of a double-headed spear.
-					There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
-					'''
-				UpgradeGenesisAndRagnarok2:
-					'''
-					Genesis can now attach to Ragnarok for swinging.
-					There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
-					'''
-				UpgradeGenesisAndRagnarok3:
-					'''
-					Genesis and Ragnarok can now set enemies on fire.
-					There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
-					'''
-				UpgradeGenesisAndRagnarok4:
-					'''
-					Genesis is now capable of transforming into a sword.
-					There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
-					'''
-				UpgradeGenesisAndRagnarok5:
-					'''
-					Genesis and Ragnarok now have their ice capabilities are revealed.
-					All of the memory seals are now released, I cannot upgrade them further.
-					'''
-				UpgradeAreusWeapon: That should do it. This is the best I can achieve. Use it well.
-				NoUpgradableItem: Sorry pal, you don't have anything I can upgrade.
-				NoUpgradeMoney: Sorry pal, you don't have enough coins.
-				NotEnoughMaterial: "{0} - {1} [i:{2}]. I need at least {3}, you have {4}."
-			}
-		}
-
-		NPCBestiary: {
-			Atherian: After the young goddess, Senterra, created her world, she populated it with beings called Atherians, their design inspired by the angels in a certain human culture.
-			NovaStellar: Following her late father's footsteps, Nova became a noble knight. She wishes to rid the world of the Slayer Terrarian.
-		}
-
 		InfoDisplays: {
 			InCombatInfoDisplay.DisplayName: In Combat
 			OverdriveTimeInfoDisplay.DisplayName: Overdrive Time
@@ -2256,13 +2311,15 @@ Mods: {
 		}
 
 		Keybinds: {
-			"Toggle Overdrive.DisplayName": Mods.ShardsOfAtheria.Keybinds.Toggle Overdrive.DisplayName
-			"Cycle Knowledge Base.DisplayName": Mods.ShardsOfAtheria.Keybinds.Cycle Knowledge Base.DisplayName
-			"Emerald Teleport.DisplayName": Mods.ShardsOfAtheria.Keybinds.Emerald Teleport.DisplayName
-			"Toggle Phase Type.DisplayName": Mods.ShardsOfAtheria.Keybinds.Toggle Phase Type.DisplayName
-			"Soul Crystal Teleport.DisplayName": Mods.ShardsOfAtheria.Keybinds.Soul Crystal Teleport.DisplayName
-			"Activate Armor Set Bonus.DisplayName": Mods.ShardsOfAtheria.Keybinds.Activate Armor Set Bonus.DisplayName
-			"Cycle Element Affinity.DisplayName": Cycle  Element  Affinity
+			ToggleOverdrive.DisplayName: Toggle Overdrive
+			KnowledgeBase.DisplayName: Cycle Knowledge Base
+			EmeraldTeleport.DisplayName: Emerald Teleport
+			PhaseType.DisplayName: Toggle Phase Type
+			SoulCrystalTeleport.DisplayName: Soul Crystal Teleport
+			ArmorSetBonus.DisplayName: Activate Armor Set Bonus
+			ElementAffinity.DisplayName: Cycle Element Affinity
+			RemoveAreusChip.DisplayName: Remove Areus Chip
+			CycleElementAffinity.DisplayName: Cycle Element Affinity
 		}
 
 		Condotions: {
