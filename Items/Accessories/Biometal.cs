@@ -143,7 +143,7 @@ namespace ShardsOfAtheria.Items.Accessories
         public void BiometalSound(Player player)
         {
             ShardsPlayer shardsPlayer = player.Shards();
-            if (ModContent.GetInstance<ShardsClient>().biometalSound)
+            if (SoA.ClientConfig.biometalSound)
             {
                 if (!shardsPlayer.BiometalSound)
                 {

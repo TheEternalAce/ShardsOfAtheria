@@ -47,7 +47,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
                 SwitchSoulType(player, out int weapon, out string text, out Color color);
                 int newItem = Item.NewItem(Item.GetSource_DropAsItem(), player.getRect(), weapon);
                 Main.item[newItem].noGrabDelay = 0; // Set the new item to be able to be picked up instantly
-                if (ModContent.GetInstance<ShardsClient>().sinfulArmamentText)
+                if (SoA.ClientConfig.sinfulArmamentText)
                 {
                     ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(text), color, player.whoAmI);
                 }

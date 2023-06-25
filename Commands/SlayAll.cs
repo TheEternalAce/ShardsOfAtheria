@@ -16,23 +16,23 @@ namespace ShardsOfAtheria.Commands
 
         public override void Action(CommandCaller caller, string input, string[] args)
         {
-            ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie = true;
-            ModContent.GetInstance<ShardsDownedSystem>().slainEOC = true;
-            ModContent.GetInstance<ShardsDownedSystem>().slainBOC = true;
-            ModContent.GetInstance<ShardsDownedSystem>().slainEOW = true;
-            ModContent.GetInstance<ShardsDownedSystem>().slainBee = true;
-            ModContent.GetInstance<ShardsDownedSystem>().slainSkull = true;
-            ModContent.GetInstance<ShardsDownedSystem>().slainWall = true;
-            ModContent.GetInstance<ShardsDownedSystem>().slainMechWorm = true;
-            ModContent.GetInstance<ShardsDownedSystem>().slainTwins = true;
-            ModContent.GetInstance<ShardsDownedSystem>().slainPrime = true;
-            ModContent.GetInstance<ShardsDownedSystem>().slainPlant = true;
-            ModContent.GetInstance<ShardsDownedSystem>().slainGolem = true;
-            ModContent.GetInstance<ShardsDownedSystem>().slainDuke = true;
-            ModContent.GetInstance<ShardsDownedSystem>().slainEmpress = true;
-            ModContent.GetInstance<ShardsDownedSystem>().slainMoonLord = true;
-            ModContent.GetInstance<ShardsDownedSystem>().slainSenterra = true;
-            ModContent.GetInstance<ShardsDownedSystem>().slainGenesis = true;
+            SoA.DownedSystem.slainValkyrie = true;
+            SoA.DownedSystem.slainEOC = true;
+            SoA.DownedSystem.slainBOC = true;
+            SoA.DownedSystem.slainEOW = true;
+            SoA.DownedSystem.slainBee = true;
+            SoA.DownedSystem.slainSkull = true;
+            SoA.DownedSystem.slainWall = true;
+            SoA.DownedSystem.slainMechWorm = true;
+            SoA.DownedSystem.slainTwins = true;
+            SoA.DownedSystem.slainPrime = true;
+            SoA.DownedSystem.slainPlant = true;
+            SoA.DownedSystem.slainGolem = true;
+            SoA.DownedSystem.slainDuke = true;
+            SoA.DownedSystem.slainEmpress = true;
+            SoA.DownedSystem.slainMoonLord = true;
+            SoA.DownedSystem.slainSenterra = true;
+            SoA.DownedSystem.slainGenesis = true;
             SoA.Log("/slayAll command:", "All bosses are slain", true);
         }
     }

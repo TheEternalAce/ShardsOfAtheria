@@ -20,34 +20,34 @@ namespace ShardsOfAtheria.Commands
             SlayerPlayer sPlayer = caller.Player.GetModPlayer<SlayerPlayer>();
 
             sPlayer.soulCrystals.Clear();
-            ModContent.GetInstance<ShardsDownedSystem>().slainKing = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainEOC = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainBOC = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainEOW = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainBee = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainSkull = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainDeerclops = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainWall = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainQueen = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainMechWorm = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainTwins = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainPrime = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainPlant = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainGolem = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainDuke = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainEmpress = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainLunatic = false;
+            SoA.DownedSystem.slainKing = false;
+            SoA.DownedSystem.slainEOC = false;
+            SoA.DownedSystem.slainBOC = false;
+            SoA.DownedSystem.slainEOW = false;
+            SoA.DownedSystem.slainValkyrie = false;
+            SoA.DownedSystem.slainBee = false;
+            SoA.DownedSystem.slainSkull = false;
+            SoA.DownedSystem.slainDeerclops = false;
+            SoA.DownedSystem.slainWall = false;
+            SoA.DownedSystem.slainQueen = false;
+            SoA.DownedSystem.slainMechWorm = false;
+            SoA.DownedSystem.slainTwins = false;
+            SoA.DownedSystem.slainPrime = false;
+            SoA.DownedSystem.slainPlant = false;
+            SoA.DownedSystem.slainGolem = false;
+            SoA.DownedSystem.slainDuke = false;
+            SoA.DownedSystem.slainEmpress = false;
+            SoA.DownedSystem.slainLunatic = false;
 
-            ModContent.GetInstance<ShardsDownedSystem>().slainPillarNebula = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainPillarSolar = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainPillarStardust = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainPillarVortex = false;
+            SoA.DownedSystem.slainPillarNebula = false;
+            SoA.DownedSystem.slainPillarSolar = false;
+            SoA.DownedSystem.slainPillarStardust = false;
+            SoA.DownedSystem.slainPillarVortex = false;
 
-            ModContent.GetInstance<ShardsDownedSystem>().slainMoonLord = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainSenterra = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainGenesis = false;
-            ModContent.GetInstance<ShardsDownedSystem>().slainDeath = false;
+            SoA.DownedSystem.slainMoonLord = false;
+            SoA.DownedSystem.slainSenterra = false;
+            SoA.DownedSystem.slainGenesis = false;
+            SoA.DownedSystem.slainDeath = false;
             SoA.Log("/resetSlayer command:", "Slayer mode reset", true);
         }
     }

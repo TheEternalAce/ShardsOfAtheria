@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Commands
             Player player = caller.Player;
             SlayerPlayer slayer = player.Slayer();
             ShardsPlayer shards = player.Shards();
-            ShardsDownedSystem soaWorld = ModContent.GetInstance<ShardsDownedSystem>();
+            ShardsDownedSystem soaWorld = SoA.DownedSystem;
 
             shards.genesisRagnarockUpgrades = 0;
             SoA.Log("/generic command:", "Reset Genesis and Ragnarok upgrades", true);
