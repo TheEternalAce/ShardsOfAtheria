@@ -1082,9 +1082,13 @@ Mods: {
 					'''
 			}
 
+			DeathSoulCrystal: {
+				DisplayName: Soul Crystal (Elizabeth Norman)
+				Tooltip: ""
+			}
+
 			LandSoulCrystal.DisplayName: Soul Crystal (Senterra)
 			TimeSoulCrystal.DisplayName: Soul Crystal (Genesis)
-			DeathSoulCrystal.DisplayName: Soul Crystal (Elizabeth Norman)
 
 			# Slayer boxes coming eventually
 			
@@ -1656,7 +1660,7 @@ Mods: {
 
 			AncientMedalion: {
 				DisplayName: Ancient Medalion
-				Tooltip: "Summons Death"
+				Tooltip: Summons Death
 			}
 		}
 

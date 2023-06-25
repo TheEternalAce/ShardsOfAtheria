@@ -34,6 +34,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.extraUpdates = 1;
+            Projectile.penetrate = 2;
         }
 
         public override void AI()
@@ -86,9 +87,8 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
                 drawPosition += remainingVectorToPlayer * 14 / length;
                 remainingVectorToPlayer = startPos - drawPosition;
 
-                // Finally, we draw the texture at the coordinates using the lighting information of the tile coordinates of the chain section
-                Color color = Lighting.GetColor((int)drawPosition.X / 16, (int)(drawPosition.Y / 16f));
-                Main.spriteBatch.Draw(chainTexture.Value, drawPosition - Main.screenPosition, null, color, rotation, chainTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
+                // Finally, we draw the texture at the coordinates
+                Main.spriteBatch.Draw(chainTexture.Value, drawPosition - Main.screenPosition, null, lightColor, rotation, chainTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
             }
 
             return true;

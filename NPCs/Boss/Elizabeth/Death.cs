@@ -479,7 +479,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         }
         void DoBloodSpike(Vector2 center, Vector2 toTarget)
         {
-            if (attackTimer % 60 == 0)
+            if (attackTimer == 10)
             {
                 int numProj = 3;
                 if (Main.masterMode)
@@ -493,9 +493,20 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 {
                     Vector2 perturbedSpeed = toTarget.RotatedByRandom(rotation);
                     perturbedSpeed *= Main.rand.NextFloat(0.66f, 1f);
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), center, perturbedSpeed,
-                       ModContent.ProjectileType<BloodNeedleHostile>(), damage, 6, Main.myPlayer);
+                    var needle = Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), center,
+                        perturbedSpeed, ModContent.ProjectileType<BloodNeedleHostile>(), damage, 6,
+                        Main.myPlayer, 0, NPC.Center.X, NPC.Center.Y);
+                    needle.timeLeft *= 3;
+                    needle.friendly = false;
                 }
+            }
+            else if (attackTimer >= 30)
+            {
+                float speed = 16f;
+                var targetCenter = toTarget + center;
+                int direction = (NPC.Center.X > targetCenter.X ? 1 : -1);
+                Vector2 toPosition = targetCenter + new Vector2(150 * direction, 0);
+                NPC.Track(toPosition, speed, speed);
             }
         }
         void DoBubbleSpread(Vector2 center, Vector2 toTarget)
