@@ -53,7 +53,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BloodDagger
                     Target = Projectile.FindClosestNPC(-1);
                     return;
                 }
-                Projectile.Track(Target, -1);
+                Projectile.Track(Target, 400);
 
                 if (!Target.active || Target.life <= 0)
                 {
