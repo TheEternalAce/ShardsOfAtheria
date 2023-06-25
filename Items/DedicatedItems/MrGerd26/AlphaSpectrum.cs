@@ -17,8 +17,8 @@ namespace ShardsOfAtheria.Items.DedicatedItems.MrGerd26
 
         public override void SetDefaults()
         {
-            Item.width = 88;
-            Item.height = 36;
+            Item.width = 100;
+            Item.height = 42;
 
             Item.damage = 24;
             Item.DamageType = DamageClass.Magic;

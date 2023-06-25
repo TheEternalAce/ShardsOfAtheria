@@ -35,8 +35,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Spectrum
 
         public override void SetDefaults()
         {
-            Projectile.width = 38;
-            Projectile.height = 30;
+            Projectile.width = 100;
+            Projectile.height = 42;
             Projectile.aiStyle = -1;
             Projectile.penetrate = -1;
             Projectile.ignoreWater = true;
@@ -207,6 +207,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Spectrum
 
             Vector2 position = Projectile.Center - Main.screenPosition;
             Vector2 origin = Projectile.Size / 2;
+            origin.X -= 25;
             SpriteEffects flip = (aimDir == 1) ? SpriteEffects.None : SpriteEffects.FlipVertically;
 
             Main.EntitySpriteDraw(main, position, null, lightColor, Projectile.rotation, origin, 1, flip, 0);
