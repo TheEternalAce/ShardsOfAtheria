@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Accessories;
+using ShardsOfAtheria.Items.AreusChips;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.DedicatedItems.Webmillio;
 using ShardsOfAtheria.Items.Materials;
@@ -121,7 +122,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ShardsOfAtheria.NPCBestiary.Atherian"))
+				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ShardsOfAtheria.NPCs.Atherian.Bestuary"))
             });
         }
 
@@ -141,7 +142,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 Player player = Main.player[k];
                 if (!player.active)
                     continue;
-                ShardsDownedSystem shardsDowned = ModContent.GetInstance<ShardsDownedSystem>();
+                ShardsDownedSystem shardsDowned = SoA.DownedSystem;
                 if (NPC.downedBoss2 && (!(shardsDowned.slainSenterra || shardsDowned.slainGenesis || shardsDowned.slainValkyrie) ||
                     SoA.ServerConfig.cluelessNPCs) && !shardsDowned.slainAtherian)
                     return true;
@@ -153,16 +154,24 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
         {
             if (!SoA.ServerConfig.cluelessNPCs)
             {
-                if (ModContent.GetInstance<ShardsDownedSystem>().slainSenterra)
+                string keyBase = "ShardsOfAtheria.NPCs.Atherian.Dialogue.";
+                if (SoA.DownedSystem.slainSenterra && SoA.DownedSystem.slainGenesis &&
+                    SoA.DownedSystem.slainValkyrie)
                 {
                     NPC.active = false;
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(NPC.GivenName + " ceases to exist."), Color.Red);
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(keyBase + "AllDeath"), Color.Red);
                     return false;
                 }
-                if (ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie)
+                else if (SoA.DownedSystem.slainSenterra || SoA.DownedSystem.slainGenesis)
                 {
                     NPC.active = false;
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(NPC.GivenName + " leaves with Nova's death."), Color.Red);
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(keyBase + "GoddessDeath"), Color.Red);
+                    return false;
+                }
+                else if (SoA.DownedSystem.slainValkyrie)
+                {
+                    NPC.active = false;
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(keyBase + "NovaDeath"), Color.Red);
                     return false;
                 }
             }
@@ -174,6 +183,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             return new List<string>() { "Jordan", "Damien", "Jason", "Kevin", "Rain", "Sage", "Archimedes" };
         }
 
+        const string DialogueKeyBase = "Mods.ShardsOfAtheria.NPCs.Atherian.Dialogue.";
         public override string GetChat()
         {
             WeightedRandom<string> chat = new();
@@ -186,36 +196,36 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 int upgrades = shardsPlayer.genesisRagnarockUpgrades;
                 if (upgrades == 0)
                 {
-                    return Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.BaseGenesisAndRagnarok");
+                    return Language.GetTextValue(DialogueKeyBase + "BaseGenesisAndRagnarok");
                 }
             }
 
-            chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.AtheriaComment"));
+            chat.Add(Language.GetTextValue(DialogueKeyBase + "AtheriaComment"));
             bool goldCrown = false;
             for (int i = 0; i < player.armor.Count(); i++)
             {
                 Item item = player.armor[i];
                 if (item.type == ItemID.GoldCrown)
                 {
-                    chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.GoldCrownCompliment"));
+                    chat.Add(Language.GetTextValue(DialogueKeyBase + "GoldCrownCompliment"));
                     goldCrown = true;
                     break;
                 }
             }
             if (!goldCrown)
             {
-                chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.GoldCrownThought"));
+                chat.Add(Language.GetTextValue(DialogueKeyBase + "GoldCrownThought"));
             }
             if (ShardsDownedSystem.downedValkyrie)
             {
-                chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.ExComment"));
+                chat.Add(Language.GetTextValue(DialogueKeyBase + "ExComment"));
             }
             int guide = NPC.FindFirstNPC(NPCID.Guide);
             if (guide >= 0)
             {
-                chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.CSGOReference", Main.npc[guide].GivenName));
+                chat.Add(Language.GetTextValue(DialogueKeyBase + "CSGOReference", Main.npc[guide].GivenName));
             }
-            chat.Add(Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.MorshuMoment", player.name));
+            chat.Add(Language.GetTextValue(DialogueKeyBase + "MorshuMoment", player.name));
             return chat;
         }
 
@@ -239,7 +249,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
 
                 if (player.Slayer().slayerMode && !SoA.ServerConfig.cluelessNPCs)
                 {
-                    Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.RefuseUpgrade");
+                    Main.npcChatText = Language.GetTextValue(DialogueKeyBase + "RefuseUpgrade");
                 }
                 else if (PlayerHasItem<GenesisAndRagnarok>(player) && upgrades < 5)
                 {
@@ -325,7 +335,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 }
                 else
                 {
-                    Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NoUpgradableItem");
+                    Main.npcChatText = Language.GetTextValue(DialogueKeyBase + "NoUpgradableItem");
                     return;
                 }
             }
@@ -370,33 +380,33 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                         switch (shardsPlayer.genesisRagnarockUpgrades)
                         {
                             case 1:
-                                key = "Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok1";
+                                key = DialogueKeyBase + "UpgradeGenesisAndRagnarok1";
                                 break;
                             case 2:
-                                key = "Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok2";
+                                key = DialogueKeyBase + "UpgradeGenesisAndRagnarok2";
                                 break;
                             case 3:
-                                key = "Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok3";
+                                key = DialogueKeyBase + "UpgradeGenesisAndRagnarok3";
                                 break;
                             case 4:
-                                key = "Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok4";
+                                key = DialogueKeyBase + "UpgradeGenesisAndRagnarok4";
                                 break;
                             case 5:
-                                key = "Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeGenesisAndRagnarok5";
+                                key = DialogueKeyBase + "UpgradeGenesisAndRagnarok5";
                                 break;
                         }
                         Main.npcChatText = Language.GetTextValue(key);
                     }
                     else if (result == ModContent.ItemType<War>())
                     {
-                        Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeAreusWeapon");
+                        Main.npcChatText = Language.GetTextValue(DialogueKeyBase + "UpgradeAreusWeapon");
                     }
                     else
                     {
                         Item.NewItem(NPC.GetSource_FromThis(), NPC.getRect(), result);
                         if (result == ModContent.ItemType<TheMourningStar>())
                         {
-                            Main.npcChatText = Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.UpgradeAreusWeapon");
+                            Main.npcChatText = Language.GetTextValue(DialogueKeyBase + "UpgradeAreusWeapon");
                         }
                     }
                 }
@@ -411,7 +421,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                     {
                         item = player.inventory[player.FindItem(materials[i].item.type)];
                     }
-                    insufficient += Language.GetTextValue("Mods.ShardsOfAtheria.NPCDialogue.Atherian.NotEnoughMaterial", i, materials[i].item.Name, materials[i].item.type,
+                    insufficient += Language.GetTextValue(DialogueKeyBase + "NotEnoughMaterial", i, materials[i].item.Name, materials[i].item.type,
                         materials[i].requiredStack, item == null ? 0 : item.stack) + "\n";
                     Main.npcChatText = insufficient;
                 }
@@ -442,6 +452,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 .Add<ValkyrieCrest>(new Condition("Mods.ShardsOfAtheria.Condotions.NotSlayer",
                     () => !Main.LocalPlayer.Slayer().slayerMode))
                 .Add<AreusShard>()
+                .Add<AreusArmorChip>()
                 .Add<RushDrive>()
                 .Add<AreusProcessor>()
                 .Add<ResonatorRing>()
@@ -459,7 +470,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             {
                 if (lastPlayerToHitThisNPC.Slayer().slayerMode)
                 {
-                    ModContent.GetInstance<ShardsDownedSystem>().slainAtherian = true;
+                    SoA.DownedSystem.slainAtherian = true;
                 }
             }
         }
