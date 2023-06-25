@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
-using ShardsOfAtheria.Config;
 using ShardsOfAtheria.NPCs.Misc;
 using ShardsOfAtheria.Projectiles.Tools;
 using ShardsOfAtheria.Utilities;
@@ -99,11 +98,6 @@ namespace ShardsOfAtheria.Items.SoulCrystals
         }
     }
 
-    public class KingSoulCrystal : SoulCrystal
-    {
-
-    }
-
     public class EyeSoulCrystal : SoulCrystal
     {
         public override bool? UseItem(Player player)
@@ -138,6 +132,11 @@ namespace ShardsOfAtheria.Items.SoulCrystals
     }
 
     #region Create Soul Crystals
+    public class KingSoulCrystal : SoulCrystal
+    {
+
+    }
+
     public class EaterSoulCrystal : SoulCrystal
     {
 
@@ -213,6 +212,10 @@ namespace ShardsOfAtheria.Items.SoulCrystals
     }
 
     public class LordSoulCrystal : SoulCrystal
+    {
+    }
+
+    public class DeathSoulCrystal : SoulCrystal
     {
     }
     #endregion
