@@ -1,12 +1,12 @@
-﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Melee
+namespace ShardsOfAtheria.Projectiles.Weapon.Melee.ElecKatana
 {
-    public class ElectricKunai : ModProjectile
+    public class ElecKunai : ModProjectile
     {
         public override void SetStaticDefaults()
         {
