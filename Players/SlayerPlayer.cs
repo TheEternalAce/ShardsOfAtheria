@@ -221,7 +221,7 @@ namespace ShardsOfAtheria.Players
             }
             if (soulCrystals.Contains(ModContent.ItemType<SkullSoulCrystal>()) && !soulCrystals.Contains(ModContent.ItemType<PrimeSoulCrystal>()))
             {
-                if (Player.Shards().inCombat)
+                if (Player.Shards().InCombat)
                 {
                     spinningTimer++;
                     if (spinningTimer == 1800)
@@ -292,7 +292,7 @@ namespace ShardsOfAtheria.Players
             }
             if (soulCrystals.Contains(ModContent.ItemType<PrimeSoulCrystal>()))
             {
-                if (Player.Shards().inCombat)
+                if (Player.Shards().InCombat)
                 {
                     spinningTimer++;
                     if (spinningTimer == 1800)
@@ -403,7 +403,7 @@ namespace ShardsOfAtheria.Players
             }
             if (soulCrystals.Contains(ModContent.ItemType<BeeSoulCrystal>()))
             {
-                if (Player.Shards().inCombat)
+                if (Player.Shards().InCombat)
                 {
                     beeSpawnTimer++;
                     if (beeSpawnTimer >= 600)

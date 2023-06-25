@@ -61,7 +61,7 @@ namespace ShardsOfAtheria
                         // Check if a boss has been slain
                         if (args[1] is Player combatPlayer)
                         {
-                            return combatPlayer.Shards().inCombat;
+                            return combatPlayer.Shards().InCombat;
                         }
                         else
                         {
@@ -191,7 +191,7 @@ namespace ShardsOfAtheria
                         }
                         break;
                     case ModCalls.FlagSoulCrystalConfig:
-                        return ModContent.GetInstance<ShardsClient>().instantAbsorb;
+                        return SoA.ClientConfig.instantAbsorb;
                 }
             }
 

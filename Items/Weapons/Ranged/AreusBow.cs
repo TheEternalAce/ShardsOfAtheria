@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<AreusShard>(), 11)
+                .AddIngredient(ModContent.ItemType<AreusShard>(), 10)
                 .AddRecipeGroup(ShardsRecipes.Gold, 3)
                 .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 7)
                 .AddIngredient(ModContent.ItemType<HardlightPrism>(), 10)

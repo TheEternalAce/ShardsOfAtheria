@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Items.Materials
             Item.height = 32;
             Item.maxStack = 9999;
 
-            Item.value = Item.sellPrice(0, 1, 50);
+            Item.value = 10000;
             Item.rare = ItemRarityID.Cyan;
         }
     }

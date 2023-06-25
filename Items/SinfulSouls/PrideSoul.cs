@@ -124,7 +124,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         {
             if (player.Pride().pride)
             {
-                if (player.Shards().inCombat && item.DamageType != DamageClass.Summon)
+                if (player.Shards().InCombat && item.DamageType != DamageClass.Summon)
                 {
                     PridePlayer pridePlayer = player.Pride();
                     if (item.damage > 0 && item.DamageType != DamageClass.Summon && type > ProjectileID.None)
@@ -153,7 +153,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         public override void Update(Player player, ref int buffIndex)
         {
             player.Pride().pride = true;
-            if (player.Shards().inCombat)
+            if (player.Shards().InCombat)
             {
                 player.Pride().noHitTimer++;
             }

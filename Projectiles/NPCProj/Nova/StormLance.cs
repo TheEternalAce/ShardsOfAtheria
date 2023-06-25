@@ -7,6 +7,7 @@ using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
+using ShardsOfAtheria.NPCs.Boss.Elizabeth;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {

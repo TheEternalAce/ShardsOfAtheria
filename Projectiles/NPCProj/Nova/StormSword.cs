@@ -10,6 +10,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ShardsOfAtheria.NPCs.Boss.Elizabeth;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {

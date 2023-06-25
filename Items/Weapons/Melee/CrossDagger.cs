@@ -32,7 +32,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.useTurn = true;
-            Item.noUseGraphic = true;
 
             Item.value = Item.sellPrice(0, 15);
             Item.rare = ItemRarityID.Red;

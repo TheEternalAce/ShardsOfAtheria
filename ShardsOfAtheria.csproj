@@ -25,6 +25,9 @@
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Items\Armor\Areus\Imperial\" />
+    <Folder Include="Items\Armor\Areus\Royal\" />
+    <Folder Include="Items\Armor\Areus\Soldier\" />
     <Folder Include="Items\SlayerBoxes\" />
     <Folder Include="NPCs\Boss\AnnahStellar\" />
     <Folder Include="NPCs\Boss\Exodus\" />

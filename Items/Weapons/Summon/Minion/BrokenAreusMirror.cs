@@ -92,7 +92,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Minion
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<AreusShard>(), 16)
+                .AddIngredient(ModContent.ItemType<AreusShard>(), 10)
                 .AddRecipeGroup(ShardsRecipes.Gold, 5)
                 .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10)
                 .AddTile(ModContent.TileType<AreusFabricator>())

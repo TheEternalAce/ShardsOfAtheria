@@ -37,20 +37,21 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
     [AutoloadBossHead]
     public class NovaStellar : ModNPC
     {
-        public int attackType = 0;
-        public int attackTimer = 0;
-        public int attackCooldown = 40;
-        public int attackTypeNext = -1;
+        int attackType = 0;
+        int attackTimer = 0;
+        int attackCooldown = 40;
+        int attackTypeNext = -1;
 
         int frameX = 0;
         int frameY = 0;
-        int maxFrameY = 6;
 
-        public override string BossHeadTexture => "ShardsOfAtheria/Items/BossSummons/ValkyrieCrest";
+        Color TextColor = Color.DeepSkyBlue;
+
+        public override string BossHeadTexture => "ShardsOfAtheria/Items/PetItems/SmallHardlightCrest";
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.Harpy];
+            Main.npcFrameCount[NPC.type] = 6;
 
             NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
             NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
@@ -90,7 +91,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             // Sets the description of this NPC that is listed in the bestiary
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
-                new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ShardsOfAtheria.NPCBestiary.NovaStellar"))
+                new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ShardsOfAtheria.NPCs.NovaStellar.Bestuary"))
             });
         }
 
@@ -160,7 +161,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             NPC.SetEventFlagCleared(ref ShardsDownedSystem.downedValkyrie, -1);
             if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
             {
-                ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie = true;
+                SoA.DownedSystem.slainValkyrie = true;
             }
 
             if (lastPlayerToHitThisNPC != null && lastPlayerToHitThisNPC.GetModPlayer<SlayerPlayer>().slayerMode)
@@ -179,7 +180,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
         public override bool PreAI()
         {
-            if (ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie)
+            if (SoA.DownedSystem.slainValkyrie)
             {
                 ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Nova Stellar was slain..."), Color.White);
                 NPC.active = false;
@@ -219,7 +220,9 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 }
                 if (NPC.ai[3] == 2)
                 {
-                    UseDialogue(isSlayer ? Death : AlreadyDefeated ? ReDefeat : Defeat);
+                    NPC.UseBossDialogueWithKey("NovaStellar", isSlayer ? ShardsNPCHelper.LastWords :
+                        AlreadyDefeated ? ShardsNPCHelper.ReDefeatLine :
+                        ShardsNPCHelper.DefeatLine, TextColor);
                 }
                 if (NPC.ai[3] >= 120f)
                 {
@@ -242,12 +245,14 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 return;
             }
 
-            if (NPC.localAI[0] == 0f && NPC.life >= 1 && !ModContent.GetInstance<ShardsDownedSystem>().slainValkyrie)
+            if (NPC.localAI[0] == 0f && NPC.life >= 1 && !SoA.DownedSystem.slainValkyrie)
             {
                 if (Main.rand.NextFloat() <= .5f)
                     NPC.position = player.position - new Vector2(500, 250);
                 else NPC.position = player.position - new Vector2(-500, 250);
-                UseDialogue(isSlayer ? SlayerSummon : AlreadyDefeated ? ReSummon : Summon);
+                NPC.UseBossDialogueWithKey("NovaStellar", isSlayer ? ShardsNPCHelper.SlayerSummonLine :
+                    AlreadyDefeated ? ShardsNPCHelper.ReSummonLine :
+                    ShardsNPCHelper.SummonLine, TextColor);
                 NPC.localAI[0] = 1f;
             }
             NPC.spriteDirection = player.Center.X > NPC.Center.X ? 1 : -1;
@@ -264,7 +269,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
             if (NPC.life <= NPC.lifeMax * 0.25 && !desperation && player.GetModPlayer<SlayerPlayer>().slayerMode)
             {
-                UseDialogue(Desperation);
+                NPC.UseBossDialogueWithKey("NovaStellar", ShardsNPCHelper.DesperationLine, Color.Red);
                 desperation = true;
             }
 
@@ -649,7 +654,9 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 Player player = Main.player[NPC.target];
                 bool isSlayer = player.GetModPlayer<SlayerPlayer>().slayerMode;
 
-                UseDialogue(isSlayer ? SlayerMidFight : AlreadyDefeated ? ReMidFight : MidFight);
+                NPC.UseBossDialogueWithKey("NovaStellar", isSlayer ? ShardsNPCHelper.SlayerMidFightLine :
+                    AlreadyDefeated ? ShardsNPCHelper.ReMidFightLine :
+                    ShardsNPCHelper.MidFightLine, TextColor);
                 NPC.dontTakeDamage = true;
                 KillProjectiles();
                 SoundEngine.PlaySound(SoundID.Thunder);
@@ -676,64 +683,6 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             }
         }
 
-        const int Summon = 1;
-        const int MidFight = 2;
-        const int Defeat = 3;
-        const int ReSummon = 4;
-        const int ReMidFight = 5;
-        const int ReDefeat = 6;
-        const int SlayerSummon = 7;
-        const int SlayerMidFight = 8;
-        const int Desperation = 9;
-        const int Death = 10;
-
-        void UseDialogue(int index)
-        {
-            string key;
-
-            switch (index)
-            {
-                default: // Testing
-                    key = "Placeholder Text";
-                    break;
-
-                case Summon:
-                    key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.InitialSummon";
-                    break;
-                case MidFight:
-                    key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.MidFight";
-                    break;
-                case Defeat:
-                    key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Defeat";
-                    break;
-
-                case ReSummon:
-                    key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.InitialSummonRe";
-                    break;
-                case ReMidFight:
-                    key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.MidFightRe";
-                    break;
-                case ReDefeat:
-                    key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.DefeatRe";
-                    break;
-
-                case SlayerSummon:
-                    key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.InitialSummonAlt";
-                    break;
-                case SlayerMidFight:
-                    key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.MidFightAlt";
-                    break;
-                case Desperation:
-                    key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Desperation";
-                    break;
-                case Death:
-                    key = "Mods.ShardsOfAtheria.NPCDialogue.NovaStellar.Death";
-                    break;
-            }
-
-            NPC.UseDialogueWithKey(key, Color.DeepSkyBlue);
-        }
-
         void KillProjectiles()
         {
             for (int i = 0; i < Main.maxProjectiles; i++)
@@ -742,7 +691,8 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 if (proj.type == ModContent.ProjectileType<ElectricTrail>() || proj.type == ModContent.ProjectileType<FeatherBlade>() ||
                     proj.type == ModContent.ProjectileType<LightningBolt>() || proj.type == ModContent.ProjectileType<StormSword>() ||
                     proj.type == ModContent.ProjectileType<StormCloud>() || proj.type == ModContent.ProjectileType<LightningBolt>() ||
-                    proj.type == ModContent.ProjectileType<LightningBolt>() || proj.type == ModContent.ProjectileType<StormLance>())
+                    proj.type == ModContent.ProjectileType<LightningBolt>() || proj.type == ModContent.ProjectileType<StormLance>() ||
+                    proj.type == ModContent.ProjectileType<HardlightKnifeHostile>())
                 {
                     proj.Kill();
                 }
@@ -786,7 +736,6 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                         {
                             frameX = 0;
                         }
-                        maxFrameY = 6;
                         break;
                     case FeatherBarrage:
                     case StormCloud:
@@ -798,22 +747,19 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                         {
                             frameX = 0;
                         }
-                        maxFrameY = 6;
                         break;
                     case BowShoot:
                         frameX = 3;
-                        maxFrameY = 6;
                         break;
                     case SwordSwing:
                         frameX = 4;
-                        maxFrameY = 6;
                         break;
                 }
             }
 
             if (++NPC.frameCounter >= 5 && !Main.gameInactive)
             {
-                if (++frameY >= maxFrameY)
+                if (++frameY >= Main.npcFrameCount[Type])
                 {
                     frameY = 0;
                 }

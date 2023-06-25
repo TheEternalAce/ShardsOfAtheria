@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.InfoDisplays
         // This dictates whether or not this info display should be active
         public override bool Active()
         {
-            return Main.LocalPlayer.Shards().inCombat;
+            return Main.LocalPlayer.Shards().InCombat;
         }
 
         // Here we can change the value that will be displayed in the game

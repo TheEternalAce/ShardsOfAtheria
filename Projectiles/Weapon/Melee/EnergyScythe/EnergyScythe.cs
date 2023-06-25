@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Items.Weapons;
 using ShardsOfAtheria.Players;
@@ -72,10 +72,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.EnergyScythe
 
         public override void UpdateSwing(float progress, float interpolatedSwingProgress)
         {
-            if (progress == 0.5f && Main.myPlayer == Projectile.owner)
-            {
-                FireProjectile(ModContent.ProjectileType<EnergyWave>(), (int)(Projectile.damage * 0.75), (int)(Projectile.knockBack * 0.75));
-            }
+            FireProjectile(progress, ModContent.ProjectileType<EnergyWave>(),
+                (int)(Projectile.damage * 0.75), (int)(Projectile.knockBack * 0.75));
             base.UpdateSwing(progress, interpolatedSwingProgress);
         }
 

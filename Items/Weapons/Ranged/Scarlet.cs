@@ -2,7 +2,7 @@ using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSaber;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

@@ -1,8 +1,10 @@
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.ElecKatana;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -37,7 +39,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shootSpeed = 6;
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 1, 50);
-            Item.shoot = ModContent.ProjectileType<ElectricKunai>();
+            Item.shoot = ModContent.ProjectileType<ElecKunai>();
         }
 
         public override void AddRecipes()
@@ -48,6 +50,31 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 .AddIngredient(ItemID.SoulofFlight, 10)
                 .AddTile(ModContent.TileType<AreusFabricator>())
                 .Register();
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            if (player.Shards().Overdrive)
+            {
+                Item.noUseGraphic = true;
+                Item.noMelee = true;
+            }
+            else
+            {
+                Item.noUseGraphic = false;
+                Item.noMelee = false;
+            }
+            return base.CanUseItem(player);
+        }
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            if (player.Shards().Overdrive)
+            {
+                type = ModContent.ProjectileType<ElecKatana>();
+                velocity.Normalize();
+            }
+            base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
         }
     }
 }

@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSaber
+namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 {
     public class ScarletSpark : ModProjectile
     {

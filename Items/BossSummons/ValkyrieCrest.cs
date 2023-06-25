@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.NPCs.Boss.Elizabeth;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using Terraria;
 using Terraria.Audio;

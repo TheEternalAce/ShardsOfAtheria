@@ -9,6 +9,7 @@ using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon.Minion;
+using ShardsOfAtheria.NPCs.Boss.Elizabeth;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using ShardsOfAtheria.Systems;
 using System;
@@ -44,6 +45,9 @@ namespace ShardsOfAtheria
         public const string PlaceholderTexture = "ShardsOfAtheria/PlaceholderSprite";
         public const string BuffTemplate = "ShardsOfAtheria/Buffs/BuffTemp";
         public const string DebuffTemplate = "ShardsOfAtheria/Buffs/DebuffTemp";
+
+        public const string LocalizeCommon = "Mods.ShardsOfAtheria.Common.";
+
         public static SoundStyle ReactorAlarm;
         public static SoundStyle TheMessiah;
         public static SoundStyle Rekkoha;
@@ -51,13 +55,13 @@ namespace ShardsOfAtheria
 
         public override void Load()
         {
-            OverdriveKey = KeybindLoader.RegisterKeybind(this, "Toggle Overdrive", "F");
-            TomeKey = KeybindLoader.RegisterKeybind(this, "Cycle Knowledge Base", "N");
-            EmeraldTeleportKey = KeybindLoader.RegisterKeybind(this, "Emerald Teleport", "Z");
-            PhaseSwitch = KeybindLoader.RegisterKeybind(this, "Toggle Phase Type", "RightAlt");
-            SoulTeleport = KeybindLoader.RegisterKeybind(this, "Soul Crystal Teleport", "V");
-            ArmorSetBonusActive = KeybindLoader.RegisterKeybind(this, "Activate Armor Set Bonus", "Mouse4");
-            ProcessorElement = KeybindLoader.RegisterKeybind(this, "Cycle Element Affinity", "C");
+            OverdriveKey = KeybindLoader.RegisterKeybind(this, "ToggleOverdrive", "F");
+            TomeKey = KeybindLoader.RegisterKeybind(this, "KnowledgeBase", "N");
+            EmeraldTeleportKey = KeybindLoader.RegisterKeybind(this, "EmeraldTeleport", "Z");
+            PhaseSwitch = KeybindLoader.RegisterKeybind(this, "PhaseType", "RightAlt");
+            SoulTeleport = KeybindLoader.RegisterKeybind(this, "SoulCrystalTeleport", "V");
+            ArmorSetBonusActive = KeybindLoader.RegisterKeybind(this, "ArmorSetBonus", "Mouse4");
+            ProcessorElement = KeybindLoader.RegisterKeybind(this, "CycleElementAffinity", "C");
 
             ServerConfig = ModContent.GetInstance<ShardsServer>();
             ClientConfig = ModContent.GetInstance<ShardsClient>();
@@ -89,7 +93,7 @@ namespace ShardsOfAtheria
         {
             if (!Main.dedServ)
             {
-                if (ModContent.GetInstance<ShardsClient>().windowTitle)
+                if (SoA.ClientConfig.windowTitle)
                 {
                     if (Main.rand.NextBool(3))
                     {
@@ -117,9 +121,18 @@ namespace ShardsOfAtheria
                     new List<int> { ModContent.ItemType<ValkyrieStormLance>(), ModContent.ItemType<GildedValkyrieWings>(), ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<DownBow>(),
                         ModContent.ItemType<PlumeCodex>(), ModContent.ItemType<NestlingStaff>(), ModContent.ItemType<ValkyrieCrown>(),
                         ItemID.GoldBar, ItemID.Feather },
-                    ModContent.ItemType<ValkyrieCrest>(),
-                    $"Use a [i:{ModContent.ItemType<ValkyrieCrest>()}] on the surface",
-                    "Nova Stellar leaves in triumph"
+                    ModContent.ItemType<ValkyrieCrest>()
+                );
+                foundMod1.Call(
+                    "AddBoss",
+                    this,
+                    "Elizabeth Norman, Death",
+                    new List<int> { ModContent.NPCType<Death>() },
+                    5.5f,
+                    () => ShardsDownedSystem.downedDeath,
+                    () => true,
+                    new List<int> { },
+                    ModContent.ItemType<AncientMedalion>()
                 );
             }
             if (ModLoader.TryGetMod("Fargowiltas", out Mod foundMod2))

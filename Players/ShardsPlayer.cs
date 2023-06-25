@@ -78,8 +78,11 @@ namespace ShardsOfAtheria.Players
         public bool pearlwoodSet;
         public int pearlwoodBowShoot;
 
+        public int projCooldown;
+        public bool ProjCooldown => projCooldown > 0;
+
         public int combatTimer;
-        public bool inCombat;
+        public bool InCombat => combatTimer > 0;
         /// <summary>
         /// When above 0, you are in a combo. Ticks down by 1 every player update.
         /// <para>Item "combos" are used for determining what type of item action to use.</para>
@@ -149,11 +152,14 @@ namespace ShardsOfAtheria.Players
 
             UpdateResource();
 
-            inCombat = false;
+            if (projCooldown > 0)
+            {
+                projCooldown--;
+            }
+
             if (combatTimer > 0)
             {
                 combatTimer--;
-                inCombat = true;
             }
             else if (aggression > 0)
             {
@@ -333,10 +339,6 @@ namespace ShardsOfAtheria.Players
             if (Player.HeldItem.type == ModContent.ItemType<AreusKatana>())
             {
                 Player.moveSpeed += .05f;
-            }
-            if (Player.HeldItem.type == ModContent.ItemType<TheMessiah>())
-            {
-                Player.autoReuseGlove = false;
             }
         }
 
@@ -815,6 +817,11 @@ namespace ShardsOfAtheria.Players
 
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
+            if (Overdrive)
+            {
+                Player.armorEffectDrawOutlines = true;
+                Player.armorEffectDrawShadow = true;
+            }
             if (Player.HasBuff(ModContent.BuffType<InjectionShock>()) || Player.HasBuff(ModContent.BuffType<CorruptedBlood>()))
             {
                 if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)
