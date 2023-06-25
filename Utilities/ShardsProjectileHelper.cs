@@ -141,10 +141,48 @@ namespace ShardsOfAtheria.Utilities
 
             return closestNPC;
         }
+        public static Player FindClosestPlayer(this Projectile projectile, float maxDetectDistance, params int[] blaclkistedWhoAmI)
+        {
+            Player closestPlayer = null;
+
+            // Using squared values in distance checks will let us skip square root calculations, drastically improving this method's speed.
+            float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
+            if (maxDetectDistance < 0)
+            {
+                sqrMaxDetectDistance = float.PositiveInfinity;
+            }
+
+            // Loop through all Players(max always 255)
+            for (int k = 0; k < Main.maxPlayers; k++)
+            {
+                Player target = Main.player[k];
+                // Check if Player able to be targeted. It means that Player is
+                // 1. active and alive
+                if (target.active && !target.dead)
+                {
+                    // The DistanceSquared function returns a squared distance between 2 points, skipping relatively expensive square root calculations
+                    float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, projectile.Center);
+
+                    // Check if it is within the radius
+                    if (sqrDistanceToTarget < sqrMaxDetectDistance)
+                    {
+                        // Check if NPC.whoAmI is not blacklisted
+                        if (!blaclkistedWhoAmI.Contains(target.whoAmI))
+                        {
+                            sqrMaxDetectDistance = sqrDistanceToTarget;
+                            closestPlayer = target;
+                        }
+                    }
+                }
+            }
+
+            return closestPlayer;
+        }
 
         public static void Track(this Projectile projectile, NPC npc, float maxDist, float speed = 16f, float inertia = 16f)
         {
             if (npc == null) return;
+            if (!npc.CanBeChasedBy()) return;
             projectile.Track(npc.Center, maxDist, speed, inertia);
         }
         public static void Track(this Projectile projectile, Vector2 position, float maxDist, float speed = 16f, float inertia = 16f)
@@ -165,6 +203,55 @@ namespace ShardsOfAtheria.Utilities
                 direction *= speed;
 
                 projectile.velocity = (projectile.velocity * (inertia - 1) + direction) / inertia;
+            }
+        }
+
+        public static void SetVisualOffsets(this Projectile projectile, int spriteSize, bool center = false)
+        {
+            projectile.SetVisualOffsets(new Vector2(spriteSize), center);
+        }
+        public static void SetVisualOffsets(this Projectile projectile, Vector2 spriteSize, bool center = false)
+        {
+            // 32 is the sprite size (here both width and height equal)
+            int HalfSpriteWidth = (int)spriteSize.X / 2;
+            int HalfSpriteHeight = (int)spriteSize.Y / 2;
+
+            int HalfProjWidth = projectile.width / 2;
+            int HalfProjHeight = projectile.height / 2;
+
+            ModProjectile Projectile = projectile.ModProjectile;
+
+            if (center)
+            {
+                // Vanilla configuration for "hitbox in middle of sprite"
+                Projectile.DrawOriginOffsetX = 0;
+                Projectile.DrawOffsetX = -(HalfSpriteWidth - HalfProjWidth);
+                Projectile.DrawOriginOffsetY = -(HalfSpriteHeight - HalfProjHeight);
+            }
+            // Vanilla configuration for "hitbox towards the end"
+            else if (projectile.spriteDirection == 1)
+            {
+                Projectile.DrawOriginOffsetX = -(HalfProjWidth - HalfSpriteWidth);
+                Projectile.DrawOffsetX = (int)-Projectile.DrawOriginOffsetX * 2;
+                Projectile.DrawOriginOffsetY = 0;
+            }
+            else
+            {
+                Projectile.DrawOriginOffsetX = (HalfProjWidth - HalfSpriteWidth);
+                Projectile.DrawOffsetX = 0;
+                Projectile.DrawOriginOffsetY = 0;
+            }
+        }
+
+        public static void ApplyGravity(this Projectile projectile, ref int delay)
+        {
+            if (--delay <= 0)
+            {
+                float maxGravity = 16f / (projectile.extraUpdates + 1);
+                if (++projectile.velocity.Y > maxGravity)
+                {
+                    projectile.velocity.Y = maxGravity;
+                }
             }
         }
 

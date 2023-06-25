@@ -18,10 +18,64 @@ namespace ShardsOfAtheria.Utilities
             spriteBatch.Draw(glowTexture, drawPos, npc.frame, color, npc.rotation, npc.frame.Size() / 2f, npc.scale, effects, 0f);
         }
 
+        public const int SummonLine = 1;
+        public const int MidFightLine = 2;
+        public const int DefeatLine = 3;
+        public const int ReSummonLine = 4;
+        public const int ReMidFightLine = 5;
+        public const int ReDefeatLine = 6;
+        public const int SlayerSummonLine = 7;
+        public const int SlayerMidFightLine = 8;
+        public const int DesperationLine = 9;
+        public const int LastWords = 10;
+        public static void UseBossDialogueWithKey(this NPC npc, string typeName, int index, Color color)
+        {
+            string keyBase = "Mods.ShardsOfAtheria.NPCs." + typeName + ".Dialogue.";
+            string key;
+            switch (index)
+            {
+                default: // Testing
+                    key = "Placeholder Text";
+                    break;
+                case SummonLine:
+                    key = keyBase + "InitialSummon";
+                    break;
+                case MidFightLine:
+                    key = keyBase + "MidFight";
+                    break;
+                case DefeatLine:
+                    key = keyBase + "Defeat";
+                    break;
+
+                case ReSummonLine:
+                    key = keyBase + "InitialSummonRe";
+                    break;
+                case ReMidFightLine:
+                    key = keyBase + "MidFightRe";
+                    break;
+                case ReDefeatLine:
+                    key = keyBase + "DefeatRe";
+                    break;
+
+                case SlayerSummonLine:
+                    key = keyBase + "InitialSummonSlayer";
+                    break;
+                case SlayerMidFightLine:
+                    key = keyBase + "MidFightSlayer";
+                    break;
+                case DesperationLine:
+                    key = keyBase + "Desperation";
+                    break;
+                case LastWords:
+                    key = keyBase + "Death";
+                    break;
+            }
+            npc.UseDialogueWithKey(key, color);
+        }
         public static void UseDialogueWithKey(this NPC npc, string key, Color color)
         {
             string dialogue = Language.GetTextValue(key);
-            npc.UseDialogue(Language.GetTextValue(dialogue), color);
+            npc.UseDialogue(dialogue, color);
         }
         public static void UseDialogue(this NPC npc, string text, Color color)
         {

@@ -206,21 +206,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusDaggerProjs
             Projectile.spriteDirection = Projectile.direction = (Projectile.velocity.X > 0).ToDirectionInt();
             Projectile.rotation = Projectile.velocity.ToRotation() +
                 (Projectile.spriteDirection == 1 ? MathHelper.ToRadians(45f) : MathHelper.ToRadians(135f));
-            UpdateVisual();
-        }
-
-        private void UpdateVisual()
-        {
-            if (Projectile.spriteDirection == 1)
-            {
-                DrawOffsetX = -44;
-                DrawOriginOffsetX = 22;
-            }
-            else
-            {
-                DrawOffsetX = 0;
-                DrawOriginOffsetX = -22;
-            }
+            Projectile.SetVisualOffsets(new Vector2(48, 54));
         }
 
         private void StickyAI()

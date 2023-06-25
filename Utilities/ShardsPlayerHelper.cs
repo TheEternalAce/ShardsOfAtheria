@@ -63,6 +63,11 @@ namespace ShardsOfAtheria.Utilities
             return player.Slayer().slayerMode;
         }
 
+        public static AreusArmorPlayer Areus(this Player player)
+        {
+            return player.GetModPlayer<AreusArmorPlayer>();
+        }
+
         public static float CappedMeleeScale(this Player player)
         {
             var item = player.HeldItem;
