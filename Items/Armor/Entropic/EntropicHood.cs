@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Armor
+namespace ShardsOfAtheria.Items.Armor.Entropic
 {
     [AutoloadEquip(EquipType.Head)]
     public class EntropicHood : ModItem

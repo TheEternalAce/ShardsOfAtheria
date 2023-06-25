@@ -3,10 +3,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Armor
+namespace ShardsOfAtheria.Items.Armor.Entropic
 {
-    [AutoloadEquip(EquipType.Legs)]
-    public class EntropicLeggings : ModItem
+    [AutoloadEquip(EquipType.Body)]
+    public class EntropicRobe : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -19,21 +19,21 @@ namespace ShardsOfAtheria.Items.Armor
             Item.height = 18;
             Item.rare = ItemRarityID.Yellow;
             Item.value = Item.sellPrice(0, 3, 50, 0);
-            Item.defense = 14;
+            Item.defense = 28;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Generic) += .08f;
-            player.GetCritChance(DamageClass.Generic) += .08f;
-            player.moveSpeed += 0.1f; // Increase the movement speed of the player
+            player.GetDamage(DamageClass.Generic) += .12f;
+            player.GetCritChance(DamageClass.Generic) += .12f;
+            player.moveSpeed += 0.05f; // Increase the movement speed of the player
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<FragmentEntropy>(), 64)
-                .AddIngredient(ItemID.LunarBar, 24)
+                .AddIngredient(ItemID.LunarBar, 32)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
