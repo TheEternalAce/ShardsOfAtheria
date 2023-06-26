@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
@@ -38,8 +37,6 @@ namespace ShardsOfAtheria.Items.Accessories
             if (Main.netMode == NetmodeID.Server)
                 return;
             int equipSlotHead = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Head);
-            int equipSlotBody = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Body);
-            int equipSlotLegs = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Legs);
 
             ArmorIDs.Head.Sets.DrawHead[equipSlotHead] = true;
         }
