@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Accessories;
-using ShardsOfAtheria.Items.DataDisks;
 using ShardsOfAtheria.Items.GrabBags;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.PetItems;
@@ -16,7 +15,6 @@ using ShardsOfAtheria.Items.Weapons.Summon.Minion;
 using ShardsOfAtheria.ModCondition.ItemDrop;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj.Elizabeth;
-using ShardsOfAtheria.Projectiles.NPCProj.Variant;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
@@ -70,8 +68,8 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             NPC.width = 24;
             NPC.height = 42;
             NPC.damage = 90;
-            NPC.defense = 60;
-            NPC.lifeMax = 100000;
+            NPC.defense = 180;
+            NPC.lifeMax = 300000;
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.knockBackResist = 0f;
@@ -79,7 +77,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             NPC.boss = true;
             NPC.noGravity = true;
             Music = MusicID.Boss4;
-            NPC.value = Item.buyPrice(0, 5, 0, 0);
+            NPC.value = 167900;
             NPC.npcSlots = 15f;
             NPC.ElementMultipliers() = new[] { 1.0f, 0.8f, 2.0f, 0.8f };
         }
@@ -120,10 +118,9 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             // This requires you to set BossBag in SetDefaults accordingly
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<NovaBossBag>()));
 
-            LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
-            LeadingConditionRule slayerMode = new LeadingConditionRule(new IsSlayerMode());
+            LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
+            LeadingConditionRule slayerMode = new(new IsSlayerMode());
             LeadingConditionRule master = new(new Conditions.IsMasterMode());
-            LeadingConditionRule notDefeated = new(new DownedValkyrie());
 
             int[] drops = { ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<DownBow>(), ModContent.ItemType<PlumeCodex>(), ModContent.ItemType<NestlingStaff>() };
 
@@ -144,7 +141,6 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 notExpertRule.OnSuccess(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
             }
 
-            notDefeated.OnFailedConditions(ItemDropRule.Common(ModContent.ItemType<HardlightDataDisk>()));
             master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieStormLance>()));
             npcLoot.Add(master);
 
@@ -157,14 +153,14 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         {
             Player lastPlayerToHitThisNPC = NPC.AnyInteractions() ? Main.player[NPC.lastInteraction] : null;
             NPC.SetEventFlagCleared(ref ShardsDownedSystem.downedDeath, -1);
-            if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
-            {
-                SoA.DownedSystem.slainDeath = true;
-            }
 
-            if (lastPlayerToHitThisNPC != null && lastPlayerToHitThisNPC.IsSlayer())
+            if (lastPlayerToHitThisNPC != null)
             {
-                NPC.SlayNPC(lastPlayerToHitThisNPC);
+                if (lastPlayerToHitThisNPC.IsSlayer())
+                {
+                    SoA.DownedSystem.slainDeath = true;
+                    NPC.SlayNPC(lastPlayerToHitThisNPC);
+                }
             }
         }
 
@@ -172,7 +168,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         {
             if (SoA.DownedSystem.slainDeath)
             {
-                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Elizabeth Norman was slain..."), Color.White);
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Elizabeth Norman was slain..."), Color.Red);
                 NPC.active = false;
             }
             return base.PreAI();
@@ -238,7 +234,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             NPC.spriteDirection = player.Center.X > NPC.Center.X ? 1 : -1;
 
             bool transitioning = false;
-            if (NPC.life <= NPC.lifeMax * 0.5 && !phase2)
+            if (NPC.life <= NPC.lifeMax * 0.8 && !phase2)
             {
                 transitioning = true;
                 attackCooldown = 120;
@@ -270,14 +266,14 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 }
                 else
                 {
-                    if (phase2)
-                    {
-                        frameX = 1;
-                    }
-                    else
-                    {
-                        frameX = 0;
-                    }
+                    //if (phase2)
+                    //{
+                    //    frameX = 1;
+                    //}
+                    //else
+                    //{
+                    //    frameX = 0;
+                    //}
                     // decrease wait timer when attack done
                     attackCooldown--;
                 }
@@ -292,42 +288,45 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         const int BloodOrb = 3;
         const int BloodScepter = 4;
         const int BloodSickle = 5;
-        const int BloodScytheSwing = 6;
+        const int BloodScythe = 6;
         const int BloodSword = 7;
         List<int> blacklistedAttacks = new();
         void ChoseAttacks()
         {
+            WeightedRandom<int> random = new();
+            AddNonBlacklistedAttack(ref random, Crossbow);
             if (AttacksEnabled)
             {
-                WeightedRandom<int> random = new();
-                AddNonBlacklistedAttack(ref random, Crossbow);
-                AddNonBlacklistedAttack(ref random, BloodJavelin);
+                if (NPC.life <= NPC.lifeMax / 8 * 7)
+                {
+                    AddNonBlacklistedAttack(ref random, BloodJavelin);
+                }
                 if (NPC.life <= NPC.lifeMax / 4 * 3)
                 {
-                    if (NPC.life <= NPC.lifeMax / 2)
-                    {
-                        AddNonBlacklistedAttack(ref random, BloodSickle);
-                        AddNonBlacklistedAttack(ref random, BloodScytheSwing);
-                    }
                     AddNonBlacklistedAttack(ref random, BloodOrb);
                     AddNonBlacklistedAttack(ref random, BloodScepter);
                 }
-                if (Main.expertMode)
+                if (NPC.life <= NPC.lifeMax / 2)
                 {
-                    AddNonBlacklistedAttack(ref random, BloodSword);
+                    AddNonBlacklistedAttack(ref random, BloodSickle);
+                    AddNonBlacklistedAttack(ref random, BloodScythe);
                 }
-                if (Main.masterMode)
+                if (Main.expertMode)
                 {
                     AddNonBlacklistedAttack(ref random, BloodSpike);
                 }
-                attackType = random;
-                if (attackTypeNext > -1)
+                if (Main.masterMode)
                 {
-                    attackType = attackTypeNext;
+                    AddNonBlacklistedAttack(ref random, BloodSword);
                 }
-                blacklistedAttacks.Clear();
-                SetAttackStats();
             }
+            attackType = random;
+            if (attackTypeNext > -1)
+            {
+                attackType = attackTypeNext;
+            }
+            blacklistedAttacks.Clear();
+            SetAttackStats();
         }
         void AddNonBlacklistedAttack(ref WeightedRandom<int> randomAttack, int attack, double weight = 1)
         {
@@ -346,41 +345,41 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 case Crossbow:
                     attackTimer = 180;
                     attackCooldown = 60;
-                    damage = 18;
+                    damage = 60;
                     break;
                 case BloodJavelin:
                     attackTimer = 60;
                     attackCooldown = 60;
-                    damage = 18;
+                    damage = 80;
                     break;
                 case BloodSpike:
                     attackTimer = 120;
                     attackCooldown = 60;
-                    damage = 20;
+                    damage = 80;
                     break;
                 case BloodOrb:
                     attackTimer = 60;
                     attackCooldown = 200;
-                    damage = 18;
+                    damage = 60;
                     break;
                 case BloodScepter:
                     attackTimer = 30;
                     attackCooldown = 120;
-                    damage = 16;
+                    damage = 60;
                     break;
                 case BloodSickle:
                     attackTimer = 330;
                     attackCooldown = 20;
-                    damage = 11;
+                    damage = 60;
                     break;
-                case BloodScytheSwing:
+                case BloodScythe:
                     attackTimer = 120;
-                    attackCooldown = 20;
+                    attackCooldown = 95;
                     break;
                 case BloodSword:
                     attackTimer = 60;
                     attackCooldown = 20;
-                    damage = 10;
+                    damage = 80;
                     break;
             }
             blacklistedAttacks.Add(attackType);
@@ -417,7 +416,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 case BloodSickle:
                     DoSickleSummon(targetPosition);
                     break;
-                case BloodScytheSwing:
+                case BloodScythe:
                     DoScytheSwing(targetPosition);
                     break;
                 case BloodSword:
@@ -435,24 +434,25 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), center, toTarget,
                     ModContent.ProjectileType<SilverBoltHostile>(), damage, 0f, Main.myPlayer);
             }
-            //if (eternity)
-            //{
-            int type = ModContent.ProjectileType<BloodArrowHostile>();
-            if (attackTimer % 60 == 0)
+            bool eternityMode = false;
+            if (AttacksEnabled && eternityMode)
             {
-                toTarget.Normalize();
-                toTarget *= 6f;
-                float numberProjectiles = 2; // 2 extra shots
-                float rotation = MathHelper.ToRadians(20);
-                for (int i = 0; i < numberProjectiles; i++)
+                int type = ModContent.ProjectileType<BloodArrowHostile>();
+                if (attackTimer % 60 == 0)
                 {
-                    Vector2 perturbedSpeed = toTarget.RotatedBy(MathHelper.Lerp(-rotation, rotation,
-                        i / (numberProjectiles - 1)));
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), center, perturbedSpeed,
-                        type, damage, 6, Main.myPlayer);
+                    toTarget.Normalize();
+                    toTarget *= 6f;
+                    float numberProjectiles = 2; // 2 extra shots
+                    float rotation = MathHelper.ToRadians(20);
+                    for (int i = 0; i < numberProjectiles; i++)
+                    {
+                        Vector2 perturbedSpeed = toTarget.RotatedBy(MathHelper.Lerp(-rotation, rotation,
+                            i / (numberProjectiles - 1)));
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), center, perturbedSpeed,
+                            type, damage, 6, Main.myPlayer);
+                    }
                 }
             }
-            //}
         }
         void DoJavelinThrow(Vector2 center, Vector2 toTarget)
         {
@@ -536,7 +536,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             if (attackTimer % 10 == 0)
             {
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), center, Vector2.Normalize(toTarget) * 16f,
-                    ModContent.ProjectileType<TidalWave>(), damage, 0f, Main.myPlayer);
+                    ModContent.ProjectileType<BloodWaveHostile>(), damage, 0f, Main.myPlayer);
             }
         }
         void DoSickleSummon(Vector2 targetCenter)

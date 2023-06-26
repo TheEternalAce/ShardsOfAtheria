@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -19,8 +18,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         {
             Projectile.AddAqua();
             Projectile.AddWood();
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
         public override void SetDefaults()
@@ -34,7 +31,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.extraUpdates = 1;
-            Projectile.penetrate = 2;
         }
 
         public override void AI()
@@ -63,7 +59,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = Color.White;
-            Projectile.DrawPrimsAfterImage(lightColor);
 
             Vector2 startPos = new(Projectile.ai[1], Projectile.ai[2]);
             Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>(ChainTexturePath);
