@@ -1081,13 +1081,13 @@ Mods: {
 					'''
 			}
 
-			LandSoulCrystal.DisplayName: Soul Crystal (Senterra)
-			TimeSoulCrystal.DisplayName: Soul Crystal (Genesis)
-
 			DeathSoulCrystal: {
 				DisplayName: Soul Crystal (Elizabeth Norman)
 				// Tooltip: ""
 			}
+
+			LandSoulCrystal.DisplayName: Soul Crystal (Senterra)
+			TimeSoulCrystal.DisplayName: Soul Crystal (Genesis)
 
 			# Slayer boxes coming eventually
 			
@@ -1866,6 +1866,8 @@ Mods: {
 			SapphireBolt.DisplayName: Sapphire Bolt
 			SapphireSpirit.DisplayName: Sapphire Spirit
 			SoulDagger.DisplayName: Soul Dagger
+			// BloodDropHostile.DisplayName: Blood Drop Hostile
+			// BloodWaveHostile.DisplayName: Blood Wave Hostile
 		}
 
 		NPCs: {
@@ -1911,7 +1913,7 @@ Mods: {
 					// InitialSummonSlayer: Your first mistake was starting this path. Your final mistake is crossing paths with me.
 					// MidFightSlayer: You won't kill me so easily. Try this on for size.
 					// Desperation: Seems like I underestimated you... (This isn't good... I must do something...)
-					// Death: ""
+					// Death: Oh the irony,
 				}
 			}
 
