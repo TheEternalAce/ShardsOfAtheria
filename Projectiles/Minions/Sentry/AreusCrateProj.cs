@@ -48,7 +48,7 @@ namespace ShardsOfAtheria.Projectiles.Minions.Sentry
         {
             var player = Main.player[Projectile.owner];
             int currentTurretIndex = 0; // The javelin index
-            Point[] turrets = new Point[player.maxMinions];
+            Point[] turrets = new Point[player.maxTurrets];
 
             var position = Projectile.Center + new Vector2(0, -10);
             int newTurretIndex = Projectile.NewProjectile(Projectile.GetSource_FromThis(), position,
@@ -61,7 +61,7 @@ namespace ShardsOfAtheria.Projectiles.Minions.Sentry
                 if (i != newTurretIndex // Make sure the looped projectile is not the current javelin
                     && currentProjectile.active // Make sure the projectile is active
                     && currentProjectile.owner == Main.myPlayer // Make sure the projectile's owner is the client's player
-                    && currentProjectile.type == ModContent.ProjectileType<AreusTurret>()) // Make sure the projectile is of the same type as this javelin
+                    && currentProjectile.sentry) // Make sure the projectile is a sentry
                 {
                     turrets[currentTurretIndex++] = new Point(i, currentProjectile.timeLeft); // Add the current projectile's index and timeleft to the point array
                     if (currentTurretIndex >= turrets.Length)  // If the javelin's index is bigger than or equal to the point array's length, break

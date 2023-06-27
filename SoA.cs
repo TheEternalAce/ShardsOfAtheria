@@ -1,8 +1,6 @@
-using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Config;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.Weapons.Magic;
@@ -41,6 +39,8 @@ namespace ShardsOfAtheria
         public static ShardsDownedSystem DownedSystem;
         public static bool AprilFools => DateTime.Now is DateTime { Month: 4 };
 
+        public static Mod Instance { get; private set; }
+
         public const string BlankTexture = "ShardsOfAtheria/Blank";
         public const string PlaceholderTexture = "ShardsOfAtheria/PlaceholderSprite";
         public const string BuffTemplate = "ShardsOfAtheria/Buffs/BuffTemp";
@@ -62,6 +62,8 @@ namespace ShardsOfAtheria
             SoulTeleport = KeybindLoader.RegisterKeybind(this, "SoulCrystalTeleport", "V");
             ArmorSetBonusActive = KeybindLoader.RegisterKeybind(this, "ArmorSetBonus", "Mouse4");
             ProcessorElement = KeybindLoader.RegisterKeybind(this, "CycleElementAffinity", "C");
+
+            Instance = this;
 
             ServerConfig = ModContent.GetInstance<ShardsServer>();
             ClientConfig = ModContent.GetInstance<ShardsClient>();
@@ -89,23 +91,26 @@ namespace ShardsOfAtheria
             }
         }
 
+        public override void Unload()
+        {
+            Instance = null;
+
+            ServerConfig = null;
+            ClientConfig = null;
+            DownedSystem = null;
+        }
+
         public override void PostSetupContent()
         {
             if (!Main.dedServ)
             {
-                if (SoA.ClientConfig.windowTitle)
+                if (ClientConfig.windowTitle)
                 {
                     if (Main.rand.NextBool(3))
                     {
                         Main.instance.Window.Title = ChooseTitleText();
                     }
                 }
-            }
-
-            // Add Areus weapons to Electric weapons list
-            foreach (int item in SoAGlobalItem.AreusWeapon)
-            {
-                item.AddElecItem();
             }
 
             if (ModLoader.TryGetMod("BossChecklist", out Mod foundMod1))
@@ -182,25 +187,31 @@ namespace ShardsOfAtheria
         internal static void Log(string label, object value, Color color, bool ignoreDebugConfig = false)
         {
             var debug = "[Shards of Atheria Debug] " + label;
+            // Send to console and log
             if (ConsoleDebug || ConsoleAndChatDebug || ignoreDebugConfig)
             {
                 Console.WriteLine(debug + value);
+                Instance.Logger.Info(debug + value);
                 if (value is IList list)
                 {
                     Console.WriteLine("--List items--");
+                    Instance.Logger.Info("--List items--");
                     if (list.Count == 0)
                     {
                         Console.WriteLine("None");
+                        Instance.Logger.Info("None");
                     }
                     else
                     {
                         foreach (object item in list)
                         {
                             Console.WriteLine(item);
+                            Instance.Logger.Info(item);
                         }
                     }
                 }
             }
+            // Send to chat
             if (ConsoleAndChatDebug || ignoreDebugConfig)
             {
                 ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(debug + value.ToString()), color);

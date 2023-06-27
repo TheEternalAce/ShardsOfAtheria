@@ -75,10 +75,13 @@ namespace ShardsOfAtheria.ShardsUI
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (!Main.playerInventory || !Main.LocalPlayer.Areus().areusArmorPiece)
+            var areus = Main.LocalPlayer.Areus();
+            if (!Main.playerInventory || !areus.areusArmorPiece)
             {
                 ModContent.GetInstance<ChipsUISystem>().HideChips();
+                return;
             }
+
             base.Draw(spriteBatch);
         }
 

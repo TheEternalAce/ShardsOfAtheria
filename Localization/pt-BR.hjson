@@ -468,6 +468,41 @@ Mods: {
 					''' */
 			}
 
+			BerserkChip: {
+				// DisplayName: Berserk Chip
+				// Tooltip: Increases damage and makes attacks inaccurate
+			}
+
+			CommanderChip: {
+				// DisplayName: Commander's Chip
+				// Tooltip: ""
+			}
+
+			FlightChip: {
+				// DisplayName: Overcharged Flight Chip
+				// Tooltip: ""
+			}
+
+			RangerChip: {
+				// DisplayName: Ranger's Chip
+				// Tooltip: ""
+			}
+
+			SorcererChip: {
+				// DisplayName: Sorcerer's Chip
+				// Tooltip: ""
+			}
+
+			SpeedChip: {
+				// DisplayName: Speed+ Chip
+				// Tooltip: ""
+			}
+
+			VisionChip: {
+				// DisplayName: Vision+ Chip
+				// Tooltip: ""
+			}
+
 			WarriorChip: {
 				// DisplayName: Warrior's Chip
 				// Tooltip: Makes areus armor set bonus melee themed
@@ -492,6 +527,11 @@ Mods: {
 			ValkyrieCrest: {
 				DisplayName: Baú Angelical
 				Tooltip: Invoca uma poderosa Valquíria
+			}
+
+			AncientMedalion: {
+				// DisplayName: Ancient Medalion
+				// Tooltip: Summons Death
 			}
 
 			# Dev items
@@ -1661,11 +1701,6 @@ Mods: {
 				Sword can erase projectiles
 				Attacks inflict Frostburn and create extra ice projectiles
 				'''
-
-			AncientMedalion: {
-				// DisplayName: Ancient Medalion
-				// Tooltip: Summons Death
-			}
 		}
 
 		Projectiles: {

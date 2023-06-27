@@ -9,7 +9,8 @@
 Mods: {
 	ShardsOfAtheria: {
 		Common: {
-			AbsorbedBlood: Absorbed Blood
+			MourningStarKills: "Kills: {0}"
+			Anastasia: The Mourning Star can no longer harm you!
 			ArmorPenetration: "{0} armor penetration"
 			Combat: Combat
 			Conservation: Conservation
@@ -180,10 +181,9 @@ Mods: {
 				DisplayName: Emerald Core
 				Tooltip:
 					'''
-					Counts as wings
 					10% increased movement speed
 					Increased jump height
-					Grants flight and slowfall
+					Increases flight time
 					'''
 			}
 
@@ -191,11 +191,10 @@ Mods: {
 				DisplayName: Greater Emerald Core
 				Tooltip:
 					'''
-					Counts as wings
 					10% increased movement speed
 					Increased jump height
+					Increases flight time
 					Panic Necklace, Terraspark Boots and Flippers effects
-					Grants flight and slowfall
 					'''
 			}
 
@@ -203,8 +202,9 @@ Mods: {
 				DisplayName: Super Emerald Core
 				Tooltip:
 					'''
-					Counts as wings
 					15% increased movement speed
+					Increased jump height
+					Increases flight time
 					Bundle of Balloons, Panic Necklace, Terraspark Boots, and Flippers effects
 					Grants flight, slowfall and immunity to cold debuffs
 					'''
@@ -469,6 +469,41 @@ Mods: {
 					'''
 			}
 
+			BerserkChip: {
+				DisplayName: Berserk Chip
+				Tooltip: Increases damage and makes attacks inaccurate
+			}
+
+			CommanderChip: {
+				DisplayName: Commander's Chip
+				Tooltip: ""
+			}
+
+			FlightChip: {
+				DisplayName: Overcharged Flight Chip
+				Tooltip: ""
+			}
+
+			RangerChip: {
+				DisplayName: Ranger's Chip
+				Tooltip: ""
+			}
+
+			SorcererChip: {
+				DisplayName: Sorcerer's Chip
+				Tooltip: ""
+			}
+
+			SpeedChip: {
+				DisplayName: Speed+ Chip
+				Tooltip: ""
+			}
+
+			VisionChip: {
+				DisplayName: Vision+ Chip
+				Tooltip: ""
+			}
+
 			WarriorChip: {
 				DisplayName: Warrior's Chip
 				Tooltip: Makes areus armor set bonus melee themed
@@ -493,6 +528,11 @@ Mods: {
 			ValkyrieCrest: {
 				DisplayName: Hardlight Crest
 				Tooltip: Summons a powerful Valkyrie
+			}
+
+			AncientMedalion: {
+				DisplayName: Ancient Medalion
+				Tooltip: Summons Death
 			}
 
 			# Dev items
@@ -667,6 +707,11 @@ Mods: {
 					Permanently makes Elec attacks inflict Electric Shock
 					After defeating Plantera, Elec attacks inflict Electrified
 					'''
+			}
+
+			AnastasiasPride: {
+				DisplayName: Anastasia's Pride
+				Tooltip: Protects you from The Mourning Star's corruption
 			}
 
 			# Pet items
@@ -1661,11 +1706,6 @@ Mods: {
 				Sword can erase projectiles
 				Attacks inflict Frostburn and create extra ice projectiles
 				'''
-
-			AncientMedalion: {
-				DisplayName: Ancient Medalion
-				Tooltip: Summons Death
-			}
 		}
 
 		Projectiles: {
