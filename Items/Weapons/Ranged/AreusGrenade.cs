@@ -1,7 +1,7 @@
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using ShardsOfAtheria.Tiles.Crafting;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             Item.ResearchUnlockCount = 999;
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
-            SoAGlobalItem.AreusWeapon.Add(Type);
+            Item.AddAreus();
         }
 
         public override void SetDefaults()

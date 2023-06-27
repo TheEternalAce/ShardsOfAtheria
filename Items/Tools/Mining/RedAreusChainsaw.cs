@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BattleNetworkElements.Utilities;
 using ReLogic.Content;
-using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Tools;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
@@ -10,7 +9,6 @@ using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.Items.Materials;
 
 namespace ShardsOfAtheria.Items.Tools.Mining
 {
@@ -38,8 +36,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
 
 
             Item.ResearchUnlockCount = 1;
-            SoAGlobalItem.AreusWeapon.Add(Type);
-            Item.AddFire();
+            Item.AddAreus();
         }
 
         public override void SetDefaults()

@@ -1,5 +1,6 @@
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Minions.Sentry;
+using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -42,6 +43,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Sentry
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 10)
                 .AddIngredient(ItemID.GoldBar, 5)
+                .AddTile(ModContent.TileType<AreusFabricator>())
                 .Register();
         }
     }

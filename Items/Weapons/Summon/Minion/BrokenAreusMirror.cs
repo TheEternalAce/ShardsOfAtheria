@@ -1,10 +1,10 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Minions;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Minion
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            SoAGlobalItem.AreusWeapon.Add(Type);
+            Item.AddAreus();
         }
 
         public override void SetDefaults()

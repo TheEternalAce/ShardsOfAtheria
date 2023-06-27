@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            SoAGlobalItem.AreusWeapon.Add(Type);
+            Item.AddAreus();
             SoAGlobalItem.UpgradeableItem.Add(Type);
         }
 

@@ -1,8 +1,8 @@
 using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.ModCondition;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,9 +14,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            SoAGlobalItem.AreusWeapon.Add(Type);
+            Item.AddAreus();
             Item.AddFire();
-            Item.AddElec();
         }
 
         public override void SetDefaults()

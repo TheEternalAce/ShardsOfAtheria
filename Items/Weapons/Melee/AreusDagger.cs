@@ -4,6 +4,7 @@ using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusDaggerProjs;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -16,7 +17,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            SoAGlobalItem.AreusWeapon.Add(Type);
+            Item.AddAreus();
             SoAGlobalItem.UpgradeableItem.Add(Type);
         }
 
