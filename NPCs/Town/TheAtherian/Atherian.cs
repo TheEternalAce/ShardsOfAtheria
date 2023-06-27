@@ -4,6 +4,7 @@ using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.AreusChips;
 using ShardsOfAtheria.Items.BossSummons;
+using ShardsOfAtheria.Items.Consumable;
 using ShardsOfAtheria.Items.DedicatedItems.Webmillio;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Weapons.Magic;
@@ -324,11 +325,11 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 {
                     UpgrageMaterial[] materials = {
                         new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusGambit>()]),
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusSword>()]),
+                        //new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusGlaive>()]),
                         new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusDagger>()]),
                         new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusMagnum>()]),
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusRailgun>()]),
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusBow>()]),
+                        //new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusRailgun>()]),
+                        //new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusBow>()]),
                         new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.BeetleHusk], 15)
                     };
                     UpgradeItem<AreusGauntlet>(player, materials);
@@ -459,7 +460,9 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 .Add<Bytecrusher>(new Condition("Mods.ShardsOfAtheria.Conditions.AnyMech",
                     () => NPC.downedMechBossAny))
                 .Add<AreusKey>(new Condition("Mods.ShardsOfAtheria.Condotions.DefeatPlantera",
-                    () => NPC.downedPlantBoss));
+                    () => NPC.downedPlantBoss))
+                .Add<AnastasiasPride>(new Condition("Mods.ShardsOfAtheria.Condotions.DefeatPlantera",
+                    () => NPC.downedGolemBoss));
             npcShop.Register();
         }
 

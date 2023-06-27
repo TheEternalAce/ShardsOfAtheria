@@ -63,7 +63,8 @@ namespace ShardsOfAtheria.Players
         public bool areusProcessor;
         public int processorElement = Element.Fire;
         public bool resonator;
-        public bool areusRod = false;
+        public bool areusRod;
+        public bool anastasiaPride;
         public int mourningStarKills = 0;
         public bool acidTrip;
         public bool powerTrip;
@@ -203,6 +204,8 @@ namespace ShardsOfAtheria.Players
             tag[nameof(megaGemCoreToggles)] = megaGemCoreToggles;
             tag[nameof(areusRod)] = areusRod;
             tag[nameof(mourningStarKills)] = mourningStarKills;
+            tag[nameof(genesisRagnarockUpgrades)] = genesisRagnarockUpgrades;
+            tag[nameof(anastasiaPride)] = anastasiaPride;
         }
 
         public override void LoadData(TagCompound tag)
@@ -217,6 +220,10 @@ namespace ShardsOfAtheria.Players
                 areusRod = tag.GetBool(nameof(areusRod));
             if (tag.ContainsKey(nameof(mourningStarKills)))
                 mourningStarKills = tag.GetInt(nameof(mourningStarKills));
+            if (tag.ContainsKey(nameof(genesisRagnarockUpgrades)))
+                genesisRagnarockUpgrades = tag.GetInt(nameof(genesisRagnarockUpgrades));
+            if (tag.ContainsKey(nameof(anastasiaPride)))
+                anastasiaPride = tag.GetBool(nameof(anastasiaPride));
         }
 
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
@@ -274,7 +281,7 @@ namespace ShardsOfAtheria.Players
             }
             Player.GetDamage(DamageClass.Generic) += 0.01f * aggression;
             Player.moveSpeed += 0.01f * aggression;
-            Player.aggro += 1 * aggression;
+            Player.aggro += aggression;
         }
 
         public void UpdateItemFields()

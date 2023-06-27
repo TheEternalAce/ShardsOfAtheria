@@ -7,6 +7,7 @@ using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
@@ -23,8 +24,10 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             var shards = Main.LocalPlayer.Shards();
+            string key = "Mods.ShardsOfAtheria.Common.MourningStarKills";
+            string text = Language.GetTextValue(key, shards.mourningStarKills);
             tooltips.Insert(ShardsTooltipHelper.GetIndex(tooltips, "OneDropLogo"),
-                new TooltipLine(Mod, "Kills", $"Kills: {shards.mourningStarKills}"));
+                new TooltipLine(Mod, "Kills", text));
         }
 
         public override void SetDefaults()
@@ -55,7 +58,10 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void HoldItem(Player player)
         {
-            player.AddBuff(ModContent.BuffType<CorruptedBlood>(), 300);
+            if (!player.Shards().anastasiaPride)
+            {
+                player.AddBuff(ModContent.BuffType<CorruptedBlood>(), 300);
+            }
         }
 
         public override bool? UseItem(Player player)
