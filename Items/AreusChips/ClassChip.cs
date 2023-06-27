@@ -6,16 +6,9 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.AreusChips
 {
-    public class AreusArmorChip : ModItem
+    public abstract class ClassChip : AreusArmorChip
     {
-        public const int SlotAny = -1;
-        public const int SlotHead = 0;
-        public const int SlotChest = 1;
-        public const int SlotLegs = 2;
-
-        public int slotType { get; internal set; } = SlotAny;
-
-        public override string Texture => "ShardsOfAtheria/Items/AreusChips/AreusArmorChip";
+        public DamageClass damageClass { get; internal set; } = DamageClass.Default;
 
         public override void SetStaticDefaults()
         {
@@ -29,6 +22,7 @@ namespace ShardsOfAtheria.Items.AreusChips
 
             Item.rare = ItemRarityID.Cyan;
             Item.value = 50000;
+            slotType = SlotHead;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -53,8 +47,10 @@ namespace ShardsOfAtheria.Items.AreusChips
             tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
         }
 
-        public virtual void ChipEffect(Player player)
+        public override void ChipEffect(Player player)
         {
+            var armorPlayer = player.Areus();
+            armorPlayer.classChip = damageClass;
         }
     }
 }

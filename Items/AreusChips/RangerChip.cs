@@ -3,13 +3,13 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.AreusChips
 {
-    public class WarriorChip : ClassChip
+    public class RangerChip : ClassChip
     {
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            damageClass = DamageClass.Melee;
+            damageClass = DamageClass.Ranged;
         }
 
         public override void ChipEffect(Player player)

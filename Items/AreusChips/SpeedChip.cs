@@ -1,20 +1,20 @@
 using Terraria;
-using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.AreusChips
 {
-    public class WarriorChip : ClassChip
+    public class SpeedChip : AreusArmorChip
     {
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            damageClass = DamageClass.Melee;
+            slotType = SlotLegs;
         }
 
         public override void ChipEffect(Player player)
         {
             base.ChipEffect(player);
+            player.moveSpeed += 2f;
         }
     }
 }

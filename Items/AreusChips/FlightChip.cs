@@ -1,20 +1,20 @@
 using Terraria;
-using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.AreusChips
 {
-    public class WarriorChip : ClassChip
+    public class FlightChip : AreusArmorChip
     {
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            damageClass = DamageClass.Melee;
+            slotType = SlotChest;
         }
 
         public override void ChipEffect(Player player)
         {
             base.ChipEffect(player);
+            player.wingTimeMax += 20;
         }
     }
 }
