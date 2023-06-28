@@ -9,7 +9,8 @@
 Mods: {
 	ShardsOfAtheria: {
 		Common: {
-			AbsorbedBlood: Sangue Absorvido
+			// MourningStarKills: Kills: {0}
+			// Anastasia: The Mourning Star can no longer harm you!
 			ArmorPenetration: "{0} armor penetration"
 			Combat: Combate
 			Conservation: Conservação
@@ -706,6 +707,11 @@ Mods: {
 					Permanently makes Elec attacks inflict Electric Shock
 					After defeating Plantera, Elec attacks inflict Electrified
 					''' */
+			}
+
+			AnastasiasPride: {
+				// DisplayName: Anastasia's Pride
+				// Tooltip: Protects you from The Mourning Star's corruption
 			}
 
 			# Pet items

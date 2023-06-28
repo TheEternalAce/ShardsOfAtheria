@@ -9,7 +9,7 @@
 Mods: {
 	ShardsOfAtheria: {
 		Common: {
-			MourningStarKills: "Kills: {0}"
+			MourningStarKills: Kills: {0}
 			Anastasia: The Mourning Star can no longer harm you!
 			ArmorPenetration: "{0} armor penetration"
 			Combat: Combat
