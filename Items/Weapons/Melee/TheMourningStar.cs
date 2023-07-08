@@ -1,8 +1,8 @@
 using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Buffs.PlayerDebuff;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.ModCondition;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword;
+using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;

@@ -1,7 +1,7 @@
 using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.ModCondition;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon;
+using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;

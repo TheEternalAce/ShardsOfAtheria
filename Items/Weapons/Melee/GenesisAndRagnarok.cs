@@ -1,9 +1,9 @@
-using Microsoft.Xna.Framework;
 using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.ModCondition;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
+using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using System;
 using System.Collections.Generic;
