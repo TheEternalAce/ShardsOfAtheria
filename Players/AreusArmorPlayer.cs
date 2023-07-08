@@ -1,4 +1,6 @@
 ﻿using ShardsOfAtheria.ShardsUI;
+using ShardsOfAtheria.Utilities;
+using System.Linq;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.ModLoader;
@@ -8,21 +10,21 @@ namespace ShardsOfAtheria.Players
 {
     public class AreusArmorPlayer : ModPlayer
     {
-        public int[] chips = new int[3];
+        public string[] chipNames = ShardsHelpers.SetEmptyStringArray(3);
 
         public bool areusArmorPiece;
         public DamageClass classChip;
 
         public override void SaveData(TagCompound tag)
         {
-            tag[nameof(chips)] = chips;
+            tag.Add(nameof(chipNames), chipNames.ToList());
         }
 
         public override void LoadData(TagCompound tag)
         {
-            if (tag.ContainsKey(nameof(chips)))
+            if (tag.ContainsKey(nameof(chipNames)))
             {
-                chips = tag.GetIntArray(nameof(chips));
+                chipNames = tag.GetList<string>(nameof(chipNames)).ToArray();
             }
         }
 

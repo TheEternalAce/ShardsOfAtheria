@@ -5,6 +5,7 @@ using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -95,12 +96,20 @@ namespace ShardsOfAtheria.ShardsUI
 
             var player = Main.LocalPlayer;
             var armorPlayer = player.Areus();
-            var chips = armorPlayer.chips;
+            var chips = armorPlayer.chipNames;
 
             for (int i = 0; i < 3; i++)
             {
                 var slot = slots[i];
-                chips[i] = slot.Item.type;
+                var modItem = slot.Item.ModItem;
+                if (slot.Item.type != ItemID.None && modItem != null)
+                {
+                    chips[i] = modItem.Name;
+                }
+                else
+                {
+                    chips[i] = "";
+                }
             }
         }
 
@@ -111,12 +120,17 @@ namespace ShardsOfAtheria.ShardsUI
                 cardsInit = true;
                 var player = Main.LocalPlayer;
                 var armorPlayer = player.Areus();
-                var chips = armorPlayer.chips;
+                var chips = armorPlayer.chipNames;
 
                 for (int i = 0; i < 3; i++)
                 {
                     var slot = slots[i];
-                    slot.Item = new Item(chips[i]);
+                    var pendingChip = chips[i];
+                    if (SoA.Instance.TryFind<ModItem>(pendingChip, out var item))
+                    {
+                        slot.Item = new(item.Type);
+                        break;
+                    }
                 }
             }
         }

@@ -25,13 +25,16 @@ namespace ShardsOfAtheria.Items.Armor.Areus
         public override void UpdateEquip(Player player)
         {
             ArmorPlayer = player.Areus();
-            var chips = ArmorPlayer.chips;
-            if (chips[slotType] > 0)
+            var chips = ArmorPlayer.chipNames;
+            if (chips[slotType] != "")
             {
-                var item = new Item(chips[slotType]);
-                if (item.ModItem is AreusArmorChip chip)
+                var pendingChip = chips[slotType];
+                if (SoA.Instance.TryFind<ModItem>(pendingChip, out var item))
                 {
-                    chip.ChipEffect(player);
+                    if (item is AreusArmorChip chip)
+                    {
+                        chip.ChipEffect(player);
+                    }
                 }
             }
 
@@ -47,19 +50,19 @@ namespace ShardsOfAtheria.Items.Armor.Areus
 
             if (melee)
             {
-
+                MeleeSet(player);
             }
             else if (magic)
             {
-
+                MagicSet(player);
             }
             else if (ranged)
             {
-
+                RangedSet(player);
             }
             else if (summon)
             {
-
+                SummonSet(player);
             }
         }
 
