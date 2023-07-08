@@ -24,6 +24,16 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
+        public static string[] SetEmptyStringArray(int size)
+        {
+            string[] array = new string[size];
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = "";
+            }
+            return array;
+        }
+
         public static void DrawLine(this SpriteBatch sb, int thickness, Vector2 start, Vector2 end, Color color)
         {
             Vector2 edge = end - start;
@@ -180,6 +190,16 @@ namespace ShardsOfAtheria.Utilities
         public static SpriteEffects ToSpriteEffect(this int value)
         {
             return value == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+        }
+
+        public static Vector2 GetPointInRegion(Rectangle region)
+        {
+            Vector2 result = new()
+            {
+                X = region.X + Main.rand.Next(region.Width + 1),
+                Y = region.Y + Main.rand.Next(region.Height + 1)
+            };
+            return result;
         }
     }
 }

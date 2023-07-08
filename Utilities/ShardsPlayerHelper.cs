@@ -67,6 +67,21 @@ namespace ShardsOfAtheria.Utilities
         {
             return player.GetModPlayer<AreusArmorPlayer>();
         }
+        public static bool HasChipEquipped(this Player player, int chip)
+        {
+            foreach (string name in player.Areus().chipNames)
+            {
+                var item = new Item(chip);
+                if (item.ModItem != null)
+                {
+                    if (item.ModItem.Name == name)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
         public static float CappedMeleeScale(this Player player)
         {
