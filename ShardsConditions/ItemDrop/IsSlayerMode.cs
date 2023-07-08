@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Localization;
 
-namespace ShardsOfAtheria.ModCondition.ItemDrop
+namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 {
     // Very simple drop condition: drop in slayer mode
     public class IsSlayerMode : IItemDropRuleCondition
