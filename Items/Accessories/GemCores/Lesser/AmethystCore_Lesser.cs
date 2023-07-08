@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Gores;
 using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
 using ShardsOfAtheria.Items.Accessories.GemCores.Regular;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -91,7 +93,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
         public bool DashActive = false;
         public int DashDelay = MAX_DASH_DELAY;
         public int DashTimer = MAX_DASH_TIMER;
-        //The initial velocity.  10 velocity is about 37.5 tiles/second or 50 mph
+        //The initial velocity. 10 velocity is about 37.5 tiles/second or 50 mph
         public float DashVelocity = 10f;
         //These two fields are the max values for the delay between dashes and the length of the dash in that order
         //The time is measured in frames
@@ -138,6 +140,16 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
 
             //Here you'd be able to set an effect that happens when the dash first activates
             //Some examples include:  the larger smoke effect from the Master Ninja Gear and Tabi
+
+            var vector = new Vector2(1, 0) * -Player.direction;
+            for (int i = 0; i < 10; i++)
+            {
+                var pos = ShardsHelpers.GetPointInRegion(Player.Hitbox);
+                var gore = Gore.NewGoreDirect(Player.GetSource_FromThis(), pos, vector,
+                    ModContent.GoreType<AmethystShard>());
+                gore.velocity = vector.RotatedByRandom(MathHelper.ToRadians(15));
+                gore.velocity *= Main.rand.NextFloat(4f, 8f);
+            }
         }
     }
 }

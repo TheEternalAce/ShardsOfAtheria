@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Gores;
 using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -142,19 +143,31 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
                     return;
             }
 
+            var vector = new Vector2(1, 0);
             //If we don't have the ExampleDashAccessory equipped or the player has the Solor armor set equipped, return immediately
             //Also return if the player is currently on a mount, since dashes on a mount look weird, or if the dash was already activated
             if (!dashAccessoryEquipped || Player.setSolar || Player.mount.Active || DashActive)
                 return;
 
             if (Player.controlDown && Player.releaseDown && Player.doubleTapCardinalTimer[DashDown] < 15)
+            {
                 DashDir = DashDown;
+                vector = vector.RotatedBy(MathHelper.ToRadians(270));
+            }
             else if (Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[DashUp] < 15)
+            {
                 DashDir = DashUp;
+                vector = vector.RotatedBy(MathHelper.ToRadians(90));
+            }
             else if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[DashRight] < 15)
+            {
                 DashDir = DashRight;
+                vector = vector.RotatedBy(MathHelper.ToRadians(180));
+            }
             else if (Player.controlLeft && Player.releaseLeft && Player.doubleTapCardinalTimer[DashLeft] < 15)
+            {
                 DashDir = DashLeft;
+            }
             else
                 return;  //No dash was activated, return
 
@@ -163,6 +176,15 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
 
             //Here you'd be able to set an effect that happens when the dash first activates
             //Some examples include:  the larger smoke effect from the Master Ninja Gear and Tabi
+
+            for (int i = 0; i < 10; i++)
+            {
+                var pos = ShardsHelpers.GetPointInRegion(Player.Hitbox);
+                var gore = Gore.NewGoreDirect(Player.GetSource_FromThis(), pos, vector,
+                    ModContent.GoreType<AmethystShard>());
+                gore.velocity = vector.RotatedByRandom(MathHelper.ToRadians(15));
+                gore.velocity *= Main.rand.NextFloat(4f, 8f);
+            }
         }
     }
 }
