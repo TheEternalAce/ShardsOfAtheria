@@ -476,27 +476,44 @@ Mods: {
 
 			CommanderChip: {
 				DisplayName: Commander's Chip
-				Tooltip: ""
+				Tooltip:
+					'''
+					Damage bonuses from areus armors increase summon damage
+					Areus armor set provides a summoner set bonus
+					'''
+			}
+
+			DashChip: {
+				DisplayName: Sonic Dash Chip
+				Tooltip: Grants a dash
 			}
 
 			FlightChip: {
 				DisplayName: Overcharged Flight Chip
-				Tooltip: ""
+				Tooltip: Increases flight time
 			}
 
 			RangerChip: {
 				DisplayName: Ranger's Chip
-				Tooltip: ""
+				Tooltip:
+					'''
+					Damage bonuses from areus armors increase ranged damage
+					Areus armor set provides a ranger set bonus
+					'''
 			}
 
 			SorcererChip: {
 				DisplayName: Sorcerer's Chip
-				Tooltip: ""
+				Tooltip:
+					'''
+					Damage bonuses from areus armors increase magic damage
+					Areus armor set provides a mage set bonus
+					'''
 			}
 
 			SpeedChip: {
 				DisplayName: Speed+ Chip
-				Tooltip: ""
+				Tooltip: 20% increased movement speed
 			}
 
 			VisionChip: {
@@ -506,7 +523,11 @@ Mods: {
 
 			WarriorChip: {
 				DisplayName: Warrior's Chip
-				Tooltip: Makes areus armor set bonus melee themed
+				Tooltip:
+					'''
+					Damage bonuses from areus armors increase melee damage
+					Areus armor set provides a melee set bonus
+					'''
 			}
 
 			# Boss summons
