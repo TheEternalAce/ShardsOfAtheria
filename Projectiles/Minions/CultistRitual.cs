@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Items.Tools.Misc.Slayer;
-using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -56,9 +55,9 @@ namespace ShardsOfAtheria.Projectiles.Minions
                     if (Projectile.ai[1] == 1)
                     {
                         SoundEngine.PlaySound(SoundID.Item120.WithVolumeScale(0.5f));
-                        if (owner.GetModPlayer<SlayerPlayer>().lunaticCircleFragments > 1)
+                        if (owner.Slayer().lunaticCircleFragments > 1)
                         {
-                            float numberProjectiles = owner.GetModPlayer<SlayerPlayer>().lunaticCircleFragments;
+                            float numberProjectiles = owner.Slayer().lunaticCircleFragments;
                             float rotation = MathHelper.ToRadians(20);
                             for (int i = 0; i < numberProjectiles; i++)
                             {
@@ -83,7 +82,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
         private bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || !owner.GetModPlayer<SlayerPlayer>().soulCrystals.Contains(ModContent.ItemType<LunaticSoulCrystal>()))
+            if (owner.dead || !owner.active || !owner.Slayer().CultistSoul)
                 return false;
             else Projectile.timeLeft = 2;
             return true;

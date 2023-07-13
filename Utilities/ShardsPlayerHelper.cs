@@ -62,6 +62,10 @@ namespace ShardsOfAtheria.Utilities
         {
             return player.Slayer().slayerMode;
         }
+        public static bool HasSoulCrystal(this Player player, string crystalName)
+        {
+            return player.Slayer().HasSoulCrystal(crystalName);
+        }
 
         public static AreusArmorPlayer Areus(this Player player)
         {

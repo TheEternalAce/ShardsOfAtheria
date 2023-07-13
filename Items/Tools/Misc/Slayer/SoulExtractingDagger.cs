@@ -79,15 +79,15 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
 
         public override void RightClick(Player player)
         {
-            SlayerPlayer slayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
-            if (slayer.soulCrystals.Count == 0)
+            SlayerPlayer slayer = Main.LocalPlayer.Slayer();
+            if (slayer.soulCrystalNames.Count == 0)
                 CombatText.NewText(player.getRect(), Color.Blue, "You have no Soul Crystals to extract");
             else SelectSoul(slayer);
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            SlayerPlayer slayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
+            SlayerPlayer slayer = Main.LocalPlayer.Slayer();
             var selected = new TooltipLine(Mod, "SelectedSoul", "Selected: None");
 
             // Selected Soul Crystal
@@ -96,7 +96,8 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
                 if (soulIndex < entries.Count)
                 {
                     PageEntry entry = entries[soulIndex];
-                    if (slayer.soulCrystals.Contains(entry.crystalItem))
+                    string item = entry.crystalItem;
+                    if (slayer.soulCrystalNames.Contains(item))
                     {
                         selected = new TooltipLine(Mod, "SelectedSoul", "Selected: " + entry.entryName)
                         {
@@ -105,18 +106,19 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
                     }
                 }
             }
-            tooltips.Add(selected);
+            tooltips.Insert(tooltips.GetIndex("OneDropLogo"), selected);
 
             //Available Souls
             for (int i = 0; i < entries.Count; i++)
             {
                 PageEntry entry = entries[i];
-                if (slayer.soulCrystals.Contains(entry.crystalItem))
+                if (slayer.soulCrystalNames.Contains(entry.crystalItem))
                 {
-                    tooltips.Add(new TooltipLine(Mod, "PageList", $"{entry.entryName} ({entry.mod})")
+                    var line = new TooltipLine(Mod, "PageList", $"{entry.entryName} ({entry.mod})")
                     {
                         OverrideColor = entry.entryColor
-                    });
+                    };
+                    tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
                 }
             }
             base.ModifyTooltips(tooltips);
@@ -124,8 +126,8 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
 
         public override bool CanUseItem(Player player)
         {
-            SlayerPlayer slayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
-            return !player.immune && slayer.soulCrystals.Count > 0;
+            SlayerPlayer slayer = Main.LocalPlayer.Slayer();
+            return !player.immune && slayer.soulCrystalNames.Count > 0;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -136,7 +138,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             SoA.Log("Soul index to extract: ", soulIndex);
-            SoA.Log("Old Soul Crystal list: ", player.Slayer().soulCrystals);
+            SoA.Log("Old Soul Crystal list: ", player.Slayer().soulCrystalNames);
             Vector2 spawnLocation;
             if (player.direction == 1)
             {
@@ -166,7 +168,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
                 soulIndex = 0;
             }
             PageEntry entry = entries[soulIndex];
-            if (!slayer.soulCrystals.Contains(entry.crystalItem))
+            if (!slayer.soulCrystalNames.Contains(entry.crystalItem))
             {
                 soulIndex++;
             }
@@ -174,7 +176,16 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
 
         public override void UpdateInventory(Player player)
         {
-            if (soulIndex == 0 && entries.Count > 0)
+            Update(player);
+        }
+        public override void HoldItem(Player player)
+        {
+            Update(player);
+        }
+
+        public void Update(Player player)
+        {
+            if (soulIndex < 0)
             {
                 soulIndex++;
             }
@@ -182,9 +193,11 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
             {
                 soulIndex = 0;
             }
-            if (!player.GetModPlayer<SlayerPlayer>().soulCrystals.Contains(entries[soulIndex].crystalItem))
+            var slayer = player.Slayer();
+            var crystalName = entries[soulIndex].crystalItem;
+            if (!slayer.soulCrystalNames.Contains(crystalName))
             {
-                soulIndex++;
+                SelectSoul(slayer);
             }
         }
     }

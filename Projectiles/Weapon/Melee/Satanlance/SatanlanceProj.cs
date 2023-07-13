@@ -1,14 +1,14 @@
 ﻿using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Melee
+namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Satanlance
 {
     public class SatanlanceProj : ModProjectile
     {
@@ -24,9 +24,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
 
             Projectile.AddFire();
-            Projectile.AddAqua();
-            Projectile.AddElec();
-            Projectile.AddWood();
         }
 
         public override void SetDefaults()
@@ -127,21 +124,30 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
                 }
 
                 // Set your dust types here.
-                int[] dustType = { DustID.CursedTorch, DustID.Ichor, DustID.Frost };
+                int dustType = DustID.Torch;
 
                 int offset = 4; // This offset will affect how much the dust spreads out.
 
                 // Spawn the dusts based on the dustChance. The dusts are spawned at the tip of the Jousting Lance.
                 if (Main.rand.NextBool(dustChance))
                 {
-                    int newDust = Dust.NewDust(Projectile.Center - new Vector2(offset, offset), offset * 2, offset * 2, dustType[Main.rand.Next(3)], Projectile.velocity.X * 0.2f + (Projectile.direction * 3), Projectile.velocity.Y * 0.2f, 100, default, 1.2f);
+                    int newDust = Dust.NewDust(Projectile.Center - new Vector2(offset, offset), offset * 2, offset * 2, dustType, Projectile.velocity.X * 0.2f + Projectile.direction * 3, Projectile.velocity.Y * 0.2f, 100, default, 1.2f);
                     Main.dust[newDust].noGravity = true;
                     Main.dust[newDust].velocity *= 0.25f;
-                    newDust = Dust.NewDust(Projectile.Center - new Vector2(offset, offset), offset * 2, offset * 2, dustType[Main.rand.Next(3)], 0f, 0f, 150, default, 1.4f);
+                    newDust = Dust.NewDust(Projectile.Center - new Vector2(offset, offset), offset * 2, offset * 2, dustType, 0f, 0f, 150, default, 1.4f);
                     Main.dust[newDust].velocity *= 0.25f;
+                }
+                if (++starTime >= 30)
+                {
+                    // Also spawn 5 Hell Stars
+                    ShardsHelpers.ProjectileRing(Projectile.GetSource_FromThis(), center,
+                        5, 1, 16f, ModContent.ProjectileType<HellStar>(), Projectile.damage,
+                        Projectile.knockBack, Projectile.owner);
+                    starTime = 0;
                 }
             }
         }
+        int starTime = 0;
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
@@ -237,13 +243,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            var buffChooser = new WeightedRandom<int>();
-            buffChooser.Add(BuffID.Ichor);
-            buffChooser.Add(BuffID.CursedInferno);
-            buffChooser.Add(BuffID.Frostburn);
-
-            if (!(target.HasBuff(BuffID.CursedInferno) || target.HasBuff(BuffID.Frostburn) || target.HasBuff(BuffID.Ichor)))
-                target.AddBuff(buffChooser, 10 * 60);
+            target.AddBuff(BuffID.OnFire3, 10 * 60);
         }
     }
 }

@@ -9,6 +9,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon
 {
@@ -150,6 +151,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon
                 }
                 if (shoot)
                 {
+                    if (chargeLevel == 3)
+                    {
+                        ScreenShake.ShakeScreen(6, 60);
+                    }
                     float numberProjectiles = 2; // 2 shots
                     var source = Projectile.GetSource_FromThis();
                     var velocity = aimNormal * speed;

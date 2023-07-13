@@ -10,12 +10,10 @@ using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.SinfulSouls.Extras;
-using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
@@ -23,7 +21,6 @@ using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
@@ -34,28 +31,16 @@ namespace ShardsOfAtheria.Globals
     public class SoAGlobalNPC : GlobalNPC
     {
         public bool flawless = true;
-        Asset<Texture2D> harpy = TextureAssets.Npc[NPCID.Harpy];
         Asset<Texture2D> skyHarpy = ModContent.Request<Texture2D>("ShardsOfAtheria/NPCs/Variant/Harpy/SkyHarpy");
 
         public override bool InstancePerEntity => true;
-
-        public override void Unload()
-        {
-            TextureAssets.Npc[NPCID.Harpy] = harpy;
-        }
-
-        public override void SetDefaults(NPC npc)
-        {
-            base.SetDefaults(npc);
-            TextureAssets.Npc[NPCID.Harpy] = skyHarpy;
-        }
 
         public override void OnSpawn(NPC npc, IEntitySource source)
         {
             base.OnSpawn(npc, source);
             if (npc.type == NPCID.Harpy)
             {
-                npc.GivenName = Language.GetTextValue("Mods.ShardsOfAtheria.NPCName.SkyHarpy");
+                npc.GivenName = Language.GetTextValue("Mods.ShardsOfAtheria.NPCs.SkyHarpy.DisplayName");
             }
         }
 
@@ -66,11 +51,11 @@ namespace ShardsOfAtheria.Globals
                 shop.Add(new Item(ModContent.ItemType<SinfulSoul>())
                 {
                     shopCustomPrice = 250000
-                }, SoAConditions.IsSlayer);
+                }, SoAConditions.SlayerMode);
                 shop.Add(new Item(ModContent.ItemType<SinfulArmament>())
                 {
                     shopCustomPrice = 250000
-                }, SoAConditions.IsSlayer);
+                }, SoAConditions.SlayerMode);
             }
             else if (ModLoader.TryGetMod("AlchemistNPCLite", out Mod alchemistNPCLite))
             {
@@ -273,7 +258,7 @@ namespace ShardsOfAtheria.Globals
         {
             if (target.ownedProjectileCounts[ModContent.ProjectileType<Ragnarok_Shield>()] > 0)
                 npc.AddBuff(BuffID.OnFire, 1200);
-            if (target.GetModPlayer<SlayerPlayer>().soulCrystals.Contains(ModContent.ItemType<ValkyrieSoulCrystal>()))
+            if (target.Slayer().NovaSoul)
             {
                 npc.AddBuff(ModContent.BuffType<ElectricShock>(), 300);
             }
@@ -315,6 +300,17 @@ namespace ShardsOfAtheria.Globals
                     damage = 20;
                 }
             }
+        }
+
+        public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            if (npc.type == NPCID.Harpy)
+            {
+                SpriteEffects effects = npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+                npc.BasicInWorldGlowmask(spriteBatch, skyHarpy.Value, Color.White, screenPos, effects);
+                return false;
+            }
+            return base.PreDraw(npc, spriteBatch, screenPos, drawColor);
         }
     }
 }

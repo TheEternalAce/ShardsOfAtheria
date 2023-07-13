@@ -1,6 +1,5 @@
-using ShardsOfAtheria.Buffs.PlayerDebuff;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -43,10 +42,10 @@ namespace ShardsOfAtheria.Items.Armor.Entropic
             player.setBonus = Language.GetTextValue("Mods.ShardsOfAtheria.SetBonus.Slayer");
             player.manaCost -= 0.1f;
             player.statManaMax2 += 40;
-            player.GetModPlayer<SlayerPlayer>().slayerSet = true;
+            player.Slayer().slayerSet = true;
+            player.Slayer().maxCrystals += 6;
             player.maxMinions += 3;
             player.lifeRegen += 12;
-            player.buffImmune[ModContent.BuffType<Madness>()] = true;
         }
 
         public override void AddRecipes()

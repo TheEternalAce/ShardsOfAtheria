@@ -21,6 +21,7 @@ using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
+using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -400,6 +401,7 @@ namespace ShardsOfAtheria.Players
             if (Main.keyState.IsKeyDown(Keys.Escape))
             {
                 readingDisk = 0;
+                ModContent.GetInstance<UpgradeUISystem>().HideUI();
             }
             if (SoA.ArmorSetBonusActive.JustReleased && !Player.HasBuff(ModContent.BuffType<SetBonusCooldown>()))
             {

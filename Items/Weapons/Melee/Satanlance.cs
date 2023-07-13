@@ -1,5 +1,5 @@
 using BattleNetworkElements.Utilities;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.Satanlance;
 using Terraria;
 using Terraria.Enums;
 using Terraria.ID;
@@ -14,9 +14,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.ResearchUnlockCount = 1;
 
             Item.AddFire();
-            Item.AddAqua();
-            Item.AddElec();
-            Item.AddWood();
         }
 
         public override void SetDefaults()
@@ -30,7 +27,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
             Item.DamageType = DamageClass.MeleeNoSpeed; // We need to use MeleeNoSpeed here so that attack speed doesn't effect our held projectile.
 
-            Item.SetWeaponValues(257, 6f, 100); // A special method that sets the damage, knockback, and bonus critical strike chance.
+            Item.SetWeaponValues(50, 6f, 100); // A special method that sets the damage, knockback, and bonus critical strike chance.
 
             Item.SetShopValues(ItemRarityColor.StrongRed10, Item.buyPrice(0, 4, 25)); // A special method that sets the rarity and value.
 
@@ -45,7 +42,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.LunarBar, 20)
+                .AddIngredient(ItemID.HellstoneBar, 20)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }

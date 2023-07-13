@@ -1,8 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BattleNetworkElements.Utilities;
 using ReLogic.Content;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -44,7 +43,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
             Projectile.penetrate = -1;
             Projectile.timeLeft = 120;
 
-            DrawOffsetX = -4;
+            DrawOffsetX = 1;
         }
 
         public override void AI()

@@ -12,7 +12,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-//using WebCom.Effects.ScreenShaking;
+using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Utilities
 {
@@ -38,6 +38,7 @@ namespace ShardsOfAtheria.Utilities
             explosion.DamageType = proj.DamageType;
             explosion.Size = new Vector2(explosionSize);
             explosion.hostile = hostile;
+            ScreenShake.ShakeScreen(6, 60);
             ProjectileElements elementExplosion = explosion.GetGlobalProjectile<ProjectileElements>();
             int type = proj.type;
             if (proj.IsFire())
@@ -60,7 +61,7 @@ namespace ShardsOfAtheria.Utilities
 
         public static void Explode(this Projectile proj, int explosionSize = 120)
         {
-            Vector2 newExplosionSize = new Vector2(explosionSize);
+            Vector2 newExplosionSize = new(explosionSize);
             proj.timeLeft = 10;
             proj.velocity *= 0f;
             proj.position += (proj.Size - newExplosionSize) / 2;
@@ -69,7 +70,7 @@ namespace ShardsOfAtheria.Utilities
             proj.alpha = 255;
             proj.tileCollide = false;
             proj.ownerHitCheck = true;
-            //ScreenShake.ShakeScreen(6, 60);
+            ScreenShake.ShakeScreen(6, 60);
             SoundEngine.PlaySound(SoundID.Item14);
             for (int i = 0; i < 10; i++)
             {
@@ -290,8 +291,8 @@ namespace ShardsOfAtheria.Utilities
 
         public static void DrawPrimsAfterImage(this Projectile projectile, Color color, Texture2D texture)
         {
-            Rectangle frame = new Rectangle(0, 0, texture.Width, texture.Height);
-            Vector2 offset = new Vector2(projectile.width / 2, projectile.height / 2);
+            Rectangle frame = new(0, 0, texture.Width, texture.Height);
+            Vector2 offset = new(projectile.width / 2, projectile.height / 2);
             var effects = projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             var origin = frame.Size() / 2f;
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[projectile.type]; i++)
@@ -302,7 +303,6 @@ namespace ShardsOfAtheria.Utilities
 
             Main.spriteBatch.Draw(texture, projectile.position + offset - Main.screenPosition, null, Color.White, projectile.rotation, origin, projectile.scale, SpriteEffects.None, 0f);
         }
-
         public static void DrawPrimsAfterImage(this Projectile projectile, Color color)
         {
             var texture = TextureAssets.Projectile[projectile.type].Value;

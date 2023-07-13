@@ -81,18 +81,25 @@ namespace ShardsOfAtheria.Projectiles.Tools
                 SlayerPlayer slayer = Main.player[Projectile.owner].Slayer();
                 PageEntry entry = entries[(int)Projectile.ai[1]];
 
-                slayer.soulCrystals.Remove(entry.crystalItem);
+                slayer.soulCrystalNames.Remove(entry.crystalItem);
 
-                int newItem = Item.NewItem(Projectile.GetSource_DropAsItem(), Projectile.Hitbox, entry.crystalItem);
-                Main.item[newItem].noGrabDelay = 0; // Set the new item to be able to be picked up instantly
-
-                // Here we need to make sure the item is synced in multiplayer games.
-                if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+                for (int i = 0; i < ModLoader.Mods.Length; i++)
                 {
-                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                    Mod mod = ModLoader.Mods[i];
+                    if (mod.TryFind(entry.crystalItem, out ModItem modItem))
+                    {
+                        int newItem = Item.NewItem(Projectile.GetSource_DropAsItem(), Projectile.Hitbox, modItem.Type);
+                        Main.item[newItem].noGrabDelay = 0; // Set the new item to be able to be picked up instantly
+
+                        // Here we need to make sure the item is synced in multiplayer games.
+                        if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+                        {
+                            NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                        }
+                    }
                 }
 
-                SoA.Log("New Soul Crystal list: ", slayer.soulCrystals);
+                SoA.Log("New Soul Crystal list: ", slayer.soulCrystalNames);
             }
         }
     }

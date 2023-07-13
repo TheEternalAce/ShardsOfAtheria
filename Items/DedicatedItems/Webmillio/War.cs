@@ -2,6 +2,7 @@ using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
@@ -47,6 +48,7 @@ namespace ShardsOfAtheria.Items.DedicatedItems.Webmillio
         {
             Item.ResearchUnlockCount = 1;
             Item.AddElec();
+            SoAGlobalItem.UpgradeableItem.Add(Type);
         }
 
         public override void SetDefaults()
@@ -103,6 +105,12 @@ namespace ShardsOfAtheria.Items.DedicatedItems.Webmillio
             if (upgraded)
             {
                 type = ModContent.ProjectileType<Warframe_Upgrade>();
+            }
+            player.velocity += velocity * 8f;
+            if (player.velocity.Length() > 16f)
+            {
+                player.velocity.Normalize();
+                player.velocity *= 16f;
             }
         }
 

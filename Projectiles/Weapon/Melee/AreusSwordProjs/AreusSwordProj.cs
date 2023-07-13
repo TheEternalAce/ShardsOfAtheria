@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs
 {
@@ -34,15 +35,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs
             if (shards.itemCombo > 0)
             {
                 swingDirection *= -1;
-            }
-        }
-
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                Vector2 position = target.Center + Vector2.One.RotatedByRandom(360) * 180;
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, Vector2.Normalize(target.Center - position) * 20, ModContent.ProjectileType<ElectricBlade>(), 50, 6f, Projectile.owner);
             }
         }
 
@@ -90,6 +82,35 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs
                 return -20f * p;
             }
             return 0f;
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            var player = Main.player[Projectile.owner];
+            if (player.IsLocal())
+            {
+                int boxSize = 100;
+                Rectangle spawnRegion = new(
+                    (int)player.Center.X - boxSize / 2,
+                    (int)player.Center.Y - boxSize / 2,
+                    boxSize, boxSize
+                );
+                var boxOffset = player.Center - Main.MouseWorld;
+                boxOffset.Normalize();
+                boxOffset *= boxSize;
+                spawnRegion.X += (int)boxOffset.X;
+                spawnRegion.Y += (int)boxOffset.Y;
+                for (int i = 0; i < 5; i++)
+                {
+                    var position = ShardsHelpers.GetPointInRegion(spawnRegion);
+                    var vector = Main.MouseWorld - position;
+                    vector.Normalize();
+                    vector *= 16;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, vector,
+                        ModContent.ProjectileType<ElectricBlade>(), Projectile.damage,
+                        Projectile.knockBack, player.whoAmI);
+                }
+            }
         }
 
         public override bool PreDraw(ref Color lightColor)

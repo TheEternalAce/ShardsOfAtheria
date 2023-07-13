@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.ShardsUI
             slots[i] = new VanillaItemSlotWrapper(scale: 0.8f)
             {
                 Left = { Pixels = 0 },
-                Top = { Pixels = 52 * i },
+                Top = { Pixels = 52f * i },
                 ValidItemFunc = item => ValidateItem(item, i)
             };
             panel.Append(slots[i]);
@@ -92,7 +92,7 @@ namespace ShardsOfAtheria.ShardsUI
 
             int x = Main.screenWidth - 400;
             int y = 250;
-            SetRectangle(panel, x, y, 74, 168);
+            panel.SetRectangle(x, y, 74, 168);
 
             var player = Main.LocalPlayer;
             var armorPlayer = player.Areus();
@@ -129,7 +129,6 @@ namespace ShardsOfAtheria.ShardsUI
                     if (SoA.Instance.TryFind<ModItem>(pendingChip, out var item))
                     {
                         slot.Item = new(item.Type);
-                        break;
                     }
                 }
             }

@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.EnergyScythe
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 10;
             Projectile.extraUpdates = 1;
             Projectile.timeLeft = 240;
             Projectile.tileCollide = false;

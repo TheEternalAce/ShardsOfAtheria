@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Utilities;
-using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -80,31 +79,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
                     if (Projectile.velocity.Length() != 0)
                     {
                         SetSpin(true);
-                        Projectile.velocity.X = (float)Math.Floor(Projectile.velocity.X);
-                        Projectile.velocity.Y = (float)Math.Floor(Projectile.velocity.Y);
-                        int slowdown = 1;
-                        if (Projectile.velocity.X != 0)
-                        {
-                            if (Projectile.velocity.X < 0)
-                            {
-                                Projectile.velocity.X += slowdown;
-                            }
-                            else
-                            {
-                                Projectile.velocity.X -= slowdown;
-                            }
-                        }
-                        if (Projectile.velocity.Y != 0)
-                        {
-                            if (Projectile.velocity.Y < 0)
-                            {
-                                Projectile.velocity.Y += slowdown;
-                            }
-                            else
-                            {
-                                Projectile.velocity.Y -= slowdown;
-                            }
-                        }
+                        Projectile.SlowDown();
                     }
                 }
             }

@@ -1,5 +1,6 @@
 using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
@@ -26,36 +27,17 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.AddAqua();
             Item.AddFire();
             Item.AddElec();
+            SoAGlobalItem.UpgradeableItem.Add(Type);
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             ShardsPlayer shardsPlayer = Main.LocalPlayer.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
-            if (upgrades == 0)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Tooltip", Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.GenesisAndRagnarokBase")));
-            }
-            if (upgrades == 1)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Tooltip", Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.GenesisAndRagnarokUpgrade1")));
-            }
-            if (upgrades == 2)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Tooltip", Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.GenesisAndRagnarokUpgrade2")));
-            }
-            if (upgrades == 3)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Tooltip", Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.GenesisAndRagnarokUpgrade3")));
-            }
-            if (upgrades == 4)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Tooltip", Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.GenesisAndRagnarokUpgrade4")));
-            }
-            if (upgrades == 5)
-            {
-                tooltips.Add(new TooltipLine(Mod, "Tooltip", Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.GenesisAndRagnarokUpgrade5")));
-            }
+            string key = "Mods.ShardsOfAtheria.Items.GenesisAndRagnarokUpgrade";
+            string text = Language.GetTextValue(key + upgrades);
+            var line = new TooltipLine(Mod, "Tooltip", text);
+            tooltips.Insert(ShardsTooltipHelper.GetIndex(tooltips, "OneDropLogo"), line);
         }
 
         public override void SetDefaults()

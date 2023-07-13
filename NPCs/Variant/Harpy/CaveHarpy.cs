@@ -5,6 +5,7 @@ using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
+using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.GameContent.Bestiary;
@@ -104,31 +105,35 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.Feather, 2));
-            int[] ores = new[] {
-                ItemID.CopperOre,
-                ItemID.TinOre,
-                ItemID.IronOre,
-                ItemID.LeadOre,
-                ItemID.SilverOre,
-                ItemID.TungstenOre,
-                ItemID.GoldOre,
-                ItemID.PlatinumOre,
-                ModContent.ItemType<BionicOreItem>()
+            int maxOres = 25;
+            int[,] ores = new int[,]
+            {
+                { ItemID.CopperOre, maxOres },
+                { ItemID.TinOre, maxOres },
+                { ItemID.IronOre, maxOres },
+                { ItemID.LeadOre, maxOres },
+                { ItemID.SilverOre, maxOres },
+                { ItemID.TungstenOre, maxOres },
+                { ItemID.GoldOre, maxOres },
+                { ItemID.PlatinumOre, maxOres },
+                { ModContent.ItemType<BionicOreItem>(), maxOres }
             };
 
-            npcLoot.Add(ItemDropRule.OneFromOptions(1, ores));
-            int[] gems = new[]
+            npcLoot.Add(new ManyFromOptionsDropRule(1, 1, ores));
+
+            int maxGems = 3;
+            int[,] gems = new[,]
             {
-                ItemID.Amethyst,
-                ItemID.Diamond,
-                ItemID.Emerald,
-                ItemID.Ruby,
-                ItemID.Sapphire,
-                ItemID.Topaz,
-                ItemID.Amber,
-                ModContent.ItemType<Jade>()
+                { ItemID.Amethyst, maxGems },
+                { ItemID.Diamond, maxGems },
+                { ItemID.Emerald, maxGems },
+                { ItemID.Ruby, maxGems },
+                { ItemID.Sapphire, maxGems },
+                { ItemID.Topaz, maxGems },
+                { ItemID.Amber, maxGems },
+                { ModContent.ItemType<Jade>(), maxGems }
             };
-            npcLoot.Add(ItemDropRule.OneFromOptions(5, gems));
+            npcLoot.Add(new ManyFromOptionsDropRule(1, 1, gems));
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)

@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
@@ -65,14 +64,34 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
         public override void RightClick(Player player)
         {
             if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt) && page > 0)
+            {
                 page = 0;
-            else if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift) && page > 0)
-                page--;
-            else page++;
-
+            }
+            else if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
+            {
+                if (page > 0)
+                {
+                    page--;
+                }
+                else
+                {
+                    page = SoA.MaxNecronomiconPages;
+                }
+            }
+            else
+            {
+                if (page < SoA.MaxNecronomiconPages)
+                {
+                    page++;
+                }
+                else
+                {
+                    page = 0;
+                }
+            }
             SoA.Log("Slayer mode? ", player.Slayer().slayerMode);
             SoA.Log("Entropy set bonus? ", player.Slayer().slayerSet);
-            SoA.Log("Soul crystals: ", player.Slayer().soulCrystals);
+            SoA.Log("Soul crystals: ", player.Slayer().soulCrystalNames);
             SoA.Log("Soul crystal teleports: ", player.Slayer().soulTeleports);
             SoA.Log("Cultist circle fragments: ", player.Slayer().lunaticCircleFragments);
         }
@@ -95,17 +114,17 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
         {
             if (page == 1)
             {
-                if (!player.GetModPlayer<SlayerPlayer>().slayerMode)
+                if (!player.Slayer().slayerMode)
                 {
                     ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Slayer mode enabled for " + player.name), Color.White);
                     SoundEngine.PlaySound(SoundID.Roar, player.position);
-                    player.GetModPlayer<SlayerPlayer>().slayerMode = true;
+                    player.Slayer().slayerMode = true;
                 }
                 else
                 {
                     ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Slayer mode disabled for " + player.name), Color.White);
                     SoundEngine.PlaySound(SoundID.Roar, player.position);
-                    player.GetModPlayer<SlayerPlayer>().slayerMode = false;
+                    player.Slayer().slayerMode = false;
                 }
             }
             return true;
@@ -113,7 +132,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            SlayerPlayer slayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
+            SlayerPlayer slayer = Main.LocalPlayer.Slayer();
 
             if (page == 0)
             {
@@ -121,11 +140,11 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
                 tooltips.Add(new TooltipLine(Mod, "PageList", "General Info"));
                 tooltips.Add(new TooltipLine(Mod, "PageList", "Soul Crystal Info"));
 
-                // Absorbed PageList
+                // Absorbed List
                 for (int i = 0; i < entries.Count; i++)
                 {
                     PageEntry entry = entries[i];
-                    if (slayer.soulCrystals.Contains(entry.crystalItem) || SoA.ClientConfig.entryView)
+                    if (slayer.HasSoulCrystal(entry.crystalItem) || SoA.ClientConfig.entryView)
                     {
                         tooltips.Add(new TooltipLine(Mod, "PageList", $"{entry.entryName} ({entry.mod})")
                         {
@@ -137,7 +156,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
             if (page == 1)
             {
                 tooltips.Add(new TooltipLine(Mod, "Page", Language.GetTextValue("Mods.ShardsOfAtheria.Necronomicon.GenericInfo")));
-                if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
+                if (Main.LocalPlayer.Slayer().slayerMode)
                 {
                     tooltips.Add(new TooltipLine(Mod, "SlayerMode", Language.GetTextValue("Mods.ShardsOfAtheria.Necronomicon.Active"))
                     {
@@ -151,15 +170,10 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
             }
 
             // Soul Crystal effects
-            if (page > SoA.MaxNecronomiconPages)
-            {
-                page = 0;
-            }
-
             if (page >= 3)
             {
                 PageEntry entry = entries[page - 3];
-                if (slayer.soulCrystals.Contains(entry.crystalItem) || SoA.ClientConfig.entryView)
+                if (slayer.HasSoulCrystal(entry.crystalItem) || SoA.ClientConfig.entryView)
                 {
                     tooltips.Add(new TooltipLine(Mod, "Page", $"{entry.EntryText()}")
                     {
@@ -183,11 +197,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
 
         public override void UpdateInventory(Player player)
         {
-            if (page > SoA.MaxNecronomiconPages)
-            {
-                page = SoA.MaxNecronomiconPages;
-            }
-            SlayerPlayer slayer = player.GetModPlayer<SlayerPlayer>();
+            SlayerPlayer slayer = player.Slayer();
             if (SoA.ClientConfig.entryView)
             {
                 return;
@@ -197,19 +207,15 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
                 if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
                 {
                     PageEntry entry = entries[page - 3];
-                    if (!slayer.soulCrystals.Contains(entry.crystalItem))
+                    if (!slayer.HasSoulCrystal(entry.crystalItem))
                     {
                         page--;
-                    }
-                    if (page > SoA.MaxNecronomiconPages)
-                    {
-                        page = SoA.MaxNecronomiconPages;
                     }
                 }
                 else
                 {
                     PageEntry entry = entries[page - 3];
-                    if (!slayer.soulCrystals.Contains(entry.crystalItem))
+                    if (!slayer.HasSoulCrystal(entry.crystalItem))
                     {
                         page++;
                     }

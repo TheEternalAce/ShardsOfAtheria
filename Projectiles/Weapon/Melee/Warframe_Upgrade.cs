@@ -9,6 +9,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Effects.ScreenShaking;
 //using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee
@@ -41,7 +42,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             Projectile.width = Projectile.height = 30;
             swordReach = 180;
             rotationOffset = -MathHelper.PiOver4 * 3f;
-            amountAllowedToHit = 3;
+            amountAllowedToHit = 4;
         }
 
         protected override void Initialize(Player player, ShardsPlayer shards)
@@ -56,7 +57,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Electrified, 600);
-            //ScreenShake.ShakeScreen(6, 60);
+            ScreenShake.ShakeScreen(6, 60);
+            var player = Main.player[Projectile.owner];
+            var vector = player.Center - target.Center;
+            vector.Normalize();
+            player.velocity = vector * 8;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -81,6 +86,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Electric);
                 dust.velocity = AngleVector * Projectile.velocity.Length() * 4;
             }
+        }
+
+        public override void UpdateSwing(float progress, float interpolatedSwingProgress)
+        {
+            FireProjectile(progress, ModContent.ProjectileType<WarframeSlash>(),
+                (int)(Projectile.damage * 0.75), (int)(Projectile.knockBack * 0.75));
         }
 
         public override float SwingProgress(float progress)

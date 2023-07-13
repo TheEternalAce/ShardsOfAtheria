@@ -1,5 +1,4 @@
-﻿using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Systems;
+﻿using ShardsOfAtheria.Utilities;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Commands
@@ -17,9 +16,9 @@ namespace ShardsOfAtheria.Commands
 
         public override void Action(CommandCaller caller, string input, string[] args)
         {
-            SlayerPlayer sPlayer = caller.Player.GetModPlayer<SlayerPlayer>();
+            var sPlayer = caller.Player.Slayer();
 
-            sPlayer.soulCrystals.Clear();
+            sPlayer.soulCrystalNames.Clear();
             SoA.DownedSystem.slainKing = false;
             SoA.DownedSystem.slainEOC = false;
             SoA.DownedSystem.slainBOC = false;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.Buffs.PlayerDebuff
                     Player.lifeRegen = 0;
                 }
                 Player.lifeRegenTime = 0;
-                Player.lifeRegen -= Player.GetModPlayer<SlayerPlayer>().soulCrystals.Count;
+                Player.lifeRegen -= Player.Slayer().soulCrystalNames.Count;
             }
         }
     }

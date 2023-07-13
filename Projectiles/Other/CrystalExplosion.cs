@@ -2,6 +2,7 @@
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Effects.ScreenShaking;
 //using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Projectiles.Other
@@ -27,7 +28,7 @@ namespace ShardsOfAtheria.Projectiles.Other
         {
             if (Projectile.ai[0] == 0)
             {
-                //ScreenShake.ShakeScreen(6, 60);
+                ScreenShake.ShakeScreen(6, 60);
                 SoundEngine.PlaySound(SoundID.Item14);
                 Projectile.ai[0] = 1;
             }

@@ -159,12 +159,12 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
         {
             Player lastPlayerToHitThisNPC = NPC.AnyInteractions() ? Main.player[NPC.lastInteraction] : null;
             NPC.SetEventFlagCleared(ref ShardsDownedSystem.downedValkyrie, -1);
-            if (Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode)
+            if (Main.LocalPlayer.Slayer().slayerMode)
             {
                 SoA.DownedSystem.slainValkyrie = true;
             }
 
-            if (lastPlayerToHitThisNPC != null && lastPlayerToHitThisNPC.GetModPlayer<SlayerPlayer>().slayerMode)
+            if (lastPlayerToHitThisNPC != null && lastPlayerToHitThisNPC.Slayer().slayerMode)
             {
                 NPC.SlayNPC(lastPlayerToHitThisNPC);
             }
@@ -201,7 +201,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             }
 
             Player player = Main.player[NPC.target];
-            bool isSlayer = player.GetModPlayer<SlayerPlayer>().slayerMode;
+            bool isSlayer = player.Slayer().slayerMode;
 
             // death drama
             if (NPC.ai[3] > 0f)
@@ -267,7 +267,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 DoPhase2Transition();
             }
 
-            if (NPC.life <= NPC.lifeMax * 0.25 && !desperation && player.GetModPlayer<SlayerPlayer>().slayerMode)
+            if (NPC.life <= NPC.lifeMax * 0.25 && !desperation && player.Slayer().slayerMode)
             {
                 NPC.UseBossDialogueWithKey("NovaStellar", ShardsNPCHelper.DesperationLine, Color.Red);
                 desperation = true;
@@ -652,7 +652,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             if (transitionTime == 120)
             {
                 Player player = Main.player[NPC.target];
-                bool isSlayer = player.GetModPlayer<SlayerPlayer>().slayerMode;
+                bool isSlayer = player.Slayer().slayerMode;
 
                 NPC.UseBossDialogueWithKey("NovaStellar", isSlayer ? ShardsNPCHelper.SlayerMidFightLine :
                     AlreadyDefeated ? ShardsNPCHelper.ReMidFightLine :

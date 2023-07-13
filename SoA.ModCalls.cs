@@ -1,11 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace ShardsOfAtheria
 {
@@ -41,7 +39,7 @@ namespace ShardsOfAtheria
                         // Checks if the player has Slayer Mode enabled
                         if (args[1] is Player slayer)
                         {
-                            return slayer.GetModPlayer<SlayerPlayer>().slayerMode;
+                            return slayer.Slayer().slayerMode;
                         }
                         else
                         {
@@ -91,13 +89,13 @@ namespace ShardsOfAtheria
                         {
                             throw new ArgumentException(args[3].GetType().Name + ModCalls.InvalidString);
                         }
-                        if (args[4] is not int) // Soul Crystal Item ID
+                        if (args[4] is not string) // Soul Crystal Item Name
                         {
-                            throw new ArgumentException(args[4].GetType().Name + ModCalls.InvalidInt);
+                            throw new ArgumentException(args[4].GetType().Name + ModCalls.InvalidString);
                         }
                         else
                         {
-                            Entry.NewEntry((string)args[1], (string)args[2], (string)args[3], (int)args[4]);
+                            Entry.NewEntry((string)args[1], (string)args[2], (string)args[3], (string)args[4]);
                         }
                         break;
                     case ModCalls.AddNecronomiconColor: // Probably should move into "invoke"
@@ -117,13 +115,13 @@ namespace ShardsOfAtheria
                         {
                             throw new ArgumentException(args[4].GetType().Name + ModCalls.InvalidColor);
                         }
-                        if (args[5] is not int) // Soul Crystal Item ID
+                        if (args[5] is not string) // Soul Crystal Item Name
                         {
-                            throw new ArgumentException(args[5].GetType().Name + ModCalls.InvalidInt);
+                            throw new ArgumentException(args[5].GetType().Name + ModCalls.InvalidString);
                         }
                         else
                         {
-                            Entry.NewEntry((string)args[1], (string)args[2], (string)args[3], (Color)args[4], (int)args[5]);
+                            Entry.NewEntry((string)args[1], (string)args[2], (string)args[3], (Color)args[4], (string)args[5]);
                         }
                         break;
                     case ModCalls.WIPNecronomicon: // Probably should move into "invoke"
@@ -160,9 +158,9 @@ namespace ShardsOfAtheria
                     case ModCalls.FlagHasSoulCrystal:
                         if (args[1] is Player soulsPlayer)
                         {
-                            if (args[2] is int sC)
+                            if (args[2] is string item)
                             {
-                                return soulsPlayer.GetModPlayer<SlayerPlayer>().soulCrystals.Contains(sC);
+                                return soulsPlayer.Slayer().soulCrystalNames.Contains(item);
                             }
                             else
                             {
@@ -176,13 +174,13 @@ namespace ShardsOfAtheria
                     case ModCalls.AddSoulCrystal: // Probably should move into "invoke"
                         if (args[1] is Player soulsPlayer2)
                         {
-                            if (args[2] is int)
+                            if (args[2] is string item)
                             {
-                                soulsPlayer2.GetModPlayer<SlayerPlayer>().soulCrystals.Add((int)args[3]);
+                                soulsPlayer2.Slayer().soulCrystalNames.Add(item);
                             }
                             else
                             {
-                                throw new ArgumentException(args[3].GetType().Name + ModCalls.InvalidInt);
+                                throw new ArgumentException(args[3].GetType().Name + ModCalls.InvalidString);
                             }
                         }
                         else

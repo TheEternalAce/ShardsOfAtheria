@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
@@ -13,6 +14,7 @@ using ShardsOfAtheria.Systems;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
@@ -45,6 +47,7 @@ namespace ShardsOfAtheria
         public const string PlaceholderTexture = "ShardsOfAtheria/PlaceholderSprite";
         public const string BuffTemplate = "ShardsOfAtheria/Buffs/BuffTemp";
         public const string DebuffTemplate = "ShardsOfAtheria/Buffs/DebuffTemp";
+        public const string SwordSlashTexture = "ShardsOfAtheria/Projectiles/Bases/SwordSlash";
 
         public const string LocalizeCommon = "Mods.ShardsOfAtheria.Common.";
 
@@ -74,10 +77,10 @@ namespace ShardsOfAtheria
                 ModLoader.TryGetMod("Wikithis", out Mod wikithis);
                 if (wikithis != null)
                 {
-                    wikithis.Call("AddModURL", this, "terrariamods.wiki.gg$Shards_of_Atheria");
+                    wikithis.Call("AddModURL", Instance, "terrariamods.wiki.gg$Shards_of_Atheria");
 
                     // If you want to replace default icon for your mod, then call this. Icon should be 30x30, either way it will be cut.
-                    wikithis.Call("AddWikiTexture", this, ModContent.Request<Texture2D>("ShardsOfAtheria/icon_small"));
+                    wikithis.Call("AddWikiTexture", Instance, ModContent.Request<Texture2D>("ShardsOfAtheria/icon_small"));
                 }
 
                 ReactorAlarm = new SoundStyle("ShardsOfAtheria/Sounds/Item/ReactorMeltdownAlarm")
@@ -111,6 +114,45 @@ namespace ShardsOfAtheria
                         Main.instance.Window.Title = ChooseTitleText();
                     }
                 }
+            }
+
+            if (ModLoader.TryGetMod("TerraTyping", out Mod terratyping))
+            {
+                Dictionary<string, object> addWeapon = new()
+                {
+                    { "call", "AddTypes" },
+                    { "typestoadd", "weapon" },
+                    { "callingmod", Instance },
+                    { "filename", "Content/TerraTypes/Weapons.csv" }
+                };
+                terratyping.Call(addWeapon);
+
+                Dictionary<string, object> addProjectile = new()
+                {
+                    { "call", "AddTypes" },
+                    { "typestoadd", "projectile" },
+                    { "callingmod", Instance },
+                    { "filename", "Content/TerraTypes/Projectiles.csv" }
+                };
+                terratyping.Call(addProjectile);
+
+                Dictionary<string, object> addAmmo = new()
+                {
+                    { "call", "AddTypes" },
+                    { "typestoadd", "ammo" },
+                    { "callingmod", Instance },
+                    { "filename", "Content/TerraTypes/Ammo.csv" }
+                };
+                terratyping.Call(addAmmo);
+
+                Dictionary<string, object> addNPC = new()
+                {
+                    { "call", "AddTypes" },
+                    { "typestoadd", "npc" },
+                    { "callingmod", Instance },
+                    { "filename", "Content/TerraTypes/NPCs.csv" }
+                };
+                terratyping.Call(addNPC);
             }
 
             if (ModLoader.TryGetMod("BossChecklist", out Mod foundMod1))
@@ -176,6 +218,17 @@ namespace ShardsOfAtheria
             int index = Main.rand.Next(2);
 
             return title[index];
+        }
+
+        public static Dictionary<string, List<string>> GetContentArrayFile(string name)
+        {
+            using (var stream = Instance.GetFileStream($"Content/{name}.json", newFileStream: true))
+            {
+                using (var streamReader = new StreamReader(stream))
+                {
+                    return JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(streamReader.ReadToEnd());
+                }
+            }
         }
 
         private static bool ConsoleDebug => ClientConfig.debug == "Console only";

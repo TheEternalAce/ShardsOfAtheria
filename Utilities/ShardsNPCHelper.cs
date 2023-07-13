@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Systems;
 using Terraria;
@@ -99,7 +100,7 @@ namespace ShardsOfAtheria.Utilities
 
         public static void SlayNPC(this NPC npc, Player player)
         {
-            SlayerPlayer slayer = player.GetModPlayer<SlayerPlayer>();
+            SlayerPlayer slayer = player.Slayer();
             if (slayer.slayerMode)
             {
                 ShardsDownedSystem.slainBosses.Add(npc.type);
@@ -128,6 +129,20 @@ namespace ShardsOfAtheria.Utilities
                 rng = Main.rand
             };
             Main.ItemDropSolver.TryDropping(info);
+        }
+
+        public static Vector2 GetSpeedStats(this NPC npc)
+        {
+            var velocityBoost = new Vector2(npc.StatSpeed());
+            if (!npc.noGravity)
+            {
+                velocityBoost.Y = MathHelper.Lerp(1f, velocityBoost.Y, npc.GetGlobalNPC<StatSpeedGlobalNPC>().jumpSpeedInterpolation);
+            }
+            return velocityBoost;
+        }
+        public static ref float StatSpeed(this NPC npc)
+        {
+            return ref npc.GetGlobalNPC<StatSpeedGlobalNPC>().statSpeed;
         }
     }
 }

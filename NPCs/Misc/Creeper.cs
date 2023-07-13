@@ -3,9 +3,8 @@ using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.Summons;
-using ShardsOfAtheria.Items.SoulCrystals;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj;
+using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -49,7 +48,8 @@ namespace ShardsOfAtheria.NPCs.Misc
 
             if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                if (Main.player[NPC.target].dead || !Main.player[NPC.target].active || !Main.player[NPC.target].GetModPlayer<SlayerPlayer>().soulCrystals.Contains(ModContent.ItemType<BrainSoulCrystal>()))
+                var player = Main.player[NPC.target];
+                if (player.dead || !player.active || !player.Slayer().EoCSoul)
                     NPC.active = false;
                 else NPC.active = true;
 

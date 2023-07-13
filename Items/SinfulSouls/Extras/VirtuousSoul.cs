@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Effects.ScreenShaking;
 //using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Items.SinfulSouls.Extras
@@ -87,7 +88,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
                     DrawOffsetX = Projectile.width / 2 - 20;
                     DrawOriginOffsetY = Projectile.height / 2 - 90;
                 }
-                //ScreenShake.ShakeScreen(6, 60);
+                ScreenShake.ShakeScreen(6, 60);
                 SoundEngine.PlaySound(SoundID.Item14);
                 Projectile.ai[0] = 1;
             }

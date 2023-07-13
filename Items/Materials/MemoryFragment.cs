@@ -1,8 +1,7 @@
+using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace ShardsOfAtheria.Items.Materials
 {
@@ -20,7 +19,7 @@ namespace ShardsOfAtheria.Items.Materials
         {
             Item.width = 40;
             Item.height = 44;
-            Item.maxStack = 999;
+            Item.maxStack = 9999;
 
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(0, 1);

@@ -25,8 +25,8 @@ namespace ShardsOfAtheria.Items.BossSummons
             if (!SoA.ServerConfig.nonConsumeBoss)
             {
                 Item.consumable = true;
-                Item.maxStack = 9999;
             }
+            Item.maxStack = 9999;
 
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.useTime = 45;

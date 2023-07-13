@@ -5,20 +5,19 @@ using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.AreusChips;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.Consumable;
-using ShardsOfAtheria.Items.DedicatedItems.Webmillio;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs;
+using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
+using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
-using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
@@ -28,7 +27,6 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
-using static ShardsOfAtheria.Utilities.ShardsHelpers;
 
 namespace ShardsOfAtheria.NPCs.Town.TheAtherian
 {
@@ -190,7 +188,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             WeightedRandom<string> chat = new();
             Player player = Main.LocalPlayer;
 
-            if ((!player.GetModPlayer<SlayerPlayer>().slayerMode || SoA.ServerConfig.cluelessNPCs) &&
+            if ((!player.Slayer().slayerMode || SoA.ServerConfig.cluelessNPCs) &&
                 player.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
             {
                 ShardsPlayer shardsPlayer = player.Shards();
@@ -244,225 +242,24 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             }
             else
             {
-                Player player = Main.LocalPlayer;
-                ShardsPlayer shardsPlayer = player.Shards();
-                int upgrades = shardsPlayer.genesisRagnarockUpgrades;
-
-                if (player.Slayer().slayerMode && !SoA.ServerConfig.cluelessNPCs)
-                {
-                    Main.npcChatText = Language.GetTextValue(DialogueKeyBase + "RefuseUpgrade");
-                }
-                else if (PlayerHasItem<GenesisAndRagnarok>(player) && upgrades < 5)
-                {
-                    int result = ModContent.ItemType<GenesisAndRagnarok>();
-                    var materials = new UpgrageMaterial[0];
-                    switch (upgrades)
-                    {
-                        case 0:
-                            materials = new[] {
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()])
-                            };
-                            break;
-                        case 1:
-                            materials = new[] {
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()]),
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.ChlorophyteBar], 14)
-                            };
-                            break;
-                        case 2:
-                            materials = new[] {
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()]),
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.BeetleHusk], 16)
-                            };
-                            break;
-                        case 3:
-                            materials = new[] {
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()]),
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.FragmentSolar], 18)
-                            };
-                            break;
-                        case 4:
-                            materials = new[] {
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<GenesisAndRagnarok>()], 0),
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<MemoryFragment>()]),
-                                new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.LunarBar], 20)
-                            };
-                            break;
-                    }
-                    UpgradeItem<GenesisAndRagnarok>(player, materials);
-                }
-                else if (PlayerHasItem<AreusKatana>(player))
-                {
-                    UpgrageMaterial[] materials = {
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusKatana>()]),
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.BeetleHusk], 20),
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.SoulofFright], 14)
-                    };
-                    UpgradeItem<TheMourningStar>(player, materials);
-                }
-                else if (PlayerHasItem<War>(player))
-                {
-                    UpgrageMaterial[] materials = {
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<War>()], 0),
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.HallowedBar], 20)
-                    };
-                    UpgradeItem<War>(player, materials);
-                }
-                else if (PlayerHasItem<AreusRailgun>(player))
-                {
-                    UpgrageMaterial[] materials = {
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusRailgun>()]),
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.Flamethrower]),
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.BeetleHusk], 14)
-                    };
-                    UpgradeItem<AreusFlameCannon>(player, materials);
-                }
-                else if (PlayerHasItem<AreusGambit>(player))
-                {
-                    UpgrageMaterial[] materials = {
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusGambit>()]),
-                        //new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusGlaive>()]),
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusDagger>()]),
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusMagnum>()]),
-                        //new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusRailgun>()]),
-                        //new UpgrageMaterial(ContentSamples.ItemsByType[ModContent.ItemType<AreusBow>()]),
-                        new UpgrageMaterial(ContentSamples.ItemsByType[ItemID.BeetleHusk], 15)
-                    };
-                    UpgradeItem<AreusGauntlet>(player, materials);
-                }
-                else
-                {
-                    Main.npcChatText = Language.GetTextValue(DialogueKeyBase + "NoUpgradableItem");
-                    return;
-                }
+                ModContent.GetInstance<UpgradeUISystem>().ShowUI();
+                Main.playerInventory = true;
+                Main.npcChatText = "";
             }
-        }
-
-        bool PlayerHasItem<T>(Player player) where T : ModItem
-        {
-            return player.HasItem(ModContent.ItemType<T>());
-        }
-
-        /// <summary>
-        /// Insert useful summary here
-        /// </summary>
-        /// <param name="player"> Player with the item to be upgraded</param>
-        /// <param name="materials"> an array of UpgradeMaterials</param>
-        public void UpgradeItem<T>(Player player, params UpgrageMaterial[] materials) where T : ModItem
-        {
-            ShardsPlayer shardsPlayer = player.Shards();
-
-            int result = ModContent.ItemType<T>();
-            Main.npcChatCornerItem = result;
-            if (CanUpgradeItem(player, materials))
-            {
-                for (int i = 0; i < materials.Length; i++)
-                {
-                    player.inventory[player.FindItem(materials[i].item.type)].stack -= materials[i].requiredStack;
-                }
-                if (materials[0].item.ModItem is GenesisAndRagnarok)
-                {
-                    shardsPlayer.genesisRagnarockUpgrades++;
-                }
-                if (materials[0].item.ModItem is War war)
-                {
-                    (player.inventory[player.FindItem(materials[0].item.type)].ModItem as War).upgraded = true;
-                }
-                SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
-                if (result > 0)
-                {
-                    if (result == ModContent.ItemType<GenesisAndRagnarok>())
-                    {
-                        string key = "";
-                        switch (shardsPlayer.genesisRagnarockUpgrades)
-                        {
-                            case 1:
-                                key = DialogueKeyBase + "UpgradeGenesisAndRagnarok1";
-                                break;
-                            case 2:
-                                key = DialogueKeyBase + "UpgradeGenesisAndRagnarok2";
-                                break;
-                            case 3:
-                                key = DialogueKeyBase + "UpgradeGenesisAndRagnarok3";
-                                break;
-                            case 4:
-                                key = DialogueKeyBase + "UpgradeGenesisAndRagnarok4";
-                                break;
-                            case 5:
-                                key = DialogueKeyBase + "UpgradeGenesisAndRagnarok5";
-                                break;
-                        }
-                        Main.npcChatText = Language.GetTextValue(key);
-                    }
-                    else if (result == ModContent.ItemType<War>())
-                    {
-                        Main.npcChatText = Language.GetTextValue(DialogueKeyBase + "UpgradeAreusWeapon");
-                    }
-                    else
-                    {
-                        Item.NewItem(NPC.GetSource_FromThis(), NPC.getRect(), result);
-                        if (result == ModContent.ItemType<TheMourningStar>())
-                        {
-                            Main.npcChatText = Language.GetTextValue(DialogueKeyBase + "UpgradeAreusWeapon");
-                        }
-                    }
-                }
-            }
-            else
-            {
-                string insufficient = "I need the following items:\n";
-                for (int i = 0; i < materials.Length; i++)
-                {
-                    Item item = null;
-                    if (player.HasItem(materials[i].item.type))
-                    {
-                        item = player.inventory[player.FindItem(materials[i].item.type)];
-                    }
-                    insufficient += Language.GetTextValue(DialogueKeyBase + "NotEnoughMaterial", i, materials[i].item.Name, materials[i].item.type,
-                        materials[i].requiredStack, item == null ? 0 : item.stack) + "\n";
-                    Main.npcChatText = insufficient;
-                }
-            }
-        }
-
-        public bool CanUpgradeItem(Player player, UpgrageMaterial[] upgrageMaterials)
-        {
-            int requiredItems = upgrageMaterials.Length;
-            int playerItems = 0;
-            for (int i = 0; i < requiredItems; i++)
-            {
-                if (player.HasItem(upgrageMaterials[i].item.type))
-                {
-                    Item item = player.inventory[player.FindItem(upgrageMaterials[i].item.type)];
-                    if (item.stack >= upgrageMaterials[i].requiredStack)
-                    {
-                        playerItems++;
-                    }
-                }
-            }
-            return playerItems >= requiredItems;
         }
 
         public override void AddShops()
         {
             var npcShop = new NPCShop(Type, "Shop")
-                .Add<ValkyrieCrest>(new Condition("Mods.ShardsOfAtheria.Condotions.NotSlayer",
-                    () => !Main.LocalPlayer.Slayer().slayerMode))
+                .Add<ValkyrieCrest>(SoAConditions.NotSlayerMode)
                 .Add<AreusShard>()
                 .Add<AreusArmorChip>()
                 .Add<RushDrive>()
                 .Add<AreusProcessor>()
                 .Add<ResonatorRing>()
-                .Add<Bytecrusher>(new Condition("Mods.ShardsOfAtheria.Conditions.AnyMech",
-                    () => NPC.downedMechBossAny))
-                .Add<AreusKey>(new Condition("Mods.ShardsOfAtheria.Condotions.DefeatPlantera",
-                    () => NPC.downedPlantBoss))
-                .Add<AnastasiasPride>(new Condition("Mods.ShardsOfAtheria.Condotions.DefeatPlantera",
-                    () => NPC.downedGolemBoss));
+                .Add<Bytecrusher>(Condition.DownedMechBossAny)
+                .Add<AreusKey>(Condition.DownedPlantera)
+                .Add<AnastasiasPride>(Condition.DownedGolem);
             npcShop.Register();
         }
 

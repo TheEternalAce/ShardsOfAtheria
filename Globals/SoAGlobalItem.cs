@@ -5,7 +5,6 @@ using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.SinfulSouls;
-using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.NPCs.Variant.Harpy;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Other;
@@ -257,20 +256,20 @@ namespace ShardsOfAtheria.Globals
                 }
 
                 Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center);
-                SlayerPlayer slayer = player.GetModPlayer<SlayerPlayer>();
+                SlayerPlayer slayer = player.Slayer();
                 if (slayer.soulCrystalProjectileCooldown == 0 && item.damage > 0)
                 {
                     slayer.soulCrystalProjectileCooldown = 60;
-                    if (slayer.soulCrystals.Contains(ModContent.ItemType<SkullSoulCrystal>()))
+                    if (slayer.SkeletronSoul)
                     {
                         Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 3.5f, ProjectileID.BookOfSkullsSkull, 40, 3.5f, player.whoAmI);
                     }
-                    if (slayer.soulCrystals.Contains(ModContent.ItemType<EaterSoulCrystal>()))
+                    if (slayer.EoWSoul)
                     {
                         Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 16f, ModContent.ProjectileType<VileShot>(), 30, 1, player.whoAmI);
                         SoundEngine.PlaySound(SoundID.Item17);
                     }
-                    if (slayer.soulCrystals.Contains(ModContent.ItemType<ValkyrieSoulCrystal>()))
+                    if (slayer.NovaSoul)
                     {
                         SoundEngine.PlaySound(SoundID.Item1);
                         for (int i = 0; i < 4; i++)
@@ -280,12 +279,12 @@ namespace ShardsOfAtheria.Globals
                             proj.DamageType = DamageClass.Generic;
                         }
                     }
-                    if (slayer.soulCrystals.Contains(ModContent.ItemType<BeeSoulCrystal>()))
+                    if (slayer.BeeSoul)
                     {
                         Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 18f, ModContent.ProjectileType<Stinger>(), 5, 0f, player.whoAmI);
                         SoundEngine.PlaySound(SoundID.Item17);
                     }
-                    if (slayer.soulCrystals.Contains(ModContent.ItemType<PrimeSoulCrystal>()))
+                    if (slayer.SkeletronSoul)
                     {
                         Main.rand.Next(2);
                         switch (Main.rand.Next(3))
@@ -301,7 +300,7 @@ namespace ShardsOfAtheria.Globals
                                 break;
                         }
                     }
-                    if (slayer.soulCrystals.Contains(ModContent.ItemType<PlantSoulCrystal>()))
+                    if (slayer.PlanteraSoul)
                     {
                         Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 16f, ModContent.ProjectileType<VenomSeed>(), 30, 1, player.whoAmI);
                         SoundEngine.PlaySound(SoundID.Item17);

@@ -119,6 +119,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             }
 
             player.Shards().megaGemCore = true;
+            player.Shards().superSapphireCore = true;
 
             player.GetDamage(DamageClass.Generic) += .2f;
             player.maxMinions += 8;

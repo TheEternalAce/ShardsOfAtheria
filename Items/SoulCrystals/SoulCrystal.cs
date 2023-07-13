@@ -86,12 +86,12 @@ namespace ShardsOfAtheria.Items.SoulCrystals
                         Dust.NewDustDirect(player.Center, 4, 4, DustID.SandstormInABottle, .2f, .2f, 0, default, 1.2f);
                     Lighting.AddLight(player.Center, TorchID.Yellow);
                 }
-                if (!slayer.soulCrystals.Contains(Type))
+                if (!slayer.soulCrystalNames.Contains(Name))
                 {
-                    slayer.soulCrystals.Add(Type);
+                    slayer.soulCrystalNames.Add(Name);
                     Item.TurnToAir();
                     SoundEngine.PlaySound(SoundID.Item4);
-                    SoA.Log("Soul crystals: ", slayer.soulCrystals);
+                    SoA.Log("Soul crystals: ", slayer.soulCrystalNames);
                 }
             }
             return true;

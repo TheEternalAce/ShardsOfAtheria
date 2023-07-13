@@ -100,7 +100,7 @@ Mods: {
 				10% chance not to consume ammo
 				Increases your max number of minions by 3
 				Grants moderate life regen
-				Immunity to 'Madness'
+				Increases Soul Crystals before Madness by 6
 				'''
 		}
 
@@ -1393,6 +1393,34 @@ Mods: {
 					'''
 			}
 
+			GenesisAndRagnarokUpgrade0: Preforms a combo of a spear thrust and whip swing
+			GenesisAndRagnarokUpgrade1: Preforms a combo of a spear thrust, whip swing and spear throw
+			GenesisAndRagnarokUpgrade2:
+				'''
+				Preforms a combo of a spear thrust, whip swing and spear throw
+				Able to swing shield with LMB before it returns
+				'''
+			GenesisAndRagnarokUpgrade3:
+				'''
+				Preforms a combo of a spear thrust, whip swing and spear throw
+				Able to swing shield with LMB before it returns
+				Attacks inflict 'On Fire!'
+				'''
+			GenesisAndRagnarokUpgrade4:
+				'''
+				Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing
+				Able to swing shield with LMB before it returns
+				Sword can erase projectiles
+				Attacks inflict 'On Fire!'
+				'''
+			GenesisAndRagnarokUpgrade5:
+				'''
+				Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing
+				Able to swing shield with LMB before it returns
+				Sword can erase projectiles
+				Attacks inflict Frostburn and create extra ice projectiles
+				'''
+
 			Gomorrah: {
 				DisplayName: Gomorrah
 				Tooltip:
@@ -1430,8 +1458,9 @@ Mods: {
 				DisplayName: The Messiah
 				Tooltip:
 					'''
-					Passively charges while in hand and not in use
-					Max charge level increases damage by 200% and critical strike chance by 60%
+					Attacks with a 7-slash combo
+					Final slash sends you upward
+					Strikes stun enemies
 					'I am the messiah!'"
 					'''
 			}
@@ -1700,33 +1729,70 @@ Mods: {
 					'''
 			}
 
-			GenesisAndRagnarokBase.Tooltip: Preforms a combo of a spear thrust and whip swing
-			GenesisAndRagnarokUpgrade1.Tooltip: Preforms a combo of a spear thrust, whip swing and spear throw
-			GenesisAndRagnarokUpgrade2.Tooltip:
-				'''
-				Preforms a combo of a spear thrust, whip swing and spear throw
-				Able to swing shield with LMB before it returns
-				'''
-			GenesisAndRagnarokUpgrade3.Tooltip:
-				'''
-				Preforms a combo of a spear thrust, whip swing and spear throw
-				Able to swing shield with LMB before it returns
-				Attacks inflict 'On Fire!'
-				'''
-			GenesisAndRagnarokUpgrade4.Tooltip:
-				'''
-				Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing
-				Able to swing shield with LMB before it returns
-				Sword can erase projectiles
-				Attacks inflict 'On Fire!'
-				'''
-			GenesisAndRagnarokUpgrade5.Tooltip:
-				'''
-				Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing
-				Able to swing shield with LMB before it returns
-				Sword can erase projectiles
-				Attacks inflict Frostburn and create extra ice projectiles
-				'''
+			AquaMateria: {
+				DisplayName: Aqua Materia
+				Tooltip: ""
+			}
+
+			ElecMateria: {
+				DisplayName: Elec Materia
+				Tooltip: ""
+			}
+
+			FireMateria: {
+				DisplayName: Fire Materia
+				Tooltip: ""
+			}
+
+			WoodMateria: {
+				DisplayName: Wood Materia
+				Tooltip: ""
+			}
+
+			BiogaMateria: {
+				DisplayName: Bioga Materia
+				Tooltip: ""
+			}
+
+			BizzagaMateria: {
+				DisplayName: Bizzaga Materia
+				Tooltip: ""
+			}
+
+			FiragaMateria: {
+				DisplayName: Firaga Materia
+				Tooltip: ""
+			}
+
+			ThundagaMateria: {
+				DisplayName: Thundaga Materia
+				Tooltip: ""
+			}
+
+			BlizzagaMateria: {
+				DisplayName: Blizzaga Materia
+				Tooltip: ""
+			}
+
+			CactuarMateria: {
+				DisplayName: Cactuar Materia
+				Tooltip: ""
+			}
+
+			IfritMateria: {
+				DisplayName: Ifrit Materia
+				Tooltip: ""
+			}
+
+			RamuhMateria: {
+				DisplayName: Ramuh Materia
+				Tooltip: ""
+			}
+
+			ShivaMateria: {
+				DisplayName: Shiva Materia
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -1761,9 +1827,11 @@ Mods: {
 			# Elizabeth Norman
 			BloodArrowHostile.DisplayName: Blood Arrow Hostile
 			BloodBubbleHostile.DisplayName: Blood Bubble Hostile
+			BloodDropHostile.DisplayName: Blood Drop Hostile
 			BloodJavelinHostile.DisplayName: Blood Javelin Hostile
 			BloodNeedleHostile.DisplayName: Blood Needle Hostile
 			BloodSickleHostile.DisplayName: Blood Sickle Hostile
+			BloodWaveHostile.DisplayName: Blood Wave Hostile
 			SilverBoltHostile.DisplayName: Silver Bolt Hostile
 			# Variant NPC
 			Blood.DisplayName: Blood Feather
@@ -1806,7 +1874,7 @@ Mods: {
 			AreusArrowProj.DisplayName: Areus Arrow
 			AreusBulletProj.DisplayName: Areus Bullet
 			BBProj.DisplayName: Cheap Round
-			SilbrBullet.DisplayName: Silbr Bullet
+			SilbrBullet.DisplayName: Silver Bullet
 			SpectralArrowProj.DisplayName: Spectral Arrow
 			SpectralBulletProj.DisplayName: Spectral Bullet
 			TungstenBullet.DisplayName: Tungsten Bullet
@@ -1843,10 +1911,12 @@ Mods: {
 			AreusGlaive_Thrust2.DisplayName: Areus Glaive
 			AreusSickle.DisplayName: Areus Sickle
 			AreusSwordProj.DisplayName: Areus Sword
+			AquaSlash.DisplayName: Breaker Blade Aqua
 			BloodCutter.DisplayName: Blood Cut
 			CataracniaEye.DisplayName: Cataracnia Eye
 			CorruptPetal.DisplayName: Corrupt Petal
 			CorruptRose.DisplayName: Corrupt Rose
+			ElecSlash.DisplayName: Breaker Blade Elec
 			ElectricBlade.DisplayName: Electric Blade
 			EnergyScythe.DisplayName: Energy Scythe
 			EnergyWave.DisplayName: Energy Wave
@@ -1854,6 +1924,7 @@ Mods: {
 			EntropySickle.DisplayName: Entropy Sickle
 			EntropySlash.DisplayName: Entropy Slash
 			FeatherBladeFriendly.DisplayName: Hardlight Feather
+			FireSlash.DisplayName: Breaker Blade Fire
 			Genesis_Spear.DisplayName: Genesis
 			Genesis_Spear2.DisplayName: Genesis
 			Genesis_Sword.DisplayName: Genesis
@@ -1861,13 +1932,17 @@ Mods: {
 			Gomorrah_Burst.DisplayName: Gomorrah Explosion
 			Gomorrah_Javelin.DisplayName: Gomorrah
 			Gomorrah_Spear.DisplayName: Gomorrah
+			HardlightBlade.DisplayName: Hardlight Blade
+			HardlightSlash.DisplayName: Hardlight Slash
 			HardlightSword.DisplayName: Hardlight Sword
+			HellStar.DisplayName: Hell Star
 			HeroBlade.DisplayName: Hero Blade
-			HeroSwordProj.DisplayName: Hero Sword
+			HeroSlash.DisplayName: Hero Sword
 			HolyBloodHeal.DisplayName: Holy Blood
 			HolyBloodOffense.DisplayName: Holy Blood
 			IceExplosion.DisplayName: Ice Explosion
 			IceShard.DisplayName: Ice Shard
+			IceSpike.DisplayName: Ice Spike
 			IceVortexShard.DisplayName: Ice Shard
 			MessiahRanbu.DisplayName: The Messiah
 			Messiah.DisplayName: Messiah
@@ -1880,8 +1955,11 @@ Mods: {
 			SoulBlade.DisplayName: Soul Blade
 			ValkyrieStormLanceProj.DisplayName: Storm Lance
 			ValkyrieStormSword.DisplayName: Valkyrie Storm
-			Warframe.DisplayName: Warframe
-			Warframe_Upgrade.DisplayName: Warframe Upgrade
+			VenomGlob.DisplayName: Venom Glob
+			Warframe.DisplayName: Providince Claymore
+			Warframe_Upgrade.DisplayName: Providince Claymore
+			WarframeSlash.DisplayName: Providince Claymore
+			WoodSlash.DisplayName: Breaker Blade Wood
 			ZenovaProjectile.DisplayName: Zenova Weapons
 			# Ranged
 			AceOfSpades.DisplayName: Ace of Spades
@@ -1917,6 +1995,9 @@ Mods: {
 			PrometheusFire.DisplayName: Prometheus Fire
 			ScarletSpark.DisplayName: Scarlet Spark
 			SoulArrow.DisplayName: Soul Arrow
+			WitheringPetal.DisplayName: Withering Petal
+			WitheringRose.DisplayName: Withering Rose
+			WitheringSeed.DisplayName: Withering Seed
 			# Summon
 			AreusCrateProj.DisplayName: Areus Crate
 			AreusTurret.DisplayName: Areus Turret
@@ -1927,8 +2008,6 @@ Mods: {
 			SapphireBolt.DisplayName: Sapphire Bolt
 			SapphireSpirit.DisplayName: Sapphire Spirit
 			SoulDagger.DisplayName: Soul Dagger
-			BloodDropHostile.DisplayName: Blood Drop Hostile
-			BloodWaveHostile.DisplayName: Blood Wave Hostile
 		}
 
 		NPCs: {
@@ -2313,6 +2392,11 @@ Mods: {
 				DisplayName: Death Bleed
 				Description: Mods.ShardsOfAtheria.Buffs.DeathBleed.Description
 			}
+
+			Withering: {
+				DisplayName: Withering
+				Description: Mods.ShardsOfAtheria.Buffs.Withering.Description
+			}
 		}
 
 		Necronomicon: {
@@ -2509,6 +2593,11 @@ Mods: {
 					Tooltip: Makes a slight change to the Cavern Harpy sprite
 				}
 			}
+		}
+
+		GameTips: {
+			OmegaKey: Shards of Atheria: There may be an ancient key in the sky islands.
+			Atherian: Shards of Atheria: Defeating the world's evil boss may attract someone who can upgrade weapons.
 		}
 	}
 }

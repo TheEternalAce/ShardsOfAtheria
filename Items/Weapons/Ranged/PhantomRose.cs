@@ -1,8 +1,7 @@
 using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged.GunRose;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -32,6 +31,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item41;
             Item.noMelee = true;
+            Item.autoReuse = true;
 
             Item.shootSpeed = 13f;
             Item.rare = ItemRarityID.Green;
@@ -60,10 +60,12 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             return Main.rand.NextFloat() >= .48f;
         }
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<PhantomBullet>(), damage, knockback, player.whoAmI);
-            return base.Shoot(player, source, position, velocity, type, damage, knockback);
+            if (type == ProjectileID.Bullet)
+            {
+                type = ModContent.ProjectileType<WitheringSeed>();
+            }
         }
     }
 }

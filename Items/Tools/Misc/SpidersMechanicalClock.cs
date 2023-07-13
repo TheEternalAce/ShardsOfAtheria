@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Cooldowns;
-using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -37,9 +37,9 @@ namespace ShardsOfAtheria.Items.Tools.Misc
 
         public override bool? UseItem(Player player)
         {
-            player.Teleport(player.GetModPlayer<SlayerPlayer>().recentPos);
-            player.statLife = player.GetModPlayer<SlayerPlayer>().recentLife;
-            player.statMana = player.GetModPlayer<SlayerPlayer>().recentMana;
+            player.Teleport(player.Slayer().recentPos);
+            player.statLife = player.Slayer().recentLife;
+            player.statMana = player.Slayer().recentMana;
             player.AddBuff(ModContent.BuffType<ClockCooldown>(), 5 * 60);
             return true;
         }
@@ -51,9 +51,9 @@ namespace ShardsOfAtheria.Items.Tools.Misc
                 saveTimer++;
                 if (saveTimer == 300)
                 {
-                    player.GetModPlayer<SlayerPlayer>().recentPos = player.position;
-                    player.GetModPlayer<SlayerPlayer>().recentLife = player.statLife;
-                    player.GetModPlayer<SlayerPlayer>().recentMana = player.statMana;
+                    player.Slayer().recentPos = player.position;
+                    player.Slayer().recentLife = player.statLife;
+                    player.Slayer().recentMana = player.statMana;
                     CombatText.NewText(player.getRect(), Color.Gray, "Time shift ready");
                 }
                 if (saveTimer >= 302)

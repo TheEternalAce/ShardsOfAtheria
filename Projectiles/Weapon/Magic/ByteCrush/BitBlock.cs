@@ -18,7 +18,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ByteCrush
 
             Projectile.aiStyle = -1;
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.penetrate = 5;
             Projectile.timeLeft = 60;
             Projectile.friendly = true;
         }

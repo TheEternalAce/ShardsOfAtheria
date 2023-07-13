@@ -8,13 +8,17 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <AdditionalFiles Remove="NPCs\Town\Archivist\**" />
     <Compile Remove="Items\ModItems\**" />
+    <Compile Remove="NPCs\Town\Archivist\**" />
     <Compile Remove="SoA Demonstrations\**" />
     <Compile Remove="Walls\**" />
     <EmbeddedResource Remove="Items\ModItems\**" />
+    <EmbeddedResource Remove="NPCs\Town\Archivist\**" />
     <EmbeddedResource Remove="SoA Demonstrations\**" />
     <EmbeddedResource Remove="Walls\**" />
     <None Remove="Items\ModItems\**" />
+    <None Remove="NPCs\Town\Archivist\**" />
     <None Remove="SoA Demonstrations\**" />
     <None Remove="Walls\**" />
   </ItemGroup>
@@ -32,7 +36,6 @@
     <Folder Include="NPCs\Boss\Genesis\" />
     <Folder Include="NPCs\Boss\Senterra\" />
     <Folder Include="NPCs\Boss\NovaStellar\PhoenixWarrior\" />
-    <Folder Include="NPCs\Town\Archivist\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="AlchemistNPCLite">
@@ -40,6 +43,9 @@
     </Reference>
     <Reference Include="BattleNetworkElements">
       <HintPath>..\ModAssemblies\BattleNetworkElements_v1.0.dll</HintPath>
+    </Reference>
+    <Reference Include="WebCom">
+      <HintPath>..\..\..\tModLoader-preview\ModReader\WebCom\WebCom.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

@@ -12,7 +12,6 @@ using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon.Minion;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj.Elizabeth;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Systems;
@@ -187,7 +186,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             }
 
             Player player = Main.player[NPC.target];
-            bool isSlayer = player.GetModPlayer<SlayerPlayer>().slayerMode;
+            bool isSlayer = player.Slayer().slayerMode;
 
             // death drama
             if (NPC.ai[3] > 0f)

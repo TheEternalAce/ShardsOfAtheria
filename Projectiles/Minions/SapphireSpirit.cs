@@ -80,6 +80,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
             if (owner.Shards().superSapphireCore)
             {
                 SearchForTargets(owner, out foundTarget, out distanceFromTarget, out targetCenter);
+                Projectile.damage = 50;
             }
             if (sleep && !foundTarget)
             {

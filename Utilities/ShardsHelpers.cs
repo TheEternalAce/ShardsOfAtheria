@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -12,18 +13,6 @@ namespace ShardsOfAtheria.Utilities
     {
         public static int DefaultMaxStack = 9999;
 
-        public struct UpgrageMaterial
-        {
-            public Item item;
-            public int requiredStack;
-
-            public UpgrageMaterial(Item item, int stack = 1)
-            {
-                this.item = item;
-                requiredStack = stack;
-            }
-        }
-
         public static string[] SetEmptyStringArray(int size)
         {
             string[] array = new string[size];
@@ -32,6 +21,52 @@ namespace ShardsOfAtheria.Utilities
                 array[i] = "";
             }
             return array;
+        }
+
+        public static void ProjectileRing(IEntitySource source, Vector2 center, int amount,
+            float radius, float speed, int type, int damage, float knockback, int owner)
+        {
+            float rotation = MathHelper.ToRadians(360 / amount);
+            for (int i = 0; i < amount; i++)
+            {
+                Vector2 position = center + Vector2.One.RotatedBy(rotation * i) * radius;
+                Vector2 velocity = Vector2.Normalize(center - position) * speed;
+                Projectile.NewProjectile(source, position, velocity, type, damage,
+                    knockback, owner, 1);
+            }
+        }
+
+        public static ref Vector2 SlowDown(this Projectile projectile, float slowdown = 1f)
+        {
+            return ref projectile.velocity.SlowDown();
+        }
+        public static ref Vector2 SlowDown(this ref Vector2 vector, float slowdown = 1f)
+        {
+            vector.X = (float)Math.Floor(vector.X);
+            vector.Y = (float)Math.Floor(vector.Y);
+            if (vector.X != 0)
+            {
+                if (vector.X < 0)
+                {
+                    vector.X += slowdown;
+                }
+                else
+                {
+                    vector.X -= slowdown;
+                }
+            }
+            if (vector.Y != 0)
+            {
+                if (vector.Y < 0)
+                {
+                    vector.Y += slowdown;
+                }
+                else
+                {
+                    vector.Y -= slowdown;
+                }
+            }
+            return ref vector;
         }
 
         public static void DrawLine(this SpriteBatch sb, int thickness, Vector2 start, Vector2 end, Color color)

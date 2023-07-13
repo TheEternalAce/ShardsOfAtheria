@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Players;
+﻿using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Localization;
@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.ShardsConditions.ItemDrop
         {
             if (!info.IsInSimulation)
             {
-                return Main.LocalPlayer.GetModPlayer<SlayerPlayer>().slayerMode;
+                return Main.LocalPlayer.Slayer().slayerMode;
             }
             return false;
         }

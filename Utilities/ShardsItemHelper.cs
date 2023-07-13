@@ -104,5 +104,11 @@ namespace ShardsOfAtheria.Utilities
                 SoAGlobalItem.AreusWeapon.Add(itemID);
             }
         }
+
+        public static bool IsUpgradable(this Item item)
+        {
+            bool canBeUpgraded = SoAGlobalItem.UpgradeableItem.Contains(item.type);
+            return canBeUpgraded;
+        }
     }
 }

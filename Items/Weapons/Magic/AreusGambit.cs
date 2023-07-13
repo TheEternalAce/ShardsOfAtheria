@@ -1,5 +1,6 @@
 using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Magic.Gambit;
@@ -18,7 +19,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             Item.ResearchUnlockCount = 1;
             Item.AddElec();
-            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+            SoAGlobalItem.UpgradeableItem.Add(Type);
         }
 
         public override void SetDefaults()

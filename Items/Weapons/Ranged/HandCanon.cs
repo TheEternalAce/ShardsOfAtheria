@@ -5,6 +5,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using WebCom.Effects.ScreenShaking;
 //using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
@@ -85,10 +86,10 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool? UseItem(Player player)
         {
-            //if (charge >= 300)
-            //{
-            //    ScreenShake.ShakeScreen(6, 60);
-            //}
+            if (charge >= 300)
+            {
+                ScreenShake.ShakeScreen(6, 60);
+            }
             charge = 0;
             SoundEngine.PlaySound(Item.UseSound.Value);
             return base.UseItem(player);

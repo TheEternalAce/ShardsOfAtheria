@@ -49,11 +49,10 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusGambit>())
-                .AddIngredient(ModContent.ItemType<AreusSword>())
+                .AddIngredient(ModContent.ItemType<AreusKatana>())
                 .AddIngredient(ModContent.ItemType<AreusDagger>())
                 .AddIngredient(ModContent.ItemType<AreusMagnum>())
                 .AddIngredient(ModContent.ItemType<AreusRailgun>())
-                //.AddIngredient(ModContent.ItemType<AreusBow>())
                 .AddIngredient(ItemID.BeetleHusk, 15)
                 .AddCondition(SoAConditions.Upgrade)
                 .Register();

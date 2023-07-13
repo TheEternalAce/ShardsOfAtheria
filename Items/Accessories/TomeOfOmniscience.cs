@@ -29,12 +29,12 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<SlayerPlayer>().omnicientTome = true;
+            player.Slayer().omnicientTome = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            SlayerPlayer slayer = Main.LocalPlayer.GetModPlayer<SlayerPlayer>();
+            SlayerPlayer slayer = Main.LocalPlayer.Slayer();
             var tooltip = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TomeOfOmniscience"),
                     SoA.TomeKey.GetAssignedKeys().Count > 0 ? SoA.TomeKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
             tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new(Mod, "Tooltip", tooltip));

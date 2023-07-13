@@ -84,7 +84,7 @@ namespace ShardsOfAtheria.Projectiles.Bases
                     player.itemTime++;
                 }
             }
-            if (player.ownedProjectileCounts[Type] > 1 || player.itemTime < 2)
+            if (player.ownedProjectileCounts[Type] > 1 || player.itemTime < 2 || player.dead)
             {
                 Projectile.Kill();
                 player.ownedProjectileCounts[Type]--;

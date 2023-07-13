@@ -12,7 +12,7 @@ using Terraria.WorldBuilding;
 
 namespace ShardsOfAtheria.Systems
 {
-    public class ShardsWorld : ModSystem
+    public class ShardsSystem : ModSystem
     {
         public bool omegaKey;
         public bool omegaShrine;
@@ -107,10 +107,10 @@ namespace ShardsOfAtheria.Systems
 
                     if (Main.tile[x, y].TileType == TileID.Ash && !Main.tile[x, y - 1].HasTile && Main.tile[x, y - 1].LiquidType != LiquidID.Lava)
                     {
-                        if (!ModContent.GetInstance<ShardsWorld>().omegaShrine)
+                        if (!ModContent.GetInstance<ShardsSystem>().omegaShrine)
                         {
                             PlaceOmegaShrine(x, y);
-                            ModContent.GetInstance<ShardsWorld>().omegaShrine = true;
+                            ModContent.GetInstance<ShardsSystem>().omegaShrine = true;
                         }
                     }
                 }
