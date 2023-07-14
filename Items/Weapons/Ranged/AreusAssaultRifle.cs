@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 15)
                 .AddRecipeGroup(ShardsRecipes.Gold, 5)
                 .AddIngredient(ItemID.FragmentVortex, 10)
-                .AddTile(ModContent.TileType<AreusFabricator>())
+                .AddTile<AreusFabricator>()
                 .Register();
         }
 

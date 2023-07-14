@@ -48,7 +48,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 10)
                 .AddRecipeGroup(ShardsRecipes.Gold, 3)
                 .AddIngredient(ModContent.ItemType<SoulOfTwilight>(), 7)
-                .AddTile(ModContent.TileType<AreusFabricator>())
+                .AddTile<AreusFabricator>()
                 .Register();
         }
 

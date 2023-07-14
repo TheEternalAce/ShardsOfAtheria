@@ -48,7 +48,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 17)
                 .AddRecipeGroup(ShardsRecipes.Gold, 5)
                 .AddIngredient(ItemID.SoulofFlight, 10)
-                .AddTile(ModContent.TileType<AreusFabricator>())
+                .AddTile<AreusFabricator>()
                 .Register();
         }
 

@@ -72,7 +72,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
                 .AddRecipeGroup(ShardsRecipes.Gold, 6)
                 .AddIngredient(ItemID.LunarBar, 10)
                 .AddIngredient(ItemID.Wire, 10)
-                .AddTile(ModContent.TileType<AreusFabricator>())
+                .AddTile<AreusFabricator>()
                 .Register();
         }
 

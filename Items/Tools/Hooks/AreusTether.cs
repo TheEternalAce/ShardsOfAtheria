@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.Tools.Hooks
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 16)
                 .AddRecipeGroup(ShardsRecipes.Gold, 5)
                 .AddIngredient(ItemID.LunarBar, 8)
-                .AddTile(ModContent.TileType<AreusFabricator>())
+                .AddTile<AreusFabricator>()
                 .Register();
         }
     }

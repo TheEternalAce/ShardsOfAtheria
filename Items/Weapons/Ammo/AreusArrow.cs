@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
                 .AddIngredient(ItemID.WoodenArrow, 100)
                 .AddIngredient(ItemID.SoulofFlight, 10)
                 .AddIngredient(ModContent.ItemType<AreusShard>())
-                .AddTile(ModContent.TileType<AreusFabricator>())
+                .AddTile<AreusFabricator>()
                 .Register();
         }
     }

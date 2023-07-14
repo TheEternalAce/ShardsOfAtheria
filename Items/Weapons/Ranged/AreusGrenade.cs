@@ -50,7 +50,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 3)
                 .AddIngredient(ItemID.GoldBar)
                 .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 2)
-                .AddTile(ModContent.TileType<AreusFabricator>())
+                .AddTile<AreusFabricator>()
                 .Register();
         }
     }

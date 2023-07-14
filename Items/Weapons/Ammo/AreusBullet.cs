@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
             CreateRecipe(100)
                 .AddIngredient(ItemID.MusketBall, 100)
                 .AddIngredient(ModContent.ItemType<AreusShard>())
-                .AddTile(ModContent.TileType<AreusFabricator>())
+                .AddTile<AreusFabricator>()
                 .Register();
         }
     }

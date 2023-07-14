@@ -52,14 +52,14 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 2)
                 .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 15)
-                .AddTile(ModContent.TileType<AreusFabricator>())
+                .AddTile<AreusFabricator>()
                 .AddCondition(Condition.NearLava)
                 .Register();
 
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 2)
                 .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 15)
-                .AddTile(ModContent.TileType<AreusFabricator>())
+                .AddTile<AreusFabricator>()
                 .AddTile(TileID.Hellforge)
                 .Register();
         }
