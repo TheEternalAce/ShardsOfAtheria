@@ -37,8 +37,8 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         int attackCooldown = 40;
         int attackTypeNext = -1;
 
-        int frameX = 0;
-        int frameY = 0;
+        //int frameX = 0;
+        //int frameY = 0;
 
         Color TextColor = Color.Red;
         public bool AttacksEnabled => NPC.life < NPC.lifeMax;
@@ -96,7 +96,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             attackType = 0;
             attackTimer = 0;
             attackCooldown = 0;
-            frameX = 1;
+            //frameX = 1;
             if (NPC.ai[3] == 0f)
             {
                 NPC.ai[3] = 1f;

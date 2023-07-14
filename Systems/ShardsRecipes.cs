@@ -121,9 +121,9 @@ namespace ShardsOfAtheria.Systems
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
             Recipe.Create(ItemID.TerraBlade)
-                .AddIngredient(ModContent.ItemType<HeroSword>())
                 .AddIngredient(ItemID.TrueNightsEdge)
                 .AddIngredient(ItemID.TrueExcalibur)
+                .AddIngredient(ModContent.ItemType<HeroSword>())
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
             Recipe.Create(ItemID.GuideVoodooDoll)
