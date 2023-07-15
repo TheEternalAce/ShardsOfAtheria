@@ -17,12 +17,12 @@ namespace ShardsOfAtheria.Commands
         public override void Action(CommandCaller caller, string input, string[] args)
         {
             var slayer = caller.Player.Slayer();
-            SoA.Log("/validateSlayer command: ", "All Slayer mode fields", true);
-            SoA.Log("Slayer mode enabled: ", slayer.slayerMode, true);
-            SoA.Log("Entropy set bonusactive: ", slayer.slayerSet, true);
-            SoA.Log("Soul crystals: ", slayer.soulCrystalNames, true);
-            SoA.Log("Soul crystal teleports: ", slayer.soulTeleports, true);
-            SoA.Log("Cultist circle fragments: ", slayer.lunaticCircleFragments, true);
+            SoA.Log("All Slayer mode fields", "/validateSlayer command: ", true);
+            SoA.Log(slayer.slayerMode, "Slayer mode enabled: ", true);
+            SoA.Log(slayer.slayerSet, "Entropy set bonusactive: ", true);
+            SoA.Log(slayer.soulCrystalNames, "Soul crystals: ", true);
+            SoA.Log(slayer.soulTeleports, "Soul crystal teleports: ", true);
+            SoA.Log(slayer.lunaticCircleFragments, "Cultist circle fragments: ", true);
         }
     }
 }

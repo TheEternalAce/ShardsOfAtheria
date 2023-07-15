@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using BattleNetworkElements;
+﻿using BattleNetworkElements;
 using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
@@ -67,7 +67,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.ai[0] += 1f;
             if (NPC.ai[0] == 30f || NPC.ai[0] == 60f || NPC.ai[0] == 90f)
             {
-                if (Main.rand.NextBool(3))
+                if (Main.rand.NextBool(3) && NPC.ai[0] == 30f)
                 {
                     int dir = Main.rand.NextBool(2) ? 1 : -1;
                     Vector2 position = Main.player[NPC.target].Center + new Vector2((230) * dir, 0);
@@ -112,7 +112,12 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         {
             LeadingConditionRule hardmode = new LeadingConditionRule(new Conditions.IsHardmode());
 
-            npcLoot.Add(ItemDropRule.OneFromOptions(1, ItemID.Hellstone, ItemID.Obsidian));
+            int[,] ores = new int[,]
+            {
+                { ItemID.Hellstone, 3 },
+                { ItemID.Obsidian, 5 },
+            };
+            npcLoot.Add(ShardsDrops.ManyFromOptions(1, ores));
             npcLoot.Add(ItemDropRule.Common(ItemID.Feather, 2));
             hardmode.OnSuccess(ItemDropRule.Common(ItemID.FireFeather, 5));
 

@@ -1,6 +1,7 @@
 using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -45,7 +46,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 20)
                 .AddIngredient(ItemID.GoldBar, 5)
                 .AddIngredient(ItemID.BeetleHusk, 16)
-                .AddTile(TileID.MythrilAnvil)
+                .AddTile<AreusFabricator>()
                 .Register();
         }
 

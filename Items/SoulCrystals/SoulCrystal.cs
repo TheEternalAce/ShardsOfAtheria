@@ -91,7 +91,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
                     slayer.soulCrystalNames.Add(Name);
                     Item.TurnToAir();
                     SoundEngine.PlaySound(SoundID.Item4);
-                    SoA.Log("Soul crystals: ", slayer.soulCrystalNames);
+                    SoA.Log(slayer.soulCrystalNames, "Soul crystals: ");
                 }
             }
             return true;

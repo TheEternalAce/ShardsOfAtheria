@@ -52,7 +52,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             if (NPC.ai[0] == 30f || NPC.ai[0] == 60f || NPC.ai[0] == 90f)
             {
 
-                if (Main.rand.NextBool(3))
+                if (Main.rand.NextBool(3) && NPC.ai[0] == 30f)
                 {
                     Vector2 velocity = Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center);
                     Vector2 position = NPC.Center + Vector2.Normalize(velocity) * 10f;

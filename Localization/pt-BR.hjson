@@ -531,19 +531,9 @@ Mods: {
 			}
 
 			# Boss summons
-			AreusSnakeScale: {
-				// DisplayName: Areus Snake Scale
-				// Tooltip: Summons Atheria's goddess of Land and Life
-			}
-
 			PottedPlant: {
 				DisplayName: Vaso de Planta
 				Tooltip: Invoca a Plantera no Subsolo da Selva.
-			}
-
-			SpiderClock: {
-				// DisplayName: Areus Spider Clock
-				// Tooltip: Summons Atheria's goddess of Time and Magic
 			}
 
 			ValkyrieCrest: {
@@ -2008,17 +1998,15 @@ Mods: {
 			SapphireBolt.DisplayName: Sapphire Bolt
 			SapphireSpirit.DisplayName: Sapphire Spirit
 			SoulDagger.DisplayName: Soul Dagger
+			// HardlightSlash2.DisplayName: Hardlight Slash2
 		}
 
 		NPCs: {
 			NovaStellar: {
 				DisplayName: Nova Stellar
 				// Bestiary: Following her late father's footsteps, Nova became a noble knight. She wishes to rid the world of the Slayer Terrarian.
-
-				BossChecklistIntegration: {
-					// SpawnInfo: Use a [i:ShardsOfAtheria/ValkyrieCrest] on the surface
-					// DespawnMessage: Nova Stellar leaves in triumph
-				}
+				// BossDesc: The Lightning Valkyrie
+				// BossChecklistIntegration.SpawnInfo: Use a [i:ShardsOfAtheria/ValkyrieCrest] Hardlight Crest in the sky.
 
 				Dialogue: {
 					// InitialSummon: You! How did you get that!? No matter, I will take you down, Slayer!
@@ -2039,6 +2027,7 @@ Mods: {
 			Death: {
 				// DisplayName: Elizabeth Norman, Death
 				// Bestiary: ""
+				// BossDesc: ""
 				// BossChecklistIntegration.SpawnInfo: Use an [i:ShardsOfAtheria/AncientMedalion] Ancient Medalion on the surface at night.
 
 				Dialogue: {
@@ -2434,8 +2423,6 @@ Mods: {
 			// OperatorMaterials: Mods.ShardsOfAtheria.Conditions.OperatorMaterials
 			// OperatorBags3: Mods.ShardsOfAtheria.Conditions.OperatorBags3
 		}
-
-		BossDesc.NovaStellar: Lightning Valkyrie
 
 		ShopQuote: {
 			Atherian: {

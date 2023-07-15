@@ -307,7 +307,7 @@ namespace ShardsOfAtheria.Globals
             if (npc.type == NPCID.Harpy)
             {
                 SpriteEffects effects = npc.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-                npc.BasicInWorldGlowmask(spriteBatch, skyHarpy.Value, Color.White, screenPos, effects);
+                npc.BasicInWorldGlowmask(spriteBatch, skyHarpy.Value, drawColor, screenPos, effects);
                 return false;
             }
             return base.PreDraw(npc, spriteBatch, screenPos, drawColor);

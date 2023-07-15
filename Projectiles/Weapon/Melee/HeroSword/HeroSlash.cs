@@ -29,20 +29,21 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.HeroSword
             Projectile.tileCollide = false;
             Projectile.localNPCHitCooldown = 30;
             Projectile.usesLocalNPCImmunity = true;
+            Projectile.usesOwnerMeleeHitCD = true;
         }
 
         private float Angle;
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            int duration = 30 * 3; // Define the duration the projectile will exist in frames
+            int duration = 50; // Define the duration the projectile will exist in frames
 
             // Reset projectile time left if necessary
             if (Projectile.timeLeft > duration)
             {
                 Projectile.timeLeft = duration;
             }
-            Angle += 0.007f * 16;
+            Angle += 0.007f * 28;
 
             // ONLY CHANGE THE 35, ANYTHING ELSE WILL BREAK THE ROTATION
             Projectile.Center = player.MountedCenter + Vector2.One.RotatedBy(player.direction * Angle + (player.direction == 1 ? MathHelper.ToRadians(140f) : MathHelper.ToRadians(-50f))) * 35f;
@@ -77,7 +78,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.HeroSword
                 Vector2 position = target.Center + Vector2.One.RotatedByRandom(360) * 180;
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, Vector2.Normalize(target.Center - position) * 20,
                     ModContent.ProjectileType<HeroBlade>(), 50, 6f, Projectile.owner);
-                hitCooldown = 60;
+                hitCooldown = 10;
             }
         }
 

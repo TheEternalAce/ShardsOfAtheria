@@ -10,6 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Bases
         public int SwordItem;
         public Color AuraColor;
         public int BaseDuration;
+        public float SwordOut = 35;
 
         public override string Texture => SoA.SwordSlashTexture;
 
@@ -52,7 +53,7 @@ namespace ShardsOfAtheria.Projectiles.Bases
             Angle += SwingSpeed;
 
             // ONLY CHANGE THE 35, ANYTHING ELSE WILL BREAK THE ROTATION
-            Projectile.Center = player.MountedCenter + Vector2.One.RotatedBy(player.direction * Angle + (player.direction == 1 ? MathHelper.ToRadians(140f) : MathHelper.ToRadians(-50f))) * 35f;
+            Projectile.Center = player.MountedCenter + Vector2.One.RotatedBy(player.direction * Angle + (player.direction == 1 ? MathHelper.ToRadians(140f) : MathHelper.ToRadians(-50f))) * SwordOut;
 
             Vector2 toPlayer = player.Center - Projectile.Center;
             Projectile.rotation = toPlayer.ToRotation() - MathHelper.ToRadians(90f);

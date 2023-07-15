@@ -51,7 +51,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.ai[0] += 1f;
             if (NPC.ai[0] == 30f || NPC.ai[0] == 60f || NPC.ai[0] == 90f)
             {
-                if (Main.rand.NextBool(3))
+                if (Main.rand.NextBool(3) && NPC.ai[0] == 30f)
                 {
                     Vector2 velocity = Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center);
                     Vector2 position = NPC.Center + Vector2.Normalize(velocity) * 10f;
@@ -59,16 +59,14 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                         ModContent.ProjectileType<IceShard>(), 10, 0f, Main.myPlayer);
                     proj.friendly = false;
                     proj.hostile = true;
-                    proj.tileCollide = false;
+                    proj.tileCollide = true;
                     NPC.ai[0] = 91;
                 }
                 else if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
                 {
-                    var projectile = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(),
-                        NPC.Center, Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center).RotatedByRandom(MathHelper.ToRadians(15)) * 6f,
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
+                        Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center).RotatedByRandom(MathHelper.ToRadians(15)) * 6f,
                         ModContent.ProjectileType<Snow>(), 10, 0f, Main.myPlayer);
-                    projectile.timeLeft = 300;
-                    projectile.tileCollide = true;
                 }
             }
             else if (NPC.ai[0] >= 400 + Main.rand.Next(400))

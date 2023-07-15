@@ -2,12 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using ShardsOfAtheria.Config;
-using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
-using ShardsOfAtheria.Items.Weapons.Magic;
-using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Items.Weapons.Ranged;
-using ShardsOfAtheria.Items.Weapons.Summon.Minion;
 using ShardsOfAtheria.NPCs.Boss.Elizabeth;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using ShardsOfAtheria.Systems;
@@ -18,7 +13,6 @@ using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -77,7 +71,7 @@ namespace ShardsOfAtheria
                 ModLoader.TryGetMod("Wikithis", out Mod wikithis);
                 if (wikithis != null)
                 {
-                    wikithis.Call("AddModURL", Instance, "terrariamods.wiki.gg$Shards_of_Atheria");
+                    wikithis.Call("AddModURL", Instance, "terrariamods.wiki.gg/wiki/ Shards_of_Atheria");
 
                     // If you want to replace default icon for your mod, then call this. Icon should be 30x30, either way it will be cut.
                     wikithis.Call("AddWikiTexture", Instance, ModContent.Request<Texture2D>("ShardsOfAtheria/icon_small"));
@@ -155,62 +149,68 @@ namespace ShardsOfAtheria
                 terratyping.Call(addNPC);
             }
 
-            if (ModLoader.TryGetMod("BossChecklist", out Mod foundMod1))
+            if (ModLoader.TryGetMod("BossChecklist", out Mod checklist))
             {
-                foundMod1.Call(
-                    "AddBoss",
-                    this,
-                    "Nova Stellar",
-                    new List<int> { ModContent.NPCType<NovaStellar>() },
+                checklist.Call(
+                    "LogBoss",
+                    Instance,
+                    nameof(NovaStellar),
                     5.5f,
                     () => ShardsDownedSystem.downedValkyrie,
-                    () => true,
-                    new List<int> { ModContent.ItemType<ValkyrieStormLance>(), ModContent.ItemType<GildedValkyrieWings>(), ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<DownBow>(),
-                        ModContent.ItemType<PlumeCodex>(), ModContent.ItemType<NestlingStaff>(), ModContent.ItemType<ValkyrieCrown>(),
-                        ItemID.GoldBar, ItemID.Feather },
-                    ModContent.ItemType<ValkyrieCrest>()
+                    ModContent.NPCType<NovaStellar>(),
+                    new Dictionary<string, object>()
+                    {
+                        ["spawnItems"] = ModContent.ItemType<ValkyrieCrest>()
+                    }
                 );
-                foundMod1.Call(
-                    "AddBoss",
-                    this,
-                    "Elizabeth Norman, Death",
-                    new List<int> { ModContent.NPCType<Death>() },
-                    5.5f,
+                checklist.Call(
+                    "LogBoss",
+                    Instance,
+                    nameof(Death),
+                    19f,
                     () => ShardsDownedSystem.downedDeath,
-                    () => true,
-                    new List<int> { },
-                    ModContent.ItemType<AncientMedalion>()
+                    ModContent.NPCType<Death>(),
+                    new Dictionary<string, object>()
+                    {
+                        ["spawnItems"] = ModContent.ItemType<AncientMedalion>()
+                    }
                 );
             }
-            if (ModLoader.TryGetMod("Fargowiltas", out Mod foundMod2))
+            if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
             {
-                foundMod2.Call("AddSummon", 5.5f, ModContent.ItemType<ValkyrieCrest>(), () => ShardsDownedSystem.downedValkyrie, 50000);
+                fargos.Call("AddSummon", 5.5f, ModContent.ItemType<ValkyrieCrest>(), () => ShardsDownedSystem.downedValkyrie, 50000);
+                fargos.Call("AddSummon", 19f, ModContent.ItemType<AncientMedalion>(), () => ShardsDownedSystem.downedDeath, 500000);
             }
 
-            if (ModLoader.TryGetMod("RORBossHealthbars", out Mod ror2HBS))
+            if (ModLoader.TryGetMod("RORBossHealthbars", out Mod ror2Bars))
             {
-                ror2HBS.Call("HPPool", new List<int>()
+                ror2Bars.Call("HPPool", new List<int>()
                 {
-                    ModContent.NPCType<NovaStellar>()
+                    ModContent.NPCType<NovaStellar>(),
+                    ModContent.NPCType<Death>(),
                 });
-                ror2HBS.Call("CustomName", ModContent.NPCType<NovaStellar>(), "Mods.ShardsOfAtheria.NPCName.NovaStellar");
-                ror2HBS.Call("BossDesc", ModContent.NPCType<NovaStellar>(), "Mods.ShardsOfAtheria.BossDesc.NovaStellar");
+                ror2Bars.Call("CustomName", ModContent.NPCType<NovaStellar>(), "Mods.ShardsOfAtheria.NPCs.NovaStellar.DisplayName");
+                ror2Bars.Call("BossDesc", ModContent.NPCType<NovaStellar>(), "Mods.ShardsOfAtheria.NPCs.NovaStellar.BossDesc");
+                ror2Bars.Call("CustomName", ModContent.NPCType<Death>(), "Mods.ShardsOfAtheria.NPCs.Death.DisplayName");
+                ror2Bars.Call("BossDesc", ModContent.NPCType<Death>(), "Mods.ShardsOfAtheria.NPCs.Death.BossDesc");
             }
-
             if (ModLoader.TryGetMod("RiskOfTerrain", out Mod rot))
             {
                 rot.Call("HPPool", new List<int>()
                 {
-                    ModContent.NPCType<NovaStellar>()
+                    ModContent.NPCType<NovaStellar>(),
+                    ModContent.NPCType<Death>(),
                 });
-                rot.Call("CustomName", ModContent.NPCType<NovaStellar>(), "Mods.ShardsOfAtheria.NPCName.NovaStellar");
-                rot.Call("BossDesc", ModContent.NPCType<NovaStellar>(), "Mods.ShardsOfAtheria.BossDesc.NovaStellar");
+                rot.Call("CustomName", ModContent.NPCType<NovaStellar>(), "Mods.ShardsOfAtheria.NPCs.NovaStellar.DisplayName");
+                rot.Call("BossDesc", ModContent.NPCType<NovaStellar>(), "Mods.ShardsOfAtheria.NPCs.NovaStellar.BossDesc");
+                rot.Call("CustomName", ModContent.NPCType<Death>(), "Mods.ShardsOfAtheria.NPCs.Death.DisplayName");
+                rot.Call("BossDesc", ModContent.NPCType<Death>(), "Mods.ShardsOfAtheria.NPCs.Death.BossDesc");
             }
         }
 
-        public string ChooseTitleText()
+        public static string ChooseTitleText()
         {
-            List<string> title = new List<string>();
+            List<string> title = new();
             for (int i = 0; i < 2; i++)
             {
                 title.Add(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TitleText" + i));
@@ -222,64 +222,54 @@ namespace ShardsOfAtheria
 
         public static Dictionary<string, List<string>> GetContentArrayFile(string name)
         {
-            using (var stream = Instance.GetFileStream($"Content/{name}.json", newFileStream: true))
-            {
-                using (var streamReader = new StreamReader(stream))
-                {
-                    return JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(streamReader.ReadToEnd());
-                }
-            }
+            using var stream = Instance.GetFileStream($"Content/{name}.json", newFileStream: true);
+            using var streamReader = new StreamReader(stream);
+            return JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(streamReader.ReadToEnd());
         }
 
         private static bool ConsoleDebug => ClientConfig.debug == "Console only";
         private static bool ConsoleAndChatDebug => ClientConfig.debug == "Console and Chat";
-        internal static void Log(string label, object value, bool ignoreDebugConfig = false)
+        internal static void Log(object value, string label = "\n", bool ignoreDebugConfig = false)
         {
-            Log(label, value, Color.White, ignoreDebugConfig);
+            Log(value, Color.White, label, ignoreDebugConfig);
         }
-        internal static void Log(string label, object value, Color color, bool ignoreDebugConfig = false)
+        internal static void Log(object value, Color chatColor, string label = "\n", bool ignoreDebugConfig = false)
         {
-            var debug = "[Shards of Atheria Debug] " + label;
-            // Send to console and log
+            var debug = "[Shards of Atheria Info] " + label + " ";
             if (ConsoleDebug || ConsoleAndChatDebug || ignoreDebugConfig)
             {
-                Console.WriteLine(debug + value);
                 Instance.Logger.Info(debug + value);
                 if (value is IList list)
                 {
-                    Console.WriteLine("--List items--");
                     Instance.Logger.Info("--List items--");
                     if (list.Count == 0)
                     {
-                        Console.WriteLine("None");
                         Instance.Logger.Info("None");
                     }
                     else
                     {
                         foreach (object item in list)
                         {
-                            Console.WriteLine(item);
                             Instance.Logger.Info(item);
                         }
                     }
                 }
             }
-            // Send to chat
             if (ConsoleAndChatDebug || ignoreDebugConfig)
             {
-                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(debug + value.ToString()), color);
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(debug + value.ToString()), chatColor);
                 if (value is IList list)
                 {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("--List items--"), color);
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("--List items--"), chatColor);
                     if (list.Count == 0)
                     {
-                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("None"), color);
+                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("None"), chatColor);
                     }
                     else
                     {
                         foreach (object item in list)
                         {
-                            ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(item.ToString()), color);
+                            ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(item.ToString()), chatColor);
                         }
                     }
                 }

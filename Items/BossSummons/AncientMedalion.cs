@@ -1,10 +1,7 @@
-using Microsoft.Xna.Framework;
 using ShardsOfAtheria.NPCs.Boss.Elizabeth;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.BossSummons
@@ -43,27 +40,13 @@ namespace ShardsOfAtheria.Items.BossSummons
         // We use the CanUseItem hook to prevent a Player from using this item while the boss is present in the world.
         public override bool CanUseItem(Player player)
         {
-            return player.ZoneOverworldHeight && !NPC.AnyNPCs(ModContent.NPCType<Death>());
+            return !NPC.AnyNPCs(ModContent.NPCType<Death>()) && player.ZoneOverworldHeight && !Main.dayTime;
         }
 
         public override bool? UseItem(Player player)
         {
             if (player.whoAmI == Main.myPlayer)
             {
-                if (Main.dayTime)
-                {
-                    string text = "Please, try again later at night.";
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(text), Color.White);
-                    }
-                    else
-                    {
-                        Main.NewText(text);
-                    }
-                    return true;
-                }
-
                 // If the Player using the item is the client
                 // (explicitely excluded serverside here)
                 SoundEngine.PlaySound(SoundID.Roar, player.position);

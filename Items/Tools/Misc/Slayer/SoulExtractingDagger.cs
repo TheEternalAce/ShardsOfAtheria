@@ -137,8 +137,8 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            SoA.Log("Soul index to extract: ", soulIndex);
-            SoA.Log("Old Soul Crystal list: ", player.Slayer().soulCrystalNames);
+            SoA.Log(soulIndex, "Soul index to extract: ");
+            SoA.Log(player.Slayer().soulCrystalNames, "Old Soul Crystal list: ");
             Vector2 spawnLocation;
             if (player.direction == 1)
             {

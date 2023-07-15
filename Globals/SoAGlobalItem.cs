@@ -321,7 +321,7 @@ namespace ShardsOfAtheria.Globals
 
         public override bool? UseItem(Item item, Player player)
         {
-            if (SoA.ServerConfig.betterWeapon.Equals("Mouse Direction") && item.shoot == ProjectileID.None)
+            if (SoA.ServerConfig.betterWeapon.Equals("Mouse Direction") && item.shoot == ProjectileID.None && item.damage > 0)
             {
                 player.ChangeDir(player.Center.X < Main.MouseWorld.X ? 1 : -1);
             }

@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.ai[0] += 1f;
             if (NPC.ai[0] == 30f || NPC.ai[0] == 60f || NPC.ai[0] == 90f)
             {
-                if (Main.rand.NextBool(3))
+                if (Main.rand.NextBool(3) && NPC.ai[0] == 30f)
                 {
                     Vector2 velocity = Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center);
                     float numberProjectiles = 3;

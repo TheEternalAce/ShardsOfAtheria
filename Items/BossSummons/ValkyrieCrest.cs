@@ -1,11 +1,7 @@
-using Microsoft.Xna.Framework;
-using ShardsOfAtheria.NPCs.Boss.Elizabeth;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.BossSummons
@@ -44,26 +40,13 @@ namespace ShardsOfAtheria.Items.BossSummons
         // We use the CanUseItem hook to prevent a Player from using this item while the boss is present in the world.
         public override bool CanUseItem(Player player)
         {
-            return player.ZoneOverworldHeight && !NPC.AnyNPCs(ModContent.NPCType<NovaStellar>());
+            return !NPC.AnyNPCs(ModContent.NPCType<NovaStellar>()) && player.ZoneSkyHeight && Main.dayTime;
         }
 
         public override bool? UseItem(Player player)
         {
             if (player.whoAmI == Main.myPlayer)
             {
-                if (!Main.dayTime)
-                {
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                    {
-                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Nova Stellar is asleep, try again in the morning."), Color.White);
-                    }
-                    else
-                    {
-                        Main.NewText("Nova Stellar is asleep, try again in the morning.");
-                    }
-                    return true;
-                }
-
                 // If the Player using the item is the client
                 // (explicitely excluded serverside here)
                 SoundEngine.PlaySound(SoundID.Roar, player.position);

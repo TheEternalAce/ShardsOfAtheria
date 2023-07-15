@@ -102,7 +102,7 @@ namespace ShardsOfAtheria.Players
         public int overdriveTimeMax;
         public int overdriveTimeMax2;
         internal int overdriveTimeRegenTimer = 0;
-        public bool Overdrive => Player.HasBuff<Overdrive>();
+        public bool Overdrive => Player.HasBuff<Overdrive>() && overdriveTimeCurrent > 0;
 
         public double[] elementMultiplier = { 1.0, 1.0, 1.0, 1.0 };
 
@@ -506,7 +506,7 @@ namespace ShardsOfAtheria.Players
         {
             if (megaGemCore || greaterRubyCore || superRubyCore)
             {
-                return true;
+                return item.damage > 0;
             }
             return base.CanAutoReuseItem(item);
         }

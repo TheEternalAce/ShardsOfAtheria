@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -49,7 +50,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 17)
                 .AddRecipeGroup(ShardsRecipes.Gold, 5)
                 .AddIngredient(ItemID.SoulofFlight, 10)
-                .AddTile(TileID.MythrilAnvil)
+                .AddTile<AreusFabricator>()
                 .Register();
         }
 

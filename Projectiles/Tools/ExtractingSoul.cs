@@ -99,7 +99,7 @@ namespace ShardsOfAtheria.Projectiles.Tools
                     }
                 }
 
-                SoA.Log("New Soul Crystal list: ", slayer.soulCrystalNames);
+                SoA.Log(slayer.soulCrystalNames, "New Soul Crystal list: ");
             }
         }
     }

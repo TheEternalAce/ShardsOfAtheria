@@ -76,7 +76,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.ai[0] += 1f;
             if (NPC.ai[0] == 30f || NPC.ai[0] == 60f || NPC.ai[0] == 90f)
             {
-                if (Main.rand.NextBool(3))
+                if (Main.rand.NextBool(3) && NPC.ai[0] == 30f)
                 {
                     NPC.ai[0] = 91;
                 }
@@ -133,7 +133,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                 { ItemID.Amber, maxGems },
                 { ModContent.ItemType<Jade>(), maxGems }
             };
-            npcLoot.Add(new ManyFromOptionsDropRule(1, 1, gems));
+            npcLoot.Add(ShardsDrops.ManyFromOptions(1, gems));
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)

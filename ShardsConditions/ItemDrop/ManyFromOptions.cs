@@ -4,7 +4,7 @@ using Terraria.GameContent.ItemDropRules;
 
 namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 {
-    internal class ManyFromOptionsDropRule : IItemDropRule
+    public class ManyFromOptionsDropRule : IItemDropRule
     {
         public int[,] dropIds;
         public int chanceDenominator;
