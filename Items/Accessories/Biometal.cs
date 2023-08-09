@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -82,13 +83,18 @@ namespace ShardsOfAtheria.Items.Accessories
             BiometalSound(player);
 
             shardsPlayer.Biometal = true;
-            shardsPlayer.BiometalSound = true;
             shardsPlayer.BiometalHideVanity = hideVisual;
 
             player.GetDamage(DamageClass.Generic) += 0.15f;
             player.statManaMax2 += 40;
             player.noFallDmg = true;
             player.spikedBoots++;
+
+            var bar = ModContent.GetInstance<OverdriveEnergyBarSystem>();
+            if (!bar.BarShowing)
+            {
+                bar.ShowBar();
+            }
 
             BiometalDashPlayer mp = player.GetModPlayer<BiometalDashPlayer>();
             //If the dash is not active, immediately return so we don't do any of the logic for it
@@ -134,7 +140,6 @@ namespace ShardsOfAtheria.Items.Accessories
         {
             ShardsPlayer shardsPlayer = player.Shards();
             BiometalSound(player);
-            shardsPlayer.BiometalSound = true;
         }
 
         public void BiometalSound(Player player)
@@ -162,7 +167,7 @@ namespace ShardsOfAtheria.Items.Accessories
             UnMegaMerge(player);
         }
 
-        public void UnMegaMerge(Player player)
+        public static void UnMegaMerge(Player player)
         {
             ShardsPlayer shardsPlayer = player.Shards();
             if (shardsPlayer.BiometalSound)
