@@ -1,10 +1,15 @@
-﻿using BattleNetworkElements.Utilities;
+﻿using BattleNetworkElements;
+using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Summons;
+using ShardsOfAtheria.Items.Consumable;
 using ShardsOfAtheria.Items.SinfulSouls;
+using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.NPCs.Town.TheArchivist;
+using ShardsOfAtheria.NPCs.Town.TheAtherian;
 using ShardsOfAtheria.NPCs.Variant.Harpy;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Other;
@@ -269,15 +274,12 @@ namespace ShardsOfAtheria.Globals
                         Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 16f, ModContent.ProjectileType<VileShot>(), 30, 1, player.whoAmI);
                         SoundEngine.PlaySound(SoundID.Item17);
                     }
-                    if (slayer.NovaSoul)
+                    if (slayer.NovaSoul && item.type != ModContent.ItemType<ValkyrieBlade>())
                     {
                         SoundEngine.PlaySound(SoundID.Item1);
-                        for (int i = 0; i < 4; i++)
-                        {
-                            Vector2 projPos = Main.MouseWorld + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
-                            Projectile proj = Projectile.NewProjectileDirect(item.GetSource_FromThis(), projPos, Vector2.Normalize(Main.MouseWorld - projPos) * 16f, ModContent.ProjectileType<FeatherBladeFriendly>(), 18, 0f, Main.myPlayer);
-                            proj.DamageType = DamageClass.Generic;
-                        }
+                        int projtype = ModContent.ProjectileType<HardlightBlade>();
+                        ShardsHelpers.ProjectileRing(item.GetSource_FromThis(),
+                            Main.MouseWorld, 4, 150f, 16f, projtype, 18, 0f, player.whoAmI);
                     }
                     if (slayer.BeeSoul)
                     {
@@ -324,6 +326,36 @@ namespace ShardsOfAtheria.Globals
             if (SoA.ServerConfig.betterWeapon.Equals("Mouse Direction") && item.shoot == ProjectileID.None && item.damage > 0)
             {
                 player.ChangeDir(player.Center.X < Main.MouseWorld.X ? 1 : -1);
+            }
+            if (item.type == ItemID.BugNet ||
+                item.type == ItemID.FireproofBugNet ||
+                item.type == ItemID.GoldenBugNet)
+            {
+                foreach (NPC npc in Main.npc)
+                {
+                    if (SoA.ServerConfig.catchableNPC)
+                    {
+                        if (npc.type == ModContent.NPCType<Atherian>())
+                        {
+                            Main.npcCatchable[npc.type] = true;
+                            npc.catchItem = ModContent.ItemType<AtherianSummonItem>();
+                        }
+                        if (npc.type == ModContent.NPCType<Archivist>())
+                        {
+                            Main.npcCatchable[npc.type] = true;
+                            npc.catchItem = ModContent.ItemType<ArchivistSummonItem>();
+                        }
+                    }
+                    else
+                    {
+                        if (npc.type == ModContent.NPCType<Atherian>() ||
+                            npc.type == ModContent.NPCType<Archivist>())
+                        {
+                            Main.npcCatchable[npc.type] = false;
+                            npc.catchItem = -1;
+                        }
+                    }
+                }
             }
             return base.UseItem(item, player);
         }
@@ -378,7 +410,6 @@ namespace ShardsOfAtheria.Globals
             return base.CanConsumeBait(player, bait);
         }
 
-
         public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (AreusWeapon.Contains(item.type))
@@ -422,6 +453,7 @@ namespace ShardsOfAtheria.Globals
         public override void UpdateInventory(Item item, Player player)
         {
             base.UpdateInventory(item, player);
+            // Allow tools to be usable when Shield Creepers are alive
             if (item.pick > 0 && item.axe > 0 && item.hammer > 0)
             {
                 if (player.HasBuff(ModContent.BuffType<CreeperShield>()))
@@ -431,6 +463,55 @@ namespace ShardsOfAtheria.Globals
                 else
                 {
                     item.damage = ContentSamples.ItemsByType[item.type].damage;
+                }
+            }
+            var shards = player.Shards();
+            var elementItem = item.Elements();
+            // Reset weapon elements
+            elementItem.isFire = false;
+            elementItem.isAqua = false;
+            elementItem.isElec = false;
+            elementItem.isWood = false;
+            if (item.IsDefaultFire())
+            {
+                elementItem.isFire = true;
+            }
+            if (item.IsDefaultAqua())
+            {
+                elementItem.isAqua = true;
+            }
+            if (item.IsDefaultElec())
+            {
+                elementItem.isElec = true;
+            }
+            if (item.IsDefaultWood())
+            {
+                elementItem.isWood = true;
+            }
+            // Change elements according to Areus Processor/Power Trip
+            if (shards.areusProcessorPrevious)
+            {
+                elementItem.isFire = false;
+                elementItem.isAqua = false;
+                elementItem.isElec = false;
+                elementItem.isWood = false;
+                if (item.damage > 0)
+                {
+                    switch (player.Shards().processorElement)
+                    {
+                        case Element.Fire:
+                            elementItem.isFire = true;
+                            break;
+                        case Element.Aqua:
+                            elementItem.isAqua = true;
+                            break;
+                        case Element.Elec:
+                            elementItem.isElec = true;
+                            break;
+                        case Element.Wood:
+                            elementItem.isWood = true;
+                            break;
+                    }
                 }
             }
         }

@@ -35,8 +35,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<EmeraldCore_Lesser>())
-                .AddIngredient(ItemID.HellstoneBar, 5)
-                .AddIngredient(ItemID.CreativeWings)
+                .AddIngredient(ItemID.HellstoneBar, 10)
+                .AddIngredient(ItemID.FrostsparkBoots)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

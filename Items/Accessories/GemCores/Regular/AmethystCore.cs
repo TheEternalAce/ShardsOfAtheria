@@ -48,7 +48,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AmethystCore_Lesser>())
-                .AddIngredient(ItemID.HellstoneBar, 5)
+                .AddIngredient(ItemID.HellstoneBar, 10)
                 .AddIngredient(ItemID.Wire, 20)
                 .AddTile(TileID.Anvils)
                 .Register();

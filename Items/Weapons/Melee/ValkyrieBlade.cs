@@ -43,31 +43,27 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<HardlightSlash>();
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return player.ownedProjectileCounts[Item.shoot] <= 0;
-        }
-
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            int type2 = ModContent.ProjectileType<HardlightBlade>();
             if (++shoot == 3)
             {
                 if (Main.myPlayer == player.whoAmI)
                 {
-                    type = ModContent.ProjectileType<HardlightBlade>();
                     ShardsHelpers.ProjectileRing(source, Main.MouseWorld, 6, 120f, 16f,
-                        type, damage, knockback, player.whoAmI);
+                        type2, damage, knockback, player.whoAmI);
                 }
                 shoot = 0;
             }
             else
             {
                 var velocity2 = Vector2.Normalize(velocity) * 16f;
-                Projectile.NewProjectile(source, position, velocity2,
-                    ModContent.ProjectileType<FeatherBladeFriendly>(), damage, knockback,
-                    player.whoAmI);
+                Projectile.NewProjectile(source, position, velocity2, type2, damage,
+                    knockback, player.whoAmI);
             }
-            return base.Shoot(player, source, position, velocity, type, damage, knockback);
+            Projectile.NewProjectile(source, position, velocity * 0, type, damage, knockback,
+                player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax);
+            return false;
         }
     }
 }

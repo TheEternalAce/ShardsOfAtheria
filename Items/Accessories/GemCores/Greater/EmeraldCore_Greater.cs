@@ -25,10 +25,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            // Terraspark Boots
-            player.waterWalk = true;
-            player.fireWalk = true;
-            player.lavaMax += 420;
+            // Frostspark Boots
             player.accRunSpeed = 6.75f;
             player.rocketBoots = 3;
             player.iceSkate = true;
@@ -44,9 +41,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<EmeraldCore>())
-                .AddIngredient(ItemID.HallowedBar, 5)
+                .AddIngredient(ItemID.HallowedBar, 10)
                 .AddIngredient(ItemID.Flipper)
-                .AddIngredient(ItemID.TerrasparkBoots)
                 .AddIngredient(ItemID.PanicNecklace)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();

@@ -44,6 +44,10 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool CanConsumeAmmo(Item ammo, Player player)
         {
+            if (player.ownedProjectileCounts[Item.shoot] > 0)
+            {
+                return base.CanConsumeAmmo(ammo, player);
+            }
             return false;
         }
 

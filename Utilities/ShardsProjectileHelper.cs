@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Utilities
             explosion.Size = new Vector2(explosionSize);
             explosion.hostile = hostile;
             ScreenShake.ShakeScreen(6, 60);
-            ProjectileElements elementExplosion = explosion.GetGlobalProjectile<ProjectileElements>();
+            BNGlobalProjectile elementExplosion = explosion.GetGlobalProjectile<BNGlobalProjectile>();
             int type = proj.type;
             if (proj.IsFire())
             {

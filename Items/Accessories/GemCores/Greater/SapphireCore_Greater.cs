@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<SapphireCore>())
-                .AddIngredient(ItemID.HallowedBar, 5)
+                .AddIngredient(ItemID.HallowedBar, 10)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

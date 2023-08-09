@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee.OmegaSword
 {
@@ -23,8 +24,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.OmegaSword
 
         public override void SetDefaults()
         {
-            Projectile.width = 134 * 4;
-            Projectile.height = 94 * 4;
+            Projectile.width = 384;
+            Projectile.height = 384;
             Projectile.aiStyle = 75;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
@@ -33,6 +34,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.OmegaSword
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 12;
             Projectile.timeLeft = 30;
+
+            DrawOffsetX = -160;
+            DrawOriginOffsetX = 80;
         }
 
         // Ranbu pattern: 1, 2, 3, 2, 4, 3, 5
@@ -46,17 +50,40 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.OmegaSword
             if (combo == 7 && !launchPlayer)
             {
                 launchPlayer = true;
-                player.velocity += new Vector2(1 * player.direction, -2) * 5f;
+                player.velocity += new Vector2(1 * player.direction, -2) * 6f;
             }
-            if (Main.myPlayer == Projectile.owner)
+            var vector = Vector2.Zero;
+            Projectile.velocity = vector;
+            if (player.IsLocal())
             {
-                var mouseDirection = Main.MouseWorld.X > player.Center.X ? 1 : -1;
-                if (Projectile.direction != mouseDirection)
+                vector = Main.MouseWorld - player.Center;
+                vector.Normalize();
+                vector *= 140f;
+                Projectile.velocity = vector;
+                if (Main.MouseWorld.X > player.Center.X)
                 {
-                    Projectile.velocity.X = -Projectile.velocity.X;
+                    Projectile.direction = 1;
+                }
+                else
+                {
+                    Projectile.direction = -1;
                 }
             }
-            Projectile.rotation = 0;
+            Projectile.spriteDirection = Projectile.direction;
+
+            float angle = 0;
+            if (Projectile.direction == 1)
+            {
+                DrawOffsetX = -160;
+                DrawOriginOffsetX = 80;
+            }
+            else
+            {
+                DrawOffsetX = 0;
+                DrawOriginOffsetX = -80;
+                angle = MathHelper.ToRadians(180);
+            }
+            Projectile.rotation = vector.ToRotation() + angle;
             Projectile.netUpdate = true;
         }
 
@@ -66,19 +93,30 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.OmegaSword
             {
                 Spark();
             }
+
+            if (Projectile.frameCounter == 1)
+            {
+                bool slashEndFrame = (Projectile.frame + 1) % 4 == 0;
+                if (slashEndFrame)
+                {
+                    if (!BeingHeld)
+                    {
+                        Projectile.Kill();
+                    }
+                    else
+                    {
+                        SoundEngine.PlaySound(SoundID.Item1);
+                        Spark();
+                    }
+                }
+            }
             if (++Projectile.frameCounter == 3)
             {
                 Projectile.frame++;
                 Projectile.frameCounter = 0;
-                if (Projectile.frame >= Main.projFrames[Type] ||
-                    (!BeingHeld && (Projectile.frame + 1) % 4 == 0))
+                if (Projectile.frame >= Main.projFrames[Type])
                 {
                     Projectile.Kill();
-                }
-                else if ((Projectile.frame + 1) % 4 == 0 && combo < 7)
-                {
-                    SoundEngine.PlaySound(SoundID.Item1);
-                    Spark();
                 }
 
                 if ((Projectile.frame + 1) % 4 == 0)
@@ -119,18 +157,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.OmegaSword
             }
         }
 
-        public override bool PreAI()
-        {
-            Player player = Main.player[Projectile.owner];
-            if (Projectile.ai[1] == 0)
-            {
-                Projectile.velocity.X = 15f * 4 * player.direction;
-                Projectile.velocity.Y = 0;
-                Projectile.ai[1] = 1;
-            }
-            return base.PreAI();
-        }
-
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             if (combo == 6)
@@ -149,6 +175,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.OmegaSword
         {
             target.AddBuff(ModContent.BuffType<StunLock>(), 10);
             target.AddBuff(BuffID.OnFire3, 600);
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            lightColor = Color.White;
+            return base.PreDraw(ref lightColor);
         }
     }
 }

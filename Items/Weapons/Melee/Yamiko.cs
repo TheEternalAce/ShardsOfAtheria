@@ -1,5 +1,5 @@
-using Microsoft.Xna.Framework;
 using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Items.Bases;
@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
@@ -56,11 +57,16 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             if (player.altFunctionUse == 2 && !player.HasBuff(ModContent.BuffType<YamikoDashCooldown>()))
             {
                 player.velocity = Vector2.Normalize(Main.MouseWorld - player.Center).RotatedByRandom(MathHelper.ToRadians(15)) * 16;
-                string[] insult = { "How did you manage that? Dumbass.", "Good job idiot, you fatally cut yourself. ", "How could you be so stupid?" };
-                int i = Main.rand.Next(insult.Length);
-                string dying = $"{player.name} cut {(player.Male ? "himself" : " herself")}";
-                string die = SoA.ServerConfig.yamikoInsult ? insult[i] + " (" + dying + ")" : dying;
-                player.Hurt(PlayerDeathReason.ByCustomReason(die), 100, 0);
+                string deathText = $"{player.name} cut {(player.Male ? "himself" : " herself")}";
+                if (SoA.ClientConfig.dialogue)
+                {
+                    WeightedRandom<string> insult2 = new();
+
+                    string[] insult = { "How did you manage that? Dumbass.", "Good job idiot, you fatally cut yourself. ", "How could you be so stupid?" };
+                    int i = Main.rand.Next(insult.Length);
+                    deathText = insult[i] + " (" + deathText + ")";
+                }
+                player.Hurt(PlayerDeathReason.ByCustomReason(deathText), 100, 0);
                 player.immune = true;
                 player.immuneTime = 30;
             }

@@ -16,7 +16,6 @@ using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.Chat;
 using Terraria.DataStructures;
@@ -57,7 +56,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             NPCID.Sets.AttackAverageChance[Type] = 30;
             NPCID.Sets.HatOffsetY[Type] = 4;
 
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+            NPCDebuffImmunityData debuffData = new()
             {
                 SpecificallyImmuneTo = new int[] {
                     BuffID.Poisoned,
@@ -73,8 +72,8 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             NPC.Happiness
                 //Biomes
                 .SetBiomeAffection<HallowBiome>(AffectionLevel.Love)
-                .SetBiomeAffection<ForestBiome>(AffectionLevel.Like)
-                .SetBiomeAffection<UndergroundBiome>(AffectionLevel.Hate)
+                .SetBiomeAffection<UndergroundBiome>(AffectionLevel.Like)
+                //.SetBiomeAffection<>(AffectionLevel.Hate)
                 //NPCs
                 .SetNPCAffection(NPCID.Stylist, AffectionLevel.Love)
                 .SetNPCAffection(NPCID.Guide, AffectionLevel.Like);
@@ -188,43 +187,35 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             WeightedRandom<string> chat = new();
             Player player = Main.LocalPlayer;
 
-            if ((!player.Slayer().slayerMode || SoA.ServerConfig.cluelessNPCs) &&
-                player.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
+            if (player.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
             {
                 ShardsPlayer shardsPlayer = player.Shards();
                 int upgrades = shardsPlayer.genesisRagnarockUpgrades;
                 if (upgrades == 0)
                 {
-                    return Language.GetTextValue(DialogueKeyBase + "BaseGenesisAndRagnarok");
+                    chat.AddKey(DialogueKeyBase + "BaseGenesisAndRagnarok");
                 }
             }
 
-            chat.Add(Language.GetTextValue(DialogueKeyBase + "AtheriaComment"));
-            bool goldCrown = false;
-            for (int i = 0; i < player.armor.Count(); i++)
+            chat.AddKey(DialogueKeyBase + "AtheriaComment");
+            if (player.HasItemEquipped(ItemID.GoldCrown))
             {
-                Item item = player.armor[i];
-                if (item.type == ItemID.GoldCrown)
-                {
-                    chat.Add(Language.GetTextValue(DialogueKeyBase + "GoldCrownCompliment"));
-                    goldCrown = true;
-                    break;
-                }
+                chat.AddKey(DialogueKeyBase + "GoldCrownCompliment");
             }
-            if (!goldCrown)
+            else
             {
-                chat.Add(Language.GetTextValue(DialogueKeyBase + "GoldCrownThought"));
+                chat.AddKey(DialogueKeyBase + "GoldCrownThought");
             }
             if (ShardsDownedSystem.downedValkyrie)
             {
-                chat.Add(Language.GetTextValue(DialogueKeyBase + "ExComment"));
+                chat.AddKey(DialogueKeyBase + "ExComment");
             }
             int guide = NPC.FindFirstNPC(NPCID.Guide);
             if (guide >= 0)
             {
-                chat.Add(Language.GetTextValue(DialogueKeyBase + "CSGOReference", Main.npc[guide].GivenName));
+                chat.AddKey(DialogueKeyBase + "CSGOReference", Main.npc[guide].GivenName);
             }
-            chat.Add(Language.GetTextValue(DialogueKeyBase + "MorshuMoment", player.name));
+            chat.AddKey(DialogueKeyBase + "MorshuMoment", player.name);
             return chat;
         }
 

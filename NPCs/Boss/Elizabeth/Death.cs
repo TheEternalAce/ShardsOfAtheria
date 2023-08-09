@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         //int frameY = 0;
 
         Color TextColor = Color.Red;
-        public bool AttacksEnabled => NPC.life < NPC.lifeMax;
+        public bool BloodAttacksEnabled => NPC.life < NPC.lifeMax;
 
         public override string BossHeadTexture => SoA.PlaceholderTexture;
 
@@ -294,7 +294,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         {
             WeightedRandom<int> random = new();
             AddNonBlacklistedAttack(ref random, Crossbow);
-            if (AttacksEnabled)
+            if (BloodAttacksEnabled)
             {
                 if (NPC.life <= NPC.lifeMax / 8 * 7)
                 {
@@ -433,8 +433,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), center, toTarget,
                     ModContent.ProjectileType<SilverBoltHostile>(), damage, 0f, Main.myPlayer);
             }
-            bool eternityMode = false;
-            if (AttacksEnabled && eternityMode)
+            if (BloodAttacksEnabled && SoA.Eternity())
             {
                 int type = ModContent.ProjectileType<BloodArrowHostile>();
                 if (attackTimer % 60 == 0)

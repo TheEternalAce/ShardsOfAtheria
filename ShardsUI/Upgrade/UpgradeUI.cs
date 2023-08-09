@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.DedicatedItems.Webmillio;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
+using ShardsOfAtheria.NPCs.Town.TheAtherian;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -108,7 +108,10 @@ namespace ShardsOfAtheria.ShardsUI
             panel.SetRectangle(x, y, 500, 500);
 
             var player = Main.LocalPlayer;
-            player.AddBuff(ModContent.BuffType<StunLock>(), 2);
+            if (!player.isNearNPC(ModContent.NPCType<Atherian>(), 90))
+            {
+                ModContent.GetInstance<UpgradeUISystem>().HideUI();
+            }
 
             if (ContainsPoint(Main.MouseScreen))
             {

@@ -87,6 +87,20 @@ namespace ShardsOfAtheria.Utilities
             return false;
         }
 
+        public static bool HasItemEquipped(this Player player, int item)
+        {
+            bool equipped = false;
+            foreach (Item i in player.armor)
+            {
+                if (i.type == item)
+                {
+                    equipped = true;
+                    break;
+                }
+            }
+            return equipped;
+        }
+
         public static float CappedMeleeScale(this Player player)
         {
             var item = player.HeldItem;

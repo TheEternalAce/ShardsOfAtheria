@@ -36,6 +36,9 @@ namespace ShardsOfAtheria.Config
         [ReloadRequired]
         public string betterWeapon;
 
+        [DefaultValue(true)]
+        public bool catchableNPC;
+
         [Header("Misc")]
         [DefaultValue(false)]
         public bool altCaveHarpy;

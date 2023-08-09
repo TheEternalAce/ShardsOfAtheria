@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Projectiles.Other
                 Projectile.ai[0] = 1;
             }
 
-            ProjectileElements elementExplosion = Projectile.GetGlobalProjectile<ProjectileElements>();
+            BNGlobalProjectile elementExplosion = Projectile.GetGlobalProjectile<BNGlobalProjectile>();
             if (Main.rand.NextBool(3))
             {
                 if (elementExplosion.isFire)

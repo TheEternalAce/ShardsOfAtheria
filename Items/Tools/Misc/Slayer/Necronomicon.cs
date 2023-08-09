@@ -89,11 +89,11 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
                     page = 0;
                 }
             }
-            SoA.Log(player.Slayer().slayerMode, "Slayer mode enabled: ");
-            SoA.Log(player.Slayer().slayerSet, "Entropy set bonus active: ");
-            SoA.Log(player.Slayer().soulCrystalNames, "Soul crystals: ");
-            SoA.Log(player.Slayer().soulTeleports, "Soul crystal teleports: ");
-            SoA.Log(player.Slayer().lunaticCircleFragments, "Cultist circle fragments: ");
+            SoA.LogInfo(player.Slayer().slayerMode, "Slayer mode enabled: ");
+            SoA.LogInfo(player.Slayer().slayerSet, "Entropy set bonus active: ");
+            SoA.LogInfo(player.Slayer().soulCrystalNames, "Soul crystals: ");
+            SoA.LogInfo(player.Slayer().soulTeleports, "Soul crystal teleports: ");
+            SoA.LogInfo(player.Slayer().lunaticCircleFragments, "Cultist circle fragments: ");
         }
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)

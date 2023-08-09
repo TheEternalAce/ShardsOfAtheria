@@ -12,6 +12,10 @@ namespace ShardsOfAtheria.Systems
         public static bool downedValkyrie = false;
         public static bool downedSenterra = false;
         public static bool downedGenesis = false;
+        public static bool downedCentipede = false;
+        public static bool downedArmor = false;
+        public static bool downedPheonix = false;
+        public static bool downedHarpyQueen = false;
 
         public bool slainDeath = false;
         public bool slainKing = false;

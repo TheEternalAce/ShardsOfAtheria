@@ -32,18 +32,22 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
-            for (int i = 0; i < Main.maxProjectiles; i++)
+            if (Projectile.ai[0] == 1)
             {
-                Projectile blade = Main.projectile[i];
-                if (blade.type == Type &&
-                    blade.whoAmI != Projectile.whoAmI &&
-                    blade.active &&
-                    Projectile.active)
+                for (int i = 0; i < Main.maxProjectiles; i++)
                 {
-                    if (Projectile.Hitbox.Intersects(blade.Hitbox))
+                    Projectile blade = Main.projectile[i];
+                    if (blade.type == Type &&
+                        blade.whoAmI != Projectile.whoAmI &&
+                        blade.active &&
+                        blade.ai[0] == Projectile.ai[0] &&
+                        Projectile.active)
                     {
-                        Projectile.Kill();
-                        blade.Kill();
+                        if (Projectile.Hitbox.Intersects(blade.Hitbox))
+                        {
+                            Projectile.Kill();
+                            blade.Kill();
+                        }
                     }
                 }
             }

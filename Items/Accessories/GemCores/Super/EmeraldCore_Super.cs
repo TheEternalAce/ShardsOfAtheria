@@ -27,10 +27,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            // Terraspark Boots
-            player.waterWalk = true;
-            player.fireWalk = true;
-            player.lavaMax += 420;
+            // Frostspark Boots
             player.accRunSpeed = 6.75f;
             player.rocketBoots = 3;
             player.iceSkate = true;

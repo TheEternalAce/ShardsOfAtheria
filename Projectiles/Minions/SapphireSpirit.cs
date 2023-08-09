@@ -236,8 +236,9 @@ namespace ShardsOfAtheria.Projectiles.Minions
                 {
                     Projectile.frame = 2;
                     Projectile.frameCounter = 0;
-                    Projectile.damage = 50;
+                    Projectile.damage = 150;
                     Projectile.spriteDirection = targetCenter.X < Projectile.Center.X ? -1 : 1;
+                    SoundEngine.PlaySound(SoundID.Item1);
                     float numberProjectiles = 3; // 3 shots
                     float rotation = MathHelper.ToRadians(5);
                     for (int i = 0; i < numberProjectiles; i++)

@@ -4,8 +4,10 @@ using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.Utilities;
 
 namespace ShardsOfAtheria.Utilities
 {
@@ -137,7 +139,6 @@ namespace ShardsOfAtheria.Utilities
             }
             return baseAmount * multiplier;
         }
-
         public static StatModifier ScaleByProggression(StatModifier baseAmount)
         {
             int multiplier = 1;
@@ -235,6 +236,11 @@ namespace ShardsOfAtheria.Utilities
                 Y = region.Y + Main.rand.Next(region.Height + 1)
             };
             return result;
+        }
+
+        public static void AddKey(this WeightedRandom<string> random, string key, params object[] args)
+        {
+            random.Add(Language.GetTextValue(key, args));
         }
     }
 }

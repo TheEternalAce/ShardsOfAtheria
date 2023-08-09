@@ -41,6 +41,7 @@ namespace ShardsOfAtheria.Players
         public bool lesserSapphireCore;
         public bool sapphireCore;
         public bool superSapphireCore;
+        public bool rubyCore;
         public bool greaterRubyCore;
         public bool superRubyCore;
         public bool baseConservation;
@@ -62,6 +63,7 @@ namespace ShardsOfAtheria.Players
         public bool phaseOffense;
         public bool rushDrive;
         public bool areusProcessor;
+        public bool areusProcessorPrevious;
         public int processorElement = Element.Fire;
         public bool resonator;
         public bool areusRod;
@@ -104,8 +106,6 @@ namespace ShardsOfAtheria.Players
         internal int overdriveTimeRegenTimer = 0;
         public bool Overdrive => Player.HasBuff<Overdrive>() && overdriveTimeCurrent > 0;
 
-        public double[] elementMultiplier = { 1.0, 1.0, 1.0, 1.0 };
-
         public int readingDisk = 0;
 
         public int aggression = 0;
@@ -116,23 +116,30 @@ namespace ShardsOfAtheria.Players
 
         public override void ResetEffects()
         {
-            lesserSapphireCore = false;
-            lesserEmeraldCore = false;
-            sapphireCore = false;
-            superSapphireCore = false;
-            greaterRubyCore = false;
-            superRubyCore = false;
-            baseConservation = false;
-            superEmeraldCore = false;
-            areusKey = false;
-            megaGemCore = false;
             amethystMask = false;
             diamondShield = false;
+
+            lesserEmeraldCore = false;
+            superEmeraldCore = false;
             emeraldBoots = false;
-            rubyGauntlet = false;
+
+            lesserSapphireCore = false;
+            sapphireCore = false;
+            superSapphireCore = false;
             sapphireSpiritPrevious = sapphireSpirit;
             sapphireSpirit = false;
+
+            rubyCore = false;
+            greaterRubyCore = false;
+            superRubyCore = false;
+            rubyGauntlet = false;
+
             topazNecklace = false;
+
+            megaGemCore = false;
+
+            baseConservation = false;
+            areusKey = false;
             heartBreak = false;
             healingItem = false;
             rushDrive = false;
@@ -144,12 +151,18 @@ namespace ShardsOfAtheria.Players
                 hardlightBracesCooldown--;
             }
             pearlwoodSet = false;
+            areusProcessorPrevious = areusProcessor;
             areusProcessor = false;
-            resonator = false;
             acidTrip = false;
             powerTrip = false;
+            resonator = false;
 
             ResetVariables();
+            var bar = ModContent.GetInstance<OverdriveEnergyBarSystem>();
+            if (!Biometal && bar.BarShowing)
+            {
+                bar.HideBar();
+            }
             Biometal = BiometalHideVanity = BiometalForceVanity = false;
 
             UpdateResource();
@@ -506,7 +519,10 @@ namespace ShardsOfAtheria.Players
         {
             if (megaGemCore || greaterRubyCore || superRubyCore)
             {
-                return item.damage > 0;
+                if (item.damage > 0)
+                {
+                    return true;
+                }
             }
             return base.CanAutoReuseItem(item);
         }
@@ -531,6 +547,10 @@ namespace ShardsOfAtheria.Players
             if (greaterRubyCore)
             {
                 target.AddBuff(BuffID.OnFire, 600);
+            }
+            if (greaterRubyCore)
+            {
+                target.AddBuff(BuffID.OnFire3, 600);
             }
             if (superRubyCore)
             {
@@ -568,9 +588,13 @@ namespace ShardsOfAtheria.Players
             {
                 target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
             }
-            if (greaterRubyCore)
+            if (rubyCore)
             {
                 target.AddBuff(BuffID.OnFire, 600);
+            }
+            if (greaterRubyCore)
+            {
+                target.AddBuff(BuffID.OnFire3, 600);
             }
             if (superRubyCore)
             {
@@ -630,28 +654,39 @@ namespace ShardsOfAtheria.Players
                 }
                 else
                 {
-                    if (item.type == ModContent.ItemType<AmethystCore>() || item.type == ModContent.ItemType<AmethystCore_Greater>()
-                        || item.type == ModContent.ItemType<AmethystCore_Super>())
+                    if (item.type == ModContent.ItemType<AmethystCore>() ||
+                        item.type == ModContent.ItemType<AmethystCore_Greater>() ||
+                        item.type == ModContent.ItemType<AmethystCore_Super>())
                     {
                         amethystMask = true;
                     }
-                    if (item.type == ModContent.ItemType<DiamondCore>() || item.type == ModContent.ItemType<DiamondCore_Greater>()
-                        || item.type == ModContent.ItemType<DiamondCore_Super>())
+                    if (item.type == ModContent.ItemType<DiamondCore>() ||
+                        item.type == ModContent.ItemType<DiamondCore_Greater>() ||
+                        item.type == ModContent.ItemType<DiamondCore_Super>())
                     {
                         diamondShield = true;
                     }
-                    if (item.type == ModContent.ItemType<RubyCore>() || item.type == ModContent.ItemType<RubyCore_Greater>()
-                        || item.type == ModContent.ItemType<RubyCore_Super>())
+                    if (item.type == ModContent.ItemType<EmeraldCore>() ||
+                        item.type == ModContent.ItemType<DiamondCore_Greater>() ||
+                        item.type == ModContent.ItemType<EmeraldCore_Super>())
+                    {
+                        emeraldBoots = true;
+                    }
+                    if (item.type == ModContent.ItemType<RubyCore>() ||
+                        item.type == ModContent.ItemType<RubyCore_Greater>() ||
+                        item.type == ModContent.ItemType<RubyCore_Super>())
                     {
                         rubyGauntlet = true;
                     }
-                    if (item.type == ModContent.ItemType<SapphireCore>() || item.type == ModContent.ItemType<SapphireCore_Greater>()
-                        || item.type == ModContent.ItemType<SapphireCore_Super>())
+                    if (item.type == ModContent.ItemType<SapphireCore>() ||
+                        item.type == ModContent.ItemType<SapphireCore_Greater>() ||
+                        item.type == ModContent.ItemType<SapphireCore_Super>())
                     {
                         sapphireSpirit = true;
                     }
-                    if (item.type == ModContent.ItemType<TopazCore>() || item.type == ModContent.ItemType<TopazCore_Greater>()
-                        || item.type == ModContent.ItemType<TopazCore_Super>())
+                    if (item.type == ModContent.ItemType<TopazCore>() ||
+                        item.type == ModContent.ItemType<TopazCore_Greater>() ||
+                        item.type == ModContent.ItemType<TopazCore_Super>())
                     {
                         topazNecklace = true;
                     }

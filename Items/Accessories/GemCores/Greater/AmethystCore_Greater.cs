@@ -29,7 +29,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
         {
             CreateRecipe()
                .AddIngredient(ModContent.ItemType<AmethystCore>())
-                .AddIngredient(ItemID.HallowedBar, 5)
+                .AddIngredient(ItemID.HallowedBar, 10)
+                .AddIngredient(ItemID.LavaWaders, 10)
                .AddTile(TileID.MythrilAnvil)
                .Register();
         }
@@ -37,6 +38,11 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Shards().amethystMask = !hideVisual;
+
+            // Lava Waders
+            player.waterWalk = true;
+            player.fireWalk = true;
+            player.lavaMax += 420;
 
             AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
             mp.DashVelocity = 13f;

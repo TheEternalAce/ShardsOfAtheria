@@ -10,6 +10,11 @@ namespace ShardsOfAtheria.Items.Accessories
 {
     public class AreusProcessor : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return SoA.ElementModEnabled;
+        }
+
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;

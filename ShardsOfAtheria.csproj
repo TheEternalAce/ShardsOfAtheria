@@ -8,19 +8,26 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <AdditionalFiles Remove="NPCs\Boss\Exodus\**" />
     <AdditionalFiles Remove="NPCs\Town\Archivist\**" />
     <Compile Remove="Items\ModItems\**" />
+    <Compile Remove="NPCs\Boss\Exodus\**" />
     <Compile Remove="NPCs\Town\Archivist\**" />
     <Compile Remove="SoA Demonstrations\**" />
     <Compile Remove="Walls\**" />
     <EmbeddedResource Remove="Items\ModItems\**" />
+    <EmbeddedResource Remove="NPCs\Boss\Exodus\**" />
     <EmbeddedResource Remove="NPCs\Town\Archivist\**" />
     <EmbeddedResource Remove="SoA Demonstrations\**" />
     <EmbeddedResource Remove="Walls\**" />
     <None Remove="Items\ModItems\**" />
+    <None Remove="NPCs\Boss\Exodus\**" />
     <None Remove="NPCs\Town\Archivist\**" />
     <None Remove="SoA Demonstrations\**" />
     <None Remove="Walls\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Items\Weapons\Melee\HardlightSlash.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
@@ -31,16 +38,14 @@
     <Folder Include="Items\Armor\Areus\Soldier\" />
     <Folder Include="Items\SlayerBoxes\" />
     <Folder Include="NPCs\Boss\AnnahStellar\" />
-    <Folder Include="NPCs\Boss\Exodus\" />
     <Folder Include="NPCs\Boss\Andromeda\" />
     <Folder Include="NPCs\Boss\Genesis\" />
+    <Folder Include="NPCs\Boss\Fallen Armor\" />
+    <Folder Include="NPCs\Boss\AnnahStellar\" />
     <Folder Include="NPCs\Boss\Senterra\" />
     <Folder Include="NPCs\Boss\NovaStellar\PhoenixWarrior\" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="AlchemistNPCLite">
-      <HintPath>..\..\ModReader\AlchemistNPCLite\AlchemistNPCLite.dll</HintPath>
-    </Reference>
     <Reference Include="BattleNetworkElements">
       <HintPath>..\ModAssemblies\BattleNetworkElements_v1.0.dll</HintPath>
     </Reference>

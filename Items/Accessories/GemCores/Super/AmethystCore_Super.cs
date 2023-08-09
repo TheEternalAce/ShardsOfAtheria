@@ -40,6 +40,11 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
         {
             player.Shards().amethystMask = !hideVisual;
 
+            // Lava Waders
+            player.waterWalk = true;
+            player.fireWalk = true;
+            player.lavaMax += 420;
+
             AmethystDashPlayerII mp = player.GetModPlayer<AmethystDashPlayerII>();
             player.noKnockback = true;
             player.buffImmune[BuffID.Poisoned] = true;

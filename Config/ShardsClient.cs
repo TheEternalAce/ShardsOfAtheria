@@ -29,15 +29,13 @@ namespace ShardsOfAtheria.Config
 
         [Header("Misc")]
         [DefaultValue(true)]
-        public bool sinfulArmamentText;
+        public bool dialogue;
 
         [DefaultValue(true)]
         [ReloadRequired()]
         public bool windowTitle;
 
-        [OptionStrings(new[] { "Off", "Console only", "Console and Chat" })]
-        [DrawTicks()]
-        [DefaultValue("Off")]
-        public string debug;
+        [DefaultValue(false)]
+        public bool debug;
     }
 }

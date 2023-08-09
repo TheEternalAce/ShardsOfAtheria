@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Accessories;
-using ShardsOfAtheria.Items.DataDisks;
 using ShardsOfAtheria.Items.GrabBags;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.PetItems;
@@ -15,7 +14,6 @@ using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon.Minion;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Systems;
@@ -46,8 +44,6 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
         int frameY = 0;
 
         Color TextColor = Color.DeepSkyBlue;
-
-        public override string BossHeadTexture => "ShardsOfAtheria/Items/PetItems/SmallHardlightCrest";
 
         public override void SetStaticDefaults()
         {
@@ -146,7 +142,6 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 notExpertRule.OnSuccess(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
             }
 
-            notDefeated.OnFailedConditions(ItemDropRule.Common(ModContent.ItemType<HardlightDataDisk>()));
             master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieStormLance>()));
             npcLoot.Add(master);
 

@@ -1,11 +1,9 @@
-﻿using AlchemistNPCLite.NPCs;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Items.Accessories;
-using ShardsOfAtheria.Items.GrabBags;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.SinfulSouls;
@@ -17,7 +15,6 @@ using ShardsOfAtheria.Items.Weapons.Summon;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
-using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
@@ -57,34 +54,6 @@ namespace ShardsOfAtheria.Globals
                     shopCustomPrice = 250000
                 }, SoAConditions.SlayerMode);
             }
-            else if (ModLoader.TryGetMod("AlchemistNPCLite", out Mod alchemistNPCLite))
-            {
-                if (shop.NpcType == alchemistNPCLite.Find<ModNPC>("Operator").Type)
-                {
-                    shop.Add<SoulOfDaylight>(new Condition("Mods.ShardsOfAtheria.Conditions.OperatorMaterials",
-                        () => OperatorMaterialsShop));
-                    shop.Add<SoulOfTwilight>(new Condition("Mods.ShardsOfAtheria.Conditions.OperatorMaterials",
-                        () => OperatorMaterialsShop));
-                    shop.Add<SoulOfSpite>(new Condition("Mods.ShardsOfAtheria.Conditions.OperatorMaterials",
-                        () => OperatorMaterialsShop));
-                    shop.Add<HardlightPrism>(new Condition("Mods.ShardsOfAtheria.Conditions.DefeatNova",
-                        () => OperatorMaterialsShop && ShardsDownedSystem.downedValkyrie));
-                    shop.Add<NovaBossBag>(new Condition("Mods.ShardsOfAtheria.Conditions.OperatorBags3",
-                        () => OperatorBagsShop3));
-                }
-            }
-        }
-
-        [JITWhenModsEnabled("AlchemistNPCLite")]
-        bool OperatorMaterialsShop
-        {
-            get { return Operator.Shop2; }
-        }
-
-        [JITWhenModsEnabled("AlchemistNPCLite")]
-        bool OperatorBagsShop3
-        {
-            get { return Operator.Shop6; }
         }
 
         public override void SetupTravelShop(int[] shop, ref int nextSlot)

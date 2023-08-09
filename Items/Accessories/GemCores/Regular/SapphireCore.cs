@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<SapphireCore_Lesser>())
-                .AddIngredient(ItemID.HellstoneBar, 5)
+                .AddIngredient(ItemID.HellstoneBar, 10)
                 .AddIngredient(ItemID.Bone, 20)
                 .AddTile(TileID.Anvils)
                 .Register();

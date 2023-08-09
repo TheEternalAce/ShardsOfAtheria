@@ -229,8 +229,7 @@ Mods: {
 				DisplayName: Greater Ruby Core
 				Tooltip:
 					'''
-					10% increased damage
-					Increases attack speed by 10%
+					10% increased damage and attack speed
 					Increases knockback
 					Increased melee size
 					Attacks inflict 'Hellfire'
@@ -242,7 +241,7 @@ Mods: {
 				DisplayName: Super Ruby Core
 				Tooltip:
 					'''
-					15% increased damage
+					15% increased damage and attack speed
 					Increased knockback, attack speed and melee size
 					Attacks inflict 'Cursed Inferno' and 'Ichor'
 					Grants immunity to damage reducing and anti attacking debuffs
@@ -312,12 +311,12 @@ Mods: {
 			}
 
 			MegaGemCore: {
-				DisplayName: Mega Gem Core
+				DisplayName: Master Gem Core
 				Tooltip:
 					'''
 					Counts as wings
 					Increases max life by 100
-					Increases damage, attack speed by 20%
+					Increases damage and attack speed by 20%
 					Increases movement speed by 15%
 					Increases knockback and melee size
 					+8 extra minion slots
@@ -327,7 +326,7 @@ Mods: {
 					All weapons autoswing
 					Grants immunity to damage dealing, damage and defense reducing, most anti-healing and cold debuffs
 					Grants Ironskin and Endurance when dealing damage and Wrath, Rage and Inferno when taking damage
-					Effects of Ankh Shield, Bundle of Balloons, Charm of Myths, Frozen Turtle Shell, and Terraspark Boots
+					Effects of Ankh Shield, Bundle of Balloons, Charm of Myths, and Terraspark Boots
 					Permanent Thorns, Heart Lantern, Cozy Campfire, Heartreach and Gravitation buffs
 					Use to disable Gravitation
 					Grants flight and slow fall
@@ -355,7 +354,7 @@ Mods: {
 
 			AreusProcessor: {
 				DisplayName: Areus Processor
-				Tooltip: Changes projectile attacks to a chosen element
+				Tooltip: Changes attacks to a chosen element
 			}
 
 			Biometal: {
@@ -1783,6 +1782,16 @@ Mods: {
 				DisplayName: Shiva Materia
 				Tooltip: ""
 			}
+
+			ArchivistSummonItem: {
+				DisplayName: Archivist Summon Item
+				Tooltip: ""
+			}
+
+			AtherianSummonItem: {
+				DisplayName: Atherian Summon Item
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -2051,19 +2060,19 @@ Mods: {
 				Bestiary: After the young goddess, Senterra, created her world, she populated it with beings called Atherians, their design inspired by the angels in a certain human culture.
 
 				TownNPCMood: {
-					Content: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.Content}"
-					NoHome: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.NoHome}"
-					FarFromHome: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.FarFromHome}"
-					LoveSpace: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LoveSpace}"
-					DislikeCrowded: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.DislikeCrowded}"
-					HateCrowded: I hate how crowded I am.
-					LoveBiome: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LoveBiome}"
-					LikeBiome: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LikeBiome}"
-					HateBiome: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.HateBiome}"
-					LoveNPC: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LoveNPC}"
-					LikeNPC: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LikeNPC}"
-					LikeNPC_Princess: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LikeNPC_Princess}"
-					Princess_LovesNPC: "{$TownNPCMood_Princess.LoveNPC_ShardsOfAtheria/Atherian}"
+					Content: I'm good, thanks for checking in.
+					NoHome: At least I'm not in a crowded area, but I'd still rather not be homeless.
+					FarFromHome: It seems I've wandered too far. Or have I been relocated?
+					LoveSpace: This is good, thank you for this place.
+					DislikeCrowded: Seems to be getting a bit crowded here, no?
+					HateCrowded: I hate to be rude, but I came here to get out of an overpopulated area, not to go into another.
+					LoveBiome: "{BiomeName} reminds me of home, I love it."
+					LikeBiome: I love how colorful the it is down here. Shame it's so dark.
+					HateBiome: ""
+					LoveNPC: "{NPCName} does a great job with my hair. What's this about a crush? I don't know what you mean!"
+					LikeNPC: Nobody gives {NPCName} enough credit. He knows the Soul of Eternity's whole crafting tree yet you have to look it up on Recipe Browser!
+					LikeNPC_Princess: I tried to teach {NPCName} my language. It didn't go well.. Well she had fun trying regardless!
+					Princess_LovesNPC: "{NPCName}'s wings are just gorgeous!"
 				}
 
 				Dialogue: {
@@ -2073,8 +2082,8 @@ Mods: {
 						What a peculiar weapon. It shows capabilities of transforming into several types of weapon, but it's locked in spear and whip form.
 						There's also memories sealed inside the shield. Perhaps something to unlock those memories will make it stronger?
 						'''
-					AtheriaComment: Atheria is a lovely place, but there's an overpopulation problem. You see our goddess, Senterra, wasn't too keen on giving us such a short lifespan like humans. So she made us nigh-immortal and, turns out, that makes things not so great for a small planet.
-					ExComment: My ex? Ah. Yes, Nova, I'm sure you've already guessed by now. We didn't separate on exactly good terms.
+					AtheriaComment: Atheria is a lovely place, but there's an overpopulation problem. Long story short is: our goddess wasn't too keen on giving us such a short lifespan like humans. So she made us nigh-immortal and, turns out, that makes things not so great for a small planet.
+					ExComment: My ex? Yes, Nova, I'm sure you've already guessed by now. We didn't separate on exactly good terms.
 					GoldCrownThought: Hmm.. I reckon a Gold Crown would suit you well!
 					GoldCrownCompliment: Yes yes, the Gold Crown does suit you well!
 					MorshuMoment: Sorry {0}, what is this 'credit'? Come back when you have some coin! Or maybe you wanna chat? That's fine too.
@@ -2116,6 +2125,28 @@ Mods: {
 				}
 
 				Census.SpawnCondition: Defeat your world's evil boss while not in Slayer mode.
+			}
+
+			Archivist: {
+				DisplayName: Archivist
+
+				TownNPCMood: {
+					Content: I am content.
+					NoHome: I hate not having a home.
+					FarFromHome: I am too far from home.
+					LoveSpace: I love having so much space.
+					DislikeCrowded: I dislike how crowded I am.
+					HateCrowded: I hate how crowded I am.
+					LoveBiome: I love {BiomeName}.
+					LikeBiome: I like {BiomeName}.
+					LoveNPC: I love {NPCName}.
+					LikeNPC: I like {NPCName}.
+					LikeNPC_Princess: I like {NPCName}.
+					Princess_LovesNPC: I like {NPCName}.
+				}
+
+				Dialogue.Placeholder: AAAA
+				Census.SpawnCondition: Conditions unknown
 			}
 
 			CaveHarpy.DisplayName: Cavern Harpy
@@ -2408,28 +2439,26 @@ Mods: {
 		}
 
 		Conditions: {
-			# NPC Loot
 			Slayer: Drops while in Slayer Mode
-			PostSkeletron: Drops after Skeletron's defeat
-			PostGolem: Drops after Golem's defeat
-			PostCultist: Drops after Lunatic Cultist's defeat
-			PostMoonLord: Drops after Moon Lord's defeat
 			Upgrade: Upgraded by Atherian
 			SlayerMode: Be in Slayer Mode
 			NotSlayer: Slayer Mode disabled
-			AnyMech: Defeat any mech boss
-			DefeatPlantera: Sold after Plantera's defeat
-			DefeatNova: Sold after Nova Stellar's defeat
+			DownedNova: Defeat Nova Stellar
+			DownedDeath: Defeat Elizabeth Norman
 			OperatorMaterials: Mods.ShardsOfAtheria.Conditions.OperatorMaterials
 			OperatorBags3: Mods.ShardsOfAtheria.Conditions.OperatorBags3
+			AtherianPresent: Mods.ShardsOfAtheria.Conditions.AtherianPresent
+			DownedGenesis: Mods.ShardsOfAtheria.Conditions.DownedGenesis
+			DownedSenterra: Mods.ShardsOfAtheria.Conditions.DownedSenterra
 		}
 
 		ShopQuote: {
 			Atherian: {
-				AreusDataDisk: ""
 				ValkyrieCrest: This belonged to my Ex...
 				AreusKey: Can I interest you in performance enhancing drugs? Too bad, I have none of that. This is the closest thing though.
 			}
+
+			Archivist.Necronomicon: This book has got some spooky vibes. You want it?
 		}
 
 		InfoDisplays: {
@@ -2515,9 +2544,9 @@ Mods: {
 					Tooltip: Move the lore tablet
 				}
 
-				sinfulArmamentText: {
-					Label: "[i:3617] Sinful Armament dialogue"
-					Tooltip: Toggles the dialogue when using Sinful Armament
+				dialogue: {
+					Label: "[i:3617] Dialogue"
+					Tooltip: Toggles dialogue for everything
 				}
 
 				windowTitle: {
@@ -2526,8 +2555,8 @@ Mods: {
 				}
 
 				debug: {
-					Label: debug
-					Tooltip: ""
+					Label: Debug
+					Tooltip: Toggles wether or not certain things will be logged.
 				}
 			}
 
@@ -2579,6 +2608,11 @@ Mods: {
 					Label: "[i:48] Alt Cavern Harpy"
 					Tooltip: Makes a slight change to the Cavern Harpy sprite
 				}
+
+				catchableNPC: {
+					Label: catchable N P C
+					Tooltip: ""
+				}
 			}
 		}
 
@@ -2588,5 +2622,3 @@ Mods: {
 		}
 	}
 }
-
-TownNPCMood_Princess.LoveNPC_ShardsOfAtheria/Atherian: "{NPCName}'s wings are just gorgeous!"

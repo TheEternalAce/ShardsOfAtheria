@@ -52,6 +52,15 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 .Register();
         }
 
+        public override bool CanConsumeAmmo(Item ammo, Player player)
+        {
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<AreusMagnumProj>()] > 0)
+            {
+                return base.CanConsumeAmmo(ammo, player);
+            }
+            return false;
+        }
+
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             type = ModContent.ProjectileType<AreusMagnumProj>();

@@ -105,26 +105,27 @@ namespace ShardsOfAtheria.Globals
                     {
                         if (player.active && !player.dead && projectile.friendly)
                         {
+                            var projectileElement = projectile.Elements();
                             if (player.Shards().areusProcessor)
                             {
-                                projectile.Elements().isFire = false;
-                                projectile.Elements().isAqua = false;
-                                projectile.Elements().isElec = false;
-                                projectile.Elements().isWood = false;
+                                projectileElement.isFire = false;
+                                projectileElement.isAqua = false;
+                                projectileElement.isElec = false;
+                                projectileElement.isWood = false;
 
                                 switch (player.Shards().processorElement)
                                 {
                                     case Element.Fire:
-                                        projectile.Elements().isFire = true;
+                                        projectileElement.isFire = true;
                                         break;
                                     case Element.Aqua:
-                                        projectile.Elements().isAqua = true;
+                                        projectileElement.isAqua = true;
                                         break;
                                     case Element.Elec:
-                                        projectile.Elements().isElec = true;
+                                        projectileElement.isElec = true;
                                         break;
                                     case Element.Wood:
-                                        projectile.Elements().isWood = true;
+                                        projectileElement.isWood = true;
                                         break;
                                 }
                             }

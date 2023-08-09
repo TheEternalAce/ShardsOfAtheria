@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Tools
             Projectile.tileCollide = false;
             Projectile.hostile = true;
             Projectile.damage = 100;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 60;
 
             DrawOffsetX = -21;
             DrawOriginOffsetX = 15;
@@ -99,7 +99,7 @@ namespace ShardsOfAtheria.Projectiles.Tools
                     }
                 }
 
-                SoA.Log(slayer.soulCrystalNames, "New Soul Crystal list: ");
+                SoA.LogInfo(slayer.soulCrystalNames, "New Soul Crystal list: ");
             }
         }
     }

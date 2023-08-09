@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.NPCs.Town.TheAtherian;
+﻿using ShardsOfAtheria.NPCs.Town.TheArchivist;
+using ShardsOfAtheria.NPCs.Town.TheAtherian;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -13,6 +14,7 @@ namespace ShardsOfAtheria.CrossMod
             Instance.Call("SetDefaultKey", Mod, Key);
 
             ModContent.GetInstance<Atherian>().SetupShopQuotes(Instance);
+            ModContent.GetInstance<Archivist>().SetupShopQuotes(Instance);
         }
 
         public static string GetKey(string key)
