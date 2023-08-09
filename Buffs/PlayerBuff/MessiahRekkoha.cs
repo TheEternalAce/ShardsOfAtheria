@@ -12,7 +12,9 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
             player.GetModPlayer<RekkohaPlayer>().Rekkoha = true;
             if (player.buffTime[buffIndex] % 10 == 0)
             {
-                player.Heal(player.statLifeMax2 * 8 / 100);
+                int heal = player.statLifeMax2 * 8 / 100;
+                player.HealEffect(heal);
+                player.statLife += heal;
             }
         }
     }
