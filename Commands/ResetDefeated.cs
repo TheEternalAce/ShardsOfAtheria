@@ -1,5 +1,8 @@
-﻿using ShardsOfAtheria.Systems;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Systems;
 using Terraria;
+using Terraria.Chat;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Commands
@@ -35,7 +38,9 @@ namespace ShardsOfAtheria.Commands
             NPC.downedFishron = false;
             NPC.downedEmpressOfLight = false;
             NPC.downedMoonlord = false;
-            SoA.Log("/resetDefeated command:", "Bosses have no longer been defeated", true);
+            string bossDefeatReset = "Bosses have no longer been defeated";
+            SoA.LogInfo(bossDefeatReset, "/resetDefeated command:", true);
+            ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(bossDefeatReset), Color.White, caller.Player.whoAmI);
         }
     }
 }

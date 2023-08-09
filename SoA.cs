@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using ShardsOfAtheria.Config;
@@ -12,7 +11,6 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -35,6 +33,8 @@ namespace ShardsOfAtheria
         public static ShardsDownedSystem DownedSystem;
         public static bool AprilFools => DateTime.Now is DateTime { Month: 4 };
 
+        public static bool ElementModEnabled => ModLoader.TryGetMod("BattleNetworkElements", out Mod _);
+
         public static Mod Instance { get; private set; }
 
         public const string BlankTexture = "ShardsOfAtheria/Blank";
@@ -49,6 +49,23 @@ namespace ShardsOfAtheria
         public static SoundStyle TheMessiah;
         public static SoundStyle Rekkoha;
         public static SoundStyle Coin;
+
+        public static bool Eternity()
+        {
+            if (ModLoader.TryGetMod("FargowiltasSouls", out Mod souls))
+            {
+                return (bool)souls.Call("EternityMode");
+            }
+            return false;
+        }
+        public static bool Massochist()
+        {
+            if (ModLoader.TryGetMod("FargowiltasSouls", out Mod souls))
+            {
+                return (bool)souls.Call("MasochistMode");
+            }
+            return false;
+        }
 
         public override void Load()
         {
@@ -227,18 +244,12 @@ namespace ShardsOfAtheria
             return JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(streamReader.ReadToEnd());
         }
 
-        private static bool ConsoleDebug => ClientConfig.debug == "Console only";
-        private static bool ConsoleAndChatDebug => ClientConfig.debug == "Console and Chat";
-        internal static void Log(object value, string label = "\n", bool ignoreDebugConfig = false)
+        private static bool ConsoleDebug => ClientConfig.debug;
+        internal static void LogInfo(object value, string label = "", bool ignoreDebugConfig = false)
         {
-            Log(value, Color.White, label, ignoreDebugConfig);
-        }
-        internal static void Log(object value, Color chatColor, string label = "\n", bool ignoreDebugConfig = false)
-        {
-            var debug = "[Shards of Atheria Info] " + label + " ";
-            if (ConsoleDebug || ConsoleAndChatDebug || ignoreDebugConfig)
+            if (ConsoleDebug || ignoreDebugConfig)
             {
-                Instance.Logger.Info(debug + value);
+                Instance.Logger.Info(label + value);
                 if (value is IList list)
                 {
                     Instance.Logger.Info("--List items--");
@@ -251,25 +262,6 @@ namespace ShardsOfAtheria
                         foreach (object item in list)
                         {
                             Instance.Logger.Info(item);
-                        }
-                    }
-                }
-            }
-            if (ConsoleAndChatDebug || ignoreDebugConfig)
-            {
-                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(debug + value.ToString()), chatColor);
-                if (value is IList list)
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("--List items--"), chatColor);
-                    if (list.Count == 0)
-                    {
-                        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("None"), chatColor);
-                    }
-                    else
-                    {
-                        foreach (object item in list)
-                        {
-                            ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(item.ToString()), chatColor);
                         }
                     }
                 }

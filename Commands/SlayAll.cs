@@ -1,4 +1,6 @@
-﻿using ShardsOfAtheria.Systems;
+﻿using Microsoft.Xna.Framework;
+using Terraria.Chat;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Commands
@@ -33,7 +35,10 @@ namespace ShardsOfAtheria.Commands
             SoA.DownedSystem.slainMoonLord = true;
             SoA.DownedSystem.slainSenterra = true;
             SoA.DownedSystem.slainGenesis = true;
-            SoA.Log("/slayAll command:", "All bosses are slain", true);
+
+            string slayAll = "All bosses are slain";
+            SoA.LogInfo(slayAll, "/slayAll command:", true);
+            ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(slayAll), Color.White, caller.Player.whoAmI);
         }
     }
 }

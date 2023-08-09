@@ -1,7 +1,10 @@
-﻿using ShardsOfAtheria.Players;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.Chat;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Commands
@@ -28,9 +31,13 @@ namespace ShardsOfAtheria.Commands
             ShardsDownedSystem soaWorld = SoA.DownedSystem;
 
             shards.genesisRagnarockUpgrades = 0;
-            SoA.Log("/generic command:", "Reset Genesis and Ragnarok upgrades", true);
+            string arsenalReset = "Reset Genesis and Ragnarok upgrades";
+            ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(arsenalReset), Color.White, player.whoAmI);
+            SoA.LogInfo(arsenalReset, "/generic command:", true);
             shards.areusRod = false;
-            SoA.Log("/generic command:", "Disabled Areus Rod effects", true);
+            string areusRodReset = "Disabled Areus Rod effects";
+            ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(areusRodReset), Color.White, player.whoAmI);
+            SoA.LogInfo(areusRodReset, "/generic command:", true);
         }
     }
 }

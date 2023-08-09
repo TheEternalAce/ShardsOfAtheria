@@ -1,4 +1,7 @@
-﻿using ShardsOfAtheria.Utilities;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
+using Terraria.Chat;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Commands
@@ -47,7 +50,10 @@ namespace ShardsOfAtheria.Commands
             SoA.DownedSystem.slainSenterra = false;
             SoA.DownedSystem.slainGenesis = false;
             SoA.DownedSystem.slainDeath = false;
-            SoA.Log("/resetSlayer command:", "Slayer mode reset", true);
+
+            string slayerReset = "Slayer mode reset";
+            SoA.LogInfo(slayerReset, "/resetSlayer command:", true);
+            ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(slayerReset), Color.White, caller.Player.whoAmI);
         }
     }
 }
