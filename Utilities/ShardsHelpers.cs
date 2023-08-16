@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -241,6 +242,22 @@ namespace ShardsOfAtheria.Utilities
         public static void AddKey(this WeightedRandom<string> random, string key, params object[] args)
         {
             random.Add(Language.GetTextValue(key, args));
+        }
+
+        public static bool ContainsAny<T>(this IEnumerable<T> en, Predicate<T> predicate)
+        {
+            foreach (var t in en)
+            {
+                if (predicate(t))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static bool ContainsAny<T>(this IEnumerable<T> en, T en2)
+        {
+            return ContainsAny(en, (t) => t.Equals(en2));
         }
     }
 }

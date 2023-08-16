@@ -39,8 +39,15 @@ namespace ShardsOfAtheria.Utilities
             explosion.Size = new Vector2(explosionSize);
             explosion.hostile = hostile;
             ScreenShake.ShakeScreen(6, 60);
+            if (SoA.ElementModEnabled)
+            {
+                SetExplosionElements(proj, explosion);
+            }
+        }
+        [JITWhenModsEnabled("BattleNetworkElements")]
+        private static void SetExplosionElements(Projectile proj, Projectile explosion)
+        {
             BNGlobalProjectile elementExplosion = explosion.GetGlobalProjectile<BNGlobalProjectile>();
-            int type = proj.type;
             if (proj.IsFire())
             {
                 elementExplosion.isFire = true;
@@ -61,17 +68,34 @@ namespace ShardsOfAtheria.Utilities
 
         public static void Explode(this Projectile proj, int explosionSize = 120)
         {
-            Vector2 newExplosionSize = new(explosionSize);
-            proj.timeLeft = 10;
-            proj.velocity *= 0f;
-            proj.position += (proj.Size - newExplosionSize) / 2;
-            proj.Size = newExplosionSize;
-            proj.hide = true;
-            proj.alpha = 255;
-            proj.tileCollide = false;
-            proj.ownerHitCheck = true;
-            ScreenShake.ShakeScreen(6, 60);
-            SoundEngine.PlaySound(SoundID.Item14);
+            var shard = proj.ShardsOfAtheria();
+            if (!shard.explosion)
+            {
+                shard.explosion = true;
+                Vector2 newExplosionSize = new(explosionSize);
+                proj.active = true;
+                proj.timeLeft = 10;
+                proj.penetrate = 5;
+                proj.velocity *= 0f;
+                proj.position += (proj.Size - newExplosionSize) / 2;
+                proj.Size = newExplosionSize;
+                proj.hide = true;
+                proj.alpha = 255;
+                proj.tileCollide = false;
+                proj.ownerHitCheck = true;
+                ScreenShake.ShakeScreen(6, 60);
+                SoundEngine.PlaySound(SoundID.Item14);
+                if (SoA.ElementModEnabled)
+                {
+                    ElementalParticles(proj);
+                }
+                Dust dust2 = Dust.NewDustDirect(proj.position, proj.height, proj.width, DustID.Smoke, Scale: 1.5f);
+                dust2.velocity *= 2f;
+            }
+        }
+        [JITWhenModsEnabled("BattleNetworkElements")]
+        private static void ElementalParticles(Projectile proj)
+        {
             for (int i = 0; i < 10; i++)
             {
                 if (proj.IsFire())
@@ -318,7 +342,6 @@ namespace ShardsOfAtheria.Utilities
         public static void AddAreus(this Projectile projectile, bool dark = false)
         {
             projectile.type.AddAreusProj(dark);
-            projectile.AddElec();
         }
         public static void AddAreusProj(this int projID, bool dark)
         {

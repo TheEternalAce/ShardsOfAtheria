@@ -27,15 +27,15 @@
     <None Remove="Walls\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Items\Potions\Insulation.png" />
+    <None Remove="Items\Potions\InsulationPotion.png" />
     <None Remove="Items\Weapons\Melee\HardlightSlash.png" />
+    <None Remove="Projectiles\Minions\AreusMirror.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Items\Armor\Areus\Imperial\" />
-    <Folder Include="Items\Armor\Areus\Royal\" />
-    <Folder Include="Items\Armor\Areus\Soldier\" />
     <Folder Include="Items\SlayerBoxes\" />
     <Folder Include="NPCs\Boss\AnnahStellar\" />
     <Folder Include="NPCs\Boss\Andromeda\" />

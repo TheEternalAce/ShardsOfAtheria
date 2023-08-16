@@ -129,12 +129,13 @@ namespace ShardsOfAtheria
 
             if (ModLoader.TryGetMod("TerraTyping", out Mod terratyping))
             {
+                string basePath = "Content/TerraTypes/";
                 Dictionary<string, object> addWeapon = new()
                 {
                     { "call", "AddTypes" },
                     { "typestoadd", "weapon" },
                     { "callingmod", Instance },
-                    { "filename", "Content/TerraTypes/Weapons.csv" }
+                    { "filename", basePath + "Weapons.csv" }
                 };
                 terratyping.Call(addWeapon);
 
@@ -143,7 +144,7 @@ namespace ShardsOfAtheria
                     { "call", "AddTypes" },
                     { "typestoadd", "projectile" },
                     { "callingmod", Instance },
-                    { "filename", "Content/TerraTypes/Projectiles.csv" }
+                    { "filename", basePath + "Projectiles.csv" }
                 };
                 terratyping.Call(addProjectile);
 
@@ -152,7 +153,7 @@ namespace ShardsOfAtheria
                     { "call", "AddTypes" },
                     { "typestoadd", "ammo" },
                     { "callingmod", Instance },
-                    { "filename", "Content/TerraTypes/Ammo.csv" }
+                    { "filename", basePath + "Ammo.csv" }
                 };
                 terratyping.Call(addAmmo);
 
@@ -161,9 +162,18 @@ namespace ShardsOfAtheria
                     { "call", "AddTypes" },
                     { "typestoadd", "npc" },
                     { "callingmod", Instance },
-                    { "filename", "Content/TerraTypes/NPCs.csv" }
+                    { "filename", basePath + "NPCs.csv" }
                 };
                 terratyping.Call(addNPC);
+
+                Dictionary<string, object> addArmor = new()
+                {
+                    { "call", "AddTypes" },
+                    { "typestoadd", "armor" },
+                    { "callingmod", Instance },
+                    { "filename", basePath + "Armor.csv" }
+                };
+                terratyping.Call(addArmor);
             }
 
             if (ModLoader.TryGetMod("BossChecklist", out Mod checklist))

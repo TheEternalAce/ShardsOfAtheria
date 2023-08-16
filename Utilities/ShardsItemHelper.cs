@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Globals;
 using System;
@@ -91,7 +90,6 @@ namespace ShardsOfAtheria.Utilities
         public static void AddAreus(this Item item, bool dark = false)
         {
             item.type.AddAreusItem(dark);
-            item.AddElec();
         }
         public static void AddAreusItem(this int itemID, bool dark)
         {

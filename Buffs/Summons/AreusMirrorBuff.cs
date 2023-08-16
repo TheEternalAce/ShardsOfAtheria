@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Buffs.Summons
         public override void Update(Player player, ref int buffIndex)
         {
             // If the minions exist reset the buff time, otherwise remove the buff from the player
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<AreusMirror>()] > 0 || player.ownedProjectileCounts[ModContent.ProjectileType<AreusMirrorShard>()] > 0)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<BrokenAreusMirror>()] > 0 || player.ownedProjectileCounts[ModContent.ProjectileType<AreusMirrorShard>()] > 0)
             {
                 player.buffTime[buffIndex] = 18000;
             }

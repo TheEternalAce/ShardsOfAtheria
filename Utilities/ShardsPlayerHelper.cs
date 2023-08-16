@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Players;
 using System;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Utilities
 {
@@ -87,13 +88,30 @@ namespace ShardsOfAtheria.Utilities
             return false;
         }
 
-        public static bool HasItemEquipped(this Player player, int item)
+        public static bool HasItemEquipped(this Player player, int type, out Item item)
         {
             bool equipped = false;
+            item = null;
             foreach (Item i in player.armor)
             {
-                if (i.type == item)
+                if (i.type == type)
                 {
+                    item = i;
+                    equipped = true;
+                    break;
+                }
+            }
+            return equipped;
+        }
+        public static bool HasItemEquipped<T>(this Player player, out ModItem item) where T : ModItem
+        {
+            bool equipped = false;
+            item = null;
+            foreach (Item i in player.armor)
+            {
+                if (i.type == ModContent.ItemType<T>())
+                {
+                    item = i.ModItem as T;
                     equipped = true;
                     break;
                 }
