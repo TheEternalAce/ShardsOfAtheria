@@ -33,6 +33,11 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
                 .Register();
         }
 
+        public override void UpdateVanity(Player player)
+        {
+            player.Shards().sapphireSpirit = true;
+        }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Shards().sapphireSpirit = !hideVisual;

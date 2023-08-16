@@ -23,20 +23,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             Item.value = Item.sellPrice(0, 2, 25);
         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            // Frostspark Boots
-            player.accRunSpeed = 6.75f;
-            player.rocketBoots = 3;
-            player.iceSkate = true;
-
-            // Misc
-            player.accFlipper = true;
-            player.jumpBoost = true;
-            player.wingTimeMax += 20;
-            player.Shards().emeraldBoots = !hideVisual;
-        }
-
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -46,6 +32,25 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
                 .AddIngredient(ItemID.PanicNecklace)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
+        }
+
+        public override void UpdateVanity(Player player)
+        {
+            player.Shards().emeraldBoots = true;
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            // Frostspark Boots
+            player.accRunSpeed = 6.75f;
+            player.rocketBoots = player.vanityRocketBoots = 3;
+            player.iceSkate = true;
+
+            // Misc
+            player.accFlipper = true;
+            player.jumpBoost = true;
+            player.wingTimeMax += 20;
+            player.Shards().emeraldBoots = !hideVisual;
         }
     }
 }

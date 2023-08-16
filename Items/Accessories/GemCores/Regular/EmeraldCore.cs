@@ -41,10 +41,19 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
                 .Register();
         }
 
+        public override void UpdateVanity(Player player)
+        {
+            player.Shards().emeraldBoots = true;
+        }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.jumpBoost = true;
+            player.accRunSpeed = 6.75f;
+            player.iceSkate = true;
             player.wingTimeMax += 10;
+            player.rocketBoots = player.vanityRocketBoots = 3;
+            player.rocketTimeMax = 5;
             player.Shards().emeraldBoots = !hideVisual;
         }
     }

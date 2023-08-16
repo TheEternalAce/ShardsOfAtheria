@@ -25,6 +25,23 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             Item.value = Item.sellPrice(0, 3);
         }
 
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<EmeraldCore_Greater>())
+                .AddIngredient(ItemID.FragmentNebula, 5)
+                .AddIngredient(ItemID.FragmentStardust, 5)
+                .AddIngredient(ItemID.RodofDiscord)
+                .AddIngredient(ItemID.BundleofBalloons)
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
+        }
+
+        public override void UpdateVanity(Player player)
+        {
+            player.Shards().emeraldBoots = true;
+        }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             // Frostspark Boots
@@ -42,18 +59,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             player.wingTimeMax += 15;
             player.Shards().superEmeraldCore = true;
             player.Shards().emeraldBoots = !hideVisual;
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<EmeraldCore_Greater>())
-                .AddIngredient(ItemID.FragmentNebula, 5)
-                .AddIngredient(ItemID.FragmentStardust, 5)
-                .AddIngredient(ItemID.RodofDiscord)
-                .AddIngredient(ItemID.BundleofBalloons)
-                .AddTile(TileID.LunarCraftingStation)
-                .Register();
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

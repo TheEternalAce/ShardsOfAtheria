@@ -33,6 +33,11 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
                 .Register();
         }
 
+        public override void UpdateVanity(Player player)
+        {
+            player.Shards().topazNecklace = true;
+        }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Shards().topazNecklace = !hideVisual;
