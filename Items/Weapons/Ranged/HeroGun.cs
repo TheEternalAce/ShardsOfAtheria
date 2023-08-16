@@ -1,4 +1,3 @@
-using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
@@ -14,7 +13,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddFire();
         }
 
         public override void SetDefaults()

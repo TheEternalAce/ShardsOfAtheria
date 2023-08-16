@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Systems;
@@ -16,7 +15,6 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddElec();
         }
 
         public override void SetDefaults()

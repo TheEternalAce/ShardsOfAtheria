@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
@@ -17,9 +16,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddAqua();
-            Projectile.AddFire();
-            Projectile.AddElec();
             SoAGlobalProjectile.Eraser.Add(Type);
         }
 

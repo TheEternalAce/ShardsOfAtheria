@@ -1,6 +1,7 @@
-using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Tiles.Crafting;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -13,7 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddElec();
+            Item.AddAreus();
         }
 
         public override void SetDefaults()
@@ -46,7 +47,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 .AddIngredient(ItemID.GoldBar, 6)
                 .AddIngredient(ItemID.SoulofLight, 8)
                 .AddIngredient(ItemID.CrystalShard, 14)
-                .AddTile(TileID.MythrilAnvil)
+                .AddTile<AreusFabricator>()
                 .Register();
         }
 

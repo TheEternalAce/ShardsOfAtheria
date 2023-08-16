@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -12,12 +11,6 @@ namespace ShardsOfAtheria.Projectiles.Tools
     public class ExtractingSoul : ModProjectile
     {
         int pos = 48;
-
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddFire();
-            Projectile.AddElec();
-        }
 
         public override void SetDefaults()
         {

@@ -1,4 +1,3 @@
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Satanlance;
 using Terraria;
 using Terraria.Enums;
@@ -12,8 +11,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-
-            Item.AddFire();
         }
 
         public override void SetDefaults()

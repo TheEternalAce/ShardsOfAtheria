@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BattleNetworkElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Dusts;
@@ -10,7 +9,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ShardsOfAtheria.NPCs.Boss.Elizabeth;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {
@@ -34,7 +32,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddElec();
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }

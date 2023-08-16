@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
@@ -9,11 +8,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.HeroSword
     public class HeroSlash : ModProjectile
     {
         public override string Texture => SoA.SwordSlashTexture;
-
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddFire();
-        }
 
         public override void SetDefaults()
         {

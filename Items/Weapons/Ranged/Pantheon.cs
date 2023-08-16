@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Items.Bases;
 using System;
 using Terraria;
@@ -32,7 +31,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddElec();
         }
 
         public override void SetDefaults()

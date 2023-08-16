@@ -1,4 +1,3 @@
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
@@ -13,7 +12,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             Item.ResearchUnlockCount = 999;
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
-            Item.AddElec();
         }
 
         public override void SetDefaults()

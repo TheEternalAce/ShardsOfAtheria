@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BattleNetworkElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
@@ -48,13 +47,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
                     Projectile.Explode(Projectile.Center, Projectile.damage);
                 }
             }
-        }
-
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddAqua();
-            Projectile.AddFire();
-            Projectile.AddElec();
         }
 
         public override void SetDefaults()

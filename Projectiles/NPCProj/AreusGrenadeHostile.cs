@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using ShardsOfAtheria.Dusts;
+﻿using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -16,7 +15,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddElec();
+            Projectile.AddAreus();
             Main.projFrames[Type] = 2;
         }
 

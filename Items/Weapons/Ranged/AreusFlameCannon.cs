@@ -1,4 +1,3 @@
-using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon;
 using ShardsOfAtheria.ShardsConditions;
@@ -15,7 +14,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             Item.ResearchUnlockCount = 1;
             Item.AddAreus();
-            Item.AddFire();
         }
 
         public override void SetDefaults()

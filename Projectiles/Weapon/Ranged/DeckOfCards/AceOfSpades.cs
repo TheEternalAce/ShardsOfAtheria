@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
@@ -8,11 +7,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.DeckOfCards
 {
     public class AceOfSpades : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddFire();
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 18;

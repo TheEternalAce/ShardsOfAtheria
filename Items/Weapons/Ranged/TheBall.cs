@@ -1,6 +1,4 @@
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged.GunRose;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,7 +11,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
-            Item.AddWood();
         }
 
         public override void SetDefaults()

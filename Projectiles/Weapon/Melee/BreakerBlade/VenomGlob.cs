@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using ShardsOfAtheria.Utilities;
+﻿using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,11 +8,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BreakerBlade
     public class VenomGlob : ModProjectile
     {
         public override string Texture => SoA.BlankTexture;
-
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddWood();
-        }
 
         public override void SetDefaults()
         {

@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable.Banner;
@@ -40,7 +39,6 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<HallowedHarpyBanner>();
-            NPC.ElementMultipliers() = new[] { 2.0f, 0.8f, 0.5f, 1.0f };
         }
 
         public override void AI()

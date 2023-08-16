@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
@@ -13,11 +12,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet
 {
     public class ElecBlade : SwordProjectileBase
     {
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddElec();
-        }
-
         public override void SetDefaults()
         {
             base.SetDefaults();

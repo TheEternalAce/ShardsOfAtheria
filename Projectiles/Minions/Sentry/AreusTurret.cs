@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -15,7 +14,6 @@ namespace ShardsOfAtheria.Projectiles.Minions.Sentry
         {
             ProjectileID.Sets.MinionSacrificable[Type] = true;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
-            Projectile.AddAreus();
         }
 
         public override void SetDefaults()

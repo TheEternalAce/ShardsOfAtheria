@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -10,12 +9,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
 {
     public class BloodBubbleHostile : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddAqua();
-            Projectile.AddWood();
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 14;

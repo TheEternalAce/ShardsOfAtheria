@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using Terraria;
 using Terraria.ID;
@@ -10,11 +9,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
     public class LightningBolt : ModProjectile
     {
         public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.GolfBallDyedViolet}";
-
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddElec();
-        }
 
         public override void SetDefaults()
         {

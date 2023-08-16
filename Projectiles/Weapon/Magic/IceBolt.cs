@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -9,11 +8,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
     public class IceBolt : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddAqua();
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 18;

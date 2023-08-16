@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -15,7 +14,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Spectrum
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddElec();
             ProjectileID.Sets.TrailCacheLength[Type] = 10;
             ProjectileID.Sets.TrailingMode[Type] = 2;
         }

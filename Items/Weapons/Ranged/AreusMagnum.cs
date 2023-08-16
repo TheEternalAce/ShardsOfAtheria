@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged.AreusUltrakillGun;
-using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -46,7 +45,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 10)
-                .AddRecipeGroup(ShardsRecipes.Gold, 5)
+                .AddIngredient(ItemID.GoldBar, 5)
                 .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 7)
                 .AddTile<AreusFabricator>()
                 .Register();

@@ -1,6 +1,5 @@
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusGlaive;
-using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -48,7 +47,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 10)
-                .AddRecipeGroup(ShardsRecipes.Gold, 5)
+                .AddIngredient(ItemID.GoldBar, 5)
                 .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 10)
                 .AddTile<AreusFabricator>()
                 .Register();

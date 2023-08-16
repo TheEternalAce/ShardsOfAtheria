@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -10,11 +9,6 @@ namespace ShardsOfAtheria.Projectiles.Minions.Sentry
     public class AreusCrateProj : ModProjectile
     {
         int gravityTimer = 0;
-
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddAreus();
-        }
 
         public override void SetDefaults()
         {

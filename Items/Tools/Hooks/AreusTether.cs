@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
@@ -30,7 +29,7 @@ namespace ShardsOfAtheria.Items.Tools.Hooks
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 16)
-                .AddRecipeGroup(ShardsRecipes.Gold, 5)
+                .AddIngredient(ItemID.GoldBar, 5)
                 .AddIngredient(ItemID.LunarBar, 8)
                 .AddTile<AreusFabricator>()
                 .Register();

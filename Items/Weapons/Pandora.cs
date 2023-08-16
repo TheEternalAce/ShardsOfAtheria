@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
@@ -17,8 +16,6 @@ namespace ShardsOfAtheria.Items.Weapons
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddAqua();
-            Item.AddElec();
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
         }
 

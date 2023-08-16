@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -16,7 +15,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.EventHorizon
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
             ProjectileID.Sets.TrailingMode[Type] = 3;
-            Projectile.AddAqua();
         }
 
         public override void SetDefaults()

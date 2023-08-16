@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -13,7 +12,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.EntropyCutter
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
             ProjectileID.Sets.TrailingMode[Type] = 0;
-            Projectile.AddAqua();
         }
 
         public override void SetDefaults()

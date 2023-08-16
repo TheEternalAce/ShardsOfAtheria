@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -7,11 +6,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
     public class SoulBlade : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddFire();
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 8;

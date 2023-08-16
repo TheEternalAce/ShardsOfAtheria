@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using ShardsOfAtheria.Projectiles.Weapon.Magic.Spectrum;
+﻿using ShardsOfAtheria.Projectiles.Weapon.Magic.Spectrum;
 using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;
@@ -12,7 +11,6 @@ namespace ShardsOfAtheria.Items.DedicatedItems.MrGerd26
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddElec();
         }
 
         public override void SetDefaults()

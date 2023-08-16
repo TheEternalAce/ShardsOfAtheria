@@ -1,7 +1,6 @@
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Minions.Sentry;
 using ShardsOfAtheria.Tiles.Crafting;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,7 +12,6 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Sentry
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddAreus();
         }
 
         public override void SetDefaults()

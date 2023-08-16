@@ -1,4 +1,3 @@
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.EnergyScythe;
@@ -16,7 +15,6 @@ namespace ShardsOfAtheria.Items.Weapons
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
-            Item.AddFire();
         }
 
         public override void SetDefaults()

@@ -1,9 +1,9 @@
-using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
-using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddElec();
+            Item.AddAreus();
         }
 
         public override void SetDefaults()
@@ -48,7 +48,8 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 17)
-                .AddRecipeGroup(ShardsRecipes.Gold, 5)
+                .AddIngredient(ItemID.GoldBar, 5)
+                .AddIngredient<Jade>(6)
                 .AddIngredient(ItemID.SoulofFlight, 10)
                 .AddTile<AreusFabricator>()
                 .Register();

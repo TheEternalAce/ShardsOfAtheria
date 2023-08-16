@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Other
@@ -9,8 +8,6 @@ namespace ShardsOfAtheria.Projectiles.Other
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 3;
-            Projectile.AddFire();
-            Projectile.AddElec();
         }
 
         public override void SetDefaults()

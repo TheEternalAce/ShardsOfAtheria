@@ -1,6 +1,4 @@
-﻿using BattleNetworkElements;
-using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.DataDisks;
 using ShardsOfAtheria.Items.Tools.Misc.Slayer;
 using ShardsOfAtheria.ShardsConditions;
@@ -12,6 +10,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ObjectData;
 using Terraria.Utilities;
 
 namespace ShardsOfAtheria.NPCs.Town.TheArchivist
@@ -38,7 +37,6 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
 				}
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
-            NPC.AddElec();
 
             // Set Atherian's biome and neighbor preferences with the NPCHappiness hook. You can add happiness text and remarks with localization (See an example in ExampleMod/Localization/en-US.lang
             //NPC.Happiness
@@ -73,7 +71,6 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
             NPC.knockBackResist = 0.5f;
 
             AnimationType = NPCID.Guide;
-            NPC.SetElementMultipliersByElement(Element.Wood);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -85,7 +82,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ShardsOfAtheria.NPCs.Atherian.Bestuary"))
+				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ShardsOfAtheria.NPCs.Atherian.Bestiary"))
             });
         }
 
@@ -100,15 +97,93 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
 
         public override bool CanTownNPCSpawn(int numTownNPCs)
         {
-            for (int k = 0; k < 255; k++)
+            return true;
+        }
+
+        public override bool CheckConditions(int left, int right, int top, int bottom)
+        {
+            if (Main.zenithWorld)
             {
-                Player player = Main.player[k];
-                if (!player.active)
-                    continue;
-                if (NPC.downedBoss2)
-                    return true;
+                return true;
             }
-            return false;
+
+            //var stopWatch = new Stopwatch();
+            var houseInsideTiles = GetHouseInsideTiles((left + right) / 2, (top + bottom) / 2);
+            bool bookshelfFound = BookshelfInHouse(houseInsideTiles);
+            return bookshelfFound;
+        }
+
+        public static List<Point> GetHouseInsideTiles(int x, int y)
+        {
+            var addPoints = new List<Point>();
+            var checkedPoints = new List<Point>() { new Point(x, y) };
+            var offsets = new Point[] { new Point(1, 0), new Point(-1, 0), new Point(0, 1), new Point(0, -1), };
+            for (int k = 0; k < 1000; k++)
+            {
+                checkedPoints.AddRange(addPoints);
+                addPoints.Clear();
+                bool addedAny = false;
+                if (checkedPoints.Count > 1000)
+                {
+                    return checkedPoints;
+                }
+                for (int l = 0; l < checkedPoints.Count; l++)
+                {
+                    for (int m = 0; m < offsets.Length; m++)
+                    {
+                        var newPoint = new Point(checkedPoints[l].X + offsets[m].X, checkedPoints[l].Y + offsets[m].Y);
+                        if (WorldGen.InWorld(newPoint.X, newPoint.Y, 10) && !checkedPoints.Contains(newPoint) && !addPoints.Contains(newPoint) &&
+                            (!Main.tile[newPoint].HasTile || !Main.tile[newPoint].SolidType() && !Main.tile[newPoint].IsIncludedIn(TileID.Sets.RoomNeeds.CountsAsDoor)) && Main.tile[newPoint].WallType != WallID.None && Main.wallHouse[Main.tile[newPoint].WallType])
+                        {
+                            addPoints.Add(newPoint);
+                            addedAny = true;
+                        }
+                    }
+                }
+                if (!addedAny)
+                {
+                    return checkedPoints;
+                }
+            }
+            return checkedPoints;
+        }
+
+        public static bool BookshelfInHouse(List<Point> insideTiles)
+        {
+            bool shelfFound = false;
+            var tileStyleData = new Dictionary<int, List<int>>();
+
+            foreach (var p in insideTiles)
+            {
+                if (Main.tile[p].HasTile)
+                {
+                    if (Main.tile[p].IsIncludedIn(TileID.Sets.RoomNeeds.CountsAsTable) ||
+                        Main.tile[p].IsIncludedIn(TileID.Sets.RoomNeeds.CountsAsChair) ||
+                        TileID.Sets.Torch[Main.tile[p].TileType])
+                    {
+                        continue;
+                    }
+                    if (Main.tile[p].TileType == TileID.Bookcases)
+                    {
+                        int style = TileObjectData.GetTileStyle(Main.tile[p]);
+                        if (tileStyleData.TryGetValue(Main.tile[p].TileType, out List<int> compareStyle))
+                        {
+                            if (compareStyle.Contains(style))
+                            {
+                                continue;
+                            }
+                            compareStyle.Add(style);
+                        }
+                        else
+                        {
+                            tileStyleData.Add(Main.tile[p].TileType, new List<int>() { style });
+                        }
+
+                        shelfFound = true;
+                    }
+                }
+            }
+            return shelfFound;
         }
 
         public override List<string> SetNPCNameList()
@@ -128,6 +203,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
         public override void SetChatButtons(ref string button, ref string button2)
         {
             button = Language.GetTextValue("LegacyInterface.28");
+            button2 = "Archive";
         }
 
         public override void OnChatButtonClicked(bool firstButton, ref string shopName)

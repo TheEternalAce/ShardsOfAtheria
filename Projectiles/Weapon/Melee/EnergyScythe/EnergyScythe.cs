@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Items.Weapons;
 using ShardsOfAtheria.Players;
@@ -14,11 +13,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.EnergyScythe
 {
     public class EnergyScythe : SwordProjectileBase
     {
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddFire();
-        }
-
         public override void SetDefaults()
         {
             base.SetDefaults();

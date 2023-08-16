@@ -1,6 +1,6 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Dusts;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddElec();
+            Projectile.AddAreus();
         }
 
         public override void SetDefaults()

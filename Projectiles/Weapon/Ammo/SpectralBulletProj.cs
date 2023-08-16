@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,11 +7,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
 {
     public class SpectralBulletProj : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddAqua();
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 6; // The width of projectile hitbox

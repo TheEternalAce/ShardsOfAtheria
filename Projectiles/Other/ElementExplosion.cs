@@ -34,6 +34,17 @@ namespace ShardsOfAtheria.Projectiles.Other
                 Projectile.ai[0] = 1;
             }
 
+            if (SoA.ElementModEnabled)
+            {
+                ElementalParticles();
+            }
+            Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Smoke, Scale: 1.5f);
+            dust2.velocity *= 2f;
+        }
+
+        [JITWhenModsEnabled("BattleNetworkElements")]
+        private void ElementalParticles()
+        {
             BNGlobalProjectile elementExplosion = Projectile.GetGlobalProjectile<BNGlobalProjectile>();
             if (Main.rand.NextBool(3))
             {
@@ -53,8 +64,6 @@ namespace ShardsOfAtheria.Projectiles.Other
                     dust.velocity *= 4f;
                 }
             }
-            Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Smoke, Scale: 1.5f);
-            dust2.velocity *= 2f;
         }
     }
 }

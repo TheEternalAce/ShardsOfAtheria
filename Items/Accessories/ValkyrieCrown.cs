@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -16,7 +15,6 @@ namespace ShardsOfAtheria.Items.Accessories
             ArmorIDs.Head.Sets.DrawHatHair[Item.faceSlot] = true;
 
             Item.ResearchUnlockCount = 1;
-            Item.AddElec();
         }
 
         public override void SetDefaults()

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -7,11 +6,6 @@ namespace ShardsOfAtheria.Projectiles.Minions
 {
     public class IceFragment : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddAqua();
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 8;

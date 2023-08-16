@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.AreusChips;
@@ -66,7 +65,6 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
 				}
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
-            NPC.AddElec();
 
             // Set Atherian's biome and neighbor preferences with the NPCHappiness hook. You can add happiness text and remarks with localization (See an example in ExampleMod/Localization/en-US.lang
             NPC.Happiness
@@ -108,7 +106,6 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             {
                 AnimationType = NPCID.Stylist;
             }
-            NPC.ElementMultipliers() = new[] { 0.5f, 1.0f, 0.4f, 2.0f };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -152,24 +149,23 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
         {
             if (!SoA.ServerConfig.cluelessNPCs)
             {
-                string keyBase = "ShardsOfAtheria.NPCs.Atherian.Dialogue.";
                 if (SoA.DownedSystem.slainSenterra && SoA.DownedSystem.slainGenesis &&
                     SoA.DownedSystem.slainValkyrie)
                 {
                     NPC.active = false;
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(keyBase + "AllDeath"), Color.Red);
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(DialogueKeyBase + "AllDeath"), Color.Red);
                     return false;
                 }
                 else if (SoA.DownedSystem.slainSenterra || SoA.DownedSystem.slainGenesis)
                 {
                     NPC.active = false;
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(keyBase + "GoddessDeath"), Color.Red);
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(DialogueKeyBase + "GoddessDeath"), Color.Red);
                     return false;
                 }
                 else if (SoA.DownedSystem.slainValkyrie)
                 {
                     NPC.active = false;
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(keyBase + "NovaDeath"), Color.Red);
+                    ChatHelper.BroadcastChatMessage(NetworkText.FromKey(DialogueKeyBase + "NovaDeath"), Color.Red);
                     return false;
                 }
             }
@@ -198,7 +194,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             }
 
             chat.AddKey(DialogueKeyBase + "AtheriaComment");
-            if (player.HasItemEquipped(ItemID.GoldCrown))
+            if (player.HasItemEquipped(ItemID.GoldCrown, out var _))
             {
                 chat.AddKey(DialogueKeyBase + "GoldCrownCompliment");
             }
@@ -246,8 +242,8 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 .Add<AreusShard>()
                 .Add<AreusArmorChip>()
                 .Add<RushDrive>()
-                .Add<AreusProcessor>()
-                .Add<ResonatorRing>()
+                .Add<AreusProcessor>(SoAConditions.ElementModEnabled)
+                .Add<ResonatorRing>(SoAConditions.ElementModEnabled)
                 .Add<Bytecrusher>(Condition.DownedMechBossAny)
                 .Add<AreusKey>(Condition.DownedPlantera)
                 .Add<AnastasiasPride>(Condition.DownedGolem);

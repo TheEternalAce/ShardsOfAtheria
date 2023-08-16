@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using BattleNetworkElements.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -19,10 +18,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         public override void Unload()
         {
             glowmask = null;
-        }
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddFire();
         }
 
         public override void SetDefaults()

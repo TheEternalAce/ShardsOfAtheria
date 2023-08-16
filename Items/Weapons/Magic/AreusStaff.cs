@@ -1,6 +1,5 @@
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
-using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -46,7 +45,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 10)
-                .AddRecipeGroup(ShardsRecipes.Gold, 3)
+                .AddIngredient(ItemID.GoldBar, 3)
                 .AddIngredient(ItemID.FragmentVortex, 7)
                 .AddTile<AreusFabricator>()
                 .Register();

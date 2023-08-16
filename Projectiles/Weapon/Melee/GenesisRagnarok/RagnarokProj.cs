@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
@@ -14,13 +13,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
 {
     public class RagnarokProj : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddAqua();
-            Projectile.AddFire();
-            Projectile.AddElec();
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 50;

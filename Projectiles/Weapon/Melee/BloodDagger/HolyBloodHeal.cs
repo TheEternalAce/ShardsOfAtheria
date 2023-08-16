@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using ShardsOfAtheria.Utilities;
+﻿using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,12 +8,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BloodDagger
     public class HolyBloodHeal : ModProjectile
     {
         public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.GolfBallDyedViolet}";
-
-        public override void SetStaticDefaults()
-        {
-            Main.projFrames[Projectile.type] = 3;
-            Projectile.AddAqua();
-        }
 
         public override void SetDefaults()
         {

@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using System;
@@ -26,9 +25,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
             Main.projPet[Projectile.type] = true; // Denotes that this projectile is a pet or minion
 
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
-            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
-            Projectile.AddAqua();
-            Projectile.AddElec();
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
         }
 
         public override void SetDefaults()

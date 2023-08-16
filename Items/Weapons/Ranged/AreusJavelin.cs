@@ -1,6 +1,5 @@
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
-using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -45,7 +44,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 20)
-                .AddRecipeGroup(ShardsRecipes.Gold, 5)
+                .AddIngredient(ItemID.GoldBar, 5)
                 .AddIngredient(ItemID.LunarBar, 16)
                 .AddTile<AreusFabricator>()
                 .Register();

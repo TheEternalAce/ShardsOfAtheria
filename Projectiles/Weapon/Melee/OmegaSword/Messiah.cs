@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using System;
 using Terraria;
@@ -26,11 +25,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.OmegaSword
         {
             get => (int)Projectile.ai[0];
             set => Projectile.ai[0] = value;
-        }
-
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddFire();
         }
 
         public override void SetDefaults()

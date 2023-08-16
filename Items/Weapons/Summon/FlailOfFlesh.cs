@@ -1,4 +1,3 @@
-using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
 using Terraria;
@@ -13,7 +12,6 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddAqua();
         }
 
         public override void SetDefaults()

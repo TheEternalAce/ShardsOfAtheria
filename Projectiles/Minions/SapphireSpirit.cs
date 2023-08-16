@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -26,8 +25,6 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = false; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
-
-            Projectile.AddElec();
         }
 
         public override void SetDefaults()
@@ -218,7 +215,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
             {
                 idleTimer = 0;
                 Projectile.hostile = false;
-                speed = 4f;
+                speed = 16f;
                 inertia = 80f;
                 Vector2 newIdlePosition = targetCenter - Projectile.Center;
                 newIdlePosition.Y -= 124f;

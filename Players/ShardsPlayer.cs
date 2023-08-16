@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements;
-using BattleNetworkElements.Utilities;
+﻿using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using ShardsOfAtheria.Buffs.AnyDebuff;
@@ -64,7 +63,7 @@ namespace ShardsOfAtheria.Players
         public bool rushDrive;
         public bool areusProcessor;
         public bool areusProcessorPrevious;
-        public int processorElement = Element.Fire;
+        public int processorElement = 1;
         public bool resonator;
         public bool areusRod;
         public bool anastasiaPride;
@@ -78,6 +77,10 @@ namespace ShardsOfAtheria.Players
         public bool hardlightBraces;
         public int hardlightBracesCooldown;
         public int hardlightBracesCooldownMax = 60;
+
+        public bool prototypeBand;
+        public int prototypeBandCooldown;
+        public int prototypeBandCooldownMax = 15;
 
         public bool pearlwoodSet;
         public int pearlwoodBowShoot;
@@ -149,6 +152,11 @@ namespace ShardsOfAtheria.Players
             if (hardlightBracesCooldown > 0)
             {
                 hardlightBracesCooldown--;
+            }
+            prototypeBand = false;
+            if (prototypeBandCooldown > 0)
+            {
+                prototypeBandCooldown--;
             }
             pearlwoodSet = false;
             areusProcessorPrevious = areusProcessor;
@@ -529,12 +537,18 @@ namespace ShardsOfAtheria.Players
 
         public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.FinalDamage *= ResonatorRing.ModifyElements(Player, item, target);
+            if (SoA.ElementModEnabled)
+            {
+                modifiers.FinalDamage *= ResonatorRing.ModifyElements(Player, item, target);
+            }
         }
 
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.FinalDamage *= ResonatorRing.ModifyElements(Player, proj, target);
+            if (SoA.ElementModEnabled)
+            {
+                modifiers.FinalDamage *= ResonatorRing.ModifyElements(Player, proj, target);
+            }
         }
 
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
@@ -565,19 +579,10 @@ namespace ShardsOfAtheria.Players
                 Player.AddBuff(BuffID.Endurance, 600);
             }
             HardlightBraces.OnHitEffect(Player, target);
-            if (areusRod)
+
+            if (SoA.ElementModEnabled)
             {
-                if (item.IsElec())
-                {
-                    if (NPC.downedPlantBoss)
-                    {
-                        target.AddBuff(BuffID.Electrified, 600);
-                    }
-                    else
-                    {
-                        target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
-                    }
-                }
+                AreusRodEffect(target, item, null);
             }
         }
 
@@ -612,17 +617,43 @@ namespace ShardsOfAtheria.Players
             {
                 HardlightBraces.OnHitEffect(Player, target);
             }
+            if (SoA.ElementModEnabled)
+            {
+                AreusRodEffect(target, null, proj);
+            }
+        }
+
+        [JITWhenModsEnabled("BattleNetworkElements")]
+        private void AreusRodEffect(NPC target, Item item, Projectile proj)
+        {
             if (areusRod)
             {
-                if (proj.IsElec())
+                if (item != null)
                 {
-                    if (NPC.downedPlantBoss)
+                    if (item.IsElec())
                     {
-                        target.AddBuff(BuffID.Electrified, 600);
+                        if (NPC.downedPlantBoss)
+                        {
+                            target.AddBuff(BuffID.Electrified, 600);
+                        }
+                        else
+                        {
+                            target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
+                        }
                     }
-                    else
+                }
+                if (proj != null)
+                {
+                    if (proj.IsElec())
                     {
-                        target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
+                        if (NPC.downedPlantBoss)
+                        {
+                            target.AddBuff(BuffID.Electrified, 600);
+                        }
+                        else
+                        {
+                            target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
+                        }
                     }
                 }
             }

@@ -1,4 +1,3 @@
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Summon.Whip;
 using Terraria;
@@ -12,7 +11,6 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Whip
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddWood();
         }
 
         public override void SetDefaults()

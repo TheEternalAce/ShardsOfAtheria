@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet;
@@ -15,8 +14,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
-            Projectile.AddFire();
-            Projectile.AddElec();
         }
 
         public override void SetDefaults()

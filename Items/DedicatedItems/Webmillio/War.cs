@@ -1,4 +1,3 @@
-using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -47,7 +46,6 @@ namespace ShardsOfAtheria.Items.DedicatedItems.Webmillio
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddElec();
             SoAGlobalItem.UpgradeableItem.Add(Type);
         }
 

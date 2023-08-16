@@ -1,7 +1,7 @@
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using ShardsOfAtheria.Tiles.Crafting;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,7 +13,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 999;
-            Item.AddAreus();
         }
 
         public override void SetDefaults()
@@ -36,8 +35,10 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
         {
             CreateRecipe(100)
                 .AddIngredient(ItemID.WoodenArrow, 100)
-                .AddIngredient(ItemID.SoulofFlight, 10)
-                .AddIngredient(ModContent.ItemType<AreusShard>())
+                .AddIngredient<AreusShard>()
+                .AddIngredient(ItemID.GoldBar)
+                .AddIngredient<Jade>()
+                .AddIngredient(ItemID.SoulofFlight)
                 .AddTile<AreusFabricator>()
                 .Register();
         }

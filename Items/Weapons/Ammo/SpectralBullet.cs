@@ -1,4 +1,3 @@
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using Terraria;
 using Terraria.ID;
@@ -11,7 +10,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 999;
-            Item.AddAqua();
         }
 
         public override void SetDefaults()

@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Utilities;
@@ -12,11 +11,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusDaggerProjs
     public class AreusDaggerCurrent : ModProjectile
     {
         public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.GolfBallDyedViolet}";
-
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddElec();
-        }
 
         public override void SetDefaults()
         {

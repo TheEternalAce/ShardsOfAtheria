@@ -6,7 +6,6 @@ using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon.Minion;
-using ShardsOfAtheria.NPCs.Boss.Elizabeth;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using Terraria;
 using Terraria.GameContent;
@@ -30,7 +29,7 @@ namespace ShardsOfAtheria.Items.GrabBags
         {
             Item.width = 30;
             Item.height = 20;
-            Item.value = Item.sellPrice(0, 3, 50);
+            Item.value = 175000;
             Item.rare = ItemRarityID.Expert;
             Item.maxStack = 9999;
             Item.expert = true;

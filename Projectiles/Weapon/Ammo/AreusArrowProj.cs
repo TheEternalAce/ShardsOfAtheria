@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Utilities;
@@ -29,7 +28,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
-            Projectile.AddElec();
         }
 
         public override void SetDefaults()

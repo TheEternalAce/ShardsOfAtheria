@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,11 +9,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
     {
         public int flightTimer;
         Vector2 to;
-
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddElec();
-        }
 
         public override void SetDefaults()
         {

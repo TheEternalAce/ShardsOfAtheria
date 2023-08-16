@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using Terraria;
@@ -11,11 +10,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {
     public class StormCloud : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddElec();
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 1300;

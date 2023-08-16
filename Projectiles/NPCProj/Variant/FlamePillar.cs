@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,12 +7,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
     public class FlamePillar : ModProjectile
     {
         public override string Texture => SoA.BlankTexture;
-
-
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddFire();
-        }
 
         public override void SetDefaults()
         {

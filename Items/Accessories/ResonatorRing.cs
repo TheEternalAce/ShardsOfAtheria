@@ -8,8 +8,14 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories
 {
+    [JITWhenModsEnabled("BattleNetworkElements")]
     public class ResonatorRing : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return SoA.ElementModEnabled;
+        }
+
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;

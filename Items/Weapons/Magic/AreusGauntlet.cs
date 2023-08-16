@@ -1,9 +1,9 @@
-using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet;
 using ShardsOfAtheria.ShardsConditions;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddElec();
+            Item.AddAreus();
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
         }
 

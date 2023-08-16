@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.GrabBags;
@@ -58,8 +57,6 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 				}
             };
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
-            NPC.AddAqua();
-            NPC.AddWood();
         }
 
         public override void SetDefaults()
@@ -78,7 +75,6 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             Music = MusicID.Boss4;
             NPC.value = 167900;
             NPC.npcSlots = 15f;
-            NPC.ElementMultipliers() = new[] { 1.0f, 0.8f, 2.0f, 0.8f };
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

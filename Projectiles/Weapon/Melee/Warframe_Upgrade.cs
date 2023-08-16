@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Players;
@@ -30,7 +29,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
                 glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
             }
 
-            Projectile.AddElec();
             ProjectileID.Sets.TrailingMode[Type] = 3;
             ProjectileID.Sets.TrailCacheLength[Type] = 13;
         }

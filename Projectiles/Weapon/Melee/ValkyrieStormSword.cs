@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -10,11 +9,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
     public class ValkyrieStormSword : ModProjectile
     {
         public override string Texture => "ShardsOfAtheria/Items/Weapons/Melee/ValkyrieStorm";
-
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddElec();
-        }
 
         public override void SetDefaults()
         {

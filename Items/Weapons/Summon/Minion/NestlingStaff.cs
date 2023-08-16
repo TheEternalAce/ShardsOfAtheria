@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Projectiles.Minions;
 using Terraria;
@@ -14,7 +13,6 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Minion
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddElec();
         }
 
         public override void SetDefaults()

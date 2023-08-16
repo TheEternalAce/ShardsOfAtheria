@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -10,11 +9,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ByteCrush
 {
     public class ByteBlock : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddElec();
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 64;

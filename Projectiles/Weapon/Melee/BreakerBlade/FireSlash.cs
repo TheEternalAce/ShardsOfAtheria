@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -10,11 +9,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BreakerBlade
     public class FireSlash : ModProjectile
     {
         public override string Texture => SoA.SwordSlashTexture;
-
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddFire();
-        }
 
         public override void SetDefaults()
         {

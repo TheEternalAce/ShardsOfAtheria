@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -12,7 +11,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 2;
-            Projectile.AddElec();
         }
 
         public override void SetDefaults()

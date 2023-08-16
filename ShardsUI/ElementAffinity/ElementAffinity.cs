@@ -11,6 +11,7 @@ using Terraria.UI;
 
 namespace ShardsOfAtheria.ShardsUI.ElementAffinity
 {
+    [JITWhenModsEnabled("BattleNetworkElements")]
     internal class ElementAffinity : UIState
     {
         private bool display = false;
@@ -18,24 +19,29 @@ namespace ShardsOfAtheria.ShardsUI.ElementAffinity
         private UIImage frame;
         private UIImage currentAffinity;
         private UIImage nextAffinity;
-        private string bnePath = "BattleNetworkElements/ElementUI/Icons/";
+        private string bneIconPath = "BattleNetworkElements/ElementUI/Icons/";
 
+        [JITWhenModsEnabled("BattleNetworkElements")]
         public override void OnInitialize()
         {
-            frame = new(ModContent.Request<Texture2D>("ShardsofAtheria/ShardsUI/ElementAffinity/AffinityFrame"));
-            frame.SetRectangle(0, 0, 78, 42);
+            if (SoA.ElementModEnabled)
+            {
+                frame = new(ModContent.Request<Texture2D>("ShardsofAtheria/ShardsUI/ElementAffinity/AffinityFrame"));
+                frame.SetRectangle(0, 0, 78, 42);
 
-            currentAffinity = new(ModContent.Request<Texture2D>(bnePath + "FireIcon"));
-            currentAffinity.SetRectangle(6, 6, 30, 30);
-            frame.Append(currentAffinity);
+                currentAffinity = new(ModContent.Request<Texture2D>(bneIconPath + "FireIcon"));
+                currentAffinity.SetRectangle(6, 6, 30, 30);
+                frame.Append(currentAffinity);
 
-            nextAffinity = new(ModContent.Request<Texture2D>(bnePath + "AquaIcon"));
-            nextAffinity.SetRectangle(42, 6, 30, 30);
-            frame.Append(nextAffinity);
+                nextAffinity = new(ModContent.Request<Texture2D>(bneIconPath + "AquaIcon"));
+                nextAffinity.SetRectangle(42, 6, 30, 30);
+                frame.Append(nextAffinity);
 
-            Append(frame);
+                Append(frame);
+            }
         }
 
+        [JITWhenModsEnabled("BattleNetworkElements")]
         public override void Draw(SpriteBatch spriteBatch)
         {
             ShardsPlayer shardsPlayer = Main.LocalPlayer.Shards();
@@ -51,10 +57,11 @@ namespace ShardsOfAtheria.ShardsUI.ElementAffinity
             }
         }
 
+        [JITWhenModsEnabled("BattleNetworkElements")]
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (!display)
+            if (!display || !SoA.ElementModEnabled)
             {
                 return;
             }
@@ -82,8 +89,8 @@ namespace ShardsOfAtheria.ShardsUI.ElementAffinity
                     nextElement = "FireIcon";
                     break;
             }
-            currentAffinity.SetImage(ModContent.Request<Texture2D>(bnePath + currentElement));
-            nextAffinity.SetImage(ModContent.Request<Texture2D>(bnePath + nextElement));
+            currentAffinity.SetImage(ModContent.Request<Texture2D>(bneIconPath + currentElement));
+            nextAffinity.SetImage(ModContent.Request<Texture2D>(bneIconPath + nextElement));
 
             var position = new Vector2(Main.screenWidth, Main.screenHeight);
             position.X -= frame.Width.Pixels + 300;
@@ -92,11 +99,13 @@ namespace ShardsOfAtheria.ShardsUI.ElementAffinity
         }
     }
 
+    [JITWhenModsEnabled("BattleNetworkElements")]
     class AffinityUI : ModSystem
     {
         internal ElementAffinity affinity;
         private UserInterface affinityUI;
 
+        [JITWhenModsEnabled("BattleNetworkElements")]
         public override void Load()
         {
             if (!Main.dedServ)
@@ -107,11 +116,13 @@ namespace ShardsOfAtheria.ShardsUI.ElementAffinity
             }
         }
 
+        [JITWhenModsEnabled("BattleNetworkElements")]
         public override void UpdateUI(GameTime gameTime)
         {
             affinityUI?.Update(gameTime);
         }
 
+        [JITWhenModsEnabled("BattleNetworkElements")]
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));

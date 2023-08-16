@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Utilities;
 using System;
@@ -17,8 +16,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             ProjectileID.Sets.CultistIsResistantTo[Type] = true;
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
             ProjectileID.Sets.TrailingMode[Type] = 3;
-            Projectile.AddFire();
-            Projectile.AddElec();
         }
 
         public override void SetDefaults()

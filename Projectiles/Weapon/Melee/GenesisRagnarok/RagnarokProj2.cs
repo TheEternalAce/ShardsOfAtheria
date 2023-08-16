@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BattleNetworkElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
@@ -20,13 +19,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok
         private const string AltChainTexturePath = "ShardsOfAtheria/Projectiles/Weapon/Melee/GenesisRagnarok/RagnarokProj2_GenesisChain_Alt";
 
         public override string Texture => "ShardsOfAtheria/Projectiles/Weapon/Melee/GenesisRagnarok/RagnarokProj";
-
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddAqua();
-            Projectile.AddFire();
-            Projectile.AddElec();
-        }
 
         public override void SetDefaults()
         {

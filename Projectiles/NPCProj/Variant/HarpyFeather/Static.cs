@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using Terraria;
 using Terraria.ID;
@@ -9,11 +8,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather
 {
     public class Static : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddElec();
-        }
-
         public override void SetDefaults()
         {
             Projectile refProj = new Projectile();

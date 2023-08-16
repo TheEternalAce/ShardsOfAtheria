@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BattleNetworkElements.Utilities;
 using ReLogic.Content;
 using Terraria;
 using Terraria.ID;
@@ -21,10 +20,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Summon
         public override void Unload()
         {
             glowmask = null;
-        }
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddFire();
         }
 
         public override void SetDefaults()

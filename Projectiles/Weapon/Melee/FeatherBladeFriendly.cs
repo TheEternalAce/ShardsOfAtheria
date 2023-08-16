@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
@@ -16,8 +15,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddElec();
-
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }

@@ -35,9 +35,9 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
          * Empress of Light
          * Lunatic Cultist
          * Moon Lord
+         * Death
          * Senterra
          * Genesis
-         * Death
          */
 
         public override void SetStaticDefaults()

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -12,7 +11,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddElec();
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using BattleNetworkElements.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -28,7 +27,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10; // The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0; // The recording mode
-            Projectile.AddFire();
         }
 
         public override void SetDefaults()

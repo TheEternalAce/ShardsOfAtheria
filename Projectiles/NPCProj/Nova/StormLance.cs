@@ -1,13 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BattleNetworkElements.Utilities;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
-using ShardsOfAtheria.NPCs.Boss.Elizabeth;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {
@@ -23,11 +21,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
         public override void Unload()
         {
             glowmask = null;
-        }
-
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddElec();
         }
 
         public override void SetDefaults()

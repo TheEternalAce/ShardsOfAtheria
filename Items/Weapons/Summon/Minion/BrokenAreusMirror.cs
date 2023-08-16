@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Minions;
-using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Minion
             Item.shootSpeed = 0;
             Item.rare = ItemRarityID.Cyan;
             Item.value = 10000;
-            Item.shoot = ModContent.ProjectileType<AreusMirror>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.Minions.BrokenAreusMirror>();
 
             Item.buffType = ModContent.BuffType<AreusMirrorBuff>();
         }
@@ -56,7 +56,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Minion
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<AreusMirror>()] >= 1)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Minions.BrokenAreusMirror>()] >= 1)
             {
                 type = ModContent.ProjectileType<AreusMirrorShard>();
             }
@@ -69,7 +69,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Minion
             // This is needed so the buff that keeps your minion alive and allows you to despawn it properly applies
             player.AddBuff(Item.buffType, 2);
 
-            if (type == ModContent.ProjectileType<AreusMirror>())
+            if (type == ModContent.ProjectileType<Projectiles.Minions.BrokenAreusMirror>())
             {
                 // Minions have to be spawned manually, then have originalDamage assigned to the damage of the summon item
                 var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, Main.myPlayer, 1);
@@ -93,7 +93,8 @@ namespace ShardsOfAtheria.Items.Weapons.Summon.Minion
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 10)
-                .AddRecipeGroup(ShardsRecipes.Gold, 5)
+                .AddIngredient(ItemID.GoldBar, 5)
+                .AddIngredient<Jade>(5)
                 .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 10)
                 .AddTile<AreusFabricator>()
                 .Register();

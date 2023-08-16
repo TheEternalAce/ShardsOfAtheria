@@ -1,6 +1,4 @@
-﻿using BattleNetworkElements;
-using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Projectiles.NPCProj;
@@ -29,7 +27,6 @@ namespace ShardsOfAtheria.NPCs.Misc
             NPC.aiStyle = -1;
             NPC.noTileCollide = true;
             NPC.noGravity = true;
-            NPC.SetElementMultipliersByElement(Element.Aqua);
         }
 
         public override bool PreAI()

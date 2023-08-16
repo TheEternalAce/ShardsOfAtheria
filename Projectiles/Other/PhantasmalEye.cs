@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
@@ -8,13 +7,6 @@ namespace ShardsOfAtheria.Projectiles.Other
 {
     public class PhantasmalEye : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddFire();
-            Projectile.AddAqua();
-            Projectile.AddElec();
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 18;

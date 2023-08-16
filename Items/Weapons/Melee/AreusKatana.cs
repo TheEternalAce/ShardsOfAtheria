@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.ElecKatana;
-using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -46,7 +46,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 17)
-                .AddRecipeGroup(ShardsRecipes.Gold, 5)
+                .AddIngredient(ItemID.GoldBar, 5)
+                .AddIngredient<Jade>(2)
                 .AddIngredient(ItemID.SoulofFlight, 10)
                 .AddTile<AreusFabricator>()
                 .Register();

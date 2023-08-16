@@ -1,4 +1,3 @@
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah;
 using Terraria;
 using Terraria.ID;
@@ -12,7 +11,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
-            Item.AddElec();
         }
 
         public override void SetDefaults()

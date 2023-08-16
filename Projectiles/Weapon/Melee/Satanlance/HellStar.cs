@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -10,11 +9,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Satanlance
     public class HellStar : ModProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_" + ProjectileID.StarWrath;
-
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddFire();
-        }
 
         public override void SetDefaults()
         {

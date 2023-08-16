@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -13,8 +12,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddAqua();
-            Projectile.AddWood();
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }

@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
@@ -17,7 +16,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         {
             ProjectileID.Sets.TrailingMode[Type] = 3;
             ProjectileID.Sets.TrailCacheLength[Type] = 13;
-            Projectile.AddElec();
         }
 
         public override void SetDefaults()

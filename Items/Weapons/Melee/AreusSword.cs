@@ -1,7 +1,6 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs;
-using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -45,7 +44,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 20)
-                .AddRecipeGroup(ShardsRecipes.Gold, 6)
+                .AddIngredient(ItemID.GoldBar, 6)
                 .AddIngredient(ItemID.FragmentVortex, 20)
                 .AddTile<AreusFabricator>()
                 .Register();

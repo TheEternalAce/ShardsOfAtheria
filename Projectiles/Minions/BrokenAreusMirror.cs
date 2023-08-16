@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Minions
 {
-    public class AreusMirror : ModProjectile
+    public class BrokenAreusMirror : ModProjectile
     {
         public static Asset<Texture2D> glowmask;
         public int fireTimer;
@@ -34,7 +34,6 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
-            Main.projFrames[Type] = 2;
         }
 
         public override void SetDefaults()

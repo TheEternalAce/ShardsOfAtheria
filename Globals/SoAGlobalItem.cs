@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Summons;
+using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Consumable;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Weapons.Melee;
@@ -200,6 +201,15 @@ namespace ShardsOfAtheria.Globals
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
             base.ModifyWeaponDamage(item, player, ref damage);
+            if (SoA.ElementModEnabled)
+            {
+                ConductiveEffects(item, player, ref damage);
+            }
+        }
+
+        [JITWhenModsEnabled("BattleNetworkElements")]
+        private void ConductiveEffects(Item item, Player player, ref StatModifier damage)
+        {
             if (player.Shards().conductive && item.IsElec())
             {
                 damage += .15f;
@@ -357,6 +367,19 @@ namespace ShardsOfAtheria.Globals
                     }
                 }
             }
+            var shards = player.Shards();
+            if (item.damage > 0)
+            {
+                if (shards.prototypeBand && shards.prototypeBandCooldown == 0)
+                {
+                    if (player.HasItemEquipped<PrototypeAreusBand>(out var modItem))
+                    {
+                        var band = modItem as PrototypeAreusBand;
+                        band.UseEffect(player);
+                    }
+                    shards.prototypeBandCooldown = shards.prototypeBandCooldownMax;
+                }
+            }
             return base.UseItem(item, player);
         }
 
@@ -465,6 +488,15 @@ namespace ShardsOfAtheria.Globals
                     item.damage = ContentSamples.ItemsByType[item.type].damage;
                 }
             }
+            if (SoA.ElementModEnabled)
+            {
+                ChangeElements(item, player);
+            }
+        }
+
+        [JITWhenModsEnabled("BattleNetworkElements")]
+        private void ChangeElements(Item item, Player player)
+        {
             var shards = player.Shards();
             var elementItem = item.Elements();
             // Reset weapon elements
@@ -491,12 +523,12 @@ namespace ShardsOfAtheria.Globals
             // Change elements according to Areus Processor/Power Trip
             if (shards.areusProcessorPrevious)
             {
-                elementItem.isFire = false;
-                elementItem.isAqua = false;
-                elementItem.isElec = false;
-                elementItem.isWood = false;
                 if (item.damage > 0)
                 {
+                    elementItem.isFire = false;
+                    elementItem.isAqua = false;
+                    elementItem.isElec = false;
+                    elementItem.isWood = false;
                     switch (player.Shards().processorElement)
                     {
                         case Element.Fire:

@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
@@ -18,7 +17,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword
             ProjectileID.Sets.TrailCacheLength[Type] = 70;
             ProjectileID.Sets.TrailingMode[Type] = -1;
             Projectile.AddAreus(true);
-            Projectile.AddAqua();
         }
 
         public override void SetDefaults()

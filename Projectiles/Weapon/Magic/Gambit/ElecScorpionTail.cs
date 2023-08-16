@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -18,7 +17,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Gambit
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
-            Projectile.AddElec();
         }
 
         public override void SetDefaults()

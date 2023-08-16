@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
@@ -41,7 +40,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 15)
-                .AddRecipeGroup(ShardsRecipes.Gold, 5)
+                .AddIngredient(ItemID.GoldBar, 5)
                 .AddIngredient(ItemID.FragmentVortex, 10)
                 .AddTile<AreusFabricator>()
                 .Register();

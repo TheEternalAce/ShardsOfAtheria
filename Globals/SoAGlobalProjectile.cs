@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Globals
     public class SoAGlobalProjectile : GlobalProjectile
     {
         public bool tempAreus = false;
+        public bool explosion = false;
 
         public static List<int> AreusProj = new List<int>();
         public static List<int> DarkAreusProj = new List<int>();
@@ -96,6 +97,15 @@ namespace ShardsOfAtheria.Globals
         public override bool InstancePerEntity => true;
 
         public override void OnSpawn(Projectile projectile, IEntitySource source)
+        {
+            if (SoA.ElementModEnabled)
+            {
+                ChangeElements(projectile, source);
+            }
+        }
+
+        [JITWhenModsEnabled("BattleNetworkElements")]
+        private void ChangeElements(Projectile projectile, IEntitySource source)
         {
             foreach (Player player in Main.player)
             {

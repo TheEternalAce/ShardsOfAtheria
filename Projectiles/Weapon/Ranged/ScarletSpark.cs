@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -13,7 +12,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddElec();
             Main.projFrames[Type] = 4;
         }
 

@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -15,8 +14,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10; // The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0; // The recording mode
-
-            Projectile.AddWood();
         }
 
         public override void SetDefaults()

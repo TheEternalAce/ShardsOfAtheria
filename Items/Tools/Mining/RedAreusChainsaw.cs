@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Tools;
-using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -98,7 +97,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 20)
-                .AddRecipeGroup(ShardsRecipes.Gold, 6)
+                .AddIngredient(ItemID.GoldBar, 6)
                 .AddIngredient(ItemID.LunarBar, 12)
                 .AddIngredient(ItemID.Wire, 10)
                 .AddTile<AreusFabricator>()

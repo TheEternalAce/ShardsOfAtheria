@@ -1,6 +1,6 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Weapons.Magic;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Gambit
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddElec();
+            Projectile.AddAreus();
         }
 
         public override void OnSpawn(IEntitySource source)

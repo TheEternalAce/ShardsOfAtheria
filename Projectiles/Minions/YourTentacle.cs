@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Utilities;
@@ -24,7 +23,6 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
             Main.projFrames[Projectile.type] = 4;
-            Projectile.AddAqua();
         }
 
         public override void SetDefaults()

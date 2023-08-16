@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
@@ -13,12 +12,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
     public class BloodNeedleHostile : ModProjectile
     {
         private const string ChainTexturePath = "ShardsOfAtheria/Projectiles/NPCProj/Elizabeth/BloodNeedleHostile_Chain";
-
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddAqua();
-            Projectile.AddWood();
-        }
 
         public override void SetDefaults()
         {
