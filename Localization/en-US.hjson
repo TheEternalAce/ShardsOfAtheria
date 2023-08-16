@@ -395,6 +395,15 @@ Mods: {
 					'''
 			}
 
+			PrototypeAreusBand: {
+				DisplayName: Prototype Areus Band
+				Tooltip:
+					'''
+					Attacks may swing a short range unstable Areus Blade
+					'An attempt at making the use of the emissive properties of jade more compact'
+					'''
+			}
+
 			ResonatorRing: {
 				DisplayName: Resonance Ring
 				Tooltip:
@@ -825,7 +834,7 @@ Mods: {
 
 			Jade: {
 				DisplayName: Jade
-				Tooltip: ""
+				Tooltip: "'A rare stone that has the properties to emit temporary matter'"
 			}
 
 			# Potions
@@ -851,6 +860,12 @@ Mods: {
 					{$CommonItemTooltip.MediumStats}
 					'No way eating metal is a good ideaa'
 					'''
+			}
+
+			InsulationPotion: {
+				DisplayName: Insulation Potion
+				Description: Reduced damage from Elec element
+				Tooltip: ""
 			}
 
 			SoulInjection: {
@@ -1792,6 +1807,51 @@ Mods: {
 				DisplayName: Atherian Summon Item
 				Tooltip: ""
 			}
+
+			ImperialGarments: {
+				DisplayName: Imperial Garments
+				Tooltip: ""
+			}
+
+			ImperialGreaves: {
+				DisplayName: Imperial Greaves
+				Tooltip: ""
+			}
+
+			ImperialHood: {
+				DisplayName: Imperial Hood
+				Tooltip: ""
+			}
+
+			RoyalCrown: {
+				DisplayName: Royal Crown
+				Tooltip: ""
+			}
+
+			RoyalGreaves: {
+				DisplayName: Royal Greaves
+				Tooltip: ""
+			}
+
+			RoyalJacket: {
+				DisplayName: Royal Jacket
+				Tooltip: ""
+			}
+
+			SoldierBreastplate: {
+				DisplayName: Soldier Breastplate
+				Tooltip: ""
+			}
+
+			SoldierMask: {
+				DisplayName: Soldier Mask
+				Tooltip: ""
+			}
+
+			SoldierLeggings: {
+				DisplayName: Soldier Leggings
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -1799,7 +1859,7 @@ Mods: {
 			AreusTetherHook.DisplayName: Areus Tether
 			HardlightNeedleHook.DisplayName: Hardlight Needle
 			# Minions
-			AreusMirror.DisplayName: Areus Mirror
+			BrokenAreusMirror.DisplayName: Broken Areus Mirror
 			AreusMirrorShard.DisplayName: Areus Mirror Shard
 			CultistRitual.DisplayName: Ice Circle
 			GolemHead.DisplayName: Golem Head
@@ -1934,6 +1994,7 @@ Mods: {
 			HardlightBlade.DisplayName: Hardlight Blade
 			HardlightSlash.DisplayName: Hardlight Slash
 			HardlightSword.DisplayName: Hardlight Sword
+			PrototypeBandBlade.DisplayName: Unstable Areus Blade
 			HellStar.DisplayName: Hell Star
 			HeroBlade.DisplayName: Hero Blade
 			HeroSlash.DisplayName: Hero Sword
@@ -2008,6 +2069,7 @@ Mods: {
 			SapphireSpirit.DisplayName: Sapphire Spirit
 			SoulDagger.DisplayName: Soul Dagger
 			HardlightSlash2.DisplayName: Hardlight Slash2
+			AreusCrateEnemy.DisplayName: Areus Crate Enemy
 		}
 
 		NPCs: {
@@ -2088,6 +2150,7 @@ Mods: {
 					GoldCrownCompliment: Yes yes, the Gold Crown does suit you well!
 					MorshuMoment: Sorry {0}, what is this 'credit'? Come back when you have some coin! Or maybe you wanna chat? That's fine too.
 					CSGOReference: Last blood moon I heard {0} shouting 'Door stuck,' what's that about?
+					# Slayer mode
 					NovaDeath: "{0} leaves with Nova's death. 'She didn't deserve this...'"
 					GoddessDeath: "{0} leaves with the death of his goddess. 'Curse you till the end of time!'"
 					AllDeath: "{0} leaves from your genocide. 'Suffer beyond eternity!'"
@@ -2129,6 +2192,7 @@ Mods: {
 
 			Archivist: {
 				DisplayName: Archivist
+				Bestiary: Idk man lmfao
 
 				TownNPCMood: {
 					Content: I am content.
@@ -2146,7 +2210,7 @@ Mods: {
 				}
 
 				Dialogue.Placeholder: AAAA
-				Census.SpawnCondition: Conditions unknown
+				Census.SpawnCondition: Build a house with a bookshelf
 			}
 
 			CaveHarpy.DisplayName: Cavern Harpy
@@ -2377,6 +2441,11 @@ Mods: {
 				Description: Increased flight time
 			}
 
+			Insulation: {
+				DisplayName: Insulation
+				Description: Increased Elec element resistance
+			}
+
 			SoulInfused: {
 				DisplayName: Soul Infused
 				Description: Increased max life by 50, defense by 10 and damage by 15%
@@ -2441,15 +2510,19 @@ Mods: {
 		Conditions: {
 			Slayer: Drops while in Slayer Mode
 			Upgrade: Upgraded by Atherian
-			SlayerMode: Be in Slayer Mode
+			SlayerMode: Slayer Mode enabled
 			NotSlayer: Slayer Mode disabled
 			DownedNova: Defeat Nova Stellar
-			DownedDeath: Defeat Elizabeth Norman
-			OperatorMaterials: Mods.ShardsOfAtheria.Conditions.OperatorMaterials
-			OperatorBags3: Mods.ShardsOfAtheria.Conditions.OperatorBags3
-			AtherianPresent: Mods.ShardsOfAtheria.Conditions.AtherianPresent
-			DownedGenesis: Mods.ShardsOfAtheria.Conditions.DownedGenesis
-			DownedSenterra: Mods.ShardsOfAtheria.Conditions.DownedSenterra
+			NotDownedNova: Don't defeat Nova Stellar
+			DownedDeath: Don't defeat Elizabeth Norman
+			NotDownedDeath: Defeat Elizabeth Norman
+			AtherianPresent: Atherian is present
+			NotAtherianPresent: Atherian is not present
+			DownedGenesis: Defeat Genesis
+			NotDownedGenesis: Don't defeat Genesis
+			DownedSenterra: Defeat Senterra
+			NotDownedSenterra: Don't defeat Senterra
+			ElementModEnabled: Mods.ShardsOfAtheria.Conditions.ElementModEnabled
 		}
 
 		ShopQuote: {
@@ -2491,17 +2564,6 @@ Mods: {
 			ElementAffinity.DisplayName: Cycle Element Affinity
 			RemoveAreusChip.DisplayName: Remove Areus Chip
 			CycleElementAffinity.DisplayName: Cycle Element Affinity
-		}
-
-		Condotions: {
-			NotSlayer: Mods.ShardsOfAtheria.Condotions.NotSlayer
-			DefeatNova: Mods.ShardsOfAtheria.Condotions.DefeatNova
-			DefeatPlantera: Mods.ShardsOfAtheria.Condotions.DefeatPlantera
-		}
-
-		RecipeConditions: {
-			SlayerMode: Mods.ShardsOfAtheria.RecipeConditions.SlayerMode
-			Upgrade: Mods.ShardsOfAtheria.RecipeConditions.Upgrade
 		}
 
 		Configs: {
@@ -2619,6 +2681,7 @@ Mods: {
 		GameTips: {
 			OmegaKey: Shards of Atheria: There may be an ancient key in the sky islands.
 			Atherian: Shards of Atheria: Defeating the world's evil boss may attract someone who can upgrade weapons.
+			TheMourningStar: Shards of Atheria: The sacrifice of a katana may draw power from Plantera's defeat.
 		}
 	}
 }
