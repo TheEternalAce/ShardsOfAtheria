@@ -88,7 +88,7 @@ namespace ShardsOfAtheria
                 ModLoader.TryGetMod("Wikithis", out Mod wikithis);
                 if (wikithis != null)
                 {
-                    wikithis.Call("AddModURL", Instance, "terrariamods.wiki.gg/wiki/ Shards_of_Atheria");
+                    wikithis.Call("AddModURL", Instance, "terrariamods.wiki.gg/wiki/Shards_of_Atheria/{}");
 
                     // If you want to replace default icon for your mod, then call this. Icon should be 30x30, either way it will be cut.
                     wikithis.Call("AddWikiTexture", Instance, ModContent.Request<Texture2D>("ShardsOfAtheria/icon_small"));
@@ -129,7 +129,7 @@ namespace ShardsOfAtheria
 
             if (ModLoader.TryGetMod("TerraTyping", out Mod terratyping))
             {
-                string basePath = "Content/TerraTypes/";
+                string basePath = "CrossMod/TerraTypes/";
                 Dictionary<string, object> addWeapon = new()
                 {
                     { "call", "AddTypes" },
@@ -178,6 +178,8 @@ namespace ShardsOfAtheria
 
             if (ModLoader.TryGetMod("BossChecklist", out Mod checklist))
             {
+                string despawnPath = "Mods.ShardsOfAtheria.NPCs.";
+                string despawnPath2 = ".BossChecklistIntegration.Despawn";
                 checklist.Call(
                     "LogBoss",
                     Instance,
@@ -187,7 +189,8 @@ namespace ShardsOfAtheria
                     ModContent.NPCType<NovaStellar>(),
                     new Dictionary<string, object>()
                     {
-                        ["spawnItems"] = ModContent.ItemType<ValkyrieCrest>()
+                        ["spawnItems"] = ModContent.ItemType<ValkyrieCrest>(),
+                        ["despawnMessage"] = Language.GetText(despawnPath + "NovaStellar" + despawnPath2)
                     }
                 );
                 checklist.Call(
@@ -199,10 +202,12 @@ namespace ShardsOfAtheria
                     ModContent.NPCType<Death>(),
                     new Dictionary<string, object>()
                     {
-                        ["spawnItems"] = ModContent.ItemType<AncientMedalion>()
+                        ["spawnItems"] = ModContent.ItemType<AncientMedalion>(),
+                        ["despawnMessage"] = Language.GetText(despawnPath + "Death" + despawnPath2)
                     }
                 );
             }
+
             if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
             {
                 fargos.Call("AddSummon", 5.5f, ModContent.ItemType<ValkyrieCrest>(), () => ShardsDownedSystem.downedValkyrie, 50000);

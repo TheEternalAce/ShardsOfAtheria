@@ -119,6 +119,15 @@ namespace ShardsOfAtheria.Utilities
             return equipped;
         }
 
+        public static void AddBuff<T>(this Player player, int time, bool quiet = true) where T : ModBuff
+        {
+            player.AddBuff(ModContent.BuffType<T>(), time, quiet);
+        }
+        public static void ClearBuff<T>(this Player player) where T : ModBuff
+        {
+            player.ClearBuff(ModContent.BuffType<T>());
+        }
+
         public static float CappedMeleeScale(this Player player)
         {
             var item = player.HeldItem;

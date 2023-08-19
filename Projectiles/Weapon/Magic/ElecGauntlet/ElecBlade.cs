@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet
             base.SetDefaults();
 
             Projectile.width = Projectile.height = 30;
-            swordReach = 100;
+            swordReach = 160;
             rotationOffset = -MathHelper.PiOver4 * 3f;
             amountAllowedToHit = 3;
             Projectile.DamageType = DamageClass.Magic;
@@ -34,6 +34,15 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            base.OnHitNPC(target, hit, damageDone);
+            var player = Main.player[Projectile.owner];
+            int mana = 36;
+            player.ManaEffect(mana);
+            player.statMana += mana;
+            if (player.statMana > player.statManaMax2)
+            {
+                player.statMana = player.statManaMax2;
+            }
             target.AddBuff(BuffID.Electrified, 600);
         }
 

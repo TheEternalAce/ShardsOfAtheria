@@ -40,6 +40,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<SnowHarpyBanner>();
+            NPC.coldDamage = true;
         }
 
         public override void AI()

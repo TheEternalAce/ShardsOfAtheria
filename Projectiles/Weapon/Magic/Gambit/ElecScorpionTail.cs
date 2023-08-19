@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -21,8 +23,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Gambit
 
         public override void SetDefaults()
         {
-            Projectile.width = 12;
-            Projectile.height = 12;
+            Projectile.width = 18;
+            Projectile.height = 18;
             Projectile.friendly = true;
             Projectile.penetrate = -1; // Make the flail infinitely penetrate like other flails
             Projectile.extraUpdates = 3;
@@ -48,12 +50,19 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Gambit
             // Here we turn the player and projectile based on the relative positioning of the player and Projectile.
             int newDirection = Projectile.Center.X > player.Center.X ? 1 : -1;
             player.ChangeDir(newDirection);
-            Projectile.direction = newDirection;
+            Projectile.spriteDirection = Projectile.direction = newDirection;
+
+            if (Main.rand.NextBool(3))
+            {
+                Vector2 vector = Projectile.velocity;
+                vector.Normalize();
+                vector *= 4f;
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height,
+                    DustID.Electric, vector.X, vector.Y);
+            }
 
             // Here we set the rotation based off of the direction to the player tweaked by the velocity, giving it a little spin as the flail turns around each swing 
             Projectile.rotation = Vector2.Normalize(Projectile.Center - player.Center).ToRotation() + MathHelper.ToRadians(90);
-
-            // Here is where a flail like Flower Pow could spawn additional projectiles or other custom behaviors
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -65,6 +74,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Gambit
             SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 
             return base.OnTileCollide(oldVelocity);
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff<ElectricShock>(600);
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -100,7 +114,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Gambit
 
                 // drawPosition is advanced along the vector back to the player by 12 pixels
                 // 12 comes from the height of ExampleFlailProjectileChain.png and the spacing that we desired between links
-                drawPosition += remainingVectorToPlayer * 14 / length;
+                drawPosition += remainingVectorToPlayer * 24 / length;
                 remainingVectorToPlayer = mountedCenter - drawPosition;
 
                 // Finally, we draw the texture at the coordinates using the lighting information of the tile coordinates of the chain section

@@ -34,6 +34,7 @@ using ShardsOfAtheria.Projectiles.Weapon.Ranged.DeckOfCards;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged.EventHorizon;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged.GunRose;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged.VergilFlamethrower;
 using ShardsOfAtheria.Projectiles.Weapon.Summon;
 using ShardsOfAtheria.Projectiles.Weapon.Summon.Whip;
 using System.Collections.Generic;
@@ -194,6 +195,7 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<FireCannon_Fire1>(),
             ProjectileType<FireCannon_Fire2>(),
             ProjectileType<FireCannon_Fire3>(),
+            ProjectileType<AreusShardProjRanged>(),
             ProjectileType<AmbassadorShot>(),
             ProjectileType<AreusGrenadeProj>(),
             ProjectileType<AreusJavelinThrown>(),

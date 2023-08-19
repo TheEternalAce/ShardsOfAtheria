@@ -43,6 +43,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            Projectile.NewProjectile(source, position, velocity * 0, type, damage,
+                knockback, player.whoAmI, player.direction * player.gravDir,
+                player.itemAnimationMax);
             int type2 = ModContent.ProjectileType<HardlightBlade>();
             if (++shoot == 3)
             {
@@ -59,8 +62,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 Projectile.NewProjectile(source, position, velocity2, type2, damage,
                     knockback, player.whoAmI);
             }
-            Projectile.NewProjectile(source, position, velocity * 0, type, damage, knockback,
-                player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax);
             return false;
         }
     }

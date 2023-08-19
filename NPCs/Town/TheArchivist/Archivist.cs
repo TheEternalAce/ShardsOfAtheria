@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.DataDisks;
 using ShardsOfAtheria.Items.Tools.Misc.Slayer;
-using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -10,7 +8,6 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
 using Terraria.Utilities;
 
 namespace ShardsOfAtheria.NPCs.Town.TheArchivist
@@ -110,7 +107,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
             //var stopWatch = new Stopwatch();
             var houseInsideTiles = GetHouseInsideTiles((left + right) / 2, (top + bottom) / 2);
             bool bookshelfFound = BookshelfInHouse(houseInsideTiles);
-            return bookshelfFound;
+            return true;
         }
 
         public static List<Point> GetHouseInsideTiles(int x, int y)
@@ -151,7 +148,6 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
         public static bool BookshelfInHouse(List<Point> insideTiles)
         {
             bool shelfFound = false;
-            var tileStyleData = new Dictionary<int, List<int>>();
 
             foreach (var p in insideTiles)
             {
@@ -163,24 +159,10 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
                     {
                         continue;
                     }
-                    if (Main.tile[p].TileType == TileID.Bookcases)
-                    {
-                        int style = TileObjectData.GetTileStyle(Main.tile[p]);
-                        if (tileStyleData.TryGetValue(Main.tile[p].TileType, out List<int> compareStyle))
-                        {
-                            if (compareStyle.Contains(style))
-                            {
-                                continue;
-                            }
-                            compareStyle.Add(style);
-                        }
-                        else
-                        {
-                            tileStyleData.Add(Main.tile[p].TileType, new List<int>() { style });
-                        }
-
-                        shelfFound = true;
-                    }
+                    //if (Main.tile[p].TileType == TileID.Bookcases)
+                    //{
+                    shelfFound = true;
+                    //}
                 }
             }
             return shelfFound;
@@ -225,11 +207,12 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
                 .Add(ItemID.PinkDungeonBookcase, Condition.DownedSkeletron)
                 .Add(ItemID.ObsidianBookcase, Condition.Hardmode)
                 .Add(ItemID.GoldenBookcase, Condition.DownedPirates)
-                .Add<AreusDataDisk>(SoAConditions.AtherianPresent)
-                .Add<AtheriaDataDisk>(SoAConditions.DownedSenterra)
-                .Add<HardlightDataDisk>(SoAConditions.DownedNova)
-                .Add<NovaDataDisk>(SoAConditions.DownedNova, SoAConditions.AtherianPresent)
-                .Add<TerrariansDataDisk>(Condition.DownedMoonLord);
+                //.Add<AreusDataDisk>(SoAConditions.AtherianPresent)
+                //.Add<AtheriaDataDisk>(SoAConditions.DownedSenterra)
+                //.Add<HardlightDataDisk>(SoAConditions.DownedNova)
+                //.Add<NovaDataDisk>(SoAConditions.DownedNova, SoAConditions.AtherianPresent)
+                //.Add<TerrariansDataDisk>(Condition.DownedMoonLord)
+                ;
             npcShop.Register();
         }
 

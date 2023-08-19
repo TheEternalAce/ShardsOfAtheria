@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             CreateRecipe()
                .AddIngredient(ModContent.ItemType<AmethystCore>())
                 .AddIngredient(ItemID.HallowedBar, 10)
-                .AddIngredient(ItemID.LavaWaders, 10)
+                .AddIngredient(ItemID.LavaWaders)
                .AddTile(TileID.MythrilAnvil)
                .Register();
         }

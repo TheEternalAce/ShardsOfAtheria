@@ -49,6 +49,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusGambit>())
+                .AddIngredient(ModContent.ItemType<AreusBow>())
                 .AddIngredient(ModContent.ItemType<AreusKatana>())
                 .AddIngredient(ModContent.ItemType<AreusDagger>())
                 .AddIngredient(ModContent.ItemType<AreusMagnum>())

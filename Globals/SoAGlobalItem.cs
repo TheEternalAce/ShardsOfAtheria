@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Consumable;
@@ -336,6 +337,10 @@ namespace ShardsOfAtheria.Globals
             if (SoA.ServerConfig.betterWeapon.Equals("Mouse Direction") && item.shoot == ProjectileID.None && item.damage > 0)
             {
                 player.ChangeDir(player.Center.X < Main.MouseWorld.X ? 1 : -1);
+            }
+            if (item.DamageType == DamageClass.Magic)
+            {
+                player.ClearBuff<SpareChange>();
             }
             if (item.type == ItemID.BugNet ||
                 item.type == ItemID.FireproofBugNet ||

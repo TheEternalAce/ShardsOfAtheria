@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
@@ -63,6 +64,22 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 .Register();
         }
 
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                Item.mana = 0;
+                Item.UseSound = SoA.Coin;
+                Item.shoot = ModContent.ProjectileType<ElecCoin>();
+            }
+            return base.CanUseItem(player);
+        }
+
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             if (player.Shards().Overdrive)
@@ -79,18 +96,22 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public void SetAttack(Player player)
         {
             Item.UseSound = SoundID.Item43;
+            Item.mana = 12;
             string text = "Tails";
             if (Main.rand.NextBool(2))
             {
                 Item.shoot = ModContent.ProjectileType<LightningBoltFriendly>();
                 Item.shootSpeed = 1;
+                Item.damage = 75;
                 text = "Heads";
             }
             else
             {
                 Item.shoot = ModContent.ProjectileType<ElecScorpionTail>();
                 Item.shootSpeed = 16;
+                Item.damage = 50;
             }
+            player.AddBuff<SpareChange>(600);
             CombatText.NewText(player.Hitbox, Color.Cyan, text);
         }
 
@@ -99,13 +120,9 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             if (player.Shards().Overdrive)
             {
                 Item.UseSound = SoundID.Item43;
-                Projectile.NewProjectile(source, position, velocity * 16f,
+                Projectile.NewProjectile(source, position, velocity * 12f,
                     ModContent.ProjectileType<ElecScorpionTail>(), damage, knockback, player.whoAmI);
                 type = ModContent.ProjectileType<LightningBoltFriendly>();
-            }
-            else if (Item.shoot != ModContent.ProjectileType<ElecCoin>() && !player.Shards().Overdrive)
-            {
-                SetDefaults();
             }
             if (type == ModContent.ProjectileType<LightningBoltFriendly>())
             {

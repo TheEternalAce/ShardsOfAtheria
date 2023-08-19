@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff
             Projectile.extraUpdates = 1;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.timeLeft = 120;
+            Projectile.coldDamage = true;
 
             Projectile.usesLocalNPCImmunity = true;
 

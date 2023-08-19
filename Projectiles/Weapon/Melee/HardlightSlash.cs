@@ -5,7 +5,6 @@ using ShardsOfAtheria.Dusts;
 using System;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee
@@ -38,9 +37,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Vector2 positionInWorld = Main.rand.NextVector2FromRectangle(target.Hitbox);
-            //ParticleSystem.AddParticle(new NeapoliniteSlash(), positionInWorld, new Vector2(Main.rand.NextFloat(-0.5f, 0.5f), 1), default, 24);
-
             bool flag4 = false;
             if (Projectile.DamageType.UseStandardCritCalcs && Main.rand.Next(100) < Projectile.CritChance)
             {
@@ -58,16 +54,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             }
             NPC.HitInfo strike = modifiers.ToHitInfo(Projectile.damage, flag4, num21, damageVariation: true, Main.player[Projectile.owner].luck);
 
-            if (Main.netMode != NetmodeID.SinglePlayer)
+            if (Main.netMode != 0)
             {
                 NetMessage.SendStrikeNPC(target, in strike);
             }
-        }
-
-        public override void OnHitPlayer(Player target, Player.HurtInfo info)
-        {
-            Vector2 positionInWorld = Main.rand.NextVector2FromRectangle(target.Hitbox);
-            //ParticleSystem.AddParticle(new NeapoliniteSlash(), positionInWorld, new Vector2(Main.rand.NextFloat(-0.5f, 0.5f), 1), default, 24);
         }
 
         public override void AI()
@@ -75,8 +65,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             Projectile.localAI[0] += 1f;
             Player player = Main.player[Projectile.owner];
             float num = Projectile.localAI[0] / Projectile.ai[1];
-            float dirWithGravity = Projectile.ai[0];
-            Projectile.rotation = (float)Math.PI * dirWithGravity * num + dirWithGravity * (float)Math.PI + player.fullRotation;
+            float num4 = Projectile.ai[0];
+            float num5 = Projectile.velocity.ToRotation();
+            Projectile.rotation = (float)Math.PI * num4 * num + num5 + num4 * (float)Math.PI + player.fullRotation;
             float num7 = 0.6f;
             float num8 = 1f;
             Projectile.Center = player.RotatedRelativePoint(player.MountedCenter) - Projectile.velocity;
@@ -92,10 +83,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             }
             if (Main.rand.NextFloat() * 1.5f < Projectile.Opacity)
             {
-                Dust dust9 = Dust.NewDustPerfect(vector2, ModContent.DustType<HardlightDust_Pink>(), vector3 * 1f);
+                var dust9 = Dust.NewDustPerfect(vector2, ModContent.DustType<HardlightDust_Pink>(), vector3 * 1f);
                 dust9.noGravity = true;
             }
-            Projectile.scale *= Projectile.ai[2];
+            //Projectile.scale *= Projectile.ai[2];
             if (Projectile.localAI[0] >= Projectile.ai[1])
             {
                 Projectile.Kill();
@@ -200,7 +191,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         {
             Texture2D value = TextureAssets.Extra[98].Value;
             Color color = shineColor * opacity * 0.5f;
-            color.A = 0;
+            color.A = (byte)0;
             Vector2 origin = value.Size() / 2f;
             Color color2 = drawColor * 0.5f;
             float num = Utils.GetLerpValue(fadeInStart, fadeInEnd, flareCounter, clamped: true) * Utils.GetLerpValue(fadeOutEnd, fadeOutStart, flareCounter, clamped: true);

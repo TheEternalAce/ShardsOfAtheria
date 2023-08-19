@@ -83,7 +83,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
                 for (int i = 0; i < 8; i++)
                 {
                     var proj = Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPoints[i], velocity,
-                        ModContent.ProjectileType<LightningBolt>(), Projectile.damage, 0, Main.myPlayer);
+                        ModContent.ProjectileType<LightningBolt>(), 18, 0, Main.myPlayer);
                     Main.projectile[proj].tileCollide = false;
                 }
             }

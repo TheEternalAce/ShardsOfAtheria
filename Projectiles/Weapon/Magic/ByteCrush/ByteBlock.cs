@@ -74,9 +74,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ByteCrush
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, velocity,
                     ModContent.ProjectileType<BitBlock>(), Projectile.originalDamage,
                     Projectile.knockBack, Projectile.owner);
-
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Stone, 0, 0, 1, Color.GreenYellow);
-                dust.velocity *= 4f;
             }
         }
     }

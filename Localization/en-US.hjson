@@ -1852,6 +1852,11 @@ Mods: {
 				DisplayName: Soldier Leggings
 				Tooltip: ""
 			}
+
+			AreusFlamethrower: {
+				DisplayName: Areus Flamethrower
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -1875,6 +1880,7 @@ Mods: {
 			YourTentacle.DisplayName: Your Tentacle
 			# NPC projs
 			AreusGrenadeHostile.DisplayName: Areus Grenade
+			AreusCrateEnemy.DisplayName: Areus Crate Enemy
 			# Nova Stellar
 			ElectricTrail.DisplayName: Electric Trail
 			FeatherBlade.DisplayName: Hardlight Feather
@@ -1883,15 +1889,16 @@ Mods: {
 			StormCloud.DisplayName: Storm Cloud
 			StormLance.DisplayName: Storm Lance
 			StormSword.DisplayName: Storm Sword
+			HardlightBladeHitbox.DisplayName: Hardlight Blade
 			# Elizabeth Norman
-			BloodArrowHostile.DisplayName: Blood Arrow Hostile
-			BloodBubbleHostile.DisplayName: Blood Bubble Hostile
-			BloodDropHostile.DisplayName: Blood Drop Hostile
-			BloodJavelinHostile.DisplayName: Blood Javelin Hostile
-			BloodNeedleHostile.DisplayName: Blood Needle Hostile
-			BloodSickleHostile.DisplayName: Blood Sickle Hostile
-			BloodWaveHostile.DisplayName: Blood Wave Hostile
-			SilverBoltHostile.DisplayName: Silver Bolt Hostile
+			BloodArrowHostile.DisplayName: Blood Arrow
+			BloodBubbleHostile.DisplayName: Blood Bubble
+			BloodDropHostile.DisplayName: Blood Drop
+			BloodJavelinHostile.DisplayName: Blood Javelin
+			BloodNeedleHostile.DisplayName: Blood Needle
+			BloodSickleHostile.DisplayName: Blood Sickle
+			BloodWaveHostile.DisplayName: Blood Wave
+			SilverBoltHostile.DisplayName: Silver Bolt
 			# Variant NPC
 			Blood.DisplayName: Blood Feather
 			Stone.DisplayName: Stone Feather
@@ -2028,6 +2035,8 @@ Mods: {
 			AceOfDiamonds.DisplayName: Ace of Diamonds
 			AmbassadorShot.DisplayName: Magnus Bullet
 			AreusArrow.DisplayName: Areus Arrow
+			ApproachingStorm.DisplayName: Areus Flamethrower
+			AreusShardProjRanged.DisplayName: Areus Shard
 			AreusGrenadeProj.DisplayName: Areus Grenade
 			AreusJavelinThrown.DisplayName: Areus Javelin
 			AreusLaser.DisplayName: Areus Laser
@@ -2068,8 +2077,6 @@ Mods: {
 			SapphireBolt.DisplayName: Sapphire Bolt
 			SapphireSpirit.DisplayName: Sapphire Spirit
 			SoulDagger.DisplayName: Soul Dagger
-			HardlightSlash2.DisplayName: Hardlight Slash2
-			AreusCrateEnemy.DisplayName: Areus Crate Enemy
 		}
 
 		NPCs: {
@@ -2077,7 +2084,11 @@ Mods: {
 				DisplayName: Nova Stellar
 				Bestiary: Following her late father's footsteps, Nova became a noble knight. She wishes to rid the world of the Slayer Terrarian.
 				BossDesc: The Lightning Valkyrie
-				BossChecklistIntegration.SpawnInfo: Use a [i:ShardsOfAtheria/ValkyrieCrest] Hardlight Crest in the sky.
+
+				BossChecklistIntegration: {
+					SpawnInfo: Use a [i:ShardsOfAtheria/ValkyrieCrest] Hardlight Crest in the sky.
+					Despawn: Nova Stellar leaves in triumph...
+				}
 
 				Dialogue: {
 					InitialSummon: You! How did you get that!? No matter, I will take you down, Slayer!
@@ -2098,8 +2109,12 @@ Mods: {
 			Death: {
 				DisplayName: Elizabeth Norman, Death
 				Bestiary: ""
-				BossDesc: ""
-				BossChecklistIntegration.SpawnInfo: Use an [i:ShardsOfAtheria/AncientMedalion] Ancient Medalion on the surface at night.
+				BossDesc: The Blood Witch
+
+				BossChecklistIntegration: {
+					SpawnInfo: Use an [i:ShardsOfAtheria/AncientMedalion] Ancient Medalion on the surface at night.
+					Despawn: Another job well done for Death...
+				}
 
 				Dialogue: {
 					InitialSummon: You dare challenge me mortal? Interesting. Fine then, I'll entertain you for a bit.
@@ -2113,7 +2128,7 @@ Mods: {
 					InitialSummonSlayer: Your first mistake was starting this path. Your final mistake is crossing paths with me.
 					MidFightSlayer: You won't kill me so easily. Try this on for size.
 					Desperation: Seems like I underestimated you... (This isn't good... I must do something...)
-					Death: Oh the irony,
+					Death: Oh the irony... It was about my time anyway.
 				}
 			}
 
@@ -2348,6 +2363,11 @@ Mods: {
 					'Your systems are being pushed beyond their limits'
 					Damage increased by 50%
 					'''
+			}
+
+			SpareChange: {
+				DisplayName: Spare Change
+				Description: Increased magic damage and mana conservation
 			}
 
 			# Sinful Souls

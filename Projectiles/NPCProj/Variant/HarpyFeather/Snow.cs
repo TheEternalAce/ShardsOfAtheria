@@ -18,6 +18,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather
             Projectile.timeLeft = 5 * 60;
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
+            Projectile.coldDamage = true;
         }
 
         public override void AI()

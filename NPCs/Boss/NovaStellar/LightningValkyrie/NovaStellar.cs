@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             Main.npcFrameCount[NPC.type] = 6;
 
             NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+            NPCDebuffImmunityData debuffData = new()
             {
                 SpecificallyImmuneTo = new int[] {
                     BuffID.Poisoned,
@@ -362,7 +362,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 case FeatherBarrage:
                     attackTimer = 260;
                     attackCooldown = 60;
-                    damage = 18;
+                    damage = 14;
                     if (phase2)
                     {
                         attackTypeNext = BowShoot;
@@ -383,7 +383,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 case SwordsDance:
                     attackTimer = 9 * 60;
                     attackCooldown = 60;
-                    damage = 16;
+                    damage = 14;
                     if (NPC.life <= NPC.lifeMax / 2)
                     {
                         attackTypeNext = SwordSwing;
@@ -409,9 +409,14 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                     break;
             }
             blacklistedAttacks.Add(attackType);
+            if (Main.expertMode)
+            {
+                //damage = (int)(damage * 0.75f);
+            }
             if (Main.masterMode || Main.getGoodWorld)
             {
                 attackCooldown = attackCooldown * 3 / 4;
+                //damage = (int)(damage * 0.75f);
             }
         }
         void CycleAttack(Player player)
@@ -618,11 +623,14 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
         void DoBladeSwing(Player player)
         {
-            NPC.Track(player.Center, 6, 6);
+            NPC.Track(player.Center, 8, 8);
             if (frameY == 0)
             {
                 var swordItem = ModContent.GetInstance<ValkyrieBlade>().Item;
                 SoundEngine.PlaySound(swordItem.UseSound);
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
+                    Vector2.Zero, ModContent.ProjectileType<HardlightBladeHitbox>(),
+                    damage, 0, Main.myPlayer);
             }
         }
 
@@ -680,10 +688,14 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
                 var proj = Main.projectile[i];
-                if (proj.type == ModContent.ProjectileType<ElectricTrail>() || proj.type == ModContent.ProjectileType<FeatherBlade>() ||
-                    proj.type == ModContent.ProjectileType<LightningBolt>() || proj.type == ModContent.ProjectileType<StormSword>() ||
-                    proj.type == ModContent.ProjectileType<StormCloud>() || proj.type == ModContent.ProjectileType<LightningBolt>() ||
-                    proj.type == ModContent.ProjectileType<LightningBolt>() || proj.type == ModContent.ProjectileType<StormLance>() ||
+                if (proj.type == ModContent.ProjectileType<ElectricTrail>() ||
+                    proj.type == ModContent.ProjectileType<FeatherBlade>() ||
+                    proj.type == ModContent.ProjectileType<LightningBolt>() ||
+                    proj.type == ModContent.ProjectileType<StormSword>() ||
+                    proj.type == ModContent.ProjectileType<StormCloud>() ||
+                    proj.type == ModContent.ProjectileType<LightningBolt>() ||
+                    proj.type == ModContent.ProjectileType<LightningBolt>() ||
+                    proj.type == ModContent.ProjectileType<StormLance>() ||
                     proj.type == ModContent.ProjectileType<HardlightKnifeHostile>())
                 {
                     proj.Kill();

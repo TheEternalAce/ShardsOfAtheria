@@ -8,6 +8,7 @@ using Terraria.Chat;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Utilities
 {
@@ -115,6 +116,15 @@ namespace ShardsOfAtheria.Utilities
             direction.Normalize();
             direction *= speed;
             npc.velocity = (npc.velocity * (inertia - 1) + direction) / inertia;
+        }
+
+        public static void AddBuff<T>(this NPC npc, int time, bool quiet = true) where T : ModBuff
+        {
+            npc.AddBuff(ModContent.BuffType<T>(), time, quiet);
+        }
+        public static void ClearBuff<T>(this NPC npc) where T : ModBuff
+        {
+            npc.DelBuff(ModContent.BuffType<T>());
         }
 
         public static void DropFromItem(int itemType, Player player)

@@ -135,7 +135,7 @@ namespace ShardsOfAtheria.ShardsUI
             }
             else if (mainSlot.Item.type == ModContent.ItemType<AreusGambit>())
             {
-                CreateSlots(5);
+                CreateSlots(6);
             }
             else if (mainSlot.Item.type == ModContent.ItemType<AreusRailgun>())
             {
@@ -233,6 +233,7 @@ namespace ShardsOfAtheria.ShardsUI
                 int[,] materials = new[,]
                 {
                     { ModContent.ItemType<AreusDagger>(), 1 },
+                    { ModContent.ItemType<AreusBow>(), 1 },
                     { ModContent.ItemType<AreusKatana>(), 1 },
                     { ModContent.ItemType<AreusMagnum>(), 1 },
                     { ModContent.ItemType<AreusRailgun>(), 1 },
@@ -420,6 +421,10 @@ namespace ShardsOfAtheria.ShardsUI
                 return false;
             }
             if (!AnySlotContains(ModContent.ItemType<AreusDagger>()))
+            {
+                return false;
+            }
+            if (!AnySlotContains(ModContent.ItemType<AreusBow>()))
             {
                 return false;
             }

@@ -74,7 +74,6 @@ namespace ShardsOfAtheria.Players
         public override void SaveData(TagCompound tag)
         {
             tag["slayerMode"] = slayerMode;
-            tag["soulCrystals"] = soulCrystalNames;
 
             tag.Add("soulCrystalNames", soulCrystalNames);
             tag["TomeKnowledge"] = TomeKnowledge;
@@ -86,9 +85,9 @@ namespace ShardsOfAtheria.Players
             {
                 slayerMode = tag.GetBool("slayerMode");
             }
-            if (tag.ContainsKey("soulCrystalsList"))
+            if (tag.ContainsKey("soulCrystalNames"))
             {
-                soulCrystalNames = tag.Get<List<string>>("soulCrystalsList");
+                soulCrystalNames = tag.Get<List<string>>("soulCrystalNames");
             }
             if (tag.ContainsKey("TomeKnowledge"))
             {
