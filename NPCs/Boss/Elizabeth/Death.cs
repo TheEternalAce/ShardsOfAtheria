@@ -589,13 +589,13 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             {
                 var proj = Main.projectile[i];
                 if (proj.type == ModContent.ProjectileType<BloodArrowHostile>() ||
-                    //proj.type == ModContent.ProjectileType<BloodBubble>() ||
+                    proj.type == ModContent.ProjectileType<BloodBubbleHostile>() ||
                     proj.type == ModContent.ProjectileType<BloodJavelinHostile>() ||
-                    //proj.type == ModContent.ProjectileType<BloodNeedle>() ||
-                    //proj.type == ModContent.ProjectileType<BloodScythe>() ||
+                    proj.type == ModContent.ProjectileType<BloodNeedleHostile>() ||
+                    //proj.type == ModContent.ProjectileType<BloodScytheHostile>() ||
                     proj.type == ModContent.ProjectileType<BloodSickleHostile>() ||
-                    //proj.type == ModContent.ProjectileType<BloodSpike>() ||
-                    //proj.type == ModContent.ProjectileType<BloodSword>() ||
+                    //proj.type == ModContent.ProjectileType<BloodSpikeHostile>() ||
+                    //proj.type == ModContent.ProjectileType<BloodSwordHostile>() ||
                     proj.type == ModContent.ProjectileType<SilverBoltHostile>()
                     )
                 {

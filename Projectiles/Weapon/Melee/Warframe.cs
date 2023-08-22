@@ -39,6 +39,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            base.OnHitNPC(target, hit, damageDone);
             ScreenShake.ShakeScreen(6, 60);
             var player = Main.player[Projectile.owner];
             var vector = player.Center - target.Center;

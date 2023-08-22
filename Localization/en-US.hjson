@@ -467,6 +467,51 @@ Mods: {
 				Tooltip: ""
 			}
 
+			ImperialGarments: {
+				DisplayName: Imperial Garments
+				Tooltip: ""
+			}
+
+			ImperialGreaves: {
+				DisplayName: Imperial Greaves
+				Tooltip: ""
+			}
+
+			ImperialHood: {
+				DisplayName: Imperial Hood
+				Tooltip: ""
+			}
+
+			RoyalCrown: {
+				DisplayName: Royal Crown
+				Tooltip: ""
+			}
+
+			RoyalGreaves: {
+				DisplayName: Royal Greaves
+				Tooltip: ""
+			}
+
+			RoyalJacket: {
+				DisplayName: Royal Jacket
+				Tooltip: ""
+			}
+
+			SoldierBreastplate: {
+				DisplayName: Soldier Breastplate
+				Tooltip: ""
+			}
+
+			SoldierMask: {
+				DisplayName: Soldier Mask
+				Tooltip: ""
+			}
+
+			SoldierLeggings: {
+				DisplayName: Soldier Leggings
+				Tooltip: ""
+			}
+
 			# Armor chips
 			AreusArmorChip: {
 				DisplayName: Unwritten Areus Chip
@@ -790,15 +835,15 @@ Mods: {
 				Tooltip: ""
 			}
 
+			VoidHarpyBanner: {
+				DisplayName: Void Harpy Banner
+				Tooltip: ""
+			}
+
+			# Furniture
 			AreusFabricatorItem: {
 				DisplayName: Areus Fabricator
 				Tooltip: Used to make areus equipment
-			}
-
-			VoidHarpyBanner: {
-				# Furniture
-				DisplayName: Void Harpy Banner
-				Tooltip: ""
 			}
 
 			NovaTrophy: {
@@ -879,10 +924,25 @@ Mods: {
 					'''
 			}
 
+			# Consumable
+			ArchivistSummonItem: {
+				DisplayName: Archivist Summon Item
+				Tooltip: ""
+			}
+
+			AtherianSummonItem: {
+				DisplayName: Atherian Summon Item
+				Tooltip: ""
+			}
+
+			# Sinful
+			SinfulSoul: {
+				DisplayName: Sinful Soul
+				Tooltip: ""
+			}
+
 			EnvySoul: {
-				# Sinful
 				DisplayName: Envy Soul
-				# Sinful
 				Tooltip:
 					'''
 					Consecutive strikes on an enemy will increase the damage they take by 3
@@ -974,10 +1034,9 @@ Mods: {
 				Tooltip: Transforms into a weapon based on your sin
 			}
 
+			# Soul crystals
 			KingSoulCrystal: {
-				# Soul crystals
 				DisplayName: Soul Crystal (King Slime)
-				# Soul Crystals
 				Tooltip:
 					'''
 					Increased life and mana regen
@@ -1177,6 +1236,11 @@ Mods: {
 				Tooltip: ""
 			}
 
+			OmegaKey: {
+				DisplayName: Omega Key
+				Tooltip: ""
+			}
+
 			RedAreusDrill: {
 				DisplayName: Areus Drill
 				Tooltip: "'Extremely dangerous... and fun!'"
@@ -1203,7 +1267,7 @@ Mods: {
 					Saves your current position after 5 seconds, use to teleport to saved position
 					All stats you had in that save are regained
 					There's an engraving on the back
-					'-A gift to you, my beloved little sister <3'
+					'A gift to you, my beloved little sister <3'
 					Must be used in hot-bar
 					'''
 			}
@@ -1215,6 +1279,81 @@ Mods: {
 					Right click to cycle between absorbed Soul Crystals
 					Use to extract the currently selected Soul Crystal
 					'''
+			}
+
+			WandOfHealing: {
+				DisplayName: Wand Of Healing
+				Tooltip:
+					'''
+					'Converts Mana into Life'
+					Taking damage while this is in your inventory will render this unusable for a time
+					'''
+			}
+
+			# Misc
+			AquaMateria: {
+				DisplayName: Aqua Materia
+				Tooltip: ""
+			}
+
+			ElecMateria: {
+				DisplayName: Elec Materia
+				Tooltip: ""
+			}
+
+			FireMateria: {
+				DisplayName: Fire Materia
+				Tooltip: ""
+			}
+
+			WoodMateria: {
+				DisplayName: Wood Materia
+				Tooltip: ""
+			}
+
+			BiogaMateria: {
+				DisplayName: Bioga Materia
+				Tooltip: ""
+			}
+
+			BizzagaMateria: {
+				DisplayName: Bizzaga Materia
+				Tooltip: ""
+			}
+
+			FiragaMateria: {
+				DisplayName: Firaga Materia
+				Tooltip: ""
+			}
+
+			ThundagaMateria: {
+				DisplayName: Thundaga Materia
+				Tooltip: ""
+			}
+
+			BlizzagaMateria: {
+				DisplayName: Blizzaga Materia
+				Tooltip: ""
+			}
+
+			CactuarMateria: {
+				DisplayName: Cactuar Materia
+				Tooltip: ""
+			}
+
+			IfritMateria: {
+				DisplayName: Ifrit Materia
+				Tooltip: ""
+			}
+
+			RamuhMateria: {
+				DisplayName: Ramuh Materia
+				Tooltip: ""
+			}
+
+			ShivaMateria: {
+				DisplayName: Shiva Materia
+				Tooltip: ""
 			}
 
 			# Weapons
@@ -1343,6 +1482,15 @@ Mods: {
 				Tooltip: ""
 			}
 
+			AreusEdge: {
+				DisplayName: Areus Judgement
+				Tooltip:
+					'''
+					'Its scale would never neglect the weight of even the smallest sin.'
+					'Thy end is now!'
+					'''
+			}
+
 			AreusGlaive: {
 				DisplayName: Areus Glaive
 				Tooltip: ""
@@ -1355,6 +1503,11 @@ Mods: {
 					Holding this weapon increases your movement speed by 5%
 					'I am all out of milk'
 					'''
+			}
+			
+			AreusStrikeChain: {
+				DisplayName: Areus Strike Chain
+				Tooltip: ""
 			}
 
 			AreusSword: {
@@ -1543,6 +1696,11 @@ Mods: {
 				Tooltip: "'We fire the cannon!'"
 			}
 
+			AreusFlamethrower: {
+				DisplayName: Areus Flamethrower
+				Tooltip: ""
+			}
+
 			AreusGrenade: {
 				DisplayName: Areus Grenade
 				Tooltip: ""
@@ -1713,150 +1871,6 @@ Mods: {
 				DisplayName: Nestling Staff
 				Tooltip: Summons a fledgling harpy knight to fight for you
 			}
-
-			OmegaKey: {
-				DisplayName: Omega Key
-				Tooltip: ""
-			}
-
-			SinfulSoul: {
-				DisplayName: Sinful Soul
-				Tooltip: ""
-			}
-
-			WandOfHealing: {
-				DisplayName: Wand Of Healing
-				Tooltip:
-					'''
-					'Converts Mana into Life'
-					Taking damage while this is in your inventory will render this unusable for a time
-					'''
-			}
-
-			AquaMateria: {
-				DisplayName: Aqua Materia
-				Tooltip: ""
-			}
-
-			ElecMateria: {
-				DisplayName: Elec Materia
-				Tooltip: ""
-			}
-
-			FireMateria: {
-				DisplayName: Fire Materia
-				Tooltip: ""
-			}
-
-			WoodMateria: {
-				DisplayName: Wood Materia
-				Tooltip: ""
-			}
-
-			BiogaMateria: {
-				DisplayName: Bioga Materia
-				Tooltip: ""
-			}
-
-			BizzagaMateria: {
-				DisplayName: Bizzaga Materia
-				Tooltip: ""
-			}
-
-			FiragaMateria: {
-				DisplayName: Firaga Materia
-				Tooltip: ""
-			}
-
-			ThundagaMateria: {
-				DisplayName: Thundaga Materia
-				Tooltip: ""
-			}
-
-			BlizzagaMateria: {
-				DisplayName: Blizzaga Materia
-				Tooltip: ""
-			}
-
-			CactuarMateria: {
-				DisplayName: Cactuar Materia
-				Tooltip: ""
-			}
-
-			IfritMateria: {
-				DisplayName: Ifrit Materia
-				Tooltip: ""
-			}
-
-			RamuhMateria: {
-				DisplayName: Ramuh Materia
-				Tooltip: ""
-			}
-
-			ShivaMateria: {
-				DisplayName: Shiva Materia
-				Tooltip: ""
-			}
-
-			ArchivistSummonItem: {
-				DisplayName: Archivist Summon Item
-				Tooltip: ""
-			}
-
-			AtherianSummonItem: {
-				DisplayName: Atherian Summon Item
-				Tooltip: ""
-			}
-
-			ImperialGarments: {
-				DisplayName: Imperial Garments
-				Tooltip: ""
-			}
-
-			ImperialGreaves: {
-				DisplayName: Imperial Greaves
-				Tooltip: ""
-			}
-
-			ImperialHood: {
-				DisplayName: Imperial Hood
-				Tooltip: ""
-			}
-
-			RoyalCrown: {
-				DisplayName: Royal Crown
-				Tooltip: ""
-			}
-
-			RoyalGreaves: {
-				DisplayName: Royal Greaves
-				Tooltip: ""
-			}
-
-			RoyalJacket: {
-				DisplayName: Royal Jacket
-				Tooltip: ""
-			}
-
-			SoldierBreastplate: {
-				DisplayName: Soldier Breastplate
-				Tooltip: ""
-			}
-
-			SoldierMask: {
-				DisplayName: Soldier Mask
-				Tooltip: ""
-			}
-
-			SoldierLeggings: {
-				DisplayName: Soldier Leggings
-				Tooltip: ""
-			}
-
-			AreusFlamethrower: {
-				DisplayName: Areus Flamethrower
-				Tooltip: ""
-			}
 		}
 
 		Projectiles: {
@@ -1975,6 +1989,9 @@ Mods: {
 			AreusGlaive_Throw.DisplayName: Areus Glaive
 			AreusGlaive_Thrust.DisplayName: Areus Glaive
 			AreusGlaive_Thrust2.DisplayName: Areus Glaive
+			AreusJustitia.DisplayName: Areus Judgement
+			AreusJustitia_Slash.DisplayName: Areus Judgement
+			AreusJustitia_Stab.DisplayName: Areus Judgement
 			AreusSickle.DisplayName: Areus Sickle
 			AreusSwordProj.DisplayName: Areus Sword
 			AquaSlash.DisplayName: Breaker Blade Aqua
@@ -2020,6 +2037,8 @@ Mods: {
 			ReactorMeltdownProj.DisplayName: Reactor Meltdown
 			SatanlanceProj.DisplayName: Satanlance
 			SoulBlade.DisplayName: Soul Blade
+			StrikeChain.DisplayName: Strike Chain
+			StrikeChainCurrent.DisplayName: Strike Chain Current
 			ValkyrieStormLanceProj.DisplayName: Storm Lance
 			ValkyrieStormSword.DisplayName: Valkyrie Storm
 			VenomGlob.DisplayName: Venom Glob

@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using ShardsOfAtheria.Config;
@@ -50,6 +51,8 @@ namespace ShardsOfAtheria
         public static SoundStyle Rekkoha;
         public static SoundStyle Coin;
 
+        public static readonly Color HardlightColor = new(224, 92, 165);
+
         public static bool Eternity()
         {
             if (ModLoader.TryGetMod("FargowiltasSouls", out Mod souls))
@@ -88,7 +91,7 @@ namespace ShardsOfAtheria
                 ModLoader.TryGetMod("Wikithis", out Mod wikithis);
                 if (wikithis != null)
                 {
-                    wikithis.Call("AddModURL", Instance, "terrariamods.wiki.gg/wiki/Shards_of_Atheria/{}");
+                    wikithis.Call("AddModURL", Instance, "https://terrariamods.wiki.gg/wiki/Shards_of_Atheria/{}");
 
                     // If you want to replace default icon for your mod, then call this. Icon should be 30x30, either way it will be cut.
                     wikithis.Call("AddWikiTexture", Instance, ModContent.Request<Texture2D>("ShardsOfAtheria/icon_small"));

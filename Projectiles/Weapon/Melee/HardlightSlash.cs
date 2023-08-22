@@ -160,7 +160,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             Vector3 val = color6.ToVector3();
             float fromValue = val.Length() / (float)Math.Sqrt(3.0);
             fromValue = Utils.Remap(fromValue, 0.2f, 1f, 0f, 1f);
-            Color color = new Color(224, 92, 165);
+            Color color = SoA.HardlightColor;
             Main.spriteBatch.Draw(asset.Value, vector, (Rectangle?)rectangle, color * fromValue * num3, Projectile.rotation + Projectile.ai[0] * ((float)Math.PI / 4f) * -1f * (1f - num2), origin, num, effects, 0f);
             Color color2 = new(227, 182, 245, 80);
             //Color color3 = new(227, 182, 245, 80);

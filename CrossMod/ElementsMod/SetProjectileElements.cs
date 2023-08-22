@@ -16,6 +16,7 @@ using ShardsOfAtheria.Projectiles.Weapon.Magic.Spectrum;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusDaggerProjs;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusGlaive;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusJustitia;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.BloodDagger;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword;
@@ -163,6 +164,9 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<AreusGlaive_Throw>(),
             ProjectileType<AreusGlaive_Thrust>(),
             ProjectileType<AreusGlaive_Thrust2>(),
+            ProjectileType<AreusJustitia>(),
+            ProjectileType<AreusJustitia_Slash>(),
+            ProjectileType<AreusJustitia_Stab>(),
             ProjectileType<AreusSwordProj>(),
             ProjectileType<ElectricBlade>(),
             ProjectileType<ElecSlash>(),
@@ -184,6 +188,8 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<HardlightSword>(),
             ProjectileType<PrototypeBandBlade>(),
             ProjectileType<ReactorMeltdownProj>(),
+            ProjectileType<StrikeChain>(),
+            ProjectileType<StrikeChainCurrent>(),
             ProjectileType<ValkyrieStormLanceProj>(),
             ProjectileType<ValkyrieStormSword>(),
             ProjectileType<Warframe>(),

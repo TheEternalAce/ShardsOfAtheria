@@ -242,11 +242,14 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 .Add<AreusShard>()
                 .Add<AreusArmorChip>()
                 .Add<RushDrive>()
+                .Add<AreusEdge>()
                 .Add<AreusProcessor>(SoAConditions.ElementModEnabled)
                 .Add<ResonatorRing>(SoAConditions.ElementModEnabled)
                 .Add<Bytecrusher>(Condition.DownedMechBossAny)
                 .Add<AreusKey>(Condition.DownedPlantera)
-                .Add<AnastasiasPride>(Condition.DownedGolem);
+                .Add<AnastasiasPride>(Condition.DownedGolem)
+                .Add<AreusStrikeChain>(Condition.DownedMoonLord)
+                ;
             npcShop.Register();
         }
 

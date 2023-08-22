@@ -54,6 +54,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            base.OnHitNPC(target, hit, damageDone);
             target.AddBuff(BuffID.Electrified, 600);
             ScreenShake.ShakeScreen(6, 60);
             var player = Main.player[Projectile.owner];
