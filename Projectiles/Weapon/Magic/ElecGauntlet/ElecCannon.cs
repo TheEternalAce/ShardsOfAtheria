@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
@@ -99,7 +98,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet
             {
                 float speed = 16f;
                 int damage = Projectile.originalDamage;
-                int bullet = ModContent.ProjectileType<FireCannon_Fire3>();
+                int bullet = ModContent.ProjectileType<FireCannon_Fire_Gauntlet>();
                 recoilAmount += 1f;
                 Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), shootOrigin,
                     aimNormal * speed, bullet, damage, Projectile.knockBack, Projectile.owner);

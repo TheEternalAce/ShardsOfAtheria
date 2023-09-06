@@ -39,8 +39,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.EventHorizon
 
                 if (Projectile.ai[0] == 0f)
                 {
-                    point = (player.MountedCenter + Projectile.velocity + (Projectile.rotation - MathHelper.ToRadians(90)).ToRotationVector2().SafeNormalize(Vector2.Zero) * Vector2.Distance(player.Center, Main.MouseWorld)).ToPoint();
-                    Projectile.velocity *= 0.9f;
+                    point = (player.MountedCenter + Projectile.velocity + (Projectile.rotation - MathHelper.ToRadians(90)).ToRotationVector2().SafeNormalize(Vector2.Zero) * Vector2.Distance(player.Center, Main.MouseWorld) * Main.rand.NextFloat(0.9f, 1f)).ToPoint();
+                    //Projectile.velocity *= 0.9f;
                     Projectile.ai[0] = 1f;
                 }
                 if (Projectile.ai[0] == 1f)
@@ -55,6 +55,19 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.EventHorizon
                 }
                 if (Projectile.ai[0] == 2f)
                 {
+                    Projectile.alpha = 255;
+                    Projectile.ai[0] = 3f;
+                }
+                if (Projectile.ai[0] == 3f)
+                {
+                    if (Projectile.alpha > 0)
+                    {
+                        Projectile.alpha -= 25;
+                    }
+                    if (Projectile.alpha < 0)
+                    {
+                        Projectile.alpha = 0;
+                    }
                     foreach (var projectile in Main.projectile)
                     {
                         if (projectile.type == ModContent.ProjectileType<BlackHole>())

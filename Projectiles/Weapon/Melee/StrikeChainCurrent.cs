@@ -9,6 +9,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
     public class StrikeChainCurrent : ModProjectile
     {
+        public int TargetWhoAmI
+        {
+            get => (int)Projectile.ai[0];
+            set => Projectile.ai[0] = value;
+        }
+
         public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.GolfBallDyedViolet}";
 
         public override void SetDefaults()
@@ -27,6 +33,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff<ElectricShock>(600);
+        }
+
+        public override bool? CanHitNPC(NPC target)
+        {
+            return target.whoAmI == TargetWhoAmI;
         }
 
         public override void AI()
@@ -49,6 +60,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
                 d.fadeIn = 1.3f;
                 d.noGravity = true;
             }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            return false;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Globals
         {
             if (ItemID.Sets.BossBag[item.type])
             {
-                LeadingConditionRule hardmodeDevSet = new LeadingConditionRule(new Conditions.IsHardmode());
+                LeadingConditionRule hardmodeDevSet = new(new Conditions.IsHardmode());
                 IItemDropRule aceDrop = ItemDropRule.Common(ModContent.ItemType<DeckOfCards>());
                 aceDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AcesGoldFoxMask>()));
                 aceDrop.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AcesJacket>()));

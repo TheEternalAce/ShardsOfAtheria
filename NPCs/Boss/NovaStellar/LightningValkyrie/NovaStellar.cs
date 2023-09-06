@@ -12,7 +12,7 @@ using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
-using ShardsOfAtheria.Items.Weapons.Summon.Minion;
+using ShardsOfAtheria.Items.Weapons.Summon;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Systems;
@@ -212,7 +212,8 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 }
                 if (NPC.ai[3] == 2)
                 {
-                    NPC.UseBossDialogueWithKey("NovaStellar", isSlayer ? ShardsNPCHelper.LastWords :
+                    NPC.UseBossDialogueWithKey("NovaStellar",
+                        isSlayer ? ShardsNPCHelper.LastWords :
                         AlreadyDefeated ? ShardsNPCHelper.ReDefeatLine :
                         ShardsNPCHelper.DefeatLine, TextColor);
                 }
@@ -242,7 +243,8 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 if (Main.rand.NextFloat() <= .5f)
                     NPC.position = player.position - new Vector2(500, 250);
                 else NPC.position = player.position - new Vector2(-500, 250);
-                NPC.UseBossDialogueWithKey("NovaStellar", isSlayer ? ShardsNPCHelper.SlayerSummonLine :
+                NPC.UseBossDialogueWithKey("NovaStellar",
+                    isSlayer ? ShardsNPCHelper.SlayerSummonLine :
                     AlreadyDefeated ? ShardsNPCHelper.ReSummonLine :
                     ShardsNPCHelper.SummonLine, TextColor);
                 NPC.localAI[0] = 1f;
@@ -654,9 +656,11 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 Player player = Main.player[NPC.target];
                 bool isSlayer = player.Slayer().slayerMode;
 
-                NPC.UseBossDialogueWithKey("NovaStellar", isSlayer ? ShardsNPCHelper.SlayerMidFightLine :
+                NPC.UseBossDialogueWithKey("NovaStellar",
+                    isSlayer ? ShardsNPCHelper.SlayerMidFightLine :
                     AlreadyDefeated ? ShardsNPCHelper.ReMidFightLine :
                     ShardsNPCHelper.MidFightLine, TextColor);
+
                 NPC.dontTakeDamage = true;
                 KillProjectiles();
                 SoundEngine.PlaySound(SoundID.Thunder);
@@ -683,7 +687,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             }
         }
 
-        void KillProjectiles()
+        static void KillProjectiles()
         {
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
@@ -725,7 +729,6 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
         {
             Asset<Texture2D> texture = ModContent.Request<Texture2D>(Texture);
             SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            Vector2 drawOrigin = new(texture.Value.Width * 0.5f, NPC.height * 0.5f);
             Vector2 drawPos = NPC.Center - screenPos;
             if (attackTimer > 0)
             {
@@ -772,11 +775,6 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             Rectangle frame = new(100 * frameX, 100 * frameY, 100, 100);
             spriteBatch.Draw(texture.Value, drawPos, frame, drawColor, NPC.rotation, frame.Size() / 2f, NPC.scale, effects, 0f);
             return false;
-        }
-
-        public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            base.PostDraw(spriteBatch, screenPos, drawColor);
         }
     }
 }

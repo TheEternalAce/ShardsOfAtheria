@@ -10,7 +10,7 @@ using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
-using ShardsOfAtheria.Items.Weapons.Summon.Minion;
+using ShardsOfAtheria.Items.Weapons.Summon;
 using ShardsOfAtheria.Projectiles.NPCProj.Elizabeth;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Systems;
@@ -227,6 +227,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 NPC.localAI[0] = 1f;
             }
             NPC.spriteDirection = player.Center.X > NPC.Center.X ? 1 : -1;
+            Lighting.AddLight(NPC.Center, Color.Cyan.ToVector3());
 
             bool transitioning = false;
             if (NPC.life <= NPC.lifeMax * 0.8 && !phase2)
@@ -473,6 +474,14 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         }
         void DoBloodSpike(Vector2 center, Vector2 toTarget)
         {
+            if (attackTimer >= 10)
+            {
+                float speed = 16f;
+                var targetCenter = toTarget + center;
+                int direction = (NPC.Center.X > targetCenter.X ? 1 : -1);
+                Vector2 toPosition = targetCenter + new Vector2(150 * direction, 0);
+                NPC.Track(toPosition, speed, speed);
+            }
             if (attackTimer == 10)
             {
                 int numProj = 3;
@@ -494,14 +503,6 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     needle.friendly = false;
                 }
             }
-            else if (attackTimer >= 30)
-            {
-                float speed = 16f;
-                var targetCenter = toTarget + center;
-                int direction = (NPC.Center.X > targetCenter.X ? 1 : -1);
-                Vector2 toPosition = targetCenter + new Vector2(150 * direction, 0);
-                NPC.Track(toPosition, speed, speed);
-            }
         }
         void DoBubbleSpread(Vector2 center, Vector2 toTarget)
         {
@@ -514,7 +515,6 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 }
                 float rotation = MathHelper.ToRadians(20);
                 toTarget.Normalize();
-                toTarget *= 16;
                 for (int i = 0; i < numProj; i++)
                 {
                     Vector2 perturbedSpeed = toTarget.RotatedBy(MathHelper.Lerp(-rotation, rotation,
@@ -537,12 +537,12 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         {
             if (attackTimer % 30 == 0)
             {
-                float rotation = MathHelper.ToRadians(20);
+                float rotation = MathHelper.ToRadians(10);
                 float radius = 250f * Main.rand.NextFloat(0.8f, 1f);
                 var pos = targetCenter + Vector2.One.RotatedByRandom(MathHelper.ToRadians(360)) * radius;
                 var vector = targetCenter - pos;
                 vector.Normalize();
-                vector *= 6f;
+                vector *= 4f;
                 Vector2 perturbedSpeed = vector.RotatedByRandom(rotation);
                 perturbedSpeed *= Main.rand.NextFloat(0.66f, 1f);
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), pos, perturbedSpeed,

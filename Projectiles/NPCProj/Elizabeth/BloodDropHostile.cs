@@ -30,6 +30,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             Projectile.tileCollide = false;
             Projectile.penetrate = 2;
             Projectile.alpha = 255;
+            Projectile.penetrate = -1;
         }
 
         int gravityTimer = 16;
@@ -43,7 +44,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
 
             Projectile.ApplyGravity(ref gravityTimer);
 
-            Dust d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Blood);
+            Dust d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Blood, newColor: Color.White);
             d.velocity *= 0;
             d.fadeIn = 1.3f;
             d.noGravity = true;

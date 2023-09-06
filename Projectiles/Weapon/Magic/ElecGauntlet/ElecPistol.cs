@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
@@ -14,8 +13,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet
     public class ElecPistol : ModProjectile
     {
         Player owner => Main.player[Projectile.owner];
-
-        float ChargeTimer { get => Projectile.ai[0]; set => Projectile.ai[0] = value; }
 
         int aimDir => aimNormal.X > 0 ? 1 : -1;
 
@@ -45,7 +42,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet
         {
             Projectile.originalDamage = Projectile.damage;
             Projectile.damage = 0;
-            ChargeTimer = 15;
         }
 
         public override bool PreAI()
@@ -103,7 +99,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet
             {
                 float speed = 16f;
                 int damage = Projectile.originalDamage;
-                int bullet = ModContent.ProjectileType<AreusBulletProj>();
+                int bullet = ModContent.ProjectileType<AreusBulletProj_Gauntlet>();
                 recoilAmount += 1f;
                 Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), shootOrigin,
                     aimNormal * speed, bullet, damage, Projectile.knockBack, Projectile.owner);

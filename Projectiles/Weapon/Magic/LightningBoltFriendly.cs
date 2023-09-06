@@ -18,6 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.alpha = 255;
+            Projectile.aiStyle = -1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 140;
         }

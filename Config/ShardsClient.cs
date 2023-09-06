@@ -31,6 +31,9 @@ namespace ShardsOfAtheria.Config
         [DefaultValue(true)]
         public bool dialogue;
 
+        [DefaultValue(15)]
+        public int dialogueDuration;
+
         [DefaultValue(true)]
         [ReloadRequired()]
         public bool windowTitle;

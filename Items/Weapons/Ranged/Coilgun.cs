@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.rare = ItemRarityID.Master;
             Item.value = Item.sellPrice(0, 2, 75);
             Item.shoot = ModContent.ProjectileType<CoilgunProj>();
-            Item.useAmmo = AmmoID.Bullet;
+            Item.useAmmo = AmmoID.Dart;
             Item.ArmorPenetration = 20;
         }
 

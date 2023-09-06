@@ -30,9 +30,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusJustitia
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
-            Projectile.penetrate = 5;
+            Projectile.penetrate = -1;
             Projectile.light = 0.5f;
             Projectile.timeLeft = 12;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
 
             DrawOriginOffsetY = -39;
         }

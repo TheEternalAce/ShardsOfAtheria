@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Projectiles.Other;
-using ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -91,22 +89,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon
                 }
                 timer = 0;
             }
-        }
-
-        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
-        {
-            if (Projectile.DamageType == DamageClass.Magic)
-            {
-                var player = Main.player[Projectile.owner];
-                var gPlayer = player.GetModPlayer<ElecGauntletPlayer>();
-                int type = ModContent.ProjectileType<ElecCannon>();
-
-                if (gPlayer.UsedProjs.Contains(type))
-                {
-                    gPlayer.ComboDamage(type, ref modifiers);
-                }
-            }
-            base.ModifyHitNPC(target, ref modifiers);
         }
     }
 }

@@ -75,6 +75,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             {
                 Item.mana = 0;
                 Item.UseSound = SoA.Coin;
+                Item.useTime = Item.useAnimation = 20;
                 Item.shoot = ModContent.ProjectileType<ElecCoin>();
             }
             return base.CanUseItem(player);
@@ -82,9 +83,12 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (player.Shards().Overdrive)
+            if (player.altFunctionUse != 2)
             {
-                type = ModContent.ProjectileType<LightningBoltFriendly>();
+                if (player.Shards().Overdrive)
+                {
+                    type = ModContent.ProjectileType<LightningBoltFriendly>();
+                }
             }
             if (type == ModContent.ProjectileType<ElecCoin>())
             {
@@ -98,17 +102,29 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.UseSound = SoundID.Item43;
             Item.mana = 12;
             string text = "Tails";
-            if (Main.rand.NextBool(2))
+            bool heads = Main.rand.NextBool(2);
+            int riggedCoin = player.Shards().riggedCoin;
+            if (riggedCoin == 2)
+            {
+                heads = true;
+            }
+            else if (riggedCoin == 1)
+            {
+                heads = false;
+            }
+
+            if (heads)
             {
                 Item.shoot = ModContent.ProjectileType<LightningBoltFriendly>();
                 Item.shootSpeed = 1;
                 Item.damage = 75;
+                Item.useTime = Item.useAnimation = 30;
                 text = "Heads";
             }
             else
             {
                 Item.shoot = ModContent.ProjectileType<ElecScorpionTail>();
-                Item.shootSpeed = 16;
+                Item.shootSpeed = 10;
                 Item.damage = 50;
             }
             player.AddBuff<SpareChange>(600);
@@ -117,22 +133,27 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (player.Shards().Overdrive)
-            {
-                Item.UseSound = SoundID.Item43;
-                Projectile.NewProjectile(source, position, velocity * 12f,
-                    ModContent.ProjectileType<ElecScorpionTail>(), damage, knockback, player.whoAmI);
-                type = ModContent.ProjectileType<LightningBoltFriendly>();
-            }
             if (type == ModContent.ProjectileType<LightningBoltFriendly>())
             {
+                if (player.Shards().Overdrive)
+                {
+                    Item.UseSound = SoundID.Item43;
+                    if (Item.shootSpeed != 10)
+                    {
+                        velocity.Normalize();
+                        velocity *= 10f;
+                    }
+                    Projectile.NewProjectile(source, position, velocity,
+                        ModContent.ProjectileType<ElecScorpionTail>(), damage, knockback,
+                        player.whoAmI);
+                }
                 float numberProjectiles = 3; // 3 shots
                 float rotation = MathHelper.ToRadians(10);
                 for (int i = 0; i < numberProjectiles; i++)
                 {
                     Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
                     perturbedSpeed.Normalize();
-                    Projectile.NewProjectile(source, position, perturbedSpeed * 10f, type, damage, knockback, player.whoAmI);
+                    Projectile.NewProjectile(source, position, perturbedSpeed * 1, type, damage, knockback, player.whoAmI);
                 }
                 return false;
             }

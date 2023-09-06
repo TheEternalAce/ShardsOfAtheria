@@ -52,7 +52,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 if (Main.myPlayer == player.whoAmI)
                 {
                     ShardsHelpers.ProjectileRing(source, Main.MouseWorld, 6, 120f, 16f,
-                        type2, damage, knockback, player.whoAmI);
+                        type2, damage, knockback, player.whoAmI, 1);
                 }
                 shoot = 0;
             }
@@ -60,7 +60,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             {
                 var velocity2 = Vector2.Normalize(velocity) * 16f;
                 Projectile.NewProjectile(source, position, velocity2, type2, damage,
-                    knockback, player.whoAmI);
+                    knockback, player.whoAmI, 1);
             }
             return false;
         }

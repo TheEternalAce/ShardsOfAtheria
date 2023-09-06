@@ -1,5 +1,4 @@
-﻿using BattleNetworkElements.Utilities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -39,7 +38,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.VergilFlamethrower
             Projectile.aiStyle = -1;
             Projectile.tileCollide = false;
             Projectile.hide = true; //aiStyle 20 assigns heldProj
-            Projectile.AddElec();
         }
 
         public override void AI()

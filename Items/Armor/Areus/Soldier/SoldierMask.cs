@@ -33,6 +33,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
 
         public override void UpdateArmorSet(Player player)
         {
+            ArmorPlayer.soldierSet = true;
             base.UpdateArmorSet(player);
         }
     }

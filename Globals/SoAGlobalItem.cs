@@ -18,7 +18,6 @@ using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -52,26 +51,6 @@ namespace ShardsOfAtheria.Globals
         public static List<int> Eraser = new List<int>();
         #endregion
 
-        #region Ammo lists for Ammo Bags
-        public static List<int> preHardmodeAmmo = new();
-        public static List<int> hardmodeAmmo = new();
-        public static List<int> postMoonLordAmmo = new();
-
-        public static List<int> preHardmodeArrows = new();
-        public static List<int> hardmodeArrows = new();
-        public static List<int> postMoonLordArrows = new();
-
-        public static List<int> preHardmodeBullets = new();
-        public static List<int> hardmodeBullets = new();
-        public static List<int> postMoonLordBullets = new();
-
-        public static List<int> preHardmodeRockets = new();
-        public static List<int> hardmodeRockets = new();
-        public static List<int> postMoonLordRockets = new();
-        #endregion
-
-        public override bool InstancePerEntity => true;
-
         public override void SetDefaults(Item item)
         {
             base.SetDefaults(item);
@@ -87,42 +66,6 @@ namespace ShardsOfAtheria.Globals
                     item.color = new Color(101, 187, 236);
                     break;
 
-                #region Several item buffs
-                case ItemID.PearlwoodHelmet:
-                    item.defense = 8;
-                    break;
-                case ItemID.PearlwoodBreastplate:
-                    item.defense = 8;
-                    break;
-                case ItemID.PearlwoodGreaves:
-                    item.defense = 8;
-                    break;
-                case ItemID.PearlwoodSword:
-                    item.shoot = ModContent.ProjectileType<SoulBlade>();
-                    item.shootSpeed = 16;
-                    item.scale = 1.5f;
-                    break;
-                case ItemID.PearlwoodBow:
-                    item.damage = 30;
-                    item.autoReuse = true;
-                    break;
-
-                case ItemID.BladedGlove:
-                    item.useTime = 4;
-                    item.useAnimation = 4;
-                    item.damage = 28;
-                    break;
-
-                case ItemID.ChainKnife:
-                    item.damage = 24;
-                    item.shootSpeed = 16;
-                    break;
-
-                case ItemID.SharpTears:
-                    item.damage = 20;
-                    break;
-                #endregion
-
                 #region Add new grenade ammo type
                 case ItemID.Grenade:
                 case ItemID.Beenade:
@@ -131,77 +74,19 @@ namespace ShardsOfAtheria.Globals
                 case ItemID.PartyGirlGrenade:
                     item.ammo = ItemID.Grenade;
                     break;
-                #endregion
-
-                #region Make boss summons non-consumable if config is enabled
-                case ItemID.SlimeCrown:
-                case ItemID.SuspiciousLookingEye:
-                case ItemID.BloodySpine:
-                case ItemID.WormFood:
-                case ItemID.Abeemination:
-                case ItemID.DeerThing:
-                case ItemID.QueenSlimeCrystal:
-                case ItemID.MechanicalWorm:
-                case ItemID.MechanicalSkull:
-                case ItemID.MechanicalEye:
-                case ItemID.LihzahrdPowerCell:
-                case ItemID.TruffleWorm:
-                case ItemID.EmpressButterfly:
-                case ItemID.CelestialSigil:
-                    if (SoA.ServerConfig.nonConsumeBoss)
-                    {
-                        item.consumable = false;
-                    }
-                    break;
-                #endregion
-
-                #region Make small adjustments to Upgrade Items
-                case ItemID.LifeCrystal:
-                case ItemID.ManaCrystal:
-                case ItemID.LifeFruit:
-                    if (SoA.ServerConfig.upgradeChange)
-                    {
-                        item.useTime = 15;
-                        item.useAnimation = 15;
-                        item.autoReuse = true;
-                        item.useTurn = true;
-                    }
-                    break;
                     #endregion
             }
-            if ((SoA.ServerConfig.betterWeapon.Equals("No Use Turn") || SoA.ServerConfig.betterWeapon.Equals("Mouse Direction")) && item.damage > 0)
-            {
-                item.useTurn = false;
-            }
-        }
-
-        public override void UpdateArmorSet(Player player, string set)
-        {
-            base.UpdateArmorSet(player, set);
-            if (set == "Shards:Pearlwood")
-            {
-                player.setBonus = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.SetBonus.Pearlwood"),
-                    SoA.ArmorSetBonusActive.GetAssignedKeys().Count > 0 ? SoA.ArmorSetBonusActive.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
-                player.statDefense += 5;
-                player.statManaMax2 += 40;
-                player.GetDamage(DamageClass.Generic) += .15f;
-                player.GetCritChance(DamageClass.Generic) += 15;
-                player.Shards().pearlwoodSet = true;
-            }
-        }
-
-        public override string IsArmorSet(Item head, Item body, Item legs)
-        {
-            if (head.type == ItemID.PearlwoodHelmet && body.type == ItemID.PearlwoodBreastplate && legs.type == ItemID.PearlwoodGreaves)
-            {
-                return "Shards:Pearlwood";
-            }
-            return base.IsArmorSet(head, body, legs);
         }
 
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
             base.ModifyWeaponDamage(item, player, ref damage);
+            if (item.IsAreus())
+            {
+                AreusArmorPlayer armorPlayer = player.Areus();
+                damage += armorPlayer.areusDamage;
+            }
+
             if (SoA.ElementModEnabled)
             {
                 ConductiveEffects(item, player, ref damage);
@@ -209,7 +94,7 @@ namespace ShardsOfAtheria.Globals
         }
 
         [JITWhenModsEnabled("BattleNetworkElements")]
-        private void ConductiveEffects(Item item, Player player, ref StatModifier damage)
+        private static void ConductiveEffects(Item item, Player player, ref StatModifier damage)
         {
             if (player.Shards().conductive && item.IsElec())
             {
@@ -238,39 +123,12 @@ namespace ShardsOfAtheria.Globals
                 var line = new TooltipLine(Mod, "Eraser", Language.GetTextValue("Mods.ShardsOfAtheria.Common.Eraser"));
                 tooltips.Add(line);
             }
-            if (item.ArmorPenetration > 0)
-            {
-                var line = new TooltipLine(Mod, "ArmorPenetration", Language.GetTextValue("Mods.ShardsOfAtheria.Common.ArmorPenetration", item.ArmorPenetration));
-                tooltips.Insert(ShardsTooltipHelper.GetIndex(tooltips, "Speed"), line);
-            }
         }
 
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (player.whoAmI == Main.myPlayer)
             {
-                if (item.type == ItemID.PearlwoodBow)
-                {
-                    player.Shards().pearlwoodBowShoot++;
-                    if (player.Shards().pearlwoodBowShoot == 5)
-                    {
-                        float numberProjectiles = 5;
-                        float rotation = MathHelper.ToRadians(15);
-                        position += Vector2.Normalize(velocity) * 10f;
-                        for (int i = 0; i < numberProjectiles; i++)
-                        {
-                            Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                            Projectile.NewProjectile(source, position, perturbedSpeed, ModContent.ProjectileType<SoulArrow>(), damage, knockback, player.whoAmI);
-                        }
-                        SoundEngine.PlaySound(SoundID.Item78);
-                        for (int i = 0; i < 10; i++)
-                        {
-                            Dust.NewDust(player.position, player.width, player.height, DustID.PinkFairy);
-                        }
-                        player.Shards().pearlwoodBowShoot = 0;
-                    }
-                }
-
                 Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center);
                 SlayerPlayer slayer = player.Slayer();
                 if (slayer.soulCrystalProjectileCooldown == 0 && item.damage > 0)
@@ -290,7 +148,7 @@ namespace ShardsOfAtheria.Globals
                         SoundEngine.PlaySound(SoundID.Item1);
                         int projtype = ModContent.ProjectileType<HardlightBlade>();
                         ShardsHelpers.ProjectileRing(item.GetSource_FromThis(),
-                            Main.MouseWorld, 4, 150f, 16f, projtype, 18, 0f, player.whoAmI);
+                            Main.MouseWorld, 4, 150f, 16f, projtype, 18, 0f, player.whoAmI, 1);
                     }
                     if (slayer.BeeSoul)
                     {
@@ -334,10 +192,6 @@ namespace ShardsOfAtheria.Globals
 
         public override bool? UseItem(Item item, Player player)
         {
-            if (SoA.ServerConfig.betterWeapon.Equals("Mouse Direction") && item.shoot == ProjectileID.None && item.damage > 0)
-            {
-                player.ChangeDir(player.Center.X < Main.MouseWorld.X ? 1 : -1);
-            }
             if (item.DamageType == DamageClass.Magic)
             {
                 player.ClearBuff<SpareChange>();
@@ -415,27 +269,7 @@ namespace ShardsOfAtheria.Globals
                 }
             }
 
-            if (SoA.ServerConfig.nonConsumeBoss)
-            {
-                if (item.type == ItemID.LihzahrdPowerCell || item.type == ItemID.TruffleWorm)
-                {
-                    Item.NewItem(item.GetSource_FromThis(), player.getRect(), item.type, 1);
-                }
-            }
-
             return base.ConsumeItem(item, player);
-        }
-
-        public override bool? CanConsumeBait(Player player, Item bait)
-        {
-            if (SoA.ServerConfig.nonConsumeBoss)
-            {
-                if (bait.type == ItemID.TruffleWorm)
-                {
-                    return false;
-                }
-            }
-            return base.CanConsumeBait(player, bait);
         }
 
         public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
@@ -500,7 +334,7 @@ namespace ShardsOfAtheria.Globals
         }
 
         [JITWhenModsEnabled("BattleNetworkElements")]
-        private void ChangeElements(Item item, Player player)
+        private static void ChangeElements(Item item, Player player)
         {
             var shards = player.Shards();
             var elementItem = item.Elements();
@@ -625,7 +459,7 @@ namespace ShardsOfAtheria.Globals
             return base.PreDrawInWorld(item, spriteBatch, lightColor, alphaColor, ref rotation, ref scale, whoAmI);
         }
 
-        Asset<Texture2D> AltFeatherSpriteItem(Item item)
+        private static Asset<Texture2D> AltFeatherSpriteItem(Item item)
         {
             Asset<Texture2D> feather;
             string path = "ShardsOfAtheria/Items/Materials/Feathers/";
@@ -639,8 +473,7 @@ namespace ShardsOfAtheria.Globals
             }
             return feather;
         }
-
-        string AltFeather(Item item)
+        private static string AltFeather(Item item)
         {
             if (item.color == Color.Gray)
             {

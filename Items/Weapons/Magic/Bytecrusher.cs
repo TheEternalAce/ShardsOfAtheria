@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.noMelee = true;
 
             Item.shootSpeed = 8f;
-            Item.rare = ShardsItemHelper.Rare.PostMech;
+            Item.rare = ShardsItemHelper.PostMechRarity;
             Item.value = 120000;
             Item.shoot = ModContent.ProjectileType<ByteBlock>();
         }

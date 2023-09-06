@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.width = 48;
             Item.height = 54;
 
-            Item.damage = 52;
+            Item.damage = 40;
             Item.DamageType = DamageClass.Melee;
             Item.knockBack = 2;
 

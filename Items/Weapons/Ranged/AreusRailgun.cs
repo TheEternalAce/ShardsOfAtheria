@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 2, 25);
             Item.shoot = ModContent.ProjectileType<AreusRailgunProj>();
-            Item.useAmmo = AmmoID.Bullet;
+            Item.useAmmo = AmmoID.Dart;
             Item.ArmorPenetration = 20;
         }
 

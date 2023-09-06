@@ -92,7 +92,6 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
             npcLoot.Add(ItemDropRule.Common(ItemID.Feather, 2));
             npcLoot.Add(ItemDropRule.Common(ItemID.ViciousMushroom, 1, 3, 6));
-            npcLoot.Add(ItemDropRule.Common(ItemID.SharpTears, 8));
             hardmode.OnSuccess(ItemDropRule.Common(ItemID.Ichor, 5, 1, 3));
         }
 

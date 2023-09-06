@@ -50,6 +50,32 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Gambit
                     coin?.SetAttack(player);
                 }
             }
+            foreach (var proj in Main.projectile)
+            {
+                if (proj.friendly &&
+                    proj.owner == Projectile.owner &&
+                    (proj.aiStyle == 1 || proj.aiStyle == 0) &&
+                    proj.damage > 0 &&
+                    proj.active)
+                {
+                    if (proj.Distance(Projectile.Center) <= 20)
+                    {
+                        float speed = proj.velocity.Length();
+                        NPC npc = Projectile.FindClosestNPC(-1);
+                        if (npc != null)
+                        {
+                            if (npc.CanBeChasedBy())
+                            {
+                                proj.velocity = npc.Center - proj.Center;
+                                proj.velocity.Normalize();
+                                proj.velocity *= speed + 0.5f;
+                                proj.damage = (int)(proj.damage * 1.2f);
+                            }
+                        }
+                        Projectile.Kill();
+                    }
+                }
+            }
         }
 
         public override void Kill(int timeLeft)

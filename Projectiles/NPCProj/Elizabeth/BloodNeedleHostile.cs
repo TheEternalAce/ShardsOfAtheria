@@ -24,6 +24,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.extraUpdates = 1;
+            Projectile.penetrate = -1;
         }
 
         public override void AI()

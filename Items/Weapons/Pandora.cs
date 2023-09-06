@@ -91,17 +91,16 @@ namespace ShardsOfAtheria.Items.Weapons
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (player.altFunctionUse != 2)
-            {
-                position = Main.MouseWorld;
-            }
-            else
+            if (player.altFunctionUse == 2)
             {
                 base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
             }
+            else
+            {
+                position = Main.MouseWorld;
+            }
         }
 
-        bool nextElectric = false;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (player.altFunctionUse != 2)
@@ -112,10 +111,8 @@ namespace ShardsOfAtheria.Items.Weapons
                 for (int i = 0; i < 2; i++)
                 {
                     // Minions have to be spawned manually, then have originalDamage assigned to the damage of the summon item
-                    var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, Main.myPlayer);
+                    var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI, i);
                     projectile.originalDamage = Item.damage;
-                    (projectile.ModProjectile as FrostsparkDrone).electricMode = nextElectric;
-                    nextElectric = !nextElectric;
                 }
                 // Since we spawned the projectile manually already, we do not need the game to spawn it for ourselves anymore, so return false
                 return false;

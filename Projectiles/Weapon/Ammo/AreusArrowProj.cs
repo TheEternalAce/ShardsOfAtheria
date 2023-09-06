@@ -125,7 +125,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
                     for (int i = 0; i < 6; i++)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(1, 0).RotatedBy(MathHelper.ToRadians(60 * i)) * 16,
-                            ModContent.ProjectileType<AreusArrowProj>(), damage, Projectile.knockBack, player.whoAmI, 2f);
+                            Type, damage, Projectile.knockBack, player.whoAmI, 2f);
                         Projectile.netUpdate = true;
                     }
                 }

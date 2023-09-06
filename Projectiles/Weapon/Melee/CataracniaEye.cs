@@ -17,7 +17,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             AIType = ProjectileID.BouncyGrenade;
         }
 
-        int gravity;
         public override void AI()
         {
             Lighting.AddLight(Projectile.Center, TorchID.Yellow);

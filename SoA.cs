@@ -2,6 +2,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using ShardsOfAtheria.Config;
+using ShardsOfAtheria.Items.Accessories.GemCores;
+using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
+using ShardsOfAtheria.Items.Accessories.GemCores.Regular;
+using ShardsOfAtheria.Items.Accessories.GemCores.Super;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.NPCs.Boss.Elizabeth;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
@@ -209,6 +213,22 @@ namespace ShardsOfAtheria
                         ["despawnMessage"] = Language.GetText(despawnPath + "Death" + despawnPath2)
                     }
                 );
+            }
+
+            if (ModLoader.TryGetMod("ShoeSlot", out Mod shoeSlot))
+            {
+                shoeSlot.Call(ModContent.ItemType<EmeraldCore>());
+                shoeSlot.Call(ModContent.ItemType<EmeraldCore_Greater>());
+                shoeSlot.Call(ModContent.ItemType<EmeraldCore_Super>());
+                shoeSlot.Call(ModContent.ItemType<MegaGemCore>());
+            }
+
+            if (ModLoader.TryGetMod("ShieldSlot", out Mod shieldSlot))
+            {
+                shieldSlot.Call(ModContent.ItemType<DiamondCore>(),
+                    ModContent.ItemType<DiamondCore_Greater>(),
+                    ModContent.ItemType<DiamondCore_Super>(),
+                    ModContent.ItemType<MegaGemCore>());
             }
 
             if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))

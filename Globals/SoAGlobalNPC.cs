@@ -8,6 +8,7 @@ using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.SinfulSouls.Extras;
+using ShardsOfAtheria.Items.Tools.Misc;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
@@ -54,22 +55,16 @@ namespace ShardsOfAtheria.Globals
                     shopCustomPrice = 250000
                 }, SoAConditions.SlayerMode);
             }
+            if (shop.NpcType == NPCID.Merchant)
+            {
+                shop.Add<RiggedCoin>(SoAConditions.AtherianPresent);
+            }
         }
 
         public override void SetupTravelShop(int[] shop, ref int nextSlot)
         {
-            // Sells during a Full Moon
-            if (Main.moonPhase == 0)
-            {
-                shop[nextSlot] = ModContent.ItemType<AreusShard>();
-                nextSlot++;
-            }
-            // Sells during a New Moon
-            if (Main.moonPhase == 4)
-            {
-                shop[nextSlot] = ModContent.ItemType<BionicOreItem>();
-                nextSlot++;
-            }
+            shop[nextSlot] = ModContent.ItemType<Jade>();
+            nextSlot++;
             base.SetupTravelShop(shop, ref nextSlot);
         }
 
@@ -108,13 +103,6 @@ namespace ShardsOfAtheria.Globals
             if (npc.type == NPCID.MartianSaucerCore)
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ReactorMeltdown>(), 4));
-            }
-            if (npc.type == NPCID.GoblinShark)
-            {
-                npcLoot.RemoveWhere(
-                    rule => rule is CommonDrop drop
-                    && drop.itemId == ItemID.SharpTears
-                );
             }
             if (npc.type == NPCID.BlackRecluse ||
                 npc.type == NPCID.BlackRecluseWall ||

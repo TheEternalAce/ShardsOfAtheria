@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Utilities;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
@@ -128,9 +127,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 
             if (Main.myPlayer == Projectile.owner)
             {
-                bool shoot = owner.PickAmmo(owner.HeldItem, out int bullet, out float _,
+                bool shoot = owner.PickAmmo(owner.HeldItem, out int dart, out float _,
                     out int _, out float knockback, out int _);
-                float speed = 16f;
+                float speed = 8f;
                 int damage = Projectile.originalDamage;
                 if (chargeLevel > 10)
                 {
@@ -138,22 +137,17 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
                     recoilAmount += 2f;
                     speed *= 2;
                     damage += 50;
-                    if (bullet == ProjectileID.Bullet)
-                    {
-                        bullet = ProjectileID.BulletHighVelocity;
-                    }
                     if (chargeLevel == 20)
                     {
                         recoilAmount += 3f;
                         damage += 50;
-                        bullet = ProjectileID.MoonlordBullet;
-                        Projectile.Explode(owner.Center, damage / 3, hostile: true);
+                        //Projectile.Explode(owner.Center, damage / 3, hostile: true);
                     }
                 }
                 if (shoot)
                 {
                     Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), shootOrigin,
-                        aimNormal * speed, bullet, damage, knockback, Projectile.owner);
+                        aimNormal * speed, dart, damage, knockback, Projectile.owner);
                 }
             }
         }

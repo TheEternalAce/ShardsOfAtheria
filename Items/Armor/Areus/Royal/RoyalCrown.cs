@@ -33,6 +33,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
 
         public override void UpdateArmorSet(Player player)
         {
+            ArmorPlayer.royalSet = true;
             base.UpdateArmorSet(player);
         }
     }

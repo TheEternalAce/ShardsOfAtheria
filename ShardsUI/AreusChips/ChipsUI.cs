@@ -24,9 +24,9 @@ namespace ShardsOfAtheria.ShardsUI
 
             slots = new VanillaItemSlotWrapper[3];
 
-            SetSlot(0);
-            SetSlot(1);
-            SetSlot(2);
+            SetSlot(AreusArmorChip.SlotHead);
+            SetSlot(AreusArmorChip.SlotChest);
+            SetSlot(AreusArmorChip.SlotLegs);
 
             Append(panel);
         }
@@ -57,7 +57,21 @@ namespace ShardsOfAtheria.ShardsUI
                 }
                 else if (chip.slotType != AreusArmorChip.SlotAny)
                 {
+                    var player = Main.LocalPlayer;
+                    var armorPlayer = player.Areus();
                     if (chip.slotType != slotTypes[ind])
+                    {
+                        return false;
+                    }
+                    else if (slotTypes[ind] == AreusArmorChip.SlotHead && !armorPlayer.areusHead)
+                    {
+                        return false;
+                    }
+                    else if (slotTypes[ind] == AreusArmorChip.SlotChest && !armorPlayer.areusBody)
+                    {
+                        return false;
+                    }
+                    else if (slotTypes[ind] == AreusArmorChip.SlotLegs && !armorPlayer.areusLegs)
                     {
                         return false;
                     }

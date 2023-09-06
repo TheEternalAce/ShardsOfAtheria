@@ -7,6 +7,8 @@ using ShardsOfAtheria.Items.Consumable;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Items.Weapons.Ranged;
+using ShardsOfAtheria.Items.Weapons.Summon;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs;
 using ShardsOfAtheria.ShardsConditions;
@@ -243,13 +245,14 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 .Add<AreusArmorChip>()
                 .Add<RushDrive>()
                 .Add<AreusEdge>()
+                .Add<AreusStriker>()
                 .Add<AreusProcessor>(SoAConditions.ElementModEnabled)
                 .Add<ResonatorRing>(SoAConditions.ElementModEnabled)
                 .Add<Bytecrusher>(Condition.DownedMechBossAny)
                 .Add<AreusKey>(Condition.DownedPlantera)
                 .Add<AnastasiasPride>(Condition.DownedGolem)
-                .Add<AreusStrikeChain>(Condition.DownedMoonLord)
-                ;
+                .Add<AreusPistol>(Condition.DownedGolem)
+                .Add<AreusStrikeChain>(Condition.DownedMoonLord);
             npcShop.Register();
         }
 

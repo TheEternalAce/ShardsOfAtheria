@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -26,17 +27,20 @@ namespace ShardsOfAtheria.Utilities
             return array;
         }
 
-        public static void ProjectileRing(IEntitySource source, Vector2 center, int amount,
-            float radius, float speed, int type, int damage, float knockback, int owner)
+        public static Projectile[] ProjectileRing(IEntitySource source, Vector2 center, int amount,
+            float radius, float speed, int type, int damage, float knockback, int owner, float ai0 = 0f,
+            float ai1 = 0f, float ai2 = 0f)
         {
+            Projectile[] projectiles = new Projectile[amount];
             float rotation = MathHelper.ToRadians(360 / amount);
             for (int i = 0; i < amount; i++)
             {
                 Vector2 position = center + Vector2.One.RotatedBy(rotation * i) * radius;
                 Vector2 velocity = Vector2.Normalize(center - position) * speed;
-                Projectile.NewProjectile(source, position, velocity, type, damage,
-                    knockback, owner, 1);
+                projectiles[i] = Projectile.NewProjectileDirect(source, position, velocity, type,
+                    damage, knockback, owner, ai0, ai1, ai2);
             }
+            return projectiles;
         }
 
         public static ref Vector2 SlowDown(this Projectile projectile, float slowdown = 1f)
@@ -258,6 +262,62 @@ namespace ShardsOfAtheria.Utilities
         public static bool ContainsAny<T>(this IEnumerable<T> en, T en2)
         {
             return ContainsAny(en, (t) => t.Equals(en2));
+        }
+
+        public static bool ValidateTeleportPosition(this Player player, Vector2 pos)
+        {
+            bool valid = false;
+            Vector2 vector21 = default;
+            if (vector21.X < Main.maxTilesX && vector21.Y < Main.maxTilesY)
+            {
+                if (!Collision.SolidCollision(vector21, player.width, player.height))
+                {
+                    valid = true;
+                }
+            }
+            return valid;
+        }
+        public static NPC FindClosestNPC(Vector2 pos, float maxDist, params int[] blacklistedWhoAmI)
+        {
+            NPC closestNPC = null;
+
+            // Using squared values in distance checks will let us skip square root calculations, drastically improving this method's speed.
+            float sqrMaxDetectDistance = maxDist * maxDist;
+            if (maxDist < 0)
+            {
+                sqrMaxDetectDistance = float.PositiveInfinity;
+            }
+
+            // Loop through all NPCs(max always 200)
+            for (int k = 0; k < Main.maxNPCs; k++)
+            {
+                NPC target = Main.npc[k];
+                // Check if NPC able to be targeted. It means that NPC is
+                // 1. active (alive)
+                // 2. chaseable (e.g. not a cultist archer)
+                // 3. max life bigger than 5 (e.g. not a critter)
+                // 4. can take damage (e.g. moonlord core after all it's parts are downed)
+                // 5. hostile (!friendly)
+                // 6. not immortal (e.g. not a target dummy)
+                if (target.CanBeChasedBy())
+                {
+                    // The DistanceSquared function returns a squared distance between 2 points, skipping relatively expensive square root calculations
+                    float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, pos);
+
+                    // Check if it is within the radius
+                    if (sqrDistanceToTarget < sqrMaxDetectDistance)
+                    {
+                        // Check if NPC.whoAmI is not blacklisted
+                        if (!blacklistedWhoAmI.Contains(target.whoAmI))
+                        {
+                            sqrMaxDetectDistance = sqrDistanceToTarget;
+                            closestNPC = target;
+                        }
+                    }
+                }
+            }
+
+            return closestNPC;
         }
     }
 }

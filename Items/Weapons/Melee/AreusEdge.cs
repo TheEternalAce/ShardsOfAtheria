@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.height = 54;
 
             Item.damage = 32;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.knockBack = 3;
 
             Item.useTime = 26;
@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shootSpeed = 1f;
             Item.rare = ItemRarityID.Cyan;
             Item.value = 150000;
-            Item.shoot = ModContent.ProjectileType<AreusJustitia_Slash>();
+            Item.shoot = ModContent.ProjectileType<AreusJustitia>();
             PreviouslyHitNPC = -1;
         }
 
@@ -83,8 +83,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            type = ModContent.ProjectileType<AreusJustitia>();
             velocity.Normalize();
+            base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
         }
 
         public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)

@@ -8,6 +8,11 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
     {
         public override void Update(Player player, ref int buffIndex)
         {
+            if (!player.Slayer().omnicientTome)
+            {
+                player.DelBuff(buffIndex);
+                buffIndex--;
+            }
             player.manaCost -= .1f;
             player.Shards().baseConservation = true;
         }

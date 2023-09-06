@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         public const int FadeInDuration = 7;
         public const int FadeOutDuration = 4;
 
-        public const int TotalDuration = 20;
+        public const int TotalDuration = 40;
 
         // The "width" of the blade
         public float CollisionWidth => 10f * Projectile.scale;
@@ -25,8 +25,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override void SetDefaults()
         {
-            Projectile.width = 22;
-            Projectile.height = 22;
+            Projectile.width = 24;
+            Projectile.height = 24;
             Projectile.DamageType = DamageClass.Melee;
 
             Projectile.aiStyle = 0;
@@ -34,6 +34,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             Projectile.tileCollide = false;
             Projectile.penetrate = 5;
             Projectile.light = 0.5f;
+
+            DrawOffsetX = -3;
         }
 
         public override void AI()
@@ -52,7 +54,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         {
             Player player = Main.player[Projectile.owner];
 
-            Timer += 1;
+            Timer++;
             if (Timer >= TotalDuration)
             {
                 // Kill the projectile if it reaches it's intented lifetime
@@ -73,7 +75,30 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
             // Keep locked onto the player, but extend further based on the given velocity (Requires ShouldUpdatePosition returning false to work)
             Vector2 playerCenter = player.RotatedRelativePoint(player.MountedCenter, reverseRotation: false, addGfxOffY: false);
-            Projectile.Center = playerCenter + Projectile.velocity * (Timer - 1f);
+            Projectile.velocity.Normalize();
+            Projectile.velocity *= 26;
+            if (Timer >= 20)
+            {
+                float reverseTimer = (20 * -1 + (Timer - 20)) * -1;
+                Projectile.Center = playerCenter + Projectile.velocity * (reverseTimer + 1f);
+            }
+            else
+            {
+                Projectile.Center = playerCenter + Projectile.velocity * (Timer - 1f);
+            }
+            if (Timer == 20)
+            {
+                float numberProjectiles = 3;
+                float rotation = MathHelper.ToRadians(90);
+                for (int i = 0; i < numberProjectiles; i++)
+                {
+                    Vector2 perturbedSpeed = Projectile.velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
+                    perturbedSpeed.Normalize();
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
+                        perturbedSpeed * 1f, ModContent.ProjectileType<LightningBoltFriendly>(),
+                        Projectile.damage, Projectile.knockBack, Projectile.owner);
+                }
+            }
 
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
             if (Main.rand.NextBool(2))
@@ -104,36 +129,34 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             const int aiFactor = 15; // Change this factor to change the 'lifetime' of this sticking javelin
             Projectile.localAI[0] += 1f;
 
-            // Every 30 ticks, the javelin will perform a hit effect
             bool hitEffect = Projectile.localAI[0] % 30f == 0f;
             int projTargetIndex = TargetWhoAmI;
             if (Projectile.localAI[0] >= 60 * aiFactor || projTargetIndex < 0 || projTargetIndex >= 200)
-            { // If the index is past its limits, kill it
+            {
                 Projectile.Kill();
             }
             else if (Main.npc[projTargetIndex].active && !Main.npc[projTargetIndex].dontTakeDamage)
-            { // If the target is active and can take damage
-              // Set the projectile's position relative to the target's center
+            {
                 Projectile.Center = Main.npc[projTargetIndex].Center - Projectile.velocity * 2f;
                 Projectile.gfxOffY = Main.npc[projTargetIndex].gfxOffY;
+
+                var player = Main.player[Projectile.owner];
+
+                Vector2 vector2 = Projectile.Center - player.Center;
+                Projectile.rotation = vector2.ToRotation() + MathHelper.ToRadians(90f);
+
                 if (hitEffect)
-                { // Perform a hit effect here
-                    Main.npc[projTargetIndex].HitEffect(0, 1.0);
+                {
+                    var stucknpc = Main.npc[projTargetIndex];
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center,
+                        Vector2.Normalize(stucknpc.Center - player.Center),
+                        ModContent.ProjectileType<StrikeChainCurrent>(), 160,
+                        Projectile.knockBack, Projectile.owner, stucknpc.whoAmI);
                 }
             }
             else
-            { // Otherwise, kill the projectile
-                Projectile.Kill();
-            }
-
-            if (++Timer % 30 == 0)
             {
-                var player = Main.player[Projectile.owner];
-                var stucknpc = Main.npc[projTargetIndex];
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center,
-                    Vector2.Normalize(stucknpc.Center - player.Center),
-                    ModContent.ProjectileType<StrikeChainCurrent>(), 160,
-                    Projectile.knockBack, Projectile.owner);
+                Projectile.Kill();
             }
         }
 
@@ -157,19 +180,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override void Kill(int timeLeft)
         {
-            if (!IsStickingToTarget)
-            {
-                float numberProjectiles = 3;
-                float rotation = MathHelper.ToRadians(90);
-                for (int i = 0; i < numberProjectiles; i++)
-                {
-                    Vector2 perturbedSpeed = Projectile.velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                    perturbedSpeed.Normalize();
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
-                        perturbedSpeed * 1f, ModContent.ProjectileType<LightningBoltFriendly>(),
-                        Projectile.damage, Projectile.knockBack, Projectile.owner);
-                }
-            }
+            base.Kill(timeLeft);
         }
 
         public override bool ShouldUpdatePosition()

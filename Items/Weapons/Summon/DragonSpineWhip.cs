@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Weapons.Summon.Whip
+namespace ShardsOfAtheria.Items.Weapons.Summon
 {
     public class DragonSpineWhip : ModItem
     {

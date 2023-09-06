@@ -20,7 +20,6 @@ using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusJustitia;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.BloodDagger;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.BreakerBlade;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.ElecKatana;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.EnergyScythe;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.EntropyCutter;
@@ -63,8 +62,8 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<PhantasmalEye>(),
             ProjectileType<SpinPrime>(),
             ProjectileType<SpinSkull>(),
+            ProjectileType<FireCannon_Fire_Gauntlet>(),
             ProjectileType<VileShot>(),
-            ProjectileType<FireSlash>(),
             ProjectileType<EnergyScythe>(),
             ProjectileType<RagnarokProj>(),
             ProjectileType<RagnarokProj2>(),
@@ -73,7 +72,6 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<Messiah>(),
             ProjectileType<MessiahRanbu>(),
             ProjectileType<CorruptRose>(),
-            ProjectileType<SoulBlade>(),
             ProjectileType<ZenovaProjectile>(),
             ProjectileType<AceOfSpades>(),
             ProjectileType<FireCannon_Fire1>(),
@@ -82,9 +80,7 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<AreusGrenadeProj>(),
             ProjectileType<LaserArrow>(),
             ProjectileType<PrometheusFire>(),
-            ProjectileType<SoulArrow>(),
             ProjectileType<FlailOfFleshProj>(),
-            ProjectileType<SoulDagger>(),
         };
         static readonly List<int> Aqua = new()
         {
@@ -109,8 +105,6 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<HolyBloodOffense>(),
             ProjectileType<MourningStar>(),
             ProjectileType<BloodCutter>(),
-            ProjectileType<AquaSlash>(),
-            ProjectileType<IceSpike>(),
             ProjectileType<EntropyBlade>(),
             ProjectileType<EntropySickle>(),
             ProjectileType<EntropySlash>(),
@@ -147,6 +141,10 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<AreusArrowProj>(),
             ProjectileType<AreusBulletProj>(),
             ProjectileType<BitBlock>(),
+            ProjectileType<AreusArrowProj_Gauntlet>(),
+            ProjectileType<AreusBulletProj_Gauntlet>(),
+            ProjectileType<FireCannon_Fire_Gauntlet>(),
+            ProjectileType<LightningBolt_Gauntlet>(),
             ProjectileType<ElecBlade>(),
             ProjectileType<ElecDagger>(),
             ProjectileType<ElecKnuckle>(),
@@ -169,7 +167,6 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<AreusJustitia_Stab>(),
             ProjectileType<AreusSwordProj>(),
             ProjectileType<ElectricBlade>(),
-            ProjectileType<ElecSlash>(),
             ProjectileType<ElecKatana>(),
             ProjectileType<ElecKunai>(),
             ProjectileType<ElecKunaiHoming>(),
@@ -231,8 +228,6 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<HolyBloodOffense>(),
             ProjectileType<MourningStar>(),
             ProjectileType<BloodCutter>(),
-            ProjectileType<WoodSlash>(),
-            ProjectileType<VenomGlob>(),
             ProjectileType<CorruptRose>(),
             ProjectileType<CorruptPetal>(),
             ProjectileType<ReactorMeltdownProj>(),

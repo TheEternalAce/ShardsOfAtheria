@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Utilities;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,6 +9,11 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
     {
         public override void Update(Player player, ref int buffIndex)
         {
+            if (!player.Slayer().omnicientTome)
+            {
+                player.DelBuff(buffIndex);
+                buffIndex--;
+            }
             Lighting.AddLight(player.Center, TorchID.White);
             player.nightVision = true;
             player.dangerSense = true;

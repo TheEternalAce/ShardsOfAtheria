@@ -4,7 +4,6 @@ using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet;
 using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -93,16 +92,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            var gPlayer = player.GetModPlayer<ElecGauntletPlayer>();
-            if (!gPlayer.UsedProjs.Contains(type))
-            {
-                gPlayer.UsedProjs.Add(type);
-            }
-            else
-            {
-                gPlayer.freshMultiplier -= 0.1f;
-                damage = (int)(damage * gPlayer.freshMultiplier);
-            }
             if (type == ModContent.ProjectileType<ElecDagger>())
             {
                 float numberProjectiles = 3; // 3 shots
@@ -121,83 +110,95 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
     public class ElecGauntletPlayer : ModPlayer
     {
-        public List<int> UsedProjs = new List<int>();
-        private bool clearList = false;
-        private int timer = 0;
-        public float freshMultiplier = 1.0f;
+        /// <summary>
+        /// [0,i] = Projectile type
+        /// [1,i] = Freshness multiplier
+        /// [2,i] = First use
+        /// </summary>
+        private readonly object[,] Projs =
+        {
+            { ModContent.ProjectileType<AreusArrowProj_Gauntlet>(), 1.0f, false },
+            { ModContent.ProjectileType<AreusBulletProj_Gauntlet>(), 1.0f, false },
+            { ModContent.ProjectileType<ElecBlade>(), 1.0f, false },
+            { ModContent.ProjectileType<ElecDagger>(), 1.0f, false },
+            { ModContent.ProjectileType<ElecKnuckle>(), 1.0f, false },
+            { ModContent.ProjectileType<FireCannon_Fire_Gauntlet>(), 1.0f, false },
+            { ModContent.ProjectileType<LightningBolt_Gauntlet>(), 1.0f, false },
+        };
+        private int resetTimer = 0;
 
         public override void ResetEffects()
         {
-            if (timer > 0)
+            if (resetTimer > 0)
             {
-                timer--;
+                resetTimer--;
             }
-            else if (UsedProjs.Count > 0 && clearList)
-            {
-                clearList = false;
-                UsedProjs.Clear();
-                freshMultiplier = 1.0f;
-            }
-            float minMult = 0.2f;
-            if (freshMultiplier < minMult)
-            {
-                freshMultiplier = minMult;
-            }
-        }
-
-        /// <summary>
-        /// To be called in ModProjectile.ModifyHitNPC
-        /// </summary>
-        /// <param name="type">Projectile type</param>
-        /// <param name="modifiers"></param>
-        public void ComboDamage(int type, ref NPC.HitModifiers modifiers)
-        {
-            timer = 180;
-            if (UsedProjs.Contains(type))
-            {
-                modifiers.FinalDamage += UsedProjs.Count / 100 * 4;
-                modifiers.FinalDamage *= freshMultiplier;
-                clearList = true;
-            }
-            if (UsedProjs[0] == type)
+            int used = UsedCount();
+            if (used >= 6)
             {
 
             }
-        }
-    }
-
-    public class GauntletProjectile : GlobalProjectile
-    {
-        bool doGauntletStuff = false;
-
-        public override bool InstancePerEntity => true;
-
-        public override void OnSpawn(Projectile projectile, IEntitySource source)
-        {
-            if (source is EntitySource_ItemUse_WithAmmo itemSource)
+            for (int i = 0; i < 7; i++)
             {
-                if (itemSource.Item.type == ModContent.ItemType<AreusGauntlet>())
+                if (resetTimer == 0 || used >= 6)
                 {
-                    doGauntletStuff = true;
+                    Projs[i, 1] = 1.0f;
+                    Projs[i, 2] = false;
+                }
+                float minMult = 0.5f;
+                if ((float)Projs[i, 1] < minMult)
+                {
+                    Projs[i, 1] = minMult;
                 }
             }
-            else if (Main.player[projectile.owner].HeldItem.type == ModContent.ItemType<AreusGauntlet>())
-            {
-                doGauntletStuff = true;
-            }
-            base.OnSpawn(projectile, source);
         }
 
-        public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
+        int UsedCount()
         {
-            if (doGauntletStuff)
+            int count = 0;
+            for (int i = 0; i < 7; i++)
             {
-                var player = Main.player[projectile.owner];
-                var gPlayer = player.GetModPlayer<ElecGauntletPlayer>();
-
-                if (gPlayer.UsedProjs.Contains(projectile.type))
+                if ((bool)Projs[i, 2])
                 {
-                    gPlayer.ComboDamage(projectile.type, ref modifiers);
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        public void AddType(int type)
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                if ((int)Projs[i, 0] == type)
+                {
+                    if (UsedCount() < 6)
+                    {
+                        resetTimer = 180;
+                    }
+                    if (!(bool)Projs[i, 2])
+                    {
+                        Projs[i, 2] = true;
+                    }
+                    break;
+                }
+            }
+        }
+
+        public void ModifyGauntletHit(ref NPC.HitModifiers modifiers, int type)
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                if ((int)Projs[i, 0] == type)
+                {
+                    if ((bool)Projs[i, 2])
+                    {
+                        int used = UsedCount();
+                        modifiers.FinalDamage += used / 100f * 4f;
+                        modifiers.FinalDamage *= (float)Projs[i, 1];
+                        Projs[i, 1] = (float)Projs[i, 1] - 0.1f;
+                    }
+                    break;
                 }
             }
         }

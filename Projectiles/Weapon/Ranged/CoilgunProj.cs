@@ -98,6 +98,16 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
                             flashAlpha = 1;
                             ChargeTimer = 15;
                             SoundEngine.PlaySound(SoundID.Item15.WithPitchOffset(0.5f).WithVolumeScale(2f), Projectile.Center);
+                            for (int i = 0; i < 3; i++)
+                            {
+                                Dust.NewDust(Projectile.position, Projectile.width,
+                                    Projectile.height, DustID.Electric);
+                            }
+                            for (int i = 0; i < 6; i++)
+                            {
+                                Dust.NewDust(Projectile.position, Projectile.width,
+                                    Projectile.height, DustID.Torch);
+                            }
                         }
                         else if (chargeLevel < 10) //increment charge level and play charge increase visual effects (white flash + loading click sound)
                         {
@@ -105,6 +115,20 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
                             flashAlpha = 1;
                             ChargeTimer = 10;
                             SoundEngine.PlaySound(SoundID.Item15.WithVolumeScale(2f), Projectile.Center);
+                            for (int i = 0; i < 4; i++)
+                            {
+                                Dust.NewDust(Projectile.position, Projectile.width,
+                                    Projectile.height, DustID.Electric);
+                            }
+                        }
+                        else
+                        {
+                            ChargeTimer = 10;
+                            for (int i = 0; i < 6; i++)
+                            {
+                                Dust.NewDust(Projectile.position, Projectile.width,
+                                    Projectile.height, DustID.Torch);
+                            }
                         }
                     }
                 }
@@ -128,9 +152,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 
             if (Main.myPlayer == Projectile.owner)
             {
-                bool shoot = owner.PickAmmo(owner.HeldItem, out int bullet, out float _,
+                bool shoot = owner.PickAmmo(owner.HeldItem, out int dart, out float _,
                     out int _, out float knockback, out int _);
-                float speed = 16f;
+                float speed = 8f;
                 int damage = Projectile.originalDamage;
                 if (chargeLevel > 10)
                 {
@@ -138,22 +162,17 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
                     recoilAmount += 2f;
                     speed *= 2;
                     damage += 50;
-                    if (bullet == ProjectileID.Bullet)
-                    {
-                        bullet = ProjectileID.BulletHighVelocity;
-                    }
                     if (chargeLevel == 20)
                     {
                         recoilAmount += 3f;
                         damage += 50;
-                        bullet = ProjectileID.MoonlordBullet;
                         Projectile.Explode(owner.Center, damage / 3, hostile: true);
                     }
                 }
                 if (shoot)
                 {
                     Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), shootOrigin,
-                        aimNormal * speed, bullet, damage, knockback, Projectile.owner);
+                        aimNormal * speed, dart, damage, knockback, Projectile.owner);
                 }
             }
         }

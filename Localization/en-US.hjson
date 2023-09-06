@@ -39,8 +39,6 @@ Mods: {
 			TitleText2: Shards of Atheria: Shattered Atheria
 			TomeOfOmniscience: Press {0} to cycle between the 3 Knowledge Bases
 			TeleportOnKeyPress: Press {0} to teleport to your cursor
-			RemoveChip: Hover over this and press <Remove Areus Chip> to remove the inserted chip
-			NoChip: No chip inserted
 		}
 
 		DiskFile: {
@@ -86,14 +84,6 @@ Mods: {
 		}
 
 		SetBonus: {
-			Pearlwood:
-				'''
-				5 defense
-				Increases maximum mana by 40
-				Increases damage and critical strike chance by 15%
-				Press {0} to summon 10 Soul Daggers that orbit around you
-				Press {0} again to send the daggers flying in the direction of your mouse
-				'''
 			Slayer:
 				'''
 				Increases maximum mana by 40 and reduced mana usage by 10%
@@ -102,6 +92,16 @@ Mods: {
 				Grants moderate life regen
 				Increases Soul Crystals before Madness by 6
 				'''
+			Areus:
+				'''
+				Can take Areus Augments
+				Insert augments into the slots to gain their abilities
+				Recieve additional set bonus with class augments
+				'''
+			AreusMelee: Stat bonuses given to melee weapons
+			AreusRanged: Stat bonuses given to ranged weapons
+			AreusMagic: Stat bonuses given to magic weapons
+			AreusSummon: Stat bonuses given to summon weapons
 		}
 
 		Items: {
@@ -384,6 +384,16 @@ Mods: {
 				Tooltip: Attacks create 4 hardlight blades to inflict further damage
 			}
 
+			MidnightCloak: {
+				DisplayName: Midnight Cloak
+				Tooltip:
+					'''
+					Instead of dying heal 50% Life
+					5 minute cooldown
+					Defense reduced by 15 during cooldown
+					'''
+			}
+
 			PowerTrip: {
 				DisplayName: Power Trip
 				Tooltip:
@@ -454,17 +464,73 @@ Mods: {
 
 			GuardHelmet: {
 				DisplayName: Areus Guard Helmet
-				Tooltip: ""
+				Tooltip:
+					'''
+					Increased damage and critical strike chance by 5%
+					Increased Areus weapon damage by 3%
+					'''
+				MeleeDamageClassBonus:
+					'''
+					Taking damage builds Areus Energy
+					Press <Armor Ability> to release a shockwave of Areus Energy
+					'''
+				RangedDamageClassBonus:
+					'''
+					Areus Energy
+					Press <Armor Ability> to
+					'''
+				MagicDamageClassBonus:
+					'''
+					Dealing damage builds Areus Energy
+					Press <Armor Ability> to
+					'''
+				SummonDamageClassBonus: Passively builds Areus Energy
 			}
 
 			GuardMail: {
 				DisplayName: Areus Guard Mail
-				Tooltip: ""
+				Tooltip:
+					'''
+					Increased damage and critical strike chance by 5%
+					Increased Areus weapon damage by 3%
+					'''
 			}
 
 			GuardLeggings: {
 				DisplayName: Areus Guard Leggings
+				Tooltip:
+					'''
+					Increased damage and critical strike chance by 5%
+					Increased Areus weapon damage by 3%
+					'''
+			}
+
+			SoldierMask: {
+				DisplayName: Soldier Mask
 				Tooltip: ""
+				MeleeDamageClassBonus: ""
+				RangedDamageClassBonus: ""
+				MagicDamageClassBonus: ""
+				SummonDamageClassBonus: ""
+			}
+
+			SoldierBreastplate: {
+				DisplayName: Soldier Breastplate
+				Tooltip: ""
+			}
+
+			SoldierLeggings: {
+				DisplayName: Soldier Leggings
+				Tooltip: ""
+			}
+
+			ImperialHood: {
+				DisplayName: Imperial Hood
+				Tooltip: ""
+				MeleeDamageClassBonus: ""
+				RangedDamageClassBonus: ""
+				MagicDamageClassBonus: ""
+				SummonDamageClassBonus: ""
 			}
 
 			ImperialGarments: {
@@ -477,19 +543,13 @@ Mods: {
 				Tooltip: ""
 			}
 
-			ImperialHood: {
-				DisplayName: Imperial Hood
-				Tooltip: ""
-			}
-
 			RoyalCrown: {
 				DisplayName: Royal Crown
 				Tooltip: ""
-			}
-
-			RoyalGreaves: {
-				DisplayName: Royal Greaves
-				Tooltip: ""
+				MeleeDamageClassBonus: ""
+				RangedDamageClassBonus: ""
+				MagicDamageClassBonus: ""
+				SummonDamageClassBonus: ""
 			}
 
 			RoyalJacket: {
@@ -497,18 +557,8 @@ Mods: {
 				Tooltip: ""
 			}
 
-			SoldierBreastplate: {
-				DisplayName: Soldier Breastplate
-				Tooltip: ""
-			}
-
-			SoldierMask: {
-				DisplayName: Soldier Mask
-				Tooltip: ""
-			}
-
-			SoldierLeggings: {
-				DisplayName: Soldier Leggings
+			RoyalGreaves: {
+				DisplayName: Royal Greaves
 				Tooltip: ""
 			}
 
@@ -765,7 +815,7 @@ Mods: {
 			}
 
 			AreusRod: {
-				DisplayName: Areus Rod
+				DisplayName: Areus Power Rod
 				Tooltip:
 					'''
 					Permanently makes Elec attacks inflict Electric Shock
@@ -1260,6 +1310,14 @@ Mods: {
 				Tooltip: ""
 			}
 
+			RiggedCoin: {
+				DisplayName: Rigged Coin
+				Tooltip: Causes the Areus Gambit to always land on a certain side
+				Heads: " (Heads)"
+				Tails: " (Tails)"
+				Off: " (Disabled)"
+			}
+
 			SpidersMechanicalClock: {
 				DisplayName: Spider's Mechanical Clock
 				Tooltip:
@@ -1405,6 +1463,11 @@ Mods: {
 				Tooltip: ""
 			}
 
+			AreusShrieker: {
+				DisplayName: Areus Shrieker
+				Tooltip: "'But here's the shrieker'"
+			}
+
 			AreusStaff: {
 				DisplayName: Areus Staff
 				Tooltip: ""
@@ -1504,7 +1567,7 @@ Mods: {
 					'I am all out of milk'
 					'''
 			}
-			
+
 			AreusStrikeChain: {
 				DisplayName: Areus Strike Chain
 				Tooltip: ""
@@ -1596,7 +1659,8 @@ Mods: {
 				DisplayName: Energy Scythe
 				Tooltip:
 					'''
-					Left Click to swing an energy scythe, Right click to throw a fireball
+					Swings a scythe that fires an energy slash
+					Alt-use throws a fireball
 					'It seems like you're worthy of playing his little game, his game of destiny!'
 					'''
 			}
@@ -1668,7 +1732,7 @@ Mods: {
 				DisplayName: Zenova
 				Tooltip:
 					'''
-					Use Right click to fire a continuous, accurate steam of weapons
+					Alt-use fires a continuous, accurate steam of weapons
 					'Zenith's older sister'
 					'RANDOM BULLS**T GO!'
 					'''
@@ -1680,7 +1744,7 @@ Mods: {
 				# Weapons
 				Tooltip:
 					'''
-					Right click to switch between 3 modes: Semi-auto, Burst Fire and Full-auto
+					Alt-use switches between 3 modes: Semi-auto, Burst Fire and Full-auto
 					66% chance to not consume ammo
 					'Ugh!'
 					'''
@@ -1749,8 +1813,8 @@ Mods: {
 			}
 
 			DoubleBow: {
-				DisplayName: Double Bow
-				Tooltip: Fires Cursed Arrows, Ichor arrows and lasers
+				DisplayName: Amalgam
+				Tooltip: Fires Cursed Arrows, Ichor arrows and Laser Arrows
 			}
 
 			DownBow: {
@@ -1805,7 +1869,7 @@ Mods: {
 
 			P90: {
 				DisplayName: P90
-				Tooltip: Right click to switch between 2 modes: Semi and Full-auto
+				Tooltip: Alt-use switches between 2 modes: Semi and Full-auto
 			}
 
 			Pantheon: {
@@ -1848,6 +1912,17 @@ Mods: {
 				Tooltip: ""
 			}
 
+			AreusStriker: {
+				DisplayName: Areus Striker
+				Tooltip:
+					'''
+					12 summon tag damage
+					Your summons will focus struck enemies
+					Strikes tag up to 3 enemies
+					Tagged enemies will send out an electric current at other tagged enemies when struck
+					'''
+			}
+
 			DragonSpineWhip: {
 				DisplayName: Dragon Slayer
 				Tooltip:
@@ -1870,6 +1945,11 @@ Mods: {
 			NestlingStaff: {
 				DisplayName: Nestling Staff
 				Tooltip: Summons a fledgling harpy knight to fight for you
+			}
+
+			AreusPistol: {
+				DisplayName: Areus Pistol
+				Tooltip: ""
 			}
 		}
 
@@ -1963,6 +2043,10 @@ Mods: {
 			BitBlock.DisplayName: Bit Block
 			ByteBlock.DisplayName: Byte Block
 			DeathNote.DisplayName: Death Note
+			AreusArrowProj_Gauntlet.DisplayName: Areus Arrow
+			AreusBulletProj_Gauntlet.DisplayName: Areus Bullet
+			FireCannon_Fire_Gauntlet.DisplayName: Charged Fireball
+			LightningBolt_Gauntlet.DisplayName: Lightning Bolt
 			ElecBlade.DisplayName: Elec Blade
 			ElecCannon.DisplayName: Elec Cannon
 			ElecCoin.DisplayName: Elec Coin
@@ -1994,12 +2078,10 @@ Mods: {
 			AreusJustitia_Stab.DisplayName: Areus Judgement
 			AreusSickle.DisplayName: Areus Sickle
 			AreusSwordProj.DisplayName: Areus Sword
-			AquaSlash.DisplayName: Breaker Blade Aqua
 			BloodCutter.DisplayName: Blood Cut
 			CataracniaEye.DisplayName: Cataracnia Eye
 			CorruptPetal.DisplayName: Corrupt Petal
 			CorruptRose.DisplayName: Corrupt Rose
-			ElecSlash.DisplayName: Breaker Blade Elec
 			ElectricBlade.DisplayName: Electric Blade
 			EnergyScythe.DisplayName: Energy Scythe
 			EnergyWave.DisplayName: Energy Wave
@@ -2007,7 +2089,6 @@ Mods: {
 			EntropySickle.DisplayName: Entropy Sickle
 			EntropySlash.DisplayName: Entropy Slash
 			FeatherBladeFriendly.DisplayName: Hardlight Feather
-			FireSlash.DisplayName: Breaker Blade Fire
 			Genesis_Spear.DisplayName: Genesis
 			Genesis_Spear2.DisplayName: Genesis
 			Genesis_Sword.DisplayName: Genesis
@@ -2026,7 +2107,6 @@ Mods: {
 			HolyBloodOffense.DisplayName: Holy Blood
 			IceExplosion.DisplayName: Ice Explosion
 			IceShard.DisplayName: Ice Shard
-			IceSpike.DisplayName: Ice Spike
 			IceVortexShard.DisplayName: Ice Shard
 			MessiahRanbu.DisplayName: The Messiah
 			Messiah.DisplayName: Messiah
@@ -2041,11 +2121,9 @@ Mods: {
 			StrikeChainCurrent.DisplayName: Strike Chain Current
 			ValkyrieStormLanceProj.DisplayName: Storm Lance
 			ValkyrieStormSword.DisplayName: Valkyrie Storm
-			VenomGlob.DisplayName: Venom Glob
 			Warframe.DisplayName: Providince Claymore
 			Warframe_Upgrade.DisplayName: Providince Claymore
 			WarframeSlash.DisplayName: Providince Claymore
-			WoodSlash.DisplayName: Breaker Blade Wood
 			ZenovaProjectile.DisplayName: Zenova Weapons
 			# Ranged
 			AceOfSpades.DisplayName: Ace of Spades
@@ -2095,7 +2173,12 @@ Mods: {
 			FrostsparkDrone.DisplayName: Frostspark Drone
 			SapphireBolt.DisplayName: Sapphire Bolt
 			SapphireSpirit.DisplayName: Sapphire Spirit
+			StrikerRod.DisplayName: Areus Rod
 			SoulDagger.DisplayName: Soul Dagger
+			StrikerCurrent.DisplayName: Striker Current
+			StrikerCrosshair.DisplayName: Striker Crosshair
+			AreusShockwave.DisplayName: Areus Shockwave
+			AreusBounceShot.DisplayName: Areus Bounce Shot
 		}
 
 		NPCs: {
@@ -2436,6 +2519,11 @@ Mods: {
 			}
 
 			# Player debuff
+			CorruptedBlood: {
+				DisplayName: Corrupted Blood
+				Description: Your own blood hurts you
+			}
+
 			HeartBreak: {
 				DisplayName: Heart Break
 				Description: You cannot heal with Cross Dagger or Wand Of Healing
@@ -2455,9 +2543,9 @@ Mods: {
 					'''
 			}
 
-			CorruptedBlood: {
-				DisplayName: Corrupted Blood
-				Description: Your own blood hurts you
+			MidnightCooldown: {
+				DisplayName: Midnight Cooldown
+				Description: Midnight Cloak will not save you from Death
 			}
 
 			# Potion buff
@@ -2524,6 +2612,11 @@ Mods: {
 			Withering: {
 				DisplayName: Withering
 				Description: Mods.ShardsOfAtheria.Buffs.Withering.Description
+			}
+
+			StrikerTag: {
+				DisplayName: Striker Tag
+				Description: Mods.ShardsOfAtheria.Buffs.StrikerTag.Description
 			}
 		}
 
@@ -2650,6 +2743,15 @@ Mods: {
 					Tooltip: Toggles dialogue for everything
 				}
 
+				dialogueDuration: {
+					Label: "[i:3617] Dialogue Duration"
+					Tooltip:
+						'''
+						Sets the speed of dilogue in the boxes
+						Does nothing if Dialogue is disabled
+						'''
+				}
+
 				windowTitle: {
 					Label: "[i:3617] Window Title"
 					Tooltip: Toggles changing the window title
@@ -2662,7 +2764,7 @@ Mods: {
 			}
 
 			ShardsServer: {
-				DisplayName: Shards Server Config
+				DisplayName: Server Side
 
 				Headers: {
 					Item: "[i:1] Items"
@@ -2677,8 +2779,12 @@ Mods: {
 				}
 
 				nonConsumeBoss: {
-					Label: "[i:43] Non-consumable boss summons"
-					Tooltip: Enable for to make Vanilla and Shards of Atheria boss summons non-consumable
+					Label: "[i:ShardsOfAtheria/ValkyrieCrest] Non-consumable boss summons"
+					Tooltip:
+						'''
+						Enable to make Shards of Atheria boss summon items non-consumable.
+						Does not affect vanilla boss summon items.
+						'''
 				}
 
 				upgradeChange: {

@@ -31,6 +31,8 @@
     <None Remove="Items\Potions\InsulationPotion.png" />
     <None Remove="Items\Weapons\Melee\HardlightSlash.png" />
     <None Remove="Projectiles\Minions\AreusMirror.png" />
+    <None Remove="Projectiles\Weapon\Ammo\AreusRod.png" />
+    <None Remove="Projectiles\Weapon\Magic\AreusShockwave.png" />
     <None Remove="Projectiles\Weapon\Melee\AreusJustitia\AreusJustitia_Slash.png" />
   </ItemGroup>
   <ItemGroup>

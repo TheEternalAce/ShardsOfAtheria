@@ -11,10 +11,22 @@ namespace ShardsOfAtheria.Projectiles.Minions
 {
     public class FrostsparkDrone : ModProjectile
     {
-        int shootTimer = 0;
-        public bool electricMode = false;
+        public bool electricMode
+        {
+            get => Projectile.ai[0] == 1f;
+            set => Projectile.ai[0] = value ? 0f : 1f;
+        }
+        int ShootTimer
+        {
+            get => (int)Projectile.ai[1];
+            set => Projectile.ai[1] = value;
+        }
+        int ModeTimer
+        {
+            get => (int)Projectile.ai[2];
+            set => Projectile.ai[2] = value;
+        }
         const int ModeTimeMax = 1200;
-        int modeTimer = 0;
 
         public override void SetStaticDefaults()
         {
@@ -192,10 +204,10 @@ namespace ShardsOfAtheria.Projectiles.Minions
 
             if (foundTarget)
             {
-                if (++modeTimer >= ModeTimeMax)
+                if (++ModeTimer >= ModeTimeMax)
                 {
                     electricMode = !electricMode;
-                    modeTimer = 0;
+                    ModeTimer = 0;
                 }
                 Projectile.spriteDirection = targetCenter.X > Projectile.Center.X ? 1 : -1;
                 speed = 8f;
@@ -227,14 +239,14 @@ namespace ShardsOfAtheria.Projectiles.Minions
                     ai0 = 1;
                 }
 
-                if (++shootTimer >= 120)
+                if (++ShootTimer >= 120)
                 {
                     Vector2 vel = Vector2.Normalize(targetCenter - Projectile.Center) * shootSpeed;
                     Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, vel,
                         projType, Projectile.damage, 0, Projectile.owner, ai0);
                     SoundEngine.PlaySound(soundType);
                     Projectile.ai[1] = 0;
-                    shootTimer = 0;
+                    ShootTimer = 0;
                 }
 
                 vectorToIdlePosition.Normalize();

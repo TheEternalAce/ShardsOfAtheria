@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Projectiles.Weapon.Ammo;
 using System.IO;
 using Terraria;
 using Terraria.DataStructures;
@@ -102,7 +101,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet
                     Vector2 perturbedSpeed = aimNormal.RotatedBy(MathHelper.Lerp(-rotation, rotation,
                         i / (numberProjectiles - 1))) * speed;
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), shootOrigin, perturbedSpeed,
-                        ModContent.ProjectileType<AreusArrowProj>(), damage, Projectile.knockBack,
+                        ModContent.ProjectileType<AreusArrowProj_Gauntlet>(), damage, Projectile.knockBack,
                         Projectile.owner);
                 }
             }

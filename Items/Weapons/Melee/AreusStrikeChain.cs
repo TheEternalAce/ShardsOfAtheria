@@ -1,7 +1,4 @@
-using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
-using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -11,8 +8,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class AreusStrikeChain : ModItem
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
@@ -32,6 +27,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.useTime = 18;
             Item.useAnimation = 18;
             Item.useStyle = ItemUseStyleID.Shoot;
+            Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -40,17 +36,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemRarityID.Cyan;
             Item.value = 200000;
             Item.shoot = ModContent.ProjectileType<StrikeChain>();
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<AreusShard>(), 17)
-                .AddIngredient(ItemID.GoldBar, 5)
-                .AddIngredient<Jade>(2)
-                .AddIngredient(ItemID.SoulofFlight, 10)
-                .AddTile<AreusFabricator>()
-                .Register();
         }
 
         public override bool CanUseItem(Player player)

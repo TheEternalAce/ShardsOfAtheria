@@ -28,3 +28,4 @@ Huge thank you to the TML team and others in the server for the huge help otherw
 As well as the following from other mods:
 The creator of the Parrying Daggers mod for letting me use their reflecting code, link to the mod: https://steamcommunity.com/sharedfiles/filedetails/?id=2765225124
 The creator of the Aequus mod for letting me use several bits of their code, link to the mod: https://steamcommunity.com/sharedfiles/filedetails/?id=2787632488
+The creator of the Lobotomy Corporation mod for letting me use one of the projectiles' code, link to the mod: https://steamcommunity.com/sharedfiles/filedetails/?id=2797072909

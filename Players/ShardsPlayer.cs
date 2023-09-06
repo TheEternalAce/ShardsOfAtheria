@@ -19,7 +19,6 @@ using ShardsOfAtheria.Projectiles.Minions;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
-using ShardsOfAtheria.Projectiles.Weapon.Summon;
 using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
@@ -109,6 +108,8 @@ namespace ShardsOfAtheria.Players
         internal int overdriveTimeRegenTimer = 0;
         public bool Overdrive => Player.HasBuff<Overdrive>() && overdriveTimeCurrent > 0;
 
+        public int riggedCoin;
+
         public int readingDisk = 0;
 
         public int aggression = 0;
@@ -116,6 +117,11 @@ namespace ShardsOfAtheria.Players
         public bool conductive;
         public int genesisRagnarockUpgrades = 0;
         public bool showRagnarok;
+        public bool deathCloak;
+        public bool DeathCloakCooldown => Player.HasBuff<MidnightCooldown>();
+
+        public int[] strikeNPCs = new int[3];
+        public int strikeCycle = 0;
 
         public override void ResetEffects()
         {
@@ -164,6 +170,7 @@ namespace ShardsOfAtheria.Players
             acidTrip = false;
             powerTrip = false;
             resonator = false;
+            riggedCoin = 0;
 
             ResetVariables();
             var bar = ModContent.GetInstance<OverdriveEnergyBarSystem>();
@@ -198,6 +205,7 @@ namespace ShardsOfAtheria.Players
             }
 
             conductive = false;
+            deathCloak = false;
         }
 
         public override void UpdateDead()
@@ -250,23 +258,17 @@ namespace ShardsOfAtheria.Players
 
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
         {
-            if (!mediumCoreDeath && Player.GetModPlayer<SinfulPlayer>().SevenSoulUsed > 0)
-                return new[] { new Item(ModContent.ItemType<Necronomicon>()) };
-
+            List<Item> items = new();
+            if (!mediumCoreDeath)
+            {
+                items.Add(new Item(ModContent.ItemType<Necronomicon>()));
+            }
             if (Player.GetModPlayer<SinfulPlayer>().SevenSoulUsed == 0)
             {
-                List<Item> list = new() {
-                    new Item(ModContent.ItemType<SinfulSoul>())
-                    //new Item(ModContent.ItemType<SinfulArmament>())
-                };
-
-                if (!mediumCoreDeath)
-                    list.Add(new Item(ModContent.ItemType<Necronomicon>()));
-
-                return list;
+                items.Add(new Item(ModContent.ItemType<SinfulSoul>()));
             }
 
-            return base.AddStartingItems(mediumCoreDeath);
+            return items;
         }
 
         public override void PostUpdate()
@@ -423,17 +425,6 @@ namespace ShardsOfAtheria.Players
             {
                 readingDisk = 0;
                 ModContent.GetInstance<UpgradeUISystem>().HideUI();
-            }
-            if (SoA.ArmorSetBonusActive.JustReleased && !Player.HasBuff(ModContent.BuffType<SetBonusCooldown>()))
-            {
-                if (pearlwoodSet && !Player.mouseInterface)
-                {
-                    for (int i = 0; i < 10; i++)
-                    {
-                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SoulDagger>(), 50, 0, Player.whoAmI, i);
-                    }
-                    Player.AddBuff(ModContent.BuffType<SetBonusCooldown>(), 120);
-                }
             }
             if (SoA.OverdriveKey.JustPressed)
             {
@@ -886,6 +877,20 @@ namespace ShardsOfAtheria.Players
             if (Player.HasBuff(ModContent.BuffType<Overdrive>()))
             {
                 damageSource = PlayerDeathReason.ByCustomReason(Player.name + " pushed too far.");
+            }
+            if (deathCloak && !DeathCloakCooldown)
+            {
+                Player.AddBuff<MidnightCooldown>(5 * 60 * 60);
+                Player.Heal(Player.statLifeMax2 / 2);
+                Vector2 teleport = Vector2.Zero;
+                bool validTeleport = false;
+                while (!validTeleport)
+                {
+                    teleport = Player.Center + Vector2.One.RotateRandom(MathHelper.ToRadians(360)) * Main.rand.NextFloat(100, 200);
+                    validTeleport = Player.ValidateTeleportPosition(teleport);
+                }
+                Player.Teleport(teleport, 1);
+                return false;
             }
             return true;
         }

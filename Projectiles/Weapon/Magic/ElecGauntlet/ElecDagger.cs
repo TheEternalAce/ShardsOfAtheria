@@ -1,4 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Items.Weapons.Magic;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -9,7 +12,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet
         public override void SetDefaults()
         {
             Projectile.Size = new Vector2(10); // This sets width and height to the same value (important when projectiles can rotate)
-            Projectile.aiStyle = -1; // Use our own AI to customize how it behaves, if you don't want that, keep this at ProjAIStyleID.ShortSword. You would still need to use the code in SetVisualOffsets() though
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.extraUpdates = 1; // Update 1+extraUpdates times per tick
@@ -29,13 +31,25 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet
             if (Projectile.spriteDirection == 1)
             {
                 DrawOffsetX = -12;
-                DrawOriginOffsetX = 17;
+                DrawOriginOffsetX = 6;
             }
             else
             {
                 DrawOffsetX = 0;
-                DrawOriginOffsetX = -17;
+                DrawOriginOffsetX = -6;
             }
+        }
+
+        private ElecGauntletPlayer gplayer => Main.player[Projectile.owner].GetModPlayer<ElecGauntletPlayer>();
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff<ElectricShock>(600);
+            gplayer.AddType(Type);
+        }
+
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            gplayer.ModifyGauntletHit(ref modifiers, Type);
         }
     }
 }

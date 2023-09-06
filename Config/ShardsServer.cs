@@ -17,10 +17,6 @@ namespace ShardsOfAtheria.Config
         [ReloadRequired]
         public bool nonConsumeBoss;
 
-        [DefaultValue(true)]
-        [ReloadRequired]
-        public bool upgradeChange;
-
         [Header("Dialogue")]
         [DefaultValue(true)]
         [ReloadRequired]
@@ -29,12 +25,6 @@ namespace ShardsOfAtheria.Config
         [Header("Mechanics")]
         [DefaultValue(false)]
         public bool cluelessNPCs;
-
-        [DrawTicks]
-        [OptionStrings(new string[] { "Off", "No Use Turn", "Mouse Direction" })]
-        [DefaultValue("Mouse Direction")]
-        [ReloadRequired]
-        public string betterWeapon;
 
         [DefaultValue(true)]
         public bool catchableNPC;

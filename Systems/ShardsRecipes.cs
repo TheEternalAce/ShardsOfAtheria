@@ -2,7 +2,6 @@
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Weapons.Melee;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -44,8 +43,6 @@ namespace ShardsOfAtheria.Systems
 
         public override void AddRecipeGroups()
         {
-            AddAmmoToLists();
-
             EvilMaterial = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Evil Material",
                    ItemID.ShadowScale, ItemID.TissueSample);
             RecipeGroup.RegisterGroup("Shards:EvilMaterials", EvilMaterial);
@@ -82,32 +79,6 @@ namespace ShardsOfAtheria.Systems
                    ItemID.SoulofFlight, ItemID.SoulofFright, ItemID.SoulofLight, ItemID.SoulofMight, ItemID.SoulofNight, ItemID.SoulofSight, ModContent.ItemType<SoulOfDaylight>(),
                    ModContent.ItemType<SoulOfTwilight>(), ModContent.ItemType<SoulOfSpite>());
             RecipeGroup.RegisterGroup("Shards:Souls", Soul);
-
-            List<int> arrows = new();
-            arrows.AddRange(SoAGlobalItem.preHardmodeArrows);
-            arrows.AddRange(SoAGlobalItem.hardmodeArrows);
-            arrows.AddRange(SoAGlobalItem.postMoonLordArrows);
-
-            Arrow = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} arrow",
-                   arrows.ToArray());
-            RecipeGroup.RegisterGroup("Shards:Arrows", Arrow);
-
-            List<int> bullets = new();
-            bullets.AddRange(SoAGlobalItem.preHardmodeBullets);
-            bullets.AddRange(SoAGlobalItem.hardmodeBullets);
-            bullets.AddRange(SoAGlobalItem.postMoonLordBullets);
-            Bullet = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} bullet",
-                   bullets.ToArray());
-            RecipeGroup.RegisterGroup("Shards:Bullets", Bullet);
-
-            List<int> rockets = new();
-            rockets.AddRange(SoAGlobalItem.preHardmodeRockets);
-            rockets.AddRange(SoAGlobalItem.hardmodeRockets);
-            rockets.AddRange(SoAGlobalItem.postMoonLordRockets);
-
-            Rocket = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} rocket",
-                   rockets.ToArray());
-            RecipeGroup.RegisterGroup("Shards:Rockets", Rocket);
         }
 
         public override void AddRecipes()
@@ -178,79 +149,6 @@ namespace ShardsOfAtheria.Systems
                 else if (recipe.createItem.type == ItemID.PearlwoodBow)
                 {
                     recipe.AddIngredient(ItemID.SoulofLight, 10);
-                }
-            }
-        }
-
-        void AddAmmoToLists()
-        {
-            for (int i = 1; i < ItemLoader.ItemCount; i++)
-            {
-                Item item = ContentSamples.ItemsByType[i];
-                int type = item.type;
-
-                if (item.consumable)
-                {
-                    if (item.ammo > AmmoID.None)
-                    {
-                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert && item.rare != ItemRarityID.Master)
-                        {
-                            SoAGlobalItem.preHardmodeAmmo.Add(type);
-                        }
-                        else if (item.rare < ItemRarityID.Cyan)
-                        {
-                            SoAGlobalItem.hardmodeAmmo.Add(type);
-                        }
-                        else if (item.rare >= ItemRarityID.Cyan)
-                        {
-                            SoAGlobalItem.postMoonLordAmmo.Add(type);
-                        }
-                    }
-                    if (item.ammo == AmmoID.Arrow)
-                    {
-                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert && item.rare != ItemRarityID.Master)
-                        {
-                            SoAGlobalItem.preHardmodeArrows.Add(type);
-                        }
-                        else if (item.rare < ItemRarityID.Cyan)
-                        {
-                            SoAGlobalItem.hardmodeArrows.Add(type);
-                        }
-                        else if (item.rare >= ItemRarityID.Cyan)
-                        {
-                            SoAGlobalItem.postMoonLordArrows.Add(type);
-                        }
-                    }
-                    if (item.ammo == AmmoID.Bullet)
-                    {
-                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert && item.rare != ItemRarityID.Master)
-                        {
-                            SoAGlobalItem.preHardmodeBullets.Add(type);
-                        }
-                        else if (item.rare < ItemRarityID.Cyan)
-                        {
-                            SoAGlobalItem.hardmodeBullets.Add(type);
-                        }
-                        else if (item.rare >= ItemRarityID.Cyan)
-                        {
-                            SoAGlobalItem.postMoonLordBullets.Add(type);
-                        }
-                    }
-                    if (item.ammo == AmmoID.Rocket)
-                    {
-                        if (item.rare < ItemRarityID.LightRed && item.rare != ItemRarityID.Expert && item.rare != ItemRarityID.Master)
-                        {
-                            SoAGlobalItem.preHardmodeRockets.Add(type);
-                        }
-                        else if (item.rare < ItemRarityID.Cyan)
-                        {
-                            SoAGlobalItem.hardmodeRockets.Add(type);
-                        }
-                        else if (item.rare >= ItemRarityID.Cyan)
-                        {
-                            SoAGlobalItem.postMoonLordRockets.Add(type);
-                        }
-                    }
                 }
             }
         }

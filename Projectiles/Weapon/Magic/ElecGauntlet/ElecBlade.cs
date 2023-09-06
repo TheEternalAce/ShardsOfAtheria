@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
@@ -32,6 +33,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet
             }
         }
 
+
+        private ElecGauntletPlayer gplayer => Main.player[Projectile.owner].GetModPlayer<ElecGauntletPlayer>();
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
@@ -44,6 +47,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet
                 player.statMana = player.statManaMax2;
             }
             target.AddBuff(BuffID.Electrified, 600);
+            gplayer.AddType(Type);
+        }
+
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            gplayer.ModifyGauntletHit(ref modifiers, Type);
         }
 
         public override Color? GetAlpha(Color lightColor)

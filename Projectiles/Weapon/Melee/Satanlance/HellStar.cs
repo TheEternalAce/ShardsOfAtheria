@@ -8,8 +8,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Satanlance
 {
     public class HellStar : ModProjectile
     {
-        public override string Texture => "Terraria/Images/Projectile_" + ProjectileID.StarWrath;
-
         public override void SetDefaults()
         {
             Projectile.width = 34;

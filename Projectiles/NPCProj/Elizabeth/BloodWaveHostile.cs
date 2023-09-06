@@ -26,6 +26,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             Projectile.hostile = true;
             Projectile.tileCollide = false;
             Projectile.extraUpdates = 1;
+            Projectile.penetrate = -1;
 
             DrawOffsetX = -13;
         }

@@ -75,7 +75,7 @@ namespace ShardsOfAtheria.Items.Weapons
                     {
                         num33 = 38f;
                     }
-                    location.X = player.position.X + (float)player.width * 0.5f - ((float)heldItemFrame.Width * 0.5f - (num33 + Xoffset)) * (float)player.direction;
+                    location.X = player.position.X + player.width * 0.5f - (heldItemFrame.Width * 0.5f - (num33 + Xoffset)) * player.direction;
                     num33 = 10f;
                     if (heldItemFrame.Height > 32)
                     {
@@ -110,7 +110,7 @@ namespace ShardsOfAtheria.Items.Weapons
                     {
                         num32 = 38f;
                     }
-                    location.X = player.position.X + (float)player.width * 0.5f + ((float)heldItemFrame.Width * 0.5f - (num32 + Xoffset)) * (float)player.direction;
+                    location.X = player.position.X + player.width * 0.5f + (heldItemFrame.Width * 0.5f - (num32 + Xoffset)) * player.direction;
                     num32 = 10f;
                     if (heldItemFrame.Height > 32)
                     {
@@ -148,7 +148,7 @@ namespace ShardsOfAtheria.Items.Weapons
                     {
                         num31 = 42f;
                     }
-                    location.X = player.position.X + (float)player.width * 0.5f + ((float)heldItemFrame.Width * 0.5f - (num31 + Xoffset)) * (float)player.direction;
+                    location.X = player.position.X + player.width * 0.5f + (heldItemFrame.Width * 0.5f - (num31 + Xoffset)) * player.direction;
                     location.Y = player.position.Y + 26f + player.HeightOffsetHitboxCenter;
                 }
                 else
@@ -174,7 +174,7 @@ namespace ShardsOfAtheria.Items.Weapons
                     {
                         num33 = 38f;
                     }
-                    location.X = player.position.X + (float)player.width * 0.5f - ((float)heldItemFrame.Width * 0.5f - (num33 + Xoffset)) * (float)player.direction;
+                    location.X = player.position.X + player.width * 0.5f - (heldItemFrame.Width * 0.5f - (num33 + Xoffset)) * player.direction;
                     location.Y = player.position.Y + 24f + player.HeightOffsetHitboxCenter;
                 }
             }
@@ -202,18 +202,18 @@ namespace ShardsOfAtheria.Items.Weapons
         /// <param name="rotation"></param>
         public static void PseudoUseItemFrame(Player player, float rotation)
         {
-            if ((player.direction == 1 && rotation < 0) ||
-                    (player.direction == -1 && rotation > 0))
+            if (player.direction == 1 && rotation < 0 ||
+                    player.direction == -1 && rotation > 0)
             {
                 player.bodyFrame.Y = player.bodyFrame.Height * 1;
             }
-            else if ((player.direction == 1 && rotation < 90) ||
-                     (player.direction == -1 && rotation > -90))
+            else if (player.direction == 1 && rotation < 90 ||
+                     player.direction == -1 && rotation > -90)
             {
                 player.bodyFrame.Y = player.bodyFrame.Height * 2;
             }
-            else if ((player.direction == 1 && rotation < 180) ||
-                     (player.direction == -1 && rotation > -180))
+            else if (player.direction == 1 && rotation < 180 ||
+                     player.direction == -1 && rotation > -180)
             {
                 player.bodyFrame.Y = player.bodyFrame.Height * 4;
             }
@@ -271,8 +271,8 @@ namespace ShardsOfAtheria.Items.Weapons
                     hitbox = new Rectangle((int)player.itemLocation.X, (int)player.itemLocation.Y, hitboxSize.Width, hitboxSize.Height);
                 }
                 float adjustedItemScale = player.GetAdjustedItemScale(Item);
-                hitbox.Width = (int)((float)hitbox.Width * adjustedItemScale);
-                hitbox.Height = (int)((float)hitbox.Height * adjustedItemScale);
+                hitbox.Width = (int)(hitbox.Width * adjustedItemScale);
+                hitbox.Height = (int)(hitbox.Height * adjustedItemScale);
                 if (player.direction == -1)
                 {
                     hitbox.X -= hitbox.Width;
@@ -287,7 +287,7 @@ namespace ShardsOfAtheria.Items.Weapons
                 {
                     if (player.direction == 1)
                     {
-                        hitbox.X -= (int)(hitbox.Width * 1);
+                        hitbox.X -= hitbox.Width * 1;
                     }
                     hitbox.Width *= 2;
                     hitbox.Y -= (int)((hitbox.Height * 1.4 - hitbox.Height) * player.gravDir);
@@ -297,11 +297,11 @@ namespace ShardsOfAtheria.Items.Weapons
                 {
                     if (player.direction == -1)
                     {
-                        hitbox.X -= (int)((double)hitbox.Width * 1.4 - (double)hitbox.Width);
+                        hitbox.X -= (int)(hitbox.Width * 1.4 - hitbox.Width);
                     }
-                    hitbox.Width = (int)((double)hitbox.Width * 1.4);
-                    hitbox.Y += (int)((double)hitbox.Height * 0.5 * (double)player.gravDir);
-                    hitbox.Height = (int)((double)hitbox.Height * 1.4);
+                    hitbox.Width = (int)(hitbox.Width * 1.4);
+                    hitbox.Y += (int)(hitbox.Height * 0.5 * player.gravDir);
+                    hitbox.Height = (int)(hitbox.Height * 1.4);
                 }
                 else
                     noHitbox = true;
@@ -397,7 +397,7 @@ namespace ShardsOfAtheria.Items.Weapons
             if (prog < 0.4f)
             {
                 prog = prog / 0.4f;
-                rotation = (-60 + 200 * (float)Math.Sin(1.57f * prog));// * player.direction;
+                rotation = -60 + 200 * (float)Math.Sin(1.57f * prog);// * player.direction;
             }
             else if (prog < 0.5f)
             {
@@ -406,7 +406,7 @@ namespace ShardsOfAtheria.Items.Weapons
             else
             {
                 prog = (prog - 0.5f) / 0.5f;
-                rotation = (140 - 45 * prog);// * player.direction;
+                rotation = 140 - 45 * prog;// * player.direction;
             }
             return rotation;
         }

@@ -33,6 +33,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
 
         public override void UpdateArmorSet(Player player)
         {
+            ArmorPlayer.imperialSet = true;
             base.UpdateArmorSet(player);
         }
     }

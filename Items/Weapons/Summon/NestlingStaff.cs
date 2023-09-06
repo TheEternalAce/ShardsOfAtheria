@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Weapons.Summon.Minion
+namespace ShardsOfAtheria.Items.Weapons.Summon
 {
     public class NestlingStaff : ModItem
     {

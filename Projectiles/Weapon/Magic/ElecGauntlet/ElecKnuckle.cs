@@ -1,4 +1,7 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Items.Weapons.Magic;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Enums;
 using Terraria.ModLoader;
@@ -141,9 +144,21 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet
                     i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
                 perturbedSpeed.Normalize();
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, perturbedSpeed,
-                    ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage, Projectile.knockBack,
+                    ModContent.ProjectileType<LightningBolt_Gauntlet>(), Projectile.damage, Projectile.knockBack,
                     Projectile.owner);
             }
+        }
+
+        private ElecGauntletPlayer gplayer => Main.player[Projectile.owner].GetModPlayer<ElecGauntletPlayer>();
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff<ElectricShock>(600);
+            gplayer.AddType(Type);
+        }
+
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            gplayer.ModifyGauntletHit(ref modifiers, Type);
         }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.ShardsUI.Monologue;
 using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.Chat;
@@ -30,7 +31,7 @@ namespace ShardsOfAtheria.Utilities
         public const int SlayerMidFightLine = 8;
         public const int DesperationLine = 9;
         public const int LastWords = 10;
-        public static void UseBossDialogueWithKey(this NPC npc, string typeName, int index, Color color)
+        public static string UseBossDialogueWithKey(this NPC npc, string typeName, int index, Color color)
         {
             string keyBase = "Mods.ShardsOfAtheria.NPCs." + typeName + ".Dialogue.";
             string key;
@@ -72,30 +73,35 @@ namespace ShardsOfAtheria.Utilities
                     key = keyBase + "Death";
                     break;
             }
-            npc.UseDialogueWithKey(key, color);
+            return npc.UseDialogueWithKey(key, color);
         }
-        public static void UseDialogueWithKey(this NPC npc, string key, Color color)
+        public static string UseDialogueWithKey(this NPC npc, string key, Color color)
         {
             string dialogue = Language.GetTextValue(key);
             npc.UseDialogue(dialogue, color);
+            return dialogue;
         }
         public static void UseDialogue(this NPC npc, string text, Color color)
         {
-            string dialogue = $"<{npc.GivenOrTypeName}>: {text}";
-            if (Main.netMode == NetmodeID.MultiplayerClient)
+            if (SoA.ClientConfig.dialogue)
             {
-                for (int i = 0; i < Main.maxPlayers; i++)
+                string dialogue = $"<{npc.GivenOrTypeName}>: {text}";
+                if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
-                    Player player = Main.player[i];
-                    if (Vector2.Distance(player.Center, npc.Center) <= 2000 || player.whoAmI == npc.target)
+                    for (int i = 0; i < Main.maxPlayers; i++)
                     {
-                        ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(dialogue), color, player.whoAmI);
+                        Player player = Main.player[i];
+                        if (Vector2.Distance(player.Center, npc.Center) <= 2000 || player.whoAmI == npc.target)
+                        {
+                            ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(dialogue), color, player.whoAmI);
+                        }
                     }
                 }
-            }
-            else
-            {
-                Main.NewText(dialogue, color);
+                else
+                {
+                    Main.NewText(dialogue, color);
+                }
+                MonologueUISystem.Instance.ShowMonologue(text);
             }
         }
 

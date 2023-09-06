@@ -88,7 +88,7 @@ namespace ShardsOfAtheria.Items.Accessories
             player.GetDamage(DamageClass.Generic) += 0.15f;
             player.statManaMax2 += 40;
             player.noFallDmg = true;
-            player.spikedBoots++;
+            player.spikedBoots = 1;
 
             var bar = ModContent.GetInstance<OverdriveEnergyBarSystem>();
             if (!bar.BarShowing)

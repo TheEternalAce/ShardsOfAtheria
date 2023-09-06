@@ -9,35 +9,29 @@ namespace ShardsOfAtheria.Utilities
 {
     public static class ShardsItemHelper
     {
-        public static class Rare
-        {
-            public static readonly int EarlyGame = ItemRarityID.White;
-            public static readonly int PostEye = ItemRarityID.Blue;
-            public static readonly int PreSkeletron = ItemRarityID.Green;
-            public static readonly int PreWall = ItemRarityID.Orange;
-            public static readonly int EarlyHardmode = ItemRarityID.LightRed;
-            public static readonly int PostMech = ItemRarityID.Pink;
-            public static readonly int PrePlantera = ItemRarityID.LightPurple;
-            public static readonly int PreGolem = ItemRarityID.Lime;
-            public static readonly int PreCultist = ItemRarityID.Yellow;
-            public static readonly int PreML = ItemRarityID.Cyan;
-            public static readonly int PostML = ItemRarityID.Red;
-        }
+        public static readonly int EarlyGameRarity = ItemRarityID.White;
+        public static readonly int PostEyeRarity = ItemRarityID.Blue;
+        public static readonly int PreSkeletronRarity = ItemRarityID.Green;
+        public static readonly int PreWallRarity = ItemRarityID.Orange;
+        public static readonly int EarlyHardmodeRarity = ItemRarityID.LightRed;
+        public static readonly int PostMechRarity = ItemRarityID.Pink;
+        public static readonly int PrePlanteraRarity = ItemRarityID.LightPurple;
+        public static readonly int PreGolemRarity = ItemRarityID.Lime;
+        public static readonly int PreCultistRarity = ItemRarityID.Yellow;
+        public static readonly int PreMLRarity = ItemRarityID.Cyan;
+        public static readonly int PostMLRarity = ItemRarityID.Red;
 
-        public static class Value
-        {
-            public static readonly int EarlyGame = 0;
-            public static readonly int PostEye = 0;
-            public static readonly int PreSkeletron = 0;
-            public static readonly int PreWall = 0;
-            public static readonly int EarlyHardmode = 0;
-            public static readonly int PostMech = 0;
-            public static readonly int PrePlantera = 0;
-            public static readonly int PreGolem = 0;
-            public static readonly int PreCultist = 0;
-            public static readonly int PreML = 0;
-            public static readonly int PostML = 0;
-        }
+        public static readonly int EarlyGameValue = 0;
+        public static readonly int PostEyeValue = 0;
+        public static readonly int PreSkeletronValue = 0;
+        public static readonly int PreWallValue = 0;
+        public static readonly int EarlyHardmodeValue = 0;
+        public static readonly int PostMechValue = 0;
+        public static readonly int PrePlanteraValue = 0;
+        public static readonly int PreGolemValue = 0;
+        public static readonly int PreCultistValue = 0;
+        public static readonly int PreMLValue = 0;
+        public static readonly int PostMLValue = 0;
 
         public static void DefaultToPotion(this Item potion, int buff, int buffTime)
         {
@@ -102,11 +96,15 @@ namespace ShardsOfAtheria.Utilities
                 SoAGlobalItem.AreusWeapon.Add(itemID);
             }
         }
+        public static bool IsAreus(this Item item)
+        {
+            return SoAGlobalItem.AreusWeapon.Contains(item.type) ||
+                SoAGlobalItem.DarkAreusWeapon.Contains(item.type);
+        }
 
         public static bool IsUpgradable(this Item item)
         {
-            bool canBeUpgraded = SoAGlobalItem.UpgradeableItem.Contains(item.type);
-            return canBeUpgraded;
+            return SoAGlobalItem.UpgradeableItem.Contains(item.type);
         }
     }
 }
