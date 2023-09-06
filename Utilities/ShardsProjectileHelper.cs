@@ -166,6 +166,11 @@ namespace ShardsOfAtheria.Utilities
             return closestPlayer;
         }
 
+        public static Player GetPlayer(this Projectile projectile)
+        {
+            return Main.player[projectile.owner];
+        }
+
         public static void Track(this Projectile projectile, NPC npc, float maxDist, float speed = 16f, float inertia = 16f)
         {
             if (npc == null) return;

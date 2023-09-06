@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -26,18 +28,20 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             Projectile.penetrate = -1;
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            base.OnSpawn(source);
+        }
+
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            //int[] blacklist = new int[] { target.whoAmI, (int)Projectile.ai[0] };
-            //var npc = Projectile.FindClosestNPC(500, blacklist);
-            //if (npc != null)
-            //{
-            //    var velocity = npc.Center - Projectile.Center;
-            //    velocity.Normalize();
-            //    Projectile.velocity = velocity *= 16f;
-            //    Projectile.ai[0] = target.whoAmI;
-            //}
             target.AddBuff(BuffID.Electrified, 600);
+            if (Projectile.GetPlayer().Shards().Overdrive)
+            {
+                var copyHit = hit;
+                copyHit.Damage /= 4;
+                target.StrikeNPC(copyHit);
+            }
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -77,6 +81,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
                 {
                     Projectile.velocity.Y = -oldVelocity.Y * 1.05f;
                 }
+            }
+
+            var npc = Projectile.FindClosestNPC(100);
+            if (npc != null)
+            {
+                var velocity = npc.Center - Projectile.Center;
+                velocity.Normalize();
+                Projectile.velocity = velocity *= 16f;
             }
 
             return false;

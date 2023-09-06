@@ -38,10 +38,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusJustitia
 
         public override void AI()
         {
-            //IL_00c8: Unknown result type (might be due to invalid IL or missing references)
-            //IL_0517: Unknown result type (might be due to invalid IL or missing references)
-            //IL_05e6: Unknown result type (might be due to invalid IL or missing references)
-            //IL_06a4: Unknown result type (might be due to invalid IL or missing references)
             Player projOwner = Main.player[Projectile.owner];
             Vector2 ownerMountedCenter = projOwner.RotatedRelativePoint(projOwner.MountedCenter, reverseRotation: true);
             Projectile.spriteDirection = Math.Sign(Projectile.velocity.X);
