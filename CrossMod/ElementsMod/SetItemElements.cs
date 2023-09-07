@@ -66,15 +66,20 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
         {
             ItemType<HardlightBraces>(),
             ItemType<ValkyrieCrown>(),
+
             ItemType<ValkyrieCrest>(),
+
             ItemType<AlphaSpectrum>(),
             ItemType<DeckOfCards>(),
             ItemType<War>(),
+
             ItemType<RedAreusChainsaw>(),
             ItemType<RedAreusDrill>(),
             ItemType<RedAreusPickaxe>(),
+
             ItemType<AreusBullet>(),
             ItemType<AreusArrow>(),
+
             ItemType<AreusGambit>(),
             ItemType<AreusGauntlet>(),
             ItemType<AreusScepter>(),
@@ -83,10 +88,12 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ItemType<Bytecrusher>(),
             ItemType<PlumeCodex>(),
             ItemType<ScreamLantern>(),
+
             ItemType<AreusDagger>(),
             ItemType<AreusEdge>(),
             ItemType<AreusGlaive>(),
             ItemType<AreusKatana>(),
+            ItemType<AreusLance>(),
             ItemType<AreusStrikeChain>(),
             ItemType<AreusSword>(),
             ItemType<GenesisAndRagnarok>(),
@@ -97,11 +104,13 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ItemType<ValkyrieStormLance>(),
             ItemType<Yamiko>(),
             ItemType<Zenova>(),
+
             ItemType<AreusAssaultRifle>(),
             ItemType<AreusFlameCannon>(),
             ItemType<AreusGrenade>(),
             ItemType<AreusJavelin>(),
             ItemType<AreusMagnum>(),
+            ItemType<AreusPistol>(),
             ItemType<AreusRailgun>(),
             ItemType<AreusRecursor>(),
             ItemType<AreusRocketLauncher>(),
@@ -111,9 +120,11 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ItemType<Magnus>(),
             ItemType<Pantheon>(),
             ItemType<Scarlet>(),
+
             ItemType<BrokenAreusMirror>(),
             ItemType<NestlingStaff>(),
             ItemType<AreusCrate>(),
+
             ItemType<Pandora>(),
             ItemType<Prometheus>(),
         };

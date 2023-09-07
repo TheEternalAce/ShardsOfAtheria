@@ -1951,6 +1951,11 @@ Mods: {
 				// DisplayName: Areus Pistol
 				// Tooltip: ""
 			}
+
+			AreusLance: {
+				// DisplayName: Areus Lance
+				// Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -2179,6 +2184,7 @@ Mods: {
 			// StrikerCrosshair.DisplayName: Striker Crosshair
 			// AreusShockwave.DisplayName: Areus Shockwave
 			// AreusBounceShot.DisplayName: Areus Bounce Shot
+			// AreusLanceProj.DisplayName: Areus Lance Proj
 		}
 
 		NPCs: {

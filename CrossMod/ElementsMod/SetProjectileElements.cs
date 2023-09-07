@@ -133,13 +133,17 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<StormSword>(),
             ProjectileType<Static>(),
             ProjectileType<AreusGrenadeHostile>(),
+
             ProjectileType<ElectricTrailFriendly>(),
             ProjectileType<PhantasmalEye>(),
             ProjectileType<SpinPrime>(),
+
             ProjectileType<RedAreusChainsawProj>(),
             ProjectileType<RedAreusDrillProj>(),
+
             ProjectileType<AreusArrowProj>(),
             ProjectileType<AreusBulletProj>(),
+
             ProjectileType<BitBlock>(),
             ProjectileType<AreusArrowProj_Gauntlet>(),
             ProjectileType<AreusBulletProj_Gauntlet>(),
@@ -156,6 +160,7 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<ElectricSpike>(),
             ProjectileType<HardlightFeatherMagic>(),
             ProjectileType<ScreamShockwave>(),
+
             ProjectileType<AreusDaggerProj>(),
             ProjectileType<AreusDaggerCurrent>(),
             ProjectileType<AreusGlaive_Swing>(),
@@ -180,6 +185,7 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<Gomorrah_Burst>(),
             ProjectileType<Gomorrah_Javelin>(),
             ProjectileType<Gomorrah_Spear>(),
+            ProjectileType<AreusLanceProj>(),
             ProjectileType<HardlightBlade>(),
             ProjectileType<HardlightSlash>(),
             ProjectileType<HardlightSword>(),
@@ -193,6 +199,8 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<Warframe_Upgrade>(),
             ProjectileType<WarframeSlash>(),
             ProjectileType<ZenovaProjectile>(),
+
+            ProjectileType<AreusBounceShot>(),
             ProjectileType<AreusLaser>(),
             ProjectileType<AceOfDiamonds>(),
             ProjectileType<FireCannon_Fire1>(),
