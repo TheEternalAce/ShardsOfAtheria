@@ -18,7 +18,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.knockBack = 2f;
             Item.crit = 0;
 
-            Item.UseSound = SoundID.Item11;
+            Item.UseSound = SoundID.Item41;
             Item.autoReuse = true;
 
             Item.rare = ItemRarityID.Cyan;
