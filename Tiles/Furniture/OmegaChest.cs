@@ -32,9 +32,9 @@ namespace ShardsOfAtheria.Tiles.Furniture
             AdjTiles = new int[] { TileID.Containers };
 
             // Names
-            AddMapEntry(new Color(160, 0, 80), Language.GetText("Mods.ShardsOfAtheria.MapObject.OmegaChest.MapEntry"), MapChestName);
+            AddMapEntry(new Color(160, 0, 80), this.GetLocalization("MapEntry0"), MapChestName);
 
-            AddMapEntry(new Color(80, 0, 40), Language.GetText("Mods.ShardsOfAtheria.MapObject.OmegaChest_Locked.MapEntry"), MapChestName);
+            AddMapEntry(new Color(80, 0, 40), this.GetLocalization("MapEntry1"), MapChestName);
 
             // Placement
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
@@ -51,15 +51,21 @@ namespace ShardsOfAtheria.Tiles.Furniture
 
         public override ushort GetMapOption(int i, int j) => (ushort)(Main.tile[i, j].TileFrameX / 36);
 
+        public override LocalizedText DefaultContainerName(int frameX, int frameY)
+        {
+            int option = frameX / 36;
+            return this.GetLocalization("MapEntry" + option);
+        }
+
         public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;
 
         public override bool IsLockedChest(int i, int j) => Main.tile[i, j].TileFrameX / 36 == 1;
 
-        public override bool UnlockChest(int i, int j, ref short frameXAdjustment, ref int dustType, ref bool manual)
-        {
-            DustType = dustType;
-            return true;
-        }
+        //public override bool UnlockChest(int i, int j, ref short frameXAdjustment, ref int dustType, ref bool manual)
+        //{
+        //    DustType = dustType;
+        //    return true;
+        //}
 
         public static string MapChestName(string name, int i, int j)
         {

@@ -16,12 +16,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         public override void SetDefaults()
         {
             Projectile.width = Projectile.height = 4;
-            Projectile.timeLeft = 400;
-            Projectile.extraUpdates = 8;
+            Projectile.timeLeft = 600;
+            Projectile.extraUpdates = 20;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.alpha = 255;
-            Projectile.aiStyle = -1;
+            Projectile.aiStyle = 0;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 3;
             Projectile.ignoreWater = true;
@@ -51,25 +51,30 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 
         public override void AI()
         {
-            Dust d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Electric);
-            d.velocity *= 0;
-            d.fadeIn = 1.3f;
-            d.noGravity = true;
+            Projectile.velocity.Normalize();
+            Projectile.velocity *= 8;
+            if (++Projectile.ai[0] >= 5)
+            {
+                Dust d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Electric);
+                d.velocity *= 0;
+                d.fadeIn = 1.3f;
+                d.noGravity = true;
+            }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
+            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+            SoundEngine.PlaySound(SoundID.NPCHit4, Projectile.position);
+
             // If collide with tile, reduce the penetrate.
             // So the projectile can reflect at most 5 times
-            if (++Projectile.ai[0] >= 3)
+            if (++Projectile.ai[2] >= 3)
             {
-                Projectile.Kill();
+                return true;
             }
             else
             {
-                Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-                SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
-
                 // If the projectile hits the left or right side of the tile, reverse the X velocity
                 if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon)
                 {

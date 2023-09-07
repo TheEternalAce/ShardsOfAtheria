@@ -1902,7 +1902,7 @@ Mods: {
 			}
 
 			TheBall: {
-				DisplayName: The Ball
+				DisplayName: Rubber Ball
 				Tooltip: "'Frick it, we ball'"
 			}
 
@@ -2677,19 +2677,19 @@ Mods: {
 			OverdriveTimeInfoDisplay.DisplayName: Overdrive Time
 		}
 
-		MapObject: {
+		Tiles: {
 			OmegaChest: {
-				ContainerName: Omega Chest
-				MapEntry: Omega Chest
+				MapEntry0: Omega Chest
+				MapEntry1: Locked Omega Chest
 			}
 
-			OmegaChest_Locked.MapEntry: Locked Omega Chest
 			AreusOre.MapEntry: Areus Shard
 			Banners.MapEntry: Banners
 			BionicBar.MapEntry: Bionic Bar
 			BionicOre.MapEntry: Bionic Ore
 			AreusFabricator.MapEntry: Areus Fabricator
 			Trophy.MapEntry: Trophy
+			NightlightLamp.MapEntry: Nightlight Lamp
 		}
 
 		Keybinds: {
