@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -39,6 +40,14 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.value = Item.sellPrice(0, 1, 75);
 
             Item.shoot = ModContent.ProjectileType<HardlightSlash>();
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<HardlightPrism>(15)
+                .AddTile(TileID.SkyMill)
+                .Register();
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

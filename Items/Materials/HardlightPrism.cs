@@ -1,3 +1,4 @@
+using ShardsOfAtheria.ShardsConditions;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,6 +20,16 @@ namespace ShardsOfAtheria.Items.Materials
 
             Item.rare = ItemRarityID.Pink;
             Item.value = Item.sellPrice(0, 1, 50);
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe(2)
+                .AddIngredient(ItemID.GoldBar)
+                .AddIngredient<SoulOfDaylight>(15)
+                .AddCondition(SoAConditions.DownedNova)
+                .AddTile(TileID.SkyMill)
+                .Register();
         }
     }
 }

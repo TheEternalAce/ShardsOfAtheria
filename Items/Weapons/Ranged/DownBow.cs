@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using Terraria;
 using Terraria.Audio;
@@ -38,6 +39,14 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.value = Item.sellPrice(0, 1, 75);
             Item.shoot = ProjectileID.PurificationPowder;
             Item.useAmmo = AmmoID.Arrow;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<HardlightPrism>(15)
+                .AddTile(TileID.SkyMill)
+                .Register();
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

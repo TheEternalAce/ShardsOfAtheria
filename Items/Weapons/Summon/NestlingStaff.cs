@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Minions;
 using Terraria;
 using Terraria.DataStructures;
@@ -37,6 +38,14 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             Item.shoot = ModContent.ProjectileType<YoungHarpy>();
 
             Item.buffType = ModContent.BuffType<JuvenileHarpy>();
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<HardlightPrism>(15)
+                .AddTile(TileID.SkyMill)
+                .Register();
         }
 
         public override bool AltFunctionUse(Player player)
