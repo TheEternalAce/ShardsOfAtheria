@@ -8,8 +8,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class AreusPistol : ModItem
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetDefaults()
         {
             Item.width = 70;
