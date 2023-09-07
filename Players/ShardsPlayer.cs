@@ -98,6 +98,7 @@ namespace ShardsOfAtheria.Players
 
         // These 10 relate to Biometal.
         public bool Biometal;
+        public bool BiometalPrevious;
         public bool BiometalSound;
         public bool BiometalHideVanity;
         public bool BiometalForceVanity;
@@ -173,11 +174,8 @@ namespace ShardsOfAtheria.Players
             riggedCoin = 0;
 
             ResetVariables();
-            var bar = ModContent.GetInstance<OverdriveEnergyBarSystem>();
-            if (!Biometal && bar.BarShowing)
-            {
-                bar.HideBar();
-            }
+
+            BiometalPrevious = Biometal;
             Biometal = BiometalHideVanity = BiometalForceVanity = false;
 
             UpdateResource();

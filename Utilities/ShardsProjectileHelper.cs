@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Utilities
         public static void CallStorm(this Projectile projectile, int amount, int pierce = 1)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath56, projectile.Center);
-            for (var i = 0; i < amount; i++)
+            for (var i = 0; i < amount - 1; i++)
             {
                 Projectile p = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(),
                     new Vector2(projectile.Center.X + Main.rand.Next(-60 * amount, 60 * amount), projectile.Center.Y - 600), new Vector2(0, 5),
@@ -29,6 +29,11 @@ namespace ShardsOfAtheria.Utilities
                 p.penetrate = pierce;
                 p.DamageType = projectile.DamageType;
             }
+            Projectile p2 = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(),
+                new Vector2(projectile.Center.X, projectile.Center.Y - 600), new Vector2(0, 5),
+                ModContent.ProjectileType<LightningBoltFriendly>(), (int)(projectile.damage * 0.66f), projectile.knockBack, Main.player[projectile.owner].whoAmI);
+            p2.penetrate = pierce;
+            p2.DamageType = projectile.DamageType;
         }
 
         public static void Explode(this Projectile proj, Vector2 position, int damage, bool hostile = false, int explosionSize = 120)

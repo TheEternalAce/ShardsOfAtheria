@@ -25,17 +25,17 @@ namespace ShardsOfAtheria
     {
         public static int MaxNecronomiconPages = 2;
 
-        public static ModKeybind OverdriveKey;
-        public static ModKeybind TomeKey;
-        public static ModKeybind EmeraldTeleportKey;
-        public static ModKeybind PhaseSwitch;
-        public static ModKeybind SoulTeleport;
-        public static ModKeybind ArmorSetBonusActive;
-        public static ModKeybind ProcessorElement;
+        public static ModKeybind OverdriveKey { get; private set; }
+        public static ModKeybind TomeKey { get; private set; }
+        public static ModKeybind EmeraldTeleportKey { get; private set; }
+        public static ModKeybind PhaseSwitch { get; private set; }
+        public static ModKeybind SoulTeleport { get; private set; }
+        public static ModKeybind ArmorSetBonusActive { get; private set; }
+        public static ModKeybind ProcessorElement { get; private set; }
 
-        public static ShardsServer ServerConfig;
-        public static ShardsClient ClientConfig;
-        public static ShardsDownedSystem DownedSystem;
+        public static ShardsServer ServerConfig { get; private set; }
+        public static ShardsClient ClientConfig { get; private set; }
+        public static ShardsDownedSystem DownedSystem { get; private set; }
         public static bool AprilFools => DateTime.Now is DateTime { Month: 4 };
 
         public static bool ElementModEnabled => ModLoader.TryGetMod("BattleNetworkElements", out Mod _);
@@ -43,17 +43,17 @@ namespace ShardsOfAtheria
         public static Mod Instance { get; private set; }
 
         public const string BlankTexture = "ShardsOfAtheria/Blank";
-        public const string PlaceholderTexture = "ShardsOfAtheria/PlaceholderSprite";
+        public const string PlaceholderTexture = "ShardsOfAtheria/Assets/Placeholder/PlaceholderSprite";
         public const string BuffTemplate = "ShardsOfAtheria/Buffs/BuffTemp";
         public const string DebuffTemplate = "ShardsOfAtheria/Buffs/DebuffTemp";
         public const string SwordSlashTexture = "ShardsOfAtheria/Projectiles/Bases/SwordSlash";
 
         public const string LocalizeCommon = "Mods.ShardsOfAtheria.Common.";
 
-        public static SoundStyle ReactorAlarm;
-        public static SoundStyle TheMessiah;
-        public static SoundStyle Rekkoha;
-        public static SoundStyle Coin;
+        public static SoundStyle ReactorAlarm { get; private set; }
+        public static SoundStyle TheMessiah { get; private set; }
+        public static SoundStyle Rekkoha { get; private set; }
+        public static SoundStyle Coin { get; private set; }
 
         public static readonly Color HardlightColor = new(224, 92, 165);
 

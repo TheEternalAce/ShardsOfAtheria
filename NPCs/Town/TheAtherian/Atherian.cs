@@ -248,6 +248,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 .Add<AreusStriker>()
                 .Add<AreusProcessor>(SoAConditions.ElementModEnabled)
                 .Add<ResonatorRing>(SoAConditions.ElementModEnabled)
+                .Add<AreusLance>(Condition.Hardmode)
                 .Add<Bytecrusher>(Condition.DownedMechBossAny)
                 .Add<AreusKey>(Condition.DownedPlantera)
                 .Add<AnastasiasPride>(Condition.DownedGolem)
