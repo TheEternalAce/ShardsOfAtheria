@@ -53,6 +53,12 @@ namespace ShardsOfAtheria.ShardsUI
             {
                 bar.Append(ticks[i]);
             }
+
+            var barSystem = ModContent.GetInstance<OverdriveEnergyBarSystem>();
+            if (!Main.LocalPlayer.Shards().Biometal && barSystem.BarShowing)
+            {
+                barSystem.HideBar();
+            }
         }
     }
 
