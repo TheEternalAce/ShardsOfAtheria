@@ -253,6 +253,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 .Add<AreusKey>(Condition.DownedPlantera)
                 .Add<AnastasiasPride>(Condition.DownedGolem)
                 .Add<AreusPistol>(Condition.DownedGolem)
+                .Add<AreusBaton>(Condition.DownedGolem)
                 .Add<AreusStrikeChain>(Condition.DownedMoonLord);
             npcShop.Register();
         }

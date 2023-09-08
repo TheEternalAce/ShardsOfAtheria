@@ -30,6 +30,37 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon
             lightColor = Color.White;
             return base.PreDraw(ref lightColor);
         }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            if (Projectile.GetPlayer().Shards().Overdrive)
+            {
+                Projectile.CallStorm(3);
+                return base.OnTileCollide(oldVelocity);
+            }
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
+                Vector2.Zero, ModContent.ProjectileType<ElecFirePillar>(),
+                Projectile.damage / 3, 0, Projectile.owner);
+            return base.OnTileCollide(oldVelocity);
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height,
+                    DustID.Torch);
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height,
+                    DustID.Electric);
+            }
+            if (Projectile.GetPlayer().Shards().Overdrive)
+            {
+                Projectile.CallStorm(3);
+            }
+        }
     }
     public class FireCannon_Fire2 : FireCannon_Fire1
     {

@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
-    public class AreusLance : ModItem
+    public class AreusBaton : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -21,22 +21,22 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.width = 64;
             Item.height = 76;
 
-            Item.damage = 60;
+            Item.damage = 82;
             Item.DamageType = DamageClass.Melee;
-            Item.knockBack = 6;
+            Item.knockBack = 12;
 
-            Item.useTime = 20;
-            Item.useAnimation = 20;
-            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useTime = 18;
+            Item.useAnimation = 18;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.UseSound = SoundID.Item1;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.channel = true;
+            Item.autoReuse = true;
 
-            Item.shootSpeed = 0.8f;
+            Item.shootSpeed = 30f;
             Item.rare = ItemRarityID.Cyan;
             Item.value = Item.sellPrice(0, 4, 25);
-            Item.shoot = ModContent.ProjectileType<AreusLanceProj>();
+            Item.shoot = ModContent.ProjectileType<ElecBaton>();
         }
     }
 }

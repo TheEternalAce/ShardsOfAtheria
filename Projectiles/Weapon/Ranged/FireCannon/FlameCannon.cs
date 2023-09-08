@@ -16,11 +16,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon
 {
     public class FlameCannon : ModProjectile
     {
-        Player owner => Main.player[Projectile.owner];
+        Player Owner => Main.player[Projectile.owner];
 
         float ChargeTimer { get => Projectile.ai[0]; set => Projectile.ai[0] = value; }
 
-        int aimDir => aimNormal.X > 0 ? 1 : -1;
+        int AimDir => aimNormal.X > 0 ? 1 : -1;
 
         public bool BeingHeld => Main.player[Projectile.owner].channel && !Main.player[Projectile.owner].noItems && !Main.player[Projectile.owner].CCed;
 
@@ -58,17 +58,17 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon
 
         public override bool PreAI()
         {
-            owner.heldProj = Projectile.whoAmI;
-            owner.itemAnimation = 2;
-            owner.itemTime = 2;
+            Owner.heldProj = Projectile.whoAmI;
+            Owner.itemAnimation = 2;
+            Owner.itemTime = 2;
 
             if (Main.myPlayer == Projectile.owner)
             {
                 //aimNormal is a normal vector pointing from the player at the mouse cursor
-                aimNormal = Vector2.Normalize(Main.MouseWorld - owner.MountedCenter + new Vector2(owner.direction * -3, -1));
+                aimNormal = Vector2.Normalize(Main.MouseWorld - Owner.MountedCenter + new Vector2(Owner.direction * -3, -1));
             }
 
-            owner.ChangeDir(aimDir);
+            Owner.ChangeDir(AimDir);
             return true;
         }
 
@@ -80,14 +80,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon
             recoilAmount *= 0.85f; //constantly decrease the value of the variable that controls the recoil-esque visual effect of the gun's position
 
             //set projectile center to be at the player, slightly offset towards the aim normal, with adjustments for the recoil visual effect
-            Projectile.Center = owner.MountedCenter + new Vector2(owner.direction * -3, -1) +
-                (aimNormal * 10).RotatedBy(-(recoilAmount * 0.2f * aimDir));
+            Projectile.Center = Owner.MountedCenter + new Vector2(Owner.direction * -3, -1) +
+                (aimNormal * 10).RotatedBy(-(recoilAmount * 0.2f * AimDir));
             //set projectile rotation to point towards the aim normal, with adjustments for the recoil visual effect
-            Projectile.rotation = aimNormal.ToRotation() - recoilAmount * 0.4f * aimDir;
+            Projectile.rotation = aimNormal.ToRotation() - recoilAmount * 0.4f * AimDir;
             UpdateVisual();
 
             //set fancy player arm rotation
-            owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (aimNormal * 20).RotatedBy(-(recoilAmount * 0.2f * aimDir)).ToRotation() - MathHelper.PiOver2 + 0.3f * aimDir);
+            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (aimNormal * 20).RotatedBy(-(recoilAmount * 0.2f * AimDir)).ToRotation() - MathHelper.PiOver2 + 0.3f * AimDir);
 
             if (BeingHeld)
             {
@@ -95,7 +95,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon
 
                 if (charging)
                 {
-                    if (owner.IsLocal())
+                    if (Owner.IsLocal())
                     {
                         if (!Main.mouseRight)
                         {
@@ -137,7 +137,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon
 
             if (Main.myPlayer == Projectile.owner)
             {
-                bool shoot = owner.PickAmmo(owner.HeldItem, out int _, out float _,
+                bool shoot = Owner.PickAmmo(Owner.HeldItem, out int _, out float _,
                     out int _, out float knockback, out int _);
                 float speed = 20f;
                 int damage = Projectile.originalDamage;
@@ -154,6 +154,19 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon
                         speed /= 2;
                         damage += 50;
                         flame = ModContent.ProjectileType<FireCannon_Fire3>();
+                    }
+                }
+                if (Owner.Shards().Overdrive)
+                {
+                    flame = ModContent.ProjectileType<FireCannon_Fire3>();
+                    if (chargeLevel != 2)
+                    {
+                        recoilAmount += 2f;
+                    }
+                    if (chargeLevel != 3)
+                    {
+                        recoilAmount += 3f;
+                        speed /= 2;
                     }
                 }
                 if (shoot)
@@ -181,7 +194,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon
                         {
                             vector8 -= vector7;
                         }
-                        Projectile.NewProjectile(source, shootOrigin + vector8, velocity, flame, damage, knockback, owner.whoAmI);
+                        Projectile.NewProjectile(source, shootOrigin + vector8, velocity, flame, damage, knockback, Owner.whoAmI);
                     }
                 }
             }
@@ -198,7 +211,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon
 
             Vector2 position = Projectile.Center - Main.screenPosition;
             Vector2 origin = new(16, 56 / 2);
-            SpriteEffects flip = aimDir == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+            SpriteEffects flip = AimDir == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically;
 
             Main.EntitySpriteDraw(main, position, Projectile.Frame(), lightColor, Projectile.rotation, origin, 1, flip, 0);
         }

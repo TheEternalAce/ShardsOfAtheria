@@ -186,6 +186,8 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<Gomorrah_Javelin>(),
             ProjectileType<Gomorrah_Spear>(),
             ProjectileType<AreusLanceProj>(),
+            ProjectileType<ElecBaton>(),
+            ProjectileType<FeatherBladeFriendly>(),
             ProjectileType<HardlightBlade>(),
             ProjectileType<HardlightSlash>(),
             ProjectileType<HardlightSword>(),

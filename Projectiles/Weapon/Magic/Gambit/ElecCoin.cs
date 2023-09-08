@@ -58,7 +58,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Gambit
                     proj.damage > 0 &&
                     proj.active)
                 {
-                    if (proj.Distance(Projectile.Center) <= 20)
+                    if (proj.Distance(Projectile.Center) <= 30)
                     {
                         float speed = proj.velocity.Length();
                         NPC npc = Projectile.FindClosestNPC(-1);
@@ -69,7 +69,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Gambit
                                 proj.velocity = npc.Center - proj.Center;
                                 proj.velocity.Normalize();
                                 proj.velocity *= speed + 0.5f;
-                                proj.damage = (int)(proj.damage * 1.2f);
+                                proj.damage = (int)(proj.damage * 1.5f);
                             }
                         }
                         Projectile.Kill();

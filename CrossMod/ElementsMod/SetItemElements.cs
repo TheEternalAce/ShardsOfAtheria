@@ -89,6 +89,7 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ItemType<PlumeCodex>(),
             ItemType<ScreamLantern>(),
 
+            ItemType<AreusBaton>(),
             ItemType<AreusDagger>(),
             ItemType<AreusEdge>(),
             ItemType<AreusGlaive>(),

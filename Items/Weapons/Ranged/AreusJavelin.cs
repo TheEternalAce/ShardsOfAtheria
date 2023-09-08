@@ -26,8 +26,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.knockBack = 7f;
             Item.crit = 10;
 
-            Item.useTime = 32;
-            Item.useAnimation = 32;
+            Item.useTime = 26;
+            Item.useAnimation = 26;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;

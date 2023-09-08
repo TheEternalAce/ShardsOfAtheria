@@ -14,34 +14,33 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 
         public override void SetDefaults()
         {
-            Projectile.width = 20;
-            Projectile.height = 20;
+            Projectile.width = 26;
+            Projectile.height = 26;
 
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.timeLeft = 240;
             Projectile.penetrate = 2;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 3;
         }
 
         NPC targetNPC = null;
         int gravityTimer = 60;
         int delay;
+        bool Spinning
+        {
+            get => !Projectile.friendly;
+            set => Projectile.friendly = !value;
+        }
 
         public override void AI()
         {
-            float maxDetectRadius = -1f; // The maximum radius at which a projectile can detect a target
-            float speed = 32f;
+            float maxDetectRadius = 1000f; // The maximum radius at which a projectile can detect a target
+            float speed = 16f;
 
-            if (++Projectile.frameCounter >= 2)
-            {
-                Projectile.frameCounter = 0;
-                if (++Projectile.frame >= Main.projFrames[Type])
-                {
-                    Projectile.frame = 0;
-                }
-            }
-            Projectile.SetVisualOffsets(78);
+            Projectile.SetVisualOffsets(78, true);
             Projectile.ApplyGravity(ref gravityTimer);
             if (Projectile.penetrate == 2)
             {
@@ -57,7 +56,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
                         targetNPC = Projectile.FindClosestNPC(maxDetectRadius);
                         return;
                     }
-                    Projectile.Track(targetNPC, maxDetectRadius, speed);
+                    Projectile.Track(targetNPC, maxDetectRadius, speed, 8);
                 }
             }
             else
@@ -66,12 +65,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
                 {
                     delay--;
                 }
-
                 if (delay == 0)
                 {
-                    SetSpin(false);
+                    if (Spinning)
+                    {
+                        SetSpin(false);
+                    }
+                    Projectile.Track(targetNPC, maxDetectRadius, speed, 4);
                     Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(45);
-                    Projectile.Track(targetNPC, maxDetectRadius, speed);
                 }
                 else if (delay <= 50)
                 {
@@ -96,7 +97,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             if (target.CanBeChasedBy())
             {
                 targetNPC = target;
-                Projectile.friendly = false;
+                Spinning = true;
                 delay = 60;
             }
         }
@@ -104,16 +105,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         void SetSpin(bool spin)
         {
             var oldCenter = Projectile.Center;
-            if (spin)
-            {
-                Projectile.friendly = false;
-                Projectile.Size = new(78);
-            }
-            else
-            {
-                Projectile.friendly = true;
-                Projectile.Size = new(20);
-            }
+            Spinning = spin;
             Projectile.Center = oldCenter;
         }
     }

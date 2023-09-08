@@ -42,14 +42,6 @@ namespace ShardsOfAtheria
 
         public static Mod Instance { get; private set; }
 
-        public const string BlankTexture = "ShardsOfAtheria/Blank";
-        public const string PlaceholderTexture = "ShardsOfAtheria/Assets/Placeholder/PlaceholderSprite";
-        public const string BuffTemplate = "ShardsOfAtheria/Buffs/BuffTemp";
-        public const string DebuffTemplate = "ShardsOfAtheria/Buffs/DebuffTemp";
-        public const string SwordSlashTexture = "ShardsOfAtheria/Projectiles/Bases/SwordSlash";
-
-        public const string LocalizeCommon = "Mods.ShardsOfAtheria.Common.";
-
         public static SoundStyle ReactorAlarm { get; private set; }
         public static SoundStyle TheMessiah { get; private set; }
         public static SoundStyle Rekkoha { get; private set; }

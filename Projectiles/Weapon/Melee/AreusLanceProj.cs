@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,8 +13,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 {
     public class AreusLanceProj : ModProjectile
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetStaticDefaults()
         {
             // This will cause the player to dismount if they are hit by another Jousting Lance.
@@ -109,14 +109,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
             float playerVelocity = owner.velocity.Length();
 
-            callStorm = false;
-            if (stormCooldown > 0)
+            if (playerVelocity > minimumDustVelocity && movementInLanceDirection > 0.98f)
             {
-                stormCooldown--;
-            }
-            if (playerVelocity > minimumDustVelocity && movementInLanceDirection > 0.8f)
-            {
-                callStorm = true;
                 // The chance for the dust to spawn. The actual chance (see below) is 1/dustChance. We make the chance higher the faster the player is moving by making the denominator smaller.
                 int dustChance = 8;
                 if (playerVelocity > minimumDustVelocity + 1f)
@@ -143,27 +137,52 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
                     Main.dust[newDust].velocity *= 0.25f;
                 }
             }
+
+            if (Projectile.ai[0]-- == 0)
+            {
+                var vector = Projectile.Center - owner.Center;
+                vector.Normalize();
+                vector *= 20;
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), owner.Center,
+                    vector, ModContent.ProjectileType<AreusLanceExtention>(),
+                    Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+                SoundEngine.PlaySound(SoundID.Item43, Projectile.Center);
+                Projectile.ai[0] = 30;
+            }
         }
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             // This will increase or decrease the knockback of the Jousting Lance depending on how fast the player is moving.
-            modifiers.Knockback *= Main.player[Projectile.owner].velocity.Length() / 7f;
+            modifiers.Knockback *= Projectile.GetPlayer().velocity.Length() / 7f;
 
             // This will increase or decrease the damage of the Jousting Lance depending on how fast the player is moving.
-            modifiers.SourceDamage *= 0.1f + Main.player[Projectile.owner].velocity.Length() / 7f * 0.9f;
+            modifiers.SourceDamage *= 0.1f + Projectile.GetPlayer().velocity.Length() / 7f * 0.9f;
         }
 
-        bool callStorm = false;
-        int stormCooldown = 0;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (callStorm && stormCooldown == 0)
+            target.AddBuff<ElectricShock>(600);
+            Player owner = Projectile.GetPlayer(); // Get the owner of the projectile.
+            float minimumDustVelocity = 6f;
+            float playerVelocity = owner.velocity.Length();
+
+            if (playerVelocity > minimumDustVelocity)
             {
-                Projectile.CallStorm(3);
-                stormCooldown = 30;
+                if (Projectile.ai[0] > 0)
+                {
+                    Projectile.ai[0]--;
+                }
+                float movementInLanceDirection = Vector2.Dot(Projectile.velocity.SafeNormalize(Vector2.UnitX * owner.direction), owner.velocity.SafeNormalize(Vector2.UnitX * owner.direction));
+                if (movementInLanceDirection >= 0.98f)
+                {
+                    if (!owner.immune)
+                    {
+                        owner.immune = true;
+                        owner.immuneTime = 3;
+                    }
+                }
             }
-            base.OnHitNPC(target, hit, damageDone);
         }
 
         // This is the custom collision that Jousting Lances uses. 
@@ -178,7 +197,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             // You will need to modify the last two numbers if you have a bigger or smaller Jousting Lance.
             // Vanilla uses (0, 0, 300, 300) which that is quite large for the size of the Jousting Lance.
             // The size doesn't matter too much because this rectangle is only a basic check for the collision (the hit-line is much more important).
-            Rectangle lanceHitboxBounds = new Rectangle(0, 0, 300, 300);
+            Rectangle lanceHitboxBounds = new(0, 0, 300, 300);
 
             // Set the position of the large rectangle.
             lanceHitboxBounds.X = (int)Projectile.position.X - lanceHitboxBounds.Width / 2;
