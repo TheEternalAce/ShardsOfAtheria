@@ -1,5 +1,4 @@
-using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusJoustingLance;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -13,7 +12,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             Item.ResearchUnlockCount = 1;
             Item.AddAreus();
-            SoAGlobalItem.Eraser.Add(Type);
         }
 
         public override void SetDefaults()

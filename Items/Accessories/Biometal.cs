@@ -101,12 +101,11 @@ namespace ShardsOfAtheria.Items.Accessories
             if (!mp.DashActive)
                 return;
 
-            player.eocDash = mp.DashTimer;
-            player.armorEffectDrawShadowEOCShield = true;
-
             //This is where we set the afterimage effect.  You can replace these two lines with whatever you want to happen during the dash
             //Some examples include:  spawning dust where the player is, adding buffs, making the player immune, etc.
             //Here we take advantage of "player.eocDash" and "player.armorEffectDrawShadowEOCShield" to get the Shield of Cthulhu's afterimage effect
+            player.eocDash = mp.DashTimer;
+            player.armorEffectDrawShadowEOCShield = true;
 
             //If the dash has just started, apply the dash velocity in whatever direction we wanted to dash towards
             if (mp.DashTimer == BiometalDashPlayer.MAX_DASH_TIMER)
@@ -138,7 +137,6 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void UpdateVanity(Player player)
         {
-            ShardsPlayer shardsPlayer = player.Shards();
             BiometalSound(player);
         }
 

@@ -24,7 +24,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         }
 
         Vector2 initialVel = Vector2.Zero;
-        int initialDmg = 0;
         int DustTimer = 0;
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -83,7 +82,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             if (initialVel == Vector2.Zero)
             {
                 initialVel = Projectile.velocity;
-                initialDmg = Projectile.damage;
             }
             if (++Projectile.ai[0] > 4)
             {

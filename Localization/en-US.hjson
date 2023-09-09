@@ -1544,11 +1544,7 @@ Mods: {
 
 			AreusEdge: {
 				DisplayName: Areus Judgement
-				Tooltip:
-					'''
-					'Its scale would never neglect the weight of even the smallest sin.'
-					'Thy end is now!'
-					'''
+				Tooltip: "'Its scale would never neglect the weight of even the smallest sin'"
 			}
 
 			AreusGlaive: {
@@ -2185,6 +2181,7 @@ Mods: {
 			ElecBaton.DisplayName: Elec Baton
 			AreusLanceExtention.DisplayName: Areus Lance Extention
 			ElecFirePillar.DisplayName: Elec Fire Pillar
+			LightningBolt_Lance.DisplayName: Lightning Bolt_ Lance
 		}
 
 		NPCs: {

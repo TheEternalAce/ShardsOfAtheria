@@ -1528,6 +1528,11 @@ Mods: {
 			}
 
 			# Melee
+			AreusBaton: {
+				// DisplayName: Areus Baton
+				// Tooltip: ""
+			}
+
 			AreusDagger: {
 				DisplayName: Areus Dagger
 				Tooltip: ""
@@ -1554,6 +1559,11 @@ Mods: {
 					Holding this weapon increases your movement speed by 5%
 					'I am all out of milk'
 					'''
+			}
+
+			AreusLance: {
+				// DisplayName: Areus Lance
+				// Tooltip: ""
 			}
 
 			AreusStrikeChain: {
@@ -1765,6 +1775,11 @@ Mods: {
 				Tooltip: "'Headshots do not crit'"
 			}
 
+			AreusPistol: {
+				// DisplayName: Areus Pistol
+				// Tooltip: ""
+			}
+
 			AreusRailgun: {
 				DisplayName: Areus Rail-gun
 				Tooltip: ""
@@ -1937,21 +1952,6 @@ Mods: {
 			NestlingStaff: {
 				DisplayName: Nestling Staff
 				Tooltip: Summons a fledgling harpy knight to fight for you
-			}
-
-			AreusPistol: {
-				// DisplayName: Areus Pistol
-				// Tooltip: ""
-			}
-
-			AreusLance: {
-				// DisplayName: Areus Lance
-				// Tooltip: ""
-			}
-
-			AreusBaton: {
-				// DisplayName: Areus Baton
-				// Tooltip: ""
 			}
 		}
 
@@ -2151,9 +2151,9 @@ Mods: {
 			// ElecShuriken.DisplayName: Electric Shuriken
 			FieryExplosion.DisplayName: Fiery Explosion
 			// FlameCannon.DisplayName: Areus Flame Cannon
-			// FireCannon_Fire1.DisplayName: Charged Fireball
-			// FireCannon_Fire2.DisplayName: Charged Fireball
-			// FireCannon_Fire3.DisplayName: Charged Fireball
+			// FireCannon_Fire1.DisplayName: Charged Fireball Level 1
+			// FireCannon_Fire2.DisplayName: Charged Fireball Level 2
+			// FireCannon_Fire3.DisplayName: Charged Fireball Level 3
 			HardlightKnifeProj.DisplayName: Hardlight Knife
 			HeroBullet.DisplayName: Hero Bullet
 			KusarigamaKing.DisplayName: King's Kusarigama
@@ -2185,6 +2185,7 @@ Mods: {
 			// ElecBaton.DisplayName: Elec Baton
 			// AreusLanceExtention.DisplayName: Areus Lance Extention
 			// ElecFirePillar.DisplayName: Elec Fire Pillar
+			// LightningBolt_Lance.DisplayName: Lightning Bolt_ Lance
 		}
 
 		NPCs: {

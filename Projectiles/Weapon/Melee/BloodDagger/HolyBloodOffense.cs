@@ -1,9 +1,4 @@
-﻿using ShardsOfAtheria.Utilities;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-
-namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BloodDagger
+﻿namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BloodDagger
 {
     public class HolyBloodOffense : ModProjectile
     {

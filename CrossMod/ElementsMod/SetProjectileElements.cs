@@ -16,6 +16,7 @@ using ShardsOfAtheria.Projectiles.Weapon.Magic.Spectrum;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusDaggerProjs;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusGlaive;
+using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusJoustingLance;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusJustitia;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.BloodDagger;

@@ -9,7 +9,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Weapon.Melee
+namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusJoustingLance
 {
     public class AreusLanceProj : ModProjectile
     {
@@ -130,7 +130,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
                 // Spawn the dusts based on the dustChance. The dusts are spawned at the tip of the Jousting Lance.
                 if (Main.rand.NextBool(dustChance))
                 {
-                    int newDust = Dust.NewDust(Projectile.Center - new Vector2(offset, offset), offset * 2, offset * 2, dustTypeCommon, Projectile.velocity.X * 0.2f + (Projectile.direction * 3), Projectile.velocity.Y * 0.2f, 100, default, 1.2f);
+                    int newDust = Dust.NewDust(Projectile.Center - new Vector2(offset, offset), offset * 2, offset * 2, dustTypeCommon, Projectile.velocity.X * 0.2f + Projectile.direction * 3, Projectile.velocity.Y * 0.2f, 100, default, 1.2f);
                     Main.dust[newDust].noGravity = true;
                     Main.dust[newDust].velocity *= 0.25f;
                     newDust = Dust.NewDust(Projectile.Center - new Vector2(offset, offset), offset * 2, offset * 2, dustTypeCommon, 0f, 0f, 150, default, 1.4f);
@@ -138,16 +138,31 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
                 }
             }
 
-            if (Projectile.ai[0]-- == 0)
+            if (++Projectile.ai[0] >= 30)
             {
                 var vector = Projectile.Center - owner.Center;
                 vector.Normalize();
                 vector *= 20;
+                if (owner.Shards().Overdrive)
+                {
+                    vector.Normalize();
+                    vector *= 30f;
+                    float numberProjectiles = 3; // 3 shots
+                    float rotation = MathHelper.ToRadians(10);
+                    for (int i = 0; i < numberProjectiles; i++)
+                    {
+                        Vector2 perturbedSpeed = vector.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
+                        perturbedSpeed.Normalize();
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(),
+                            owner.Center, perturbedSpeed * 1, ModContent.ProjectileType<LightningBolt_Lance>(),
+                            Projectile.damage / 6, Projectile.knockBack, Projectile.owner);
+                    }
+                }
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), owner.Center,
                     vector, ModContent.ProjectileType<AreusLanceExtention>(),
-                    Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+                    Projectile.damage, Projectile.knockBack, Projectile.owner);
                 SoundEngine.PlaySound(SoundID.Item43, Projectile.Center);
-                Projectile.ai[0] = 30;
+                Projectile.ai[0] = 0;
             }
         }
 
@@ -169,9 +184,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
             if (playerVelocity > minimumDustVelocity)
             {
-                if (Projectile.ai[0] > 0)
+                if (Projectile.ai[0] < 30)
                 {
-                    Projectile.ai[0]--;
+                    Projectile.ai[0]++;
                 }
                 float movementInLanceDirection = Vector2.Dot(Projectile.velocity.SafeNormalize(Vector2.UnitX * owner.direction), owner.velocity.SafeNormalize(Vector2.UnitX * owner.direction));
                 if (movementInLanceDirection >= 0.98f)
