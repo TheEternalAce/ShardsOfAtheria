@@ -1540,11 +1540,7 @@ Mods: {
 
 			AreusEdge: {
 				// DisplayName: Areus Judgement
-				/* Tooltip:
-					'''
-					'Its scale would never neglect the weight of even the smallest sin.'
-					'Thy end is now!'
-					''' */
+				// Tooltip: "'Its scale would never neglect the weight of even the smallest sin'"
 			}
 
 			AreusGlaive: {
