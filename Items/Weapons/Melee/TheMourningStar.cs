@@ -1,6 +1,5 @@
 using ShardsOfAtheria.Buffs.PlayerDebuff;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword;
-using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -23,7 +22,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             var shards = Main.LocalPlayer.Shards();
             string key = "Mods.ShardsOfAtheria.Common.MourningStarKills";
             string text = Language.GetTextValue(key, shards.mourningStarKills);
-            tooltips.Insert(ShardsTooltipHelper.GetIndex(tooltips, "OneDropLogo"),
+            tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"),
                 new TooltipLine(Mod, "Kills", text));
         }
 
@@ -55,26 +54,13 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void HoldItem(Player player)
         {
-            if (!player.Shards().anastasiaPride)
-            {
-                player.AddBuff(ModContent.BuffType<CorruptedBlood>(), 300);
-            }
+            player.AddBuff(ModContent.BuffType<CorruptedBlood>(), 120);
         }
 
         public override bool? UseItem(Player player)
         {
             Item.FixSwing(player);
             return true;
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddCondition(SoAConditions.Upgrade)
-                .AddIngredient(ModContent.ItemType<AreusKatana>())
-                .AddIngredient(ItemID.BeetleHusk, 20)
-                .AddIngredient(ItemID.SoulofFright, 14)
-                .Register();
         }
     }
 }

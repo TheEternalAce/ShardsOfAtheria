@@ -27,6 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs
             Projectile.width = Projectile.height = 30;
             swordReach = 100;
             rotationOffset = -MathHelper.PiOver4 * 3f;
+            amountAllowedToHit = 5;
         }
 
         protected override void Initialize(Player player, ShardsPlayer shards)
@@ -115,6 +116,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs
 
         public override bool PreDraw(ref Color lightColor)
         {
+            DrawSwish();
             return SingleEdgeSwordDraw<AreusSword>(lightColor);
         }
     }

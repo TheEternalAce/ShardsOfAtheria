@@ -23,12 +23,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.DeckOfCards
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.Explode();
+            Projectile.Explode(Projectile.Center, Projectile.damage);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            Projectile.Explode();
+            Projectile.Explode(Projectile.Center, Projectile.damage);
             return false;
         }
     }

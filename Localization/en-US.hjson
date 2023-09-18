@@ -2,7 +2,6 @@ Mods: {
 	ShardsOfAtheria: {
 		Common: {
 			MourningStarKills: Kills: {0}
-			Anastasia: The Mourning Star can no longer harm you!
 			ArmorPenetration: "{0} armor penetration"
 			Combat: Combat
 			Conservation: Conservation
@@ -31,6 +30,11 @@ Mods: {
 			TitleText2: Shards of Atheria: Shattered Atheria
 			TomeOfOmniscience: Press {0} to cycle between the 3 Knowledge Bases
 			TeleportOnKeyPress: Press {0} to teleport to your cursor
+			AreusKatanaTransformation:
+				'''
+				The infernal katana embeds itself into your areus katana, twisting its shape and making it scream.
+				Your newly transformed blade hungers for fresh blood.
+				'''
 		}
 
 		DiskFile: {
@@ -380,7 +384,7 @@ Mods: {
 				DisplayName: Midnight Cloak
 				Tooltip:
 					'''
-					Instead of dying heal 50% Life
+					Instead of dying, heal to 50% Life and teleport somewhere around you
 					5 minute cooldown
 					Defense reduced by 15 during cooldown
 					'''
@@ -705,8 +709,13 @@ Mods: {
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
+			DeathBossBag: {
+				DisplayName: Treasure Bag (Elizabeth Norman)
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			# Data Disks
 			AreusDataDisk: {
-				# Data Disks
 				DisplayName: Data Disk #001
 				Tooltip: ""
 			}
@@ -818,6 +827,7 @@ Mods: {
 			AnastasiasPride: {
 				DisplayName: Anastasia's Pride
 				Tooltip: Protects you from The Mourning Star's corruption
+				Activate: The Mourning Star can no longer harm you!
 			}
 
 			# Pet items
@@ -1434,6 +1444,11 @@ Mods: {
 			}
 
 			# Magic
+			AreusEnergyCannon: {
+				DisplayName: Areus Energy Cannon
+				Tooltip: "'I still function!'"
+			}
+
 			AreusGambit: {
 				DisplayName: Areus Gambit
 				Tooltip: "'Great for losing your life savings!'"
@@ -1576,7 +1591,10 @@ Mods: {
 				Tooltip: ""
 			}
 
-			BloodScythe.DisplayName: Blood Scythe
+			BloodScythe: {
+				DisplayName: Blood Scythe
+				Tooltip: ""
+			}
 
 			Cataracnia: {
 				DisplayName: Cataracnia
@@ -1812,7 +1830,7 @@ Mods: {
 
 			Coilgun: {
 				DisplayName: Coilgun
-				Tooltip: Uses electromagnetic coils to fire projectiles at high velocities
+				Tooltip: Uses electromagnetic coils to fire darts at high velocities
 			}
 
 			DoubleBow: {
@@ -1949,6 +1967,36 @@ Mods: {
 				DisplayName: Nestling Staff
 				Tooltip: Summons a fledgling harpy knight to fight for you
 			}
+
+			BloodStainedCrossbow: {
+				DisplayName: Blood Stained Crossbow
+				Tooltip: "'Her presence drove her bother mad'"
+			}
+
+			BloodJavelin: {
+				DisplayName: Blood Javelin
+				Tooltip: ""
+			}
+
+			BloodScepter: {
+				DisplayName: Blood Scepter
+				Tooltip: "'Her father was the first'"
+			}
+
+			BloodTome: {
+				DisplayName: Blood Tome
+				Tooltip:
+					'''
+					Summons bloody sigils to fire sickles at your foes
+					There can be only up to 6 of these sigils
+					'Her mother feared her power'
+					'''
+			}
+
+			AreusSawstring: {
+				DisplayName: Areus Sawstring
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -1988,7 +2036,10 @@ Mods: {
 			BloodDropHostile.DisplayName: Blood Drop
 			BloodJavelinHostile.DisplayName: Blood Javelin
 			BloodNeedleHostile.DisplayName: Blood Needle
+			BloodScytheHostile.DisplayName: Blood Scythe
 			BloodSickleHostile.DisplayName: Blood Sickle
+			BloodSickleSummon.DisplayName: Blood Sickle
+			BloodSwordHostile.DisplayName: Blood Sword
 			BloodWaveHostile.DisplayName: Blood Wave
 			SilverBoltHostile.DisplayName: Silver Bolt
 			# Variant NPC
@@ -2040,6 +2091,9 @@ Mods: {
 			AreusShardProj.DisplayName: Areus Shard
 			BitBlock.DisplayName: Bit Block
 			ByteBlock.DisplayName: Byte Block
+			AreusShockwave.DisplayName: Areus Shockwave
+			BloodDropFriendly.DisplayName: Blood Drop
+			BloodWaveFriendly.DisplayName: Blood Wave
 			DeathNote.DisplayName: Death Note
 			AreusArrowProj_Gauntlet.DisplayName: Areus Arrow
 			AreusBulletProj_Gauntlet.DisplayName: Areus Bullet
@@ -2071,12 +2125,17 @@ Mods: {
 			AreusGlaive_Throw.DisplayName: Areus Glaive
 			AreusGlaive_Thrust.DisplayName: Areus Glaive
 			AreusGlaive_Thrust2.DisplayName: Areus Glaive
+			AreusLanceProj.DisplayName: Areus Lance
+			AreusLanceExtention.DisplayName: Areus Lance
+			LightningBolt_Lance.DisplayName: Lightning Bolt
 			AreusJustitia.DisplayName: Areus Judgement
 			AreusJustitia_Slash.DisplayName: Areus Judgement
 			AreusJustitia_Stab.DisplayName: Areus Judgement
 			AreusSickle.DisplayName: Areus Sickle
 			AreusSwordProj.DisplayName: Areus Sword
+			ElecBaton.DisplayName: Areus Baton
 			BloodCutter.DisplayName: Blood Cut
+			DeathScythe.DisplayName: Blood Scythe
 			CataracniaEye.DisplayName: Cataracnia Eye
 			CorruptPetal.DisplayName: Corrupt Petal
 			CorruptRose.DisplayName: Corrupt Rose
@@ -2129,8 +2188,10 @@ Mods: {
 			AceOfClubs.DisplayName: Ace of Clubs
 			AceOfDiamonds.DisplayName: Ace of Diamonds
 			AmbassadorShot.DisplayName: Magnus Bullet
-			AreusArrow.DisplayName: Areus Arrow
 			ApproachingStorm.DisplayName: Areus Flamethrower
+			AreusArrow.DisplayName: Areus Arrow
+			AreusBounceShot.DisplayName: Areus Bounce Shot
+			AreusCannonBall.DisplayName: Areus Cannon Ball
 			AreusShardProjRanged.DisplayName: Areus Shard
 			AreusGrenadeProj.DisplayName: Areus Grenade
 			AreusJavelinThrown.DisplayName: Areus Javelin
@@ -2140,7 +2201,10 @@ Mods: {
 			BallinBall.DisplayName: The Ball
 			BlackHole.DisplayName: Black Hole
 			BlackHoleBolt.DisplayName: Black Hole Bolt
+			BloodArrowFriendly.DisplayName: Blood Arrow
+			BloodJavelinFriendly.DisplayName: Blood Javelin
 			CoilgunProj.DisplayName: Coilgun
+			ElecFirePillar.DisplayName: Charged Fire Pillar
 			ElecKatana.DisplayName: Areus Katana
 			ElecKunai.DisplayName: Electric Kunai
 			ElecKunaiHoming.DisplayName: Elec Kunai
@@ -2158,6 +2222,7 @@ Mods: {
 			PhantomBullet.DisplayName: Phantom Bullet
 			PrometheusFire.DisplayName: Prometheus Fire
 			ScarletSpark.DisplayName: Scarlet Spark
+			SilverBoltFriendly.DisplayName: Silver Bolt
 			SoulArrow.DisplayName: Soul Arrow
 			WitheringPetal.DisplayName: Withering Petal
 			WitheringRose.DisplayName: Withering Rose
@@ -2171,17 +2236,17 @@ Mods: {
 			FrostsparkDrone.DisplayName: Frostspark Drone
 			SapphireBolt.DisplayName: Sapphire Bolt
 			SapphireSpirit.DisplayName: Sapphire Spirit
+			StrikerCurrent.DisplayName: Striker Current
 			StrikerRod.DisplayName: Areus Rod
 			SoulDagger.DisplayName: Soul Dagger
-			StrikerCurrent.DisplayName: Striker Current
-			StrikerCrosshair.DisplayName: Striker Crosshair
-			AreusShockwave.DisplayName: Areus Shockwave
-			AreusBounceShot.DisplayName: Areus Bounce Shot
-			AreusLanceProj.DisplayName: Areus Lance Proj
-			ElecBaton.DisplayName: Elec Baton
-			AreusLanceExtention.DisplayName: Areus Lance Extention
-			ElecFirePillar.DisplayName: Elec Fire Pillar
-			LightningBolt_Lance.DisplayName: Lightning Bolt_ Lance
+			BloodSickleFriendly.DisplayName: Blood Sickle
+			BloodSigil.DisplayName: Blood Sigil
+			BloodBarrierHostile.DisplayName: Blood Barrier Hostile
+			AreusEnergyBlast.DisplayName: Electric Blast
+			InfernalKatana.DisplayName: Infernal Katana
+			Swawstring.DisplayName: Areus Sawstring
+			AreusSaw.DisplayName: Areus Saw
+			ElecSaw.DisplayName: Electric Saw
 		}
 
 		NPCs: {
@@ -2226,11 +2291,11 @@ Mods: {
 					MidFight: You're pretty strong huh? I wonder how you handle this.
 					Defeat: Congratulations, you've defeated Death herself. Will you try to face me again? I wonder.
 					# Refight
-					InitialSummonRe: ""
-					MidFightRe: ""
-					DefeatRe: ""
+					InitialSummonRe: Welcome back, ready for another round?
+					MidFightRe: placeholder.
+					DefeatRe: placeholder.
 					# Slayer
-					InitialSummonSlayer: Your first mistake was starting this path. Your final mistake is crossing paths with me.
+					InitialSummonSlayer: Your first mistake was starting this path. Your final mistake is crossing mine.
 					MidFightSlayer: You won't kill me so easily. Try this on for size.
 					Desperation: Seems like I underestimated you... (This isn't good... I must do something...)
 					Death: Oh the irony... It was about my time anyway.
@@ -2349,6 +2414,11 @@ Mods: {
 
 		Buffs: {
 			# Any debuff
+			DeathBleed: {
+				DisplayName: Death Bleed
+				Description: Losing life
+			}
+
 			ElectricShock: {
 				DisplayName: Electric Shock
 				Description: Moving aches
@@ -2413,6 +2483,16 @@ Mods: {
 			Perish: {
 				DisplayName: Perish
 				Description: Mods.ShardsOfAtheria.Buffs.Perish.Description
+			}
+
+			StrikerTag: {
+				DisplayName: Striker Tag
+				Description: Mods.ShardsOfAtheria.Buffs.StrikerTag.Description
+			}
+
+			Withering: {
+				DisplayName: Withering
+				Description: Slowed, defence reduced, and losing life
 			}
 
 			# Pet buff
@@ -2604,22 +2684,12 @@ Mods: {
 
 			MessiahRekkoha: {
 				DisplayName: Messiah Rekkoha
-				Description: Mods.ShardsOfAtheria.Buffs.MessiahRekkoha.Description
+				Description: Cannot move while healing
 			}
 
-			DeathBleed: {
-				DisplayName: Death Bleed
-				Description: Mods.ShardsOfAtheria.Buffs.DeathBleed.Description
-			}
-
-			Withering: {
-				DisplayName: Withering
-				Description: Mods.ShardsOfAtheria.Buffs.Withering.Description
-			}
-
-			StrikerTag: {
-				DisplayName: Striker Tag
-				Description: Mods.ShardsOfAtheria.Buffs.StrikerTag.Description
+			BloodySigil: {
+				DisplayName: Bloody Sigil
+				Description: Mods.ShardsOfAtheria.Buffs.BloodySigil.Description
 			}
 		}
 
@@ -2657,7 +2727,8 @@ Mods: {
 			NotDownedGenesis: Don't defeat Genesis
 			DownedSenterra: Defeat Senterra
 			NotDownedSenterra: Don't defeat Senterra
-			ElementModEnabled: Mods.ShardsOfAtheria.Conditions.ElementModEnabled
+			ElementModEnabled: Have the Battle Network Elements mod enabled
+			SacrificeKatana: Sacrifice a katana in the Underworld.
 		}
 
 		ShopQuote: {
@@ -2713,12 +2784,12 @@ Mods: {
 				}
 
 				instantAbsorb: {
-					Label: "[i:583] Instant Soul Crystal Absorption"
+					Label: "[i:ShardsOfAtheria/SoulExtractingDagger] Instant Soul Crystal Absorption"
 					Tooltip: Toggles the wait for absorbing Soul Crystals
 				}
 
 				entryView: {
-					Label: "[i:149] View All entries"
+					Label: "[i:ShardsOfAtheria/Necronomicon] View All entries"
 					Tooltip:
 						'''
 						Toggles the ability to view all Necronomicon entries
@@ -2727,13 +2798,18 @@ Mods: {
 				}
 
 				biometalSound: {
-					Label: "[i:890] Biometal Equip Sound"
+					Label: "[i:ShardsOfAtheria/Biometal] Biometal Equip Sound"
 					Tooltip: Toggles the sound played when Biometal is equipped
 				}
 
 				reactorBeep: {
-					Label: "[i:890] Reactor Meltdown Sound"
+					Label: "[i:ShardsOfAtheria/ReactorMeltdown] Reactor Meltdown Sound"
 					Tooltip: Toggles the sound played when Reactor Meltdown is spinning
+				}
+
+				katanaScream: {
+					Label: "[i:ShardsOfAtheria/AreusKatana] Katana Scream"
+					Tooltip: Toggles whether or not the sound effect for transforming an Areus Katana plays.
 				}
 
 				loreTabletOffset: {
@@ -2761,7 +2837,7 @@ Mods: {
 				}
 
 				debug: {
-					Label: Debug
+					Label: "[i:1344] Debug"
 					Tooltip: Toggles wether or not certain things will be logged.
 				}
 			}
@@ -2774,6 +2850,7 @@ Mods: {
 					Dialogue: "[i:3617] Dialogue"
 					Mechanics: "[i:4818] Mechanics"
 					Misc: Misc
+					Commands: "[i:3617] Commands"
 				}
 
 				metalBladeSound: {
@@ -2809,26 +2886,46 @@ Mods: {
 					Tooltip: Enable to allow the atherian to upgrade items even while in Slayer mode
 				}
 
-				betterWeapon: {
-					Label: "[i:1] Directional Weapons*"
-					Tooltip: ""
-				}
-
 				altCaveHarpy: {
 					Label: "[i:48] Alt Cavern Harpy"
-					Tooltip: Makes a slight change to the Cavern Harpy sprite
+					Tooltip: Changes the strap color on the Cavern Harpy sprite to red
 				}
 
 				catchableNPC: {
-					Label: catchable N P C
+					Label: "[i:1991] Catchable NPCs"
+					Tooltip: Enable to allow Town NPCs from this mod to be caught with a Bug Net
+				}
+
+				genericCommand: {
+					Label: Generic
+					Tooltip: ""
+				}
+
+				resetDowned: {
+					Label: Reset Defeated
+					Tooltip: ""
+				}
+
+				resetSlayer: {
+					Label: Reset Slayer
+					Tooltip: ""
+				}
+
+				slayBosses: {
+					Label: Slay Bosses
+					Tooltip: ""
+				}
+
+				validateSlayer: {
+					Label: Validate Slayer
 					Tooltip: ""
 				}
 			}
 		}
 
 		GameTips: {
-			OmegaKey: Shards of Atheria: There may be an ancient key in the sky islands.
-			Atherian: Shards of Atheria: Defeating the world's evil boss may attract someone who can upgrade weapons.
+			OmegaKey: Shards of Atheria: There may be an ancient key found in sky island chests.
+			Atherian: Shards of Atheria: Defeating the world's evil may attract someone who can upgrade weapons.
 			TheMourningStar: Shards of Atheria: The sacrifice of a katana may draw power from Plantera's defeat.
 		}
 	}

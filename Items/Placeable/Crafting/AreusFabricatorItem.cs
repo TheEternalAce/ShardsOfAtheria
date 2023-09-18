@@ -27,8 +27,8 @@ namespace ShardsOfAtheria.Items.Placeable.Crafting
             Item.useTurn = true;
             Item.autoReuse = true;
 
-            Item.value = Item.sellPrice(silver: 8);
-            Item.rare = ItemRarityID.Blue;
+            Item.rare = ItemDefaults.RarityAreus;
+            Item.value = ItemDefaults.ValueEyeOfCthulhu;
         }
 
         public override void AddRecipes()

@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Utilities
 {
-    public static class ShardsNPCHelper
+    public partial class ShardsHelpers
     {
         public static void BasicInWorldGlowmask(this NPC npc, SpriteBatch spriteBatch, Texture2D glowTexture, Color color, Vector2 screenPos, SpriteEffects effects)
         {
@@ -115,6 +115,11 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
+        public static Player GetTargetPlayer(this NPC npc)
+        {
+            return Main.player[npc.target];
+        }
+
         public static void Track(this NPC npc, Vector2 position, float speed, float inertia)
         {
             // The immediate range around the target (so it doesn't latch onto it when close)
@@ -159,6 +164,27 @@ namespace ShardsOfAtheria.Utilities
         public static ref float StatSpeed(this NPC npc)
         {
             return ref npc.GetGlobalNPC<StatSpeedGlobalNPC>().statSpeed;
+        }
+
+        public static void AddElementFire(this NPC npc)
+        {
+            SoA.TryElementCall("assignElement", npc, 0);
+        }
+        public static void AddElementAqua(this NPC npc)
+        {
+            SoA.TryElementCall("assignElement", npc, 1);
+        }
+        public static void AddElementElec(this NPC npc)
+        {
+            SoA.TryElementCall("assignElement", npc, 2);
+        }
+        public static void AddElementWood(this NPC npc)
+        {
+            SoA.TryElementCall("assignElement", npc, 3);
+        }
+        public static void ElementMultipliers(this NPC npc, float[] multipliers)
+        {
+            SoA.TryElementCall("assignElement", npc, multipliers);
         }
     }
 }

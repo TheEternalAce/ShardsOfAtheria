@@ -7,7 +7,7 @@ using Terraria.ID;
 
 namespace ShardsOfAtheria.Utilities
 {
-    public static class ShardsItemHelper
+    public partial class ShardsHelpers
     {
         public static readonly int EarlyGameRarity = ItemRarityID.White;
         public static readonly int PostEyeRarity = ItemRarityID.Blue;
@@ -105,6 +105,23 @@ namespace ShardsOfAtheria.Utilities
         public static bool IsUpgradable(this Item item)
         {
             return SoAGlobalItem.UpgradeableItem.Contains(item.type);
+        }
+
+        public static void AddElementFire(this Item item)
+        {
+            SoA.TryElementCall("assignElement", item, 0);
+        }
+        public static void AddElementAqua(this Item item)
+        {
+            SoA.TryElementCall("assignElement", item, 1);
+        }
+        public static void AddElementElec(this Item item)
+        {
+            SoA.TryElementCall("assignElement", item, 2);
+        }
+        public static void AddElementWood(this Item item)
+        {
+            SoA.TryElementCall("assignElement", item, 3);
         }
     }
 }

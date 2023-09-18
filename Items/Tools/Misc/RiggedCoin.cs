@@ -1,7 +1,6 @@
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -16,8 +15,8 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             Item.width = 32;
             Item.height = 32;
 
-            Item.rare = ItemRarityID.Blue;
-            Item.value = 50000;
+            Item.rare = ItemDefaults.RarityAreus;
+            Item.value = ItemDefaults.ValueDungeon;
         }
 
         public override bool CanRightClick()

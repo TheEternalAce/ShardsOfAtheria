@@ -27,8 +27,8 @@ namespace ShardsOfAtheria.Items.Potions
 
             Item.DefaultToPotion(ModContent.BuffType<Insulation>(), 14400);
 
-            Item.value = Item.sellPrice(silver: 75);
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityDungeon;
+            Item.value = ItemDefaults.ValueBuffPotion;
         }
 
         public override void AddRecipes()

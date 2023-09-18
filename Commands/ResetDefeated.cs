@@ -23,6 +23,7 @@ namespace ShardsOfAtheria.Commands
             NPC.downedSlimeKing = false;
             NPC.downedBoss1 = false;
             NPC.downedBoss2 = false;
+            ShardsDownedSystem.summonedValkyrie = false;
             ShardsDownedSystem.downedValkyrie = false;
             NPC.downedQueenBee = false;
             NPC.downedBoss3 = false;
@@ -38,9 +39,12 @@ namespace ShardsOfAtheria.Commands
             NPC.downedFishron = false;
             NPC.downedEmpressOfLight = false;
             NPC.downedMoonlord = false;
+            ShardsDownedSystem.summonedDeath = false;
+            ShardsDownedSystem.downedDeath = false;
             string bossDefeatReset = "Bosses have no longer been defeated";
             SoA.LogInfo(bossDefeatReset, "/resetDefeated command:", true);
-            ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(bossDefeatReset), Color.White, caller.Player.whoAmI);
+            ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(bossDefeatReset),
+                Color.White, caller.Player.whoAmI);
         }
     }
 }

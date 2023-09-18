@@ -1,6 +1,5 @@
 ﻿using ShardsOfAtheria.Utilities;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories
@@ -21,8 +20,8 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.accessory = true;
             Item.expert = true;
 
-            Item.rare = ItemRarityID.Red;
-            Item.value = 321000;
+            Item.rare = ItemDefaults.RarityLunarPillars;
+            Item.value = ItemDefaults.ValueLunarPillars;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

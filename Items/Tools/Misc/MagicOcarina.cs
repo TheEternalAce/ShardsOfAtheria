@@ -27,8 +27,8 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.Shoot;
 
-            Item.rare = ItemRarityID.Green;
-            Item.value = Item.sellPrice(0, 2, 50);
+            Item.rare = ItemDefaults.RarityPreBoss;
+            Item.value = ItemDefaults.ValueEyeOfCthulhu;
         }
 
         public override bool AltFunctionUse(Player player) => true;

@@ -18,8 +18,8 @@ namespace ShardsOfAtheria.Items.Materials
             Item.height = 32;
             Item.maxStack = 999;
 
-            Item.rare = ItemRarityID.Pink;
-            Item.value = Item.sellPrice(0, 1, 50);
+            Item.rare = ItemDefaults.RarityHardlight;
+            Item.value = ItemDefaults.ValueDungeon;
         }
 
         public override void AddRecipes()

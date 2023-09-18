@@ -7,7 +7,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.BloodDagger
 {
     public class HolyBloodHeal : ModProjectile
     {
-        public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.GolfBallDyedViolet}";
+        public override string Texture =>SoA.BlankTexture;
 
         public override void SetDefaults()
         {

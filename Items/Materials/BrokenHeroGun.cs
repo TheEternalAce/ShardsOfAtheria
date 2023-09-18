@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Materials
@@ -17,8 +16,8 @@ namespace ShardsOfAtheria.Items.Materials
             Item.height = 20;
             Item.maxStack = 9999;
 
-            Item.rare = ItemRarityID.Yellow;
-            Item.value = Item.sellPrice(0, 4, 50);
+            Item.rare = ItemDefaults.RarityPlantera;
+            Item.value = ItemDefaults.ValueHardmodeDungeon;
         }
     }
 }

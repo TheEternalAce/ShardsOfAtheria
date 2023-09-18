@@ -5,6 +5,7 @@ using ShardsOfAtheria.Dusts;
 using System;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Melee
@@ -54,7 +55,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             }
             NPC.HitInfo strike = modifiers.ToHitInfo(Projectile.damage, flag4, num21, damageVariation: true, Main.player[Projectile.owner].luck);
 
-            if (Main.netMode != 0)
+            if (Main.netMode != NetmodeID.SinglePlayer)
             {
                 NetMessage.SendStrikeNPC(target, in strike);
             }
@@ -80,13 +81,16 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
                 Dust dust8 = Dust.NewDustPerfect(Projectile.Center + num10.ToRotationVector2() * (Main.rand.NextFloat() * 80f * Projectile.scale + 20f * Projectile.scale), ModContent.DustType<HardlightDust_Blue>(), vector3 * 1f);
                 dust8.fadeIn = 0.4f + Main.rand.NextFloat() * 0.15f;
                 dust8.noGravity = true;
+                dust8.noLight = false;
             }
             if (Main.rand.NextFloat() * 1.5f < Projectile.Opacity)
             {
                 var dust9 = Dust.NewDustPerfect(vector2, ModContent.DustType<HardlightDust_Pink>(), vector3 * 1f);
                 dust9.noGravity = true;
+                dust9.noLight = false;
             }
-            //Projectile.scale *= Projectile.ai[2];
+            var light = SoA.HardlightColor.ToVector3() * 0.75f;
+            Lighting.AddLight(Projectile.Center, light);
             if (Projectile.localAI[0] >= Projectile.ai[1])
             {
                 Projectile.Kill();

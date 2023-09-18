@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
 {
     public class BloodDropHostile : ModProjectile
     {
-        public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.GolfBallDyedViolet}";
+        public override string Texture => SoA.BlankTexture;
 
         public override void SetStaticDefaults()
         {
@@ -52,7 +52,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<DeathBleed>(), 600);
+            target.AddBuff<DeathBleed>(300);
         }
 
         public override void Kill(int timeLeft)

@@ -28,7 +28,6 @@ using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.HeroSword;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.OmegaSword;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged.AreusUltrakillGun;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged.DeckOfCards;
@@ -70,8 +69,6 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<RagnarokProj2>(),
             ProjectileType<HeroBlade>(),
             ProjectileType<HeroSlash>(),
-            ProjectileType<Messiah>(),
-            ProjectileType<MessiahRanbu>(),
             ProjectileType<CorruptRose>(),
             ProjectileType<ZenovaProjectile>(),
             ProjectileType<AceOfSpades>(),

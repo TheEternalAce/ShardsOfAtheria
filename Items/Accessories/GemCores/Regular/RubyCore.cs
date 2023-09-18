@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
             Item.height = 32;
             Item.accessory = true;
 
-            Item.rare = ItemRarityID.Blue;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.value = Item.sellPrice(0, 1, 25);
         }
 

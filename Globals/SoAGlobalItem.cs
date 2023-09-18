@@ -8,6 +8,7 @@ using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Consumable;
+using ShardsOfAtheria.Items.Placeable.Furniture;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.NPCs.Town.TheArchivist;
@@ -24,6 +25,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -51,6 +53,10 @@ namespace ShardsOfAtheria.Globals
         public static List<int> Eraser = new List<int>();
         #endregion
 
+        int transformTimer = 10;
+
+        public override bool InstancePerEntity => true;
+
         public override void SetDefaults(Item item)
         {
             base.SetDefaults(item);
@@ -66,7 +72,6 @@ namespace ShardsOfAtheria.Globals
                     item.color = new Color(101, 187, 236);
                     break;
 
-                #region Add new grenade ammo type
                 case ItemID.Grenade:
                 case ItemID.Beenade:
                 case ItemID.StickyGrenade:
@@ -74,7 +79,6 @@ namespace ShardsOfAtheria.Globals
                 case ItemID.PartyGirlGrenade:
                     item.ammo = ItemID.Grenade;
                     break;
-                    #endregion
             }
         }
 
@@ -238,8 +242,42 @@ namespace ShardsOfAtheria.Globals
                     }
                     shards.prototypeBandCooldown = shards.prototypeBandCooldownMax;
                 }
+                if (player.Slayer().DeathSoul)
+                {
+                    if (player.bleed)
+                    {
+                        if (item.DamageType == DamageClass.Magic)
+                        {
+
+                        }
+                        if (item.DamageType == DamageClass.Melee)
+                        {
+
+                        }
+                        if (item.DamageType == DamageClass.Ranged)
+                        {
+
+                        }
+                        if (item.DamageType == DamageClass.Summon)
+                        {
+
+                        }
+                        if (item.DamageType == DamageClass.Generic)
+                        {
+
+                        }
+                    }
+                }
             }
             return base.UseItem(item, player);
+        }
+
+        public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
+        {
+            if (item.type == ItemID.FloatingIslandFishingCrateHard)
+            {
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<OmegaKey>(), 14));
+            }
         }
 
         public override bool ConsumeItem(Item item, Player player)
@@ -312,6 +350,27 @@ namespace ShardsOfAtheria.Globals
             }
         }
 
+        public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
+        {
+            if (item.type == ItemID.Katana)
+            {
+                if (item.lavaWet)
+                {
+                    var player = item.Center.FindClosestPlayer(-1);
+                    if (player.ZoneUnderworldHeight)
+                    {
+                        if (--transformTimer <= 0)
+                        {
+                            item.TurnToAir();
+                            var shards = player.Shards();
+                            shards.sacrificedKatana = true;
+                            SoundEngine.PlaySound(SoundID.Item74, item.Center);
+                        }
+                    }
+                }
+            }
+        }
+
         public override void UpdateInventory(Item item, Player player)
         {
             base.UpdateInventory(item, player);
@@ -338,28 +397,6 @@ namespace ShardsOfAtheria.Globals
         {
             var shards = player.Shards();
             var elementItem = item.Elements();
-            // Reset weapon elements
-            elementItem.isFire = false;
-            elementItem.isAqua = false;
-            elementItem.isElec = false;
-            elementItem.isWood = false;
-            if (item.IsDefaultFire())
-            {
-                elementItem.isFire = true;
-            }
-            if (item.IsDefaultAqua())
-            {
-                elementItem.isAqua = true;
-            }
-            if (item.IsDefaultElec())
-            {
-                elementItem.isElec = true;
-            }
-            if (item.IsDefaultWood())
-            {
-                elementItem.isWood = true;
-            }
-            // Change elements according to Areus Processor/Power Trip
             if (shards.areusProcessorPrevious)
             {
                 if (item.damage > 0)

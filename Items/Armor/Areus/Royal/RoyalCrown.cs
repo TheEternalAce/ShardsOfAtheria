@@ -17,6 +17,8 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
             Item.defense = 6;
 
             slotType = AreusArmorChip.SlotHead;
+
+            Item.value = ItemDefaults.ValueLunarPillars;
         }
 
         public override void UpdateEquip(Player player)

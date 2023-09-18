@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
     public class AreusBounceShot : ModProjectile
     {
-        public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.GolfBallDyedViolet}";
+        public override string Texture =>SoA.BlankTexture;
 
         public override void SetDefaults()
         {
@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Electrified, 600);
-            if (Projectile.GetPlayer().Shards().Overdrive)
+            if (Projectile.GetPlayerOwner().Shards().Overdrive)
             {
                 var copyHit = hit;
                 copyHit.Damage /= 4;

@@ -32,5 +32,22 @@ namespace ShardsOfAtheria.Config
         [Header("Misc")]
         [DefaultValue(false)]
         public bool altCaveHarpy;
+
+        [Header("Commands")]
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool genericCommand;
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool resetDowned;
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool resetSlayer;
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool slayBosses;
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool validateSlayer;
     }
 }

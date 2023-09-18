@@ -34,12 +34,15 @@ namespace ShardsOfAtheria.Projectiles.Other
                 Projectile.ai[0] = 1;
             }
 
-            if (SoA.ElementModEnabled)
+            if (Projectile.ai[1] == 1)
             {
-                ElementalParticles();
+                if (SoA.ElementModEnabled)
+                {
+                    ElementalParticles();
+                }
+                Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Smoke, Scale: 1.5f);
+                dust2.velocity *= 2f;
             }
-            Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Smoke, Scale: 1.5f);
-            dust2.velocity *= 2f;
         }
 
         [JITWhenModsEnabled("BattleNetworkElements")]

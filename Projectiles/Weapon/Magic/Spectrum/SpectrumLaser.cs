@@ -37,14 +37,15 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Spectrum
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Player player = Main.player[Projectile.owner];
-            player.statMana += 7;
-            player.ManaEffect(7);
+            Player player = Projectile.GetPlayerOwner();
+            int manaGain = (int)(7 * player.manaCost);
+            player.statMana += manaGain;
+            player.ManaEffect(manaGain);
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.DrawProjectilePrims(laserColor, ShardsProjectileHelper.LineX1);
+            Projectile.DrawProjectilePrims(laserColor, ShardsHelpers.LineX1);
             return base.PreDraw(ref lightColor);
         }
     }

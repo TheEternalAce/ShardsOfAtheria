@@ -18,14 +18,16 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
 
         public override void SetDefaults()
         {
-            Projectile.width = 8;
-            Projectile.height = 8;
+            Projectile.width = 10;
+            Projectile.height = 10;
 
             Projectile.timeLeft = 2 * 60;
             Projectile.aiStyle = 0;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
             Projectile.extraUpdates = 1;
+
+            DrawOffsetX = -2;
         }
 
         public override void AI()
@@ -37,15 +39,11 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
             Projectile.ai[0]++;
-            if (Projectile.ai[0] == 15 && !Projectile.friendly)
-            {
-                Projectile.friendly = true;
-            }
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<DeathBleed>(), 600);
+            target.AddBuff<DeathBleed>(300);
         }
 
         public override void Kill(int timeLeft)

@@ -21,8 +21,9 @@ namespace ShardsOfAtheria.Items.Materials
             Item.width = 18;
             Item.height = 18;
             Item.maxStack = 9999;
-            Item.value = Item.sellPrice(0, 18);
-            Item.rare = ItemRarityID.Red;
+
+            Item.rare = ItemDefaults.RarityLunarPillars;
+            Item.value = ItemDefaults.ValueLunarPillars;
         }
 
         public override void PostUpdate()

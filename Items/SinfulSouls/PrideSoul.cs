@@ -10,23 +10,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 {
     public class PrideSoul : SinfulSouls
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 34;
-            Item.height = 36;
-            base.SetStaticDefaults();
-        }
-
-        public override bool? UseItem(Player player)
-        {
-            player.AddBuff(ModContent.BuffType<PrideBuff>(), 2);
-            return base.UseItem(player);
-        }
+        public override int SoulType => ModContent.BuffType<PrideBuff>();
     }
 
     public class PridePlayer : ModPlayer

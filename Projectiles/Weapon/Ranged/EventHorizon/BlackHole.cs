@@ -16,18 +16,17 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.EventHorizon
             Projectile.tileCollide = false;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.timeLeft = 2 * 60;
-            Projectile.scale = 0f;
         }
 
         float rotation = 0;
         public override void AI()
         {
             int rate = 15;
-            if (Projectile.scale < 1f)
+            if (Projectile.ai[1] < 1f)
             {
-                Projectile.scale += 0.1f;
+                Projectile.ai[1] += 0.1f;
             }
-            if (++Projectile.ai[0] % rate == 0 && Projectile.timeLeft > rate * 2)
+            if (++Projectile.ai[0] % rate == 0 && Projectile.timeLeft > rate * 3)
             {
                 for (int i = 0; i < 8; i++)
                 {
@@ -43,9 +42,15 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.EventHorizon
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = Color.White;
-            Main.spriteBatch.Draw(ModContent.Request<Texture2D>(Texture).Value,
-                Projectile.position - Main.screenPosition - new Vector2(50) * Projectile.scale,
-                null, lightColor, 0f, Vector2.Zero, Projectile.scale, SpriteEffects.None,
+            Main.spriteBatch.Draw(
+                ModContent.Request<Texture2D>(Texture).Value,
+                Projectile.position - Main.screenPosition + new Vector2(50),
+                null,
+                lightColor,
+                0f,
+                new(50),
+                Projectile.ai[1],
+                SpriteEffects.None,
                 1);
             return false;
             //return base.PreDraw(ref lightColor);

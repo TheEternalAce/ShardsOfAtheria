@@ -32,7 +32,6 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ItemType<GenesisAndRagnarok>(),
             ItemType<HeroSword>(),
             ItemType<Satanlance>(),
-            ItemType<TheMessiah>(),
             ItemType<Yamiko>(),
             ItemType<WormBloom>(),
             ItemType<Zenova>(),

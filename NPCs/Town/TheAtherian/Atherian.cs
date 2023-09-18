@@ -3,7 +3,6 @@ using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.AreusChips;
 using ShardsOfAtheria.Items.BossSummons;
-using ShardsOfAtheria.Items.Consumable;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
@@ -251,10 +250,10 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 .Add<AreusLance>(Condition.Hardmode)
                 .Add<Bytecrusher>(Condition.DownedMechBossAny)
                 .Add<AreusKey>(Condition.DownedPlantera)
-                .Add<AnastasiasPride>(Condition.DownedGolem)
                 .Add<AreusPistol>(Condition.DownedGolem)
                 .Add<AreusBaton>(Condition.DownedGolem)
-                .Add<AreusStrikeChain>(Condition.DownedMoonLord);
+                .Add<AreusStrikeChain>(Condition.DownedMoonLord)
+                .Add<AreusEnergyCannon>(Condition.DownedMoonLord);
             npcShop.Register();
         }
 

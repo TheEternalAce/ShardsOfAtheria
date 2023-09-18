@@ -2,7 +2,6 @@ using ShardsOfAtheria.Items.AreusChips;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -19,7 +18,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus
 
         public override void SetDefaults()
         {
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityAreus;
         }
 
         public AreusArmorPlayer ArmorPlayer;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -25,6 +26,11 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.OmegaSword
         {
             get => (int)Projectile.ai[0];
             set => Projectile.ai[0] = value;
+        }
+
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementFire();
         }
 
         public override void SetDefaults()

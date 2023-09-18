@@ -63,8 +63,8 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.accessory = true;
             Item.defense = 20;
 
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 5);
+            Item.rare = ItemDefaults.RarityPreMechs;
+            Item.value = ItemDefaults.ValueEarlyHardmode;
         }
 
         public override void AddRecipes()

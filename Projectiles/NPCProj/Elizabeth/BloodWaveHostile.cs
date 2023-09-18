@@ -47,7 +47,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<DeathBleed>(), 600);
+            target.AddBuff<DeathBleed>(300);
             Projectile.Kill();
         }
 
@@ -62,7 +62,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             var rotation = MathHelper.ToRadians(15);
             for (int i = 0; i < numProjs; i++)
             {
-                var vector = new Vector2(0, -1).RotateRandom(rotation) * 8f;
+                var vector = new Vector2(0, -1).RotateRandom(rotation) * 8f * Main.rand.NextFloat(0.8f, 1);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
                     vector, ModContent.ProjectileType<BloodDropHostile>(), Projectile.damage,
                     Projectile.knockBack, Projectile.owner);

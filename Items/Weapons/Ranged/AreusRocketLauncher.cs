@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -37,6 +38,21 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.value = 50000;
             Item.shoot = ProjectileID.RocketI;
             Item.useAmmo = AmmoID.Rocket;
+        }
+
+        public override bool AltFunctionUse(Player player) => true;
+
+        public override bool CanUseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                Item.shoot = ModContent.ProjectileType<AreusCannonBall>();
+            }
+            else
+            {
+                Item.shoot = ProjectileID.RocketI;
+            }
+            return base.CanUseItem(player);
         }
 
         public override void AddRecipes()

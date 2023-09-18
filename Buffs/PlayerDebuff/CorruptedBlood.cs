@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Buffs.PlayerDebuff
                     Player.lifeRegen = 0;
                 }
                 Player.lifeRegenTime = 0;
-                Player.lifeRegen -= 50;
+                Player.lifeRegen -= 10;
             }
         }
     }

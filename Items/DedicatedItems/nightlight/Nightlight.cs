@@ -22,13 +22,17 @@ namespace ShardsOfAtheria.Items.DedicatedItems.nightlight
         {
             Item.width = 38;
             Item.height = 36;
-            Item.rare = ItemRarityID.Cyan;
+
+            Item.useTime = 10;
+            Item.useAnimation = 15;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.useTurn = true;
             Item.autoReuse = true;
-            Item.useAnimation = 15;
-            Item.useTime = 10;
-            Item.useStyle = ItemUseStyleID.Swing;
             Item.consumable = true;
+
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
+            Item.value = ItemDefaults.ValueEarlyHardmode;
+
             Item.createTile = ModContent.TileType<NightlightLamp>();
         }
     }

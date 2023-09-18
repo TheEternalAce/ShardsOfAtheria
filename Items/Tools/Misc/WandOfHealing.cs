@@ -1,5 +1,5 @@
-using ShardsOfAtheria.Utilities;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
@@ -28,8 +28,8 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.UseSound = SoundID.Item29;
 
-            Item.rare = ItemRarityID.Red;
-            Item.value = Item.sellPrice(0, 1);
+            Item.rare = ItemDefaults.RarityDungeon;
+            Item.value = ItemDefaults.ValueDungeon;
         }
 
         public override void AddRecipes()

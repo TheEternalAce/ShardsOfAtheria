@@ -18,10 +18,12 @@ namespace ShardsOfAtheria.Items.Tools.Hooks
 
         public override void SetDefaults()
         {
-            // Copy values from the Amethyst Hook
             Item.CloneDefaults(ItemID.AmethystHook);
-            Item.shootSpeed = 18f; // This defines how quickly the hook is shot.
-            Item.shoot = ModContent.ProjectileType<AreusTetherHook>(); // Makes the item shoot the hook's projectile when used.
+            Item.shootSpeed = 18f;
+            Item.shoot = ModContent.ProjectileType<AreusTetherHook>();
+
+            Item.rare = ItemDefaults.RarityAreus;
+            Item.value = ItemDefaults.ValueLunarPillars;
         }
 
         // Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.

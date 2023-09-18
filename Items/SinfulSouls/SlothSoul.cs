@@ -7,18 +7,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 {
     public class SlothSoul : SinfulSouls
     {
-        public override void SetDefaults()
-        {
-            Item.width = 38;
-            Item.height = 38;
-            base.SetStaticDefaults();
-        }
-
-        public override bool? UseItem(Player player)
-        {
-            player.AddBuff(ModContent.BuffType<SlothBuff>(), 2);
-            return base.UseItem(player);
-        }
+        public override int SoulType => ModContent.BuffType<SlothBuff>();
     }
 
     public class SlothPlayer : ModPlayer

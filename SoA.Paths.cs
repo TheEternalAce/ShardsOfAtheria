@@ -13,5 +13,7 @@
         public const string SummonWeapon = "ShardsOfAtheria/Items/Weapons/Summon/";
 
         public const string LocalizeCommon = "Mods.ShardsOfAtheria.Common.";
+
+        public const string ElementModName = "BattleNetworkElements";
     }
 }

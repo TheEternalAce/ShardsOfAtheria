@@ -32,6 +32,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
+            Item.AddElementFire();
             SoAGlobalItem.Eraser.Add(Type);
         }
 

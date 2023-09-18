@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.NPCs.Boss.Elizabeth;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -54,9 +55,18 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             }
         }
 
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (target.type != ModContent.NPCType<Death>())
+            {
+                return false;
+            }
+            return base.CanHitNPC(target);
+        }
+
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<DeathBleed>(), 600);
+            target.AddBuff<DeathBleed>(300);
         }
 
         public override void Kill(int timeLeft)

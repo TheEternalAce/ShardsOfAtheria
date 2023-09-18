@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Items.Consumable
             Item.noMelee = true;
             Item.noUseGraphic = true;
 
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemDefaults.RarityPreBoss;
             Item.makeNPC = ModContent.NPCType<Archivist>();
         }
 

@@ -14,11 +14,18 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Spectrum
     {
         public override string Texture => "ShardsOfAtheria/Items/DedicatedItems/MrGerd26/AlphaSpectrum";
 
-        Player owner => Main.player[Projectile.owner];
+        Player Owner => Main.player[Projectile.owner];
 
-        float ChargeTimer { get => Projectile.ai[0]; set => Projectile.ai[0] = value; }
+        float AttackSpeed => Owner.GetAttackSpeed(DamageClass.Generic) +
+            Owner.GetAttackSpeed(DamageClass.Magic) - 2;
 
-        int aimDir => aimNormal.X > 0 ? 1 : -1;
+        float ChargeTimer
+        {
+            get => Projectile.ai[0];
+            set => Projectile.ai[0] = value;
+        }
+
+        int AimDir => aimNormal.X > 0 ? 1 : -1;
 
         public bool BeingHeld => Main.player[Projectile.owner].channel && !Main.player[Projectile.owner].noItems && !Main.player[Projectile.owner].CCed;
 
@@ -48,22 +55,22 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Spectrum
         {
             Projectile.originalDamage = Projectile.damage;
             Projectile.damage = 0;
-            ChargeTimer = 20;
+            ChargeTimer = 20 - (int)(20 * AttackSpeed);
         }
 
         public override bool PreAI()
         {
-            owner.heldProj = Projectile.whoAmI;
-            owner.itemAnimation = 2;
-            owner.itemTime = 2;
+            Owner.heldProj = Projectile.whoAmI;
+            Owner.itemAnimation = 2;
+            Owner.itemTime = 2;
 
             if (Main.myPlayer == Projectile.owner)
             {
                 //aimNormal is a normal vector pointing from the player at the mouse cursor
-                aimNormal = Vector2.Normalize(Main.MouseWorld - owner.MountedCenter + new Vector2(owner.direction * -3, -1));
+                aimNormal = Vector2.Normalize(Main.MouseWorld - Owner.MountedCenter + new Vector2(Owner.direction * -3, -1));
             }
 
-            owner.ChangeDir(aimDir);
+            Owner.ChangeDir(AimDir);
             return true;
         }
 
@@ -75,46 +82,46 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Spectrum
             recoilAmount *= 0.85f; //constantly decrease the value of the variable that controls the recoil-esque visual effect of the gun's position
 
             //set projectile center to be at the player, slightly offset towards the aim normal, with adjustments for the recoil visual effect
-            Projectile.Center = owner.MountedCenter + new Vector2(owner.direction * -3, -1) +
-                (aimNormal * -2).RotatedBy(-(recoilAmount * 0.2f * aimDir));
+            Projectile.Center = Owner.MountedCenter + new Vector2(Owner.direction * -3, -1) +
+                (aimNormal * -2).RotatedBy(-(recoilAmount * 0.2f * AimDir));
             //set projectile rotation to point towards the aim normal, with adjustments for the recoil visual effect
-            Projectile.rotation = aimNormal.ToRotation() - recoilAmount * 0.4f * aimDir;
+            Projectile.rotation = aimNormal.ToRotation() - recoilAmount * 0.4f * AimDir;
 
             //set fancy player arm rotation
-            owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (aimNormal * 20).RotatedBy(-(recoilAmount * 0.2f * aimDir)).ToRotation() - MathHelper.PiOver2 + 0.3f * aimDir);
+            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (aimNormal * 20).RotatedBy(-(recoilAmount * 0.2f * AimDir)).ToRotation() - MathHelper.PiOver2 + 0.3f * AimDir);
 
             if (BeingHeld)
             {
                 Projectile.timeLeft = 10; //constantly set timeLeft to greater than zero to allow projectile to remain infinitely as long as player channels weapon
-                owner.manaRegenDelay = 10;
+                Owner.manaRegenDelay = 10;
 
                 if (charging)
                 {
                     ChargeTimer--;
 
-                    int manaCost = (int)(20 * owner.manaCost);
+                    int manaCost = (int)(20 * Owner.manaCost);
                     if (ChargeTimer <= 0) //increment charge level and play charge increase visual effects (white flash + loading click sound)
                     {
-                        if (owner.statMana >= manaCost)
+                        if (Owner.statMana >= manaCost)
                         {
-                            owner.statMana -= manaCost;
+                            Owner.statMana -= manaCost;
                             chargeLevel++;
 
                             SoundEngine.PlaySound(SoundID.Item61, Projectile.Center);
                             flashAlpha = 1;
-                            ChargeTimer = 15;
-                            CombatText.NewText(owner.getRect(), Color.Cyan, chargeLevel + 1);
+                            ChargeTimer = 15 - (int)(15 * AttackSpeed);
+                            CombatText.NewText(Owner.getRect(), Color.Cyan, chargeLevel + 1);
                         }
-                        else if (owner.manaFlower)
+                        else if (Owner.manaFlower)
                         {
-                            owner.QuickMana();
+                            Owner.QuickMana();
                         }
                     }
                 }
             }
             else
             {
-                int framesToShoot = 5;
+                int framesToShoot = 5 - (int)(5 * AttackSpeed);
                 if (charging) //run for a single frame when player stops channeling weapon
                 {
                     if (chargeLevel < 1) //fire normal projectile if gun is completely uncharged (basic tap-fire)
@@ -168,8 +175,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Spectrum
                     Projectile projectile = Projectile.NewProjectileDirect(
                         Projectile.GetSource_FromThis(), shootOrigin, perturbedSpeed,
                         ModContent.ProjectileType<SpectrumLaser>(), damage, 6, Projectile.owner);
-                    SpectrumLaser laser = projectile.ModProjectile as SpectrumLaser;
-                    if (laser != null)
+                    if (projectile.ModProjectile is SpectrumLaser laser)
                     {
                         laser.laserColor = GetLaserColor();
                     }
@@ -183,16 +189,16 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Spectrum
 
         Color GetLaserColor()
         {
-            Color color = Color.White;
-            switch (laserNum)
+            Color color = laserNum switch
             {
-                case 0: color = Color.Purple; break;
-                case 1: color = Color.Blue; break;
-                case 2: color = Color.Green; break;
-                case 3: color = Color.Yellow; break;
-                case 4: color = Color.Orange; break;
-                case 5: color = Color.Red; break;
-            }
+                0 => Color.Purple,
+                1 => Color.Blue,
+                2 => Color.Green,
+                3 => Color.Yellow,
+                4 => Color.Orange,
+                5 => Color.Red,
+                _ => Color.White,
+            };
             return color;
         }
 
@@ -208,7 +214,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Spectrum
             Vector2 position = Projectile.Center - Main.screenPosition;
             Vector2 origin = Projectile.Size / 2;
             origin.X -= 25;
-            SpriteEffects flip = (aimDir == 1) ? SpriteEffects.None : SpriteEffects.FlipVertically;
+            SpriteEffects flip = (AimDir == 1) ? SpriteEffects.None : SpriteEffects.FlipVertically;
 
             Main.EntitySpriteDraw(main, position, null, lightColor, Projectile.rotation, origin, 1, flip, 0);
         }

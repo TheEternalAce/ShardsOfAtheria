@@ -33,8 +33,8 @@ namespace ShardsOfAtheria.Items.DedicatedItems.MrGerd26
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 0f;
-            Item.rare = ItemRarityID.Cyan;
-            Item.value = 325000;
+            Item.rare = ItemDefaults.RarityDungeon;
+            Item.value = ItemDefaults.ValueDungeon;
             Item.shoot = ModContent.ProjectileType<GerdGun>();
         }
 

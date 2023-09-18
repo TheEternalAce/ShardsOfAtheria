@@ -3,7 +3,6 @@ using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories
@@ -27,8 +26,8 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.height = 22;
             Item.accessory = true;
 
-            Item.rare = ItemRarityID.Cyan;
-            Item.value = 50000;
+            Item.rare = ItemDefaults.RarityAreus;
+            Item.value = ItemDefaults.ValueDungeon;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -40,7 +39,7 @@ namespace ShardsOfAtheria.Items.Accessories
             "[i:BattleNetworkElements/AquaIcon] Aqua: " + playerElements[Element.Aqua] + "x\n" +
             "[i:BattleNetworkElements/ElecIcon] Elec: " + playerElements[Element.Elec] + "x\n" +
             "[i:BattleNetworkElements/WoodIcon] Wood: " + playerElements[Element.Wood] + "x";
-            tooltips.Insert(ShardsTooltipHelper.GetIndex(tooltips, "OneDropLogo"), new(Mod, "ElementInfo", elementInfo));
+            tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), new(Mod, "ElementInfo", elementInfo));
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

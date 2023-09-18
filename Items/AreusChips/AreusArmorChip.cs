@@ -1,7 +1,6 @@
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.AreusChips
@@ -27,8 +26,8 @@ namespace ShardsOfAtheria.Items.AreusChips
             Item.width = 32;
             Item.height = 32;
 
-            Item.rare = ItemRarityID.Cyan;
-            Item.value = 50000;
+            Item.rare = ItemDefaults.RarityAreus;
+            Item.value = ItemDefaults.ValueEarlyHardmode;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

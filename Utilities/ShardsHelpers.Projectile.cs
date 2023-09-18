@@ -6,7 +6,6 @@ using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using System;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -16,7 +15,7 @@ using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Utilities
 {
-    public static class ShardsProjectileHelper
+    public partial class ShardsHelpers
     {
         public static void CallStorm(this Projectile projectile, int amount, int pierce = 1)
         {
@@ -36,13 +35,17 @@ namespace ShardsOfAtheria.Utilities
             p2.DamageType = projectile.DamageType;
         }
 
-        public static void Explode(this Projectile proj, Vector2 position, int damage, bool hostile = false, int explosionSize = 120)
+        public static void Explode(this Projectile proj, Vector2 position, int damage, bool hostile = false, int explosionSize = 120, bool dustParticles = true)
         {
             Projectile explosion = Projectile.NewProjectileDirect(proj.GetSource_FromThis(), position, Vector2.Zero,
                 ModContent.ProjectileType<ElementExplosion>(), damage, proj.knockBack, proj.owner);
             explosion.DamageType = proj.DamageType;
             explosion.Size = new Vector2(explosionSize);
             explosion.hostile = hostile;
+            if (dustParticles)
+            {
+                explosion.ai[1] = 1;
+            }
             ScreenShake.ShakeScreen(6, 60);
             if (SoA.ElementModEnabled)
             {
@@ -71,58 +74,6 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
-        public static void Explode(this Projectile proj, int explosionSize = 120)
-        {
-            var shard = proj.ShardsOfAtheria();
-            if (!shard.explosion)
-            {
-                shard.explosion = true;
-                Vector2 newExplosionSize = new(explosionSize);
-                proj.active = true;
-                proj.timeLeft = 10;
-                proj.penetrate = 5;
-                proj.velocity *= 0f;
-                proj.position += (proj.Size - newExplosionSize) / 2;
-                proj.Size = newExplosionSize;
-                proj.hide = true;
-                proj.alpha = 255;
-                proj.tileCollide = false;
-                proj.ownerHitCheck = true;
-                ScreenShake.ShakeScreen(6, 60);
-                SoundEngine.PlaySound(SoundID.Item14);
-                if (SoA.ElementModEnabled)
-                {
-                    ElementalParticles(proj);
-                }
-                Dust dust2 = Dust.NewDustDirect(proj.position, proj.height, proj.width, DustID.Smoke, Scale: 1.5f);
-                dust2.velocity *= 2f;
-            }
-        }
-        [JITWhenModsEnabled("BattleNetworkElements")]
-        private static void ElementalParticles(Projectile proj)
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                if (proj.IsFire())
-                {
-                    Dust dust = Dust.NewDustDirect(proj.position, proj.height, proj.width, DustID.Torch, Scale: 1.3f);
-                    dust.velocity *= 4f;
-                }
-                if (proj.IsAqua())
-                {
-                    Dust dust = Dust.NewDustDirect(proj.position, proj.height, proj.width, DustID.Ice);
-                    dust.velocity *= 4f;
-                }
-                if (proj.IsElec())
-                {
-                    Dust dust = Dust.NewDustDirect(proj.position, proj.height, proj.width, DustID.Electric);
-                    dust.velocity *= 4f;
-                }
-                Dust dust2 = Dust.NewDustDirect(proj.position, proj.height, proj.width, DustID.Smoke, Scale: 1.5f);
-                dust2.velocity *= 2f;
-            }
-        }
-
         /// <summary>
         /// Finding the closest NPC to attack within maxDetectDistance range.
         /// If not found then returns null.
@@ -131,49 +82,30 @@ namespace ShardsOfAtheria.Utilities
         /// <returns></returns>
         public static NPC FindClosestNPC(this Projectile projectile, float maxDetectDistance, params int[] blaclkistedWhoAmI)
         {
-            return ShardsHelpers.FindClosestNPC(projectile.position, maxDetectDistance, blaclkistedWhoAmI);
+            return FindClosestNPC(projectile.position, maxDetectDistance, blaclkistedWhoAmI);
         }
+
         public static Player FindClosestPlayer(this Projectile projectile, float maxDetectDistance, params int[] blaclkistedWhoAmI)
         {
-            Player closestPlayer = null;
-
-            // Using squared values in distance checks will let us skip square root calculations, drastically improving this method's speed.
-            float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
-            if (maxDetectDistance < 0)
-            {
-                sqrMaxDetectDistance = float.PositiveInfinity;
-            }
-
-            // Loop through all Players(max always 255)
-            for (int k = 0; k < Main.maxPlayers; k++)
-            {
-                Player target = Main.player[k];
-                // Check if Player able to be targeted. It means that Player is
-                // 1. active and alive
-                if (target.active && !target.dead)
-                {
-                    // The DistanceSquared function returns a squared distance between 2 points, skipping relatively expensive square root calculations
-                    float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, projectile.Center);
-
-                    // Check if it is within the radius
-                    if (sqrDistanceToTarget < sqrMaxDetectDistance)
-                    {
-                        // Check if NPC.whoAmI is not blacklisted
-                        if (!blaclkistedWhoAmI.Contains(target.whoAmI))
-                        {
-                            sqrMaxDetectDistance = sqrDistanceToTarget;
-                            closestPlayer = target;
-                        }
-                    }
-                }
-            }
-
-            return closestPlayer;
+            return FindClosestPlayer(projectile.Center, maxDetectDistance, blaclkistedWhoAmI);
         }
 
-        public static Player GetPlayer(this Projectile projectile)
+        public static Player GetPlayerOwner(this Projectile projectile)
         {
             return Main.player[projectile.owner];
+        }
+
+        public static NPC GetNPCOwner(this Projectile projectile)
+        {
+            return Main.npc[projectile.owner];
+        }
+        public static NPC GetNPCOwner(this Projectile projectile, int i)
+        {
+            if (i > 2 || i < 0)
+            {
+                return null;
+            }
+            return Main.npc[(int)projectile.ai[i]];
         }
 
         public static void Track(this Projectile projectile, NPC npc, float maxDist, float speed = 16f, float inertia = 16f)
@@ -244,11 +176,15 @@ namespace ShardsOfAtheria.Utilities
         {
             if (--delay <= 0)
             {
-                float maxGravity = 16f / (projectile.extraUpdates + 1);
-                if (++projectile.velocity.Y > maxGravity)
-                {
-                    projectile.velocity.Y = maxGravity;
-                }
+                projectile.ApplyGravity();
+            }
+        }
+        public static void ApplyGravity(this Projectile projectile)
+        {
+            float maxGravity = 16f / (projectile.extraUpdates + 1);
+            if (++projectile.velocity.Y > maxGravity)
+            {
+                projectile.velocity.Y = maxGravity;
             }
         }
 
@@ -265,20 +201,20 @@ namespace ShardsOfAtheria.Utilities
 
             Main.instance.LoadProjectile(projectile.type);
             Texture2D texture = ModContent.Request<Texture2D>("ShardsOfAtheria/Assets/BlurTrails/" + style).Value;
-            float plusRot = 0;
+            float rotationOffset = 0;
             if (style == DiamondX1 || style == DiamondX2 || style == LineX1 || style == LineX2)
             {
-                plusRot = MathHelper.ToRadians(90);
+                rotationOffset = MathHelper.ToRadians(90);
             }
 
             for (int k = 0; k < projectile.oldPos.Length; k++)
             {
-                var offset = new Vector2(projectile.width / 2f, projectile.height / 2f);
+                Vector2 offset = new(projectile.width / 2f, projectile.height / 2f);
                 var frame = texture.Frame(1, 1, 0, 0);
-                Vector2 drawPos = (projectile.oldPos[k] - Main.screenPosition) + offset;
+                Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + offset;
                 float sizec = scale * (projectile.oldPos.Length - k) / (projectile.oldPos.Length * 0.8f);
                 Color drawColor = color * (1f - projectile.alpha) * ((projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
-                Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, projectile.oldRot[k] + plusRot + angleAdd, frame.Size() / 2, sizec, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, projectile.oldRot[k] + rotationOffset + angleAdd, frame.Size() / 2, sizec, SpriteEffects.None, 0);
             }
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Main.GameViewMatrix.ZoomMatrix);
@@ -306,7 +242,7 @@ namespace ShardsOfAtheria.Utilities
         }
         //Credits to Aequus Mod (Omega Starite my beloved)
 
-        public static SoAGlobalProjectile ShardsOfAtheria(this Projectile projectile)
+        public static SoAGlobalProjectile Atheria(this Projectile projectile)
         {
             return projectile.GetGlobalProjectile<SoAGlobalProjectile>();
         }
@@ -325,6 +261,23 @@ namespace ShardsOfAtheria.Utilities
             {
                 SoAGlobalProjectile.AreusProj.Add(projID);
             }
+        }
+
+        public static void AddElementFire(this Projectile projectile)
+        {
+            SoA.TryElementCall("assignElement", projectile, 0);
+        }
+        public static void AddElementAqua(this Projectile projectile)
+        {
+            SoA.TryElementCall("assignElement", projectile, 1);
+        }
+        public static void AddElementElec(this Projectile projectile)
+        {
+            SoA.TryElementCall("assignElement", projectile, 2);
+        }
+        public static void AddElementWood(this Projectile projectile)
+        {
+            SoA.TryElementCall("assignElement", projectile, 3);
         }
     }
 }

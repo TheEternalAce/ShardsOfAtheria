@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.NPCs.Boss.Elizabeth;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -29,17 +31,26 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
 
         public override void AI()
         {
-            if (Projectile.ai[0] == 0)
+            if (Projectile.ai[2] == 2)
             {
                 SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
-                Projectile.ai[0]++;
+                Projectile.ai[2]++;
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
         }
 
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (target.type != ModContent.NPCType<Death>())
+            {
+                return false;
+            }
+            return base.CanHitNPC(target);
+        }
+
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<DeathBleed>(), 600);
+            target.AddBuff<DeathBleed>(300);
         }
 
         public override void Kill(int timeLeft)
@@ -54,7 +65,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         {
             lightColor = Color.White;
 
-            Vector2 startPos = new(Projectile.ai[1], Projectile.ai[2]);
+            Vector2 startPos = new(Projectile.ai[0], Projectile.ai[1]);
             Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>(ChainTexturePath);
 
             var drawPosition = Projectile.Center;

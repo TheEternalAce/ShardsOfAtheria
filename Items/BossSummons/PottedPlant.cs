@@ -32,8 +32,8 @@ namespace ShardsOfAtheria.Items.BossSummons
             Item.useTime = 45;
             Item.useAnimation = 45;
 
-            Item.rare = ItemRarityID.Red;
-            Item.value = 50000;
+            Item.rare = ItemDefaults.RarityHardmodeDungeon;
+            Item.value = ItemDefaults.ValueHardmodeDungeon;
         }
 
         public override void AddRecipes()

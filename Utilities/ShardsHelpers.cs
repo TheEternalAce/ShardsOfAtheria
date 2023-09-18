@@ -13,7 +13,7 @@ using Terraria.Utilities;
 
 namespace ShardsOfAtheria.Utilities
 {
-    public static class ShardsHelpers // General class full of helper methods
+    public static partial class ShardsHelpers // General class full of helper methods
     {
         public static int DefaultMaxStack = 9999;
 
@@ -45,32 +45,27 @@ namespace ShardsOfAtheria.Utilities
 
         public static ref Vector2 SlowDown(this Projectile projectile, float slowdown = 1f)
         {
-            return ref projectile.velocity.SlowDown();
+            return ref projectile.velocity.SlowDown(slowdown);
         }
         public static ref Vector2 SlowDown(this ref Vector2 vector, float slowdown = 1f)
         {
-            vector.X = (float)Math.Floor(vector.X);
-            vector.Y = (float)Math.Floor(vector.Y);
-            if (vector.X != 0)
+            float min = 0.01f;
+            int xDir = vector.X >= 1 ? 1 : -1;
+            int yDir = vector.Y >= 1 ? 1 : -1;
+            if (Math.Abs(vector.X) != min)
             {
-                if (vector.X < 0)
+                vector.X -= slowdown * xDir;
+                if (vector.X > min * xDir)
                 {
-                    vector.X += slowdown;
-                }
-                else
-                {
-                    vector.X -= slowdown;
+                    vector.X = min * xDir;
                 }
             }
-            if (vector.Y != 0)
+            if (Math.Abs(vector.Y) != min)
             {
-                if (vector.Y < 0)
+                vector.Y -= slowdown * yDir;
+                if (vector.Y > min * yDir)
                 {
-                    vector.Y += slowdown;
-                }
-                else
-                {
-                    vector.Y -= slowdown;
+                    vector.Y = min * yDir;
                 }
             }
             return ref vector;
@@ -264,19 +259,20 @@ namespace ShardsOfAtheria.Utilities
             return ContainsAny(en, (t) => t.Equals(en2));
         }
 
-        public static bool ValidateTeleportPosition(this Player player, Vector2 pos)
+        public static bool CheckTileCollision(Vector2 pos, Rectangle hitbox)
         {
             bool valid = false;
-            Vector2 vector21 = default;
-            if (vector21.X < Main.maxTilesX && vector21.Y < Main.maxTilesY)
+            if (pos.X > 50f && pos.X < Main.maxTilesX * 16 - 50 &&
+                pos.Y > 50f && pos.Y < Main.maxTilesY * 16 - 50)
             {
-                if (!Collision.SolidCollision(vector21, player.width, player.height))
+                if (!Collision.SolidCollision(pos, hitbox.Width, hitbox.Height))
                 {
                     valid = true;
                 }
             }
             return valid;
         }
+
         public static NPC FindClosestNPC(Vector2 pos, float maxDist, params int[] blacklistedWhoAmI)
         {
             NPC closestNPC = null;
@@ -318,6 +314,43 @@ namespace ShardsOfAtheria.Utilities
             }
 
             return closestNPC;
+        }
+        public static Player FindClosestPlayer(this Vector2 position, float maxDetectDistance, params int[] blaclkistedWhoAmI)
+        {
+            Player closestPlayer = null;
+
+            // Using squared values in distance checks will let us skip square root calculations, drastically improving this method's speed.
+            float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
+            if (maxDetectDistance < 0)
+            {
+                sqrMaxDetectDistance = float.PositiveInfinity;
+            }
+
+            // Loop through all Players(max always 255)
+            for (int k = 0; k < Main.maxPlayers; k++)
+            {
+                Player target = Main.player[k];
+                // Check if Player able to be targeted. It means that Player is
+                // 1. active and alive
+                if (target.active && !target.dead)
+                {
+                    // The DistanceSquared function returns a squared distance between 2 points, skipping relatively expensive square root calculations
+                    float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, position);
+
+                    // Check if it is within the radius
+                    if (sqrDistanceToTarget < sqrMaxDetectDistance)
+                    {
+                        // Check if NPC.whoAmI is not blacklisted
+                        if (!blaclkistedWhoAmI.Contains(target.whoAmI))
+                        {
+                            sqrMaxDetectDistance = sqrDistanceToTarget;
+                            closestPlayer = target;
+                        }
+                    }
+                }
+            }
+
+            return closestPlayer;
         }
     }
 }

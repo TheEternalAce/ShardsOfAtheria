@@ -17,9 +17,11 @@ namespace ShardsOfAtheria.Items.Armor.Entropic
         {
             Item.width = 18;
             Item.height = 18;
-            Item.rare = ItemRarityID.Yellow;
-            Item.value = Item.sellPrice(0, 3, 50, 0);
+
             Item.defense = 28;
+
+            Item.rare = ItemDefaults.RarityLunarPillars;
+            Item.value = ItemDefaults.ValueLunarPillars;
         }
 
         public override void UpdateEquip(Player player)

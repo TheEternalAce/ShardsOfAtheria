@@ -18,8 +18,10 @@ namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
         {
             Item.width = 18;
             Item.height = 18;
-            Item.rare = ItemRarityID.Cyan;
             Item.vanity = true;
+
+            Item.rare = ItemRarityID.Cyan;
+            Item.value = ItemDefaults.ValueEarlyHardmode;
         }
     }
 }

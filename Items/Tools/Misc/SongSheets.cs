@@ -1,9 +1,6 @@
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace ShardsOfAtheria.Items.Tools.Misc
 {
@@ -26,8 +23,8 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.Shoot;
 
-            Item.rare = ItemRarityID.Blue;
-            Item.value = 525;
+            Item.rare = ItemDefaults.RarityDemoniteCrimtane;
+            Item.value = ItemDefaults.ValueEyeOfCthulhu;
         }
 
         public override bool? UseItem(Player player)

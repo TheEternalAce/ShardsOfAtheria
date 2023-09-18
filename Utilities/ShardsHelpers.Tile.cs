@@ -3,7 +3,7 @@ using Terraria;
 
 namespace ShardsOfAtheria.Utilities
 {
-    public static class TileHelper
+    public partial class ShardsHelpers
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSolid(this Tile tile)

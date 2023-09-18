@@ -31,8 +31,8 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.shoot = ModContent.ProjectileType<HardlightFeatherMagic>();
             Item.shootSpeed = 16;
 
-            Item.rare = ItemRarityID.Green;
-            Item.value = Item.buyPrice(0, 10);
+            Item.rare = ItemDefaults.RarityHardlight;
+            Item.value = ItemDefaults.ValueDungeon;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

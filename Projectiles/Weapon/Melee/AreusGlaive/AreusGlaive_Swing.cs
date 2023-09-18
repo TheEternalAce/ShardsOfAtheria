@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
@@ -82,6 +81,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusGlaive
 
         public override bool PreDraw(ref Color lightColor)
         {
+            DrawSwish();
             return GenericSwordDraw(lightColor);
         }
     }

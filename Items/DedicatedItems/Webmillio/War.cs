@@ -70,8 +70,8 @@ namespace ShardsOfAtheria.Items.DedicatedItems.Webmillio
 
             Item.shoot = ModContent.ProjectileType<Warframe>();
             Item.shootSpeed = 1;
-            Item.rare = ItemRarityID.LightRed;
-            Item.value = Item.sellPrice(0, 2, 50);
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
+            Item.value = ItemDefaults.ValueEarlyHardmode;
         }
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)

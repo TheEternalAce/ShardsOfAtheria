@@ -1,6 +1,5 @@
 ﻿using ShardsOfAtheria.Utilities;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories
@@ -22,8 +21,8 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.knockBack = 6;
             Item.crit = 2;
 
-            Item.rare = ItemRarityID.LightRed;
-            Item.value = 100000;
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
+            Item.value = ItemDefaults.ValueEarlyHardmode;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

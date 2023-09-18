@@ -34,6 +34,9 @@ namespace ShardsOfAtheria.Items.DataDisks
             Item.useStyle = ItemUseStyleID.Swing;
             Item.UseSound = SoundID.MenuTick;
             Item.noUseGraphic = true;
+
+            Item.rare = ItemDefaults.RarityDataDisc;
+            Item.value = ItemDefaults.ValueHardmodeDungeon;
         }
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)

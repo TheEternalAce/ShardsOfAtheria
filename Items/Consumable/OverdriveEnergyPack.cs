@@ -25,8 +25,7 @@ namespace ShardsOfAtheria.Items.Consumable
             Item.useTurn = true;
             Item.consumable = true;
 
-            Item.rare = ItemRarityID.Red;
-            Item.value = Item.sellPrice(0, 0, 20);
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
         }
 
         public override void AddRecipes()

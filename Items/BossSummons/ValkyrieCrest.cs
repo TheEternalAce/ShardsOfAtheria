@@ -34,7 +34,8 @@ namespace ShardsOfAtheria.Items.BossSummons
             Item.useAnimation = 45;
             Item.useStyle = ItemUseStyleID.HoldUp;
 
-            Item.rare = ItemRarityID.Blue;
+            Item.rare = ItemDefaults.RarityDungeon;
+            Item.value = ItemDefaults.ValueDungeon;
         }
 
         // We use the CanUseItem hook to prevent a Player from using this item while the boss is present in the world.

@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             }
             if (armTimer == 240 && Projectile.alpha == 0)
             {
-                Projectile.Explode();
+                Projectile.Explode(Projectile.Center, Projectile.damage);
             }
         }
 
@@ -53,7 +53,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
         {
             if (Projectile.alpha == 0)
             {
-                Projectile.Explode();
+                Projectile.Explode(Projectile.Center, Projectile.damage);
             }
         }
     }

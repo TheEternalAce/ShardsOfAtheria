@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Utilities
 {
-    public static class ShardsPlayerHelper
+    public partial class ShardsHelpers
     {
         public static ShardsPlayer Shards(this Player player)
         {

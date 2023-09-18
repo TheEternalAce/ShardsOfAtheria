@@ -18,6 +18,8 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
             Item.defense = 6;
 
             slotType = AreusArmorChip.SlotLegs;
+
+            Item.value = ItemDefaults.ValueHardmodeDungeon;
         }
 
         public override void UpdateEquip(Player player)

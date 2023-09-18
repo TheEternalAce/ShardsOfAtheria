@@ -8,21 +8,9 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 {
     public class GluttonySoul : SinfulSouls
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 32;
-            Item.height = 32;
-            base.SetStaticDefaults();
-        }
-
+        public override int SoulType => ModContent.BuffType<GluttonyBuff>();
         public override bool? UseItem(Player player)
         {
-            player.AddBuff(ModContent.BuffType<GluttonyBuff>(), 2);
             player.AddBuff(BuffID.NeutralHunger, 18000);
             return base.UseItem(player);
         }

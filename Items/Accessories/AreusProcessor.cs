@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories
@@ -26,8 +25,8 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.height = 36;
             Item.accessory = true;
 
-            Item.rare = ItemRarityID.Cyan;
-            Item.value = 80000;
+            Item.rare = ItemDefaults.RarityAreus;
+            Item.value = ItemDefaults.ValueDungeon;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

@@ -21,9 +21,8 @@ namespace ShardsOfAtheria.Items.Potions
 
             Item.DefaultToPotion(ModContent.BuffType<ChargedFlight>(), 28800);
 
-            Item.value = 7500;
-            Item.rare = ItemRarityID.Green;
-
+            Item.rare = ItemDefaults.RarityHardlight;
+            Item.value = ItemDefaults.ValueBuffPotion;
         }
 
         public override void AddRecipes()

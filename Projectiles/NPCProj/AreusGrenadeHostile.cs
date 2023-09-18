@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
             }
             if (armTimer == 240 && Projectile.alpha == 0)
             {
-                Projectile.Explode();
+                Projectile.Explode(Projectile.Center, Projectile.damage, true);
             }
         }
 
@@ -53,7 +53,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
         {
             if (Projectile.alpha == 0)
             {
-                Projectile.Explode();
+                Projectile.Explode(Projectile.Center, Projectile.damage, true);
             }
         }
     }

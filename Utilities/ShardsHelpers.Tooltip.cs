@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Utilities
 {
-    public static class ShardsTooltipHelper
+    public partial class ShardsHelpers
     {
 
         internal static readonly string[] VanillaTooltipNames = new string[]

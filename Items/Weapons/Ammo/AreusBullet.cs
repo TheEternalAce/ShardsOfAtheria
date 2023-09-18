@@ -16,15 +16,17 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
 
         public override void SetDefaults()
         {
-            Item.damage = 15;
-            Item.DamageType = DamageClass.Ranged;
             Item.width = 8;
             Item.height = 8;
             Item.maxStack = 9999;
             Item.consumable = true;
+
+            Item.damage = 15;
+            Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 2f;
-            Item.value = 1200;
-            Item.rare = ItemRarityID.Cyan;
+
+            Item.rare = ItemDefaults.RarityAreus;
+            Item.value = ItemDefaults.ValueDungeon;
             Item.shoot = ModContent.ProjectileType<AreusBulletProj>();
             Item.shootSpeed = 4f;
             Item.ammo = AmmoID.Bullet;

@@ -50,7 +50,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
 
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
                 vector, ModContent.ProjectileType<BloodNeedleHostile>(), Projectile.damage,
-                Projectile.knockBack, Projectile.owner, 0, Projectile.Center.X, Projectile.Center.Y);
+                Projectile.knockBack, Projectile.owner, Projectile.Center.X, Projectile.Center.Y);
         }
 
         public override bool PreDraw(ref Color lightColor)

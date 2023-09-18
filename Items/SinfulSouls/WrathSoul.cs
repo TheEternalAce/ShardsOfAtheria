@@ -8,23 +8,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 {
     public class WrathSoul : SinfulSouls
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 38;
-            Item.height = 38;
-            base.SetStaticDefaults();
-        }
-
-        public override bool? UseItem(Player player)
-        {
-            player.AddBuff(ModContent.BuffType<WrathBuff>(), 2);
-            return base.UseItem(player);
-        }
+        public override int SoulType => ModContent.BuffType<WrathBuff>();
     }
 
     public class WrathPlayer : ModPlayer

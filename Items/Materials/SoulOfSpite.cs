@@ -27,8 +27,8 @@ namespace ShardsOfAtheria.Items.Materials
             Item.height = refItem.height;
             Item.maxStack = 9999;
 
-            Item.rare = ItemRarityID.Blue;
-            Item.value = 1000;
+            Item.rare = ItemDefaults.RarityDungeon;
+            Item.value = ItemDefaults.ValueEyeOfCthulhu;
         }
 
         // The following 2 methods are purely to show off these 2 hooks. Don't use them in your own code.

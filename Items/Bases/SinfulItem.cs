@@ -15,6 +15,11 @@ namespace ShardsOfAtheria.Items.Bases
             SoAGlobalItem.SinfulItem.Add(Type);
         }
 
+        public override void SetDefaults()
+        {
+            Item.rare = ItemDefaults.RaritySinful;
+        }
+
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             if (Item.damage > 0)

@@ -21,8 +21,10 @@ namespace ShardsOfAtheria.Items.Tools.Hooks
             // Copy values from the Amethyst Hook
             Item.CloneDefaults(ItemID.AmethystHook);
             Item.shootSpeed = 18f; // This defines how quickly the hook is shot.
-            Item.shoot = ModContent.ProjectileType<HardlightNeedleHook>(); // Makes the item shoot the hook's projectile when used.
-            Item.rare = ItemRarityID.Green;
+            Item.shoot = ModContent.ProjectileType<HardlightNeedleHook>();
+
+            Item.rare = ItemDefaults.RarityHardlight;
+            Item.value = ItemDefaults.ValueDungeon;
         }
 
         // Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.

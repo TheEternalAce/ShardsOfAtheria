@@ -8,7 +8,6 @@ using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 using WebCom.Extensions;
 
@@ -36,8 +35,8 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.shoot = ModContent.ProjectileType<PrototypeBandBlade>();
             Item.shootSpeed = 1;
 
-            Item.rare = ItemRarityID.Cyan;
-            Item.value = Item.buyPrice(0, 10);
+            Item.rare = ItemDefaults.RarityAreus;
+            Item.value = ItemDefaults.ValueDungeon;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

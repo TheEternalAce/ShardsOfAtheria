@@ -18,6 +18,8 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
             Item.defense = 7;
 
             slotType = AreusArmorChip.SlotChest;
+
+            Item.value = ItemDefaults.ValueEarlyHardmode;
         }
 
         public override void UpdateEquip(Player player)

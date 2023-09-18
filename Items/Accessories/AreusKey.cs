@@ -1,6 +1,5 @@
 ﻿using ShardsOfAtheria.Utilities;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories
@@ -18,8 +17,8 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.height = 22;
             Item.accessory = true;
 
-            Item.rare = ItemRarityID.Cyan;
-            Item.value = 200000;
+            Item.rare = ItemDefaults.RarityPlantera;
+            Item.value = ItemDefaults.ValueHardmodeDungeon;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

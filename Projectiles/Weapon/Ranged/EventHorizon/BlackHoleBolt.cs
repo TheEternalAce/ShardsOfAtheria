@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.EventHorizon
 
                 if (Projectile.ai[0] == 0f)
                 {
-                    point = (player.MountedCenter + Projectile.velocity + (Projectile.rotation - MathHelper.ToRadians(90)).ToRotationVector2().SafeNormalize(Vector2.Zero) * Vector2.Distance(player.Center, Main.MouseWorld) * Main.rand.NextFloat(0.9f, 1f)).ToPoint();
+                    point = new((int)Projectile.ai[1], (int)Projectile.ai[2]);
                     //Projectile.velocity *= 0.9f;
                     Projectile.ai[0] = 1f;
                 }
@@ -48,7 +48,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.EventHorizon
                     Dust dust = Dust.NewDustPerfect(point.ToVector2(), DustID.Stone, Vector2.Zero, 0, new Color(90, 10, 120));
                     dust.noGravity = true;
                     dust.fadeIn = 1;
-                    if (Projectile.Hitbox.Contains(point))
+                    if (Projectile.Distance(point.ToVector2()) <= 10)
                     {
                         Projectile.Kill();
                     }
@@ -72,9 +72,9 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.EventHorizon
                     {
                         if (projectile.type == ModContent.ProjectileType<BlackHole>())
                         {
-                            if (projectile.owner == Projectile.owner)
+                            if (projectile.owner == Projectile.owner && projectile.active)
                             {
-                                if (Projectile.Hitbox.Contains(projectile.Center.ToPoint()))
+                                if (Projectile.Hitbox.Intersects(projectile.Hitbox))
                                 {
                                     Projectile.Kill();
                                 }
@@ -99,7 +99,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.EventHorizon
         {
             var color = new Color(90, 10, 120);
             lightColor = Color.White;
-            Projectile.DrawProjectilePrims(color, ShardsProjectileHelper.DiamondX1);
+            Projectile.DrawProjectilePrims(color, ShardsHelpers.DiamondX1);
             return base.PreDraw(ref lightColor);
         }
     }

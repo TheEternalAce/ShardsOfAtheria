@@ -21,8 +21,8 @@ namespace ShardsOfAtheria.Items.Materials
             Item.height = 44;
             Item.maxStack = 9999;
 
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(0, 1);
+            Item.rare = ItemDefaults.RarityDukeFishron;
+            Item.value = ItemDefaults.ValueHardmodeDungeon;
         }
 
         public override void PostUpdate()

@@ -37,8 +37,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             Item.useTime = 10;
             Item.useAnimation = 10;
 
-            Item.rare = ItemRarityID.Red;
-            Item.value = Item.sellPrice(0, 3);
+            Item.rare = ItemDefaults.RarityLunarPillars;
+            Item.value = ItemDefaults.ValueLunarPillars;
         }
 
         public override void AddRecipes()

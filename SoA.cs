@@ -42,12 +42,15 @@ namespace ShardsOfAtheria
 
         public static Mod Instance { get; private set; }
 
-        public static SoundStyle ReactorAlarm { get; private set; }
-        public static SoundStyle TheMessiah { get; private set; }
-        public static SoundStyle Rekkoha { get; private set; }
-        public static SoundStyle Coin { get; private set; }
+        private const string ItemSoundPath = "ShardsOfAtheria/Sounds/Item/";
+        public static readonly SoundStyle ReactorAlarm = new(ItemSoundPath + "ReactorMeltdownAlarm");
+        public static readonly SoundStyle TheMessiah = new(ItemSoundPath + "TheMessiah");
+        public static readonly SoundStyle Rekkoha = new(ItemSoundPath + "MessiahRekkoha");
+        public static readonly SoundStyle Coin = new(ItemSoundPath + "Coin");
+        public static readonly SoundStyle KatanaScream = new(ItemSoundPath + "KatanaScream");
 
         public static readonly Color HardlightColor = new(224, 92, 165);
+        public static readonly Vector3 HardlightColorV3 = HardlightColor.ToVector3();
 
         public static bool Eternity()
         {
@@ -92,15 +95,6 @@ namespace ShardsOfAtheria
                     // If you want to replace default icon for your mod, then call this. Icon should be 30x30, either way it will be cut.
                     wikithis.Call("AddWikiTexture", Instance, ModContent.Request<Texture2D>("ShardsOfAtheria/icon_small"));
                 }
-
-                ReactorAlarm = new SoundStyle("ShardsOfAtheria/Sounds/Item/ReactorMeltdownAlarm")
-                {
-                    Volume = 0.9f,
-                    MaxInstances = 3,
-                };
-                TheMessiah = new SoundStyle("ShardsOfAtheria/Sounds/Item/TheMessiah");
-                Rekkoha = new SoundStyle("ShardsOfAtheria/Sounds/Item/MessiahRekkoha");
-                Coin = new SoundStyle("ShardsOfAtheria/Sounds/Item/Coin");
             }
         }
 
@@ -252,6 +246,15 @@ namespace ShardsOfAtheria
                 rot.Call("BossDesc", ModContent.NPCType<NovaStellar>(), "Mods.ShardsOfAtheria.NPCs.NovaStellar.BossDesc");
                 rot.Call("CustomName", ModContent.NPCType<Death>(), "Mods.ShardsOfAtheria.NPCs.Death.DisplayName");
                 rot.Call("BossDesc", ModContent.NPCType<Death>(), "Mods.ShardsOfAtheria.NPCs.Death.BossDesc");
+            }
+        }
+
+        public static void TryElementCall(params object[] args)
+        {
+            if (ElementModEnabled)
+            {
+                var em = ModLoader.GetMod(ElementModName);
+                em.Call(args);
             }
         }
 

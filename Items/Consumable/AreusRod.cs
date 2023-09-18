@@ -27,8 +27,8 @@ namespace ShardsOfAtheria.Items.Consumable
             Item.useTurn = true;
             Item.consumable = true;
 
-            Item.rare = ItemRarityID.Cyan;
-            Item.value = Item.sellPrice(0, 0, 20);
+            Item.rare = ItemDefaults.RarityAreus;
+            Item.value = ItemDefaults.ValueBuffPotion;
         }
 
         public override bool? UseItem(Player player)

@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.ShardsUI
     {
         UIPanel panel;
         VanillaItemSlotWrapper[] slots;
+        UIImage[] slotLocks;
         bool cardsInit = false;
         int[] slotTypes = new[] { AreusArmorChip.SlotHead, AreusArmorChip.SlotChest, AreusArmorChip.SlotLegs };
 
@@ -27,6 +28,13 @@ namespace ShardsOfAtheria.ShardsUI
             SetSlot(AreusArmorChip.SlotHead);
             SetSlot(AreusArmorChip.SlotChest);
             SetSlot(AreusArmorChip.SlotLegs);
+
+            slotLocks = new UIImage[3];
+            for (int i = 0; i < slotLocks.Length; i++)
+            {
+                var slotLock = slotLocks[i] = new(ModContent.Request<Texture2D>("ShardsOfAtheria/ShardsUI/AreusChips/SlotLock"));
+                slotLock.SetRectangle(5, 52 * i + 5, 32, 32);
+            }
 
             Append(panel);
         }
@@ -80,14 +88,6 @@ namespace ShardsOfAtheria.ShardsUI
             return true;
         }
 
-        private void SetRectangle(UIElement uiElement, float left, float top, float width, float height)
-        {
-            uiElement.Left.Set(left, 0f);
-            uiElement.Top.Set(top, 0f);
-            uiElement.Width.Set(width, 0f);
-            uiElement.Height.Set(height, 0f);
-        }
-
         public override void Draw(SpriteBatch spriteBatch)
         {
             var areus = Main.LocalPlayer.Areus();
@@ -123,6 +123,20 @@ namespace ShardsOfAtheria.ShardsUI
                 else
                 {
                     chips[i] = "";
+                }
+                var slotLock = slotLocks[i];
+                panel.RemoveChild(slotLock);
+                if (slotTypes[i] == AreusArmorChip.SlotHead && !armorPlayer.areusHead)
+                {
+                    panel.Append(slotLock);
+                }
+                if (slotTypes[i] == AreusArmorChip.SlotChest && !armorPlayer.areusBody)
+                {
+                    panel.Append(slotLock);
+                }
+                if (slotTypes[i] == AreusArmorChip.SlotLegs && !armorPlayer.areusLegs)
+                {
+                    panel.Append(slotLock);
                 }
             }
         }

@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.DedicatedItems.nightlight
@@ -22,8 +21,10 @@ namespace ShardsOfAtheria.Items.DedicatedItems.nightlight
         {
             Item.width = 38;
             Item.height = 36;
-            Item.rare = ItemRarityID.Cyan;
             Item.vanity = true;
+
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
+            Item.value = ItemDefaults.ValueEarlyHardmode;
         }
     }
 }

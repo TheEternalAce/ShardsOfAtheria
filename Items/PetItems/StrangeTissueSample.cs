@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Pets;
 using ShardsOfAtheria.Projectiles.Pets;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.PetItems
@@ -18,10 +17,11 @@ namespace ShardsOfAtheria.Items.PetItems
         {
             Item.width = 32;
             Item.height = 32;
-            Item.value = Item.sellPrice(0, 7, silver: 50);
-            Item.rare = ItemRarityID.Yellow;
             Item.shoot = ModContent.ProjectileType<PetCreeper>();
             Item.buffType = ModContent.BuffType<CreeperPetBuff>();
+
+            Item.rare = ItemDefaults.RarityPet;
+            Item.value = ItemDefaults.ValueDungeon;
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)

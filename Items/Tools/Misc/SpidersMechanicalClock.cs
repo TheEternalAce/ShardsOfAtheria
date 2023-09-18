@@ -24,10 +24,13 @@ namespace ShardsOfAtheria.Items.Tools.Misc
         {
             Item.width = 32;
             Item.height = 32;
-            Item.rare = ItemRarityID.Yellow;
-            Item.useStyle = ItemUseStyleID.HoldUp;
+
             Item.useTime = 45;
             Item.useAnimation = 45;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+
+            Item.rare = ItemDefaults.RarityAreus;
+            Item.value = ItemDefaults.ValueLunarPillars;
         }
 
         public override bool CanUseItem(Player player)

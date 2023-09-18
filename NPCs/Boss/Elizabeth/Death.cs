@@ -1,16 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.GrabBags;
-using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Items.PetItems;
-using ShardsOfAtheria.Items.Placeable.Furniture.Trophies;
-using ShardsOfAtheria.Items.Placeable.Furniture.Trophies.Master;
 using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
-using ShardsOfAtheria.Items.Weapons.Summon;
 using ShardsOfAtheria.Projectiles.NPCProj.Elizabeth;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Systems;
@@ -35,6 +29,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         int attackTimer = 0;
         int attackCooldown = 40;
         int attackTypeNext = -1;
+        int damagedTimer = 0;
 
         //int frameX = 0;
         //int frameY = 0;
@@ -72,7 +67,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             NPC.aiStyle = 14;
             NPC.boss = true;
             NPC.noGravity = true;
-            Music = MusicID.Boss4;
+            Music = MusicID.Boss1;
             NPC.value = 167900;
             NPC.npcSlots = 15f;
         }
@@ -84,6 +79,11 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
                 new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ShardsOfAtheria.NPCs.Death.Bestuary"))
             });
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            NPC.SetEventFlagCleared(ref ShardsDownedSystem.summonedDeath, -1);
         }
 
         public override bool CheckDead()
@@ -111,35 +111,34 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
             // Add the treasure bag using ItemDropRule.BossBag (automatically checks for expert mode)
             // This requires you to set BossBag in SetDefaults accordingly
-            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<NovaBossBag>()));
+            npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<DeathBossBag>()));
 
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
             LeadingConditionRule slayerMode = new(new IsSlayerMode());
-            LeadingConditionRule master = new(new Conditions.IsMasterMode());
+            //LeadingConditionRule master = new(new Conditions.IsMasterMode());
 
-            int[] drops = { ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<DownBow>(), ModContent.ItemType<PlumeCodex>(), ModContent.ItemType<NestlingStaff>() };
+            int[] drops = {
+                ModContent.ItemType<BloodStainedCrossbow>(),
+                ModContent.ItemType<BloodJavelin>(),
+                ModContent.ItemType<BloodScepter>(),
+            };
 
-            notExpertRule.OnSuccess(ItemDropRule.OneFromOptions(1, drops));
-            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HardlightKnife>(), 5, 150, 180));
-            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieCrown>(), 5));
-            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HardlightPrism>(), 1, 15, 28));
-            notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.GoldBar, 1, 8, 14));
+            notExpertRule.OnSuccess(new OneFromOptionsDropRule(4, 3, drops));
 
-            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<NovaRelic>()));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<NovaTrophy>(), 10));
-            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<SmallHardlightCrest>(), 4));
+            //npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<>(), 4));
 
-            slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieSoulCrystal>()));
+            slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<DeathSoulCrystal>()));
 
             if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage) && !ShardsDownedSystem.downedValkyrie)
             {
                 notExpertRule.OnSuccess(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
             }
 
-            master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieStormLance>()));
-            npcLoot.Add(master);
+            //master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<>()));
+            //npcLoot.Add(master);
 
             // Finally add the leading rule
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BloodScythe>()));
             npcLoot.Add(notExpertRule);
             npcLoot.Add(slayerMode);
         }
@@ -171,7 +170,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
         private bool phase2 = false;
         private bool desperation = false;
-        bool AlreadyDefeated = ShardsDownedSystem.downedDeath;
+        static bool PreviouslySummoned => ShardsDownedSystem.summonedDeath;
 
         public override void AI()
         {
@@ -191,9 +190,10 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 NPC.velocity = isSlayer ? new Vector2(0, 1) * 8f : Vector2.Zero;
                 if (NPC.ai[3] == 2)
                 {
-                    NPC.UseBossDialogueWithKey("Death", isSlayer ? ShardsNPCHelper.LastWords :
-                        AlreadyDefeated ? ShardsNPCHelper.ReDefeatLine :
-                        ShardsNPCHelper.DefeatLine, TextColor);
+                    NPC.UseBossDialogueWithKey("Death",
+                        isSlayer ? ShardsHelpers.LastWords :
+                        PreviouslySummoned ? ShardsHelpers.ReDefeatLine :
+                        ShardsHelpers.DefeatLine, TextColor);
                 }
                 if (NPC.ai[3] >= 120f)
                 {
@@ -221,82 +221,96 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 if (Main.rand.NextFloat() <= .5f)
                     NPC.position = player.position - new Vector2(500, 250);
                 else NPC.position = player.position - new Vector2(-500, 250);
-                NPC.UseBossDialogueWithKey("Death", isSlayer ? ShardsNPCHelper.SlayerSummonLine :
-                    AlreadyDefeated ? ShardsNPCHelper.ReSummonLine :
-                    ShardsNPCHelper.SummonLine, TextColor);
+                NPC.UseBossDialogueWithKey("Death",
+                    isSlayer ? ShardsHelpers.SlayerSummonLine :
+                    PreviouslySummoned ? ShardsHelpers.ReSummonLine :
+                    ShardsHelpers.SummonLine, TextColor);
                 NPC.localAI[0] = 1f;
             }
             NPC.spriteDirection = player.Center.X > NPC.Center.X ? 1 : -1;
             Lighting.AddLight(NPC.Center, Color.Cyan.ToVector3());
 
-            bool transitioning = false;
+            //bool transitioning = false;
             if (NPC.life <= NPC.lifeMax * 0.8 && !phase2)
             {
-                transitioning = true;
+                //transitioning = true;
                 attackCooldown = 120;
                 attackTimer = 0;
                 attackType = -1;
-                NPC.UseBossDialogueWithKey("Death", isSlayer ? ShardsNPCHelper.SlayerMidFightLine :
-                    AlreadyDefeated ? ShardsNPCHelper.ReMidFightLine :
-                    ShardsNPCHelper.MidFightLine, TextColor);
+                NPC.UseBossDialogueWithKey("Death",
+                    isSlayer ? ShardsHelpers.SlayerMidFightLine :
+                    PreviouslySummoned ? ShardsHelpers.ReMidFightLine :
+                    ShardsHelpers.MidFightLine, TextColor);
                 phase2 = true;
+            }
+
+            if (NPC.Distance(player.Center) > 600)
+            {
+                NPC.Track(player.Center, 18, 18);
             }
 
             if (NPC.life <= NPC.lifeMax * 0.25 && !desperation && player.IsSlayer())
             {
-                NPC.UseBossDialogueWithKey("Death", ShardsNPCHelper.DesperationLine, TextColor);
+                NPC.UseBossDialogueWithKey("Death", ShardsHelpers.DesperationLine, TextColor);
                 desperation = true;
             }
 
-            if (!transitioning)
+            //if (!transitioning)
+            //{
+            if (++damagedTimer >= 15.ToSeconds() &&
+                NPC.life >= NPC.lifeMax * 0.75f)
             {
-                if (attackCooldown <= 0)
+                damagedTimer = 0;
+                NPC.HitInfo hitInfo = new()
                 {
-                    ChoseAttacks();
-                }
-
-                if (attackTimer > 0)
-                {
-                    CycleAttack(player);
-                    attackTimer--;
-                }
-                else
-                {
-                    //if (phase2)
-                    //{
-                    //    frameX = 1;
-                    //}
-                    //else
-                    //{
-                    //    frameX = 0;
-                    //}
-                    // decrease wait timer when attack done
-                    attackCooldown--;
-                }
+                    Damage = 15,
+                };
+                NPC.StrikeNPC(hitInfo);
             }
+            if (attackCooldown <= 0)
+            {
+                ChoseAttacks();
+            }
+
+            if (attackTimer > 0)
+            {
+                CycleAttack(player);
+                attackTimer--;
+            }
+            else
+            {
+                //if (phase2)
+                //{
+                //    frameX = 1;
+                //}
+                //else
+                //{
+                //    frameX = 0;
+                //}
+                // decrease wait timer when attack done
+                attackCooldown--;
+            }
+            //}
             NPC.netUpdate = true;
         }
 
         int damage = 0;
         const int Crossbow = 0;
         const int BloodJavelin = 1;
-        const int BloodSpike = 2;
+        const int NeedleWave = 2;
         const int BloodOrb = 3;
         const int BloodScepter = 4;
         const int BloodSickle = 5;
         const int BloodScythe = 6;
         const int BloodSword = 7;
-        List<int> blacklistedAttacks = new();
+        readonly List<int> blacklistedAttacks = new();
         void ChoseAttacks()
         {
             WeightedRandom<int> random = new();
             AddNonBlacklistedAttack(ref random, Crossbow);
             if (BloodAttacksEnabled)
             {
-                if (NPC.life <= NPC.lifeMax / 8 * 7)
-                {
-                    AddNonBlacklistedAttack(ref random, BloodJavelin);
-                }
+                AddNonBlacklistedAttack(ref random, BloodJavelin);
                 if (NPC.life <= NPC.lifeMax / 4 * 3)
                 {
                     AddNonBlacklistedAttack(ref random, BloodOrb);
@@ -309,11 +323,19 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 }
                 if (Main.expertMode)
                 {
-                    AddNonBlacklistedAttack(ref random, BloodSpike);
+                    AddNonBlacklistedAttack(ref random, NeedleWave);
                 }
                 if (Main.masterMode)
                 {
                     AddNonBlacklistedAttack(ref random, BloodSword);
+                }
+                if (Main.rand.NextBool(5))
+                {
+                    Player player = Main.player[NPC.target];
+                    Vector2 center = NPC.Center;
+                    Vector2 targetPosition = player.Center;
+                    Vector2 toTarget = targetPosition - center;
+                    DoBloodBarrier(center, toTarget);
                 }
             }
             attackType = random;
@@ -339,42 +361,62 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 default:
                     break;
                 case Crossbow:
-                    attackTimer = 180;
+                    attackTimer = 120;
                     attackCooldown = 60;
                     damage = 60;
+                    if (NPC.life <= NPC.lifeMax / 4 * 3)
+                    {
+                        attackTypeNext = BloodScepter;
+                    }
                     break;
                 case BloodJavelin:
                     attackTimer = 60;
                     attackCooldown = 60;
-                    damage = 80;
+                    damage = 70;
+                    if (Main.expertMode)
+                    {
+                        attackTypeNext = NeedleWave;
+                    }
                     break;
-                case BloodSpike:
+                case NeedleWave:
                     attackTimer = 120;
                     attackCooldown = 60;
-                    damage = 80;
+                    damage = 70;
+                    if (NPC.life <= NPC.lifeMax / 4 * 3)
+                    {
+                        attackTypeNext = BloodOrb;
+                    }
                     break;
                 case BloodOrb:
                     attackTimer = 60;
                     attackCooldown = 200;
                     damage = 60;
+                    blacklistedAttacks.Add(NeedleWave);
                     break;
                 case BloodScepter:
                     attackTimer = 30;
                     attackCooldown = 120;
                     damage = 60;
+                    if (Main.masterMode)
+                    {
+                        attackTypeNext = BloodSword;
+                    }
                     break;
                 case BloodSickle:
                     attackTimer = 330;
-                    attackCooldown = 20;
+                    attackCooldown = 300;
                     damage = 60;
+                    attackTypeNext = BloodScythe;
                     break;
                 case BloodScythe:
                     attackTimer = 120;
                     attackCooldown = 95;
+                    damage = 80;
+                    blacklistedAttacks.Add(BloodSickle);
                     break;
                 case BloodSword:
-                    attackTimer = 60;
-                    attackCooldown = 20;
+                    attackTimer = 180;
+                    attackCooldown = 60;
                     damage = 80;
                     break;
             }
@@ -400,8 +442,8 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 case BloodJavelin:
                     DoJavelinThrow(center, toTarget);
                     break;
-                case BloodSpike:
-                    DoBloodSpike(center, toTarget);
+                case NeedleWave:
+                    DoNeedleWave(center, toTarget);
                     break;
                 case BloodOrb:
                     DoBubbleSpread(center, toTarget);
@@ -410,7 +452,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     DoScepterCast(center, toTarget);
                     break;
                 case BloodSickle:
-                    DoSickleSummon(targetPosition);
+                    DoSickleSummon(player);
                     break;
                 case BloodScythe:
                     DoScytheSwing(targetPosition);
@@ -423,6 +465,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
         void DoCrossbowShoot(Vector2 center, Vector2 toTarget)
         {
+            toTarget += Main.player[NPC.target].velocity * 16;
             toTarget.Normalize();
             toTarget *= 16f;
             if (attackTimer % 30 == 0)
@@ -472,11 +515,15 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     type, damage, 0f, Main.myPlayer);
             }
         }
-        void DoBloodSpike(Vector2 center, Vector2 toTarget)
+        void DoNeedleWave(Vector2 center, Vector2 toTarget)
         {
             if (attackTimer >= 10)
             {
                 float speed = 16f;
+                if (NPC.Distance(toTarget + center) > 100)
+                {
+                    speed += 6f;
+                }
                 var targetCenter = toTarget + center;
                 int direction = (NPC.Center.X > targetCenter.X ? 1 : -1);
                 Vector2 toPosition = targetCenter + new Vector2(150 * direction, 0);
@@ -498,7 +545,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     perturbedSpeed *= Main.rand.NextFloat(0.66f, 1f);
                     var needle = Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), center,
                         perturbedSpeed, ModContent.ProjectileType<BloodNeedleHostile>(), damage, 6,
-                        Main.myPlayer, 0, NPC.Center.X, NPC.Center.Y);
+                        Main.myPlayer, NPC.Center.X, NPC.Center.Y);
                     needle.timeLeft *= 3;
                     needle.friendly = false;
                 }
@@ -529,61 +576,116 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         {
             if (attackTimer % 10 == 0)
             {
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), center, Vector2.Normalize(toTarget) * 16f,
-                    ModContent.ProjectileType<BloodWaveHostile>(), damage, 0f, Main.myPlayer);
+                toTarget += Main.player[NPC.target].velocity * 16;
+                toTarget.Normalize();
+                toTarget *= 16f;
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), center, toTarget,
+                    ModContent.ProjectileType<BloodWaveHostile>(), damage, 0f,
+                    Main.myPlayer);
             }
         }
-        void DoSickleSummon(Vector2 targetCenter)
+        void DoSickleSummon(Player player)
         {
             if (attackTimer % 30 == 0)
             {
-                float rotation = MathHelper.ToRadians(10);
-                float radius = 250f * Main.rand.NextFloat(0.8f, 1f);
-                var pos = targetCenter + Vector2.One.RotatedByRandom(MathHelper.ToRadians(360)) * radius;
-                var vector = targetCenter - pos;
-                vector.Normalize();
-                vector *= 4f;
-                Vector2 perturbedSpeed = vector.RotatedByRandom(rotation);
-                perturbedSpeed *= Main.rand.NextFloat(0.66f, 1f);
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), pos, perturbedSpeed,
-                    ModContent.ProjectileType<BloodSickleHostile>(), damage, 6, Main.myPlayer);
+                int amount = 1;
+                if (Main.masterMode)
+                {
+                    amount = 2;
+                }
+                for (int i = 0; i < amount; i++)
+                {
+                    Vector2 targetCenter = player.Center;
+                    float radius = 250f * Main.rand.NextFloat(0.8f, 1f);
+                    var pos = targetCenter + Vector2.One.RotatedByRandom(MathHelper.ToRadians(360)) * radius;
+                    var vector = targetCenter - pos;
+                    vector.Normalize();
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center,
+                        Vector2.Zero, ModContent.ProjectileType<BloodSickleSummon>(),
+                        damage, 6, Main.myPlayer, pos.X - targetCenter.X,
+                        pos.Y - targetCenter.Y, player.whoAmI);
+                }
             }
         }
         void DoScytheSwing(Vector2 targetCenter)
         {
-            if (attackTimer > 30)
+            float speed = 16f;
+            if (NPC.Distance(targetCenter) > 100)
             {
-                float speed = 8f;
-                int direction = (NPC.Center.X > targetCenter.X ? 1 : -1);
-                Vector2 toPosition = targetCenter + new Vector2(100 * direction, 0);
-                NPC.Track(toPosition, speed, speed);
+                speed += 6f;
             }
-            if (attackTimer == 30)
+            int direction = (NPC.Center.X > targetCenter.X ? 1 : -1);
+            Vector2 toPosition = targetCenter + new Vector2(100 * direction, 0);
+            NPC.Track(toPosition, speed, speed);
+            if (attackTimer == 90)
             {
+                Vector2 vector = new(1 * NPC.direction, 0);
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
+                    vector, ModContent.ProjectileType<BloodScytheHostile>(), damage,
+                    0, Main.myPlayer, NPC.whoAmI);
             }
         }
         void DoSwordDraw(Player player)
         {
-            if (attackTimer == 0)
+            float speed = 16f;
+            if (NPC.Distance(player.Center) > 100)
             {
-
+                speed += 6f;
             }
+            NPC.Track(player.Center, speed, speed);
+            if (NPC.Distance(player.Center) <= 150)
+            {
+                var vector = player.Center - NPC.Center;
+                vector.Normalize();
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, vector,
+                    ModContent.ProjectileType<BloodSwordHostile>(), damage, 0f,
+                    Main.myPlayer, NPC.whoAmI);
+                attackTimer = 0;
+            }
+        }
+        void DoBloodBarrier(Vector2 center, Vector2 toTarget)
+        {
+            toTarget.Normalize();
+            Projectile.NewProjectile(NPC.GetSource_FromAI(), center, toTarget,
+                ModContent.ProjectileType<BloodBarrierHostile>(), damage, 0f,
+                Main.myPlayer, NPC.whoAmI);
+        }
+
+        public override bool? CanBeHitByProjectile(Projectile projectile)
+        {
+            if (NPC.life <= NPC.lifeMax * 0.25f)
+            {
+                if (projectile.type == ModContent.ProjectileType<BloodArrowHostile>() ||
+                    projectile.type == ModContent.ProjectileType<BloodJavelinHostile>() ||
+                    projectile.type == ModContent.ProjectileType<BloodNeedleHostile>() ||
+                    projectile.type == ModContent.ProjectileType<BloodSickleHostile>())
+                {
+                    return false;
+                }
+            }
+            return base.CanBeHitByProjectile(projectile);
         }
 
         public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
-            NPC.AddBuff(ModContent.BuffType<DeathBleed>(), 600);
+            OnHitEffect();
         }
         public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
+            OnHitEffect();
+        }
+        private void OnHitEffect()
+        {
+            damagedTimer = 0;
             NPC.AddBuff(ModContent.BuffType<DeathBleed>(), 600);
         }
+
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
-            target.AddBuff(ModContent.BuffType<DeathBleed>(), 600);
+            target.AddBuff<DeathBleed>(300);
         }
 
-        void KillProjectiles()
+        private static void KillProjectiles()
         {
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
@@ -592,12 +694,10 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     proj.type == ModContent.ProjectileType<BloodBubbleHostile>() ||
                     proj.type == ModContent.ProjectileType<BloodJavelinHostile>() ||
                     proj.type == ModContent.ProjectileType<BloodNeedleHostile>() ||
-                    //proj.type == ModContent.ProjectileType<BloodScytheHostile>() ||
                     proj.type == ModContent.ProjectileType<BloodSickleHostile>() ||
-                    //proj.type == ModContent.ProjectileType<BloodSpikeHostile>() ||
-                    //proj.type == ModContent.ProjectileType<BloodSwordHostile>() ||
-                    proj.type == ModContent.ProjectileType<SilverBoltHostile>()
-                    )
+                    proj.type == ModContent.ProjectileType<BloodScytheHostile>() ||
+                    proj.type == ModContent.ProjectileType<BloodSwordHostile>() ||
+                    proj.type == ModContent.ProjectileType<SilverBoltHostile>())
                 {
                     proj.Kill();
                 }

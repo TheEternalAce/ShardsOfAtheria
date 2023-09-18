@@ -65,7 +65,6 @@ namespace ShardsOfAtheria.Players
         public int processorElement = 1;
         public bool resonator;
         public bool areusRod;
-        public bool anastasiaPride;
         public int mourningStarKills = 0;
         public bool acidTrip;
         public bool powerTrip;
@@ -96,7 +95,6 @@ namespace ShardsOfAtheria.Players
         /// </summary>
         public ushort itemCombo;
 
-        // These 10 relate to Biometal.
         public bool Biometal;
         public bool BiometalPrevious;
         public bool BiometalSound;
@@ -123,6 +121,9 @@ namespace ShardsOfAtheria.Players
 
         public int[] strikeNPCs = new int[3];
         public int strikeCycle = 0;
+
+        public bool sacrificedKatana = false;
+        public int katanaTransformTimer;
 
         public override void ResetEffects()
         {
@@ -204,6 +205,11 @@ namespace ShardsOfAtheria.Players
 
             conductive = false;
             deathCloak = false;
+
+            if (NPC.downedPlantBoss && sacrificedKatana)
+            {
+                katanaTransformTimer++;
+            }
         }
 
         public override void UpdateDead()
@@ -233,7 +239,7 @@ namespace ShardsOfAtheria.Players
             tag[nameof(areusRod)] = areusRod;
             tag[nameof(mourningStarKills)] = mourningStarKills;
             tag[nameof(genesisRagnarockUpgrades)] = genesisRagnarockUpgrades;
-            tag[nameof(anastasiaPride)] = anastasiaPride;
+            tag[nameof(sacrificedKatana)] = sacrificedKatana;
         }
 
         public override void LoadData(TagCompound tag)
@@ -250,8 +256,8 @@ namespace ShardsOfAtheria.Players
                 mourningStarKills = tag.GetInt(nameof(mourningStarKills));
             if (tag.ContainsKey(nameof(genesisRagnarockUpgrades)))
                 genesisRagnarockUpgrades = tag.GetInt(nameof(genesisRagnarockUpgrades));
-            if (tag.ContainsKey(nameof(anastasiaPride)))
-                anastasiaPride = tag.GetBool(nameof(anastasiaPride));
+            if (tag.ContainsKey(nameof(sacrificedKatana)))
+                sacrificedKatana = tag.GetBool(nameof(sacrificedKatana));
         }
 
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
@@ -284,6 +290,25 @@ namespace ShardsOfAtheria.Players
             {
                 Player.statDefense += 20;
                 Player.endurance += .15f;
+            }
+            TryAreusKatanaTransformation();
+        }
+
+        private void TryAreusKatanaTransformation()
+        {
+            if (katanaTransformTimer >= 600 + Main.rand.Next(300))
+            {
+                katanaTransformTimer = 0;
+                if (Player.HasItem(ModContent.ItemType<AreusKatana>()) &&
+                    NPC.downedPlantBoss && sacrificedKatana)
+                {
+                    var pos = Player.Center + Vector2.One.RotatedByRandom(MathHelper.ToRadians(360)) * 75;
+                    var vel = Player.Center - pos;
+                    vel.Normalize();
+                    vel *= 16f;
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), pos, vel,
+                        ModContent.ProjectileType<InfernalKatana>(), 1, 0, Player.whoAmI);
+                }
             }
         }
 
@@ -571,7 +596,7 @@ namespace ShardsOfAtheria.Players
 
             if (SoA.ElementModEnabled)
             {
-                AreusRodEffect(target, item, null);
+                AreusRodEffect(target, item);
             }
         }
 
@@ -608,16 +633,16 @@ namespace ShardsOfAtheria.Players
             }
             if (SoA.ElementModEnabled)
             {
-                AreusRodEffect(target, null, proj);
+                AreusRodEffect(target, proj);
             }
         }
 
         [JITWhenModsEnabled("BattleNetworkElements")]
-        private void AreusRodEffect(NPC target, Item item, Projectile proj)
+        private void AreusRodEffect(NPC target, object source)
         {
             if (areusRod)
             {
-                if (item != null)
+                if (source is Item item)
                 {
                     if (item.IsElec())
                     {
@@ -631,7 +656,7 @@ namespace ShardsOfAtheria.Players
                         }
                     }
                 }
-                if (proj != null)
+                if (source is Projectile proj)
                 {
                     if (proj.IsElec())
                     {
@@ -872,9 +897,14 @@ namespace ShardsOfAtheria.Players
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-            if (Player.HasBuff(ModContent.BuffType<Overdrive>()))
+            if (damageSource.SourceNPCIndex == -1 &&
+                damageSource.SourceItem == null &&
+                damageSource.SourceProjectileType == 0)
             {
-                damageSource = PlayerDeathReason.ByCustomReason(Player.name + " pushed too far.");
+                if (Player.HasBuff(ModContent.BuffType<DeathBleed>()))
+                {
+                    damageSource = PlayerDeathReason.ByCustomReason(Player.name + " bled out.");
+                }
             }
             if (deathCloak && !DeathCloakCooldown)
             {
@@ -885,9 +915,10 @@ namespace ShardsOfAtheria.Players
                 while (!validTeleport)
                 {
                     teleport = Player.Center + Vector2.One.RotateRandom(MathHelper.ToRadians(360)) * Main.rand.NextFloat(100, 200);
-                    validTeleport = Player.ValidateTeleportPosition(teleport);
+                    validTeleport = ShardsHelpers.CheckTileCollision(teleport, Player.Hitbox);
                 }
                 Player.Teleport(teleport, 1);
+                NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, Player.whoAmI, teleport.X, teleport.Y, 1);
                 return false;
             }
             return true;

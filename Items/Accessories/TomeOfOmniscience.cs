@@ -24,7 +24,7 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.master = true;
 
             Item.rare = ItemRarityID.Master;
-            Item.value = Item.sellPrice(0, 1);
+            Item.value = ItemDefaults.ValueDungeon;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

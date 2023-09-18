@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             string key = "Mods.ShardsOfAtheria.Items.GenesisAndRagnarokUpgrade";
             string text = Language.GetTextValue(key + upgrades);
             var line = new TooltipLine(Mod, "Tooltip", text);
-            tooltips.Insert(ShardsTooltipHelper.GetIndex(tooltips, "OneDropLogo"), line);
+            tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
         }
 
         public override void SetDefaults()

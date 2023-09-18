@@ -27,6 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.ElecKatana
             Projectile.scale = 2f;
             swordReach = 100;
             rotationOffset = -MathHelper.PiOver4 * 3f;
+            amountAllowedToHit = 3;
         }
 
         protected override void Initialize(Player player, ShardsPlayer shards)
@@ -96,6 +97,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.ElecKatana
 
         public override bool PreDraw(ref Color lightColor)
         {
+            DrawSwish();
             return SingleEdgeSwordDraw<AreusKatana>(lightColor);
         }
     }

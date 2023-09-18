@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.DedicatedItems.DaluyanMesses
@@ -15,7 +14,8 @@ namespace ShardsOfAtheria.Items.DedicatedItems.DaluyanMesses
         {
             Item.width = 38;
             Item.height = 36;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
+            Item.value = ItemDefaults.ValueDungeon;
         }
     }
 }

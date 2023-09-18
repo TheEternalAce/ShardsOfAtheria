@@ -19,8 +19,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             Item.height = 32;
             Item.accessory = true;
 
-            Item.rare = ItemRarityID.Orange;
-            Item.value = Item.sellPrice(0, 2, 25);
+            Item.rare = ItemDefaults.RarityMechs;
+            Item.value = ItemDefaults.ValueEarlyHardmode;
         }
 
         public override void AddRecipes()

@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (Projectile.GetPlayer().Shards().Overdrive)
+            if (Projectile.GetPlayerOwner().Shards().Overdrive)
             {
                 Projectile.CallStorm(3);
                 return base.OnTileCollide(oldVelocity);
@@ -56,7 +56,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.FireCannon
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height,
                     DustID.Electric);
             }
-            if (Projectile.GetPlayer().Shards().Overdrive)
+            if (Projectile.GetPlayerOwner().Shards().Overdrive)
             {
                 Projectile.CallStorm(3);
             }

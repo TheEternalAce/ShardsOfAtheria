@@ -19,9 +19,10 @@ namespace ShardsOfAtheria.Items.Accessories
         {
             Item.width = 26;
             Item.height = 26;
-            Item.value = Item.sellPrice(0, 15);
-            Item.rare = ItemRarityID.Yellow;
             Item.accessory = true;
+
+            Item.rare = ItemDefaults.RarityLunarPillars;
+            Item.value = ItemDefaults.ValueLunarPillars;
         }
 
         public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,

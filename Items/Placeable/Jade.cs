@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Placeable
@@ -25,8 +24,8 @@ namespace ShardsOfAtheria.Items.Placeable
             //Item.useTurn = true;
             //Item.autoReuse = true;
 
-            Item.value = 4500;
-            Item.rare = ItemRarityID.White;
+            Item.rare = ItemDefaults.RarityDemoniteCrimtane;
+            Item.value = ItemDefaults.ValueEyeOfCthulhu;
         }
     }
 }

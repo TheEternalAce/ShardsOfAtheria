@@ -8,50 +8,54 @@ namespace ShardsOfAtheria.ShardsConditions
 {
     public static class SoAConditions
     {
-        public static Condition SlayerMode = new("Mods.ShardsOfAtheria.Conditions.SlayerMode",
-            () => Main.LocalPlayer.IsSlayer());
-        public static Condition NotSlayerMode = new("Mods.ShardsOfAtheria.Conditions.NotSlayer",
-            () => !Main.LocalPlayer.IsSlayer());
-        public static Condition Upgrade = new("Mods.ShardsOfAtheria.Conditions.Upgrade",
-            () => false);
-        public static Condition AtherianPresent = new("Mods.ShardsOfAtheria.Conditions.AtherianPresent",
-            () => NPC.AnyNPCs(ModContent.NPCType<Atherian>()));
-        public static Condition AtherianNotPresent = new("Mods.ShardsOfAtheria.Conditions.NotAtherianPresent",
-            () => !NPC.AnyNPCs(ModContent.NPCType<Atherian>()));
-        public static Condition ElementModEnabled = new("Mods.ShardsOfAtheria.Conditions.ElementModEnabled",
-            () => ModLoader.TryGetMod("BattleNetworkElements", out var _));
+        public const string KeyBase = "Mods.ShardsOfAtheria.Conditions.";
 
-        public static Condition DownedNova = new("Mods.ShardsOfAtheria.Conditions.DownedNova",
+        public static readonly Condition SlayerMode = new(KeyBase + "SlayerMode",
+            () => Main.LocalPlayer.IsSlayer());
+        public static readonly Condition NotSlayerMode = new(KeyBase + "NotSlayer",
+            () => !Main.LocalPlayer.IsSlayer());
+        public static readonly Condition Upgrade = new(KeyBase + "Upgrade",
+            () => false);
+        public static readonly Condition AtherianPresent = new(KeyBase + "AtherianPresent",
+            () => NPC.AnyNPCs(ModContent.NPCType<Atherian>()));
+        public static readonly Condition AtherianNotPresent = new(KeyBase + "NotAtherianPresent",
+            () => !NPC.AnyNPCs(ModContent.NPCType<Atherian>()));
+        public static readonly Condition ElementModEnabled = new(KeyBase + "ElementModEnabled",
+            () => ModLoader.TryGetMod("BattleNetworkElements", out var _));
+        public static readonly Condition SacrificeKatana = new(KeyBase + "SacrificeKatana",
+            () => false);
+
+        public static readonly Condition DownedNova = new(KeyBase + "DownedNova",
             () => ShardsDownedSystem.downedValkyrie);
-        public static Condition NotDownedNova = new("Mods.ShardsOfAtheria.Conditions.NotDownedNova",
+        public static readonly Condition NotDownedNova = new(KeyBase + "NotDownedNova",
             () => !ShardsDownedSystem.downedValkyrie);
-        //public static Condition DownedArmor = new("Mods.ShardsOfAtheria.Conditions.DownedArmor",
+        //public static readonly Condition DownedArmor = new(KeyBase+"DownedArmor",
         //    () => ShardsDownedSystem.downedArmor);
-        //public static Condition NotDownedArmor = new("Mods.ShardsOfAtheria.Conditions.NotDownedArmor",
+        //public static readonly Condition NotDownedArmor = new(KeyBase+"NotDownedArmor",
         //    () => !ShardsDownedSystem.downedArmor);
-        //public static Condition DownedPNova = new("Mods.ShardsOfAtheria.Conditions.DownedPNova",
+        //public static readonly Condition DownedPNova = new(KeyBase+"DownedPNova",
         //    () => ShardsDownedSystem.downedPheonix);
-        //public static Condition NotDownedPNova = new("Mods.ShardsOfAtheria.Conditions.NotDownedPNova",
+        //public static readonly Condition NotDownedPNova = new(KeyBase+"NotDownedPNova",
         //    () => !ShardsDownedSystem.downedPheonix);
-        //public static Condition DownedAnnah = new("Mods.ShardsOfAtheria.Conditions.DownedAnnah",
+        //public static readonly Condition DownedAnnah = new(KeyBase+"DownedAnnah",
         //    () => ShardsDownedSystem.downedHarpyQueen);
-        //public static Condition NotDownedAnnah = new("Mods.ShardsOfAtheria.Conditions.NotDownedAnnah",
+        //public static readonly Condition NotDownedAnnah = new(KeyBase+"NotDownedAnnah",
         //    () => !ShardsDownedSystem.downedHarpyQueen);
-        public static Condition DownedDeath = new("Mods.ShardsOfAtheria.Conditions.DownedDeath",
+        public static readonly Condition DownedDeath = new(KeyBase + "DownedDeath",
             () => ShardsDownedSystem.downedDeath);
-        public static Condition NotDownedDeath = new("Mods.ShardsOfAtheria.Conditions.NotDownedDeath",
+        public static readonly Condition NotDownedDeath = new(KeyBase + "NotDownedDeath",
             () => !ShardsDownedSystem.downedDeath);
-        //public static Condition DownedAndromeda = new("Mods.ShardsOfAtheria.Conditions.DownedAndromeda",
+        //public static readonly Condition DownedAndromeda = new(KeyBase+"DownedAndromeda",
         //    () => ShardsDownedSystem.downedCentipede);
-        //public static Condition NotDownedAndromeda = new("Mods.ShardsOfAtheria.Conditions.NotDownedAndromeda",
+        //public static readonly Condition NotDownedAndromeda = new(KeyBase+"NotDownedAndromeda",
         //    () => !ShardsDownedSystem.downedCentipede);
-        public static Condition DownedGenesis = new("Mods.ShardsOfAtheria.Conditions.DownedGenesis",
+        public static readonly Condition DownedGenesis = new(KeyBase + "DownedGenesis",
             () => ShardsDownedSystem.downedGenesis);
-        public static Condition NotDownedGenesis = new("Mods.ShardsOfAtheria.Conditions.NotDownedGenesis",
+        public static readonly Condition NotDownedGenesis = new(KeyBase + "NotDownedGenesis",
             () => !ShardsDownedSystem.downedGenesis);
-        public static Condition DownedSenterra = new("Mods.ShardsOfAtheria.Conditions.DownedSenterra",
+        public static readonly Condition DownedSenterra = new(KeyBase + "DownedSenterra",
             () => ShardsDownedSystem.downedSenterra);
-        public static Condition NotDownedSenterra = new("Mods.ShardsOfAtheria.Conditions.NotDownedSenterra",
+        public static readonly Condition NotDownedSenterra = new(KeyBase + "NotDownedSenterra",
             () => !ShardsDownedSystem.downedSenterra);
     }
 }

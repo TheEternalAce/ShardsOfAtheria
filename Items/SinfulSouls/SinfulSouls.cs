@@ -1,5 +1,4 @@
 ﻿using ShardsOfAtheria.Items.Bases;
-using ShardsOfAtheria.Items.SinfulSouls.Extras;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
@@ -12,14 +11,19 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 {
     public abstract class SinfulSouls : SinfulItem
     {
-        public override void SetStaticDefaults()
+        public virtual int SoulType => 0;
+
+        public override void SetDefaults()
         {
-            Item.rare = ItemRarityID.Green;
+            Item.width = 32;
+            Item.height = 32;
             Item.consumable = true;
+
             Item.useTime = Item.useAnimation = 30;
             Item.useStyle = ItemUseStyleID.HoldUp;
 
-            Item.ResearchUnlockCount = 1;
+            Item.rare = ItemDefaults.RaritySinful;
+            Item.value = ItemDefaults.ValueEyeOfCthulhu;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -36,7 +40,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override bool? UseItem(Player player)
         {
-            player.ClearBuff(ModContent.BuffType<VirtuousSoul>());
+            player.ClearBuff(SoulType);
             return true;
         }
 

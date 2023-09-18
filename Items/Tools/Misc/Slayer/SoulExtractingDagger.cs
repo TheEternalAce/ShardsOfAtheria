@@ -49,13 +49,16 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
         {
             Item.width = 36;
             Item.height = 40;
-            Item.rare = ItemRarityID.Yellow;
+
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.shoot = ModContent.ProjectileType<ExtractingSoul>();
-            Item.shootSpeed = 16f;
             Item.noUseGraphic = true;
+
+            Item.shootSpeed = 16f;
+            Item.rare = ItemDefaults.RaritySlayer;
+            Item.value = ItemDefaults.ValueEyeOfCthulhu;
+            Item.shoot = ModContent.ProjectileType<ExtractingSoul>();
         }
 
         public override void AddRecipes()

@@ -7,23 +7,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 {
     public class LustSoul : SinfulSouls
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 34;
-            Item.height = 36;
-            base.SetStaticDefaults();
-        }
-
-        public override bool? UseItem(Player player)
-        {
-            player.AddBuff(ModContent.BuffType<LustBuff>(), 2);
-            return base.UseItem(player);
-        }
+        public override int SoulType => ModContent.BuffType<LustBuff>();
     }
 
     public class LustPlayer : ModPlayer

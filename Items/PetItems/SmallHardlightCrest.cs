@@ -18,11 +18,12 @@ namespace ShardsOfAtheria.Items.PetItems
         {
             Item.width = 32;
             Item.height = 32;
-            Item.value = Item.sellPrice(0, 7, silver: 50);
-            Item.rare = ItemRarityID.Master;
             Item.master = true;
             Item.shoot = ModContent.ProjectileType<SmolNova>();
             Item.buffType = ModContent.BuffType<NovaPetBuff>();
+
+            Item.rare = ItemRarityID.Master;
+            Item.value = ItemDefaults.ValueDungeon;
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)

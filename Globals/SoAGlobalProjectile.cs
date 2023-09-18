@@ -15,12 +15,13 @@ namespace ShardsOfAtheria.Globals
         public bool tempAreus = false;
         public bool explosion = false;
 
-        public static List<int> AreusProj = new List<int>();
-        public static List<int> DarkAreusProj = new List<int>();
-        public static List<int> Eraser = new List<int>();
+        public static readonly List<int> AreusProj = new();
+        public static readonly List<int> DarkAreusProj = new();
+        public static readonly List<int> Eraser = new();
 
-        public static List<int> ReflectAiList = new List<int>
+        public static readonly List<int> ReflectAiList = new()
         {
+            0,
             1,
             2,
             3,
@@ -105,7 +106,7 @@ namespace ShardsOfAtheria.Globals
         }
 
         [JITWhenModsEnabled("BattleNetworkElements")]
-        private void ChangeElements(Projectile projectile, IEntitySource source)
+        private static void ChangeElements(Projectile projectile, IEntitySource source)
         {
             foreach (Player player in Main.player)
             {

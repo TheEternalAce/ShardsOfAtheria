@@ -20,8 +20,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             Item.accessory = true;
             Item.defense = 20;
 
-            Item.rare = ItemRarityID.Lime;
-            Item.value = Item.sellPrice(0, 3);
+            Item.rare = ItemDefaults.RarityLunaticCultist;
+            Item.value = ItemDefaults.ValueLunarPillars;
         }
 
         public override void AddRecipes()

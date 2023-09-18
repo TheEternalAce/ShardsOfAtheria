@@ -83,6 +83,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
 
         public override bool PreDraw(ref Color lightColor)
         {
+            DrawSwish();
             return GenericSwordDraw(lightColor);
         }
     }

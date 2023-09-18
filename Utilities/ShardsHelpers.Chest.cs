@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 
 namespace ShardsOfAtheria.Utilities
 {
-    public static class ShardsChestHelper
+    public partial class ShardsHelpers
     {
         public static Item DefaultItem(int type)
         {

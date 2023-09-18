@@ -7,23 +7,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 {
     public class EnvySoul : SinfulSouls
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 32;
-            Item.height = 32;
-            base.SetStaticDefaults();
-        }
-
-        public override bool? UseItem(Player player)
-        {
-            player.AddBuff(ModContent.BuffType<EnvyBuff>(), 2);
-            return base.UseItem(player);
-        }
+        public override int SoulType => ModContent.BuffType<EnvyBuff>();
     }
 
     public class EnvyPlayer : ModPlayer

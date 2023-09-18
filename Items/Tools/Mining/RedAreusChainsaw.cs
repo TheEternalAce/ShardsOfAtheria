@@ -33,8 +33,6 @@ namespace ShardsOfAtheria.Items.Tools.Mining
         {
             ItemID.Sets.IsDrill[Type] = true;
 
-
-            Item.ResearchUnlockCount = 1;
             Item.AddAreus();
         }
 
@@ -60,8 +58,8 @@ namespace ShardsOfAtheria.Items.Tools.Mining
             Item.channel = true;
 
             Item.shootSpeed = 32;
-            Item.rare = ItemRarityID.Cyan;
-            Item.value = Item.sellPrice(0, 4, 75);
+            Item.rare = ItemDefaults.RarityAreus;
+            Item.value = ItemDefaults.ValueLunarPillars;
             Item.shoot = ModContent.ProjectileType<RedAreusChainsawProj>();
         }
 

@@ -1,7 +1,6 @@
 ﻿using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -21,7 +20,8 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.accessory = true;
             Item.value = 150000;
 
-            Item.rare = ItemRarityID.Blue;
+            Item.rare = ItemDefaults.RarityDungeon;
+            Item.value = ItemDefaults.ValueDungeon;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             set => Projectile.ai[0] = value;
         }
 
-        public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.GolfBallDyedViolet}";
+        public override string Texture =>SoA.BlankTexture;
 
         public override void SetDefaults()
         {

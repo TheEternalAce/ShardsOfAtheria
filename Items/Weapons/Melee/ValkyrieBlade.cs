@@ -55,6 +55,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Projectile.NewProjectile(source, position, velocity * 0, type, damage,
                 knockback, player.whoAmI, player.direction * player.gravDir,
                 player.itemAnimationMax);
+            damage /= 2;
             int type2 = ModContent.ProjectileType<HardlightBlade>();
             if (++shoot == 3)
             {
@@ -69,7 +70,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             {
                 var velocity2 = Vector2.Normalize(velocity) * 16f;
                 Projectile.NewProjectile(source, position, velocity2, type2, damage,
-                    knockback, player.whoAmI, 1);
+                    knockback, player.whoAmI);
             }
             return false;
         }

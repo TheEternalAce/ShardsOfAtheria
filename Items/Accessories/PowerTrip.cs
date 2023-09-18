@@ -28,8 +28,8 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.knockBack = 6;
             Item.crit = 2;
 
-            Item.rare = ItemRarityID.Cyan;
-            Item.value = 180000;
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
+            Item.value = ItemDefaults.ValueEarlyHardmode;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

@@ -7,7 +7,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-//using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet
 {
@@ -32,7 +31,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet
                 swingDirection *= -1;
             }
         }
-
 
         private ElecGauntletPlayer gplayer => Main.player[Projectile.owner].GetModPlayer<ElecGauntletPlayer>();
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -91,6 +89,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet
 
         public override bool PreDraw(ref Color lightColor)
         {
+            DrawSwish();
             return SingleEdgeSwordDraw(lightColor);
         }
     }

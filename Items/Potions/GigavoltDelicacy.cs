@@ -22,8 +22,8 @@ namespace ShardsOfAtheria.Items.Potions
             Item.DefaultToPotion(BuffID.WellFed2, 8.ToMinutes());
             SoAGlobalItem.Potions.Remove(Type);
 
-            Item.value = 15000;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityAreus;
+            Item.value = ItemDefaults.ValueBuffPotion;
         }
     }
 }

@@ -27,10 +27,13 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
         {
             Item.width = 44;
             Item.height = 56;
-            Item.rare = ItemRarityID.Yellow;
-            Item.useStyle = ItemUseStyleID.HoldUp;
+
             Item.useTime = 45;
             Item.useAnimation = 45;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+
+            Item.rare = ItemDefaults.RaritySlayer;
+            Item.value = ItemDefaults.ValueEyeOfCthulhu;
         }
 
         public override void AddRecipes()

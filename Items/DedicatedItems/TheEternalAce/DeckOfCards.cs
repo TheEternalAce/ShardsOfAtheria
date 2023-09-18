@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
 
             Item.shootSpeed = 15;
             Item.rare = ItemRarityID.Cyan;
-            Item.value = Item.sellPrice(0, 2, 25);
+            Item.value = ItemDefaults.ValueEarlyHardmode;
             Item.shoot = ModContent.ProjectileType<AceOfSpades>();
         }
 

@@ -169,16 +169,16 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusJoustingLance
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             // This will increase or decrease the knockback of the Jousting Lance depending on how fast the player is moving.
-            modifiers.Knockback *= Projectile.GetPlayer().velocity.Length() / 7f;
+            modifiers.Knockback *= Projectile.GetPlayerOwner().velocity.Length() / 7f;
 
             // This will increase or decrease the damage of the Jousting Lance depending on how fast the player is moving.
-            modifiers.SourceDamage *= 0.1f + Projectile.GetPlayer().velocity.Length() / 7f * 0.9f;
+            modifiers.SourceDamage *= 0.1f + Projectile.GetPlayerOwner().velocity.Length() / 7f * 0.9f;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff<ElectricShock>(600);
-            Player owner = Projectile.GetPlayer(); // Get the owner of the projectile.
+            Player owner = Projectile.GetPlayerOwner(); // Get the owner of the projectile.
             float minimumDustVelocity = 6f;
             float playerVelocity = owner.velocity.Length();
 

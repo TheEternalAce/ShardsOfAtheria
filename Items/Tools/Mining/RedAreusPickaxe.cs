@@ -36,8 +36,8 @@ namespace ShardsOfAtheria.Items.Tools.Mining
             Item.autoReuse = true;
             Item.useTurn = true;
 
-            Item.rare = ItemRarityID.Cyan;
-            Item.value = Item.sellPrice(0, 1, 25);
+            Item.rare = ItemDefaults.RarityAreus;
+            Item.value = ItemDefaults.ValueDungeon;
         }
 
         public override void AddRecipes()

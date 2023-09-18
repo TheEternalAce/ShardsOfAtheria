@@ -75,7 +75,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
         {
             var color = new Color(90, 10, 120);
             lightColor = Color.White;
-            Projectile.DrawProjectilePrims(color, ShardsProjectileHelper.OrbX1);
+            Projectile.DrawProjectilePrims(color, ShardsHelpers.OrbX1);
             return base.PreDraw(ref lightColor);
         }
     }

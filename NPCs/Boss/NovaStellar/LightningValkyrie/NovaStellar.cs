@@ -69,7 +69,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             NPC.defense = 8;
             NPC.lifeMax = 5200;
             NPC.HitSound = SoundID.NPCHit1;
-            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.DeathSound = SoundID.NPCDeath52;
             NPC.knockBackResist = 0f;
             NPC.aiStyle = 14;
             NPC.boss = true;
@@ -86,6 +86,11 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
                 new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ShardsOfAtheria.NPCs.NovaStellar.Bestuary"))
             });
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            NPC.SetEventFlagCleared(ref ShardsDownedSystem.summonedValkyrie, -1);
         }
 
         public override bool CheckDead()
@@ -118,7 +123,6 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
             LeadingConditionRule slayerMode = new LeadingConditionRule(new IsSlayerMode());
             LeadingConditionRule master = new(new Conditions.IsMasterMode());
-            LeadingConditionRule notDefeated = new(new DownedValkyrie());
 
             int[] drops = { ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<DownBow>(), ModContent.ItemType<PlumeCodex>(), ModContent.ItemType<NestlingStaff>() };
 
@@ -149,16 +153,25 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
         public override void OnKill()
         {
-            Player lastPlayerToHitThisNPC = NPC.AnyInteractions() ? Main.player[NPC.lastInteraction] : null;
             NPC.SetEventFlagCleared(ref ShardsDownedSystem.downedValkyrie, -1);
-            if (Main.LocalPlayer.Slayer().slayerMode)
+            Player lastPlayerToHitThisNPC = NPC.AnyInteractions() ? Main.player[NPC.lastInteraction] : null;
+            if (lastPlayerToHitThisNPC != null)
             {
-                SoA.DownedSystem.slainValkyrie = true;
-            }
-
-            if (lastPlayerToHitThisNPC != null && lastPlayerToHitThisNPC.Slayer().slayerMode)
-            {
-                NPC.SlayNPC(lastPlayerToHitThisNPC);
+                if (lastPlayerToHitThisNPC.IsSlayer())
+                {
+                    NPC.SlayNPC(lastPlayerToHitThisNPC);
+                    SoA.DownedSystem.slainValkyrie = true;
+                }
+                else
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Dust d = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height,
+                            DustID.Electric);
+                        d.noGravity = true;
+                        d.velocity *= 2;
+                    }
+                }
             }
         }
 
@@ -213,9 +226,9 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 if (NPC.ai[3] == 2)
                 {
                     NPC.UseBossDialogueWithKey("NovaStellar",
-                        isSlayer ? ShardsNPCHelper.LastWords :
-                        AlreadyDefeated ? ShardsNPCHelper.ReDefeatLine :
-                        ShardsNPCHelper.DefeatLine, TextColor);
+                        isSlayer ? ShardsHelpers.LastWords :
+                        AlreadyDefeated ? ShardsHelpers.ReDefeatLine :
+                        ShardsHelpers.DefeatLine, TextColor);
                 }
                 if (NPC.ai[3] >= 120f)
                 {
@@ -244,9 +257,9 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                     NPC.position = player.position - new Vector2(500, 250);
                 else NPC.position = player.position - new Vector2(-500, 250);
                 NPC.UseBossDialogueWithKey("NovaStellar",
-                    isSlayer ? ShardsNPCHelper.SlayerSummonLine :
-                    AlreadyDefeated ? ShardsNPCHelper.ReSummonLine :
-                    ShardsNPCHelper.SummonLine, TextColor);
+                    isSlayer ? ShardsHelpers.SlayerSummonLine :
+                    AlreadyDefeated ? ShardsHelpers.ReSummonLine :
+                    ShardsHelpers.SummonLine, TextColor);
                 NPC.localAI[0] = 1f;
             }
             NPC.spriteDirection = player.Center.X > NPC.Center.X ? 1 : -1;
@@ -263,7 +276,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
             if (NPC.life <= NPC.lifeMax * 0.25 && !desperation && player.Slayer().slayerMode)
             {
-                NPC.UseBossDialogueWithKey("NovaStellar", ShardsNPCHelper.DesperationLine, Color.Red);
+                NPC.UseBossDialogueWithKey("NovaStellar", ShardsHelpers.DesperationLine, Color.Red);
                 desperation = true;
             }
 
@@ -657,9 +670,9 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 bool isSlayer = player.Slayer().slayerMode;
 
                 NPC.UseBossDialogueWithKey("NovaStellar",
-                    isSlayer ? ShardsNPCHelper.SlayerMidFightLine :
-                    AlreadyDefeated ? ShardsNPCHelper.ReMidFightLine :
-                    ShardsNPCHelper.MidFightLine, TextColor);
+                    isSlayer ? ShardsHelpers.SlayerMidFightLine :
+                    AlreadyDefeated ? ShardsHelpers.ReMidFightLine :
+                    ShardsHelpers.MidFightLine, TextColor);
 
                 NPC.dontTakeDamage = true;
                 KillProjectiles();

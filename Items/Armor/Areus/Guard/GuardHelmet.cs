@@ -18,6 +18,8 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
             Item.defense = 6;
 
             slotType = AreusArmorChip.SlotHead;
+
+            Item.value = ItemDefaults.ValueDungeon;
         }
 
         public override void UpdateEquip(Player player)

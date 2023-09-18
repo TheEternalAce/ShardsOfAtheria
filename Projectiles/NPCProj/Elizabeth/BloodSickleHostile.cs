@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.NPCs.Boss.Elizabeth;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -34,15 +36,14 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         Vector2 InitialVelocity = Vector2.Zero;
         public override void OnSpawn(IEntitySource source)
         {
-            InitialVelocity = Projectile.velocity;
-            Projectile.velocity *= 0f;
+            base.OnSpawn(source);
         }
 
         public override void AI()
         {
             if (Projectile.frame < 3)
             {
-                if (++Projectile.frameCounter >= 5)
+                if (++Projectile.frameCounter >= 10)
                 {
                     Projectile.frame++;
                     Projectile.frameCounter = 0;
@@ -54,7 +55,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             }
             else
             {
-                Projectile.velocity *= 1.01f;
                 if (Projectile.ai[0] == 0)
                 {
                     SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
@@ -64,9 +64,18 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             }
         }
 
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (target.type != ModContent.NPCType<Death>())
+            {
+                return false;
+            }
+            return base.CanHitNPC(target);
+        }
+
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<DeathBleed>(), 600);
+            target.AddBuff<DeathBleed>(300);
         }
 
         public override void Kill(int timeLeft)

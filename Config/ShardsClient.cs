@@ -23,6 +23,9 @@ namespace ShardsOfAtheria.Config
         [DefaultValue(true)]
         public bool reactorBeep;
 
+        [DefaultValue(true)]
+        public bool katanaScream;
+
         [Header("UI")]
         [ReloadRequired()]
         public Vector2 loreTabletOffset;

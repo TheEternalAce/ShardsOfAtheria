@@ -74,8 +74,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusJoustingLance
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            modifiers.Knockback *= Projectile.GetPlayer().velocity.Length() / 7f;
-            modifiers.SourceDamage *= 0.1f + Projectile.GetPlayer().velocity.Length() / 7f * 0.9f;
+            modifiers.Knockback *= Projectile.GetPlayerOwner().velocity.Length() / 7f;
+            modifiers.SourceDamage *= 0.1f + Projectile.GetPlayerOwner().velocity.Length() / 7f * 0.9f;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

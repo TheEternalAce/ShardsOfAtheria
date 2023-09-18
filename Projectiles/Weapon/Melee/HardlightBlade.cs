@@ -35,10 +35,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
                     Projectile blade = Main.projectile[i];
-                    if (blade.type == Type &&
-                        blade.whoAmI != Projectile.whoAmI &&
+                    if (blade.whoAmI != Projectile.whoAmI &&
+                        blade.type == Type &&
+                        blade.ai[0] == 1 &&
                         blade.active &&
-                        blade.ai[0] == Projectile.ai[0] &&
                         Projectile.active)
                     {
                         if (Projectile.Hitbox.Intersects(blade.Hitbox))
@@ -55,15 +55,21 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
         {
             for (int i = 0; i < 2; i++)
             {
-                Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Blue>(), Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
-                Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<HardlightDust_Pink>(), Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width,
+                    Projectile.height, ModContent.DustType<HardlightDust_Blue>(),
+                    Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
+                dust.noGravity = true;
+                var dust1 = Dust.NewDustDirect(Projectile.position, Projectile.width,
+                    Projectile.height, ModContent.DustType<HardlightDust_Pink>(),
+                    Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
+                dust1.noGravity = true;
             }
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
             Color color = new(227, 182, 245, 80);
-            Projectile.DrawProjectilePrims(color, ShardsProjectileHelper.DiamondX1);
+            Projectile.DrawProjectilePrims(color, ShardsHelpers.DiamondX1);
             lightColor = Color.White;
             return true;
         }

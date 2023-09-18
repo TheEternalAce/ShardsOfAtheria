@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.Bases;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
@@ -15,11 +14,6 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
 {
     public class SinfulArmament : SinfulItem
     {
-        public override void SetStaticDefaults()
-        {
-            Item.ResearchUnlockCount = 1;
-        }
-
         public override void SetDefaults()
         {
             Item.width = 54;
@@ -32,7 +26,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.UseSound = SoundID.Item82;
 
-            Item.rare = ItemRarityID.Orange;
+            Item.value = ItemDefaults.ValueEarlyHardmode;
         }
 
         public override bool CanUseItem(Player player)

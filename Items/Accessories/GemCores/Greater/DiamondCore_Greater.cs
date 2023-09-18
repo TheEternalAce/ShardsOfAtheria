@@ -20,8 +20,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             Item.accessory = true;
             Item.defense = 15;
 
-            Item.rare = ItemRarityID.Orange;
-            Item.value = Item.sellPrice(0, 2, 25);
+            Item.rare = ItemDefaults.RarityMechs;
+            Item.value = ItemDefaults.ValueEarlyHardmode;
         }
 
         public override void AddRecipes()

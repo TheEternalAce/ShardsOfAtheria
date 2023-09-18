@@ -17,6 +17,9 @@ namespace ShardsOfAtheria.Systems
         public static bool downedPheonix = false;
         public static bool downedHarpyQueen = false;
 
+        public static bool summonedDeath = false;
+        public static bool summonedValkyrie = false;
+
         public bool slainDeath = false;
         public bool slainKing = false;
         public bool slainEOC = false;
@@ -53,6 +56,13 @@ namespace ShardsOfAtheria.Systems
             downedValkyrie = false;
             downedSenterra = false;
             downedGenesis = false;
+            downedCentipede = false;
+            downedArmor = false;
+            downedPheonix = false;
+            downedHarpyQueen = false;
+
+            summonedDeath = false;
+            summonedValkyrie = false;
 
             slainKing = false;
             slainEOC = false;
@@ -81,8 +91,15 @@ namespace ShardsOfAtheria.Systems
         {
             tag["downedDeath"] = downedDeath;
             tag["downedValkyrie"] = downedValkyrie;
-            tag["downedDeath"] = downedDeath;
-            tag["downedValkyrie"] = downedValkyrie;
+            tag["downedSenterra"] = downedSenterra;
+            tag["downedGenesis"] = downedGenesis;
+            tag["downedCentipede"] = downedCentipede;
+            tag["downedArmor"] = downedArmor;
+            tag["downedPhoenix"] = downedPheonix;
+            tag["downedHarpyQueen"] = downedHarpyQueen;
+
+            tag["summonedDeath"] = summonedDeath;
+            tag["summonedValkyrie"] = summonedValkyrie;
 
             tag["slainKing"] = slainKing;
             tag["slainEOC"] = slainEOC;
@@ -117,6 +134,10 @@ namespace ShardsOfAtheria.Systems
                 downedSenterra = tag.GetBool("downedSenterra");
             if (tag.ContainsKey("downedGenesis"))
                 downedGenesis = tag.GetBool("downedGenesis");
+            if (tag.ContainsKey("summonedDeath"))
+                summonedDeath = tag.GetBool("summonedDeath");
+            if (tag.ContainsKey("summonedValkyrie"))
+                summonedValkyrie = tag.GetBool("summonedValkyrie");
 
             if (tag.ContainsKey("slainKing"))
                 slainKing = tag.GetBool("slainKing");
@@ -160,7 +181,7 @@ namespace ShardsOfAtheria.Systems
 
         public override void NetSend(BinaryWriter writer)
         {
-            BitsByte flags = new BitsByte();
+            BitsByte flags = new();
             flags[0] = downedValkyrie;
             flags[1] = downedDeath;
 
@@ -172,7 +193,7 @@ namespace ShardsOfAtheria.Systems
             flags[7] = slainBee;
             writer.Write(flags);
 
-            BitsByte flags2 = new BitsByte();
+            BitsByte flags2 = new();
             flags2[0] = slainSkull;
             flags2[1] = slainDeerclops;
             flags2[2] = slainWall;
@@ -194,10 +215,12 @@ namespace ShardsOfAtheria.Systems
             flags3[6] = slainSenterra;
             writer.Write(flags3);
 
-            BitsByte flags4 = new BitsByte();
+            BitsByte flags4 = new();
             flags4[0] = downedSenterra;
             flags4[1] = downedGenesis;
-            flags4[1] = slainAtherian;
+            flags4[2] = slainAtherian;
+            flags4[3] = summonedDeath;
+            flags4[4] = summonedValkyrie;
             writer.Write(flags4);
         }
 

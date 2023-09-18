@@ -1,5 +1,5 @@
-﻿using ShardsOfAtheria.Utilities;
-using ShardsOfAtheria.Systems;
+﻿using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,8 +19,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
             Item.height = 32;
             Item.accessory = true;
 
-            Item.value = Item.sellPrice(0, 0, 15);
-            Item.rare = ItemRarityID.White;
+            Item.rare = ItemDefaults.RarityPreBoss;
+            Item.value = ItemDefaults.ValueEyeOfCthulhu;
         }
 
         public override void AddRecipes()

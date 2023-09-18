@@ -22,12 +22,13 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             Item.height = 52;
             Item.consumable = true;
             Item.maxStack = 9999;
-            Item.scale = .75f;
 
             Item.useTime = 10;
             Item.useAnimation = 10;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.UseSound = SoundID.Item27;
+
+            Item.value = ItemDefaults.ValueEarlyHardmode;
         }
 
         public override bool CanUseItem(Player player)

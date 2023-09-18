@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
             Item.useTurn = true;
             Item.channel = true;
 
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemDefaults.RaritySlayer;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
