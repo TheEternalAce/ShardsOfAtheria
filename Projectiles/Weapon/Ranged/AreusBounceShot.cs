@@ -3,7 +3,6 @@ using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,7 +10,12 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
 {
     public class AreusBounceShot : ModProjectile
     {
-        public override string Texture =>SoA.BlankTexture;
+        public override string Texture => SoA.BlankTexture;
+
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementElec();
+        }
 
         public override void SetDefaults()
         {
@@ -26,11 +30,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             Projectile.localNPCHitCooldown = 3;
             Projectile.ignoreWater = true;
             Projectile.penetrate = -1;
-        }
-
-        public override void OnSpawn(IEntitySource source)
-        {
-            base.OnSpawn(source);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

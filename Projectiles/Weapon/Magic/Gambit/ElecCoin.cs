@@ -58,6 +58,20 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Gambit
                     proj.damage > 0 &&
                     proj.active)
                 {
+                    if (ModLoader.TryGetMod("TerrariaMayQuake", out var mod))
+                    {
+                        if (mod.TryFind("FeedbackerPunch", out ModProjectile arm))
+                        {
+                            if (proj.type == arm.Type)
+                            {
+                                if (arm.Colliding(proj.Hitbox, Projectile.Hitbox) == null)
+                                {
+                                    gravityTimer = 0;
+                                }
+                                return;
+                            }
+                        }
+                    }
                     if (proj.Distance(Projectile.Center) <= 30)
                     {
                         float speed = proj.velocity.Length();

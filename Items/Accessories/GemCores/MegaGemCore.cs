@@ -82,9 +82,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             }
 
             //Bundle of Balloons
-            player.hasJumpOption_Cloud = true;
-            player.hasJumpOption_Blizzard = true;
-            player.hasJumpOption_Sandstorm = true;
+            player.GetJumpState(ExtraJump.CloudInABottle).Enable();
+            player.GetJumpState(ExtraJump.BlizzardInABottle).Enable();
+            player.GetJumpState(ExtraJump.SandstormInABottle).Enable();
+            //player.hasJumpOption_Cloud = true;
+            //player.hasJumpOption_Blizzard = true;
+            //player.hasJumpOption_Sandstorm = true;
             player.jumpBoost = true;
 
             // Charm of Myths

@@ -1,11 +1,12 @@
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Potions
+namespace ShardsOfAtheria.Items.BuffItems
 {
-    public class BoneMarrowInjection : ModItem
+    public class SoulInjection : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -24,19 +25,19 @@ namespace ShardsOfAtheria.Items.Potions
             Item.consumable = true;
             Item.useTurn = true;
 
+            Item.value = Item.sellPrice(silver: 75);
+            Item.rare = ItemRarityID.Red;
+
             Item.rare = ItemDefaults.RarityDungeon;
             Item.value = ItemDefaults.ValueBuffPotion;
-
-            Item.buffType = ModContent.BuffType<BoneStrength>();
-            Item.buffTime = 14400;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<EmptyNeedle>())
-                .AddIngredient(ItemID.Bone)
-                .AddTile(TileID.AlchemyTable)
+                .AddRecipeGroup(ShardsRecipes.Soul, 10)
+                .AddTile(TileID.Bottles)
                 .Register();
         }
 
@@ -54,12 +55,14 @@ namespace ShardsOfAtheria.Items.Potions
         }
     }
 
-    public class BoneStrength : ModBuff
+    public class SoulInfused : ModBuff
     {
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetDamage(DamageClass.Generic) += .1f;
-            player.endurance += .2f;
+            player.statLifeMax2 += 50;
+            player.statDefense += 10;
+            player.GetDamage(DamageClass.Generic) += .15f;
+            player.lifeRegen += 10;
         }
     }
 }

@@ -39,9 +39,9 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         {
             var npc = Main.npc[(int)Projectile.ai[0]];
             Projectile.Center = npc.Center +
-                new Vector2(Projectile.width / 2 * npc.direction, 0);
+                new Vector2(Projectile.width / 2 * Projectile.velocity.X, 0);
 
-            Projectile.spriteDirection = -npc.direction;
+            Projectile.spriteDirection = -(int)Projectile.velocity.X;
             if (Projectile.spriteDirection == 1)
             {
                 DrawOffsetX = 142;

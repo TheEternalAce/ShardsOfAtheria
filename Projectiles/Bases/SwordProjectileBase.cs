@@ -93,14 +93,7 @@ namespace ShardsOfAtheria.Projectiles.Bases
             var shards = player.Shards();
 
             player.heldProj = Projectile.whoAmI;
-            if (!_init)
-            {
-                Projectile.scale = 1f;
-                Initialize(player, shards);
-                scale = Projectile.scale;
-                Projectile.netUpdate = true;
-                _init = true;
-            }
+            Init(player, shards);
 
             if (SwingSwitchDir)
             {
@@ -235,6 +228,18 @@ namespace ShardsOfAtheria.Projectiles.Bases
             swingDirection = 1;
             UpdateDirection(player);
             swingDirection *= Projectile.direction;
+        }
+
+        public void Init(Player player, ShardsPlayer shards)
+        {
+            if (!_init)
+            {
+                Projectile.scale = 1f;
+                Initialize(player, shards);
+                scale = Projectile.scale;
+                Projectile.netUpdate = true;
+                _init = true;
+            }
         }
 
         protected virtual void SetArmRotation(Player player, float progress, float swingProgress)

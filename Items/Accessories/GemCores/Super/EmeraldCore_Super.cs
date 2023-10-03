@@ -52,9 +52,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             // Misc
             player.panic = true;
             player.accFlipper = true;
-            player.hasJumpOption_Cloud = true;
-            player.hasJumpOption_Blizzard = true;
-            player.hasJumpOption_Sandstorm = true;
+            player.GetJumpState(ExtraJump.CloudInABottle).Enable();
+            player.GetJumpState(ExtraJump.BlizzardInABottle).Enable();
+            player.GetJumpState(ExtraJump.SandstormInABottle).Enable();
+            //player.hasJumpOption_Cloud = true;
+            //player.hasJumpOption_Blizzard = true;
+            //player.hasJumpOption_Sandstorm = true;
             player.jumpBoost = true;
             player.wingTimeMax += 15;
             player.Shards().superEmeraldCore = true;

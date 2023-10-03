@@ -135,7 +135,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusDaggerProjs
                     && currentProjectile.active // Make sure the projectile is active
                     && currentProjectile.owner == Main.myPlayer // Make sure the projectile's owner is the client's player
                     && currentProjectile.type == Projectile.type // Make sure the projectile is of the same type as this javelin
-                    && currentProjectile.ModProjectile is ZenovaProjectile javelinProjectile // Use a pattern match cast so we can access the projectile like an ExampleJavelinProjectile
+                    && currentProjectile.ModProjectile is AreusDaggerProj javelinProjectile // Use a pattern match cast so we can access the projectile like an ExampleJavelinProjectile
                     && javelinProjectile.IsStickingToTarget // the previous pattern match allows us to use our properties
                     && javelinProjectile.TargetWhoAmI == target.whoAmI)
                 {

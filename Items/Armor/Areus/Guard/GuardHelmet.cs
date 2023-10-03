@@ -1,6 +1,11 @@
+using BloodIsFuel;
 using ShardsOfAtheria.Items.AreusChips;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Tiles.Crafting;
+using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Armor.Areus.Guard
@@ -27,8 +32,19 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
             base.UpdateEquip(player);
             player.GetDamage(ArmorPlayer.classChip) += 0.05f;
             player.GetCritChance(ArmorPlayer.classChip) += 0.05f;
+            player.manaCost -= 0.05f;
             ArmorPlayer.areusDamage += 0.03f;
             ArmorPlayer.areusHead = true;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<AreusShard>(14)
+                .AddIngredient(ItemID.GoldBar, 4)
+                .AddIngredient<SoulOfDaylight>(12)
+                .AddTile<AreusFabricator>()
+                .Register();
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -40,6 +56,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
         public override void UpdateArmorSet(Player player)
         {
             ArmorPlayer.guardSet = true;
+            ModContent.GetInstance<AreusEnergySystem>().ShowBar();
             base.UpdateArmorSet(player);
         }
 
@@ -55,15 +72,22 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
 
         public override void MagicSet(Player player)
         {
-            base.MagicSet(player);
+            if (++ArmorPlayer.energyTimer >= AreusArmorPlayer.EnergyTimerMax)
+            {
+                ArmorPlayer.areusEnergy += 3;
+                ArmorPlayer.energyTimer = 0;
+            }
         }
 
         public override void SummonSet(Player player)
         {
-            if (++ArmorPlayer.energyTimer >= AreusArmorPlayer.EnergyTimerMax)
+            if (player.InCombat())
             {
-                ArmorPlayer.areusEnergy++;
-                ArmorPlayer.energyTimer = 0;
+                if (++ArmorPlayer.energyTimer >= AreusArmorPlayer.EnergyTimerMax)
+                {
+                    ArmorPlayer.areusEnergy++;
+                    ArmorPlayer.energyTimer = 0;
+                }
             }
         }
     }

@@ -4,10 +4,15 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Potions
+namespace ShardsOfAtheria.Items.BuffItems
 {
-    public class ChargedFlightPotion : ModItem
+    public class ConductivityPotion : ModItem
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return SoA.ElementModEnabled;
+        }
+
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 30;
@@ -19,36 +24,38 @@ namespace ShardsOfAtheria.Items.Potions
             Item.height = 50;
             Item.maxStack = 9999;
 
-            Item.DefaultToPotion(ModContent.BuffType<ChargedFlight>(), 28800);
+            Item.DefaultToPotion(ModContent.BuffType<Conductive>(), 14400);
 
-            Item.rare = ItemDefaults.RarityHardlight;
+            Item.rare = ItemDefaults.RarityAreus;
             Item.value = ItemDefaults.ValueBuffPotion;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<HardlightPrism>())
                 .AddIngredient(ModContent.ItemType<AreusShard>())
+                .AddIngredient(ItemID.CopperOre)
                 .AddIngredient(ItemID.BottledWater)
                 .AddTile(TileID.Bottles)
                 .Register();
         }
     }
 
-    public class ChargedFlight : ModBuff
+    public class Conductive : ModBuff
     {
-
-    }
-
-    public class ChargedFlightPlayer : ModPlayer
-    {
-        public override void PostUpdateEquips()
+        public override bool IsLoadingEnabled(Mod mod)
         {
-            if (Player.HasBuff(ModContent.BuffType<ChargedFlight>()))
-            {
-                Player.wingTimeMax += 34;
-            }
+            return SoA.ElementModEnabled;
+        }
+
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.IsAFlaskBuff[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.Shards().conductive = true;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
             Projectile.height = 50;
 
             Projectile.timeLeft = 300;
-            Projectile.aiStyle = 0;
+            Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.extraUpdates = 1;

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Utilities;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -22,11 +21,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             Projectile.ignoreWater = true;
 
             DrawOffsetX = -6;
-        }
-
-        public override void OnSpawn(IEntitySource source)
-        {
-            base.OnSpawn(source);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

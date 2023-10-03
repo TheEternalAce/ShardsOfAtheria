@@ -16,6 +16,10 @@ namespace ShardsOfAtheria.Items.Accessories
     //[AutoloadEquip(EquipType.HandsOn)]
     public class PrototypeAreusBand : ModItem
     {
+        int delay = 0;
+        const int DELAY_MAX = 15;
+        bool Wait => delay > 0;
+
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
@@ -32,7 +36,7 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.knockBack = 4;
             Item.crit = 2;
 
-            Item.shoot = ModContent.ProjectileType<PrototypeBandBlade>();
+            Item.shoot = ModContent.ProjectileType<PrototypeBandSlash>();
             Item.shootSpeed = 1;
 
             Item.rare = ItemDefaults.RarityAreus;
@@ -42,6 +46,10 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Shards().prototypeBand = true;
+            if (delay > 0)
+            {
+                delay--;
+            }
         }
 
         public override void AddRecipes()
@@ -58,26 +66,33 @@ namespace ShardsOfAtheria.Items.Accessories
         {
             if (player.IsLocal())
             {
-                if (Main.rand.NextBool(5))
+                if (!Wait)
                 {
-                    if (!player.immune)
+                    if (Main.rand.NextBool(5))
                     {
-                        var info = new Player.HurtInfo()
+                        if (!player.immune)
                         {
-                            Damage = Item.damage,
-                            DamageSource = PlayerDeathReason.ByCustomReason(
-                                player.name + "'s band malfunctioned")
-                        };
-                        player.Hurt(info);
-                        player.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
+                            var info = new Player.HurtInfo()
+                            {
+                                Damage = player.GetWeaponDamage(Item),
+                                DamageSource = PlayerDeathReason.ByCustomReason(
+                                    player.name + "'s band malfunctioned")
+                            };
+                            player.Hurt(info);
+                            player.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
+                        }
                     }
-                }
-                else
-                {
-                    Vector2 velocity = Vector2.Normalize(Main.MouseWorld - player.Center);
-                    Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center,
-                        velocity, Item.shoot, player.GetWeaponDamage(Item),
-                        player.GetWeaponKnockback(Item), player.whoAmI);
+                    else
+                    {
+                        Vector2 velocity = Main.MouseWorld - player.Center;
+                        velocity.Normalize();
+                        velocity *= 16f;
+                        Projectile.NewProjectile(player.GetSource_Accessory(Item),
+                            player.Center, velocity, Item.shoot,
+                            player.GetWeaponDamage(Item), player.GetWeaponKnockback(Item),
+                            player.whoAmI);
+                    }
+                    delay = DELAY_MAX;
                 }
             }
         }

@@ -58,5 +58,10 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<HeroBullet>(), damage, knockback, player.whoAmI);
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new();
+        }
     }
 }

@@ -119,6 +119,11 @@ namespace ShardsOfAtheria.Utilities
             return equipped;
         }
 
+        public static bool InCombat(this Player player)
+        {
+            return player.Shards().InCombat;
+        }
+
         public static void AddBuff<T>(this Player player, int time, bool quiet = true) where T : ModBuff
         {
             player.AddBuff(ModContent.BuffType<T>(), time, quiet);

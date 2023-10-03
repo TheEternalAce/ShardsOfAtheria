@@ -181,7 +181,7 @@ namespace ShardsOfAtheria.Utilities
         }
         public static void ApplyGravity(this Projectile projectile)
         {
-            float maxGravity = 16f / (projectile.extraUpdates + 1);
+            float maxGravity = 16f;
             if (++projectile.velocity.Y > maxGravity)
             {
                 projectile.velocity.Y = maxGravity;
@@ -253,14 +253,16 @@ namespace ShardsOfAtheria.Utilities
         }
         public static void AddAreusProj(this int projID, bool dark)
         {
-            if (dark)
+            SoAGlobalProjectile.AreusProj.Add(projID, dark);
+        }
+        public static bool IsAreus(this Projectile projectile, bool includeDark)
+        {
+            if (!includeDark)
             {
-                SoAGlobalProjectile.DarkAreusProj.Add(projID);
+                SoAGlobalProjectile.AreusProj.TryGetValue(projectile.type, out var dark);
+                return SoAGlobalProjectile.AreusProj.ContainsKey(projectile.type) && !dark;
             }
-            else
-            {
-                SoAGlobalProjectile.AreusProj.Add(projID);
-            }
+            else return SoAGlobalProjectile.AreusProj.ContainsKey(projectile.type);
         }
 
         public static void AddElementFire(this Projectile projectile)

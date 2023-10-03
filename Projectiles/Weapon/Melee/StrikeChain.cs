@@ -178,11 +178,6 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             }
         }
 
-        public override void Kill(int timeLeft)
-        {
-            base.Kill(timeLeft);
-        }
-
         public override bool ShouldUpdatePosition()
         {
             return IsStickingToTarget;

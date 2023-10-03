@@ -11,7 +11,7 @@ using ShardsOfAtheria.Items.Accessories.GemCores;
 using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
 using ShardsOfAtheria.Items.Accessories.GemCores.Regular;
 using ShardsOfAtheria.Items.Accessories.GemCores.Super;
-using ShardsOfAtheria.Items.Potions;
+using ShardsOfAtheria.Items.BuffItems;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Tools.Misc.Slayer;
 using ShardsOfAtheria.Items.Weapons.Melee;
@@ -62,7 +62,7 @@ namespace ShardsOfAtheria.Players
         public bool rushDrive;
         public bool areusProcessor;
         public bool areusProcessorPrevious;
-        public int processorElement = 1;
+        public int processorElement = 0;
         public bool resonator;
         public bool areusRod;
         public int mourningStarKills = 0;

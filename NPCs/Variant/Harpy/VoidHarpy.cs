@@ -6,7 +6,6 @@ using ShardsOfAtheria.Projectiles.NPCProj.Variant;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.Utilities;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -18,19 +17,12 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
     {
         public override void SetStaticDefaults()
         {
-            // Specify the debuffs it is immune to
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.OnFire,
-                    BuffID.OnFire3,
-                    BuffID.ShadowFlame,
-                    BuffID.CursedInferno,
-                    BuffID.Frostburn,
-                    BuffID.Frostburn2
-                }
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.ShadowFlame] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.CursedInferno] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn2] = true;
 
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.Harpy];
 
@@ -99,14 +91,14 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (!spawnInfo.PlayerSafe && spawnInfo.Player.ZoneUnderworldHeight)
+            if (!spawnInfo.PlayerInTown && spawnInfo.Player.ZoneUnderworldHeight)
                 return .05f;
             return 0f;
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            LeadingConditionRule hardmode = new LeadingConditionRule(new Conditions.IsHardmode());
+            LeadingConditionRule hardmode = new(new Conditions.IsHardmode());
 
             int[,] ores = new int[,]
             {

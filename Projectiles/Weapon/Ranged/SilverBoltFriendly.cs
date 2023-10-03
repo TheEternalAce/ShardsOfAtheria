@@ -24,6 +24,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
 
             Projectile.timeLeft = 2 * 60;
             Projectile.aiStyle = 0;
+            Projectile.arrow = true;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.extraUpdates = 1;

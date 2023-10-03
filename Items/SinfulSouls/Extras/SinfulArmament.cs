@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Bases;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Players;

@@ -53,7 +53,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             return projHitbox.Intersects(targetHitbox);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.frame == 7)
             {
@@ -129,10 +129,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
                     buffType = ModContent.BuffType<ElectricShock>();
                     break;
                 case 5:
-                    buffType = BuffID.Confused;
-                    target.AddBuff(BuffID.OnFire3, 900);
-                    target.AddBuff(BuffID.Frostburn2, 900);
-                    target.AddBuff(BuffID.CursedInferno, 900);
+                    buffType = BuffID.OnFire3;
                     break;
                 case 7:
                     buffType = BuffID.Daybreak;

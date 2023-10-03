@@ -41,16 +41,18 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Sawstring
         public override void PostAI()
         {
             var player = Projectile.GetPlayerOwner();
-
-            if (Projectile.ai[0] < 0)
+            if (Projectile.Distance(player.Center) > 80)
             {
-                Projectile.Kill();
-                var vector = Projectile.Center - player.Center;
-                vector.Normalize();
-                vector *= 15;
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
-                    vector, ModContent.ProjectileType<AreusSaw>(), (int)(Projectile.damage * 0.8f),
-                    0, Projectile.owner);
+                if (Projectile.ai[0] < 0)
+                {
+                    Projectile.Kill();
+                    var vector = Projectile.Center - player.Center;
+                    vector.Normalize();
+                    vector *= 15;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
+                        vector, ModContent.ProjectileType<AreusSaw>(), (int)(Projectile.damage * 0.8f),
+                        0, Projectile.owner);
+                }
             }
         }
     }

@@ -1,5 +1,8 @@
 using ShardsOfAtheria.Items.AreusChips;
+using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Armor.Areus.Guard
@@ -29,6 +32,16 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
             player.GetCritChance(ArmorPlayer.classChip) += 0.05f;
             ArmorPlayer.areusDamage += 0.03f;
             ArmorPlayer.areusLegs = true;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<AreusShard>(18)
+                .AddIngredient(ItemID.GoldBar, 6)
+                .AddIngredient<SoulOfTwilight>(12)
+                .AddTile<AreusFabricator>()
+                .Register();
         }
     }
 }

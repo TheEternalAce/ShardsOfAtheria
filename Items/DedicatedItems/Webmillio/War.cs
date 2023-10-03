@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
@@ -46,7 +45,7 @@ namespace ShardsOfAtheria.Items.DedicatedItems.Webmillio
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            SoAGlobalItem.UpgradeableItem.Add(Type);
+            Item.AddUpgradable();
         }
 
         public override void SetDefaults()

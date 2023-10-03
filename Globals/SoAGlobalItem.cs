@@ -35,22 +35,18 @@ namespace ShardsOfAtheria.Globals
     public class SoAGlobalItem : GlobalItem
     {
         #region Item Categories
-        public static List<int> SlayerItem = new();
-        public static List<int> SinfulItem = new();
-        public static List<int> Potions = new();
-        public static List<int> UpgradeableItem = new();
+        public static readonly List<int> SlayerItem = new();
+        public static readonly List<int> SinfulItem = new();
+        public static readonly List<int> Potions = new();
+        public static readonly List<int> UpgradeableItem = new();
         /// <summary>
         /// A list to let Conductive potion do it's work easily, automatically adds all items to ElecWeapon list
         /// </summary>
-        public static List<int> AreusWeapon = new();
-        /// <summary>
-        /// Same as AreusWeapon list, but doesn't add to ElecWeapon list
-        /// </summary>
-        public static List<int> DarkAreusWeapon = new();
+        public static readonly Dictionary<int, bool> AreusItem = new();
         /// <summary>
         /// A list of weapons that can erase projectiles or spawn projectiles that can erase other projectiles
         /// </summary>
-        public static List<int> Eraser = new List<int>();
+        public static readonly List<int> Eraser = new();
         #endregion
 
         int transformTimer = 10;
@@ -85,7 +81,7 @@ namespace ShardsOfAtheria.Globals
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
             base.ModifyWeaponDamage(item, player, ref damage);
-            if (item.IsAreus())
+            if (item.IsAreus(true))
             {
                 AreusArmorPlayer armorPlayer = player.Areus();
                 damage += armorPlayer.areusDamage;
@@ -312,7 +308,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (AreusWeapon.Contains(item.type))
+            if (item.IsAreus(false))
             {
                 int buffTime = 600;
                 if (player.Shards().conductive)
@@ -332,7 +328,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void OnHitPvp(Item item, Player player, Player target, Player.HurtInfo hurtInfo)
         {
-            if (AreusWeapon.Contains(item.type))
+            if (item.IsAreus(false))
             {
                 int buffTime = 600;
                 if (player.Shards().conductive)

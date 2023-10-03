@@ -3,7 +3,6 @@ using ShardsOfAtheria.Items.Tools.Misc.Slayer;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.Localization;
@@ -27,13 +26,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
             NPCID.Sets.AttackAverageChance[Type] = 30;
             NPCID.Sets.HatOffsetY[Type] = 4;
 
-            NPCDebuffImmunityData debuffData = new()
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.Confused // Most NPCs have this
-				}
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 
             // Set Atherian's biome and neighbor preferences with the NPCHappiness hook. You can add happiness text and remarks with localization (See an example in ExampleMod/Localization/en-US.lang
             //NPC.Happiness

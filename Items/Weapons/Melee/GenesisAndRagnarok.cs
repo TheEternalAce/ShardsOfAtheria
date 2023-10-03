@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            SoAGlobalItem.UpgradeableItem.Add(Type);
+            Item.AddUpgradable();
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

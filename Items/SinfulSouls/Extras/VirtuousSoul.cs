@@ -71,8 +71,8 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             Projectile.penetrate = -1;
             Projectile.timeLeft = 10;
 
-            DrawOffsetX = Projectile.width / 2 - 20;
-            DrawOriginOffsetY = Projectile.height / 2 - 90;
+            DrawOffsetX = Projectile.width / 2 - 30;
+            DrawOriginOffsetY = Projectile.height / 2 - 40;
         }
 
         public override void AI()

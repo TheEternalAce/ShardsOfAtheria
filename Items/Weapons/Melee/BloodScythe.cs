@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             Item.AddElementAqua();
             Item.AddElementWood();
-            SoAGlobalItem.Eraser.Add(Type);
+            Item.AddEraser();
         }
 
         public override void SetDefaults()

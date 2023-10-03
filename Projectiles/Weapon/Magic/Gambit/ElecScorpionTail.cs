@@ -52,7 +52,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Gambit
             player.ChangeDir(newDirection);
             Projectile.spriteDirection = Projectile.direction = newDirection;
 
-            if (Main.rand.NextBool(3))
+            if (Main.rand.NextBool(5))
             {
                 Vector2 vector = Projectile.velocity;
                 vector.Normalize();
@@ -79,6 +79,10 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic.Gambit
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff<ElectricShock>(600);
+            if (Main.rand.NextBool(4))
+            {
+                target.AddBuff(BuffID.Poisoned, 600);
+            }
         }
 
         public override bool PreDraw(ref Color lightColor)

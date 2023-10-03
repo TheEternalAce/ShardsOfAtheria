@@ -4,6 +4,7 @@ using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Items.Accessories;
+using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.SinfulSouls;
@@ -29,7 +30,7 @@ namespace ShardsOfAtheria.Globals
     public class SoAGlobalNPC : GlobalNPC
     {
         public bool flawless = true;
-        Asset<Texture2D> skyHarpy = ModContent.Request<Texture2D>("ShardsOfAtheria/NPCs/Variant/Harpy/SkyHarpy");
+        readonly Asset<Texture2D> skyHarpy = ModContent.Request<Texture2D>("ShardsOfAtheria/NPCs/Variant/Harpy/SkyHarpy");
 
         public override bool InstancePerEntity => true;
 
@@ -100,6 +101,10 @@ namespace ShardsOfAtheria.Globals
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BrokenHeroGun>(), 4));
             }
+            if (npc.type == NPCID.Reaper)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AncientMedalion>(), 4));
+            }
             if (npc.type == NPCID.MartianSaucerCore)
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ReactorMeltdown>(), 4));
@@ -109,9 +114,10 @@ namespace ShardsOfAtheria.Globals
                 npc.type == NPCID.JungleCreeper ||
                 npc.type == NPCID.JungleCreeperWall)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AcidTrip>(), 8));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AcidTrip>(), 10));
             }
 
+            // Master mode drops
             if (npc.type == NPCID.KingSlime)
             {
                 master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<KingsKusarigama>()));

@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             Projectile.ai[0]++;
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
 
-            if (Projectile.ai[0] >= 15 && Projectile.ai[0] < 200)
+            if (Projectile.ai[0] >= 60 && Projectile.ai[0] < 200)
             {
                 if (!Projectile.friendly)
                 {
@@ -50,7 +50,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
                 Player player = Projectile.FindClosestPlayer(-1);
                 if (player != null)
                 {
-                    float speed = 6f;
+                    float speed = 8f;
                     Projectile.Track(player.Center, 350, speed, 18);
                 }
             }

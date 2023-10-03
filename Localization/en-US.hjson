@@ -98,6 +98,7 @@ Mods: {
 			AreusRanged: Stat bonuses given to ranged weapons
 			AreusMagic: Stat bonuses given to magic weapons
 			AreusSummon: Stat bonuses given to summon weapons
+			AreusGuard: Grants the ability to harness Areus Energy
 		}
 
 		Items: {
@@ -464,6 +465,7 @@ Mods: {
 					'''
 					Increased damage and critical strike chance by 5%
 					Increased Areus weapon damage by 3%
+					Reduced mana usage by 5%
 					'''
 				MeleeDamageClassBonus:
 					'''
@@ -472,15 +474,22 @@ Mods: {
 					'''
 				RangedDamageClassBonus:
 					'''
-					Areus Energy
-					Press <Armor Ability> to
+					Build Areus Energy by dealing damage
+					Press <Armor Ability> to activate Electric Marksman:
+					Increases ranged attack speed
+					Converts certain arrows and bullets into instantaneous electric beams
 					'''
 				MagicDamageClassBonus:
 					'''
-					Dealing damage builds Areus Energy
-					Press <Armor Ability> to
+					Passively builds Areus Energy
+					Press <Armor Ability> to release a spread of electric waves
 					'''
-				SummonDamageClassBonus: Passively builds Areus Energy
+				SummonDamageClassBonus:
+					'''
+					Passively builds Areus Energy while in combat
+					Press <Armor Ability> to charge all active minions
+					Charged minions periodically release electric sparks while in combat
+					'''
 			}
 
 			GuardMail: {
@@ -489,6 +498,7 @@ Mods: {
 					'''
 					Increased damage and critical strike chance by 5%
 					Increased Areus weapon damage by 3%
+					Increased maximum mana by 60
 					'''
 			}
 
@@ -498,6 +508,7 @@ Mods: {
 					'''
 					Increased damage and critical strike chance by 5%
 					Increased Areus weapon damage by 3%
+					Increased movement speed by 8%
 					'''
 			}
 
@@ -863,7 +874,7 @@ Mods: {
 			}
 
 			DesertHarpyBanner: {
-				DisplayName: Dust Storm Harpy Banner
+				DisplayName: Arid Harpy Banner
 				Tooltip: ""
 			}
 
@@ -1314,7 +1325,11 @@ Mods: {
 
 			RiggedCoin: {
 				DisplayName: Rigged Coin
-				Tooltip: Causes the Areus Gambit to always land on a certain side
+				Tooltip:
+					'''
+					Causes the Areus Gambit to always land on a certain side
+					'Not to be shot at'
+					'''
 				Heads: " (Heads)"
 				Tails: " (Tails)"
 				Off: " (Disabled)"
@@ -1451,7 +1466,13 @@ Mods: {
 
 			AreusGambit: {
 				DisplayName: Areus Gambit
-				Tooltip: "'Great for losing your life savings!'"
+				Tooltip:
+					'''
+					First attack flips a coin, setting the next attack
+					Heads summons two biting electric fangs
+					Tails fires an electric scorpion tail
+					'Great for losing your life savings!'
+					'''
 			}
 
 			AreusGauntlet: {
@@ -1748,7 +1769,7 @@ Mods: {
 				DisplayName: Zenova
 				Tooltip:
 					'''
-					Alt-use fires a continuous, accurate steam of weapons
+					Alt-use throws a volley of weapons
 					'Zenith's older sister'
 					'RANDOM BULLS**T GO!'
 					'''
@@ -1997,6 +2018,11 @@ Mods: {
 				DisplayName: Areus Sawstring
 				Tooltip: ""
 			}
+
+			LifeCycleKeys: {
+				DisplayName: Life Cycle Keys
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -2156,7 +2182,7 @@ Mods: {
 			HardlightBlade.DisplayName: Hardlight Blade
 			HardlightSlash.DisplayName: Hardlight Slash
 			HardlightSword.DisplayName: Hardlight Sword
-			PrototypeBandBlade.DisplayName: Unstable Areus Blade
+			PrototypeBandSlash.DisplayName: Unstable Areus Blade
 			HellStar.DisplayName: Hell Star
 			HeroBlade.DisplayName: Hero Blade
 			HeroSlash.DisplayName: Hero Sword
@@ -2182,6 +2208,7 @@ Mods: {
 			Warframe_Upgrade.DisplayName: Providince Claymore
 			WarframeSlash.DisplayName: Providince Claymore
 			ZenovaProjectile.DisplayName: Zenova Weapons
+			ZenovaProjectile2.DisplayName: Zenova Weapons
 			# Ranged
 			AceOfSpades.DisplayName: Ace of Spades
 			AceOfHearts.DisplayName: Ace of Hearts
@@ -2247,6 +2274,11 @@ Mods: {
 			Swawstring.DisplayName: Areus Sawstring
 			AreusSaw.DisplayName: Areus Saw
 			ElecSaw.DisplayName: Electric Saw
+			ElectricWave.DisplayName: Electric Wave
+			ElecScorpionFang.DisplayName: Elec Scorpion Fang
+			AreusOrbitingSaw.DisplayName: Areus Orbiting Saw
+			ElectricMarksmanShot.DisplayName: Electric Marksman Shot
+			ElectricSpark.DisplayName: Electric Spark
 		}
 
 		NPCs: {
@@ -2690,6 +2722,25 @@ Mods: {
 			BloodySigil: {
 				DisplayName: Bloody Sigil
 				Description: Mods.ShardsOfAtheria.Buffs.BloodySigil.Description
+			}
+
+			LifeCycleBuff: {
+				DisplayName: Life Cycle Buff
+				Description: Mods.ShardsOfAtheria.Buffs.LifeCycleBuff.Description
+			}
+
+			ElectricMarksman: {
+				DisplayName: Electric Marksman
+				Description:
+					'''
+					Increased ranged shoot speed
+					Certain arrows and bullets will be converted into electric beams
+					'''
+			}
+
+			ChargedMinions: {
+				DisplayName: Charged Minions
+				Description: Minions periodically release electric sparks
 			}
 		}
 

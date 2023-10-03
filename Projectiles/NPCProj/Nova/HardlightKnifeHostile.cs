@@ -27,6 +27,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             Projectile.ignoreWater = true; // Does the projectile's speed be influenced by water?
             Projectile.extraUpdates = 1; // Set to above 0 if you want the projectile to update multiple time in a frame
             Projectile.penetrate = 3;
+            Projectile.tileCollide = false;
             DrawOffsetX = -2;
         }
 

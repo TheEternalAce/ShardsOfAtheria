@@ -84,8 +84,11 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (!(Main.eclipse || spawnInfo.Player.ZoneTowerNebula || spawnInfo.Player.ZoneTowerVortex || spawnInfo.Player.ZoneTowerSolar || spawnInfo.Player.ZoneTowerStardust || Main.pumpkinMoon
-                || Main.snowMoon) && spawnInfo.Player.ZoneHallow && spawnInfo.Player.ZoneOverworldHeight)
+            if (!(Main.eclipse || spawnInfo.Player.ZoneTowerNebula ||
+                spawnInfo.Player.ZoneTowerVortex || spawnInfo.Player.ZoneTowerSolar ||
+                spawnInfo.Player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon ||
+                spawnInfo.Invasion || spawnInfo.PlayerInTown) && spawnInfo.Player.ZoneHallow &&
+                spawnInfo.Player.ZoneOverworldHeight)
                 return .05f;
             return 0f;
         }

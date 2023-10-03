@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Utilities
         public const int LastWords = 10;
         public static string UseBossDialogueWithKey(this NPC npc, string typeName, int index, Color color)
         {
-            string keyBase = "Mods.ShardsOfAtheria.NPCs." + typeName + ".Dialogue.";
+            string keyBase = "Mods.ShardsOfAtheria.NPCs." + npc.ModNPC.Name + ".Dialogue.";
             string key;
             switch (index)
             {

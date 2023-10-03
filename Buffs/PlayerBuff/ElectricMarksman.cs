@@ -1,0 +1,66 @@
+﻿using ShardsOfAtheria.Projectiles.Weapon.Ammo;
+using ShardsOfAtheria.Projectiles.Weapon.Magic;
+using ShardsOfAtheria.Utilities;
+using System.Linq;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace ShardsOfAtheria.Buffs.PlayerBuff
+{
+    public class ElectricMarksman : ModBuff
+    {
+        public override string Texture => SoA.BuffTemplate;
+
+        public override void SetStaticDefaults()
+        {
+            Main.buffNoTimeDisplay[Type] = true;
+            BuffID.Sets.TimeLeftDoesNotDecrease[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            var areusPlayer = player.Areus();
+            areusPlayer.areusEnergy--;
+            if (areusPlayer.areusEnergy == 0 || !areusPlayer.guardSetPrevious)
+            {
+                player.DelBuff(buffIndex);
+            }
+            player.GetAttackSpeed(DamageClass.Ranged) += 0.15f;
+        }
+    }
+
+    public class MarksmanProjectile : GlobalProjectile
+    {
+        private static readonly int[] ConvertableProjectiles = new int[]
+        {
+            ProjectileID.WoodenArrowFriendly,
+            ProjectileID.FlamingArrow,
+            ProjectileID.FrostburnArrow,
+            ProjectileID.UnholyArrow,
+
+            ProjectileID.Bullet,
+            ProjectileID.SilverBullet,
+            ProjectileID.MeteorShot,
+            ModContent.ProjectileType<TungstenBullet>(),
+        };
+
+        public override void OnSpawn(Projectile projectile, IEntitySource source)
+        {
+            var player = projectile.GetPlayerOwner();
+            if (player.HasBuff<ElectricMarksman>())
+            {
+                if (ConvertableProjectiles.Contains(projectile.type))
+                {
+                    SoundEngine.PlaySound(SoundID.Item72);
+                    Projectile.NewProjectile(source, projectile.Center, projectile.velocity,
+                        ModContent.ProjectileType<ElectricMarksmanShot>(), projectile.damage,
+                        projectile.knockBack, projectile.owner);
+                    projectile.active = false;
+                }
+            }
+        }
+    }
+}

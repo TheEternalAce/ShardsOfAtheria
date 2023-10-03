@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Bases;
+using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Projectiles.Weapon.Ranged;
 using Terraria;
 using Terraria.ID;

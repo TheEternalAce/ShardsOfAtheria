@@ -50,15 +50,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             if (player.altFunctionUse == 2)
             {
-                Item.useTime = 5;
-                Item.useAnimation = 5;
-                Item.reuseDelay = 0;
+                Item.shoot = ModContent.ProjectileType<ZenovaProjectile>();
             }
             else
             {
-                Item.useTime = 5;
-                Item.useAnimation = 25;
-                Item.reuseDelay = 10;
+                Item.shoot = ModContent.ProjectileType<ZenovaProjectile2>();
             }
             return base.CanUseItem(player);
         }
@@ -66,10 +62,13 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             SoundEngine.PlaySound(Item.UseSound);
+            float rotation = 5f;
             if (player.altFunctionUse != 2)
             {
-                velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
+                velocity = new(0, -10 * Main.rand.NextFloat(0.33f, 1f));
+                rotation *= 5f;
             }
+            velocity = velocity.RotatedByRandom(MathHelper.ToRadians(rotation));
         }
     }
 }

@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Buffs.NPCDebuff
 
         public override void SetStaticDefaults()
         {
-            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
+            BuffID.Sets.IsATagBuff[Type] = true;
         }
     }
 

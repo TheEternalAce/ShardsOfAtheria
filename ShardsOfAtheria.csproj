@@ -31,10 +31,10 @@
     <None Remove="Walls\**" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Items\Potions\Insulation.png" />
-    <None Remove="Items\Potions\InsulationPotion.png" />
     <None Remove="Items\Weapons\Melee\HardlightSlash.png" />
     <None Remove="Items\Weapons\Ranged\BloodStainedCrossbow.png" />
+    <None Remove="Mounts\LifeCycle_Back.png" />
+    <None Remove="Mounts\LifeCycle_Front.png" />
     <None Remove="Projectiles\Minions\AreusMirror.png" />
     <None Remove="Projectiles\NPCProj\Elizabeth\BloodScytheHostile.png" />
     <None Remove="Projectiles\Weapon\Ammo\AreusRod.png" />
@@ -43,6 +43,9 @@
     <None Remove="Projectiles\Weapon\Melee\AreusLanceExtention.png" />
     <None Remove="Projectiles\Weapon\Melee\DeathScythe.png" />
     <None Remove="Projectiles\Weapon\Melee\DeathScythe_Flip.png" />
+    <None Remove="Projectiles\Weapon\Melee\PrototypeBandSlash.png" />
+    <None Remove="Projectiles\Weapon\Melee\ZenovaProjectile2.png" />
+    <None Remove="ShardsUI\AreusEnergy\AreusEnergyBar.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />

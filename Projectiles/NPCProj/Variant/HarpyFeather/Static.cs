@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather
             Projectile.width = refProj.width;
             Projectile.height = refProj.height;
 
-            Projectile.timeLeft = 5 * 60;
+            Projectile.timeLeft = 300;
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
         }

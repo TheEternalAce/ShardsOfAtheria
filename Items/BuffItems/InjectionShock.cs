@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Potions
+namespace ShardsOfAtheria.Items.BuffItems
 {
     public class InjectionShock : ModBuff
     {

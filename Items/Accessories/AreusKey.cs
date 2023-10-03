@@ -24,12 +24,12 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Shards().areusKey = true;
-            player.GetDamage(DamageClass.Generic) += 1.5f;
+            player.GetDamage(DamageClass.Generic) += 0.5f;
             player.GetAttackSpeed(DamageClass.Generic) += 0.5f;
-            player.statLifeMax2 *= (int)1.5f;
-            player.moveSpeed += .25f;
-            player.statDefense *= (int)1.5f;
-            player.statManaMax2 *= (int)1.5f;
+            player.statLifeMax2 = (int)(player.statLifeMax2 * 1.5f);
+            player.moveSpeed += 0.5f;
+            player.statDefense *= 1.5f;
+            player.statManaMax2 = (int)(player.statManaMax2 * 1.5f);
         }
     }
 }

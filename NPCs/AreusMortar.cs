@@ -7,7 +7,6 @@ using ShardsOfAtheria.Projectiles.NPCProj;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -20,22 +19,16 @@ namespace ShardsOfAtheria.NPCs
         public override void SetStaticDefaults()
         {
             // Specify the debuffs it is immune to
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.Electrified,
-                    BuffID.OnFire,
-                    BuffID.Poisoned,
-                    BuffID.Confused,
-                    ModContent.BuffType<ElectricShock>()
-                }
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Electrified] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<ElectricShock>()] = true;
 
             Main.npcFrameCount[NPC.type] = 1;
 
             // Influences how the NPC looks in the Bestiary
-            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new()
             {
                 CustomTexturePath = "ShardsOfAtheria/NPCs/AreusMortar_Bestiary"
             };
@@ -134,6 +127,17 @@ namespace ShardsOfAtheria.NPCs
 				// Sets your NPC's flavor text in the bestiary.
 				new FlavorTextBestiaryInfoElement("")
             });
+        }
+
+        public override float SpawnChance(NPCSpawnInfo spawnInfo)
+        {
+            if (!(Main.eclipse || spawnInfo.Player.ZoneTowerNebula ||
+                spawnInfo.Player.ZoneTowerVortex || spawnInfo.Player.ZoneTowerSolar ||
+                spawnInfo.Player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon ||
+                spawnInfo.PlayerInTown || spawnInfo.Player.ZoneSnow || spawnInfo.Invasion) &&
+                spawnInfo.Player.ZoneForest && Main.dayTime)
+                return .05f;
+            return 0f;
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)

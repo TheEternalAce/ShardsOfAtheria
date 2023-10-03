@@ -1,6 +1,6 @@
-﻿using ShardsOfAtheria.Items.Materials;
+﻿using ShardsOfAtheria.Items.BuffItems;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Items.Potions;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;

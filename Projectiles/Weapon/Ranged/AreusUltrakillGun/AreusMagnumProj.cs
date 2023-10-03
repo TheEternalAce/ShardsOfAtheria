@@ -128,7 +128,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.AreusUltrakillGun
                 if (chargeLevel == 10)
                 {
                     recoilAmount -= 2f;
-                    damage += 50;
+                    knockback = 0f;
                     bullet = ModContent.ProjectileType<AreusLaser>();
                     Projectile.timeLeft = 45;
                 }

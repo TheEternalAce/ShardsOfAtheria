@@ -35,10 +35,6 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             {
                 rigMode = 2;
             }
-        }
-
-        public override void UpdateInventory(Player player)
-        {
             var shards = player.Shards();
             shards.riggedCoin = rigMode;
         }
@@ -47,6 +43,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
         {
             string keyBase = "Mods.ShardsOfAtheria.Items.RiggedCoin.";
             string mode = "";
+            var key = this.GetLocalizationKey(string.Empty).TrimEnd('.');
             if (rigMode == 0)
             {
                 mode = Language.GetTextValue(keyBase + "Off");

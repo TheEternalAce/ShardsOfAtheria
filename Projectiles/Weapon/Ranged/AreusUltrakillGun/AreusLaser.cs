@@ -121,9 +121,8 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged.AreusUltrakillGun
                 if (Main.rand.NextBool(Projectile.extraUpdates / 3 + 1))
                 {
                     var d = Dust.NewDustDirect(endPoint - Projectile.Size / 2f, Projectile.width, Projectile.height,
-                        DustID.Torch, -dir.X * 2f, -dir.Y * 2f, 128, Color.White, 0.2f + 1f * (float)Math.Pow(Projectile.Opacity, 2f));
+                        DustID.Electric, -dir.X * 2f, -dir.Y * 2f, 128, Color.White, 0.2f + 1f * (float)Math.Pow(Projectile.Opacity, 2f));
                     d.velocity *= 0.45f;
-                    d.scale *= 2.3f;
                     d.noGravity = true;
                 }
             }

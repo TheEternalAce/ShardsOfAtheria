@@ -37,25 +37,37 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             Projectile.ApplyGravity(ref gravityTimer);
 
             var player = Projectile.GetPlayerOwner();
+            if (player.Shards().Overdrive)
+            {
+                if (Projectile.timeLeft <= 1190 &&
+                    Projectile.ai[0] == 0 &&
+                    gravityTimer <= 0)
+                {
+                    float maxDetectDistance = 100f;
+                    var offset = Main.MouseWorld - player.Center;
+                    offset.Normalize();
+                    offset *= 50;
+                    float magnetizeSpeed = 8f;
+                    float magnetizeInertia = 1f;
+                    if (Projectile.Distance(player.Center) <= 80)
+                    {
+                        magnetizeSpeed *= 2f;
+                        magnetizeInertia = 8f;
+                    }
+                    Projectile.Track(player.Center + offset, maxDetectDistance,
+                        magnetizeSpeed, magnetizeInertia);
+                }
+            }
             if (player.itemAnimation > 1)
             {
                 var item = player.HeldItem;
-                Rectangle itemHitbox = new((int)player.itemLocation.X,
-                    (int)player.itemLocation.Y,
-                    player.itemWidth,
-                    player.itemHeight);
                 if (item.useStyle == ItemUseStyleID.Swing && !item.noMelee && !item.noUseGraphic)
                 {
-                    if (itemHitbox.Intersects(Projectile.Hitbox))
+                    if (Projectile.Distance(player.Center) <= 60 * item.scale)
                     {
                         if (player.IsLocal() && Projectile.ai[0] == 0)
                         {
-                            Projectile.velocity = Main.MouseWorld - Projectile.Center;
-                            Projectile.velocity.Normalize();
-                            Projectile.velocity *= 20;
-                            SoundEngine.PlaySound(SoundID.NPCHit4);
-                            Projectile.ai[0] = 1;
-                            gravityTimer = 180;
+                            HitCannonBall();
                         }
                     }
                 }
@@ -63,18 +75,33 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
                 {
                     foreach (var proj in Main.projectile)
                     {
-                        if (proj.ModProjectile is SwordProjectileBase &&
-                            proj.owner == Projectile.owner &&
-                            proj.active)
+                        //if (proj.aiStyle == ProjAIStyleID.Hook &&
+                        //    proj.owner == Projectile.owner &&
+                        //    proj.active)
+                        //{
+                        //    if (proj.Distance(player.Center) > 50)
+                        //    {
+                        //        if (proj.Colliding(proj.Hitbox, Projectile.Hitbox))
+                        //        {
+                        //            if (proj.ai[0] == 1)
+                        //            {
+                        //                Projectile.velocity = proj.velocity;
+                        //            }
+                        //            proj.ai[0] = 1f;
+                        //            Projectile.Center = proj.Center;
+                        //            gravityTimer = 2;
+                        //        }
+                        //    }
+                        //}
+                        if (proj.ModProjectile is SwordProjectileBase sword &&
+                        proj.owner == Projectile.owner &&
+                        proj.active)
                         {
-                            if (proj.ModProjectile.Colliding(proj.Hitbox, Projectile.Hitbox) == null)
+                            if (sword.Colliding(proj.Hitbox, Projectile.Hitbox) == null)
                             {
                                 if (player.IsLocal())
                                 {
-                                    Projectile.velocity = Main.MouseWorld - Projectile.Center;
-                                    Projectile.velocity.Normalize();
-                                    Projectile.velocity *= 20;
-                                    gravityTimer = 16;
+                                    HitCannonBall();
                                 }
                             }
                         }
@@ -83,12 +110,34 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             }
         }
 
+        private void HitCannonBall()
+        {
+            Projectile.velocity = Main.MouseWorld - Projectile.Center;
+            Projectile.velocity.Normalize();
+            Projectile.velocity *= 20;
+            SoundEngine.PlaySound(SoundID.NPCHit4);
+            Projectile.ai[0] = 1;
+            Projectile.ai[1]++;
+            gravityTimer = 180;
+            if (Projectile.ai[1] >= 3)
+            {
+                Projectile.damage += 50;
+            }
+        }
+
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.velocity.Y = -12;
-            Projectile.velocity.X = 5 * -Projectile.direction;
-            gravityTimer = 16;
-            Projectile.ai[0] = 0;
+            if (Projectile.ai[1] >= 3)
+            {
+                Projectile.penetrate = -1;
+            }
+            else
+            {
+                Projectile.velocity.Y = -12;
+                Projectile.velocity.X = 5 * -Projectile.direction;
+                gravityTimer = 16;
+                Projectile.ai[0] = 0;
+            }
         }
 
         public override bool PreDraw(ref Color lightColor)

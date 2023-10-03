@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Buffs.PlayerDebuff
 
         public override bool PreDraw(SpriteBatch spriteBatch, int buffIndex, ref BuffDrawParams drawParams)
         {
-            Vector2 shake = new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3));
+            Vector2 shake = new(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3));
 
             drawParams.Position += shake;
             drawParams.TextPosition += shake;

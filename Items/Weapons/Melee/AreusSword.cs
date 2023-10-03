@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             Item.ResearchUnlockCount = 1;
             Item.AddAreus();
-            SoAGlobalItem.Eraser.Add(Type);
+            Item.AddEraser();
         }
 
         public override void SetDefaults()

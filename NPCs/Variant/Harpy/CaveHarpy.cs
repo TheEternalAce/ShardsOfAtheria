@@ -93,9 +93,12 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (!(spawnInfo.Player.ZoneHallow || spawnInfo.Player.ZoneCrimson || spawnInfo.Player.ZoneCorrupt || spawnInfo.Player.ZoneDungeon || spawnInfo.Player.ZoneSnow
-                || spawnInfo.PlayerSafe || spawnInfo.Player.ZoneSnow || spawnInfo.Player.ZoneDesert || spawnInfo.Player.ZoneJungle) && (spawnInfo.Player.ZoneNormalUnderground
-                || spawnInfo.Player.ZoneNormalCaverns))
+            if (!(spawnInfo.Player.ZoneHallow || spawnInfo.Player.ZoneCrimson ||
+                spawnInfo.Player.ZoneCorrupt || spawnInfo.Player.ZoneDungeon ||
+                spawnInfo.Player.ZoneSnow || spawnInfo.PlayerInTown ||
+                spawnInfo.Player.ZoneSnow || spawnInfo.Player.ZoneDesert ||
+                spawnInfo.Player.ZoneJungle) && (spawnInfo.Player.ZoneNormalUnderground ||
+                spawnInfo.Player.ZoneNormalCaverns))
                 return .05f;
             return 0f;
         }

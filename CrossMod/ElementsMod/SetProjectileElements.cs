@@ -189,7 +189,6 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<HardlightBlade>(),
             ProjectileType<HardlightSlash>(),
             ProjectileType<HardlightSword>(),
-            ProjectileType<PrototypeBandBlade>(),
             ProjectileType<ReactorMeltdownProj>(),
             ProjectileType<StrikeChain>(),
             ProjectileType<StrikeChainCurrent>(),

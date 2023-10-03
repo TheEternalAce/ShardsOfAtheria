@@ -1,4 +1,3 @@
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Weapon.Melee.Sawstring;
 using ShardsOfAtheria.Tiles.Crafting;
@@ -15,7 +14,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             Item.ResearchUnlockCount = 1;
             Item.AddAreus();
-            SoAGlobalItem.Eraser.Add(Type);
             Item.AddElementElec();
         }
 

@@ -1,5 +1,4 @@
-﻿using ShardsOfAtheria.Items.Bases;
-using ShardsOfAtheria.Players;
+﻿using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;

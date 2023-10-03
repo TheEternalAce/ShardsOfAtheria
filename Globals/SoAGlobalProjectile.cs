@@ -15,8 +15,7 @@ namespace ShardsOfAtheria.Globals
         public bool tempAreus = false;
         public bool explosion = false;
 
-        public static readonly List<int> AreusProj = new();
-        public static readonly List<int> DarkAreusProj = new();
+        public static readonly Dictionary<int, bool> AreusProj = new();
         public static readonly List<int> Eraser = new();
 
         public static readonly List<int> ReflectAiList = new()
@@ -167,7 +166,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (AreusProj.Contains(projectile.type) || tempAreus)
+            if (projectile.IsAreus(false) || tempAreus)
             {
                 int buffTime = 600;
                 if (Main.player[projectile.owner].Shards().conductive)

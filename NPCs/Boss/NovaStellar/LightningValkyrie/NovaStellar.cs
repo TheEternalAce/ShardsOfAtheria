@@ -49,16 +49,10 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             Main.npcFrameCount[NPC.type] = 6;
 
             NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
-            NPCDebuffImmunityData debuffData = new()
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.Poisoned,
-                    ModContent.BuffType<ElectricShock>(),
 
-                    BuffID.Confused // Most NPCs have this
-				}
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<ElectricShock>()] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
         }
 
         public override void SetDefaults()
@@ -71,8 +65,9 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath52;
             NPC.knockBackResist = 0f;
-            NPC.aiStyle = 14;
+            NPC.aiStyle = -1;
             NPC.boss = true;
+            NPC.noTileCollide = true;
             NPC.noGravity = true;
             Music = MusicID.Boss4;
             NPC.value = Item.buyPrice(0, 5, 0, 0);
@@ -91,6 +86,30 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
         public override void OnSpawn(IEntitySource source)
         {
             NPC.SetEventFlagCleared(ref ShardsDownedSystem.summonedValkyrie, -1);
+            if (!SoA.DownedSystem.slainValkyrie)
+            {
+                // This should almost always be the first code in AI() as it is responsible for finding the proper player target
+                if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active)
+                {
+                    NPC.TargetClosest();
+                }
+
+                Player player = Main.player[NPC.target];
+
+                Vector2 spawnPos = new(500, 250);
+                if (Main.rand.NextFloat() <= .5f)
+                {
+                    spawnPos.X *= -1;
+                }
+                NPC.position = player.position - spawnPos;
+
+                bool isSlayer = player.IsSlayer();
+                NPC.UseBossDialogueWithKey("NovaStellar",
+                    isSlayer ? ShardsHelpers.SlayerSummonLine :
+                    AlreadyDefeated ? ShardsHelpers.ReSummonLine :
+                    ShardsHelpers.SummonLine, TextColor);
+                NPC.localAI[0] = 1f;
+            }
         }
 
         public override bool CheckDead()
@@ -294,6 +313,10 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 }
                 else
                 {
+                    if (attackType != LanceDash)
+                    {
+                        DefaultMovement(player);
+                    }
                     if (phase2)
                     {
                         frameX = 1;
@@ -318,7 +341,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
         const int BowShoot = 5;
         const int SwordSwing = 6;
         const int KnifeThrow = 7;
-        List<int> blacklistedAttacks = new();
+        readonly List<int> blacklistedAttacks = new();
         void ChoseAttacks()
         {
             WeightedRandom<int> random = new WeightedRandom<int>();
@@ -385,7 +408,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                     break;
                 case LanceDash:
                     attackTimer = 120;
-                    attackCooldown = 60;
+                    attackCooldown = 10;
                     damage = 20;
                     attackTypeNext = KnifeThrow;
                     break;
@@ -448,27 +471,44 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                     DoElectricDash(center, toTarget);
                     break;
                 case FeatherBarrage:
+                    DefaultMovement(player);
                     DoFeatherBarrage(center, toTarget, targetPosition);
                     break;
                 case LanceDash:
                     DoLanceDash(player, targetPosition, center);
                     break;
                 case StormCloud:
+                    DefaultMovement(player);
                     DoStormCloud(targetPosition);
                     break;
                 case SwordsDance:
+                    DefaultMovement(player);
                     DoSwordsDance(targetPosition);
                     break;
                 case BowShoot:
+                    DefaultMovement(player);
                     DoBowShoot(center, toTarget);
                     break;
                 case SwordSwing:
                     DoBladeSwing(player);
                     break;
                 case KnifeThrow:
+                    DefaultMovement(player);
                     DoKnifeThrow(player);
                     break;
             }
+        }
+
+        void DefaultMovement(Player player)
+        {
+            Vector2 idlePos = new(250, -125);
+            if (player.Center.X > NPC.Center.X)
+            {
+                idlePos.X *= -1;
+            }
+            idlePos += player.Center;
+            NPC.Track(idlePos, 16f, 16f);
+
         }
 
         void DoElectricDash(Vector2 center, Vector2 toTarget)
@@ -576,9 +616,6 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
         void DoStormCloud(Vector2 targetPosition)
         {
-            float speed = 8f;
-            Vector2 toPosition = targetPosition + new Vector2(500 * (NPC.Center.X > targetPosition.X ? 1 : -1), -200);
-            NPC.Track(toPosition, speed, speed);
             if (attackTimer == 320)
             {
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), targetPosition + new Vector2(0, -400), Vector2.Zero,
@@ -595,9 +632,6 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
         void DoSwordsDance(Vector2 targetPosition)
         {
-            float speed = 8f;
-            Vector2 toPosition = targetPosition + new Vector2(500 * (NPC.Center.X > targetPosition.X ? 1 : -1), -200);
-            NPC.Track(toPosition, speed, speed);
             if (attackTimer == 9 * 60)
             {
                 for (int i = 0; i < 7; i++)
@@ -638,7 +672,12 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
         void DoBladeSwing(Player player)
         {
-            NPC.Track(player.Center, 8, 8);
+            float speed = 8f;
+            if (NPC.Distance(player.Center) > 200)
+            {
+                speed *= 2f;
+            }
+            NPC.Track(player.Center, speed, speed);
             if (frameY == 0)
             {
                 var swordItem = ModContent.GetInstance<ValkyrieBlade>().Item;
@@ -646,6 +685,11 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
                     Vector2.Zero, ModContent.ProjectileType<HardlightBladeHitbox>(),
                     damage, 0, Main.myPlayer);
+                //var vector = player.Center - NPC.Center;
+                //vector.Normalize();
+                //vector *= 12f;
+                //Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vector,
+                //    ModContent.ProjectileType<FeatherBlade>(), damage / 2, 0, Main.myPlayer);
             }
         }
 

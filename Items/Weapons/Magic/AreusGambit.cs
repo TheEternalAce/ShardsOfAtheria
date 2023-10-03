@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.Projectiles.Weapon.Magic.Gambit;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
@@ -19,7 +18,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             Item.ResearchUnlockCount = 1;
             Item.AddAreus(true);
-            SoAGlobalItem.UpgradeableItem.Add(Type);
+            Item.AddUpgradable();
         }
 
         public override void SetDefaults()
@@ -31,7 +30,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 2;
             Item.crit = 2;
-            Item.mana = 12;
 
             Item.useTime = 20;
             Item.useAnimation = 20;
@@ -87,7 +85,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             {
                 if (player.Shards().Overdrive)
                 {
-                    type = ModContent.ProjectileType<LightningBoltFriendly>();
+                    type = ModContent.ProjectileType<ElecScorpionFang>();
                 }
             }
             if (type == ModContent.ProjectileType<ElecCoin>())
@@ -115,7 +113,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
             if (heads)
             {
-                Item.shoot = ModContent.ProjectileType<LightningBoltFriendly>();
+                Item.shoot = ModContent.ProjectileType<ElecScorpionFang>();
                 Item.shootSpeed = 1;
                 Item.damage = 75;
                 Item.useTime = Item.useAnimation = 30;
@@ -133,7 +131,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (type == ModContent.ProjectileType<LightningBoltFriendly>())
+            if (type == ModContent.ProjectileType<ElecScorpionFang>())
             {
                 if (player.Shards().Overdrive)
                 {
@@ -147,13 +145,16 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                         ModContent.ProjectileType<ElecScorpionTail>(), damage, knockback,
                         player.whoAmI);
                 }
-                float numberProjectiles = 3; // 3 shots
-                float rotation = MathHelper.ToRadians(10);
+                float numberProjectiles = 2;
+                float rotation = MathHelper.ToRadians(15);
                 for (int i = 0; i < numberProjectiles; i++)
                 {
-                    Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
+                    Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(
+                        -rotation, rotation, i / (numberProjectiles - 1)));
                     perturbedSpeed.Normalize();
-                    Projectile.NewProjectile(source, position, perturbedSpeed * 1, type, damage, knockback, player.whoAmI);
+                    perturbedSpeed *= 12f;
+                    Projectile.NewProjectile(source, position, perturbedSpeed, type,
+                        damage, knockback, player.whoAmI, 0, 1 - 2 * i);
                 }
                 return false;
             }

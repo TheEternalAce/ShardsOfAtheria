@@ -59,17 +59,15 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                     for (int i = 0; i < numberProjectiles; i++)
                     {
                         Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                        Projectile proj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), position, perturbedSpeed * 16f,
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), position, perturbedSpeed * 12f,
                             ModContent.ProjectileType<CactusNeedle>(), 12, 0f, Main.myPlayer);
-                        proj.DamageType = DamageClass.Ranged;
                     }
                     NPC.ai[0] = 91;
                 }
                 else if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
                 {
-                    int num729 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center).RotatedByRandom(MathHelper.ToRadians(15)) * 6f,
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center).RotatedByRandom(MathHelper.ToRadians(15)) * 6f,
                         ModContent.ProjectileType<Static>(), 12, 0f, Main.myPlayer);
-                    Main.projectile[num729].timeLeft = 300;
                 }
             }
             else if (NPC.ai[0] >= 400 + Main.rand.Next(400))
@@ -93,9 +91,11 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (!(spawnInfo.Player.ZoneHallow || spawnInfo.Player.ZoneCrimson || spawnInfo.Player.ZoneCorrupt || spawnInfo.Player.ZoneTowerNebula || spawnInfo.Player.ZoneTowerVortex
-                || spawnInfo.Player.ZoneTowerSolar || spawnInfo.Player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon || spawnInfo.PlayerSafe) && spawnInfo.Player.ZoneOverworldHeight
-                && spawnInfo.Player.ZoneDesert)
+            if (!(spawnInfo.Player.ZoneHallow || spawnInfo.Player.ZoneCrimson ||
+                spawnInfo.Player.ZoneCorrupt || spawnInfo.Player.ZoneTowerNebula ||
+                spawnInfo.Player.ZoneTowerVortex || spawnInfo.Player.ZoneTowerSolar ||
+                spawnInfo.Player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon) &&
+                spawnInfo.Player.ZoneOverworldHeight && spawnInfo.Player.ZoneDesert)
                 return .05f;
             return 0f;
         }

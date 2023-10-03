@@ -65,6 +65,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             if (distX > distXMax)
             {
                 newCenter.X -= (distX - distXMax) * dirX;
+                player.velocity.X = 0;
             }
             int dirY = saferArea.Center.Y < player.Center.Y ? 1 : -1;
             float distY = MathHelper.Distance(player.Center.Y, saferArea.Center.Y);
@@ -72,6 +73,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             if (distY > distYMax)
             {
                 newCenter.Y -= (distY - distYMax) * dirY;
+                player.velocity.Y = 0;
             }
             player.Center = newCenter;
             if (Projectile.ai[1] >= 60)

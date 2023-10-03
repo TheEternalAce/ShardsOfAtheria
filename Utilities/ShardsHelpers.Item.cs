@@ -84,27 +84,42 @@ namespace ShardsOfAtheria.Utilities
         public static void AddAreus(this Item item, bool dark = false)
         {
             item.type.AddAreusItem(dark);
+            item.AddElementElec();
         }
-        public static void AddAreusItem(this int itemID, bool dark)
+        public static void AddAreusItem(this int id, bool dark)
         {
-            if (dark)
-            {
-                SoAGlobalItem.DarkAreusWeapon.Add(itemID);
-            }
-            else
-            {
-                SoAGlobalItem.AreusWeapon.Add(itemID);
-            }
+            SoAGlobalItem.AreusItem.Add(id, dark);
         }
-        public static bool IsAreus(this Item item)
+        public static bool IsAreus(this Item item, bool includeDark)
         {
-            return SoAGlobalItem.AreusWeapon.Contains(item.type) ||
-                SoAGlobalItem.DarkAreusWeapon.Contains(item.type);
+            if (!includeDark)
+            {
+                SoAGlobalItem.AreusItem.TryGetValue(item.type, out var dark);
+                return SoAGlobalItem.AreusItem.ContainsKey(item.type) && !dark;
+            }
+            else return SoAGlobalItem.AreusItem.ContainsKey(item.type);
         }
 
+        public static void AddUpgradable(this Item item)
+        {
+            item.type.AddUpgradableItem();
+        }
+        public static void AddUpgradableItem(this int id)
+        {
+            SoAGlobalItem.UpgradeableItem.Add(id);
+        }
         public static bool IsUpgradable(this Item item)
         {
             return SoAGlobalItem.UpgradeableItem.Contains(item.type);
+        }
+
+        public static void AddEraser(this Item item)
+        {
+            item.type.AddEraserItem();
+        }
+        public static void AddEraserItem(this int id)
+        {
+            SoAGlobalItem.Eraser.Add(id);
         }
 
         public static void AddElementFire(this Item item)
