@@ -28,7 +28,6 @@ namespace ShardsOfAtheria.Items.BossSummons
                 Item.consumable = true;
             }
             Item.maxStack = 9999;
-            Item.value = 50000;
 
             Item.useTime = 45;
             Item.useAnimation = 45;
