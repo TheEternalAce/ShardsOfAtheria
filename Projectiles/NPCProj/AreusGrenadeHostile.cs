@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
     {
         int armTimer = 0;
 
-        public override string Texture => "ShardsOfAtheria/Projectiles/Weapon/Ranged/AreusGrenadeProj";
+        public override string Texture => "ShardsOfAtheria/Projectiles/Ranged/AreusGrenadeProj";
 
         public override void SetStaticDefaults()
         {

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Magic;
+using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -54,7 +54,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             float numberProjectiles = 3; // 3 shots
-            float rotation = MathHelper.ToRadians(45);
+            float rotation = MathHelper.PiOver4;
             for (int i = 0; i < numberProjectiles; i++)
             {
                 Vector2 vel = Vector2.Normalize(player.Center - Main.MouseWorld);

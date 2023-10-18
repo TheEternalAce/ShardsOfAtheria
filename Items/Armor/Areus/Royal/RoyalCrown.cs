@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
             base.SetDefaults();
             Item.width = 18;
             Item.height = 18;
-            Item.defense = 6;
+            Item.defense = 20;
 
             slotType = AreusArmorChip.SlotHead;
 
@@ -24,7 +24,11 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
         public override void UpdateEquip(Player player)
         {
             base.UpdateEquip(player);
-            player.GetDamage(ArmorPlayer.classChip) += 0.05f;
+            player.GetDamage(ArmorPlayer.classChip) += 0.15f;
+            player.GetCritChance(ArmorPlayer.classChip) += 0.15f;
+            ArmorPlayer.areusDamage += 0.1f;
+            player.manaCost -= 0.15f;
+            ArmorPlayer.areusHead = true;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)

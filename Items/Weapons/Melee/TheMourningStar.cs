@@ -1,5 +1,5 @@
 using ShardsOfAtheria.Buffs.PlayerDebuff;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.BloodthirstySword;
+using ShardsOfAtheria.Projectiles.Melee.BloodthirstySword;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;

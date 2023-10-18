@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             {
                 DrawOffsetX = 0;
                 DrawOriginOffsetX = -50;
-                Projectile.rotation += MathHelper.ToRadians(180);
+                Projectile.rotation += MathHelper.Pi;
             }
             else
             {

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Magic;
+using ShardsOfAtheria.Projectiles.Magic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

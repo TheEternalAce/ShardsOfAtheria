@@ -14,10 +14,10 @@ namespace ShardsOfAtheria.ShardsUI
     class ChipsUI : UIState
     {
         UIPanel panel;
-        VanillaItemSlotWrapper[] slots;
+        public VanillaItemSlotWrapper[] slots;
         UIImage[] slotLocks;
-        bool cardsInit = false;
-        int[] slotTypes = new[] { AreusArmorChip.SlotHead, AreusArmorChip.SlotChest, AreusArmorChip.SlotLegs };
+        bool chipsInit = false;
+        public static readonly int[] SlotTypes = new[] { AreusArmorChip.SlotHead, AreusArmorChip.SlotChest, AreusArmorChip.SlotLegs };
 
         public override void OnInitialize()
         {
@@ -67,19 +67,19 @@ namespace ShardsOfAtheria.ShardsUI
                 {
                     var player = Main.LocalPlayer;
                     var armorPlayer = player.Areus();
-                    if (chip.slotType != slotTypes[ind])
+                    if (chip.slotType != SlotTypes[ind])
                     {
                         return false;
                     }
-                    else if (slotTypes[ind] == AreusArmorChip.SlotHead && !armorPlayer.areusHead)
+                    else if (SlotTypes[ind] == AreusArmorChip.SlotHead && !armorPlayer.areusHead)
                     {
                         return false;
                     }
-                    else if (slotTypes[ind] == AreusArmorChip.SlotChest && !armorPlayer.areusBody)
+                    else if (SlotTypes[ind] == AreusArmorChip.SlotChest && !armorPlayer.areusBody)
                     {
                         return false;
                     }
-                    else if (slotTypes[ind] == AreusArmorChip.SlotLegs && !armorPlayer.areusLegs)
+                    else if (SlotTypes[ind] == AreusArmorChip.SlotLegs && !armorPlayer.areusLegs)
                     {
                         return false;
                     }
@@ -126,15 +126,15 @@ namespace ShardsOfAtheria.ShardsUI
                 }
                 var slotLock = slotLocks[i];
                 panel.RemoveChild(slotLock);
-                if (slotTypes[i] == AreusArmorChip.SlotHead && !armorPlayer.areusHead)
+                if (SlotTypes[i] == AreusArmorChip.SlotHead && !armorPlayer.areusHead)
                 {
                     panel.Append(slotLock);
                 }
-                if (slotTypes[i] == AreusArmorChip.SlotChest && !armorPlayer.areusBody)
+                if (SlotTypes[i] == AreusArmorChip.SlotChest && !armorPlayer.areusBody)
                 {
                     panel.Append(slotLock);
                 }
-                if (slotTypes[i] == AreusArmorChip.SlotLegs && !armorPlayer.areusLegs)
+                if (SlotTypes[i] == AreusArmorChip.SlotLegs && !armorPlayer.areusLegs)
                 {
                     panel.Append(slotLock);
                 }
@@ -143,9 +143,9 @@ namespace ShardsOfAtheria.ShardsUI
 
         public void InitializeChips()
         {
-            if (!cardsInit)
+            if (!chipsInit)
             {
-                cardsInit = true;
+                chipsInit = true;
                 var player = Main.LocalPlayer;
                 var armorPlayer = player.Areus();
                 var chips = armorPlayer.chipNames;
@@ -200,6 +200,11 @@ namespace ShardsOfAtheria.ShardsUI
         public void HideChips()
         {
             chipsInterface.SetState(null);
+        }
+
+        public void SetSlotItem(int i, Item item)
+        {
+            ChipsIU.slots[i].Item = item;
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)

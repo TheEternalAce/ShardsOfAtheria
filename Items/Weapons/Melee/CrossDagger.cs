@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.BloodDagger;
+using ShardsOfAtheria.Projectiles.Melee.BloodDagger;
 using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;
@@ -57,7 +57,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                     var vector = Vector2.One * (8f + Main.rand.NextFloat(0f, 7f));
                     if (numHealBlood > 0)
                     {
-                        vector = vector.RotatedByRandom(MathHelper.ToRadians(360));
+                        vector = vector.RotatedByRandom(MathHelper.TwoPi);
                         int heal = damageDone / (4 + numHealBlood);
                         Projectile.NewProjectile(player.GetSource_OnHit(target), target.Center, vector,
                             ModContent.ProjectileType<HolyBloodHeal>(), heal, 0, player.whoAmI);
@@ -65,7 +65,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                     }
                     if (numOffenseBlood > 0)
                     {
-                        vector = vector.RotatedByRandom(MathHelper.ToRadians(360));
+                        vector = vector.RotatedByRandom(MathHelper.TwoPi);
                         int damage = damageDone / numOffenseBlood;
                         Projectile.NewProjectile(player.GetSource_OnHit(target), target.Center, vector,
                             ModContent.ProjectileType<HolyBloodOffense>(), damage, 0, player.whoAmI);

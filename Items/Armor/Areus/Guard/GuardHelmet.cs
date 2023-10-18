@@ -1,7 +1,7 @@
-using BloodIsFuel;
 using ShardsOfAtheria.Items.AreusChips;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -13,8 +13,6 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
     [AutoloadEquip(EquipType.Head)]
     public class GuardHelmet : AreusArmorPiece
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -57,17 +55,8 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
         {
             ArmorPlayer.guardSet = true;
             ModContent.GetInstance<AreusEnergySystem>().ShowBar();
+            player.GetDamage(DamageClass.Generic) += player.Areus().areusEnergy / 100f;
             base.UpdateArmorSet(player);
-        }
-
-        public override void MeleeSet(Player player)
-        {
-            base.MeleeSet(player);
-        }
-
-        public override void RangedSet(Player player)
-        {
-            base.RangedSet(player);
         }
 
         public override void MagicSet(Player player)

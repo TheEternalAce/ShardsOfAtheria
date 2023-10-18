@@ -1,5 +1,5 @@
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Summon.Whip;
+using ShardsOfAtheria.Projectiles.Summon.Whip;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

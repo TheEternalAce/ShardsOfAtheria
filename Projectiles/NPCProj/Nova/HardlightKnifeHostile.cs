@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {
     public class HardlightKnifeHostile : ModProjectile
     {
-        public override string Texture => "ShardsOfAtheria/Projectiles/Weapon/Ranged/HardlightKnifeProj";
+        public override string Texture => "ShardsOfAtheria/Projectiles/Ranged/HardlightKnifeProj";
 
         public override void SetStaticDefaults()
         {
@@ -55,7 +55,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 2; i++)
             {

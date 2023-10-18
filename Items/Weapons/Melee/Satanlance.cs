@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Projectiles.Weapon.Melee.Satanlance;
+using ShardsOfAtheria.Projectiles.Melee.Satanlance;
 using Terraria;
 using Terraria.Enums;
 using Terraria.ID;

@@ -4,6 +4,6 @@ namespace ShardsOfAtheria.Gores
 {
     public class AreusRodGore : ModGore
     {
-        public override string Texture => "ShardsOfAtheria/Projectiles/Weapon/Ammo/AreusBulletProj";
+        public override string Texture => "ShardsOfAtheria/Projectiles/Ammo/AreusBulletProj";
     }
 }

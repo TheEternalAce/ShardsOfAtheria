@@ -15,8 +15,7 @@ namespace ShardsOfAtheria.InfoDisplays
             return Main.LocalPlayer.Shards().InCombat;
         }
 
-        // Here we can change the value that will be displayed in the game
-        public override string DisplayValue(ref Color displayColor)
+        public override string DisplayValue(ref Color displayColor, ref Color displayShadowColor)
         {
             // This is the value that will show up when viewing this display in normal play, right next to the icon
             return "In Combat";

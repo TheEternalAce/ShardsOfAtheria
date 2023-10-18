@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Armor.Areus.Royal
 {
-    [AutoloadEquip(EquipType.Body)]
+    [AutoloadEquip(EquipType.Legs)]
     public class RoyalGreaves : AreusArmorPiece
     {
         public override string Texture => SoA.PlaceholderTexture;
@@ -15,9 +15,9 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
             Item.width = 18;
             Item.height = 18;
 
-            Item.defense = 7;
+            Item.defense = 14;
 
-            slotType = AreusArmorChip.SlotChest;
+            slotType = AreusArmorChip.SlotLegs;
 
             Item.value = ItemDefaults.ValueLunarPillars;
         }
@@ -25,7 +25,11 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
         public override void UpdateEquip(Player player)
         {
             base.UpdateEquip(player);
-            player.GetDamage(ArmorPlayer.classChip) += 0.05f;
+            player.GetDamage(ArmorPlayer.classChip) += 0.15f;
+            player.GetCritChance(ArmorPlayer.classChip) += 0.15f;
+            ArmorPlayer.areusDamage += 0.1f;
+            player.moveSpeed += 0.2f;
+            ArmorPlayer.areusLegs = true;
         }
     }
 }

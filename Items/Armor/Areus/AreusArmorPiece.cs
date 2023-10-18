@@ -43,39 +43,41 @@ namespace ShardsOfAtheria.Items.Armor.Areus
 
         public override void UpdateArmorSet(Player player)
         {
-            string key = "Mods.ShardsOfAtheria.Items." + Name + ".";
-            string keyBase = "Mods.ShardsOfAtheria.SetBonus.";
-            string bonusText = Language.GetTextValue(keyBase + "Areus");
+            string itemKey = "Mods.ShardsOfAtheria.Items." + Name + ".";
+            string setBonusKey = "Mods.ShardsOfAtheria.SetBonus.";
+            string bonusText = Language.GetTextValue(setBonusKey + "Areus");
 
             bool melee = ArmorPlayer.classChip == DamageClass.Melee;
             bool ranged = ArmorPlayer.classChip == DamageClass.Ranged;
             bool magic = ArmorPlayer.classChip == DamageClass.Magic;
             bool summon = ArmorPlayer.classChip == DamageClass.Summon;
 
+            bonusText += "\n" + Language.GetTextValue(itemKey + "SetBonus");
+
             if (melee || ranged || magic || summon)
             {
-                key += ArmorPlayer.classChip.Name + "Bonus";
-                bonusText += "\n" + Language.GetTextValue(key);
+                itemKey += ArmorPlayer.classChip.Name + "Bonus";
+                bonusText += "\n" + Language.GetTextValue(itemKey);
             }
             if (melee)
             {
                 MeleeSet(player);
-                bonusText += "\n" + Language.GetTextValue(keyBase + "AreusMelee");
-            }
-            else if (magic)
-            {
-                MagicSet(player);
-                bonusText += "\n" + Language.GetTextValue(keyBase + "AreusMagic");
+                bonusText += "\n" + Language.GetTextValue(setBonusKey + "AreusMelee");
             }
             else if (ranged)
             {
                 RangedSet(player);
-                bonusText += "\n" + Language.GetTextValue(keyBase + "AreusRanged");
+                bonusText += "\n" + Language.GetTextValue(setBonusKey + "AreusRanged");
+            }
+            else if (magic)
+            {
+                MagicSet(player);
+                bonusText += "\n" + Language.GetTextValue(setBonusKey + "AreusMagic");
             }
             else if (summon)
             {
                 SummonSet(player);
-                bonusText += "\n" + Language.GetTextValue(keyBase + "AreusSummon");
+                bonusText += "\n" + Language.GetTextValue(setBonusKey + "AreusSummon");
             }
             player.setBonus = bonusText;
         }

@@ -1,5 +1,5 @@
 ﻿using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged.VergilFlamethrower;
+using ShardsOfAtheria.Projectiles.Ranged.VergilFlamethrower;
 using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;

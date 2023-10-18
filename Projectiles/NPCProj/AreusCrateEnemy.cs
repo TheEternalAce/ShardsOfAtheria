@@ -7,7 +7,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
     {
         int gravityTimer = 0;
 
-        public override string Texture => "ShardsOfAtheria/Projectiles/Minions/Sentry/AreusCrateProj";
+        public override string Texture => "ShardsOfAtheria/Projectiles/Summon/Minions/Sentry/AreusCrateProj";
 
         public override void SetDefaults()
         {

@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Other
 
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
     }
 }

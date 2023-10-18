@@ -139,8 +139,8 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             // This requires you to set BossBag in SetDefaults accordingly
             npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<NovaBossBag>()));
 
-            LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
-            LeadingConditionRule slayerMode = new LeadingConditionRule(new IsSlayerMode());
+            LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
+            LeadingConditionRule slayerMode = new(new IsSlayerMode());
             LeadingConditionRule master = new(new Conditions.IsMasterMode());
 
             int[] drops = { ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<DownBow>(), ModContent.ItemType<PlumeCodex>(), ModContent.ItemType<NestlingStaff>() };
@@ -159,7 +159,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
             if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage) && !ShardsDownedSystem.downedValkyrie)
             {
-                notExpertRule.OnSuccess(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
+                npcLoot.Add(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
             }
 
             master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieStormLance>()));
@@ -507,8 +507,12 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 idlePos.X *= -1;
             }
             idlePos += player.Center;
-            NPC.Track(idlePos, 16f, 16f);
-
+            float speed = 16f;
+            if (NPC.Distance(idlePos) > 200)
+            {
+                speed += 4f;
+            }
+            NPC.Track(idlePos, speed, 16f);
         }
 
         void DoElectricDash(Vector2 center, Vector2 toTarget)

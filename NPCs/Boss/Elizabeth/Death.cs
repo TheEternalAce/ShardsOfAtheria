@@ -6,6 +6,7 @@ using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
+using ShardsOfAtheria.Items.Weapons.Summon;
 using ShardsOfAtheria.Projectiles.NPCProj.Elizabeth;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Systems;
@@ -136,12 +137,13 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
             LeadingConditionRule slayerMode = new(new IsSlayerMode());
-            //LeadingConditionRule master = new(new Conditions.IsMasterMode());
+            LeadingConditionRule master = new(new Conditions.IsMasterMode());
 
             int[] drops = {
-                ModContent.ItemType<BloodStainedCrossbow>(),
+                ModContent.ItemType<BloodScythe>(),
                 ModContent.ItemType<BloodJavelin>(),
                 ModContent.ItemType<BloodScepter>(),
+                ModContent.ItemType<BloodTome>(),
             };
 
             notExpertRule.OnSuccess(new OneFromOptionsDropRule(4, 3, drops));
@@ -154,14 +156,13 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
             if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage) && !ShardsDownedSystem.downedValkyrie)
             {
-                notExpertRule.OnSuccess(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
+                npcLoot.Add(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
             }
 
-            //master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<>()));
-            //npcLoot.Add(master);
+            master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<BloodStainedCrossbow>()));
+            npcLoot.Add(master);
 
             // Finally add the leading rule
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BloodScythe>()));
             npcLoot.Add(notExpertRule);
             npcLoot.Add(slayerMode);
         }
@@ -634,7 +635,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 {
                     Vector2 targetCenter = player.Center;
                     float radius = 250f * Main.rand.NextFloat(0.8f, 1f);
-                    var pos = targetCenter + Vector2.One.RotatedByRandom(MathHelper.ToRadians(360)) * radius;
+                    var pos = targetCenter + Vector2.One.RotatedByRandom(MathHelper.TwoPi) * radius;
                     var vector = targetCenter - pos;
                     vector.Normalize();
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center,

@@ -183,7 +183,7 @@ namespace ShardsOfAtheria.Tiles.Furniture.Trophies.Master
 	{
 		public override string RelicTextureName => "ExampleMod/Content/Tiles/Furniture/MyBossRelic";
 
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
+		public override void OnKillMultiTile(int i, int j, int frameX, int frameY) {
 			Item.NewItem(i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Placeable.Furniture.MyBossRelic>());
 		}
 	}

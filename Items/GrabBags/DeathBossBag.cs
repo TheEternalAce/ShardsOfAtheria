@@ -2,7 +2,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Weapons.Magic;
+using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
+using ShardsOfAtheria.Items.Weapons.Summon;
 using ShardsOfAtheria.NPCs.Boss.Elizabeth;
 using Terraria;
 using Terraria.GameContent;
@@ -41,9 +43,10 @@ namespace ShardsOfAtheria.Items.GrabBags
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
             int[] loot = {
-                ModContent.ItemType<BloodStainedCrossbow>(),
+                ModContent.ItemType<BloodScythe>(),
                 ModContent.ItemType<BloodJavelin>(),
                 ModContent.ItemType<BloodScepter>(),
+                ModContent.ItemType<BloodTome>(),
             };
 
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<MidnightCloak>()));

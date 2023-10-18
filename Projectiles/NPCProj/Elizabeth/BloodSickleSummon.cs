@@ -57,7 +57,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             Projectile.Track(movePos, -1, 32, 8);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Vector2 vector = Target.Center - Projectile.Center;
             vector.Normalize();

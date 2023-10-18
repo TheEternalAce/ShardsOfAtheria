@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Projectiles.Weapon.Magic.Spectrum;
+﻿using ShardsOfAtheria.Projectiles.Magic.Spectrum;
 using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;

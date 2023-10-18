@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Projectiles.Weapon.Melee.HeroSword;
+using ShardsOfAtheria.Projectiles.Melee.HeroSword;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

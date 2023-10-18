@@ -1,6 +1,6 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs;
+using ShardsOfAtheria.Projectiles.Melee.AreusSwordProjs;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;

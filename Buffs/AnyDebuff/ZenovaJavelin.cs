@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Projectiles.Weapon.Melee;
+﻿using ShardsOfAtheria.Projectiles.Melee;
 using Terraria;
 using Terraria.ModLoader;
 

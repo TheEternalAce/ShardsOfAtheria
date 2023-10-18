@@ -104,7 +104,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
                 {
                     Projectile.ai[1] = 0;
                     Projectile.timeLeft = 121;
-                    rotation += MathHelper.ToRadians(180);
+                    rotation += MathHelper.Pi;
                     attacks -= 1;
                 }
             }
@@ -118,7 +118,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 2; i++)
             {

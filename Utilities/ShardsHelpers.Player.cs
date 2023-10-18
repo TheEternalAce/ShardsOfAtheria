@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Items.SinfulSouls;
+﻿using ShardsOfAtheria.Buffs.Cooldowns;
+using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Players;
 using System;
 using Terraria;
@@ -72,6 +73,7 @@ namespace ShardsOfAtheria.Utilities
         {
             return player.GetModPlayer<AreusArmorPlayer>();
         }
+
         public static bool HasChipEquipped(this Player player, int chip)
         {
             foreach (string name in player.Areus().chipNames)
@@ -88,21 +90,6 @@ namespace ShardsOfAtheria.Utilities
             return false;
         }
 
-        public static bool HasItemEquipped(this Player player, int type, out Item item)
-        {
-            bool equipped = false;
-            item = null;
-            foreach (Item i in player.armor)
-            {
-                if (i.type == type)
-                {
-                    item = i;
-                    equipped = true;
-                    break;
-                }
-            }
-            return equipped;
-        }
         public static bool HasItemEquipped<T>(this Player player, out ModItem item) where T : ModItem
         {
             bool equipped = false;
@@ -122,6 +109,11 @@ namespace ShardsOfAtheria.Utilities
         public static bool InCombat(this Player player)
         {
             return player.Shards().InCombat;
+        }
+
+        public static bool ArmorSetCooldown(this Player player)
+        {
+            return player.HasBuff<SetBonusCooldown>();
         }
 
         public static void AddBuff<T>(this Player player, int time, bool quiet = true) where T : ModBuff

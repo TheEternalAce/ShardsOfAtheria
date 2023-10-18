@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
+using ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok;
 using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using System;

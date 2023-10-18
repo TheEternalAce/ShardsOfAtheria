@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.OmegaSword;
+using ShardsOfAtheria.Projectiles.Melee.OmegaSword;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;

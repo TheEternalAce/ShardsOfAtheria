@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Projectiles.Weapon.Magic;
+using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -22,6 +22,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 7f;
             Item.crit = 14;
+            Item.mana = 10;
 
             Item.useTime = 24;
             Item.useAnimation = 24;

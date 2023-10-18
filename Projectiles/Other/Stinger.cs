@@ -40,7 +40,7 @@ namespace ShardsOfAtheria.Projectiles.Other
                 }
             }
 
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)

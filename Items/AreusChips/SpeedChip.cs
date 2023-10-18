@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Items.AreusChips
         public override void ChipEffect(Player player)
         {
             base.ChipEffect(player);
-            player.moveSpeed += 2f;
+            player.moveSpeed += 0.2f;
         }
     }
 }

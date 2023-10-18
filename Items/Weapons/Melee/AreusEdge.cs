@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusJustitia;
+using ShardsOfAtheria.Projectiles.Melee.AreusJustitia;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;

@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Projectiles.Weapon.Ammo;
+using ShardsOfAtheria.Projectiles.Ammo;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
