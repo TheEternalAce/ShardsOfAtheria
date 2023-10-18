@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Ammo;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged;
+using ShardsOfAtheria.Projectiles.Ammo;
+using ShardsOfAtheria.Projectiles.Ranged;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

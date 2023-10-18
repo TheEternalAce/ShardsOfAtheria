@@ -15,10 +15,10 @@ using ShardsOfAtheria.NPCs.Town.TheArchivist;
 using ShardsOfAtheria.NPCs.Town.TheAtherian;
 using ShardsOfAtheria.NPCs.Variant.Harpy;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Projectiles.Ammo;
+using ShardsOfAtheria.Projectiles.Magic;
+using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Projectiles.Other;
-using ShardsOfAtheria.Projectiles.Weapon.Ammo;
-using ShardsOfAtheria.Projectiles.Weapon.Magic;
-using ShardsOfAtheria.Projectiles.Weapon.Melee;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -105,23 +105,41 @@ namespace ShardsOfAtheria.Globals
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
             base.ModifyTooltips(item, tooltips);
+            if (item.ModItem != null)
+            {
+                string overdriveKey = "Mods." + item.ModItem.Mod.Name + ".Items." + item.ModItem.Name + ".Overdrive";
+                if (Language.Exists(overdriveKey))
+                {
+                    if (Main.LocalPlayer.Shards().Overdrive)
+                    {
+                        var line = new TooltipLine(Mod, "OverdriveEffect",
+                            Language.GetTextValue(overdriveKey));
+                        tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"),
+                            line);
+                    }
+                }
+            }
+            string commonKey = "Mods.ShardsOfAtheria.Common.";
             if (SlayerItem.Contains(item.type))
             {
-                var line = new TooltipLine(Mod, "SlayerItem", Language.GetTextValue("Mods.ShardsOfAtheria.Common.SlayerItem"))
+                var line = new TooltipLine(Mod, "SlayerItem",
+                    Language.GetTextValue(commonKey + "SlayerItem"))
                 {
                     OverrideColor = Color.Red
                 };
-                tooltips.Add(line);
+                tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
             }
             if (UpgradeableItem.Contains(item.type))
             {
-                var line = new TooltipLine(Mod, "UpgradeItem", Language.GetTextValue("Mods.ShardsOfAtheria.Common.UpgradeableItem"));
-                tooltips.Add(line);
+                var line = new TooltipLine(Mod, "UpgradeItem",
+                    Language.GetTextValue(commonKey + "UpgradeableItem"));
+                tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
             }
             if (Eraser.Contains(item.type))
             {
-                var line = new TooltipLine(Mod, "Eraser", Language.GetTextValue("Mods.ShardsOfAtheria.Common.Eraser"));
-                tooltips.Add(line);
+                var line = new TooltipLine(Mod, "Eraser",
+                    Language.GetTextValue(commonKey + "Eraser"));
+                tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
             }
         }
 

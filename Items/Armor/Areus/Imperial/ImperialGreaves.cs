@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
 {
-    [AutoloadEquip(EquipType.Body)]
+    [AutoloadEquip(EquipType.Legs)]
     public class ImperialGreaves : AreusArmorPiece
     {
         public override string Texture => SoA.PlaceholderTexture;
@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
 
             Item.defense = 7;
 
-            slotType = AreusArmorChip.SlotChest;
+            slotType = AreusArmorChip.SlotLegs;
 
             Item.value = ItemDefaults.ValueHardmodeDungeon;
         }
@@ -26,6 +26,8 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
         {
             base.UpdateEquip(player);
             player.GetDamage(ArmorPlayer.classChip) += 0.05f;
+            player.moveSpeed += 0.16f;
+            ArmorPlayer.areusLegs = true;
         }
     }
 }

@@ -1,5 +1,5 @@
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.Sawstring;
+using ShardsOfAtheria.Projectiles.Melee.Sawstring;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;

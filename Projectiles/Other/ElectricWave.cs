@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Projectiles.Other
 
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             if (Projectile.scale < 2f)
             {
                 Projectile.scale *= 1.01f;

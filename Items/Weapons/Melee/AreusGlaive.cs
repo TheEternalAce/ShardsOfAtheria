@@ -1,5 +1,5 @@
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusGlaive;
+using ShardsOfAtheria.Projectiles.Melee.AreusGlaive;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;

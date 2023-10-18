@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Projectiles.Other
         public override void AI()
         {
             Projectile.SetVisualOffsets(new Vector2(48, 54));
-            float rotation = MathHelper.ToRadians(45);
+            float rotation = MathHelper.PiOver4;
             Projectile.rotation = Projectile.velocity.ToRotation() + rotation;
             if (++Projectile.ai[1] >= 10f)
             {

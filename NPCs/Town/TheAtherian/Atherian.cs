@@ -9,7 +9,7 @@ using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSwordProjs;
+using ShardsOfAtheria.Projectiles.Melee.AreusSwordProjs;
 using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.ShardsUI;
@@ -187,7 +187,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             }
 
             chat.AddKey(DialogueKeyBase + "AtheriaComment");
-            if (player.HasItemEquipped(ItemID.GoldCrown, out var _))
+            if (player.HasItem(ItemID.GoldCrown, player.armor))
             {
                 chat.AddKey(DialogueKeyBase + "GoldCrownCompliment");
             }

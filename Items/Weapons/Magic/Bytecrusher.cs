@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles.Weapon.Magic.ByteCrush;
+using ShardsOfAtheria.Projectiles.Magic.ByteCrush;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;

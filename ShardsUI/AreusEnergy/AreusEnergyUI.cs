@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -9,7 +8,7 @@ using Terraria.GameContent;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace BloodIsFuel
+namespace ShardsOfAtheria.ShardsUI
 {
     public class AreusEnergyUI : UIState
     {
@@ -43,6 +42,11 @@ namespace BloodIsFuel
             hitbox.Width -= 12;
             hitbox.Y += 6;
             hitbox.Height -= 12;
+
+            string path = "ShardsOfAtheria/ShardsUI/AreusEnergy/AreusEnergyBar_Back";
+            spriteBatch.Draw(ModContent.Request<Texture2D>(path).Value,
+                hitbox,
+                Color.White);
 
             // Now, using this hitbox, we draw a gradient by drawing vertical lines while slowly interpolating between the 2 colors.
             int right = hitbox.Right;

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged.EventHorizon;
+using ShardsOfAtheria.Projectiles.Ranged.EventHorizon;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

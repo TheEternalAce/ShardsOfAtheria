@@ -3,8 +3,8 @@ using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Projectiles.Other;
-using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -204,7 +204,7 @@ namespace ShardsOfAtheria.Utilities
             float rotationOffset = 0;
             if (style == DiamondX1 || style == DiamondX2 || style == LineX1 || style == LineX2)
             {
-                rotationOffset = MathHelper.ToRadians(90);
+                rotationOffset = MathHelper.PiOver2;
             }
 
             for (int k = 0; k < projectile.oldPos.Length; k++)

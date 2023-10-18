@@ -10,8 +10,6 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
     [AutoloadEquip(EquipType.Legs)]
     public class GuardLeggings : AreusArmorPiece
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -32,6 +30,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
             player.GetCritChance(ArmorPlayer.classChip) += 0.05f;
             ArmorPlayer.areusDamage += 0.03f;
             ArmorPlayer.areusLegs = true;
+            player.moveSpeed += 0.08f;
         }
 
         public override void AddRecipes()

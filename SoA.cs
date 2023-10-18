@@ -1,3 +1,4 @@
+using Humanizer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
@@ -122,13 +123,13 @@ namespace ShardsOfAtheria
 
             if (ModLoader.TryGetMod("TerraTyping", out Mod terratyping))
             {
-                string basePath = "CrossMod/TerraTypes/";
+                string basePath = "CrossMod/TerraTypes/{0}.csv";
                 Dictionary<string, object> addWeapon = new()
                 {
                     { "call", "AddTypes" },
                     { "typestoadd", "weapon" },
                     { "callingmod", Instance },
-                    { "filename", basePath + "Weapons.csv" }
+                    { "filename", basePath.FormatWith("Weapons") }
                 };
                 terratyping.Call(addWeapon);
 
@@ -137,7 +138,7 @@ namespace ShardsOfAtheria
                     { "call", "AddTypes" },
                     { "typestoadd", "projectile" },
                     { "callingmod", Instance },
-                    { "filename", basePath + "Projectiles.csv" }
+                    { "filename", basePath.FormatWith("Projectiles") }
                 };
                 terratyping.Call(addProjectile);
 
@@ -146,7 +147,7 @@ namespace ShardsOfAtheria
                     { "call", "AddTypes" },
                     { "typestoadd", "ammo" },
                     { "callingmod", Instance },
-                    { "filename", basePath + "Ammo.csv" }
+                    { "filename", basePath.FormatWith("Ammo") }
                 };
                 terratyping.Call(addAmmo);
 
@@ -155,7 +156,7 @@ namespace ShardsOfAtheria
                     { "call", "AddTypes" },
                     { "typestoadd", "npc" },
                     { "callingmod", Instance },
-                    { "filename", basePath + "NPCs.csv" }
+                    { "filename", basePath.FormatWith("NPCs") }
                 };
                 terratyping.Call(addNPC);
 
@@ -164,7 +165,7 @@ namespace ShardsOfAtheria
                     { "call", "AddTypes" },
                     { "typestoadd", "armor" },
                     { "callingmod", Instance },
-                    { "filename", basePath + "Armor.csv" }
+                    { "filename", basePath.FormatWith("Armor") }
                 };
                 terratyping.Call(addArmor);
             }
@@ -261,7 +262,7 @@ namespace ShardsOfAtheria
         public static string ChooseTitleText()
         {
             List<string> title = new();
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 3; i++)
             {
                 title.Add(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TitleText" + i));
             }

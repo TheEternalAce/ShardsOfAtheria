@@ -2,8 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable.Banner;
+using ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok.IceStuff;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok.IceStuff;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.GameContent.Bestiary;
@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         {
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.Harpy];
 
-            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new(0)
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new()
             {
                 Velocity = 1f,
                 Direction = -1

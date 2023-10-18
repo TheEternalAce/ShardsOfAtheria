@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles.Weapon.Ranged.DeckOfCards;
+using ShardsOfAtheria.Projectiles.Ranged.DeckOfCards;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

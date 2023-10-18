@@ -10,8 +10,6 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
     [AutoloadEquip(EquipType.Body)]
     public class GuardMail : AreusArmorPiece
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetDefaults()
         {
             base.SetDefaults();

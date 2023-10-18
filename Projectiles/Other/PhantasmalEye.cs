@@ -24,7 +24,7 @@ namespace ShardsOfAtheria.Projectiles.Other
             float maxDetectRadius = 400f; // The maximum radius at which a projectile can detect a target
             float projSpeed = 10f; // The speed at which the projectile moves towards the target
 
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90);
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 
             // Trying to find NPC closest to the projectile
             NPC closestNPC = Projectile.FindClosestNPC(maxDetectRadius);

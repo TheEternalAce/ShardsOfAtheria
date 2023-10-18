@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusDaggerProjs;
+using ShardsOfAtheria.Projectiles.Melee.AreusDaggerProjs;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;

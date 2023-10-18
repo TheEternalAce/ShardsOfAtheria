@@ -1,5 +1,5 @@
-﻿using ShardsOfAtheria.Projectiles.Weapon.Ammo;
-using ShardsOfAtheria.Projectiles.Weapon.Magic;
+﻿using ShardsOfAtheria.Projectiles.Ammo;
+using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;
 using System.Linq;
 using Terraria;

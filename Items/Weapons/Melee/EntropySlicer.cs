@@ -1,5 +1,5 @@
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.EntropyCutter;
+using ShardsOfAtheria.Projectiles.Melee.EntropyCutter;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

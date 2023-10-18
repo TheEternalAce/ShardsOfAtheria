@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Projectiles.Weapon.Melee.Gomorrah;
+using ShardsOfAtheria.Projectiles.Melee.Gomorrah;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

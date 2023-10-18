@@ -25,6 +25,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
         {
             base.UpdateEquip(player);
             player.GetDamage(ArmorPlayer.classChip) += 0.05f;
+            ArmorPlayer.areusHead = true;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)

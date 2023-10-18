@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
-using ShardsOfAtheria.Projectiles.Weapon.Magic.ElecGauntlet;
+using ShardsOfAtheria.Projectiles.Magic.ElecGauntlet;
 using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using Terraria;

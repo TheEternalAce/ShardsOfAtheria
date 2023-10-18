@@ -167,12 +167,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             else if (Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[DashUp] < 15)
             {
                 DashDir = DashUp;
-                vector = vector.RotatedBy(MathHelper.ToRadians(90));
+                vector = vector.RotatedBy(MathHelper.PiOver2);
             }
             else if (Player.controlRight && Player.releaseRight && Player.doubleTapCardinalTimer[DashRight] < 15)
             {
                 DashDir = DashRight;
-                vector = vector.RotatedBy(MathHelper.ToRadians(180));
+                vector = vector.RotatedBy(MathHelper.Pi);
             }
             else if (Player.controlLeft && Player.releaseLeft && Player.doubleTapCardinalTimer[DashLeft] < 15)
             {

@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Projectiles.Weapon.Melee.AreusJoustingLance;
+using ShardsOfAtheria.Projectiles.Melee.AreusJoustingLance;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;

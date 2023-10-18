@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Projectiles.Minions;
+using ShardsOfAtheria.Projectiles.Summon.Minions;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             Item.shootSpeed = 0;
             Item.rare = ItemRarityID.Cyan;
             Item.value = 10000;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Minions.BrokenAreusMirror>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.Summon.Minions.BrokenAreusMirror>();
 
             Item.buffType = ModContent.BuffType<AreusMirrorBuff>();
         }
@@ -56,7 +56,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Minions.BrokenAreusMirror>()] >= 1)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Summon.Minions.BrokenAreusMirror>()] >= 1)
             {
                 type = ModContent.ProjectileType<AreusMirrorShard>();
             }
@@ -69,7 +69,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             // This is needed so the buff that keeps your minion alive and allows you to despawn it properly applies
             player.AddBuff(Item.buffType, 2);
 
-            if (type == ModContent.ProjectileType<Projectiles.Minions.BrokenAreusMirror>())
+            if (type == ModContent.ProjectileType<Projectiles.Summon.Minions.BrokenAreusMirror>())
             {
                 // Minions have to be spawned manually, then have originalDamage assigned to the damage of the summon item
                 var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, Main.myPlayer, 1);

@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Projectiles.Weapon.Magic;
+using ShardsOfAtheria.Projectiles.Magic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

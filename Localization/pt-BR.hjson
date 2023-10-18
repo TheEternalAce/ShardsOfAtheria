@@ -28,6 +28,7 @@ Mods: {
 			TitleText0: Shards of Atheria: Splitting Skies
 			TitleText1: Shards of Atheria: The World Revolving
 			TitleText2: Shards of Atheria: Shattered Atheria
+			// TitleText3: Shards of Atheria: Was the wait worth it? Absolutely not!
 			TomeOfOmniscience: Pressione {0} para ciclar entre as 3 Bases de Conhecimento
 			TeleportOnKeyPress: Pressione {0} para teleportar para seu cursor
 			/* AreusKatanaTransformation:
@@ -88,15 +89,14 @@ Mods: {
 				'''
 			/* Areus:
 				'''
-				Can take Areus Augments
-				Insert augments into the slots to gain their abilities
+				Can take Areus Chips
+				Insert chips into the slots to gain their abilities
 				Recieve additional set bonus with class augments
 				''' */
 			// AreusMelee: Stat bonuses given to melee weapons
 			// AreusRanged: Stat bonuses given to ranged weapons
 			// AreusMagic: Stat bonuses given to magic weapons
 			// AreusSummon: Stat bonuses given to summon weapons
-			// AreusGuard: Grants the ability to harness Areus Energy
 		}
 
 		Items: {
@@ -468,6 +468,7 @@ Mods: {
 					Increased Areus weapon damage by 3%
 					Reduced mana usage by 5%
 					''' */
+				// SetBonus: Grants the ability to harness Areus Energy
 				/* MeleeDamageClassBonus:
 					'''
 					Taking damage builds Areus Energy
@@ -515,8 +516,19 @@ Mods: {
 
 			SoldierMask: {
 				// DisplayName: Soldier Mask
-				// Tooltip: ""
-				// MeleeDamageClassBonus: ""
+				/* Tooltip:
+					'''
+					Increased damage and critical strike chance by 8%
+					Increased Areus weapon damage by 5%
+					Reduced mana usage by 8%
+					''' */
+				// SetBonus: Grants the ability to react to or prevent oncomming damage
+				/* MeleeDamageClassBonus:
+					'''
+					Press <Armor Ability> to create electric shields
+					Electric shields will destroy certain enemy projectiles
+					Can parry with good timing
+					''' */
 				// RangedDamageClassBonus: ""
 				// MagicDamageClassBonus: ""
 				// SummonDamageClassBonus: ""
@@ -524,17 +536,33 @@ Mods: {
 
 			SoldierBreastplate: {
 				// DisplayName: Soldier Breastplate
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Increased damage and critical strike chance by 8%
+					Increased Areus weapon damage by 5%
+					Increased maximum mana by 90
+					''' */
 			}
 
 			SoldierLeggings: {
 				// DisplayName: Soldier Leggings
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Increased damage and critical strike chance by 8%
+					Increased Areus weapon damage by 5%
+					Increased movement speed by 13%
+					''' */
 			}
 
 			ImperialHood: {
 				// DisplayName: Imperial Hood
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Increased damage and critical strike chance by %
+					Increased Areus weapon damage by %
+					Reduced mana usage by %
+					''' */
+				// SetBonus: ""
 				// MeleeDamageClassBonus: ""
 				// RangedDamageClassBonus: ""
 				// MagicDamageClassBonus: ""
@@ -543,17 +571,33 @@ Mods: {
 
 			ImperialGarments: {
 				// DisplayName: Imperial Garments
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Increased damage and critical strike chance by %
+					Increased Areus weapon damage by %
+					Increased maximum mana by 
+					''' */
 			}
 
 			ImperialGreaves: {
 				// DisplayName: Imperial Greaves
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Increased damage and critical strike chance by %
+					Increased Areus weapon damage by %
+					Increased movement speed by 16%
+					''' */
 			}
 
 			RoyalCrown: {
 				// DisplayName: Royal Crown
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Increased damage and critical strike chance by 15%
+					Increased Areus weapon damage by 10%
+					Reduced mana usage by 15%
+					''' */
+				// SetBonus: ""
 				// MeleeDamageClassBonus: ""
 				// RangedDamageClassBonus: ""
 				// MagicDamageClassBonus: ""
@@ -562,12 +606,22 @@ Mods: {
 
 			RoyalJacket: {
 				// DisplayName: Royal Jacket
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Increased damage and critical strike chance by 15%
+					Increased Areus weapon damage by 10%
+					Increased maximum mana by 120
+					''' */
 			}
 
 			RoyalGreaves: {
 				// DisplayName: Royal Greaves
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Increased damage and critical strike chance by 15%
+					Increased Areus weapon damage by 10%
+					Increased movement speed by 20%
+					''' */
 			}
 
 			# Armor chips
@@ -629,7 +683,11 @@ Mods: {
 
 			VisionChip: {
 				// DisplayName: Vision+ Chip
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Night Owl, Dangersense and Hunter potion effects
+					Increased critical strike chance by 15%
+					''' */
 			}
 
 			WarriorChip: {
@@ -1332,6 +1390,12 @@ Mods: {
 				// Off: " (Disabled)"
 			}
 
+			CheatersGlove: {
+				// DisplayName: Cheater's Glove
+				// Tooltip: Causes the Areus Gamble to always land on a certain face
+				// Off: " (Disabled)"
+			}
+
 			SpidersMechanicalClock: {
 				DisplayName: Spider's Mechanical Clock
 				Tooltip:
@@ -1360,72 +1424,6 @@ Mods: {
 					'Converts Mana into Life'
 					Taking damage while this is in your inventory will render this unusable for a time
 					'''
-			}
-
-			# Misc
-			AquaMateria: {
-				// DisplayName: Aqua Materia
-				// Tooltip: ""
-			}
-
-			ElecMateria: {
-				// DisplayName: Elec Materia
-				// Tooltip: ""
-			}
-
-			FireMateria: {
-				// DisplayName: Fire Materia
-				// Tooltip: ""
-			}
-
-			WoodMateria: {
-				// DisplayName: Wood Materia
-				// Tooltip: ""
-			}
-
-			BiogaMateria: {
-				// DisplayName: Bioga Materia
-				// Tooltip: ""
-			}
-
-			BizzagaMateria: {
-				// DisplayName: Bizzaga Materia
-				// Tooltip: ""
-			}
-
-			FiragaMateria: {
-				// DisplayName: Firaga Materia
-				// Tooltip: ""
-			}
-
-			ThundagaMateria: {
-				// DisplayName: Thundaga Materia
-				// Tooltip: ""
-			}
-
-			BlizzagaMateria: {
-				// DisplayName: Blizzaga Materia
-				// Tooltip: ""
-			}
-
-			CactuarMateria: {
-				// DisplayName: Cactuar Materia
-				// Tooltip: ""
-			}
-
-			IfritMateria: {
-				// DisplayName: Ifrit Materia
-				// Tooltip: ""
-			}
-
-			RamuhMateria: {
-				// DisplayName: Ramuh Materia
-				// Tooltip: ""
-			}
-
-			ShivaMateria: {
-				// DisplayName: Shiva Materia
-				// Tooltip: ""
 			}
 
 			# Weapons
@@ -1465,11 +1463,12 @@ Mods: {
 				// DisplayName: Areus Gambit
 				/* Tooltip:
 					'''
-					First attack flips a coin, setting the next attack
+					First use flips a coin, setting the next attack
 					Heads summons two biting electric fangs
 					Tails fires an electric scorpion tail
 					'Great for losing your life savings!'
 					''' */
+				// Overdrive: Use both attacks
 			}
 
 			AreusGauntlet: {
@@ -1591,16 +1590,25 @@ Mods: {
 					Holding this weapon increases your movement speed by 5%
 					'I am all out of milk'
 					'''
+				// Overdrive: Throws electric shuriken
 			}
 
 			AreusLance: {
 				// DisplayName: Areus Lance
 				// Tooltip: ""
+				// Overdrive: Fires lightning while held out
+			}
+
+			AreusSawstring: {
+				// DisplayName: Areus Sawstring
+				// Tooltip: ""
+				// Overdrive: Creates orbiting electric saws when released
 			}
 
 			AreusStrikeChain: {
 				// DisplayName: Areus Strike Chain
 				// Tooltip: ""
+				// Overdrive: Latches onto enemies
 			}
 
 			AreusSword: {
@@ -1610,7 +1618,7 @@ Mods: {
 
 			BloodScythe: {
 				DisplayName: Blood Scythe
-				// Tooltip: ""
+				// Tooltip: "'And thus, her family was torn apart'"
 			}
 
 			Cataracnia: {
@@ -1715,6 +1723,11 @@ Mods: {
 					Max charge level increases damage by 200% and critical strike chance by 60%
 					'I am the messiah!'"
 					'''
+				/* Overdrive:
+					'''
+					Hold UP or DOWN to stab the ground
+					Infinite overdrive time
+					''' */
 			}
 
 			TheMourningStar: {
@@ -1788,6 +1801,7 @@ Mods: {
 			AreusFlameCannon: {
 				// DisplayName: Areus Flame Cannon
 				// Tooltip: "'We fire the cannon!'"
+				// Overdrive: Always fires fully charges blasts
 			}
 
 			AreusFlamethrower: {
@@ -1802,7 +1816,8 @@ Mods: {
 
 			AreusJavelin: {
 				// DisplayName: Areus Javelin
-				// Tooltip: Slashes struck enemies
+				// Tooltip: Homes in on struck enemies
+				// Overdrive: Homes in on nearby enemies for the first strike
 			}
 
 			AreusMagnum: {
@@ -1813,6 +1828,7 @@ Mods: {
 			AreusPistol: {
 				// DisplayName: Areus Pistol
 				// Tooltip: ""
+				// Overdrive: Shots hit multiple times
 			}
 
 			AreusRailgun: {
@@ -1834,7 +1850,12 @@ Mods: {
 
 			AreusRocketLauncher: {
 				// DisplayName: Areus Rocket Launcher
-				// Tooltip: "'If Senterra had wanted you to live, she would not have created me!'"
+				/* Tooltip:
+					'''
+					Alt-use fires cannonballs
+					'If Senterra had wanted you to live, she would not have created me!'
+					''' */
+				// Overdrive: Cannonballs will magnetize towards the player after a strike if nearby
 			}
 
 			BlackHoleRepeater: {
@@ -2012,11 +2033,6 @@ Mods: {
 					There can be only up to 6 of these sigils
 					'Her mother feared her power'
 					''' */
-			}
-
-			AreusSawstring: {
-				// DisplayName: Areus Sawstring
-				// Tooltip: ""
 			}
 
 			LifeCycleKeys: {
@@ -2279,6 +2295,7 @@ Mods: {
 			// AreusOrbitingSaw.DisplayName: Areus Orbiting Saw
 			// ElectricMarksmanShot.DisplayName: Electric Marksman Shot
 			// ElectricSpark.DisplayName: Electric Spark
+			// ElectricBarrier.DisplayName: Electric Barrier
 		}
 
 		NPCs: {
@@ -2721,12 +2738,12 @@ Mods: {
 
 			BloodySigil: {
 				// DisplayName: Bloody Sigil
-				// Description: Mods.ShardsOfAtheria.Buffs.BloodySigil.Description
+				// Description: The blood sigil will fight for you
 			}
 
 			LifeCycleBuff: {
 				// DisplayName: Life Cycle Buff
-				// Description: Mods.ShardsOfAtheria.Buffs.LifeCycleBuff.Description
+				// Description: "'You sure it's not a light cycle?'"
 			}
 
 			ElectricMarksman: {

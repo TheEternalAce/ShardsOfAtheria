@@ -1,6 +1,6 @@
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Projectiles.Weapon.Ammo;
+using ShardsOfAtheria.Projectiles.Ammo;
 using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;

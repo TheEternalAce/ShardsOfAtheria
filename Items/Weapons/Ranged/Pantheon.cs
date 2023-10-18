@@ -119,7 +119,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             if (numberProjectiles > 1)
             {
                 float rotation = MathHelper.ToRadians(5);
-                position += Vector2.Normalize(velocity) * 10f;
                 for (int i = 0; i < numberProjectiles; i++)
                 {
                     Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.

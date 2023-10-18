@@ -15,10 +15,10 @@ using ShardsOfAtheria.Items.BuffItems;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Tools.Misc.Slayer;
 using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Projectiles.Minions;
+using ShardsOfAtheria.Projectiles.Magic;
+using ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Other;
-using ShardsOfAtheria.Projectiles.Weapon.Magic;
-using ShardsOfAtheria.Projectiles.Weapon.Melee.GenesisRagnarok;
+using ShardsOfAtheria.Projectiles.Summon.Minions;
 using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
@@ -108,6 +108,7 @@ namespace ShardsOfAtheria.Players
         public bool Overdrive => Player.HasBuff<Overdrive>() && overdriveTimeCurrent > 0;
 
         public int riggedCoin;
+        public int cheatGlove;
 
         public int readingDisk = 0;
 
@@ -124,6 +125,8 @@ namespace ShardsOfAtheria.Players
 
         public bool sacrificedKatana = false;
         public int katanaTransformTimer;
+
+        public bool ArmorSetCooldown => Player.ArmorSetCooldown();
 
         public override void ResetEffects()
         {
@@ -173,6 +176,7 @@ namespace ShardsOfAtheria.Players
             powerTrip = false;
             resonator = false;
             riggedCoin = 0;
+            cheatGlove = 0;
 
             ResetVariables();
 
@@ -302,7 +306,7 @@ namespace ShardsOfAtheria.Players
                 if (Player.HasItem(ModContent.ItemType<AreusKatana>()) &&
                     NPC.downedPlantBoss && sacrificedKatana)
                 {
-                    var pos = Player.Center + Vector2.One.RotatedByRandom(MathHelper.ToRadians(360)) * 75;
+                    var pos = Player.Center + Vector2.One.RotatedByRandom(MathHelper.TwoPi) * 75;
                     var vel = Player.Center - pos;
                     vel.Normalize();
                     vel *= 16f;
@@ -779,6 +783,11 @@ namespace ShardsOfAtheria.Players
                 Player.face = -1;
                 Player.balloon = -1;
             }
+            if (Overdrive)
+            {
+                Player.armorEffectDrawShadow = true;
+                Player.armorEffectDrawOutlines = true;
+            }
             if (showRagnarok && Player.ownedProjectileCounts[ModContent.ProjectileType<Ragnarok_Shield>()] == 0
                 && Player.ownedProjectileCounts[ModContent.ProjectileType<RagnarokProj>()] == 0
                 && Player.ownedProjectileCounts[ModContent.ProjectileType<RagnarokProj2>()] == 0)
@@ -890,7 +899,7 @@ namespace ShardsOfAtheria.Players
             {
                 var vector = Vector2.One * 8 * Main.rand.NextFloat();
                 Projectile.NewProjectile(Player.GetSource_Accessory(trip), Player.Center,
-                    vector.RotatedByRandom(MathHelper.ToRadians(360)), projType,
+                    vector.RotatedByRandom(MathHelper.TwoPi), projType,
                     Player.GetWeaponDamage(trip), Player.GetWeaponKnockback(trip), Player.whoAmI);
             }
         }
@@ -914,7 +923,7 @@ namespace ShardsOfAtheria.Players
                 bool validTeleport = false;
                 while (!validTeleport)
                 {
-                    teleport = Player.Center + Vector2.One.RotateRandom(MathHelper.ToRadians(360)) * Main.rand.NextFloat(100, 200);
+                    teleport = Player.Center + Vector2.One.RotateRandom(MathHelper.TwoPi) * Main.rand.NextFloat(100, 200);
                     validTeleport = ShardsHelpers.CheckTileCollision(teleport, Player.Hitbox);
                 }
                 Player.Teleport(teleport, 1);
@@ -928,17 +937,15 @@ namespace ShardsOfAtheria.Players
         {
             if (Overdrive)
             {
-                Player.armorEffectDrawOutlines = true;
-                Player.armorEffectDrawShadow = true;
             }
             if (Player.HasBuff(ModContent.BuffType<InjectionShock>()) || Player.HasBuff(ModContent.BuffType<CorruptedBlood>()))
             {
                 if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)
                 {
-                    int dust = Dust.NewDust(Player.position - new Vector2(2f, 2f), Player.width + 4, Player.height + 4, DustID.Blood, Player.velocity.X * 0.4f, Player.velocity.Y * 0.4f, 100, default, 1f);
-                    Main.dust[dust].noGravity = true;
-                    Main.dust[dust].velocity *= 1.8f;
-                    Main.dust[dust].velocity.Y -= 0.5f;
+                    var dust = Dust.NewDustDirect(Player.position - new Vector2(2f, 2f), Player.width + 4, Player.height + 4, DustID.Blood, Player.velocity.X * 0.4f, Player.velocity.Y * 0.4f);
+                    dust.noGravity = true;
+                    dust.velocity *= 1.8f;
+                    dust.velocity.Y -= 0.5f;
                 }
             }
         }

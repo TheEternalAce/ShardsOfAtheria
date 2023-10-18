@@ -158,7 +158,7 @@ namespace ShardsOfAtheria.NPCs
                 if (target != null)
                 {
                     rotation = (target.Center - NPC.Center).ToRotation();
-                    rotation += MathHelper.ToRadians(90);
+                    rotation += MathHelper.PiOver2;
                 }
                 spriteBatch.Draw(Cannon.Value, drawPos, rect, drawColor, rotation, origin, 1f,
                     SpriteEffects.None, 0);

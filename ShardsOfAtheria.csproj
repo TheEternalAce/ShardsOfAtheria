@@ -35,16 +35,16 @@
     <None Remove="Items\Weapons\Ranged\BloodStainedCrossbow.png" />
     <None Remove="Mounts\LifeCycle_Back.png" />
     <None Remove="Mounts\LifeCycle_Front.png" />
-    <None Remove="Projectiles\Minions\AreusMirror.png" />
+    <None Remove="Projectiles\Summon\Minions\AreusMirror.png" />
     <None Remove="Projectiles\NPCProj\Elizabeth\BloodScytheHostile.png" />
-    <None Remove="Projectiles\Weapon\Ammo\AreusRod.png" />
-    <None Remove="Projectiles\Weapon\Magic\AreusShockwave.png" />
-    <None Remove="Projectiles\Weapon\Melee\AreusJustitia\AreusJustitia_Slash.png" />
-    <None Remove="Projectiles\Weapon\Melee\AreusLanceExtention.png" />
-    <None Remove="Projectiles\Weapon\Melee\DeathScythe.png" />
-    <None Remove="Projectiles\Weapon\Melee\DeathScythe_Flip.png" />
-    <None Remove="Projectiles\Weapon\Melee\PrototypeBandSlash.png" />
-    <None Remove="Projectiles\Weapon\Melee\ZenovaProjectile2.png" />
+    <None Remove="Projectiles\Ammo\AreusRod.png" />
+    <None Remove="Projectiles\Magic\AreusShockwave.png" />
+    <None Remove="Projectiles\Melee\AreusJustitia\AreusJustitia_Slash.png" />
+    <None Remove="Projectiles\Melee\AreusLanceExtention.png" />
+    <None Remove="Projectiles\Melee\DeathScythe.png" />
+    <None Remove="Projectiles\Melee\DeathScythe_Flip.png" />
+    <None Remove="Projectiles\Melee\PrototypeBandSlash.png" />
+    <None Remove="Projectiles\Melee\ZenovaProjectile2.png" />
     <None Remove="ShardsUI\AreusEnergy\AreusEnergyBar.png" />
   </ItemGroup>
   <ItemGroup>

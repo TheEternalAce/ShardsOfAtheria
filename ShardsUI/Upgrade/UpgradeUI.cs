@@ -56,7 +56,7 @@ namespace ShardsOfAtheria.ShardsUI
                 return;
             }
             materialSlots = new VanillaItemSlotWrapper[amount];
-            float rotation = MathHelper.ToRadians(360) / amount;
+            float rotation = MathHelper.TwoPi / amount;
             Vector2 center = new(HalfPanelSqrt);
             for (int i = 0; i < amount; i++)
             {

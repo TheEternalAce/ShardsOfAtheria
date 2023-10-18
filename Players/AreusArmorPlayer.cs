@@ -1,11 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Buffs.PlayerBuff;
-using ShardsOfAtheria.Items.Armor.Areus.Guard;
-using ShardsOfAtheria.Items.Armor.Areus.Imperial;
-using ShardsOfAtheria.Items.Armor.Areus.Royal;
-using ShardsOfAtheria.Items.Armor.Areus.Soldier;
+using ShardsOfAtheria.Projectiles.Magic;
+using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Projectiles.Other;
-using ShardsOfAtheria.Projectiles.Weapon.Magic;
 using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Utilities;
 using System.Linq;
@@ -41,8 +39,12 @@ namespace ShardsOfAtheria.Players
         public const int EnergyTimerMax = 20;
         public int energyTimer;
 
-        public int abilityTimer;
-        public const int AbilityTimerMax = 60;
+        public bool WarriorSet => classChip == DamageClass.Melee;
+        public bool RangerSet => classChip == DamageClass.Ranged;
+        public bool MageSet => classChip == DamageClass.Magic;
+        public bool CommanderSet => classChip == DamageClass.Summon;
+
+        public bool ArmorSetCooldown => Player.ArmorSetCooldown();
 
         public override void SaveData(TagCompound tag)
         {
@@ -74,10 +76,6 @@ namespace ShardsOfAtheria.Players
             {
                 areusEnergy = AREUS_ENERGY_MAX;
             }
-            if (abilityTimer > 0)
-            {
-                abilityTimer--;
-            }
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet)
@@ -91,38 +89,105 @@ namespace ShardsOfAtheria.Players
 
                 if (SoA.ArmorSetBonusActive.JustPressed)
                 {
-                    if (abilityTimer == 0)
+                    if (!ArmorSetCooldown)
                     {
+                        int cooldownTime = 60;
                         if (guardSet && areusEnergy > 0)
                         {
-                            if (classChip == DamageClass.Melee)
+                            if (WarriorSet)
                             {
-                                GuardArmor_Melee();
+                                GuardActive_Melee();
                             }
-                            if (classChip == DamageClass.Magic)
+                            if (MageSet)
                             {
-                                GuardArmor_Magic();
+                                GuardActive_Magic();
                             }
-                            if (classChip == DamageClass.Ranged)
+                            if (RangerSet)
                             {
-                                GuardArmor_Ranged();
+                                GuardActive_Ranged();
                             }
-                            if (classChip == DamageClass.Summon)
+                            if (CommanderSet)
                             {
-                                GuardArmor_Summon();
+                                GuardActive_Summon();
                             }
                         }
-                        abilityTimer = AbilityTimerMax;
+                        if (soldierSet)
+                        {
+                            if (WarriorSet)
+                            {
+                                SoldierActive_Melee();
+                                cooldownTime *= 10;
+                            }
+                            if (MageSet)
+                            {
+                                SoldierActive_Magic();
+                            }
+                            if (RangerSet)
+                            {
+                                SoldierActive_Ranged();
+                            }
+                            if (CommanderSet)
+                            {
+                                SoldierActive_Summon();
+                            }
+                        }
+                        if (imperialSet)
+                        {
+                            if (WarriorSet)
+                            {
+                                ImperialActive_Melee();
+                            }
+                            if (MageSet)
+                            {
+                                ImperialActive_Magic();
+                            }
+                            if (RangerSet)
+                            {
+                                ImperialActive_Ranged();
+                            }
+                            if (CommanderSet)
+                            {
+                                ImperialActive_Summon();
+                            }
+                        }
+                        if (royalSet)
+                        {
+                            if (WarriorSet)
+                            {
+                                RoyalActive_Melee();
+                            }
+                            if (MageSet)
+                            {
+                                RoyalActive_Magic();
+                            }
+                            if (RangerSet)
+                            {
+                                RoyalActive_Ranged();
+                            }
+                            if (CommanderSet)
+                            {
+                                RoyalActive_Summon();
+                            }
+                        }
+                        Player.AddBuff<SetBonusCooldown>(cooldownTime);
                     }
                 }
             }
         }
 
-        private void GuardArmor_Melee()
+        public override void PostUpdate()
+        {
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<ElectricBarrier>()] > 0)
+            {
+                Player.statDefense += 20;
+            }
+        }
+
+        private void GuardActive_Melee()
         {
             var projectiles = ShardsHelpers.ProjectileRing(Player.GetSource_FromThis(),
                 Player.Center, 8, 1, 20f, ModContent.ProjectileType<AreusShockwave>(),
-                30 + areusEnergy, 0, Player.whoAmI);
+                30 + areusEnergy, 0f, Player.whoAmI);
             areusEnergy = 0;
             foreach (var projectile in projectiles)
             {
@@ -131,14 +196,14 @@ namespace ShardsOfAtheria.Players
             }
             SoundEngine.PlaySound(SoundID.Item38, Player.Center);
         }
-        private void GuardArmor_Ranged()
+        private void GuardActive_Ranged()
         {
             if (!Player.HasBuff<ElectricMarksman>())
             {
                 Player.AddBuff<ElectricMarksman>(18000);
             }
         }
-        private void GuardArmor_Magic()
+        private void GuardActive_Magic()
         {
             if (areusEnergy >= AREUS_ENERGY_MAX)
             {
@@ -163,7 +228,7 @@ namespace ShardsOfAtheria.Players
                 }
             }
         }
-        private void GuardArmor_Summon()
+        private void GuardActive_Summon()
         {
             if (areusEnergy >= AREUS_ENERGY_MAX)
             {
@@ -174,24 +239,67 @@ namespace ShardsOfAtheria.Players
             }
         }
 
-        public override void UpdateEquips()
+        private void SoldierActive_Melee()
         {
-            if (Player.HasItemEquipped<GuardLeggings>(out var _))
+            var center = Player.Center;
+            float speed = 0f;
+            float radius = 75f;
+            float rotation = MathHelper.ToRadians(360 / 2);
+            for (int i = 0; i < 2; i++)
             {
-                Player.moveSpeed += 0.08f;
+                Vector2 position = center + new Vector2(1, 0).RotatedBy(rotation * i) * radius;
+                Vector2 velocity = Vector2.Normalize(center - position) * speed;
+                Projectile.NewProjectileDirect(Player.GetSource_FromThis(), position,
+                    velocity, ModContent.ProjectileType<ElectricBarrier>(), 0, 0f,
+                    Player.whoAmI, i);
             }
-            if (Player.HasItemEquipped<SoldierLeggings>(out var _))
-            {
-                Player.moveSpeed += 0.1f;
-            }
-            if (Player.HasItemEquipped<ImperialGreaves>(out var _))
-            {
-                Player.moveSpeed += 0.12f;
-            }
-            if (Player.HasItemEquipped<RoyalGreaves>(out var _))
-            {
-                Player.moveSpeed += 0.15f;
-            }
+            SoundEngine.PlaySound(SoundID.NPCDeath45, Player.Center);
+        }
+        private void SoldierActive_Ranged()
+        {
+
+        }
+        private void SoldierActive_Magic()
+        {
+
+        }
+        private void SoldierActive_Summon()
+        {
+
+        }
+
+        private void ImperialActive_Melee()
+        {
+
+        }
+        private void ImperialActive_Ranged()
+        {
+
+        }
+        private void ImperialActive_Magic()
+        {
+
+        }
+        private void ImperialActive_Summon()
+        {
+
+        }
+
+        private void RoyalActive_Melee()
+        {
+
+        }
+        private void RoyalActive_Ranged()
+        {
+
+        }
+        private void RoyalActive_Magic()
+        {
+
+        }
+        private void RoyalActive_Summon()
+        {
+
         }
 
         public override void PostHurt(Player.HurtInfo info)
