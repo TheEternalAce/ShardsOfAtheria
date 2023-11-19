@@ -1,13 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Cooldowns;
+using ShardsOfAtheria.Items.Accessories.GemCores.Lesser;
 using ShardsOfAtheria.Items.Accessories.GemCores.Super;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.ShardsUI.MegaGemCoreToggles;
 using ShardsOfAtheria.Utilities;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
@@ -19,23 +17,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             Item.ResearchUnlockCount = 1;
         }
 
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            var tooltip = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TeleportOnKeyPress"),
-                    SoA.EmeraldTeleportKey.GetAssignedKeys().Count > 0 ? SoA.EmeraldTeleportKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
-            tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "Teleport", tooltip));
-        }
-
         public override void SetDefaults()
         {
             Item.width = 32;
             Item.height = 32;
             Item.accessory = true;
             Item.defense = 25;
-
-            Item.useStyle = ItemUseStyleID.HoldUp;
-            Item.useTime = 10;
-            Item.useAnimation = 10;
 
             Item.rare = ItemDefaults.RarityLunarPillars;
             Item.value = ItemDefaults.ValueLunarPillars;
@@ -56,19 +43,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
                 .Register();
         }
 
-        public override bool? UseItem(Player player)
-        {
-            MGCToggleUI toggleUI = ModContent.GetInstance<MGCToggleUI>();
-            toggleUI.ToggleToggles();
-            return true;
-        }
-
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            AmethystDashPlayerII mp = player.GetModPlayer<AmethystDashPlayerII>();
+            AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
             mp.DashVelocity = 20f;
-            AmethystDashPlayerII.MAX_DASH_DELAY = 50;
-            AmethystDashPlayerII.MAX_DASH_TIMER = 35;
+            AmethystDashPlayer.MaxDashDelay = 50;
+            AmethystDashPlayer.MaxDashTimer = 35;
 
             ShardsPlayer shards = player.Shards();
             if (!hideVisual)
@@ -159,29 +139,15 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             if (!mp.DashActive)
                 return;
 
-            //This is where we set the afterimage effect.  You can replace these two lines with whatever you want to happen during the dash
-            //Some examples include:  spawning dust where the player is, adding buffs, making the player immune, etc.
-            //Here we take advantage of "player.eocDash" and "player.armorEffectDrawShadowEOCShield" to get the Shield of Cthulhu's afterimage effect
-            player.eocDash = mp.DashTimer;
-            player.armorEffectDrawShadowEOCShield = true;
-
             //If the dash has just started, apply the dash velocity in whatever direction we wanted to dash towards
-            if (mp.DashTimer == AmethystDashPlayerII.MAX_DASH_TIMER)
+            if (mp.DashTimer == AmethystDashPlayer.MaxDashTimer)
             {
                 Vector2 newVelocity = player.velocity;
 
-                if ((mp.DashDir == AmethystDashPlayerII.DashUp && player.velocity.Y > -mp.DashVelocity) || (mp.DashDir == AmethystDashPlayerII.DashDown && player.velocity.Y < mp.DashVelocity))
-                {
-                    //Y-velocity is set here
-                    //If the direction requested was DashUp, then we adjust the velocity to make the dash appear "faster" due to gravity being immediately in effect
-                    //This adjustment is roughly 1.3x the intended dash velocity
-                    float dashDirection = mp.DashDir == AmethystDashPlayerII.DashDown ? 1 : -1.3f;
-                    newVelocity.Y = dashDirection * mp.DashVelocity;
-                }
-                else if ((mp.DashDir == AmethystDashPlayerII.DashLeft && player.velocity.X > -mp.DashVelocity) || (mp.DashDir == AmethystDashPlayerII.DashRight && player.velocity.X < mp.DashVelocity))
+                if ((mp.DashDir == AmethystDashPlayer.DashLeft && player.velocity.X > -mp.DashVelocity) || (mp.DashDir == AmethystDashPlayer.DashRight && player.velocity.X < mp.DashVelocity))
                 {
                     //X-velocity is set here
-                    int dashDirection = mp.DashDir == AmethystDashPlayerII.DashRight ? 1 : -1;
+                    int dashDirection = mp.DashDir == AmethystDashPlayer.DashRight ? 1 : -1;
                     newVelocity.X = dashDirection * mp.DashVelocity;
                 }
 
@@ -195,8 +161,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             if (mp.DashDelay == 0)
             {
                 //The dash has ended.  Reset the fields
-                mp.DashDelay = AmethystDashPlayerII.MAX_DASH_DELAY;
-                mp.DashTimer = AmethystDashPlayerII.MAX_DASH_TIMER;
+                mp.DashDelay = AmethystDashPlayer.MaxDashDelay;
+                mp.DashTimer = AmethystDashPlayer.MaxDashTimer;
                 mp.DashActive = false;
             }
         }

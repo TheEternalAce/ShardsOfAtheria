@@ -1,4 +1,5 @@
 using ShardsOfAtheria.Projectiles.Melee.HeroSword;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,6 +11,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
+            Item.AddElementFire();
         }
 
         public override void SetDefaults()

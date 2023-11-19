@@ -1,41 +1,75 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Projectiles.Magic;
+using ShardsOfAtheria.Projectiles.NPCProj.Nova;
+using ShardsOfAtheria.Projectiles.Other;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.Utilities;
+using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Utilities
 {
-    public static partial class ShardsHelpers // General class full of helper methods
+    public static partial class ShardsHelpers
     {
-        public static int DefaultMaxStack = 9999;
-
-        public static string[] SetEmptyStringArray(int size)
+        public static Projectile[] CallStorm(IEntitySource source, Vector2 position, int amount, int damage,
+            float knockback, DamageClass damageClass, int owner = -1, int pierce = 1, bool hostile = false)
         {
-            string[] array = new string[size];
-            for (int i = 0; i < array.Length; i++)
+            Projectile[] projectiles = new Projectile[amount];
+            SoundEngine.PlaySound(SoundID.NPCDeath56, position);
+            int projectileType = ModContent.ProjectileType<LightningBoltFriendly>();
+            if (hostile)
             {
-                array[i] = "";
+                projectileType = ModContent.ProjectileType<LightningBolt>();
             }
-            return array;
+            for (var i = 0; i < amount - 1; i++)
+            {
+                projectiles[i] = Projectile.NewProjectileDirect(source,
+                    new Vector2(position.X + Main.rand.Next(-60 * amount, 60 * amount), position.Y - 600),
+                    new Vector2(0, 5), projectileType, damage, knockback, owner);
+                projectiles[i].penetrate = pierce;
+                projectiles[i].DamageType = damageClass;
+            }
+            projectiles[amount - 1] = Projectile.NewProjectileDirect(source,
+                new Vector2(position.X, position.Y - 600),
+                new Vector2(0, 5), projectileType, damage, knockback, owner);
+            projectiles[amount - 1].penetrate = pierce;
+            projectiles[amount - 1].DamageType = damageClass;
+            return projectiles;
+        }
+        public static void Explode(IEntitySource source, Vector2 position, int damage, float knockback, DamageClass damageClass,
+            int owner, bool hostile = false, int explosionSize = 120, bool dustParticles = true)
+        {
+            Projectile explosion = Projectile.NewProjectileDirect(source, position, Vector2.Zero,
+                ModContent.ProjectileType<ElementExplosion>(), damage, knockback, owner);
+            explosion.DamageType = damageClass;
+            explosion.Size = new Vector2(explosionSize);
+            explosion.hostile = hostile;
+            if (dustParticles)
+            {
+                explosion.ai[1] = 1;
+            }
+            ScreenShake.ShakeScreen(6, 60);
         }
 
         public static Projectile[] ProjectileRing(IEntitySource source, Vector2 center, int amount,
-            float radius, float speed, int type, int damage, float knockback, int owner, float ai0 = 0f,
-            float ai1 = 0f, float ai2 = 0f)
+            float radius, float speed, int type, int damage, float knockback, int owner = -1, float ai0 = 0f,
+            float ai1 = 0f, float ai2 = 0f, float rotationAddition = 0f)
         {
             Projectile[] projectiles = new Projectile[amount];
             float rotation = MathHelper.ToRadians(360 / amount);
             for (int i = 0; i < amount; i++)
             {
-                Vector2 position = center + Vector2.One.RotatedBy(rotation * i) * radius;
+                Vector2 position = center + Vector2.One.RotatedBy(rotation * i + rotationAddition) * radius;
                 Vector2 velocity = Vector2.Normalize(center - position) * speed;
                 projectiles[i] = Projectile.NewProjectileDirect(source, position, velocity, type,
                     damage, knockback, owner, ai0, ai1, ai2);
@@ -71,41 +105,24 @@ namespace ShardsOfAtheria.Utilities
             return ref vector;
         }
 
-        public static void DrawLine(this SpriteBatch sb, int thickness, Vector2 start, Vector2 end, Color color)
+        public static int ToHours(this int ticks)
         {
-            Vector2 edge = end - start;
-            float angle = (float)Math.Atan(edge.Y / edge.X);
-
-            if (edge.X < 0)
-            {
-                angle = MathHelper.Pi + angle;
-            }
-
-            sb.Draw(TextureAssets.MagicPixel.Value,
-                new Rectangle((int)start.X, (int)start.Y, (int)edge.Length(), thickness),
-                null,
-                color, angle, new Vector2(0, 500f),
-                SpriteEffects.None, 0);
+            return ticks * (int)Math.Pow(60, 3);
         }
 
-        public static int ToHours(this int num)
+        public static int ToMinutes(this int ticks)
         {
-            return num * (int)Math.Pow(60, 3);
+            return ticks * (int)Math.Pow(60, 2);
         }
 
-        public static int ToMinutes(this int num)
+        public static int ToSeconds(this int ticks)
         {
-            return num * (int)Math.Pow(60, 2);
+            return ticks * 60;
         }
 
-        public static int ToSeconds(this int num)
-        {
-            return num * 60;
-        }
+        public static Color UseA(this Color color, int alpha) => new(color.R, color.G, color.B, alpha);
 
-        public static Color UseA(this Color color, int alpha) => new Color(color.R, color.G, color.B, alpha);
-
-        public static Color UseA(this Color color, float alpha) => new Color(color.R, color.G, color.B, (int)(alpha * 255));
+        public static Color UseA(this Color color, float alpha) => new(color.R, color.G, color.B, (int)(alpha * 255));
 
         public static void CappedMeleeScale(Projectile proj)
         {
@@ -351,6 +368,14 @@ namespace ShardsOfAtheria.Utilities
             }
 
             return closestPlayer;
+        }
+
+        public static bool NoInvasionOfAnyKind(this NPCSpawnInfo spawnInfo)
+        {
+            return !(Main.eclipse || spawnInfo.Player.ZoneTowerNebula ||
+                spawnInfo.Player.ZoneTowerVortex || spawnInfo.Player.ZoneTowerSolar ||
+                spawnInfo.Player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon ||
+                spawnInfo.Invasion);
         }
     }
 }

@@ -50,9 +50,16 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
             NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
 
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<ElectricShock>()] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            List<int> buffTypes = new()
+            {
+                BuffID.Poisoned,
+                BuffID.Confused,
+                ModContent.BuffType<ElectricShock>()
+            };
+            NPC.SetImmuneTo(buffTypes);
+
+            NPC.AddElementElec();
+            NPC.ElementMultipliers(new[] { 2.0f, 0.8f, 0.8f, 1.5f });
         }
 
         public override void SetDefaults()
@@ -76,10 +83,11 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
+            string key = this.GetLocalizationKey("Bestiary");
             // Sets the description of this NPC that is listed in the bestiary
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
-                new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ShardsOfAtheria.NPCs.NovaStellar.Bestuary"))
+                new FlavorTextBestiaryInfoElement(key)
             });
         }
 

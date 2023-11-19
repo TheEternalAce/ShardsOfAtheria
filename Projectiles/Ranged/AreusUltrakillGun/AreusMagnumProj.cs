@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Utilities;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
@@ -14,11 +15,14 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
     {
         public override string Texture => "ShardsOfAtheria/Items/Weapons/Ranged/AreusMagnum";
 
-        Player owner => Main.player[Projectile.owner];
+        Player Owner => Main.player[Projectile.owner];
+
+        float AttackSpeed => (Owner.GetAttackSpeed(DamageClass.Generic) +
+            Owner.GetAttackSpeed(DamageClass.Ranged) - 2) / 2;
 
         float ChargeTimer { get => Projectile.ai[0]; set => Projectile.ai[0] = value; }
 
-        int aimDir => aimNormal.X > 0 ? 1 : -1;
+        int AimDir => aimNormal.X > 0 ? 1 : -1;
 
         public bool BeingHeld => Main.player[Projectile.owner].channel && !Main.player[Projectile.owner].noItems && !Main.player[Projectile.owner].CCed;
 
@@ -34,7 +38,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
         public override void SetDefaults()
         {
             Projectile.width = 44;
-            Projectile.height = 26;
+            Projectile.height = 24;
             Projectile.aiStyle = -1;
             Projectile.penetrate = -1;
             Projectile.ignoreWater = true;
@@ -46,22 +50,23 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
         {
             Projectile.originalDamage = Projectile.damage;
             Projectile.damage = 0;
-            ChargeTimer = 15;
+            ChargeTimer = 15 - 15 * AttackSpeed;
+            Projectile.velocity = Vector2.Zero;
         }
 
         public override bool PreAI()
         {
-            owner.heldProj = Projectile.whoAmI;
-            owner.itemAnimation = 2;
-            owner.itemTime = 2;
+            Owner.heldProj = Projectile.whoAmI;
+            Owner.itemAnimation = 2;
+            Owner.itemTime = 2;
 
             if (Main.myPlayer == Projectile.owner)
             {
                 //aimNormal is a normal vector pointing from the player at the mouse cursor
-                aimNormal = Vector2.Normalize(Main.MouseWorld - owner.MountedCenter + new Vector2(owner.direction * -3, -1));
+                aimNormal = Vector2.Normalize(Main.MouseWorld - Owner.MountedCenter + new Vector2(Owner.direction * -3, -1));
             }
 
-            owner.ChangeDir(aimDir);
+            Owner.ChangeDir(AimDir);
             return true;
         }
 
@@ -73,18 +78,17 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
             recoilAmount *= 0.85f; //constantly decrease the value of the variable that controls the recoil-esque visual effect of the gun's position
 
             //set projectile center to be at the player, slightly offset towards the aim normal, with adjustments for the recoil visual effect
-            Projectile.Center = owner.MountedCenter + new Vector2(owner.direction * -3, -1) +
-                (aimNormal * 2).RotatedBy(-(recoilAmount * 0.2f * aimDir));
+            Projectile.Center = Owner.MountedCenter + new Vector2(Owner.direction * -3, -1) +
+                (aimNormal * 4).RotatedBy(-(recoilAmount * 0.2f * AimDir));
             //set projectile rotation to point towards the aim normal, with adjustments for the recoil visual effect
-            Projectile.rotation = aimNormal.ToRotation() - recoilAmount * 0.4f * aimDir;
+            Projectile.rotation = aimNormal.ToRotation() - recoilAmount * 0.4f * AimDir;
 
             //set fancy player arm rotation
-            owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (aimNormal * 20).RotatedBy(-(recoilAmount * 0.2f * aimDir)).ToRotation() - MathHelper.PiOver2 + 0.3f * aimDir);
+            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (aimNormal * 20).RotatedBy(-(recoilAmount * 0.2f * AimDir)).ToRotation() - MathHelper.PiOver2 + 0.3f * AimDir);
 
             if (BeingHeld)
             {
                 Projectile.timeLeft = 10; //constantly set timeLeft to greater than zero to allow projectile to remain infinitely as long as player channels weapon
-                owner.manaRegenDelay = 10;
 
                 if (charging)
                 {
@@ -93,10 +97,13 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
                     {
                         if (chargeLevel < 10) //increment charge level and play charge increase visual effects (white flash + loading click sound)
                         {
-                            chargeLevel++;
-                            flashAlpha = 1;
-                            ChargeTimer = 10;
-                            SoundEngine.PlaySound(SoundID.Item15.WithVolumeScale(2f), Projectile.Center);
+                            Fire();
+                            if (!Owner.Shards().Overdrive)
+                            {
+                                chargeLevel++;
+                                flashAlpha = 1;
+                            }
+                            ChargeTimer = 20 - 20 * AttackSpeed;
                         }
                     }
                 }
@@ -118,25 +125,26 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
             //where the projectile should spawn, modified so the projectile actually looks like it's coming out of the barrel
             Vector2 shootOrigin = Projectile.Center + aimNormal * 20;
 
-            if (Main.myPlayer == Projectile.owner)
+            bool shoot = Owner.PickAmmo(Owner.HeldItem, out int bullet, out float _,
+                out int _, out float knockback, out int _);
+            float speed = 16f;
+            int damage = Projectile.originalDamage;
+            recoilAmount += 2f;
+            recoilAmount -= recoilAmount * AttackSpeed;
+            if (chargeLevel == 10 || Owner.Shards().Overdrive)
             {
-                bool shoot = owner.PickAmmo(owner.HeldItem, out int bullet, out float _,
-                    out int _, out float knockback, out int _);
-                float speed = 16f;
-                int damage = Projectile.originalDamage;
-                recoilAmount += 2f;
-                if (chargeLevel == 10)
-                {
-                    recoilAmount -= 2f;
-                    knockback = 0f;
-                    bullet = ModContent.ProjectileType<AreusLaser>();
-                    Projectile.timeLeft = 45;
-                }
-                if (shoot)
-                {
-                    Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), shootOrigin,
-                        aimNormal * speed, bullet, damage, knockback, Projectile.owner);
-                }
+                recoilAmount = 2f;
+                knockback = 0f;
+                bullet = ModContent.ProjectileType<AreusPierceShot>();
+                Projectile.timeLeft = 45;
+                var s = SoundID.Item122;
+                s.PitchVariance = 0.1f;
+                SoundEngine.PlaySound(s, Projectile.Center);
+            }
+            if (shoot)
+            {
+                Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), shootOrigin,
+                    aimNormal * speed, bullet, damage, knockback, Projectile.owner);
             }
         }
 
@@ -151,7 +159,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
 
             Vector2 position = Projectile.Center - Main.screenPosition;
             Vector2 origin = new(0, Projectile.Size.Y / 2);
-            SpriteEffects flip = aimDir == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+            SpriteEffects flip = AimDir == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically;
 
             Main.EntitySpriteDraw(main, position, null, lightColor, Projectile.rotation, origin, 1, flip, 0);
         }

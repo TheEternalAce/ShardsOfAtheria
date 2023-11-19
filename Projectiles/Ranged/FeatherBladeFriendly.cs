@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Melee
+namespace ShardsOfAtheria.Projectiles.Ranged
 {
     public class FeatherBladeFriendly : ModProjectile
     {
@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.timeLeft = 120;
-            Projectile.DamageType = DamageClass.Melee;
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.tileCollide = true;
             Projectile.extraUpdates = 0;
         }
@@ -60,8 +60,8 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Color color = new(227, 182, 245, 80);
-            Projectile.DrawProjectilePrims(color, ShardsHelpers.DiamondX1);
+            Projectile.DrawProjectilePrims(SoA.HardlightColor * 0.7f,
+                ShardsHelpers.DiamondX1);
             lightColor = Color.White;
             return true;
         }

@@ -11,12 +11,12 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Bases
+namespace ShardsOfAtheria.Projectiles.Melee
 {
-    public abstract class SwordProjectileBase : ModProjectile
+    public abstract class CoolSword : ModProjectile
     {
-        public static Asset<Texture2D> SwishTexture => ModContent.Request<Texture2D>(typeof(SwordProjectileBase).Namespace.Replace('.', '/') + "/Swish", AssetRequestMode.ImmediateLoad);
-        public static Asset<Texture2D> Swish2Texture => ModContent.Request<Texture2D>(typeof(SwordProjectileBase).Namespace.Replace('.', '/') + "/Swish2", AssetRequestMode.ImmediateLoad);
+        public static Asset<Texture2D> SwishTexture => ModContent.Request<Texture2D>(typeof(CoolSword).Namespace.Replace('.', '/') + "/Swish", AssetRequestMode.ImmediateLoad);
+        public static Asset<Texture2D> Swish2Texture => ModContent.Request<Texture2D>(typeof(CoolSword).Namespace.Replace('.', '/') + "/Swish2", AssetRequestMode.ImmediateLoad);
 
         public static SoundStyle HeavySwing => SoundID.DD2_MonkStaffSwing;
 
@@ -67,7 +67,7 @@ namespace ShardsOfAtheria.Projectiles.Bases
 
         public override bool? CanDamage()
         {
-            return (AnimProgress > 0.4f && AnimProgress < 0.6f && freezeFrame <= 0) ? null : false;
+            return AnimProgress > 0.4f && AnimProgress < 0.6f && freezeFrame <= 0 ? null : false;
         }
 
         public override void AI()
@@ -152,7 +152,7 @@ namespace ShardsOfAtheria.Projectiles.Bases
         }
         public static float GenericSwing3(float progress)
         {
-            return progress >= 0.5f ? 0.5f + (0.5f - MathF.Pow(2f, 20f * (0.5f - (progress - 0.5f)) - 10f) / 2f) : MathF.Pow(2f, 20f * (progress) - 10f) / 2f;
+            return progress >= 0.5f ? 0.5f + (0.5f - MathF.Pow(2f, 20f * (0.5f - (progress - 0.5f)) - 10f) / 2f) : MathF.Pow(2f, 20f * progress - 10f) / 2f;
         }
         public static float GenericSwing2(float progress, float pow = 2f)
         {

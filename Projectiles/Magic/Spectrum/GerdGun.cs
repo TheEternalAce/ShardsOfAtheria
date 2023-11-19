@@ -16,8 +16,8 @@ namespace ShardsOfAtheria.Projectiles.Magic.Spectrum
 
         Player Owner => Main.player[Projectile.owner];
 
-        float AttackSpeed => Owner.GetAttackSpeed(DamageClass.Generic) +
-            Owner.GetAttackSpeed(DamageClass.Magic) - 2;
+        float AttackSpeed => (Owner.GetAttackSpeed(DamageClass.Generic) +
+            Owner.GetAttackSpeed(DamageClass.Magic) - 2) / 2;
 
         float ChargeTimer
         {
@@ -55,7 +55,8 @@ namespace ShardsOfAtheria.Projectiles.Magic.Spectrum
         {
             Projectile.originalDamage = Projectile.damage;
             Projectile.damage = 0;
-            ChargeTimer = 20 - (int)(20 * AttackSpeed);
+            ChargeTimer = 20 - 20 * AttackSpeed;
+            Projectile.velocity = Vector2.Zero;
         }
 
         public override bool PreAI()
@@ -109,7 +110,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Spectrum
 
                             SoundEngine.PlaySound(SoundID.Item61, Projectile.Center);
                             flashAlpha = 1;
-                            ChargeTimer = 15 - (int)(15 * AttackSpeed);
+                            ChargeTimer = 15 - 15 * AttackSpeed;
                             CombatText.NewText(Owner.getRect(), Color.Cyan, chargeLevel + 1);
                         }
                         else if (Owner.manaFlower)
@@ -157,33 +158,31 @@ namespace ShardsOfAtheria.Projectiles.Magic.Spectrum
         {
             //increase recoil value, make gun appear like it's actually firing with some force
             recoilAmount += Main.rand.NextFloat(0.5f, 0.8f);
+            recoilAmount -= recoilAmount * AttackSpeed;
             SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
 
             //where the projectile should spawn, modified so the projectile actually looks like it's coming out of the barrel
             Vector2 shootOrigin = Projectile.Center + aimNormal * 40;
 
-            if (Main.myPlayer == Projectile.owner)
+            float speed = 16;
+            int damage = Projectile.originalDamage;
+            float numberProjectiles = 3; // 3 shots
+            float rotation = MathHelper.ToRadians(10);
+            for (int i = 0; i < numberProjectiles; i++)
             {
-                float speed = 16;
-                int damage = Projectile.originalDamage;
-                float numberProjectiles = 3; // 3 shots
-                float rotation = MathHelper.ToRadians(10);
-                for (int i = 0; i < numberProjectiles; i++)
+                Vector2 perturbedSpeed = aimNormal.RotatedBy(MathHelper.Lerp(-rotation, rotation,
+                    i / (numberProjectiles - 1))) * speed;
+                Projectile projectile = Projectile.NewProjectileDirect(
+                    Projectile.GetSource_FromThis(), shootOrigin, perturbedSpeed,
+                    ModContent.ProjectileType<SpectrumLaser>(), damage, 6, Projectile.owner);
+                if (projectile.ModProjectile is SpectrumLaser laser)
                 {
-                    Vector2 perturbedSpeed = aimNormal.RotatedBy(MathHelper.Lerp(-rotation, rotation,
-                        i / (numberProjectiles - 1))) * speed;
-                    Projectile projectile = Projectile.NewProjectileDirect(
-                        Projectile.GetSource_FromThis(), shootOrigin, perturbedSpeed,
-                        ModContent.ProjectileType<SpectrumLaser>(), damage, 6, Projectile.owner);
-                    if (projectile.ModProjectile is SpectrumLaser laser)
-                    {
-                        laser.laserColor = GetLaserColor();
-                    }
+                    laser.laserColor = GetLaserColor();
                 }
-                if (++laserNum > 5)
-                {
-                    laserNum = 0;
-                }
+            }
+            if (++laserNum > 5)
+            {
+                laserNum = 0;
             }
         }
 

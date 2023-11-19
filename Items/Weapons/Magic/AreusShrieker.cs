@@ -25,6 +25,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 3f;
             Item.crit = 10;
+            Item.mana = 15;
 
             Item.useTime = 10;
             Item.useAnimation = 20;
@@ -54,7 +55,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             float numberProjectiles = 2;
-            float rotation = MathHelper.ToRadians(30);
+            float rotation = MathHelper.ToRadians(15);
             for (int i = 0; i < numberProjectiles; i++)
             {
                 Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1)));

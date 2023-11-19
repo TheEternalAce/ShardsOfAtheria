@@ -40,7 +40,7 @@ namespace ShardsOfAtheria.Items
         /// </summary>
         public static int ValueBuffPotion => Item.sellPrice(silver: 2);
         /// <summary>
-        /// 1 gold
+        /// 2 gold
         /// </summary>
         public static int ValueRelicTrophy => Item.sellPrice(gold: 2);
         /// <summary>

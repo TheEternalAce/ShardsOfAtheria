@@ -1,4 +1,5 @@
 using ShardsOfAtheria.NPCs.Boss.Elizabeth;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -17,6 +18,9 @@ namespace ShardsOfAtheria.Items.BossSummons
             NPCID.Sets.MPAllowedEnemies[ModContent.NPCType<Death>()] = true;
 
             Item.ResearchUnlockCount = 3;
+
+            Item.AddElementAqua();
+            Item.AddElementWood();
         }
 
         public override void SetDefaults()

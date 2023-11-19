@@ -158,7 +158,8 @@ namespace ShardsOfAtheria.Projectiles.Melee
         {
             if (callStorm && stormCooldown == 0)
             {
-                Projectile.CallStorm(3);
+                ShardsHelpers.CallStorm(Projectile.GetSource_FromThis(), Projectile.Center, 3,
+                    (int)(Projectile.damage * 0.66f), Projectile.knockBack, DamageClass.Melee, Projectile.owner);
                 stormCooldown = 30;
             }
             base.OnHitNPC(target, hit, damageDone);

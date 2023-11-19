@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -10,7 +9,7 @@ using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Projectiles.Melee
 {
-    public class Warframe : SwordProjectileBase
+    public class Warframe : CoolSword
     {
         public override void SetStaticDefaults()
         {

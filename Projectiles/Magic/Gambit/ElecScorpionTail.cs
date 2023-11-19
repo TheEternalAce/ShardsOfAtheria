@@ -13,7 +13,6 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
 {
     public class ElecScorpionTail : ModProjectile
     {
-        // The folder path to the flail chain sprite
         private const string ChainTexturePath = "ShardsOfAtheria/Projectiles/Magic/Gambit/ElecScorpionTail_Chain";
 
         public override void SetStaticDefaults()
@@ -26,28 +25,24 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
             Projectile.width = 18;
             Projectile.height = 18;
             Projectile.friendly = true;
-            Projectile.penetrate = -1; // Make the flail infinitely penetrate like other flails
+            Projectile.penetrate = 5;
             Projectile.extraUpdates = 3;
             Projectile.timeLeft = 60;
         }
 
-        // This AI code is adapted from the aiStyle 15. We need to re-implement this to customize the behavior of our flail
         public override void AI()
         {
             var player = Main.player[Projectile.owner];
 
-            // If owner player dies, remove the flail.
             if (player.dead)
             {
                 Projectile.Kill();
                 return;
             }
 
-            // This prevents the item from being able to be used again prior to this projectile dying
             player.itemAnimation = 10;
             player.itemTime = 10;
 
-            // Here we turn the player and projectile based on the relative positioning of the player and Projectile.
             int newDirection = Projectile.Center.X > player.Center.X ? 1 : -1;
             player.ChangeDir(newDirection);
             Projectile.spriteDirection = Projectile.direction = newDirection;
@@ -61,18 +56,14 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
                     DustID.Electric, vector.X, vector.Y);
             }
 
-            // Here we set the rotation based off of the direction to the player tweaked by the velocity, giving it a little spin as the flail turns around each swing 
             Projectile.rotation = Vector2.Normalize(Projectile.Center - player.Center).ToRotation() + MathHelper.PiOver2;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            // if we should play the sound..
             Projectile.netUpdate = true;
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-            // Play the sound
             SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
-
             return base.OnTileCollide(oldVelocity);
         }
 

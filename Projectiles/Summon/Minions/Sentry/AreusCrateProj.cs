@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Gores;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -20,7 +21,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
 
         public override void AI()
         {
-            Projectile.rotation += MathHelper.ToRadians(32) * Projectile.direction;
+            Projectile.rotation += MathHelper.ToRadians(30) * Projectile.direction;
             gravityTimer++;
             if (gravityTimer >= 16)
             {
@@ -87,6 +88,13 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
                 Dust d = Dust.NewDustPerfect(Projectile.Center, DustID.Electric, speed * 2.4f);
                 d.fadeIn = 1.3f;
                 d.noGravity = true;
+                if (i < 1)
+                {
+                    Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center,
+                        speed, ShardsGores.AreusCratePart.Type);
+                    Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center,
+                        speed, ShardsGores.AreusCratePart2.Type);
+                }
             }
         }
     }

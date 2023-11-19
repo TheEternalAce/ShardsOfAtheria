@@ -55,9 +55,13 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             NPCID.Sets.AttackAverageChance[Type] = 30;
             NPCID.Sets.HatOffsetY[Type] = 4;
 
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][ModContent.BuffType<ElectricShock>()] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            List<int> buffTypes = new()
+            {
+                BuffID.Poisoned,
+                BuffID.Confused,
+                ModContent.BuffType<ElectricShock>()
+            };
+            NPC.SetImmuneTo(buffTypes);
 
             // Set Atherian's biome and neighbor preferences with the NPCHappiness hook. You can add happiness text and remarks with localization (See an example in ExampleMod/Localization/en-US.lang
             NPC.Happiness
@@ -68,6 +72,9 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 //NPCs
                 .SetNPCAffection(NPCID.Stylist, AffectionLevel.Love)
                 .SetNPCAffection(NPCID.Guide, AffectionLevel.Like);
+
+            NPC.AddElementElec();
+            NPC.ElementMultipliers(new[] { 0.5f, 1.0f, 0.8f, 2.0f });
         }
 
         internal void SetupShopQuotes(Mod shopQuotes)
@@ -103,6 +110,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
+            string key = this.GetLocalizationKey("Bestiary");
             // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
 				// Sets the preferred biomes of this town NPC listed in the bestiary.
@@ -110,7 +118,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ShardsOfAtheria.NPCs.Atherian.Bestuary"))
+				new FlavorTextBestiaryInfoElement(key)
             });
         }
 
@@ -242,10 +250,10 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 .Add<AreusLance>(Condition.Hardmode)
                 .Add<Bytecrusher>(Condition.DownedMechBossAny)
                 .Add<AreusKey>(Condition.DownedPlantera)
-                .Add<AreusPistol>(Condition.DownedGolem)
-                .Add<AreusBaton>(Condition.DownedGolem)
-                .Add<AreusStrikeChain>(Condition.DownedMoonLord)
-                .Add<AreusEnergyCannon>(Condition.DownedMoonLord);
+                .Add<AreusPistol>(Condition.DownedPlantera)
+                .Add<AreusBaton>(Condition.DownedPlantera)
+                .Add<AreusStrikeChain>(Condition.DownedCultist)
+                .Add<AreusEnergyCannon>(Condition.DownedCultist);
             npcShop.Register();
         }
 

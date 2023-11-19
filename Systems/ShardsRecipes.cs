@@ -1,5 +1,4 @@
-﻿using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.Materials;
+﻿using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using Terraria;
@@ -118,39 +117,6 @@ namespace ShardsOfAtheria.Systems
                 .AddIngredient(ItemID.ChaosFish, 4)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
-        }
-
-        public override void PostAddRecipes()
-        {
-            for (var i = 0; i < Recipe.maxRecipes; i++)
-            {
-                Recipe recipe = Main.recipe[i];
-                if ((recipe.TryGetIngredient(ItemID.Bottle, out Item _) || recipe.TryGetIngredient(ItemID.BottledWater, out Item _) || recipe.TryGetIngredient(ItemID.BottledHoney, out Item _))
-                    && recipe.HasTile(TileID.Bottles) && recipe.createItem.buffTime > 0)
-                {
-                    SoAGlobalItem.Potions.Add(recipe.createItem.type);
-                }
-                else if (recipe.createItem.type == ItemID.PearlwoodHelmet)
-                {
-                    recipe.AddIngredient(ItemID.SoulofLight, 10);
-                }
-                else if (recipe.createItem.type == ItemID.PearlwoodBreastplate)
-                {
-                    recipe.AddIngredient(ItemID.SoulofLight, 15);
-                }
-                else if (recipe.createItem.type == ItemID.PearlwoodGreaves)
-                {
-                    recipe.AddIngredient(ItemID.SoulofLight, 12);
-                }
-                else if (recipe.createItem.type == ItemID.PearlwoodSword)
-                {
-                    recipe.AddIngredient(ItemID.SoulofLight, 7);
-                }
-                else if (recipe.createItem.type == ItemID.PearlwoodBow)
-                {
-                    recipe.AddIngredient(ItemID.SoulofLight, 10);
-                }
-            }
         }
     }
 }

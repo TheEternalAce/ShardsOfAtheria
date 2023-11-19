@@ -35,7 +35,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
         {
             if (Projectile.GetPlayerOwner().Shards().Overdrive)
             {
-                Projectile.CallStorm(3);
+                ShardsHelpers.CallStorm(Projectile.GetSource_FromThis(), Projectile.Center, 3,
+                    (int)(Projectile.damage * 0.66f), Projectile.knockBack, DamageClass.Ranged, Projectile.owner);
                 return base.OnTileCollide(oldVelocity);
             }
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
@@ -58,7 +59,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
             }
             if (Projectile.GetPlayerOwner().Shards().Overdrive)
             {
-                Projectile.CallStorm(3);
+                ShardsHelpers.CallStorm(Projectile.GetSource_FromThis(), Projectile.Center, 3,
+                    (int)(Projectile.damage * 0.66f), Projectile.knockBack, DamageClass.Ranged, Projectile.owner);
             }
         }
     }

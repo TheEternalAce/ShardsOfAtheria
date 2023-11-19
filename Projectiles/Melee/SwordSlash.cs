@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Bases
+namespace ShardsOfAtheria.Projectiles.Melee
 {
     public abstract class SwordSlash : ModProjectile
     {
@@ -45,14 +45,12 @@ namespace ShardsOfAtheria.Projectiles.Bases
 
             ScaleWithItemSpeed(player, 1f, out int duration);
 
-            // Reset projectile time left if necessary
             if (Projectile.timeLeft > duration)
             {
                 Projectile.timeLeft = duration;
             }
             Angle += SwingSpeed;
 
-            // ONLY CHANGE THE 35, ANYTHING ELSE WILL BREAK THE ROTATION
             Projectile.Center = player.MountedCenter + Vector2.One.RotatedBy(player.direction * Angle + (player.direction == 1 ? MathHelper.ToRadians(140f) : MathHelper.ToRadians(-50f))) * SwordOut;
 
             Vector2 toPlayer = player.Center - Projectile.Center;

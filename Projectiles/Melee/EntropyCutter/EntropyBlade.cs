@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -9,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Melee.EntropyCutter
 {
-    public class EntropyBlade : SwordProjectileBase
+    public class EntropyBlade : CoolSword
     {
         public override void SetDefaults()
         {

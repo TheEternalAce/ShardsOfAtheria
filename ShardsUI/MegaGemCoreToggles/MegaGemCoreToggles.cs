@@ -173,7 +173,7 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
 
         void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
-            ModContent.GetInstance<MGCToggleUI>().ToggleToggles();
+            ModContent.GetInstance<MGCToggleUI>().ToggleVisualSettings();
         }
 
         public override void Update(GameTime gameTime)
@@ -214,35 +214,35 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
 
     class MGCToggleUI : ModSystem
     {
-        internal MGCTogglesState togglesState;
-        private UserInterface togglesStateUI;
+        internal MGCTogglesState mgcVisualsState;
+        private UserInterface mgcVisualsStateUI;
 
         public override void Load()
         {
             if (!Main.dedServ)
             {
-                togglesState = new();
-                togglesState.Activate();
-                togglesStateUI = new();
+                mgcVisualsState = new();
+                mgcVisualsState.Activate();
+                mgcVisualsStateUI = new();
             }
         }
 
-        public void ToggleToggles()
+        public void ToggleVisualSettings()
         {
-            if (togglesStateUI.CurrentState == null)
+            if (mgcVisualsStateUI.CurrentState == null)
             {
-                togglesStateUI.SetState(togglesState);
+                mgcVisualsStateUI.SetState(mgcVisualsState);
             }
             else
             {
-                togglesStateUI.SetState(null);
+                mgcVisualsStateUI.SetState(null);
             }
         }
 
         public override void UpdateUI(GameTime gameTime)
         {
-            if (togglesStateUI != null)
-                togglesStateUI?.Update(gameTime);
+            if (mgcVisualsStateUI != null)
+                mgcVisualsStateUI?.Update(gameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -251,10 +251,10 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
             if (mouseTextIndex != -1)
             {
                 layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
-                    "ShardsOfAtheria: Mega Gem Core Toggles",
+                    "ShardsOfAtheria: Mega Gem Core Visuals",
                     delegate
                     {
-                        togglesStateUI.Draw(Main.spriteBatch, new GameTime());
+                        mgcVisualsStateUI.Draw(Main.spriteBatch, new GameTime());
                         return true;
                     },
                     InterfaceScaleType.UI)

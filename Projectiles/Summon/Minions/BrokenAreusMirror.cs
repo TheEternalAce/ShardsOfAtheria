@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Dusts;
 using Terraria;
@@ -12,18 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 {
     public class BrokenAreusMirror : ModProjectile
     {
-        public static Asset<Texture2D> glowmask;
         public int fireTimer;
-
-        public override void Load()
-        {
-            glowmask = ModContent.Request<Texture2D>(Texture);
-        }
-
-        public override void Unload()
-        {
-            glowmask = null;
-        }
 
         public override void SetStaticDefaults()
         {
@@ -146,47 +133,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                 }
             }
 
-            // friendly needs to be set to true so the minion can deal contact damage
-            // friendly needs to be set to false so it doesn't damage things like target dummies while idling
-            // Both things depend on if it has a target or not, so it's just one assignment here
-            // You don't need this assignment if your minion is shooting things instead of dealing contact damage
             Projectile.friendly = foundTarget;
-        }
-
-        public override void PostDraw(Color lightColor)
-        {
-            //TODO Generic glowmask draw, maybe generalize method
-            Player player = Main.player[Projectile.owner];
-
-            int offsetY = 0;
-            int offsetX = 0;
-            Texture2D glowmaskTexture = glowmask.Value;
-            float originX = (glowmaskTexture.Width - Projectile.width) * 0.5f + Projectile.width * 0.5f;
-            ProjectileLoader.DrawOffset(Projectile, ref offsetX, ref offsetY, ref originX);
-
-            SpriteEffects spriteEffects = SpriteEffects.None;
-            if (Projectile.spriteDirection == -1)
-            {
-                spriteEffects = SpriteEffects.FlipHorizontally;
-            }
-
-            if (Projectile.ownerHitCheck && player.gravDir == -1f)
-            {
-                if (player.direction == 1)
-                {
-                    spriteEffects = SpriteEffects.FlipHorizontally;
-                }
-                else if (player.direction == -1)
-                {
-                    spriteEffects = SpriteEffects.None;
-                }
-            }
-
-            Vector2 drawPos = new Vector2(Projectile.position.X - Main.screenPosition.X + originX + offsetX, Projectile.position.Y - Main.screenPosition.Y + Projectile.height / 2 + Projectile.gfxOffY);
-            Rectangle sourceRect = glowmaskTexture.Frame(1, Main.projFrames[Projectile.type], 0, Projectile.frame);
-            Color glowColor = new Color(255, 255, 255, 255) * 0.7f * Projectile.Opacity;
-            Vector2 drawOrigin = new Vector2(originX, Projectile.height / 2 + offsetY);
-            Main.EntitySpriteDraw(glowmaskTexture, drawPos, sourceRect, glowColor, Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);
         }
     }
 }

@@ -20,6 +20,7 @@ using ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Summon.Minions;
 using ShardsOfAtheria.ShardsUI;
+using ShardsOfAtheria.ShardsUI.MegaGemCoreToggles;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -433,19 +434,6 @@ namespace ShardsOfAtheria.Players
             return true;
         }
 
-        public override void SetControls()
-        {
-            if (Player.HasBuff(ModContent.BuffType<StunLock>()))
-            {
-                Player.controlUp = false;
-                Player.controlDown = false;
-                Player.controlLeft = false;
-                Player.controlRight = false;
-                Player.controlJump = false;
-                Player.controlUseItem = false;
-            }
-        }
-
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
             if (Main.keyState.IsKeyDown(Keys.Escape))
@@ -470,7 +458,7 @@ namespace ShardsOfAtheria.Players
                     }
                 }
             }
-            if (SoA.ProcessorElement.JustReleased)
+            if (SoA.ProcessorElement.JustPressed)
             {
                 if (areusProcessor)
                 {
@@ -538,6 +526,11 @@ namespace ShardsOfAtheria.Players
                         ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Phase 2 Type: Offensive"), Color.White, Player.whoAmI);
                     }
                 }
+            }
+            if (SoA.MasterCoreToggles.JustPressed)
+            {
+                MGCToggleUI toggleUI = ModContent.GetInstance<MGCToggleUI>();
+                toggleUI.ToggleVisualSettings();
             }
         }
 
@@ -935,9 +928,6 @@ namespace ShardsOfAtheria.Players
 
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
-            if (Overdrive)
-            {
-            }
             if (Player.HasBuff(ModContent.BuffType<InjectionShock>()) || Player.HasBuff(ModContent.BuffType<CorruptedBlood>()))
             {
                 if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)

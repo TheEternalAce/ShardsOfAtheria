@@ -47,8 +47,16 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
             NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
 
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            List<int> buffTypes = new()
+            {
+                BuffID.Poisoned,
+                BuffID.Confused
+            };
+            NPC.SetImmuneTo(buffTypes);
+
+            NPC.AddElementAqua();
+            NPC.AddElementWood();
+            NPC.ElementMultipliers(new[] { 1.0f, 0.8f, 1.5f, 0.8f });
         }
 
         public override void SetDefaults()
@@ -72,10 +80,11 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
+            string key = this.GetLocalizationKey("Bestiary");
             // Sets the description of this NPC that is listed in the bestiary
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
-                new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ShardsOfAtheria.NPCs.Death.Bestuary"))
+                new FlavorTextBestiaryInfoElement(key)
             });
         }
 

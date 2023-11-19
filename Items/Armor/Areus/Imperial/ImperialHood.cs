@@ -7,8 +7,6 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
     [AutoloadEquip(EquipType.Head)]
     public class ImperialHood : AreusArmorPiece
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetDefaults()
         {
             base.SetDefaults();

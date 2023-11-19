@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()
@@ -34,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.noMelee = true;
 
             Item.shootSpeed = 8f;
-            Item.rare = ShardsHelpers.PostMechRarity;
+            Item.rare = ItemDefaults.RarityMechs;
             Item.value = 120000;
             Item.shoot = ModContent.ProjectileType<ByteBlock>();
         }

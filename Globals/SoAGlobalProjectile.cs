@@ -1,5 +1,6 @@
 ﻿using BattleNetworkElements;
 using BattleNetworkElements.Utilities;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
@@ -155,8 +156,18 @@ namespace ShardsOfAtheria.Globals
                     Projectile proj = Main.projectile[i];
                     if (ReflectAiList.Contains(proj.aiStyle))
                     {
-                        if (projectile.Hitbox.Intersects(proj.Hitbox) && proj != projectile && proj.hostile)
+                        if (projectile.Hitbox.Intersects(proj.Hitbox) &&
+                            proj.whoAmI != projectile.whoAmI &&
+                            proj.hostile && proj.active)
                         {
+                            for (var d = 0; d < 28; d++)
+                            {
+                                Vector2 speed = Main.rand.NextVector2CircularEdge(1f, 1f);
+                                Dust dust = Dust.NewDustPerfect(proj.Center,
+                                    DustID.YellowTorch, speed * 2.4f);
+                                dust.fadeIn = 1.3f;
+                                dust.noGravity = true;
+                            }
                             proj.Kill();
                         }
                     }
@@ -168,19 +179,17 @@ namespace ShardsOfAtheria.Globals
         {
             if (projectile.IsAreus(false) || tempAreus)
             {
+                int buffType = ModContent.BuffType<ElectricShock>();
                 int buffTime = 600;
                 if (Main.player[projectile.owner].Shards().conductive)
                 {
                     buffTime *= 2;
                 }
-                if (Main.hardMode)
+                if (NPC.downedPlantBoss)
                 {
-                    target.AddBuff(BuffID.Electrified, buffTime);
+                    buffType = BuffID.Electrified;
                 }
-                else
-                {
-                    target.AddBuff(ModContent.BuffType<ElectricShock>(), buffTime);
-                }
+                target.AddBuff(buffType, buffTime);
             }
         }
     }

@@ -14,6 +14,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             Item.ResearchUnlockCount = 1;
             Item.AddAreus();
+            Item.AddElementFire();
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()

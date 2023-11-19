@@ -2,18 +2,16 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WebCom.Effects.ScreenShaking;
-//using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Projectiles.Melee
 {
-    public class Warframe_Upgrade : SwordProjectileBase
+    public class Warframe_Upgrade : CoolSword
     {
         public static Asset<Texture2D> glowmask;
 

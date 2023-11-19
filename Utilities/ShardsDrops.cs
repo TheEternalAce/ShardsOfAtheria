@@ -17,14 +17,13 @@ namespace ShardsOfAtheria.Utilities
 
         public static void AreusCommonDrops(ref NPCLoot npcLoot)
         {
-            int maxdrops = 3;
             int[,] drops = new[,]
             {
-                { ModContent.ItemType<AreusShard>(), maxdrops},
-                { ModContent.ItemType<Jade>(), maxdrops},
-                { ItemID.GoldBar, maxdrops},
+                { ModContent.ItemType<AreusShard>(), 3},
+                { ModContent.ItemType<Jade>(), 4},
+                { ItemID.GoldBar, 5},
             };
-            npcLoot.Add(ShardsDrops.ManyFromOptions(3, drops));
+            npcLoot.Add(ManyFromOptions(3, drops));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GigavoltDelicacy>(), 100));
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Projectiles.Magic;
@@ -9,7 +10,6 @@ using ShardsOfAtheria.Utilities;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -18,7 +18,7 @@ namespace ShardsOfAtheria.Players
 {
     public class AreusArmorPlayer : ModPlayer
     {
-        public string[] chipNames = ShardsHelpers.SetEmptyStringArray(3);
+        public string[] chipNames = new[] { "", "", "" };
 
         public bool areusArmorPiece;
         public DamageClass classChip;
@@ -61,6 +61,8 @@ namespace ShardsOfAtheria.Players
 
         public override void ResetEffects()
         {
+            SetBonusEffects();
+
             areusArmorPiece = false;
             classChip = DamageClass.Generic;
             areusHead = false;
@@ -78,7 +80,7 @@ namespace ShardsOfAtheria.Players
             }
         }
 
-        public override void ProcessTriggers(TriggersSet triggersSet)
+        public void SetBonusEffects()
         {
             if (areusArmorPiece)
             {
@@ -87,7 +89,8 @@ namespace ShardsOfAtheria.Players
                     ModContent.GetInstance<ChipsUISystem>().ShowChips();
                 }
 
-                if (SoA.ArmorSetBonusActive.JustPressed)
+                if (Player.controlDown && Player.releaseDown && Player.doubleTapCardinalTimer[0] < 15 ||
+                    Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[1] < 15)
                 {
                     if (!ArmorSetCooldown)
                     {
@@ -125,6 +128,7 @@ namespace ShardsOfAtheria.Players
                             if (RangerSet)
                             {
                                 SoldierActive_Ranged();
+                                cooldownTime *= 15;
                             }
                             if (CommanderSet)
                             {
@@ -257,7 +261,8 @@ namespace ShardsOfAtheria.Players
         }
         private void SoldierActive_Ranged()
         {
-
+            SoundEngine.PlaySound(SoundID.NPCDeath45, Player.Center);
+            Player.AddBuff<ElectricVeil>(600);
         }
         private void SoldierActive_Magic()
         {
@@ -315,6 +320,14 @@ namespace ShardsOfAtheria.Players
             if (guardSet && classChip == DamageClass.Ranged)
             {
                 areusEnergy++;
+            }
+        }
+
+        public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
+        {
+            if (Player.HasBuff<ElectricVeil>())
+            {
+                npc.AddBuff<ElectricShock>(300);
             }
         }
     }

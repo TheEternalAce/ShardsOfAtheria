@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.DeckOfCards
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
+            Projectile.timeLeft = 300;
         }
 
         public override void AI()
@@ -21,15 +22,9 @@ namespace ShardsOfAtheria.Projectiles.Ranged.DeckOfCards
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        public override void OnKill(int timeLeft)
         {
             Projectile.Explode(Projectile.Center, Projectile.damage);
-        }
-
-        public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            Projectile.Explode(Projectile.Center, Projectile.damage);
-            return false;
         }
     }
 }

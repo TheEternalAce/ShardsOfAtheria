@@ -2,7 +2,6 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -12,7 +11,7 @@ using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Melee.AreusSwordProjs
 {
-    public class AreusSwordProj : SwordProjectileBase
+    public class AreusSwordProj : CoolSword
     {
         public override void SetStaticDefaults()
         {

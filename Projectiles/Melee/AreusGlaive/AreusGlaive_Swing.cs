@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -8,7 +7,7 @@ using Terraria.ID;
 
 namespace ShardsOfAtheria.Projectiles.Melee.AreusGlaive
 {
-    public class AreusGlaive_Swing : SwordProjectileBase
+    public class AreusGlaive_Swing : CoolSword
     {
         public override void SetStaticDefaults()
         {
@@ -19,8 +18,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusGlaive
         {
             base.SetDefaults();
 
-            Projectile.width = Projectile.height = 120;
-            swordReach = 100;
+            Projectile.width = Projectile.height = 30;
+            swordReach = 158;
             rotationOffset = -MathHelper.PiOver4 * 3f;
         }
 
@@ -82,7 +81,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusGlaive
         public override bool PreDraw(ref Color lightColor)
         {
             DrawSwish();
-            return GenericSwordDraw(lightColor);
+            return SingleEdgeSwordDraw(lightColor);
         }
     }
 }

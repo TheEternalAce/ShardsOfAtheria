@@ -17,7 +17,6 @@ namespace ShardsOfAtheria.Items.Tools.Mining
 
         public override void Load()
         {
-
             if (!Main.dedServ)
             {
                 glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
@@ -35,6 +34,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
 
             Item.ResearchUnlockCount = 1;
             Item.AddAreus();
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()

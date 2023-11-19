@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Tiles.Crafting;
@@ -17,6 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.ResearchUnlockCount = 1;
             Item.AddAreus();
             Item.AddUpgradable();
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()

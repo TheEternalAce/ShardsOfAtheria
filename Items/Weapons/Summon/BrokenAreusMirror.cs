@@ -18,6 +18,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
         {
             Item.ResearchUnlockCount = 1;
             Item.AddAreus();
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()

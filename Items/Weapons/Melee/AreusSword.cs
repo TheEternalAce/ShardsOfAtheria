@@ -1,4 +1,3 @@
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Melee.AreusSwordProjs;
 using ShardsOfAtheria.Tiles.Crafting;
@@ -16,6 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.ResearchUnlockCount = 1;
             Item.AddAreus();
             Item.AddEraser();
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()

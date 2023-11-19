@@ -1,7 +1,5 @@
 ﻿using ShardsOfAtheria.Utilities;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories
@@ -27,13 +25,6 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Shards().rushDrive = true;
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            List<string> phaseKey = SoA.PhaseSwitch.GetAssignedKeys();
-            tooltips.Insert(tooltips.GetIndex("Tooltip#"), new TooltipLine(Mod, "Tooltip#", Language.GetTextValue("Mods.ShardsOfAtheria.Common.RushDrive",
-                    phaseKey.Count > 0 ? phaseKey[0] : "[Unbounded Hotkey]")));
         }
     }
 }

@@ -11,33 +11,19 @@ namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
     {
         public override void SetDefaults()
         {
-            Projectile.Size = new Vector2(10); // This sets width and height to the same value (important when projectiles can rotate)
+            Projectile.Size = new Vector2(10);
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.extraUpdates = 1; // Update 1+extraUpdates times per tick
-            Projectile.timeLeft = 360; // This value does not matter since we manually kill it earlier, it just has to be higher than the duration we use in AI
+            Projectile.extraUpdates = 1;
+            Projectile.timeLeft = 360;
         }
 
         public override void AI()
         {
+            Projectile.SetVisualOffsets(new Vector2(22, 28));
             Projectile.spriteDirection = Projectile.direction = (Projectile.velocity.X > 0).ToDirectionInt();
             Projectile.rotation = Projectile.velocity.ToRotation() +
                 (Projectile.spriteDirection == 1 ? MathHelper.ToRadians(45f) : MathHelper.ToRadians(135f));
-            UpdateVisual();
-        }
-
-        private void UpdateVisual()
-        {
-            if (Projectile.spriteDirection == 1)
-            {
-                DrawOffsetX = -12;
-                DrawOriginOffsetX = 6;
-            }
-            else
-            {
-                DrawOffsetX = 0;
-                DrawOriginOffsetX = -6;
-            }
         }
 
         private ElecGauntletPlayer gplayer => Main.player[Projectile.owner].GetModPlayer<ElecGauntletPlayer>();

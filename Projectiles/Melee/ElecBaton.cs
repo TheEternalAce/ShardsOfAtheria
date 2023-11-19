@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -29,10 +29,6 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Electrified, 600);
-            if (Projectile.ai[0] < 20)
-            {
-                Projectile.ai[0] = 20;
-            }
         }
 
         public override void AI()
@@ -41,15 +37,37 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Projectile.rotation += MathHelper.ToRadians(20);
             if (++Projectile.ai[0] >= 20)
             {
-                Projectile.velocity = Vector2.Normalize(player.Center - Projectile.Center) * 30;
+                Projectile.Track(player.Center, -1f, 30, 15);
             }
 
-            if (++Projectile.ai[1] >= 10f)
+            if (++Projectile.ai[1] >= 10f + Main.rand.NextFloat(0f, 5f))
             {
                 Projectile.ai[1] = 0;
-                ShardsHelpers.ProjectileRing(Projectile.GetSource_FromThis(),
-                    Projectile.Center, 6, 1, 1, ModContent.ProjectileType<LightningBoltFriendly>(),
-                    Projectile.damage, Projectile.knockBack, Projectile.owner);
+                SoundEngine.PlaySound(SoundID.Item91, Projectile.Center);
+                for (var i = 0; i < 28; i++)
+                {
+                    Vector2 speed = Main.rand.NextVector2CircularEdge(1f, 1f);
+                    Dust d = Dust.NewDustPerfect(Projectile.Center, DustID.Electric, speed * 4f);
+                    d.fadeIn = 1.3f;
+                    d.noGravity = true;
+                }
+                foreach (var npc in Main.npc)
+                {
+                    if (npc.CanBeChasedBy())
+                    {
+                        if (Projectile.Distance(npc.Center) < 100)
+                        {
+                            NPC.HitInfo hitInfo = new()
+                            {
+                                Damage = Projectile.damage,
+                                Knockback = Projectile.knockBack,
+                                DamageType = Projectile.DamageType,
+                                HitDirection = Projectile.direction,
+                            };
+                            npc.StrikeNPC(hitInfo);
+                        }
+                    }
+                }
             }
 
             if (Projectile.getRect().Intersects(player.getRect()) && Projectile.ai[0] > 20 || player.dead)

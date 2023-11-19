@@ -1,5 +1,8 @@
 using ShardsOfAtheria.Items.AreusChips;
+using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
@@ -30,6 +33,16 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
             ArmorPlayer.areusDamage += 0.05f;
             player.statManaMax2 += 90;
             ArmorPlayer.areusBody = true;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<AreusShard>(24)
+                .AddIngredient(ItemID.GoldBar, 10)
+                .AddIngredient(ItemID.SoulofNight, 12)
+                .AddTile<AreusFabricator>()
+                .Register();
         }
     }
 }

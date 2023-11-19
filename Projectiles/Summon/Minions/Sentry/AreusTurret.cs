@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Projectiles.Ammo;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -40,12 +41,21 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
             {
                 Projectile.velocity.Y = 16;
             }
-
-            Target = Projectile.FindTargetWithinRange(1000);
+            var player = Projectile.GetPlayerOwner();
+            if (player.HasMinionAttackTargetNPC)
+            {
+                Target = Main.npc[player.MinionAttackTargetNPC];
+            }
+            else if (Target == null || !Target.CanBeChasedBy())
+            {
+                Target = Projectile.FindTargetWithinRange(2000);
+            }
             if (Target != null)
             {
                 if (Target.CanBeChasedBy())
                 {
+                    Projectile.spriteDirection = Projectile.direction =
+                        Target.Center.X > Projectile.Center.X ? 1 : -1;
                     if (shootCooldown > 0)
                     {
                         shootCooldown--;
@@ -108,14 +118,16 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
             Vector2 offset = new(0, -20 - Projectile.height / 2);
             Vector2 origin = new(35, 24);
             float rotation = MathHelper.PiOver4;
+            if (Projectile.spriteDirection == -1)
+            {
+                offset.Y = -32;
+                rotation = -rotation * 5;
+                spriteEffects = SpriteEffects.FlipVertically;
+            }
             if (Target != null)
             {
-                rotation = (Target.Center - (Projectile.Center + new Vector2(0, -20))).ToRotation();
-                if (Target.Center.X < Projectile.Center.X)
-                {
-                    spriteEffects = SpriteEffects.FlipVertically;
-                    offset.Y = -33;
-                }
+                rotation = (Target.Center - (Projectile.Center + new Vector2(0, -20)))
+                    .ToRotation();
             }
             Vector2 drawPos = Projectile.Center + offset - Main.screenPosition;
 

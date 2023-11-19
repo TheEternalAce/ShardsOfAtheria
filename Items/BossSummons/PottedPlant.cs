@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -16,6 +17,8 @@ namespace ShardsOfAtheria.Items.BossSummons
             NPCID.Sets.MPAllowedEnemies[NPCID.Plantera] = true;
 
             Item.ResearchUnlockCount = 1;
+
+            Item.AddElementWood();
         }
 
         public override void SetDefaults()

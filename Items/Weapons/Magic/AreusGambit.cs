@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Magic.Gambit;
 using ShardsOfAtheria.Tiles.Crafting;
@@ -19,6 +18,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.ResearchUnlockCount = 1;
             Item.AddAreus(true);
             Item.AddUpgradable();
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()

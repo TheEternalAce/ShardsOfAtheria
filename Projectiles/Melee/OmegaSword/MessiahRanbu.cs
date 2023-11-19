@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -167,13 +166,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<StunLock>(), 10);
             target.AddBuff(BuffID.OnFire3, 600);
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo hit)
         {
-            target.AddBuff(ModContent.BuffType<StunLock>(), 10);
             target.AddBuff(BuffID.OnFire3, 600);
         }
 

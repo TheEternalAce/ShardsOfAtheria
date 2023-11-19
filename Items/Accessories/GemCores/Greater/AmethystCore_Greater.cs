@@ -51,8 +51,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
 
             AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
             mp.DashVelocity = 13f;
-            AmethystDashPlayer.MAX_DASH_DELAY = 50;
-            AmethystDashPlayer.MAX_DASH_TIMER = 35;
+            AmethystDashPlayer.MaxDashDelay = 50;
+            AmethystDashPlayer.MaxDashTimer = 35;
             player.buffImmune[BuffID.Ichor] = true;
             player.buffImmune[BuffID.CursedInferno] = true;
 
@@ -60,14 +60,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             if (!mp.DashActive)
                 return;
 
-            //This is where we set the afterimage effect.  You can replace these two lines with whatever you want to happen during the dash
-            //Some examples include:  spawning dust where the player is, adding buffs, making the player immune, etc.
-            //Here we take advantage of "player.eocDash" and "player.armorEffectDrawShadowEOCShield" to get the Shield of Cthulhu's afterimage effect
-            player.eocDash = mp.DashTimer;
-            player.armorEffectDrawShadowEOCShield = true;
-
             //If the dash has just started, apply the dash velocity in whatever direction we wanted to dash towards
-            if (mp.DashTimer == AmethystDashPlayer.MAX_DASH_TIMER)
+            if (mp.DashTimer == AmethystDashPlayer.MaxDashTimer)
             {
                 Vector2 newVelocity = player.velocity;
 
@@ -88,8 +82,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             if (mp.DashDelay == 0)
             {
                 //The dash has ended.  Reset the fields
-                mp.DashDelay = AmethystDashPlayer.MAX_DASH_DELAY;
-                mp.DashTimer = AmethystDashPlayer.MAX_DASH_TIMER;
+                mp.DashDelay = AmethystDashPlayer.MaxDashDelay;
+                mp.DashTimer = AmethystDashPlayer.MaxDashTimer;
                 mp.DashActive = false;
             }
         }

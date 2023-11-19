@@ -18,7 +18,6 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusGlaive
             Projectile.height = 20;
             Projectile.aiStyle = 19;
             Projectile.penetrate = -1;
-            Projectile.scale = 1.3f;
             Projectile.alpha = 0;
 
             Projectile.hide = true;

@@ -112,6 +112,7 @@ namespace ShardsOfAtheria.Globals
                 {
                     if (Main.LocalPlayer.Shards().Overdrive)
                     {
+                        tooltips[0].Text += Language.GetTextValue(SoA.LocalizeCommon + "OverdriveTag");
                         var line = new TooltipLine(Mod, "OverdriveEffect",
                             Language.GetTextValue(overdriveKey));
                         tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"),

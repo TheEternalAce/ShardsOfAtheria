@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Utilities;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -43,6 +44,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodDagger
             {
                 if (Target == null)
                 {
+                    Projectile.velocity +=
+                        new Vector2(
+                            Main.rand.NextFloat(-2f, 2f),
+                            Main.rand.NextFloat(-2f, 2f)
+                        );
                     Target = Projectile.FindClosestNPC(-1);
                     return;
                 }

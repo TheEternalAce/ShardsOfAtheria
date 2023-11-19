@@ -11,8 +11,6 @@ namespace ShardsOfAtheria.Projectiles.Summon
 {
     public class StrikerRod : ModProjectile
     {
-        public override string Texture => "ShardsOfAtheria/Projectiles/Ammo/AreusBulletProj";
-
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
@@ -35,7 +33,7 @@ namespace ShardsOfAtheria.Projectiles.Summon
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            if (Main.rand.NextBool(20))
+            if (Main.rand.NextBool(50))
             {
                 Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric, Projectile.velocity.X * .2f, Projectile.velocity.Y * .2f, 200, Scale: 1f);
             }
@@ -43,12 +41,6 @@ namespace ShardsOfAtheria.Projectiles.Summon
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            var vector = Projectile.velocity;
-            vector.Normalize();
-            vector *= -3;
-            Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, vector,
-                ModContent.GoreType<AreusRodGore>());
-
             var player = Main.player[Projectile.owner];
             player.MinionAttackTargetNPC = target.whoAmI;
 
@@ -65,12 +57,16 @@ namespace ShardsOfAtheria.Projectiles.Summon
         {
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.NPCHit4, Projectile.position);
-            var vector = oldVelocity;
+            return base.OnTileCollide(oldVelocity);
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            var vector = Projectile.velocity;
             vector.Normalize();
             vector *= -3;
             Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, vector,
-                ModContent.GoreType<AreusRodGore>());
-            return base.OnTileCollide(oldVelocity);
+                ShardsGores.AreusRod.Type);
         }
     }
 }

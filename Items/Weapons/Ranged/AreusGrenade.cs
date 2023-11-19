@@ -15,6 +15,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.ResearchUnlockCount = 999;
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
             Item.AddAreus();
+            Item.AddElementFire();
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()

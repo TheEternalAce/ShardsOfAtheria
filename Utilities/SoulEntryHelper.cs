@@ -19,6 +19,11 @@ namespace ShardsOfAtheria.Utilities
             entries.Add(new PageEntry(mod, name, tooltip, pageColor, crystalItem));
             SoA.MaxNecronomiconPages++;
         }
+        public static void NewEntryWithKeys(string mod, string nameKey, string tooltipKey, Color pageColor, string crystalItem)
+        {
+            entries.Add(new PageEntry(mod, Language.GetTextValue(nameKey), Language.GetTextValue(tooltipKey), pageColor, crystalItem));
+            SoA.MaxNecronomiconPages++;
+        }
 
         public struct PageEntry
         {

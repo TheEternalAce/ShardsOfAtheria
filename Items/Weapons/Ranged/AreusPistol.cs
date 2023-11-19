@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Ranged;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,6 +9,11 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class AreusPistol : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            Item.AddElementElec();
+        }
+
         public override void SetDefaults()
         {
             Item.width = 70;

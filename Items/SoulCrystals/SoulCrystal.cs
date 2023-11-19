@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
         {
             TooltipLine line;
             if (!SoA.ClientConfig.instantAbsorb)
-                line = new TooltipLine(Mod, "SoulCrystal", "Hold left click for 5 seconds to absorb the soul inside, this grants you this boss's powers")
+                line = new TooltipLine(Mod, "SoulCrystal", "Hold use for 5 seconds to absorb the soul inside, this grants you this boss's powers")
                 {
                     OverrideColor = Color.Purple
                 };
@@ -187,14 +187,8 @@ namespace ShardsOfAtheria.Items.SoulCrystals
     {
     }
 
-    public class DukeSoulCrystal : SoulCrystal // This and LunaticSoulCrystal actualy have stuff in them lmao
+    public class DukeSoulCrystal : SoulCrystal
     {
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            tooltips.Add(new TooltipLine(Mod, "SoulTeleport", string.Format("Press {0} to teleport", SoA.SoulTeleport.GetAssignedKeys().Count > 0 ? SoA.SoulTeleport.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
-
-            base.ModifyTooltips(tooltips);
-        }
     }
 
     public class EmpressSoulCrystal : SoulCrystal
@@ -203,12 +197,6 @@ namespace ShardsOfAtheria.Items.SoulCrystals
 
     public class LunaticSoulCrystal : SoulCrystal
     {
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            tooltips.Add(new TooltipLine(Mod, "SoulTeleport", string.Format("Press {0} to teleport", SoA.SoulTeleport.GetAssignedKeys().Count > 0 ? SoA.SoulTeleport.GetAssignedKeys()[0] : "[Unbounded Hotkey]")));
-
-            base.ModifyTooltips(tooltips);
-        }
     }
 
     public class LordSoulCrystal : SoulCrystal

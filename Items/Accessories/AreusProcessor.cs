@@ -40,11 +40,6 @@ namespace ShardsOfAtheria.Items.Accessories
             var player = Main.LocalPlayer;
             var shards = player.Shards();
 
-            var key = SoA.ProcessorElement.GetAssignedKeys().Count > 0 ?
-                SoA.ProcessorElement.GetAssignedKeys()[0] : "[Unbound Hotkey]";
-            var tooltip = new TooltipLine(Mod, "Processor Element", $"Press {key} to switch element");
-            tooltips.Insert(tooltips.GetIndex("OneDropLogo"), tooltip);
-
             var color = Color.White;
             var element = "";
             switch (shards.processorElement)
@@ -66,7 +61,7 @@ namespace ShardsOfAtheria.Items.Accessories
                     element = "[i:BattleNetworkElements/WoodIcon] Wood";
                     break;
             }
-            tooltip = new TooltipLine(Mod, "Processor Element", element)
+            var tooltip = new TooltipLine(Mod, "Processor Element", element)
             {
                 OverrideColor = color
             };

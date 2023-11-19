@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Gores;
 using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
 using ShardsOfAtheria.Items.Accessories.GemCores.Regular;
+using ShardsOfAtheria.Items.Accessories.GemCores.Super;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -45,14 +46,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
             if (!mp.DashActive)
                 return;
 
-            //This is where we set the afterimage effect.  You can replace these two lines with whatever you want to happen during the dash
-            //Some examples include:  spawning dust where the player is, adding buffs, making the player immune, etc.
-            //Here we take advantage of "player.eocDash" and "player.armorEffectDrawShadowEOCShield" to get the Shield of Cthulhu's afterimage effect
-            player.eocDash = mp.DashTimer;
-            player.armorEffectDrawShadowEOCShield = true;
-
             //If the dash has just started, apply the dash velocity in whatever direction we wanted to dash towards
-            if (mp.DashTimer == AmethystDashPlayer.MAX_DASH_TIMER)
+            if (mp.DashTimer == AmethystDashPlayer.MaxDashTimer)
             {
                 Vector2 newVelocity = player.velocity;
 
@@ -73,8 +68,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
             if (mp.DashDelay == 0)
             {
                 //The dash has ended.  Reset the fields
-                mp.DashDelay = AmethystDashPlayer.MAX_DASH_DELAY;
-                mp.DashTimer = AmethystDashPlayer.MAX_DASH_TIMER;
+                mp.DashDelay = AmethystDashPlayer.MaxDashDelay;
+                mp.DashTimer = AmethystDashPlayer.MaxDashTimer;
                 mp.DashActive = false;
             }
         }
@@ -91,14 +86,14 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
 
         //The fields related to the dash accessory
         public bool DashActive = false;
-        public int DashDelay = MAX_DASH_DELAY;
-        public int DashTimer = MAX_DASH_TIMER;
+        public int DashDelay = MaxDashDelay;
+        public int DashTimer = MaxDashTimer;
         //The initial velocity. 10 velocity is about 37.5 tiles/second or 50 mph
         public float DashVelocity = 10f;
         //These two fields are the max values for the delay between dashes and the length of the dash in that order
         //The time is measured in frames
-        public static int MAX_DASH_DELAY = 50;
-        public static int MAX_DASH_TIMER = 10;
+        public static int MaxDashDelay = 50;
+        public static int MaxDashTimer = 10;
 
         public override void ResetEffects()
         {
@@ -117,7 +112,11 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
 
                 //Set the flag for the ExampleDashAccessory being equipped if we have it equipped OR immediately return if any of the accessories are
                 // one of the higher-priority ones
-                if (item.type == ModContent.ItemType<AmethystCore_Lesser>() || item.type == ModContent.ItemType<AmethystCore>() || item.type == ModContent.ItemType<AmethystCore_Greater>())
+                if (item.type == ModContent.ItemType<AmethystCore_Lesser>() ||
+                    item.type == ModContent.ItemType<AmethystCore>() ||
+                    item.type == ModContent.ItemType<AmethystCore_Greater>() ||
+                    item.type == ModContent.ItemType<AmethystCore_Super>() ||
+                    item.type == ModContent.ItemType<MegaGemCore>())
                     dashAccessoryEquipped = true;
                 else if (item.type == ItemID.EoCShield || item.type == ItemID.MasterNinjaGear || item.type == ItemID.Tabi)
                     return;
@@ -146,9 +145,19 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
             {
                 var pos = ShardsHelpers.GetPointInRegion(Player.Hitbox);
                 var gore = Gore.NewGoreDirect(Player.GetSource_FromThis(), pos, vector,
-                    ModContent.GoreType<AmethystShard>());
+                    ShardsGores.AmethystShard.Type);
                 gore.velocity = vector.RotatedByRandom(MathHelper.ToRadians(15));
                 gore.velocity *= Main.rand.NextFloat(4f, 8f);
+            }
+
+            DashVelocity = 10f;
+        }
+
+        public override void FrameEffects()
+        {
+            if (DashActive)
+            {
+                Player.armorEffectDrawShadow = true;
             }
         }
     }

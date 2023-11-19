@@ -9,30 +9,6 @@ namespace ShardsOfAtheria.Utilities
 {
     public partial class ShardsHelpers
     {
-        public static readonly int EarlyGameRarity = ItemRarityID.White;
-        public static readonly int PostEyeRarity = ItemRarityID.Blue;
-        public static readonly int PreSkeletronRarity = ItemRarityID.Green;
-        public static readonly int PreWallRarity = ItemRarityID.Orange;
-        public static readonly int EarlyHardmodeRarity = ItemRarityID.LightRed;
-        public static readonly int PostMechRarity = ItemRarityID.Pink;
-        public static readonly int PrePlanteraRarity = ItemRarityID.LightPurple;
-        public static readonly int PreGolemRarity = ItemRarityID.Lime;
-        public static readonly int PreCultistRarity = ItemRarityID.Yellow;
-        public static readonly int PreMLRarity = ItemRarityID.Cyan;
-        public static readonly int PostMLRarity = ItemRarityID.Red;
-
-        public static readonly int EarlyGameValue = 0;
-        public static readonly int PostEyeValue = 0;
-        public static readonly int PreSkeletronValue = 0;
-        public static readonly int PreWallValue = 0;
-        public static readonly int EarlyHardmodeValue = 0;
-        public static readonly int PostMechValue = 0;
-        public static readonly int PrePlanteraValue = 0;
-        public static readonly int PreGolemValue = 0;
-        public static readonly int PreCultistValue = 0;
-        public static readonly int PreMLValue = 0;
-        public static readonly int PostMLValue = 0;
-
         public static void DefaultToPotion(this Item potion, int buff, int buffTime)
         {
             potion.useTime = 17;

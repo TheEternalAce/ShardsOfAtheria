@@ -8,7 +8,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
 {
     public class CheatersGlove : ModItem
     {
-        int cheatSide = 6;
+        public int cheatSide = 6;
 
         public override string Texture => SoA.PlaceholderTexture;
 

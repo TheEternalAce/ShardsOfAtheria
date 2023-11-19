@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.DeckOfCards
             Projectile.penetrate = 5;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
+            Projectile.timeLeft = 300;
         }
 
         public override void AI()

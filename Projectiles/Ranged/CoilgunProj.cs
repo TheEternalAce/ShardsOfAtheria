@@ -48,6 +48,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.originalDamage = Projectile.damage;
             Projectile.damage = 0;
             ChargeTimer = 15;
+            Projectile.velocity = Vector2.Zero;
         }
 
         public override bool PreAI()
@@ -84,8 +85,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
             if (BeingHeld)
             {
-                Projectile.timeLeft = 10; //constantly set timeLeft to greater than zero to allow projectile to remain infinitely as long as player channels weapon
-                owner.manaRegenDelay = 10;
+                Projectile.timeLeft = 60; //constantly set timeLeft to greater than zero to allow projectile to remain infinitely as long as player channels weapon
 
                 if (charging)
                 {
@@ -150,30 +150,27 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             //where the projectile should spawn, modified so the projectile actually looks like it's coming out of the barrel
             Vector2 shootOrigin = Projectile.Center + aimNormal * 40;
 
-            if (Main.myPlayer == Projectile.owner)
+            bool shoot = owner.PickAmmo(owner.HeldItem, out int dart, out float _,
+                out int _, out float knockback, out int _);
+            float speed = 8f;
+            int damage = Projectile.originalDamage;
+            if (chargeLevel > 10)
             {
-                bool shoot = owner.PickAmmo(owner.HeldItem, out int dart, out float _,
-                    out int _, out float knockback, out int _);
-                float speed = 8f;
-                int damage = Projectile.originalDamage;
-                if (chargeLevel > 10)
+                //increase recoil value, make gun appear like it's actually firing with some force
+                recoilAmount += 2f;
+                speed *= 2;
+                damage += 50;
+                if (chargeLevel == 20)
                 {
-                    //increase recoil value, make gun appear like it's actually firing with some force
-                    recoilAmount += 2f;
-                    speed *= 2;
+                    recoilAmount += 3f;
                     damage += 50;
-                    if (chargeLevel == 20)
-                    {
-                        recoilAmount += 3f;
-                        damage += 50;
-                        Projectile.Explode(owner.Center, damage / 3, hostile: true);
-                    }
+                    Projectile.Explode(owner.Center, damage / 3, hostile: true);
                 }
-                if (shoot)
-                {
-                    Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), shootOrigin,
-                        aimNormal * speed, dart, damage, knockback, Projectile.owner);
-                }
+            }
+            if (shoot)
+            {
+                Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), shootOrigin,
+                    aimNormal * speed, dart, damage, knockback, Projectile.owner);
             }
         }
 

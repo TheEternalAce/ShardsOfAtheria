@@ -2,7 +2,6 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -11,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Melee.ElecKatana
 {
-    public class ElecKatana : SwordProjectileBase
+    public class ElecKatana : CoolSword
     {
         public override void SetStaticDefaults()
         {

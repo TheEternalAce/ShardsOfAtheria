@@ -14,6 +14,19 @@ namespace ShardsOfAtheria.NPCs.Misc
     {
         public int aiTimer;
 
+        public override void SetStaticDefaults()
+        {
+            NPC.AddElementAqua();
+            NPC.AddElementWood();
+            NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersAqua);
+
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new()
+            {
+                Hide = true
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+        }
+
         public override void SetDefaults()
         {
             NPC.width = 26;
@@ -27,11 +40,6 @@ namespace ShardsOfAtheria.NPCs.Misc
             NPC.aiStyle = -1;
             NPC.noTileCollide = true;
             NPC.noGravity = true;
-        }
-
-        public override bool PreAI()
-        {
-            return true;
         }
 
         public override void AI()

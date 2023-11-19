@@ -61,8 +61,8 @@ namespace ShardsOfAtheria.Projectiles.Magic
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Color color = new(227, 182, 245, 80);
-            Projectile.DrawProjectilePrims(color, ShardsHelpers.DiamondX1);
+            Projectile.DrawProjectilePrims(SoA.HardlightColor * 0.7f,
+                ShardsHelpers.DiamondX1);
             lightColor = Color.White;
             return true;
         }

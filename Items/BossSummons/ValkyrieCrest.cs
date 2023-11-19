@@ -1,4 +1,5 @@
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -17,6 +18,7 @@ namespace ShardsOfAtheria.Items.BossSummons
             NPCID.Sets.MPAllowedEnemies[ModContent.NPCType<NovaStellar>()] = true;
 
             Item.ResearchUnlockCount = 3;
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()

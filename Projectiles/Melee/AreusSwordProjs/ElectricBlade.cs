@@ -2,7 +2,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WebCom;
 
 namespace ShardsOfAtheria.Projectiles.Melee.AreusSwordProjs
 {
@@ -18,7 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSwordProjs
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 2 * Constants.TicksPerSecond;
+            Projectile.timeLeft = 120;
         }
 
         public override void AI()

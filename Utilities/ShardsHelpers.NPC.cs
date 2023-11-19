@@ -4,6 +4,7 @@ using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.ShardsUI.Monologue;
 using ShardsOfAtheria.Systems;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Chat;
 using Terraria.GameContent.ItemDropRules;
@@ -138,6 +139,16 @@ namespace ShardsOfAtheria.Utilities
             npc.DelBuff(ModContent.BuffType<T>());
         }
 
+        public static void SetImmuneTo(this NPC npc, List<int> buffTypes)
+        {
+            int npcType = npc.type;
+            for (int i = 0; i < buffTypes.Count; i++)
+            {
+                int buffType = buffTypes[i];
+                NPCID.Sets.SpecificDebuffImmunity[npcType][buffType] = true;
+            }
+        }
+
         public static void DropFromItem(int itemType, Player player)
         {
             DropAttemptInfo info = new()
@@ -186,5 +197,12 @@ namespace ShardsOfAtheria.Utilities
         {
             SoA.TryElementCall("assignElement", npc, multipliers);
         }
+        public static readonly float[] NPCMultipliersFire = new float[] { 0.8f, 2f, 1f, 0.5f };
+
+        public static readonly float[] NPCMultipliersAqua = new float[] { 0.5f, 0.8f, 2f, 1f };
+
+        public static readonly float[] NPCMultipliersElec = new float[] { 1f, 0.5f, 0.8f, 2f };
+
+        public static readonly float[] NPCMultipliersWood = new float[] { 2f, 1f, 0.5f, 0.8f };
     }
 }

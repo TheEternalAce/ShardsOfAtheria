@@ -47,20 +47,15 @@ namespace ShardsOfAtheria.Projectiles.Ranged.VergilFlamethrower
             int projToShoot = ProjectileID.Flames;
             float flameSpeed = 8f;
             bool canShoot = player.channel && player.HasAmmo(player.inventory[player.selectedItem]) && !player.noItems && !player.CCed && ++fireTimer == fireTimerMax;
-            bool consumeAmmo = ++consumeAmmoTimer == consumeAmmoTimerMax;
+            bool consumeAmmo = ++consumeAmmoTimer >= consumeAmmoTimerMax;
             player.heldProj = Projectile.whoAmI;
             if (canShoot)
             {
-
-                player.PickAmmo(player.inventory[player.selectedItem], out _, out _, out int Damage, out float KnockBack, out var usedAmmoItemId);
-                Item gel = player.inventory[player.FindItem(usedAmmoItemId)];
+                player.PickAmmo(player.inventory[player.selectedItem], out _, out _, out int Damage, out float KnockBack,
+                    out var usedAmmoItemId, !consumeAmmo);
                 if (consumeAmmo)
                 {
                     consumeAmmoTimer = 0;
-                    if (gel.consumable && consumeAmmo)
-                    {
-                        gel.stack--;
-                    }
                 }
                 IEntitySource source = player.GetSource_ItemUse_WithPotentialAmmo(player.inventory[player.selectedItem], usedAmmoItemId);
                 Vector2 velocity = Projectile.velocity;
@@ -83,10 +78,10 @@ namespace ShardsOfAtheria.Projectiles.Ranged.VergilFlamethrower
                 //    }
                 //}
                 //else
-                {
-                    Projectile.NewProjectileDirect(source, Projectile.Center, velocity * flameSpeed, projToShoot,
-                        Damage, KnockBack, player.whoAmI);
-                }
+                //{
+                Projectile.NewProjectileDirect(source, Projectile.Center, velocity * flameSpeed, projToShoot,
+                    Damage, KnockBack, player.whoAmI);
+                //}
 
                 Vector2 target = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
                 float ceilingLimit = target.Y;

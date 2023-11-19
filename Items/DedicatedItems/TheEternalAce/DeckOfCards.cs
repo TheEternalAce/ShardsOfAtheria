@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Ranged.DeckOfCards;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,6 +14,10 @@ namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
+            Item.AddElementFire();
+            Item.AddElementAqua();
+            Item.AddElementElec();
+            Item.AddElementWood();
         }
 
         public override void SetDefaults()

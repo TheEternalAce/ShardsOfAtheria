@@ -3,11 +3,9 @@ using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Projectiles.Other;
 using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,29 +15,11 @@ namespace ShardsOfAtheria.Utilities
 {
     public partial class ShardsHelpers
     {
-        public static void CallStorm(this Projectile projectile, int amount, int pierce = 1)
+        public static void Explode(this Projectile projectile, Vector2 position, int damage, bool hostile = false, int explosionSize = 120, bool dustParticles = true)
         {
-            SoundEngine.PlaySound(SoundID.NPCDeath56, projectile.Center);
-            for (var i = 0; i < amount - 1; i++)
-            {
-                Projectile p = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(),
-                    new Vector2(projectile.Center.X + Main.rand.Next(-60 * amount, 60 * amount), projectile.Center.Y - 600), new Vector2(0, 5),
-                    ModContent.ProjectileType<LightningBoltFriendly>(), (int)(projectile.damage * 0.66f), projectile.knockBack, Main.player[projectile.owner].whoAmI);
-                p.penetrate = pierce;
-                p.DamageType = projectile.DamageType;
-            }
-            Projectile p2 = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(),
-                new Vector2(projectile.Center.X, projectile.Center.Y - 600), new Vector2(0, 5),
-                ModContent.ProjectileType<LightningBoltFriendly>(), (int)(projectile.damage * 0.66f), projectile.knockBack, Main.player[projectile.owner].whoAmI);
-            p2.penetrate = pierce;
-            p2.DamageType = projectile.DamageType;
-        }
-
-        public static void Explode(this Projectile proj, Vector2 position, int damage, bool hostile = false, int explosionSize = 120, bool dustParticles = true)
-        {
-            Projectile explosion = Projectile.NewProjectileDirect(proj.GetSource_FromThis(), position, Vector2.Zero,
-                ModContent.ProjectileType<ElementExplosion>(), damage, proj.knockBack, proj.owner);
-            explosion.DamageType = proj.DamageType;
+            Projectile explosion = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), position, Vector2.Zero,
+                ModContent.ProjectileType<ElementExplosion>(), damage, projectile.knockBack, projectile.owner);
+            explosion.DamageType = projectile.DamageType;
             explosion.Size = new Vector2(explosionSize);
             explosion.hostile = hostile;
             if (dustParticles)
@@ -49,7 +29,7 @@ namespace ShardsOfAtheria.Utilities
             ScreenShake.ShakeScreen(6, 60);
             if (SoA.ElementModEnabled)
             {
-                SetExplosionElements(proj, explosion);
+                SetExplosionElements(projectile, explosion);
             }
         }
         [JITWhenModsEnabled("BattleNetworkElements")]
@@ -187,6 +167,41 @@ namespace ShardsOfAtheria.Utilities
                 projectile.velocity.Y = maxGravity;
             }
         }
+
+        /// <summary>
+        /// Draws a basic single-frame glowmask for an item dropped in the world. Use in <see cref="Terraria.ModLoader.ModProjectile.PostDraw"/>
+        /// </summary>
+        //public static void BasicInWorldGlowmask(this Projectile projectile, Texture2D glowTexture, Color color,
+        //    float rotation, float scale)
+        //{
+        //    float offsetX = 0f;
+        //    float originOffsetX = 0f;
+        //    float originOffsetY = 0f;
+        //    if (projectile.ModProjectile != null)
+        //    {
+        //        var modProjectile = projectile.ModProjectile;
+        //        offsetX = modProjectile.DrawOffsetX;
+        //        originOffsetX = modProjectile.DrawOriginOffsetX;
+        //        originOffsetY = modProjectile.DrawOriginOffsetY;
+        //    }
+        //    Vector2 origin = glowTexture.Size() * 0.5f;
+        //    origin.X += originOffsetX;
+        //    origin.Y += originOffsetY;
+
+        //    Main.EntitySpriteDraw(
+        //        glowTexture,
+        //        new Vector2(
+        //            projectile.position.X - Main.screenPosition.X + projectile.width * 05f + offsetX,
+        //            projectile.position.Y - Main.screenPosition.Y + projectile.height * 05f
+        //        ),
+        //        new Rectangle(0, 0, glowTexture.Width, glowTexture.Height),
+        //        color,
+        //        rotation,
+        //        origin,
+        //        scale,
+        //        SpriteEffects.None,
+        //        0);
+        //}
 
         public const string DiamondX1 = "DiamondBlur1";
         public const string DiamondX2 = "DiamondBlur2";

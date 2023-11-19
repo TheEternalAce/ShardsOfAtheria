@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             Item.ResearchUnlockCount = 1;
             Item.AddAreus();
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()

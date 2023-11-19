@@ -15,6 +15,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             Item.ResearchUnlockCount = 1;
             Item.AddAreus(true);
+            Item.AddElementAqua();
+            Item.AddElementWood();
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

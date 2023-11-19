@@ -7,8 +7,6 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
     [AutoloadEquip(EquipType.Legs)]
     public class ImperialGreaves : AreusArmorPiece
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetDefaults()
         {
             base.SetDefaults();

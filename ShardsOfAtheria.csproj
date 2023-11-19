@@ -31,10 +31,15 @@
     <None Remove="Walls\**" />
   </ItemGroup>
   <ItemGroup>
+    <AdditionalFiles Remove="Localization\pt-BR.hjson" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Items\Armor\Areus\Imperial\ImperialGreaves.png" />
     <None Remove="Items\Weapons\Melee\HardlightSlash.png" />
     <None Remove="Items\Weapons\Ranged\BloodStainedCrossbow.png" />
     <None Remove="Mounts\LifeCycle_Back.png" />
     <None Remove="Mounts\LifeCycle_Front.png" />
+    <None Remove="NPCs\AreusCrateNPC.png" />
     <None Remove="Projectiles\Summon\Minions\AreusMirror.png" />
     <None Remove="Projectiles\NPCProj\Elizabeth\BloodScytheHostile.png" />
     <None Remove="Projectiles\Ammo\AreusRod.png" />
@@ -59,6 +64,7 @@
     <Folder Include="NPCs\Boss\AnnahStellar\" />
     <Folder Include="NPCs\Boss\Senterra\" />
     <Folder Include="NPCs\Boss\NovaStellar\PhoenixWarrior\" />
+    <Folder Include="Projectiles\Bases\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="BattleNetworkElements">

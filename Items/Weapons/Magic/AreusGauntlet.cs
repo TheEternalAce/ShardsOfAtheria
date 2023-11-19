@@ -15,9 +15,10 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
     {
         public override void SetStaticDefaults()
         {
+            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
             Item.ResearchUnlockCount = 1;
             Item.AddAreus();
-            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()

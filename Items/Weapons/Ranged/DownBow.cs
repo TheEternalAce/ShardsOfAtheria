@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Melee;
+using ShardsOfAtheria.Projectiles.Ranged;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -14,6 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()

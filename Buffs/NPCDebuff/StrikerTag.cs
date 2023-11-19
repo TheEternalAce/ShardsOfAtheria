@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Projectiles.Summon;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -81,7 +82,7 @@ namespace ShardsOfAtheria.Buffs.NPCDebuff
                 spriteBatch.Draw(texture.Value,
                     npc.Center - screenPos - new Vector2(26),
                     frame,
-                    Color.White,
+                    Color.White.UseA(150),
                     0,
                     new Vector2(),
                     1f,

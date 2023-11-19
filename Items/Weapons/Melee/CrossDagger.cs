@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Melee.BloodDagger;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,6 +13,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
+            Item.AddElementAqua();
+            Item.AddElementWood();
         }
 
         public override void SetDefaults()
@@ -54,7 +57,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 int totalBlood = numHealBlood + numOffenseBlood;
                 for (int i = 0; i < totalBlood; i++)
                 {
-                    var vector = Vector2.One * (8f + Main.rand.NextFloat(0f, 7f));
+                    var vector = Vector2.One * (1f + Main.rand.NextFloat(0f, 7f));
                     if (numHealBlood > 0)
                     {
                         vector = vector.RotatedByRandom(MathHelper.TwoPi);

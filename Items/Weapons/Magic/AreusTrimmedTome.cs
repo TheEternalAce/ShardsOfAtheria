@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             Item.ResearchUnlockCount = 1;
             Item.AddAreus();
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()

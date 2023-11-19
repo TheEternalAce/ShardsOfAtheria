@@ -2,7 +2,6 @@
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok.IceStuff;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -12,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
 {
-    public class Genesis_Sword : SwordProjectileBase
+    public class Genesis_Sword : CoolSword
     {
         public override void SetStaticDefaults()
         {
@@ -44,7 +43,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
                 else if (upgrades == 5)
                 {
                     target.AddBuff(BuffID.Frostburn, 600);
-                    Projectile.CallStorm(3);
+                    ShardsHelpers.CallStorm(Projectile.GetSource_FromThis(), Projectile.Center, 3,
+                        (int)(Projectile.damage * 0.66f), Projectile.knockBack, DamageClass.Melee, Projectile.owner);
                 }
             }
             base.OnHitNPC(target, hit, damageDone);

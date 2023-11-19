@@ -3,11 +3,9 @@ using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Utilities;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories
@@ -47,13 +45,6 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.ResearchUnlockCount = 1;
 
             SetupDrawing();
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            var tooltip = string.Format(Language.GetTextValue("Mods.ShardsOfAtheria.Common.OverdriveInfo"),
-                    SoA.OverdriveKey.GetAssignedKeys().Count > 0 ? SoA.OverdriveKey.GetAssignedKeys()[0] : "[Unbounded Hotkey]");
-            tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "Overdrive", tooltip));
         }
 
         public override void SetDefaults()
@@ -100,12 +91,6 @@ namespace ShardsOfAtheria.Items.Accessories
             //If the dash is not active, immediately return so we don't do any of the logic for it
             if (!mp.DashActive)
                 return;
-
-            //This is where we set the afterimage effect.  You can replace these two lines with whatever you want to happen during the dash
-            //Some examples include:  spawning dust where the player is, adding buffs, making the player immune, etc.
-            //Here we take advantage of "player.eocDash" and "player.armorEffectDrawShadowEOCShield" to get the Shield of Cthulhu's afterimage effect
-            player.eocDash = mp.DashTimer;
-            player.armorEffectDrawShadowEOCShield = true;
 
             //If the dash has just started, apply the dash velocity in whatever direction we wanted to dash towards
             if (mp.DashTimer == BiometalDashPlayer.MAX_DASH_TIMER)
@@ -243,6 +228,14 @@ namespace ShardsOfAtheria.Items.Accessories
             //Some examples include:  the larger smoke effect from the Master Ninja Gear and Tabi
             Dust dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.Smoke, Player.velocity.X, Player.velocity.Y, 0, default, 1f);
             dust.noGravity = true;
+        }
+
+        public override void FrameEffects()
+        {
+            if (DashActive)
+            {
+                Player.armorEffectDrawShadowEOCShield = true;
+            }
         }
     }
 }

@@ -204,12 +204,8 @@ namespace ShardsOfAtheria.Globals
                 {
                     if (Main.rand.NextBool(3))
                     {
-                        int dir = Main.rand.NextBool(2) ? 1 : -1;
-                        Vector2 position = Main.player[npc.target].Center;
-                        Projectile proj = Projectile.NewProjectileDirect(npc.GetSource_FromThis(), position, Vector2.Zero,
-                            ProjectileID.WaterGun, 0, 0f, Main.myPlayer);
-                        proj.CallStorm(3);
-                        proj.Kill();
+                        ShardsHelpers.CallStorm(npc.GetSource_FromAI(), Main.player[npc.target].Center,
+                            3, 20, 0, DamageClass.Generic, Main.myPlayer, 1, true);
                         npc.ai[0] = 91;
                     }
                 }

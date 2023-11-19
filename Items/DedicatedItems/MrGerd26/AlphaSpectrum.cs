@@ -1,5 +1,6 @@
 ﻿using ShardsOfAtheria.Projectiles.Magic.Spectrum;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,6 +12,7 @@ namespace ShardsOfAtheria.Items.DedicatedItems.MrGerd26
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()

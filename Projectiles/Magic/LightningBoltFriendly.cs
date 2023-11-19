@@ -31,7 +31,8 @@ namespace ShardsOfAtheria.Projectiles.Magic
             target.AddBuff(BuffID.Electrified, 600);
             if (Projectile.ai[1] == 1)
             {
-                Projectile.CallStorm(3);
+                ShardsHelpers.CallStorm(Projectile.GetSource_FromThis(), Projectile.Center, 3,
+                    (int)(Projectile.damage * 0.66f), Projectile.knockBack, Projectile.DamageType, Projectile.owner);
             }
             else if (Projectile.ai[1] == 2 && target.CanBeChasedBy())
             {
@@ -61,7 +62,8 @@ namespace ShardsOfAtheria.Projectiles.Magic
 
                 if (hit.Crit)
                 {
-                    Projectile.CallStorm(1, 5);
+                    ShardsHelpers.CallStorm(Projectile.GetSource_FromThis(), Projectile.Center, 1,
+                        (int)(Projectile.damage * 0.66f), Projectile.knockBack, Projectile.DamageType, Projectile.owner, 5);
                 }
             }
             Projectile.damage = (int)(Projectile.damage * 0.9f);
@@ -71,7 +73,8 @@ namespace ShardsOfAtheria.Projectiles.Magic
         {
             if (Projectile.ai[1] == 1)
             {
-                Projectile.CallStorm(3);
+                ShardsHelpers.CallStorm(Projectile.GetSource_FromThis(), Projectile.Center, 3,
+                    (int)(Projectile.damage * 0.66f), Projectile.knockBack, Projectile.DamageType, Projectile.owner);
             }
         }
 

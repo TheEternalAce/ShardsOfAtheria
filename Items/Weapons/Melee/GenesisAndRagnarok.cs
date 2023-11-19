@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok;
@@ -24,6 +23,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             Item.ResearchUnlockCount = 1;
             Item.AddUpgradable();
+            Item.AddElementFire();
+            Item.AddElementAqua();
+            Item.AddElementElec();
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
-using ShardsOfAtheria.Projectiles.Melee;
+using ShardsOfAtheria.Projectiles.Ranged;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -203,6 +204,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
                     if (++shootTimer >= 90)
                     {
+                        SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
                         float numberProjectiles = 3; // 3 shots
                         float rotation = MathHelper.ToRadians(5);
                         for (int i = 0; i < numberProjectiles; i++)

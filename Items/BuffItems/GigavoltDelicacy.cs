@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Items.BuffItems
             Item.height = 50;
             Item.maxStack = 9999;
 
-            Item.DefaultToPotion(BuffID.WellFed2, 8.ToMinutes());
+            Item.DefaultToPotion(BuffID.WellFed2, 28800);
             SoAGlobalItem.Potions.Remove(Type);
 
             Item.rare = ItemDefaults.RarityAreus;

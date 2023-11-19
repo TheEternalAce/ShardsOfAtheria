@@ -33,17 +33,17 @@ namespace ShardsOfAtheria
         public static ModKeybind SoulTeleport { get; private set; }
         public static ModKeybind ArmorSetBonusActive { get; private set; }
         public static ModKeybind ProcessorElement { get; private set; }
+        public static ModKeybind MasterCoreToggles { get; private set; }
 
         public static ShardsServer ServerConfig { get; private set; }
         public static ShardsClient ClientConfig { get; private set; }
         public static ShardsDownedSystem DownedSystem { get; private set; }
         public static bool AprilFools => DateTime.Now is DateTime { Month: 4 };
 
-        public static bool ElementModEnabled => ModLoader.TryGetMod("BattleNetworkElements", out Mod _);
+        public static bool ElementModEnabled => ModLoader.TryGetMod(ElementModName, out Mod _);
 
         public static Mod Instance { get; private set; }
 
-        private const string ItemSoundPath = "ShardsOfAtheria/Sounds/Item/";
         public static readonly SoundStyle ReactorAlarm = new(ItemSoundPath + "ReactorMeltdownAlarm");
         public static readonly SoundStyle TheMessiah = new(ItemSoundPath + "TheMessiah");
         public static readonly SoundStyle Rekkoha = new(ItemSoundPath + "MessiahRekkoha");
@@ -72,15 +72,16 @@ namespace ShardsOfAtheria
 
         public override void Load()
         {
-            OverdriveKey = KeybindLoader.RegisterKeybind(this, "ToggleOverdrive", "F");
-            TomeKey = KeybindLoader.RegisterKeybind(this, "KnowledgeBase", "N");
-            EmeraldTeleportKey = KeybindLoader.RegisterKeybind(this, "EmeraldTeleport", "Z");
-            PhaseSwitch = KeybindLoader.RegisterKeybind(this, "PhaseType", "RightAlt");
-            SoulTeleport = KeybindLoader.RegisterKeybind(this, "SoulCrystalTeleport", "V");
-            ArmorSetBonusActive = KeybindLoader.RegisterKeybind(this, "ArmorSetBonus", "Mouse4");
-            ProcessorElement = KeybindLoader.RegisterKeybind(this, "CycleElementAffinity", "C");
-
             Instance = this;
+
+            OverdriveKey = KeybindLoader.RegisterKeybind(Instance, "ToggleOverdrive", "F");
+            TomeKey = KeybindLoader.RegisterKeybind(Instance, "KnowledgeBase", "N");
+            EmeraldTeleportKey = KeybindLoader.RegisterKeybind(Instance, "EmeraldTeleport", "Z");
+            PhaseSwitch = KeybindLoader.RegisterKeybind(Instance, "PhaseType", "RightAlt");
+            SoulTeleport = KeybindLoader.RegisterKeybind(Instance, "SoulCrystalTeleport", "V");
+            ArmorSetBonusActive = KeybindLoader.RegisterKeybind(Instance, "ArmorSetBonus", "Mouse4");
+            ProcessorElement = KeybindLoader.RegisterKeybind(Instance, "CycleElementAffinity", "C");
+            MasterCoreToggles = KeybindLoader.RegisterKeybind(Instance, "MasterCoreToggles", "Semicolon");
 
             ServerConfig = ModContent.GetInstance<ShardsServer>();
             ClientConfig = ModContent.GetInstance<ShardsClient>();
@@ -102,7 +103,6 @@ namespace ShardsOfAtheria
         public override void Unload()
         {
             Instance = null;
-
             ServerConfig = null;
             ClientConfig = null;
             DownedSystem = null;
@@ -123,13 +123,12 @@ namespace ShardsOfAtheria
 
             if (ModLoader.TryGetMod("TerraTyping", out Mod terratyping))
             {
-                string basePath = "CrossMod/TerraTypes/{0}.csv";
                 Dictionary<string, object> addWeapon = new()
                 {
                     { "call", "AddTypes" },
                     { "typestoadd", "weapon" },
                     { "callingmod", Instance },
-                    { "filename", basePath.FormatWith("Weapons") }
+                    { "filename", TerraTypesFolder.FormatWith("Weapons") }
                 };
                 terratyping.Call(addWeapon);
 
@@ -138,7 +137,7 @@ namespace ShardsOfAtheria
                     { "call", "AddTypes" },
                     { "typestoadd", "projectile" },
                     { "callingmod", Instance },
-                    { "filename", basePath.FormatWith("Projectiles") }
+                    { "filename", TerraTypesFolder.FormatWith("Projectiles") }
                 };
                 terratyping.Call(addProjectile);
 
@@ -147,7 +146,7 @@ namespace ShardsOfAtheria
                     { "call", "AddTypes" },
                     { "typestoadd", "ammo" },
                     { "callingmod", Instance },
-                    { "filename", basePath.FormatWith("Ammo") }
+                    { "filename", TerraTypesFolder.FormatWith("Ammo") }
                 };
                 terratyping.Call(addAmmo);
 
@@ -156,7 +155,7 @@ namespace ShardsOfAtheria
                     { "call", "AddTypes" },
                     { "typestoadd", "npc" },
                     { "callingmod", Instance },
-                    { "filename", basePath.FormatWith("NPCs") }
+                    { "filename", TerraTypesFolder.FormatWith("NPCs") }
                 };
                 terratyping.Call(addNPC);
 
@@ -165,15 +164,34 @@ namespace ShardsOfAtheria
                     { "call", "AddTypes" },
                     { "typestoadd", "armor" },
                     { "callingmod", Instance },
-                    { "filename", basePath.FormatWith("Armor") }
+                    { "filename", TerraTypesFolder.FormatWith("Armor") }
                 };
                 terratyping.Call(addArmor);
+
+                Dictionary<string, object> overrideNPC = new()
+                {
+                    { "call", "OverrideTypes" },
+                    { "typestoadd", "npc" },
+                    { "callingmod", Instance },
+                    { "filename", TerraTypesFolder.FormatWith("NPCOverride") },
+                    { "modtarget", "Terraria" }
+                };
+                terratyping.Call(overrideNPC);
+
+                Dictionary<string, object> overrideProjectile = new()
+                {
+                    { "call", "OverrideTypes" },
+                    { "typestoadd", "projectile" },
+                    { "callingmod", Instance },
+                    { "filename", TerraTypesFolder.FormatWith("ProjectileOverride") },
+                    { "modtarget", "Terraria" }
+                };
+                terratyping.Call(overrideProjectile);
             }
 
             if (ModLoader.TryGetMod("BossChecklist", out Mod checklist))
             {
-                string despawnPath = "Mods.ShardsOfAtheria.NPCs.";
-                string despawnPath2 = ".BossChecklistIntegration.Despawn";
+                string despawnPath = "Mods.ShardsOfAtheria.NPCs.{0}.BossChecklistIntegration.Despawn";
                 checklist.Call(
                     "LogBoss",
                     Instance,
@@ -184,7 +202,7 @@ namespace ShardsOfAtheria
                     new Dictionary<string, object>()
                     {
                         ["spawnItems"] = ModContent.ItemType<ValkyrieCrest>(),
-                        ["despawnMessage"] = Language.GetText(despawnPath + "NovaStellar" + despawnPath2)
+                        ["despawnMessage"] = Language.GetText(despawnPath.FormatWith("NovaStellar"))
                     }
                 );
                 checklist.Call(
@@ -197,7 +215,7 @@ namespace ShardsOfAtheria
                     new Dictionary<string, object>()
                     {
                         ["spawnItems"] = ModContent.ItemType<AncientMedalion>(),
-                        ["despawnMessage"] = Language.GetText(despawnPath + "Death" + despawnPath2)
+                        ["despawnMessage"] = Language.GetText(despawnPath.FormatWith("Death"))
                     }
                 );
             }
@@ -262,9 +280,20 @@ namespace ShardsOfAtheria
         public static string ChooseTitleText()
         {
             List<string> title = new();
-            for (int i = 0; i < 3; i++)
+            bool add = true;
+            int i = 0;
+            while (add)
             {
-                title.Add(Language.GetTextValue("Mods.ShardsOfAtheria.Common.TitleText" + i));
+                string path = LocalizeCommon + "TitleText" + i;
+                if (Language.Exists(path))
+                {
+                    title.Add(Language.GetTextValue(path));
+                    i++;
+                }
+                else
+                {
+                    add = false;
+                }
             }
             int index = Main.rand.Next(2);
 

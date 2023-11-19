@@ -4,6 +4,7 @@ using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Projectiles.Summon.Minions;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -17,6 +18,8 @@ namespace ShardsOfAtheria.Items.Weapons
         {
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+            Item.AddElementAqua();
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()

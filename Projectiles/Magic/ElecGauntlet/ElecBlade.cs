@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Bases;
+using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
 {
-    public class ElecBlade : SwordProjectileBase
+    public class ElecBlade : CoolSword
     {
         public override void SetDefaults()
         {
@@ -44,6 +44,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
             {
                 player.statMana = player.statManaMax2;
             }
+            freezeFrame = 6;
             target.AddBuff(BuffID.Electrified, 600);
             gplayer.AddType(Type);
         }

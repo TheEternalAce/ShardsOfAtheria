@@ -37,6 +37,9 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
             //    //NPCs
             //    .SetNPCAffection(NPCID.Stylist, AffectionLevel.Love)
             //    .SetNPCAffection(NPCID.Guide, AffectionLevel.Like);
+
+            NPC.AddElementWood();
+            NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersWood);
         }
 
         internal void SetupShopQuotes(Mod shopQuotes)
@@ -65,6 +68,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
+            string key = this.GetLocalizationKey("Bestiary");
             // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
 				// Sets the preferred biomes of this town NPC listed in the bestiary.
@@ -72,7 +76,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.ShardsOfAtheria.NPCs.Atherian.Bestiary"))
+				new FlavorTextBestiaryInfoElement(key)
             });
         }
 

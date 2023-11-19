@@ -24,13 +24,13 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             // Influences how the NPC looks in the Bestiary
             NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new()
             {
-                Velocity = 1f, // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
-                Direction = -1 // -1 is left and 1 is right. NPCs are drawn facing the left by default but ExamplePerson will be drawn facing the right
-                               // Rotation = MathHelper.Pi // You can also change the rotation of an NPC. Rotation is measured in radians
-                               // If you want to see an example of manually modifying these when the NPC is drawn, see PreDraw
+                Velocity = 1f
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+
+            NPC.AddElementElec();
+            NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersElec);
         }
 
         public override void SetDefaults()
@@ -78,6 +78,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
+            string key = this.GetLocalizationKey("Bestiary");
             // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
 				// Sets the preferred biomes of this town NPC listed in the bestiary.
@@ -85,7 +86,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Desert,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement("Several harpies 300 years ago made their home in the Dessert. Over time, their children have evolved into forms best fit for their new home.")
+				new FlavorTextBestiaryInfoElement(key)
             });
         }
 

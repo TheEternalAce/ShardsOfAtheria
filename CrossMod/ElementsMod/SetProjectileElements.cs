@@ -27,7 +27,6 @@ using ShardsOfAtheria.Projectiles.NPCProj.Variant;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Ranged;
-using ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun;
 using ShardsOfAtheria.Projectiles.Ranged.DeckOfCards;
 using ShardsOfAtheria.Projectiles.Ranged.EventHorizon;
 using ShardsOfAtheria.Projectiles.Ranged.FireCannon;
@@ -200,7 +199,6 @@ namespace ShardsOfAtheria.CrossMod.ElementsMod
             ProjectileType<ZenovaProjectile>(),
 
             ProjectileType<AreusBounceShot>(),
-            ProjectileType<AreusLaser>(),
             ProjectileType<AceOfDiamonds>(),
             ProjectileType<FireCannon_Fire1>(),
             ProjectileType<FireCannon_Fire2>(),

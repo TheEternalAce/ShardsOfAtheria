@@ -1,4 +1,5 @@
 using ShardsOfAtheria.Projectiles.Melee;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,6 +11,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
+
+            Item.AddElementWood();
         }
 
         public override void SetDefaults()

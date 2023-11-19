@@ -2,7 +2,6 @@
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -10,7 +9,7 @@ using Terraria.ID;
 
 namespace ShardsOfAtheria.Projectiles.Melee
 {
-    public class DeathScythe : SwordProjectileBase
+    public class DeathScythe : CoolSword
     {
         public override void SetStaticDefaults()
         {
@@ -89,6 +88,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             if (distance >= 175)
             {
                 target.StrikeNPC(hit);
+                freezeFrame = 6;
             }
             target.AddBuff<DeathBleed>(1200);
         }

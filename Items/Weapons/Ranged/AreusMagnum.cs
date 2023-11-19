@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             Item.ResearchUnlockCount = 1;
             Item.AddAreus();
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()
@@ -33,6 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.channel = true;
+            Item.autoReuse = true;
 
             Item.shootSpeed = 0f;
             Item.rare = ItemRarityID.Cyan;

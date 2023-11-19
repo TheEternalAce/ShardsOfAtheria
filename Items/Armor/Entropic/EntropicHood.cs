@@ -42,7 +42,7 @@ namespace ShardsOfAtheria.Items.Armor.Entropic
         // UpdateArmorSet allows you to give set bonuses to the armor.
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Language.GetTextValue("Mods.ShardsOfAtheria.SetBonus.Slayer");
+            player.setBonus = Language.GetTextValue(SoA.LocalizeSetBonus + "Slayer");
             player.manaCost -= 0.1f;
             player.statManaMax2 += 40;
             player.Slayer().slayerSet = true;

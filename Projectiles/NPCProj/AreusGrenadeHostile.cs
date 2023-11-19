@@ -9,8 +9,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
 {
     public class AreusGrenadeHostile : ModProjectile
     {
-        int armTimer = 0;
-
         public override string Texture => "ShardsOfAtheria/Projectiles/Ranged/AreusGrenadeProj";
 
         public override void SetStaticDefaults()
@@ -25,16 +23,16 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
             Projectile.height = 22;
 
             Projectile.aiStyle = ProjAIStyleID.Explosive;
-            Projectile.penetrate = 7;
+            Projectile.timeLeft = 240;
 
             AIType = ProjectileID.Grenade;
         }
 
         public override void AI()
         {
-            if (++armTimer == 5)
+            if (Projectile.timeLeft == 235)
             {
-                SoundEngine.PlaySound(SoundID.Unlock.WithPitchOffset(-1f).WithVolumeScale(0.6f));
+                SoundEngine.PlaySound(SoundID.Unlock.WithPitchOffset(-1f).WithVolumeScale(0.6f), Projectile.position);
                 Projectile.frame = 1;
                 Projectile.hostile = true;
                 for (int i = 0; i < 5; i++)
@@ -43,18 +41,16 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
                     dust.velocity *= 2f;
                 }
             }
-            if (armTimer == 240 && Projectile.alpha == 0)
-            {
-                Projectile.Explode(Projectile.Center, Projectile.damage, true);
-            }
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            if (Projectile.alpha == 0)
-            {
-                Projectile.Explode(Projectile.Center, Projectile.damage, true);
-            }
+            Projectile.Kill();
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            Projectile.Explode(Projectile.Center, Projectile.damage, true);
         }
     }
 }

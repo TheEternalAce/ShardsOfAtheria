@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.DeckOfCards
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
+            Projectile.timeLeft = 300;
         }
 
         public override void AI()

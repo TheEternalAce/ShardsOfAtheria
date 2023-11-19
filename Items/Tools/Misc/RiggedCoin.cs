@@ -41,20 +41,19 @@ namespace ShardsOfAtheria.Items.Tools.Misc
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            string keyBase = "Mods.ShardsOfAtheria.Items.RiggedCoin.";
             string mode = "";
-            var key = this.GetLocalizationKey(string.Empty).TrimEnd('.');
+            var key = this.GetLocalizationKey(string.Empty);
             if (rigMode == 0)
             {
-                mode = Language.GetTextValue(keyBase + "Off");
+                mode = Language.GetTextValue(key + "Off");
             }
             if (rigMode == 1)
             {
-                mode = Language.GetTextValue(keyBase + "Tails");
+                mode = Language.GetTextValue(key + "Tails");
             }
             if (rigMode == 2)
             {
-                mode = Language.GetTextValue(keyBase + "Heads");
+                mode = Language.GetTextValue(key + "Heads");
             }
             tooltips[0].Text += mode;
         }

@@ -21,11 +21,13 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
             NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new()
             {
-                Velocity = 1f,
-                Direction = -1
+                Velocity = 1f
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+
+            NPC.AddElementAqua();
+            NPC.ElementMultipliers(new[] { 2.0f, 0.8f, 2.0f, 1.0f });
         }
 
         public override void SetDefaults()
@@ -71,6 +73,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
+            string key = this.GetLocalizationKey("Bestiary");
             // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
 				// Sets the preferred biomes of this town NPC listed in the bestiary.
@@ -78,7 +81,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Snow,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement("Several harpies 300 years ago made their home in the Tundra. Over time, their children have evolved into forms best fit for their new home.")
+				new FlavorTextBestiaryInfoElement(key)
             });
         }
 

@@ -1,6 +1,7 @@
 ﻿using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Ranged.VergilFlamethrower;
 using ShardsOfAtheria.Tiles.Crafting;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,14 +12,14 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
+            Item.AddElementFire();
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()
         {
             Item.width = 48;
             Item.height = 28;
-            Item.rare = ItemRarityID.Cyan;
 
             Item.damage = 90;
             Item.DamageType = DamageClass.Ranged;
@@ -30,12 +31,19 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item34;
             Item.autoReuse = true;
-
-            Item.shoot = ModContent.ProjectileType<ApproachingStorm>();
-            Item.shootSpeed = 16f;
             Item.noUseGraphic = true;
             Item.channel = true;
+
+            Item.shootSpeed = 16f;
+            Item.rare = ItemRarityID.Cyan;
             Item.value = 10000;
+            Item.shoot = ModContent.ProjectileType<ApproachingStorm>();
+            Item.useAmmo = AmmoID.Gel;
+        }
+
+        public override bool CanConsumeAmmo(Item ammo, Player player)
+        {
+            return base.CanConsumeAmmo(ammo, player);
         }
 
         public override void AddRecipes()

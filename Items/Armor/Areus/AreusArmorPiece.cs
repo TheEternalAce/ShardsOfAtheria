@@ -43,9 +43,8 @@ namespace ShardsOfAtheria.Items.Armor.Areus
 
         public override void UpdateArmorSet(Player player)
         {
-            string itemKey = "Mods.ShardsOfAtheria.Items." + Name + ".";
-            string setBonusKey = "Mods.ShardsOfAtheria.SetBonus.";
-            string bonusText = Language.GetTextValue(setBonusKey + "Areus");
+            string itemKey = this.GetLocalizationKey(string.Empty);
+            string bonusText = Language.GetTextValue(SoA.LocalizeSetBonus + "Areus");
 
             bool melee = ArmorPlayer.classChip == DamageClass.Melee;
             bool ranged = ArmorPlayer.classChip == DamageClass.Ranged;
@@ -62,22 +61,22 @@ namespace ShardsOfAtheria.Items.Armor.Areus
             if (melee)
             {
                 MeleeSet(player);
-                bonusText += "\n" + Language.GetTextValue(setBonusKey + "AreusMelee");
+                bonusText += "\n" + Language.GetTextValue(SoA.LocalizeSetBonus + "AreusMelee");
             }
             else if (ranged)
             {
                 RangedSet(player);
-                bonusText += "\n" + Language.GetTextValue(setBonusKey + "AreusRanged");
+                bonusText += "\n" + Language.GetTextValue(SoA.LocalizeSetBonus + "AreusRanged");
             }
             else if (magic)
             {
                 MagicSet(player);
-                bonusText += "\n" + Language.GetTextValue(setBonusKey + "AreusMagic");
+                bonusText += "\n" + Language.GetTextValue(SoA.LocalizeSetBonus + "AreusMagic");
             }
             else if (summon)
             {
                 SummonSet(player);
-                bonusText += "\n" + Language.GetTextValue(setBonusKey + "AreusSummon");
+                bonusText += "\n" + Language.GetTextValue(SoA.LocalizeSetBonus + "AreusSummon");
             }
             player.setBonus = bonusText;
         }

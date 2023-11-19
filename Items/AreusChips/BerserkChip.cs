@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Items.AreusChips
         public override void ChipEffect(Player player)
         {
             base.ChipEffect(player);
-            player.GetDamage(DamageClass.Generic) += 0.15f;
+            player.GetAttackSpeed(DamageClass.Generic) += 0.15f;
             player.GetModPlayer<BerserkPlayer>().berserk = true;
         }
     }

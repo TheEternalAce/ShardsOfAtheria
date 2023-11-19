@@ -20,6 +20,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             Item.width = 28;
             Item.height = 54;
+            Item.master = true;
 
             Item.damage = 230;
             Item.DamageType = DamageClass.Ranged;
@@ -34,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noMelee = true;
 
             Item.shootSpeed = 16f;
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemRarityID.Master;
             Item.value = Item.sellPrice(0, 5);
             Item.shoot = ProjectileID.PurificationPowder;
             Item.useAmmo = AmmoID.Arrow;
@@ -51,9 +52,12 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             float rotation = MathHelper.ToRadians(15);
             for (int i = 0; i < numberProjectiles; i++)
             {
-                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                perturbedSpeed.Normalize();
-                Projectile.NewProjectile(source, position, perturbedSpeed * 16f, ModContent.ProjectileType<BloodArrowFriendly>(), damage, knockback, player.whoAmI);
+                Vector2 perturbedSpeed = velocity.RotatedBy(
+                    MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))
+                    );
+                Projectile.NewProjectile(source, position, perturbedSpeed * 0.8f,
+                    ModContent.ProjectileType<BloodArrowFriendly>(), damage, knockback,
+                    player.whoAmI);
             }
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }

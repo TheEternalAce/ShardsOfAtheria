@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -10,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Melee.BloodthirstySword
 {
-    public class MourningStar : SwordProjectileBase
+    public class MourningStar : CoolSword
     {
         public override void SetStaticDefaults()
         {
@@ -36,6 +35,15 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodthirstySword
             {
                 var shards = player.Shards();
                 shards.mourningStarKills++;
+            }
+
+            if (player.Distance(target.Center) < 130)
+            {
+                freezeFrame = 6;
+                target.immune[Projectile.owner] = 2;
+                var copyHit = hit;
+                copyHit.Damage /= 2;
+                target.StrikeNPC(copyHit);
             }
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero,
                 ProjectileID.VampireHeal, 0, 0, Projectile.owner, 0, 2);

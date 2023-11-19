@@ -2,7 +2,6 @@
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Items.Weapons;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Bases;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -11,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Melee.EnergyScythe
 {
-    public class EnergyScythe : SwordProjectileBase
+    public class EnergyScythe : CoolSword
     {
         public override void SetDefaults()
         {

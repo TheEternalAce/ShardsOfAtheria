@@ -12,6 +12,11 @@ namespace ShardsOfAtheria.Projectiles.Other
     {
         public override string Texture => SoA.BlankTexture;
 
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Type] = true;
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 120;

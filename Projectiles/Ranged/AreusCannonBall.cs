@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Dusts;
-using ShardsOfAtheria.Projectiles.Bases;
+using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -93,7 +93,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                         //        }
                         //    }
                         //}
-                        if (proj.ModProjectile is SwordProjectileBase sword &&
+                        if (proj.ModProjectile is CoolSword sword &&
                         proj.owner == Projectile.owner &&
                         proj.active)
                         {

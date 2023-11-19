@@ -157,18 +157,17 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
         {
             Player player = Main.player[Projectile.owner];
             SoundEngine.PlaySound(SoA.Rekkoha.WithVolumeScale(0.5f), Projectile.Center);
-            var spacing = 150;
-            // Loop these functions 5 times.
+            int spacing = 150;
             int numFire = 9;
-            var offset = -spacing * (numFire / 2);
+            int offset = -spacing * (numFire / 2);
             for (int i = 0; i < numFire; i++)
             {
                 var position = player.Center - new Vector2(offset, 600f);
                 position.Y -= Math.Abs(offset);
-                Vector2 heading = new Vector2(0, 10);
+                Vector2 velocity = new(0, 10);
 
                 Projectile fire = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(),
-                    position, heading, ProjectileID.ApprenticeStaffT3Shot, Projectile.damage,
+                    position, velocity, ProjectileID.ApprenticeStaffT3Shot, Projectile.damage,
                     Projectile.knockBack, player.whoAmI);
                 fire.tileCollide = false;
                 fire.DamageType = DamageClass.Melee;

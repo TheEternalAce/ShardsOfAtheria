@@ -17,6 +17,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             Item.ResearchUnlockCount = 1;
             Item.AddAreus();
+            Item.AddElementElec();
         }
 
         public override void SetDefaults()
@@ -53,28 +54,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 .Register();
         }
 
-        public override void HoldItem(Player player)
-        {
-            int comboTimerMax = 60;
-            // If the item is not being used, continue
-            if (player.itemAnimation == 0)
-            {
-                // If combo is not the spear, decrement the timer
-                if (combo > 0)
-                {
-                    comboTimer--;
-                }
-
-                // If the timer is 0, reset the timer and combo
-                if (comboTimer == 0)
-                {
-                    comboTimer = comboTimerMax;
-                    combo = 0;
-                }
-            }
-            else comboTimer = comboTimerMax;
-        }
-
         public override bool CanUseItem(Player player)
         {
             switch (combo)
@@ -87,17 +66,17 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                     break;
                 case 2:
                     Item.shoot = ModContent.ProjectileType<AreusGlaive_Thrust>();
-                    Item.shootSpeed = 4.5f;
+                    Item.shootSpeed = 5.5f;
                     Item.UseSound = SoundID.DD2_MonkStaffSwing;
                     break;
                 case 3:
                     Item.shoot = ModContent.ProjectileType<AreusGlaive_Thrust2>();
-                    Item.shootSpeed = 4.5f;
+                    Item.shootSpeed = 5f;
                     Item.UseSound = SoundID.DD2_MonkStaffSwing;
                     break;
                 case 4:
                     Item.shoot = ModContent.ProjectileType<AreusGlaive_Throw>();
-                    Item.shootSpeed = 30f;
+                    Item.shootSpeed = 16f;
                     Item.UseSound = SoundID.Item71;
                     break;
             }
