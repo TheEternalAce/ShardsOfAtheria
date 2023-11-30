@@ -18,7 +18,6 @@ namespace ShardsOfAtheria.NPCs.Misc
         {
             NPC.AddElementAqua();
             NPC.AddElementWood();
-            NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersAqua);
 
             NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new()
             {
@@ -40,6 +39,7 @@ namespace ShardsOfAtheria.NPCs.Misc
             NPC.aiStyle = -1;
             NPC.noTileCollide = true;
             NPC.noGravity = true;
+            NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersAqua);
         }
 
         public override void AI()

@@ -16,7 +16,6 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         {
             base.SetStaticDefaults();
             NPC.AddElementWood();
-            NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersWood);
         }
 
         public override void SetDefaults()
@@ -27,6 +26,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.lifeMax = 40;
             BannerItem = ModContent.ItemType<ForestHarpyBanner>();
             projectileType = ModContent.ProjectileType<Poison>();
+            NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersWood);
             projectileDamage = 5;
         }
 

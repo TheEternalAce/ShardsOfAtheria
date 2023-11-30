@@ -56,13 +56,12 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
             NPC.AddElementAqua();
             NPC.AddElementWood();
-            NPC.ElementMultipliers(new[] { 1.0f, 0.8f, 1.5f, 0.8f });
         }
 
         public override void SetDefaults()
         {
-            NPC.width = 24;
-            NPC.height = 42;
+            NPC.width = 46;
+            NPC.height = 82;
             NPC.damage = 90;
             NPC.defense = 180;
             NPC.lifeMax = 300000;
@@ -76,6 +75,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             Music = MusicID.Boss1;
             NPC.value = 167900;
             NPC.npcSlots = 15f;
+            NPC.ElementMultipliers(new[] { 1.0f, 0.8f, 1.5f, 0.8f });
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -279,8 +279,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
             //if (!transitioning)
             //{
-            if (++damagedTimer >= 15.ToSeconds() &&
-                NPC.life >= NPC.lifeMax * 0.75f)
+            if (++damagedTimer >= 900 && NPC.life >= NPC.lifeMax * 0.75f)
             {
                 damagedTimer = 0;
                 NPC.HitInfo hitInfo = new()

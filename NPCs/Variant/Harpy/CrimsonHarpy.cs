@@ -27,7 +27,6 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
             NPC.AddElementAqua();
             NPC.AddElementWood();
-            NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersAqua);
         }
 
         public override void SetDefaults()
@@ -39,6 +38,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<CrimsonHarpyBanner>();
+            NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersAqua);
         }
 
         public override void AI()

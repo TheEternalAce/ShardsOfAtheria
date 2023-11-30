@@ -42,7 +42,6 @@ namespace ShardsOfAtheria.NPCs
 
             NPC.AddElementFire();
             NPC.AddElementElec();
-            NPC.ElementMultipliers(new[] { 0.8f, 1.0f, 0.8f, 2.0f });
         }
 
         public override void SetDefaults()
@@ -58,11 +57,11 @@ namespace ShardsOfAtheria.NPCs
 
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCDeath14;
+
+            NPC.ElementMultipliers(new[] { 0.8f, 2.0f, 0.8f, 2.0f });
         }
 
         Player Target => Main.player[NPC.target];
-        int active;
-        int projWhoAmI = -1;
 
         public override void AI()
         {

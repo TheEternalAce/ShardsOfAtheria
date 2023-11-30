@@ -28,7 +28,6 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
             NPC.AddElementFire();
             NPC.AddElementWood();
-            NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersFire);
         }
 
         public override void SetDefaults()
@@ -40,6 +39,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<CorruptHarpyBanner>();
+            NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersFire);
         }
 
         public override void AI()

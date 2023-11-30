@@ -74,7 +74,6 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 .SetNPCAffection(NPCID.Guide, AffectionLevel.Like);
 
             NPC.AddElementElec();
-            NPC.ElementMultipliers(new[] { 0.5f, 1.0f, 0.8f, 2.0f });
         }
 
         internal void SetupShopQuotes(Mod shopQuotes)
@@ -106,6 +105,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             {
                 AnimationType = NPCID.Stylist;
             }
+            NPC.ElementMultipliers(new[] { 0.5f, 1.0f, 0.8f, 2.0f });
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

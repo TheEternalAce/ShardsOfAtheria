@@ -36,7 +36,6 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.AddElementAqua();
             NPC.AddElementElec();
             NPC.AddElementWood();
-            NPC.ElementMultipliers(new[] { 2.0f, 0.8f, 0.5f, 1.0f });
         }
 
         public override void SetDefaults()
@@ -46,6 +45,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.defense = 10;
             NPC.lifeMax = 50;
             BannerItem = ModContent.ItemType<CaveHarpyBanner>();
+            NPC.ElementMultipliers(new[] { 2.0f, 0.8f, 0.5f, 1.0f });
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

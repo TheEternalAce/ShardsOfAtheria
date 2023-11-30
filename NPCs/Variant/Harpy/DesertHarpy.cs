@@ -30,7 +30,6 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
             NPC.AddElementElec();
-            NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersElec);
         }
 
         public override void SetDefaults()
@@ -42,6 +41,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<DesertHarpyBanner>();
+            NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersElec);
         }
 
         public override void AI()

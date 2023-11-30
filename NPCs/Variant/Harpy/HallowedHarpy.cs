@@ -30,7 +30,6 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.AddElementAqua();
             NPC.AddElementElec();
             NPC.AddElementWood();
-            NPC.ElementMultipliers(new[] { 2.0f, 0.8f, 0.5f, 1.0f });
         }
 
         public override void SetDefaults()
@@ -42,6 +41,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<HallowedHarpyBanner>();
+            NPC.ElementMultipliers(new[] { 2.0f, 0.8f, 0.5f, 1.0f });
         }
 
         public override void AI()

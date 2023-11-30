@@ -55,7 +55,6 @@ namespace ShardsOfAtheria.NPCs
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
             NPC.AddElementElec();
-            NPC.ElementMultipliers(new[] { 1.0f, 0.5f, 0.8f, 2.0f });
         }
 
         public override void SetDefaults()
@@ -67,6 +66,7 @@ namespace ShardsOfAtheria.NPCs
 
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCDeath14;
+            NPC.ElementMultipliers(new[] { 1.0f, 0.5f, 0.8f, 2.0f });
         }
 
         int shootTimer = 0;

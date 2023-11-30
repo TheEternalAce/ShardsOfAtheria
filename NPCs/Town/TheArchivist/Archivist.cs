@@ -15,6 +15,11 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
     [AutoloadHead]
     public class Archivist : ModNPC
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[Type] = 25;
@@ -39,7 +44,6 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
             //    .SetNPCAffection(NPCID.Guide, AffectionLevel.Like);
 
             NPC.AddElementWood();
-            NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersWood);
         }
 
         internal void SetupShopQuotes(Mod shopQuotes)
@@ -64,6 +68,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
             NPC.knockBackResist = 0.5f;
 
             AnimationType = NPCID.Guide;
+            NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersWood);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
