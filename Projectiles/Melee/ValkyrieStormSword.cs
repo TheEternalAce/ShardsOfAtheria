@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
                 }
                 else
                 {
-                    Projectile.Track(player.Center, -1);
+                    Projectile.Track(player.Center);
                     if (Projectile.Hitbox.Intersects(player.getRect()))
                     {
                         Projectile.Kill();

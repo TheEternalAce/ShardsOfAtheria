@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusDaggerProjs
             int daggerIndex = (int)Projectile.ai[0];
             Projectile dagger = Main.projectile[daggerIndex];
 
-            Projectile.Track(dagger.Center, -1);
+            Projectile.Track(dagger.Center);
 
             if (Projectile.Hitbox.Intersects(dagger.Hitbox))
             {

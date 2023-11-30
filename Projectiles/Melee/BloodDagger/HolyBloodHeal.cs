@@ -32,8 +32,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodDagger
             else
             {
                 var player = Main.player[Projectile.owner];
-                Projectile.Track(player.Center, -1);
-                var rect = player.getRect();
+                Projectile.Track(player.Center);
                 if (Projectile.Hitbox.Intersects(player.Hitbox))
                 {
                     Projectile.Kill();

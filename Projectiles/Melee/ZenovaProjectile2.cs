@@ -172,7 +172,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             var player = Projectile.GetPlayerOwner();
             if (player.IsLocal())
             {
-                Projectile.Track(Main.MouseWorld, -1);
+                Projectile.Track(Main.MouseWorld);
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(45f);
         }
