@@ -3,7 +3,6 @@ using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;
 using System.Linq;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,7 +33,7 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
 
     public class MarksmanProjectile : GlobalProjectile
     {
-        private static readonly int[] ConvertableProjectiles = new int[]
+        public static readonly int[] ConvertableProjectiles = new int[]
         {
             ProjectileID.WoodenArrowFriendly,
             ProjectileID.FlamingArrow,
@@ -54,7 +53,6 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
             {
                 if (ConvertableProjectiles.Contains(projectile.type))
                 {
-                    SoundEngine.PlaySound(SoundID.Item72);
                     Projectile.NewProjectile(source, projectile.Center, projectile.velocity,
                         ModContent.ProjectileType<ElectricMarksmanShot>(), projectile.damage,
                         projectile.knockBack, projectile.owner);

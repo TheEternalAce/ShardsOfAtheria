@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 0f;
-            Item.rare = ItemRarityID.Master;
+            Item.rare = ItemDefaults.RarityAreus;
             Item.value = Item.sellPrice(0, 2, 75);
             Item.shoot = ModContent.ProjectileType<FlameCannon>();
             Item.useAmmo = AmmoID.Gel;

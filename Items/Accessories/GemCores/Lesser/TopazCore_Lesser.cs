@@ -1,5 +1,4 @@
 ﻿using ShardsOfAtheria.Systems;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -35,7 +34,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Shards().topazNecklace = !hideVisual;
             player.statLifeMax2 += 20;
         }
     }

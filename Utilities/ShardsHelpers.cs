@@ -105,21 +105,6 @@ namespace ShardsOfAtheria.Utilities
             return ref vector;
         }
 
-        public static int ToHours(this int ticks)
-        {
-            return ticks * (int)Math.Pow(60, 3);
-        }
-
-        public static int ToMinutes(this int ticks)
-        {
-            return ticks * (int)Math.Pow(60, 2);
-        }
-
-        public static int ToSeconds(this int ticks)
-        {
-            return ticks * 60;
-        }
-
         public static Color UseA(this Color color, int alpha) => new(color.R, color.G, color.B, alpha);
 
         public static Color UseA(this Color color, float alpha) => new(color.R, color.G, color.B, (int)(alpha * 255));

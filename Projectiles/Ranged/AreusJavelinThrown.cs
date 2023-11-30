@@ -56,7 +56,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                         targetNPC = Projectile.FindClosestNPC(maxDetectRadius);
                         return;
                     }
-                    Projectile.Track(targetNPC, maxDetectRadius, speed, 8);
+                    Projectile.Track(targetNPC, speed, 8);
                 }
             }
             else
@@ -71,7 +71,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                     {
                         SetSpin(false);
                     }
-                    Projectile.Track(targetNPC, maxDetectRadius, speed, 4);
+                    Projectile.Track(targetNPC, speed, 4);
                     Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
                 }
                 else if (delay <= 50)

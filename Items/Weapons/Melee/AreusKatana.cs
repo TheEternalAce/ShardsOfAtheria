@@ -77,5 +77,15 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             }
             base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
         }
+
+        public override bool? UseItem(Player player)
+        {
+            if (player.Shards().Overdrive)
+            {
+                Item.FixSwing(player);
+                return true;
+            }
+            return base.UseItem(player);
+        }
     }
 }

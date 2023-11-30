@@ -50,5 +50,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 .AddTile<AreusFabricator>()
                 .Register();
         }
+
+        public override bool? UseItem(Player player)
+        {
+            Item.FixSwing(player);
+            return true;
+        }
     }
 }

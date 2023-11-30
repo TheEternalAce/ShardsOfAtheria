@@ -7,8 +7,6 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
     [AutoloadEquip(EquipType.Legs)]
     public class RoyalGreaves : AreusArmorPiece
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetDefaults()
         {
             base.SetDefaults();

@@ -41,6 +41,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
                 .AddIngredient<AreusShard>(24)
                 .AddIngredient(ItemID.GoldBar, 10)
                 .AddIngredient(ItemID.SoulofNight, 12)
+                .AddIngredient(ItemID.Silk, 20)
                 .AddTile<AreusFabricator>()
                 .Register();
         }

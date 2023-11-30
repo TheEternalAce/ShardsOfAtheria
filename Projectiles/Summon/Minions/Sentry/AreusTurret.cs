@@ -48,7 +48,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
             }
             else if (Target == null || !Target.CanBeChasedBy())
             {
-                Target = Projectile.FindTargetWithinRange(2000);
+                int npcWhoAmI = Projectile.FindTargetWithLineOfSight(2000);
+                Target = Main.npc[npcWhoAmI];
             }
             if (Target != null)
             {

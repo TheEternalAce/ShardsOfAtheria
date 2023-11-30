@@ -25,6 +25,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
             Projectile.timeLeft = 120;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Magic;
         }
 
         int gravityTimer = 16;

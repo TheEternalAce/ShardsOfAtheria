@@ -60,7 +60,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             }
 
             GeneralBehavior(owner, out Vector2 idlePosition);
-            Projectile.Track(idlePosition, -1, 16, 16);
+            Projectile.Track(idlePosition, 16, 16);
 
             // Trying to find NPC closest to the projectile
             NPC closestNPC = Projectile.FindClosestNPC(-1);
@@ -94,7 +94,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             int count = owner.ownedProjectileCounts[Type];
             if (count == 0)
             {
-                count = 1;
+                count++;
             }
             idlePosition = owner.Center + vector.RotatedBy(MathHelper.ToRadians(
                 360 / count * Projectile.ai[0])) * 90;

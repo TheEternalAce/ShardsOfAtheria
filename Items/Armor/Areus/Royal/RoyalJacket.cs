@@ -7,8 +7,6 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
     [AutoloadEquip(EquipType.Body)]
     public class RoyalJacket : AreusArmorPiece
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetDefaults()
         {
             base.SetDefaults();

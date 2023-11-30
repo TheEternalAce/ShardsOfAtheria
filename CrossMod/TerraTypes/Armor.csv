@@ -15,9 +15,9 @@ SoldierLeggings,Electric,,LightningRod
 ImperialHood,Electric,,MoldBreaker
 ImperialGarments,Electric,,MoldBreaker
 ImperialGreaves,Electric,,MoldBreaker
-RoyalCrown,Electric,,VoltAbsorb
-RoyalJacket,Electric,,VoltAbsorb
-RoyalGreaves,Electric,,VoltAbsorb
+RoyalCrown,Electric,Dark,VoltAbsorb
+RoyalJacket,Electric,Dark,VoltAbsorb
+RoyalGreaves,Electric,Dark,VoltAbsorb
 EntropicHood,Dark,,PrismArmor
 EntropicLeggings,Dark,,PrismArmor
 EntropicRobe,Dark,,PrismArmor

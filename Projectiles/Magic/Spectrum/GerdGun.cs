@@ -16,8 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Spectrum
 
         Player Owner => Main.player[Projectile.owner];
 
-        float AttackSpeed => (Owner.GetAttackSpeed(DamageClass.Generic) +
-            Owner.GetAttackSpeed(DamageClass.Magic) - 2) / 2;
+        float AttackSpeed => (Owner.GetTotalAttackSpeed(DamageClass.Magic) - 1) * 0.6f;
 
         float ChargeTimer
         {

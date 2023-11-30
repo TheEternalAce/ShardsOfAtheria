@@ -1,5 +1,7 @@
 ﻿using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -24,6 +26,12 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.alpha = 255;
             Projectile.aiStyle = 0;
             Projectile.ignoreWater = true;
+            Projectile.arrow = true;
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            SoundEngine.PlaySound(SoundID.Item72);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

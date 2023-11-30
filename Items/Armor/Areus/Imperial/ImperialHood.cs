@@ -35,6 +35,10 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
         public override void UpdateArmorSet(Player player)
         {
             ArmorPlayer.imperialSet = true;
+            if (ArmorPlayer.CommanderSet)
+            {
+                player.maxMinions += 3;
+            }
             base.UpdateArmorSet(player);
         }
     }

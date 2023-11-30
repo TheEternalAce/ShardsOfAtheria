@@ -9,6 +9,7 @@ using ShardsOfAtheria.Projectiles.Summon.Minions;
 using ShardsOfAtheria.Projectiles.Tools;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -586,6 +587,13 @@ namespace ShardsOfAtheria.Players
                 }
                 totalDamageTaken = 0;
             }
+            if (DeathSoul)
+            {
+                if (Main.rand.NextBool(4))
+                {
+                    Player.AddBuff(BuffID.Bleeding, 900);
+                }
+            }
         }
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
@@ -647,6 +655,7 @@ namespace ShardsOfAtheria.Players
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<TrueEyeOfCthulhu>(), 0, 0f, Player.whoAmI);
                 }
             }
+            soulCrystalNames = soulCrystalNames.Distinct().ToList();
         }
 
         public override void OnEnterWorld()
@@ -681,6 +690,7 @@ namespace ShardsOfAtheria.Players
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<TrueEyeOfCthulhu>(), 0, 0f, Player.whoAmI);
                 }
             }
+            soulCrystalNames = soulCrystalNames.Distinct().ToList();
         }
 
         #region Soul crystal checks

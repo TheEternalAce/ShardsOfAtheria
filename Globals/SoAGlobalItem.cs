@@ -107,7 +107,7 @@ namespace ShardsOfAtheria.Globals
             base.ModifyTooltips(item, tooltips);
             if (item.ModItem != null)
             {
-                string overdriveKey = "Mods." + item.ModItem.Mod.Name + ".Items." + item.ModItem.Name + ".Overdrive";
+                string overdriveKey = item.ModItem.GetLocalizationKey("Overdrive");
                 if (Language.Exists(overdriveKey))
                 {
                     if (Main.LocalPlayer.Shards().Overdrive)
@@ -256,6 +256,15 @@ namespace ShardsOfAtheria.Globals
                         band.UseEffect(player);
                     }
                     shards.prototypeBandCooldown = shards.prototypeBandCooldownMax;
+                }
+                var areus = player.Areus();
+                if (areus.royalSet && areus.WarriorSet && player.HasBuff<ShadeState>())
+                {
+                    var spawnpos = Main.MouseWorld + Vector2.One.RotatedByRandom(MathHelper.TwoPi) * 130f;
+                    var vector = Vector2.Normalize(Main.MouseWorld - spawnpos) * 32;
+                    var meleeDamage = player.GetTotalDamage(DamageClass.Melee);
+                    Projectile.NewProjectile(player.GetSource_FromThis(), spawnpos, vector, ModContent.ProjectileType<VoidSlash>(),
+                        (int)meleeDamage.ApplyTo(120 + areus.royalVoid), 8f);
                 }
                 if (player.Slayer().DeathSoul)
                 {

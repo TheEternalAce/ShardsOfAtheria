@@ -84,12 +84,12 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            float distance = Projectile.Distance(target.Center);
-            if (distance >= 175)
-            {
-                target.StrikeNPC(hit);
-                freezeFrame = 6;
-            }
+            //float distance = Projectile.Distance(target.Center);
+            //if (distance >= 175)
+            //{
+            //    target.StrikeNPC(hit);
+            //    freezeFrame = 6;
+            //}
             target.AddBuff<DeathBleed>(1200);
         }
 

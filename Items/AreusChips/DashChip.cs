@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Items.Armor.Areus.Guard;
+using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -51,6 +52,16 @@ namespace ShardsOfAtheria.Items.AreusChips
                 mp.DashTimer = AreusDashPlayer.MAX_DASH_TIMER;
                 mp.DashActive = false;
             }
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<AreusArmorChip>()
+                .AddIngredient(ItemID.SwiftnessPotion, 3)
+                .AddIngredient(ItemID.Wire, 20)
+                .AddTile<AreusFabricator>()
+                .Register();
         }
     }
 

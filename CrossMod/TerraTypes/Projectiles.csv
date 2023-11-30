@@ -171,9 +171,11 @@ AreusCannonBall,Electric,
 AreusGrenadeProj,Electric,
 AreusJavelinThrown,Electric,
 ElectricMarksmanShot,Electric,
+ElectricShadeShot,Electric,Dark
 AreusRailgunProj,Electric,
 AreusPierceShot,Electric,
 AreusMagnumProj,Electric,
+AreusVoidBlast,Electric,Dark
 BallinBall,Blood,
 BloodArrowFriendly,Blood,
 BloodJavelinFriendly,Blood,

@@ -1,4 +1,7 @@
+using ShardsOfAtheria.Items.BuffItems;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
+using Terraria.ID;
 
 namespace ShardsOfAtheria.Items.AreusChips
 {
@@ -15,6 +18,16 @@ namespace ShardsOfAtheria.Items.AreusChips
         {
             base.ChipEffect(player);
             player.wingTimeMax += 20;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<AreusArmorChip>()
+                .AddIngredient<ChargedFlightPotion>(3)
+                .AddIngredient(ItemID.Wire, 20)
+                .AddTile<AreusFabricator>()
+                .Register();
         }
     }
 }

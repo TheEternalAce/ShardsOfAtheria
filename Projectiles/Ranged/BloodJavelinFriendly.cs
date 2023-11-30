@@ -29,6 +29,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.extraUpdates = 1;
+            Projectile.DamageType = DamageClass.Ranged;
 
             DrawOffsetX = -8;
         }
@@ -40,11 +41,11 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.ai[0]++;
             if (Projectile.ai[0] >= 15 && Projectile.ai[0] < 200)
             {
-                NPC npc = Projectile.FindClosestNPC(-1);
+                NPC npc = Projectile.FindClosestNPC(350);
                 if (npc != null)
                 {
                     float speed = 20;
-                    Projectile.Track(npc, 350, speed, speed);
+                    Projectile.Track(npc, speed, speed);
                 }
             }
         }

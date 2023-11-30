@@ -56,6 +56,10 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
             ArmorPlayer.guardSet = true;
             ModContent.GetInstance<AreusEnergySystem>().ShowBar();
             player.GetDamage(DamageClass.Generic) += player.Areus().areusEnergy / 100f;
+            if (ArmorPlayer.CommanderSet)
+            {
+                player.maxMinions += 2;
+            }
             base.UpdateArmorSet(player);
         }
 

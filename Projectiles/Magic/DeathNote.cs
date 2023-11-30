@@ -46,7 +46,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
             {
                 return;
             }
-            Projectile.Track(target, 400, 16f, 20f);
+            Projectile.Track(target, 16f, 20f);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

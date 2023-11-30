@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Projectile.rotation += MathHelper.ToRadians(20);
             if (++Projectile.ai[0] >= 20)
             {
-                Projectile.Track(player.Center, -1f, 30, 15);
+                Projectile.Track(player.Center, 30, 15);
             }
 
             if (++Projectile.ai[1] >= 10f + Main.rand.NextFloat(0f, 5f))

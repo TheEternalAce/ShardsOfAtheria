@@ -47,7 +47,8 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Projectile.light = 0.5f;
             Projectile.timeLeft = 12;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = -1;
+            Projectile.localNPCHitCooldown = 5;
+            Projectile.ownerHitCheck = true;
 
             DrawOriginOffsetY = -39;
         }

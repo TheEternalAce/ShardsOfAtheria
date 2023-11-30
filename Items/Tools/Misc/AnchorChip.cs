@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Tools.Misc
 {
-    public class TestItem1 : ModItem
+    public class AnchorChip : ModItem
     {
         public bool active = true;
 
@@ -32,20 +32,6 @@ namespace ShardsOfAtheria.Items.Tools.Misc
         public override void RightClick(Player player)
         {
             active = !active;
-        }
-
-        public override void UpdateInventory(Player player)
-        {
-            var item = player.inventory[7];
-            var cloneItem = new Item(item.type);
-            item.damage = cloneItem.damage;
-            if (active)
-            {
-                if (item.damage > 0)
-                {
-                    item.damage *= 100;
-                }
-            }
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

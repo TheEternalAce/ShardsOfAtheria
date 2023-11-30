@@ -88,31 +88,20 @@ namespace ShardsOfAtheria.Utilities
             return Main.npc[(int)projectile.ai[i]];
         }
 
-        public static void Track(this Projectile projectile, NPC npc, float maxDist, float speed = 16f, float inertia = 16f)
+        public static void Track(this Projectile projectile, NPC npc, float speed = 16f, float inertia = 16f)
         {
             if (npc == null) return;
             if (!npc.CanBeChasedBy()) return;
-            projectile.Track(npc.Center, maxDist, speed, inertia);
+            projectile.Track(npc.Center, speed, inertia);
         }
-        public static void Track(this Projectile projectile, Vector2 position, float maxDist, float speed = 16f, float inertia = 16f)
+        public static void Track(this Projectile projectile, Vector2 position, float speed = 16f, float inertia = 16f)
         {
-            bool shouldTrack = true;
-            if (maxDist > 0)
-            {
-                if (Vector2.Distance(projectile.Center, position) > maxDist)
-                {
-                    shouldTrack = false;
-                }
-            }
-            if (shouldTrack)
-            {
-                // The immediate range around the target (so it doesn't latch onto it when close)
-                Vector2 direction = position - projectile.Center;
-                direction.Normalize();
-                direction *= speed;
+            // The immediate range around the target (so it doesn't latch onto it when close)
+            Vector2 direction = position - projectile.Center;
+            direction.Normalize();
+            direction *= speed;
 
-                projectile.velocity = (projectile.velocity * (inertia - 1) + direction) / inertia;
-            }
+            projectile.velocity = (projectile.velocity * (inertia - 1) + direction) / inertia;
         }
 
         public static void SetVisualOffsets(this Projectile projectile, int spriteSize, bool center = false)

@@ -33,6 +33,10 @@ namespace ShardsOfAtheria.Config
         [DefaultValue(false)]
         public bool altCaveHarpy;
 
+        [DefaultValue(true)]
+        [ReloadRequired]
+        public bool overrideTypes;
+
         [Header("Commands")]
         [DefaultValue(false)]
         [ReloadRequired]

@@ -54,7 +54,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             d2.noGravity = true;
 
             Vector2 movePos = new(Projectile.ai[0] + Target.Center.X, Projectile.ai[1] + Target.Center.Y);
-            Projectile.Track(movePos, -1, 32, 8);
+            Projectile.Track(movePos, 32, 8);
         }
 
         public override void OnKill(int timeLeft)

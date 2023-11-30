@@ -42,7 +42,7 @@ namespace ShardsOfAtheria.ShardsUI
         // Slots are set manually so there wont be errors relating to matching slotTypes
         private void SetSlot(int i)
         {
-            slots[i] = new VanillaItemSlotWrapper(ItemSlot.Context.InventoryCoin, 0.8f)
+            slots[i] = new VanillaItemSlotWrapper(scale: 0.8f)
             {
                 Left = { Pixels = 0 },
                 Top = { Pixels = 52f * i },

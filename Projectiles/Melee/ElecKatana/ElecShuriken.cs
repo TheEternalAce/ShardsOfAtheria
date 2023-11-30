@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.ElecKatana
             for (int i = 0; i < 4; i++)
             {
                 var vector = Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i));
-                vector *= 16f;
+                vector *= 12f;
 
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vector,
                     ModContent.ProjectileType<ElecKunaiHoming>(), Projectile.damage, Projectile.knockBack,

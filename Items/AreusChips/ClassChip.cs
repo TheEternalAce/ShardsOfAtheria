@@ -8,7 +8,7 @@ namespace ShardsOfAtheria.Items.AreusChips
 {
     public abstract class ClassChip : AreusArmorChip
     {
-        public DamageClass damageClass { get; internal set; } = DamageClass.Default;
+        public DamageClass DamageClass { get; internal set; } = DamageClass.Default;
 
         public override void SetStaticDefaults()
         {
@@ -50,7 +50,7 @@ namespace ShardsOfAtheria.Items.AreusChips
         public override void ChipEffect(Player player)
         {
             var armorPlayer = player.Areus();
-            armorPlayer.classChip = damageClass;
+            armorPlayer.classChip = DamageClass;
         }
     }
 }

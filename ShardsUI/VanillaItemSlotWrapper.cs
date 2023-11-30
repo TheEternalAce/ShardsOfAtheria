@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.ShardsUI
         private readonly float _scale;
         internal Func<Item, bool> ValidItemFunc;
 
-        public VanillaItemSlotWrapper(int context = ItemSlot.Context.BankItem, float scale = 1f)
+        public VanillaItemSlotWrapper(int context = ItemSlot.Context.ChestItem, float scale = 1f)
         {
             _context = context;
             _scale = scale;

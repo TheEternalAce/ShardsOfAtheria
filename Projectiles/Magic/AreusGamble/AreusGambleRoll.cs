@@ -13,8 +13,6 @@ namespace ShardsOfAtheria.Projectiles.Magic.AreusGamble
 {
     public class AreusGambleRoll : ModProjectile
     {
-        int rollTimer = 0;
-
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 6;

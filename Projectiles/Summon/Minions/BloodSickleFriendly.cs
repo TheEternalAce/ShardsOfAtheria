@@ -29,6 +29,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.extraUpdates = 1;
+            Projectile.DamageType = DamageClass.Summon;
         }
 
         public override void OnSpawn(IEntitySource source)
@@ -42,7 +43,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             NPC closestNPC = Projectile.FindClosestNPC(-1);
             if (closestNPC != null)
             {
-                Projectile.Track(closestNPC, -1, 8, 8);
+                Projectile.Track(closestNPC, 8, 8);
             }
         }
 

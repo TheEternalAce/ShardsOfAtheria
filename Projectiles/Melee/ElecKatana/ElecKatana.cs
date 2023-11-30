@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.ElecKatana
         {
             base.SetDefaults();
 
-            Projectile.width = Projectile.height = 80;
+            Projectile.width = Projectile.height = 18;
             Projectile.scale = 2f;
             swordReach = 100;
             rotationOffset = -MathHelper.PiOver4 * 3f;

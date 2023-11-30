@@ -17,8 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
 
         Player Owner => Main.player[Projectile.owner];
 
-        float AttackSpeed => (Owner.GetAttackSpeed(DamageClass.Generic) +
-            Owner.GetAttackSpeed(DamageClass.Ranged) - 2) / 2;
+        float AttackSpeed => (Owner.GetTotalAttackSpeed(DamageClass.Ranged) - 1) * 0.6f;
 
         float ChargeTimer { get => Projectile.ai[0]; set => Projectile.ai[0] = value; }
 
@@ -134,6 +133,10 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
             if (chargeLevel == 10 || Owner.Shards().Overdrive)
             {
                 recoilAmount = 2f;
+                if (Owner.Shards().Overdrive)
+                {
+                    recoilAmount *= AttackSpeed;
+                }
                 knockback = 0f;
                 bullet = ModContent.ProjectileType<AreusPierceShot>();
                 Projectile.timeLeft = 45;

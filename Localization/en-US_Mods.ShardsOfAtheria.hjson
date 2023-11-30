@@ -533,8 +533,17 @@ Items: {
 			Electric shields will destroy certain enemy projectiles
 			Can parry with good timing
 			'''
-		RangedDamageClassBonus: ""
-		MagicDamageClassBonus: ""
+		RangedDamageClassBonus:
+			'''
+			Double tap UP or DOWN to create an electric veil around yourself
+			Attackers will take damage and will be briefly shocked
+			Movement speed is increased and aggro is reduced
+			'''
+		MagicDamageClassBonus:
+			'''
+			Has a chance to teleport toward the cursor and dodge an attack
+			This teleport will dramatically increase mana regeneration and reduce mana cost for a time
+			'''
 		SummonDamageClassBonus: ""
 	}
 
@@ -601,11 +610,38 @@ Items: {
 			Increased Areus weapon damage by 10%
 			Reduced mana usage by 15%
 			'''
-		SetBonus: ""
-		MeleeDamageClassBonus: ""
-		RangedDamageClassBonus: ""
-		MagicDamageClassBonus: ""
-		SummonDamageClassBonus: ""
+		SetBonus:
+			'''
+			Grants the ability to harness Royal Void
+			Consuming Royal Void provides 'Shade State'
+			Melee damage dealt is also absorbed into mana
+			'''
+		MeleeDamageClassBonus:
+			'''
+			Double tap UP or DOWN to create a void slash
+			This consumes 33 Royal Void
+			Shade State creates void slashes when melee weapons are used
+			'''
+		RangedDamageClassBonus:
+			'''
+			Double tap UP or DOWN to release a void blast
+			This consumes 33 Royal Void
+			Shade State converts certain ranged projectiles into seeking void beams
+			'''
+		MagicDamageClassBonus:
+			'''
+			Double tap UP or DOWN to shriek loudly
+			This consumes 33 Royal Void
+			Shade State 
+			'''
+		SummonDamageClassBonus:
+			'''
+			Every 2 seconds a Black Star is summoned
+			This consumes 33 Royal Void
+			After some time, the star will be ripped apart and fire a laser
+			Double tap UP or DOWN to do this manually
+			Shade State creates void tendrils from enemies struck by whips
+			'''
 	}
 
 	RoyalJacket: {
@@ -625,6 +661,41 @@ Items: {
 			Increased damage and critical strike chance by 15%
 			Increased Areus weapon damage by 10%
 			Increased movement speed by 20%
+			'''
+	}
+
+	DivineCrown: {
+		DisplayName: Areus Divine Circlet
+		Tooltip:
+			'''
+			Increased damage and critical strike chance by %
+			Increased Areus weapon damage by %
+			Reduced mana usage by %
+			'''
+		SetBonus: ""
+		MeleeDamageClassBonus: ""
+		RangedDamageClassBonus: ""
+		MagicDamageClassBonus: ""
+		SummonDamageClassBonus: ""
+	}
+
+	DivineJacket: {
+		DisplayName: Areus Divine Jacket
+		Tooltip:
+			'''
+			Increased damage and critical strike chance by %
+			Increased Areus weapon damage by %
+			Increased maximum mana by 
+			'''
+	}
+
+	DivineGreaves: {
+		DisplayName: Areus Divine Greaves
+		Tooltip:
+			'''
+			Increased damage and critical strike chance by %
+			Increased Areus weapon damage by %
+			Increased movement speed by %
 			'''
 	}
 
@@ -1400,6 +1471,17 @@ Items: {
 		Off: " (Disabled)"
 	}
 
+	SpellTwister: {
+		DisplayName: Spell Twister
+		Tooltip:
+			'''
+			Grants immunity to Shade State
+			'We love casting spells'
+			'''
+		On: " (Enabled)"
+		Off: " (Disabled)"
+	}
+
 	SpidersMechanicalClock: {
 		DisplayName: Spider's Mechanical Clock
 		Tooltip:
@@ -1419,17 +1501,6 @@ Items: {
 			Right click to cycle between absorbed Soul Crystals
 			Use to extract the currently selected Soul Crystal
 			'''
-	}
-
-	TestItem1: {
-		DisplayName: Tester Item 1
-		Tooltip:
-			'''
-			Makes the item in 8th slot deal 100x damage by default
-			Turn off before switching the item to another slot
-			'''
-		On: " (Enabled)"
-		Off: " (Disabled)"
 	}
 
 	WandOfHealing: {
@@ -2082,6 +2153,13 @@ Items: {
 		DisplayName: Life Cycle Keys
 		Tooltip: ""
 	}
+
+	AnchorChip: {
+		DisplayName: Anchor Chip
+		Tooltip: Prevents the jump from the final slash when using The Messiah
+		On: " (Enabled)"
+		Off: " (Disabled)"
+	}
 }
 
 Projectiles: {
@@ -2345,6 +2423,12 @@ Projectiles: {
 	StrikerCurrent.DisplayName: Striker Current
 	StrikerRod.DisplayName: Areus Rod
 	SoulDagger.DisplayName: Soul Dagger
+	ElectricShadeShot.DisplayName: Electric Void Shot
+	AreusVoidBlast.DisplayName: Areus Void Blast
+	BlackStar.DisplayName: Black Star
+	AreusShriek.DisplayName: Areus Shriek
+	VoidSlash.DisplayName: Void Slash
+	AreusDrone.DisplayName: Areus Drone
 }
 
 NPCs: {
@@ -2865,6 +2949,21 @@ Buffs: {
 			Attackers take damage and are shocked
 			'''
 	}
+
+	ShadeState: {
+		DisplayName: Shade State
+		Description: Provides various effects based on inserted class augment
+	}
+
+	ElectricCloak: {
+		DisplayName: Electric Cloak
+		Description: Dodge next hit
+	}
+
+	ElectricBlink: {
+		DisplayName: Electric blink
+		Description: Increased mana recovery and reduced mana cost
+	}
 }
 
 Necronomicon: {
@@ -3093,6 +3192,11 @@ Configs: {
 
 		validateSlayer: {
 			Label: Validate Slayer
+			Tooltip: ""
+		}
+
+		overrideTypes: {
+			Label: Override TerraTypes
 			Tooltip: ""
 		}
 	}

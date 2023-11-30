@@ -54,8 +54,11 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                         magnetizeSpeed *= 2f;
                         magnetizeInertia = 8f;
                     }
-                    Projectile.Track(player.Center + offset, maxDetectDistance,
-                        magnetizeSpeed, magnetizeInertia);
+                    if (Projectile.Distance(player.Center + offset) <= 100)
+                    {
+                        Projectile.Track(player.Center + offset,
+                            magnetizeSpeed, magnetizeInertia);
+                    }
                 }
             }
             if (player.itemAnimation > 1)

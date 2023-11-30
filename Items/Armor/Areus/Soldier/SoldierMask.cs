@@ -43,6 +43,10 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
         public override void UpdateArmorSet(Player player)
         {
             ArmorPlayer.soldierSet = true;
+            if (ArmorPlayer.CommanderSet)
+            {
+                player.maxMinions += 3;
+            }
             base.UpdateArmorSet(player);
         }
 
@@ -52,6 +56,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
                 .AddIngredient<AreusShard>(14)
                 .AddIngredient(ItemID.GoldBar, 4)
                 .AddIngredient(ItemID.SoulofLight, 7)
+                .AddIngredient(ItemID.Silk, 20)
                 .AddTile<AreusFabricator>()
                 .Register();
         }

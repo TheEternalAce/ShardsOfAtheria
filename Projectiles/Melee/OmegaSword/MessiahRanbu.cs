@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Tools.Misc;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -46,7 +47,14 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
             UpdateVisuals();
 
             Player player = Main.player[Projectile.owner];
-            if (combo == 7 && !launchPlayer)
+            bool jump = true;
+            if (player.HasItem(ModContent.ItemType<AnchorChip>()))
+            {
+                int slot = player.FindItem(ModContent.ItemType<AnchorChip>());
+                var item = player.inventory[slot].ModItem as AnchorChip;
+                jump = !item.active;
+            }
+            if (jump && combo == 7 && !launchPlayer)
             {
                 launchPlayer = true;
                 player.velocity += new Vector2(1 * player.direction, -2) * 6f;

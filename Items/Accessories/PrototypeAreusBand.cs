@@ -68,13 +68,16 @@ namespace ShardsOfAtheria.Items.Accessories
             {
                 if (!Wait)
                 {
-                    if (Main.rand.NextBool(5))
+                    bool fireBlade = true;
+                    if (!player.immune)
                     {
-                        if (!player.immune)
+                        if (Main.rand.NextBool(5))
                         {
+                            fireBlade = false;
+                            var meleeDamage = player.GetTotalDamage(DamageClass.Melee);
                             var info = new Player.HurtInfo()
                             {
-                                Damage = player.GetWeaponDamage(Item),
+                                Damage = (int)meleeDamage.ApplyTo(Item.damage),
                                 DamageSource = PlayerDeathReason.ByCustomReason(
                                     player.name + "'s band malfunctioned")
                             };
@@ -82,7 +85,7 @@ namespace ShardsOfAtheria.Items.Accessories
                             player.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
                         }
                     }
-                    else
+                    if (fireBlade)
                     {
                         Vector2 velocity = Main.MouseWorld - player.Center;
                         velocity.Normalize();

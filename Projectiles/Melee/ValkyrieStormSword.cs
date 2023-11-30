@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
                 if (Main.mouseLeft)
                 {
                     float speed = 25f;
-                    Projectile.Track(Main.MouseWorld, -1, speed, speed / 2);
+                    Projectile.Track(Main.MouseWorld, speed, speed / 2);
                 }
                 else
                 {

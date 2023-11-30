@@ -1,5 +1,7 @@
 using ShardsOfAtheria.Items.AreusChips;
+using ShardsOfAtheria.ShardsUI.AreusVoid;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Armor.Areus.Royal
@@ -7,7 +9,10 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
     [AutoloadEquip(EquipType.Head)]
     public class RoyalCrown : AreusArmorPiece
     {
-        public override string Texture => SoA.PlaceholderTexture;
+        public override void SetStaticDefaults()
+        {
+            ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
+        }
 
         public override void SetDefaults()
         {
@@ -40,6 +45,12 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
         public override void UpdateArmorSet(Player player)
         {
             ArmorPlayer.royalSet = true;
+            ModContent.GetInstance<AreusVoidSystem>().ShowBar();
+            player.GetDamage(DamageClass.Generic) += ArmorPlayer.royalVoid / 100f;
+            if (ArmorPlayer.CommanderSet)
+            {
+                player.maxMinions += 4;
+            }
             base.UpdateArmorSet(player);
         }
     }

@@ -1,4 +1,6 @@
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.AreusChips
@@ -9,12 +11,28 @@ namespace ShardsOfAtheria.Items.AreusChips
         {
             base.SetDefaults();
 
-            damageClass = DamageClass.Melee;
+            DamageClass = DamageClass.Melee;
         }
 
         public override void ChipEffect(Player player)
         {
             base.ChipEffect(player);
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<AreusArmorChip>()
+                .AddIngredient(ItemID.IronBroadsword)
+                .AddIngredient(ItemID.Wire, 20)
+                .AddTile<AreusFabricator>()
+                .Register();
+            CreateRecipe()
+                .AddIngredient<AreusArmorChip>()
+                .AddIngredient(ItemID.LeadBroadsword)
+                .AddIngredient(ItemID.Wire, 20)
+                .AddTile<AreusFabricator>()
+                .Register();
         }
     }
 }

@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.AreusChips
@@ -19,6 +21,16 @@ namespace ShardsOfAtheria.Items.AreusChips
             base.ChipEffect(player);
             player.GetAttackSpeed(DamageClass.Generic) += 0.15f;
             player.GetModPlayer<BerserkPlayer>().berserk = true;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<AreusArmorChip>()
+                .AddIngredient(ItemID.WrathPotion, 3)
+                .AddIngredient(ItemID.Wire, 20)
+                .AddTile<AreusFabricator>()
+                .Register();
         }
     }
 

@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.consumable = true;
             Item.ammo = ItemID.Grenade;
 
-            Item.damage = 70;
+            Item.damage = 50;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 7;
             Item.crit = 6;

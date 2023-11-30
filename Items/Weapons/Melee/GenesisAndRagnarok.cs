@@ -169,6 +169,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool? UseItem(Player player)
         {
+            if (combo == 3 || combo == 4)
+            {
+                Item.FixSwing(player);
+            }
+
             ShardsPlayer shardsPlayer = player.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 

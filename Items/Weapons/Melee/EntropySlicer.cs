@@ -55,5 +55,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
+
+        public override bool? UseItem(Player player)
+        {
+            Item.FixSwing(player);
+            return true;
+        }
     }
 }

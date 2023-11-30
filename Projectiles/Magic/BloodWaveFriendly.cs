@@ -29,6 +29,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.extraUpdates = 1;
+            Projectile.DamageType = DamageClass.Magic;
 
             DrawOffsetX = -13;
         }
