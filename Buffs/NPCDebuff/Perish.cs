@@ -11,7 +11,6 @@ namespace ShardsOfAtheria.Buffs.NPCDebuff
     {
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<PerishNPC>().perish = true;
             for (var i = 0; i < 20; i++)
             {
                 Vector2 spawnPos = npc.Center + Main.rand.NextVector2CircularEdge(100, 100);
@@ -32,41 +31,31 @@ namespace ShardsOfAtheria.Buffs.NPCDebuff
 
     public class PerishNPC : GlobalNPC
     {
-        public bool perish;
-
-        public override bool InstancePerEntity => true;
-
-        public override void ResetEffects(NPC npc)
-        {
-            perish = false;
-        }
-
         public override void OnKill(NPC npc)
         {
-            if (perish)
+            if (npc.HasBuff<Perish>())
             {
-                if (Main.netMode == NetmodeID.SinglePlayer)
+                foreach (Player player in Main.player)
                 {
-                    Player player = Main.LocalPlayer;
-                    if (Vector2.Distance(player.Center, npc.Center) <= 100)
+                    if (player != null)
                     {
-                        PlayerDeathReason deathReason = PlayerDeathReason.ByCustomReason(player.name + " perished with " + npc.TypeName + ".");
-                        player.KillMe(deathReason, 10000, 0);
+                        if (!player.immune)
+                        {
+                            if (Vector2.Distance(player.Center, npc.Center) <= 100)
+                            {
+                                PlayerDeathReason deathReason = PlayerDeathReason.ByCustomReason(player.name + " perished with " + npc.TypeName + ".");
+                                player.KillMe(deathReason, player.statLifeMax2 * 6, 0);
+                            }
+                        }
                     }
                 }
                 foreach (NPC npcOther in Main.npc)
                 {
-                    if (!npcOther.boss || npcOther.active || npcOther.whoAmI != npc.whoAmI)
+                    if (!npcOther.boss && npcOther.whoAmI != npc.whoAmI && npcOther.CanBeChasedBy())
                     {
                         if (Vector2.Distance(npc.Center, npcOther.Center) <= 100)
                         {
-                            NPC.HitInfo info = new()
-                            {
-                                Damage = npcOther.lifeMax * 3,
-                                Crit = true,
-                                HideCombatText = true,
-                            };
-                            npcOther.StrikeNPC(info);
+                            npcOther.StrikeInstantKill();
                         }
                     }
                 }

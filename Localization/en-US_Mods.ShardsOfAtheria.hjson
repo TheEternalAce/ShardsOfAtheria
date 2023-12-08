@@ -13,7 +13,6 @@ Common: {
 	TitleText0: Shards of Atheria: Splitting Skies
 	TitleText1: Shards of Atheria: The World Revolving
 	TitleText2: Shards of Atheria: Shattered Atheria
-	TitleText3: Shards of Atheria: Was the wait worth it? Absolutely not!
 	AreusKatanaTransformation:
 		'''
 		The infernal katana embeds itself into your areus katana, twisting its shape and making it scream.
@@ -88,6 +87,46 @@ Items: {
 	# Accessories
 	
 	# Gem cores
+	# Amber
+	AmberCore_Lesser: {
+		DisplayName: Lesser Amber Core
+		Tooltip: Increases max minions by 2
+	}
+
+	AmberCore: {
+		DisplayName: Amber Core
+		Tooltip:
+			'''
+			Increases max minions by 3
+			Further increased max minions after taking damage
+			Summon two Amber Flies after taking damage
+			'''
+	}
+
+	AmberCore_Greater: {
+		DisplayName: Greater Amber Core
+		Tooltip:
+			'''
+			Increases max minions by 4
+			Further increased max minions after taking damage
+			Summon two Amber Flies after taking damage
+			Enemy kills drop Amber Banners
+			Banners increase nearby player movement and attack speed and defense
+			'''
+	}
+
+	AmberCore_Super: {
+		DisplayName: Super Amber Core
+		Tooltip:
+			'''
+			Increases max minions by 5
+			Further increased max minions after taking damage
+			Summon two Amber Flies after taking damage
+			Enemy kills drop Amber Banners
+			Banners increase nearby player movement and attack speed and defense
+			'''
+	}
+
 	# Amethyst
 	AmethystCore_Lesser: {
 		DisplayName: Lesser Amethyst Core
@@ -96,7 +135,11 @@ Items: {
 
 	AmethystCore: {
 		DisplayName: Amethyst Core
-		Tooltip: Gives a dash to the wearer
+		Tooltip:
+			'''
+			Gives a dash to the wearer
+			Boost other gem buffs after taking damage
+			'''
 	}
 
 	AmethystCore_Greater: {
@@ -104,8 +147,11 @@ Items: {
 		Tooltip:
 			'''
 			Gives a dash to the wearer
-			Grants immunity to 'Ichor' and 'Cursed Inferno'
+			Boost other gem buffs after taking damage
+			Press <{$Mods.ShardsOfAtheria.Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing amethyst bombs
 			'''
+		ToggleOn: Pickackes will throw amethyst bombs.
+		ToggleOff: Pickackes will not throw amethyst bombs.
 	}
 
 	AmethystCore_Super: {
@@ -113,8 +159,9 @@ Items: {
 		Tooltip:
 			'''
 			Gives a great dash to the wearer
-			Grants immunity to knockback, 'Poison', 'Venom', 'On Fire', cold debuffs, lava and fire blocks
-			Master Ninja Gear effects
+			Boost other gem buffs after taking damage
+			Press <{$Mods.ShardsOfAtheria.Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing an amethyst bomb when using a pickaxe
+			Grants immunity to fire, cold, electric, and poison debuffs
 			'''
 	}
 
@@ -126,15 +173,15 @@ Items: {
 
 	DiamondCore: {
 		DisplayName: Diamond Core
-		Tooltip: Grants immunity to knockback
+		Tooltip: Further increased defense after taking damage
 	}
 
 	DiamondCore_Greater: {
 		DisplayName: Greater Diamond Core
 		Tooltip:
 			'''
-			Grants immunity to knockback
-			Effects of Ankh Shield
+			Further increased defense after taking damage
+			A large diamond orbits and blocks projectiles
 			'''
 	}
 
@@ -142,19 +189,15 @@ Items: {
 		DisplayName: Super Diamond Core
 		Tooltip:
 			'''
-			Grants immunity to defense reducing debuffs and knockback
-			Effects of Ankh Shield
+			Further increased defense after taking damage
+			A large diamond orbits and blocks projectiles
 			'''
 	}
 
 	# Emerald
 	EmeraldCore_Lesser: {
 		DisplayName: Lesser Emerald Core
-		Tooltip:
-			'''
-			5% increased movement speed
-			Increased jump height
-			'''
+		Tooltip: 5% increased movement speed
 	}
 
 	EmeraldCore: {
@@ -162,8 +205,8 @@ Items: {
 		Tooltip:
 			'''
 			10% increased movement speed
-			Increased jump height
 			Increases flight time
+			Further increased movement speed after taking damage
 			'''
 	}
 
@@ -172,9 +215,8 @@ Items: {
 		Tooltip:
 			'''
 			10% increased movement speed
-			Increased jump height
 			Increases flight time
-			Panic Necklace, Terraspark Boots and Flippers effects
+			Further increased movement speed after taking damage
 			'''
 	}
 
@@ -183,10 +225,8 @@ Items: {
 		Tooltip:
 			'''
 			15% increased movement speed
-			Increased jump height
 			Increases flight time
-			Bundle of Balloons, Panic Necklace, Terraspark Boots, and Flippers effects
-			Grants flight, slowfall and immunity to cold debuffs
+			Further increased movement speed after taking damage
 			Press <{$Mods.ShardsOfAtheria.Keybinds.EmeraldTeleport.DisplayName}> to teleport to your cursor
 			'''
 	}
@@ -202,7 +242,7 @@ Items: {
 		Tooltip:
 			'''
 			10% increased damage
-			Attacks inflict 'On Fire!'
+			Further increased damage after taking damage
 			'''
 	}
 
@@ -211,9 +251,8 @@ Items: {
 		Tooltip:
 			'''
 			10% increased damage and attack speed
-			Increases knockback
-			Increased melee size
-			Attacks inflict 'Hellfire'
+			Further increased damage after taking damage
+			Enemy hits create exploding rubies
 			All weapons autoswing
 			'''
 	}
@@ -223,9 +262,8 @@ Items: {
 		Tooltip:
 			'''
 			15% increased damage and attack speed
-			Increased knockback, attack speed and melee size
-			Attacks inflict 'Cursed Inferno' and 'Ichor'
-			Grants immunity to damage reducing and anti attacking debuffs
+			Further increased damage after taking damage
+			Enemy hits create exploding rubies
 			All weapons autoswing
 			'''
 	}
@@ -238,7 +276,11 @@ Items: {
 
 	SapphireCore: {
 		DisplayName: Sapphire Core
-		Tooltip: 10% chance to dodge attacks
+		Tooltip:
+			'''
+			10% chance to dodge attacks
+			Attacks inflict confusion after taking damage
+			'''
 	}
 
 	SapphireCore_Greater: {
@@ -246,7 +288,8 @@ Items: {
 		Tooltip:
 			'''
 			10% chance to dodge attacks
-			Thorns effect
+			Attacks inflict confusion after taking damage
+			Release sapphire spikes when damaged
 			'''
 	}
 
@@ -255,9 +298,9 @@ Items: {
 		Tooltip:
 			'''
 			15% chance to dodge attacks
-			+5 additional minion slots
-			Thorns effect
-			Inferno effect when taking damage
+			Attacks inflict confusion after taking damage
+			Release sapphire spikes when damaged
+			Sapphire Spirit will now fight beside you
 			'''
 	}
 
@@ -277,7 +320,7 @@ Items: {
 		Tooltip:
 			'''
 			Increases max life by 40
-			Effects of Charm of Myths
+			On kill, drop a healing topaz orb
 			'''
 	}
 
@@ -286,8 +329,7 @@ Items: {
 		Tooltip:
 			'''
 			Increases max life by 60
-			Effects of Charm of Myths
-			Cozy Campfire and Heart Lantern buffs
+			On kill, drop a healing topaz orb
 			'''
 	}
 
@@ -295,23 +337,16 @@ Items: {
 		DisplayName: Master Gem Core
 		Tooltip:
 			'''
-			Counts as wings
 			Increases max life by 100
 			Increases damage and attack speed by 20%
 			Increases movement speed by 15%
 			Increases knockback and melee size
-			+8 extra minion slots
+			+6 extra minion slots
 			20% chance to dodge attacks
 			Gives a super dash to the wearer
-			Attacks inflict Daybroken and Betsy's Curse
 			All weapons autoswing
-			Grants immunity to damage dealing, damage and defense reducing, most anti-healing and cold debuffs
-			Grants Ironskin and Endurance when dealing damage and Wrath, Rage and Inferno when taking damage
-			Effects of Ankh Shield, Bundle of Balloons, Charm of Myths, and Terraspark Boots
-			Permanent Thorns, Heart Lantern, Cozy Campfire, Heartreach and Gravitation buffs
 			Press <{$Mods.ShardsOfAtheria.Keybinds.MasterCoreToggles.DisplayName}> to open visual settings
 			Press <{$Mods.ShardsOfAtheria.Keybinds.EmeraldTeleport.DisplayName}> to teleport to your cursor
-			Grants flight and slow fall
 			'''
 	}
 
@@ -544,7 +579,11 @@ Items: {
 			Has a chance to teleport toward the cursor and dodge an attack
 			This teleport will dramatically increase mana regeneration and reduce mana cost for a time
 			'''
-		SummonDamageClassBonus: ""
+		SummonDamageClassBonus:
+			'''
+			Taking damage summons a temporary areus drone
+			There can be up to 6 of these drones
+			'''
 	}
 
 	SoldierBreastplate: {
@@ -632,7 +671,7 @@ Items: {
 			'''
 			Double tap UP or DOWN to shriek loudly
 			This consumes 33 Royal Void
-			Shade State 
+			Shade State creates void daggers when striking enemies
 			'''
 		SummonDamageClassBonus:
 			'''
@@ -1453,6 +1492,19 @@ Items: {
 		Tooltip: ""
 	}
 
+	AnchorChip: {
+		DisplayName: Anchor Chip
+		Tooltip: Prevents the jump from the final slash when using The Messiah
+		On: " (Enabled)"
+		Off: " (Disabled)"
+	}
+
+	CheatersGlove: {
+		DisplayName: Cheater's Glove
+		Tooltip: Causes the Areus Gamble to always land on a certain face
+		Off: " (Disabled)"
+	}
+
 	RiggedCoin: {
 		DisplayName: Rigged Coin
 		Tooltip:
@@ -1462,12 +1514,6 @@ Items: {
 			'''
 		Heads: " (Heads)"
 		Tails: " (Tails)"
-		Off: " (Disabled)"
-	}
-
-	CheatersGlove: {
-		DisplayName: Cheater's Glove
-		Tooltip: Causes the Areus Gamble to always land on a certain face
 		Off: " (Disabled)"
 	}
 
@@ -1586,6 +1632,12 @@ Items: {
 	AreusShrieker: {
 		DisplayName: Areus Shrieker
 		Tooltip: "'But here's the shrieker'"
+	}
+
+	AreusSigil: {
+		DisplayName: Areus Sigil
+		Tooltip: ""
+		Overdrive: Lightning arcs are attracted to nearby enemies
 	}
 
 	AreusStaff: {
@@ -1928,6 +1980,8 @@ Items: {
 				Increased damage
 				'''
 		}
+
+		Overdrive: Exagerates the features of the calibration modes
 	}
 
 	AreusFlameCannon: {
@@ -2089,6 +2143,11 @@ Items: {
 		Tooltip: ""
 	}
 
+	AreusChain: {
+		DisplayName: Areus Chain
+		Tooltip: Strikes cause golden chains to sprout from the target
+	}
+
 	AreusStriker: {
 		DisplayName: Areus Striker
 		Tooltip:
@@ -2152,13 +2211,6 @@ Items: {
 	LifeCycleKeys: {
 		DisplayName: Life Cycle Keys
 		Tooltip: ""
-	}
-
-	AnchorChip: {
-		DisplayName: Anchor Chip
-		Tooltip: Prevents the jump from the final slash when using The Messiah
-		On: " (Enabled)"
-		Off: " (Disabled)"
 	}
 }
 
@@ -2429,6 +2481,20 @@ Projectiles: {
 	AreusShriek.DisplayName: Areus Shriek
 	VoidSlash.DisplayName: Void Slash
 	AreusDrone.DisplayName: Areus Drone
+	SigilLightning.DisplayName: Lightning Bolt
+	LightningSigil.DisplayName: Areus Sigil
+	VoidDagger.DisplayName: Void Dagger
+	TheRoyalCrown.DisplayName: The Royal Crown
+	AreusChainWhip.DisplayName: Areus Chain
+	GoldChain.DisplayName: Gold Chain
+	VoidThorn.DisplayName: Void Thorn
+	AmberFly.DisplayName: Amber Fly
+	AmethystBomb.DisplayName: Amethyst Impact Bomb
+	SapphireSpike.DisplayName: Sapphire Spike
+	DiamondBarrier.DisplayName: Diamond Barrier
+	AmberSpit.DisplayName: Amber Spit
+	TopazOrb.DisplayName: Topaz Orb
+	AmberBanner.DisplayName: Amber Banner
 }
 
 NPCs: {
@@ -2711,12 +2777,12 @@ Buffs: {
 
 	Perish: {
 		DisplayName: Perish
-		Description: Mods.ShardsOfAtheria.Buffs.Perish.Description
+		Description: Death spreads around you
 	}
 
 	StrikerTag: {
 		DisplayName: Striker Tag
-		Description: Mods.ShardsOfAtheria.Buffs.StrikerTag.Description
+		Description: Electricity runs through your body
 	}
 
 	Withering: {
@@ -2771,12 +2837,8 @@ Buffs: {
 	}
 
 	Overdrive: {
-		DisplayName: Overdrive: ON
-		Description:
-			'''
-			'Your systems are being pushed beyond their limits'
-			Damage increased by 50%
-			'''
+		DisplayName: Overdrive
+		Description: Your systems are being pushed beyond their limits
 	}
 
 	SpareChange: {
@@ -2964,6 +3026,46 @@ Buffs: {
 		DisplayName: Electric blink
 		Description: Increased mana recovery and reduced mana cost
 	}
+
+	CunningSapphire: {
+		DisplayName: Cunning Sapphire
+		Description: Attacks confuze enemies
+	}
+
+	FleetingEmerald: {
+		DisplayName: Fleeting Emerald
+		Description: Increased movement speed
+	}
+
+	MendingTopaz: {
+		DisplayName: Mending Topaz
+		Description: Increased life regen
+	}
+
+	TenaciousDiamond: {
+		DisplayName: Tenacious Diamond
+		Description: Increased defense
+	}
+
+	VengefulRuby: {
+		DisplayName: Vengeful Ruby
+		Description: Increased damage
+	}
+
+	SwarmingAmber: {
+		DisplayName: Swarming Amber
+		Description: Increased max minions
+	}
+
+	RallyingAmethyst: {
+		DisplayName: Rallying Amethyst
+		Description: Boosted gem buffs
+	}
+
+	AmberBannerBuff: {
+		DisplayName: Amber Banner Buff
+		Description: Mods.ShardsOfAtheria.Buffs.AmberBannerBuff.Description
+	}
 }
 
 Necronomicon: {
@@ -2980,7 +3082,7 @@ Necronomicon: {
 		'''
 		Soul Crystal Info:
 		Absorbing a boss' Soul Crystal gives you it's powers. Be warned: absorbing too many Soul Crystals may descend you into madness.
-		Soul Crystals are removable by making a Soul Extracting Dagger.
+		Soul Crystals are removable by making and using a Soul Extracting Dagger.
 		'''
 	WipSoulEntry: This Soul Crystal needs further research. Please wait for this boss to be introduced into the mod.
 }
@@ -3043,7 +3145,8 @@ Keybinds: {
 	ElementAffinity.DisplayName: Cycle Element Affinity
 	RemoveAreusChip.DisplayName: Remove Areus Chip
 	CycleElementAffinity.DisplayName: Cycle Element Affinity
-	MasterCoreToggles.DisplayName: Show Master Gem Core Visual Toggles
+	MasterCoreToggles.DisplayName: Master Gem Core Visual Toggles
+	AmethystBombToggle.DisplayName: Amethyst Bomb Toggle
 }
 
 Configs: {

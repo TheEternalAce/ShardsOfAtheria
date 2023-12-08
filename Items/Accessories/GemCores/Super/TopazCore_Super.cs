@@ -35,17 +35,14 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
 
         public override void UpdateVanity(Player player)
         {
-            player.Shards().topazNecklace = true;
+            player.Gem().topazNecklace = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Shards().topazNecklace = !hideVisual;
-            player.statLifeMax2 += 60;
-            player.pStone = true;
+            ModContent.GetInstance<TopazCore_Greater>().UpdateAccessory(player, hideVisual);
+            player.statLifeMax2 += 20;
             player.lifeRegen += 1;
-            player.AddBuff(BuffID.Campfire, 2);
-            player.AddBuff(BuffID.HeartLamp, 2);
         }
     }
 }

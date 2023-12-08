@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -31,9 +30,8 @@ namespace ShardsOfAtheria.Items.Tools.Hooks
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<HardlightPrism>(), 16)
-                .AddRecipeGroup(ShardsRecipes.Gold, 16)
-                .AddTile(TileID.Anvils)
+                .AddIngredient(ModContent.ItemType<HardlightPrism>(), 8)
+                .AddTile(TileID.SkyMill)
                 .Register();
         }
     }

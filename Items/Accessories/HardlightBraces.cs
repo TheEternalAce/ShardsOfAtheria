@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Magic;
-using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -46,9 +45,8 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<HardlightPrism>(), 15)
-                .AddRecipeGroup(ShardsRecipes.Gold, 6)
-                .AddTile(TileID.Anvils)
+                .AddIngredient(ModContent.ItemType<HardlightPrism>(), 10)
+                .AddTile(TileID.SkyMill)
                 .Register();
         }
 

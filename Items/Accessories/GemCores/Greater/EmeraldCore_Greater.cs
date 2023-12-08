@@ -36,21 +36,13 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
 
         public override void UpdateVanity(Player player)
         {
-            player.Shards().emeraldBoots = true;
+            player.Gem().emeraldBoots = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            // Frostspark Boots
-            player.accRunSpeed = 6.75f;
-            player.rocketBoots = player.vanityRocketBoots = 3;
-            player.iceSkate = true;
-
-            // Misc
-            player.accFlipper = true;
-            player.jumpBoost = true;
-            player.wingTimeMax += 20;
-            player.Shards().emeraldBoots = !hideVisual;
+            ModContent.GetInstance<EmeraldCore>().UpdateAccessory(player, hideVisual);
+            player.wingTimeMax += 10;
         }
     }
 }

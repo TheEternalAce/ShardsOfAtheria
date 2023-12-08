@@ -60,7 +60,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
                             NPC.HitInfo hitInfo = new()
                             {
                                 Damage = Projectile.damage,
-                                Knockback = Projectile.knockBack,
+                                Knockback = 0,
                                 DamageType = Projectile.DamageType,
                                 HitDirection = Projectile.direction,
                             };

@@ -13,8 +13,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class AreusCalibratedShotgun : ModItem
     {
-        const int CALIBRATION_MAX = 2;
-        int calibration = 0;
+        int calibrationMode = 0;
+        float speedMultiplier = 1f;
 
         public override void SetStaticDefaults()
         {
@@ -64,73 +64,109 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            var shards = player.Shards();
+            bool overdrive = shards.Overdrive;
             if (player.altFunctionUse == 2)
             {
-                calibration++;
-                if (calibration > CALIBRATION_MAX)
+                calibrationMode++;
+                if (calibrationMode > 2)
                 {
-                    calibration = 0;
+                    calibrationMode = 0;
                 }
-                var key = this.GetLocalizationKey("Calibration" + calibration + ".DisplayName");
-                string cal = Language.GetTextValue(key);
-                CombatText.NewText(player.Hitbox, Color.Cyan, cal);
+                var key = this.GetLocalizationKey("Calibration" + calibrationMode + ".DisplayName");
+                string calibration = Language.GetTextValue(key);
+                CombatText.NewText(player.Hitbox, Color.Cyan, calibration);
                 return false;
             }
-            int numberProjectiles = 4 + Main.rand.Next(0, 4);
-            float rotation = MathHelper.ToRadians(30);
-            if (calibration == 1)
+            int numberProjectiles = 2 + Main.rand.Next(0, 3);
+            float rotation = MathHelper.ToRadians(20);
+            if (calibrationMode == 1)
             {
+                int misfireDemominator = 5;
                 numberProjectiles *= 2;
-                if (Main.rand.NextBool(5))
+                if (overdrive)
+                {
+                    numberProjectiles *= 2;
+                    misfireDemominator = 3;
+                }
+                if (Main.rand.NextBool(misfireDemominator))
                 {
                     return false;
                 }
             }
-            if (calibration == 2)
+            if (calibrationMode == 2)
             {
                 rotation = MathHelper.ToRadians(5);
-                numberProjectiles = 3;
+                numberProjectiles = 2;
+                if (overdrive)
+                {
+                    rotation = 0;
+                }
             }
-            for (int i = 0; i < numberProjectiles; i++)
+            if (numberProjectiles > 1)
             {
-                Vector2 newVelocity = velocity.RotatedByRandom(rotation);
-                newVelocity *= 1f - Main.rand.NextFloat(0.3f);
-                Projectile.NewProjectile(source, position, newVelocity, type, damage, knockback, player.whoAmI);
+                for (int i = 0; i < numberProjectiles; i++)
+                {
+                    Vector2 newVelocity = velocity.RotatedByRandom(rotation);
+                    newVelocity *= 1f - Main.rand.NextFloat(0.3f);
+                    Projectile.NewProjectile(source, position, newVelocity, type, damage, knockback);
+                }
             }
-            return false;
+            return calibrationMode == 2 && !overdrive;
         }
 
         public override float UseSpeedMultiplier(Player player)
         {
-            if (calibration == 1)
-            {
-                return 0.5f;
-            }
-            if (calibration == 2)
-            {
-                return 0.33f;
-            }
-            return base.UseSpeedMultiplier(player);
+            return speedMultiplier;
         }
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            if (calibration == 2)
+            var shards = player.Shards();
+            bool overdrive = shards.Overdrive;
+            if (calibrationMode == 2)
             {
-                damage *= 2f;
+                damage *= 3.5f;
+                if (overdrive)
+                {
+                    damage *= 1.5f;
+                }
             }
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            var key = this.GetLocalizationKey("Calibration" + calibration + ".DisplayName");
-            string mode = Language.GetTextValue(key);
-            tooltips[0].Text += mode;
-
-            var key1 = this.GetLocalizationKey("Calibration" + calibration + ".Tooltip");
-            string lineText = Language.GetTextValue(key1);
+            var key = this.GetLocalizationKey("Calibration" + calibrationMode + ".Tooltip");
+            string lineText = Language.GetTextValue(key);
             TooltipLine line = new(Mod, "", lineText);
             tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
+        }
+
+        public override void UpdateInventory(Player player)
+        {
+            string name = Language.GetTextValue(this.GetLocalizationKey("DisplayName"));
+            var key = this.GetLocalizationKey("Calibration" + calibrationMode + ".DisplayName");
+            string mode = Language.GetTextValue(key);
+            Item.SetNameOverride(name + mode);
+
+            var shards = player.Shards();
+            bool overdrive = shards.Overdrive;
+            speedMultiplier = 1f;
+            if (calibrationMode == 1)
+            {
+                speedMultiplier = 0.5f;
+            }
+            if (calibrationMode == 2)
+            {
+                speedMultiplier = 0.33f;
+            }
+            if (calibrationMode > 0)
+            {
+                if (overdrive)
+                {
+                    speedMultiplier -= 0.1f;
+                }
+            }
         }
 
         public override Vector2? HoldoutOffset()

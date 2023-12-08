@@ -3,8 +3,10 @@ using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -42,13 +44,17 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (player.whoAmI == Main.myPlayer)
+            type = Item.shoot;
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            if (player.IsLocal())
             {
-                type = Item.shoot;
-                velocity = Vector2.Zero;
-                position = Main.MouseWorld + new Vector2(-6, -6);
+                var position1 = Main.MouseWorld + new Vector2(-6, -6);
+                Projectile.NewProjectile(source, position1, Vector2.Zero, type, damage, knockback);
             }
-            base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
+            return false;
         }
 
         public override Vector2? HoldoutOffset()

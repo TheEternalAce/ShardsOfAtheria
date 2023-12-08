@@ -37,11 +37,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             {
                 SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
             }
-            Projectile.ai[0]++;
-            if (Projectile.ai[0] >= 15 && !Projectile.friendly)
-            {
-                Projectile.friendly = true;
-            }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
         }
 

@@ -13,7 +13,6 @@ Common: {
 	TitleText0: Shards of Atheria: Splitting Skies
 	TitleText1: Shards of Atheria: The World Revolving
 	TitleText2: Shards of Atheria: Shattered Atheria
-	// TitleText3: Shards of Atheria: Was the wait worth it? Absolutely not!
 	/* AreusKatanaTransformation:
 		'''
 		The infernal katana embeds itself into your areus katana, twisting its shape and making it scream.
@@ -86,6 +85,46 @@ Items: {
 	# Accessories
 	
 	# Gem cores
+	# Amber
+	AmberCore_Lesser: {
+		// DisplayName: Lesser Amber Core
+		// Tooltip: Increases max minions by 2
+	}
+
+	AmberCore: {
+		// DisplayName: Amber Core
+		/* Tooltip:
+			'''
+			Increases max minions by 3
+			Further increased max minions after taking damage
+			Summon two Amber Flies after taking damage
+			''' */
+	}
+
+	AmberCore_Greater: {
+		// DisplayName: Greater Amber Core
+		/* Tooltip:
+			'''
+			Increases max minions by 4
+			Further increased max minions after taking damage
+			Summon two Amber Flies after taking damage
+			Enemy kills drop Amber Banners
+			Banners increase nearby player movement and attack speed and defense
+			''' */
+	}
+
+	AmberCore_Super: {
+		// DisplayName: Super Amber Core
+		/* Tooltip:
+			'''
+			Increases max minions by 5
+			Further increased max minions after taking damage
+			Summon two Amber Flies after taking damage
+			Enemy kills drop Amber Banners
+			Banners increase nearby player movement and attack speed and defense
+			''' */
+	}
+
 	# Amethyst
 	AmethystCore_Lesser: {
 		DisplayName: Núcleo Pequeno de Ametista
@@ -104,6 +143,8 @@ Items: {
 			Dá um dash ao usuário
 			Garante imunidade a 'Ichor' e a 'Inferno Amaldiçoado'
 			'''
+		// ToggleOn: Pickackes will throw amethyst bombs.
+		// ToggleOff: Pickackes will not throw amethyst bombs.
 	}
 
 	AmethystCore_Super: {
@@ -528,7 +569,11 @@ Items: {
 			Has a chance to teleport toward the cursor and dodge an attack
 			This teleport will dramatically increase mana regeneration and reduce mana cost for a time
 			''' */
-		// SummonDamageClassBonus: ""
+		/* SummonDamageClassBonus:
+			'''
+			Taking damage summons a temporary areus drone
+			There can be up to 6 of these drones
+			''' */
 	}
 
 	SoldierBreastplate: {
@@ -616,7 +661,7 @@ Items: {
 			'''
 			Double tap UP or DOWN to shriek loudly
 			This consumes 33 Royal Void
-			Shade State 
+			Shade State creates void daggers when striking enemies
 			''' */
 		/* SummonDamageClassBonus:
 			'''
@@ -1431,6 +1476,19 @@ Items: {
 		Tooltip: ""
 	}
 
+	AnchorChip: {
+		// DisplayName: Anchor Chip
+		// Tooltip: Prevents the jump from the final slash when using The Messiah
+		// On: " (Enabled)"
+		// Off: " (Disabled)"
+	}
+
+	CheatersGlove: {
+		// DisplayName: Cheater's Glove
+		// Tooltip: Causes the Areus Gamble to always land on a certain face
+		// Off: " (Disabled)"
+	}
+
 	RiggedCoin: {
 		// DisplayName: Rigged Coin
 		/* Tooltip:
@@ -1440,12 +1498,6 @@ Items: {
 			''' */
 		// Heads: " (Heads)"
 		// Tails: " (Tails)"
-		// Off: " (Disabled)"
-	}
-
-	CheatersGlove: {
-		// DisplayName: Cheater's Glove
-		// Tooltip: Causes the Areus Gamble to always land on a certain face
 		// Off: " (Disabled)"
 	}
 
@@ -1564,6 +1616,12 @@ Items: {
 	AreusShrieker: {
 		// DisplayName: Areus Shrieker
 		// Tooltip: "'But here's the shrieker'"
+	}
+
+	AreusSigil: {
+		// DisplayName: Areus Sigil
+		// Tooltip: ""
+		// Overdrive: Lightning arcs are attracted to nearby enemies
 	}
 
 	AreusStaff: {
@@ -1900,6 +1958,8 @@ Items: {
 				Increased damage
 				''' */
 		}
+
+		// Overdrive: Exagerates the features of the calibration modes
 	}
 
 	AreusFlameCannon: {
@@ -2069,6 +2129,11 @@ Items: {
 		// Tooltip: ""
 	}
 
+	AreusChain: {
+		// DisplayName: Areus Chain
+		// Tooltip: Strikes cause golden chains to sprout from the target
+	}
+
 	AreusStriker: {
 		// DisplayName: Areus Striker
 		/* Tooltip:
@@ -2131,13 +2196,6 @@ Items: {
 	LifeCycleKeys: {
 		// DisplayName: Life Cycle Keys
 		// Tooltip: ""
-	}
-
-	AnchorChip: {
-		// DisplayName: Anchor Chip
-		// Tooltip: Prevents the jump from the final slash when using The Messiah
-		// On: " (Enabled)"
-		// Off: " (Disabled)"
 	}
 }
 
@@ -2408,6 +2466,20 @@ Projectiles: {
 	// AreusShriek.DisplayName: Areus Shriek
 	// VoidSlash.DisplayName: Void Slash
 	// AreusDrone.DisplayName: Areus Drone
+	// SigilLightning.DisplayName: Lightning Bolt
+	// LightningSigil.DisplayName: Areus Sigil
+	// VoidDagger.DisplayName: Void Dagger
+	// TheRoyalCrown.DisplayName: The Royal Crown
+	// AreusChainWhip.DisplayName: Areus Chain
+	// GoldChain.DisplayName: Gold Chain
+	// VoidThorn.DisplayName: Void Thorn
+	// AmberFly.DisplayName: Amber Fly
+	// AmethystBomb.DisplayName: Amethyst Impact Bomb
+	// SapphireSpike.DisplayName: Sapphire Spike
+	// DiamondBarrier.DisplayName: Diamond Barrier
+	// AmberSpit.DisplayName: Amber Spit
+	// TopazOrb.DisplayName: Topaz Orb
+	// AmberBanner.DisplayName: Amber Banner
 }
 
 NPCs: {
@@ -2695,7 +2767,7 @@ Buffs: {
 
 	StrikerTag: {
 		// DisplayName: Striker Tag
-		// Description: Mods.ShardsOfAtheria.Buffs.StrikerTag.Description
+		// Description: Electricity runs through your body
 	}
 
 	Withering: {
@@ -2943,6 +3015,46 @@ Buffs: {
 		// DisplayName: Electric blink
 		// Description: Increased mana recovery and reduced mana cost
 	}
+
+	CunningSapphire: {
+		// DisplayName: Cunning Sapphire
+		// Description: Attacks confuze enemies
+	}
+
+	FleetingEmerald: {
+		// DisplayName: Fleeting Emerald
+		// Description: Increased movement speed
+	}
+
+	MendingTopaz: {
+		// DisplayName: Mending Topaz
+		// Description: Increased life regen
+	}
+
+	TenaciousDiamond: {
+		// DisplayName: Tenacious Diamond
+		// Description: Increased defense
+	}
+
+	VengefulRuby: {
+		// DisplayName: Vengeful Ruby
+		// Description: Increased damage
+	}
+
+	SwarmingAmber: {
+		// DisplayName: Swarming Amber
+		// Description: Increased max minions
+	}
+
+	RallyingAmethyst: {
+		// DisplayName: Rallying Amethyst
+		// Description: Boosted gem buffs
+	}
+
+	AmberBannerBuff: {
+		// DisplayName: Amber Banner Buff
+		// Description: Mods.ShardsOfAtheria.Buffs.AmberBannerBuff.Description
+	}
 }
 
 Necronomicon: {
@@ -3022,7 +3134,8 @@ Keybinds: {
 	// ElementAffinity.DisplayName: Cycle Element Affinity
 	// RemoveAreusChip.DisplayName: Remove Areus Chip
 	// CycleElementAffinity.DisplayName: Cycle Element Affinity
-	// MasterCoreToggles.DisplayName: Show Master Gem Core Visual Toggles
+	// MasterCoreToggles.DisplayName: Master Gem Core Visual Toggles
+	// AmethystBombToggle.DisplayName: Amethyst Bomb Toggle
 }
 
 Configs: {

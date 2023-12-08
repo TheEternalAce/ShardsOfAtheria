@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
     {
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
 
@@ -46,11 +46,16 @@ namespace ShardsOfAtheria.Projectiles.Magic
                 areus.royalVoid -= 3;
             }
         }
-
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.DrawPrimsAfterImage(Color.White);
-            return true;
+            lightColor = Color.White;
+            return base.PreDraw(ref lightColor);
+        }
+
+        public override void PostDraw(Color lightColor)
+        {
+            Projectile.DrawProjectilePrims(lightColor, ShardsHelpers.OrbX1);
+            Projectile.DrawPrimsAfterImage(lightColor);
         }
     }
 }

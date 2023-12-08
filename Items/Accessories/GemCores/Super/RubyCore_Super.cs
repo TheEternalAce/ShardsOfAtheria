@@ -35,21 +35,15 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
 
         public override void UpdateVanity(Player player)
         {
-            player.Shards().rubyGauntlet = true;
+            player.Gem().rubyGauntlet = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Shards().rubyGauntlet = !hideVisual;
-            player.GetDamage(DamageClass.Generic) += .15f;
-            player.Shards().superRubyCore = true;
-            player.GetAttackSpeed(DamageClass.Generic) += .15f;
-            player.GetKnockback(DamageClass.Generic) += 1.5f;
-            player.meleeScaleGlove = true;
-            player.buffImmune[BuffID.WitheredWeapon] = true;
-            player.buffImmune[BuffID.Silenced] = true;
-            player.buffImmune[BuffID.Cursed] = true;
-            player.buffImmune[BuffID.Weak] = true;
+            ModContent.GetInstance<RubyCore_Greater>().UpdateAccessory(player, hideVisual);
+            player.Gem().superRubyCore = true;
+            player.GetDamage(DamageClass.Generic) += .05f;
+            player.GetAttackSpeed(DamageClass.Generic) += .05f;
         }
     }
 }

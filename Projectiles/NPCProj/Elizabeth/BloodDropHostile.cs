@@ -26,7 +26,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             Projectile.timeLeft = 120;
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
-            Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = 2;
             Projectile.alpha = 255;

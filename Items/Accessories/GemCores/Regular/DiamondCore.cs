@@ -44,14 +44,13 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
 
         public override void UpdateVanity(Player player)
         {
-            player.Shards().diamondShield = true;
+            player.Gem().diamondShield = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Shards().diamondShield = !hideVisual;
-            player.noKnockback = true;
-            player.fireWalk = true;
+            player.Gem().diamondShield = !hideVisual;
+            player.Gem().diamondCore = true;
             player.hasRaisableShield = true;
         }
     }

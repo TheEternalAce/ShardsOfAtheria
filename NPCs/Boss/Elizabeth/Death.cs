@@ -385,7 +385,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 case Crossbow:
                     attackTimer = 120;
                     attackCooldown = 60;
-                    damage = 20;
+                    damage = 50;
                     if (NPC.life <= NPC.lifeMax / 4 * 3)
                     {
                         attackTypeNext = BloodScepter;
@@ -394,7 +394,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 case BloodJavelin:
                     attackTimer = 60;
                     attackCooldown = 60;
-                    damage = 25;
+                    damage = 50;
                     if (Main.expertMode)
                     {
                         attackTypeNext = NeedleWave;
@@ -403,7 +403,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 case NeedleWave:
                     attackTimer = 120;
                     attackCooldown = 60;
-                    damage = 25;
+                    damage = 50;
                     if (NPC.life <= NPC.lifeMax / 4 * 3)
                     {
                         attackTypeNext = BloodOrb;
@@ -412,13 +412,13 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 case BloodOrb:
                     attackTimer = 60;
                     attackCooldown = 200;
-                    damage = 20;
+                    damage = 50;
                     blacklistedAttacks.Add(NeedleWave);
                     break;
                 case BloodScepter:
                     attackTimer = 30;
                     attackCooldown = 120;
-                    damage = 20;
+                    damage = 55;
                     if (Main.masterMode)
                     {
                         attackTypeNext = BloodSword;
@@ -427,19 +427,19 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 case BloodSickle:
                     attackTimer = 330;
                     attackCooldown = 300;
-                    damage = 20;
+                    damage = 40;
                     attackTypeNext = BloodScythe;
                     break;
                 case BloodScythe:
                     attackTimer = 120;
                     attackCooldown = 95;
-                    damage = 70;
+                    damage = 75;
                     blacklistedAttacks.Add(BloodSickle);
                     break;
                 case BloodSword:
                     attackTimer = 180;
                     attackCooldown = 60;
-                    damage = 50;
+                    damage = 60;
                     break;
             }
             blacklistedAttacks.Add(attackType);

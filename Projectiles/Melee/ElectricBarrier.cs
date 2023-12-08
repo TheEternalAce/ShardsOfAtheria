@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Projectiles.Other;
+using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;

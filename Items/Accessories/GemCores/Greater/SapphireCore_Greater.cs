@@ -34,15 +34,13 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
 
         public override void UpdateVanity(Player player)
         {
-            player.Shards().sapphireSpirit = true;
+            player.Gem().sapphireSpirit = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Shards().sapphireSpirit = !hideVisual;
-            player.Shards().sapphireCore = true;
-
-            player.AddBuff(BuffID.Thorns, 2);
+            ModContent.GetInstance<SapphireCore>().UpdateAccessory(player, hideVisual);
+            player.Gem().greaterSapphireCore = true;
         }
     }
 }

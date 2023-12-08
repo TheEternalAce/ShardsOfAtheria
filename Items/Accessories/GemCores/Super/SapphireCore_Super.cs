@@ -35,15 +35,15 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
 
         public override void UpdateVanity(Player player)
         {
-            player.Shards().sapphireSpirit = true;
+            player.Gem().sapphireSpirit = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Shards().sapphireSpirit = !hideVisual;
-            player.Shards().superSapphireCore = true;
-            player.maxMinions += 5;
-            player.AddBuff(BuffID.Thorns, 0);
+            player.Gem().sapphireSpirit = !hideVisual;
+            ModContent.GetInstance<SapphireCore_Greater>().UpdateAccessory(player, hideVisual);
+            player.Gem().superSapphireCore = true;
+            player.Gem().sapphireDodgeChance += 0.05f;
         }
     }
 }

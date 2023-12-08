@@ -43,7 +43,6 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                     Projectile.ai[0] == 0 &&
                     gravityTimer <= 0)
                 {
-                    float maxDetectDistance = 100f;
                     var offset = Main.MouseWorld - player.Center;
                     offset.Normalize();
                     offset *= 50;

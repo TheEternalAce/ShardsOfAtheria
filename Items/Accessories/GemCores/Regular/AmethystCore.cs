@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Accessories.GemCores.Lesser;
+﻿using ShardsOfAtheria.Items.Accessories.GemCores.Lesser;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -56,47 +55,14 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
 
         public override void UpdateVanity(Player player)
         {
-            player.Shards().amethystMask = true;
+            player.Gem().amethystMask = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Shards().amethystMask = !hideVisual;
-
-            AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
-            mp.DashVelocity = 13f;
-            AmethystDashPlayer.MaxDashDelay = 50;
-            AmethystDashPlayer.MaxDashTimer = 20;
-            //If the dash is not active, immediately return so we don't do any of the logic for it
-            if (!mp.DashActive)
-                return;
-
-            //If the dash has just started, apply the dash velocity in whatever direction we wanted to dash towards
-            if (mp.DashTimer == AmethystDashPlayer.MaxDashTimer)
-            {
-                Vector2 newVelocity = player.velocity;
-
-                if (mp.DashDir == AmethystDashPlayer.DashLeft && player.velocity.X > -mp.DashVelocity || mp.DashDir == AmethystDashPlayer.DashRight && player.velocity.X < mp.DashVelocity)
-                {
-                    //X-velocity is set here
-                    int dashDirection = mp.DashDir == AmethystDashPlayer.DashRight ? 1 : -1;
-                    newVelocity.X = dashDirection * mp.DashVelocity;
-                }
-
-                player.velocity = newVelocity;
-            }
-
-            //Decrement the timers
-            mp.DashTimer--;
-            mp.DashDelay--;
-
-            if (mp.DashDelay == 0)
-            {
-                //The dash has ended.  Reset the fields
-                mp.DashDelay = AmethystDashPlayer.MaxDashDelay;
-                mp.DashTimer = AmethystDashPlayer.MaxDashTimer;
-                mp.DashActive = false;
-            }
+            ModContent.GetInstance<AmethystCore_Lesser>().UpdateAccessory(player, hideVisual);
+            player.Gem().amethystCore = true;
+            player.Gem().amethystMask = !hideVisual;
         }
     }
 }

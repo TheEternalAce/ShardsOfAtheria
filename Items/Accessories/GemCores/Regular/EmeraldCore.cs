@@ -36,25 +36,23 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<EmeraldCore_Lesser>())
                 .AddIngredient(ItemID.HellstoneBar, 10)
-                .AddIngredient(ItemID.FrostsparkBoots)
+                .AddIngredient(ItemID.PanicNecklace)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
 
         public override void UpdateVanity(Player player)
         {
-            player.Shards().emeraldBoots = true;
+            player.Gem().emeraldBoots = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.jumpBoost = true;
-            player.accRunSpeed = 6.75f;
-            player.iceSkate = true;
+            ModContent.GetInstance<EmeraldCore_Lesser>().UpdateAccessory(player, hideVisual);
+            player.moveSpeed += 0.05f;
             player.wingTimeMax += 10;
-            player.rocketBoots = player.vanityRocketBoots = 3;
-            player.rocketTimeMax = 5;
-            player.Shards().emeraldBoots = !hideVisual;
+            player.Gem().emeraldCore = true;
+            player.Gem().emeraldBoots = !hideVisual;
         }
     }
 }

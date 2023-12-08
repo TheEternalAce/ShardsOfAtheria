@@ -224,7 +224,10 @@ namespace ShardsOfAtheria.Players
             {
                 areusEnergy++;
             }
-            RoyalOnHitEffect(hit);
+            if (royalSet)
+            {
+                RoyalOnHitEffect(target, hit);
+            }
         }
 
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)

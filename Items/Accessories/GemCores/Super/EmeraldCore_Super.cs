@@ -37,29 +37,15 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
 
         public override void UpdateVanity(Player player)
         {
-            player.Shards().emeraldBoots = true;
+            player.Gem().emeraldBoots = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            // Frostspark Boots
-            player.accRunSpeed = 6.75f;
-            player.rocketBoots = 3;
-            player.iceSkate = true;
-
-            // Misc
-            player.panic = true;
-            player.accFlipper = true;
-            player.GetJumpState(ExtraJump.CloudInABottle).Enable();
-            player.GetJumpState(ExtraJump.BlizzardInABottle).Enable();
-            player.GetJumpState(ExtraJump.SandstormInABottle).Enable();
-            //player.hasJumpOption_Cloud = true;
-            //player.hasJumpOption_Blizzard = true;
-            //player.hasJumpOption_Sandstorm = true;
-            player.jumpBoost = true;
+            ModContent.GetInstance<EmeraldCore_Greater>().UpdateAccessory(player, hideVisual);
+            player.moveSpeed += 0.05f;
             player.wingTimeMax += 15;
-            player.Shards().superEmeraldCore = true;
-            player.Shards().emeraldBoots = !hideVisual;
+            player.Gem().superEmeraldCore = true;
         }
     }
 }

@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
                 Projectile.ai[0]++;
             }
 
-            Projectile.Track(player.Center + trackPosition, -1);
+            Projectile.Track(player.Center + trackPosition);
         }
 
         public override void OnKill(int timeLeft)

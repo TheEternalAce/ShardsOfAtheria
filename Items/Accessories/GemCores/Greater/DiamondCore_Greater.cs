@@ -29,32 +29,21 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<DiamondCore>())
                 .AddIngredient(ItemID.HallowedBar, 10)
-                .AddIngredient(ItemID.AnkhCharm)
+                .AddIngredient(ItemID.LargeDiamond)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 
         public override void UpdateVanity(Player player)
         {
-            player.Shards().diamondShield = true;
+            player.Gem().diamondShield = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Shards().diamondShield = !hideVisual;
-            player.noKnockback = true;
-            player.buffImmune[BuffID.Poisoned] = true;
-            player.buffImmune[BuffID.Bleeding] = true;
-            player.buffImmune[BuffID.Darkness] = true;
-            player.buffImmune[BuffID.Cursed] = true;
-            player.buffImmune[BuffID.Silenced] = true;
-            player.buffImmune[BuffID.Slow] = true;
-            player.buffImmune[BuffID.Confused] = true;
-            player.buffImmune[BuffID.BrokenArmor] = true;
-            player.buffImmune[BuffID.Weak] = true;
-            player.noKnockback = true;
-            player.fireWalk = true;
-            player.hasRaisableShield = true;
+            ModContent.GetInstance<DiamondCore>().UpdateAccessory(player, hideVisual);
+            player.Gem().diamondShield = !hideVisual;
+            player.Gem().greaterDiamondCore = true;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -33,7 +32,16 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            damage = ShardsHelpers.ScaleByProggression(damage);
+            int multiplier = 1;
+            if (NPC.downedMoonlord)
+            {
+                multiplier = 5;
+            }
+            else if (NPC.downedGolemBoss)
+            {
+                multiplier = 4;
+            }
+            damage *= multiplier;
         }
     }
 }

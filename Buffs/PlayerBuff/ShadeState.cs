@@ -1,8 +1,11 @@
-﻿using ShardsOfAtheria.Projectiles.Ranged;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Projectiles.Ranged;
+using ShardsOfAtheria.Projectiles.Summon;
 using ShardsOfAtheria.Utilities;
 using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Buffs.PlayerBuff
@@ -34,6 +37,32 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
                             ModContent.ProjectileType<ElectricShadeShot>(), projectile.damage,
                             projectile.knockBack, projectile.owner);
                         projectile.active = false;
+                    }
+                }
+            }
+        }
+        public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (ProjectileID.Sets.IsAWhip[projectile.type])
+            {
+                var player = projectile.GetPlayerOwner();
+                var areus = player.Areus();
+
+                if (areus.royalSet && areus.CommanderSet && player.HasBuff<ShadeState>())
+                {
+                    var source = projectile.GetSource_FromThis();
+                    var position = target.Center;
+                    var velocity = Vector2.One.RotatedByRandom(MathHelper.TwoPi);
+                    velocity *= 12f - Main.rand.NextFloat(6f);
+
+                    int type = ModContent.ProjectileType<VoidThorn>();
+                    int damage = projectile.damage;
+                    float knockback = projectile.knockBack;
+
+                    for (int i = 0; i < 4; i++)
+                    {
+                        velocity = velocity.RotatedByRandom(MathHelper.TwoPi);
+                        Projectile.NewProjectile(source, position, velocity, type, damage, knockback, -1, target.whoAmI);
                     }
                 }
             }

@@ -74,7 +74,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             bool foundTarget = false;
             float distanceFromTarget = 0;
             Vector2 targetCenter = Vector2.Zero;
-            if (owner.Shards().superSapphireCore)
+            if (owner.Gem().superSapphireCore)
             {
                 SearchForTargets(owner, out foundTarget, out distanceFromTarget, out targetCenter);
                 Projectile.damage = 50;
@@ -94,33 +94,23 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         private void GeneralBehavior(Player owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition)
         {
             Vector2 idlePosition = owner.Center;
-            idlePosition.X += 48f * owner.direction; // Go up 48 coordinates (three tiles from the center of the player)
-            idlePosition.Y -= 48f; // Go up 48 coordinates (three tiles from the center of the player)
+            idlePosition.X += 48f * owner.direction;
+            idlePosition.Y -= 48f;
 
-            // If your minion doesn't aimlessly move around when it's idle, you need to "put" it into the line of other summoned minions
-            // The index is projectile.minionPos
             float minionPositionOffsetX = (10 + Projectile.minionPos * 40) * -owner.direction;
-            idlePosition.X += minionPositionOffsetX; // Go behind the player
+            idlePosition.X += minionPositionOffsetX;
 
-            // All of this code below this line is adapted from Spazmamini code (ID 388, aiStyle 66)
-
-            // Teleport to player if distance is too big
             vectorToIdlePosition = idlePosition - Projectile.Center;
             distanceToIdlePosition = vectorToIdlePosition.Length();
-
             if (Main.myPlayer == owner.whoAmI && distanceToIdlePosition > 2000f)
             {
-                // Whenever you deal with non-regular events that change the behavior or position drastically, make sure to only run the code on the owner of the projectile,
-                // and then set netUpdate to true
                 Projectile.position = idlePosition;
                 Projectile.velocity *= 0.1f;
                 Projectile.netUpdate = true;
             }
 
-            // If your minion is flying, you want to do this independently of any conditions
             float overlapVelocity = 0.04f;
 
-            // Fix overlap with other minions
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
                 Projectile other = Main.projectile[i];
@@ -208,28 +198,25 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         private void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
         {
             // Default movement parameters (here for attacking)
-            float speed;
-            float inertia;
+            float speed = 4;
+            float inertia = 80;
 
             if (foundTarget)
             {
                 idleTimer = 0;
-                Projectile.hostile = false;
                 speed = 16f;
                 inertia = 80f;
-                Vector2 newIdlePosition = targetCenter - Projectile.Center;
-                newIdlePosition.Y -= 124f;
 
-                newIdlePosition.Normalize();
-                newIdlePosition *= speed;
-
-                Projectile.velocity = (Projectile.velocity * (inertia - 1) + newIdlePosition) / inertia;
+                var idlePosition = targetCenter;
+                idlePosition.Y -= 124f;
+                vectorToIdlePosition = idlePosition - Projectile.Center;
+                distanceToIdlePosition = vectorToIdlePosition.LengthSquared();
 
                 if (Projectile.damage == 0)
                 {
                     return;
                 }
-                if (++shootTimer >= 120)
+                if (++shootTimer >= 90)
                 {
                     Projectile.frame = 2;
                     Projectile.frameCounter = 0;
@@ -251,45 +238,38 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             else
             {
                 shootTimer = 0;
-                sleep = false;
-                // Minion doesn't have a target: return to player and idle
-                if (distanceToIdlePosition > 600f)
-                {
-                    // Speed up the minion if it's away from the player
-                    speed = 12f;
-                    inertia = 60f;
-                }
-                else
-                {
-                    // Slow down the minion if closer to the player
-                    speed = 4f;
-                    inertia = 80f;
-                }
+            }
 
-                if (distanceToIdlePosition > 20f)
-                {
-                    // The immediate range around the player (when it passively floats about)
+            if (distanceToIdlePosition > 200f)
+            {
+                speed = 26f;
+                inertia = 40f;
+            }
+            if (idleTimer >= 400)
+            {
+                speed = 2;
+            }
 
-                    // This is a simple movement formula using the two parameters and its desired direction to create a "homing" movement
-                    vectorToIdlePosition.Normalize();
-                    vectorToIdlePosition *= speed;
-                    Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
-                    if (idleTimer > 0)
-                    {
-                        idleTimer--;
-                    }
-                }
-                else if (Projectile.velocity == Vector2.Zero)
+
+            if (distanceToIdlePosition > 20f)
+            {
+                vectorToIdlePosition.Normalize();
+                vectorToIdlePosition *= speed;
+                Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
+                if (idleTimer > 0)
                 {
-                    // If there is a case where it's not moving at all, give it a little "poke"
-                    Projectile.velocity.X = -0.15f;
-                    Projectile.velocity.Y = -0.05f;
+                    idleTimer--;
                 }
-                else if (++idleTimer >= 600)
-                {
-                    sleep = true;
-                    Projectile.velocity.X = 0;
-                }
+            }
+            else if (Projectile.velocity == Vector2.Zero)
+            {
+                Projectile.velocity.X = -0.15f;
+                Projectile.velocity.Y = -0.05f;
+            }
+            else if (++idleTimer >= 600)
+            {
+                sleep = true;
+                Projectile.velocity.X = 0;
             }
         }
 
@@ -321,7 +301,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
         private bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || !owner.Shards().sapphireSpirit)
+            if (owner.dead || !owner.active || !owner.Gem().sapphireSpirit)
                 return false;
             else Projectile.timeLeft = 2;
             return true;

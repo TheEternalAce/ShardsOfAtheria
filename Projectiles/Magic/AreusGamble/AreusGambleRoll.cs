@@ -78,6 +78,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.AreusGamble
                 if (proj.friendly &&
                     proj.owner == Projectile.owner &&
                     (proj.aiStyle == 1 || proj.aiStyle == 0) &&
+                    proj.type != ModContent.ProjectileType<AreusGambleDagger>() &&
                     proj.damage > 0 &&
                     proj.active)
                 {

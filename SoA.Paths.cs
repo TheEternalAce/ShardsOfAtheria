@@ -20,6 +20,6 @@
 
         public const string ElementModName = "BattleNetworkElements";
 
-        public const string TerraTypesFolder = "CrossMod/TerraTypes/{0}.csv";
+        public const string TerraTypingFolder = "CrossMod/TerraTypes/{0}.csv";
     }
 }

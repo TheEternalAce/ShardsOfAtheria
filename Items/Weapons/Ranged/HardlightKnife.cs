@@ -46,7 +46,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             CreateRecipe(300)
                 .AddIngredient(ModContent.ItemType<HardlightPrism>(), 5)
-                .AddTile(TileID.Anvils)
+                .AddTile(TileID.SkyMill)
                 .Register();
         }
     }

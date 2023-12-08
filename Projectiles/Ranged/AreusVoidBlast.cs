@@ -53,7 +53,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             int npcWhoAmI = Projectile.FindTargetWithLineOfSight(maxDetectRange);
             if (npcWhoAmI != -1)
             {
-                Projectile.Track(Main.npc[npcWhoAmI], maxDetectRange);
+                Projectile.Track(Main.npc[npcWhoAmI]);
             }
         }
 

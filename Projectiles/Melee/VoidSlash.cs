@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 70;
-            ProjectileID.Sets.TrailingMode[Type] = 0;
+            ProjectileID.Sets.TrailingMode[Type] = 2;
         }
 
         public override void SetDefaults()
@@ -56,8 +56,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = Color.White;
-            var rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            Projectile.DrawProjectilePrims(lightColor, ShardsHelpers.DiamondX1, rotation);
+            Projectile.DrawProjectilePrims(lightColor, ShardsHelpers.DiamondX1);
             Projectile.DrawPrimsAfterImage(lightColor);
             return base.PreDraw(ref lightColor);
         }

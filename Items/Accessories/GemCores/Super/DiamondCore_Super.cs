@@ -36,28 +36,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
 
         public override void UpdateVanity(Player player)
         {
-            player.Shards().diamondShield = true;
+            player.Gem().diamondShield = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Shards().diamondShield = !hideVisual;
-
-            player.buffImmune[BuffID.Poisoned] = true;
-            player.buffImmune[BuffID.Bleeding] = true;
-            player.buffImmune[BuffID.Darkness] = true;
-            player.buffImmune[BuffID.Cursed] = true;
-            player.buffImmune[BuffID.Silenced] = true;
-            player.buffImmune[BuffID.Slow] = true;
-            player.buffImmune[BuffID.Confused] = true;
-            player.buffImmune[BuffID.BrokenArmor] = true;
-            player.buffImmune[BuffID.Weak] = true;
-            player.noKnockback = true;
-            player.fireWalk = true;
-            player.hasRaisableShield = true;
-
-            player.buffImmune[BuffID.WitheredArmor] = true;
-            player.buffImmune[BuffID.Ichor] = true;
+            ModContent.GetInstance<DiamondCore_Greater>().UpdateAccessory(player, hideVisual);
         }
     }
 }

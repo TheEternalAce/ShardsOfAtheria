@@ -28,22 +28,22 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<TopazCore>())
                 .AddIngredient(ItemID.HallowedBar, 10)
-                .AddIngredient(ItemID.CharmofMyths)
+                .AddIngredient(ItemID.SharkToothNecklace)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 
         public override void UpdateVanity(Player player)
         {
-            player.Shards().topazNecklace = true;
+            player.Gem().topazNecklace = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Shards().topazNecklace = !hideVisual;
-            player.statLifeMax2 += 40;
-            player.pStone = true;
+            ModContent.GetInstance<TopazCore>().UpdateAccessory(player, hideVisual);
+            player.statLifeMax2 += 20;
             player.lifeRegen += 1;
+            player.Gem().greaterTopazCore = true;
         }
     }
 }

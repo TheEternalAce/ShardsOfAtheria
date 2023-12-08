@@ -29,6 +29,7 @@ namespace ShardsOfAtheria
         public static ModKeybind OverdriveKey { get; private set; }
         public static ModKeybind TomeKey { get; private set; }
         public static ModKeybind EmeraldTeleportKey { get; private set; }
+        public static ModKeybind AmethystBombToggle { get; private set; }
         public static ModKeybind PhaseSwitch { get; private set; }
         public static ModKeybind SoulTeleport { get; private set; }
         public static ModKeybind ArmorSetBonusActive { get; private set; }
@@ -93,6 +94,7 @@ namespace ShardsOfAtheria
             OverdriveKey = KeybindLoader.RegisterKeybind(Instance, "ToggleOverdrive", "F");
             TomeKey = KeybindLoader.RegisterKeybind(Instance, "KnowledgeBase", "N");
             EmeraldTeleportKey = KeybindLoader.RegisterKeybind(Instance, "EmeraldTeleport", "Z");
+            AmethystBombToggle = KeybindLoader.RegisterKeybind(Instance, "AmethystBombToggle", "J");
             PhaseSwitch = KeybindLoader.RegisterKeybind(Instance, "PhaseType", "RightAlt");
             SoulTeleport = KeybindLoader.RegisterKeybind(Instance, "SoulCrystalTeleport", "V");
             ArmorSetBonusActive = KeybindLoader.RegisterKeybind(Instance, "ArmorSetBonus", "Mouse4");
@@ -144,7 +146,7 @@ namespace ShardsOfAtheria
                     { "call", "AddTypes" },
                     { "typestoadd", "weapon" },
                     { "callingmod", Instance },
-                    { "filename", TerraTypesFolder.FormatWith("Weapons") }
+                    { "filename", TerraTypingFolder.FormatWith("Weapons") }
                 };
                 terratyping.Call(addWeapon);
 
@@ -153,7 +155,7 @@ namespace ShardsOfAtheria
                     { "call", "AddTypes" },
                     { "typestoadd", "projectile" },
                     { "callingmod", Instance },
-                    { "filename", TerraTypesFolder.FormatWith("Projectiles") }
+                    { "filename", TerraTypingFolder.FormatWith("Projectiles") }
                 };
                 terratyping.Call(addProjectile);
 
@@ -162,7 +164,7 @@ namespace ShardsOfAtheria
                     { "call", "AddTypes" },
                     { "typestoadd", "ammo" },
                     { "callingmod", Instance },
-                    { "filename", TerraTypesFolder.FormatWith("Ammo") }
+                    { "filename", TerraTypingFolder.FormatWith("Ammo") }
                 };
                 terratyping.Call(addAmmo);
 
@@ -171,7 +173,7 @@ namespace ShardsOfAtheria
                     { "call", "AddTypes" },
                     { "typestoadd", "npc" },
                     { "callingmod", Instance },
-                    { "filename", TerraTypesFolder.FormatWith("NPCs") }
+                    { "filename", TerraTypingFolder.FormatWith("NPCs") }
                 };
                 terratyping.Call(addNPC);
 
@@ -180,9 +182,18 @@ namespace ShardsOfAtheria
                     { "call", "AddTypes" },
                     { "typestoadd", "armor" },
                     { "callingmod", Instance },
-                    { "filename", TerraTypesFolder.FormatWith("Armor") }
+                    { "filename", TerraTypingFolder.FormatWith("Armor") }
                 };
                 terratyping.Call(addArmor);
+
+                Dictionary<string, object> addItem = new()
+                {
+                    { "call", "AddTypes" },
+                    { "typestoadd", "specialitem" },
+                    { "callingmod", Instance },
+                    { "filename", TerraTypingFolder.FormatWith("Items") }
+                };
+                terratyping.Call(addItem);
 
                 if (ServerConfig.overrideTypes)
                 {
@@ -191,7 +202,7 @@ namespace ShardsOfAtheria
                         { "call", "OverrideTypes" },
                         { "typestoadd", "npc" },
                         { "callingmod", Instance },
-                        { "filename", TerraTypesFolder.FormatWith("NPCOverride") },
+                        { "filename", TerraTypingFolder.FormatWith("NPCOverride") },
                         { "modtarget", "Terraria" }
                     };
                     terratyping.Call(overrideNPC);
@@ -201,7 +212,7 @@ namespace ShardsOfAtheria
                         { "call", "OverrideTypes" },
                         { "typestoadd", "projectile" },
                         { "callingmod", Instance },
-                        { "filename", TerraTypesFolder.FormatWith("ProjectileOverride") },
+                        { "filename", TerraTypingFolder.FormatWith("ProjectileOverride") },
                         { "modtarget", "Terraria" }
                     };
                     terratyping.Call(overrideProjectile);

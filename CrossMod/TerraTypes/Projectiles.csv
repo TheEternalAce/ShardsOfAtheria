@@ -4,6 +4,7 @@ AreusMirrorShard,Electric,
 FrostsparkDrone,Ice,Electric
 IceFragment,Ice,
 SapphireBolt,Rock,
+SapphireSpike,Rock,
 Servant,Blood,Flying
 TheHungry,Blood,
 TrueEyeOfCthulhu,Dragon,Dark
@@ -88,8 +89,10 @@ HardlightFeatherMagic,Electric,
 IceBolt,Ice,
 LightningBoltFriendly,Electric,
 ScreamShockwave,Normal,
+SigilLightning,Electric,
 SpectrumLaser,Electric,
 VileShot,Poison,
+VoidDagger,Dark,Electric
 
 AreusDaggerCurrent,Electric,
 AreusDaggerProj,Electric,
@@ -154,12 +157,12 @@ MessiahRanbu,Fire,
 ReactorMeltdownProj,Poison,Electric
 HellStar,Fire,
 SatanlanceProj,Fire,
-SoulBlade,Ghost,
 StrikeChain,Electric,
 StrikeChainCurrent,Electric,
 Swawstring,Electric,
 ValkyrieStormLanceProj,Electric,
 ValkyrieStormSword,Electric,
+VoidSlash,Dark,Electric
 Warframe,Electric,
 Warframe_Upgrade,Electric,
 WarframeSlash,Electric,
@@ -171,7 +174,7 @@ AreusCannonBall,Electric,
 AreusGrenadeProj,Electric,
 AreusJavelinThrown,Electric,
 ElectricMarksmanShot,Electric,
-ElectricShadeShot,Electric,Dark
+ElectricShadeShot,Dark,Electric
 AreusRailgunProj,Electric,
 AreusPierceShot,Electric,
 AreusMagnumProj,Electric,
@@ -185,6 +188,7 @@ AceOfDiamonds,Electric,
 AceOfHearts,Water,
 AceOfSpades,Fire,
 AreusShardProjRanged,Electric,
+AreusVoidBlast,Dark,Electric
 BlackHole,Dark,
 BlackHoleBolt,Dark,
 FireCannon_Fire1,Fire,Electric
@@ -203,13 +207,17 @@ MetalBladeProj,Steel,
 PrometheusFire,Fire,
 ScarletSpark,Electric,
 SilverBoltFriendly,Steel,
-SoulArrow,Ghost,
 
+AmberFly,Rock,Bug
+AmberSpit,Rock,Bug
+AreusChainWhip,Electric,
+BlackStar,Dark,Electric
 BloodSickleFriendly,Blood,
 DragonBone,Dark,Poison
 DragonSpineWhipProj,Dark,Poison
 ElectricSpark,Electric,
 FlailOfFleshProj,Blood,
+GoldChain,Steel,
 StrikerCurrent,Electric,
 StrikerRod,Electric,
-SoulDagger,Ghost,
+VoidThorn,Dark,Electric

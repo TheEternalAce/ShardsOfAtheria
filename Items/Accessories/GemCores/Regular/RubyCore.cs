@@ -44,12 +44,13 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
 
         public override void UpdateVanity(Player player)
         {
-            player.Shards().rubyGauntlet = true;
+            player.Gem().rubyGauntlet = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Shards().rubyGauntlet = !hideVisual;
+            player.Gem().rubyCore = true;
+            player.Gem().rubyGauntlet = !hideVisual;
             player.GetDamage(DamageClass.Generic) += .1f;
         }
     }

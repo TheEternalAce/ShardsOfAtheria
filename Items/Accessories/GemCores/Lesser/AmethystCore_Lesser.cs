@@ -140,7 +140,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
             //Here you'd be able to set an effect that happens when the dash first activates
             //Some examples include:  the larger smoke effect from the Master Ninja Gear and Tabi
 
-            var vector = new Vector2(1, 0) * -Player.direction;
+            var vector = new Vector2(-Player.direction, 0);
             for (int i = 0; i < 10; i++)
             {
                 var pos = ShardsHelpers.GetPointInRegion(Player.Hitbox);

@@ -1,12 +1,28 @@
 using ShardsOfAtheria.Items.AreusChips;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Armor.Areus.Royal
 {
-    [AutoloadEquip(EquipType.Body)]
+    [AutoloadEquip(EquipType.Body, EquipType.Back)]
     public class RoyalJacket : AreusArmorPiece
     {
+        public override void Load()
+        {
+            if (Main.netMode == NetmodeID.Server)
+                return;
+            EquipLoader.AddEquipTexture(Mod, $"{Texture}_{EquipType.Back}", EquipType.Back, this);
+        }
+
+        public override void SetStaticDefaults()
+        {
+            int capeSlot = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Back);
+            ArmorIDs.Body.Sets.IncludedCapeBack[Item.bodySlot] = capeSlot;
+            ArmorIDs.Body.Sets.IncludedCapeBackFemale[Item.bodySlot] = capeSlot;
+            ArmorIDs.Body.Sets.showsShouldersWhileJumping[Item.bodySlot] = true;
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();

@@ -70,19 +70,11 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void UpdateInventory(Player player)
         {
-            if (player.dead)
-            {
-                gold = 0;
-            }
         }
 
         public override void HoldItem(Player player)
         {
             maxArrows = gold >= 5 ? 5 : gold == 0 ? 1 : gold + 1;
-            if (player.dead)
-            {
-                gold = 0;
-            }
         }
 
         public override bool? CanChooseAmmo(Item ammo, Player player)

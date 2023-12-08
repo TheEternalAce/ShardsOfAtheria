@@ -34,6 +34,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Projectile.usesLocalNPCImmunity = true;
             Projectile.usesOwnerMeleeHitCD = true;
             Projectile.stopsDealingDamageAfterPenetrateHits = true;
+            Projectile.noEnchantmentVisuals = true;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -65,17 +66,21 @@ namespace ShardsOfAtheria.Projectiles.Melee
         {
             Projectile.localAI[0] += 1f;
             Player player = Main.player[Projectile.owner];
-            float num = Projectile.localAI[0] / Projectile.ai[1];
-            float num4 = Projectile.ai[0];
-            float num5 = Projectile.velocity.ToRotation();
-            Projectile.rotation = (float)Math.PI * num4 * num + num5 + num4 * (float)Math.PI + player.fullRotation;
-            float num7 = 0.6f;
-            float num8 = 1f;
+            float percentageOfLife = Projectile.localAI[0] / Projectile.ai[1];
+            float direction = Projectile.ai[0];
+            float velocityRotation = Projectile.velocity.ToRotation();
+            float adjustedRotation = MathHelper.Pi * direction * percentageOfLife + velocityRotation + direction * MathHelper.Pi + player.fullRotation;
+            Projectile.rotation = adjustedRotation;
+
+            float scaleMultiplier = 0.6f;
+            float scaleAdder = 1f;
+
             Projectile.Center = player.RotatedRelativePoint(player.MountedCenter) - Projectile.velocity;
-            Projectile.scale = num8 + num * num7;
-            float num10 = Projectile.rotation + Main.rand.NextFloatDirection() * ((float)Math.PI / 2f) * 0.7f;
+            Projectile.scale = scaleAdder + percentageOfLife * scaleMultiplier;
+
+            float num10 = Projectile.rotation + Main.rand.NextFloatDirection() * (MathHelper.Pi / 2f) * 0.7f;
             Vector2 vector2 = Projectile.Center + num10.ToRotationVector2() * 84f * Projectile.scale;
-            Vector2 vector3 = (num10 + Projectile.ai[0] * ((float)Math.PI / 2f)).ToRotationVector2();
+            Vector2 vector3 = (num10 + Projectile.ai[0] * (MathHelper.Pi / 2f)).ToRotationVector2();
             if (Main.rand.NextFloat() * 2f < Projectile.Opacity)
             {
                 Dust dust8 = Dust.NewDustPerfect(Projectile.Center + num10.ToRotationVector2() * (Main.rand.NextFloat() * 80f * Projectile.scale + 20f * Projectile.scale), ModContent.DustType<HardlightDust_Blue>(), vector3 * 1f);
@@ -91,20 +96,24 @@ namespace ShardsOfAtheria.Projectiles.Melee
             }
             var light = SoA.HardlightColor.ToVector3() * 0.75f;
             Lighting.AddLight(Projectile.Center, light);
+
+            Projectile.scale *= Projectile.ai[2];
+
             if (Projectile.localAI[0] >= Projectile.ai[1])
             {
                 Projectile.Kill();
             }
 
-            if (!Projectile.noEnchantmentVisuals)
+            for (float i = -MathHelper.PiOver4; i <= MathHelper.PiOver4; i += MathHelper.PiOver2)
             {
-                UpdateEnchantmentVisuals();
+                Rectangle rectangle = Utils.CenteredRectangle(Projectile.Center + (Projectile.rotation + i).ToRotationVector2() * 70f * Projectile.scale, new Vector2(60f * Projectile.scale, 60f * Projectile.scale));
+                Projectile.EmitEnchantmentVisualsAt(rectangle.TopLeft(), rectangle.Width, rectangle.Height);
             }
         }
         public override void CutTiles()
         {
-            Vector2 vector2 = (Projectile.rotation - (float)Math.PI / 4f).ToRotationVector2() * 60f * Projectile.scale;
-            Vector2 vector3 = (Projectile.rotation + (float)Math.PI / 4f).ToRotationVector2() * 60f * Projectile.scale;
+            Vector2 vector2 = (Projectile.rotation - MathHelper.PiOver4).ToRotationVector2() * 60f * Projectile.scale;
+            Vector2 vector3 = (Projectile.rotation + MathHelper.PiOver4).ToRotationVector2() * 60f * Projectile.scale;
             float num2 = 60f * Projectile.scale;
             Utils.PlotTileLine(Projectile.Center + vector2, Projectile.Center + vector3, num2, DelegateMethods.CutTiles);
         }
@@ -113,40 +122,24 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            float coneLength2 = 94f * Projectile.scale;
-            float num21 = (float)Math.PI * 2f / 25f * Projectile.ai[0];
-            float maximumAngle2 = (float)Math.PI / 4f;
-            float num22 = Projectile.rotation + num21;
-            if (targetHitbox.IntersectsConeSlowMoreAccurate(Projectile.Center, coneLength2, num22, maximumAngle2))
+            float coneLength = 94f * Projectile.scale;
+            float collisionRotation = MathHelper.TwoPi / 25f * Projectile.ai[0];
+            float maximumAngle = MathHelper.PiOver4;
+            float coneRotation = Projectile.rotation + collisionRotation;
+            if (targetHitbox.IntersectsConeSlowMoreAccurate(Projectile.Center, coneLength, coneRotation, maximumAngle))
             {
                 return true;
             }
-            float num23 = Utils.Remap(Projectile.localAI[0], Projectile.ai[1] * 0.3f, Projectile.ai[1] * 0.5f, 1f, 0f);
-            if (num23 > 0f)
+            float backOfSwing = Utils.Remap(Projectile.localAI[0], Projectile.ai[1] * 0.3f, Projectile.ai[1] * 0.5f, 1f, 0f);
+            if (backOfSwing > 0f)
             {
-                float coneRotation2 = num22 - (float)Math.PI / 4f * Projectile.ai[0] * num23;
-                if (targetHitbox.IntersectsConeSlowMoreAccurate(Projectile.Center, coneLength2, coneRotation2, maximumAngle2))
+                float coneRotation2 = coneRotation - MathHelper.PiOver4 * Projectile.ai[0] * backOfSwing;
+                if (targetHitbox.IntersectsConeSlowMoreAccurate(Projectile.Center, coneLength, coneRotation2, maximumAngle))
                 {
                     return true;
                 }
             }
             return false;
-        }
-
-        private void UpdateEnchantmentVisuals()
-        {
-            if (Projectile.npcProj)
-            {
-                return;
-            }
-            Vector2 boxPosition = Projectile.position;
-            int boxWidth = Projectile.width;
-            int boxHeight = Projectile.height;
-            for (float num = -(float)Math.PI / 4f; num <= (float)Math.PI / 4f; num += (float)Math.PI / 2f)
-            {
-                Rectangle r = Utils.CenteredRectangle(Projectile.Center + (Projectile.rotation + num).ToRotationVector2() * 70f * Projectile.scale, new Vector2(60f * Projectile.scale, 60f * Projectile.scale));
-                Projectile.EmitEnchantmentVisualsAt(r.TopLeft(), r.Width, r.Height);
-            }
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -165,7 +158,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             float fromValue = val.Length() / (float)Math.Sqrt(3.0);
             fromValue = Utils.Remap(fromValue, 0.2f, 1f, 0f, 1f);
             Color color = SoA.HardlightColor;
-            Main.spriteBatch.Draw(asset.Value, vector, (Rectangle?)rectangle, color * fromValue * num3, Projectile.rotation + Projectile.ai[0] * ((float)Math.PI / 4f) * -1f * (1f - num2), origin, num, effects, 0f);
+            Main.spriteBatch.Draw(asset.Value, vector, (Rectangle?)rectangle, color * fromValue * num3, Projectile.rotation + Projectile.ai[0] * MathHelper.PiOver4 * -1f * (1f - num2), origin, num, effects, 0f);
             Color color2 = new(227, 182, 245, 80);
             //Color color3 = new(227, 182, 245, 80);
             Color color4 = Color.White * num3 * 0.5f;
@@ -181,12 +174,12 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Main.spriteBatch.Draw(asset.Value, vector, (Rectangle?)asset.Frame(1, 4, 0, 3), Color.White * 0.4f * num3, Projectile.rotation + Projectile.ai[0] * -0.1f, origin, num * 0.6f, effects, 0f);
             for (float num5 = 0f; num5 < 8f; num5 += 1f)
             {
-                float num6 = Projectile.rotation + Projectile.ai[0] * num5 * ((float)Math.PI * -2f) * 0.025f + Utils.Remap(num2, 0f, 1f, 0f, (float)Math.PI / 4f) * Projectile.ai[0];
+                float num6 = Projectile.rotation + Projectile.ai[0] * num5 * -MathHelper.TwoPi * 0.025f + Utils.Remap(num2, 0f, 1f, 0f, MathHelper.PiOver4) * Projectile.ai[0];
                 Vector2 drawpos = vector + num6.ToRotationVector2() * (asset.Width() * 0.5f - 6f) * num;
                 float num7 = num5 / 9f;
                 DrawPrettyStarSparkle(Projectile.Opacity, 0, drawpos, new Color(255, 255, 255, 0) * num3 * num7, color2, num2, 0f, 0.5f, 0.5f, 1f, num6, new Vector2(0f, Utils.Remap(num2, 0f, 1f, 3f, 0f)) * num, Vector2.One * num);
             }
-            Vector2 drawpos2 = vector + (Projectile.rotation + Utils.Remap(num2, 0f, 1f, 0f, (float)Math.PI / 4f) * Projectile.ai[0]).ToRotationVector2() * (asset.Width() * 0.5f - 4f) * num;
+            Vector2 drawpos2 = vector + (Projectile.rotation + Utils.Remap(num2, 0f, 1f, 0f, MathHelper.PiOver4) * Projectile.ai[0]).ToRotationVector2() * (asset.Width() * 0.5f - 4f) * num;
             DrawPrettyStarSparkle(Projectile.Opacity, 0, drawpos2, new Color(255, 255, 255, 0) * num3 * 0.5f, color2, num2, 0f, 0.5f, 0.5f, 1f, 0f, new Vector2(2f, Utils.Remap(num2, 0f, 1f, 4f, 1f)) * num, Vector2.One * num);
             return false;
         }
@@ -203,9 +196,9 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Vector2 vector2 = new Vector2(fatness.Y * 0.5f, scale.Y) * num;
             color *= num;
             color2 *= num;
-            Main.EntitySpriteDraw(value, drawpos, null, color, (float)Math.PI / 2f + rotation, origin, vector, dir);
+            Main.EntitySpriteDraw(value, drawpos, null, color, MathHelper.Pi / 2f + rotation, origin, vector, dir);
             Main.EntitySpriteDraw(value, drawpos, null, color, 0f + rotation, origin, vector2, dir);
-            Main.EntitySpriteDraw(value, drawpos, null, color2, (float)Math.PI / 2f + rotation, origin, vector * 0.6f, dir);
+            Main.EntitySpriteDraw(value, drawpos, null, color2, MathHelper.Pi / 2f + rotation, origin, vector * 0.6f, dir);
             Main.EntitySpriteDraw(value, drawpos, null, color2, 0f + rotation, origin, vector2 * 0.6f, dir);
         }
     }

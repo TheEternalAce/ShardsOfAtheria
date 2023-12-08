@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override bool? UseItem(Player player)
         {
-            player.ClearBuff(SoulType);
+            player.AddBuff(SoulType, 3600);
             return true;
         }
 

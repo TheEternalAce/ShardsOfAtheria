@@ -23,8 +23,8 @@ namespace ShardsOfAtheria.Projectiles.Magic
             Projectile.localNPCHitCooldown = 140;
         }
 
-        Vector2 initialVel = Vector2.Zero;
-        int DustTimer = 0;
+        internal Vector2 initialVel = Vector2.Zero;
+        internal int DustTimer = 0;
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

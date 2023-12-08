@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Utilities;
+﻿using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -39,8 +40,11 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             if (Projectile.ai[1] == 1)
             {
                 var player = Projectile.GetPlayerOwner();
-                var areus = player.Areus();
-                areus.royalVoid -= 3;
+                if (!player.HasBuff<ShadeState>())
+                {
+                    var areus = player.Areus();
+                    areus.royalVoid -= 3;
+                }
             }
             target.AddBuff(BuffID.Electrified, 600);
         }
@@ -71,7 +75,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             int npcWhoAmI = Projectile.FindTargetWithLineOfSight(maxDetectRange);
             if (npcWhoAmI != -1)
             {
-                Projectile.Track(Main.npc[npcWhoAmI], maxDetectRange);
+                Projectile.Track(Main.npc[npcWhoAmI]);
             }
         }
     }

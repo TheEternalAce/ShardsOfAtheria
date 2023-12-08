@@ -23,6 +23,8 @@ namespace ShardsOfAtheria.Projectiles.Magic.AreusGamble
             Projectile.penetrate = 5;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.timeLeft = 360;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 5;
         }
 
         public override void AI()

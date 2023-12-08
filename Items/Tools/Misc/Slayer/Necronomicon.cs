@@ -139,9 +139,9 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
 
             if (page == 0)
             {
-                tooltips.Add(new TooltipLine(Mod, "TableOfContents", "Table of Contents:"));
-                tooltips.Add(new TooltipLine(Mod, "PageList", "General Info"));
-                tooltips.Add(new TooltipLine(Mod, "PageList", "Soul Crystal Info"));
+                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "TableOfContents", "Table of Contents:"));
+                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "PageList", "General Info"));
+                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "PageList", "Soul Crystal Info"));
 
                 // Absorbed List
                 for (int i = 0; i < entries.Count; i++)
@@ -149,7 +149,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
                     PageEntry entry = entries[i];
                     if (slayer.HasSoulCrystal(entry.crystalItem) || SoA.ClientConfig.entryView)
                     {
-                        tooltips.Add(new TooltipLine(Mod, "PageList", $"{entry.entryName} ({entry.mod})")
+                        tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "PageList", $"{entry.entryName} ({entry.mod})")
                         {
                             OverrideColor = entry.entryColor
                         });
@@ -158,10 +158,10 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
             }
             if (page == 1)
             {
-                tooltips.Add(new TooltipLine(Mod, "Page", Language.GetTextValue("Mods.ShardsOfAtheria.Necronomicon.GenericInfo")));
+                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "Page", Language.GetTextValue("Mods.ShardsOfAtheria.Necronomicon.GenericInfo")));
                 if (Main.LocalPlayer.Slayer().slayerMode)
                 {
-                    tooltips.Add(new TooltipLine(Mod, "SlayerMode", Language.GetTextValue("Mods.ShardsOfAtheria.Necronomicon.Active"))
+                    tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "SlayerMode", Language.GetTextValue("Mods.ShardsOfAtheria.Necronomicon.Active"))
                     {
                         OverrideColor = Color.Red
                     });
@@ -169,7 +169,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
             }
             if (page == 2)
             {
-                tooltips.Add(new TooltipLine(Mod, "Page", Language.GetTextValue("Mods.ShardsOfAtheria.Necronomicon.SoulCrystalInfo")));
+                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "Page", Language.GetTextValue("Mods.ShardsOfAtheria.Necronomicon.SoulCrystalInfo")));
             }
 
             // Soul Crystal effects
@@ -178,22 +178,22 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
                 PageEntry entry = entries[page - 3];
                 if (slayer.HasSoulCrystal(entry.crystalItem) || SoA.ClientConfig.entryView)
                 {
-                    tooltips.Add(new TooltipLine(Mod, "Page", $"{entry.EntryText()}")
+                    tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "Page", $"{entry.EntryText()}")
                     {
                         OverrideColor = entry.entryColor
                     });
                 }
             }
 
-            tooltips.Add(new TooltipLine(Mod, "TurnPage", "----------\n" +
+            tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "TurnPage", "----------\n" +
                 "Right click to turn the page"));
             if (page > 0)
             {
-                tooltips.Add(new TooltipLine(Mod, "TurnPageBack", "Hold Left Shift and Right Click to turn the page backward"));
+                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "TurnPageBack", "Hold Left Shift and Right Click to turn the page backward"));
             }
             if (page > 0)
             {
-                tooltips.Add(new TooltipLine(Mod, "CloseBook", "Hold Left Alt and Right Click to return to Table of Contents"));
+                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "CloseBook", "Hold Left Alt and Right Click to return to Table of Contents"));
             }
             base.ModifyTooltips(tooltips);
         }

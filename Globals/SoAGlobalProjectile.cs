@@ -177,11 +177,13 @@ namespace ShardsOfAtheria.Globals
 
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            var player = projectile.GetPlayerOwner();
+            var shards = player.Shards();
             if (projectile.IsAreus(false) || tempAreus)
             {
                 int buffType = ModContent.BuffType<ElectricShock>();
                 int buffTime = 600;
-                if (Main.player[projectile.owner].Shards().conductive)
+                if (shards.conductive)
                 {
                     buffTime *= 2;
                 }

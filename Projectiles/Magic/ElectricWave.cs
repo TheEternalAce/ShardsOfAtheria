@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Other
+namespace ShardsOfAtheria.Projectiles.Magic
 {
     public class ElectricWave : ModProjectile
     {

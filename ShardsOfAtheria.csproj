@@ -41,11 +41,13 @@
     <None Remove="Buffs\PlayerBuff\ShadeState.png" />
     <None Remove="Items\Armor\Areus\Imperial\ImperialGreaves.png" />
     <None Remove="Items\Armor\Areus\Royal\RoyalCrown_Head.png" />
+    <None Remove="Items\Armor\Areus\Royal\RoyalJacket_Back.png" />
     <None Remove="Items\Weapons\Melee\HardlightSlash.png" />
     <None Remove="Items\Weapons\Ranged\BloodStainedCrossbow.png" />
     <None Remove="Mounts\LifeCycle_Back.png" />
     <None Remove="Mounts\LifeCycle_Front.png" />
     <None Remove="NPCs\AreusCrateNPC.png" />
+    <None Remove="Projectiles\Magic\VoidDagger.png" />
     <None Remove="Projectiles\Melee\VoidSlash.png" />
     <None Remove="Projectiles\Summon\Minions\AreusMirror.png" />
     <None Remove="Projectiles\NPCProj\Elizabeth\BloodScytheHostile.png" />

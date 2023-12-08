@@ -74,6 +74,11 @@ namespace ShardsOfAtheria.Utilities
             return player.GetModPlayer<AreusArmorPlayer>();
         }
 
+        public static GemPlayer Gem(this Player player)
+        {
+            return player.GetModPlayer<GemPlayer>();
+        }
+
         public static bool HasChipEquipped(this Player player, int chip)
         {
             foreach (string name in player.Areus().chipNames)

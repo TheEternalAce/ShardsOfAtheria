@@ -35,6 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.UseSound = SoundID.Item5;
             Item.autoReuse = true;
             Item.noMelee = true;
+            Item.consumeAmmoOnLastShotOnly = true;
 
             Item.shootSpeed = 16f;
             Item.rare = ItemRarityID.Green;

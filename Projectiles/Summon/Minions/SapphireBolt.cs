@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -24,9 +25,15 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
         public override void OnKill(int timeLeft)
         {
-            for (int i = 0; i < 5; i++)
+            SoundEngine.PlaySound(SoundID.Tink);
+            var vector = -Projectile.velocity;
+            vector.Normalize();
+            vector *= 3f;
+            for (int i = 0; i < 6; i++)
             {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemSapphire, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.GemSapphire,
+                    vector.X, vector.Y);
+                dust.noGravity = true;
             }
         }
     }

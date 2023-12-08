@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             Projectile.width = 10;
             Projectile.height = 10;
 
-            Projectile.timeLeft = 60 * 5;
+            Projectile.timeLeft = 300;
             Projectile.aiStyle = 0;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
@@ -43,10 +43,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
 
             if (Projectile.ai[0] >= 60 && Projectile.ai[0] < 200)
             {
-                if (!Projectile.friendly)
-                {
-                    Projectile.friendly = true;
-                }
                 Player player = Projectile.FindClosestPlayer(350);
                 if (player != null)
                 {

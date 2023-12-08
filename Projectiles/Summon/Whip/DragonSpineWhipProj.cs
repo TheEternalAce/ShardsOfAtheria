@@ -78,7 +78,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Whip
 
         public override bool PreDraw(ref Color lightColor)
         {
-            List<Vector2> list = new List<Vector2>();
+            List<Vector2> list = new();
             Projectile.FillWhipControlPoints(Projectile, list);
 
             DrawLine(list);
@@ -99,8 +99,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Whip
             {
                 // These two values are set to suit this projectile's sprite, but won't necessarily work for your own.
                 // You can change them if they don't!
-                Rectangle frame = new Rectangle(0, 0, 10, 26);
-                Vector2 origin = new Vector2(5, 8);
+                Rectangle frame = new(0, 0, 10, 26);
+                Vector2 origin = new(5, 8);
                 float scale = 1;
 
                 // These statements determine what part of the spritesheet to draw for the current segment.

@@ -19,6 +19,7 @@ using ShardsOfAtheria.Projectiles.Ammo;
 using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Projectiles.Other;
+using ShardsOfAtheria.Projectiles.Tools;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -290,6 +291,19 @@ namespace ShardsOfAtheria.Globals
                         {
 
                         }
+                    }
+                }
+            }
+            if (player.ItemAnimationJustStarted)
+            {
+                if (item.pick > 0)
+                {
+                    var gem = player.Gem();
+                    if (gem.greaterAmethystCore && gem.amethystBomb)
+                    {
+                        var spawnpos = player.Center;
+                        var vector = Vector2.Normalize(Main.MouseWorld - spawnpos) * 16f;
+                        Projectile.NewProjectile(player.GetSource_FromThis(), spawnpos, vector, ModContent.ProjectileType<AmethystBomb>(), 120, 8f);
                     }
                 }
             }

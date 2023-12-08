@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Projectiles.Melee;
+using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Projectiles.Summon.Minions;
 using ShardsOfAtheria.Utilities;
@@ -79,6 +80,12 @@ namespace ShardsOfAtheria.Players
 
         private void RoyalVoidStar()
         {
+            int type = ModContent.ProjectileType<TheRoyalCrown>();
+            int headSlot = EquipLoader.GetEquipSlot(Mod, "RoyalCrown", EquipType.Head);
+            if (Player.ownedProjectileCounts[type] == 0 && Player.head == headSlot)
+            {
+                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, type, 0, 0);
+            }
             if (CommanderSet)
             {
                 if (royalVoid >= 33)
@@ -95,27 +102,37 @@ namespace ShardsOfAtheria.Players
             }
         }
 
-        private void RoyalOnHitEffect(NPC.HitInfo hit)
+        private void RoyalOnHitEffect(NPC target, NPC.HitInfo hit)
         {
-            if (royalSet)
+            if (hit.DamageType == DamageClass.Melee)
             {
-                if (hit.DamageType == DamageClass.Melee)
+                if (Player.statMana != Player.statManaMax2)
                 {
-                    if (Player.statMana != Player.statManaMax2)
+                    Player.statMana += 5;
+                }
+            }
+            if (hit.DamageType == classChip)
+            {
+                if (!Player.HasBuff<ShadeState>() || CommanderSet)
+                {
+                    royalVoid += 3;
+                    if (royalVoid > ROYAL_VOID_MAX)
                     {
-                        Player.statMana += 5;
+                        royalVoid = ROYAL_VOID_MAX;
                     }
                 }
-                if (hit.DamageType == classChip ||
-                    hit.DamageType == DamageClass.Generic ||
-                    classChip == DamageClass.Generic)
+            }
+            if (Player.HasBuff<ShadeState>())
+            {
+                if (MageSet)
                 {
-                    if (!Player.HasBuff<ShadeState>() || CommanderSet)
+                    int type = ModContent.ProjectileType<VoidDagger>();
+                    if (Player.ownedProjectileCounts[type] == 0)
                     {
-                        royalVoid += 3;
-                        if (royalVoid > ROYAL_VOID_MAX)
+                        for (int i = 0; i < 6; i++)
                         {
-                            royalVoid = ROYAL_VOID_MAX;
+                            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, type,
+                                (int)ClassDamage.ApplyTo(65), 0f, Player.whoAmI, i, target.whoAmI);
                         }
                     }
                 }

@@ -103,15 +103,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             vectorToIdlePosition = idlePosition - Projectile.Center;
             distanceToIdlePosition = vectorToIdlePosition.Length();
 
-            if (Main.myPlayer == owner.whoAmI && distanceToIdlePosition > 2000f)
-            {
-                // Whenever you deal with non-regular events that change the behavior or position drastically, make sure to only run the code on the owner of the projectile,
-                // and then set netUpdate to true
-                Projectile.position = idlePosition;
-                Projectile.velocity *= 0.1f;
-                Projectile.netUpdate = true;
-            }
-
             // If your minion is flying, you want to do this independently of any conditions
             float overlapVelocity = 0.04f;
 
@@ -178,12 +169,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                         float between = Vector2.Distance(npc.Center, Projectile.Center);
                         bool closest = Vector2.Distance(Projectile.Center, targetCenter) > between;
                         bool inRange = between < distanceFromTarget;
-                        bool lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height);
-                        // Additional check for this specific minion behavior, otherwise it will stop attacking once it dashed through an enemy while flying though tiles afterwards
-                        // The number depends on various parameters seen in the movement code below. Test different ones out until it works alright
-                        bool closeThroughWall = between < 100f;
 
-                        if ((closest && inRange || !foundTarget) && (lineOfSight || closeThroughWall))
+                        if ((closest && inRange || !foundTarget))
                         {
                             distanceFromTarget = between;
                             targetCenter = npc.Center;
@@ -199,8 +186,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         {
             Player player = Main.player[Projectile.owner];
             // Default movement parameters (here for attacking)
-            float speed;
-            float inertia;
+            float speed = 4f;
+            float inertia = 60f;
 
             if (foundTarget)
             {
@@ -239,20 +226,23 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                     ai0 = 1;
                 }
 
-                if (++ShootTimer >= 120)
+                if (++ShootTimer >= 120 + Main.rand.Next(60))
                 {
                     Vector2 vel = Vector2.Normalize(targetCenter - Projectile.Center) * shootSpeed;
-                    Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, vel,
+                    var projectile = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, vel,
                         projType, Projectile.damage, 0, Projectile.owner, ai0);
+                    projectile.DamageType = DamageClass.Summon;
+                    projectile.tileCollide = false;
                     SoundEngine.PlaySound(soundType);
                     Projectile.ai[1] = 0;
                     ShootTimer = 0;
                 }
 
-                vectorToIdlePosition.Normalize();
-                vectorToIdlePosition *= speed;
-
-                Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
+                if (distanceToIdlePosition > 400f)
+                {
+                    speed = 16f;
+                    inertia = 40f;
+                }
             }
             else
             {
@@ -267,35 +257,24 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                     Projectile.ai[1] = 0;
                 }
 
-                // Minion doesn't have a target: return to player and idle
-                if (distanceToIdlePosition > 300f)
+                if (distanceToIdlePosition > 400f)
                 {
-                    // Speed up the minion if it's away from the player
-                    speed = 12f;
+                    speed = 16f;
                     inertia = 40f;
                 }
-                else
-                {
-                    // Slow down the minion if closer to the player
-                    speed = 4f;
-                    inertia = 60f;
-                }
+            }
 
-                if (distanceToIdlePosition > 20f)
-                {
-                    // The immediate range around the player (when it passively floats about)
-
-                    // This is a simple movement formula using the two parameters and its desired direction to create a "homing" movement
-                    vectorToIdlePosition.Normalize();
-                    vectorToIdlePosition *= speed;
-                    Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
-                }
-                else if (Projectile.velocity == Vector2.Zero)
-                {
-                    // If there is a case where it's not moving at all, give it a little "poke"
-                    Projectile.velocity.X = -0.15f;
-                    Projectile.velocity.Y = -0.05f;
-                }
+            if (distanceToIdlePosition > 20f)
+            {
+                vectorToIdlePosition.Normalize();
+                vectorToIdlePosition *= speed;
+                Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
+            }
+            else if (Projectile.velocity == Vector2.Zero)
+            {
+                // If there is a case where it's not moving at all, give it a little "poke"
+                Projectile.velocity.X = -0.15f;
+                Projectile.velocity.Y = -0.05f;
             }
         }
 

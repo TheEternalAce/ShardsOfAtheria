@@ -79,6 +79,7 @@ Pantheon,Steel,,
 PhantomRose,Dark,Grass,
 Scarlet,Dark,Grass,
 TheBall,Blood,,
+AreusChain,Electric,Steel,"{""Tooltips"": [{""Type"":""Electric"",""Tooltip"": ""Whip: {0}""},{""Type"":""Steel"",""Tooltip"": ""Gold Chain: {0}""}]}"
 AreusStriker,Electric,,
 FlailOfFlesh,Blood,Fire,
 BloodTome,Blood,,

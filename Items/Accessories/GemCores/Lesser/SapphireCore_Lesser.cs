@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Shards().lesserSapphireCore = true;
+            player.Gem().sapphireDodgeChance += 0.05f;
         }
     }
 }

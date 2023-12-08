@@ -35,8 +35,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.jumpBoost = true;
-            player.Shards().lesserEmeraldCore = true;
+            player.Gem().lesserEmeraldCore = true;
+            player.moveSpeed += 0.05f;
         }
     }
 }

@@ -141,16 +141,15 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
-        public static void ApplyGravity(this Projectile projectile, ref int delay)
+        public static void ApplyGravity(this Projectile projectile, ref int delay, float maxGravity = 16f)
         {
             if (--delay <= 0)
             {
-                projectile.ApplyGravity();
+                projectile.ApplyGravity(maxGravity);
             }
         }
-        public static void ApplyGravity(this Projectile projectile)
+        public static void ApplyGravity(this Projectile projectile, float maxGravity = 16f)
         {
-            float maxGravity = 16f;
             if (++projectile.velocity.Y > maxGravity)
             {
                 projectile.velocity.Y = maxGravity;

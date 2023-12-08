@@ -39,8 +39,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shootSpeed = 2f;
             Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(0, 1, 75);
-
             Item.shoot = ModContent.ProjectileType<HardlightSlash>();
+            Item.shootsEveryUse = true;
         }
 
         public override void AddRecipes()
@@ -53,9 +53,10 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile.NewProjectile(source, position, velocity * 0, type, damage,
-                knockback, player.whoAmI, player.direction * player.gravDir,
-                player.itemAnimationMax);
+            float adjustedItemScale = player.GetAdjustedItemScale(Item); // Get the melee scale of the player and item.
+            Projectile.NewProjectile(source, player.MountedCenter, new Vector2(player.direction, 0f), type, damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax, adjustedItemScale);
+            NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI); // Sync the changes in multiplayer.
+
             damage /= 2;
             int type2 = ModContent.ProjectileType<HardlightBlade>();
             if (++shoot == 3)
@@ -73,7 +74,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 Projectile.NewProjectile(source, position, velocity2, type2, damage,
                     knockback, player.whoAmI);
             }
-            return false;
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
     }
 }

@@ -43,13 +43,15 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
 
         public override void UpdateVanity(Player player)
         {
-            player.Shards().topazNecklace = true;
+            player.Gem().topazNecklace = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Shards().topazNecklace = !hideVisual;
-            player.statLifeMax2 += 40;
+            player.Gem().topazNecklace = !hideVisual;
+            player.Gem().topazCore = true;
+            ModContent.GetInstance<TopazCore_Lesser>().UpdateAccessory(player, hideVisual);
+            player.statLifeMax2 += 20;
         }
     }
 }

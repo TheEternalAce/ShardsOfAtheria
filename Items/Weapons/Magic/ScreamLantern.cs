@@ -28,6 +28,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 4f;
             Item.crit = 6;
+            Item.mana = 8;
 
             Item.useTime = 12;
             Item.useAnimation = 24;

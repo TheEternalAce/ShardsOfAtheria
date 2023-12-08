@@ -48,7 +48,6 @@ namespace ShardsOfAtheria.Players
             {
                 if (Main.rand.NextBool(8))
                 {
-                    Player.ClearBuff<ElectricCloak>();
                     Vector2 teleport = Main.MouseWorld - Player.Center;
                     teleport.Normalize();
                     teleport *= 200;

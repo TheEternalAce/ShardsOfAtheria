@@ -35,17 +35,13 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
 
         public override void UpdateVanity(Player player)
         {
-            player.Shards().rubyGauntlet = true;
+            player.Gem().rubyGauntlet = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Shards().rubyGauntlet = !hideVisual;
-            player.Shards().greaterRubyCore = true;
-            player.GetDamage(DamageClass.Generic) += .1f;
+            ModContent.GetInstance<RubyCore>().UpdateAccessory(player, hideVisual);
             player.GetAttackSpeed(DamageClass.Generic) += .1f;
-            player.GetKnockback(DamageClass.Generic) += 1;
-            player.meleeScaleGlove = true;
         }
     }
 }

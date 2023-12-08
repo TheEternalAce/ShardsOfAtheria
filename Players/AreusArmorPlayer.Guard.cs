@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Projectiles.Magic;
-using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;

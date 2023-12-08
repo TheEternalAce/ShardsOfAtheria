@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;
 using System;
@@ -21,6 +20,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Main.projPet[Projectile.type] = true; // Denotes that this projectile is a pet or minion
 
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+            ProjectileID.Sets.TrailingMode[Type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Type] = 20;
         }
 
         public override void SetDefaults()
@@ -86,15 +87,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             // Teleport to player if distance is too big
             vectorToIdlePosition = idlePosition - Projectile.Center;
             distanceToIdlePosition = vectorToIdlePosition.Length();
-
-            if (Main.myPlayer == owner.whoAmI && distanceToIdlePosition > 2000f)
-            {
-                // Whenever you deal with non-regular events that change the behavior or position drastically, make sure to only run the code on the owner of the projectile,
-                // and then set netUpdate to true
-                Projectile.position = idlePosition;
-                Projectile.velocity *= 0.1f;
-                Projectile.netUpdate = true;
-            }
 
             // If your minion is flying, you want to do this independently of any conditions
             float overlapVelocity = 0.04f;
@@ -162,12 +154,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                         float between = Vector2.Distance(npc.Center, Projectile.Center);
                         bool closest = Vector2.Distance(Projectile.Center, targetCenter) > between;
                         bool inRange = between < distanceFromTarget;
-                        bool lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height);
-                        // Additional check for this specific minion behavior, otherwise it will stop attacking once it dashed through an enemy while flying though tiles afterwards
-                        // The number depends on various parameters seen in the movement code below. Test different ones out until it works alright
-                        bool closeThroughWall = between < 100f;
 
-                        if ((closest && inRange || !foundTarget) && (lineOfSight || closeThroughWall))
+                        if ((closest && inRange || !foundTarget))
                         {
                             distanceFromTarget = between;
                             targetCenter = npc.Center;
@@ -261,11 +249,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             var player = Projectile.GetPlayerOwner();
-            if (!player.HasBuff<ShadeState>())
-            {
-                var areus = player.Areus();
-                areus.royalVoid -= 3;
-            }
+            var areus = player.Areus();
+            areus.royalVoid -= 3;
         }
 
         public override void OnKill(int timeLeft)
@@ -300,6 +285,18 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vector, ModContent.ProjectileType<ElectricShadeShot>(),
                     Projectile.damage, Projectile.knockBack, -1, 0, 1);
             }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            lightColor = Color.White;
+            return base.PreDraw(ref lightColor);
+        }
+
+        public override void PostDraw(Color lightColor)
+        {
+            Projectile.DrawProjectilePrims(lightColor, ShardsHelpers.OrbX1);
+            Projectile.DrawPrimsAfterImage(lightColor);
         }
     }
 }
