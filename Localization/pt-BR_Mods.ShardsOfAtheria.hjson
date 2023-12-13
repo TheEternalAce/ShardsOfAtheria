@@ -18,6 +18,11 @@ Common: {
 		The infernal katana embeds itself into your areus katana, twisting its shape and making it scream.
 		Your newly transformed blade hungers for fresh blood.
 		''' */
+	/* HoldShiftTooltip:
+		'''
+		Hold SHIFT to see more
+		Hold LEFT/RIGHT to cycle tooltip slower/faster
+		''' */
 }
 
 DiskFile: {
@@ -122,6 +127,8 @@ Items: {
 			Summon two Amber Flies after taking damage
 			Enemy kills drop Amber Banners
 			Banners increase nearby player movement and attack speed and defense
+			Increases max sentries by 3
+			Every active sentry increases ally defense by 4
 			''' */
 	}
 
@@ -353,6 +360,68 @@ Items: {
 			Use to disable Gravitation
 			Grants flight and slow fall
 			'''
+		/* ShiftTooltip0:
+			'''
+			[i:ShardsOfAtheria/AmberCore_Super] Amber Effects
+			Further increased max minions after taking damage
+			Summon four Amber Flies after taking damage
+			Enemy kills drop Amber Banners
+			Banners increase nearby player movement and attack speed and defense
+			The first banner will follow you
+			Increases max sentries by 3
+			Every active sentry increases your team's defense by 4
+			''' */
+		/* ShiftTooltip1:
+			'''
+			[i:ShardsOfAtheria/AmethystCore_Super] Amethyst Effects
+			Boost other gem buffs after taking damage
+			Press <{$Mods.ShardsOfAtheria.Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing an amethyst bomb when using a pickaxe
+			Grants immunity to fire, cold, electric, and poison debuffs
+			''' */
+		/* ShiftTooltip2:
+			'''
+			[i:ShardsOfAtheria/DiamondCore_Super] Diamond Effects
+			Further increased defense after taking damage
+			Create two orbiting large diamonds that block projectiles
+			On kill, gain temporary armor equal to 5% of damage dealt
+			''' */
+		/* ShiftTooltip3:
+			'''
+			[i:ShardsOfAtheria/EmeraldCore_Super] Emerald Effects
+			Increases flight time
+			Further increased movement speed after taking damage
+			Every active debuff increases movement speed
+			Press <{$Mods.ShardsOfAtheria.Keybinds.EmeraldTeleport.DisplayName}> to teleport to your cursor
+			''' */
+		/* ShiftTooltip4:
+			'''
+			[i:ShardsOfAtheria/RubyCore_Super] Ruby Effects
+			Further increased damage after taking damage
+			Critical hits create exploding rubies
+			Attacks inflict 'Spiteful Ruby', DoT + reduced defense
+			''' */
+		/* ShiftTooltip5:
+			'''
+			[i:ShardsOfAtheria/SapphireCore_Super] Sapphire Effects
+			Attacks inflict confusion after taking damage
+			Release sapphire spikes when damaged
+			Gem Soul will now fight beside you
+			''' */
+		/* ShiftTooltip6:
+			'''
+			[i:ShardsOfAtheria/TopazCore_Super] Topaz Effects
+			Increased life regeneration after taking damage
+			On kill, drop a healing topaz orb
+			Heal 15% life every 40 secoonds
+			''' */
+		/* ShiftTooltip7:
+			'''
+			[i:ShardsOfAtheria/MegaGemCore] Master Upgrades
+			Attacks may lifesteal
+			Topaz orb heals everyone within range and on the same team
+			Gem Soul will shoot and destroy nearby hostile projectiles every 3 seconds
+			Gem Soul will create an emerald platform when wing time runs out
+			''' */
 	}
 
 	AcidTrip: {
@@ -2197,6 +2266,35 @@ Items: {
 		// DisplayName: Life Cycle Keys
 		// Tooltip: ""
 	}
+
+	AmethystDagger: {
+		// DisplayName: Amethyst Dagger
+		/* Tooltip:
+			'''
+			Used to proc on-hurt effects
+			Self damage reduced by amethyst cores
+			''' */
+	}
+
+	AreusOrbiter: {
+		// DisplayName: Areus Orbiter
+		// Tooltip: ""
+	}
+
+	AreusFlareGun: {
+		// DisplayName: Areus Flare Gun
+		// Tooltip: ""
+	}
+
+	MiniStarCritter: {
+		// DisplayName: Mini Areus Star
+		// Tooltip: ""
+	}
+
+	MiniStarCritter_Golden: {
+		// DisplayName: Golden Mini Areus Star
+		// Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -2480,6 +2578,15 @@ Projectiles: {
 	// AmberSpit.DisplayName: Amber Spit
 	// TopazOrb.DisplayName: Topaz Orb
 	// AmberBanner.DisplayName: Amber Banner
+	// LifeStealGem.DisplayName: Life Steal Gem
+	// AmethystDaggerProjectile.DisplayName: Amethyst Dagger
+	// OrbiterMagnet.DisplayName: Orbiter Magnet
+	// DiamondShot.DisplayName: Diamond Shot
+	// GemSoul.DisplayName: Gem Soul
+	// RubyShot.DisplayName: Ruby Shot
+	// RubyExplosive.DisplayName: Ruby Explosive
+	// RubyShard.DisplayName: Ruby Shard
+	// EmeraldTeleport.DisplayName: Emerald Teleport
 }
 
 NPCs: {
@@ -2690,6 +2797,10 @@ NPCs: {
 		// DisplayName: Areus Construct
 		// Bestiary: ""
 	}
+
+	// MiniAreusStar.DisplayName: Mini Areus Star
+	// EmeraldPlatform.DisplayName: Emerald Platform
+	// MiniAreusStar_Golden.DisplayName: Mini Areus Star_ Golden
 }
 
 Buffs: {
@@ -3054,6 +3165,26 @@ Buffs: {
 	AmberBannerBuff: {
 		// DisplayName: Amber Banner Buff
 		// Description: Mods.ShardsOfAtheria.Buffs.AmberBannerBuff.Description
+	}
+
+	AmethystCurse: {
+		// DisplayName: Amethyst Curse
+		// Description: Your death is iminent if you keep this up
+	}
+
+	SpitefulRuby: {
+		// DisplayName: Spiteful Ruby
+		// Description: Mods.ShardsOfAtheria.Buffs.SpitefulRuby.Description
+	}
+
+	DiamondBarrierBuff: {
+		// DisplayName: Diamond Barrier Buff
+		// Description: Mods.ShardsOfAtheria.Buffs.DiamondBarrierBuff.Description
+	}
+
+	EmeraldTeleportCooldown: {
+		// DisplayName: Emerald Teleport Cooldown
+		// Description: Mods.ShardsOfAtheria.Buffs.EmeraldTeleportCooldown.Description
 	}
 }
 

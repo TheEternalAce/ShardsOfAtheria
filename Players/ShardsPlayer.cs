@@ -106,6 +106,9 @@ namespace ShardsOfAtheria.Players
 
         public bool ArmorSetCooldown => Player.ArmorSetCooldown();
 
+        public float shiftTooltipCycleTimer = 0f;
+        public int shiftTooltipIndex = 0;
+
         public override void ResetEffects()
         {
             baseConservation = false;

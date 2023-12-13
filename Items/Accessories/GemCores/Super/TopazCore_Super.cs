@@ -41,6 +41,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             ModContent.GetInstance<TopazCore_Greater>().UpdateAccessory(player, hideVisual);
+            player.Gem().superTopazCore = true;
             player.statLifeMax2 += 20;
             player.lifeRegen += 1;
         }

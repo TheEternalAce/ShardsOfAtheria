@@ -36,9 +36,9 @@ namespace ShardsOfAtheria.Items.Accessories
             float[] playerElements = player.ElementMultipliers();
             string elementInfo = player.name + "'s Elemental Multipliers\n" +
                 "[i:BattleNetworkElements/FireIcon] Fire: " + playerElements[Element.Fire] + "x\n" +
-            "[i:BattleNetworkElements/AquaIcon] Aqua: " + playerElements[Element.Aqua] + "x\n" +
-            "[i:BattleNetworkElements/ElecIcon] Elec: " + playerElements[Element.Elec] + "x\n" +
-            "[i:BattleNetworkElements/WoodIcon] Wood: " + playerElements[Element.Wood] + "x";
+                "[i:BattleNetworkElements/AquaIcon] Aqua: " + playerElements[Element.Aqua] + "x\n" +
+                "[i:BattleNetworkElements/ElecIcon] Elec: " + playerElements[Element.Elec] + "x\n" +
+                "[i:BattleNetworkElements/WoodIcon] Wood: " + playerElements[Element.Wood] + "x";
             tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), new(Mod, "ElementInfo", elementInfo));
         }
 

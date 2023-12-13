@@ -40,9 +40,10 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.Gem().sapphireSpirit = !hideVisual;
             ModContent.GetInstance<SapphireCore_Greater>().UpdateAccessory(player, hideVisual);
             player.Gem().superSapphireCore = true;
+            player.Gem().sapphireSpiritUpgrade = true;
+            player.Gem().gemSoul = true;
             player.Gem().sapphireDodgeChance += 0.05f;
         }
     }

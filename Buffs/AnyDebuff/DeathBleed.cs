@@ -84,7 +84,7 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
                 }
                 Player.lifeRegenTime = 0;
                 // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 10 life lost per second, if the player is holding their left or right movement keys.
-                Player.lifeRegen -= 40;
+                Player.lifeRegen -= 50;
             }
         }
 

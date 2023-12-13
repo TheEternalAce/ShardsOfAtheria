@@ -42,10 +42,10 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.ai[0]++;
             if (Projectile.ai[0] >= 15 && Projectile.ai[0] < 200)
             {
-                NPC npc = Projectile.FindClosestNPC(-1);
+                NPC npc = Projectile.FindClosestNPC(350);
                 if (npc != null)
                 {
-                    Projectile.Track(npc, 350);
+                    Projectile.Track(npc, 16f, 8f);
                 }
             }
         }

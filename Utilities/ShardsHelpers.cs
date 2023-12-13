@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
 using ShardsOfAtheria.Projectiles.Other;
@@ -77,11 +78,11 @@ namespace ShardsOfAtheria.Utilities
             return projectiles;
         }
 
-        public static ref Vector2 SlowDown(this Projectile projectile, float slowdown = 1f)
+        public static Vector2 SlowDown(this Projectile projectile, float slowdown = 1f)
         {
-            return ref projectile.velocity.SlowDown(slowdown);
+            return projectile.velocity.SlowDown(slowdown);
         }
-        public static ref Vector2 SlowDown(this ref Vector2 vector, float slowdown = 1f)
+        public static Vector2 SlowDown(this Vector2 vector, float slowdown = 1f)
         {
             float min = 0.01f;
             int xDir = vector.X >= 1 ? 1 : -1;
@@ -102,7 +103,7 @@ namespace ShardsOfAtheria.Utilities
                     vector.Y = min * yDir;
                 }
             }
-            return ref vector;
+            return vector;
         }
 
         public static Color UseA(this Color color, int alpha) => new(color.R, color.G, color.B, alpha);
@@ -275,16 +276,12 @@ namespace ShardsOfAtheria.Utilities
             return valid;
         }
 
-        public static NPC FindClosestNPC(Vector2 pos, float maxDist, params int[] blacklistedWhoAmI)
+        public static NPC FindClosestNPC(Vector2 pos, float maxDist = 2000f, params int[] blacklistedWhoAmI)
         {
             NPC closestNPC = null;
 
             // Using squared values in distance checks will let us skip square root calculations, drastically improving this method's speed.
             float sqrMaxDetectDistance = maxDist * maxDist;
-            if (maxDist < 0)
-            {
-                sqrMaxDetectDistance = float.PositiveInfinity;
-            }
 
             // Loop through all NPCs(max always 200)
             for (int k = 0; k < Main.maxNPCs; k++)
@@ -317,16 +314,12 @@ namespace ShardsOfAtheria.Utilities
 
             return closestNPC;
         }
-        public static Player FindClosestPlayer(this Vector2 position, float maxDetectDistance, params int[] blaclkistedWhoAmI)
+        public static Player FindClosestPlayer(this Vector2 position, float maxDetectDistance = 2000f, params int[] blaclkistedWhoAmI)
         {
             Player closestPlayer = null;
 
             // Using squared values in distance checks will let us skip square root calculations, drastically improving this method's speed.
             float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
-            if (maxDetectDistance < 0)
-            {
-                sqrMaxDetectDistance = float.PositiveInfinity;
-            }
 
             // Loop through all Players(max always 255)
             for (int k = 0; k < Main.maxPlayers; k++)
@@ -354,6 +347,112 @@ namespace ShardsOfAtheria.Utilities
 
             return closestPlayer;
         }
+        public static Projectile FindClosestProjectile(this Vector2 position, float maxDetectDistance = 2000f, int specificType = 0,
+            int owner = -1, bool? hostile = null, bool? friendly = null, params int[] blaclkistedWhoAmI)
+        {
+            Projectile closestProjectile = null;
+
+            float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
+
+            for (int k = 0; k < Main.maxProjectiles; k++)
+            {
+                Projectile target = Main.projectile[k];
+                if (target.active)
+                {
+                    float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, position);
+
+                    if (sqrDistanceToTarget < sqrMaxDetectDistance)
+                    {
+                        if (!blaclkistedWhoAmI.Contains(target.whoAmI))
+                        {
+                            if ((specificType == 0 || target.type == specificType) &&
+                                (owner == -1 || target.owner == owner) &&
+                                (hostile == null || target.hostile == hostile) &&
+                                (friendly == null || target.friendly == friendly))
+                            {
+                                sqrMaxDetectDistance = sqrDistanceToTarget;
+                                closestProjectile = target;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return closestProjectile;
+        }
+        public static Projectile FindClosestProjectile(this Vector2 position, float maxDetectDistance = 2000f, Dictionary<string, object> args = null)
+        {
+            Projectile closestProjectile = null;
+            float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
+
+            int specificType = 0;
+            int owner = -1;
+            bool? hostile = null;
+            bool? friendly = null;
+            List<int> blacklistedWhoAmI = new();
+
+            if (args.ContainsKey("type"))
+                specificType = (int)args["type"];
+            if (args.ContainsKey("owner"))
+                owner = (int)args["owner"];
+            if (args.ContainsKey("hostile"))
+                hostile = (bool)args["hostile"];
+            if (args.ContainsKey("friendly"))
+                friendly = (bool)args["friendly"];
+            if (args.ContainsKey("blacklistWhoAmI"))
+                blacklistedWhoAmI.AddRange((int[])args["blacklistWhoAmI"]);
+
+            for (int k = 0; k < Main.maxProjectiles; k++)
+            {
+                Projectile target = Main.projectile[k];
+                if (target.active)
+                {
+                    float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, position);
+
+                    if (sqrDistanceToTarget < sqrMaxDetectDistance)
+                    {
+                        if (!blacklistedWhoAmI.Contains(target.whoAmI))
+                        {
+                            if ((specificType == 0 || target.type == specificType) &&
+                                (owner == -1 || target.owner == owner) &&
+                                (hostile == null || target.hostile == hostile) &&
+                                (friendly == null || target.friendly == friendly))
+                            {
+                                sqrMaxDetectDistance = sqrDistanceToTarget;
+                                closestProjectile = target;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return closestProjectile;
+        }
+        public static Projectile FindClosestProjectile(this Vector2 position, float maxDetectDistance = 2000f, Func<Projectile, bool> validProjectileFunc = null)
+        {
+            Projectile closestProjectile = null;
+            float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
+
+            for (int k = 0; k < Main.maxProjectiles; k++)
+            {
+                Projectile target = Main.projectile[k];
+                if (target.active)
+                {
+                    float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, position);
+
+                    if (sqrDistanceToTarget < sqrMaxDetectDistance)
+                    {
+                        if (validProjectileFunc == null || validProjectileFunc(target))
+                        {
+                            sqrMaxDetectDistance = sqrDistanceToTarget;
+                            closestProjectile = target;
+                        }
+                    }
+                }
+            }
+
+            return closestProjectile;
+        }
 
         public static bool NoInvasionOfAnyKind(this NPCSpawnInfo spawnInfo)
         {
@@ -361,6 +460,47 @@ namespace ShardsOfAtheria.Utilities
                 spawnInfo.Player.ZoneTowerVortex || spawnInfo.Player.ZoneTowerSolar ||
                 spawnInfo.Player.ZoneTowerStardust || Main.pumpkinMoon || Main.snowMoon ||
                 spawnInfo.Invasion);
+        }
+
+        public static Dust[] DustRing(Vector2 position, float radius, int dustType, int amount = 28, float fadeIn = 1.3f, bool noGravity = true)
+        {
+            Dust[] dusts = new Dust[amount];
+            for (var i = 0; i < amount; i++)
+            {
+                var vector = Main.rand.NextVector2CircularEdge(1f, 1f);
+                Dust d = Dust.NewDustPerfect(position, dustType, vector * radius);
+                d.fadeIn = fadeIn;
+                d.noGravity = noGravity;
+                dusts[i] = d;
+            }
+            return dusts;
+        }
+
+        public static TooltipLine ShiftTooltipCycle(this ModItem modItem, int maxIndex)
+        {
+            TooltipLine line;
+            var shards = Main.LocalPlayer.Shards();
+            float cycleSpeed = 1f;
+            if (Main.keyState.IsKeyDown(Keys.Left))
+            {
+                cycleSpeed /= 2;
+            }
+            if (Main.keyState.IsKeyDown(Keys.Right))
+            {
+                cycleSpeed *= 2;
+            }
+            shards.shiftTooltipCycleTimer += cycleSpeed;
+            if (shards.shiftTooltipCycleTimer >= 180)
+            {
+                if (++shards.shiftTooltipIndex > maxIndex)
+                {
+                    shards.shiftTooltipIndex = 0;
+                }
+                shards.shiftTooltipCycleTimer = 0;
+            }
+            string shiftText = Language.GetTextValue(modItem.GetLocalizationKey("ShiftTooltip" + shards.shiftTooltipIndex));
+            line = new(modItem.Mod, "ShiftTooltip", shiftText);
+            return line;
         }
     }
 }

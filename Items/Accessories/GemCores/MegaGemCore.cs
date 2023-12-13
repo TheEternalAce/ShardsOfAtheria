@@ -1,8 +1,11 @@
-﻿using ShardsOfAtheria.Items.Accessories.GemCores.Lesser;
+﻿using Microsoft.Xna.Framework.Input;
+using ShardsOfAtheria.Items.Accessories.GemCores.Lesser;
 using ShardsOfAtheria.Items.Accessories.GemCores.Super;
 using ShardsOfAtheria.Utilities;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
@@ -44,13 +47,13 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         {
             var gem = player.Gem();
             int loadout = player.CurrentLoadoutIndex;
-            gem.amberCape = gem.megaGemCoreToggles[loadout, 0];
-            gem.amethystMask = gem.megaGemCoreToggles[loadout, 1];
-            gem.diamondShield = gem.megaGemCoreToggles[loadout, 2];
-            gem.emeraldBoots = gem.megaGemCoreToggles[loadout, 3];
-            gem.rubyGauntlet = gem.megaGemCoreToggles[loadout, 4];
-            gem.sapphireSpirit = gem.megaGemCoreToggles[loadout, 5];
-            gem.topazNecklace = gem.megaGemCoreToggles[loadout, 6];
+            gem.amberCape = gem.masterGemCoreToggles[loadout, 0];
+            gem.amethystMask = gem.masterGemCoreToggles[loadout, 1];
+            gem.diamondShield = gem.masterGemCoreToggles[loadout, 2];
+            gem.emeraldBoots = gem.masterGemCoreToggles[loadout, 3];
+            gem.rubyGauntlet = gem.masterGemCoreToggles[loadout, 4];
+            gem.gemSoul = gem.sapphireSpirit = gem.masterGemCoreToggles[loadout, 5];
+            gem.topazNecklace = gem.masterGemCoreToggles[loadout, 6];
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -73,18 +76,30 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             gem.sapphireDodgeChance += 0.05f;
             player.maxMinions++;
             player.statLifeMax2 += 20;
+            player.moveSpeed += 0.05f;
 
             if (!hideVisual)
             {
                 int loadout = player.CurrentLoadoutIndex;
-                gem.amberCape = gem.megaGemCoreToggles[loadout, 0];
-                gem.amethystMask = gem.megaGemCoreToggles[loadout, 1];
-                gem.diamondShield = gem.megaGemCoreToggles[loadout, 2];
-                gem.emeraldBoots = gem.megaGemCoreToggles[loadout, 3];
-                gem.rubyGauntlet = gem.megaGemCoreToggles[loadout, 4];
-                gem.sapphireSpirit = gem.megaGemCoreToggles[loadout, 5];
-                gem.topazNecklace = gem.megaGemCoreToggles[loadout, 6];
+                gem.amberCape = gem.masterGemCoreToggles[loadout, 0];
+                gem.amethystMask = gem.masterGemCoreToggles[loadout, 1];
+                gem.diamondShield = gem.masterGemCoreToggles[loadout, 2];
+                gem.emeraldBoots = gem.masterGemCoreToggles[loadout, 3];
+                gem.rubyGauntlet = gem.masterGemCoreToggles[loadout, 4];
+                gem.gemSoul = gem.sapphireSpirit = gem.masterGemCoreToggles[loadout, 5];
+                gem.topazNecklace = gem.masterGemCoreToggles[loadout, 6];
             }
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            string holdShiftText = Language.GetTextValue(SoA.LocalizeCommon + "HoldShiftTooltip");
+            TooltipLine line = new(Mod, "HoldShift", holdShiftText);
+            if (Main.keyState.IsKeyDown(Keys.LeftShift) || Main.keyState.IsKeyDown(Keys.RightShift))
+            {
+                line = this.ShiftTooltipCycle(7);
+            }
+            tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
         }
     }
 }

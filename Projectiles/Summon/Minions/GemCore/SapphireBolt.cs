@@ -4,9 +4,9 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Summon.Minions
+namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 {
-    public class AmberSpit : ModProjectile
+    public class SapphireBolt : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -31,8 +31,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             vector *= 3f;
             for (int i = 0; i < 6; i++)
             {
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height,
-                    DustID.GemAmber, vector.X, vector.Y);
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.GemSapphire,
+                    vector.X, vector.Y);
                 dust.noGravity = true;
             }
         }

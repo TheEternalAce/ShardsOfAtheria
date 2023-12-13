@@ -60,7 +60,10 @@ namespace ShardsOfAtheria.Utilities
         public static void AddAreus(this Item item, bool dark = false)
         {
             item.type.AddAreusItem(dark);
-            item.AddElementElec();
+            if (!dark)
+            {
+                item.AddElementElec();
+            }
         }
         public static void AddAreusItem(this int id, bool dark)
         {

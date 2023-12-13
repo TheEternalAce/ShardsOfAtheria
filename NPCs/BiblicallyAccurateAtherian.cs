@@ -143,7 +143,7 @@ namespace ShardsOfAtheria.NPCs
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
 
 				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement("")
+				new FlavorTextBestiaryInfoElement(this.GetLocalizationKey("Bestiary"))
             });
         }
 

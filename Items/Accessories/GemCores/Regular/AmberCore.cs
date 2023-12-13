@@ -8,27 +8,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
 {
     public class AmberCore : ModItem
     {
-        //public override void Load()
-        //{
-        //    if (Main.netMode != NetmodeID.Server)
-        //    {
-        //        EquipLoader.AddEquipTexture(Mod, "ShardsOfAtheria/Items/Accessories/GemCores/Amber", EquipType.Head, this, "Amber");
-        //    }
-        //}
-
-        //public void SetupDrawing()
-        //{
-        //    if (Main.netMode != NetmodeID.Server)
-        //    {
-        //        int equipSlotHead = EquipLoader.GetEquipSlot(Mod, "AmethystMask", EquipType.Head);
-        //        ArmorIDs.Head.Sets.DrawHead[equipSlotHead] = true;
-        //        ArmorIDs.Head.Sets.DrawFullHair[equipSlotHead] = true;
-        //    }
-        //}
-
-        public override void SetStaticDefaults()
+        public override void Load()
         {
-            //SetupDrawing();
+            if (Main.netMode != NetmodeID.Server)
+            {
+                EquipLoader.AddEquipTexture(Mod, "ShardsOfAtheria/Items/Accessories/GemCores/AmberCape", EquipType.Back, this, "AmberCape");
+            }
         }
 
         public override void SetDefaults()

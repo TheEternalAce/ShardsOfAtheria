@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Projectiles.Summon.Minions;
+﻿using ShardsOfAtheria.Projectiles.Summon.Minions.GemCore;
 using Terraria;
 using Terraria.ModLoader;
 

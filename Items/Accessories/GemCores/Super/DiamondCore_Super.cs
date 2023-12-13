@@ -42,6 +42,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             ModContent.GetInstance<DiamondCore_Greater>().UpdateAccessory(player, hideVisual);
+            player.Gem().superDiamondCore = true;
         }
     }
 }

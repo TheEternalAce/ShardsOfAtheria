@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             if (Projectile.ai[0] == 0)
             {
                 SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
-                player = Projectile.FindClosestPlayer(-1);
+                player = Projectile.FindClosestPlayer(2000);
                 float radius = 150 * Main.rand.NextFloat(0.6f, 1f);
                 float rotation = MathHelper.TwoPi;
                 trackPosition = Vector2.One.RotatedByRandom(rotation) * radius;

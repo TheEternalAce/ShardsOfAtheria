@@ -60,10 +60,10 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             }
 
             GeneralBehavior(owner, out Vector2 idlePosition);
-            Projectile.Track(idlePosition, 8, 16);
+            Projectile.Track(idlePosition);
 
             // Trying to find NPC closest to the projectile
-            NPC closestNPC = Projectile.FindClosestNPC(-1);
+            NPC closestNPC = Projectile.FindClosestNPC(3000);
             if (closestNPC != null)
             {
                 if (++Projectile.ai[1] >= 60 + 100 * Main.rand.NextFloat())
@@ -96,12 +96,16 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             {
                 count++;
             }
-            idlePosition = owner.Center + vector.RotatedBy(MathHelper.ToRadians(
-                360 / count * Projectile.ai[0])) * 90;
+            idlePosition = owner.Center + vector.RotatedBy(MathHelper.TwoPi / count * Projectile.ai[0]) * 90;
+            var distanceToIdlePosition = Projectile.Distance(idlePosition);
+            if (distanceToIdlePosition > 2000)
+            {
+                Projectile.Center = idlePosition;
+                Projectile.netUpdate = true;
+            }
 
             // If your minion is flying, you want to do this independently of any conditions
             float overlapVelocity = 0.04f;
-
             //Fix overlap with other minions
             for (int i = 0; i < Main.maxProjectiles; i++)
             {

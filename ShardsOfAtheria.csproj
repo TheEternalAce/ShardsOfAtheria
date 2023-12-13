@@ -38,7 +38,9 @@
     <AdditionalFiles Remove="Localization\pt-BR.hjson" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Buffs\PlayerBuff\DiamondBarrierBuff.png" />
     <None Remove="Buffs\PlayerBuff\ShadeState.png" />
+    <None Remove="Items\Accessories\GemCores\AmberCape.png" />
     <None Remove="Items\Armor\Areus\Imperial\ImperialGreaves.png" />
     <None Remove="Items\Armor\Areus\Royal\RoyalCrown_Head.png" />
     <None Remove="Items\Armor\Areus\Royal\RoyalJacket_Back.png" />
@@ -49,6 +51,7 @@
     <None Remove="NPCs\AreusCrateNPC.png" />
     <None Remove="Projectiles\Magic\VoidDagger.png" />
     <None Remove="Projectiles\Melee\VoidSlash.png" />
+    <None Remove="Projectiles\Other\RubyShard.png" />
     <None Remove="Projectiles\Summon\Minions\AreusMirror.png" />
     <None Remove="Projectiles\NPCProj\Elizabeth\BloodScytheHostile.png" />
     <None Remove="Projectiles\Ammo\AreusRod.png" />
@@ -59,6 +62,7 @@
     <None Remove="Projectiles\Melee\DeathScythe_Flip.png" />
     <None Remove="Projectiles\Melee\PrototypeBandSlash.png" />
     <None Remove="Projectiles\Melee\ZenovaProjectile2.png" />
+    <None Remove="Projectiles\Tools\AmethystDaggerProjectile.png" />
     <None Remove="ShardsUI\AreusEnergy\AreusEnergyBar.png" />
   </ItemGroup>
   <ItemGroup>
@@ -75,11 +79,11 @@
     <Folder Include="NPCs\Boss\NovaStellar\PhoenixWarrior\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BattleNetworkElements\BattleNetworkElements.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="BattleNetworkElements">
       <HintPath>..\ModAssemblies\BattleNetworkElements_v1.0.dll</HintPath>
+    </Reference>
+    <Reference Include="CollisionLib">
+      <HintPath>..\ModAssemblies\CollisionLib_v3.1.dll</HintPath>
     </Reference>
     <Reference Include="WebCom">
       <HintPath>..\..\..\tModLoader-preview\ModReader\WebCom\WebCom.dll</HintPath>

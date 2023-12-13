@@ -242,6 +242,17 @@ namespace ShardsOfAtheria.ShardsUI
                 ConsumeItems(materials);
                 mainSlot.Item = new(ModContent.ItemType<AreusGauntlet>());
             }
+            if (UpgradeSawstring())
+            {
+                int[,] materials = new[,]
+                {
+                    { ModContent.ItemType<AreusSawstring>(), 1 },
+                    { ItemID.LunarBar, 14 },
+                    { ItemID.FragmentVortex, 10 },
+                };
+                ConsumeItems(materials);
+                mainSlot.Item = new(ModContent.ItemType<AreusOrbiter>());
+            }
             #endregion
             if (UpgradeWar())
             {
@@ -441,6 +452,23 @@ namespace ShardsOfAtheria.ShardsUI
                 return false;
             }
             if (!AnySlotContains(ItemID.BeetleHusk, 15))
+            {
+                return false;
+            }
+            return true;
+        }
+        bool UpgradeSawstring()
+        {
+            var item = mainSlot.Item;
+            if (item.type != ModContent.ItemType<AreusSawstring>())
+            {
+                return false;
+            }
+            if (!AnySlotContains(ItemID.LunarBar, 14))
+            {
+                return false;
+            }
+            if (!AnySlotContains(ItemID.FragmentVortex, 10))
             {
                 return false;
             }

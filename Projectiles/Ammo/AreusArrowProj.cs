@@ -26,6 +26,8 @@ namespace ShardsOfAtheria.Projectiles.Ammo
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 120;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 5;
 
             DrawOffsetX = 1;
         }
@@ -72,16 +74,13 @@ namespace ShardsOfAtheria.Projectiles.Ammo
                 }
                 if (Projectile.ai[0] == 4f)
                 {
-                    float maxDetectRadius = 400f; // The maximum radius at which a projectile can detect a target
+                    float maxDetectRadius = 400f;
 
-                    // Trying to find NPC closest to the projectile
                     NPC closestNPC = Projectile.FindClosestNPC(maxDetectRadius);
                     if (closestNPC == null)
                         return;
 
-                    // If found, change the velocity of the projectile and turn it in the direction of the target
-                    // Use the SafeNormalize extension method to avoid NaNs returned by Vector2.Normalize when the vector is zero
-                    Projectile.velocity = (closestNPC.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 16;
+                    Projectile.Track(closestNPC, inertia: 8f);
                     Projectile.netUpdate = true;
                 }
             }

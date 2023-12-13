@@ -2,15 +2,19 @@
 using ShardsOfAtheria.Projectiles.Melee.Sawstring;
 using ShardsOfAtheria.Utilities;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Melee.PlanetaryYoyo
+namespace ShardsOfAtheria.Projectiles.Melee.AreusOrbit
 {
     public class AreusOrbitingSaw : ModProjectile
     {
         public override string Texture => ModContent.GetInstance<Swawstring>().Texture;
+
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementElec();
+        }
 
         public override void SetDefaults()
         {
@@ -19,28 +23,25 @@ namespace ShardsOfAtheria.Projectiles.Melee.PlanetaryYoyo
 
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
-            Projectile.timeLeft = 120;
+            Projectile.tileCollide = false;
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.penetrate = 5;
+            Projectile.timeLeft = 180;
+            Projectile.penetrate = 15;
         }
 
-        public override void OnSpawn(IEntitySource source)
-        {
-            var player = Projectile.GetPlayerOwner();
-            foreach (var projectile in Main.projectile)
-            {
-                if (projectile.owner == Projectile.owner &&
-                    projectile.type == Type &&
-                    projectile.active)
-                {
-
-                }
-            }
-        }
-
+        private double orbit;
         public override void AI()
         {
-            Projectile.rotation += MathHelper.ToRadians(25f);
+            Projectile.rotation += MathHelper.ToRadians(15f);
+            var player = Projectile.GetPlayerOwner();
+            var projectile = ShardsHelpers.FindClosestProjectile(Projectile.Center, 200f, ModContent.ProjectileType<OrbiterMagnet>(), player.whoAmI);
+            if (projectile == null)
+            {
+                return;
+            }
+            orbit += MathHelper.ToRadians(10);
+            Projectile.Center = projectile.Center + Vector2.One.RotatedBy(orbit) * 80;
+            Projectile.timeLeft = 180;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

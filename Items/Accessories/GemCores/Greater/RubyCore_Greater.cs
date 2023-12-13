@@ -42,6 +42,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
         {
             ModContent.GetInstance<RubyCore>().UpdateAccessory(player, hideVisual);
             player.GetAttackSpeed(DamageClass.Generic) += .1f;
+            player.Gem().greaterRubyCore = true;
         }
     }
 }

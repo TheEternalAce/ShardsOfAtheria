@@ -10,8 +10,6 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 {
     public class AreusChain : ModItem
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;

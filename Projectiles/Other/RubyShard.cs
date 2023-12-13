@@ -1,26 +1,29 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Summon.Minions
+namespace ShardsOfAtheria.Projectiles.Other
 {
-    public class SapphireBolt : ModProjectile
+    public class RubyShard : ModProjectile
     {
+        int gravityTimer;
+
         public override void SetDefaults()
         {
-            Projectile.width = 10;
-            Projectile.height = 10;
-            Projectile.tileCollide = false;
+            Projectile.width = Projectile.height = 12;
+            Projectile.timeLeft = 300;
             Projectile.friendly = true;
             Projectile.aiStyle = 0;
-            Projectile.extraUpdates = 1;
+            gravityTimer = 16;
         }
 
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Projectile.ApplyGravity(ref gravityTimer);
         }
 
         public override void OnKill(int timeLeft)
@@ -31,7 +34,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             vector *= 3f;
             for (int i = 0; i < 6; i++)
             {
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.GemSapphire,
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.GemRuby,
                     vector.X, vector.Y);
                 dust.noGravity = true;
             }

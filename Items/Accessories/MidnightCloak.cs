@@ -4,15 +4,9 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories
 {
+    [AutoloadEquip(EquipType.Back, EquipType.Front)]
     public class MidnightCloak : ModItem
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
-        public override void SetStaticDefaults()
-        {
-            Item.ResearchUnlockCount = 1;
-        }
-
         public override void SetDefaults()
         {
             Item.width = 16;

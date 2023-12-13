@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.Cooldowns;
+using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.Accessories.GemCores;
@@ -6,11 +8,10 @@ using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
 using ShardsOfAtheria.Items.Accessories.GemCores.Regular;
 using ShardsOfAtheria.Items.Accessories.GemCores.Super;
 using ShardsOfAtheria.Projectiles.Other;
-using ShardsOfAtheria.Projectiles.Summon.Minions;
+using ShardsOfAtheria.Projectiles.Summon.Minions.GemCore;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Chat;
-using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
@@ -23,6 +24,7 @@ namespace ShardsOfAtheria.Players
     {
         public bool amberCore;
         public bool greaterAmberCore;
+        public bool superAmberCore;
         public bool amberCape;
 
         public bool amethystCore;
@@ -32,10 +34,12 @@ namespace ShardsOfAtheria.Players
 
         public bool diamondCore;
         public bool greaterDiamondCore;
+        public bool superDiamondCore;
         public bool diamondShield;
 
         public bool lesserEmeraldCore;
         public bool emeraldCore;
+        public bool greaterEmeraldCore;
         public bool superEmeraldCore;
         public bool emeraldBoots;
 
@@ -50,34 +54,42 @@ namespace ShardsOfAtheria.Players
         public bool superSapphireCore;
         public bool sapphireSpiritPrevious;
         public bool sapphireSpirit;
+        public bool sapphireSpiritUpgrade;
 
         public bool topazCore;
         public bool greaterTopazCore;
+        public bool superTopazCore;
+        public int topazHealTimer;
         public bool topazNecklace;
 
+        public bool megaGemCorePrevious;
         public bool megaGemCore;
-        public bool[,] megaGemCoreToggles = {
+        public bool[,] masterGemCoreToggles = {
             { true, true, true, true, true, true, true },
             { true, true, true, true, true, true, true },
             { true, true, true, true, true, true, true }
         };
-
+        public bool gemSoul;
 
         public override void ResetEffects()
         {
             amberCore = false;
+            greaterAmberCore = false;
+            superAmberCore = false;
             amberCape = false;
 
             amethystCore = false;
             greaterAmethystCore = false;
-            //superAmethystCore = false;
             amethystMask = false;
 
             diamondCore = false;
             greaterDiamondCore = false;
+            superDiamondCore = false;
             diamondShield = false;
 
             lesserEmeraldCore = false;
+            emeraldCore = false;
+            greaterEmeraldCore = false;
             superEmeraldCore = false;
             emeraldBoots = false;
 
@@ -93,41 +105,32 @@ namespace ShardsOfAtheria.Players
             sapphireSpiritPrevious = sapphireSpirit;
             sapphireSpirit = false;
 
+            topazCore = false;
+            greaterTopazCore = false;
+            superTopazCore = false;
             topazNecklace = false;
 
+            megaGemCorePrevious = megaGemCore;
             megaGemCore = false;
+            gemSoul = false;
         }
 
         public override void SaveData(TagCompound tag)
         {
-            tag[nameof(megaGemCoreToggles)] = megaGemCoreToggles;
+            tag[nameof(masterGemCoreToggles)] = masterGemCoreToggles;
         }
 
         public override void LoadData(TagCompound tag)
         {
-            if (tag.ContainsKey(nameof(megaGemCoreToggles)))
+            if (tag.ContainsKey(nameof(masterGemCoreToggles)))
             {
-                megaGemCoreToggles = tag.Get<bool[,]>(nameof(megaGemCoreToggles));
+                masterGemCoreToggles = tag.Get<bool[,]>(nameof(masterGemCoreToggles));
             }
         }
 
         public override void UpdateEquips()
         {
-            if (sapphireSpirit)
-            {
-                int type = ModContent.ProjectileType<SapphireSpirit>();
-                if (Player.ownedProjectileCounts[type] == 0)
-                {
-                    Item core = ModContent.GetInstance<SapphireCore>().Item;
-                    int damage = 0;
-                    if (superSapphireCore)
-                    {
-                        damage = 50;
-                    }
-                    Projectile.NewProjectile(Player.GetSource_Accessory(core), Player.Center,
-                        Vector2.Zero, type, damage, 0, Player.whoAmI);
-                }
-            }
+            SpawnSapphireSpirit();
             if (greaterDiamondCore)
             {
                 int type = ModContent.ProjectileType<DiamondBarrier>();
@@ -141,6 +144,79 @@ namespace ShardsOfAtheria.Players
                         Projectile.NewProjectile(Player.GetSource_Accessory(core), Player.Center,
                             Vector2.Zero, type, 0, 0f, Player.whoAmI, 1f);
                     }
+                }
+            }
+            if (superAmberCore)
+            {
+                foreach (Projectile projectile in Main.projectile)
+                {
+                    if (projectile.active && projectile.owner == Player.whoAmI && projectile.sentry)
+                    {
+                        foreach (var otherPlayer in Main.player)
+                        {
+                            if (otherPlayer.team == Player.team)
+                            {
+                                Player.statDefense += 4;
+                            }
+                        }
+                    }
+                }
+            }
+            if (superTopazCore)
+            {
+                if (++topazHealTimer >= 2400)
+                {
+                    Player.Heal((int)(Player.statLifeMax2 * 0.15f));
+                    topazHealTimer = 0;
+                }
+            }
+            if (greaterEmeraldCore)
+            {
+                float debuffSpeed = 0f;
+                for (int i = 0; i < Player.CountBuffs(); i++)
+                {
+                    if (!BuffID.Sets.TimeLeftDoesNotDecrease[Player.buffType[i]])
+                    {
+                        if (Main.debuff[Player.buffType[i]])
+                        {
+                            debuffSpeed += 0.08f;
+                        }
+                    }
+                }
+                Player.moveSpeed += debuffSpeed;
+            }
+        }
+
+        public override void UpdateVisibleAccessories()
+        {
+            if (!megaGemCore && !megaGemCorePrevious)
+            {
+                SpawnSapphireSpirit();
+            }
+        }
+
+        private void SpawnSapphireSpirit()
+        {
+            if (sapphireSpirit)
+            {
+                int type = ModContent.ProjectileType<SapphireSpirit>();
+                int damage = 0;
+                if (sapphireSpiritUpgrade)
+                {
+                    damage = 50;
+                }
+                if (gemSoul)
+                {
+                    type = ModContent.ProjectileType<GemSoul>();
+                    if (sapphireSpiritUpgrade)
+                    {
+                        damage = 80;
+                    }
+                }
+                if (Player.ownedProjectileCounts[type] == 0)
+                {
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center,
+                        Vector2.Zero, type, damage, 0, Player.whoAmI);
                 }
             }
         }
@@ -165,48 +241,31 @@ namespace ShardsOfAtheria.Players
                 }
                 else
                 {
-                    ChatHelper.SendChatMessageToClient(NetworkText.FromKey(key), Color.Wheat, Player.whoAmI);
+                    ChatHelper.SendChatMessageToClient(NetworkText.FromKey(key), Color.White, Player.whoAmI);
                 }
             }
             if (SoA.EmeraldTeleportKey.JustPressed)
             {
                 if (megaGemCore || superEmeraldCore)
                 {
-                    Vector2 vector21 = default;
-                    vector21.X = Main.mouseX + Main.screenPosition.X;
-                    if (Player.gravDir == 1f)
+                    if (!Player.HasBuff<EmeraldTeleportCooldown>())
                     {
-                        vector21.Y = Main.mouseY + Main.screenPosition.Y - Player.height;
-                    }
-                    else
-                    {
-                        vector21.Y = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
-                    }
-                    vector21.X -= Player.width / 2;
-                    if (vector21.X > 50f && vector21.X < Main.maxTilesX * 16 - 50 && vector21.Y > 50f && vector21.Y < Main.maxTilesY * 16 - 50)
-                    {
-                        int num181 = (int)(vector21.X / 16f);
-                        int num182 = (int)(vector21.Y / 16f);
-                        if ((Main.tile[num181, num182].WallType != 87 || !(num182 > Main.worldSurface) || NPC.downedPlantBoss) && !Collision.SolidCollision(vector21, Player.width, Player.height))
+                        Vector2 teleportPosition;
+                        teleportPosition.X = Main.mouseX + Main.screenPosition.X;
+                        if (Player.gravDir == 1f)
                         {
-                            Player.Teleport(vector21, 1);
-                            NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, Player.whoAmI, vector21.X, vector21.Y, 1);
-                            if (Player.chaosState)
-                            {
-                                Player.statLife -= Player.statLifeMax2 / 7;
-                                PlayerDeathReason damageSource = PlayerDeathReason.ByOther(13);
-                                if (Main.rand.NextBool(2))
-                                {
-                                    damageSource = PlayerDeathReason.ByOther(Player.Male ? 14 : 15);
-                                }
-                                if (Player.statLife <= 0)
-                                {
-                                    Player.KillMe(damageSource, 1.0, 0);
-                                }
-                                Player.lifeRegenCount = 0;
-                                Player.lifeRegenTime = 0;
-                            }
-                            Player.AddBuff(BuffID.ChaosState, 360);
+                            teleportPosition.Y = Main.mouseY + Main.screenPosition.Y - Player.height;
+                        }
+                        else
+                        {
+                            teleportPosition.Y = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
+                        }
+                        teleportPosition.X -= Player.width / 2;
+                        if (teleportPosition.X > 50f && teleportPosition.X < Main.maxTilesX * 16 - 50 && teleportPosition.Y > 50f && teleportPosition.Y < Main.maxTilesY * 16 - 50)
+                        {
+                            Player.SetImmuneTimeForAllTypes(Player.longInvince ? 100 : 60);
+                            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<EmeraldTeleport>(),
+                                0, 0, Player.whoAmI, teleportPosition.X, teleportPosition.Y);
                         }
                     }
                 }
@@ -233,16 +292,22 @@ namespace ShardsOfAtheria.Players
                 if (item.type == ModContent.ItemType<MegaGemCore>())
                 {
                     int loadout = Player.CurrentLoadoutIndex;
-                    amberCape = megaGemCoreToggles[loadout, 0];
-                    amethystMask = megaGemCoreToggles[loadout, 1];
-                    diamondShield = megaGemCoreToggles[loadout, 2];
-                    emeraldBoots = megaGemCoreToggles[loadout, 3];
-                    rubyGauntlet = megaGemCoreToggles[loadout, 4];
-                    sapphireSpirit = megaGemCoreToggles[loadout, 5];
-                    topazNecklace = megaGemCoreToggles[loadout, 6];
+                    amberCape = masterGemCoreToggles[loadout, 0];
+                    amethystMask = masterGemCoreToggles[loadout, 1];
+                    diamondShield = masterGemCoreToggles[loadout, 2];
+                    emeraldBoots = masterGemCoreToggles[loadout, 3];
+                    rubyGauntlet = masterGemCoreToggles[loadout, 4];
+                    sapphireSpirit = masterGemCoreToggles[loadout, 5];
+                    topazNecklace = masterGemCoreToggles[loadout, 6];
                 }
                 else
                 {
+                    if (item.type == ModContent.ItemType<AmberCore>() ||
+                        item.type == ModContent.ItemType<AmberCore_Greater>() ||
+                        item.type == ModContent.ItemType<AmberCore_Super>())
+                    {
+                        amberCape = true;
+                    }
                     if (item.type == ModContent.ItemType<AmethystCore>() ||
                         item.type == ModContent.ItemType<AmethystCore_Greater>() ||
                         item.type == ModContent.ItemType<AmethystCore_Super>())
@@ -287,7 +352,7 @@ namespace ShardsOfAtheria.Players
         {
             if (amberCape)
             {
-                //Player.head = EquipLoader.GetEquipSlot(Mod, "Amber", EquipType.);
+                Player.back = EquipLoader.GetEquipSlot(Mod, "AmberCape", EquipType.Back);
             }
             if (amethystMask)
             {
@@ -346,14 +411,14 @@ namespace ShardsOfAtheria.Players
             {
                 Player.AddBuff<SwarmingAmber>(normalBuffTime * 3);
                 int type = ModContent.ProjectileType<AmberFly>();
-                if (Player.ownedProjectileCounts[type] == 0)
+                int amount = 2;
+                if (megaGemCore)
                 {
-                    int amount = 2;
-                    if (megaGemCore)
-                    {
-                        amount = 4;
-                    }
-                    for (int i = 0; i < amount; i++)
+                    amount = 4;
+                }
+                if (Player.ownedProjectileCounts[type] <= amount)
+                {
+                    for (int i = 0; i < amount - Player.ownedProjectileCounts[type]; i++)
                     {
                         Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.One, type, 16, 0f);
                     }
@@ -395,6 +460,23 @@ namespace ShardsOfAtheria.Players
                         ModContent.ProjectileType<SapphireSpike>(), 60, 0f);
                 }
             }
+            if (superSapphireCore)
+            {
+                for (int i = 0; i < Player.CountBuffs(); i++)
+                {
+                    if (!BuffID.Sets.TimeLeftDoesNotDecrease[Player.buffType[i]])
+                    {
+                        if (Main.debuff[Player.buffType[i]])
+                        {
+                            Player.buffTime[i] -= 30;
+                        }
+                        else
+                        {
+                            Player.buffTime[i] += 60;
+                        }
+                    }
+                }
+            }
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -403,13 +485,28 @@ namespace ShardsOfAtheria.Players
             {
                 target.AddBuff(BuffID.Confused, 300);
             }
+            if (greaterRubyCore)
+            {
+                if (hit.Crit)
+                {
+                    int type = ModContent.ProjectileType<RubyExplosive>();
+                    Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, type, 60, 0f, Player.whoAmI);
+                }
+            }
+            if (superRubyCore)
+            {
+                target.AddBuff<SpitefulRuby>(480);
+            }
+            if (megaGemCore)
+            {
+                if (Main.rand.NextBool(6))
+                {
+                    int type = ModContent.ProjectileType<LifeStealGem>();
+                    Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, type, 3, 0f, Player.whoAmI);
+                }
+            }
             if (target.life <= 0)
             {
-                if (greaterTopazCore)
-                {
-                    Projectile.NewProjectile(target.GetSource_Death(), target.Center, new Vector2(0, -10),
-                        ModContent.ProjectileType<TopazOrb>(), 0, 0f, Player.whoAmI);
-                }
                 if (greaterAmberCore)
                 {
                     int type = ModContent.ProjectileType<AmberBanner>();
@@ -430,6 +527,24 @@ namespace ShardsOfAtheria.Players
                         }
                     }
                     Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, type, 0, 0f, Player.whoAmI, ai0);
+                }
+                if (greaterTopazCore)
+                {
+                    Projectile.NewProjectile(target.GetSource_Death(), target.Center, new Vector2(0, -10),
+                        ModContent.ProjectileType<TopazOrb>(), 0, 0f, Player.whoAmI);
+                }
+                if (superDiamondCore)
+                {
+                    int buffTime = (int)(damageDone * 0.05f);
+                    if (Player.HasBuff<DiamondBarrierBuff>())
+                    {
+                        int buffIndex = Player.FindBuffIndex(ModContent.BuffType<DiamondBarrierBuff>());
+                        Player.buffTime[buffIndex] += buffTime;
+                    }
+                    else
+                    {
+                        Player.AddBuff<DiamondBarrierBuff>(buffTime);
+                    }
                 }
             }
         }

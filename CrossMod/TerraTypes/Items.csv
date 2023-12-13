@@ -5,3 +5,4 @@ AmberCore_Super,Rock,Bug,"{""Tooltips"": [{""Type"":""Rock,Bug"",""Tooltip"": ""
 SapphireCore_Greater,Rock,,"{""Tooltips"": [{""Type"":""Rock"",""Tooltip"": ""Sapphire spikes are {0}""}]}"
 SapphireCore_Super,Rock,,"{""Tooltips"": [{""Type"":""Rock"",""Tooltip"": ""Sapphire spikes are {0}""}]}"
 MegaGemCore,Rock,,,"{""DontOverride"":true,""Tooltips"":[{""Type"":""Rock"",""Tooltip"": ""Sapphire spikes are {0}""},{""Type"":""Rock,Bug"",""Tooltip"": ""Amber flies are {0}""}]}"
+AmethystDagger,Rock,,

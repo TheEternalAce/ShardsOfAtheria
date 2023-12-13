@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Projectiles.Other
 
             if (vector2 == Vector2.Zero)
             {
-                Projectile.ApplyGravity(ref gravityDelay, 3f);
+                Projectile.ApplyGravity(ref gravityDelay, 5f);
             }
             else
             {
@@ -85,7 +85,8 @@ namespace ShardsOfAtheria.Projectiles.Other
                 foreach (Player player1 in Main.player)
                 {
                     if (player1.team == player.team &&
-                        player1.whoAmI != player.whoAmI)
+                        player1.whoAmI != player.whoAmI &&
+                        player1.Distance(Projectile.Center) < 1000)
                     {
                         player1.Heal(20 + player1.statLifeMax2 / 20);
                     }

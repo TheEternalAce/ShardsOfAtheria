@@ -36,7 +36,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
         {
             ModContent.GetInstance<AmberCore_Greater>().UpdateAccessory(player, hideVisual);
             player.maxMinions++;
-            //player.Gem().superAmmberCore = true;
+            player.maxTurrets += 3;
+            player.Gem().superAmberCore = true;
         }
     }
 }

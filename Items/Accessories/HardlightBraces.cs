@@ -22,6 +22,7 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.width = 44;
             Item.height = 22;
             Item.accessory = true;
+            Item.defense = 5;
 
             Item.damage = 13;
             Item.DamageType = DamageClass.Magic;

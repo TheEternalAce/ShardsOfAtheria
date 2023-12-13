@@ -44,8 +44,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                 NPC npc = Projectile.FindClosestNPC(350);
                 if (npc != null)
                 {
-                    float speed = 20;
-                    Projectile.Track(npc, speed, speed);
+                    Projectile.Track(npc, 20f, 10f);
                 }
             }
         }

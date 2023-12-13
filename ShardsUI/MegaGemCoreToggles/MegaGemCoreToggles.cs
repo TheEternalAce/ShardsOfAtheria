@@ -146,7 +146,7 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
             Player player = Main.LocalPlayer;
             int loadout = player.CurrentLoadoutIndex;
             var gem = player.Gem();
-            gem.megaGemCoreToggles[loadout, index] = !gem.megaGemCoreToggles[loadout, index];
+            gem.masterGemCoreToggles[loadout, index] = !gem.masterGemCoreToggles[loadout, index];
         }
 
         private void UpdateHighlight(UIHoverImageButton toggle, int index)
@@ -155,7 +155,7 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
             int loadout = player.CurrentLoadoutIndex;
             var gem = player.Gem();
 
-            if (gem.megaGemCoreToggles[loadout, index])
+            if (gem.masterGemCoreToggles[loadout, index])
             {
                 toggle.SetImage(toggleBack_Highlight);
             }

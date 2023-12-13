@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.NPCs.Misc;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -6,11 +8,12 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Summon.Minions
+namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 {
-    public class SapphireSpirit : ModProjectile
+    public class GemSoul : ModProjectile
     {
         int shootTimer = 0;
+        int projectileShootTimer = 300;
         int idleTimer = 0;
         bool sleep = false;
         bool grounded = false;
@@ -30,8 +33,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         public override void SetDefaults()
         {
             Projectile.netImportant = true;
-            Projectile.width = 22;
-            Projectile.height = 38;
+            Projectile.width = 40;
+            Projectile.height = 60;
             Projectile.aiStyle = -1;
             Projectile.penetrate = -1;
             Projectile.timeLeft *= 5;
@@ -42,8 +45,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Summon;
 
-            DrawOffsetX = -6;
-            DrawOriginOffsetY = -4;
+            //DrawOffsetX = -6;
+            //DrawOriginOffsetY = -4;
         }
 
         // Here you can decide if your minion breaks things like grass or pots
@@ -74,10 +77,9 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             bool foundTarget = false;
             float distanceFromTarget = 0;
             Vector2 targetCenter = Vector2.Zero;
-            if (owner.Gem().superSapphireCore)
+            if (Projectile.damage > 0)
             {
                 SearchForTargets(owner, out foundTarget, out distanceFromTarget, out targetCenter);
-                Projectile.damage = 50;
             }
             if (sleep && !foundTarget)
             {
@@ -94,8 +96,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         private void GeneralBehavior(Player owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition)
         {
             Vector2 idlePosition = owner.Center;
-            idlePosition.X += 48f * owner.direction;
-            idlePosition.Y -= 48f;
+            idlePosition.X -= 48f * owner.direction;
+            idlePosition.Y -= 16f;
 
             float minionPositionOffsetX = (10 + Projectile.minionPos * 40) * -owner.direction;
             idlePosition.X += minionPositionOffsetX;
@@ -109,8 +111,27 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                 Projectile.netUpdate = true;
             }
 
-            float overlapVelocity = 0.04f;
+            Lighting.AddLight(Projectile.Center, TorchID.Purple);
 
+            if (owner.wingTime == 0 && owner.mount.FlyTime == 0 && owner.velocity.Y > 0)
+            {
+                if (Projectile.ai[0] == 0)
+                {
+                    var position = owner.Center;
+                    position.X += owner.velocity.X * 8f;
+                    position.Y += 60;
+                    NPC.NewNPC(Projectile.GetSource_FromThis(), (int)position.X, (int)position.Y, ModContent.NPCType<EmeraldPlatform>());
+                    ShardsHelpers.DustRing(position, 3f, DustID.GemEmerald);
+                    ShardsHelpers.DustRing(Projectile.Center, 3f, DustID.GemEmerald);
+                    Projectile.ai[0] = 1;
+                }
+            }
+            else
+            {
+                Projectile.ai[0] = 0;
+            }
+
+            float overlapVelocity = 0.04f;
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
                 Projectile other = Main.projectile[i];
@@ -207,11 +228,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                 speed = 16f;
                 inertia = 80f;
 
-                var idlePosition = targetCenter;
-                idlePosition.Y -= 124f;
-                vectorToIdlePosition = idlePosition - Projectile.Center;
-                distanceToIdlePosition = vectorToIdlePosition.LengthSquared();
-
                 if (Projectile.damage == 0)
                 {
                     return;
@@ -222,22 +238,45 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                     Projectile.frameCounter = 0;
                     Projectile.damage = 150;
                     Projectile.spriteDirection = targetCenter.X < Projectile.Center.X ? -1 : 1;
-                    SoundEngine.PlaySound(SoundID.Item1);
-                    float numberProjectiles = 3; // 3 shots
-                    float rotation = MathHelper.ToRadians(5);
-                    for (int i = 0; i < numberProjectiles; i++)
-                    {
-                        Vector2 vel = Vector2.Normalize(targetCenter - Projectile.Center);
-                        Vector2 perturbedSpeed = vel.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * 10f; // Watch out for dividing by 0 if there is only 1 projectile.
-                        Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, perturbedSpeed,
-                            ModContent.ProjectileType<SapphireBolt>(), Projectile.damage, 0, Projectile.owner);
-                    }
+                    Vector2 velocity = Vector2.Normalize(targetCenter - Projectile.Center);
+                    Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity,
+                        ModContent.ProjectileType<RubyShot>(), Projectile.damage, 0, Projectile.owner);
                     shootTimer = 0;
                 }
             }
             else
             {
                 shootTimer = 0;
+            }
+
+            if (++projectileShootTimer >= 180)
+            {
+                if (projectileShootTimer == 180)
+                {
+                    for (var i = 0; i < 28; i++)
+                    {
+                        var vector = Main.rand.NextVector2CircularEdge(1f, 1f);
+                        Dust d = Dust.NewDustPerfect(Projectile.Center, DustID.GemDiamond, vector * 3f);
+                        d.fadeIn = 1.3f;
+                        d.noGravity = true;
+                    }
+                }
+                var player = Projectile.GetPlayerOwner();
+                var projectile = player.Center.FindClosestProjectile(350, ValidProjectile);
+                if (projectile != null)
+                {
+                    if (Projectile.Distance(projectile.Center) < 350f)
+                    {
+                        if (projectile.active && projectile.hostile)
+                        {
+                            Projectile.spriteDirection = projectile.Center.X < Projectile.Center.X ? -1 : 1;
+                            Vector2 velocity = Vector2.Normalize(projectile.Center - Projectile.Center);
+                            Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity,
+                                ModContent.ProjectileType<DiamondShot>(), Projectile.damage, 0, Projectile.owner, projectile.whoAmI);
+                            projectileShootTimer = 0;
+                        }
+                    }
+                }
             }
 
             if (distanceToIdlePosition > 200f)
@@ -249,7 +288,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             {
                 speed = 2;
             }
-
 
             if (distanceToIdlePosition > 20f)
             {
@@ -271,6 +309,15 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                 sleep = true;
                 Projectile.velocity.X = 0;
             }
+        }
+
+        private bool ValidProjectile(Projectile projectile)
+        {
+            bool valid = true;
+            //if (projectile.owner == Projectile.owner) valid = false;
+            if (!projectile.hostile) valid = false;
+            if (!SoAGlobalProjectile.ReflectAiList.Contains(projectile.aiStyle)) valid = false;
+            return valid;
         }
 
         void DoSleep()
@@ -301,7 +348,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
         private bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || !owner.Gem().sapphireSpirit)
+            if (owner.dead || !owner.active || !owner.Gem().gemSoul || owner.ownedProjectileCounts[Type] > 1)
                 return false;
             else Projectile.timeLeft = 2;
             return true;
@@ -323,7 +370,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                 return;
             }
 
-            // This is a simple "loop through all frames from top to bottom" animation
             int frameTime = 5;
             if (Projectile.frame == 0)
             {

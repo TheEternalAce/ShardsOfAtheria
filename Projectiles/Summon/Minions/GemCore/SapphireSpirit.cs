@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -7,34 +6,37 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Summon.Minions
+namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 {
-    public class AmberFly : ModProjectile
+    public class SapphireSpirit : ModProjectile
     {
         int shootTimer = 0;
-        bool PowerBoosted => Projectile.GetPlayerOwner().Gem().megaGemCore;
+        int idleTimer = 0;
+        bool sleep = false;
+        bool grounded = false;
 
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Type] = 4;
+            Main.projFrames[Type] = 5;
+            // This is necessary for right-click targeting
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
-            Main.projPet[Projectile.type] = true;
+            Main.projPet[Projectile.type] = true; // Denotes that this projectile is a pet or minion
 
-            ProjectileID.Sets.MinionSacrificable[Projectile.type] = false;
-            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+            ProjectileID.Sets.MinionSacrificable[Projectile.type] = false; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
+            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
         }
 
         public override void SetDefaults()
         {
             Projectile.netImportant = true;
-            Projectile.width = 14;
-            Projectile.height = 14;
+            Projectile.width = 22;
+            Projectile.height = 38;
             Projectile.aiStyle = -1;
             Projectile.penetrate = -1;
             Projectile.timeLeft *= 5;
-            //Projectile.minion = true;
-            //Projectile.minionSlots = 0f;
+            Projectile.minion = true;
+            Projectile.minionSlots = 0f;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.friendly = true;
@@ -44,14 +46,16 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             DrawOriginOffsetY = -4;
         }
 
+        // Here you can decide if your minion breaks things like grass or pots
         public override bool? CanCutTiles()
         {
             return false;
         }
 
+        // This is mandatory if your minion deals contact damage (further related stuff in AI() in the Movement region)
         public override bool MinionContactDamage()
         {
-            return !PowerBoosted;
+            return false;
         }
 
         public override void AI()
@@ -67,36 +71,45 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
             Visuals();
             GeneralBehavior(owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition);
-            SearchForTargets(owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter);
-            Movement(foundTarget, distanceFromTarget, targetCenter, distanceToIdlePosition, vectorToIdlePosition);
+            bool foundTarget = false;
+            float distanceFromTarget = 0;
+            Vector2 targetCenter = Vector2.Zero;
+            if (Projectile.damage > 0)
+            {
+                SearchForTargets(owner, out foundTarget, out distanceFromTarget, out targetCenter);
+            }
+            if (sleep && !foundTarget)
+            {
+                DoSleep();
+            }
+            else
+            {
+                Projectile.tileCollide = false;
+                grounded = false;
+                Movement(foundTarget, distanceFromTarget, targetCenter, distanceToIdlePosition, vectorToIdlePosition);
+            }
         }
 
         private void GeneralBehavior(Player owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition)
         {
             Vector2 idlePosition = owner.Center;
+            idlePosition.X += 48f * owner.direction;
+            idlePosition.Y -= 48f;
 
             float minionPositionOffsetX = (10 + Projectile.minionPos * 40) * -owner.direction;
-            idlePosition.X += minionPositionOffsetX; // Go behind the player
+            idlePosition.X += minionPositionOffsetX;
 
-            // All of this code below this line is adapted from Spazmamini code (ID 388, aiStyle 66)
-
-            // Teleport to player if distance is too big
             vectorToIdlePosition = idlePosition - Projectile.Center;
             distanceToIdlePosition = vectorToIdlePosition.Length();
-
             if (Main.myPlayer == owner.whoAmI && distanceToIdlePosition > 2000f)
             {
-                // Whenever you deal with non-regular events that change the behavior or position drastically, make sure to only run the code on the owner of the projectile,
-                // and then set netUpdate to true
                 Projectile.position = idlePosition;
                 Projectile.velocity *= 0.1f;
                 Projectile.netUpdate = true;
             }
 
-            // If your minion is flying, you want to do this independently of any conditions
             float overlapVelocity = 0.04f;
 
-            // Fix overlap with other minions
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
                 Projectile other = Main.projectile[i];
@@ -172,39 +185,53 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                     }
                 }
             }
+            else
+            {
+                sleep = false;
+                idleTimer = 0;
+                Projectile.frame = 0;
+                Projectile.frameCounter = 0;
+            }
         }
 
         private void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
         {
-            float speed;
-            float inertia;
+            // Default movement parameters (here for attacking)
+            float speed = 4;
+            float inertia = 80;
 
             if (foundTarget)
             {
+                idleTimer = 0;
                 speed = 16f;
                 inertia = 80f;
 
-                vectorToIdlePosition = targetCenter - Projectile.Center;
-                if (PowerBoosted)
-                {
-                    Vector2 vector = Projectile.Center - targetCenter;
-                    vector.Normalize();
-                    vector *= 200;
-                    vectorToIdlePosition += vector;
-                }
+                var idlePosition = targetCenter;
+                idlePosition.Y -= 124f;
+                vectorToIdlePosition = idlePosition - Projectile.Center;
                 distanceToIdlePosition = vectorToIdlePosition.LengthSquared();
 
-                if (PowerBoosted)
+                if (Projectile.damage == 0)
                 {
-                    Projectile.spriteDirection = targetCenter.X > Projectile.Center.X ? 1 : -1;
-                    if (++shootTimer >= 120 + Main.rand.Next(60))
+                    return;
+                }
+                if (++shootTimer >= 90)
+                {
+                    Projectile.frame = 2;
+                    Projectile.frameCounter = 0;
+                    Projectile.damage = 150;
+                    Projectile.spriteDirection = targetCenter.X < Projectile.Center.X ? -1 : 1;
+                    SoundEngine.PlaySound(SoundID.Item1);
+                    float numberProjectiles = 3; // 3 shots
+                    float rotation = MathHelper.ToRadians(5);
+                    for (int i = 0; i < numberProjectiles; i++)
                     {
-                        SoundEngine.PlaySound(SoundID.Item17);
-                        Vector2 velocity = Vector2.Normalize(targetCenter - Projectile.Center);
-                        Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity * 12f,
-                            ModContent.ProjectileType<AmberSpit>(), Projectile.damage * 5, 0, Projectile.owner);
-                        shootTimer = 0;
+                        Vector2 vel = Vector2.Normalize(targetCenter - Projectile.Center);
+                        Vector2 perturbedSpeed = vel.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * 10f; // Watch out for dividing by 0 if there is only 1 projectile.
+                        Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, perturbedSpeed,
+                            ModContent.ProjectileType<SapphireBolt>(), Projectile.damage, 0, Projectile.owner);
                     }
+                    shootTimer = 0;
                 }
             }
             else
@@ -215,32 +242,65 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             if (distanceToIdlePosition > 200f)
             {
                 speed = 26f;
-                inertia = 20f;
+                inertia = 40f;
             }
-            else
+            if (idleTimer >= 400)
             {
-                speed = 4f;
-                inertia = 80f;
+                speed = 2;
             }
+
 
             if (distanceToIdlePosition > 20f)
             {
                 vectorToIdlePosition.Normalize();
                 vectorToIdlePosition *= speed;
                 Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
+                if (idleTimer > 0)
+                {
+                    idleTimer--;
+                }
             }
             else if (Projectile.velocity == Vector2.Zero)
             {
-                // If there is a case where it's not moving at all, give it a little "poke"
                 Projectile.velocity.X = -0.15f;
                 Projectile.velocity.Y = -0.05f;
+            }
+            else if (++idleTimer >= 600)
+            {
+                sleep = true;
+                Projectile.velocity.X = 0;
+            }
+        }
+
+        void DoSleep()
+        {
+            Player owner = Main.player[Projectile.owner];
+
+            Projectile.tileCollide = true;
+            if (++Projectile.velocity.Y >= 16f)
+            {
+                Projectile.velocity.Y = 16f;
+            }
+            if (Projectile.velocity.X != 0)
+            {
+                Projectile.velocity.X = 0;
+            }
+            Projectile.frame = 4;
+            Projectile.frameCounter = 0;
+            Projectile.rotation = 0;
+
+            if (Vector2.Distance(owner.Center, Projectile.Center) >= 200)
+            {
+                sleep = false;
+                idleTimer = 0;
+                grounded = false;
             }
         }
 
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
         private bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || !owner.HasBuff<SwarmingAmber>())
+            if (owner.dead || !owner.active || !owner.Gem().sapphireSpirit)
                 return false;
             else Projectile.timeLeft = 2;
             return true;
@@ -248,32 +308,57 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
         private void Visuals()
         {
+            if (sleep)
+            {
+                return;
+            }
+
             // So it will lean slightly towards the direction it's moving
             Projectile.rotation = Projectile.velocity.X * 0.05f;
-            Projectile.spriteDirection = Projectile.direction;
+
+            if (idleTimer >= 400)
+            {
+                Projectile.frame = 1;
+                return;
+            }
 
             // This is a simple "loop through all frames from top to bottom" animation
-            int frameTime = 1;
+            int frameTime = 5;
+            if (Projectile.frame == 0)
+            {
+                frameTime = 120;
+            }
+            if (Projectile.frame == 1)
+            {
+                frameTime = 60;
+            }
+            if (Projectile.frame == 2)
+            {
+                frameTime = 20;
+            }
+
             Projectile.frameCounter++;
             if (Projectile.frameCounter >= frameTime)
             {
+                Projectile.spriteDirection = 1;
                 Projectile.frameCounter = 0;
-                if (++Projectile.frame >= 3)
+                Projectile.frame++;
+
+                if (Projectile.frame >= 3)
                 {
                     Projectile.frame = 0;
                 }
             }
         }
 
-        public override void OnKill(int timeLeft)
+        public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            SoundEngine.PlaySound(SoundID.Tink);
-            for (int i = 0; i < 6; i++)
+            if (!grounded)
             {
-                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width,
-                    Projectile.height, DustID.GemAmber);
-                dust.noGravity = true;
+                SoundEngine.PlaySound(SoundID.Item53);
+                grounded = true;
             }
+            return false;
         }
     }
 }
