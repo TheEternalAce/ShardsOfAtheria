@@ -29,6 +29,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             CreateRecipe()
                .AddIngredient(ModContent.ItemType<AmethystCore>())
                 .AddIngredient(ItemID.HallowedBar, 10)
+                .AddIngredient(ItemID.Bomb, 15)
                .AddTile(TileID.MythrilAnvil)
                .Register();
         }
@@ -36,11 +37,13 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
         public override void UpdateVanity(Player player)
         {
             player.Gem().amethystMask = true;
+            Lighting.AddLight(player.Center, TorchID.Purple);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Gem().greaterAmethystCore = true;
+            Lighting.AddLight(player.Center, TorchID.Purple);
             AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
             mp.DashVelocity = 13f;
             ModContent.GetInstance<AmethystCore>().UpdateAccessory(player, hideVisual);

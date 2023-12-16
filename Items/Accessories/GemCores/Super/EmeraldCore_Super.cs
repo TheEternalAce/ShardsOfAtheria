@@ -27,11 +27,10 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<EmeraldCore_Greater>())
-                .AddIngredient(ItemID.FragmentNebula, 5)
-                .AddIngredient(ItemID.FragmentStardust, 5)
+                .AddIngredient(ItemID.BeetleHusk, 15)
                 .AddIngredient(ItemID.RodofDiscord)
-                .AddIngredient(ItemID.BundleofBalloons)
-                .AddTile(TileID.LunarCraftingStation)
+                .AddIngredient(ItemID.LargeEmerald)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 

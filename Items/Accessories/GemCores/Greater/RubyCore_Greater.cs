@@ -28,7 +28,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<RubyCore>())
                 .AddIngredient(ItemID.HallowedBar, 10)
-                .AddIngredient(ItemID.MechanicalGlove)
+                .AddIngredient(ItemID.LargeRuby)
+                .AddIngredient(ItemID.FeralClaws)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

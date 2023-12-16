@@ -31,14 +31,18 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         public override void AddRecipes()
         {
             CreateRecipe()
+                .AddIngredient(ModContent.ItemType<AmberCore_Super>())
                 .AddIngredient(ModContent.ItemType<AmethystCore_Super>())
                 .AddIngredient(ModContent.ItemType<DiamondCore_Super>())
                 .AddIngredient(ModContent.ItemType<EmeraldCore_Super>())
                 .AddIngredient(ModContent.ItemType<RubyCore_Super>())
                 .AddIngredient(ModContent.ItemType<SapphireCore_Super>())
                 .AddIngredient(ModContent.ItemType<TopazCore_Super>())
-                .AddIngredient(ItemID.Amber, 24)
                 .AddIngredient(ItemID.LunarBar, 20)
+                .AddIngredient(ItemID.FragmentNebula, 10)
+                .AddIngredient(ItemID.FragmentSolar, 10)
+                .AddIngredient(ItemID.FragmentStardust, 10)
+                .AddIngredient(ItemID.FragmentVortex, 10)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
@@ -77,6 +81,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             player.maxMinions++;
             player.statLifeMax2 += 20;
             player.moveSpeed += 0.05f;
+            player.Gem().maxAmberBanners += 5;
 
             if (!hideVisual)
             {

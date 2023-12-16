@@ -23,6 +23,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             CreateRecipe()
                .AddIngredient(ModContent.ItemType<AmberCore>())
                 .AddIngredient(ItemID.HallowedBar, 10)
+                .AddIngredient(ItemID.WarTableBanner)
                .AddTile(TileID.MythrilAnvil)
                .Register();
         }
@@ -37,6 +38,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             ModContent.GetInstance<AmberCore>().UpdateAccessory(player, hideVisual);
             player.maxMinions++;
             player.Gem().greaterAmberCore = true;
+            player.Gem().maxAmberBanners += 10;
         }
     }
 }

@@ -27,9 +27,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<SapphireCore_Greater>())
-                .AddIngredient(ItemID.FragmentStardust, 5)
-                .AddIngredient(ItemID.FragmentVortex, 5)
-                .AddTile(TileID.LunarCraftingStation)
+                .AddIngredient(ItemID.BeetleHusk, 15)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 
@@ -43,7 +42,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             ModContent.GetInstance<SapphireCore_Greater>().UpdateAccessory(player, hideVisual);
             player.Gem().superSapphireCore = true;
             player.Gem().sapphireSpiritUpgrade = true;
-            player.Gem().gemSoul = true;
             player.Gem().sapphireDodgeChance += 0.05f;
         }
     }

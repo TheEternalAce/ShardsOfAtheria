@@ -37,7 +37,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<RubyCore_Lesser>())
                 .AddIngredient(ItemID.HellstoneBar, 10)
-                .AddIngredient(ItemID.FlaskofFire, 15)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

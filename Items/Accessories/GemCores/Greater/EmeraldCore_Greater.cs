@@ -28,8 +28,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<EmeraldCore>())
                 .AddIngredient(ItemID.HallowedBar, 10)
-                .AddIngredient(ItemID.Flipper)
-                .AddIngredient(ItemID.PanicNecklace)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

@@ -27,9 +27,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<RubyCore_Greater>())
-                .AddIngredient(ItemID.FragmentSolar, 5)
-                .AddIngredient(ItemID.FragmentNebula, 5)
-                .AddTile(TileID.LunarCraftingStation)
+                .AddIngredient(ItemID.BeetleHusk, 15)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 

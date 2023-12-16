@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AmethystCore_Greater>())
                 .AddIngredient(ItemID.BeetleHusk, 15)
-                .AddTile(TileID.LunarCraftingStation)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 
