@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -35,12 +36,9 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodthirstySword
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Player player = Main.player[Projectile.owner];
-            if (target.life <= 0)
-            {
-                var shards = player.Shards();
-                shards.mourningStarKills++;
-            }
+            var player = Projectile.GetPlayerOwner();
+            var mourningStar = player.HeldItem.ModItem as TheMourningStar;
+            mourningStar.blood += 60;
         }
 
         public override bool PreDraw(ref Color lightColor)

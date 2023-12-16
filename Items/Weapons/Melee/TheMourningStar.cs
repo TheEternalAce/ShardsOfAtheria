@@ -1,31 +1,21 @@
 using ShardsOfAtheria.Buffs.PlayerDebuff;
 using ShardsOfAtheria.Projectiles.Melee.BloodthirstySword;
 using ShardsOfAtheria.Utilities;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class TheMourningStar : ModItem
     {
+        public int blood = 600;
+
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
             Item.AddAreus(true);
             Item.AddElementAqua();
             Item.AddElementWood();
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            var shards = Main.LocalPlayer.Shards();
-            string key = "Mods.ShardsOfAtheria.Common.MourningStarKills";
-            string text = Language.GetTextValue(key, shards.mourningStarKills);
-            tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"),
-                new TooltipLine(Mod, "Kills", text));
         }
 
         public override void SetDefaults()
@@ -51,12 +41,19 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<MourningStar>();
             Item.shootSpeed = 1;
             Item.rare = ItemRarityID.Cyan;
-            Item.value = Item.sellPrice(1);
+            Item.value = 100000;
         }
 
-        public override void HoldItem(Player player)
+        public override void UpdateInventory(Player player)
         {
-            player.AddBuff(ModContent.BuffType<CorruptedBlood>(), 120);
+            if (blood > 0)
+            {
+                blood--;
+            }
+            if (blood == 0)
+            {
+                player.AddBuff(ModContent.BuffType<CorruptedBlood>(), 300);
+            }
         }
 
         public override bool? UseItem(Player player)

@@ -30,11 +30,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodthirstySword
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            int feedSword = 60;
             Player player = Main.player[Projectile.owner];
             if (target.life <= 0)
             {
-                var shards = player.Shards();
-                shards.mourningStarKills++;
+                feedSword += 60;
             }
 
             if (player.Distance(target.Center) < 130)
@@ -44,9 +44,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodthirstySword
                 var copyHit = hit;
                 copyHit.Damage /= 2;
                 target.StrikeNPC(copyHit);
+                feedSword += 60;
             }
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero,
-                ProjectileID.VampireHeal, 0, 0, Projectile.owner, 0, 2);
+
+            var mourningStar = player.HeldItem.ModItem as TheMourningStar;
+            mourningStar.blood += feedSword;
             base.OnHitNPC(target, hit, damageDone);
         }
 
