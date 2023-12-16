@@ -394,7 +394,7 @@ namespace ShardsOfAtheria.Globals
             {
                 if (item.lavaWet)
                 {
-                    var player = item.Center.FindClosestPlayer(-1);
+                    var player = item.Center.FindClosestPlayer();
                     if (player.ZoneUnderworldHeight)
                     {
                         if (--transformTimer <= 0)

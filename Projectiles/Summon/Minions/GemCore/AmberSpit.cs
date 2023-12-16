@@ -8,6 +8,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 {
     public class AmberSpit : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.MinionShot[Type] = true;
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 10;
@@ -25,7 +30,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 
         public override void OnKill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Tink);
+            SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
             var vector = -Projectile.velocity;
             vector.Normalize();
             vector *= 3f;

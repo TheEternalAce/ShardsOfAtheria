@@ -35,11 +35,19 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             int multiplier = 1;
             if (NPC.downedMoonlord)
             {
-                multiplier = 5;
+                multiplier++;
             }
-            else if (NPC.downedGolemBoss)
+            if (NPC.downedGolemBoss)
             {
-                multiplier = 4;
+                multiplier++;
+            }
+            if (NPC.downedPlantBoss)
+            {
+                multiplier++;
+            }
+            if (NPC.downedMechBossAny)
+            {
+                multiplier++;
             }
             damage *= multiplier;
         }

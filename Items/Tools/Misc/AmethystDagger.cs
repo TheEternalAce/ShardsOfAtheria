@@ -37,5 +37,13 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             velocity.Normalize();
             velocity *= Item.shootSpeed;
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.Amethyst, 15)
+                .AddTile(TileID.Anvils)
+                .Register();
+        }
     }
 }

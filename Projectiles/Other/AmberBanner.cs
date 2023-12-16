@@ -33,6 +33,7 @@ namespace ShardsOfAtheria.Projectiles.Other
                 Projectile.Center = player.Center + vector;
                 Projectile.netUpdate = true;
             }
+            Lighting.AddLight(Projectile.Center, TorchID.Yellow);
             AmberAura(500);
         }
 
@@ -91,6 +92,16 @@ namespace ShardsOfAtheria.Projectiles.Other
                 }
             }
             return result;
+        }
+
+        public static void MakeOldestBannerFollowPlayer(Player player)
+        {
+            int firstBannerWhoAmI = FindOldestBanner(player);
+            if (firstBannerWhoAmI > -1)
+            {
+                var firstBanner = Main.projectile[firstBannerWhoAmI];
+                firstBanner.ai[0] = 1f;
+            }
         }
     }
 }

@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             NPC.height = 82;
             NPC.damage = 90;
             NPC.defense = 180;
-            NPC.lifeMax = 300000;
+            NPC.lifeMax = 242564;
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.knockBackResist = 0f;
@@ -500,7 +500,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             float speed = 16f;
             if (NPC.Distance(idlePos) > 300)
             {
-                speed += 4f;
+                speed *= 2f;
             }
             NPC.Track(idlePos, speed, 16f);
         }
@@ -509,7 +509,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         {
             toTarget += Main.player[NPC.target].velocity * 16;
             toTarget.Normalize();
-            toTarget *= 16f;
+            toTarget *= 20f;
             if (attackTimer % 30 == 0)
             {
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), center, toTarget,
@@ -540,7 +540,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             if (attackTimer == 60)
             {
                 toTarget.Normalize();
-                toTarget *= 8f;
+                toTarget *= 14f;
                 if (Main.masterMode)
                 {
                     float numberProjectiles = 2; // 2 extra shots
@@ -630,7 +630,12 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         {
             Vector2 idlePos = new(0, -400);
             idlePos += player.Center;
-            NPC.Track(idlePos, 16f, 16f);
+            float speed = 16f;
+            if (NPC.Distance(idlePos) > 100)
+            {
+                speed *= 2f;
+            }
+            NPC.Track(idlePos, speed, 16f);
 
             if (attackTimer % 30 == 0)
             {
@@ -658,7 +663,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             float speed = 16f;
             if (NPC.Distance(targetCenter) > 100)
             {
-                speed += 6f;
+                speed *= 2f;
             }
             int direction = (NPC.Center.X > targetCenter.X ? 1 : -1);
             Vector2 toPosition = targetCenter + new Vector2(100 * direction, 0);
@@ -678,7 +683,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             float speed = 16f;
             if (NPC.Distance(player.Center) > 100)
             {
-                speed += 6f;
+                speed *= 2f;
             }
             NPC.Track(player.Center, speed, speed);
             if (NPC.Distance(player.Center) <= 150)

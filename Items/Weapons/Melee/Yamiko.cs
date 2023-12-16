@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Buffs.Cooldowns;
+using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;

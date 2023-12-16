@@ -115,6 +115,7 @@ Items: {
 			Summon two Amber Flies after taking damage
 			Enemy kills drop Amber Banners
 			Banners increase nearby player movement and attack speed and defense
+			Can have up to 10 banners
 			''' */
 	}
 
@@ -127,6 +128,7 @@ Items: {
 			Summon two Amber Flies after taking damage
 			Enemy kills drop Amber Banners
 			Banners increase nearby player movement and attack speed and defense
+			Can have up to 10 banners
 			Increases max sentries by 3
 			Every active sentry increases ally defense by 4
 			''' */
@@ -367,6 +369,7 @@ Items: {
 			Summon four Amber Flies after taking damage
 			Enemy kills drop Amber Banners
 			Banners increase nearby player movement and attack speed and defense
+			Can have up to 15 banners
 			The first banner will follow you
 			Increases max sentries by 3
 			Every active sentry increases your team's defense by 4
@@ -485,7 +488,7 @@ Items: {
 			'''
 			Instead of dying, heal to 50% Life and teleport somewhere around you
 			5 minute cooldown
-			Defense reduced by 15 during cooldown
+			Defense reduced by 50 during cooldown
 			''' */
 	}
 
@@ -3164,7 +3167,7 @@ Buffs: {
 
 	AmberBannerBuff: {
 		// DisplayName: Amber Banner Buff
-		// Description: Mods.ShardsOfAtheria.Buffs.AmberBannerBuff.Description
+		// Description: Increassed attack and movement speed
 	}
 
 	AmethystCurse: {
@@ -3174,17 +3177,17 @@ Buffs: {
 
 	SpitefulRuby: {
 		// DisplayName: Spiteful Ruby
-		// Description: Mods.ShardsOfAtheria.Buffs.SpitefulRuby.Description
+		// Description: Losing life and defense reduced
 	}
 
 	DiamondBarrierBuff: {
 		// DisplayName: Diamond Barrier Buff
-		// Description: Mods.ShardsOfAtheria.Buffs.DiamondBarrierBuff.Description
+		// Description: Temporary armor
 	}
 
 	EmeraldTeleportCooldown: {
 		// DisplayName: Emerald Teleport Cooldown
-		// Description: Mods.ShardsOfAtheria.Buffs.EmeraldTeleportCooldown.Description
+		// Description: Cannot use emerald teleport
 	}
 }
 

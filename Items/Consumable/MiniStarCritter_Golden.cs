@@ -10,6 +10,7 @@ namespace ShardsOfAtheria.Items.Consumable
         public override void SetDefaults()
         {
             base.SetDefaults();
+            Item.value *= 100;
             Item.makeNPC = ModContent.NPCType<MiniAreusStar_Golden>();
         }
     }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.Cooldowns;
+using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -19,13 +19,14 @@ namespace ShardsOfAtheria.Projectiles.Other
             Projectile.height = 32;
             Projectile.tileCollide = false;
             Projectile.alpha = 100;
+            Projectile.extraUpdates = 1;
         }
 
         public override void AI()
         {
             Vector2 position = new(Projectile.ai[0], Projectile.ai[1]);
-            Projectile.Track(position, 26f, 1f);
-            if (Projectile.Distance(position) < 20)
+            Projectile.Track(position, 13f, 1f);
+            if (Projectile.Distance(position) < 10)
             {
                 Projectile.Kill();
             }

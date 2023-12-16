@@ -1,5 +1,7 @@
 using ShardsOfAtheria.Items.AreusChips;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.ShardsUI.AreusVoid;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -52,6 +54,16 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
                 player.maxMinions += 4;
             }
             base.UpdateArmorSet(player);
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<AreusShard>(14)
+                .AddIngredient(ItemID.GoldBar, 4)
+                .AddIngredient(ItemID.FragmentStardust, 20)
+                .AddTile<AreusFabricator>()
+                .Register();
         }
     }
 }

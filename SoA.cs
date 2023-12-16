@@ -19,6 +19,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 
 namespace ShardsOfAtheria
 {
@@ -308,7 +309,7 @@ namespace ShardsOfAtheria
 
         public static string ChooseTitleText()
         {
-            List<string> title = new();
+            WeightedRandom<string> title = new();
             bool add = true;
             int i = 0;
             while (add)
@@ -324,9 +325,7 @@ namespace ShardsOfAtheria
                     add = false;
                 }
             }
-            int index = Main.rand.Next(2);
-
-            return title[index];
+            return title;
         }
 
         public static Dictionary<string, List<string>> GetContentArrayFile(string name)

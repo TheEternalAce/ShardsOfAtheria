@@ -1,13 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
 using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Projectiles.Summon.Minions;
 using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Utilities;
 using System.Linq;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -208,12 +209,19 @@ namespace ShardsOfAtheria.Players
             {
                 areusEnergy += 5;
             }
-            if (soldierSet && CommanderSet)
+            if (soldierSet)
             {
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<AreusDrone>()] < 6)
+                if (RangerSet && Player.HasBuff<ElectricVeil>())
                 {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<AreusDrone>(),
-                        (int)ClassDamage.ApplyTo(50), 0);
+                    ShardsHelpers.ProjectileRing(Player.GetSource_FromThis(), Player.Center, 8, 1f, 15f, ProjectileID.ThunderSpearShot, 50, 6f);
+                }
+                if (CommanderSet)
+                {
+                    if (Player.ownedProjectileCounts[ModContent.ProjectileType<AreusDrone>()] < 6)
+                    {
+                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<AreusDrone>(),
+                            (int)ClassDamage.ApplyTo(50), 0);
+                    }
                 }
             }
         }

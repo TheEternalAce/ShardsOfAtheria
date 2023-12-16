@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.Cooldowns;
+using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;

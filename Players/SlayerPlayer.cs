@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff;
+using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.NPCs.Misc;
 using ShardsOfAtheria.Projectiles.Other;

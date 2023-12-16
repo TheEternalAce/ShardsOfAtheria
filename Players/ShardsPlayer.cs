@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff;
+using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BuffItems;
@@ -43,7 +43,6 @@ namespace ShardsOfAtheria.Players
         public int processorElement = 0;
         public bool resonator;
         public bool areusRod;
-        public int mourningStarKills = 0;
         public bool acidTrip;
         public bool powerTrip;
 
@@ -199,7 +198,6 @@ namespace ShardsOfAtheria.Players
             tag["overdriveTimeCurrent"] = overdriveTimeCurrent;
             tag["phaseOffense"] = phaseOffense;
             tag[nameof(areusRod)] = areusRod;
-            tag[nameof(mourningStarKills)] = mourningStarKills;
             tag[nameof(genesisRagnarockUpgrades)] = genesisRagnarockUpgrades;
             tag[nameof(sacrificedKatana)] = sacrificedKatana;
         }
@@ -212,8 +210,6 @@ namespace ShardsOfAtheria.Players
                 phaseOffense = tag.GetBool("phaseOffense");
             if (tag.ContainsKey(nameof(areusRod)))
                 areusRod = tag.GetBool(nameof(areusRod));
-            if (tag.ContainsKey(nameof(mourningStarKills)))
-                mourningStarKills = tag.GetInt(nameof(mourningStarKills));
             if (tag.ContainsKey(nameof(genesisRagnarockUpgrades)))
                 genesisRagnarockUpgrades = tag.GetInt(nameof(genesisRagnarockUpgrades));
             if (tag.ContainsKey(nameof(sacrificedKatana)))
@@ -301,10 +297,6 @@ namespace ShardsOfAtheria.Players
 
         public override void UpdateEquips()
         {
-            if (areusKey)
-            {
-                Player.moveSpeed += .5f;
-            }
             if (rushDrive)
             {
                 if (Player.statLife < Player.statLifeMax2 / 2)

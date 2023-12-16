@@ -1,4 +1,3 @@
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Tiles.Crafting;
@@ -24,7 +23,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.height = 76;
             Item.scale = 3f;
 
-            Item.damage = 300;
+            Item.damage = 150;
             Item.DamageType = DamageClass.Melee;
             Item.knockBack = 6f;
             Item.crit = 96;

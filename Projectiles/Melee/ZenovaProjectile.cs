@@ -38,8 +38,11 @@ namespace ShardsOfAtheria.Projectiles.Melee
         // See ExampleBehindTilesProjectile. 
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            Projectile.hide = true;
-            behindNPCsAndTiles.Add(index);
+            if (IsStickingToTarget)
+            {
+                Projectile.hide = true;
+                behindNPCsAndTiles.Add(index);
+            }
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

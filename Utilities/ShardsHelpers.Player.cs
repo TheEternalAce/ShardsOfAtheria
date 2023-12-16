@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Buffs.Cooldowns;
+﻿using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Players;
 using System;

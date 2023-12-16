@@ -39,7 +39,6 @@ namespace ShardsOfAtheria.Players
         //}
         //private void SoldierActive_Summon()
         //{
-
         //}
 
         public override bool FreeDodge(Player.HurtInfo info)
@@ -58,8 +57,8 @@ namespace ShardsOfAtheria.Players
                         NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, Player.whoAmI, teleport.X, teleport.Y, 1);
                     }
                     Player.AddBuff<ElectricBlink>(480);
+                    return true;
                 }
-                return true;
             }
             return base.FreeDodge(info);
         }

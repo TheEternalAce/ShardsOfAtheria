@@ -27,6 +27,7 @@ namespace ShardsOfAtheria.Items.Consumable
             Item.noMelee = true;
             Item.noUseGraphic = true;
 
+            Item.value = 5000;
             Item.rare = ItemDefaults.RarityAreus;
             Item.makeNPC = ModContent.NPCType<MiniAreusStar>();
         }

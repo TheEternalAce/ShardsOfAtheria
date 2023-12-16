@@ -15,11 +15,6 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
     [AutoloadHead]
     public class Archivist : ModNPC
     {
-        public override bool IsLoadingEnabled(Mod mod)
-        {
-            return false;
-        }
-
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[Type] = 25;
@@ -33,13 +28,10 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 
-            // Set Atherian's biome and neighbor preferences with the NPCHappiness hook. You can add happiness text and remarks with localization (See an example in ExampleMod/Localization/en-US.lang
             //NPC.Happiness
-            //    //Biomes
             //    .SetBiomeAffection<HallowBiome>(AffectionLevel.Love)
             //    .SetBiomeAffection<UndergroundBiome>(AffectionLevel.Like)
-            //    //.SetBiomeAffection<>(AffectionLevel.Hate)
-            //    //NPCs
+            //    .SetBiomeAffection<>(AffectionLevel.Hate)
             //    .SetNPCAffection(NPCID.Stylist, AffectionLevel.Love)
             //    .SetNPCAffection(NPCID.Guide, AffectionLevel.Like);
 
@@ -109,7 +101,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
             //var stopWatch = new Stopwatch();
             var houseInsideTiles = GetHouseInsideTiles((left + right) / 2, (top + bottom) / 2);
             bool bookshelfFound = BookshelfInHouse(houseInsideTiles);
-            return true;
+            return bookshelfFound;
         }
 
         public static List<Point> GetHouseInsideTiles(int x, int y)
@@ -155,16 +147,16 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
             {
                 if (Main.tile[p].HasTile)
                 {
-                    if (Main.tile[p].IsIncludedIn(TileID.Sets.RoomNeeds.CountsAsTable) ||
-                        Main.tile[p].IsIncludedIn(TileID.Sets.RoomNeeds.CountsAsChair) ||
-                        TileID.Sets.Torch[Main.tile[p].TileType])
-                    {
-                        continue;
-                    }
-                    //if (Main.tile[p].TileType == TileID.Bookcases)
+                    //if (Main.tile[p].IsIncludedIn(TileID.Sets.RoomNeeds.CountsAsTable) ||
+                    //    Main.tile[p].IsIncludedIn(TileID.Sets.RoomNeeds.CountsAsChair) ||
+                    //    TileID.Sets.Torch[Main.tile[p].TileType])
                     //{
-                    shelfFound = true;
+                    //    continue;
                     //}
+                    if (Main.tile[p].TileType == TileID.Bookcases)
+                    {
+                        shelfFound = true;
+                    }
                 }
             }
             return shelfFound;
@@ -172,7 +164,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
 
         public override List<string> SetNPCNameList()
         {
-            return new List<string>() { "" };
+            return new List<string>() { "Faust" };
         }
 
         const string DialogueKeyBase = "Mods.ShardsOfAtheria.NPCs.Archivist.Dialogue.";

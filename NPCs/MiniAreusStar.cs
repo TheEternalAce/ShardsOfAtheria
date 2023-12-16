@@ -73,9 +73,9 @@ namespace ShardsOfAtheria.NPCs
         {
             float spawnChance = 0f;
             if (spawnInfo.NoInvasionOfAnyKind() && spawnInfo.Player.ZoneNormalSpace && NPC.downedBoss2)
-                spawnChance += 1f;
+                spawnChance += 0.8f;
             if (spawnInfo.PlayerInTown)
-                spawnChance += 1f;
+                spawnChance *= 2f;
             return spawnChance;
         }
 

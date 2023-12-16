@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.Cooldowns;
 using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.Accessories.GemCores;
 using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
@@ -26,6 +26,7 @@ namespace ShardsOfAtheria.Players
         public bool greaterAmberCore;
         public bool superAmberCore;
         public bool amberCape;
+        public int maxAmberBanners;
 
         public bool amethystCore;
         public bool greaterAmethystCore;
@@ -76,6 +77,7 @@ namespace ShardsOfAtheria.Players
             amberCore = false;
             greaterAmberCore = false;
             superAmberCore = false;
+            maxAmberBanners = 0;
             amberCape = false;
 
             amethystCore = false;
@@ -156,7 +158,7 @@ namespace ShardsOfAtheria.Players
                         {
                             if (otherPlayer.team == Player.team)
                             {
-                                Player.statDefense += 4;
+                                otherPlayer.statDefense += 4;
                             }
                         }
                     }
@@ -215,6 +217,7 @@ namespace ShardsOfAtheria.Players
                 }
                 if (Player.ownedProjectileCounts[type] == 0)
                 {
+                    Player.ownedProjectileCounts[type] = 1;
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center,
                         Vector2.Zero, type, damage, 0, Player.whoAmI);
                 }
@@ -254,13 +257,12 @@ namespace ShardsOfAtheria.Players
                         teleportPosition.X = Main.mouseX + Main.screenPosition.X;
                         if (Player.gravDir == 1f)
                         {
-                            teleportPosition.Y = Main.mouseY + Main.screenPosition.Y - Player.height;
+                            teleportPosition.Y = Main.mouseY + Main.screenPosition.Y;
                         }
                         else
                         {
                             teleportPosition.Y = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
                         }
-                        teleportPosition.X -= Player.width / 2;
                         if (teleportPosition.X > 50f && teleportPosition.X < Main.maxTilesX * 16 - 50 && teleportPosition.Y > 50f && teleportPosition.Y < Main.maxTilesY * 16 - 50)
                         {
                             Player.SetImmuneTimeForAllTypes(Player.longInvince ? 100 : 60);
@@ -381,7 +383,7 @@ namespace ShardsOfAtheria.Players
         {
             if (sapphireDodgeChance > 0)
             {
-                TrySapphireDodge(sapphireDodgeChance);
+                return TrySapphireDodge(sapphireDodgeChance);
             }
             return base.FreeDodge(info);
         }
@@ -511,22 +513,29 @@ namespace ShardsOfAtheria.Players
                 {
                     int type = ModContent.ProjectileType<AmberBanner>();
                     float ai0 = 0f;
+                    int bannerAmount = Player.ownedProjectileCounts[type];
                     if (megaGemCore)
                     {
-                        if (Player.ownedProjectileCounts[type] == 0)
+                        if (bannerAmount == 0)
                         {
                             ai0 = 1f;
                         }
                         else
                         {
-                            int firstBanner = AmberBanner.FindOldestBanner(Player);
-                            if (firstBanner > -1)
-                            {
-                                Main.projectile[firstBanner].ai[0] = 1f;
-                            }
+                            AmberBanner.MakeOldestBannerFollowPlayer(Player);
                         }
                     }
                     Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, type, 0, 0f, Player.whoAmI, ai0);
+                    if (bannerAmount >= maxAmberBanners)
+                    {
+                        int firstBannerWhoAmI = AmberBanner.FindOldestBanner(Player);
+                        if (firstBannerWhoAmI > -1)
+                        {
+                            var firstBanner = Main.projectile[firstBannerWhoAmI];
+                            firstBanner.Kill();
+                        }
+                        AmberBanner.MakeOldestBannerFollowPlayer(Player);
+                    }
                 }
                 if (greaterTopazCore)
                 {
@@ -546,6 +555,28 @@ namespace ShardsOfAtheria.Players
                         Player.AddBuff<DiamondBarrierBuff>(buffTime);
                     }
                 }
+            }
+        }
+
+        public override void OnRespawn()
+        {
+            if (greaterEmeraldCore && greaterRubyCore)
+            {
+
+            }
+            if (greaterRubyCore && greaterSapphireCore)
+            {
+
+            }
+        }
+
+        private void AddCurse<T>() where T : ModBuff
+        {
+            int curseDuration = 1800;
+            float curseChance = 0.7f;
+            if (Main.rand.NextFloat() < curseChance)
+            {
+                Player.AddBuff<T>(curseDuration);
             }
         }
     }

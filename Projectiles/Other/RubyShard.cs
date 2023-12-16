@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Projectiles.Other
 
         public override void OnKill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Tink);
+            SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
             var vector = -Projectile.velocity;
             vector.Normalize();
             vector *= 3f;

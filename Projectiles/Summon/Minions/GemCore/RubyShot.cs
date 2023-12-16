@@ -10,6 +10,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
     {
         public override string Texture => SoA.BlankTexture;
 
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.MinionShot[Type] = true;
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = Projectile.height = 4;
@@ -27,11 +32,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
         {
             SoundEngine.PlaySound(SoundID.Item72);
         }
-
-        //public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        //{
-        //target.AddBuff<SpitefulRuby>(600);
-        //}
 
         public override void AI()
         {

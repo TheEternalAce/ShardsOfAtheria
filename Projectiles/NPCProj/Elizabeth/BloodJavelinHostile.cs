@@ -46,8 +46,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
                 Player player = Projectile.FindClosestPlayer(350);
                 if (player != null)
                 {
-                    float speed = 8f;
-                    Projectile.Track(player.Center, speed, 18);
+                    Projectile.Track(player.Center, 12f, 30f);
                 }
             }
         }

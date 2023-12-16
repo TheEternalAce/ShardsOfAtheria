@@ -1,4 +1,6 @@
 using ShardsOfAtheria.Items.AreusChips;
+using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -44,6 +46,17 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
             ArmorPlayer.areusDamage += 0.1f;
             player.statManaMax2 += 120;
             ArmorPlayer.areusBody = true;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<AreusShard>(24)
+                .AddIngredient(ItemID.GoldBar, 10)
+                .AddIngredient(ItemID.FragmentNebula, 12)
+                .AddIngredient(ItemID.FragmentSolar, 12)
+                .AddTile<AreusFabricator>()
+                .Register();
         }
     }
 }

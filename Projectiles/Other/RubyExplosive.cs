@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Projectiles.Other
 
         public override void OnKill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Tink);
+            SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
             for (int i = 0; i < 10; i++)
             {
                 Vector2 vector = Main.rand.NextVector2CircularEdge(1f, 1f);

@@ -39,6 +39,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             Projectile.ignoreWater = true;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Summon;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
 
             DrawOffsetX = -6;
             DrawOriginOffsetY = -4;
@@ -258,7 +260,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 
         public override void OnKill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Tink);
+            SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
             for (int i = 0; i < 6; i++)
             {
                 var dust = Dust.NewDustDirect(Projectile.position, Projectile.width,

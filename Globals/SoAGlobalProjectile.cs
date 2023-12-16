@@ -110,35 +110,32 @@ namespace ShardsOfAtheria.Globals
         {
             foreach (Player player in Main.player)
             {
-                if (projectile.active)
+                if (player.active && !player.dead)
                 {
-                    if (projectile.owner == player.whoAmI)
+                    if (projectile.owner == player.whoAmI && projectile.friendly)
                     {
-                        if (player.active && !player.dead && projectile.friendly)
+                        var projectileElement = projectile.Elements();
+                        if (player.Shards().areusProcessor)
                         {
-                            var projectileElement = projectile.Elements();
-                            if (player.Shards().areusProcessor)
-                            {
-                                projectileElement.isFire = false;
-                                projectileElement.isAqua = false;
-                                projectileElement.isElec = false;
-                                projectileElement.isWood = false;
+                            projectileElement.isFire = false;
+                            projectileElement.isAqua = false;
+                            projectileElement.isElec = false;
+                            projectileElement.isWood = false;
 
-                                switch (player.Shards().processorElement)
-                                {
-                                    case Element.Fire:
-                                        projectileElement.isFire = true;
-                                        break;
-                                    case Element.Aqua:
-                                        projectileElement.isAqua = true;
-                                        break;
-                                    case Element.Elec:
-                                        projectileElement.isElec = true;
-                                        break;
-                                    case Element.Wood:
-                                        projectileElement.isWood = true;
-                                        break;
-                                }
+                            switch (player.Shards().processorElement)
+                            {
+                                case Element.Fire:
+                                    projectileElement.isFire = true;
+                                    break;
+                                case Element.Aqua:
+                                    projectileElement.isAqua = true;
+                                    break;
+                                case Element.Elec:
+                                    projectileElement.isElec = true;
+                                    break;
+                                case Element.Wood:
+                                    projectileElement.isWood = true;
+                                    break;
                             }
                         }
                     }

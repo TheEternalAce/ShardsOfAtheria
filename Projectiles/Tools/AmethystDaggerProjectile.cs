@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.PlayerDebuff;
+using ShardsOfAtheria.Buffs.PlayerDebuff.GemCurse;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -79,7 +79,7 @@ namespace ShardsOfAtheria.Projectiles.Tools
 
         public override void OnKill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Tink);
+            SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
             var vector = -Projectile.velocity;
             vector.Normalize();
             vector *= 3f;
