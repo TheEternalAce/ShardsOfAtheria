@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs.Cooldowns
+namespace ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns
 {
     public class HeartBreak : ModBuff
     {

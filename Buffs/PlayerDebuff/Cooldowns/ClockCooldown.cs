@@ -2,9 +2,9 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs.Cooldowns
+namespace ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns
 {
-    public class YamikoDashCooldown : ModBuff
+    public class ClockCooldown : ModBuff
     {
         public override void SetStaticDefaults()
         {

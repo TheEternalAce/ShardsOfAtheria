@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs.PlayerDebuff
+namespace ShardsOfAtheria.Buffs.PlayerDebuff.GemCurse
 {
     public class AmethystCurse : ModBuff
     {

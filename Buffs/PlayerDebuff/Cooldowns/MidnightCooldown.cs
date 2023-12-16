@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs.Cooldowns
+namespace ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns
 {
     public class MidnightCooldown : ModBuff
     {
@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Buffs.Cooldowns
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.statDefense -= 15;
+            player.statDefense -= 50;
         }
     }
 }
