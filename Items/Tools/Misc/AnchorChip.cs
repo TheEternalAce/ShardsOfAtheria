@@ -9,8 +9,6 @@ namespace ShardsOfAtheria.Items.Tools.Misc
     {
         public bool active = true;
 
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetDefaults()
         {
             Item.width = 32;
