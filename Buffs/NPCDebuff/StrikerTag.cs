@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Buffs.NPCDebuff
 {
     public class StrikerTag : ModBuff
     {
-        public static readonly int TagDamage = 12;
+        public static readonly int TagDamage = 5;
 
         public override string Texture => SoA.DebuffTemplate;
 
@@ -54,18 +54,20 @@ namespace ShardsOfAtheria.Buffs.NPCDebuff
         {
             if (npc.HasBuff<StrikerTag>())
             {
-                if (projectile.type != ModContent.ProjectileType<StrikerCurrent>())
+                if (projectile.type != ModContent.ProjectileType<StrikerCurrent>() &&
+                    projectile.type != ModContent.ProjectileType<StrikerRod>() &&
+                    projectile.IsMinionOrSentryRelated)
                 {
-                    foreach (var npc2 in Main.npc)
+                    foreach (var targetNPC in Main.npc)
                     {
-                        if (npc2.CanBeChasedBy())
+                        if (targetNPC.CanBeChasedBy())
                         {
-                            if (npc2.HasBuff<StrikerTag>())
+                            if (targetNPC.HasBuff<StrikerTag>())
                             {
-                                var vector2 = Vector2.Normalize(npc2.Center - npc.Center);
+                                var vector2 = Vector2.Normalize(targetNPC.Center - npc.Center);
                                 Projectile.NewProjectile(npc.GetSource_FromThis(),
                                     npc.Center, vector2 * 16f, ModContent.ProjectileType<StrikerCurrent>(),
-                                33 / 3 * tagAmount, 0, Main.myPlayer, npc2.whoAmI);
+                                    6 * tagAmount, 0, Main.myPlayer, targetNPC.whoAmI);
                             }
                         }
                     }
