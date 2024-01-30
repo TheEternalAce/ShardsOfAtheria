@@ -7,8 +7,8 @@ using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.Utilities;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -20,29 +20,22 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
     {
         public override void SetStaticDefaults()
         {
-            // Specify the debuffs it is immune to
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+            List<int> buffTypes = new()
             {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.OnFire,
-                    BuffID.OnFire3,
-                    BuffID.ShadowFlame,
-                    BuffID.CursedInferno,
-                    BuffID.Frostburn,
-                    BuffID.Frostburn2
-                }
+                BuffID.OnFire,
+                BuffID.OnFire3,
+                BuffID.ShadowFlame,
+                BuffID.CursedInferno,
+                BuffID.Frostburn,
+                BuffID.Frostburn2
             };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPC.SetImmuneTo(buffTypes);
 
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.Harpy];
 
-            // Influences how the NPC looks in the Bestiary
-            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new()
             {
-                Velocity = 1f, // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
-                Direction = -1 // -1 is left and 1 is right. NPCs are drawn facing the left by default but ExamplePerson will be drawn facing the right
-                               // Rotation = MathHelper.ToRadians(180) // You can also change the rotation of an NPC. Rotation is measured in radians
-                               // If you want to see an example of manually modifying these when the NPC is drawn, see PreDraw
+                Velocity = 1f
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);

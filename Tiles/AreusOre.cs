@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Tiles
             Main.tileLighted[Type] = true;
             Main.tileOreFinderPriority[Type] = 260;
 
-            ItemDrop = ModContent.ItemType<AreusShard>();
+            RegisterItemDrop(ModContent.ItemType<AreusShard>());
 
             AddMapEntry(new Color(200, 200, 200), Language.GetText("MapObject.AreusShard.MapEntry"));
 

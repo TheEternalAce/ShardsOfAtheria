@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             target.AddBuff(BuffID.Frostburn, 10 * 60);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 10; i++)
             {

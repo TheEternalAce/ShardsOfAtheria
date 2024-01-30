@@ -61,7 +61,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.NPCHit42);
             for (int i = 0; i < 8; i++)

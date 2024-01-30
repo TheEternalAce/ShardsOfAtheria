@@ -18,7 +18,7 @@ namespace ShardsOfAtheria.Tiles
             Main.tileSpelunker[Type] = true; // The tile will be affected by spelunker highlighting
             Main.tileOreFinderPriority[Type] = 240;
 
-            ItemDrop = ModContent.ItemType<BionicOreItem>();
+            RegisterItemDrop(ModContent.ItemType<BionicOreItem>());
 
             AddMapEntry(new Color(100, 100, 100), Language.GetText("MapObject.BionicOre.MapEntry"));
 

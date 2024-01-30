@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -51,16 +50,13 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.Harpy];
 
             NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+            List<int> buffTypes = new()
             {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.Poisoned,
-                    ModContent.BuffType<ElectricShock>(),
-
-                    BuffID.Confused // Most NPCs have this
-				}
+                BuffID.Poisoned,
+                BuffID.Confused,
+                ModContent.BuffType<ElectricShock>()
             };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPC.SetImmuneTo(buffTypes);
             NPC.AddElec();
         }
 

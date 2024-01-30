@@ -1710,7 +1710,15 @@ Mods: {
 		}
 
 		NPCs: {
-			NovaStellar.DisplayName: Nova Stellar
+			NovaStellar: {
+				DisplayName: Nova Stellar
+
+				BossChecklistIntegration: {
+					SpawnInfo: Use a [i:5981] on the surface
+					DespawnMessage: Nova Stellar leaves in triumph
+				}
+			}
+
 			CaveHarpy.DisplayName: Cavern Harpy
 			CorruptHarpy.DisplayName: Infested Harpy
 			CrimsonHarpy.DisplayName: Hemorrhaging Harpy
@@ -1722,7 +1730,27 @@ Mods: {
 			SnowHarpy.DisplayName: Arctic Harpy
 			VoidHarpy.DisplayName: Void Harpy
 			Creeper.DisplayName: Creeper
-			Atherian.DisplayName: Atherian
+
+			Atherian: {
+				DisplayName: Atherian
+				Census.SpawnCondition: Defeat Eater of Worlds/Brain of Cthulhu while not in Slayer mode.
+
+				TownNPCMood: {
+					Content: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.Content}"
+					NoHome: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.NoHome}"
+					FarFromHome: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.FarFromHome}"
+					LoveSpace: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LoveSpace}"
+					DislikeCrowded: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.DislikeCrowded}"
+					HateCrowded: I hate how crowded I am.
+					LoveBiome: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LoveBiome}"
+					LikeBiome: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LikeBiome}"
+					HateBiome: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.HateBiome}"
+					LoveNPC: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LoveNPC}"
+					LikeNPC: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LikeNPC}"
+					LikeNPC_Princess: "{$Mods.ShardsOfAtheria.TownNPCMood.Atherian.LikeNPC_Princess}"
+					Princess_LovesNPC: "{$TownNPCMood_Princess.LoveNPC_ShardsOfAtheria/Atherian}"
+				}
+			}
 		}
 
 		Buffs: {
@@ -2035,6 +2063,8 @@ Mods: {
 			NotSlayer: Slayer Mode disabled
 			DefeatPlantera: Sold after Plantera's defeat
 			DefeatNova: Sold after Nova Stellar's defeat
+			OperatorMaterials: Mods.ShardsOfAtheria.Conditions.OperatorMaterials
+			OperatorBags3: Mods.ShardsOfAtheria.Conditions.OperatorBags3
 		}
 
 		BossDesc.NovaStellar: Lightning Valkyrie
@@ -2115,38 +2145,116 @@ Mods: {
 			NovaStellar: Following her late father's footsteps, Nova became a noble knight. She wishes to rid the world of the Slayer Terrarian.
 		}
 
-		Config: {
-			ClientLabel: Client Side
-			ServerLabel: Server Side
-			ItemHeader: "[i:1] Items"
-			MetalBladeUseSound: "[i:ShardsOfAtheria/MetalBlade] Metal Blade Use Sound"
-			BossSummon: "[i:43] Non-consumable boss summons"
-			UpgradeItems: "[i:29] Upgrade items change"
-			DialogueHeader: "[i:3617] Dialogue"
-			YamikoInsult: "[i:ShardsOfAtheria/Yamiko] Yamiko Insult"
-			MechanicsHeader: "[i:4818] Mechanics"
-			Clueless: "[i:893] Clueless Atherian"
-			BetterWeapon: "[i:1] Directional Weapons*"
-			Experimental: "[i:893] Experimental Features"
-			MiscHeader: Misc
-			AltCaveHarpy: "[i:48] Alt Cavern Harpy"
-		}
+		Configs: {
+			ShardsClient: {
+				DisplayName: Client Side
 
-		ConfigDesc: {
-			MetalBladeUseSound: Enable for custom use sound, disable for vanilla use sound
-			BossSummon: Enable for to make Shards of Atheria boss summons non-consumable
-			UpgradeItems:
-				'''
-				Enable for to enable changes to Life Crystal, Mana Crystal and Life Fruit
-				(Use time 15, auto reuse, use turn)
-				'''
-			YamikoInsult: Disable if you want to keep your feelings intact
-			Clueless: Enable to allow the atherian to upgrade items even while in Slayer mode
-			BetterWeaponOff: Off
-			BetterWeaponUseTurn: No Use Turn
-			BetterWeaponMouse: Mouse Direction
-			Experimental: Enables experimental/work in progress features
-			AltCaveHarpy: Makes a slight change to the Cavern Harpy sprite
+				Headers: {
+					Mechanics: "[i:4818] Mechanics"
+					Sounds: "[i:890] Sounds"
+					UI: "[i:3617] UI"
+					Misc: "[i:1344] Misc"
+				}
+
+				instantAbsorb: {
+					Label: "[i:ShardsOfAtheria/SoulExtractingDagger] Instant Soul Crystal Absorption"
+					Tooltip: Toggles the wait for absorbing Soul Crystals
+				}
+
+				entryView: {
+					Label: "[i:ShardsOfAtheria/Necronomicon] View All entries"
+					Tooltip:
+						'''
+						Toggles the ability to view all Necronomicon entries
+						regardless of whether or not the Soul Crystal is absorbed or not
+						'''
+				}
+
+				biometalSound: {
+					Label: "[i:ShardsOfAtheria/Biometal] Biometal Equip Sound"
+					Tooltip: Toggles the sound played when Biometal is equipped
+				}
+
+				reactorBeep: {
+					Label: "[i:ShardsOfAtheria/ReactorMeltdown] Reactor Meltdown Sound"
+					Tooltip: Toggles the sound played when Reactor Meltdown is spinning
+				}
+
+				katanaScream: {
+					Label: "[i:ShardsOfAtheria/AreusKatana] Katana Scream"
+					Tooltip: Toggles whether or not the sound effect for transforming an Areus Katana plays.
+				}
+
+				loreTabletOffset: {
+					Label: "[i:3617] Tablet Position"
+					Tooltip: Move the lore tablet
+				}
+
+				sinfulArmamentText: {
+					Label: "[i:3617] Sinful Armament dialogue"
+					Tooltip: Toggles the dialogue when using Sinful Armament
+				}
+
+				windowTitle: {
+					Label: "[i:3617] Window Title"
+					Tooltip: Toggles changing the window title
+				}
+			}
+
+			ShardsServer: {
+				DisplayName: Server Side
+
+				Headers: {
+					Item: "[i:1] Items"
+					Dialogue: "[i:3617] Dialogue"
+					Mechanics: "[i:4818] Mechanics"
+					Misc: Misc
+					Commands: "[i:3617] Commands"
+				}
+
+				metalBladeSound: {
+					Label: "[i:ShardsOfAtheria/MetalBlade] Metal Blade Use Sound"
+					Tooltip: Enable for custom use sound, disable for vanilla use sound
+				}
+
+				nonConsumeBoss: {
+					Label: "[i:ShardsOfAtheria/ValkyrieCrest] Non-consumable boss summons"
+					Tooltip:
+						'''
+						Enable to make Shards of Atheria boss summon items non-consumable.
+						Does not affect vanilla boss summon items.
+						'''
+				}
+
+				upgradeChange: {
+					Label: "[i:29] Upgrade items change"
+					Tooltip:
+						'''
+						Enable for to enable changes to Life Crystal, Mana Crystal and Life Fruit
+						(Use time 15, auto reuse, use turn)
+						'''
+				}
+
+				yamikoInsult: {
+					Label: "[i:ShardsOfAtheria/Yamiko] Yamiko Insult"
+					Tooltip: Disable if you want to keep your feelings intact
+				}
+
+				cluelessNPCs: {
+					Label: "[i:893] Clueless Atherian"
+					Tooltip: Enable to allow the atherian to upgrade items even while in Slayer mode
+				}
+
+				altCaveHarpy: {
+					Label: "[i:48] Alt Cavern Harpy"
+					Tooltip: Changes the strap color on the Cavern Harpy sprite to red
+				}
+
+				betterWeapon: {
+					Label: better Weapon
+					Tooltip: ""
+				}
+			}
 		}
 
 		InfoDisplays: {

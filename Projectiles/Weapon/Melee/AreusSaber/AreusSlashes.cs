@@ -89,7 +89,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSaber
             base.SetDefaults();
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Player player = Main.player[Projectile.owner];
 
@@ -98,7 +98,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSaber
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, new Vector2(1, 0) * player.direction, ModContent.ProjectileType<AreusSlash2>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
             }
 
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
         }
     }
 
@@ -116,7 +116,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSaber
             base.SetDefaults();
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Player player = Main.player[Projectile.owner];
 
@@ -124,7 +124,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.AreusSaber
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, new Vector2(1, 0) * player.direction, ModContent.ProjectileType<AreusSlash3>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
             }
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
         }
     }
 

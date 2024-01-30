@@ -241,7 +241,7 @@ namespace ShardsOfAtheria.Projectiles.Minions
             return true;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath1);
             Gore.NewGore(Projectile.GetSource_Death(), Projectile.position, new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-6, 7)), 388);

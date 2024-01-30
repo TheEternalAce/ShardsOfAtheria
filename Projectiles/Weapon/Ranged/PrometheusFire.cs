@@ -140,7 +140,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
             return base.OnTileCollide(oldVelocity);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
             for (int i = 0; i < 10; i++)
@@ -169,7 +169,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ranged
                     proj.penetrate = 1;
                 }
             }
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
         }
     }
 }

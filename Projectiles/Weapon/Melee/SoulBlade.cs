@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             Projectile.timeLeft = 180;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 10; i++)
             {

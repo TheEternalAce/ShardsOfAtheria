@@ -106,7 +106,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (var i = 0; i < 28; i++)
             {

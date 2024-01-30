@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.InfoDisplays
         }
 
         // Here we can change the value that will be displayed in the game
-        public override string DisplayValue(ref Color displayColor)
+        public override string DisplayValue(ref Color displayColor, ref Color displayShadowColor)
         {
             // This is the value that will show up when viewing this display in normal play, right next to the icon
             return $"{Main.LocalPlayer.Shards().overdriveTimeCurrent} / {Main.LocalPlayer.Shards().overdriveTimeMax2}";

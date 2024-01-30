@@ -58,7 +58,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee
             return projHitbox.Intersects(targetHitbox);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.frame == 7)
             {

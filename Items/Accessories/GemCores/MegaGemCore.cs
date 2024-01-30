@@ -80,9 +80,9 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             shards.topazNecklace = shards.megaGemCoreToggles[4];
 
             //Bundle of Balloons
-            player.hasJumpOption_Cloud = true;
-            player.hasJumpOption_Blizzard = true;
-            player.hasJumpOption_Sandstorm = true;
+            player.GetJumpState(ExtraJump.CloudInABottle).Enable();
+            player.GetJumpState(ExtraJump.BlizzardInABottle).Enable();
+            player.GetJumpState(ExtraJump.SandstormInABottle).Enable();
             player.jumpBoost = true;
 
             // Charm of Myths

@@ -18,7 +18,6 @@ using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
-using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Personalities;
@@ -57,16 +56,13 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             NPCID.Sets.AttackAverageChance[Type] = 30;
             NPCID.Sets.HatOffsetY[Type] = 4;
 
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+            List<int> buffTypes = new()
             {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.Poisoned,
-                    ModContent.BuffType<ElectricShock>(),
-
-                    BuffID.Confused // Most NPCs have this
-				}
+                BuffID.Poisoned,
+                BuffID.Confused,
+                ModContent.BuffType<ElectricShock>()
             };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPC.SetImmuneTo(buffTypes);
             NPC.AddElec();
 
             // Set Atherian's biome and neighbor preferences with the NPCHappiness hook. You can add happiness text and remarks with localization (See an example in ExampleMod/Localization/en-US.lang

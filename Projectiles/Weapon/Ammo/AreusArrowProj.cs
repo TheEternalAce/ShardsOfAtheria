@@ -115,7 +115,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Ammo
             return base.OnTileCollide(oldVelocity);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Main.myPlayer == Projectile.owner)
             {

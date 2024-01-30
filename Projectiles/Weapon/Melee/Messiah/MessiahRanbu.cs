@@ -115,7 +115,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
             base.SetDefaults();
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Player player = Main.player[Projectile.owner];
 
@@ -124,7 +124,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, new Vector2(1, 0) * player.direction, ModContent.ProjectileType<MessiahRanbu2>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
             }
 
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
         }
     }
 
@@ -142,7 +142,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
             base.SetDefaults();
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Player player = Main.player[Projectile.owner];
 
@@ -157,7 +157,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, new Vector2(1, 0) * player.direction, ModContent.ProjectileType<MessiahRanbu4>(), Projectile.damage, Projectile.knockBack, player.whoAmI, 1);
                 }
             }
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
         }
     }
 
@@ -175,7 +175,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
             base.SetDefaults();
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Player player = Main.player[Projectile.owner];
 
@@ -190,7 +190,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, new Vector2(1, 0) * player.direction, ModContent.ProjectileType<MessiahRanbu5>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
                 }
             }
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
         }
     }
 
@@ -208,14 +208,14 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Melee.Messiah
             base.SetDefaults();
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Player player = Main.player[Projectile.owner];
 
             if (Main.myPlayer == Projectile.owner)
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, new Vector2(1, 0) * player.direction, ModContent.ProjectileType<MessiahRanbu3>(), Projectile.damage, Projectile.knockBack, player.whoAmI, 1);
 
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
         }
     }
 

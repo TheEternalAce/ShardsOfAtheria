@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Systems;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Chat;
 using Terraria.GameContent.ItemDropRules;
@@ -67,6 +68,16 @@ namespace ShardsOfAtheria.Utilities
             else
             {
                 npc.position += Vector2.Normalize(point - npc.Center) * speed;
+            }
+        }
+
+        public static void SetImmuneTo(this NPC npc, List<int> buffTypes)
+        {
+            int npcType = npc.type;
+            for (int i = 0; i < buffTypes.Count; i++)
+            {
+                int buffType = buffTypes[i];
+                NPCID.Sets.SpecificDebuffImmunity[npcType][buffType] = true;
             }
         }
 

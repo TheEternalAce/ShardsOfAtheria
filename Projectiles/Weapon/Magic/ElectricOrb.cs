@@ -44,7 +44,7 @@ namespace ShardsOfAtheria.Projectiles.Weapon.Magic
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             bool flag = Main.rand.NextBool(2);
             for (int i = 0; i < 4; i++)
