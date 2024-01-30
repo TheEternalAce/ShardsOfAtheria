@@ -204,10 +204,9 @@ namespace ShardsOfAtheria.Utilities
 
             Main.instance.LoadProjectile(projectile.type);
             Texture2D texture = ModContent.Request<Texture2D>("ShardsOfAtheria/Assets/BlurTrails/" + style).Value;
-            float rotationOffset = 0;
             if (style == DiamondX1 || style == DiamondX2 || style == LineX1 || style == LineX2)
             {
-                rotationOffset = MathHelper.PiOver2;
+                angleAdd += MathHelper.PiOver2;
             }
 
             for (int k = 0; k < projectile.oldPos.Length; k++)
@@ -217,7 +216,7 @@ namespace ShardsOfAtheria.Utilities
                 Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + offset;
                 float sizec = scale * (projectile.oldPos.Length - k) / (projectile.oldPos.Length * 0.8f);
                 Color drawColor = color * (1f - projectile.alpha) * ((projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
-                Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, projectile.oldRot[k] + rotationOffset + angleAdd, frame.Size() / 2, sizec, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, projectile.oldRot[k] + angleAdd, frame.Size() / 2, sizec, SpriteEffects.None, 0);
             }
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Main.GameViewMatrix.ZoomMatrix);
