@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddAreus();
+            Projectile.AddAreus(true);
         }
 
         public override void SetDefaults()

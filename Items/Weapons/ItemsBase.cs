@@ -413,7 +413,6 @@ namespace ShardsOfAtheria.Items.Weapons
 
         public override void ModifyItemScale(Player player, ref float scale)
         {
-
             base.ModifyItemScale(player, ref scale);
         }
     }

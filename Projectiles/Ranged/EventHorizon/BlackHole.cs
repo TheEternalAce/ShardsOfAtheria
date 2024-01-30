@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -7,6 +8,12 @@ namespace ShardsOfAtheria.Projectiles.Ranged.EventHorizon
 {
     public class BlackHole : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementAqua();
+            Projectile.AddRedemptionElement(9);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 100;

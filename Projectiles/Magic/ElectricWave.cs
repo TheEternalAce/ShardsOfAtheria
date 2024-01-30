@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,6 +8,12 @@ namespace ShardsOfAtheria.Projectiles.Magic
 {
     public class ElectricWave : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = Projectile.height = 24;

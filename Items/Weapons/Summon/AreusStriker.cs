@@ -1,4 +1,5 @@
 using ShardsOfAtheria.Projectiles.Summon;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,7 +10,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
+            Item.AddAreus();
         }
 
         public override void SetDefaults()
@@ -20,8 +21,8 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             Item.damage = 12;
             Item.DamageType = DamageClass.Summon;
 
-            Item.useTime = 8;
-            Item.useAnimation = 8;
+            Item.useTime = 12;
+            Item.useAnimation = 12;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item5;
             Item.noMelee = true;

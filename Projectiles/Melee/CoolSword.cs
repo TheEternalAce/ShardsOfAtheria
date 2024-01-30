@@ -136,13 +136,13 @@ namespace ShardsOfAtheria.Projectiles.Melee
         {
         }
 
-        public virtual void FireProjectile(float progress, int type, int damage, float knockback, float velocity = 16f)
+        public virtual void FireProjectile(float progress, int type, int damage, float knockback, float velocity = 16f, float positionOffset = 0f)
         {
             if (progress == 0.5f && Main.myPlayer == Projectile.owner)
             {
                 Vector2 position = Projectile.Center;
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, AngleVector * Projectile.velocity.Length() * velocity,
-                            type, damage, knockback, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), position - AngleVector * Projectile.velocity.Length() * positionOffset,
+                    AngleVector * Projectile.velocity.Length() * velocity, type, damage, knockback, Projectile.owner);
             }
         }
 

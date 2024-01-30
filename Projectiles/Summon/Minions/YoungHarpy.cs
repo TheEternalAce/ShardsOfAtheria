@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Projectiles.Ranged;
+using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -27,6 +28,9 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
+
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()
@@ -183,17 +187,15 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         {
             // Default movement parameters (here for attacking)
             float speed = 16f;
-            float inertia = 20f;
+            float inertia = 40f;
 
             if (foundTarget)
             {
                 Projectile.friendly = meleePhase;
                 Projectile.hostile = false;
                 Projectile.damage = 20;
-                if (shootCounter != 10 && !meleePhase)
+                if (shootCounter < 10 && !meleePhase)
                 {
-                    speed = 4f;
-                    inertia = 80f;
                     Vector2 newIdlePosition = targetCenter - Projectile.Center;
                     newIdlePosition.Y -= 124f;
 
@@ -202,7 +204,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
                     Projectile.velocity = (Projectile.velocity * (inertia - 1) + newIdlePosition) / inertia;
 
-                    if (++shootTimer >= 90)
+                    if (++shootTimer >= 90 + Main.rand.Next(50))
                     {
                         SoundEngine.PlaySound(SoundID.Item5, Projectile.Center);
                         float numberProjectiles = 3; // 3 shots
@@ -225,8 +227,9 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                 // Minion has a target: attack (here, fly towards the enemy)
                 else if (distanceFromTarget > 40f)
                 {
+                    inertia = 20f;
                     meleePhase = true;
-                    if (++shootTimer >= 90)
+                    if (++shootTimer >= 180)
                     {
                         if (--shootCounter <= 0)
                         {

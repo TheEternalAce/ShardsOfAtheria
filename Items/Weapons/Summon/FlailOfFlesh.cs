@@ -12,9 +12,10 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
             Item.AddElementFire();
             Item.AddElementWood();
+            Item.AddRedemptionElement(2);
+            Item.AddRedemptionElement(12);
         }
 
         public override void SetDefaults()

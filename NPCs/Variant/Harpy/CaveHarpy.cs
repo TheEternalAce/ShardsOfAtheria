@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Placeable.Banner;
+using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -32,10 +33,8 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            NPC.AddElementFire();
-            NPC.AddElementAqua();
-            NPC.AddElementElec();
-            NPC.AddElementWood();
+            NPC.AddRedemptionElement(5);
+            NPC.AddRedemptionElementType("Humanoid");
         }
 
         public override void SetDefaults()
@@ -45,8 +44,14 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.defense = 10;
             NPC.lifeMax = 50;
             BannerItem = ModContent.ItemType<CaveHarpyBanner>();
-            NPC.ElementMultipliers(new[] { 2.0f, 0.8f, 0.5f, 1.0f });
+            NPC.ElementMultipliers([2.0f, 0.8f, 0.5f, 1.0f]);
+
+            projectileType = ModContent.ProjectileType<Stone>();
+            projectileDamage = 9;
+            debuffType = BuffID.Stoned;
         }
+
+        public override bool DebuffCondition => base.DebuffCondition && Main.rand.NextBool(10);
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
@@ -58,6 +63,12 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         public override void SpecialAttack(Vector2 velocity)
         {
             base.SpecialAttack(velocity);
+        }
+
+        public override void AI()
+        {
+            base.AI();
+            Lighting.AddLight(NPC.Center, Color.Cyan.ToVector3());
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)

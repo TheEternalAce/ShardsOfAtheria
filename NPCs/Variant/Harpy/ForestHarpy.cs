@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
+using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.GameContent.Bestiary;
@@ -16,6 +17,9 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         {
             base.SetStaticDefaults();
             NPC.AddElementWood();
+            NPC.AddRedemptionElement(10);
+            NPC.AddRedemptionElementType("Humanoid");
+            NPC.AddRedemptionElementType("Plantlike");
         }
 
         public override void SetDefaults()
@@ -25,9 +29,11 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.defense = 6;
             NPC.lifeMax = 40;
             BannerItem = ModContent.ItemType<ForestHarpyBanner>();
-            projectileType = ModContent.ProjectileType<Poison>();
             NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersWood);
+
+            projectileType = ModContent.ProjectileType<Poison>();
             projectileDamage = 5;
+            debuffType = BuffID.Poisoned;
         }
 
         public override void SpecialAttack(Vector2 velocity)
@@ -61,6 +67,9 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         {
             base.ModifyNPCLoot(npcLoot);
             npcLoot.Add(ItemDropRule.Common(ItemID.Mushroom, 1, 3, 6));
+            LeadingConditionRule rain = new(new IsInRain());
+            rain.OnSuccess(ItemDropRule.Common(ItemID.Worm, 3, 1, 3));
+            npcLoot.Add(rain);
         }
     }
 }

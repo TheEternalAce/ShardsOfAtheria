@@ -30,6 +30,9 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.AddElementAqua();
             NPC.AddElementElec();
             NPC.AddElementWood();
+            NPC.AddRedemptionElement(8);
+            NPC.AddRedemptionElementType("Humanoid");
+            NPC.AddRedemptionElementType("Hallowed");
         }
 
         public override void SetDefaults()

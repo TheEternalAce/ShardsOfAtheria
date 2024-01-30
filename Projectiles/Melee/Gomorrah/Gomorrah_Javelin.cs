@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -9,6 +10,12 @@ namespace ShardsOfAtheria.Projectiles.Melee.Gomorrah
 {
     public class Gomorrah_Javelin : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 8;

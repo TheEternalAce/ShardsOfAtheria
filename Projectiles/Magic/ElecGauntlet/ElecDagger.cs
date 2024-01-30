@@ -9,6 +9,12 @@ namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
 {
     public class ElecDagger : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void SetDefaults()
         {
             Projectile.Size = new Vector2(10);

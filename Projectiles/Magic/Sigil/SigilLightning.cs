@@ -5,6 +5,12 @@ namespace ShardsOfAtheria.Projectiles.Magic.Sigil
 {
     public class SigilLightning : LightningBoltFriendly
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void AI()
         {
             base.AI();

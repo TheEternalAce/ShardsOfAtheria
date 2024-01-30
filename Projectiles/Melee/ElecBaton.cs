@@ -11,6 +11,11 @@ namespace ShardsOfAtheria.Projectiles.Melee
     {
         public override string Texture => SoA.MeleeWeapon + "AreusBaton";
 
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddAreus();
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 34;

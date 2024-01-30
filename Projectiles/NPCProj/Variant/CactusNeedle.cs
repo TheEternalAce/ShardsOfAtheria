@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,6 +8,12 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
 {
     public class CactusNeedle : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementWood();
+            Projectile.AddRedemptionElement(10);
+        }
+
         public override void SetDefaults()
         {
             Projectile refProj = new Projectile();

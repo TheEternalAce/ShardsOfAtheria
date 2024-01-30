@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,6 +8,12 @@ namespace ShardsOfAtheria.Projectiles.Melee
 {
     public class WarframeSlash : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 92;
@@ -41,7 +48,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = Color.Cyan;
+            lightColor = new(113, 251, 255);
             return base.PreDraw(ref lightColor);
         }
     }

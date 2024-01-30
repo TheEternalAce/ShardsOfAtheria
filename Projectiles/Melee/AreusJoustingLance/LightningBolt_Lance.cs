@@ -7,6 +7,12 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJoustingLance
 {
     public class LightningBolt_Lance : LightningBoltFriendly
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();

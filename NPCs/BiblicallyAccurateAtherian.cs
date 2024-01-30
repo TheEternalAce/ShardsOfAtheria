@@ -55,6 +55,9 @@ namespace ShardsOfAtheria.NPCs
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
             NPC.AddElementElec();
+            NPC.AddRedemptionElement(7);
+            NPC.AddRedemptionElementType("Inorganic");
+            NPC.AddRedemptionElementType("Robotic");
         }
 
         public override void SetDefaults()
@@ -178,15 +181,17 @@ namespace ShardsOfAtheria.NPCs
 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+            var position = NPC.Center - ringTexture.Size() * 0.5f - screenPos;
+
             spriteBatch.Draw(
                 ringTexture.Value,
-                NPC.Center - ringTexture.Size() * 0.5f - screenPos,
+                position,
                 drawColor);
 
             var texture = TextureAssets.Npc[Type];
             spriteBatch.Draw(
                 texture.Value,
-                NPC.Center - texture.Size() * 0.5f - screenPos + new Vector2(0, -18),
+                position + new Vector2(0, -18),
                 drawColor);
 
             return false;

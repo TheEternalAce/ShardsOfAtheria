@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -6,6 +7,12 @@ namespace ShardsOfAtheria.Projectiles.Ranged.DeckOfCards
 {
     public class AceOfHearts : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementAqua();
+            Projectile.AddRedemptionElement(3);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 18;

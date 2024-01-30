@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,6 +8,13 @@ namespace ShardsOfAtheria.Projectiles.Melee
 {
     public class CorruptRose : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementFire();
+            Projectile.AddElementWood();
+            Projectile.AddRedemptionElement(9);
+        }
+
         public override void SetDefaults()
         {
             Projectile refProj = new Projectile();
@@ -37,6 +45,13 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
     public class CorruptPetal : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementFire();
+            Projectile.AddElementWood();
+            Projectile.AddRedemptionElement(9);
+        }
+
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.FlowerPowPetal);

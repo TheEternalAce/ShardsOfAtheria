@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -6,6 +7,12 @@ namespace ShardsOfAtheria.Projectiles.Melee.Gomorrah
 {
     public class Gomorrah_Spear : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 18;

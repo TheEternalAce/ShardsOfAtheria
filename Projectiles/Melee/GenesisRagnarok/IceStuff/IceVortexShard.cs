@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -10,6 +11,12 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok.IceStuff
     {
         private Vector2 position;
         private double rotation;
+
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementAqua();
+            Projectile.AddRedemptionElement(4);
+        }
 
         public override void SetDefaults()
         {

@@ -25,9 +25,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
             Main.projPet[Projectile.type] = true; // Denotes that this projectile is a pet or minion
-
-            ProjectileID.Sets.MinionSacrificable[Projectile.type] = false; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
-            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
         }
 
         public override void SetDefaults()
@@ -38,8 +35,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             Projectile.aiStyle = -1;
             Projectile.penetrate = -1;
             Projectile.timeLeft *= 5;
-            //Projectile.minion = true;
-            //Projectile.minionSlots = 0f;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.friendly = true;
@@ -77,7 +72,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             bool foundTarget = false;
             float distanceFromTarget = 0;
             Vector2 targetCenter = Vector2.Zero;
-            if (Projectile.damage > 0)
+            if (owner.Gem().sapphireSpiritUpgrade)
             {
                 SearchForTargets(owner, out foundTarget, out distanceFromTarget, out targetCenter);
             }
@@ -111,7 +106,12 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                 Projectile.netUpdate = true;
             }
 
-            Lighting.AddLight(Projectile.Center, TorchID.Purple);
+            int torch = TorchID.Purple;
+            if (projectileShootTimer >= 180)
+            {
+                torch = TorchID.White;
+            }
+            Lighting.AddLight(Projectile.Center, torch);
 
             if (owner.wingTime == 0 && owner.mount.FlyTime == 0 && owner.velocity.Y > 0)
             {
@@ -248,32 +248,37 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             {
                 shootTimer = 0;
             }
-
-            if (++projectileShootTimer >= 180)
+            if (Projectile.GetPlayerOwner().Gem().sapphireSpiritUpgrade)
             {
-                if (projectileShootTimer == 180)
+                if (++projectileShootTimer >= 180)
                 {
-                    for (var i = 0; i < 28; i++)
+                    if (projectileShootTimer == 180)
                     {
-                        var vector = Main.rand.NextVector2CircularEdge(1f, 1f);
-                        Dust d = Dust.NewDustPerfect(Projectile.Center, DustID.GemDiamond, vector * 3f);
-                        d.fadeIn = 1.3f;
-                        d.noGravity = true;
-                    }
-                }
-                var player = Projectile.GetPlayerOwner();
-                var projectile = player.Center.FindClosestProjectile(350, ValidProjectile);
-                if (projectile != null)
-                {
-                    if (Projectile.Distance(projectile.Center) < 350f)
-                    {
-                        if (projectile.active && projectile.hostile)
+                        for (var i = 0; i < 28; i++)
                         {
-                            Projectile.spriteDirection = projectile.Center.X < Projectile.Center.X ? -1 : 1;
-                            Vector2 velocity = Vector2.Normalize(projectile.Center - Projectile.Center);
-                            Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity,
-                                ModContent.ProjectileType<DiamondShot>(), Projectile.damage, 0, Projectile.owner, projectile.whoAmI);
-                            projectileShootTimer = 0;
+                            var vector = Main.rand.NextVector2CircularEdge(1f, 1f);
+                            Dust d = Dust.NewDustPerfect(Projectile.Center, DustID.GemDiamond, vector * 3f);
+                            d.fadeIn = 1.3f;
+                            d.noGravity = true;
+                        }
+                    }
+                    var player = Projectile.GetPlayerOwner();
+                    if (!player.immune)
+                    {
+                        var projectile = player.Center.FindClosestProjectile(350, ValidProjectile);
+                        if (projectile != null)
+                        {
+                            if (Projectile.Distance(projectile.Center) < 350f)
+                            {
+                                if (projectile.active && projectile.hostile)
+                                {
+                                    Projectile.spriteDirection = projectile.Center.X < Projectile.Center.X ? -1 : 1;
+                                    Vector2 velocity = Vector2.Normalize(projectile.Center - Projectile.Center);
+                                    Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity,
+                                        ModContent.ProjectileType<DiamondShot>(), Projectile.damage, 0, Projectile.owner, projectile.whoAmI);
+                                    projectileShootTimer = 0;
+                                }
+                            }
                         }
                     }
                 }

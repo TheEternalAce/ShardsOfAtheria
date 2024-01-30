@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             Item.AddElementAqua();
             Item.AddElementWood();
+            Item.AddRedemptionElement(12);
         }
 
         public override void SetDefaults()

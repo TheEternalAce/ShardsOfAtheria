@@ -15,6 +15,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         public override void SetStaticDefaults()
         {
             Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
+            Projectile.AddRedemptionElement(9);
         }
 
         public override void SetDefaults()
@@ -75,7 +77,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             int npcWhoAmI = Projectile.FindTargetWithLineOfSight(maxDetectRange);
             if (npcWhoAmI != -1)
             {
-                Projectile.Track(Main.npc[npcWhoAmI]);
+                Projectile.Track(Main.npc[npcWhoAmI], inertia: 8f);
             }
         }
     }

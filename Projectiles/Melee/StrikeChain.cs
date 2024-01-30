@@ -23,6 +23,11 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public int Timer;
         private const string ChainTexturePath = "ShardsOfAtheria/Projectiles/Melee/StrikeChain_Chain";
 
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddAreus();
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 24;

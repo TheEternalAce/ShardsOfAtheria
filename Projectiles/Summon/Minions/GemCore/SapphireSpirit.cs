@@ -22,9 +22,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
             Main.projPet[Projectile.type] = true; // Denotes that this projectile is a pet or minion
-
-            ProjectileID.Sets.MinionSacrificable[Projectile.type] = false; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
-            ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
         }
 
         public override void SetDefaults()
@@ -35,8 +32,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             Projectile.aiStyle = -1;
             Projectile.penetrate = -1;
             Projectile.timeLeft *= 5;
-            Projectile.minion = true;
-            Projectile.minionSlots = 0f;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.friendly = true;
@@ -74,7 +69,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             bool foundTarget = false;
             float distanceFromTarget = 0;
             Vector2 targetCenter = Vector2.Zero;
-            if (Projectile.damage > 0)
+            if (owner.Gem().sapphireSpiritUpgrade)
             {
                 SearchForTargets(owner, out foundTarget, out distanceFromTarget, out targetCenter);
             }
@@ -300,7 +295,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
         private bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || !owner.Gem().sapphireSpirit)
+            if (owner.dead || !owner.active || !owner.Gem().sapphireSpirit || owner.ownedProjectileCounts[ModContent.ProjectileType<GemSoul>()] > 0)
                 return false;
             else Projectile.timeLeft = 2;
             return true;

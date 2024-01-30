@@ -1,4 +1,5 @@
 using ShardsOfAtheria.Projectiles.Ranged;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,8 +10,9 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
+            Item.AddElementWood();
+            Item.AddRedemptionElement(10);
         }
 
         public override void SetDefaults()

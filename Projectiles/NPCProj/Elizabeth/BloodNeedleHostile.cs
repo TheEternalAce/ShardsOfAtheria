@@ -15,6 +15,13 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
     {
         private const string ChainTexturePath = "ShardsOfAtheria/Projectiles/NPCProj/Elizabeth/BloodNeedleHostile_Chain";
 
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementAqua();
+            Projectile.AddElementWood();
+            Projectile.AddRedemptionElement(12);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 10;

@@ -12,8 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
-            Item.AddElementElec();
+            Item.AddAreus();
         }
 
         public override void SetDefaults()
@@ -21,7 +20,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             Item.width = 34;
             Item.height = 22;
 
-            Item.damage = 33;
+            Item.damage = 62;
             Item.DamageType = DamageClass.Summon;
             Item.knockBack = 3f;
 
@@ -33,16 +32,17 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 10f;
-            Item.value = 125000;
-            Item.rare = ItemRarityID.Cyan;
+            Item.value = ItemDefaults.ValueHardmodeDungeon;
+            Item.rare = ItemDefaults.RarityAreus;
             Item.shoot = ModContent.ProjectileType<AreusCrateProj>();
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<AreusShard>(), 10)
-                .AddIngredient(ItemID.GoldBar, 5)
+                .AddIngredient<AreusShard>(20)
+                .AddIngredient(ItemID.GoldBar, 8)
+                .AddIngredient(ItemID.BeetleHusk, 8)
                 .AddTile<AreusFabricator>()
                 .Register();
         }

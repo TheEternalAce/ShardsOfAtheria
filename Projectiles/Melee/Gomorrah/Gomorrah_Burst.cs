@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Utilities;
+using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,6 +10,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.Gomorrah
     public class Gomorrah_Burst : ModProjectile
     {
         public override string Texture => SoA.BlankTexture;
+
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddRedemptionElement(15);
+        }
 
         public override void SetDefaults()
         {

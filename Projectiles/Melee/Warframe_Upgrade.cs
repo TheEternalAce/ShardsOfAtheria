@@ -29,6 +29,8 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
             ProjectileID.Sets.TrailingMode[Type] = 3;
             ProjectileID.Sets.TrailCacheLength[Type] = 13;
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()
@@ -58,7 +60,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             var player = Main.player[Projectile.owner];
             var vector = player.Center - target.Center;
             vector.Normalize();
-            player.velocity = vector * 8;
+            player.velocity = vector * Projectile.knockBack;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -88,7 +90,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override void UpdateSwing(float progress, float interpolatedSwingProgress)
         {
             FireProjectile(progress, ModContent.ProjectileType<WarframeSlash>(),
-                (int)(Projectile.damage * 0.75), (int)(Projectile.knockBack * 0.75));
+                (int)(Projectile.damage * 0.75), (int)(Projectile.knockBack * 0.75), positionOffset: 150f);
         }
 
         public override float SwingProgress(float progress)

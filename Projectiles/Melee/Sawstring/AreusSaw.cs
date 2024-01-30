@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.Sawstring
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            Projectile.AddAreus();
         }
 
         public override void SetDefaults()

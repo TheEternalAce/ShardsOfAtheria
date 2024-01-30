@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.NPCDebuff;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -7,6 +8,12 @@ namespace ShardsOfAtheria.Projectiles.Ranged.GunRose
 {
     public class WitheringSeed : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementAqua();
+            Projectile.AddRedemptionElement(9);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 10;

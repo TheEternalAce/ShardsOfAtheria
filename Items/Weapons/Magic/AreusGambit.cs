@@ -15,10 +15,8 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
-            Item.AddAreus(true);
+            Item.AddAreus(true, true);
             Item.AddUpgradable();
-            Item.AddElementElec();
         }
 
         public override void SetDefaults()

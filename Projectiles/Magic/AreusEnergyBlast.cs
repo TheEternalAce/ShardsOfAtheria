@@ -8,6 +8,12 @@ namespace ShardsOfAtheria.Projectiles.Magic
 {
     public class AreusEnergyBlast : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = Projectile.height = 24;

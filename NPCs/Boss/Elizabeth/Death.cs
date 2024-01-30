@@ -56,6 +56,10 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
             NPC.AddElementAqua();
             NPC.AddElementWood();
+            NPC.AddRedemptionElement(12);
+            NPC.AddRedemptionElementType("Humanoid");
+            NPC.AddRedemptionElementType("Blood");
+            NPC.AddRedemptionElementType("Armed");
         }
 
         public override void SetDefaults()

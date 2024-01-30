@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Utilities;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -7,6 +8,12 @@ namespace ShardsOfAtheria.Projectiles.Summon.Whip
     public class DragonBone : ModProjectile
     {
         int timer = 0;
+
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementWood();
+            Projectile.AddRedemptionElement(11);
+        }
 
         public override void SetDefaults()
         {

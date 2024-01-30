@@ -7,6 +7,12 @@ namespace ShardsOfAtheria.Projectiles.Ranged.DeckOfCards
 {
     public class AceOfSpades : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementFire();
+            Projectile.AddRedemptionElement(2);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 18;

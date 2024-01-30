@@ -28,6 +28,9 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
             NPC.AddElementFire();
             NPC.AddElementWood();
+            NPC.AddRedemptionElement(9);
+            NPC.AddRedemptionElementType("Humanoid");
+            NPC.AddRedemptionElementType("Dark");
         }
 
         public override void SetDefaults()

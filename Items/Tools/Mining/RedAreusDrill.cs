@@ -32,9 +32,9 @@ namespace ShardsOfAtheria.Items.Tools.Mining
         {
             ItemID.Sets.IsDrill[Type] = true;
 
-            Item.ResearchUnlockCount = 1;
             Item.AddAreus();
             Item.AddElementElec();
+            Item.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()

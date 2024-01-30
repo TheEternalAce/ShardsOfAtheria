@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.Sawstring
             // Vanilla values range from 9f(Wood) to 17.5f(Terrarian), and defaults to 10f
             ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 15f;
 
-            Projectile.AddElementElec();
+            Projectile.AddAreus();
         }
 
         public override void SetDefaults()

@@ -1,10 +1,17 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Utilities;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Melee.HeroSword
 {
     public class HeroBlade : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementFire();
+            Projectile.AddRedemptionElement(2);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 6;

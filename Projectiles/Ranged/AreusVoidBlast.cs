@@ -11,6 +11,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         public override void SetStaticDefaults()
         {
             Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
+            Projectile.AddRedemptionElement(9);
             ProjectileID.Sets.TrailingMode[Type] = 2;
             ProjectileID.Sets.TrailCacheLength[Type] = 20;
         }

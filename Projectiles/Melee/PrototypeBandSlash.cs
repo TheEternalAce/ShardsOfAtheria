@@ -31,7 +31,6 @@ namespace ShardsOfAtheria.Projectiles.Melee
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 
             Projectile.AddAreus();
-            Projectile.AddElementElec();
         }
 
         public override void SetDefaults()

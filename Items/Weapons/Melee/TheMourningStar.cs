@@ -1,3 +1,5 @@
+using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff;
 using ShardsOfAtheria.Projectiles.Melee.BloodthirstySword;
 using ShardsOfAtheria.Utilities;
@@ -16,6 +18,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.AddAreus(true);
             Item.AddElementAqua();
             Item.AddElementWood();
+            Item.AddRedemptionElement(12);
         }
 
         public override void SetDefaults()
@@ -52,7 +55,23 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             }
             if (blood == 0)
             {
-                player.AddBuff(ModContent.BuffType<CorruptedBlood>(), 300);
+                if (!player.HasBuff<CorruptedBlood>())
+                {
+                    CombatText.NewText(player.Hitbox, Color.DarkRed, "Feed me");
+                }
+                player.AddBuff<CorruptedBlood>(300);
+            }
+            if (blood > 1200)
+            {
+                player.AddBuff(ModContent.BuffType<MourningSatisfaction>(), blood - 1200);
+            }
+        }
+
+        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
+        {
+            if (player.HasBuff<MourningSatisfaction>())
+            {
+                damage += 0.5f;
             }
         }
 

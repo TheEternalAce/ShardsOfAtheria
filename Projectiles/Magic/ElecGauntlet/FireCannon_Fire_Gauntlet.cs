@@ -12,7 +12,8 @@ namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddAreus();
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()

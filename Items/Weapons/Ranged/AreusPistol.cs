@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            Item.AddElementElec();
+            Item.AddAreus();
         }
 
         public override void SetDefaults()

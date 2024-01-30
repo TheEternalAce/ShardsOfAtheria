@@ -32,13 +32,10 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.DamageType = DamageClass.Summon;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
-            Projectile.damage = 3;
-            Projectile.ArmorPenetration = 100;
-            Projectile.usesLocalNPCImmunity = true; // Used for hit cooldown changes in the ai hook
-            Projectile.localNPCHitCooldown = 60; // This facilitates custom hit cooldown logic
-            Projectile.minion = true; // Declares this as a minion (has many effects)
-            Projectile.minionSlots = 0.16f; // Amount of slots this minion occupies from the total minion slots available to the player (more on that later)
             Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 30;
+            Projectile.minion = true;
+            Projectile.minionSlots = 0.33f;
 
             DrawOffsetX = -6;
         }
@@ -75,9 +72,9 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         {
             for (int i = 0; i < 10; i++)
             {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<AreusDust>());
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<AreusDust>());
             }
-            SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Shatter, Projectile.position);
         }
 
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
@@ -92,12 +89,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         private void GeneralBehavior(Player owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition)
         {
             Vector2 idlePosition = owner.Center;
-            idlePosition.Y -= 50f; // Go up 48 coordinates (three tiles from the center of the player)
-
-            // If your minion doesn't aimlessly move around when it's idle, you need to "put" it into the line of other summoned minions
-            // The index is projectile.minionPos
-            float minionPositionOffsetX = (10 + Projectile.minionPos * 40) * -owner.direction;
-            idlePosition.X += minionPositionOffsetX; // Go behind the player
 
             // All of this code below this line is adapted from Spazmamini code (ID 388, aiStyle 66)
 
@@ -182,7 +173,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                         bool lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height);
                         // Additional check for this specific minion behavior, otherwise it will stop attacking once it dashed through an enemy while flying though tiles afterwards
                         // The number depends on various parameters seen in the movement code below. Test different ones out until it works alright
-                        bool closeThroughWall = between < 100f;
+                        bool closeThroughWall = between < 200f;
 
                         if ((closest && inRange || !foundTarget) && (lineOfSight || closeThroughWall))
                         {
@@ -201,11 +192,10 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.friendly = foundTarget;
         }
 
-        public int moveTimer = 0;
         private void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
         {
             // Default movement parameters (here for attacking)
-            float speed = 64f;
+            float speed = 40f;
             float inertia = 20f;
 
             if (foundTarget)
@@ -218,11 +208,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                     direction.Normalize();
                     direction *= speed;
 
-                    if (++moveTimer >= 5)
-                    {
-                        Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
-                        moveTimer = 0;
-                    }
+                    Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
                 }
             }
             else
@@ -238,7 +224,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                 {
                     // Slow down the minion if closer to the player
                     speed = 4f;
-                    inertia = 80f;
+                    inertia = 60f;
                 }
 
                 if (distanceToIdlePosition > 20f)

@@ -1,9 +1,17 @@
-﻿using Terraria.ID;
+﻿using ShardsOfAtheria.Utilities;
+using Terraria.ID;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather
 {
     public class Blood : HarpyFeathers
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementAqua();
+            Projectile.AddElementWood();
+            Projectile.AddRedemptionElement(12);
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();

@@ -20,6 +20,16 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
 
         public override string Texture => "ShardsOfAtheria/Projectiles/Melee/GenesisRagnarok/RagnarokProj";
 
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementFire();
+            Projectile.AddElementAqua();
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(2);
+            Projectile.AddRedemptionElement(4);
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 50;

@@ -15,9 +15,10 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 3;
+            SoAGlobalProjectile.Eraser.Add(Type);
             Projectile.AddElementAqua();
             Projectile.AddElementWood();
-            SoAGlobalProjectile.Eraser.Add(Type);
+            Projectile.AddRedemptionElement(12);
         }
 
         public override void SetDefaults()

@@ -10,6 +10,12 @@ namespace ShardsOfAtheria.Projectiles.Magic
     {
         public override string Texture => SoA.BlankTexture;
 
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = Projectile.height = 4;

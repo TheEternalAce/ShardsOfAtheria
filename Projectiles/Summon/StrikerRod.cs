@@ -24,8 +24,6 @@ namespace ShardsOfAtheria.Projectiles.Summon
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.timeLeft = 600;
-            Projectile.light = 0.5f;
-            Projectile.ignoreWater = true;
             Projectile.extraUpdates = 1;
             AIType = ProjectileID.Bullet;
         }

@@ -65,11 +65,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
             }
 
             // Remove the oldest sticky javelin if we exceeded the maximum
-            if (currentTurretIndex >= player.maxMinions)
+            if (currentTurretIndex >= player.maxTurrets)
             {
                 int oldTurretIndex = 0;
                 // Loop our point array
-                for (int i = 0; i < player.maxMinions; i++)
+                for (int i = 0; i < player.maxTurrets; i++)
                 {
                     // Remove the already existing javelin if it's timeLeft value (which is the Y value in our point array) is smaller than the new javelin's timeLeft
                     if (turrets[i].Y < turrets[oldTurretIndex].Y)

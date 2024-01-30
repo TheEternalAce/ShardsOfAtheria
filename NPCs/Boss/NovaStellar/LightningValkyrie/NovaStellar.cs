@@ -59,6 +59,9 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             NPC.SetImmuneTo(buffTypes);
 
             NPC.AddElementElec();
+            NPC.AddRedemptionElement(7);
+            NPC.AddRedemptionElementType("Humanoid");
+            NPC.AddRedemptionElementType("Armed");
         }
 
         public override void SetDefaults()

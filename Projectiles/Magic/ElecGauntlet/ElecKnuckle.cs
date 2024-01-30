@@ -23,6 +23,12 @@ namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
             set => Projectile.ai[0] = value;
         }
 
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void SetDefaults()
         {
             Projectile.Size = new Vector2(18);

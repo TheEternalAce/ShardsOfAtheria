@@ -11,8 +11,8 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
             Item.AddElementWood();
+            Item.AddRedemptionElement(11);
         }
 
         public override void SetDefaults()

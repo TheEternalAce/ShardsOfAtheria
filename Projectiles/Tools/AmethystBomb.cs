@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -30,7 +31,9 @@ namespace ShardsOfAtheria.Projectiles.Tools
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            Projectile.ExplodeTiles(Projectile.Center, 6, 6, Main.maxTilesX - 6, 6, Main.maxTilesY - 6, true);
+            var player = Projectile.GetPlayerOwner();
+            var gem = player.Gem();
+            Projectile.ExplodeTiles(Projectile.Center, 6, 6, Main.maxTilesX - 6, 6, Main.maxTilesY - 6, gem.amethystWallBomb);
             Projectile.Kill();
             return false;
         }

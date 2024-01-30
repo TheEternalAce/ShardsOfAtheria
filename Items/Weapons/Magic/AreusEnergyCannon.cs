@@ -10,7 +10,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
     {
         public override void SetStaticDefaults()
         {
-            Item.AddElementElec();
             Item.AddAreus();
         }
 

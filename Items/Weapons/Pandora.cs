@@ -20,6 +20,8 @@ namespace ShardsOfAtheria.Items.Weapons
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
             Item.AddElementAqua();
             Item.AddElementElec();
+            Item.AddRedemptionElement(4);
+            Item.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()

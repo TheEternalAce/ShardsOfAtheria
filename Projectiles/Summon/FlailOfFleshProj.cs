@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -17,6 +18,9 @@ namespace ShardsOfAtheria.Projectiles.Summon
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 3;
+            Projectile.AddElementFire();
+            Projectile.AddRedemptionElement(2);
+            Projectile.AddRedemptionElement(12);
         }
 
         public override void SetDefaults()

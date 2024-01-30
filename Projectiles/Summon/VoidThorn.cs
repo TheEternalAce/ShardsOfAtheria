@@ -18,6 +18,11 @@ namespace ShardsOfAtheria.Projectiles.Summon
         {
             ProjectileID.Sets.TrailingMode[Type] = 2;
             ProjectileID.Sets.TrailCacheLength[Type] = 20;
+            Projectile.AddElementElec();
+            Projectile.AddElementWood();
+            Projectile.AddRedemptionElement(7);
+            Projectile.AddRedemptionElement(10);
+            Projectile.AddRedemptionElement(9);
         }
 
         public override void SetDefaults()

@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Items.Weapons.Magic
 {
@@ -14,9 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
             Item.AddAreus();
-            Item.AddElementElec();
         }
 
         public override void SetDefaults()
@@ -54,13 +53,16 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            float numberProjectiles = 3; // 3 shots
-            float rotation = MathHelper.PiOver4;
-            for (int i = 0; i < numberProjectiles; i++)
+            if (player.IsLocal())
             {
-                Vector2 vel = Vector2.Normalize(player.Center - Main.MouseWorld);
-                Vector2 perturbedSpeed = vel.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * 8f; // Watch out for dividing by 0 if there is only 1 projectile.
-                Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
+                float numberProjectiles = 3; // 3 shots
+                float rotation = MathHelper.PiOver4;
+                for (int i = 0; i < numberProjectiles; i++)
+                {
+                    Vector2 vel = Vector2.Normalize(player.Center - Main.MouseWorld);
+                    Vector2 perturbedSpeed = vel.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * 8f;
+                    Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI, Main.MouseWorld.X, Main.MouseWorld.Y);
+                }
             }
             return false;
         }

@@ -13,11 +13,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
-            Item.ResearchUnlockCount = 1;
             Item.AddElementFire();
             Item.AddElementAqua();
             Item.AddElementElec();
             Item.AddElementWood();
+            Item.AddRedemptionElement(14);
         }
 
         public override void SetDefaults()

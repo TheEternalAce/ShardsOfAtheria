@@ -10,6 +10,12 @@ namespace ShardsOfAtheria.Projectiles.Melee
     {
         public override string Texture => "ShardsOfAtheria/Items/Weapons/Melee/ValkyrieStorm";
 
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void SetDefaults()
         {
             Item refItem = new Item();

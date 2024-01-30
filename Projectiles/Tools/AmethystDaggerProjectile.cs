@@ -54,6 +54,10 @@ namespace ShardsOfAtheria.Projectiles.Tools
                 {
                     damage = (int)(damage * 0.8f);
                 }
+                if (gem.superAmethystCore)
+                {
+                    damage = (int)(damage * 0.8f);
+                }
                 Player.HurtInfo info = new()
                 {
                     Damage = damage,

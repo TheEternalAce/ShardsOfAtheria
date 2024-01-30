@@ -31,6 +31,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
         public override void SetStaticDefaults()
         {
             Projectile.AddElementFire();
+            Projectile.AddRedemptionElement(2);
         }
 
         public override void SetDefaults()

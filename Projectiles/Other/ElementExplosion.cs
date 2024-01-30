@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Projectiles.Other
             if (Projectile.ai[0] == 0)
             {
                 ScreenShake.ShakeScreen(6, 60);
-                SoundEngine.PlaySound(SoundID.Item14);
+                SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
                 Projectile.ai[0] = 1;
             }
 

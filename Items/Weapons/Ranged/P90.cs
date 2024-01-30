@@ -14,8 +14,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
             Item.AddElementWood();
+            Item.AddRedemptionElement(10);
         }
 
         public override void SetDefaults()

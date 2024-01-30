@@ -16,25 +16,14 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
     {
         public int iceSickle = 3;
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        public override void SetStaticDefaults()
         {
-            Player player = Main.player[Projectile.owner];
-            ShardsPlayer shardsPlayer = player.Shards();
-            int upgrades = shardsPlayer.genesisRagnarockUpgrades;
-
-            if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
-            {
-                if (upgrades < 5 && upgrades >= 3)
-                    target.AddBuff(BuffID.OnFire, 600);
-                else if (upgrades == 5)
-                {
-                    target.AddBuff(BuffID.Frostburn, 600);
-                    //Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage,
-                    //Projectile.knockBack, player.whoAmI, 0, 1);
-                    //proj.DamageType = DamageClass.Melee;
-                    Projectile.Explode(target.Center, Projectile.damage);
-                }
-            }
+            Projectile.AddElementFire();
+            Projectile.AddElementAqua();
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(2);
+            Projectile.AddRedemptionElement(4);
+            Projectile.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()
@@ -162,6 +151,27 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
                 return true;
             }
             return false;
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Player player = Main.player[Projectile.owner];
+            ShardsPlayer shardsPlayer = player.Shards();
+            int upgrades = shardsPlayer.genesisRagnarockUpgrades;
+
+            if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
+            {
+                if (upgrades < 5 && upgrades >= 3)
+                    target.AddBuff(BuffID.OnFire, 600);
+                else if (upgrades == 5)
+                {
+                    target.AddBuff(BuffID.Frostburn, 600);
+                    //Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage,
+                    //Projectile.knockBack, player.whoAmI, 0, 1);
+                    //proj.DamageType = DamageClass.Melee;
+                    Projectile.Explode(target.Center, Projectile.damage);
+                }
+            }
         }
 
         public override bool PreDraw(ref Color lightColor)

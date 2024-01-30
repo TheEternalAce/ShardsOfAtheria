@@ -49,7 +49,10 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
             else if (Target == null || !Target.CanBeChasedBy())
             {
                 int npcWhoAmI = Projectile.FindTargetWithLineOfSight(2000);
-                Target = Main.npc[npcWhoAmI];
+                if (npcWhoAmI > -1)
+                {
+                    Target = Main.npc[npcWhoAmI];
+                }
             }
             if (Target != null)
             {
@@ -63,7 +66,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
                     }
                     else if (++shootTimer % 10 == 0)
                     {
-                        var position = Projectile.Center + new Vector2(0, -20);
+                        var position = Projectile.Center + new Vector2(0, -26);
                         Vector2 vel = Vector2.Normalize(Target.Center - position);
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, vel * 15,
                                 ModContent.ProjectileType<AreusBulletProj>(), Projectile.damage, Projectile.knockBack,
@@ -116,16 +119,16 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
             var gun = ModContent.Request<Texture2D>(Texture + "_Gun").Value;
             Rectangle rect = new(0, 0, 90, 42);
             SpriteEffects spriteEffects = SpriteEffects.None;
-            Vector2 offset = new(0, -20 - Projectile.height / 2);
+            Vector2 offset = new(0, -24 - Projectile.height / 2);
             Vector2 origin = new(35, 24);
             float rotation = MathHelper.PiOver4;
             if (Projectile.spriteDirection == -1)
             {
-                offset.Y = -32;
+                offset.Y = -36;
                 rotation = -rotation * 5;
                 spriteEffects = SpriteEffects.FlipVertically;
             }
-            if (Target != null)
+            if (Target != null && Target.CanBeChasedBy())
             {
                 rotation = (Target.Center - (Projectile.Center + new Vector2(0, -20)))
                     .ToRotation();

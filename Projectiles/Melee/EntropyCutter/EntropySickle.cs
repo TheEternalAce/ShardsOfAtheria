@@ -13,6 +13,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.EntropyCutter
             ProjectileID.Sets.CultistIsResistantTo[Type] = true;
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
             ProjectileID.Sets.TrailingMode[Type] = 3;
+            Projectile.AddElementAqua();
+            Projectile.AddRedemptionElement(9);
         }
 
         public override void SetDefaults()

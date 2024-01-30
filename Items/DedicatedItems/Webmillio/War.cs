@@ -56,7 +56,7 @@ namespace ShardsOfAtheria.Items.DedicatedItems.Webmillio
 
             Item.damage = 90;
             Item.DamageType = DamageClass.Melee;
-            Item.knockBack = 6;
+            Item.knockBack = 8;
             Item.crit = 6;
             Item.ArmorPenetration = 20;
 
@@ -104,11 +104,12 @@ namespace ShardsOfAtheria.Items.DedicatedItems.Webmillio
             {
                 type = ModContent.ProjectileType<Warframe_Upgrade>();
             }
-            player.velocity += velocity * 8f;
-            if (player.velocity.Length() > 16f)
+            player.velocity += velocity * knockback;
+            float maxVelocity = knockback * 1.5f;
+            if (player.velocity.Length() > maxVelocity)
             {
                 player.velocity.Normalize();
-                player.velocity *= 16f;
+                player.velocity *= maxVelocity;
             }
         }
 

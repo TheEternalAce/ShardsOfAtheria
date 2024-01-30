@@ -13,8 +13,8 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
             Item.AddElementAqua();
+            Item.AddRedemptionElement(9);
         }
 
         public override void SetDefaults()

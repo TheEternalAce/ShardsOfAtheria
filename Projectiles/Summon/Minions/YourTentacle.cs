@@ -23,6 +23,9 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
             Main.projFrames[Projectile.type] = 4;
+
+            Projectile.AddElementWood();
+            Projectile.AddRedemptionElement(10);
         }
 
         public override void SetDefaults()

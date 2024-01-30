@@ -20,14 +20,14 @@ namespace ShardsOfAtheria.NPCs
         public override void SetStaticDefaults()
         {
             // Specify the debuffs it is immune to
-            List<int> buffImmunities = new()
-            {
+            List<int> buffImmunities =
+            [
                 BuffID.Electrified,
                 BuffID.OnFire,
                 BuffID.Poisoned,
                 BuffID.Confused,
                 ModContent.BuffType<ElectricShock>(),
-            };
+            ];
             NPC.SetImmuneTo(buffImmunities);
 
             Main.npcFrameCount[NPC.type] = 1;
@@ -42,6 +42,9 @@ namespace ShardsOfAtheria.NPCs
 
             NPC.AddElementFire();
             NPC.AddElementElec();
+            NPC.AddRedemptionElement(7);
+            NPC.AddRedemptionElementType("Inorganic");
+            NPC.AddRedemptionElementType("Robotic");
         }
 
         public override void SetDefaults()
@@ -58,7 +61,7 @@ namespace ShardsOfAtheria.NPCs
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCDeath14;
 
-            NPC.ElementMultipliers(new[] { 0.8f, 2.0f, 0.8f, 2.0f });
+            NPC.ElementMultipliers([0.8f, 2.0f, 0.8f, 2.0f]);
         }
 
         Player Target => Main.player[NPC.target];
@@ -67,7 +70,7 @@ namespace ShardsOfAtheria.NPCs
         {
             NPC.TargetClosest();
 
-            if (!Target.dead)
+            if (!Target.dead && Collision.CanHit(NPC.Center, NPC.width, NPC.height, Target.Center, Target.width, Target.height))
             {
                 float fireRate = 0.5f;
                 if (Main.masterMode)

@@ -13,6 +13,11 @@ namespace ShardsOfAtheria.Projectiles.Tools
     {
         int pos = 48;
 
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddRedemptionElement(9);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 16;

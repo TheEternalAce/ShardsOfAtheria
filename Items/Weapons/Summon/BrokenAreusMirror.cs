@@ -16,9 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
             Item.AddAreus();
-            Item.AddElementElec();
         }
 
         public override void SetDefaults()
@@ -40,7 +38,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             Item.shootSpeed = 0;
             Item.rare = ItemRarityID.Cyan;
             Item.value = 10000;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Summon.Minions.BrokenAreusMirror>();
+            Item.shoot = ModContent.ProjectileType<AreusMirrorBroken>();
 
             Item.buffType = ModContent.BuffType<AreusMirrorBuff>();
         }
@@ -50,19 +48,10 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             return true;
         }
 
-        public override bool CanUseItem(Player player)
-        {
-            return base.CanUseItem(player);
-        }
-
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Summon.Minions.BrokenAreusMirror>()] >= 1)
-            {
-                type = ModContent.ProjectileType<AreusMirrorShard>();
-            }
             // Here you can change where the minion is spawned. Most vanilla minions spawn at the cursor position
-            position = player.Center + new Vector2(0, -20);
+            position = Main.MouseWorld;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -70,22 +59,8 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             // This is needed so the buff that keeps your minion alive and allows you to despawn it properly applies
             player.AddBuff(Item.buffType, 2);
 
-            if (type == ModContent.ProjectileType<Projectiles.Summon.Minions.BrokenAreusMirror>())
-            {
-                // Minions have to be spawned manually, then have originalDamage assigned to the damage of the summon item
-                var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, Main.myPlayer, 1);
-                projectile.originalDamage = Item.damage;
-            }
-            else if (type == ModContent.ProjectileType<AreusMirrorShard>())
-            {
-                for (int i = 0; i < 6; i++)
-                {
-                    // Minions have to be spawned manually, then have originalDamage assigned to the damage of the summon item
-                    var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage / 3, knockback, Main.myPlayer);
-                    projectile.originalDamage = Item.damage / 3;
-                }
-            }
-
+            var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, Main.myPlayer, 1);
+            projectile.originalDamage = Item.damage;
             // Since we spawned the projectile manually already, we do not need the game to spawn it for ourselves anymore, so return false
             return false;
         }

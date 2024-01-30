@@ -18,6 +18,8 @@ namespace ShardsOfAtheria.NPCs.Misc
         {
             NPC.AddElementAqua();
             NPC.AddElementWood();
+            NPC.AddRedemptionElement(10);
+            NPC.AddRedemptionElementType("Blood");
 
             NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new()
             {

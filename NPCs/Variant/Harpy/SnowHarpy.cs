@@ -27,6 +27,9 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
             NPC.AddElementAqua();
+            NPC.AddRedemptionElement(4);
+            NPC.AddRedemptionElementType("Humanoid");
+            NPC.AddRedemptionElementType("Cold");
         }
 
         public override void SetDefaults()
@@ -38,7 +41,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
             BannerItem = ModContent.ItemType<SnowHarpyBanner>();
-            NPC.ElementMultipliers(new[] { 2.0f, 0.8f, 2.0f, 1.0f });
+            NPC.ElementMultipliers([2.0f, 0.8f, 2.0f, 1.0f]);
             NPC.coldDamage = true;
         }
 

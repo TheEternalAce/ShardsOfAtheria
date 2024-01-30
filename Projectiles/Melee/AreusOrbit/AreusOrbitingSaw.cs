@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusOrbit
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementElec();
+            Projectile.AddAreus();
         }
 
         public override void SetDefaults()

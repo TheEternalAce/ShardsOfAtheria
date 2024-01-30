@@ -8,6 +8,13 @@ namespace ShardsOfAtheria.Projectiles.Melee.Satanlance
 {
     public class HellStar : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementFire();
+            Projectile.AddRedemptionElement(2);
+            Projectile.AddRedemptionElement(9);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 34;

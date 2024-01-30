@@ -10,6 +10,12 @@ namespace ShardsOfAtheria.Projectiles.Melee.EntropyCutter
 {
     public class EntropyBlade : CoolSword
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementAqua();
+            Projectile.AddRedemptionElement(9);
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();

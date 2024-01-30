@@ -12,6 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             Item.AddElementAqua();
             Item.AddElementWood();
+            Item.AddRedemptionElement(12);
         }
 
         public override void SetDefaults()

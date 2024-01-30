@@ -10,9 +10,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
-
+            Item.AddElementAqua();
             Item.AddElementWood();
+            Item.AddRedemptionElement(12);
         }
 
         public override void SetDefaults()

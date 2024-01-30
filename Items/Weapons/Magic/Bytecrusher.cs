@@ -12,8 +12,8 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
             Item.AddElementElec();
+            Item.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()

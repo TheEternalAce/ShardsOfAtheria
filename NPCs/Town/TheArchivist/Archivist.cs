@@ -36,6 +36,8 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
             //    .SetNPCAffection(NPCID.Guide, AffectionLevel.Like);
 
             NPC.AddElementWood();
+            NPC.AddRedemptionElement(10);
+            NPC.AddRedemptionElementType("Humanoid");
         }
 
         internal void SetupShopQuotes(Mod shopQuotes)

@@ -10,6 +10,12 @@ namespace ShardsOfAtheria.Projectiles.Summon
     {
         public override string Texture => SoA.BlankTexture;
 
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 12;
@@ -47,7 +53,7 @@ namespace ShardsOfAtheria.Projectiles.Summon
                 Target = Main.npc[targetWhoAmI];
                 return;
             }
-            Projectile.Track(Target, 400);
+            Projectile.Track(Target);
 
             if (!Target.CanBeChasedBy())
             {

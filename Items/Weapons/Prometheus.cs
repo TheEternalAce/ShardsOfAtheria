@@ -18,6 +18,8 @@ namespace ShardsOfAtheria.Items.Weapons
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
             Item.AddElementFire();
             Item.AddElementElec();
+            Item.AddRedemptionElement(2);
+            Item.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()

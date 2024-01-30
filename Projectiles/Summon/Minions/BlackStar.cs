@@ -22,6 +22,9 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
             ProjectileID.Sets.TrailingMode[Type] = 2;
             ProjectileID.Sets.TrailCacheLength[Type] = 20;
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
+            Projectile.AddRedemptionElement(9);
         }
 
         public override void SetDefaults()
@@ -75,12 +78,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
         private void GeneralBehavior(Player owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition)
         {
-            Vector2 idlePosition = owner.Center;
-
-            // If your minion doesn't aimlessly move around when it's idle, you need to "put" it into the line of other summoned minions
-            // The index is projectile.minionPos
-            float minionPositionOffsetX = (10 + Projectile.minionPos * 40) * -owner.direction;
-            idlePosition.X += minionPositionOffsetX; // Go behind the player
+            if (Projectile.ai[1] == 0)
+            {
+                foundTargetIdlePos = Vector2.One.RotatedByRandom(MathHelper.TwoPi) * 100;
+            }
+            Vector2 idlePosition = owner.Center + foundTargetIdlePos;
 
             // All of this code below this line is adapted from Spazmamini code (ID 388, aiStyle 66)
 
@@ -169,28 +171,23 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         Vector2 foundTargetIdlePos;
         private void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
         {
-            Player player = Main.player[Projectile.owner];
             float speed = 4f;
             float inertia = 60f;
 
             if (foundTarget)
             {
-                speed = 60f;
+                if (distanceFromTarget > 40f)
+                {
+                    speed = 60f;
+                    Vector2 direction = targetCenter - Projectile.Center;
+                    direction.Normalize();
+                    direction *= speed;
 
-                Vector2 direction = targetCenter - Projectile.Center;
-                direction.Normalize();
-                direction *= speed;
-
-                Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
+                    Projectile.velocity = (Projectile.velocity * (inertia - 1) + direction) / inertia;
+                }
             }
             else
             {
-                if (Projectile.ai[1] == 0)
-                {
-                    foundTargetIdlePos = Vector2.One.RotatedByRandom(MathHelper.TwoPi) * 100;
-                }
-                Vector2 idlePos = player.Center + foundTargetIdlePos;
-                vectorToIdlePosition = idlePos - Projectile.Center;
                 if (++Projectile.ai[1] >= 60)
                 {
                     Projectile.ai[1] = 0;

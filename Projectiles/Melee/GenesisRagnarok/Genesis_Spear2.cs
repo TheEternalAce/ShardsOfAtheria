@@ -16,6 +16,16 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
         public int airTime = 0;
         public int airTimeMax = 15;
 
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementFire();
+            Projectile.AddElementAqua();
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(2);
+            Projectile.AddRedemptionElement(4);
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[Projectile.owner];

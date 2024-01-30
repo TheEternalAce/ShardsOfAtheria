@@ -20,6 +20,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Projectile.AddElementAqua();
             Projectile.AddElementElec();
             Projectile.AddElementWood();
+            Projectile.AddRedemptionElement(14);
         }
 
         public override void SetDefaults()

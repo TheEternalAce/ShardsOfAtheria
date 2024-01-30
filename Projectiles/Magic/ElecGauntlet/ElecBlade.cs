@@ -12,6 +12,12 @@ namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
 {
     public class ElecBlade : CoolSword
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();

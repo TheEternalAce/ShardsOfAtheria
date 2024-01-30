@@ -32,6 +32,10 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
     [AutoloadHead]
     public class Atherian : ModNPC
     {
+        public string upgradeKey = "";
+        public bool upgrading = false;
+        public int upgradeTimer = 1200;
+
         public override string Texture => "ShardsOfAtheria/NPCs/Town/TheAtherian/Atherian" + (SoA.AprilFools ? "_AprilFools" : "");
 
         public override void SetStaticDefaults()
@@ -74,6 +78,9 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 .SetNPCAffection(NPCID.Guide, AffectionLevel.Like);
 
             NPC.AddElementElec();
+            NPC.AddRedemptionElement(7);
+            NPC.AddRedemptionElementType("Humanoid");
+            NPC.AddRedemptionElementType("Armed");
         }
 
         internal void SetupShopQuotes(Mod shopQuotes)
@@ -182,7 +189,13 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
         public override string GetChat()
         {
             WeightedRandom<string> chat = new();
-            Player player = Main.LocalPlayer;
+            int playerWhoAmI = NPC.FindClosestPlayer();
+            var player = Main.player[playerWhoAmI];
+
+            if (GiftCrest())
+            {
+                return Language.GetTextValue(this.GetLocalizationKey("Dialogue.GiftCrest"));
+            }
 
             if (player.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
             {
@@ -216,6 +229,46 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             return chat;
         }
 
+        private bool GiftCrest()
+        {
+            bool crest = false;
+            if (NPC.AnyNPCs(NPCID.Stylist))
+            {
+                int whoAmI = NPC.FindFirstNPC(NPCID.Stylist);
+                if (whoAmI > -1)
+                {
+                    var stylist = Main.npc[whoAmI];
+                    if (NPC.Distance(stylist.Center) <= 500)
+                    {
+                        int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<ValkyrieCrest>());
+                        Main.item[newItem].noGrabDelay = 0; // Set the new item to be able to be picked up instantly
+
+                        // Here we need to make sure the item is synced in multiplayer games.
+                        if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+                        {
+                            NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                            crest = true;
+                        }
+                    }
+                }
+            }
+            return crest;
+        }
+
+        public bool UpgradeFinished()
+        {
+            bool finished = false;
+            if (upgrading)
+            {
+                if (upgradeTimer == 0)
+                {
+                    finished = true;
+                    upgradeTimer = 1200;
+                }
+            }
+            return finished;
+        }
+
         public override void SetChatButtons(ref string button, ref string button2)
         {
             button = Language.GetTextValue("LegacyInterface.28");
@@ -236,10 +289,18 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             }
         }
 
+        public override void AI()
+        {
+            base.AI();
+            if (upgrading && upgradeTimer > 0)
+            {
+                upgradeTimer--;
+            }
+        }
+
         public override void AddShops()
         {
             var npcShop = new NPCShop(Type, "Shop")
-                .Add<ValkyrieCrest>(SoAConditions.NotSlayerMode)
                 .Add<AreusShard>()
                 .Add<AreusArmorChip>()
                 .Add<RushDrive>()

@@ -12,6 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
         {
             Item.ResearchUnlockCount = 999;
             Item.AddElementAqua();
+            Item.AddRedemptionElement(14);
         }
 
         public override void SetDefaults()

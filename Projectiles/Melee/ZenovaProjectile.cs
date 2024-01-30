@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -13,6 +14,11 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 10;
+            Projectile.AddElementFire();
+            Projectile.AddElementAqua();
+            Projectile.AddElementElec();
+            Projectile.AddElementWood();
+            Projectile.AddRedemptionElement(14);
         }
 
         public override void SetDefaults()

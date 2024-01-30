@@ -3,6 +3,7 @@ using ShardsOfAtheria.Projectiles.Ranged.DeckOfCards;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
@@ -63,29 +64,35 @@ namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
 
         int ChooseCard(Player player)
         {
-            string text;
             int type;
+            Item.crit = 4;
             switch (choiceCard)
             {
                 default:
-                    text = "Spades";
                     type = ModContent.ProjectileType<AceOfSpades>();
                     break;
                 case 1:
-                    text = "Hearts";
                     type = ModContent.ProjectileType<AceOfHearts>();
                     break;
                 case 2:
-                    text = "Clubs";
                     type = ModContent.ProjectileType<AceOfClubs>();
                     break;
                 case 3:
-                    text = "Diamonds";
                     type = ModContent.ProjectileType<AceOfDiamonds>();
+                    Item.crit = 12;
                     break;
             }
-            CombatText.NewText(player.getRect(), Color.Cyan, text);
+            string key = this.GetLocalizationKey("CardSuit" + choiceCard);
+            CombatText.NewText(player.getRect(), Color.Cyan, Language.GetTextValue(key));
             return type;
+        }
+
+        public override void UpdateInventory(Player player)
+        {
+            string key = this.GetLocalizationKey("CardSuit" + choiceCard);
+            string key2 = this.GetLocalizationKey("DisplayName");
+            string name = Language.GetTextValue(key2) + " (" + Language.GetTextValue(key) + ")";
+            Item.SetNameOverride(name);
         }
     }
 }

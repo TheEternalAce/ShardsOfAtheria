@@ -12,6 +12,14 @@ namespace ShardsOfAtheria.Projectiles.Melee.EnergyScythe
 {
     public class EnergyScythe : CoolSword
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementFire();
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(2);
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();

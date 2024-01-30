@@ -4,6 +4,7 @@ using ShardsOfAtheria.NPCs.Boss.Elizabeth;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,6 +16,9 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            Projectile.AddElementAqua();
+            Projectile.AddElementWood();
+            Projectile.AddRedemptionElement(12);
         }
 
         public override void SetDefaults()
@@ -32,23 +36,27 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             DrawOffsetX = -8;
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
+        }
+
         public override void AI()
         {
-            if (Projectile.ai[0] == 0)
-            {
-                SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
-            }
             Projectile.ai[0]++;
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
-
-            if (Projectile.ai[0] >= 60 && Projectile.ai[0] < 200)
+            if (Projectile.ai[0] < 40)
             {
                 Player player = Projectile.FindClosestPlayer(350);
                 if (player != null)
                 {
-                    Projectile.Track(player.Center, 12f, 30f);
+                    Vector2 move = player.Center - Projectile.Center;
+                    ShardsHelpers.AdjustMagnitude(ref move);
+                    Projectile.velocity = 30 * Projectile.velocity + move;
+                    ShardsHelpers.AdjustMagnitude(ref Projectile.velocity);
+                    //Projectile.Track(player.Center, 12f, 30f);
                 }
             }
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
         }
 
         public override bool? CanHitNPC(NPC target)

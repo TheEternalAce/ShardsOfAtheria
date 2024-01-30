@@ -57,10 +57,10 @@ namespace ShardsOfAtheria.Projectiles.Magic.AreusGamble
             }
             if (Projectile.timeLeft == 30)
             {
-                if (player.HasItem(ModContent.ItemType<CheatersGlove>()))
+                if (player.HasItem(ModContent.ItemType<WeightedDie>()))
                 {
-                    int inventoryIndex = player.FindItem(ModContent.ItemType<CheatersGlove>());
-                    var glove = player.inventory[inventoryIndex].ModItem as CheatersGlove;
+                    int inventoryIndex = player.FindItem(ModContent.ItemType<WeightedDie>());
+                    var glove = player.inventory[inventoryIndex].ModItem as WeightedDie;
                     if (glove.cheatSide > 0)
                     {
                         int result = glove.cheatSide;

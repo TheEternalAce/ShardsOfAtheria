@@ -9,7 +9,6 @@ namespace ShardsOfAtheria.Projectiles.Magic.AreusGamble
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementElec();
             Projectile.AddAreus();
         }
 

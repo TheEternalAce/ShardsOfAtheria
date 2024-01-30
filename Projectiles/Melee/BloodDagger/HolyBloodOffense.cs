@@ -10,6 +10,13 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodDagger
     {
         public override string Texture => SoA.BlankTexture;
 
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementAqua();
+            Projectile.AddElementWood();
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 12;

@@ -25,6 +25,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
         public override void SetStaticDefaults()
         {
             Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()

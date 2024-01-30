@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -11,6 +12,12 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         float rotation;
         int gravityTimer;
         private const string ChainTexturePath = "ShardsOfAtheria/Projectiles/Ranged/KingsKusarigama_Chain";
+
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementAqua();
+            Projectile.AddRedemptionElement(3);
+        }
 
         public override void SetDefaults()
         {

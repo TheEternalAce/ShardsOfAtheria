@@ -16,6 +16,12 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
         public override void SetStaticDefaults()
         {
             SoAGlobalProjectile.Eraser.Add(Type);
+            Projectile.AddElementFire();
+            Projectile.AddElementAqua();
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(2);
+            Projectile.AddRedemptionElement(4);
+            Projectile.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()

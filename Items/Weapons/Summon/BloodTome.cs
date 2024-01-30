@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
         {
             Item.AddElementAqua();
             Item.AddElementWood();
+            Item.AddRedemptionElement(12);
         }
 
         public override void SetDefaults()

@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodthirstySword
             ProjectileID.Sets.TrailCacheLength[Type] = 70;
             ProjectileID.Sets.TrailingMode[Type] = -1;
             Projectile.AddAreus(true);
+            Projectile.AddRedemptionElement(12);
         }
 
         public override void SetDefaults()

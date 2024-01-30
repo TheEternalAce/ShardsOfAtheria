@@ -21,6 +21,10 @@ namespace ShardsOfAtheria.Projectiles.Melee.Satanlance
             // Since the velocity of the projectile affects how far out the jousting lance will spawn, we want the
             // velocity to always be the same even if the player has increased attack speed.
             ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
+
+            Projectile.AddElementFire();
+            Projectile.AddRedemptionElement(2);
+            Projectile.AddRedemptionElement(9);
         }
 
         public override void SetDefaults()

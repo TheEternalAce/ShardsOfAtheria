@@ -18,6 +18,16 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
         protected virtual float HoldoutRangeMax => 240;
         public static Asset<Texture2D> glowmask;
 
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddElementFire();
+            Projectile.AddElementAqua();
+            Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(2);
+            Projectile.AddRedemptionElement(4);
+            Projectile.AddRedemptionElement(7);
+        }
+
         public override void Load()
         {
             glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");

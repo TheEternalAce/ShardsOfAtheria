@@ -17,6 +17,8 @@ namespace ShardsOfAtheria.Projectiles.Magic.AreusGamble
         {
             ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Type] = true;
             Projectile.AddElementElec();
+            Projectile.AddRedemptionElement(7);
+            Projectile.AddRedemptionElement(15);
         }
 
         public override void SetDefaults()
