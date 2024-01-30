@@ -11,6 +11,7 @@ using ShardsOfAtheria.Items.BuffItems;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Tools.Misc.Slayer;
 using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Other;
@@ -85,7 +86,7 @@ namespace ShardsOfAtheria.Players
         public bool Overdrive => Player.HasBuff<Overdrive>() && overdriveTimeCurrent > 0;
 
         public int riggedCoin;
-        public int cheatGlove;
+        public int weightDie;
 
         public int readingDisk = 0;
 
@@ -134,7 +135,7 @@ namespace ShardsOfAtheria.Players
             powerTrip = false;
             resonator = false;
             riggedCoin = 0;
-            cheatGlove = 0;
+            weightDie = 0;
 
             ResetVariables();
 
@@ -219,6 +220,10 @@ namespace ShardsOfAtheria.Players
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
         {
             List<Item> items = new();
+            if (Player.name.Contains("Gamma"))
+            {
+                items.Add(new Item(ModContent.ItemType<PlagueRailgun>()));
+            }
             if (!mediumCoreDeath)
             {
                 items.Add(new Item(ModContent.ItemType<Necronomicon>()));
