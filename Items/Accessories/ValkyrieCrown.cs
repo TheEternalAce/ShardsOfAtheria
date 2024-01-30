@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
             Item.ResearchUnlockCount = 1;
             Item.AddElementElec();
+            Item.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()

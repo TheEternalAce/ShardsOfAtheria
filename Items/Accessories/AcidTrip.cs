@@ -8,7 +8,9 @@ namespace ShardsOfAtheria.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
+            Item.AddElementWood();
+            Item.AddRedemptionElement(10);
+            Item.AddRedemptionElement(11);
         }
 
         public override void SetDefaults()

@@ -1,7 +1,8 @@
 internalName,type,type
 AreusArrow,Electric,
 AreusBullet,Electric,
+AreusGrenade,Electric,
 BB,Steel,
+PlagueCell,Poison,
 SpectralArrow,Ghost,
 SpectralBullet,Ghost,
-AreusGrenade,Electric,

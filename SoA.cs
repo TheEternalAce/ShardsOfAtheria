@@ -307,6 +307,14 @@ namespace ShardsOfAtheria
             }
         }
 
+        public static void TryRedemptionCall(params object[] args)
+        {
+            if (ModLoader.TryGetMod("Redemption", out var redemption))
+            {
+                redemption.Call(args);
+            }
+        }
+
         public static string ChooseTitleText()
         {
             WeightedRandom<string> title = new();

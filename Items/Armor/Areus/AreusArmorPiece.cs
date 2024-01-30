@@ -39,41 +39,41 @@ namespace ShardsOfAtheria.Items.Armor.Areus
         public override void UpdateArmorSet(Player player)
         {
             string itemKey = this.GetLocalizationKey(string.Empty);
-            string bonusText = Language.GetTextValue(SoA.LocalizeSetBonus + "Areus");
+            string setBonusText = Language.GetTextValue(SoA.LocalizeSetBonus + "Areus");
 
-            bool melee = ArmorPlayer.classChip == DamageClass.Melee;
-            bool ranged = ArmorPlayer.classChip == DamageClass.Ranged;
-            bool magic = ArmorPlayer.classChip == DamageClass.Magic;
-            bool summon = ArmorPlayer.classChip == DamageClass.Summon;
+            bool melee = ArmorPlayer.WarriorSet;
+            bool ranged = ArmorPlayer.RangerSet;
+            bool magic = ArmorPlayer.MageSet;
+            bool summon = ArmorPlayer.CommanderSet;
 
-            bonusText += "\n" + Language.GetTextValue(itemKey + "SetBonus");
+            setBonusText += "\n" + Language.GetTextValue(itemKey + "SetBonus");
 
             if (melee || ranged || magic || summon)
             {
                 itemKey += ArmorPlayer.classChip.Name + "Bonus";
-                bonusText += "\n" + Language.GetTextValue(itemKey);
+                setBonusText += "\n" + Language.GetTextValue(itemKey);
             }
             if (melee)
             {
                 MeleeSet(player);
-                bonusText += "\n" + Language.GetTextValue(SoA.LocalizeSetBonus + "AreusMelee");
+                setBonusText += "\n" + Language.GetTextValue(SoA.LocalizeSetBonus + "AreusMelee");
             }
             else if (ranged)
             {
                 RangedSet(player);
-                bonusText += "\n" + Language.GetTextValue(SoA.LocalizeSetBonus + "AreusRanged");
+                setBonusText += "\n" + Language.GetTextValue(SoA.LocalizeSetBonus + "AreusRanged");
             }
             else if (magic)
             {
                 MagicSet(player);
-                bonusText += "\n" + Language.GetTextValue(SoA.LocalizeSetBonus + "AreusMagic");
+                setBonusText += "\n" + Language.GetTextValue(SoA.LocalizeSetBonus + "AreusMagic");
             }
             else if (summon)
             {
                 SummonSet(player);
-                bonusText += "\n" + Language.GetTextValue(SoA.LocalizeSetBonus + "AreusSummon");
+                setBonusText += "\n" + Language.GetTextValue(SoA.LocalizeSetBonus + "AreusSummon");
             }
-            player.setBonus = bonusText;
+            player.setBonus = setBonusText;
         }
 
         public virtual void MeleeSet(Player player)

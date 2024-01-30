@@ -35,19 +35,19 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             SlayerPlayer slayer = Main.LocalPlayer.Slayer();
-            var line = new TooltipLine(Mod, "Verbose:RemoveMe", "This tooltip won't show in-game");
+            TooltipLine line = new(Mod, "Verbose:RemoveMe", "This tooltip won't show in-game");
             if (slayer.TomeKnowledge == 0)
-                line = new TooltipLine(Mod, "CurrentKnowledgeBase", Language.GetTextValue(SoA.LocalizeCommon + "Combat"))
+                line = new(Mod, "CurrentKnowledgeBase", Language.GetTextValue(SoA.LocalizeCommon + "Combat"))
                 {
                     OverrideColor = Color.Red
                 };
             if (slayer.TomeKnowledge == 1)
-                line = new TooltipLine(Mod, "CurrentKnowledgeBase", Language.GetTextValue(SoA.LocalizeCommon + "Conservation"))
+                line = new(Mod, "CurrentKnowledgeBase", Language.GetTextValue(SoA.LocalizeCommon + "Conservation"))
                 {
                     OverrideColor = Color.Green
                 };
             if (slayer.TomeKnowledge == 2)
-                line = new TooltipLine(Mod, "CurrentKnowledgeBase", Language.GetTextValue(SoA.LocalizeCommon + "Exploration"))
+                line = new(Mod, "CurrentKnowledgeBase", Language.GetTextValue(SoA.LocalizeCommon + "Exploration"))
                 {
                     OverrideColor = Color.Blue
                 };

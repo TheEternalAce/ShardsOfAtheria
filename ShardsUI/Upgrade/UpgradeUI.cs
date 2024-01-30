@@ -25,7 +25,8 @@ namespace ShardsOfAtheria.ShardsUI
         VanillaItemSlotWrapper[] materialSlots;
         UIHoverImageButton upgradeButton;
         bool slotsCreated = false;
-        float HalfPanelSqrt => (500 - 22) / 2;
+        static int AtherianType => ModContent.NPCType<Atherian>();
+        static Atherian FirstActiveAtherian => NPC.AnyNPCs(AtherianType) ? Main.npc[NPC.FindFirstNPC(AtherianType)].ModNPC as Atherian : null;
 
         public override void OnInitialize()
         {
@@ -34,9 +35,9 @@ namespace ShardsOfAtheria.ShardsUI
 
             mainSlot = new VanillaItemSlotWrapper(scale: 0.8f)
             {
-                Left = { Pixels = HalfPanelSqrt - 41.6f / 2 },
-                Top = { Pixels = HalfPanelSqrt - 41.6f / 2 },
-                ValidItemFunc = item => item.IsAir || (!item.IsAir && item.IsUpgradable())
+                Left = { Pixels = 239 - 41.6f / 2 },
+                Top = { Pixels = 239 - 41.6f / 2 },
+                ValidItemFunc = item => item.IsAir || (!item.IsAir && item.IsUpgradable() /*&& (FirstActiveAtherian.UpgradeFinished() || !FirstActiveAtherian.upgrading)*/)
             };
             panel.Append(mainSlot);
 
@@ -57,7 +58,7 @@ namespace ShardsOfAtheria.ShardsUI
             }
             materialSlots = new VanillaItemSlotWrapper[amount];
             float rotation = MathHelper.TwoPi / amount;
-            Vector2 center = new(HalfPanelSqrt);
+            Vector2 center = new(239);
             for (int i = 0; i < amount; i++)
             {
                 var vector = new Vector2(1, 0).RotatedBy(rotation * i) * 150;
@@ -157,54 +158,57 @@ namespace ShardsOfAtheria.ShardsUI
             var shards = player.Shards();
 
             #region Arsenal upgrades (Genesis and Ragnarok)
-            if (UpgradeArsenal1())
+            if (mainSlot.Item.type == ModContent.ItemType<GenesisAndRagnarok>())
             {
-                int[,] materials = new[,]
+                if (UpgradeArsenal1())
                 {
-                    { ModContent.ItemType<MemoryFragment>(), 1 }
-                };
-                ConsumeItems(materials);
-                shards.genesisRagnarockUpgrades++;
-            }
-            else if (UpgradeArsenal2())
-            {
-                int[,] materials = new[,]
+                    int[,] materials = new[,]
+                    {
+                        { ModContent.ItemType<MemoryFragment>(), 1 }
+                    };
+                    ConsumeItems(materials);
+                    shards.genesisRagnarockUpgrades++;
+                }
+                else if (UpgradeArsenal2())
                 {
-                    { ModContent.ItemType<MemoryFragment>(), 1 },
-                    { ItemID.ChlorophyteBar, 14 }
-                };
-                ConsumeItems(materials);
-                shards.genesisRagnarockUpgrades++;
-            }
-            else if (UpgradeArsenal3())
-            {
-                int[,] materials = new[,]
+                    int[,] materials = new[,]
+                    {
+                        { ModContent.ItemType<MemoryFragment>(), 1 },
+                        { ItemID.ChlorophyteBar, 14 }
+                    };
+                    ConsumeItems(materials);
+                    shards.genesisRagnarockUpgrades++;
+                }
+                else if (UpgradeArsenal3())
                 {
-                    { ModContent.ItemType<MemoryFragment>(), 1 },
-                    { ItemID.BeetleHusk, 16 }
-                };
-                ConsumeItems(materials);
-                shards.genesisRagnarockUpgrades++;
-            }
-            else if (UpgradeArsenal4())
-            {
-                int[,] materials = new[,]
+                    int[,] materials = new[,]
+                    {
+                        { ModContent.ItemType<MemoryFragment>(), 1 },
+                        { ItemID.BeetleHusk, 16 }
+                    };
+                    ConsumeItems(materials);
+                    shards.genesisRagnarockUpgrades++;
+                }
+                else if (UpgradeArsenal4())
                 {
-                    { ModContent.ItemType<MemoryFragment>(), 1 },
-                    { ItemID.FragmentSolar, 18 }
-                };
-                ConsumeItems(materials);
-                shards.genesisRagnarockUpgrades++;
-            }
-            else if (UpgradeArsenal5())
-            {
-                int[,] materials = new[,]
+                    int[,] materials = new[,]
+                    {
+                        { ModContent.ItemType<MemoryFragment>(), 1 },
+                        { ItemID.FragmentSolar, 18 }
+                    };
+                    ConsumeItems(materials);
+                    shards.genesisRagnarockUpgrades++;
+                }
+                else if (UpgradeArsenal5())
                 {
-                    { ModContent.ItemType<MemoryFragment>(), 1 },
-                    { ItemID.LunarBar, 20 }
-                };
-                ConsumeItems(materials);
-                shards.genesisRagnarockUpgrades++;
+                    int[,] materials = new[,]
+                    {
+                        { ModContent.ItemType<MemoryFragment>(), 1 },
+                        { ItemID.LunarBar, 20 }
+                    };
+                    ConsumeItems(materials);
+                    shards.genesisRagnarockUpgrades++;
+                }
             }
             #endregion
             #region Areus upgrades
@@ -268,11 +272,10 @@ namespace ShardsOfAtheria.ShardsUI
 
         void ConsumeItems(int[,] items)
         {
-            for (int i = 0; i < items.Length / 2; i++)
+            for (int i = 0; i < items.GetLength(0); i++)
             {
                 int itemid = items[i, 0];
                 int itemStack = items[i, 1];
-                var player = Main.LocalPlayer;
                 var ind = FindSlotWithItem(itemid);
                 if (ind != -1)
                 {
@@ -288,6 +291,7 @@ namespace ShardsOfAtheria.ShardsUI
                     }
                 }
             }
+            FirstActiveAtherian.upgrading = true;
             SoundEngine.PlaySound(SoundID.Item37); // Reforge/Anvil sound
         }
         int FindSlotWithItem(int item)
@@ -374,10 +378,6 @@ namespace ShardsOfAtheria.ShardsUI
         {
             var item = mainSlot.Item;
             var player = Main.LocalPlayer;
-            if (item.type != ModContent.ItemType<GenesisAndRagnarok>())
-            {
-                return false;
-            }
             if (player.Shards().genesisRagnarockUpgrades >= toLevel)
             {
                 return false;

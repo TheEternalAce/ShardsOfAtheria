@@ -5,29 +5,6 @@ using Terraria.Localization;
 
 namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 {
-    // Very simple drop condition: drop after Skeletron's defeat
-    public class DownedSkeletron : IItemDropRuleCondition
-    {
-        public bool CanDrop(DropAttemptInfo info)
-        {
-            if (!info.IsInSimulation)
-            {
-                return NPC.downedBoss3;
-            }
-            return false;
-        }
-
-        public bool CanShowItemDropInUI()
-        {
-            return true;
-        }
-
-        public string GetConditionDescription()
-        {
-            return Language.GetTextValue("Mods.ShardsOfAtheria.DropCondition.PostSkeletron");
-        }
-    }
-
     // Very simple drop condition: drop after Nova's defeat
     public class DownedValkyrie : IItemDropRuleCondition
     {
@@ -47,7 +24,7 @@ namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 
         public string GetConditionDescription()
         {
-            return Language.GetTextValue("Mods.ShardsOfAtheria.DropCondition.PostSkeletron");
+            return Language.GetTextValue("Mods.ShardsOfAtheria.Condition.DownedNova");
         }
     }
 
@@ -70,7 +47,7 @@ namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 
         public string GetConditionDescription()
         {
-            return Language.GetTextValue("Mods.ShardsOfAtheria.DropCondition.PostGolem");
+            return Language.GetTextValue("Mods.ShardsOfAtheria.Condition.PostGolem");
         }
     }
 
@@ -93,7 +70,7 @@ namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 
         public string GetConditionDescription()
         {
-            return Language.GetTextValue("Mods.ShardsOfAtheria.DropCondition.PostCultist");
+            return Language.GetTextValue("Mods.ShardsOfAtheria.Condition.PostCultist");
         }
     }
     // Very simple drop condition: drop after Moon Lord's defeat
@@ -115,7 +92,7 @@ namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 
         public string GetConditionDescription()
         {
-            return Language.GetTextValue("Mods.ShardsOfAtheria.DropCondition.PostMoonLord");
+            return Language.GetTextValue("Mods.ShardsOfAtheria.Condition.PostMoonLord");
         }
     }
 }

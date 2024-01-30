@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
+            Item.AddAreus();
         }
 
         public override void SetDefaults()

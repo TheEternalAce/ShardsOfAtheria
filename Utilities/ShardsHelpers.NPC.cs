@@ -197,12 +197,64 @@ namespace ShardsOfAtheria.Utilities
         {
             SoA.TryElementCall("assignElement", npc, multipliers);
         }
-        public static readonly float[] NPCMultipliersFire = new float[] { 0.8f, 2f, 1f, 0.5f };
 
-        public static readonly float[] NPCMultipliersAqua = new float[] { 0.5f, 0.8f, 2f, 1f };
+        /// <summary>
+        /// 1	(Arcane)
+        /// 2	(Fire)
+        /// 3	(Water)
+        /// 4	(Ice)
+        /// 5	(Earth)
+        /// 6	(Wind)
+        /// 7	(Thunder)
+        /// 8	(Holy)
+        /// 9	(Shadow)
+        /// 10	(Nature)
+        /// 11	(Poison)
+        /// 12	(Blood)
+        /// 13	(Psychic)
+        /// 14	(Celestial)
+        /// 15	(Exposive)
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <param name="elementID"></param>
+        public static void AddRedemptionElement(this NPC npc, int elementID)
+        {
+            SoA.TryRedemptionCall("addElementNPC", elementID, npc.type);
+        }
 
-        public static readonly float[] NPCMultipliersElec = new float[] { 1f, 0.5f, 0.8f, 2f };
+        /// <summary>
+        /// Skeleton
+        /// SkeletonHumanoid
+        /// Humanoid
+        /// Undead
+        /// Spirit
+        /// Plantlike
+        /// Demon
+        /// Cold
+        /// Hot
+        /// Wet
+        /// Dragonlike
+        /// Inorganic
+        /// Robotic
+        /// Armed
+        /// Hallowed
+        /// Dark
+        /// Blood
+        /// Slime
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <param name="elementTypeName"></param>
+        public static void AddRedemptionElementType(this NPC npc, string elementTypeName)
+        {
+            SoA.TryRedemptionCall("addNPCToElementTypeList", elementTypeName, npc.type);
+        }
 
-        public static readonly float[] NPCMultipliersWood = new float[] { 2f, 1f, 0.5f, 0.8f };
+        public static readonly float[] NPCMultipliersFire = [0.8f, 2f, 1f, 0.5f];
+
+        public static readonly float[] NPCMultipliersAqua = [0.5f, 0.8f, 2f, 1f];
+
+        public static readonly float[] NPCMultipliersElec = [1f, 0.5f, 0.8f, 2f];
+
+        public static readonly float[] NPCMultipliersWood = [2f, 1f, 0.5f, 0.8f];
     }
 }

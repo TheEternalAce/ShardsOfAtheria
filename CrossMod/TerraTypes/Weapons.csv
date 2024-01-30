@@ -83,11 +83,13 @@ MetalBlade,Steel,,
 P90,Grass,,
 Pantheon,Steel,,
 PhantomRose,Dark,Grass,
+PlagueRailgun,Poison,,
 Scarlet,Dark,Grass,
 TheBall,Blood,,
 
 AreusChain,Electric,Steel,"{""Tooltips"": [{""Type"":""Electric"",""Tooltip"": ""Whip: {0}""},{""Type"":""Steel"",""Tooltip"": ""Gold Chain: {0}""}]}"
 AreusCrate,Electric,,
+AreusStabberStaff,Electric,,
 AreusStriker,Electric,,
 BloodTome,Blood,,
 BrokenAreusMirror,Electric,,

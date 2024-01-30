@@ -106,6 +106,15 @@ namespace ShardsOfAtheria.Utilities
             return vector;
         }
 
+        public static void AdjustMagnitude(ref Vector2 vector)
+        {
+            float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+            if (magnitude > 6f)
+            {
+                vector *= 14f / magnitude;
+            }
+        }
+
         public static Color UseA(this Color color, int alpha) => new(color.R, color.G, color.B, alpha);
 
         public static Color UseA(this Color color, float alpha) => new(color.R, color.G, color.B, (int)(alpha * 255));

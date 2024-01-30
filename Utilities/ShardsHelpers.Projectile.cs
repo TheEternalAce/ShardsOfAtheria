@@ -250,9 +250,14 @@ namespace ShardsOfAtheria.Utilities
             return projectile.GetGlobalProjectile<SoAGlobalProjectile>();
         }
 
-        public static void AddAreus(this Projectile projectile, bool dark = false)
+        public static void AddAreus(this Projectile projectile, bool dark = false, bool forceAddElements = false)
         {
             projectile.type.AddAreusProj(dark);
+            if (!dark || forceAddElements)
+            {
+                projectile.AddElementElec();
+                projectile.AddRedemptionElement(7);
+            }
         }
         public static void AddAreusProj(this int projID, bool dark)
         {
@@ -283,6 +288,30 @@ namespace ShardsOfAtheria.Utilities
         public static void AddElementWood(this Projectile projectile)
         {
             SoA.TryElementCall("assignElement", projectile, 3);
+        }
+
+        /// <summary>
+        /// 1	(Arcane)
+        /// 2	(Fire)
+        /// 3	(Water)
+        /// 4	(Ice)
+        /// 5	(Earth)
+        /// 6	(Wind)
+        /// 7	(Thunder)
+        /// 8	(Holy)
+        /// 9	(Shadow)
+        /// 10	(Nature)
+        /// 11	(Poison)
+        /// 12	(Blood)
+        /// 13	(Psychic)
+        /// 14	(Celestial)
+        /// 15	(Exposive)
+        /// </summary>
+        /// <param name="projectile"></param>
+        /// <param name="elementID"></param>
+        public static void AddRedemptionElement(this Projectile projectile, int elementID)
+        {
+            SoA.TryRedemptionCall("addElementProj", elementID, projectile.type);
         }
     }
 }

@@ -39,16 +39,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Buffs\PlayerBuff\DiamondBarrierBuff.png" />
+    <None Remove="Buffs\PlayerBuff\MourningSatisfaction.png" />
     <None Remove="Buffs\PlayerBuff\ShadeState.png" />
     <None Remove="Items\Accessories\GemCores\AmberCape.png" />
     <None Remove="Items\Armor\Areus\Imperial\ImperialGreaves.png" />
     <None Remove="Items\Armor\Areus\Royal\RoyalCrown_Head.png" />
     <None Remove="Items\Armor\Areus\Royal\RoyalJacket_Back.png" />
+    <None Remove="Items\BuffItems\PlagueInfused.png" />
+    <None Remove="Items\BuffItems\PlagueInjection.png" />
     <None Remove="Items\Weapons\Melee\HardlightSlash.png" />
     <None Remove="Items\Weapons\Ranged\BloodStainedCrossbow.png" />
     <None Remove="Mounts\LifeCycle_Back.png" />
     <None Remove="Mounts\LifeCycle_Front.png" />
     <None Remove="NPCs\AreusCrateNPC.png" />
+    <None Remove="Projectiles\Magic\ElectricHook.png" />
+    <None Remove="Projectiles\Magic\ElectricHook_Chain.png" />
     <None Remove="Projectiles\Magic\VoidDagger.png" />
     <None Remove="Projectiles\Melee\VoidSlash.png" />
     <None Remove="Projectiles\Other\RubyShard.png" />

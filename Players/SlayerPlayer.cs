@@ -60,24 +60,16 @@ namespace ShardsOfAtheria.Players
         {
             creeperPet = false;
             maxCrystals = 6;
+
+            slayerSet = false;
+
+            omnicientTome = false;
         }
 
         public override void Initialize()
         {
             slayerMode = false;
-
-            slayerSet = false;
-
             TomeKnowledge = 0;
-            omnicientTome = false;
-        }
-
-        public override void SaveData(TagCompound tag)
-        {
-            tag["slayerMode"] = slayerMode;
-
-            tag.Add("soulCrystalNames", soulCrystalNames);
-            tag["TomeKnowledge"] = TomeKnowledge;
         }
 
         public override void LoadData(TagCompound tag)
@@ -94,6 +86,14 @@ namespace ShardsOfAtheria.Players
             {
                 TomeKnowledge = tag.GetInt("TomeKnowledge");
             }
+        }
+
+        public override void SaveData(TagCompound tag)
+        {
+            tag["slayerMode"] = slayerMode;
+
+            tag.Add("soulCrystalNames", soulCrystalNames);
+            tag["TomeKnowledge"] = TomeKnowledge;
         }
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)

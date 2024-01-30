@@ -111,15 +111,12 @@ namespace ShardsOfAtheria.Players
                     Player.statMana += 5;
                 }
             }
-            if (hit.DamageType == classChip)
+            if (!Player.HasBuff<ShadeState>() || CommanderSet)
             {
-                if (!Player.HasBuff<ShadeState>() || CommanderSet)
+                royalVoid += 3;
+                if (royalVoid > ROYAL_VOID_MAX)
                 {
-                    royalVoid += 3;
-                    if (royalVoid > ROYAL_VOID_MAX)
-                    {
-                        royalVoid = ROYAL_VOID_MAX;
-                    }
+                    royalVoid = ROYAL_VOID_MAX;
                 }
             }
             if (Player.HasBuff<ShadeState>())

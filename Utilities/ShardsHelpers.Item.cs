@@ -57,12 +57,13 @@ namespace ShardsOfAtheria.Utilities
                 0f);
         }
 
-        public static void AddAreus(this Item item, bool dark = false)
+        public static void AddAreus(this Item item, bool dark = false, bool forceAddElements = false)
         {
             item.type.AddAreusItem(dark);
-            if (!dark)
+            if (!dark || forceAddElements)
             {
                 item.AddElementElec();
+                item.AddRedemptionElement(7);
             }
         }
         public static void AddAreusItem(this int id, bool dark)
@@ -116,6 +117,30 @@ namespace ShardsOfAtheria.Utilities
         public static void AddElementWood(this Item item)
         {
             SoA.TryElementCall("assignElement", item, 3);
+        }
+
+        /// <summary>
+        /// 1	(Arcane)
+        /// 2	(Fire)
+        /// 3	(Water)
+        /// 4	(Ice)
+        /// 5	(Earth)
+        /// 6	(Wind)
+        /// 7	(Thunder)
+        /// 8	(Holy)
+        /// 9	(Shadow)
+        /// 10	(Nature)
+        /// 11	(Poison)
+        /// 12	(Blood)
+        /// 13	(Psychic)
+        /// 14	(Celestial)
+        /// 15	(Exposive)
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="elementID"></param>
+        public static void AddRedemptionElement(this Item item, int elementID)
+        {
+            SoA.TryRedemptionCall("addElementItem", elementID, item.type);
         }
     }
 }
