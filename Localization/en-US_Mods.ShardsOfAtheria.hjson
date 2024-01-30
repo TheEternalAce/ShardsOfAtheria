@@ -22,6 +22,7 @@ Common: {
 		Hold SHIFT to see more
 		Hold LEFT/RIGHT to cycle tooltip slower/faster
 		'''
+	UpgradeMaterialNeeded: Material needed: {0} x{1}
 }
 
 DiskFile: {
@@ -157,10 +158,13 @@ Items: {
 			Gives a dash to the wearer
 			Boost other gem buffs after taking damage
 			Press <{$Mods.ShardsOfAtheria.Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing amethyst bombs
+			Hold shift to toggle wall exploding
 			Emit light
 			'''
 		ToggleOn: Pickackes will throw amethyst bombs.
 		ToggleOff: Pickackes will not throw amethyst bombs.
+		ToggleWallOn: Amethyst bombs will destroy walls.
+		ToggleWallOff: Amethyst bombs will not destroy walls.
 	}
 
 	AmethystCore_Super: {
@@ -170,6 +174,8 @@ Items: {
 			Gives a great dash to the wearer
 			Boost other gem buffs after taking damage
 			Press <{$Mods.ShardsOfAtheria.Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing an amethyst bomb when using a pickaxe
+			Hold shift to toggle wall exploding
+			Emit light
 			Grants immunity to fire, cold, electric, and poison debuffs
 			'''
 	}
@@ -382,6 +388,8 @@ Items: {
 			[i:ShardsOfAtheria/AmethystCore_Super] Amethyst Effects
 			Boost other gem buffs after taking damage
 			Press <{$Mods.ShardsOfAtheria.Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing an amethyst bomb when using a pickaxe
+			Hold shift to toggle wall exploding
+			Emit light
 			Grants immunity to fire, cold, electric, and poison debuffs
 			'''
 		ShiftTooltip2:
@@ -922,6 +930,10 @@ Items: {
 			Diamonds crit and pierce
 			'What is that object?'
 			'''
+		CardSuit0: Spades
+		CardSuit1: Hearts
+		CardSuit2: Clubs
+		CardSuit3: Diamonds
 	}
 
 	AcesGoldFoxMask: {
@@ -1579,8 +1591,8 @@ Items: {
 		Off: " (Disabled)"
 	}
 
-	CheatersGlove: {
-		DisplayName: Cheater's Glove
+	WeightedDie: {
+		DisplayName: Weighted Die
 		Tooltip: Causes the Areus Gamble to always land on a certain face
 		Off: " (Disabled)"
 	}
@@ -1732,12 +1744,7 @@ Items: {
 
 	BrokenAreusMirror: {
 		DisplayName: Broken Areus Mirror
-		Tooltip:
-			'''
-			Summons a broken Areus Mirror that shoots homing Mirror Shards
-			Use again to shatter the mirror into 6 shards that deal 1/3 damage each
-			Only one mirror can be out at a time
-			'''
+		Tooltip: Summons a broken Areus Mirror that shatters into mirror shards after a short time
 	}
 
 	Bytecrusher: {
@@ -2232,7 +2239,7 @@ Items: {
 		DisplayName: Areus Striker
 		Tooltip:
 			'''
-			12 summon tag damage
+			5 summon tag damage
 			Your summons will focus struck enemies
 			Strikes tag enemies up to 3 times
 			Tagged enemies will send out an electric arc at other tagged enemies when struck
@@ -2320,6 +2327,41 @@ Items: {
 	MiniStarCritter_Golden: {
 		DisplayName: Golden Mini Areus Star
 		Tooltip: ""
+	}
+
+	AreusStabberStaff: {
+		DisplayName: Areus Blade Staff
+		Tooltip: Summons an areus blade to fight for you
+	}
+
+	AreusWand: {
+		DisplayName: Areus Wand
+		Tooltip: ""
+	}
+
+	PlagueCell: {
+		DisplayName: Gamma Plague Cell
+		Tooltip: ""
+	}
+
+	PlagueRailgun: {
+		DisplayName: Gamma Plague Railgun
+		Tooltip:
+			'''
+			Uses Gamma Plague Cells as ammo
+			66% chance to not consume cells
+			'Now I am become Death, destroyer of worlds'
+			'''
+	}
+
+	PlagueInjection: {
+		DisplayName: Gamma Plague Injection
+		Tooltip:
+			'''
+			Increased damage and defense
+			Reduced movement and attack speed
+			'You're injecting plague into your body, what do you expect?'
+			'''
 	}
 }
 
@@ -2613,6 +2655,11 @@ Projectiles: {
 	RubyExplosive.DisplayName: Ruby Explosive
 	RubyShard.DisplayName: Ruby Shard
 	EmeraldTeleport.DisplayName: Emerald Teleport
+	AreusStabber.DisplayName: Areus Blade
+	AreusMirrorBroken.DisplayName: Areus Mirror Broken
+	ElectricHook.DisplayName: Electric Hook
+	AreusWandBlade.DisplayName: Areus Wand Blade
+	PlagueBeam.DisplayName: Gamma Plague Beam
 }
 
 NPCs: {
@@ -2644,7 +2691,7 @@ NPCs: {
 
 	Death: {
 		DisplayName: Elizabeth Norman, Death
-		Bestiary: ""
+		Bestiary: A powerful woman who has the ability to controll her own blood. She holds the title of Death.
 		BossDesc: The Blood Witch
 
 		BossChecklistIntegration: {
@@ -2659,7 +2706,7 @@ NPCs: {
 			# Refight
 			InitialSummonRe: Welcome back, ready for another round?
 			MidFightRe: placeholder.
-			DefeatRe: placeholder.
+			DefeatRe: Well, that was fun. I'm off to get some coffee.
 			# Slayer
 			InitialSummonSlayer: Your first mistake was starting this path. Your final mistake is crossing mine.
 			MidFightSlayer: You won't kill me so easily. Try this on for size.
@@ -2701,6 +2748,7 @@ NPCs: {
 			GoldCrownCompliment: Yes yes, the Gold Crown does suit you well!
 			MorshuMoment: Sorry {0}, what is this 'credit'? Come back when you have some coin! Or maybe you wanna chat? That's fine too.
 			CSGOReference: Last blood moon I heard {0} shouting 'Door stuck,' what's that about?
+			GiftCrest: Here, have this. No particular reason, I just don't want it anymore.
 			# Slayer mode
 			NovaDeath: "{0} leaves with Nova's death. 'She didn't deserve this...'"
 			GoddessDeath: "{0} leaves with the death of his goddess. 'Curse you till the end of time!'"
@@ -2732,7 +2780,7 @@ NPCs: {
 				Genesis and Ragnarok now have their ice capabilities are revealed.
 				All of the memory seals are now released, I cannot upgrade them further.
 				'''
-			UpgradeAreusWeapon: That should do it. This is the best I can achieve. Use it well.
+			UpgradeWeapon: That should do it. This is the best I can achieve. Use it well.
 			NoUpgradableItem: I don't think I could upgrade anything you have. If you find an areus weapon, I could probably upgrade that.
 			NoUpgradeMoney: Sorry pal, you don't have enough coins.
 			NotEnoughMaterial: "{0} - {1} [i:{2}]. I need at least {3}, you have {4}."
@@ -2841,9 +2889,9 @@ Buffs: {
 		Description: Moving aches
 	}
 
-	StunLock: {
-		DisplayName: Stun Lock
-		Description: Cannot move
+	Plague: {
+		DisplayName: PLAGUE
+		Description: It only gets worse as time goes on
 	}
 
 	ZenovaJavelin: {
@@ -3077,7 +3125,7 @@ Buffs: {
 	# Summons
 	AreusMirrorBuff: {
 		DisplayName: Areus Mirror
-		Description: The Areus Mirror will fight for you
+		Description: The areus mirror shards will fight for you
 	}
 
 	CreeperShield: {
@@ -3208,6 +3256,21 @@ Buffs: {
 		DisplayName: Emerald Teleport Cooldown
 		Description: Cannot use emerald teleport
 	}
+
+	MourningSatisfaction: {
+		DisplayName: Mourning Satisfaction
+		Description: The Mourning Star deals increased damage
+	}
+
+	AreusStabberBuff: {
+		DisplayName: Areus Blade
+		Description: The areus blade will fight for you
+	}
+
+	PlagueInfused: {
+		DisplayName: PLAGUE Infused
+		Description: You hurt, but your enemies will hurt more
+	}
 }
 
 Necronomicon: {
@@ -3246,12 +3309,26 @@ Conditions: {
 	NotDownedSenterra: Don't defeat Senterra
 	ElementModEnabled: Have the Battle Network Elements mod enabled
 	SacrificeKatana: Sacrifice a katana in the Underworld.
+	Rain: Drops during the rain.
+	RainSurface: Drops in the rain.
 }
 
 ShopQuote: {
 	Atherian: {
-		ValkyrieCrest: This belonged to my Ex...
+		AreusShard: A metal from my home planet. Has a variety of uses.
+		AreusArmorChip: You can program an effect into this chip and use it to boost your areus armor.
+		RushDrive: I have no idea where nor how I got this!
+		AreusEdge: Thy end is now!
+		AreusStriker: A gun, surely it'll deal ranged damage- WHAT DO YOU MEAN IT'S A SUMMON WEAPON?!?!?
+		AreusProcessor: Use this to change the element of your weapon!
+		ResonatorRing: Seriously good with the processor.
+		AreusLance: Go show your enemies how the grass tastes!
+		Bytecrusher: Just wait for Kilobytecrusher to show up.
 		AreusKey: Can I interest you in performance enhancing drugs? Too bad, I have none of that. This is the closest thing though.
+		AreusPistol: Become the world's best sharpshooter with this gun!
+		AreusBaton: I call this a difficulty tweak!
+		AreusStrikeChain: Not to be confused with the Striker.
+		AreusEnergyCannon: Megaton must be stopped, no matter the cost.
 	}
 
 	Archivist.Necronomicon: This book has got some spooky vibes. You want it?
