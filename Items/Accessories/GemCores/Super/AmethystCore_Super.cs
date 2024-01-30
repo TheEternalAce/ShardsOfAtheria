@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            //player.Gem().superAmethystCore = true;
+            player.Gem().superAmethystCore = true;
             AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
             mp.DashVelocity = 13f;
             ModContent.GetInstance<AmethystCore_Greater>().UpdateAccessory(player, hideVisual);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
@@ -30,7 +31,9 @@ namespace ShardsOfAtheria.Players
 
         public bool amethystCore;
         public bool greaterAmethystCore;
+        public bool superAmethystCore;
         public bool amethystBomb;
+        public bool amethystWallBomb;
         public bool amethystMask;
 
         public bool diamondCore;
@@ -82,6 +85,7 @@ namespace ShardsOfAtheria.Players
 
             amethystCore = false;
             greaterAmethystCore = false;
+            superAmethystCore = false;
             amethystMask = false;
 
             diamondCore = false;
@@ -106,6 +110,7 @@ namespace ShardsOfAtheria.Players
             superSapphireCore = false;
             sapphireSpiritPrevious = sapphireSpirit;
             sapphireSpirit = false;
+            sapphireSpiritUpgrade = false;
 
             topazCore = false;
             greaterTopazCore = false;
@@ -199,14 +204,10 @@ namespace ShardsOfAtheria.Players
 
         private void SpawnSapphireSpirit()
         {
-            if (sapphireSpirit)
+            if (sapphireSpirit || gemSoul)
             {
                 int type = ModContent.ProjectileType<SapphireSpirit>();
-                int damage = 0;
-                if (sapphireSpiritUpgrade)
-                {
-                    damage = 50;
-                }
+                int damage = 50;
                 if (gemSoul)
                 {
                     type = ModContent.ProjectileType<GemSoul>();
@@ -228,15 +229,31 @@ namespace ShardsOfAtheria.Players
         {
             if (SoA.AmethystBombToggle.JustPressed)
             {
-                amethystBomb = !amethystBomb;
                 string key = "Mods.ShardsOfAtheria.Items.AmethystCore_Greater.Toggle";
-                if (amethystBomb)
+                if (Main.keyState.IsKeyDown(Keys.LeftShift))
                 {
-                    key += "On";
+                    key += "Wall";
+                    amethystWallBomb = !amethystWallBomb;
+                    if (amethystWallBomb)
+                    {
+                        key += "On";
+                    }
+                    else
+                    {
+                        key += "Off";
+                    }
                 }
                 else
                 {
-                    key += "Off";
+                    amethystBomb = !amethystBomb;
+                    if (amethystBomb)
+                    {
+                        key += "On";
+                    }
+                    else
+                    {
+                        key += "Off";
+                    }
                 }
                 if (Main.netMode == NetmodeID.SinglePlayer)
                 {
@@ -501,7 +518,12 @@ namespace ShardsOfAtheria.Players
             }
             if (megaGemCore)
             {
-                if (Main.rand.NextBool(6))
+                int lifestealDenominator = 6;
+                if (hit.DamageType == DamageClass.Summon)
+                {
+                    lifestealDenominator *= 4;
+                }
+                if (Main.rand.NextBool(lifestealDenominator))
                 {
                     int type = ModContent.ProjectileType<LifeStealGem>();
                     Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, type, 3, 0f, Player.whoAmI);
