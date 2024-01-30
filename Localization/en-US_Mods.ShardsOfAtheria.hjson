@@ -2363,6 +2363,11 @@ Items: {
 			'You're injecting plague into your body, what do you expect?'
 			'''
 	}
+
+	MaskedPlagueCell: {
+		DisplayName: Masked Plague Cell
+		Tooltip: ""
+	}
 }
 
 Projectiles: {

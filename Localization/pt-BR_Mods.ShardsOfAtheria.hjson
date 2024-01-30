@@ -2218,7 +2218,7 @@ Items: {
 		// DisplayName: Areus Striker
 		/* Tooltip:
 			'''
-			12 summon tag damage
+			5 summon tag damage
 			Your summons will focus struck enemies
 			Strikes tag enemies up to 3 times
 			Tagged enemies will send out an electric arc at other tagged enemies when struck
@@ -2340,6 +2340,11 @@ Items: {
 			Reduced movement and attack speed
 			'You're injecting plague into your body, what do you expect?'
 			''' */
+	}
+
+	MaskedPlagueCell: {
+		// DisplayName: Masked Plague Cell
+		// Tooltip: ""
 	}
 }
 
