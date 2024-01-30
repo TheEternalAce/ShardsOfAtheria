@@ -25,11 +25,11 @@ namespace ShardsOfAtheria.Items.BuffItems
             Item.consumable = true;
             Item.useTurn = true;
 
-            Item.value = Item.sellPrice(silver: 75);
-            Item.rare = ItemRarityID.Red;
-
             Item.rare = ItemDefaults.RarityDungeon;
             Item.value = ItemDefaults.ValueBuffPotion;
+
+            Item.buffType = ModContent.BuffType<SoulInfused>();
+            Item.buffTime = 14400;
         }
 
         public override void AddRecipes()
@@ -44,7 +44,6 @@ namespace ShardsOfAtheria.Items.BuffItems
         public override void OnConsumeItem(Player player)
         {
             player.QuickSpawnItem(player.GetSource_FromThis(), ModContent.ItemType<EmptyNeedle>());
-            player.AddBuff(ModContent.BuffType<InjectionShock>(), 300);
         }
 
         public override bool CanUseItem(Player player)
@@ -52,6 +51,12 @@ namespace ShardsOfAtheria.Items.BuffItems
             if (!player.HasBuff(ModContent.BuffType<InjectionShock>()))
                 return true;
             else return false;
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            player.AddBuff(ModContent.BuffType<InjectionShock>(), 300);
+            return true;
         }
     }
 

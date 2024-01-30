@@ -43,7 +43,6 @@ namespace ShardsOfAtheria.Items.BuffItems
         public override void OnConsumeItem(Player player)
         {
             player.QuickSpawnItem(player.GetSource_FromThis(), ModContent.ItemType<EmptyNeedle>());
-            player.AddBuff(ModContent.BuffType<InjectionShock>(), 300);
         }
 
         public override bool CanUseItem(Player player)
@@ -51,6 +50,12 @@ namespace ShardsOfAtheria.Items.BuffItems
             if (!player.HasBuff(ModContent.BuffType<InjectionShock>()))
                 return true;
             else return false;
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            player.AddBuff(ModContent.BuffType<InjectionShock>(), 300);
+            return true;
         }
     }
 
