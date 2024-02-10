@@ -2233,7 +2233,11 @@ Items: {
 
 	AreusChain: {
 		DisplayName: Areus Chain
-		Tooltip: Strikes cause golden chains to sprout from the target
+		Tooltip:
+			'''
+			Your summons will focus struck enemies
+			Strikes cause golden chains to sprout from the target
+			'''
 	}
 
 	AreusStriker: {
