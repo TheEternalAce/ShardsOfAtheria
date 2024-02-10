@@ -67,7 +67,7 @@ namespace ShardsOfAtheria.Buffs.NPCDebuff
                                 var vector2 = Vector2.Normalize(targetNPC.Center - npc.Center);
                                 Projectile.NewProjectile(npc.GetSource_FromThis(),
                                     npc.Center, vector2 * 16f, ModContent.ProjectileType<StrikerCurrent>(),
-                                    6 * tagAmount, 0, Main.myPlayer, targetNPC.whoAmI);
+                                    4 * tagAmount, 0, Main.myPlayer, targetNPC.whoAmI);
                             }
                         }
                     }
