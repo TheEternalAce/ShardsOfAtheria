@@ -6,6 +6,8 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
 {
     public class ZenovaJavelin : ModBuff
     {
+        public override string Texture => SoA.DebuffTemplate;
+
         public static readonly int DefenseReduction = 26;
 
         public override void SetStaticDefaults()
@@ -52,24 +54,6 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
                 {
                     damage = exampleJavelinCount * 50;
                 }
-            }
-        }
-    }
-
-    public class ZenJavelinPlayer : ModPlayer
-    {
-        public override void UpdateBadLifeRegen()
-        {
-            if (Player.HasBuff(ModContent.BuffType<ZenovaJavelin>()))
-            {
-                // These lines zero out any positive lifeRegen. This is expected for all bad life regeneration effects.
-                if (Player.lifeRegen > 0)
-                {
-                    Player.lifeRegen = 0;
-                }
-                Player.lifeRegenTime = 0;
-                // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 50 life lost per second.
-                Player.lifeRegen -= 100;
             }
         }
     }
