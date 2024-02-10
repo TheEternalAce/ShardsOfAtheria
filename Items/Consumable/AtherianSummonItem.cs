@@ -1,4 +1,5 @@
 ﻿using ShardsOfAtheria.NPCs.Town.TheAtherian;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,7 +12,7 @@ namespace ShardsOfAtheria.Items.Consumable
 
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
+            Item.AddElement(2);
         }
 
         public override void SetDefaults()
