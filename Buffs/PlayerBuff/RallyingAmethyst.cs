@@ -1,13 +1,27 @@
 ﻿using ShardsOfAtheria.Buffs.Summons;
+using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Buffs.PlayerBuff
 {
     public class RallyingAmethyst : ModBuff
     {
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.TimeLeftDoesNotDecrease[Type] = true;
+            Main.buffNoTimeDisplay[Type] = true;
+        }
+
         public override void Update(Player player, ref int buffIndex)
         {
+            if (!player.InCombat())
+            {
+                player.DelBuff(buffIndex);
+                buffIndex--;
+            }
+
             if (player.HasBuff<SwarmingAmber>())
             {
                 player.maxMinions += 2;
