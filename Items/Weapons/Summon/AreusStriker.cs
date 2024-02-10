@@ -2,12 +2,15 @@ using ShardsOfAtheria.Projectiles.Summon;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Summon
 {
     public class AreusStriker : ModItem
     {
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(6);
+
         public override void SetStaticDefaults()
         {
             Item.AddAreus();
@@ -19,7 +22,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             Item.height = 18;
 
             Item.damage = 12;
-            Item.DamageType = DamageClass.Summon;
+            Item.DamageType = DamageClass.SummonMeleeSpeed;
 
             Item.useTime = 12;
             Item.useAnimation = 12;

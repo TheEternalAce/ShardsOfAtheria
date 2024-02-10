@@ -3,12 +3,14 @@ using ShardsOfAtheria.Projectiles.Summon.Whip;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Summon
 {
     public class DragonSpineWhip : ModItem
     {
+        public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(26);
         public override void SetStaticDefaults()
         {
             Item.AddElement(3);

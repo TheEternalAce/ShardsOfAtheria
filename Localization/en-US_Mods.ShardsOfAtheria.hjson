@@ -2221,7 +2221,7 @@ Items: {
 
 	TheBall: {
 		DisplayName: Rubber Ball
-		Tooltip: "'Frick it, we ball'"
+		Tooltip: "'Fuck it, we ball'"
 		Overdrive: Flies faster and explodes on impact
 	}
 
@@ -2235,7 +2235,7 @@ Items: {
 		DisplayName: Areus Chain
 		Tooltip:
 			'''
-			Your summons will focus struck enemies
+			{$CommonItemTooltip.Whips}
 			Strikes cause golden chains to sprout from the target
 			'''
 	}
@@ -2244,8 +2244,8 @@ Items: {
 		DisplayName: Areus Striker
 		Tooltip:
 			'''
-			5 summon tag damage
-			Your summons will focus struck enemies
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
 			Strikes tag enemies up to 3 times
 			Tagged enemies will send out an electric arc at other tagged enemies when struck
 			'''
@@ -2255,8 +2255,8 @@ Items: {
 		DisplayName: Dragon Slayer
 		Tooltip:
 			'''
-			26 summon tag damage
-			Your summons will focus struck enemies
+			{$CommonItemTooltip.SummonTagDamage}
+			{$CommonItemTooltip.Whips}
 			Strikes scatter dragon bone fragments
 			'''
 	}
