@@ -79,10 +79,8 @@ namespace ShardsOfAtheria.Players
         public bool BiometalHideVanity;
         public bool BiometalForceVanity;
         public int overdriveTimeCurrent;
-        public const int DefaultOverdriveTimeMax = 300;
-        public int overdriveTimeMax;
-        public int overdriveTimeMax2;
-        internal int overdriveTimeRegenTimer = 0;
+        public int overdriveTimer;
+        public const int OVERDRIVE_TIME_MAX = 300;
         public bool Overdrive => Player.HasBuff<Overdrive>() && overdriveTimeCurrent > 0;
 
         public int riggedCoin;
@@ -137,8 +135,6 @@ namespace ShardsOfAtheria.Players
             riggedCoin = 0;
             weightDie = 0;
 
-            ResetVariables();
-
             BiometalPrevious = Biometal;
             Biometal = BiometalHideVanity = BiometalForceVanity = false;
 
@@ -175,22 +171,10 @@ namespace ShardsOfAtheria.Players
             }
         }
 
-        public override void UpdateDead()
-        {
-            ResetVariables();
-        }
-
-        private void ResetVariables()
-        {
-            overdriveTimeMax2 = overdriveTimeMax;
-        }
-
         public override void Initialize()
         {
-            overdriveTimeCurrent = 300;
-            overdriveTimeMax = DefaultOverdriveTimeMax;
+            overdriveTimeCurrent = OVERDRIVE_TIME_MAX;
             itemCombo = 0;
-
             phaseOffense = true;
         }
 
@@ -342,13 +326,13 @@ namespace ShardsOfAtheria.Players
             if (Player.HasBuff(ModContent.BuffType<Overdrive>()))
             {
                 // For our resource lets make it regen slowly over time to keep it simple, let's use exampleResourceRegenTimer to count up to whatever value we want, then increase currentResource.
-                overdriveTimeRegenTimer++; //Increase it by 60 per second, or 1 per tick.
+                overdriveTimer++; //Increase it by 60 per second, or 1 per tick.
 
                 // A simple timer that goes up to 1 seconds, increases the overdriveTime by 1 and then resets back to 0.
-                if (overdriveTimeRegenTimer > 60)
+                if (overdriveTimer > 60)
                 {
                     overdriveTimeCurrent -= 1;
-                    overdriveTimeRegenTimer = 0;
+                    overdriveTimer = 0;
                 }
             }
         }

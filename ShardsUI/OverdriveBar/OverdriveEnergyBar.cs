@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace ShardsOfAtheria.ShardsUI
             float ticksToDraw = shards.overdriveTimeCurrent / 30f;
             ticksToDraw = (float)Math.Round(ticksToDraw);
 
-            bar.hoverText = $"{shards.overdriveTimeCurrent} / {shards.overdriveTimeMax2}";
+            bar.hoverText = $"{shards.overdriveTimeCurrent} / {ShardsPlayer.OVERDRIVE_TIME_MAX}";
             bar.RemoveAllChildren();
             for (int i = 0; i < ticksToDraw; i++)
             {

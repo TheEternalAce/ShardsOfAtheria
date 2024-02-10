@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Utilities;
+﻿using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -39,7 +40,7 @@ namespace ShardsOfAtheria.Items.Consumable
 
         public override bool CanUseItem(Player player)
         {
-            return player.Shards().overdriveTimeCurrent != player.Shards().overdriveTimeMax2;
+            return player.Shards().overdriveTimeCurrent != ShardsPlayer.OVERDRIVE_TIME_MAX;
         }
 
         public override bool? UseItem(Player player)
