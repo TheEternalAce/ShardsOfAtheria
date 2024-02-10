@@ -380,7 +380,7 @@ Items: {
 			'''
 			[i:ShardsOfAtheria/AmethystCore_Super] Amethyst Effects
 			Boost other gem buffs after taking damage
-			Press <{$Mods.ShardsOfAtheria.Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing an amethyst bomb when using a pickaxe
+			Press <{$Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing an amethyst bomb when using a pickaxe
 			Hold shift to toggle wall exploding
 			Emit light
 			Grants immunity to fire, cold, electric, and poison debuffs
@@ -398,7 +398,7 @@ Items: {
 			Increases flight time
 			Further increased movement speed after taking damage
 			Every active debuff increases movement speed
-			Press <{$Mods.ShardsOfAtheria.Keybinds.EmeraldTeleport.DisplayName}> to teleport to your cursor
+			Press <{$Keybinds.EmeraldTeleport.DisplayName}> to teleport to your cursor
 			''' */
 		/* ShiftTooltip4:
 			'''
@@ -455,7 +455,7 @@ Items: {
 		/* Tooltip:
 			'''
 			Changes attacks to a chosen element
-			Press <{$Mods.ShardsOfAtheria.Keybinds.CycleElementAffinity.DisplayName}> to switch element
+			Press <{$Keybinds.CycleElementAffinity.DisplayName}> to switch element
 			''' */
 	}
 
@@ -501,7 +501,7 @@ Items: {
 		/* Tooltip:
 			'''
 			Changes attacks to a chosen element
-			Press <{$Mods.ShardsOfAtheria.Keybinds.CycleElementAffinity.DisplayName}> to switch element
+			Press <{$Keybinds.CycleElementAffinity.DisplayName}> to switch element
 			Release cloud based on chosen element when injured
 			May confuse enemies
 			'We're going Sub-Zero'
@@ -2201,6 +2201,7 @@ Items: {
 	TheBall: {
 		// DisplayName: Rubber Ball
 		// Tooltip: "'Frick it, we ball'"
+		// Overdrive: Flies faster and explodes on impact
 	}
 
 	# Summon
@@ -2322,6 +2323,11 @@ Items: {
 		// Tooltip: ""
 	}
 
+	MaskedPlagueCell: {
+		// DisplayName: Masked Plague Cell
+		// Tooltip: Masked Plague Module modified to be used with {$Items.PlagueRailgun.DisplayName}
+	}
+
 	PlagueRailgun: {
 		// DisplayName: Gamma Plague Railgun
 		/* Tooltip:
@@ -2340,11 +2346,6 @@ Items: {
 			Reduced movement and attack speed
 			'You're injecting plague into your body, what do you expect?'
 			''' */
-	}
-
-	MaskedPlagueCell: {
-		// DisplayName: Masked Plague Cell
-		// Tooltip: ""
 	}
 }
 
@@ -2643,6 +2644,8 @@ Projectiles: {
 	// ElectricHook.DisplayName: Electric Hook
 	// AreusWandBlade.DisplayName: Areus Wand Blade
 	// PlagueBeam.DisplayName: Gamma Plague Beam
+	// FeatherBladeFriendly_Summon.DisplayName: Feather Blade Friendly_ Summon
+	// EmeraldShot.DisplayName: Emerald Shot
 }
 
 NPCs: {

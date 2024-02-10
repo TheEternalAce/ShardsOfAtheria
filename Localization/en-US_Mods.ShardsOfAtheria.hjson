@@ -157,7 +157,7 @@ Items: {
 			'''
 			Gives a dash to the wearer
 			Boost other gem buffs after taking damage
-			Press <{$Mods.ShardsOfAtheria.Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing amethyst bombs
+			Press <{$Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing amethyst bombs
 			Hold shift to toggle wall exploding
 			Emit light
 			'''
@@ -173,7 +173,7 @@ Items: {
 			'''
 			Gives a great dash to the wearer
 			Boost other gem buffs after taking damage
-			Press <{$Mods.ShardsOfAtheria.Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing an amethyst bomb when using a pickaxe
+			Press <{$Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing an amethyst bomb when using a pickaxe
 			Hold shift to toggle wall exploding
 			Emit light
 			Grants immunity to fire, cold, electric, and poison debuffs
@@ -245,7 +245,7 @@ Items: {
 			Increases flight time
 			Further increased movement speed after taking damage
 			Every active debuff increases movement speed
-			Press <{$Mods.ShardsOfAtheria.Keybinds.EmeraldTeleport.DisplayName}> to teleport to your cursor
+			Press <{$Keybinds.EmeraldTeleport.DisplayName}> to teleport to your cursor
 			'''
 	}
 
@@ -387,7 +387,7 @@ Items: {
 			'''
 			[i:ShardsOfAtheria/AmethystCore_Super] Amethyst Effects
 			Boost other gem buffs after taking damage
-			Press <{$Mods.ShardsOfAtheria.Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing an amethyst bomb when using a pickaxe
+			Press <{$Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing an amethyst bomb when using a pickaxe
 			Hold shift to toggle wall exploding
 			Emit light
 			Grants immunity to fire, cold, electric, and poison debuffs
@@ -405,7 +405,7 @@ Items: {
 			Increases flight time
 			Further increased movement speed after taking damage
 			Every active debuff increases movement speed
-			Press <{$Mods.ShardsOfAtheria.Keybinds.EmeraldTeleport.DisplayName}> to teleport to your cursor
+			Press <{$Keybinds.EmeraldTeleport.DisplayName}> to teleport to your cursor
 			'''
 		ShiftTooltip4:
 			'''
@@ -462,7 +462,7 @@ Items: {
 		Tooltip:
 			'''
 			Changes attacks to a chosen element
-			Press <{$Mods.ShardsOfAtheria.Keybinds.CycleElementAffinity.DisplayName}> to switch element
+			Press <{$Keybinds.CycleElementAffinity.DisplayName}> to switch element
 			'''
 	}
 
@@ -475,7 +475,7 @@ Items: {
 			Increases movement speed by 10%
 			Increased max mana by 40
 			Grants dash, wall sliding and immunity to fall damage
-			Press <{$Mods.ShardsOfAtheria.Keybinds.ToggleOverdrive.DisplayName}> to activate or deactivate Overdrive
+			Press <{$Keybinds.ToggleOverdrive.DisplayName}> to activate or deactivate Overdrive
 			Overdrive increases all damage by 100%
 			Overdrive lasts until you get hit or run out of Overdrive time
 			Overdrive may cause certain weapons to become Overcharged
@@ -512,7 +512,7 @@ Items: {
 		Tooltip:
 			'''
 			Changes attacks to a chosen element
-			Press <{$Mods.ShardsOfAtheria.Keybinds.CycleElementAffinity.DisplayName}> to switch element
+			Press <{$Keybinds.CycleElementAffinity.DisplayName}> to switch element
 			Release cloud based on chosen element when injured
 			May confuse enemies
 			'We're going Sub-Zero'
@@ -542,7 +542,7 @@ Items: {
 		Tooltip:
 			'''
 			Gives the user a 'phase 2' when below 50% life
-			Press <{$Mods.ShardsOfAtheria.Keybinds.PhaseType.DisplayName}> to chose between two phase types:
+			Press <{$Keybinds.PhaseType.DisplayName}> to chose between two phase types:
 			Offensive: Sacrifice half of total defense for doubled damage and 5% increased crit chance
 			Defensive: Sacrifice half of total damage for doubled defense and 20% reduced damage
 			Always get 20% increased movement speed
@@ -554,7 +554,7 @@ Items: {
 		Tooltip:
 			'''
 			Allows the wearer to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration
-			Press <{$Mods.ShardsOfAtheria.Keybinds.KnowledgeBase.DisplayName}> to cycle between the 3 Knowledge Bases
+			Press <{$Keybinds.KnowledgeBase.DisplayName}> to cycle between the 3 Knowledge Bases
 			'''
 	}
 
@@ -1504,7 +1504,7 @@ Items: {
 			'''
 			Increased max flight time
 			Summon a Sharknado over your head
-			Press <{$Mods.ShardsOfAtheria.Keybinds.SoulCrystalTeleport.DisplayName}> to teleport to your cursor
+			Press <{$Keybinds.SoulCrystalTeleport.DisplayName}> to teleport to your cursor
 			'''
 	}
 
@@ -1525,7 +1525,7 @@ Items: {
 			Summons a magic circle behind you that fires ice fragments at your cursor
 			Gives a chance to dodge attacks
 			Every dodge increases ice fragments fired by 1, up to 5 total
-			Press <{$Mods.ShardsOfAtheria.Keybinds.SoulCrystalTeleport.DisplayName}> to teleport to your cursor
+			Press <{$Keybinds.SoulCrystalTeleport.DisplayName}> to teleport to your cursor
 			'''
 	}
 
@@ -2222,6 +2222,7 @@ Items: {
 	TheBall: {
 		DisplayName: Rubber Ball
 		Tooltip: "'Frick it, we ball'"
+		Overdrive: Flies faster and explodes on impact
 	}
 
 	# Summon
@@ -2344,6 +2345,11 @@ Items: {
 		Tooltip: ""
 	}
 
+	MaskedPlagueCell: {
+		DisplayName: Masked Plague Cell
+		Tooltip: Masked Plague Module modified to be used with {$Items.PlagueRailgun.DisplayName}
+	}
+
 	PlagueRailgun: {
 		DisplayName: Gamma Plague Railgun
 		Tooltip:
@@ -2362,11 +2368,6 @@ Items: {
 			Reduced movement and attack speed
 			'You're injecting plague into your body, what do you expect?'
 			'''
-	}
-
-	MaskedPlagueCell: {
-		DisplayName: Masked Plague Cell
-		Tooltip: ""
 	}
 }
 
@@ -2665,6 +2666,8 @@ Projectiles: {
 	ElectricHook.DisplayName: Electric Hook
 	AreusWandBlade.DisplayName: Areus Wand Blade
 	PlagueBeam.DisplayName: Gamma Plague Beam
+	FeatherBladeFriendly_Summon.DisplayName: Feather Blade Friendly_ Summon
+	EmeraldShot.DisplayName: Emerald Shot
 }
 
 NPCs: {
@@ -3024,37 +3027,37 @@ Buffs: {
 	# Sinful Souls
 	EnvyBuff: {
 		DisplayName: Envy
-		Description: "{$Mods.ShardsOfAtheria.Items.EnvySoul.Tooltip}"
+		Description: "{$Items.EnvySoul.Tooltip}"
 	}
 
 	GluttonyBuff: {
 		DisplayName: Gluttony
-		Description: "{$Mods.ShardsOfAtheria.Items.GluttonySoul.Tooltip}"
+		Description: "{$Items.GluttonySoul.Tooltip}"
 	}
 
 	GreedBuff: {
 		DisplayName: Greed
-		Description: "{$Mods.ShardsOfAtheria.Items.GreedSoul.Tooltip}"
+		Description: "{$Items.GreedSoul.Tooltip}"
 	}
 
 	LustBuff: {
 		DisplayName: Lust
-		Description: "{$Mods.ShardsOfAtheria.Items.LustSoul.Tooltip}"
+		Description: "{$Items.LustSoul.Tooltip}"
 	}
 
 	PrideBuff: {
 		DisplayName: Pride
-		Description: "{$Mods.ShardsOfAtheria.Items.PrideSoul.Tooltip}"
+		Description: "{$Items.PrideSoul.Tooltip}"
 	}
 
 	SlothBuff: {
 		DisplayName: Sloth
-		Description: "{$Mods.ShardsOfAtheria.Items.SlothSoul.Tooltip}"
+		Description: "{$Items.SlothSoul.Tooltip}"
 	}
 
 	WrathBuff: {
 		DisplayName: Wrath
-		Description: "{$Mods.ShardsOfAtheria.Items.WrathSoul.Tooltip}"
+		Description: "{$Items.WrathSoul.Tooltip}"
 	}
 
 	VirtuousSoul: {
