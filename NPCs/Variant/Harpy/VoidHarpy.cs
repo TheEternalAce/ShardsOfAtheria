@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
-            NPC.AddElementFire();
+            NPC.AddElement(0);
             NPC.AddRedemptionElement(2);
             NPC.AddRedemptionElementType("Humanoid");
             NPC.AddRedemptionElementType("Dark");

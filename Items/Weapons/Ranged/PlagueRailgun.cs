@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            Item.AddElementWood();
+            Item.AddElement(3);
             Item.AddRedemptionElement(11);
         }
 
@@ -102,6 +102,11 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-10, 3);
+        }
+
+        public override void HoldItem(Player player)
+        {
+            player.scope = true;
         }
     }
 }

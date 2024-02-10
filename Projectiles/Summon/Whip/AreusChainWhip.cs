@@ -30,10 +30,14 @@ namespace ShardsOfAtheria.Projectiles.Summon.Whip
             Projectile.WhipSettings.RangeMultiplier = 1.75f;
         }
 
-        private float Timer
+        private int timer = 0;
+        public override void AI()
         {
-            get => Projectile.ai[0];
-            set => Projectile.ai[0] = value;
+            base.AI();
+            if (timer > 0)
+            {
+                timer--;
+            }
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -42,36 +46,36 @@ namespace ShardsOfAtheria.Projectiles.Summon.Whip
             var player = Main.player[Projectile.owner];
             player.MinionAttackTargetNPC = target.whoAmI;
 
-            if (Projectile.ai[1] == 0)
+            if (timer == 0)
             {
                 int chains = 3;
-                int[] blacklistWhoAmI = { -1, -1, target.whoAmI };
+                int[] blacklistWhoAmI = [-1, -1, target.whoAmI];
                 for (int i = 0; i < chains; i++)
                 {
-                    var newTarget = ShardsHelpers.FindClosestNPC(target.Center, 500, blacklistWhoAmI);
+                    var newTarget = ShardsHelpers.FindClosestNPC(target.Center, 800, blacklistWhoAmI);
                     if (newTarget != null && newTarget.CanBeChasedBy())
                     {
-                        var vector = newTarget.Center - target.Center;
+                        var vector = newTarget.Center + newTarget.velocity - target.Center;
                         vector.Normalize();
                         vector *= 16;
                         Projectile.NewProjectile(player.GetSource_OnHit(target), target.Center, vector,
-                            ModContent.ProjectileType<GoldChain>(), 25, 0, player.whoAmI, target.whoAmI);
+                            ModContent.ProjectileType<GoldChain>(), 25, 0, player.whoAmI, target.whoAmI, newTarget.whoAmI);
                         if (i < 2)
                         {
                             blacklistWhoAmI[i] = newTarget.whoAmI;
                         }
                     }
                 }
-                //Projectile.ai[1] = 1;
+                timer = 10;
             }
         }
 
         // This method draws a line between all points of the whip, in case there's empty space between the sprites.
-        private void DrawLine(List<Vector2> list)
+        private static void DrawLine(List<Vector2> list)
         {
             Texture2D texture = TextureAssets.FishingLine.Value;
             Rectangle frame = texture.Frame();
-            Vector2 origin = new Vector2(frame.Width / 2, 2);
+            Vector2 origin = new(frame.Width / 2, 2);
 
             Vector2 pos = list[0];
             for (int i = 0; i < list.Count - 1; i++)
@@ -80,8 +84,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Whip
                 Vector2 diff = list[i + 1] - element;
 
                 float rotation = diff.ToRotation() - MathHelper.PiOver2;
-                Color color = new Color(90, 10, 120);
-                Vector2 scale = new Vector2(1, (diff.Length() + 2) / frame.Height);
+                Color color = Lighting.GetColor(element.ToTileCoordinates(), Color.Gold);
+                Vector2 scale = new(1, (diff.Length() + 2) / frame.Height);
 
                 Main.EntitySpriteDraw(texture, pos - Main.screenPosition, frame, color, rotation, origin, scale, SpriteEffects.None, 0);
 
@@ -91,7 +95,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Whip
 
         public override bool PreDraw(ref Color lightColor)
         {
-            List<Vector2> list = new();
+            List<Vector2> list = [];
             Projectile.FillWhipControlPoints(Projectile, list);
 
             DrawLine(list);
@@ -125,8 +129,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Whip
 
                     // For a more impactful look, this scales the tip of the whip up when fully extended, and down when curled up.
                     Projectile.GetWhipSettings(Projectile, out float timeToFlyOut, out int _, out float _);
-                    float t = Timer / timeToFlyOut;
-                    scale = MathHelper.Lerp(0.5f, 1.5f, Utils.GetLerpValue(0.1f, 0.7f, t, true) * Utils.GetLerpValue(0.9f, 0.7f, t, true));
+                    float t = timer / timeToFlyOut;
                 }
                 else if (i > 10)
                 {

@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.Satanlance
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementFire();
+            Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
             Projectile.AddRedemptionElement(9);
         }

@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
             ProjectileID.Sets.TrailingMode[Type] = 3;
             ProjectileID.Sets.TrailCacheLength[Type] = 13;
-            Projectile.AddElementElec();
+            Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
 

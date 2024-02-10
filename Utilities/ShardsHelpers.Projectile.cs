@@ -254,7 +254,7 @@ namespace ShardsOfAtheria.Utilities
             projectile.type.AddAreusProj(dark);
             if (!dark || forceAddElements)
             {
-                projectile.AddElementElec();
+                projectile.AddElement(2);
                 projectile.AddRedemptionElement(7);
             }
         }
@@ -272,21 +272,17 @@ namespace ShardsOfAtheria.Utilities
             else return SoAGlobalProjectile.AreusProj.ContainsKey(projectile.type);
         }
 
-        public static void AddElementFire(this Projectile projectile)
+        /// <summary>
+        /// 0 (Fire)
+        /// 1 (Aqua)
+        /// 2 (Elec)
+        /// 3 (Wood)
+        /// </summary>
+        /// <param name="projectile"></param>
+        /// <param name="elementID"></param>
+        public static void AddElement(this Projectile projectile, int elementID)
         {
-            SoA.TryElementCall("assignElement", projectile, 0);
-        }
-        public static void AddElementAqua(this Projectile projectile)
-        {
-            SoA.TryElementCall("assignElement", projectile, 1);
-        }
-        public static void AddElementElec(this Projectile projectile)
-        {
-            SoA.TryElementCall("assignElement", projectile, 2);
-        }
-        public static void AddElementWood(this Projectile projectile)
-        {
-            SoA.TryElementCall("assignElement", projectile, 3);
+            SoA.TryElementCall("assignElement", projectile, elementID);
         }
 
         /// <summary>

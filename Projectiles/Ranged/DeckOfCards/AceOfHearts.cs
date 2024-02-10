@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.DeckOfCards
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementAqua();
+            Projectile.AddElement(1);
             Projectile.AddRedemptionElement(3);
         }
 

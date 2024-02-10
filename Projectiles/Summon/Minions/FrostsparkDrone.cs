@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.penetrate = -1;
             Projectile.timeLeft *= 5;
             Projectile.minion = true;
-            Projectile.minionSlots = 0.49f;
+            Projectile.minionSlots = 0.5f;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.friendly = true;
@@ -166,13 +166,15 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
                     if (npc.CanBeChasedBy())
                     {
-                        float between = Vector2.Distance(npc.Center, Projectile.Center);
-                        bool closest = Vector2.Distance(Projectile.Center, targetCenter) > between;
-                        bool inRange = between < distanceFromTarget;
+                        float distance = Vector2.Distance(npc.Center, Projectile.Center);
+                        bool closest = Vector2.Distance(Projectile.Center, targetCenter) > distance;
+                        bool inRange = distance < distanceFromTarget;
+                        bool lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height);
+                        bool closeThroughWall = distance < 100f;
 
-                        if ((closest && inRange || !foundTarget))
+                        if ((closest && inRange || !foundTarget) && (lineOfSight || closeThroughWall))
                         {
-                            distanceFromTarget = between;
+                            distanceFromTarget = distance;
                             targetCenter = npc.Center;
                             foundTarget = true;
                         }
@@ -264,7 +266,12 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                 }
             }
 
-            if (distanceToIdlePosition > 20f)
+            if (distanceToIdlePosition > 4000f)
+            {
+                Projectile.Center = player.Center;
+                Projectile.netUpdate = true;
+            }
+            else if (distanceToIdlePosition > 20f)
             {
                 vectorToIdlePosition.Normalize();
                 vectorToIdlePosition *= speed;

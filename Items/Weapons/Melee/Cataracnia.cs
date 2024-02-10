@@ -6,12 +6,13 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
+    // Possibly dedicated to torrah???
     public class Cataracnia : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Item.AddElementAqua();
-            Item.AddElementWood();
+            Item.AddElement(1);
+            Item.AddElement(3);
             Item.AddRedemptionElement(12);
         }
 

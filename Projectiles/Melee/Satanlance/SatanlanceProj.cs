@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.Satanlance
             // velocity to always be the same even if the player has increased attack speed.
             ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
 
-            Projectile.AddElementFire();
+            Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
             Projectile.AddRedemptionElement(9);
         }

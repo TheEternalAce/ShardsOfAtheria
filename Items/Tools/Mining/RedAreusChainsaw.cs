@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
             ItemID.Sets.IsDrill[Type] = true;
 
             Item.AddAreus();
-            Item.AddElementElec();
+            Item.AddElement(2);
             Item.AddRedemptionElement(7);
         }
 

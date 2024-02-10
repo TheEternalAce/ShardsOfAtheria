@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            NPC.AddElementWood();
+            NPC.AddElement(3);
             NPC.AddRedemptionElement(10);
             NPC.AddRedemptionElementType("Humanoid");
             NPC.AddRedemptionElementType("Plantlike");

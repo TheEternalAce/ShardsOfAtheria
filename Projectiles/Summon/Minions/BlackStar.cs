@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
             ProjectileID.Sets.TrailingMode[Type] = 2;
             ProjectileID.Sets.TrailCacheLength[Type] = 20;
-            Projectile.AddElementElec();
+            Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
             Projectile.AddRedemptionElement(9);
         }
@@ -171,6 +171,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         Vector2 foundTargetIdlePos;
         private void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
         {
+            Player player = Main.player[Projectile.owner];
             float speed = 4f;
             float inertia = 60f;
 
@@ -201,7 +202,13 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                     inertia = 40f;
                 }
 
-                if (distanceToIdlePosition > 20f)
+
+                if (distanceToIdlePosition > 4000f)
+                {
+                    Projectile.Center = player.Center;
+                    Projectile.netUpdate = true;
+                }
+                else if (distanceToIdlePosition > 20f)
                 {
                     // The immediate range around the player (when it passively floats about)
 

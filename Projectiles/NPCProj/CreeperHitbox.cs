@@ -10,8 +10,8 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementAqua();
-            Projectile.AddElementWood();
+            Projectile.AddElement(1);
+            Projectile.AddElement(3);
             Projectile.AddRedemptionElement(12);
         }
 

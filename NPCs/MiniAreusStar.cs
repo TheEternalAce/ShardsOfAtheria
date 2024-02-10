@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.NPCs
             NPCID.Sets.CountsAsCritter[Type] = true;
             NPCID.Sets.TownCritter[Type] = true;
 
-            NPC.AddElementElec();
+            NPC.AddElement(2);
             NPC.AddRedemptionElement(7);
         }
 

@@ -8,7 +8,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.HeroSword
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementFire();
+            Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
         }
 

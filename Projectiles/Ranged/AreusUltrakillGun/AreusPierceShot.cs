@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementElec();
+            Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
 

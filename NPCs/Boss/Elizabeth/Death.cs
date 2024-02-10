@@ -54,8 +54,8 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             };
             NPC.SetImmuneTo(buffTypes);
 
-            NPC.AddElementAqua();
-            NPC.AddElementWood();
+            NPC.AddElement(1);
+            NPC.AddElement(3);
             NPC.AddRedemptionElement(12);
             NPC.AddRedemptionElementType("Humanoid");
             NPC.AddRedemptionElementType("Blood");

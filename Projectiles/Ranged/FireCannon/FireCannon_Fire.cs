@@ -11,8 +11,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementFire();
-            Projectile.AddElementElec();
+            Projectile.AddElement(0);
+            Projectile.AddElement(2);
             Projectile.AddRedemptionElement(2);
             Projectile.AddRedemptionElement(7);
         }

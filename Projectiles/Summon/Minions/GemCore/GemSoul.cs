@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.NPCs.Misc;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -14,13 +13,17 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
     {
         int shootTimer = 0;
         int projectileShootTimer = 300;
-        int idleTimer = 0;
+        int sleepyTimer = 0;
         bool sleep = false;
         bool grounded = false;
 
+        int animationState = ANIMATION_IDLE;
+        const int ANIMATION_IDLE = 0;
+        const int ANIMATION_PLATFORM = 1;
+
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Type] = 5;
+            Main.projFrames[Type] = 9;
             // This is necessary for right-click targeting
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
@@ -106,6 +109,14 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                 Projectile.netUpdate = true;
             }
 
+            int direction = owner.direction;
+            if ((idlePosition.X > owner.Center.X && Projectile.Center.X < owner.Center.X) ||
+                (idlePosition.X < owner.Center.X && Projectile.Center.X > owner.Center.X))
+            {
+                direction *= -1;
+            }
+            Projectile.spriteDirection = direction;
+
             int torch = TorchID.Purple;
             if (projectileShootTimer >= 180)
             {
@@ -113,16 +124,22 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             }
             Lighting.AddLight(Projectile.Center, torch);
 
-            if (owner.wingTime == 0 && owner.mount.FlyTime == 0 && owner.velocity.Y > 0)
+            if (owner.rocketTime == 0 && owner.wingTime == 0 && owner.mount.FlyTime == 0 && owner.velocity.Y > 0)
             {
                 if (Projectile.ai[0] == 0)
                 {
                     var position = owner.Center;
                     position.X += owner.velocity.X * 8f;
                     position.Y += 60;
-                    NPC.NewNPC(Projectile.GetSource_FromThis(), (int)position.X, (int)position.Y, ModContent.NPCType<EmeraldPlatform>());
-                    ShardsHelpers.DustRing(position, 3f, DustID.GemEmerald);
-                    ShardsHelpers.DustRing(Projectile.Center, 3f, DustID.GemEmerald);
+                    if (Collision.CheckAABBvLineCollision(owner.Center, owner.Size, owner.Center, position))
+                    {
+                        animationState = ANIMATION_PLATFORM;
+                        Projectile.frame = 5;
+                        var velocity = position - Projectile.Center;
+                        velocity.Normalize();
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<EmeraldShot>(), 0, 0, -1, position.X, position.Y);
+                        ShardsHelpers.DustRing(Projectile.Center, 3f, DustID.GemEmerald);
+                    }
                     Projectile.ai[0] = 1;
                 }
             }
@@ -210,7 +227,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             else
             {
                 sleep = false;
-                idleTimer = 0;
+                sleepyTimer = 0;
                 Projectile.frame = 0;
                 Projectile.frameCounter = 0;
             }
@@ -219,12 +236,12 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
         private void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
         {
             // Default movement parameters (here for attacking)
-            float speed = 4;
+            float speed = 12;
             float inertia = 80;
 
             if (foundTarget)
             {
-                idleTimer = 0;
+                sleepyTimer = 0;
                 speed = 16f;
                 inertia = 80f;
 
@@ -234,10 +251,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                 }
                 if (++shootTimer >= 90)
                 {
-                    Projectile.frame = 2;
+                    Projectile.frame = 4;
                     Projectile.frameCounter = 0;
                     Projectile.damage = 150;
                     Projectile.spriteDirection = targetCenter.X < Projectile.Center.X ? -1 : 1;
+
                     Vector2 velocity = Vector2.Normalize(targetCenter - Projectile.Center);
                     Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity,
                         ModContent.ProjectileType<RubyShot>(), Projectile.damage, 0, Projectile.owner);
@@ -268,11 +286,21 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                         var projectile = player.Center.FindClosestProjectile(350, ValidProjectile);
                         if (projectile != null)
                         {
-                            if (Projectile.Distance(projectile.Center) < 350f)
+                            if (projectile.Distance(player.Center) < 350f)
                             {
-                                if (projectile.active && projectile.hostile)
+                                bool hostileProjectileMovingTowardsPlayer = false;
+                                float coneLength = 400f;
+                                float maximumAngle = MathHelper.PiOver4;
+                                float coneRotation = projectile.velocity.ToRotation();
+                                if (player.Hitbox.IntersectsConeSlowMoreAccurate(projectile.Center, coneLength, coneRotation, maximumAngle))
                                 {
-                                    Projectile.spriteDirection = projectile.Center.X < Projectile.Center.X ? -1 : 1;
+                                    hostileProjectileMovingTowardsPlayer = true;
+                                }
+                                if (hostileProjectileMovingTowardsPlayer)
+                                {
+                                    Projectile.frame = 4;
+                                    Projectile.frameCounter = 0;
+                                    Projectile.spriteDirection = projectile.Center.X > Projectile.Center.X ? 1 : -1;
                                     Vector2 velocity = Vector2.Normalize(projectile.Center - Projectile.Center);
                                     Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity,
                                         ModContent.ProjectileType<DiamondShot>(), Projectile.damage, 0, Projectile.owner, projectile.whoAmI);
@@ -289,7 +317,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                 speed = 26f;
                 inertia = 40f;
             }
-            if (idleTimer >= 400)
+            if (sleepyTimer >= 400)
             {
                 speed = 2;
             }
@@ -299,9 +327,9 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                 vectorToIdlePosition.Normalize();
                 vectorToIdlePosition *= speed;
                 Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
-                if (idleTimer > 0)
+                if (sleepyTimer > 0)
                 {
-                    idleTimer--;
+                    sleepyTimer--;
                 }
             }
             else if (Projectile.velocity == Vector2.Zero)
@@ -309,7 +337,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                 Projectile.velocity.X = -0.15f;
                 Projectile.velocity.Y = -0.05f;
             }
-            else if (++idleTimer >= 600)
+            else if (++sleepyTimer >= 600)
             {
                 sleep = true;
                 Projectile.velocity.X = 0;
@@ -321,6 +349,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             bool valid = true;
             //if (projectile.owner == Projectile.owner) valid = false;
             if (!projectile.hostile) valid = false;
+            if (!projectile.active) valid = false;
             if (!SoAGlobalProjectile.ReflectAiList.Contains(projectile.aiStyle)) valid = false;
             return valid;
         }
@@ -338,14 +367,14 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             {
                 Projectile.velocity.X = 0;
             }
-            Projectile.frame = 4;
+            Projectile.frame = 8;
             Projectile.frameCounter = 0;
             Projectile.rotation = 0;
 
             if (Vector2.Distance(owner.Center, Projectile.Center) >= 200)
             {
                 sleep = false;
-                idleTimer = 0;
+                sleepyTimer = 0;
                 grounded = false;
             }
         }
@@ -369,34 +398,54 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             // So it will lean slightly towards the direction it's moving
             Projectile.rotation = Projectile.velocity.X * 0.05f;
 
-            if (idleTimer >= 400)
-            {
-                Projectile.frame = 1;
-                return;
-            }
-
             int frameTime = 5;
-            if (Projectile.frame == 0)
+            int maxframe = 4;
+            if (sleep)
             {
-                frameTime = 120;
+                maxframe = 8;
             }
-            if (Projectile.frame == 1)
+            if (animationState == ANIMATION_PLATFORM)
             {
-                frameTime = 60;
+                maxframe = 7;
             }
-            if (Projectile.frame == 2)
+            if (animationState == ANIMATION_IDLE)
             {
-                frameTime = 20;
+                maxframe = 1;
+            }
+            switch (Projectile.frame)
+            {
+                case 0:
+                    if ((Projectile.frameCounter == 0 && Main.rand.NextBool(20)) || sleepyTimer > 400)
+                    {
+                        Projectile.frame += 2;
+                        maxframe += 2;
+                    }
+                    frameTime = 10;
+                    break;
+                case 1:
+                case 2:
+                case 3:
+                    frameTime = 10;
+                    break;
+                case 4:
+                    frameTime = 30;
+                    break;
+                case 5:
+                case 6:
+                    frameTime = 20;
+                    break;
+                case 7:
+                    frameTime = 20;
+                    animationState = ANIMATION_IDLE;
+                    break;
             }
 
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter >= frameTime)
+            if (++Projectile.frameCounter >= frameTime)
             {
-                Projectile.spriteDirection = 1;
                 Projectile.frameCounter = 0;
                 Projectile.frame++;
 
-                if (Projectile.frame >= 3)
+                if (Projectile.frame > maxframe)
                 {
                     Projectile.frame = 0;
                 }

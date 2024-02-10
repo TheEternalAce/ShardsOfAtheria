@@ -19,8 +19,8 @@ namespace ShardsOfAtheria.Items.BossSummons
 
             Item.ResearchUnlockCount = 3;
 
-            Item.AddElementAqua();
-            Item.AddElementWood();
+            Item.AddElement(1);
+            Item.AddElement(3);
         }
 
         public override void SetDefaults()

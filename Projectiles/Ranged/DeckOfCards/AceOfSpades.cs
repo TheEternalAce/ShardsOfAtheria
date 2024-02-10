@@ -5,11 +5,12 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Ranged.DeckOfCards
 {
+    // It appears to be the ace of spades
     public class AceOfSpades : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementFire();
+            Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
         }
 

@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
     {
         public override void SetStaticDefaults()
         {
-            Item.AddElementAqua();
+            Item.AddElement(1);
             Item.AddRedemptionElement(9);
         }
 

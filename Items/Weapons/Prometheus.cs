@@ -16,8 +16,8 @@ namespace ShardsOfAtheria.Items.Weapons
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
-            Item.AddElementFire();
-            Item.AddElementElec();
+            Item.AddElement(0);
+            Item.AddElement(2);
             Item.AddRedemptionElement(2);
             Item.AddRedemptionElement(7);
         }

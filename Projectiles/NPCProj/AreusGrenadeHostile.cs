@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
-            Projectile.AddElementFire();
+            Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
 
             Main.projFrames[Type] = 2;

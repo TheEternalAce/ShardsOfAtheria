@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
 
-            Projectile.AddElementElec();
+            Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
 
@@ -46,6 +46,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Summon;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 30;
         }
 
         // Here you can decide if your minion breaks things like grass or pots
@@ -193,7 +195,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             {
                 Projectile.friendly = meleePhase;
                 Projectile.hostile = false;
-                Projectile.damage = 20;
                 if (shootCounter < 10 && !meleePhase)
                 {
                     Vector2 newIdlePosition = targetCenter - Projectile.Center;
@@ -201,6 +202,13 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
                     newIdlePosition.Normalize();
                     newIdlePosition *= speed;
+
+                    if (!Collision.CanHitLine(newIdlePosition, Projectile.width, Projectile.height, targetCenter, 20, 20))
+                    {
+                        meleePhase = true;
+                        shootTimer = 0;
+                        shootCounter = 0;
+                    }
 
                     Projectile.velocity = (Projectile.velocity * (inertia - 1) + newIdlePosition) / inertia;
 
@@ -225,9 +233,10 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                     }
                 }
                 // Minion has a target: attack (here, fly towards the enemy)
-                else if (distanceFromTarget > 40f)
+                else if (distanceFromTarget > 80f)
                 {
-                    inertia = 20f;
+                    speed = 12f;
+                    inertia = 2f;
                     meleePhase = true;
                     if (++shootTimer >= 180)
                     {

@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
         {
             Main.projFrames[Type] = 20;
             SoAGlobalProjectile.Eraser.Add(Type);
-            Projectile.AddElementFire();
+            Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
         }
 

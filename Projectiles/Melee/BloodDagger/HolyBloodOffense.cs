@@ -12,8 +12,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodDagger
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementAqua();
-            Projectile.AddElementWood();
+            Projectile.AddElement(1);
+            Projectile.AddElement(3);
             Projectile.AddRedemptionElement(7);
         }
 

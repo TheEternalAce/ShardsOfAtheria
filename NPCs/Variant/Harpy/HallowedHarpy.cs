@@ -26,10 +26,10 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
-            NPC.AddElementFire();
-            NPC.AddElementAqua();
-            NPC.AddElementElec();
-            NPC.AddElementWood();
+            NPC.AddElement(0);
+            NPC.AddElement(1);
+            NPC.AddElement(2);
+            NPC.AddElement(3);
             NPC.AddRedemptionElement(8);
             NPC.AddRedemptionElementType("Humanoid");
             NPC.AddRedemptionElementType("Hallowed");

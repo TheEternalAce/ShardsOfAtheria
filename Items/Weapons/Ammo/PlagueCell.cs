@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 999;
-            Item.AddElementWood();
+            Item.AddElement(3);
             Item.AddRedemptionElement(11);
         }
 

@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
         public override void SetStaticDefaults()
         {
             Item.AddAreus();
-            Item.AddElementElec();
+            Item.AddElement(2);
             Item.AddRedemptionElement(7);
         }
 

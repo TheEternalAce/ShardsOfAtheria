@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 999;
-            Item.AddElementWood();
+            Item.AddElement(3);
             Item.AddRedemptionElement(11);
         }
 
@@ -32,9 +32,12 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
 
         public override void AddRecipes()
         {
-            var moditem = ModLoader.GetMod("GMR").Find<ModItem>("MaskedPlagueModule");
+            var modItem = ModLoader.GetMod("GMR").Find<ModItem>("MaskedPlagueModule");
             CreateRecipe()
-                .AddIngredient(moditem.Type)
+                .AddIngredient(modItem.Type)
+                .Register();
+            Recipe.Create(modItem.Type)
+                .AddIngredient(Type)
                 .Register();
         }
     }

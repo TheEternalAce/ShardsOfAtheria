@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusOrbit
             // Vanilla values range from 9f(Wood) to 17.5f(Terrarian), and defaults to 10f
             ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 16.8f;
 
-            Projectile.AddElementElec();
+            Projectile.AddElement(2);
         }
 
         public override void SetDefaults()

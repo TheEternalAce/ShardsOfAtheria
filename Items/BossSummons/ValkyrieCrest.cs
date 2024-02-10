@@ -18,7 +18,7 @@ namespace ShardsOfAtheria.Items.BossSummons
             NPCID.Sets.MPAllowedEnemies[ModContent.NPCType<NovaStellar>()] = true;
 
             Item.ResearchUnlockCount = 3;
-            Item.AddElementElec();
+            Item.AddElement(2);
         }
 
         public override void SetDefaults()

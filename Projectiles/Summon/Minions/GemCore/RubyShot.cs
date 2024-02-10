@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             Projectile.alpha = 255;
             Projectile.aiStyle = 0;
             Projectile.ignoreWater = true;
-            Projectile.arrow = true;
+            Projectile.tileCollide = false;
         }
 
         public override void OnSpawn(IEntitySource source)

@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             Item.AddAreus();
-            Item.AddElementFire();
+            Item.AddElement(0);
             Item.AddRedemptionElement(2);
         }
 

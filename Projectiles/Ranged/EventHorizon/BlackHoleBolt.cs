@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.EventHorizon
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
             ProjectileID.Sets.TrailingMode[Type] = 3;
-            Projectile.AddElementAqua();
+            Projectile.AddElement(1);
             Projectile.AddRedemptionElement(9);
         }
 

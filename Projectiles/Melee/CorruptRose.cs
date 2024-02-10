@@ -10,8 +10,8 @@ namespace ShardsOfAtheria.Projectiles.Melee
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementFire();
-            Projectile.AddElementWood();
+            Projectile.AddElement(0);
+            Projectile.AddElement(3);
             Projectile.AddRedemptionElement(9);
         }
 
@@ -47,8 +47,8 @@ namespace ShardsOfAtheria.Projectiles.Melee
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementFire();
-            Projectile.AddElementWood();
+            Projectile.AddElement(0);
+            Projectile.AddElement(3);
             Projectile.AddRedemptionElement(9);
         }
 

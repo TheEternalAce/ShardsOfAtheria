@@ -10,8 +10,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
-            Item.AddElementElec();
-            Item.AddElementWood();
+            Item.AddElement(2);
+            Item.AddElement(3);
             Item.AddRedemptionElement(7);
             Item.AddRedemptionElement(11);
         }

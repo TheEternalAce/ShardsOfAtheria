@@ -77,7 +77,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 .SetNPCAffection(NPCID.Stylist, AffectionLevel.Love)
                 .SetNPCAffection(NPCID.Guide, AffectionLevel.Like);
 
-            NPC.AddElementElec();
+            NPC.AddElement(2);
             NPC.AddRedemptionElement(7);
             NPC.AddRedemptionElementType("Humanoid");
             NPC.AddRedemptionElementType("Armed");

@@ -62,7 +62,7 @@ namespace ShardsOfAtheria.Utilities
             item.type.AddAreusItem(dark);
             if (!dark || forceAddElements)
             {
-                item.AddElementElec();
+                item.AddElement(2);
                 item.AddRedemptionElement(7);
             }
         }
@@ -102,21 +102,17 @@ namespace ShardsOfAtheria.Utilities
             SoAGlobalItem.Eraser.Add(id);
         }
 
-        public static void AddElementFire(this Item item)
+        /// <summary>
+        /// 0 (Fire)
+        /// 1 (Aqua)
+        /// 2 (Elec)
+        /// 3 (Wood)
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="elementID"></param>
+        public static void AddElement(this Item item, int elementID)
         {
-            SoA.TryElementCall("assignElement", item, 0);
-        }
-        public static void AddElementAqua(this Item item)
-        {
-            SoA.TryElementCall("assignElement", item, 1);
-        }
-        public static void AddElementElec(this Item item)
-        {
-            SoA.TryElementCall("assignElement", item, 2);
-        }
-        public static void AddElementWood(this Item item)
-        {
-            SoA.TryElementCall("assignElement", item, 3);
+            SoA.TryElementCall("assignElement", item, elementID);
         }
 
         /// <summary>

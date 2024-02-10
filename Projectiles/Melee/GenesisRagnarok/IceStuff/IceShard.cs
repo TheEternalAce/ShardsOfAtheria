@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok.IceStuff
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementAqua();
+            Projectile.AddElement(1);
             Projectile.AddRedemptionElement(4);
         }
 

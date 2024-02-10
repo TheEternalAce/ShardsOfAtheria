@@ -14,10 +14,10 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 10;
-            Projectile.AddElementFire();
-            Projectile.AddElementAqua();
-            Projectile.AddElementElec();
-            Projectile.AddElementWood();
+            Projectile.AddElement(0);
+            Projectile.AddElement(1);
+            Projectile.AddElement(2);
+            Projectile.AddElement(3);
             Projectile.AddRedemptionElement(14);
         }
 

@@ -16,8 +16,8 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         {
             Main.projFrames[Type] = 3;
             SoAGlobalProjectile.Eraser.Add(Type);
-            Projectile.AddElementAqua();
-            Projectile.AddElementWood();
+            Projectile.AddElement(1);
+            Projectile.AddElement(3);
             Projectile.AddRedemptionElement(12);
         }
 

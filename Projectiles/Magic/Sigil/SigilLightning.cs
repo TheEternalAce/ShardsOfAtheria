@@ -7,7 +7,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Sigil
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementElec();
+            Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
 

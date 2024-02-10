@@ -319,17 +319,17 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 
             // This is a simple "loop through all frames from top to bottom" animation
             int frameTime = 5;
-            if (Projectile.frame == 0)
+            switch (Projectile.frame)
             {
-                frameTime = 120;
-            }
-            if (Projectile.frame == 1)
-            {
-                frameTime = 60;
-            }
-            if (Projectile.frame == 2)
-            {
-                frameTime = 20;
+                case 0:
+                    frameTime = 120;
+                    break;
+                case 1:
+                    frameTime = 60;
+                    break;
+                case 2:
+                    frameTime = 20;
+                    break;
             }
 
             Projectile.frameCounter++;

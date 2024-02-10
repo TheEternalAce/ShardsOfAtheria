@@ -16,8 +16,8 @@ namespace ShardsOfAtheria.NPCs.Misc
 
         public override void SetStaticDefaults()
         {
-            NPC.AddElementAqua();
-            NPC.AddElementWood();
+            NPC.AddElement(1);
+            NPC.AddElement(3);
             NPC.AddRedemptionElement(10);
             NPC.AddRedemptionElementType("Blood");
 

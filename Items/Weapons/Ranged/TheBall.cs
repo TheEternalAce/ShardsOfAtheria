@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
-            Item.AddElementWood();
+            Item.AddElement(3);
             Item.AddRedemptionElement(10);
         }
 
@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noMelee = true;
             Item.noUseGraphic = true;
 
-            Item.shootSpeed = 16f;
+            Item.shootSpeed = 8f;
             Item.rare = ItemRarityID.Red;
             Item.value = 46700;
             Item.shoot = ModContent.ProjectileType<BallinBall>();

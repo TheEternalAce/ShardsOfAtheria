@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Type] = true;
-            Projectile.AddElementWood();
+            Projectile.AddElement(3);
             Projectile.AddRedemptionElement(11);
         }
 

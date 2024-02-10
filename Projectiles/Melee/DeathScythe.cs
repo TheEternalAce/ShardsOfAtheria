@@ -14,8 +14,8 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override void SetStaticDefaults()
         {
             SoAGlobalProjectile.Eraser.Add(Type);
-            Projectile.AddElementAqua();
-            Projectile.AddElementWood();
+            Projectile.AddElement(1);
+            Projectile.AddElement(3);
             Projectile.AddRedemptionElement(12);
         }
 

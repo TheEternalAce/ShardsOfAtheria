@@ -12,8 +12,8 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
     {
         public override void SetStaticDefaults()
         {
-            Item.AddElementFire();
-            Item.AddElementWood();
+            Item.AddElement(0);
+            Item.AddElement(3);
             Item.AddRedemptionElement(2);
             Item.AddRedemptionElement(12);
         }

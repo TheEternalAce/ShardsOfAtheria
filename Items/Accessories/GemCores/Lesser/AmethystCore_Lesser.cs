@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Gores;
-using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
-using ShardsOfAtheria.Items.Accessories.GemCores.Regular;
-using ShardsOfAtheria.Items.Accessories.GemCores.Super;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -41,6 +38,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
+            mp.dashAccessoryEquipped = true;
 
             //If the dash is not active, immediately return so we don't do any of the logic for it
             if (!mp.DashActive)
@@ -81,6 +79,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
         public static readonly int DashRight = 2;
         public static readonly int DashLeft = 3;
 
+        public bool dashAccessoryEquipped;
+
         //The direction the player is currently dashing towards.  Defaults to -1 if no dash is ocurring.
         public int DashDir = -1;
 
@@ -99,12 +99,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
         {
             //ResetEffects() is called not long after player.doubleTapCardinalTimer's values have been set
 
-            //Check if the ExampleDashAccessory is equipped and also check against this priority:
-            // If the Shield of Cthulhu, Master Ninja Gear, Tabi and/or Solar Armour set is equipped, prevent this accessory from doing its dash effect
-            //The priority is used to prevent undesirable effects.
-            //Without it, the player is able to use the ExampleDashAccessory's dash as well as the vanilla ones
-            bool dashAccessoryEquipped = false;
-
             //This is the loop used in vanilla to update/check the not-vanity accessories
             for (int i = 3; i < 8 + Player.extraAccessorySlots; i++)
             {
@@ -112,14 +106,11 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
 
                 //Set the flag for the ExampleDashAccessory being equipped if we have it equipped OR immediately return if any of the accessories are
                 // one of the higher-priority ones
-                if (item.type == ModContent.ItemType<AmethystCore_Lesser>() ||
-                    item.type == ModContent.ItemType<AmethystCore>() ||
-                    item.type == ModContent.ItemType<AmethystCore_Greater>() ||
-                    item.type == ModContent.ItemType<AmethystCore_Super>() ||
-                    item.type == ModContent.ItemType<MegaGemCore>())
-                    dashAccessoryEquipped = true;
-                else if (item.type == ItemID.EoCShield || item.type == ItemID.MasterNinjaGear || item.type == ItemID.Tabi)
+                if (item.type == ItemID.EoCShield || item.type == ItemID.MasterNinjaGear || item.type == ItemID.Tabi)
+                {
+                    dashAccessoryEquipped = false;
                     return;
+                }
             }
 
             //If we don't have the ExampleDashAccessory equipped or the player has the Solor armor set equipped, return immediately
@@ -151,6 +142,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
             }
 
             DashVelocity = 10f;
+            dashAccessoryEquipped = false;
         }
 
         public override void FrameEffects()

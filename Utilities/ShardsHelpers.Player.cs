@@ -13,6 +13,11 @@ namespace ShardsOfAtheria.Utilities
         {
             return player.GetModPlayer<ShardsPlayer>();
         }
+        public static bool Overdrive(this Player player, int minOverdrive = 0, int maxOverdrive = 300)
+        {
+            var shards = player.Shards();
+            return shards.Overdrive && shards.overdriveTimeCurrent >= minOverdrive && shards.overdriveTimeCurrent <= maxOverdrive;
+        }
 
         #region sinful players
         public static SinfulPlayer Sinful(this Player player)

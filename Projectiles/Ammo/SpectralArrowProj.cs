@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Projectiles.Ammo
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementAqua();
+            Projectile.AddElement(1);
             Projectile.AddRedemptionElement(14);
         }
 

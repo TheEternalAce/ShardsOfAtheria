@@ -17,8 +17,8 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             Main.projFrames[Type] = 4;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-            Projectile.AddElementAqua();
-            Projectile.AddElementWood();
+            Projectile.AddElement(1);
+            Projectile.AddElement(3);
             Projectile.AddRedemptionElement(12);
         }
 

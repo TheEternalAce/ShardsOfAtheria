@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementWood();
+            Projectile.AddElement(3);
             Projectile.AddRedemptionElement(10);
         }
 

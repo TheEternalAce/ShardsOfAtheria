@@ -54,7 +54,7 @@ namespace ShardsOfAtheria.NPCs
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
-            NPC.AddElementElec();
+            NPC.AddElement(2);
             NPC.AddRedemptionElement(7);
             NPC.AddRedemptionElementType("Inorganic");
             NPC.AddRedemptionElementType("Robotic");

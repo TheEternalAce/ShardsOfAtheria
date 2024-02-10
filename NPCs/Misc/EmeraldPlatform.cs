@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.NPCs.Misc
         {
             NPC.width = 60;
             NPC.height = 26;
-            NPC.lifeMax = 90;
+            NPC.lifeMax = 180;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
             NPC.noGravity = true;
@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.NPCs.Misc
 
         public override void OnSpawn(IEntitySource source)
         {
-            collider ??= new(NPC.TopLeft, NPC.TopRight, new int[4] { 2, 1, 1, 1 }, canGrapple: true);
+            collider ??= new(NPC.TopLeft, NPC.TopRight, [2, 1, 1, 1], canGrapple: true);
         }
 
         public override void AI()

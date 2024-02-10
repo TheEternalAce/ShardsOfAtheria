@@ -46,7 +46,7 @@ namespace ShardsOfAtheria.Items.DedicatedItems.Webmillio
         {
             Item.ResearchUnlockCount = 1;
             Item.AddUpgradable();
-            Item.AddElementElec();
+            Item.AddElement(2);
         }
 
         public override void SetDefaults()

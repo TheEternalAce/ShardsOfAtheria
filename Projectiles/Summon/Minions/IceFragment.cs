@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementAqua();
+            Projectile.AddElement(1);
             Projectile.AddRedemptionElement(4);
         }
 

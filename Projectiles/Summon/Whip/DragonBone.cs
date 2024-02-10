@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Whip
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddElementWood();
+            Projectile.AddElement(3);
             Projectile.AddRedemptionElement(11);
         }
 

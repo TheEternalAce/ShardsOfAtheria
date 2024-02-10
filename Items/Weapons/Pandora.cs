@@ -18,8 +18,8 @@ namespace ShardsOfAtheria.Items.Weapons
         {
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
-            Item.AddElementAqua();
-            Item.AddElementElec();
+            Item.AddElement(1);
+            Item.AddElement(2);
             Item.AddRedemptionElement(4);
             Item.AddRedemptionElement(7);
         }
@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Items.Weapons
             Item.width = 32;
             Item.height = 32;
 
-            Item.damage = 107;
+            Item.damage = 77;
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 6;
             Item.mana = 6;
@@ -70,7 +70,7 @@ namespace ShardsOfAtheria.Items.Weapons
                 Item.useTime = 16;
                 Item.useAnimation = 16;
                 Item.UseSound = SoundID.Item28;
-                Item.damage = 87;
+                Item.damage = 92;
                 Item.DamageType = DamageClass.Magic;
                 Item.mana = 8;
                 Item.knockBack = 3;
@@ -83,7 +83,7 @@ namespace ShardsOfAtheria.Items.Weapons
                 Item.useTime = 35;
                 Item.useAnimation = 35;
                 Item.UseSound = SoundID.Item43;
-                Item.damage = 107;
+                Item.damage = 77;
                 Item.DamageType = DamageClass.Summon;
                 Item.mana = 0;
                 Item.knockBack = 0;

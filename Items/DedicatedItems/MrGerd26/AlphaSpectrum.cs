@@ -7,12 +7,13 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.DedicatedItems.MrGerd26
 {
+    // Bro owns the spectrum
     public class AlphaSpectrum : ModItem
     {
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddElementElec();
+            Item.AddElement(2);
         }
 
         public override void SetDefaults()

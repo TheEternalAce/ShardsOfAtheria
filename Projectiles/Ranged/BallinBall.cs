@@ -3,6 +3,7 @@ using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,9 +13,9 @@ namespace ShardsOfAtheria.Projectiles.Ranged
     {
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10; // The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0; // The recording mode
-            Projectile.AddElementWood();
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20; // The length of old position to be recorded
+            Projectile.AddElement(3);
             Projectile.AddRedemptionElement(10);
         }
 
@@ -29,6 +30,17 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.tileCollide = true;
             Projectile.penetrate = 10;
             Projectile.timeLeft = 1200;
+            Projectile.extraUpdates = 1;
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (Projectile.GetPlayerOwner().Overdrive())
+            {
+                Projectile.penetrate = 1;
+                Projectile.velocity *= 2;
+                Projectile.ai[0] = 1;
+            }
         }
 
         public override void AI()
@@ -97,6 +109,10 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         public override bool PreDraw(ref Color lightColor)
         {
             Projectile.DrawPrimsAfterImage(Color.White);
+            if (Projectile.ai[0] == 1)
+            {
+                Projectile.DrawProjectilePrims(Color.Yellow, ShardsHelpers.OrbX1);
+            }
             return true;
         }
 
@@ -105,6 +121,10 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             // This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
             Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            if (Projectile.ai[0] == 1)
+            {
+                Projectile.Explode(Projectile.Center, Projectile.damage, true, 200);
+            }
         }
     }
 }

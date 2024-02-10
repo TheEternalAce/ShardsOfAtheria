@@ -18,6 +18,8 @@ namespace ShardsOfAtheria.Projectiles.Other
             Projectile.friendly = true;
             Projectile.aiStyle = 0;
             gravityTimer = 16;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 30;
         }
 
         public override void AI()

@@ -18,7 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
-            Projectile.AddElementElec();
+            Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
             Projectile.AddRedemptionElement(11);
         }

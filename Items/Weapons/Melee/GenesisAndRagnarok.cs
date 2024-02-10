@@ -22,9 +22,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.AddUpgradable();
-            Item.AddElementFire();
-            Item.AddElementAqua();
-            Item.AddElementElec();
+            Item.AddElement(0);
+            Item.AddElement(1);
+            Item.AddElement(2);
             Item.AddRedemptionElement(2);
             Item.AddRedemptionElement(4);
             Item.AddRedemptionElement(7);

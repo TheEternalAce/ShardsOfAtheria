@@ -177,22 +177,19 @@ namespace ShardsOfAtheria.Utilities
             return ref npc.GetGlobalNPC<StatSpeedGlobalNPC>().statSpeed;
         }
 
-        public static void AddElementFire(this NPC npc)
+        /// <summary>
+        /// 0 (Fire)
+        /// 1 (Aqua)
+        /// 2 (Elec)
+        /// 3 (Wood)
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <param name="elementID"></param>
+        public static void AddElement(this NPC npc, int elementID)
         {
-            SoA.TryElementCall("assignElement", npc, 0);
+            SoA.TryElementCall("assignElement", npc, elementID);
         }
-        public static void AddElementAqua(this NPC npc)
-        {
-            SoA.TryElementCall("assignElement", npc, 1);
-        }
-        public static void AddElementElec(this NPC npc)
-        {
-            SoA.TryElementCall("assignElement", npc, 2);
-        }
-        public static void AddElementWood(this NPC npc)
-        {
-            SoA.TryElementCall("assignElement", npc, 3);
-        }
+
         public static void ElementMultipliers(this NPC npc, float[] multipliers)
         {
             SoA.TryElementCall("assignElement", npc, multipliers);

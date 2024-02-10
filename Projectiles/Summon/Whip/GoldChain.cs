@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,7 +9,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Whip
 {
     public class GoldChain : ModProjectile
     {
-        int SourceTargetWhoAmI => (int)Projectile.ai[0];
+        int SourceWhoAmI => (int)Projectile.ai[0];
+        int TargetWhoAmI => (int)Projectile.ai[1];
 
         private const string ChainTexturePath = "ShardsOfAtheria/Projectiles/Summon/Whip/GoldChain_Link";
 
@@ -20,22 +22,26 @@ namespace ShardsOfAtheria.Projectiles.Summon.Whip
             Projectile.aiStyle = 0;
             Projectile.DamageType = DamageClass.SummonMeleeSpeed;
             Projectile.extraUpdates = 1;
-            Projectile.timeLeft = 30;
+            Projectile.timeLeft = 60;
         }
 
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+
+            var target = Main.npc[TargetWhoAmI];
+            float speed = Projectile.velocity.Length();
+            Projectile.Track(target.Center, speed, speed);
         }
 
         public override bool? CanHitNPC(NPC target)
         {
-            return target.whoAmI != SourceTargetWhoAmI;
+            return target.whoAmI != SourceWhoAmI;
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
-            var npc = Main.npc[SourceTargetWhoAmI];
+            var npc = Main.npc[SourceWhoAmI];
 
             Vector2 mountedCenter = npc.Center;
             Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>(ChainTexturePath);

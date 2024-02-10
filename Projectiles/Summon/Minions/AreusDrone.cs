@@ -181,6 +181,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
         private void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
         {
+            Player player = Main.player[Projectile.owner];
             // Default movement parameters (here for attacking)
             float speed = 4;
             float inertia = 80;
@@ -228,7 +229,13 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                     inertia = 60f;
                 }
 
-                if (distanceToIdlePosition > 20f)
+
+                if (distanceToIdlePosition > 4000f)
+                {
+                    Projectile.Center = player.Center;
+                    Projectile.netUpdate = true;
+                }
+                else if (distanceToIdlePosition > 20f)
                 {
                     // The immediate range around the player (when it passively floats about)
 
