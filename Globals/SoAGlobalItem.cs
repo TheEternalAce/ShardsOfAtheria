@@ -10,7 +10,6 @@ using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Consumable;
 using ShardsOfAtheria.Items.Placeable.Furniture;
 using ShardsOfAtheria.Items.SinfulSouls;
-using ShardsOfAtheria.Items.Weapons.Ammo;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.NPCs.Town.TheArchivist;
 using ShardsOfAtheria.NPCs.Town.TheAtherian;
@@ -58,13 +57,6 @@ namespace ShardsOfAtheria.Globals
         public override void SetDefaults(Item item)
         {
             base.SetDefaults(item);
-            if (item.ModItem != null)
-            {
-                if (item.ModItem.Name == "PlagueCellCanister")
-                {
-                    item.ammo = ModContent.ItemType<PlagueCell>();
-                }
-            }
             switch (item.type)
             {
                 case ItemID.TungstenBullet:
