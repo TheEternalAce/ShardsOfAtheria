@@ -208,14 +208,6 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             }
 
             chat.AddKey(DialogueKeyBase + "AtheriaComment");
-            if (player.HasItem(ItemID.GoldCrown, player.armor))
-            {
-                chat.AddKey(DialogueKeyBase + "GoldCrownCompliment");
-            }
-            else
-            {
-                chat.AddKey(DialogueKeyBase + "GoldCrownThought");
-            }
             if (ShardsDownedSystem.downedValkyrie)
             {
                 chat.AddKey(DialogueKeyBase + "ExComment");
