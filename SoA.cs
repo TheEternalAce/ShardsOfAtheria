@@ -53,7 +53,19 @@ namespace ShardsOfAtheria
         public static readonly SoundStyle KatanaScream = new(ItemSoundPath + "KatanaScream");
 
         public static readonly Color HardlightColor = new(224, 92, 165);
+        public static readonly Color HardlightColorA = new(224, 92, 165, 0);
         public static readonly Vector3 HardlightColorV3 = HardlightColor.ToVector3();
+        public static readonly Vector3 HardlightColorV3A = HardlightColorA.ToVector3();
+
+        public static readonly Color AreusColor = Color.Cyan;
+        public static readonly Color AreusColorA = new(Color.Cyan.R, Color.Cyan.G, Color.Cyan.B, 0);
+        public static readonly Vector3 AreusColorV3 = AreusColor.ToVector3();
+        public static readonly Vector3 AreusColorV3A = AreusColorA.ToVector3();
+
+        public static readonly Color ElectricColor = new(113, 251, 255);
+        public static readonly Color ElectricColorA = new(113, 251, 255, 0);
+        public static readonly Vector3 ElectricColorV3 = ElectricColor.ToVector3();
+        public static readonly Vector3 ElectricColorV3A = ElectricColorA.ToVector3();
 
         public static bool Eternity()
         {

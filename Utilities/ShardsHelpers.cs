@@ -78,34 +78,6 @@ namespace ShardsOfAtheria.Utilities
             return projectiles;
         }
 
-        public static Vector2 SlowDown(this Projectile projectile, float slowdown = 1f)
-        {
-            return projectile.velocity.SlowDown(slowdown);
-        }
-        public static Vector2 SlowDown(this Vector2 vector, float slowdown = 1f)
-        {
-            float min = 0.01f;
-            int xDir = vector.X >= 1 ? 1 : -1;
-            int yDir = vector.Y >= 1 ? 1 : -1;
-            if (Math.Abs(vector.X) != min)
-            {
-                vector.X -= slowdown * xDir;
-                if (vector.X > min * xDir)
-                {
-                    vector.X = min * xDir;
-                }
-            }
-            if (Math.Abs(vector.Y) != min)
-            {
-                vector.Y -= slowdown * yDir;
-                if (vector.Y > min * yDir)
-                {
-                    vector.Y = min * yDir;
-                }
-            }
-            return vector;
-        }
-
         public static void AdjustMagnitude(ref Vector2 vector)
         {
             float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);

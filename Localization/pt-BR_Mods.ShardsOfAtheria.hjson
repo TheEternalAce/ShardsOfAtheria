@@ -2378,12 +2378,15 @@ Projectiles: {
 	# Nova Stellar
 	ElectricTrail.DisplayName: Electric Trail
 	FeatherBlade.DisplayName: Hardlight Feather
+	// HardlightBladeHitbox.DisplayName: Hardlight Blade
 	// HardlightKnifeHostile.DisplayName: Hardlight Knife
+	// HardlightSlashHostile.DisplayName: Hardlight Slash Hostile
 	LightningBolt.DisplayName: Lightning Bolt
+	// OrbitingHardlightBlade.DisplayName: Orbiting Hardlight Blade
+	// Photosphere.DisplayName: Photosphere
 	StormCloud.DisplayName: Storm Cloud
 	StormLance.DisplayName: Storm Lance
 	StormSword.DisplayName: Storm Sword
-	// HardlightBladeHitbox.DisplayName: Hardlight Blade
 	# Elizabeth Norman
 	// BloodArrowHostile.DisplayName: Blood Arrow
 	// BloodBarrierHostile.DisplayName: Blood Barrier
@@ -2648,8 +2651,10 @@ Projectiles: {
 	// ElectricHook.DisplayName: Electric Hook
 	// AreusWandBlade.DisplayName: Areus Wand Blade
 	// PlagueBeam.DisplayName: Gamma Plague Beam
-	// FeatherBladeFriendly_Summon.DisplayName: Feather Blade Friendly_ Summon
+	// FeatherBladeFriendly_Summon.DisplayName: Feather Blade
 	// EmeraldShot.DisplayName: Emerald Shot
+	// AcidWater.DisplayName: Acid Water
+	// SandTrail.DisplayName: Sand Trail
 }
 
 NPCs: {

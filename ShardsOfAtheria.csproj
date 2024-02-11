@@ -52,10 +52,13 @@
     <None Remove="Mounts\LifeCycle_Back.png" />
     <None Remove="Mounts\LifeCycle_Front.png" />
     <None Remove="NPCs\AreusCrateNPC.png" />
+    <None Remove="NPCs\Boss\NovaStellar\LightningValkyrie\NovaStellar_Eternity.png" />
     <None Remove="Projectiles\Magic\ElectricHook.png" />
     <None Remove="Projectiles\Magic\ElectricHook_Chain.png" />
     <None Remove="Projectiles\Magic\VoidDagger.png" />
+    <None Remove="Projectiles\Melee\AreusJustitia\HardlightSlashHostile.png" />
     <None Remove="Projectiles\Melee\VoidSlash.png" />
+    <None Remove="Projectiles\Melee\ZenovaProjectile.png" />
     <None Remove="Projectiles\Other\RubyShard.png" />
     <None Remove="Projectiles\Summon\Minions\AreusMirror.png" />
     <None Remove="Projectiles\NPCProj\Elizabeth\BloodScytheHostile.png" />
@@ -66,7 +69,6 @@
     <None Remove="Projectiles\Melee\DeathScythe.png" />
     <None Remove="Projectiles\Melee\DeathScythe_Flip.png" />
     <None Remove="Projectiles\Melee\PrototypeBandSlash.png" />
-    <None Remove="Projectiles\Melee\ZenovaProjectile2.png" />
     <None Remove="Projectiles\Tools\AmethystDaggerProjectile.png" />
     <None Remove="ShardsUI\AreusEnergy\AreusEnergyBar.png" />
   </ItemGroup>
