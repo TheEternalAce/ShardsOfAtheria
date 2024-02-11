@@ -41,5 +41,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.ElecKatana
                     Projectile.owner);
             }
         }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            lightColor = SoA.ElectricColorA;
+            return base.PreDraw(ref lightColor);
+        }
     }
 }

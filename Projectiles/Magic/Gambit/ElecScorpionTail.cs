@@ -83,6 +83,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
         {
             var player = Main.player[Projectile.owner];
 
+            lightColor = SoA.ElectricColorA;
             Vector2 mountedCenter = player.MountedCenter;
             Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>(ChainTexturePath);
 
@@ -116,8 +117,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
                 remainingVectorToPlayer = mountedCenter - drawPosition;
 
                 // Finally, we draw the texture at the coordinates using the lighting information of the tile coordinates of the chain section
-                Color color = Lighting.GetColor((int)drawPosition.X / 16, (int)(drawPosition.Y / 16f));
-                Main.spriteBatch.Draw(chainTexture.Value, drawPosition - Main.screenPosition, null, color, rotation, chainTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
+                Main.spriteBatch.Draw(chainTexture.Value, drawPosition - Main.screenPosition, null, lightColor, rotation, chainTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
             }
 
             return true;

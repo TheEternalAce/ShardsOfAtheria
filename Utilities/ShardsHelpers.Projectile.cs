@@ -191,20 +191,17 @@ namespace ShardsOfAtheria.Utilities
         //        0);
         //}
 
-        public const string DiamondX1 = "DiamondBlur1";
-        public const string DiamondX2 = "DiamondBlur2";
-        public const string OrbX1 = "OrbBlur1";
-        public const string OrbX2 = "OrbBlur2";
-        public const string LineX1 = "LineTrail1";
-        public const string LineX2 = "LineTrail2";
-        public static void DrawProjectilePrims(this Projectile projectile, Color color, string style, float angleAdd = 0f, float scale = 1f)
+        public const string Diamond = "DiamondBlur";
+        public const string Orb = "OrbBlur";
+        public const string Line = "LineTrail";
+        public static void DrawBlurTrail(this Projectile projectile, Color color, string style, float angleAdd = 0f, float scale = 1f)
         {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, null, null, null, null, Main.GameViewMatrix.ZoomMatrix);
 
             Main.instance.LoadProjectile(projectile.type);
             Texture2D texture = ModContent.Request<Texture2D>("ShardsOfAtheria/Assets/BlurTrails/" + style).Value;
-            if (style == DiamondX1 || style == DiamondX2 || style == LineX1 || style == LineX2)
+            if (style == Diamond || style == Line)
             {
                 angleAdd += MathHelper.PiOver2;
             }
@@ -223,9 +220,9 @@ namespace ShardsOfAtheria.Utilities
         }
         //Credits to Aslysmic/Tewst Mod (so cool)
 
-        public static void DrawPrimsAfterImage(this Projectile projectile, Color color, Texture2D texture)
+        public static void DrawAfterImage(this Projectile projectile, Color color, Texture2D texture)
         {
-            Rectangle frame = new(0, 0, texture.Width, texture.Height);
+            Rectangle frame = projectile.Frame();
             Vector2 offset = new(projectile.width / 2, projectile.height / 2);
             var effects = projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             var origin = frame.Size() / 2f;
@@ -235,12 +232,12 @@ namespace ShardsOfAtheria.Utilities
                 Main.spriteBatch.Draw(texture, projectile.oldPos[i] + offset - Main.screenPosition, frame, color * (1f - progress), projectile.rotation, origin, Math.Max(projectile.scale * (1f - progress), 0.1f), effects, 0f);
             }
 
-            Main.spriteBatch.Draw(texture, projectile.position + offset - Main.screenPosition, null, Color.White, projectile.rotation, origin, projectile.scale, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(texture, projectile.position + offset - Main.screenPosition, frame, color, projectile.rotation, origin, projectile.scale, SpriteEffects.None, 0f);
         }
         public static void DrawPrimsAfterImage(this Projectile projectile, Color color)
         {
             var texture = TextureAssets.Projectile[projectile.type].Value;
-            projectile.DrawPrimsAfterImage(color, texture);
+            projectile.DrawAfterImage(color, texture);
         }
         //Credits to Aequus Mod (Omega Starite my beloved)
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -12,9 +13,12 @@ namespace ShardsOfAtheria.Projectiles.Melee
 {
     public class ZenovaProjectile2 : ModProjectile
     {
+        public override string Texture => ModContent.GetInstance<ZenovaProjectile>().Texture;
+
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 10;
+            ProjectileID.Sets.TrailingMode[Type] = 2;
 
             Projectile.AddElement(0);
             Projectile.AddElement(1);
@@ -38,9 +42,6 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 0;
             Projectile.timeLeft = 180;
-
-            DrawOffsetX = -62;
-            DrawOriginOffsetX = 31;
         }
 
         public override void OnSpawn(IEntitySource source)
@@ -182,6 +183,22 @@ namespace ShardsOfAtheria.Projectiles.Melee
         {
             Projectile.ApplyGravity(ref gravityTime);
             Projectile.rotation += MathHelper.ToRadians(15f);
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            switch (Projectile.frame)
+            {
+                case 7:
+                    lightColor = Color.Orange;
+                    lightColor.A = 0;
+                    Projectile.DrawPrimsAfterImage(lightColor);
+                    break;
+                case 9:
+                    lightColor = SoA.ElectricColorA;
+                    break;
+            }
+            return base.PreDraw(ref lightColor);
         }
     }
 }

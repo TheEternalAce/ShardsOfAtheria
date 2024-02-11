@@ -76,7 +76,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
 
         public override void PostDraw(Color lightColor)
         {
-            Projectile.DrawProjectilePrims(lightColor, ShardsHelpers.DiamondX1);
+            Projectile.DrawBlurTrail(lightColor, ShardsHelpers.Diamond);
             Projectile.DrawPrimsAfterImage(lightColor);
         }
     }

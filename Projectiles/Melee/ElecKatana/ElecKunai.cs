@@ -49,5 +49,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.ElecKatana
                 dust.noGravity = true;
             }
         }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            lightColor = SoA.ElectricColorA;
+            return base.PreDraw(ref lightColor);
+        }
     }
 }

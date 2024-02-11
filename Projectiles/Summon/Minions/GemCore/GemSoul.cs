@@ -115,7 +115,10 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             {
                 direction *= -1;
             }
-            Projectile.spriteDirection = direction;
+            if (Projectile.frame != 4)
+            {
+                Projectile.spriteDirection = direction;
+            }
 
             int torch = TorchID.Purple;
             if (projectileShootTimer >= 180)
@@ -400,10 +403,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 
             int frameTime = 5;
             int maxframe = 4;
-            if (sleep)
-            {
-                maxframe = 8;
-            }
             if (animationState == ANIMATION_PLATFORM)
             {
                 maxframe = 7;
@@ -415,17 +414,17 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             switch (Projectile.frame)
             {
                 case 0:
-                    if ((Projectile.frameCounter == 0 && Main.rand.NextBool(20)) || sleepyTimer > 400)
+                    if (Projectile.frameCounter == 0 && (Main.rand.NextBool(20) || sleepyTimer > 400))
                     {
                         Projectile.frame += 2;
                         maxframe += 2;
                     }
-                    frameTime = 10;
+                    frameTime = 7;
                     break;
                 case 1:
                 case 2:
                 case 3:
-                    frameTime = 10;
+                    frameTime = 7;
                     break;
                 case 4:
                     frameTime = 30;

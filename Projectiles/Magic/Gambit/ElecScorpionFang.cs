@@ -90,5 +90,11 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
                 Projectile.GetPlayerOwner().Heal(healAmount);
             }
         }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            lightColor = SoA.ElectricColorA;
+            return base.PreDraw(ref lightColor);
+        }
     }
 }

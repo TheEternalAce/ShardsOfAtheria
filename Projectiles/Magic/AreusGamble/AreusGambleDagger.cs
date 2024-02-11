@@ -49,5 +49,11 @@ namespace ShardsOfAtheria.Projectiles.Magic.AreusGamble
         {
             target.AddBuff(BuffID.Electrified, 120);
         }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            lightColor = SoA.ElectricColorA;
+            return base.PreDraw(ref lightColor);
+        }
     }
 }

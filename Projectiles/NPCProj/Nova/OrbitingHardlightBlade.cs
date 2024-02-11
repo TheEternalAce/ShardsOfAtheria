@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Dusts;
+using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -8,8 +9,12 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 {
-    public class FeatherBlade : ModProjectile
+    public class OrbitingHardlightBlade : ModProjectile
     {
+        private double rotation;
+
+        public override string Texture => "ShardsOfAtheria/Items/Weapons/Melee/ValkyrieBlade";
+
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
@@ -24,43 +29,32 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             Projectile.height = 10;
             Projectile.damage = 37;
 
-            Projectile.timeLeft = 5 * 60;
+            Projectile.timeLeft = 121;
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
             Projectile.extraUpdates = 1;
-
-            DrawOffsetX = -4;
-            DrawOriginOffsetX = 2;
+            Projectile.penetrate = -1;
         }
 
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
+            if (!NPC.AnyNPCs(ModContent.NPCType<NovaStellar>()))
+            {
+                Projectile.Kill();
+            }
 
-            if (Projectile.ai[0] == 1)
+            Projectile.timeLeft = 60;
+            Projectile.SetVisualOffsets(50, true);
+
+            Vector2 position = Projectile.GetNPCOwner().Center;
+            rotation += MathHelper.ToRadians(4);
+            if (rotation > MathHelper.TwoPi)
             {
-                for (int i = 0; i < Main.maxProjectiles; i++)
-                {
-                    Projectile blade = Main.projectile[i];
-                    if (blade.type == ModContent.ProjectileType<FeatherBlade>() && blade.whoAmI != Projectile.whoAmI && Projectile.active && blade.active)
-                    {
-                        if (Projectile.Hitbox.Intersects(blade.Hitbox))
-                        {
-                            Projectile.Kill();
-                            blade.Kill();
-                        }
-                    }
-                }
+                rotation -= MathHelper.TwoPi;
             }
-            if (SoA.Eternity())
-            {
-                if (++Projectile.ai[1] >= 6)
-                {
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Photosphere>(), Projectile.damage, 0f);
-                    Projectile.ai[1] = 0;
-                }
-            }
+            Projectile.Center = position + Vector2.One.RotatedBy(Projectile.ai[0] / 4f * MathHelper.TwoPi + rotation) * 100;
+            Projectile.rotation = Vector2.Normalize(position - Projectile.Center).ToRotation() + MathHelper.ToRadians(225);
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -83,8 +77,9 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.DrawBlurTrail(SoA.HardlightColor * 0.7f, ShardsHelpers.Diamond);
             lightColor = Color.White;
+            Projectile.DrawBlurTrail(SoA.HardlightColor * 0.7f, ShardsHelpers.Diamond, MathHelper.ToRadians(45f));
+            Projectile.DrawPrimsAfterImage(lightColor);
             return true;
         }
     }

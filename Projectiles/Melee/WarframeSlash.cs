@@ -48,7 +48,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = new(113, 251, 255);
+            lightColor = SoA.ElectricColorA;
             return base.PreDraw(ref lightColor);
         }
     }

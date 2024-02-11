@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -36,6 +37,14 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
+            if (SoA.Eternity())
+            {
+                if (++Projectile.ai[0] >= 4)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Photosphere>(), Projectile.damage, 0f);
+                    Projectile.ai[0] = 0;
+                }
+            }
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -55,6 +64,11 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
                 Projectile.netUpdate = true;
                 Projectile.tileCollide = false;
             }
+            target.AddBuff<ElectricShock>(600);
+            if (SoA.Eternity() && Main.rand.NextBool(5))
+            {
+                target.AddBuff(ModContent.Find<ModBuff>("FargowiltasSouls", "ClippedWingsBuff").Type, 600);
+            }
         }
 
         public override void OnKill(int timeLeft)
@@ -68,7 +82,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.DrawProjectilePrims(SoA.HardlightColor * 0.7f, ShardsHelpers.DiamondX1);
+            Projectile.DrawBlurTrail(SoA.HardlightColor * 0.7f, ShardsHelpers.Diamond);
             lightColor = Color.White;
             return true;
         }

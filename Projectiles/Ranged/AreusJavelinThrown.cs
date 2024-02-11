@@ -80,7 +80,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                     if (Projectile.velocity.Length() != 0)
                     {
                         SetSpin(true);
-                        Projectile.SlowDown();
+                        Projectile.velocity *= 0.9f;
                     }
                 }
             }

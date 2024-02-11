@@ -63,8 +63,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.DrawProjectilePrims(SoA.HardlightColor * 0.7f,
-                ShardsHelpers.DiamondX1);
+            Projectile.DrawBlurTrail(SoA.HardlightColor * 0.7f,
+                ShardsHelpers.Diamond);
             lightColor = Color.White;
             return true;
         }

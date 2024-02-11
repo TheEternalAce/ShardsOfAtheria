@@ -21,6 +21,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             Projectile.friendly = true;
             Projectile.aiStyle = 0;
             Projectile.extraUpdates = 1;
+            Projectile.DamageType = DamageClass.Summon;
         }
 
         public override void AI()

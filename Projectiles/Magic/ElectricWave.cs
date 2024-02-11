@@ -46,5 +46,11 @@ namespace ShardsOfAtheria.Projectiles.Magic
                 Projectile.scale *= 1.01f;
             }
         }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            lightColor = SoA.ElectricColorA;
+            return base.PreDraw(ref lightColor);
+        }
     }
 }

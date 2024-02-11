@@ -108,7 +108,7 @@ namespace ShardsOfAtheria.Projectiles.Other
         {
             lightColor = Color.White;
             Projectile.DrawPrimsAfterImage(lightColor);
-            Projectile.DrawProjectilePrims(Color.Firebrick, ShardsHelpers.DiamondX1);
+            Projectile.DrawBlurTrail(Color.Firebrick, ShardsHelpers.Diamond);
             return base.PreDraw(ref lightColor);
         }
     }

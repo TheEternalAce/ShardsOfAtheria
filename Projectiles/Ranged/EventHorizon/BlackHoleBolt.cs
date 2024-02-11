@@ -101,7 +101,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.EventHorizon
         {
             var color = new Color(90, 10, 120);
             lightColor = Color.White;
-            Projectile.DrawProjectilePrims(color, ShardsHelpers.DiamondX1);
+            Projectile.DrawBlurTrail(color, ShardsHelpers.Diamond);
             return base.PreDraw(ref lightColor);
         }
     }

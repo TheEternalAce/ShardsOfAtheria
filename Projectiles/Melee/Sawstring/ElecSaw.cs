@@ -78,7 +78,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.Sawstring
 
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = Color.White;
+            lightColor = SoA.ElectricColorA;
             Projectile.DrawPrimsAfterImage(lightColor);
             return true;
         }

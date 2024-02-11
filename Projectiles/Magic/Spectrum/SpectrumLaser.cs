@@ -47,7 +47,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Spectrum
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.DrawProjectilePrims(laserColor, ShardsHelpers.LineX1);
+            Projectile.DrawBlurTrail(laserColor, ShardsHelpers.Line);
             return base.PreDraw(ref lightColor);
         }
     }

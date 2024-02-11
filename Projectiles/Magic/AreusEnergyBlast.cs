@@ -10,6 +10,8 @@ namespace ShardsOfAtheria.Projectiles.Magic
     {
         public override void SetStaticDefaults()
         {
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
@@ -47,18 +49,13 @@ namespace ShardsOfAtheria.Projectiles.Magic
         public override void OnKill(int timeLeft)
         {
             Projectile.Explode(Projectile.Center, 200, dustParticles: false);
-            DustRing();
+            ShardsHelpers.DustRing(Projectile.Center, 6, DustID.Electric);
         }
 
-        private void DustRing()
+        public override bool PreDraw(ref Color lightColor)
         {
-            for (var i = 0; i < 30; i++)
-            {
-                Vector2 speed = Main.rand.NextVector2CircularEdge(1f, 1f);
-                Dust d = Dust.NewDustPerfect(Projectile.Center, DustID.Electric, speed * 6f);
-                d.fadeIn = 1.3f;
-                d.noGravity = true;
-            }
+            Projectile.DrawBlurTrail(SoA.ElectricColor, ShardsHelpers.Diamond);
+            return false;
         }
     }
 }

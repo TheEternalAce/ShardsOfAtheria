@@ -71,9 +71,10 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            if (Main.expertMode)
+            target.AddBuff<ElectricShock>(600);
+            if (SoA.Eternity() && Main.rand.NextBool(5))
             {
-                target.AddBuff(ModContent.BuffType<ElectricShock>(), 300);
+                target.AddBuff(ModContent.Find<ModBuff>("FargowiltasSouls", "ClippedWingsBuff").Type, 600);
             }
         }
 

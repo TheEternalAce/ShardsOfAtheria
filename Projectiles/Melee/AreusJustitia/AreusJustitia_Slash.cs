@@ -94,7 +94,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
 
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = Color.Cyan;
+            lightColor = SoA.ElectricColorA;
             return base.PreDraw(ref lightColor);
         }
     }

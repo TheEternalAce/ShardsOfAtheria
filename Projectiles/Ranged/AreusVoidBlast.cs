@@ -90,7 +90,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         public override void PostDraw(Color lightColor)
         {
-            Projectile.DrawProjectilePrims(lightColor, ShardsHelpers.OrbX1);
+            Projectile.DrawBlurTrail(lightColor, ShardsHelpers.Orb);
             Projectile.DrawPrimsAfterImage(lightColor);
         }
     }

@@ -43,17 +43,20 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    spawnPoints[i] = Projectile.position + new Vector2(Main.rand.Next(Projectile.width), 100);
+                    spawnPoints[i] = Projectile.position + new Vector2(Main.rand.Next(Projectile.width), 180);
                 }
             }
 
-            for (int i = 0; i < 8; i++)
+            if (!SoA.Eternity())
             {
-                if (Projectile.timeLeft > 60)
+                for (int i = 0; i < 8; i++)
                 {
-                    if (spawnPoints != null)
+                    if (Projectile.timeLeft > 60)
                     {
-                        Dust.NewDustPerfect(spawnPoints[i], DustID.Electric);
+                        if (spawnPoints != null)
+                        {
+                            Dust.NewDustPerfect(spawnPoints[i], DustID.Electric);
+                        }
                     }
                 }
             }
@@ -73,6 +76,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             {
                 newCenter.X -= (distX - distXMax) * dirX;
                 player.velocity.X = 0;
+                player.AddBuff<ElectricShock>(120);
             }
             int dirY = saferArea.Center.Y < player.Center.Y ? 1 : -1;
             float distY = MathHelper.Distance(player.Center.Y, saferArea.Center.Y);
@@ -81,6 +85,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             {
                 newCenter.Y -= (distY - distYMax) * dirY;
                 player.velocity.Y = 0;
+                player.AddBuff<ElectricShock>(120);
             }
             player.Center = newCenter;
             if (Projectile.ai[1] >= 60)
@@ -106,7 +111,11 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff(ModContent.BuffType<ElectricShock>(), 10 * 60);
+            target.AddBuff<ElectricShock>(600);
+            if (SoA.Eternity() && Main.rand.NextBool(5))
+            {
+                target.AddBuff(ModContent.Find<ModBuff>("FargowiltasSouls", "ClippedWingsBuff").Type, 600);
+            }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

@@ -85,10 +85,13 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
                 }
                 Projectile.Center = player.Center + Vector2.One.RotatedBy(Projectile.ai[0] / 7f * MathHelper.TwoPi + rotation) * 225;
                 Projectile.rotation = Vector2.Normalize(Projectile.Center - player.Center).ToRotation() + MathHelper.ToRadians(225);
-                if (Projectile.timeLeft <= 40)
+                if (!SoA.Eternity())
                 {
-                    Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Electric);
-                    dust.noGravity = true;
+                    if (Projectile.timeLeft <= 40)
+                    {
+                        Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Electric);
+                        dust.noGravity = true;
+                    }
                 }
                 if (Projectile.timeLeft == 1)
                 {
@@ -109,14 +112,23 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
                     rotation += MathHelper.Pi;
                     attacks -= 1;
                 }
+                if (SoA.Eternity())
+                {
+                    if (++Projectile.ai[2] >= 8)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Photosphere>(), Projectile.damage, 0f);
+                        Projectile.ai[2] = 0;
+                    }
+                }
             }
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            if (Main.expertMode)
+            target.AddBuff<ElectricShock>(600);
+            if (SoA.Eternity() && Main.rand.NextBool(5))
             {
-                target.AddBuff(ModContent.BuffType<ElectricShock>(), 300);
+                target.AddBuff(ModContent.Find<ModBuff>("FargowiltasSouls", "ClippedWingsBuff").Type, 600);
             }
         }
 
@@ -131,8 +143,8 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.DrawProjectilePrims(SoA.HardlightColor * 0.7f,
-                ShardsHelpers.DiamondX1, MathHelper.ToRadians(45f));
+            Projectile.DrawBlurTrail(SoA.HardlightColor * 0.7f,
+                ShardsHelpers.Diamond, MathHelper.ToRadians(45f));
             lightColor = Color.White;
             return true;
         }

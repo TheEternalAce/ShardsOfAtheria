@@ -45,10 +45,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             Projectile.ai[0]++;
             if (Projectile.ai[0] < 40)
             {
-                if (!Projectile.friendly)
-                {
-                    Projectile.friendly = true;
-                }
                 Player player = Projectile.FindClosestPlayer(350);
                 if (player != null)
                 {

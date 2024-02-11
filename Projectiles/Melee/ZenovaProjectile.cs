@@ -14,6 +14,8 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 10;
+            ProjectileID.Sets.TrailingMode[Type] = 2;
+
             Projectile.AddElement(0);
             Projectile.AddElement(1);
             Projectile.AddElement(2);
@@ -36,9 +38,6 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Projectile.penetrate = 3;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 0;
-
-            DrawOffsetX = -62;
-            DrawOriginOffsetX = 31;
         }
 
         // See ExampleBehindTilesProjectile. 
@@ -212,6 +211,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override void AI()
         {
             UpdateAlpha();
+            Projectile.SetVisualOffsets(new Vector2(80, 84), true);
             // Run either the Sticky AI or Normal AI
             // Separating into different methods helps keeps your AI clean
             if (IsStickingToTarget) StickyAI();
@@ -272,6 +272,22 @@ namespace ShardsOfAtheria.Projectiles.Melee
             { // Otherwise, kill the projectile
                 Projectile.Kill();
             }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            switch (Projectile.frame)
+            {
+                case 7:
+                    lightColor = Color.Orange;
+                    lightColor.A = 0;
+                    Projectile.DrawPrimsAfterImage(lightColor);
+                    break;
+                case 9:
+                    lightColor = SoA.ElectricColorA;
+                    break;
+            }
+            return base.PreDraw(ref lightColor);
         }
     }
 }

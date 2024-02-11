@@ -43,5 +43,11 @@ namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
         {
             gplayer.ModifyGauntletHit(ref modifiers, Type);
         }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            lightColor = SoA.ElectricColorA;
+            return base.PreDraw(ref lightColor);
+        }
     }
 }

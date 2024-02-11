@@ -111,7 +111,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.DrawPrimsAfterImage(Color.White);
             if (Projectile.ai[0] == 1)
             {
-                Projectile.DrawProjectilePrims(Color.Yellow, ShardsHelpers.OrbX1);
+                Projectile.DrawBlurTrail(Color.Yellow, ShardsHelpers.Orb);
             }
             return true;
         }

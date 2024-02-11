@@ -58,7 +58,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = Color.White;
+            lightColor = SoA.ElectricColorA;
             return base.PreDraw(ref lightColor);
         }
     }
