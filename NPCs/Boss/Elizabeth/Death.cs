@@ -79,7 +79,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             Music = MusicID.Boss1;
             NPC.value = 167900;
             NPC.npcSlots = 15f;
-            NPC.ElementMultipliers(new[] { 1.0f, 0.8f, 1.5f, 0.8f });
+            NPC.ElementMultipliers([1.5f, 0.8f, 1.5f, 0.8f]);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -501,12 +501,8 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 idlePos.X *= -1;
             }
             idlePos += player.Center;
-            float speed = 16f;
-            if (NPC.Distance(idlePos) > 300)
-            {
-                speed *= 2f;
-            }
-            NPC.Track(idlePos, speed, 16f);
+            var vectorToIdlePos = idlePos - NPC.Center;
+            NPC.velocity = vectorToIdlePos * 0.055f;
         }
 
         void DoCrossbowShoot(Vector2 center, Vector2 toTarget)
@@ -565,15 +561,11 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         {
             if (attackTimer >= 10)
             {
-                float speed = 16f;
-                if (NPC.Distance(toTarget + center) > 100)
-                {
-                    speed += 6f;
-                }
                 var targetCenter = toTarget + center;
                 int direction = (NPC.Center.X > targetCenter.X ? 1 : -1);
                 Vector2 toPosition = targetCenter + new Vector2(150 * direction, 0);
-                NPC.Track(toPosition, speed, speed);
+                var vectorToIdlePos = toPosition - NPC.Center;
+                NPC.velocity = vectorToIdlePos * 0.055f;
             }
             if (attackTimer == 10)
             {
@@ -632,14 +624,11 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         }
         void DoSickleSummon(Player player)
         {
+            Vector2 targetCenter = player.Center;
             Vector2 idlePos = new(0, -400);
-            idlePos += player.Center;
-            float speed = 16f;
-            if (NPC.Distance(idlePos) > 100)
-            {
-                speed *= 2f;
-            }
-            NPC.Track(idlePos, speed, 16f);
+            idlePos += targetCenter;
+            var vectorToIdlePos = idlePos - NPC.Center;
+            NPC.velocity = vectorToIdlePos * 0.055f;
 
             if (attackTimer % 30 == 0)
             {
@@ -650,7 +639,6 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 }
                 for (int i = 0; i < amount; i++)
                 {
-                    Vector2 targetCenter = player.Center;
                     float radius = 250f * Main.rand.NextFloat(0.8f, 1f);
                     var pos = targetCenter + Vector2.One.RotatedByRandom(MathHelper.TwoPi) * radius;
                     var vector = targetCenter - pos;
@@ -664,14 +652,10 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         }
         void DoScytheSwing(Vector2 targetCenter)
         {
-            float speed = 16f;
-            if (NPC.Distance(targetCenter) > 100)
-            {
-                speed *= 2f;
-            }
             int direction = (NPC.Center.X > targetCenter.X ? 1 : -1);
             Vector2 toPosition = targetCenter + new Vector2(100 * direction, 0);
-            NPC.Track(toPosition, speed, speed);
+            var vectorToIdlePos = toPosition - NPC.Center;
+            NPC.velocity = vectorToIdlePos * 0.055f;
             if (attackTimer == 90)
             {
                 var vector = targetCenter - NPC.Center;
@@ -684,12 +668,8 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         }
         void DoSwordDraw(Player player)
         {
-            float speed = 16f;
-            if (NPC.Distance(player.Center) > 100)
-            {
-                speed *= 2f;
-            }
-            NPC.Track(player.Center, speed, speed);
+            var vectorToIdlePos = player.Center - NPC.Center;
+            NPC.velocity = vectorToIdlePos * 0.055f;
             if (NPC.Distance(player.Center) <= 150)
             {
                 var vector = player.Center - NPC.Center;
