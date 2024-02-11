@@ -102,6 +102,15 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             hardmode.OnSuccess(ItemDropRule.Common(ItemID.CursedFlame, 5, 1, 3));
         }
 
+        public override void OnKill()
+        {
+            int maxEaters = Main.rand.Next(2, 4);
+            for (int i = 0; i < maxEaters; i++)
+            {
+                NPC.NewNPC(NPC.GetSource_Death(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCID.Corruptor);
+            }
+        }
+
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.Weak, 60);

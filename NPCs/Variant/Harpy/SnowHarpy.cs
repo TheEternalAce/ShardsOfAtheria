@@ -5,6 +5,7 @@ using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok.IceStuff;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.Utilities;
+using System;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
@@ -47,6 +48,10 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
         public override void AI()
         {
+            if (SoA.Eternity())
+            {
+                ChillingAura();
+            }
             NPC.ai[0] += 1f;
             if (NPC.ai[0] == 30f || NPC.ai[0] == 60f || NPC.ai[0] == 90f)
             {
@@ -71,6 +76,42 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             else if (NPC.ai[0] >= 400 + Main.rand.Next(400))
             {
                 NPC.ai[0] = 0f;
+            }
+        }
+
+        const int CHILLING_RADIUS = 250;
+        void ChillingAura()
+        {
+            for (var i = 0; i < 20; i++)
+            {
+                Vector2 spawnPos = NPC.Center + Main.rand.NextVector2CircularEdge(CHILLING_RADIUS, CHILLING_RADIUS);
+                Vector2 offset = spawnPos - Main.LocalPlayer.Center;
+                if (Math.Abs(offset.X) > Main.screenWidth * 0.6f || Math.Abs(offset.Y) > Main.screenHeight * 0.6f) //dont spawn dust if its pointless
+                    continue;
+                Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, DustID.Snow, 0, 0, 100);
+                dust.velocity = NPC.velocity;
+                if (Main.rand.NextBool(3))
+                {
+                    dust.velocity += Vector2.Normalize(NPC.Center - dust.position) * Main.rand.NextFloat(5f);
+                    dust.position += dust.velocity * 5f;
+                }
+                dust.noGravity = true;
+            }
+            Chilling();
+        }
+
+        void Chilling()
+        {
+            foreach (Player player in Main.player)
+            {
+                if (player.active && !player.dead)
+                {
+                    var distToPlayer = Vector2.Distance(player.Center, NPC.Center);
+                    if (distToPlayer <= CHILLING_RADIUS)
+                    {
+                        player.AddBuff(BuffID.Chilled, 600);
+                    }
+                }
             }
         }
 

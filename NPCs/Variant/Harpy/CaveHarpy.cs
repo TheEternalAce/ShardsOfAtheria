@@ -6,6 +6,7 @@ using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Utilities;
+using System;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
@@ -69,6 +70,24 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         {
             base.AI();
             Lighting.AddLight(NPC.Center, Color.Cyan.ToVector3());
+
+            int i = (int)Math.Floor(NPC.Center.X / 16);
+            int j = (int)Math.Floor(NPC.Center.Y / 16);
+            if (Main.tile[i, j].IsSolid()) Main.LocalPlayer.PickTile(i, j, 115);
+            if (Main.tile[i - 1, j].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j, 115);
+            if (Main.tile[i, j - 1].IsSolid()) Main.LocalPlayer.PickTile(i, j - 1, 115);
+            if (Main.tile[i - 1, j - 1].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j - 1, 115);
+            if (Main.tile[i + 1, j - 1].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j - 1, 115);
+            if (Main.tile[i, j - 2].IsSolid()) Main.LocalPlayer.PickTile(i, j - 2, 115);
+            if (Main.tile[i - 1, j - 2].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j - 2, 115);
+            if (Main.tile[i + 1, j - 2].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j - 2, 115);
+            if (Main.tile[i + 1, j].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j, 115);
+            if (Main.tile[i, j + 1].IsSolid()) Main.LocalPlayer.PickTile(i, j + 1, 115);
+            if (Main.tile[i + 1, j + 1].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j + 1, 115);
+            if (Main.tile[i - 1, j + 1].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j + 1, 115);
+            if (Main.tile[i, j + 2].IsSolid()) Main.LocalPlayer.PickTile(i, j + 2, 115);
+            if (Main.tile[i + 1, j + 2].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j + 2, 115);
+            if (Main.tile[i - 1, j + 2].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j + 2, 115);
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)

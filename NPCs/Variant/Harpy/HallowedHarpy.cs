@@ -4,6 +4,7 @@ using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.Utilities;
+using System;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
@@ -72,6 +73,46 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             else if (NPC.ai[0] >= 400 + Main.rand.Next(400))
             {
                 NPC.ai[0] = 0f;
+            }
+            if (SoA.Eternity())
+            {
+                SmiteAura();
+            }
+        }
+
+        const int SMITING_RADIUS = 250;
+        void SmiteAura()
+        {
+            for (var i = 0; i < 20; i++)
+            {
+                Vector2 spawnPos = NPC.Center + Main.rand.NextVector2CircularEdge(SMITING_RADIUS, SMITING_RADIUS);
+                Vector2 offset = spawnPos - Main.LocalPlayer.Center;
+                if (Math.Abs(offset.X) > Main.screenWidth * 0.6f || Math.Abs(offset.Y) > Main.screenHeight * 0.6f) //dont spawn dust if its pointless
+                    continue;
+                Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, DustID.HallowedWeapons, 0, 0, 100);
+                dust.velocity = NPC.velocity;
+                if (Main.rand.NextBool(3))
+                {
+                    dust.velocity += Vector2.Normalize(NPC.Center - dust.position) * Main.rand.NextFloat(5f);
+                    dust.position += dust.velocity * 5f;
+                }
+                dust.noGravity = true;
+            }
+            Smiting();
+        }
+
+        void Smiting()
+        {
+            foreach (Player player in Main.player)
+            {
+                if (player.active && !player.dead)
+                {
+                    var distToPlayer = Vector2.Distance(player.Center, NPC.Center);
+                    if (distToPlayer <= SMITING_RADIUS)
+                    {
+                        player.AddBuff(ModContent.Find<ModBuff>("FargowiltasSouls", "SmiteBuff").Type, 600);
+                    }
+                }
             }
         }
 

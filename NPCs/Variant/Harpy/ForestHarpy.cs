@@ -71,5 +71,15 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             rain.OnSuccess(ItemDropRule.Common(ItemID.Worm, 3, 1, 3));
             npcLoot.Add(rain);
         }
+
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                var vector = Main.rand.NextVector2CircularEdge(4f, 4f);
+                vector *= 1f - Main.rand.NextFloat(0.66f);
+                Projectile.NewProjectile(NPC.GetSource_OnHit(NPC), NPC.Center, vector, ProjectileID.JungleSpike, projectileDamage, 0);
+            }
+        }
     }
 }

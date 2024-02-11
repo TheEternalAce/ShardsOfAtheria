@@ -5,6 +5,7 @@ using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.Utilities;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
@@ -17,12 +18,16 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
     {
         public override void SetStaticDefaults()
         {
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.ShadowFlame] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.CursedInferno] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn] = true;
-            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn2] = true;
+            List<int> debuffImmunity =
+            [
+                BuffID.OnFire,
+                BuffID.OnFire3,
+                BuffID.ShadowFlame,
+                BuffID.CursedInferno,
+                BuffID.Frostburn,
+                BuffID.Frostburn2,
+            ];
+            NPC.SetImmuneTo(debuffImmunity);
 
             Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.Harpy];
 
@@ -61,6 +66,29 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             {
                 if (Main.rand.NextBool(3) && NPC.ai[0] == 30f)
                 {
+                    bool validPosition = false;
+                    var teleportPosition = Vector2.Zero;
+                    while (!validPosition)
+                    {
+                        teleportPosition = Main.player[NPC.target].Center + Main.rand.NextVector2CircularEdge(200, 200) * (1 - Main.rand.NextFloat(0.33f));
+                        if (!Collision.SolidCollision(teleportPosition, NPC.width, NPC.height))
+                        {
+                            validPosition = true;
+                            break;
+                        }
+                    }
+                    if (validPosition)
+                    {
+                        NPC.Center = teleportPosition;
+                        NPC.netUpdate = true;
+                        int fireBalls = 4 + Main.rand.Next(0, 7);
+                        for (int i = 0; i < fireBalls; i++)
+                        {
+                            var vector = Vector2.One.RotatedByRandom(MathHelper.TwoPi);
+                            vector *= 5f * Main.rand.NextFloat(0.8f, 1.1f);
+                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vector, ProjectileID.Fireball, 12, 0);
+                        }
+                    }
                     int dir = Main.rand.NextBool(2) ? 1 : -1;
                     Vector2 position = Main.player[NPC.target].Center + new Vector2((230) * dir, 0);
                     Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), position, Vector2.Zero,
@@ -77,6 +105,10 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             else if (NPC.ai[0] >= 400 + Main.rand.Next(400))
             {
                 NPC.ai[0] = 0f;
+            }
+            if (NPC.HasBuff(BuffID.OnFire))
+            {
+                NPC.DelBuff(NPC.FindBuffIndex(BuffID.OnFire));
             }
         }
 

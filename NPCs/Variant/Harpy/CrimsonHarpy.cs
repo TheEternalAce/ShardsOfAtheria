@@ -102,6 +102,16 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             hardmode.OnSuccess(ItemDropRule.Common(ItemID.Ichor, 5, 1, 3));
         }
 
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                var vector = Main.rand.NextVector2CircularEdge(4f, 4f);
+                vector *= 1f - Main.rand.NextFloat(0.66f);
+                Projectile.NewProjectile(NPC.GetSource_OnHit(NPC), NPC.Center, vector, ProjectileID.BloodNautilusShot, 13, 0);
+            }
+        }
+
         public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
         {
             target.AddBuff(BuffID.Ichor, 60);
