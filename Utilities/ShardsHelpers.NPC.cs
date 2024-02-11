@@ -190,6 +190,14 @@ namespace ShardsOfAtheria.Utilities
             SoA.TryElementCall("assignElement", npc, elementID);
         }
 
+        /// <summary>
+        /// Index 0: Fire
+        /// Index 1: Aqua
+        /// Index 2: Elec
+        /// Index 3: Wood
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <param name="multipliers"></param>
         public static void ElementMultipliers(this NPC npc, float[] multipliers)
         {
             SoA.TryElementCall("assignElement", npc, multipliers);
