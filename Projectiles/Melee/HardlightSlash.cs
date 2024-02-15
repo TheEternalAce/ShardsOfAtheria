@@ -69,17 +69,17 @@ namespace ShardsOfAtheria.Projectiles.Melee
         {
             Projectile.localAI[0] += 1f;
             Player player = Main.player[Projectile.owner];
-            float percentageOfLife = Projectile.localAI[0] / Projectile.ai[1];
+            float progress = Projectile.localAI[0] / Projectile.ai[1];
             float direction = Projectile.ai[0];
             float velocityRotation = Projectile.velocity.ToRotation();
-            float adjustedRotation = MathHelper.Pi * direction * percentageOfLife + velocityRotation + direction * MathHelper.Pi + player.fullRotation;
+            float adjustedRotation = MathHelper.Pi * direction * progress + velocityRotation + direction * MathHelper.Pi + player.fullRotation;
             Projectile.rotation = adjustedRotation;
 
             float scaleMultiplier = 0.6f;
             float scaleAdder = 1f;
 
             Projectile.Center = player.RotatedRelativePoint(player.MountedCenter) - Projectile.velocity;
-            Projectile.scale = scaleAdder + percentageOfLife * scaleMultiplier;
+            Projectile.scale = scaleAdder + progress * scaleMultiplier;
 
             float num10 = Projectile.rotation + Main.rand.NextFloatDirection() * (MathHelper.Pi / 2f) * 0.7f;
             Vector2 vector2 = Projectile.Center + num10.ToRotationVector2() * 84f * Projectile.scale;
