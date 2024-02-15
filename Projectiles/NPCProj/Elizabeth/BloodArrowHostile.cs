@@ -49,9 +49,9 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
                 if (player != null)
                 {
                     Vector2 move = player.Center - Projectile.Center;
-                    ShardsHelpers.AdjustMagnitude(ref move);
+                    ShardsHelpers.AdjustMagnitude(ref move, 6f);
                     Projectile.velocity = 30 * Projectile.velocity + move;
-                    ShardsHelpers.AdjustMagnitude(ref Projectile.velocity);
+                    ShardsHelpers.AdjustMagnitude(ref Projectile.velocity, 6f);
                 }
             }
 

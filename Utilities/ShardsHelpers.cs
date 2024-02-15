@@ -78,12 +78,12 @@ namespace ShardsOfAtheria.Utilities
             return projectiles;
         }
 
-        public static void AdjustMagnitude(ref Vector2 vector)
+        public static void AdjustMagnitude(ref Vector2 vector, float num1, float num2 = 6f)
         {
             float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-            if (magnitude > 6f)
+            if (magnitude > num2)
             {
-                vector *= 14f / magnitude;
+                vector *= num1 / magnitude;
             }
         }
 
