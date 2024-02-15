@@ -34,7 +34,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
             Projectile.ApplyGravity(ref gravityDelay);
 
             Dust d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Venom);
-            d.velocity *= 0;
             d.fadeIn = 1.3f;
             d.noGravity = true;
         }

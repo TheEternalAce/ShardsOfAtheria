@@ -25,10 +25,13 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather
         public override void AI()
         {
             base.AI();
-            if (++Projectile.ai[0] >= 10)
+            if (SoA.Eternity())
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<SandTrail>(), Projectile.damage, 0);
-                Projectile.ai[0] = 0;
+                if (++Projectile.ai[0] >= 10)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<SandTrail>(), Projectile.damage, 0);
+                    Projectile.ai[0] = 0;
+                }
             }
         }
     }

@@ -29,10 +29,13 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
-            if (++Projectile.ai[0] >= 10)
+            if (SoA.Eternity())
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<AcidWater>(), Projectile.damage, 0);
-                Projectile.ai[0] = 0;
+                if (++Projectile.ai[0] >= 10)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<AcidWater>(), Projectile.damage, 0);
+                    Projectile.ai[0] = 0;
+                }
             }
         }
 
