@@ -35,8 +35,22 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         public override void SetDefaults()
         {
             NPC.CloneDefaults(NPCID.Harpy);
+            NPC.damage = 0;
+            NPC.defense = 0;
             AnimationType = NPCID.Harpy;
             Banner = NPC.type;
+        }
+
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
+        {
+            if (Main.expertMode)
+            {
+                //NPC.damage /= 2;
+            }
+            if (Main.masterMode)
+            {
+
+            }
         }
 
         public override void AI()

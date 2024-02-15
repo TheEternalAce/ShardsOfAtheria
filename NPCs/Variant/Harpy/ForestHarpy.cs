@@ -26,7 +26,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         {
             base.SetDefaults();
             NPC.damage = 10;
-            NPC.defense = 6;
+            NPC.defense = 2;
             NPC.lifeMax = 40;
             BannerItem = ModContent.ItemType<ForestHarpyBanner>();
             NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersWood);
@@ -58,7 +58,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (spawnInfo.NoInvasionOfAnyKind() && !spawnInfo.Player.ZoneSkyHeight &&
-                spawnInfo.Player.ZoneForest && Main.dayTime)
+                spawnInfo.Player.ZoneForest && !spawnInfo.Player.ZoneJungle && Main.dayTime)
                 return .05f;
             return 0f;
         }
@@ -74,11 +74,14 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
         public override void HitEffect(NPC.HitInfo hit)
         {
-            for (int i = 0; i < 10; i++)
+            if (SoA.Eternity())
             {
-                var vector = Main.rand.NextVector2CircularEdge(4f, 4f);
-                vector *= 1f - Main.rand.NextFloat(0.66f);
-                Projectile.NewProjectile(NPC.GetSource_OnHit(NPC), NPC.Center, vector, ProjectileID.JungleSpike, projectileDamage, 0);
+                for (int i = 0; i < 10; i++)
+                {
+                    var vector = Main.rand.NextVector2CircularEdge(4f, 4f);
+                    vector *= 1f - Main.rand.NextFloat(0.66f);
+                    Projectile.NewProjectile(NPC.GetSource_OnHit(NPC), NPC.Center, vector, ProjectileID.JungleSpike, projectileDamage, 0);
+                }
             }
         }
     }

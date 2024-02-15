@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
-using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -14,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.NPCs.Variant.Harpy
 {
-    public class VoidHarpy : ModNPC
+    public class VoidHarpy : Harpies
     {
         public override void SetStaticDefaults()
         {
@@ -29,16 +26,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             ];
             NPC.SetImmuneTo(debuffImmunity);
 
-            Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.Harpy];
-
-            // Influences how the NPC looks in the Bestiary
-            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new()
-            {
-                Velocity = 1f,
-            };
-
-            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-
+            base.SetStaticDefaults();
             NPC.AddElement(0);
             NPC.AddRedemptionElement(2);
             NPC.AddRedemptionElementType("Humanoid");
@@ -48,82 +36,62 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
         public override void SetDefaults()
         {
-            NPC.CloneDefaults(NPCID.Harpy);
+            base.SetDefaults();
             NPC.damage = 24;
             NPC.defense = 14;
             NPC.lifeMax = 100;
             NPC.lavaImmune = true;
-            AnimationType = NPCID.Harpy;
-            Banner = NPC.type;
             BannerItem = ModContent.ItemType<VoidHarpyBanner>();
             NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersFire);
         }
 
         public override void AI()
         {
-            NPC.ai[0] += 1f;
-            if (NPC.ai[0] == 30f || NPC.ai[0] == 60f || NPC.ai[0] == 90f)
-            {
-                if (Main.rand.NextBool(3) && NPC.ai[0] == 30f)
-                {
-                    bool validPosition = false;
-                    var teleportPosition = Vector2.Zero;
-                    while (!validPosition)
-                    {
-                        teleportPosition = Main.player[NPC.target].Center + Main.rand.NextVector2CircularEdge(200, 200) * (1 - Main.rand.NextFloat(0.33f));
-                        if (!Collision.SolidCollision(teleportPosition, NPC.width, NPC.height))
-                        {
-                            validPosition = true;
-                            break;
-                        }
-                    }
-                    if (validPosition)
-                    {
-                        NPC.Center = teleportPosition;
-                        NPC.netUpdate = true;
-                        int fireBalls = 4 + Main.rand.Next(0, 7);
-                        for (int i = 0; i < fireBalls; i++)
-                        {
-                            var vector = Vector2.One.RotatedByRandom(MathHelper.TwoPi);
-                            vector *= 5f * Main.rand.NextFloat(0.8f, 1.1f);
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vector, ProjectileID.Fireball, 12, 0);
-                        }
-                    }
-                    int dir = Main.rand.NextBool(2) ? 1 : -1;
-                    Vector2 position = Main.player[NPC.target].Center + new Vector2((230) * dir, 0);
-                    Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), position, Vector2.Zero,
-                        ModContent.ProjectileType<FlamePillar>(), 12, 0f, Main.myPlayer);
-                    NPC.ai[0] = 91;
-                }
-                else if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
-                {
-                    int num729 = Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center).RotatedByRandom(MathHelper.ToRadians(15)) * 6f,
-                        ModContent.ProjectileType<Void>(), 14, 0f, Main.myPlayer);
-                    Main.projectile[num729].timeLeft = 300;
-                }
-            }
-            else if (NPC.ai[0] >= 400 + Main.rand.Next(400))
-            {
-                NPC.ai[0] = 0f;
-            }
+            base.AI();
             if (NPC.HasBuff(BuffID.OnFire))
             {
                 NPC.DelBuff(NPC.FindBuffIndex(BuffID.OnFire));
             }
         }
 
+        public override void SpecialAttack(Vector2 velocity)
+        {
+            if (SoA.Eternity())
+            {
+                bool validPosition = false;
+                var teleportPosition = Vector2.Zero;
+                while (!validPosition)
+                {
+                    teleportPosition = Main.player[NPC.target].Center + Main.rand.NextVector2CircularEdge(200, 200) * (1 - Main.rand.NextFloat(0.33f));
+                    if (!Collision.SolidCollision(teleportPosition, NPC.width, NPC.height))
+                    {
+                        validPosition = true;
+                        break;
+                    }
+                }
+                if (validPosition)
+                {
+                    NPC.Center = teleportPosition;
+                    NPC.netUpdate = true;
+                    int fireBalls = 4 + Main.rand.Next(0, 7);
+                    for (int i = 0; i < fireBalls; i++)
+                    {
+                        var vector = Vector2.One.RotatedByRandom(MathHelper.TwoPi);
+                        vector *= 5f * Main.rand.NextFloat(0.8f, 1.1f);
+                        Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vector, ProjectileID.Fireball, 12, 0);
+                    }
+                }
+            }
+            int dir = Main.rand.NextBool(2) ? 1 : -1;
+            Vector2 position = Main.player[NPC.target].Center + new Vector2(230 * dir, 0);
+            Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), position, Vector2.Zero,
+                ModContent.ProjectileType<FlamePillar>(), 12, 0f, Main.myPlayer);
+        }
+
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
-            string key = this.GetLocalizationKey("Bestiary");
-            // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
-				// Sets the preferred biomes of this town NPC listed in the bestiary.
-				// With Town NPCs, you usually set this to what biome it likes the most in regards to NPC happiness.
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
-
-				// Sets your NPC's flavor text in the bestiary.
-				new FlavorTextBestiaryInfoElement(key)
-            });
+            bestiaryInfoElements.Add(BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld);
+            base.SetBestiary(database, bestiaryEntry);
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -135,6 +103,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
+            base.ModifyNPCLoot(npcLoot);
             LeadingConditionRule hardmode = new(new Conditions.IsHardmode());
 
             int[,] ores = new int[,]
@@ -143,27 +112,9 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                 { ItemID.Obsidian, 5 },
             };
             npcLoot.Add(ShardsDrops.ManyFromOptions(1, ores));
-            npcLoot.Add(ItemDropRule.Common(ItemID.Feather, 2));
             hardmode.OnSuccess(ItemDropRule.Common(ItemID.FireFeather, 5));
-
             // Finally add the leading rule
             npcLoot.Add(hardmode);
-        }
-
-        public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
-        {
-            if (Main.expertMode || Main.hardMode)
-            {
-                target.AddBuff(BuffID.OnFire, 60);
-            }
-        }
-
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            Asset<Texture2D> texture = ModContent.Request<Texture2D>(Texture);
-            SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            NPC.BasicInWorldGlowmask(spriteBatch, texture.Value, drawColor, screenPos, effects);
-            return false;
         }
     }
 }
