@@ -178,9 +178,9 @@ namespace ShardsOfAtheria.Utilities
         }
 
         /// <summary>
-        /// 0 (Fire)
-        /// 1 (Aqua)
-        /// 2 (Elec)
+        /// 0 (Fire) <br/>
+        /// 1 (Aqua) <br/>
+        /// 2 (Elec) <br/>
         /// 3 (Wood)
         /// </summary>
         /// <param name="npc"></param>
@@ -191,9 +191,9 @@ namespace ShardsOfAtheria.Utilities
         }
 
         /// <summary>
-        /// Index 0: Fire
-        /// Index 1: Aqua
-        /// Index 2: Elec
+        /// Index 0: Fire <br/>
+        /// Index 1: Aqua <br/>
+        /// Index 2: Elec <br/>
         /// Index 3: Wood
         /// </summary>
         /// <param name="npc"></param>
@@ -204,20 +204,20 @@ namespace ShardsOfAtheria.Utilities
         }
 
         /// <summary>
-        /// 1	(Arcane)
-        /// 2	(Fire)
-        /// 3	(Water)
-        /// 4	(Ice)
-        /// 5	(Earth)
-        /// 6	(Wind)
-        /// 7	(Thunder)
-        /// 8	(Holy)
-        /// 9	(Shadow)
-        /// 10	(Nature)
-        /// 11	(Poison)
-        /// 12	(Blood)
-        /// 13	(Psychic)
-        /// 14	(Celestial)
+        /// 1	(Arcane) <br/>
+        /// 2	(Fire) <br/>
+        /// 3	(Water) <br/>
+        /// 4	(Ice) <br/>
+        /// 5	(Earth) <br/>
+        /// 6	(Wind) <br/>
+        /// 7	(Thunder) <br/>
+        /// 8	(Holy) <br/>
+        /// 9	(Shadow) <br/>
+        /// 10	(Nature) <br/>
+        /// 11	(Poison) <br/>
+        /// 12	(Blood) <br/>
+        /// 13	(Psychic) <br/>
+        /// 14	(Celestial) <br/>
         /// 15	(Exposive)
         /// </summary>
         /// <param name="npc"></param>
@@ -228,23 +228,23 @@ namespace ShardsOfAtheria.Utilities
         }
 
         /// <summary>
-        /// Skeleton
-        /// SkeletonHumanoid
-        /// Humanoid
-        /// Undead
-        /// Spirit
-        /// Plantlike
-        /// Demon
-        /// Cold
-        /// Hot
-        /// Wet
-        /// Dragonlike
-        /// Inorganic
-        /// Robotic
-        /// Armed
-        /// Hallowed
-        /// Dark
-        /// Blood
+        /// Skeleton <br/>
+        /// SkeletonHumanoid <br/>
+        /// Humanoid <br/>
+        /// Undead <br/>
+        /// Spirit <br/>
+        /// Plantlike <br/>
+        /// Demon <br/>
+        /// Cold <br/>
+        /// Hot <br/>
+        /// Wet <br/>
+        /// Dragonlike <br/>
+        /// Inorganic <br/>
+        /// Robotic <br/>
+        /// Armed <br/>
+        /// Hallowed <br/>
+        /// Dark <br/>
+        /// Blood <br/>
         /// Slime
         /// </summary>
         /// <param name="npc"></param>

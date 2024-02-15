@@ -269,10 +269,42 @@ namespace ShardsOfAtheria.Utilities
             else return SoAGlobalProjectile.AreusProj.ContainsKey(projectile.type);
         }
 
+        public static void SpearHoming(this Projectile projectile, float num1)
+        {
+            if (projectile.localAI[1] == 0f)
+            {
+                AdjustMagnitude(ref projectile.velocity, num1);
+                projectile.localAI[1] = 1f;
+            }
+            Vector2 vector = Vector2.Zero;
+            float maxDistance = 200f;
+            bool foundTarget = false;
+            foreach (var npc in Main.npc)
+            {
+                if (npc.CanBeChasedBy())
+                {
+                    Vector2 vector2 = npc.Center - projectile.Center;
+                    float distance = (float)Math.Sqrt(vector2.X * vector2.X + vector2.Y * vector2.Y);
+                    if (distance < maxDistance)
+                    {
+                        vector = vector2;
+                        maxDistance = distance;
+                        foundTarget = true;
+                    }
+                }
+            }
+            if (foundTarget)
+            {
+                AdjustMagnitude(ref vector, num1);
+                projectile.velocity = (30f * projectile.velocity + vector) / 2f;
+                AdjustMagnitude(ref projectile.velocity, num1);
+            }
+        }
+
         /// <summary>
-        /// 0 (Fire)
-        /// 1 (Aqua)
-        /// 2 (Elec)
+        /// 0 (Fire) <br/>
+        /// 1 (Aqua) <br/>
+        /// 2 (Elec) <br/>
         /// 3 (Wood)
         /// </summary>
         /// <param name="projectile"></param>
@@ -283,20 +315,20 @@ namespace ShardsOfAtheria.Utilities
         }
 
         /// <summary>
-        /// 1	(Arcane)
-        /// 2	(Fire)
-        /// 3	(Water)
-        /// 4	(Ice)
-        /// 5	(Earth)
-        /// 6	(Wind)
-        /// 7	(Thunder)
-        /// 8	(Holy)
-        /// 9	(Shadow)
-        /// 10	(Nature)
-        /// 11	(Poison)
-        /// 12	(Blood)
-        /// 13	(Psychic)
-        /// 14	(Celestial)
+        /// 1	(Arcane) <br/>
+        /// 2	(Fire) <br/>
+        /// 3	(Water) <br/>
+        /// 4	(Ice) <br/>
+        /// 5	(Earth) <br/>
+        /// 6	(Wind) <br/>
+        /// 7	(Thunder) <br/>
+        /// 8	(Holy) <br/>
+        /// 9	(Shadow) <br/>
+        /// 10	(Nature) <br/>
+        /// 11	(Poison) <br/>
+        /// 12	(Blood) <br/>
+        /// 13	(Psychic) <br/>
+        /// 14	(Celestial) <br/>
         /// 15	(Exposive)
         /// </summary>
         /// <param name="projectile"></param>

@@ -103,9 +103,9 @@ namespace ShardsOfAtheria.Utilities
         }
 
         /// <summary>
-        /// 0 (Fire)
-        /// 1 (Aqua)
-        /// 2 (Elec)
+        /// 0 (Fire) <br/>
+        /// 1 (Aqua) <br/>
+        /// 2 (Elec) <br/>
         /// 3 (Wood)
         /// </summary>
         /// <param name="item"></param>
@@ -116,20 +116,20 @@ namespace ShardsOfAtheria.Utilities
         }
 
         /// <summary>
-        /// 1	(Arcane)
-        /// 2	(Fire)
-        /// 3	(Water)
-        /// 4	(Ice)
-        /// 5	(Earth)
-        /// 6	(Wind)
-        /// 7	(Thunder)
-        /// 8	(Holy)
-        /// 9	(Shadow)
-        /// 10	(Nature)
-        /// 11	(Poison)
-        /// 12	(Blood)
-        /// 13	(Psychic)
-        /// 14	(Celestial)
+        /// 1	(Arcane) <br/>
+        /// 2	(Fire) <br/>
+        /// 3	(Water) <br/>
+        /// 4	(Ice) <br/>
+        /// 5	(Earth) <br/>
+        /// 6	(Wind) <br/>
+        /// 7	(Thunder) <br/>
+        /// 8	(Holy) <br/>
+        /// 9	(Shadow) <br/>
+        /// 10	(Nature) <br/>
+        /// 11	(Poison) <br/>
+        /// 12	(Blood) <br/>
+        /// 13	(Psychic) <br/>
+        /// 14	(Celestial) <br/>
         /// 15	(Exposive)
         /// </summary>
         /// <param name="item"></param>
