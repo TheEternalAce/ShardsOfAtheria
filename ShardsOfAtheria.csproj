@@ -40,6 +40,7 @@
   <ItemGroup>
     <None Remove="Buffs\PlayerBuff\DiamondBarrierBuff.png" />
     <None Remove="Buffs\PlayerBuff\MourningSatisfaction.png" />
+    <None Remove="Buffs\PlayerBuff\PartisanBuff.png" />
     <None Remove="Buffs\PlayerBuff\ShadeState.png" />
     <None Remove="Items\Accessories\GemCores\AmberCape.png" />
     <None Remove="Items\Armor\Areus\Imperial\ImperialGreaves.png" />
@@ -57,6 +58,7 @@
     <None Remove="Projectiles\Magic\ElectricHook_Chain.png" />
     <None Remove="Projectiles\Magic\VoidDagger.png" />
     <None Remove="Projectiles\Melee\AreusJustitia\HardlightSlashHostile.png" />
+    <None Remove="Projectiles\Melee\AreusRetribution.png" />
     <None Remove="Projectiles\Melee\VoidSlash.png" />
     <None Remove="Projectiles\Melee\ZenovaProjectile.png" />
     <None Remove="Projectiles\Other\RubyShard.png" />
@@ -91,6 +93,9 @@
     </Reference>
     <Reference Include="CollisionLib">
       <HintPath>..\ModAssemblies\CollisionLib_v3.1.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureHelper">
+      <HintPath>..\..\ModReader\StructureHelper\StructureHelper.dll</HintPath>
     </Reference>
     <Reference Include="WebCom">
       <HintPath>..\..\..\tModLoader-preview\ModReader\WebCom\WebCom.dll</HintPath>

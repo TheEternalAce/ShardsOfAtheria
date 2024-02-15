@@ -1115,7 +1115,7 @@ Items: {
 			'''
 	}
 
-	# Place-ables
+	# Placeables
 	# Banners
 	CaveHarpyBanner: {
 		DisplayName: Cavern Harpy Banner
@@ -1168,6 +1168,11 @@ Items: {
 		Tooltip: Used to make areus equipment
 	}
 
+	BurriedPartizanItem: {
+		DisplayName: Burried Areus Partisan
+		Tooltip: ""
+	}
+
 	NovaTrophy: {
 		DisplayName: Nova Stellar's Trophy
 		Tooltip: ""
@@ -1204,7 +1209,12 @@ Items: {
 		Tooltip: "'A rare stone that has the properties to emit temporary matter'"
 	}
 
-	# Potions
+	# Buff Items
+	AreusInjection: {
+		DisplayName: Areus Injection
+		Tooltip: ""
+	}
+
 	BoneMarrowInjection: {
 		DisplayName: Bone Marrow Injection
 		Tooltip: Strengthens your bones
@@ -1233,6 +1243,16 @@ Items: {
 		DisplayName: Insulation Potion
 		Description: Reduced damage from Elec element
 		Tooltip: ""
+	}
+
+	PlagueInjection: {
+		DisplayName: Gamma Plague Injection
+		Tooltip:
+			'''
+			Increased damage and defense
+			Reduced movement and attack speed
+			'You're injecting plague into your body, what do you expect?'
+			'''
 	}
 
 	SoulInjection: {
@@ -1838,6 +1858,11 @@ Items: {
 		Overdrive: Fires lightning while held out
 	}
 
+	AreusPartisan: {
+		DisplayName: Areus Retribution
+		Tooltip: ""
+	}
+
 	AreusSawstring: {
 		DisplayName: Areus Sawstring
 		Tooltip: ""
@@ -1869,8 +1894,9 @@ Items: {
 		DisplayName: Cross Dagger
 		Tooltip:
 			'''
-			A blade that heals 100 Life after striking an enemy
-			Taking damage while this is in your inventory will disable this effect for a time
+			A blade that sprays blood when striking an enemy
+			Some of the blood will heal the user
+			There rest will damage other enemies
 			'''
 	}
 
@@ -1880,6 +1906,15 @@ Items: {
 			'''
 			Dashing increases damage for a short time
 			'Cut through the very fabric of life and escalate the heat death of the universe'
+			'''
+	}
+
+	FuckEarlyGameHarpies: {
+		DisplayName: Broken Areus Partisan
+		Tooltip:
+			'''
+			'A broken weapon is better than no weapon, right?'
+			'Specifically made to deal with early game harpies'
 			'''
 	}
 
@@ -2364,14 +2399,9 @@ Items: {
 			'''
 	}
 
-	PlagueInjection: {
-		DisplayName: Gamma Plague Injection
-		Tooltip:
-			'''
-			Increased damage and defense
-			Reduced movement and attack speed
-			'You're injecting plague into your body, what do you expect?'
-			'''
+	SalamanderClaw: {
+		DisplayName: Salamander Claw
+		Tooltip: ""
 	}
 }
 
@@ -2527,6 +2557,7 @@ Projectiles: {
 	AreusSwordProj.DisplayName: Areus Sword
 	ElecBaton.DisplayName: Areus Baton
 	BloodCutter.DisplayName: Blood Cut
+	BrokenAreusPartizan.DisplayName: Broken Areus Partisan
 	DeathScythe.DisplayName: Blood Scythe
 	CataracniaEye.DisplayName: Cataracnia Eye
 	CorruptPetal.DisplayName: Corrupt Petal
@@ -2677,6 +2708,9 @@ Projectiles: {
 	EmeraldShot.DisplayName: Emerald Shot
 	AcidWater.DisplayName: Acid Water
 	SandTrail.DisplayName: Sand Trail
+	AreusPartizan.DisplayName: Areus Partizan
+	AreusPartizanThrown.DisplayName: Areus Partizan Thrown
+	AreusRetribution.DisplayName: Areus Retribution
 }
 
 NPCs: {
@@ -3286,6 +3320,16 @@ Buffs: {
 		DisplayName: PLAGUE Infused
 		Description: You hurt, but your enemies will hurt more
 	}
+
+	EnergizedWeapon: {
+		DisplayName: Energized Weapon
+		Description: 15% ncreased attack speed
+	}
+
+	PartisanBuff: {
+		DisplayName: Retribution
+		Description: Next melee strike from {$Items.AreusPartisan.DisplayName} is empowered
+	}
 }
 
 Necronomicon: {
@@ -3367,6 +3411,7 @@ Tiles: {
 	AreusFabricator.MapEntry: Areus Fabricator
 	Trophy.MapEntry: Trophy
 	NightlightLamp.MapEntry: Nightlight Lamp
+	BurriedPartizan.MapEntry: Burried Areus Partisan
 }
 
 Keybinds: {

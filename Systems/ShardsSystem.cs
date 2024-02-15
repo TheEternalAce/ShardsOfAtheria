@@ -3,8 +3,10 @@ using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Tiles;
 using ShardsOfAtheria.Tiles.Furniture;
 using ShardsOfAtheria.Utilities;
+using StructureHelper;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.IO;
 using Terraria.ModLoader;
@@ -16,7 +18,7 @@ namespace ShardsOfAtheria.Systems
     {
         public bool omegaKey;
         public bool omegaShrine;
-        public bool underworldDecaShrine;
+        public bool atherianTomb;
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
@@ -33,6 +35,12 @@ namespace ShardsOfAtheria.Systems
             if (ShiniesIndex1 != -1)
             {
                 tasks.Insert(ShiniesIndex1 + 1, new UnderworldShrinePass("UnderworldShrine", 237.4298f));
+            }
+            int ShiniesIndex2 = tasks.FindIndex(genpass => genpass.Name.Equals("Random Gems"));
+
+            if (ShiniesIndex2 != -1)
+            {
+                tasks.Insert(ShiniesIndex2 + 1, new AtherianTombPass("AtherianTomb", 237.4298f));
             }
         }
 
@@ -93,7 +101,7 @@ namespace ShardsOfAtheria.Systems
 
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {
-            progress.Message = "Generating shrines";
+            progress.Message = "Generating Omega Shrine";
             // attempts to spawn shrine 1000 times, so hopefully it actually will generate
             for (int t = 0; t < 1000; t++)
             {
@@ -271,6 +279,38 @@ namespace ShardsOfAtheria.Systems
                 }
             }
             return true;
+        }
+    }
+
+    public class AtherianTombPass : GenPass
+    {
+        public AtherianTombPass(string name, float loadWeight) : base(name, loadWeight)
+        {
+
+        }
+
+        protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
+        {
+            progress.Message = "Placing Atherian Tomb";
+            int x = 0;
+            int y = 0;
+            bool validPlacement = false;
+            while (!validPlacement)
+            {
+                if (Main.tile[x, y].HasTile && Main.tile[x, y].TileType == TileID.Dirt)
+                {
+                    validPlacement = true; break;
+                }
+                int maxTilesXOver7 = Main.maxTilesX / 7;
+                int maxTilesYOver7 = Main.maxTilesY / 7;
+                x = WorldGen.genRand.Next(maxTilesXOver7 * 3, maxTilesXOver7 * 4);
+                y = WorldGen.genRand.Next(maxTilesYOver7, maxTilesYOver7 * 2);
+            }
+            if (validPlacement)
+            {
+                Point16 point = new(x, y);
+                Generator.GenerateStructure("Structures/AtherianTomb", point, SoA.Instance);
+            }
         }
     }
 }

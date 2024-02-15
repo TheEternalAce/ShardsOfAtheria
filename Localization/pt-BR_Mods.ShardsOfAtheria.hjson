@@ -1093,7 +1093,7 @@ Items: {
 			'''
 	}
 
-	# Place-ables
+	# Placeables
 	# Banners
 	CaveHarpyBanner: {
 		DisplayName: Cavern Harpy Banner
@@ -1146,6 +1146,11 @@ Items: {
 		Tooltip: Used to make areus equipment
 	}
 
+	BurriedPartizanItem: {
+		// DisplayName: Burried Areus Partisan
+		// Tooltip: ""
+	}
+
 	NovaTrophy: {
 		DisplayName: Nova Stellar's Trophy
 		Tooltip: ""
@@ -1182,7 +1187,12 @@ Items: {
 		Tooltip: ""
 	}
 
-	# Potions
+	# Buff Items
+	AreusInjection: {
+		// DisplayName: Areus Injection
+		// Tooltip: ""
+	}
+
 	BoneMarrowInjection: {
 		DisplayName: Bone Marrow Injection
 		Tooltip: Strengthens your bones
@@ -1207,6 +1217,16 @@ Items: {
 		// DisplayName: Insulation Potion
 		// Description: Reduced damage from Elec element
 		// Tooltip: ""
+	}
+
+	PlagueInjection: {
+		// DisplayName: Gamma Plague Injection
+		/* Tooltip:
+			'''
+			Increased damage and defense
+			Reduced movement and attack speed
+			'You're injecting plague into your body, what do you expect?'
+			''' */
 	}
 
 	SoulInjection: {
@@ -1811,6 +1831,11 @@ Items: {
 		// Overdrive: Fires lightning while held out
 	}
 
+	AreusPartisan: {
+		// DisplayName: Areus Retribution
+		// Tooltip: ""
+	}
+
 	AreusSawstring: {
 		// DisplayName: Areus Sawstring
 		// Tooltip: ""
@@ -1854,6 +1879,15 @@ Items: {
 			Dashing increases damage for a short time
 			'Cut through the very fabric of life and escalate the heat death of the universe'
 			'''
+	}
+
+	FuckEarlyGameHarpies: {
+		// DisplayName: Broken Areus Partisan
+		/* Tooltip:
+			'''
+			'A broken weapon is better than no weapon, right?'
+			'Specifically made to deal with early game harpies'
+			''' */
 	}
 
 	GenesisAndRagnarok: {
@@ -2342,14 +2376,9 @@ Items: {
 			''' */
 	}
 
-	PlagueInjection: {
-		// DisplayName: Gamma Plague Injection
-		/* Tooltip:
-			'''
-			Increased damage and defense
-			Reduced movement and attack speed
-			'You're injecting plague into your body, what do you expect?'
-			''' */
+	SalamanderClaw: {
+		// DisplayName: Salamander Claw
+		// Tooltip: ""
 	}
 }
 
@@ -2505,6 +2534,7 @@ Projectiles: {
 	AreusSwordProj.DisplayName: Areus Sword
 	// ElecBaton.DisplayName: Areus Baton
 	BloodCutter.DisplayName: Blood Cutter
+	// BrokenAreusPartizan.DisplayName: Broken Areus Partisan
 	// DeathScythe.DisplayName: Blood Scythe
 	// CataracniaEye.DisplayName: Cataracnia Eye
 	CorruptPetal.DisplayName: Corrupt Petal
@@ -2655,6 +2685,9 @@ Projectiles: {
 	// EmeraldShot.DisplayName: Emerald Shot
 	// AcidWater.DisplayName: Acid Water
 	// SandTrail.DisplayName: Sand Trail
+	// AreusPartizan.DisplayName: Areus Partizan
+	// AreusPartizanThrown.DisplayName: Areus Partizan Thrown
+	// AreusRetribution.DisplayName: Areus Retribution
 }
 
 NPCs: {
@@ -2697,7 +2730,7 @@ NPCs: {
 		Dialogue: {
 			// InitialSummon: You dare challenge me mortal? Interesting. Fine then, I'll entertain you for a bit.
 			// MidFight: You're pretty strong huh? I wonder how you handle this.
-			// Defeat: Congratulations, you've defeated Death herself. Will you try to face me again? I wonder.
+			// Defeat: Congratulations, you've defeated Death herself. ... I need some coffee.
 			# Refight
 			// InitialSummonRe: Welcome back, ready for another round?
 			// MidFightRe: placeholder.
@@ -2706,7 +2739,7 @@ NPCs: {
 			// InitialSummonSlayer: Your first mistake was starting this path. Your final mistake is crossing mine.
 			// MidFightSlayer: You won't kill me so easily. Try this on for size.
 			// Desperation: Seems like I underestimated you... (This isn't good... I must do something...)
-			// Death: Oh the irony... It was about my time anyway.
+			// Death: Oh the irony... .
 		}
 	}
 
@@ -2739,8 +2772,6 @@ NPCs: {
 				''' */
 			// AtheriaComment: Atheria is a lovely place, but there's an overpopulation problem. Long story short is: our goddess wasn't too keen on giving us such a short lifespan like humans. So she made us nigh-immortal and, turns out, that makes things not so great for a small planet.
 			// ExComment: My ex? Yes, Nova, I'm sure you've already guessed by now. We didn't separate on exactly good terms.
-			// GoldCrownThought: Hmm.. I reckon a Gold Crown would suit you well!
-			// GoldCrownCompliment: Yes yes, the Gold Crown does suit you well!
 			// MorshuMoment: Sorry {0}, what is this 'credit'? Come back when you have some coin! Or maybe you wanna chat? That's fine too.
 			// CSGOReference: Last blood moon I heard {0} shouting 'Door stuck,' what's that about?
 			// GiftCrest: Here, have this. No particular reason, I just don't want it anymore.
@@ -3270,6 +3301,16 @@ Buffs: {
 		// DisplayName: PLAGUE Infused
 		// Description: You hurt, but your enemies will hurt more
 	}
+
+	EnergizedWeapon: {
+		// DisplayName: Energized Weapon
+		// Description: 15% ncreased attack speed
+	}
+
+	PartisanBuff: {
+		// DisplayName: Retribution
+		// Description: Next melee strike from {$Items.AreusPartisan.DisplayName} is empowered
+	}
 }
 
 Necronomicon: {
@@ -3351,6 +3392,7 @@ Tiles: {
 	// AreusFabricator.MapEntry: Areus Fabricator
 	// Trophy.MapEntry: Trophy
 	// NightlightLamp.MapEntry: Nightlight Lamp
+	// BurriedPartizan.MapEntry: Burried Areus Partisan
 }
 
 Keybinds: {

@@ -257,6 +257,17 @@ namespace ShardsOfAtheria.ShardsUI
                 ConsumeItems(materials);
                 mainSlot.Item = new(ModContent.ItemType<AreusOrbiter>());
             }
+            if (RepairPartisan())
+            {
+                int[,] materials = new[,]
+                {
+                    { ModContent.ItemType<FuckEarlyGameHarpies>(), 1 },
+                    { ModContent.ItemType<AreusShard>(), 20 },
+                    { ItemID.LunarBar, 14 },
+                };
+                ConsumeItems(materials);
+                mainSlot.Item = new(ModContent.ItemType<AreusPartisan>());
+            }
             #endregion
             if (UpgradeWar())
             {
@@ -452,6 +463,23 @@ namespace ShardsOfAtheria.ShardsUI
                 return false;
             }
             if (!AnySlotContains(ItemID.BeetleHusk, 15))
+            {
+                return false;
+            }
+            return true;
+        }
+        bool RepairPartisan()
+        {
+            var item = mainSlot.Item;
+            if (item.type != ModContent.ItemType<FuckEarlyGameHarpies>())
+            {
+                return false;
+            }
+            if (!AnySlotContains(ModContent.ItemType<AreusShard>(), 20))
+            {
+                return false;
+            }
+            if (!AnySlotContains(ItemID.LunarBar, 14))
             {
                 return false;
             }
