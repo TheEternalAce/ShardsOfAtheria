@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
             Item.knockBack = 1.5f;
 
             Item.rare = ItemDefaults.RarityPreBoss;
-            Item.value = ItemDefaults.ValueEyeOfCthulhu;
+            Item.value = 1; //ItemDefaults.ValueEyeOfCthulhu; formerly 50 silver, rest in piece
             Item.shoot = ModContent.ProjectileType<BBProj>();
             Item.shootSpeed = 4f;
             Item.ammo = AmmoID.Bullet;
