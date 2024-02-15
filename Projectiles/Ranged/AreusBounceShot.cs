@@ -65,7 +65,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.NPCHit4, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
 
             // If collide with tile, reduce the penetrate.
             // So the projectile can reflect at most 5 times
