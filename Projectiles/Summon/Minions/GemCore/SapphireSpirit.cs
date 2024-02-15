@@ -3,6 +3,7 @@ using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,9 +12,12 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
     public class SapphireSpirit : ModProjectile
     {
         int shootTimer = 0;
-        int idleTimer = 0;
+        int emoteTimer = 0;
+        int sleepyTimer = 0;
         bool sleep = false;
         bool grounded = false;
+
+        readonly string[] randomEmotes = [":3", ":D", "X3", "XD", ":)", ">:3", ">:)", ":o"];
 
         public override void SetStaticDefaults()
         {
@@ -51,6 +55,12 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
         public override bool MinionContactDamage()
         {
             return false;
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            CombatText.NewText(Projectile.Hitbox, Color.Blue, "XD");
+            SoundEngine.PlaySound(SoundID.Item53.WithPitchOffset(2.5f), Projectile.Center);
         }
 
         public override void AI()
@@ -103,8 +113,14 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                 Projectile.netUpdate = true;
             }
 
-            float overlapVelocity = 0.04f;
+            if (++emoteTimer >= 900 + Main.rand.Next(300) && !sleep)
+            {
+                CombatText.NewText(Projectile.Hitbox, Color.Blue, randomEmotes[Main.rand.Next(randomEmotes.Length)]);
+                SoundEngine.PlaySound(SoundID.Item53.WithPitchOffset(2), Projectile.Center);
+                emoteTimer = 0;
+            }
 
+            float overlapVelocity = 0.04f;
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
                 Projectile other = Main.projectile[i];
@@ -183,7 +199,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             else
             {
                 sleep = false;
-                idleTimer = 0;
+                sleepyTimer = 0;
                 Projectile.frame = 0;
                 Projectile.frameCounter = 0;
             }
@@ -192,12 +208,12 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
         private void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
         {
             // Default movement parameters (here for attacking)
-            float speed = 4;
+            float speed = 12;
             float inertia = 80;
 
             if (foundTarget)
             {
-                idleTimer = 0;
+                sleepyTimer = 0;
                 speed = 16f;
                 inertia = 80f;
 
@@ -239,7 +255,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                 speed = 26f;
                 inertia = 40f;
             }
-            if (idleTimer >= 400)
+            if (sleepyTimer >= 400)
             {
                 speed = 2;
             }
@@ -250,9 +266,9 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                 vectorToIdlePosition.Normalize();
                 vectorToIdlePosition *= speed;
                 Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
-                if (idleTimer > 0)
+                if (sleepyTimer > 0)
                 {
-                    idleTimer--;
+                    sleepyTimer--;
                 }
             }
             else if (Projectile.velocity == Vector2.Zero)
@@ -260,7 +276,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                 Projectile.velocity.X = -0.15f;
                 Projectile.velocity.Y = -0.05f;
             }
-            else if (++idleTimer >= 600)
+            else if (++sleepyTimer >= 600)
             {
                 sleep = true;
                 Projectile.velocity.X = 0;
@@ -287,7 +303,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             if (Vector2.Distance(owner.Center, Projectile.Center) >= 200)
             {
                 sleep = false;
-                idleTimer = 0;
+                sleepyTimer = 0;
                 grounded = false;
             }
         }
@@ -311,7 +327,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             // So it will lean slightly towards the direction it's moving
             Projectile.rotation = Projectile.velocity.X * 0.05f;
 
-            if (idleTimer >= 400)
+            if (sleepyTimer >= 400)
             {
                 Projectile.frame = 1;
                 return;
@@ -350,10 +366,16 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
         {
             if (!grounded)
             {
-                SoundEngine.PlaySound(SoundID.Item53);
+                SoundEngine.PlaySound(SoundID.Item53, Projectile.Center);
                 grounded = true;
             }
             return false;
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            CombatText.NewText(Projectile.Hitbox, Color.Blue, ":(");
+            SoundEngine.PlaySound(SoundID.Item53.WithPitchOffset(1.5f), Projectile.Center);
         }
     }
 }

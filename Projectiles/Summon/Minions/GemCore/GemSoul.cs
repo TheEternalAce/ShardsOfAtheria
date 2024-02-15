@@ -4,6 +4,7 @@ using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,10 +14,14 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
     {
         int shootTimer = 0;
         int projectileShootTimer = 300;
+        int emoteTimer = 0;
         int sleepyTimer = 0;
         bool sleep = false;
         bool grounded = false;
 
+        readonly string[] randomEmotes = [":3", ":D", "X3", "XD", ":)", ">:3", ">:)", ":o"];
+
+        int blinkTimer = 0;
         int animationState = ANIMATION_IDLE;
         const int ANIMATION_IDLE = 0;
         const int ANIMATION_PLATFORM = 1;
@@ -59,6 +64,12 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             return false;
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            CombatText.NewText(Projectile.Hitbox, Color.Blue, "<3");
+            SoundEngine.PlaySound(SoundID.Item53.WithPitchOffset(1.5f), Projectile.Center);
+        }
+
         public override void AI()
         {
             Player owner = Main.player[Projectile.owner];
@@ -72,13 +83,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 
             Visuals();
             GeneralBehavior(owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition);
-            bool foundTarget = false;
-            float distanceFromTarget = 0;
-            Vector2 targetCenter = Vector2.Zero;
-            if (owner.Gem().sapphireSpiritUpgrade)
-            {
-                SearchForTargets(owner, out foundTarget, out distanceFromTarget, out targetCenter);
-            }
+            SearchForTargets(owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter);
             if (sleep && !foundTarget)
             {
                 DoSleep();
@@ -96,9 +101,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             Vector2 idlePosition = owner.Center;
             idlePosition.X -= 48f * owner.direction;
             idlePosition.Y -= 16f;
-
-            float minionPositionOffsetX = (10 + Projectile.minionPos * 40) * -owner.direction;
-            idlePosition.X += minionPositionOffsetX;
 
             vectorToIdlePosition = idlePosition - Projectile.Center;
             distanceToIdlePosition = vectorToIdlePosition.Length();
@@ -151,6 +153,13 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                 Projectile.ai[0] = 0;
             }
 
+            if (++emoteTimer >= 900 + Main.rand.Next(300) && !sleep)
+            {
+                CombatText.NewText(Projectile.Hitbox, Color.Blue, randomEmotes[Main.rand.Next(randomEmotes.Length)]);
+                SoundEngine.PlaySound(SoundID.Item53.WithPitchOffset(1), Projectile.Center);
+                emoteTimer = 0;
+            }
+
             float overlapVelocity = 0.04f;
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
@@ -186,72 +195,75 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             targetCenter = Projectile.position;
             foundTarget = false;
 
-            // This code is required if your minion weapon has the targeting feature
-            if (owner.HasMinionAttackTargetNPC)
+            if (owner.Gem().sapphireSpiritUpgrade)
             {
-                NPC npc = Main.npc[owner.MinionAttackTargetNPC];
-                float between = Vector2.Distance(npc.Center, Projectile.Center);
-
-                // Reasonable distance away so it doesn't target across multiple screens
-                if (between < 2000f)
+                // This code is required if your minion weapon has the targeting feature
+                if (owner.HasMinionAttackTargetNPC)
                 {
-                    distanceFromTarget = between;
-                    targetCenter = npc.Center;
-                    foundTarget = true;
-                }
-            }
+                    NPC npc = Main.npc[owner.MinionAttackTargetNPC];
+                    float between = Vector2.Distance(npc.Center, Projectile.Center);
 
-            if (!foundTarget)
-            {
-                // This code is required either way, used for finding a target
-                for (int i = 0; i < Main.maxNPCs; i++)
-                {
-                    NPC npc = Main.npc[i];
-
-                    if (npc.CanBeChasedBy())
+                    // Reasonable distance away so it doesn't target across multiple screens
+                    if (between < 2000f)
                     {
-                        float between = Vector2.Distance(npc.Center, Projectile.Center);
-                        bool closest = Vector2.Distance(Projectile.Center, targetCenter) > between;
-                        bool inRange = between < distanceFromTarget;
-                        bool lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height);
-                        // Additional check for this specific minion behavior, otherwise it will stop attacking once it dashed through an enemy while flying though tiles afterwards
-                        // The number depends on various parameters seen in the movement code below. Test different ones out until it works alright
-                        bool closeThroughWall = between < 100f;
+                        distanceFromTarget = between;
+                        targetCenter = npc.Center;
+                        foundTarget = true;
+                    }
+                }
 
-                        if ((closest && inRange || !foundTarget) && (lineOfSight || closeThroughWall))
+                if (!foundTarget)
+                {
+                    // This code is required either way, used for finding a target
+                    for (int i = 0; i < Main.maxNPCs; i++)
+                    {
+                        NPC npc = Main.npc[i];
+
+                        if (npc.CanBeChasedBy())
                         {
-                            distanceFromTarget = between;
-                            targetCenter = npc.Center;
-                            foundTarget = true;
+                            float between = Vector2.Distance(npc.Center, Projectile.Center);
+                            bool closest = Vector2.Distance(Projectile.Center, targetCenter) > between;
+                            bool inRange = between < distanceFromTarget;
+                            bool lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height);
+                            // Additional check for this specific minion behavior, otherwise it will stop attacking once it dashed through an enemy while flying though tiles afterwards
+                            // The number depends on various parameters seen in the movement code below. Test different ones out until it works alright
+                            bool closeThroughWall = between < 100f;
+
+                            if ((closest && inRange || !foundTarget) && (lineOfSight || closeThroughWall))
+                            {
+                                distanceFromTarget = between;
+                                targetCenter = npc.Center;
+                                foundTarget = true;
+                            }
                         }
                     }
                 }
-            }
-            else
-            {
-                sleep = false;
-                sleepyTimer = 0;
-                Projectile.frame = 0;
-                Projectile.frameCounter = 0;
+                else
+                {
+                    sleep = false;
+                    sleepyTimer = 0;
+                    Projectile.frame = 0;
+                    Projectile.frameCounter = 0;
+                }
             }
         }
 
         private void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
         {
             // Default movement parameters (here for attacking)
-            float speed = 12;
+            float speed = 4;
             float inertia = 80;
 
             if (foundTarget)
             {
-                sleepyTimer = 0;
-                speed = 16f;
-                inertia = 80f;
-
                 if (Projectile.damage == 0)
                 {
                     return;
                 }
+                sleep = false;
+                sleepyTimer = 0;
+                emoteTimer = 0;
+                Projectile.velocity = vectorToIdlePosition * 0.055f;
                 if (++shootTimer >= 90)
                 {
                     Projectile.frame = 4;
@@ -301,6 +313,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                                 }
                                 if (hostileProjectileMovingTowardsPlayer)
                                 {
+                                    sleep = false;
                                     Projectile.frame = 4;
                                     Projectile.frameCounter = 0;
                                     Projectile.spriteDirection = projectile.Center.X > Projectile.Center.X ? 1 : -1;
@@ -337,8 +350,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             }
             else if (Projectile.velocity == Vector2.Zero)
             {
-                Projectile.velocity.X = -0.15f;
-                Projectile.velocity.Y = -0.05f;
+                Projectile.velocity.X = -0.05f;
+                Projectile.velocity.Y = -0.01f;
             }
             else if (++sleepyTimer >= 600)
             {
@@ -411,13 +424,22 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             {
                 maxframe = 1;
             }
+            if (sleepyTimer > 400)
+            {
+                maxframe = 3;
+            }
+            if (blinkTimer > 0)
+            {
+                blinkTimer--;
+            }
             switch (Projectile.frame)
             {
                 case 0:
-                    if (Projectile.frameCounter == 0 && (Main.rand.NextBool(20) || sleepyTimer > 400))
+                    if (Projectile.frameCounter == 0 && ((Main.rand.NextBool(20) && blinkTimer <= 0) || sleepyTimer > 400))
                     {
                         Projectile.frame += 2;
                         maxframe += 2;
+                        blinkTimer = 60;
                     }
                     frameTime = 7;
                     break;
@@ -447,6 +469,10 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                 if (Projectile.frame > maxframe)
                 {
                     Projectile.frame = 0;
+                    if (sleepyTimer > 400)
+                    {
+                        Projectile.frame = 2;
+                    }
                 }
             }
         }
@@ -455,10 +481,16 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
         {
             if (!grounded)
             {
-                SoundEngine.PlaySound(SoundID.Item53);
+                SoundEngine.PlaySound(SoundID.Item53, Projectile.Center);
                 grounded = true;
             }
             return false;
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            CombatText.NewText(Projectile.Hitbox, Color.Blue, "...");
+            SoundEngine.PlaySound(SoundID.Item53.WithPitchOffset(0.5f), Projectile.Center);
         }
     }
 }
