@@ -36,35 +36,47 @@ namespace ShardsOfAtheria.Items
         public const int RarityMoonLord = ItemRarityID.Red;
 
         /// <summary>
-        /// 2 silver
+        /// 2 silver (sell)
+        /// 10 silver (buy)
         /// </summary>
         public static int ValueBuffPotion => Item.sellPrice(silver: 2);
         /// <summary>
-        /// 2 gold
+        /// 2 gold (sell)
+        /// 10 gold (buy)
         /// </summary>
         public static int ValueRelicTrophy => Item.sellPrice(gold: 2);
         /// <summary>
-        /// 50 silver
+        /// 75 silver (sell)
+        /// 3 gold 75 silver (buy)
+        /// </summary>
+        public static int ValueBossMasks => Item.sellPrice(silver: 75);
+        /// <summary>
+        /// 50 silver (sell)
+        /// 2 gold 50 silver (buy)
         /// </summary>
         public static int ValueEyeOfCthulhu => Item.sellPrice(silver: 50);
         /// <summary>
-        /// 50 silver
+        /// 50 silver (sell)
         /// </summary>
         public static int ValueBloodMoon => Item.sellPrice(silver: 50);
         /// <summary>
-        /// 1 gold 75 silver
+        /// 1 gold 75 silver (sell)
+        /// 8 gold 75 silver (buy)
         /// </summary>
         public static int ValueDungeon => Item.sellPrice(gold: 1, silver: 75);
         /// <summary>
-        /// 3 gold
+        /// 3 gold (sell)
+        /// 15 gold (buy)
         /// </summary>
         public static int ValueEarlyHardmode => Item.sellPrice(gold: 3);
         /// <summary>
-        /// 6 gold
+        /// 6 gold (sell)
+        /// 30 gold (buy)
         /// </summary>
         public static int ValueHardmodeDungeon => Item.sellPrice(gold: 6);
         /// <summary>
-        /// 10 gold
+        /// 10 gold (sell)
+        /// 50 gold (buy)
         /// </summary>
         public static int ValueLunarPillars => Item.sellPrice(gold: 10);
     }
