@@ -9,8 +9,8 @@ namespace ShardsOfAtheria.Items.Accessories
     {
         public override void SetDefaults()
         {
-            Item.width = 16;
-            Item.height = 22;
+            Item.width = 34;
+            Item.height = 26;
             Item.accessory = true;
             Item.expert = true;
 
