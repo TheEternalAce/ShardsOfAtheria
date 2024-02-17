@@ -9,6 +9,7 @@ using ShardsOfAtheria.Items.PetItems;
 using ShardsOfAtheria.Items.Placeable.Furniture.Trophies;
 using ShardsOfAtheria.Items.Placeable.Furniture.Trophies.Master;
 using ShardsOfAtheria.Items.SoulCrystals;
+using ShardsOfAtheria.Items.Vanity;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
@@ -171,6 +172,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<NovaRelic>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<NovaTrophy>(), 10));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ThunderValkyrieMask>(), 10));
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<SmallHardlightCrest>(), 4));
 
             slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieSoulCrystal>()));
