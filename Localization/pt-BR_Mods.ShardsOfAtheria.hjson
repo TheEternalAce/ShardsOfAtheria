@@ -2363,14 +2363,18 @@ Items: {
 
 	MaskedPlagueCell: {
 		// DisplayName: Masked Plague Cell
-		// Tooltip: Masked Plague Module modified to be used with {$Items.PlagueRailgun.DisplayName}
+		/* Tooltip:
+			'''
+			A Masked Plague Module modified to be used with the {$Items.PlagueRailgun.DisplayName}
+			Makes the {$Items.PlagueRailgun.DisplayName} fire an explosive and piercing beam
+			''' */
 	}
 
 	PlagueRailgun: {
 		// DisplayName: Gamma Plague Railgun
 		/* Tooltip:
 			'''
-			Uses Gamma Plague Cells as ammo
+			Uses {$Items.PlagueCell.DisplayName}s as ammo
 			66% chance to not consume cells
 			'Now I am become Death, destroyer of worlds'
 			''' */
@@ -2378,6 +2382,16 @@ Items: {
 
 	SalamanderClaw: {
 		// DisplayName: Salamander Claw
+		// Tooltip: ""
+	}
+
+	SkullMask: {
+		// DisplayName: Skull Mask
+		// Tooltip: ""
+	}
+
+	ThunderValkyrieMask: {
+		// DisplayName: Thunder Valkyrie Mask
 		// Tooltip: ""
 	}
 }
@@ -2688,6 +2702,7 @@ Projectiles: {
 	// AreusPartizan.DisplayName: Areus Partizan
 	// AreusPartizanThrown.DisplayName: Areus Partizan Thrown
 	// AreusRetribution.DisplayName: Areus Retribution
+	// PlagueBeam2.DisplayName: Plague Beam2
 }
 
 NPCs: {
@@ -3310,6 +3325,11 @@ Buffs: {
 	PartisanBuff: {
 		// DisplayName: Retribution
 		// Description: Next melee strike from {$Items.AreusPartisan.DisplayName} is empowered
+	}
+
+	WandBuff: {
+		// DisplayName: Areus Wand Empowerment
+		// Description: Next blade strike from {$Items.AreusWand.DisplayName} is empowered
 	}
 }
 
