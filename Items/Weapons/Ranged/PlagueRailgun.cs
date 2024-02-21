@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Weapons.Ammo;
-using ShardsOfAtheria.Projectiles.Ranged;
+using ShardsOfAtheria.Projectiles.Ranged.PlagueRail;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -55,6 +55,16 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override bool CanConsumeAmmo(Item ammo, Player player)
         {
             return Main.rand.NextFloat() < 0.66f;
+        }
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            if (type == ModContent.ProjectileType<PlagueBeam2>())
+            {
+                var cloneVelocity = velocity;
+                cloneVelocity.Normalize();
+                position += cloneVelocity * 66f;
+            }
         }
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)

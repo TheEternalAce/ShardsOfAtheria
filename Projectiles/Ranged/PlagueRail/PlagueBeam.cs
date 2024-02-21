@@ -7,7 +7,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Ranged
+namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
 {
     public class PlagueBeam : ModProjectile
     {

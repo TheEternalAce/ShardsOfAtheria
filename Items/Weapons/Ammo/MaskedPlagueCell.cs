@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Projectiles.Ranged.PlagueRail;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -23,21 +24,25 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
 
         public override void SetDefaults()
         {
-            Item.width = 18;
-            Item.height = 30;
+            Item.width = 20;
+            Item.height = 28;
+            Item.maxStack = 9999;
+            Item.consumable = true;
+
             Item.rare = ItemRarityID.Pink;
-            Item.value = Item.sellPrice(silver: 45);
+            Item.value = Item.sellPrice(silver: 2);
             Item.ammo = ModContent.ItemType<PlagueCell>();
+            Item.shoot = ModContent.ProjectileType<PlagueBeam2>();
         }
 
         public override void AddRecipes()
         {
             var modItem = ModLoader.GetMod("GMR").Find<ModItem>("MaskedPlagueModule");
-            CreateRecipe()
+            CreateRecipe(100)
                 .AddIngredient(modItem.Type)
                 .Register();
             Recipe.Create(modItem.Type)
-                .AddIngredient(Type)
+                .AddIngredient(Type, 100)
                 .Register();
         }
     }

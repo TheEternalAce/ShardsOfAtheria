@@ -24,7 +24,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
             Item.consumable = true;
 
             Item.rare = ItemDefaults.RarityHardmodeDungeon;
-            Item.value = ItemDefaults.ValueEarlyHardmode;
+            Item.value = 1000;
             Item.ammo = Type;
         }
 
