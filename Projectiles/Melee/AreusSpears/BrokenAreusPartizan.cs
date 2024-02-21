@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 
-namespace ShardsOfAtheria.Projectiles.Melee
+namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
 {
     public class BrokenAreusPartizan : CoolSword
     {

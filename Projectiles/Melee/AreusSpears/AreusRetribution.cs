@@ -8,7 +8,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Melee
+namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
 {
     public class AreusRetribution : ModProjectile
     {

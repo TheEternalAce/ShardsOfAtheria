@@ -8,7 +8,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Melee
+namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
 {
     public class AreusPartizanThrown : ModProjectile
     {
@@ -74,7 +74,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             for (int i = 0; i < NUM_DUSTS; i++)
             {
                 int dustType = ModContent.DustType<AreusDust>();
-                if (i > 40 || (i < 16 && i > 8))
+                if (i > 40 || i < 16 && i > 8)
                 {
                     dustType = DustID.Gold;
                 }
