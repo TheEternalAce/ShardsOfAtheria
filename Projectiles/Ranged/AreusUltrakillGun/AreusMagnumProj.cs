@@ -94,7 +94,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
                     ChargeTimer--;
                     if (ChargeTimer < 0)
                     {
-                        if (chargeLevel < 10) //increment charge level and play charge increase visual effects (white flash + loading click sound)
+                        if (chargeLevel < 9) //increment charge level and play charge increase visual effects (white flash + loading click sound)
                         {
                             Fire();
                             if (!Owner.Shards().Overdrive)
@@ -107,7 +107,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
                     }
                 }
             }
-            else
+            else if (chargeLevel == 9)
             {
                 if (charging) //run for a single frame when player stops channeling weapon
                 {
@@ -130,7 +130,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
             int damage = Projectile.originalDamage;
             recoilAmount += 2f;
             recoilAmount -= recoilAmount * AttackSpeed;
-            if (chargeLevel == 10 || Owner.Shards().Overdrive)
+            if (chargeLevel == 9 || Owner.Shards().Overdrive)
             {
                 recoilAmount = 2f;
                 if (Owner.Shards().Overdrive)
