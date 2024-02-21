@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -30,6 +31,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
             Projectile.tileCollide = false;
             Projectile.penetrate = 5;
             Projectile.timeLeft = 60;
+            Projectile.extraUpdates = 3;
 
             DrawOffsetX = -1;
         }
@@ -98,7 +100,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
 
                 Vector2 vector2 = Projectile.Center - player.Center;
                 vector2.Normalize();
-                vector2 *= 12;
+                vector2 *= 36;
                 if (target.lifeMax < 2000 && !target.boss && target.CanBeChasedBy())
                 {
                     target.velocity = -vector2;
@@ -117,6 +119,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Electrified, 600);
+            Projectile.GetPlayerOwner().AddBuff<WandBuff>(2);
             IsStickingToTarget = true; // we are sticking to a target
             TargetWhoAmI = target.whoAmI; // Set the target whoAmI
             Projectile.velocity =

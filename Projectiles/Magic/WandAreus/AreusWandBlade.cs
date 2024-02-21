@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Utilities;
@@ -25,9 +26,28 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
             amountAllowedToHit = 3;
         }
 
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (Projectile.GetPlayerOwner().HasBuff<WandBuff>())
+            {
+                modifiers.ScalingBonusDamage += 1f;
+            }
+        }
+
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Electrified, 300);
+            var player = Projectile.GetPlayerOwner();
+            if (player.HasBuff<WandBuff>())
+            {
+                int mana = 24;
+                var vector = player.Center - target.Center;
+                vector.Normalize();
+                player.velocity += vector * 16f;
+                player.ClearBuff<WandBuff>();
+                player.ManaEffect(mana);
+                player.statMana += mana;
+            }
             base.OnHitNPC(target, hit, damageDone);
         }
 
@@ -76,7 +96,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
 
         public override bool PreDraw(ref Color lightColor)
         {
-            return SingleEdgeSwordDraw(lightColor);
+            return SingleEdgeSwordDraw(SoA.ElectricColorA);
         }
     }
 }
