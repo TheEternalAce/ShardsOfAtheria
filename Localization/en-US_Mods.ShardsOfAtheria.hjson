@@ -1212,7 +1212,12 @@ Items: {
 	# Buff Items
 	AreusInjection: {
 		DisplayName: Areus Injection
-		Tooltip: ""
+		Tooltip:
+			'''
+			Increases attack speed by 15%
+			'Generally not recommended to inject liquid metals into your bloodstream'
+			'Especially if they're electrifying!'
+			'''
 	}
 
 	BoneMarrowInjection: {
