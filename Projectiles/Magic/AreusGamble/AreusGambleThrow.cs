@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
@@ -10,6 +11,8 @@ namespace ShardsOfAtheria.Projectiles.Magic.AreusGamble
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
+
+            SoAGlobalProjectile.Metalic.Add(Type, 0.2f);
         }
 
         public override void SetDefaults()
@@ -26,10 +29,10 @@ namespace ShardsOfAtheria.Projectiles.Magic.AreusGamble
         {
             Projectile.rotation += MathHelper.Pi / 6 * Projectile.direction;
             float maxDetectDistance = 1000f;
-            var target = Projectile.FindClosestNPC(maxDetectDistance);
+            var target = Projectile.FindClosestNPC(null, maxDetectDistance);
             if (target != null)
             {
-                Projectile.Track(target, maxDetectDistance);
+                Projectile.Track(target);
             }
         }
     }

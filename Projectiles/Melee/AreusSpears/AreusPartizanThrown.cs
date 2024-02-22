@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Dusts;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -18,6 +19,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
         {
             Projectile.AddAreus(true);
             Projectile.AddRedemptionElement(9);
+
+            SoAGlobalProjectile.Metalic.Add(Type, 1f);
         }
 
         public override void SetDefaults()

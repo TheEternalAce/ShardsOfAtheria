@@ -52,7 +52,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Whip
                 int[] blacklistWhoAmI = [-1, -1, target.whoAmI];
                 for (int i = 0; i < chains; i++)
                 {
-                    var newTarget = ShardsHelpers.FindClosestNPC(target.Center, 800, blacklistWhoAmI);
+                    var newTarget = ShardsHelpers.FindClosestNPC(target.Center, null, 800, blacklistWhoAmI);
                     if (newTarget != null && newTarget.CanBeChasedBy())
                     {
                         var vector = newTarget.Center + newTarget.velocity - target.Center;

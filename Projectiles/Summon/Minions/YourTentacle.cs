@@ -80,7 +80,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
 
             // Trying to find NPC closest to the projectile
-            NPC closestNPC = Projectile.FindClosestNPC(maxDetectRadius);
+            NPC closestNPC = Projectile.FindClosestNPC(null, maxDetectRadius);
             if (closestNPC == null)
             {
                 GeneralBehavior(owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition);
@@ -168,7 +168,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             // Default movement parameters (here for attacking)
             float maxDetectRadius = 400f;
 
-            NPC closestNPC = Projectile.FindClosestNPC(maxDetectRadius);
+            NPC closestNPC = Projectile.FindClosestNPC(null, maxDetectRadius);
 
             if (closestNPC == null)
             {

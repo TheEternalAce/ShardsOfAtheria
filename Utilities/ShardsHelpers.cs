@@ -257,7 +257,7 @@ namespace ShardsOfAtheria.Utilities
             return valid;
         }
 
-        public static NPC FindClosestNPC(Vector2 pos, float maxDist = 2000f, params int[] blacklistedWhoAmI)
+        public static NPC FindClosestNPC(Vector2 pos, Func<NPC, bool> additionalChecks, float maxDist = 2000f, params int[] blacklistedWhoAmI)
         {
             NPC closestNPC = null;
 
@@ -275,7 +275,7 @@ namespace ShardsOfAtheria.Utilities
                 // 4. can take damage (e.g. moonlord core after all it's parts are downed)
                 // 5. hostile (!friendly)
                 // 6. not immortal (e.g. not a target dummy)
-                if (target.CanBeChasedBy())
+                if (target.CanBeChasedBy() && (additionalChecks == null || additionalChecks(target)))
                 {
                     // The DistanceSquared function returns a squared distance between 2 points, skipping relatively expensive square root calculations
                     float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, pos);

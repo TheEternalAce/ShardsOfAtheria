@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Projectiles.Other
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 
             // Trying to find NPC closest to the projectile
-            NPC closestNPC = Projectile.FindClosestNPC(maxDetectRadius);
+            NPC closestNPC = Projectile.FindClosestNPC(null, maxDetectRadius);
             if (closestNPC == null)
                 return;
 

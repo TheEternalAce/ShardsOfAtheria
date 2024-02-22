@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -16,6 +17,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         {
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
+
+            SoAGlobalProjectile.Metalic.Add(Type, 1f);
         }
 
         public override void SetDefaults()
@@ -88,7 +91,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                 }
             }
 
-            var npc = Projectile.FindClosestNPC(100);
+            var npc = Projectile.FindClosestNPC(null, 100);
             if (npc != null)
             {
                 var velocity = npc.Center - Projectile.Center;

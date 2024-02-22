@@ -16,11 +16,71 @@ namespace ShardsOfAtheria.Globals
         public bool tempAreus = false;
         public bool explosion = false;
 
-        public static readonly Dictionary<int, bool> AreusProj = new();
-        public static readonly List<int> Eraser = new();
-
-        public static readonly List<int> ReflectAiList = new()
+        public static readonly Dictionary<int, bool> AreusProj = [];
+        public static readonly List<int> Eraser = [];
+        public static readonly Dictionary<int, float> Metalic = new()
         {
+            #region Melee
+            {ProjectileID.Anchor, 1f},
+            {ProjectileID.BallOHurt, 1f},
+            {ProjectileID.BloodyMachete, 1f},
+            {ProjectileID.ChainGuillotine, 1f },
+            {ProjectileID.ChainKnife, 1f },
+            {ProjectileID.ChlorophyteOrb, 1f},
+            {ProjectileID.FlamingMace, 1f},
+            {ProjectileID.Mace, 1f},
+            {ProjectileID.TheMeatball, 1f},
+            #endregion
+            #region Ranged
+            {ProjectileID.Bullet, 1f},
+            {ProjectileID.BulletDeadeye, 1f},
+            {ProjectileID.BulletHighVelocity, 1f},
+            {ProjectileID.BulletSnowman, 1f},
+            {ProjectileID.ChlorophyteBullet, 1f},
+            {ProjectileID.MoonlordBullet, 1f},
+            {ProjectileID.SilverBullet, 1f},
+            {ProjectileID.SniperBullet, 1f},
+
+            {ProjectileID.ChlorophyteArrow, 1f},
+            {ProjectileID.MoonlordArrow, 1f},
+
+            {ProjectileID.Nail, 0.33f},
+            {ProjectileID.NailFriendly, 0.1f},
+
+            {ProjectileID.RocketI, 3f },
+            {ProjectileID.RocketII, 3f },
+            {ProjectileID.RocketIII, 3f },
+            {ProjectileID.RocketIV, 3f },
+            {ProjectileID.MiniNukeRocketI, 3f },
+            {ProjectileID.MiniNukeRocketII, 3f },
+            {ProjectileID.ClusterRocketI, 3f },
+            {ProjectileID.ClusterRocketII, 3f },
+
+            {ProjectileID.DD2JavelinHostile, 1f },
+            {ProjectileID.DD2JavelinHostileT3, 1f },
+            {ProjectileID.JavelinFriendly, 1f },
+            {ProjectileID.JavelinHostile, 1f },
+            {ProjectileID.PoisonedKnife, 1f },
+            {ProjectileID.Shuriken, 1f },
+            {ProjectileID.SpikyBall, 1f },
+            {ProjectileID.ThrowingKnife, 1f },
+
+            {ProjectileID.PoisonDartBlowgun, 1f },
+
+            {ProjectileID.CopperCoin, 1f },
+            {ProjectileID.GoldCoin, 1f },
+            {ProjectileID.PlatinumCoin, 1f },
+            {ProjectileID.SilverCoin, 1f },
+            {ProjectileID.MechanicalPiranha, 1f },
+            {ProjectileID.Harpoon, 1f },
+            #endregion
+            #region Summon
+            {ProjectileID.DD2BallistraProj, 1f },
+            #endregion
+        };
+        #region Reflectable AI Styles
+        public static readonly List<int> ReflectAiList =
+        [
             0,
             1,
             2,
@@ -93,7 +153,8 @@ namespace ShardsOfAtheria.Globals
             151,
             179,
             181
-        };
+        ];
+        #endregion
 
         public override bool InstancePerEntity => true;
 
@@ -168,6 +229,18 @@ namespace ShardsOfAtheria.Globals
                             proj.Kill();
                         }
                     }
+                }
+            }
+            if (Metalic.ContainsKey(type))
+            {
+                var npc = ShardsHelpers.FindClosestNPC(projectile.Center, (npc) => npc.HasBuff<Magnetic>(), 200f);
+                if (npc != null)
+                {
+                    float speed = projectile.velocity.Length();
+                    var vectorToTarget = npc.Center - projectile.Center;
+                    ShardsHelpers.AdjustMagnitude(ref vectorToTarget, speed);
+                    projectile.velocity = (4 * projectile.velocity + vectorToTarget) / 2f;
+                    ShardsHelpers.AdjustMagnitude(ref projectile.velocity, speed);
                 }
             }
         }

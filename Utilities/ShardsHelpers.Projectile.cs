@@ -60,9 +60,9 @@ namespace ShardsOfAtheria.Utilities
         /// </summary>
         /// <param name="maxDetectDistance"></param>
         /// <returns></returns>
-        public static NPC FindClosestNPC(this Projectile projectile, float maxDetectDistance, params int[] blaclkistedWhoAmI)
+        public static NPC FindClosestNPC(this Projectile projectile, Func<NPC, bool> additionalChecks, float maxDetectDistance, params int[] blaclkistedWhoAmI)
         {
-            return FindClosestNPC(projectile.position, maxDetectDistance, blaclkistedWhoAmI);
+            return FindClosestNPC(projectile.position, additionalChecks, maxDetectDistance, blaclkistedWhoAmI);
         }
 
         public static Player FindClosestPlayer(this Projectile projectile, float maxDetectDistance, params int[] blaclkistedWhoAmI)
@@ -102,6 +102,15 @@ namespace ShardsOfAtheria.Utilities
             direction *= speed;
 
             projectile.velocity = (projectile.velocity * (inertia - 1) + direction) / inertia;
+        }
+
+        public static void AdjustMagnitude(ref Vector2 vector, float num1)
+        {
+            float num = (float)Math.Sqrt((double)(vector.X * vector.X + vector.Y * vector.Y));
+            if (num > 1.5f)
+            {
+                vector *= num1 / num;
+            }
         }
 
         public static void SetVisualOffsets(this Projectile projectile, int spriteSize, bool center = false)

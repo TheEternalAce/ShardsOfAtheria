@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -14,6 +15,8 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus(true);
+
+            SoAGlobalProjectile.Metalic.Add(Type, 0.5f);
         }
 
         public override void SetDefaults()
@@ -75,7 +78,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
                     if (proj.Distance(Projectile.Center) <= 30)
                     {
                         float speed = proj.velocity.Length();
-                        NPC npc = Projectile.FindClosestNPC(-1);
+                        NPC npc = Projectile.FindClosestNPC(null, -1);
                         if (npc != null)
                         {
                             if (npc.CanBeChasedBy())

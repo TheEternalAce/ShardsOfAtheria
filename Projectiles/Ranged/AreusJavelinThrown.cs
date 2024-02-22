@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
@@ -10,6 +11,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
+
+            SoAGlobalProjectile.Metalic.Add(Type, 1f);
         }
 
         public override void SetDefaults()
@@ -53,7 +56,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                     // Trying to find NPC closest to the projectile
                     if (targetNPC == null || !targetNPC.CanBeChasedBy())
                     {
-                        targetNPC = Projectile.FindClosestNPC(maxDetectRadius);
+                        targetNPC = Projectile.FindClosestNPC(null, maxDetectRadius);
                         return;
                     }
                     Projectile.Track(targetNPC, speed, 8);

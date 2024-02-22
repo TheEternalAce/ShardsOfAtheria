@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
             // Projectile.direction is automatically set correctly in Projectile.Update, but we need to set it here or the textures will draw incorrectly on the 1st frame.
             Projectile.spriteDirection = Projectile.direction = (Projectile.velocity.X < 0).ToDirectionInt();
 
-            NPC target = Projectile.FindClosestNPC(400);
+            NPC target = Projectile.FindClosestNPC(null, 400);
             if (target == null)
             {
                 return;

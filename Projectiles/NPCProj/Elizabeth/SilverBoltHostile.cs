@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -14,6 +15,8 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+
+            SoAGlobalProjectile.Metalic.Add(Type, 1f);
         }
 
         public override void SetDefaults()

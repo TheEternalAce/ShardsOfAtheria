@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using System;
@@ -22,9 +23,12 @@ namespace ShardsOfAtheria
         public const string AddNecronomiconColor = "addColoredNecronomiconEntry";
         public const string AddSlainBoss = "addSlainBoss";
 
+        public const string AddMagneticProjectile = "addMagnetProj";
+
         public const string InvalidPlayer = " is not a valid Player type.";
         public const string InvalidBool = " is not a valid bool.";
         public const string InvalidInt = " is not a valid int.";
+        public const string InvalidFloat = " is not a valid float.";
         public const string InvalidProjectile = " is not a valid Projectile type.";
         public const string InvalidString = " is not a valid string.";
         public const string InvalidMod = " is not a valid mod.";
@@ -164,15 +168,32 @@ namespace ShardsOfAtheria
                             }
                             else
                             {
-                                throw new ArgumentException(args[3].GetType().Name + InvalidString);
+                                throw new ArgumentException(args[2].GetType().Name + InvalidString);
                             }
                         }
                         else
                         {
-                            throw new ArgumentException(args[2].GetType().Name + InvalidPlayer);
+                            throw new ArgumentException(args[1].GetType().Name + InvalidPlayer);
                         }
                     case FlagSoulCrystalConfig:
                         return ClientConfig.instantAbsorb;
+                    case AddMagneticProjectile:
+                        if (args[1] is Projectile magneticProjectile)
+                        {
+                            if (args[2] is float magnetDamage)
+                            {
+                                SoAGlobalProjectile.Metalic.Add(magneticProjectile.type, magnetDamage);
+                                break;
+                            }
+                            else
+                            {
+                                throw new ArgumentException(args[2].GetType().Name + InvalidFloat);
+                            }
+                        }
+                        else
+                        {
+                            throw new ArgumentException(args[1].GetType().Name + InvalidInt);
+                        }
                 }
             }
             return false;

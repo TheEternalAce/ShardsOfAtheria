@@ -69,7 +69,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             // Trying to find NPC closest to the projectile
             if (targetNPC == null || !targetNPC.active)
             {
-                targetNPC = Projectile.FindClosestNPC(maxDetectRadius);
+                targetNPC = Projectile.FindClosestNPC(null, maxDetectRadius);
                 return;
             }
 

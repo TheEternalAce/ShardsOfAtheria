@@ -2417,6 +2417,11 @@ Items: {
 		DisplayName: Thunder Valkyrie Mask
 		Tooltip: ""
 	}
+
+	StickingMagnet: {
+		DisplayName: Magnet Dart
+		Tooltip: Causes certain metalic projectiles to home in on struck enemies
+	}
 }
 
 Projectiles: {
@@ -2726,6 +2731,7 @@ Projectiles: {
 	AreusPartizanThrown.DisplayName: Areus Partizan Thrown
 	AreusRetribution.DisplayName: Areus Retribution
 	PlagueBeam2.DisplayName: Plague Beam2
+	StickingMagnetProj.DisplayName: MagnetDart
 }
 
 NPCs: {
@@ -3349,6 +3355,11 @@ Buffs: {
 	WandBuff: {
 		DisplayName: Areus Wand Empowerment
 		Description: Next blade strike from {$Items.AreusWand.DisplayName} is empowered
+	}
+
+	Magnetic: {
+		DisplayName: Magnetic
+		Description: Mods.ShardsOfAtheria.Buffs.Magnetic.Description
 	}
 }
 

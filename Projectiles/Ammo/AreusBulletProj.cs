@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -12,6 +13,8 @@ namespace ShardsOfAtheria.Projectiles.Ammo
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
+
+            SoAGlobalProjectile.Metalic.Add(Type, 1f);
         }
 
         public override void SetDefaults()

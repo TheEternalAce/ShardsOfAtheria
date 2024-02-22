@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.NPCDebuff;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Gores;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -14,6 +15,8 @@ namespace ShardsOfAtheria.Projectiles.Summon
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
+
+            SoAGlobalProjectile.Metalic.Add(Type, 1f);
         }
 
         public override void SetDefaults()

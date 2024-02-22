@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -8,6 +9,11 @@ namespace ShardsOfAtheria.Projectiles.Ammo
 {
     public class BBProj : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            SoAGlobalProjectile.Metalic.Add(Type, 1f);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 6; // The width of projectile hitbox

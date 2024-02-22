@@ -1,4 +1,5 @@
 ﻿using ShardsOfAtheria.Dusts;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -15,6 +16,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
             Main.projFrames[Type] = 2;
+
+            SoAGlobalProjectile.Metalic.Add(Type, 1f);
         }
 
         public override void SetDefaults()

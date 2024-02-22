@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
         public override void AI()
         {
             Projectile.spriteDirection = Projectile.direction = (Projectile.velocity.X > 0).ToDirectionInt();
-            NPC target = Projectile.FindClosestNPC(200);
+            NPC target = Projectile.FindClosestNPC(null, 200);
             bool validTarget = target != null;
             if (validTarget)
             {

@@ -63,7 +63,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.Track(idlePosition);
 
             // Trying to find NPC closest to the projectile
-            NPC closestNPC = Projectile.FindClosestNPC(3000);
+            NPC closestNPC = Projectile.FindClosestNPC(null, 3000);
             if (closestNPC != null)
             {
                 if (++Projectile.ai[1] >= 60 + 100 * Main.rand.NextFloat())

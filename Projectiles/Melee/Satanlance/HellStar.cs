@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.Satanlance
             int maxDetectRange = 300;
             if (target == null)
             {
-                target = Projectile.FindClosestNPC(maxDetectRange);
+                target = Projectile.FindClosestNPC(null, maxDetectRange);
                 return;
             }
             Projectile.Track(target, maxDetectRange);

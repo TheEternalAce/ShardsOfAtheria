@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Melee.Sawstring;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -14,6 +15,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusOrbit
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
+
+            SoAGlobalProjectile.Metalic.Add(Type, 1f);
         }
 
         public override void SetDefaults()

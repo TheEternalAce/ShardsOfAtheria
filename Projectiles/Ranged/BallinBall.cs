@@ -60,7 +60,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             }
             Projectile.scale += 0.1f;
             Projectile.alpha += 25;
-            NPC closestNPC = Projectile.FindClosestNPC(1000, target.whoAmI);
+            NPC closestNPC = Projectile.FindClosestNPC(null, 1000, target.whoAmI);
             if (closestNPC != null)
             {
                 float oldLength = Projectile.velocity.Length();

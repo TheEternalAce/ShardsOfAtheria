@@ -76,7 +76,7 @@ namespace ShardsOfAtheria.Projectiles.Ammo
                 {
                     float maxDetectRadius = 400f;
 
-                    NPC closestNPC = Projectile.FindClosestNPC(maxDetectRadius);
+                    NPC closestNPC = Projectile.FindClosestNPC(null, maxDetectRadius);
                     if (closestNPC == null)
                         return;
 

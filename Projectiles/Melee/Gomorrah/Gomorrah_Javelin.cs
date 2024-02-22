@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -14,6 +15,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.Gomorrah
         {
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
+
+            SoAGlobalProjectile.Metalic.Add(Type, 1f);
         }
 
         public override void SetDefaults()
