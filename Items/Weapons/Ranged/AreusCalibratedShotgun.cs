@@ -60,10 +60,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             return true;
         }
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            var shards = player.Shards();
-            bool overdrive = shards.Overdrive;
             if (player.altFunctionUse == 2)
             {
                 calibrationMode++;
@@ -74,8 +72,14 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 var key = this.GetLocalizationKey("Calibration" + calibrationMode + ".DisplayName");
                 string calibration = Language.GetTextValue(key);
                 CombatText.NewText(player.Hitbox, Color.Cyan, calibration);
-                return false;
+                type = 0;
             }
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            var shards = player.Shards();
+            bool overdrive = shards.Overdrive;
             int numberProjectiles = 2 + Main.rand.Next(0, 3);
             float rotation = MathHelper.ToRadians(20);
             if (calibrationMode == 1)
