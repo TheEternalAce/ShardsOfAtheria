@@ -17,13 +17,11 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
         {
             Main.debuff[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
-            BuffID.Sets.TimeLeftDoesNotDecrease[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.buffTime[buffIndex]++;
-            int severity = player.buffTime[buffIndex] / 600 + 1;
+            int severity = player.GetModPlayer<PlaguePlayer>().plagueSeverity;
             if (severity > 1)
             {
                 player.moveSpeed -= SpeedReduction;
@@ -37,18 +35,11 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
                 player.accRunSpeed -= SpeedReduction;
                 player.blackout = true;
             }
-            player.GetModPlayer<PlaguePlayer>().plagueSeverity = severity;
-            if (player.buffTime[buffIndex] > 3600)
-            {
-                player.DelBuff(buffIndex);
-                buffIndex--;
-            }
         }
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.buffTime[buffIndex] += 2;
-            int severity = npc.buffTime[buffIndex] / 600 + 1;
+            int severity = npc.GetGlobalNPC<PlagueNPC>().plagueSeverity;
             if (severity > 1)
             {
                 npc.StatSpeed() -= SpeedReduction;
@@ -57,24 +48,30 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
             {
                 npc.StatSpeed() -= SpeedReduction;
             }
-            npc.GetGlobalNPC<PlagueNPC>().plagueSeverity = severity;
-            if (npc.buffTime[buffIndex] > 3600)
-            {
-                npc.DelBuff(buffIndex);
-                buffIndex--;
-            }
         }
     }
 
     public class PlagueNPC : GlobalNPC
     {
         public int plagueSeverity;
+        public int plagueSeverityTimer;
 
         public override bool InstancePerEntity => true;
 
-        public override void ResetEffects(NPC npc)
+        public override void PostAI(NPC npc)
         {
-            plagueSeverity = 0;
+            if (npc.HasBuff<Plague>())
+            {
+                if (++plagueSeverityTimer >= 300)
+                {
+                    plagueSeverity++;
+                    plagueSeverityTimer = 0;
+                }
+            }
+            else
+            {
+                plagueSeverity = plagueSeverityTimer = 0;
+            }
         }
 
         public override void UpdateLifeRegen(NPC npc, ref int damage)
@@ -119,10 +116,22 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
     public class PlaguePlayer : ModPlayer
     {
         public int plagueSeverity;
+        public int plagueSeverityTimer;
 
-        public override void ResetEffects()
+        public override void PostUpdateBuffs()
         {
-            plagueSeverity = 0;
+            if (Player.HasBuff<Plague>())
+            {
+                if (++plagueSeverityTimer >= 300)
+                {
+                    plagueSeverity++;
+                    plagueSeverityTimer = 0;
+                }
+            }
+            else
+            {
+                plagueSeverity = plagueSeverityTimer = 0;
+            }
         }
 
         public override void UpdateBadLifeRegen()
