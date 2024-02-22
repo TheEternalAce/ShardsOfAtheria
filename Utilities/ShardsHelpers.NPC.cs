@@ -136,7 +136,10 @@ namespace ShardsOfAtheria.Utilities
         }
         public static void ClearBuff<T>(this NPC npc) where T : ModBuff
         {
-            npc.DelBuff(ModContent.BuffType<T>());
+            if (npc.HasBuff<T>())
+            {
+                npc.DelBuff(npc.FindBuffIndex(ModContent.BuffType<T>()));
+            }
         }
 
         public static void SetImmuneTo(this NPC npc, List<int> buffTypes)
