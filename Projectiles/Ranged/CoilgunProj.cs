@@ -85,7 +85,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
             if (BeingHeld)
             {
-                Projectile.timeLeft = 60; //constantly set timeLeft to greater than zero to allow projectile to remain infinitely as long as player channels weapon
+                Projectile.timeLeft = 60 - (int)(60 * (owner.GetTotalAttackSpeed(DamageClass.Ranged) - 1f)); //constantly set timeLeft to greater than zero to allow projectile to remain infinitely as long as player channels weapon
 
                 if (charging)
                 {
@@ -152,7 +152,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
             bool shoot = owner.PickAmmo(owner.HeldItem, out int dart, out float _,
                 out int _, out float knockback, out int _);
-            float speed = 8f;
+            float speed = 12f;
             int damage = Projectile.originalDamage;
             if (chargeLevel > 10)
             {
