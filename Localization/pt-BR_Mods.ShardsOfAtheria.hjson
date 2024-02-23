@@ -879,6 +879,17 @@ Items: {
 			''' */
 	}
 
+	# Vanity
+	SkullMask: {
+		// DisplayName: Skull Mask
+		// Tooltip: ""
+	}
+
+	ThunderValkyrieMask: {
+		// DisplayName: Thunder Valkyrie Mask
+		// Tooltip: ""
+	}
+
 	# Boss summons
 	PottedPlant: {
 		DisplayName: Vaso de Planta
@@ -1064,11 +1075,6 @@ Items: {
 	}
 
 	# Misc
-	OverdriveEnergyPack: {
-		DisplayName: Pacote de Energia Toda Velocidade
-		Tooltip: Recarrega o tempo de Toda Velocidade
-	}
-
 	AreusRod: {
 		// DisplayName: Areus Power Rod
 		/* Tooltip:
@@ -1076,6 +1082,26 @@ Items: {
 			Permanently makes Elec attacks inflict Electric Shock
 			After defeating Plantera, Elec attacks inflict Electrified
 			''' */
+	}
+
+	LifeCycleKeys: {
+		// DisplayName: Life Cycle Keys
+		// Tooltip: ""
+	}
+
+	MiniStarCritter: {
+		// DisplayName: Mini Areus Star
+		// Tooltip: ""
+	}
+
+	MiniStarCritter_Golden: {
+		// DisplayName: Golden Mini Areus Star
+		// Tooltip: ""
+	}
+
+	OverdriveEnergyPack: {
+		DisplayName: Pacote de Energia Toda Velocidade
+		Tooltip: Recarrega o tempo de Toda Velocidade
 	}
 
 	# Pet items
@@ -1581,6 +1607,15 @@ Items: {
 		Tooltip: ""
 	}
 
+	AmethystDagger: {
+		// DisplayName: Amethyst Dagger
+		/* Tooltip:
+			'''
+			Used to proc on-hurt effects
+			Self damage reduced by amethyst cores
+			''' */
+	}
+
 	AnchorChip: {
 		// DisplayName: Anchor Chip
 		// Tooltip: Prevents the jump from the final slash when using The Messiah
@@ -1664,6 +1699,20 @@ Items: {
 		Tooltip: May shatter when firing
 	}
 
+	MaskedPlagueCell: {
+		// DisplayName: Masked Plague Cell
+		/* Tooltip:
+			'''
+			A Masked Plague Module modified to be used with the {$Items.PlagueRailgun.DisplayName}
+			Makes the {$Items.PlagueRailgun.DisplayName} fire an explosive and piercing beam
+			''' */
+	}
+
+	PlagueCell: {
+		// DisplayName: Gamma Plague Cell
+		// Tooltip: ""
+	}
+
 	SpectralArrow: {
 		DisplayName: Spectral Arrow
 		Tooltip: ""
@@ -1672,6 +1721,11 @@ Items: {
 	SpectralBullet: {
 		DisplayName: Spectral Bullet
 		Tooltip: ""
+	}
+
+	StickingMagnet: {
+		// DisplayName: Magnet Dart
+		// Tooltip: Causes certain metalic projectiles to home in on struck enemies
 	}
 
 	# Magic
@@ -1739,6 +1793,16 @@ Items: {
 		Tooltip: ""
 	}
 
+	AreusWand: {
+		// DisplayName: Areus Wand
+		// Tooltip: ""
+	}
+
+	BloodScepter: {
+		// DisplayName: Blood Scepter
+		// Tooltip: "'Her father was the first'"
+	}
+
 	BrokenAreusMirror: {
 		DisplayName: Broken Areus Mirror
 		Tooltip:
@@ -1794,6 +1858,15 @@ Items: {
 			'''
 	}
 
+	SolarBladeStaff: {
+		// DisplayName: Solar Blade Staff
+		/* Tooltip:
+			'''
+			Deals increased damage during daytime
+			'Harness the sun's energy into a blade to cut down your foes!'
+			''' */
+	}
+
 	WormTench: {
 		DisplayName: Worm Tench
 		Tooltip: "'Gross, absolutely vile..'"
@@ -1834,6 +1907,11 @@ Items: {
 		// DisplayName: Areus Lance
 		// Tooltip: ""
 		// Overdrive: Fires lightning while held out
+	}
+
+	AreusOrbiter: {
+		// DisplayName: Areus Orbiter
+		// Tooltip: ""
 	}
 
 	AreusPartisan: {
@@ -2092,6 +2170,11 @@ Items: {
 		// Tooltip: ""
 	}
 
+	AreusFlareGun: {
+		// DisplayName: Areus Flare Gun
+		// Tooltip: ""
+	}
+
 	AreusGrenade: {
 		DisplayName: Areus Grenade
 		Tooltip: ""
@@ -2133,6 +2216,16 @@ Items: {
 	BlackHoleRepeater: {
 		DisplayName: Black Hole Repeater
 		Tooltip: Converts regular arrows into powerful Black Hole Bolts
+	}
+
+	BloodJavelin: {
+		// DisplayName: Blood Javelin
+		// Tooltip: ""
+	}
+
+	BloodStainedCrossbow: {
+		// DisplayName: Blood Stained Crossbow
+		// Tooltip: "'Her presence drove her bother mad'"
 	}
 
 	Coilgun: {
@@ -2228,6 +2321,16 @@ Items: {
 			'''
 	}
 
+	PlagueRailgun: {
+		// DisplayName: Gamma Plague Railgun
+		/* Tooltip:
+			'''
+			Uses {$Items.PlagueCell.DisplayName}s as ammo
+			66% chance to not consume cells
+			'Now I am become Death, destroyer of worlds'
+			''' */
+	}
+
 	Scarlet: {
 		DisplayName: Scarlet Rose
 		Tooltip:
@@ -2258,6 +2361,11 @@ Items: {
 			''' */
 	}
 
+	AreusStabberStaff: {
+		// DisplayName: Areus Blade Staff
+		// Tooltip: Summons an areus blade to fight for you
+	}
+
 	AreusStriker: {
 		// DisplayName: Areus Striker
 		/* Tooltip:
@@ -2266,6 +2374,16 @@ Items: {
 			{$CommonItemTooltip.Whips}
 			Strikes tag enemies up to 3 times
 			Tagged enemies will send out an electric arc at other tagged enemies when struck
+			''' */
+	}
+
+	BloodTome: {
+		// DisplayName: Blood Tome
+		/* Tooltip:
+			'''
+			Summons bloody sigils to fire sickles at your foes
+			There can be only up to 6 of these sigils
+			'Her mother feared her power'
 			''' */
 	}
 
@@ -2290,119 +2408,6 @@ Items: {
 	NestlingStaff: {
 		DisplayName: Nestling Staff
 		Tooltip: Summons a fledgling harpy knight to fight for you
-	}
-
-	BloodStainedCrossbow: {
-		// DisplayName: Blood Stained Crossbow
-		// Tooltip: "'Her presence drove her bother mad'"
-	}
-
-	BloodJavelin: {
-		// DisplayName: Blood Javelin
-		// Tooltip: ""
-	}
-
-	BloodScepter: {
-		// DisplayName: Blood Scepter
-		// Tooltip: "'Her father was the first'"
-	}
-
-	BloodTome: {
-		// DisplayName: Blood Tome
-		/* Tooltip:
-			'''
-			Summons bloody sigils to fire sickles at your foes
-			There can be only up to 6 of these sigils
-			'Her mother feared her power'
-			''' */
-	}
-
-	LifeCycleKeys: {
-		// DisplayName: Life Cycle Keys
-		// Tooltip: ""
-	}
-
-	AmethystDagger: {
-		// DisplayName: Amethyst Dagger
-		/* Tooltip:
-			'''
-			Used to proc on-hurt effects
-			Self damage reduced by amethyst cores
-			''' */
-	}
-
-	AreusOrbiter: {
-		// DisplayName: Areus Orbiter
-		// Tooltip: ""
-	}
-
-	AreusFlareGun: {
-		// DisplayName: Areus Flare Gun
-		// Tooltip: ""
-	}
-
-	MiniStarCritter: {
-		// DisplayName: Mini Areus Star
-		// Tooltip: ""
-	}
-
-	MiniStarCritter_Golden: {
-		// DisplayName: Golden Mini Areus Star
-		// Tooltip: ""
-	}
-
-	AreusStabberStaff: {
-		// DisplayName: Areus Blade Staff
-		// Tooltip: Summons an areus blade to fight for you
-	}
-
-	AreusWand: {
-		// DisplayName: Areus Wand
-		// Tooltip: ""
-	}
-
-	PlagueCell: {
-		// DisplayName: Gamma Plague Cell
-		// Tooltip: ""
-	}
-
-	MaskedPlagueCell: {
-		// DisplayName: Masked Plague Cell
-		/* Tooltip:
-			'''
-			A Masked Plague Module modified to be used with the {$Items.PlagueRailgun.DisplayName}
-			Makes the {$Items.PlagueRailgun.DisplayName} fire an explosive and piercing beam
-			''' */
-	}
-
-	PlagueRailgun: {
-		// DisplayName: Gamma Plague Railgun
-		/* Tooltip:
-			'''
-			Uses {$Items.PlagueCell.DisplayName}s as ammo
-			66% chance to not consume cells
-			'Now I am become Death, destroyer of worlds'
-			''' */
-	}
-
-	SalamanderClaw: {
-		// DisplayName: Salamander Claw
-		// Tooltip: ""
-	}
-
-	SkullMask: {
-		// DisplayName: Skull Mask
-		// Tooltip: ""
-	}
-
-	ThunderValkyrieMask: {
-		// DisplayName: Thunder Valkyrie Mask
-		// Tooltip: ""
-	}
-
-	StickingMagnet: {
-		// DisplayName: Magnet Dart
-		// Tooltip: Causes certain metalic projectiles to home in on struck enemies
 	}
 }
 
@@ -2714,6 +2719,7 @@ Projectiles: {
 	// AreusRetribution.DisplayName: Areus Retribution
 	// PlagueBeam2.DisplayName: Plague Beam2
 	// StickingMagnetProj.DisplayName: MagnetDart
+	// SolarBlade.DisplayName: Solar Blade
 }
 
 NPCs: {
