@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
     public class ElectricFlame : ModProjectile
     {
         public int dustType = DustID.Shadowflame;
-        public Color flameColor = SoA.ElectricColorA;
+        public Color flameColor = Color.Purple;
 
         private bool Spin
         {
@@ -24,9 +24,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
         {
             Main.projFrames[Type] = 7;
             Projectile.AddElement(0);
-            Projectile.AddElement(2);
             Projectile.AddRedemptionElement(2);
-            Projectile.AddRedemptionElement(7);
             Projectile.AddRedemptionElement(9);
         }
 

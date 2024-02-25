@@ -22,6 +22,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.AddAreus(true, true);
             Item.AddElement(0);
             Item.AddRedemptionElement(2);
+            Item.AddRedemptionElement(9);
         }
 
         public override void SetDefaults()

@@ -95,8 +95,10 @@ ElecDagger,Electric,
 ElecKnuckle,Electric,
 ElecScorpionFang,Electric,
 ElecScorpionTail,Electric,Poison
+ElectricFlame,Fire,Ghost
 ElectricHook,Electric,
 ElectricOrb,Electric,
+ElectricPie,Electric,Ghost
 ElectricSpike,Electric,
 FireCannon_Fire_Gauntlet,Electric,Fire
 GunswordProj,Steel,

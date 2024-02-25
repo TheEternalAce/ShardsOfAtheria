@@ -12,7 +12,7 @@ RedAreusPickaxe,Electric,,
 AreusGambit,Electric,Poison,"{""Tooltips"": [{""Type"":""Electric"",""Tooltip"": ""Fang: {0}""},{""Type"": ""Electric,Poison"",""Tooltip"": ""Tail: {0}""}]}"
 AreusGamble,Electric,,
 AreusGauntlet,Electric,Fire,
-AreusGhostLantern,Electric,Fire,"{""Tooltips"": [{""Type"":""Electric,Fire,Ghost"",""Tooltip"": ""Flames and ghosts: {0}""}]}"
+AreusGhostLantern,Electric,Fire,"{""Tooltips"": [{""Type"":""Electric,Ghost"",""Tooltip"": ""Ghosts: {0}""},{""Type"":""Fire,Ghost"",""Tooltip"": ""Flames: {0}""}]}"
 AreusScepter,Electric,,
 AreusShrieker,Electric,Normal,
 AreusSigil,Electric,,
