@@ -48,9 +48,12 @@ Vile,Poison,
 Void,Dark,
 TidalWave,Water,
 
+ColdExplosion,Water,Ice
 CrystalExplosion,Rock,
+ElectricExplosion,Electric,
 ElectricTrailFriendly,Electric,
 ElementExplosion,,
+FieryExplosion,Fire,
 GolemBeam,Fire,
 PhantasmalEye,Dragon,Dark
 RubyShard,Rock,
