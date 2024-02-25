@@ -645,10 +645,8 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
         {
             if (attackTimer > 30)
             {
-                float speed = 8f;
                 int direction = (NPC.Center.X > targetPosition.X ? 1 : -1);
                 Vector2 toPosition = targetPosition + new Vector2(150 * direction, 0);
-                //NPC.Track(toPosition, speed, speed);
                 var vectorToIdlePos = toPosition - NPC.Center;
                 NPC.velocity = vectorToIdlePos * 0.055f;
             }
