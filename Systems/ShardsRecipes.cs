@@ -21,10 +21,10 @@ namespace ShardsOfAtheria.Systems
         public static RecipeGroup Adamantite;
         public static RecipeGroup Soul;
         public static RecipeGroup HMAnvil;
-
         public static RecipeGroup Bullet;
         public static RecipeGroup Arrow;
         public static RecipeGroup Rocket;
+        public static RecipeGroup Tombstone;
 
         public override void Unload()
         {
@@ -38,6 +38,10 @@ namespace ShardsOfAtheria.Systems
             Adamantite = null;
             Soul = null;
             HMAnvil = null;
+            Bullet = null;
+            Arrow = null;
+            Rocket = null;
+            Tombstone = null;
         }
 
         public override void AddRecipeGroups()
@@ -78,6 +82,11 @@ namespace ShardsOfAtheria.Systems
                    ItemID.SoulofFlight, ItemID.SoulofFright, ItemID.SoulofLight, ItemID.SoulofMight, ItemID.SoulofNight, ItemID.SoulofSight, ModContent.ItemType<SoulOfDaylight>(),
                    ModContent.ItemType<SoulOfTwilight>(), ModContent.ItemType<SoulOfSpite>());
             RecipeGroup.RegisterGroup("Shards:Souls", Soul);
+
+            Tombstone = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Gravestone",
+                   ItemID.Tombstone, ItemID.Headstone, ItemID.GraveMarker, ItemID.Gravestone, ItemID.CrossGraveMarker, ItemID.Obelisk, ItemID.RichGravestone1,
+                   ItemID.RichGravestone2, ItemID.RichGravestone3, ItemID.RichGravestone4, ItemID.RichGravestone5);
+            RecipeGroup.RegisterGroup("Shards:Gravestone", Tombstone);
         }
 
         public override void AddRecipes()

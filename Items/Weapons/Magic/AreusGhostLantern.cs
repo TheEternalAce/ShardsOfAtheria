@@ -1,5 +1,8 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Magic;
+using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
@@ -31,7 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.damage = 42;
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 3f;
-            Item.mana = 2;
+            Item.mana = 12;
 
             Item.useTime = 5;
             Item.useAnimation = 25;
@@ -70,6 +73,17 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override bool CanUseItem(Player player)
         {
             return poes > 0;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<AreusShard>(20)
+                .AddIngredient(ItemID.GoldBar, 5)
+                .AddIngredient(ItemID.SoulofNight, 15)
+                .AddRecipeGroup(ShardsRecipes.Tombstone, 7)
+                .AddTile<AreusFabricator>()
+                .Register();
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
