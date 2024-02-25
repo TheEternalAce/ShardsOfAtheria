@@ -87,6 +87,11 @@ namespace ShardsOfAtheria.Projectiles.Melee
             }
         }
 
+        public override Vector2 GetOffsetVector(float progress)
+        {
+            return BaseAngleVector.RotatedBy((progress * (MathHelper.Pi * 1.5f) - MathHelper.PiOver2 * 1.5f) * -swingDirection * 1.1f);
+        }
+
         public override void UpdateSwing(float progress, float interpolatedSwingProgress)
         {
             FireProjectile(progress, ModContent.ProjectileType<WarframeSlash>(),
@@ -118,7 +123,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override bool PreDraw(ref Color lightColor)
         {
             var handPosition = Main.GetPlayerArmPosition(Projectile) + AngleVector * visualOutwards;
-            var drawColor = Projectile.GetAlpha(lightColor) * Projectile.Opacity;
+            var drawColor = SoA.ElectricColorA * Projectile.Opacity;
             var origin = new Vector2(0f, glowmask.Value.Height);
             var effects = SpriteEffects.None;
 
