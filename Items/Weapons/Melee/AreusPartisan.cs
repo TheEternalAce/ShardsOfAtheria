@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.autoReuse = true;
 
             Item.shootSpeed = 1f;
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityMoonLord;
             Item.value = ItemDefaults.ValueEyeOfCthulhu;
             Item.shoot = ModContent.ProjectileType<AreusPartizan>();
         }

@@ -9,13 +9,13 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
     {
         public override void SetDefaults()
         {
-            base.SetDefaults();
             Item.width = 18;
             Item.height = 18;
             Item.defense = 6;
 
             slotType = AreusArmorChip.SlotHead;
 
+            Item.rare = ItemDefaults.RarityDukeFishron;
             Item.value = ItemDefaults.ValueHardmodeDungeon;
         }
 

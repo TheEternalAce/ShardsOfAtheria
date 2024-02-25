@@ -37,8 +37,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void SetDefaults()
         {
-            Item.width = 32;
-            Item.height = 42;
+            Item.width = 46;
+            Item.height = 70;
 
             Item.damage = 25;
             Item.DamageType = DamageClass.Ranged;

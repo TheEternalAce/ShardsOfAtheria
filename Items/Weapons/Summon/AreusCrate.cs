@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 
             Item.shootSpeed = 10f;
             Item.value = ItemDefaults.ValueHardmodeDungeon;
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityDukeFishron;
             Item.shoot = ModContent.ProjectileType<AreusCrateProj>();
         }
 

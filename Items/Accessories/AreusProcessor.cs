@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.height = 36;
             Item.accessory = true;
 
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.value = ItemDefaults.ValueDungeon;
         }
 

@@ -12,14 +12,13 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
     {
         public override void SetDefaults()
         {
-            base.SetDefaults();
             Item.width = 18;
             Item.height = 18;
-
             Item.defense = 7;
 
             slotType = AreusArmorChip.SlotChest;
 
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.value = ItemDefaults.ValueDungeon;
         }
 

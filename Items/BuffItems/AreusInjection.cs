@@ -24,7 +24,7 @@ namespace ShardsOfAtheria.Items.BuffItems
             Item.consumable = true;
             Item.useTurn = true;
 
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.value = ItemDefaults.ValueBuffPotion;
 
             Item.buffType = ModContent.BuffType<EnergizedWeapon>();

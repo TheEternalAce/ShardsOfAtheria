@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.accessory = true;
             Item.defense = 6;
 
-            Item.rare = ItemDefaults.RarityHardlight;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.value = ItemDefaults.ValueDungeon;
             Item.expert = true;
         }

@@ -1859,7 +1859,7 @@ Items: {
 	}
 
 	SolarBladeStaff: {
-		// DisplayName: Solar Blade Staff
+		// DisplayName: Nature's Blade
 		/* Tooltip:
 			'''
 			Deals increased damage during daytime
@@ -2409,6 +2409,11 @@ Items: {
 		DisplayName: Nestling Staff
 		Tooltip: Summons a fledgling harpy knight to fight for you
 	}
+
+	AreusGhostLantern: {
+		// DisplayName: Areus Ghost Lantern
+		// Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -2719,7 +2724,11 @@ Projectiles: {
 	// AreusRetribution.DisplayName: Areus Retribution
 	// PlagueBeam2.DisplayName: Plague Beam2
 	// StickingMagnetProj.DisplayName: MagnetDart
-	// SolarBlade.DisplayName: Solar Blade
+	// SolarBlade.DisplayName: Nature's Blade
+	// ColdExplosion.DisplayName: Cold Explosion
+	// ElectricExplosion.DisplayName: Electric Explosion
+	// ElectricFlame.DisplayName: Electric Flame
+	// ElectricPoe.DisplayName: Electric Poe
 }
 
 NPCs: {

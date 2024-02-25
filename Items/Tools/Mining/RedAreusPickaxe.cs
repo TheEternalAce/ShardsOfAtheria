@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
             Item.autoReuse = true;
             Item.useTurn = true;
 
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = ItemDefaults.ValueDungeon;
         }
 

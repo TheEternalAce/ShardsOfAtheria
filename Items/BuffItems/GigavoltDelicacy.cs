@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Items.BuffItems
             Item.DefaultToPotion(BuffID.WellFed2, 28800);
             SoAGlobalItem.Potions.Remove(Type);
 
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.value = ItemDefaults.ValueBuffPotion;
         }
     }

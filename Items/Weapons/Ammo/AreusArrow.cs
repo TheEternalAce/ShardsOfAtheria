@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 2f;
 
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = ItemDefaults.ValueEarlyHardmode;
             Item.shoot = ModContent.ProjectileType<AreusArrowProj>();
             Item.shootSpeed = 3f;

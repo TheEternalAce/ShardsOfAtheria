@@ -26,7 +26,7 @@ namespace ShardsOfAtheria.Items.BuffItems
 
             Item.DefaultToPotion(ModContent.BuffType<Conductive>(), 14400);
 
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.value = ItemDefaults.ValueBuffPotion;
         }
 

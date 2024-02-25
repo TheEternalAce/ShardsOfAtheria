@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Items.Consumable
             Item.noMelee = true;
             Item.noUseGraphic = true;
 
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.makeNPC = ModContent.NPCType<Atherian>();
         }
 

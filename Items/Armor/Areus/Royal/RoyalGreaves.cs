@@ -12,14 +12,13 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
     {
         public override void SetDefaults()
         {
-            base.SetDefaults();
             Item.width = 18;
             Item.height = 18;
-
             Item.defense = 14;
 
             slotType = AreusArmorChip.SlotLegs;
 
+            Item.rare = ItemDefaults.RarityMoonLord;
             Item.value = ItemDefaults.ValueLunarPillars;
         }
 

@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Items.Tools.Hooks
             Item.shootSpeed = 18f;
             Item.shoot = ModContent.ProjectileType<AreusTetherHook>();
 
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityMoonLord;
             Item.value = ItemDefaults.ValueLunarPillars;
         }
 

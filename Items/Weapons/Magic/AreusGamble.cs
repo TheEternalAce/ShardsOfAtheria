@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 0f;
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = ItemDefaults.ValueEarlyHardmode;
             Item.shoot = ModContent.ProjectileType<AreusGambleRoll>();
         }

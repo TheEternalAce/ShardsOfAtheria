@@ -11,11 +11,6 @@ namespace ShardsOfAtheria.Items.Armor.Areus
     {
         public int slotType;
 
-        public override void SetDefaults()
-        {
-            Item.rare = ItemDefaults.RarityAreus;
-        }
-
         public AreusArmorPlayer ArmorPlayer;
         public override void UpdateEquip(Player player)
         {

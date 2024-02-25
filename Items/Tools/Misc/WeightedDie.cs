@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             Item.width = 44;
             Item.height = 44;
 
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = ItemDefaults.ValueDungeon;
         }
 

@@ -14,7 +14,6 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
 
         public override void SetDefaults()
         {
-            base.SetDefaults();
             Item.width = 18;
             Item.height = 18;
 
@@ -22,6 +21,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
 
             slotType = AreusArmorChip.SlotLegs;
 
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = ItemDefaults.ValueEarlyHardmode;
         }
 

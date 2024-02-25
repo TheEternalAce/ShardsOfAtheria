@@ -135,6 +135,11 @@ namespace ShardsOfAtheria.Utilities
             player.ClearBuff(ModContent.BuffType<T>());
         }
 
+        public static bool HasItem<T>(this Player player) where T : ModItem
+        {
+            return player.HasItem(ModContent.ItemType<T>());
+        }
+
         public static float CappedMeleeScale(this Player player)
         {
             var item = player.HeldItem;

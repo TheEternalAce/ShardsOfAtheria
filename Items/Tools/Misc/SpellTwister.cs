@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             Item.width = 32;
             Item.height = 32;
 
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityMoonLord;
             Item.value = ItemDefaults.ValueDungeon;
         }
 

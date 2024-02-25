@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Items.Materials
             Item.height = 32;
             Item.maxStack = 9999;
 
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.value = 10000;
         }
     }

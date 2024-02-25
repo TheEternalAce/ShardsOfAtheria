@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 
             Item.DefaultToWhip(ModContent.ProjectileType<AreusChainWhip>(), 40, 2, 3.55f);
 
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
         }
 
         public override void AddRecipes()

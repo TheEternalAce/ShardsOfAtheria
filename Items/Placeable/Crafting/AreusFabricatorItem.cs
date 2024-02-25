@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Items.Placeable.Crafting
             Item.useTurn = true;
             Item.autoReuse = true;
 
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.value = ItemDefaults.ValueEyeOfCthulhu;
         }
 

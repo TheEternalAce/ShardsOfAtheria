@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Items.BuffItems
 
             Item.DefaultToPotion(ModContent.BuffType<ChargedFlight>(), 28800);
 
-            Item.rare = ItemDefaults.RarityHardlight;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.value = ItemDefaults.ValueBuffPotion;
         }
 

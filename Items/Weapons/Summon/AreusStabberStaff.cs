@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             Item.noMelee = true;
 
             Item.shootSpeed = 0;
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityDukeFishron;
             Item.value = ItemDefaults.ValueEarlyHardmode;
             Item.shoot = ModContent.ProjectileType<AreusStabber>();
 

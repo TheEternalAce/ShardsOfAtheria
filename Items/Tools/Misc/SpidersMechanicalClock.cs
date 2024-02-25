@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc
             Item.useAnimation = 45;
             Item.useStyle = ItemUseStyleID.HoldUp;
 
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityMoonLord;
             Item.value = ItemDefaults.ValueLunarPillars;
         }
 

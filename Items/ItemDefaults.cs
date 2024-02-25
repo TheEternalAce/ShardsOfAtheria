@@ -5,8 +5,6 @@ namespace ShardsOfAtheria.Items
 {
     public static class ItemDefaults
     {
-        public const int RarityAreus = ItemRarityID.Cyan;
-        public const int RarityHardlight = ItemRarityID.Green;
         public const int RarityDataDisc = ItemRarityID.Green;
         public const int RaritySinful = ItemRarityID.Orange;
         public const int RaritySlayer = ItemRarityID.Yellow;

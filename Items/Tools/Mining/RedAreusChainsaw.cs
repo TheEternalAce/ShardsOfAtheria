@@ -60,7 +60,7 @@ namespace ShardsOfAtheria.Items.Tools.Mining
             Item.channel = true;
 
             Item.shootSpeed = 32;
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityMoonLord;
             Item.value = ItemDefaults.ValueLunarPillars;
             Item.shoot = ModContent.ProjectileType<RedAreusChainsawProj>();
         }

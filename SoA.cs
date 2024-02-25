@@ -52,6 +52,9 @@ namespace ShardsOfAtheria
         public static readonly SoundStyle Rekkoha = new(ItemSoundPath + "MessiahRekkoha");
         public static readonly SoundStyle Coin = new(ItemSoundPath + "Coin");
         public static readonly SoundStyle KatanaScream = new(ItemSoundPath + "KatanaScream");
+        public static readonly SoundStyle MagnetChargeUp = new SoundStyle(ItemSoundPath + "MagnetChargeUp").WithVolumeScale(0.75f);
+        public static readonly SoundStyle MagnetWeakShot = new SoundStyle(ItemSoundPath + "MagnetWeakShot").WithVolumeScale(0.75f);
+        public static readonly SoundStyle MagnetShot = new SoundStyle(ItemSoundPath + "MagnetShot").WithVolumeScale(0.75f);
 
         public static readonly Color HardlightColor = new(224, 92, 165);
         public static readonly Color HardlightColorA = HardlightColor.UseA(0);

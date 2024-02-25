@@ -8,6 +8,7 @@ using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 using WebCom.Extensions;
 
@@ -39,7 +40,7 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.shoot = ModContent.ProjectileType<PrototypeBandSlash>();
             Item.shootSpeed = 1;
 
-            Item.rare = ItemDefaults.RarityAreus;
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = ItemDefaults.ValueDungeon;
         }
 
@@ -55,9 +56,10 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<AreusShard>(), 8)
+                .AddIngredient<AreusShard>(8)
                 .AddRecipeGroup(ShardsRecipes.Gold, 2)
-                .AddIngredient(ModContent.ItemType<Jade>(), 4)
+                .AddIngredient<Jade>(4)
+                .AddIngredient(ItemID.SoulofNight, 15)
                 .AddTile<AreusFabricator>()
                 .Register();
         }
