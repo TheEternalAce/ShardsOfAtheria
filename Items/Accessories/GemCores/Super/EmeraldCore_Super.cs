@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<EmeraldCore_Greater>())
                 .AddIngredient(ItemID.BeetleHusk, 15)
-                .AddIngredient(ItemID.RodofDiscord)
+                .AddIngredient(ItemID.SoulofFlight, 20)
                 .AddIngredient(ItemID.LargeEmerald)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
