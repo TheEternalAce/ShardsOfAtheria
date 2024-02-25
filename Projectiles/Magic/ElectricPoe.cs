@@ -62,7 +62,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
                     {
                         Vector2 spawnPos = player.Center + Main.rand.NextVector2CircularEdge(50, 50);
                         Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, DustID.Shadowflame, 0, 0, 100);
-                        dust.velocity = player.velocity;
+                        dust.velocity = Vector2.Zero;
                         if (Main.rand.NextBool(3))
                         {
                             dust.velocity += Vector2.Normalize(player.Center - dust.position) * Main.rand.NextFloat(5f);
@@ -70,11 +70,11 @@ namespace ShardsOfAtheria.Projectiles.Magic
                         }
                         dust.noGravity = true;
                     }
-                    for (int i = 0; i < 10; i++)
+                    for (int i = 0; i < 6; i++)
                     {
                         Vector2 spawnPos = player.Center + Main.rand.NextVector2CircularEdge(50, 50);
                         Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, DustID.Electric, 0, 0, 100);
-                        dust.velocity = player.velocity;
+                        dust.velocity = Vector2.Zero;
                         if (Main.rand.NextBool(3))
                         {
                             dust.velocity += Vector2.Normalize(player.Center - dust.position) * Main.rand.NextFloat(5f);
