@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -123,7 +124,9 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             if (Projectile.ai[0] == 1)
             {
-                Projectile.Explode(Projectile.Center, Projectile.damage, true, 200);
+                var explosion = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero,
+                    ModContent.ProjectileType<FieryExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                explosion.DamageType = Projectile.DamageType;
             }
         }
     }

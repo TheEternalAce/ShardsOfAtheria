@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
@@ -31,7 +32,9 @@ namespace ShardsOfAtheria.Projectiles.Ranged.DeckOfCards
 
         public override void OnKill(int timeLeft)
         {
-            Projectile.Explode(Projectile.Center, Projectile.damage);
+            var explosion = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero,
+                ModContent.ProjectileType<FieryExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            explosion.DamageType = Projectile.DamageType;
         }
     }
 }

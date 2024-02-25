@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -166,10 +167,9 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
                 else if (upgrades == 5)
                 {
                     target.AddBuff(BuffID.Frostburn, 600);
-                    //Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<LightningBoltFriendly>(), Projectile.damage,
-                    //Projectile.knockBack, player.whoAmI, 0, 1);
-                    //proj.DamageType = DamageClass.Melee;
-                    Projectile.Explode(target.Center, Projectile.damage);
+                    var explosion = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero,
+                        ModContent.ProjectileType<ColdExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    explosion.DamageType = Projectile.DamageType;
                 }
             }
         }

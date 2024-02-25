@@ -1,6 +1,7 @@
 ﻿using BattleNetworkElements.Elements;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WebCom.Effects.ScreenShaking;
@@ -30,21 +31,16 @@ namespace ShardsOfAtheria.Projectiles.Other
             Projectile.timeLeft = 10;
         }
 
-        public override void AI()
+        public override void OnSpawn(IEntitySource source)
         {
-            if (Projectile.ai[0] == 0)
+            ScreenShake.ShakeScreen(6, 60);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            if (SoA.ElementModEnabled)
             {
-                ScreenShake.ShakeScreen(6, 60);
-                SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
-                Projectile.ai[0] = 1;
+                ElementalParticles();
             }
-
-            if (Projectile.ai[1] == 1)
+            for (int i = 0; i < 10; i++)
             {
-                if (SoA.ElementModEnabled)
-                {
-                    ElementalParticles();
-                }
                 Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Smoke, Scale: 1.5f);
                 dust2.velocity *= 2f;
             }

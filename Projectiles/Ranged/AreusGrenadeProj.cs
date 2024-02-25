@@ -1,5 +1,7 @@
-﻿using ShardsOfAtheria.Dusts;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -51,7 +53,9 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         public override void OnKill(int timeLeft)
         {
-            Projectile.Explode(Projectile.Center, Projectile.damage, true);
+            var explosion = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero,
+                ModContent.ProjectileType<ElectricExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            explosion.DamageType = Projectile.DamageType;
         }
     }
 }

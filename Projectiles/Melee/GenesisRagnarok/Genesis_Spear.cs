@@ -4,6 +4,7 @@ using ReLogic.Content;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Magic;
+using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -53,8 +54,9 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
                 else if (upgrades == 5)
                 {
                     target.AddBuff(BuffID.Frostburn, 600);
-                    //Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<IceExplosion>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
-                    Projectile.Explode(Projectile.Center, Projectile.damage);
+                    var explosion = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero,
+                        ModContent.ProjectileType<ColdExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    explosion.DamageType = Projectile.DamageType;
                 }
             }
         }
