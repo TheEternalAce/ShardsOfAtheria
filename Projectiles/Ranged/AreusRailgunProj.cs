@@ -6,7 +6,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Ranged
@@ -47,8 +46,9 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         {
             Projectile.originalDamage = Projectile.damage;
             Projectile.damage = 0;
-            ChargeTimer = 15;
+            ChargeTimer = 60;
             Projectile.velocity = Vector2.Zero;
+            SoundEngine.PlaySound(SoA.MagnetChargeUp, Projectile.Center);
         }
 
         public override bool PreAI()
@@ -92,20 +92,17 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                     ChargeTimer--;
                     if (ChargeTimer < 0)
                     {
-                        if (chargeLevel >= 10 && chargeLevel < 20)
+                        if (chargeLevel >= 1 && chargeLevel < 3)
                         {
                             chargeLevel++;
                             flashAlpha = 1;
-                            ChargeTimer = 15;
-                            SoundEngine.PlaySound(SoundID.Item15.WithPitchOffset(0.5f).WithVolumeScale(2f), Projectile.Center);
                         }
-                        else if (chargeLevel < 10) //increment charge level and play charge increase visual effects (white flash + loading click sound)
+                        else if (chargeLevel < 1) //increment charge level and play charge increase visual effects (white flash + loading click sound)
                         {
                             chargeLevel++;
                             flashAlpha = 1;
-                            ChargeTimer = 10;
-                            SoundEngine.PlaySound(SoundID.Item15.WithVolumeScale(2f), Projectile.Center);
                         }
+                        ChargeTimer = 60;
                     }
                 }
             }
@@ -121,7 +118,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         private void Fire() //method to fire regular projectile
         {
-            SoundEngine.PlaySound(SoundID.Item38, Projectile.Center);
+            var soundType = SoA.MagnetWeakShot;
 
             //where the projectile should spawn, modified so the projectile actually looks like it's coming out of the barrel
             Vector2 shootOrigin = Projectile.Center + aimNormal * 40;
@@ -130,21 +127,24 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                 out int _, out float knockback, out int _);
             float speed = 12f;
             int damage = Projectile.originalDamage;
-            if (chargeLevel > 10)
+            if (chargeLevel > 1)
             {
                 //increase recoil value, make gun appear like it's actually firing with some force
+                soundType = SoA.MagnetShot;
                 recoilAmount += 2f;
                 speed *= 2;
                 damage += 50;
-                if (chargeLevel == 20)
+                if (chargeLevel == 3)
                 {
                     recoilAmount += 3f;
                     damage += 50;
-                    Projectile.Explode(owner.Center, damage / 3, hostile: true);
+                    Projectile.Explode(owner.Center, damage / 2, hostile: true);
                 }
             }
             if (shoot)
             {
+                SoundEngine.StopTrackedSounds();
+                SoundEngine.PlaySound(soundType, Projectile.Center);
                 Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), shootOrigin,
                     aimNormal * speed, dart, damage, knockback, Projectile.owner);
             }
