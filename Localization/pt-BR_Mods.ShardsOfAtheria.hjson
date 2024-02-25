@@ -1767,6 +1767,20 @@ Items: {
 			''' */
 	}
 
+	AreusGhostLantern: {
+		// DisplayName: Areus Ghost Lantern
+		/* Tooltip:
+			'''
+			Spirits will spawn around you while this is in your inventory
+			Collect spirits and unleash them as a wave of electrical fire
+			''' */
+		/* Overdrive:
+			'''
+			Spirits will be attracted to you
+			20% chance to not consume spirits
+			''' */
+	}
+
 	AreusScepter: {
 		// DisplayName: Areus Scepter
 		// Tooltip: ""
@@ -2409,11 +2423,6 @@ Items: {
 		DisplayName: Nestling Staff
 		Tooltip: Summons a fledgling harpy knight to fight for you
 	}
-
-	AreusGhostLantern: {
-		// DisplayName: Areus Ghost Lantern
-		// Tooltip: ""
-	}
 }
 
 Projectiles: {
@@ -2727,8 +2736,8 @@ Projectiles: {
 	// SolarBlade.DisplayName: Nature's Blade
 	// ColdExplosion.DisplayName: Cold Explosion
 	// ElectricExplosion.DisplayName: Electric Explosion
-	// ElectricFlame.DisplayName: Electric Flame
-	// ElectricPoe.DisplayName: Electric Poe
+	// ElectricFlame.DisplayName: Ghost Flame
+	// ElectricPoe.DisplayName: Electric Spirit
 }
 
 NPCs: {

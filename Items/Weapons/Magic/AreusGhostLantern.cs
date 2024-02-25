@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Systems;
@@ -6,9 +7,11 @@ using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.UI.Chat;
 
 namespace ShardsOfAtheria.Items.Weapons.Magic
 {
@@ -49,6 +52,21 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.rare = ItemDefaults.RarityHardmodeDungeon;
             Item.value = Item.sellPrice(0, 1, 25);
             Item.shoot = ModContent.ProjectileType<ElectricFlame>();
+        }
+
+        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
+            if (Main.playerInventory || Main.gameMenu || !Main.PlayerLoaded)
+                return;
+
+            var center = position;
+            center.X -= TextureAssets.InventoryBack.Value.Width / 2f * Main.inventoryScale;
+            center.Y += TextureAssets.InventoryBack.Value.Height / 2f * Main.inventoryScale;
+            string ghosts = poes.ToString();
+
+            var color = SoA.ElectricColor;
+            var font = FontAssets.MouseText.Value;
+            ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, ghosts, center + new Vector2(8f, -24f) * Main.inventoryScale, color, 0f, Vector2.Zero, new Vector2(1f) * Main.inventoryScale * 0.8f, spread: Main.inventoryScale);
         }
 
         public override void UpdateInventory(Player player)
