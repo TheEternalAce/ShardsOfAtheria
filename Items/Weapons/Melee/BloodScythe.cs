@@ -1,6 +1,4 @@
-using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Melee;
-using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -41,16 +39,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemRarityID.Red;
             Item.value = 321000;
             Item.shoot = ModContent.ProjectileType<DeathScythe>();
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<AreusShard>(), 20)
-                .AddIngredient(ItemID.GoldBar, 6)
-                .AddIngredient(ItemID.FragmentVortex, 20)
-                .AddTile<AreusFabricator>()
-                .Register();
         }
     }
 }
