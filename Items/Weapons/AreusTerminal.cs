@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Items.Weapons
 
             Item.shootSpeed = 15f;
             Item.shoot = ModContent.ProjectileType<CodeProjectile>();
-            Item.value = Item.sellPrice(0, 3, 25);
+            Item.value = ItemDefaults.ValueLunarPillars;
             Item.rare = ItemRarityID.Red;
         }
 
