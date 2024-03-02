@@ -10,8 +10,10 @@ namespace ShardsOfAtheria.Items.Armor.Areus
     public abstract class AreusArmorPiece : ModItem
     {
         public int slotType;
+        public float lesserNonSetDamage = 0;
 
         public AreusArmorPlayer ArmorPlayer;
+
         public override void UpdateEquip(Player player)
         {
             ArmorPlayer = player.Areus();
@@ -23,7 +25,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus
                 {
                     if (item is AreusArmorChip chip)
                     {
-                        chip.ChipEffect(player);
+                        chip.UpdateChip(player);
                     }
                 }
             }
@@ -73,19 +75,30 @@ namespace ShardsOfAtheria.Items.Armor.Areus
 
         public virtual void MeleeSet(Player player)
         {
-
+            player.GetDamage(DamageClass.Ranged) += lesserNonSetDamage;
+            player.GetDamage(DamageClass.Magic) += lesserNonSetDamage;
+            player.GetDamage(DamageClass.Summon) += lesserNonSetDamage;
         }
+
         public virtual void RangedSet(Player player)
         {
-
+            player.GetDamage(DamageClass.Melee) += lesserNonSetDamage;
+            player.GetDamage(DamageClass.Magic) += lesserNonSetDamage;
+            player.GetDamage(DamageClass.Summon) += lesserNonSetDamage;
         }
+
         public virtual void MagicSet(Player player)
         {
-
+            player.GetDamage(DamageClass.Melee) += lesserNonSetDamage;
+            player.GetDamage(DamageClass.Ranged) += lesserNonSetDamage;
+            player.GetDamage(DamageClass.Summon) += lesserNonSetDamage;
         }
+
         public virtual void SummonSet(Player player)
         {
-
+            player.GetDamage(DamageClass.Melee) += lesserNonSetDamage;
+            player.GetDamage(DamageClass.Ranged) += lesserNonSetDamage;
+            player.GetDamage(DamageClass.Magic) += lesserNonSetDamage;
         }
     }
 }

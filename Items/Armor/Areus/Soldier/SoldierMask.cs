@@ -17,6 +17,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
             Item.width = 18;
             Item.height = 18;
             Item.defense = 12;
+            lesserNonSetDamage = 0.2f;
 
             slotType = AreusArmorChip.SlotHead;
 

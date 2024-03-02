@@ -18,6 +18,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
             Item.width = 18;
             Item.height = 18;
             Item.defense = 6;
+            lesserNonSetDamage = 0.1f;
 
             slotType = AreusArmorChip.SlotHead;
 
@@ -65,6 +66,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
 
         public override void MagicSet(Player player)
         {
+            base.MagicSet(player);
             if (++ArmorPlayer.energyTimer >= AreusArmorPlayer.EnergyTimerMax)
             {
                 ArmorPlayer.areusEnergy += 3;
@@ -74,6 +76,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
 
         public override void SummonSet(Player player)
         {
+            base.SummonSet(player);
             if (player.InCombat())
             {
                 if (++ArmorPlayer.energyTimer >= AreusArmorPlayer.EnergyTimerMax)
