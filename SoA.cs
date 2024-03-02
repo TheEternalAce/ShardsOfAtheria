@@ -55,6 +55,7 @@ namespace ShardsOfAtheria
         public static readonly SoundStyle MagnetChargeUp = new SoundStyle(ItemSoundPath + "MagnetChargeUp").WithVolumeScale(0.75f);
         public static readonly SoundStyle MagnetWeakShot = new SoundStyle(ItemSoundPath + "MagnetWeakShot").WithVolumeScale(0.75f);
         public static readonly SoundStyle MagnetShot = new SoundStyle(ItemSoundPath + "MagnetShot").WithVolumeScale(0.75f);
+        public static readonly SoundStyle KeyPress = new(ItemSoundPath + "KeyPress");
 
         public static readonly Color HardlightColor = new(224, 92, 165);
         public static readonly Color HardlightColorA = HardlightColor.UseA(0);
