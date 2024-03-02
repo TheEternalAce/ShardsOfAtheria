@@ -82,10 +82,26 @@ SetBonus: {
 		Insert chips into the slots to gain their abilities
 		Recieve additional set bonus with class augments
 		'''
-	AreusMelee: Stat bonuses given to melee weapons
-	AreusRanged: Stat bonuses given to ranged weapons
-	AreusMagic: Stat bonuses given to magic weapons
-	AreusSummon: Stat bonuses given to summon weapons
+	AreusMelee:
+		'''
+		Stat bonuses given to melee weapons
+		Non-melee damage increased by a lesser amount
+		'''
+	AreusRanged:
+		'''
+		Stat bonuses given to ranged weapons
+		Non-ranged damage increased by a lesser amount
+		'''
+	AreusMagic:
+		'''
+		Stat bonuses given to magic weapons
+		Non-magic damage increased by a lesser amount
+		'''
+	AreusSummon:
+		'''
+		Stat bonuses given to summon weapons
+		Non-summon damage increased by a lesser amount
+		'''
 }
 
 Items: {
@@ -1830,6 +1846,11 @@ Items: {
 		Tooltip: ""
 	}
 
+	AreusTerminal: {
+		DisplayName: Areus Terminal
+		Tooltip: ""
+	}
+
 	AreusTrimmedTome: {
 		DisplayName: Areus Trimmed Tome
 		Tooltip: ""
@@ -2019,7 +2040,7 @@ Items: {
 		DisplayName: Genesis and Ragnarok
 		Tooltip:
 			'''
-			If an attack is not followed up after an attack, the combo will reset
+			After a second of inactivity, the combo is reset
 			Alt-use brings up a shield, release to throw the shield
 			This shield grants 20 defense and is capable of parrying and reflecting some projectiles
 			'''
@@ -2761,6 +2782,7 @@ Projectiles: {
 	ElectricExplosion.DisplayName: Electric Explosion
 	ElectricFlame.DisplayName: Ghost Flame
 	ElectricPoe.DisplayName: Electric Spirit
+	CodeProjectile.DisplayName: Code Projectile
 }
 
 NPCs: {

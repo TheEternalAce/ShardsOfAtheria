@@ -4,6 +4,7 @@ using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.AreusChips;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Weapons;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
@@ -306,7 +307,8 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 .Add<AreusPistol>(Condition.DownedPlantera)
                 .Add<AreusBaton>(Condition.DownedPlantera)
                 .Add<AreusStrikeChain>(Condition.DownedCultist)
-                .Add<AreusEnergyCannon>(Condition.DownedCultist);
+                .Add<AreusEnergyCannon>(Condition.DownedCultist)
+                .Add<AreusTerminal>(Condition.DownedMoonLord);
             npcShop.Register();
         }
 
