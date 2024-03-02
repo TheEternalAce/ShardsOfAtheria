@@ -1820,7 +1820,12 @@ Items: {
 
 	AreusTerminal: {
 		// DisplayName: Areus Terminal
-		// Tooltip: ""
+		/* Tooltip:
+			'''
+			Alt-use to open the customization UI
+			'There's a sticky note with a random arangement of letters and numbers'
+			'Presumably a password, not that you need it'
+			''' */
 	}
 
 	AreusTrimmedTome: {
