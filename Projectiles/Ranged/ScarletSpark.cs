@@ -73,10 +73,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                 return;
             }
 
-            var vector = targetNPC.Center - Projectile.Center;
-            ShardsHelpers.AdjustMagnitude(ref vector, 12f);
-            Projectile.velocity = (4 * Projectile.velocity + vector) / 2f;
-            ShardsHelpers.AdjustMagnitude(ref Projectile.velocity, 12f);
+            Projectile.Track(targetNPC, maxDetectRadius, 32f);
         }
 
         public override bool PreDraw(ref Color lightColor)
