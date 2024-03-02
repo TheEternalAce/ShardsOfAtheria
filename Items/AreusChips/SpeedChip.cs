@@ -13,9 +13,9 @@ namespace ShardsOfAtheria.Items.AreusChips
             slotType = SlotLegs;
         }
 
-        public override void ChipEffect(Player player)
+        public override void UpdateChip(Player player)
         {
-            base.ChipEffect(player);
+            base.UpdateChip(player);
             player.moveSpeed += 0.2f;
         }
 

@@ -16,9 +16,9 @@ namespace ShardsOfAtheria.Items.AreusChips
             slotType = SlotChest;
         }
 
-        public override void ChipEffect(Player player)
+        public override void UpdateChip(Player player)
         {
-            base.ChipEffect(player);
+            base.UpdateChip(player);
             player.GetAttackSpeed(DamageClass.Generic) += 0.15f;
             player.GetModPlayer<BerserkPlayer>().berserk = true;
         }

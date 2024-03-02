@@ -10,13 +10,11 @@ namespace ShardsOfAtheria.Items.AreusChips
         public override void SetDefaults()
         {
             base.SetDefaults();
-
             slotType = SlotChest;
         }
 
-        public override void ChipEffect(Player player)
+        public override void UpdateChip(Player player)
         {
-            base.ChipEffect(player);
             player.wingTimeMax += 20;
         }
 

@@ -14,9 +14,9 @@ namespace ShardsOfAtheria.Items.AreusChips
             DamageClass = DamageClass.Melee;
         }
 
-        public override void ChipEffect(Player player)
+        public override void UpdateChip(Player player)
         {
-            base.ChipEffect(player);
+            base.UpdateChip(player);
         }
 
         public override void AddRecipes()

@@ -14,9 +14,9 @@ namespace ShardsOfAtheria.Items.AreusChips
             slotType = SlotHead;
         }
 
-        public override void ChipEffect(Player player)
+        public override void UpdateChip(Player player)
         {
-            base.ChipEffect(player);
+            base.UpdateChip(player);
             player.nightVision = true;
             player.dangerSense = true;
             player.detectCreature = true;

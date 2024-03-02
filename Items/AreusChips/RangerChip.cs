@@ -14,9 +14,9 @@ namespace ShardsOfAtheria.Items.AreusChips
             DamageClass = DamageClass.Ranged;
         }
 
-        public override void ChipEffect(Player player)
+        public override void UpdateChip(Player player)
         {
-            base.ChipEffect(player);
+            base.UpdateChip(player);
         }
 
         public override void AddRecipes()

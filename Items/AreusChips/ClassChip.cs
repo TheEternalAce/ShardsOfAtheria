@@ -47,7 +47,7 @@ namespace ShardsOfAtheria.Items.AreusChips
             tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
         }
 
-        public override void ChipEffect(Player player)
+        public override void UpdateChip(Player player)
         {
             var armorPlayer = player.Areus();
             armorPlayer.classChip = DamageClass;

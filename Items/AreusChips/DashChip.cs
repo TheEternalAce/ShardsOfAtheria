@@ -18,7 +18,7 @@ namespace ShardsOfAtheria.Items.AreusChips
             slotType = SlotChest;
         }
 
-        public override void ChipEffect(Player player)
+        public override void UpdateChip(Player player)
         {
             var mp = player.GetModPlayer<AreusDashPlayer>();
 

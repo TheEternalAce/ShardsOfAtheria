@@ -114,7 +114,7 @@ namespace ShardsOfAtheria.Items.AreusChips
             }
         }
 
-        public virtual void ChipEffect(Player player)
+        public virtual void UpdateChip(Player player)
         {
         }
     }
