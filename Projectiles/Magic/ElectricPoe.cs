@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -14,6 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
     {
         public override void SetStaticDefaults()
         {
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             Projectile.AddElement(0);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(2);
@@ -93,10 +93,8 @@ namespace ShardsOfAtheria.Projectiles.Magic
 
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = SoA.ElectricColorA;
-            var texture = ModContent.Request<Texture2D>("ShardsOfAtheria/Assets/BlurTrails/OrbBlur").Value;
-            var frame = texture.Frame();
-            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, frame, lightColor, 0, frame.Size() / 2, 0.5f, SpriteEffects.None);
+            lightColor = SoA.ElectricColor;
+            Projectile.DrawBlurTrail(lightColor, ShardsHelpers.Orb, scale: 0.5f);
             return base.PreDraw(ref lightColor);
         }
     }
