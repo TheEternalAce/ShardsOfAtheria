@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Projectiles.Ammo
             AIType = ProjectileID.BoneJavelin;
             Projectile.ignoreWater = true;
             Projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Melee;
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.penetrate = 3;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 5;
