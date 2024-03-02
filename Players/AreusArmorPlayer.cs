@@ -207,7 +207,12 @@ namespace ShardsOfAtheria.Players
         {
             if (guardSet && WarriorSet)
             {
-                areusEnergy += 5;
+                int energyToAdd = info.Damage / 3;
+                if (energyToAdd < 5)
+                {
+                    energyToAdd = 5;
+                }
+                areusEnergy += energyToAdd;
             }
             if (soldierSet)
             {

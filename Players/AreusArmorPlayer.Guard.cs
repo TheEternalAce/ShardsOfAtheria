@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Projectiles.Magic;
+using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -20,15 +21,9 @@ namespace ShardsOfAtheria.Players
 
         private void GuardActive_Melee()
         {
-            var projectiles = ShardsHelpers.ProjectileRing(Player.GetSource_FromThis(),
-                Player.Center, 8, 1, 20f, ModContent.ProjectileType<AreusShockwave>(),
-                30 + areusEnergy, 0f, Player.whoAmI);
+            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<AreusShockwave_MeleeArmor>(),
+                (int)ClassDamage.ApplyTo(30 + areusEnergy), 0f);
             areusEnergy = 0;
-            foreach (var projectile in projectiles)
-            {
-                projectile.DamageType = DamageClass.Melee;
-                projectile.timeLeft = 15;
-            }
             SoundEngine.PlaySound(SoundID.Item38, Player.Center);
         }
         private void GuardActive_Ranged()
