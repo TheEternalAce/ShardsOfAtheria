@@ -1,4 +1,6 @@
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -44,10 +46,30 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 12)
                 .AddIngredient(ItemID.GoldBar, 6)
-                .AddIngredient(ItemID.SoulofLight, 8)
-                .AddIngredient(ItemID.CrystalShard, 14)
+                .AddIngredient(ItemID.SoulofNight, 8)
+                .AddIngredient(ItemID.Ichor, 14)
                 .AddTile<AreusFabricator>()
                 .Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<AreusShard>(), 12)
+                .AddIngredient(ItemID.GoldBar, 6)
+                .AddIngredient(ItemID.SoulofNight, 8)
+                .AddIngredient(ItemID.CursedFlame, 14)
+                .AddTile<AreusFabricator>()
+                .Register();
+        }
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            int convertibleFlare = -1;
+            if (ModLoader.TryGetMod("NotEnoughFlareGuns", out Mod arsonal))
+            {
+                convertibleFlare = arsonal.Find<ModProjectile>("ConvertibleFlare").Type;
+            }
+            if (type == ProjectileID.BlueFlare || type == convertibleFlare)
+            {
+                type = ModContent.ProjectileType<AreusFlare>();
+            }
         }
     }
 }

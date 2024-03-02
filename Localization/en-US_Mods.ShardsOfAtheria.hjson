@@ -2242,7 +2242,7 @@ Items: {
 
 	AreusFlareGun: {
 		DisplayName: Areus Flare Gun
-		Tooltip: ""
+		Tooltip: Fires sticky areus flares
 	}
 
 	AreusGrenade: {
@@ -2572,6 +2572,7 @@ Projectiles: {
 	AreusArrowProj_Gauntlet.DisplayName: Areus Arrow
 	AreusBulletProj_Gauntlet.DisplayName: Areus Bullet
 	AreusEnergyBlast.DisplayName: Electric Blast
+	AreusFlare.DisplayName: Areus Flare
 	AreusGambleBadExplosion.DisplayName: Areus Gamble Explosion
 	AreusGambleDagger.DisplayName: Areus Gamble Dagger
 	AreusGambleGoodExplosion.DisplayName: Areus Gamble Explosion
@@ -2579,6 +2580,8 @@ Projectiles: {
 	AreusGambleThrow.DisplayName: Areus Gamble Shard
 	AreusShardProj.DisplayName: Areus Shard
 	AreusShockwave.DisplayName: Areus Shockwave
+	AreusShockwave_Flare.DisplayName: Areus Shockwave
+	AreusShockwave_MeleeArmor.DisplayName: Areus Shockwave
 	BitBlock.DisplayName: Bit Block
 	BloodDropFriendly.DisplayName: Blood Drop
 	BloodWaveFriendly.DisplayName: Blood Wave
