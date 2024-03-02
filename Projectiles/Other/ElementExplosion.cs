@@ -35,14 +35,17 @@ namespace ShardsOfAtheria.Projectiles.Other
         {
             ScreenShake.ShakeScreen(6, 60);
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
-            if (SoA.ElementModEnabled)
+            if (Projectile.ai[1] == 1)
             {
-                ElementalParticles();
-            }
-            for (int i = 0; i < 10; i++)
-            {
-                Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Smoke, Scale: 1.5f);
-                dust2.velocity *= 2f;
+                if (SoA.ElementModEnabled)
+                {
+                    ElementalParticles();
+                }
+                for (int i = 0; i < 10; i++)
+                {
+                    Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Smoke, Scale: 1.5f);
+                    dust2.velocity *= 2f;
+                }
             }
         }
 
