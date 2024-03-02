@@ -71,8 +71,8 @@ namespace ShardsOfAtheria.ShardsUI
             bar.hoverText = $"Areus Energy: {areusPlayer.areusEnergy} / {AreusArmorPlayer.AREUS_ENERGY_MAX}";
 
             var barDimensions = bar.GetDimensions();
-            float x = player.Center.X - Main.screenPosition.X - barDimensions.Width / 2f;
-            float y = player.Center.Y - Main.screenPosition.Y + 90;
+            float x = Main.screenWidth / 2 - barDimensions.Width / 2f;
+            float y = Main.screenHeight / 2 + 90;
             bar.SetRectangle(x, y, 66, 18);
 
             if (!areusPlayer.guardSet)
