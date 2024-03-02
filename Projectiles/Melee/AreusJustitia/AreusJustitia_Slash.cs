@@ -42,6 +42,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
             Projectile.timeLeft = 12;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
+            Projectile.ownerHitCheck = true;
 
             DrawOriginOffsetY = -39;
         }

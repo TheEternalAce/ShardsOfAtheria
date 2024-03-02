@@ -42,6 +42,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
             Projectile.timeLeft = 15;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
+            Projectile.ownerHitCheck = true;
         }
 
         public override void AI()
