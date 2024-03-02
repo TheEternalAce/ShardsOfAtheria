@@ -48,7 +48,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
 
         public override void OnKill(int timeLeft)
         {
-            Projectile.Explode(Projectile.Center, 200, dustParticles: false);
+            Projectile.Explode(Projectile.Center, Projectile.damage, dustParticles: false);
             ShardsHelpers.DustRing(Projectile.Center, 6, DustID.Electric);
         }
 
