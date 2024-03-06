@@ -219,6 +219,7 @@ FireCannon_Fire1,Fire,Electric
 FireCannon_Fire2,Fire,Electric
 FireCannon_Fire3,Fire,Electric
 FlameCannon,,
+HansBullet,Electric,
 WitheringPetal,Dark,Grass
 WitheringRose,,
 WitheringSeed,Dark,Grass

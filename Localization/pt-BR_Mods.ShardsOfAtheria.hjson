@@ -1671,7 +1671,7 @@ Items: {
 	}
 
 	DevelopersKeyCard: {
-		// DisplayName: Developers Key Card
+		// DisplayName: Developer's Key Card
 		// Tooltip: Grants unrestricted access to the Areus Terminal
 		// On: " (Enabled)"
 		// Off: " (Disabled)"
@@ -2309,6 +2309,16 @@ Items: {
 			'''
 	}
 
+	HansMachineGun: {
+		// DisplayName: BURST
+		/* Tooltip:
+			'''
+			Fires gravity affected, exploding bullets
+			'Once you pull the trigger, you can't stop it'
+			'LET IT RAIN!'
+			''' */
+	}
+
 	HardlightKnife: {
 		DisplayName: Hardlight Knife
 		Tooltip: ""
@@ -2776,6 +2786,7 @@ Projectiles: {
 	// ElectricFlame.DisplayName: Ghost Flame
 	// ElectricPoe.DisplayName: Electric Spirit
 	// CodeProjectile.DisplayName: Code Projectile
+	// HansBullet.DisplayName: BURST Bullet
 }
 
 NPCs: {
