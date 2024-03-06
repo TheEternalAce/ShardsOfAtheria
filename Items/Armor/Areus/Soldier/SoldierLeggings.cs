@@ -40,7 +40,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
             CreateRecipe()
                 .AddIngredient<AreusShard>(18)
                 .AddIngredient(ItemID.GoldBar, 6)
-                .AddIngredient(ItemID.SoulofFlight, 9)
+                .AddIngredient(ItemID.SoulofFlight, 12)
                 .AddIngredient(ItemID.Silk, 20)
                 .AddTile<AreusFabricator>()
                 .Register();

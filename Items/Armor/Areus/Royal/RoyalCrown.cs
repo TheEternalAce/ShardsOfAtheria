@@ -62,7 +62,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
             CreateRecipe()
                 .AddIngredient<AreusShard>(14)
                 .AddIngredient(ItemID.GoldBar, 4)
-                .AddIngredient(ItemID.FragmentStardust, 20)
+                .AddIngredient(ItemID.FragmentStardust, 12)
                 .AddTile<AreusFabricator>()
                 .Register();
         }
