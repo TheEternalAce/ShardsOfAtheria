@@ -17,6 +17,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.AddAreus();
             Item.AddElement(0);
             Item.AddRedemptionElement(2);
+            Item.AddRedemptionElement(15);
         }
 
         public override void SetDefaults()
