@@ -43,15 +43,14 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
         public override void SetStaticDefaults()
         {
-            //Main.npcFrameCount[NPC.type] = 6;
+            Main.npcFrameCount[NPC.type] = 6;
 
             NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
 
-            List<int> buffTypes = new()
-            {
+            List<int> buffTypes = [
                 BuffID.Poisoned,
                 BuffID.Confused
-            };
+            ];
             NPC.SetImmuneTo(buffTypes);
 
             NPC.AddElement(1);
