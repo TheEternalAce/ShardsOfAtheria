@@ -665,7 +665,7 @@ Items: {
 			Increased Areus weapon damage by 5%
 			Reduced mana usage by 8%
 			'''
-		SetBonus: Grants the ability to react to or prevent oncomming damage
+		SetBonus: Grants the ability to react to or prevent oncoming damage
 		MeleeDamageClassBonus:
 			'''
 			Double tap UP/DOWN to create electric shields
@@ -1660,9 +1660,47 @@ Items: {
 			'''
 	}
 
+	SpidersMechanicalClock: {
+		DisplayName: Spider's Mechanical Clock
+		Tooltip:
+			'''
+			Saves your current position after 5 seconds, use to teleport to saved position
+			All stats you had in that save are regained
+			There's an engraving on the back
+			'A gift to you, my beloved little sister <3'
+			Must be used in hot-bar
+			'''
+	}
+
+	SoulExtractingDagger: {
+		DisplayName: Soul Extracting Dagger
+		Tooltip:
+			'''
+			Right click to cycle between absorbed Soul Crystals
+			Use to extract the currently selected Soul Crystal
+			'''
+	}
+
+	WandOfHealing: {
+		DisplayName: Wand Of Healing
+		Tooltip:
+			'''
+			'Converts Mana into Life'
+			Taking damage while this is in your inventory will render this unusable for a time
+			'''
+	}
+
+	# Toggle Items
 	AnchorChip: {
 		DisplayName: Anchor Chip
 		Tooltip: Prevents the jump from the final slash when using The Messiah
+		On: " (Enabled)"
+		Off: " (Disabled)"
+	}
+
+	DevelopersKeyCard: {
+		DisplayName: Developers Key Card
+		Tooltip: Grants unrestricted access to the Areus Terminal
 		On: " (Enabled)"
 		Off: " (Disabled)"
 	}
@@ -1694,36 +1732,6 @@ Items: {
 			'''
 		On: " (Enabled)"
 		Off: " (Disabled)"
-	}
-
-	SpidersMechanicalClock: {
-		DisplayName: Spider's Mechanical Clock
-		Tooltip:
-			'''
-			Saves your current position after 5 seconds, use to teleport to saved position
-			All stats you had in that save are regained
-			There's an engraving on the back
-			'A gift to you, my beloved little sister <3'
-			Must be used in hot-bar
-			'''
-	}
-
-	SoulExtractingDagger: {
-		DisplayName: Soul Extracting Dagger
-		Tooltip:
-			'''
-			Right click to cycle between absorbed Soul Crystals
-			Use to extract the currently selected Soul Crystal
-			'''
-	}
-
-	WandOfHealing: {
-		DisplayName: Wand Of Healing
-		Tooltip:
-			'''
-			'Converts Mana into Life'
-			Taking damage while this is in your inventory will render this unusable for a time
-			'''
 	}
 
 	# Weapons

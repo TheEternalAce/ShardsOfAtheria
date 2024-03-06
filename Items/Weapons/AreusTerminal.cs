@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.ShardsUI.AreusComputer;
 using ShardsOfAtheria.Utilities;
@@ -43,18 +44,22 @@ namespace ShardsOfAtheria.Items.Weapons
 
         public override void HoldItem(Player player)
         {
-            UpdateStats();
+            UpdateStats(player);
         }
 
         public override void UpdateInventory(Player player)
         {
-            UpdateStats();
+            UpdateStats(player);
         }
 
-        private void UpdateStats()
+        private void UpdateStats(Player player)
         {
-            int statTotal = (Item.damage + (60 / Item.useAnimation) + Item.crit + 4) / 5;
-            Item.mana = statTotal;
+            bool cardActive = DevelopersKeyCard.CardActive(player, out var _);
+            if (!cardActive)
+            {
+                int statTotal = (Item.damage + (60 / Item.useAnimation) + Item.crit + 4) / 5;
+                Item.mana = statTotal;
+            }
         }
 
         public override bool AltFunctionUse(Player player)

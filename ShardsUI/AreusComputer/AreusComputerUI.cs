@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons;
 using System;
 using System.Collections.Generic;
@@ -57,7 +58,8 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
 
         public void RunCode()
         {
-            if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<AreusTerminal>())
+            bool cardActive = DevelopersKeyCard.CardActive(Main.LocalPlayer, out var _);
+            if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<AreusTerminal>() || cardActive)
             {
                 var computer = Main.LocalPlayer.HeldItem;
                 string code = textBox.GetText();
@@ -92,11 +94,11 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
                                         {
                                             value = 1;
                                         }
-                                        if (value > 999)
+                                        if (value > 999 && !cardActive)
                                         {
                                             value = 999;
                                         }
-                                        output += "\n[Output] Changed weapon damage to " + value + ".";
+                                        output += "\n[Output] Changed item damage to " + value + ".";
                                         computer.damage = value;
                                     }
                                 }
@@ -127,7 +129,7 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
                                     damageClass = damageClass.ToLower();
                                     damageClass = damageClass.Substring(damageClass.LastIndexOf('.') + 1);
                                     damageClass = damageClass.Replace("damageclass", "");
-                                    output += "\n[Output] Changed weapon damage type to " + damageClass + " damage.";
+                                    output += "\n[Output] Changed item damage type to " + damageClass + " damage.";
                                 }
                                 else if (cloneLine.StartsWith("knockback="))
                                 {
@@ -139,11 +141,11 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
                                         {
                                             value = 1;
                                         }
-                                        if (value > 999)
+                                        if (value > 999 && !cardActive)
                                         {
                                             value = 999;
                                         }
-                                        output += "\n[Output] Changed weapon knock back to " + value + ".";
+                                        output += "\n[Output] Changed item knock back to " + value + ".";
                                         computer.knockBack = value;
                                     }
                                 }
@@ -156,11 +158,11 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
                                         {
                                             value = 1;
                                         }
-                                        if (value > 999)
+                                        if (value > 999 && !cardActive)
                                         {
                                             value = 999;
                                         }
-                                        output += "\n[Output] Changed weapon use time to " + value + ".";
+                                        output += "\n[Output] Changed item use time to " + value + ".";
                                         computer.useTime = value;
                                     }
                                 }
@@ -173,12 +175,29 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
                                         {
                                             value = 1;
                                         }
-                                        if (value > 999)
+                                        if (value > 999 && !cardActive)
                                         {
                                             value = 999;
                                         }
-                                        output += "\n[Output] Changed weapon use animation to " + value + ".";
+                                        output += "\n[Output] Changed item use animation to " + value + ".";
                                         computer.useAnimation = value;
+                                    }
+                                }
+                                else if (cloneLine.StartsWith("reusedelay="))
+                                {
+                                    cloneLine = cloneLine[(cloneLine.LastIndexOf('=') + 1)..];
+                                    if (TryConvert(code, cloneLine, out int value))
+                                    {
+                                        if (value <= 0)
+                                        {
+                                            value = 1;
+                                        }
+                                        if (value > 999 && !cardActive)
+                                        {
+                                            value = 999;
+                                        }
+                                        output += "\n[Output] Changed item reuse delay to " + value + ".";
+                                        computer.reuseDelay = value;
                                     }
                                 }
                                 else if (cloneLine.StartsWith("crit="))
@@ -190,8 +209,21 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
                                         {
                                             value = 100 - 4;
                                         }
-                                        output += "\n[Output] Changed weapon critical strike chance to " + (value + 4) + "%.";
+                                        output += "\n[Output] Changed item critical strike chance to " + (value + 4) + "%.";
                                         computer.crit = value;
+                                    }
+                                }
+                                else if (cloneLine.StartsWith("mana="))
+                                {
+                                    cloneLine = cloneLine.Substring(cloneLine.LastIndexOf('=') + 1);
+                                    if (TryConvert(code, cloneLine, out int value))
+                                    {
+                                        if (value > 100 - 4)
+                                        {
+                                            value = 100 - 4;
+                                        }
+                                        output += "\n[Output] Changed item mana cost to " + value + ".";
+                                        computer.mana = value;
                                     }
                                 }
                                 else if (cloneLine.StartsWith("shoot="))
@@ -207,8 +239,8 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
                                         {
                                             value = ProjectileLoader.ProjectileCount - 1;
                                         }
-                                        var projectileDefinition = new ProjectileDefinition(value);
-                                        output += "\n[Output] Changed weapon projectile type to " + projectileDefinition.DisplayName + ".\n" +
+                                        ProjectileDefinition projectileDefinition = new(value);
+                                        output += "\n[Output] Changed item projectile type to " + projectileDefinition.DisplayName + ".\n" +
                                             "(WARNING! Certain projectiles may lead to catastrophic results!)";
                                         computer.shoot = value;
                                     }
@@ -223,11 +255,11 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
                                         {
                                             value = 1f;
                                         }
-                                        if (value > 999f)
+                                        if (value > 999f && !cardActive)
                                         {
                                             value = 999f;
                                         }
-                                        output += "\n[Output] Changed weapon projectile speed to " + value + ".";
+                                        output += "\n[Output] Changed item projectile speed to " + value + ".";
                                         computer.shootSpeed = value;
                                     }
                                 }
@@ -237,14 +269,9 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
                                     cloneLine = cloneLine.Trim('f');
                                     if (TryConvert(code, cloneLine, out bool value))
                                     {
-                                        output += "\n[Output] Changed weapon auto reuse to " + value + ".";
+                                        output += "\n[Output] Changed item auto reuse to " + value + ".";
                                         computer.autoReuse = value;
                                     }
-                                }
-                                else if (cloneLine.StartsWith("resetdefaults"))
-                                {
-                                    computer.SetDefaults(ModContent.ItemType<AreusTerminal>());
-                                    output += "\n[Output] Reset weapon to default state.";
                                 }
                                 else if (cloneLine.StartsWith("type="))
                                 {
@@ -259,10 +286,15 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
                                         {
                                             value = ItemLoader.ItemCount - 1;
                                         }
-                                        var itemDefinition = new ItemDefinition(value);
-                                        output += "\n[Output] Changed weapon projectile type to " + itemDefinition.DisplayName + "(type " + value + ").";
+                                        ItemDefinition itemDefinition = new(value);
+                                        output += "\n[Output] Changed item projectile type to " + itemDefinition.DisplayName + "(type " + value + ").";
                                         computer.SetDefaults(value);
                                     }
+                                }
+                                else if (cloneLine.StartsWith("resetdefaults"))
+                                {
+                                    computer.SetDefaults(computer.type);
+                                    output += "\n[Output] Reset item to default state.";
                                 }
                                 else if (cloneLine.StartsWith("damageclass") || cloneLine.StartsWith("damagetype"))
                                 {
@@ -270,45 +302,53 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
                                     damageClass = damageClass.ToLower();
                                     damageClass = damageClass.Substring(damageClass.LastIndexOf('.') + 1);
                                     damageClass = damageClass.Replace("damageclass", "");
-                                    output += "\n[Output] Weapon deals " + damageClass + " damage.";
+                                    output += "\n[Output] Item deals " + damageClass + " damage.";
                                 }
                                 else if (cloneLine.StartsWith("damage"))
                                 {
-                                    output += "\n[Output] Weapon base damage is " + computer.damage + ".";
+                                    output += "\n[Output] Item base damage is " + computer.damage + ".";
                                 }
                                 else if (cloneLine.StartsWith("knockback"))
                                 {
-                                    output += "\n[Output] Weapon base knockback is " + computer.knockBack + ".";
+                                    output += "\n[Output] Item base knockback is " + computer.knockBack + ".";
                                 }
                                 else if (cloneLine.StartsWith("usetime"))
                                 {
-                                    output += "\n[Output] Weapon use time is " + computer.useTime + ".";
+                                    output += "\n[Output] Item use time is " + computer.useTime + ".";
                                 }
                                 else if (cloneLine.StartsWith("useanimation"))
                                 {
-                                    output += "\n[Output] Weapon use animation is " + computer.useAnimation + ".";
+                                    output += "\n[Output] Item use animation is " + computer.useAnimation + ".";
+                                }
+                                else if (cloneLine.StartsWith("reusedelay"))
+                                {
+                                    output += "\n[Output] Item reuse delay is " + computer.reuseDelay + ".";
                                 }
                                 else if (cloneLine.StartsWith("crit"))
                                 {
-                                    output += "\n[Output] Weapon base critical strike chance is " + (computer.crit + 4) + "%.";
+                                    output += "\n[Output] Item base critical strike chance is " + (computer.crit + 4) + "%.";
+                                }
+                                else if (cloneLine.StartsWith("mana"))
+                                {
+                                    output += "\n[Output] Item base mana cost is " + computer.mana + ".";
                                 }
                                 else if (cloneLine.StartsWith("shootspeed"))
                                 {
-                                    output += "\n[Output] Weapon shoot speed is " + computer.shootSpeed + ".";
+                                    output += "\n[Output] Item shoot speed is " + computer.shootSpeed + ".";
                                 }
                                 else if (cloneLine.StartsWith("shoot"))
                                 {
-                                    var projectileDefinition = new ProjectileDefinition(computer.shoot);
-                                    output += "\n[Output] Weapon projectile is " + projectileDefinition.DisplayName + " (type " + computer.shoot + ").";
+                                    ProjectileDefinition projectileDefinition = new(computer.shoot);
+                                    output += "\n[Output] Item projectile is " + projectileDefinition.DisplayName + " (type " + computer.shoot + ").";
                                 }
                                 else if (cloneLine.StartsWith("type"))
                                 {
-                                    var itemDefinition = new ItemDefinition(computer.type);
-                                    output += "\n[Output] Weapon type is " + itemDefinition.DisplayName + " (type " + computer.type + ").";
+                                    ItemDefinition itemDefinition = new(computer.type);
+                                    output += "\n[Output] Item type is " + itemDefinition.DisplayName + " (type " + computer.type + ").";
                                 }
                                 else if (cloneLine.StartsWith("autoreuse") || cloneLine.StartsWith("autoswing"))
                                 {
-                                    output += "\n[Output] Weapon auto reuse is set to " + computer.autoReuse + ".";
+                                    output += "\n[Output] Item auto reuse is set to " + computer.autoReuse + ".";
                                 }
                             }
                             else
@@ -360,7 +400,7 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
             }
             catch
             {
-                textBox.SetText(code + "\n[Error] Could not convert \"" + value + "\" to float._");
+                textBox.SetText(code + "\n[Error] Could not convert \"" + value + "\" to bool._");
                 return false;
             }
             return true;
