@@ -15,11 +15,9 @@ namespace ShardsOfAtheria.Projectiles.Other
         {
             Projectile.width = Projectile.height = 12;
             Projectile.timeLeft = 300;
-            Projectile.friendly = true;
             Projectile.aiStyle = 0;
             gravityTimer = 16;
-            Projectile.usesIDStaticNPCImmunity = true;
-            Projectile.idStaticNPCHitCooldown = 30;
+            Projectile.friendly = true;
         }
 
         public override void AI()
@@ -40,6 +38,43 @@ namespace ShardsOfAtheria.Projectiles.Other
                     vector.X, vector.Y);
                 dust.noGravity = true;
             }
+        }
+    }
+
+    internal class RubyShardNPC : GlobalNPC
+    {
+        int hitCooldown = 0;
+
+        public override bool InstancePerEntity => true;
+
+        public override void PostAI(NPC npc)
+        {
+            if (hitCooldown > 0)
+            {
+                hitCooldown--;
+            }
+            base.PostAI(npc);
+        }
+
+        public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
+        {
+            if (projectile.type == ModContent.ProjectileType<RubyShard>())
+            {
+                hitCooldown = 30;
+            }
+            base.OnHitByProjectile(npc, projectile, hit, damageDone);
+        }
+
+        public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
+        {
+            if (projectile.type == ModContent.ProjectileType<RubyShard>())
+            {
+                if (hitCooldown > 0)
+                {
+                    return false;
+                }
+            }
+            return base.CanBeHitByProjectile(npc, projectile);
         }
     }
 }
