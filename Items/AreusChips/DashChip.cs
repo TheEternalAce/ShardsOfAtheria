@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Dusts;
-using ShardsOfAtheria.Items.Armor.Areus.Guard;
+using ShardsOfAtheria.Items.Armor.Areus;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -100,9 +100,15 @@ namespace ShardsOfAtheria.Items.AreusChips
             for (int i = 0; i < Player.armor.Length / 2; i++)
             {
                 var item = Player.armor[i];
-                if (item.type == ModContent.ItemType<GuardMail>())
+                if (item.ModItem != null)
                 {
-                    dashAccessoryEquipped = Player.HasChipEquipped(ModContent.ItemType<DashChip>());
+                    if (item.ModItem is AreusArmorPiece areus)
+                    {
+                        if (areus.slotType == AreusArmorChip.SlotChest)
+                        {
+                            dashAccessoryEquipped = Player.HasChipEquipped(ModContent.ItemType<DashChip>());
+                        }
+                    }
                 }
                 else if (item.type == ItemID.EoCShield || item.type == ItemID.MasterNinjaGear || item.type == ItemID.Tabi)
                 {
