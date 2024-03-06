@@ -47,7 +47,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = SoA.ElectricColor;
-            Projectile.DrawBlurTrail(lightColor, ShardsHelpers.Orb, scale: Projectile.scale);
+            Projectile.DrawBlurTrail(lightColor, SoA.OrbBlur, scale: Projectile.scale);
             return false;
         }
     }

@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.EventHorizon
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
-            ProjectileID.Sets.TrailingMode[Type] = 3;
+            ProjectileID.Sets.TrailingMode[Type] = 2;
             Projectile.AddElement(1);
             Projectile.AddRedemptionElement(9);
         }
@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.EventHorizon
 
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             if (Main.myPlayer == Projectile.owner)
             {
                 Player player = Main.player[Projectile.owner];
@@ -100,8 +100,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged.EventHorizon
         public override bool PreDraw(ref Color lightColor)
         {
             var color = new Color(90, 10, 120);
+            Projectile.DrawBlurTrail(color, SoA.DiamondBlur);
             lightColor = Color.White;
-            Projectile.DrawBlurTrail(color, ShardsHelpers.Diamond);
             return base.PreDraw(ref lightColor);
         }
     }

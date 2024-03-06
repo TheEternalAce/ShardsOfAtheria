@@ -53,7 +53,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
         public override bool PreDraw(ref Color lightColor)
         {
             float percent = 1 - Projectile.ai[0] / 255f;
-            Projectile.DrawBlurTrail(SoA.HardlightColor * percent, ShardsHelpers.Orb);
+            Projectile.DrawBlurTrail(SoA.HardlightColor * percent, SoA.OrbBlur);
             return base.PreDraw(ref lightColor);
         }
     }

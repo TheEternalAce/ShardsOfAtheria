@@ -192,7 +192,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
                 case 7:
                     lightColor = Color.Orange;
                     lightColor.A = 0;
-                    Projectile.DrawPrimsAfterImage(lightColor);
+                    Projectile.DrawAfterImage(lightColor);
                     break;
                 case 9:
                     lightColor = SoA.ElectricColorA;

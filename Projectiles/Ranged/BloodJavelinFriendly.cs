@@ -61,7 +61,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = Color.White;
-            Projectile.DrawPrimsAfterImage(lightColor);
+            Projectile.DrawAfterImage(lightColor);
             return base.PreDraw(ref lightColor);
         }
     }

@@ -101,7 +101,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override bool PreDraw(ref Color lightColor)
         {
             Color color = new(227, 182, 245, 80);
-            Projectile.DrawPrimsAfterImage(color);
+            Projectile.DrawAfterImage(color);
             lightColor = Color.White;
             return true;
         }

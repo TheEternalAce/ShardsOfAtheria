@@ -109,10 +109,10 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.DrawPrimsAfterImage(Color.White);
+            Projectile.DrawAfterImage(Color.White);
             if (Projectile.ai[0] == 1)
             {
-                Projectile.DrawBlurTrail(Color.Yellow, ShardsHelpers.Orb);
+                Projectile.DrawBlurTrail(Color.Yellow, SoA.OrbBlur);
             }
             return true;
         }

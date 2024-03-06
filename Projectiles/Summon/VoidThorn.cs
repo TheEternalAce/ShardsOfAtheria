@@ -80,8 +80,8 @@ namespace ShardsOfAtheria.Projectiles.Summon
 
         public override void PostDraw(Color lightColor)
         {
-            Projectile.DrawBlurTrail(lightColor, ShardsHelpers.Orb);
-            Projectile.DrawPrimsAfterImage(lightColor);
+            Projectile.DrawBlurTrail(lightColor, SoA.OrbBlur);
+            Projectile.DrawAfterImage(lightColor);
         }
     }
 }

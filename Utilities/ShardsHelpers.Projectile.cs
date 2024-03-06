@@ -200,17 +200,14 @@ namespace ShardsOfAtheria.Utilities
         //        0);
         //}
 
-        public const string Diamond = "DiamondBlur";
-        public const string Orb = "OrbBlur";
-        public const string Line = "LineTrail";
         public static void DrawBlurTrail(this Projectile projectile, Color color, string style, float angleAdd = 0f, float scale = 1f)
         {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, null, null, null, null, Main.GameViewMatrix.ZoomMatrix);
 
             Main.instance.LoadProjectile(projectile.type);
-            Texture2D texture = ModContent.Request<Texture2D>("ShardsOfAtheria/Assets/BlurTrails/" + style).Value;
-            if (style == Diamond || style == Line)
+            Texture2D texture = ModContent.Request<Texture2D>(style).Value;
+            if (style == SoA.DiamondBlur || style == SoA.LineBlur)
             {
                 angleAdd += MathHelper.PiOver2;
             }
@@ -243,7 +240,7 @@ namespace ShardsOfAtheria.Utilities
 
             Main.spriteBatch.Draw(texture, projectile.position + offset - Main.screenPosition, frame, color, projectile.rotation, origin, projectile.scale, SpriteEffects.None, 0f);
         }
-        public static void DrawPrimsAfterImage(this Projectile projectile, Color color)
+        public static void DrawAfterImage(this Projectile projectile, Color color)
         {
             var texture = TextureAssets.Projectile[projectile.type].Value;
             projectile.DrawAfterImage(color, texture);

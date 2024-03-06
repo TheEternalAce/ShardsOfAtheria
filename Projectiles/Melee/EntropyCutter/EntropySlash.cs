@@ -42,8 +42,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.EntropyCutter
             var color = new Color(90, 10, 120);
             lightColor = Color.White;
             var rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            Projectile.DrawBlurTrail(color, ShardsHelpers.Diamond, rotation);
-            Projectile.DrawPrimsAfterImage(lightColor);
+            Projectile.DrawBlurTrail(color, SoA.DiamondBlur, rotation);
+            Projectile.DrawAfterImage(lightColor);
             return base.PreDraw(ref lightColor);
         }
     }

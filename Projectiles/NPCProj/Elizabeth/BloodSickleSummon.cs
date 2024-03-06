@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -53,8 +52,9 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             d2.fadeIn = 1.3f;
             d2.noGravity = true;
 
-            Vector2 movePos = new(Projectile.ai[0] + Target.Center.X, Projectile.ai[1] + Target.Center.Y);
-            Projectile.Track(movePos, 32, 8);
+            Vector2 idlePosition = new(Projectile.ai[0] + Target.Center.X, Projectile.ai[1] + Target.Center.Y);
+            var vectorToIdlePosition = idlePosition - Projectile.Center;
+            Projectile.velocity = vectorToIdlePosition * 0.055f;
         }
 
         public override void OnKill(int timeLeft)

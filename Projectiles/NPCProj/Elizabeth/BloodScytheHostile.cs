@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         public override void AI()
         {
             var npc = Projectile.GetNPCOwner(0);
-            int direction = npc.spriteDirection;
+            int direction = -npc.spriteDirection;
             Projectile.Center = npc.Center +
                 new Vector2(Projectile.width / 2 * direction, 0);
 

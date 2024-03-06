@@ -40,8 +40,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodthirstySword
         {
             lightColor = Color.White;
             var rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            Projectile.DrawBlurTrail(Color.DarkRed, ShardsHelpers.Diamond, rotation);
-            Projectile.DrawPrimsAfterImage(Color.White);
+            Projectile.DrawBlurTrail(Color.DarkRed, SoA.DiamondBlur, rotation);
+            Projectile.DrawAfterImage(Color.White);
             return base.PreDraw(ref lightColor);
         }
     }

@@ -29,19 +29,23 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
+            Projectile.timeLeft = 180;
 
             DrawOriginOffsetY = -50;
         }
 
-        int frameCounterMax = 10;
+        bool swordSwing = false;
 
         public override void AI()
         {
-            var npc = Main.npc[(int)Projectile.ai[0]];
-            Projectile.Center = npc.Center + Projectile.velocity * 50;
+            var npc = Projectile.GetNPCOwner(1);
+            var target = Main.player[(int)Projectile.ai[0]];
+            Projectile.velocity = target.Center - npc.Center;
+            Projectile.velocity.Normalize();
 
+            Projectile.Center = npc.Center + Projectile.velocity * 50;
             Projectile.rotation = Projectile.velocity.ToRotation();
-            Projectile.spriteDirection = -Projectile.direction;
+            Projectile.spriteDirection = Projectile.direction = -(Projectile.velocity.X > 0).ToDirectionInt();
             if (Projectile.spriteDirection == 1)
             {
                 DrawOffsetX = 0;
@@ -54,19 +58,26 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
                 DrawOriginOffsetX = 50;
             }
 
-            if (++Projectile.frameCounter >= frameCounterMax)
+            if (Projectile.Hitbox.Intersects(target.Hitbox) && !swordSwing)
             {
-                frameCounterMax = 10;
-                if (++Projectile.frame >= 3)
+                swordSwing = true;
+            }
+
+            if (swordSwing)
+            {
+                int frameTime = 10;
+                if (++Projectile.frameCounter >= frameTime)
                 {
-                    Projectile.Kill();
+                    if (++Projectile.frame >= 3)
+                    {
+                        Projectile.Kill();
+                    }
+                    else if (Projectile.frame == 1)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item71.WithPitchOffset(1f), Projectile.Center);
+                    }
+                    Projectile.frameCounter = 0;
                 }
-                else if (Projectile.frame == 1)
-                {
-                    frameCounterMax = 10;
-                    SoundEngine.PlaySound(SoundID.Item71.WithPitchOffset(1f), Projectile.Center);
-                }
-                Projectile.frameCounter = 0;
             }
         }
 

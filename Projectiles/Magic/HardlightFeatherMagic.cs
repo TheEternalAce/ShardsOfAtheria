@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
         public override bool PreDraw(ref Color lightColor)
         {
             Projectile.DrawBlurTrail(SoA.HardlightColor * 0.7f,
-                ShardsHelpers.Diamond);
+                SoA.DiamondBlur);
             lightColor = Color.White;
             return true;
         }

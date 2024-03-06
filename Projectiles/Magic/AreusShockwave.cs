@@ -74,7 +74,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = SoA.ElectricColorA;
-            Projectile.DrawPrimsAfterImage(lightColor);
+            Projectile.DrawAfterImage(lightColor);
             return true;
         }
 

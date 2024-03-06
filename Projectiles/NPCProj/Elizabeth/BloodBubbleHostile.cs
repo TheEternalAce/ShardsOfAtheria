@@ -37,7 +37,9 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
                 Projectile.ai[0]++;
             }
 
-            Projectile.Track(player.Center + trackPosition);
+            var idlePosition = player.Center + trackPosition;
+            var vectorToIdlePosition = idlePosition - Projectile.Center;
+            Projectile.velocity = vectorToIdlePosition * 0.055f;
         }
 
         public override void OnKill(int timeLeft)

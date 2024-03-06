@@ -70,7 +70,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = Color.White;
-            Projectile.DrawPrimsAfterImage(lightColor);
+            Projectile.DrawAfterImage(lightColor);
             return true;
         }
     }

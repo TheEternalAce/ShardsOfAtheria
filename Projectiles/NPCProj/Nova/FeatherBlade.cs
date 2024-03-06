@@ -83,7 +83,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.DrawBlurTrail(SoA.HardlightColor * 0.7f, ShardsHelpers.Diamond);
+            Projectile.DrawBlurTrail(SoA.HardlightColor * 0.7f, SoA.DiamondBlur);
             lightColor = Color.White;
             return true;
         }
