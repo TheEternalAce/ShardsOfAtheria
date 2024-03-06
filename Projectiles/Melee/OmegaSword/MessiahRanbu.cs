@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Items.Tools.Misc;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;

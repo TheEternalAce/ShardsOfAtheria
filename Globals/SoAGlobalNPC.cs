@@ -9,7 +9,7 @@ using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.SinfulSouls.Extras;
-using ShardsOfAtheria.Items.Tools.Misc;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
