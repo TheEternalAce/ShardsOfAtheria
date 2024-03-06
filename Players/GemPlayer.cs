@@ -51,6 +51,7 @@ namespace ShardsOfAtheria.Players
         public bool greaterRubyCore;
         public bool superRubyCore;
         public bool rubyGauntlet;
+        private int rubyExplosiveCooldown = 0;
 
         public float sapphireDodgeChance;
         public bool sapphireCore;
@@ -103,6 +104,10 @@ namespace ShardsOfAtheria.Players
             greaterRubyCore = false;
             superRubyCore = false;
             rubyGauntlet = false;
+            if (rubyExplosiveCooldown > 0)
+            {
+                rubyExplosiveCooldown--;
+            }
 
             sapphireDodgeChance = 0f;
             sapphireCore = false;
@@ -504,12 +509,13 @@ namespace ShardsOfAtheria.Players
             {
                 target.AddBuff(BuffID.Confused, 300);
             }
-            if (greaterRubyCore)
+            if (greaterRubyCore && rubyExplosiveCooldown == 0)
             {
                 if (hit.Crit)
                 {
                     int type = ModContent.ProjectileType<RubyExplosive>();
                     Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, type, 60, 0f, Player.whoAmI);
+                    rubyExplosiveCooldown = 180;
                 }
             }
             if (superRubyCore)
