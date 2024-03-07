@@ -32,6 +32,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         int attackCooldown = 40;
         int attackTypeNext = -1;
         int damagedTimer = 0;
+        bool stopSword = false;
 
         //int frameX = 0;
         //int frameY = 0;
@@ -63,8 +64,8 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
         public override void SetDefaults()
         {
-            NPC.width = 46;
-            NPC.height = 82;
+            NPC.width = 24;
+            NPC.height = 60;
             NPC.damage = 90;
             NPC.defense = 180;
             NPC.lifeMax = 242564;
@@ -219,6 +220,8 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             Player player = Main.player[NPC.target];
             bool isSlayer = player.Slayer().slayerMode;
 
+            Lighting.AddLight(NPC.Center, Color.Crimson.ToVector3());
+
             // death drama
             if (NPC.ai[3] > 0f)
             {
@@ -252,8 +255,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 return;
             }
 
-            NPC.spriteDirection = player.Center.X > NPC.Center.X ? 1 : -1;
-            Lighting.AddLight(NPC.Center, Color.Cyan.ToVector3());
+            NPC.spriteDirection = player.Center.X > NPC.Center.X ? -1 : 1;
 
             //bool transitioning = false;
             if (NPC.life <= NPC.lifeMax * 0.8 && !phase2)
@@ -443,6 +445,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     attackTimer = 180;
                     attackCooldown = 60;
                     damage = 60;
+                    stopSword = false;
                     break;
             }
             blacklistedAttacks.Add(attackType);
@@ -560,11 +563,11 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         {
             if (attackTimer >= 10)
             {
-                var targetCenter = toTarget + center;
-                int direction = (NPC.Center.X > targetCenter.X ? 1 : -1);
-                Vector2 toPosition = targetCenter + new Vector2(150 * direction, 0);
-                var vectorToIdlePos = toPosition - NPC.Center;
-                NPC.velocity = vectorToIdlePos * 0.055f;
+                Vector2 vector = -toTarget;
+                vector.Normalize();
+                vector *= 120;
+                var vectorToIdlePos = toTarget + vector;
+                NPC.velocity = vectorToIdlePos * 0.08f;
             }
             if (attackTimer == 10)
             {
@@ -667,16 +670,18 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         }
         void DoSwordDraw(Player player)
         {
-            var vectorToIdlePos = player.Center - NPC.Center;
-            NPC.velocity = vectorToIdlePos * 0.055f;
-            if (NPC.Distance(player.Center) <= 150)
+            Vector2 vector = NPC.Center - player.Center;
+            vector.Normalize();
+            vector *= 80;
+            var vectorToIdlePos = player.Center + vector - NPC.Center;
+            NPC.velocity = vectorToIdlePos * 0.08f;
+            if (attackTimer == 180)
             {
-                var vector = player.Center - NPC.Center;
-                vector.Normalize();
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, vector,
+                var vector2 = player.Center - NPC.Center;
+                vector2.Normalize();
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, vector2,
                     ModContent.ProjectileType<BloodSwordHostile>(), damage, 0f,
-                    Main.myPlayer, NPC.whoAmI);
-                attackTimer = 0;
+                    Main.myPlayer, player.whoAmI, NPC.whoAmI);
             }
         }
         void DoBloodBarrier(Vector2 center, Vector2 toTarget)
