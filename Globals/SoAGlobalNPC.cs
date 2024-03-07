@@ -47,14 +47,8 @@ namespace ShardsOfAtheria.Globals
         {
             if (shop.NpcType == NPCID.Wizard)
             {
-                shop.Add(new Item(ModContent.ItemType<SinfulSoul>())
-                {
-                    shopCustomPrice = 250000
-                }, SoAConditions.SlayerMode);
-                shop.Add(new Item(ModContent.ItemType<SinfulArmament>())
-                {
-                    shopCustomPrice = 250000
-                }, SoAConditions.SlayerMode);
+                shop.Add(new Item(ModContent.ItemType<SinfulSoul>()), SoAConditions.SlayerMode);
+                shop.Add(new Item(ModContent.ItemType<SinfulArmament>()), SoAConditions.SlayerMode);
             }
             if (shop.NpcType == NPCID.Merchant)
             {
@@ -104,10 +98,6 @@ namespace ShardsOfAtheria.Globals
             if (npc.type == NPCID.Reaper)
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AncientMedalion>(), 4));
-            }
-            if (npc.type == NPCID.MartianSaucerCore)
-            {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ReactorMeltdown>(), 4));
             }
             if (npc.type == NPCID.BlackRecluse ||
                 npc.type == NPCID.BlackRecluseWall ||
@@ -181,6 +171,12 @@ namespace ShardsOfAtheria.Globals
             {
                 downedGolem.OnFailedConditions(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
                 npcLoot.Add(downedGolem);
+            }
+            if (npc.type == NPCID.MartianSaucerCore)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ReactorMeltdown>(), 4));
+                master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HansMachineGun>()));
+                npcLoot.Add(master);
             }
             if (npc.type == NPCID.CultistBoss)
             {

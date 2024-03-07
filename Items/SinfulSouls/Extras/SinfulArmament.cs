@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.UseSound = SoundID.Item82;
 
-            Item.value = ItemDefaults.ValueEarlyHardmode;
+            Item.value = 250000;
         }
 
         public override bool CanUseItem(Player player)

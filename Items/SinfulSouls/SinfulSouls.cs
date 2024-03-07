@@ -80,6 +80,8 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             Item.width = 54;
             Item.height = 52;
             Item.maxStack = 9999;
+
+            Item.value = 250000;
         }
     }
 }
