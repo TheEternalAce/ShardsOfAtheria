@@ -27,8 +27,6 @@ namespace ShardsOfAtheria.Projectiles.Melee
                 glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
             }
 
-            ProjectileID.Sets.TrailingMode[Type] = 3;
-            ProjectileID.Sets.TrailCacheLength[Type] = 13;
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
