@@ -27,7 +27,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.damage = 50;
             Item.knockBack = 4f;
 
-            Item.useAnimation = 600;
+            Item.useAnimation = 300;
+            Item.reuseDelay = 60;
             Item.UseSound = SoundID.Item38;
             Item.consumeAmmoOnFirstShotOnly = true;
 
@@ -37,7 +38,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-45, -20);
+            return new Vector2(-50, -20);
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
