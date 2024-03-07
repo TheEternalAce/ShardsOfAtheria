@@ -6,14 +6,15 @@ namespace ShardsOfAtheria.Items
     public static class ItemDefaults
     {
         public const int RarityDataDisc = ItemRarityID.Green;
-        public const int RaritySinful = ItemRarityID.Orange;
-        public const int RaritySlayer = ItemRarityID.Yellow;
+        public const int RaritySinful = RarityEarlyHardmode;
+        public const int RaritySlayer = RarityMoonLord;
 
         public const int RarityShimmerPermanentUpgrade = ItemRarityID.LightPurple;
         public const int RarityPreBoss = ItemRarityID.White;
         public const int RarityBanner = ItemRarityID.Blue;
         public const int RarityBossMasks = ItemRarityID.Blue;
         public const int RarityDemoniteCrimtane = ItemRarityID.Blue;
+        public const int RarityNova = ItemRarityID.Green;
         public const int RarityDungeon = ItemRarityID.Green;
         public const int RarityQueenBee = ItemRarityID.Orange;
         public const int RarityJungle = ItemRarityID.Orange;
@@ -30,8 +31,10 @@ namespace ShardsOfAtheria.Items
         public const int RarityMartians = ItemRarityID.Yellow;
         public const int RarityDukeFishron = ItemRarityID.Yellow;
         public const int RarityLunaticCultist = ItemRarityID.Cyan;
+        public const int RarityDevSet = ItemRarityID.Cyan;
         public const int RarityLunarPillars = ItemRarityID.Red;
         public const int RarityMoonLord = ItemRarityID.Red;
+        public const int RarityDeath = ItemRarityID.Red;
 
         /// <summary>
         /// 2 silver (sell)

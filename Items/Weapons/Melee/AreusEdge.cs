@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.autoReuse = true;
 
             Item.shootSpeed = 1f;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.value = 150000;
             Item.shoot = ModContent.ProjectileType<AreusJustitia>();
             PreviouslyHitNPC = -1;

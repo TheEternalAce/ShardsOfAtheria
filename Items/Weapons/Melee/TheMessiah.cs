@@ -54,7 +54,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.channel = true;
 
             Item.shootSpeed = 15;
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemDefaults.RarityMoonLord;
             Item.value = 5000000;
             Item.shoot = ModContent.ProjectileType<MessiahRanbu>();
         }

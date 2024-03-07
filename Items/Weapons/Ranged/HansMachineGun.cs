@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.UseSound = SoundID.Item38;
             Item.consumeAmmoOnFirstShotOnly = true;
 
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityDukeFishron;
             Item.value = Item.sellPrice(0, 4, 25);
         }
 

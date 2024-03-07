@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 16f;
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemDefaults.RarityNova;
             Item.value = 6800;
             Item.shoot = ModContent.ProjectileType<HardlightKnifeProj>();
         }

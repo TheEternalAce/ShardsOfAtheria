@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             Item.noMelee = true;
 
             Item.shootSpeed = 0;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.value = 10000;
             Item.shoot = ModContent.ProjectileType<AreusMirrorBroken>();
 

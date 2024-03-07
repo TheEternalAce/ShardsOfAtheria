@@ -57,7 +57,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.noMelee = true;
             Item.noUseGraphic = true;
 
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemDefaults.RarityMolten;
             Item.value = Item.sellPrice(0, 4);
             combo = 0;
         }

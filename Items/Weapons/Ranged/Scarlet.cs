@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noMelee = true;
 
             Item.shootSpeed = 13f;
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemDefaults.RarityMoonLord;
             Item.value = 42500;
             Item.shoot = ProjectileID.PurificationPowder;
             Item.useAmmo = AmmoID.Bullet;

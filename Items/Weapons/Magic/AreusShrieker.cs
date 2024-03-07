@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.noMelee = true;
 
             Item.shootSpeed = 20f;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityDukeFishron;
             Item.value = 173000;
             Item.shoot = ModContent.ProjectileType<AreusShockwave>();
         }

@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
             Item.shootSpeed = 3.5f;
             Item.value = Item.sellPrice(0, 2, 25);
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.shoot = ModContent.ProjectileType<Gomorrah_Spear>();
         }
 

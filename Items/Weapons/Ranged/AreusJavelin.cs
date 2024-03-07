@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 16f;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityMoonLord;
             Item.value = 250000;
             Item.shoot = ModContent.ProjectileType<AreusJavelinThrown>();
         }

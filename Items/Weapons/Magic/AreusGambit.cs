@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 10;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.value = 50000;
             Item.shoot = ModContent.ProjectileType<ElecCoin>();
         }

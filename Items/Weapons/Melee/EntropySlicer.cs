@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 15f;
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemDefaults.RaritySlayer;
             Item.shoot = ModContent.ProjectileType<EntropyBlade>();
         }
 

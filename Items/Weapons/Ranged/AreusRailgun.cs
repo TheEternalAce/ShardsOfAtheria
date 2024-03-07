@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 0f;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityMechs;
             Item.value = Item.sellPrice(0, 2, 25);
             Item.shoot = ModContent.ProjectileType<AreusRailgunProj>();
             Item.useAmmo = AmmoID.Dart;

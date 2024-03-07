@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.autoReuse = true;
 
             Item.shootSpeed = 0f;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.value = Item.sellPrice(0, 0, 25);
             Item.shoot = ModContent.ProjectileType<AreusMagnumProj>();
             Item.useAmmo = AmmoID.Bullet;

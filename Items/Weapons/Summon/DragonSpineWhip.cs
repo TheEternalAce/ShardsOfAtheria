@@ -24,7 +24,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 
             Item.DefaultToWhip(ModContent.ProjectileType<DragonSpineWhipProj>(), 220, 2, 5, 26);
 
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemDefaults.RaritySlayer;
         }
 
         public override void AddRecipes()

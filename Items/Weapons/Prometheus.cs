@@ -41,8 +41,7 @@ namespace ShardsOfAtheria.Items.Weapons
             Item.shoot = ModContent.ProjectileType<EnergyScythe>();
             Item.shootSpeed = 1;
             Item.value = Item.sellPrice(0, 3, 25);
-            Item.rare = ItemRarityID.Red;
-            Item.shoot = ProjectileID.None;
+            Item.rare = ItemDefaults.RarityHardmodeDungeon;
         }
 
         public override void AddRecipes()

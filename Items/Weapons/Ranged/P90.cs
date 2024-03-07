@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noMelee = true;
 
             Item.shootSpeed = 16f;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ItemDefaults.RarityPlantera;
             Item.value = Item.sellPrice(0, 3, 25);
             Item.shoot = ItemID.PurificationPowder;
             Item.useAmmo = AmmoID.Bullet;

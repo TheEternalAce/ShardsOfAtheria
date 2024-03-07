@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
@@ -18,7 +17,7 @@ namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
             Item.height = 20;
             Item.vanity = true;
 
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityDevSet;
             Item.value = ItemDefaults.ValueEarlyHardmode;
         }
     }

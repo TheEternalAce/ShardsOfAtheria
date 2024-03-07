@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.autoReuse = true;
 
             Item.shootSpeed = 1f;
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemDefaults.RarityDeath;
             Item.value = 321000;
             Item.shoot = ModContent.ProjectileType<DeathScythe>();
         }

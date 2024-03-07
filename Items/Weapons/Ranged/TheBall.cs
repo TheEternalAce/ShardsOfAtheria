@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 8f;
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemDefaults.RarityMoonLord;
             Item.value = 46700;
             Item.shoot = ModContent.ProjectileType<BallinBall>();
         }

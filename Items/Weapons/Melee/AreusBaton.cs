@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.autoReuse = true;
 
             Item.shootSpeed = 30f;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityDukeFishron;
             Item.value = Item.sellPrice(0, 4, 25);
             Item.shoot = ModContent.ProjectileType<ElecBaton>();
         }

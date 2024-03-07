@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.useTurn = true;
 
             Item.value = Item.sellPrice(0, 15);
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemDefaults.RarityDemoniteCrimtane;
         }
 
         public override void AddRecipes()

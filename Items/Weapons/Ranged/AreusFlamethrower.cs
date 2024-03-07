@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.channel = true;
 
             Item.shootSpeed = 16f;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityLunarPillars;
             Item.value = 10000;
             Item.shoot = ModContent.ProjectileType<ApproachingStorm>();
             Item.useAmmo = AmmoID.Gel;

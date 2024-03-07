@@ -26,7 +26,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 4.5f;
-            Item.rare = ItemRarityID.Blue;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.value = Item.sellPrice(0, 1, 25);
             Item.shoot = ModContent.ProjectileType<GunswordProj>();
         }

@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
             Item.shootSpeed = 16f;
             Item.value = 10000;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.shoot = ModContent.ProjectileType<AreusGrenadeProj>();
         }
 

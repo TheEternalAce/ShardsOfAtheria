@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Items.Weapons
             Item.shootSpeed = 15f;
             Item.shoot = ModContent.ProjectileType<CodeProjectile>();
             Item.value = ItemDefaults.ValueLunarPillars;
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemDefaults.RarityMoonLord;
         }
 
         public override void HoldItem(Player player)

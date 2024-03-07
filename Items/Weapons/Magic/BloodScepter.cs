@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.staff[Type] = true;
 
             Item.shootSpeed = 10;
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemDefaults.RarityDeath;
             Item.shoot = ModContent.ProjectileType<BloodWaveFriendly>();
         }
     }

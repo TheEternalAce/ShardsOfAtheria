@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.noMelee = true;
 
             Item.shootSpeed = 16;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = 150000;
             Item.shoot = ModContent.ProjectileType<AreusShardProj>();
         }

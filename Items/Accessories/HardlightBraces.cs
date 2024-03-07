@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.shoot = ModContent.ProjectileType<HardlightFeatherMagic>();
             Item.shootSpeed = 16;
 
-            Item.rare = ItemDefaults.RarityDungeon;
+            Item.rare = ItemDefaults.RarityNova;
             Item.value = ItemDefaults.ValueDungeon;
         }
 

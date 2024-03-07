@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.channel = true;
 
             Item.shootSpeed = 0.8f;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = Item.sellPrice(0, 4, 25);
             Item.shoot = ModContent.ProjectileType<AreusLanceProj>();
         }

@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
             Item.shoot = ModContent.ProjectileType<MourningStar>();
             Item.shootSpeed = 1;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityPlantera;
             Item.value = 100000;
         }
 

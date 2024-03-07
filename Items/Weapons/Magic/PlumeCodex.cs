@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.autoReuse = true;
 
             Item.shootSpeed = 20f;
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.value = Item.sellPrice(0, 1, 75);
             Item.shoot = ModContent.ProjectileType<HardlightFeatherMagic>();
         }

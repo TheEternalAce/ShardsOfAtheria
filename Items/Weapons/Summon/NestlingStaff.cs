@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             Item.noMelee = true;
 
             Item.shootSpeed = 0;
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.value = 17500;
             Item.shoot = ModContent.ProjectileType<YoungHarpy>();
 

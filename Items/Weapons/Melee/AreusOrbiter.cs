@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.channel = true;
 
             Item.shootSpeed = 1f;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityLunarPillars;
             Item.value = Item.sellPrice(0, 4, 25);
             Item.shoot = ModContent.ProjectileType<OrbiterMagnet>();
         }

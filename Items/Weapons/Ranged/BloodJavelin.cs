@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 20f;
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemDefaults.RarityDeath;
             Item.value = Item.sellPrice(0, 5);
             Item.shoot = ModContent.ProjectileType<BloodJavelinFriendly>();
         }

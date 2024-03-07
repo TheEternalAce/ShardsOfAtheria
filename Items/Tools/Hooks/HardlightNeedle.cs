@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Items.Tools.Hooks
             Item.shootSpeed = 18f; // This defines how quickly the hook is shot.
             Item.shoot = ModContent.ProjectileType<HardlightNeedleHook>();
 
-            Item.rare = ItemDefaults.RarityDungeon;
+            Item.rare = ItemDefaults.RarityNova;
             Item.value = ItemDefaults.ValueDungeon;
         }
 

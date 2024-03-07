@@ -44,7 +44,7 @@ namespace ShardsOfAtheria.Items.Weapons
 
             Item.shootSpeed = 15f;
             Item.value = Item.sellPrice(0, 3, 25);
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemDefaults.RarityHardmodeDungeon;
         }
 
         public override void AddRecipes()

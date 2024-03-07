@@ -40,7 +40,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 1;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityDukeFishron;
             Item.value = 50000;
             Item.shoot = ModContent.ProjectileType<ElecBlade>();
         }

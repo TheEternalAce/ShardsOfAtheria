@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
             Item.shootSpeed = 15;
             Item.value = Item.sellPrice(0, 4);
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemDefaults.RarityMoonLord;
             Item.shoot = ModContent.ProjectileType<ZenovaProjectile>();
             Item.ArmorPenetration = 37;
         }

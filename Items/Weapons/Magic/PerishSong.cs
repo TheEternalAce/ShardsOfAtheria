@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.autoReuse = true;
 
             Item.shootSpeed = 10;
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemDefaults.RaritySlayer;
             Item.shoot = ModContent.ProjectileType<DeathNote>();
         }
 

@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.autoReuse = true;
 
             Item.shootSpeed = 10;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = Item.sellPrice(0, 1, 25);
             Item.shoot = ModContent.ProjectileType<PrometheusFire>();
         }

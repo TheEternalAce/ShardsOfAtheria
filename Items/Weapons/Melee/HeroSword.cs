@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
             Item.shoot = ModContent.ProjectileType<HeroSlash>();
             Item.shootSpeed = 6f;
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemDefaults.RarityHardmodeDungeon;
             Item.value = Item.sellPrice(0, 2, 50);
         }
 

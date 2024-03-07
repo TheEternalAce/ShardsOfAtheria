@@ -1,7 +1,6 @@
 using ShardsOfAtheria.Projectiles.Ranged.PlagueRail;
 using ShardsOfAtheria.Utilities;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ammo
@@ -29,7 +28,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
             Item.maxStack = 9999;
             Item.consumable = true;
 
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ItemDefaults.RarityMechs;
             Item.value = Item.sellPrice(silver: 2);
             Item.ammo = ModContent.ItemType<PlagueCell>();
             Item.shoot = ModContent.ProjectileType<PlagueBeam2>();

@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.channel = true;
 
             Item.shootSpeed = 16f;
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemDefaults.RarityMartians;
             Item.value = Item.sellPrice(0, 2, 20);
             Item.shoot = ModContent.ProjectileType<ReactorMeltdownProj>();
         }

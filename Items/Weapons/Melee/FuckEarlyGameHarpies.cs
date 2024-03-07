@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 1f;
-            Item.rare = ItemRarityID.Gray;
+            Item.rare = ItemDefaults.RarityPreBoss;
             Item.value = 0;
             Item.shoot = ModContent.ProjectileType<BrokenAreusPartizan>();
         }

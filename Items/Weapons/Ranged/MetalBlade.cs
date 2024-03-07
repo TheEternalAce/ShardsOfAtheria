@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 8;
-            Item.rare = ItemRarityID.LightRed;
+            Item.rare = ItemDefaults.RarityCobaltMythrilAdamantite;
             Item.value = 6800;
             Item.shoot = ModContent.ProjectileType<MetalBladeProj>();
         }

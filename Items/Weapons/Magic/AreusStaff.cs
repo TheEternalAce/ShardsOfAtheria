@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.staff[Item.type] = true;
 
             Item.shootSpeed = 12f;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityLunarPillars;
             Item.value = Item.sellPrice(0, 4, 25);
             Item.shoot = ModContent.ProjectileType<ElectricOrb>();
         }

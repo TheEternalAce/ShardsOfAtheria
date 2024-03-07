@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noMelee = true;
 
             Item.shootSpeed = 0f;
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemDefaults.RaritySinful;
             Item.value = Item.sellPrice(0, 10, 25);
             Item.shoot = ModContent.ProjectileType<AmbassadorShot>();
             Item.useAmmo = AmmoID.Bullet;

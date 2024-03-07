@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             Item.noMelee = true;
 
             Item.shootSpeed = 0;
-            Item.rare = ItemRarityID.Red;
+            Item.rare = ItemDefaults.RarityDeath;
             Item.value = 321000;
             Item.shoot = ModContent.ProjectileType<BloodSigil>();
             Item.buffType = ModContent.BuffType<BloodySigil>();

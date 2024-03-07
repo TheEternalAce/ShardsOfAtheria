@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
             Item.UseSound = SoundID.Item11;
 
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityMoonLord;
             Item.value = Item.sellPrice(0, 4, 25);
         }
 

@@ -1,6 +1,5 @@
 using ShardsOfAtheria.Utilities;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ammo
@@ -25,7 +24,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
         {
             Item.width = 22;
             Item.height = 34;
-            Item.rare = ItemRarityID.Yellow;
+            Item.rare = ItemDefaults.RarityHardmodeDungeon;
             Item.value = Item.sellPrice(0, 1);
             Item.ammo = ModContent.ItemType<PlagueCell>();
         }

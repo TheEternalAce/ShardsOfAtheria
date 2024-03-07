@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 
             Item.shootSpeed = 12f;
             Item.value = 150000;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityDungeon;
             Item.shoot = ModContent.ProjectileType<StrikerRod>();
         }
     }

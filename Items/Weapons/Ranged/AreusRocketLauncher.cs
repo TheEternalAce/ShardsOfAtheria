@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.noMelee = true;
 
             Item.shootSpeed = 10f;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityDukeFishron;
             Item.value = 50000;
             Item.shoot = ProjectileID.RocketI;
             Item.useAmmo = AmmoID.Rocket;

@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.autoReuse = true;
 
             Item.shootSpeed = 16;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ItemDefaults.RarityHardmodeDungeon;
             Item.value = Item.sellPrice(0, 3, 50);
             Item.shoot = ModContent.ProjectileType<ValkyrieStormSword>();
         }

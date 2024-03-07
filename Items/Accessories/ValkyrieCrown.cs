@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Items.Accessories
             Item.knockBack = 2;
             Item.crit = 3;
 
-            Item.rare = ItemDefaults.RarityDungeon;
+            Item.rare = ItemDefaults.RarityNova;
             Item.value = ItemDefaults.ValueDungeon;
         }
 

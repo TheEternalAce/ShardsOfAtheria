@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
             Item.noUseGraphic = true;
 
             Item.shootSpeed = 15;
-            Item.rare = ItemRarityID.Cyan;
+            Item.rare = ItemDefaults.RarityDevSet;
             Item.value = ItemDefaults.ValueEarlyHardmode;
             Item.shoot = ModContent.ProjectileType<AceOfSpades>();
         }
