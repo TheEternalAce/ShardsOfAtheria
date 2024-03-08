@@ -65,7 +65,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         {
             for (int i = 0; i < 5; i++)
             {
-                Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Silver, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
+                Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
             }
         }
 
