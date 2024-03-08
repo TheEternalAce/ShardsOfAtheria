@@ -60,7 +60,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             }
 
             GeneralBehavior(owner, out Vector2 idlePosition);
-            Projectile.Track(idlePosition);
+            var vectorToIdlePos = idlePosition - Projectile.Center;
+            Projectile.velocity = vectorToIdlePos * 0.08f;
 
             // Trying to find NPC closest to the projectile
             NPC closestNPC = Projectile.FindClosestNPC(null, 3000);
