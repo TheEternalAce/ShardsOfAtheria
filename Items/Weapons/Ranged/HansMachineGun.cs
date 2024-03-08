@@ -24,12 +24,13 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.height = 76;
             Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Bullet, 3, 16f);
 
-            Item.damage = 50;
+            Item.damage = 60;
             Item.knockBack = 4f;
 
             Item.useAnimation = 300;
             Item.reuseDelay = 60;
             Item.UseSound = SoundID.Item38;
+            Item.autoReuse = true;
             Item.consumeAmmoOnFirstShotOnly = true;
 
             Item.rare = ItemDefaults.RarityDukeFishron;
