@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -15,7 +14,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 3;
-            SoAGlobalProjectile.Eraser.Add(Type);
             Projectile.AddElement(1);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(12);
