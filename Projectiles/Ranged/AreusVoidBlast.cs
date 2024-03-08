@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -35,8 +36,11 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             var player = Projectile.GetPlayerOwner();
-            var areus = player.Areus();
-            areus.royalVoid -= 3;
+            if (!player.HasBuff<ShadeState>())
+            {
+                var areus = player.Areus();
+                areus.royalVoid -= 3;
+            }
             target.AddBuff(BuffID.Electrified, 600);
         }
 
