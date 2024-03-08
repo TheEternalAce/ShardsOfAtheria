@@ -1,12 +1,11 @@
-﻿using ShardsOfAtheria.Buffs.Summons;
-using ShardsOfAtheria.Utilities;
+﻿using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Buffs.PlayerBuff
 {
-    public class RallyingAmethyst : ModBuff
+    public class EfficientAmethyst : ModBuff
     {
         public override void SetStaticDefaults()
         {
@@ -22,21 +21,17 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
                 buffIndex--;
             }
 
-            if (player.HasBuff<SwarmingAmber>())
+            for (int i = 0; i < player.CountBuffs(); i++)
             {
-                player.maxMinions += 2;
-            }
-            if (player.HasBuff<TenaciousDiamond>())
-            {
-                player.statDefense += 15;
-            }
-            if (player.HasBuff<FleetingEmerald>())
-            {
-                player.moveSpeed += 0.2f;
-            }
-            if (player.HasBuff<VengefulRuby>())
-            {
-                player.GetDamage(DamageClass.Generic) += 0.25f;
+                int buffID = player.buffType[i];
+                if (!Main.debuff[buffID] && !BuffID.Sets.TimeLeftDoesNotDecrease[buffID] && !Main.buffNoTimeDisplay[buffID])
+                {
+                    player.buffTime[i] += 1;
+                    if (player.buffTime[i] < 60)
+                    {
+                        player.buffTime[i] = 60;
+                    }
+                }
             }
         }
     }
@@ -45,7 +40,7 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
     {
         public override void UpdateLifeRegen()
         {
-            if (Player.HasBuff<MendingTopaz>() && Player.HasBuff<RallyingAmethyst>())
+            if (Player.HasBuff<MendingTopaz>() && Player.HasBuff<EfficientAmethyst>())
             {
                 Player.lifeRegen += 20;
             }

@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using ShardsOfAtheria.Buffs.NPCDebuff;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
+using ShardsOfAtheria.Buffs.PlayerDebuff.GemCurse;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.Accessories.GemCores;
 using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
@@ -448,9 +449,10 @@ namespace ShardsOfAtheria.Players
                     }
                 }
             }
+            AddCurses();
             if (amethystCore)
             {
-                Player.AddBuff<RallyingAmethyst>(normalBuffTime);
+                Player.AddBuff<EfficientAmethyst>(normalBuffTime);
             }
             if (diamondCore)
             {
@@ -500,6 +502,26 @@ namespace ShardsOfAtheria.Players
                         }
                     }
                 }
+            }
+        }
+
+        private void AddCurses()
+        {
+            if (Player.HasBuff<SwarmingAmber>() && Player.HasBuff<EfficientAmethyst>()) TryAddCurse<CrowdedAmber>();
+            if (Player.HasBuff<EfficientAmethyst>() && Player.HasBuff<MendingTopaz>()) TryAddCurse<WoundedAmethyst>();
+            if (Player.HasBuff<FleetingEmerald>() && Player.HasBuff<VengefulRuby>()) TryAddCurse<TimidEmerald>();
+            if (Player.HasBuff<TenaciousDiamond>() && Player.HasBuff<VengefulRuby>()) TryAddCurse<FrailDiamond>();
+            if (Player.HasBuff<VengefulRuby>() && Player.HasBuff<TenaciousDiamond>()) TryAddCurse<SpitefulRuby>();
+            if (Player.HasBuff<CunningSapphire>() && Player.HasBuff<VengefulRuby>()) TryAddCurse<RecklessSapphire>();
+            if (Player.HasBuff<MendingTopaz>() && Player.HasBuff<TenaciousDiamond>()) TryAddCurse<FragileTopaz>();
+        }
+
+        private void TryAddCurse<T>(int curseChanceDenominator = 5) where T : ModBuff
+        {
+            if (Main.rand.NextBool(curseChanceDenominator))
+            {
+                int curseDuration = 900;
+                Player.AddBuff<T>(curseDuration);
             }
         }
 
@@ -583,28 +605,6 @@ namespace ShardsOfAtheria.Players
                         Player.AddBuff<DiamondBarrierBuff>(buffTime);
                     }
                 }
-            }
-        }
-
-        public override void OnRespawn()
-        {
-            if (greaterEmeraldCore && greaterRubyCore)
-            {
-
-            }
-            if (greaterRubyCore && greaterSapphireCore)
-            {
-
-            }
-        }
-
-        private void AddCurse<T>() where T : ModBuff
-        {
-            int curseDuration = 1800;
-            float curseChance = 0.7f;
-            if (Main.rand.NextFloat() < curseChance)
-            {
-                Player.AddBuff<T>(curseDuration);
             }
         }
     }

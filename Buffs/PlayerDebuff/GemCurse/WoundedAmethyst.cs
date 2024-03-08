@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Buffs.PlayerDebuff.GemCurse
 {
-    public class AmethystCurse : ModBuff
+    public class WoundedAmethyst : ModBuff
     {
         public override void SetStaticDefaults()
         {
@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Buffs.PlayerDebuff.GemCurse
     {
         public override void UpdateBadLifeRegen()
         {
-            if (Player.HasBuff(ModContent.BuffType<AmethystCurse>()))
+            if (Player.HasBuff(ModContent.BuffType<WoundedAmethyst>()))
             {
                 if (Player.lifeRegen > 0)
                 {
