@@ -66,7 +66,7 @@ namespace ShardsOfAtheria.Projectiles.Tools
                     DamageSource = PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI)
                 };
                 player.Hurt(info);
-                player.AddBuff<AmethystCurse>(60);
+                player.AddBuff<WoundedAmethyst>(60);
                 Projectile.Kill();
             }
         }
