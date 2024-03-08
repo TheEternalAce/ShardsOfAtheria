@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.GrabBags;
 using ShardsOfAtheria.Items.PetItems;
@@ -44,7 +46,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[NPC.type] = 6;
+            Main.npcFrameCount[NPC.type] = 7;
 
             NPCID.Sets.MPAllowedEnemies[NPC.type] = true;
 
@@ -123,6 +125,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
         public override bool CheckDead()
         {
+            animationState = STATE_IDLE;
             KillProjectiles();
             attackType = 0;
             attackTimer = 0;
@@ -305,6 +308,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             }
             else
             {
+                animationState = STATE_IDLE;
                 DefaultMovement(player);
                 //if (phase2)
                 //{
@@ -395,6 +399,8 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     {
                         attackTypeNext = BloodScepter;
                     }
+                    animationState = STATE_CROSSBOW_SHOOT;
+                    frameY = 5;
                     break;
                 case BloodJavelin:
                     attackTimer = 60;
@@ -404,6 +410,8 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     {
                         attackTypeNext = NeedleWave;
                     }
+                    animationState = STATE_SWING;
+                    frameY = 2;
                     break;
                 case NeedleWave:
                     attackTimer = 120;
@@ -436,10 +444,12 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     attackTypeNext = BloodScythe;
                     break;
                 case BloodScythe:
-                    attackTimer = 120;
+                    attackTimer = 130;
                     attackCooldown = 95;
                     damage = 75;
                     blacklistedAttacks.Add(BloodSickle);
+                    animationState = STATE_SCYTHE_SWING;
+                    frameY = 2;
                     break;
                 case BloodSword:
                     attackTimer = 180;
@@ -558,6 +568,11 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), center, toTarget,
                     type, damage, 0f, Main.myPlayer);
             }
+            if (attackTimer == 32 && animationState != STATE_IDLE)
+            {
+                animationState = STATE_IDLE;
+                frameY = 0;
+            }
         }
         void DoNeedleWave(Vector2 center, Vector2 toTarget)
         {
@@ -658,7 +673,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             Vector2 toPosition = targetCenter + new Vector2(100 * direction, 0);
             var vectorToIdlePos = toPosition - NPC.Center;
             NPC.velocity = vectorToIdlePos * 0.055f;
-            if (attackTimer == 90)
+            if (attackTimer == 130)
             {
                 var vector = targetCenter - NPC.Center;
                 vector.Y = 0;
@@ -683,10 +698,30 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     ModContent.ProjectileType<BloodSwordHostile>(), damage, 0f,
                     Main.myPlayer, player.whoAmI, NPC.whoAmI);
             }
+            bool endAttackEarly = false;
+            foreach (Projectile projectile in Main.projectile)
+            {
+                if (projectile.type == ModContent.ProjectileType<BloodSwordHostile>())
+                {
+                    if (!projectile.active)
+                    {
+                        endAttackEarly = true;
+                    }
+                    else
+                    {
+                        endAttackEarly = false; break;
+                    }
+                }
+            }
+            if (endAttackEarly && attackTimer > 10)
+            {
+                attackTimer = 10;
+            }
         }
         void DoBloodBarrier(Vector2 center, Vector2 toTarget)
         {
             toTarget.Normalize();
+            toTarget = toTarget.RotatedByRandom(MathHelper.PiOver2);
             Projectile.NewProjectile(NPC.GetSource_FromAI(), center, toTarget,
                 ModContent.ProjectileType<BloodBarrierHostile>(), damage, 0f,
                 Main.myPlayer, NPC.whoAmI);
@@ -736,6 +771,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     proj.type == ModContent.ProjectileType<BloodJavelinHostile>() ||
                     proj.type == ModContent.ProjectileType<BloodNeedleHostile>() ||
                     proj.type == ModContent.ProjectileType<BloodSickleHostile>() ||
+                    proj.type == ModContent.ProjectileType<BloodSickleSummon>() ||
                     proj.type == ModContent.ProjectileType<BloodScytheHostile>() ||
                     proj.type == ModContent.ProjectileType<BloodSwordHostile>() ||
                     proj.type == ModContent.ProjectileType<SilverBoltHostile>())
@@ -745,57 +781,67 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             }
         }
 
-        //public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        //{
-        //    Asset<Texture2D> texture = ModContent.Request<Texture2D>(Texture);
-        //    SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-        //    Vector2 drawOrigin = new(texture.Value.Width * 0.5f, NPC.height * 0.5f);
-        //    Vector2 drawPos = NPC.Center - screenPos;
-        //    if (attackTimer > 0)
-        //    {
-        //        switch (attackType)
-        //        {
-        //            default:
-        //                if (phase2)
-        //                {
-        //                    frameX = 1;
-        //                }
-        //                else
-        //                {
-        //                    frameX = 0;
-        //                }
-        //                break;
-        //            case BloodJavelin:
-        //            case BloodOrb:
-        //                if (phase2)
-        //                {
-        //                    frameX = 2;
-        //                }
-        //                else
-        //                {
-        //                    frameX = 0;
-        //                }
-        //                break;
-        //            case BloodSickle:
-        //                frameX = 3;
-        //                break;
-        //            case BloodScytheSwing:
-        //                frameX = 4;
-        //                break;
-        //        }
-        //    }
+        private int animationState = STATE_IDLE;
+        private const int STATE_IDLE = 0;
+        private const int STATE_SWING = 1;
+        private const int STATE_CROSSBOW_SHOOT = 2;
+        private const int STATE_SCYTHE_SWING = 3;
+        private const int STATE_SWORD_SWING = 4;
+        private int frameY = 0;
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Asset<Texture2D> texture = ModContent.Request<Texture2D>(Texture);
+            SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+            Vector2 drawPos = NPC.Center - screenPos;
 
-        //    if (++NPC.frameCounter >= 5 && !Main.gameInactive)
-        //    {
-        //        if (++frameY >= Main.npcFrameCount[Type])
-        //        {
-        //            frameY = 0;
-        //        }
-        //        NPC.frameCounter = 0;
-        //    }
-        //    Rectangle frame = new(100 * frameX, 100 * frameY, 100, 100);
-        //    spriteBatch.Draw(texture.Value, drawPos, frame, drawColor, NPC.rotation, frame.Size() / 2f, NPC.scale, effects, 0f);
-        //    return false;
-        //}
+            int frameYTime = 10;
+            int frameYMin;
+            int frameYMax;
+            switch (animationState)
+            {
+                default:
+                case STATE_IDLE:
+                    frameYMin = 0;
+                    frameYMax = 1;
+                    break;
+                case STATE_CROSSBOW_SHOOT:
+                    frameYMin = 5;
+                    frameYMax = 6;
+                    break;
+                case STATE_SWING:
+                case STATE_SCYTHE_SWING:
+                case STATE_SWORD_SWING:
+                    frameYMin = 2;
+                    frameYMax = 4;
+                    break;
+            }
+            if (animationState == STATE_SCYTHE_SWING)
+            {
+                if (attackTimer > 60)
+                {
+                    frameY = frameYMin;
+                    frameYTime = 60;
+                }
+                if (frameY == 4)
+                {
+                    frameYTime = 60;
+                }
+            }
+            if (!Main.gameInactive)
+            {
+                if (++NPC.frameCounter > frameYTime)
+                {
+                    if (++frameY > frameYMax)
+                    {
+                        frameY = frameYMin;
+                    }
+                    NPC.frameCounter = 0;
+                }
+            }
+
+            Rectangle frame = new(0, 66 * frameY, 94, 66);
+            spriteBatch.Draw(texture.Value, drawPos, frame, drawColor, NPC.rotation, frame.Size() / 2f, NPC.scale, effects, 0f);
+            return false;
+        }
     }
 }
