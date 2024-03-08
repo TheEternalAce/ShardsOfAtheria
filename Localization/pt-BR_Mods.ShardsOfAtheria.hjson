@@ -3221,6 +3221,42 @@ Buffs: {
 		// Description: Midnight Cloak will not save you from Death
 	}
 
+	# Gem Curses
+	CrowdedAmber: {
+		// DisplayName: Crowded Amber
+		// Tooltip: Movement speed reduced
+		// Description: Mods.ShardsOfAtheria.Buffs.CrowdedAmber.Description
+	}
+
+	FragileTopaz: {
+		// DisplayName: Fragile Topaz
+		// Tooltip: Endurance reduced
+		// Description: Mods.ShardsOfAtheria.Buffs.FragileTopaz.Description
+	}
+
+	FrailDiamond: {
+		// DisplayName: Frail Diamond
+		// Tooltip: Attacks weakened
+		// Description: Mods.ShardsOfAtheria.Buffs.FrailDiamond.Description
+	}
+
+	RecklessSapphire: {
+		// DisplayName: Reckless Sapphire
+		// Tooltip: Max life reduced
+		// Description: Mods.ShardsOfAtheria.Buffs.RecklessSapphire.Description
+	}
+
+	TimidEmerald: {
+		// DisplayName: Timid Emerald
+		// Tooltip: Attack speed reduced
+		// Description: Mods.ShardsOfAtheria.Buffs.TimidEmerald.Description
+	}
+
+	WoundedAmethyst: {
+		// DisplayName: Wounded Amethyst
+		// Description: Life regeneration disabled
+	}
+
 	# Potion buff
 	BoneStrength: {
 		DisplayName: Bone Strength
@@ -3356,19 +3392,14 @@ Buffs: {
 		// Description: Increased max minions
 	}
 
-	RallyingAmethyst: {
-		// DisplayName: Rallying Amethyst
-		// Description: Boosted gem buffs
+	EfficientAmethyst: {
+		// DisplayName: Effecient Amethyst
+		// Description: Buff time will not run out
 	}
 
 	AmberBannerBuff: {
 		// DisplayName: Amber Banner Buff
 		// Description: Increassed attack and movement speed
-	}
-
-	AmethystCurse: {
-		// DisplayName: Amethyst Curse
-		// Description: Your death is iminent if you keep this up
 	}
 
 	SpitefulRuby: {
@@ -3586,6 +3617,11 @@ Configs: {
 			// Label: "[i:1344] Debug"
 			// Tooltip: Toggles wether or not certain things will be logged.
 		}
+
+		screenShakeIntensity: {
+			// Label: "[i:3617][i:Cog] Screen Shake Intensity"
+			// Tooltip: Set to 0 to disable.
+		}
 	}
 
 	ShardsServer: {
@@ -3678,4 +3714,5 @@ GameTips: {
 	// OmegaKey: Shards of Atheria: There may be an ancient key found in sky island chests.
 	// Atherian: Shards of Atheria: Defeating the world's evil may attract someone who can upgrade weapons.
 	// TheMourningStar: Shards of Atheria: The sacrifice of a katana may draw power from Plantera's defeat.
+	// GemCurse: Shards of Atheria: Beware of curses when combining multiple gem buffs.
 }
