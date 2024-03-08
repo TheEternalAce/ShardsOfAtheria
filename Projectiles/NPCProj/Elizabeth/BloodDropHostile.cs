@@ -46,6 +46,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
 
             Projectile.ApplyGravity(ref gravityTimer);
 
+            Lighting.AddLight(Projectile.Center, TorchID.Crimson);
             Dust d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Blood, newColor: Color.White);
             d.velocity *= 0;
             d.fadeIn = 1.3f;
