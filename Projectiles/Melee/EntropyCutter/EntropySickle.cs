@@ -53,7 +53,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.EntropyCutter
                 return;
             }
 
-            Projectile.Track(targetNPC, maxDetectRadius, 32f);
+            Projectile.Track(targetNPC, 32f);
         }
 
         public override bool PreDraw(ref Color lightColor)

@@ -78,7 +78,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
                     if (proj.Distance(Projectile.Center) <= 30)
                     {
                         float speed = proj.velocity.Length();
-                        NPC npc = Projectile.FindClosestNPC(null, -1);
+                        NPC npc = Projectile.FindClosestNPC(null, 1000);
                         if (npc != null)
                         {
                             if (npc.CanBeChasedBy())

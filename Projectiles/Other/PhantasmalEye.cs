@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Projectiles.Other
 
             // If found, change the velocity of the projectile and turn it in the direction of the target
             // Use the SafeNormalize extension method to avoid NaNs returned by Vector2.Normalize when the vector is zero
-            Projectile.Track(closestNPC, maxDetectRadius, projSpeed);
+            Projectile.Track(closestNPC, projSpeed);
         }
     }
 }

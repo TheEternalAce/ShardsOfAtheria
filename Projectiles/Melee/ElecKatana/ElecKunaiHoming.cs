@@ -16,10 +16,10 @@ namespace ShardsOfAtheria.Projectiles.Melee.ElecKatana
 
             if (target == null)
             {
-                target = Projectile.FindClosestNPC(null, -1);
+                target = Projectile.FindClosestNPC(null, 1000);
                 return;
             }
-            Projectile.Track(target, 1000);
+            Projectile.Track(target);
 
             if (!target.active || target.life <= 0)
             {

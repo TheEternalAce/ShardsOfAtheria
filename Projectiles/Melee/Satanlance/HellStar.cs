@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.Satanlance
                 target = Projectile.FindClosestNPC(null, maxDetectRange);
                 return;
             }
-            Projectile.Track(target, maxDetectRange);
+            Projectile.Track(target);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

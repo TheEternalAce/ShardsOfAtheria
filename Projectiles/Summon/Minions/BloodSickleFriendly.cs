@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         public override void AI()
         {
             Projectile.rotation += MathHelper.ToRadians(15f);
-            NPC closestNPC = Projectile.FindClosestNPC(null, -1);
+            NPC closestNPC = Projectile.FindClosestNPC(null, 1000);
             if (closestNPC != null)
             {
                 Projectile.Track(closestNPC, 8, 8);
