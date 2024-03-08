@@ -16,6 +16,11 @@ namespace ShardsOfAtheria.Config
         [DefaultValue(false)]
         public bool entryView;
 
+        [DefaultValue(1f)]
+        [DrawTicks]
+        [Increment(0.05f)]
+        public float screenShakeIntensity;
+
         [Header("Sounds")]
         [DefaultValue(true)]
         public bool biometalSound;

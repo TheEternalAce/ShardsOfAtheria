@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 using WebCom.Effects.ScreenShaking;
 
@@ -20,8 +19,8 @@ namespace ShardsOfAtheria.Players
                     shake[i].Duration--;
                 }
             }
-            var shaking = (new Vector2(Main.rand.NextFloat(-intensity, intensity), Main.rand.NextFloat(-intensity, intensity)) * 0.5f).Floor(); ;
-            Main.screenPosition += shaking;
+            var shaking = (Main.rand.NextVector2Circular(intensity, intensity) * 0.5f).Floor(); ;
+            Main.screenPosition += shaking * SoA.ClientConfig.screenShakeIntensity;
             Main.screenPosition = Main.screenPosition.Floor();
         }
     }
