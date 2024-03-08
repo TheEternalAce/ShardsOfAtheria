@@ -1,6 +1,5 @@
 using ShardsOfAtheria.Items.BuffItems;
 using ShardsOfAtheria.Tiles.Crafting;
-using Terraria;
 using Terraria.ID;
 
 namespace ShardsOfAtheria.Items.AreusChips
@@ -11,11 +10,6 @@ namespace ShardsOfAtheria.Items.AreusChips
         {
             base.SetDefaults();
             slotType = SlotChest;
-        }
-
-        public override void UpdateChip(Player player)
-        {
-            player.wingTimeMax += 20;
         }
 
         public override void AddRecipes()

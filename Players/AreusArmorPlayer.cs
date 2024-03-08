@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
+using ShardsOfAtheria.Items.AreusChips;
 using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Projectiles.Summon.Minions;
 using ShardsOfAtheria.ShardsUI;
@@ -16,7 +17,7 @@ namespace ShardsOfAtheria.Players
 {
     public partial class AreusArmorPlayer : ModPlayer
     {
-        public string[] chipNames = new[] { "", "", "" };
+        public string[] chipNames = ["", "", ""];
 
         public bool areusArmorPiece;
         public DamageClass classChip;
@@ -183,6 +184,14 @@ namespace ShardsOfAtheria.Players
             if (royalSet)
             {
                 RoyalVoidStar();
+            }
+        }
+
+        public override void PostUpdateEquips()
+        {
+            if (Player.HasChipEquipped(ModContent.ItemType<FlightChip>()))
+            {
+                Player.wingTimeMax += 20;
             }
         }
 
