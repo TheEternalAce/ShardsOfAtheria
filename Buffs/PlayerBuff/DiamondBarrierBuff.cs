@@ -7,11 +7,16 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
     {
         public override void Update(Player player, ref int buffIndex)
         {
-            int maxDefense = 50;
-            int temporaryDefense = (int)(player.buffTime[buffIndex] * 0.05f);
+            if (player.HasBuff<EfficientAmethyst>())
+            {
+                player.buffTime[buffIndex]--;
+            }
+            int maxDefense = 20;
+            float multiplier = 0.05f;
+            int temporaryDefense = (int)(player.buffTime[buffIndex] * multiplier);
             if (temporaryDefense > maxDefense)
             {
-                player.buffTime[buffIndex] = (int)(maxDefense / 0.05f);
+                player.buffTime[buffIndex] = (int)(maxDefense / multiplier);
             }
             player.statDefense += temporaryDefense;
         }
