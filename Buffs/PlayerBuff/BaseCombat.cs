@@ -8,7 +8,7 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
     {
         public override void Update(Player player, ref int buffIndex)
         {
-            if (!player.Slayer().omnicientTome)
+            if (!player.Slayer().omnicientTomePrevious)
             {
                 player.DelBuff(buffIndex);
                 buffIndex--;

@@ -40,6 +40,7 @@ namespace ShardsOfAtheria.Players
 
         public int TomeKnowledge;
         public bool omnicientTome;
+        public bool omnicientTomePrevious;
         public int creeperSpawnTimer;
         public int valkyrieDashTimer = 2;
         public int beeSpawnTimer;
@@ -63,6 +64,7 @@ namespace ShardsOfAtheria.Players
 
             slayerSet = false;
 
+            omnicientTomePrevious = omnicientTome;
             omnicientTome = false;
         }
 
