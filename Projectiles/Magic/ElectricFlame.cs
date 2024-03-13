@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
 {
     public class ElectricFlame : ModProjectile
     {
-        public int dustType = DustID.Shadowflame;
+        public int dustType = DustID.Electric;
         public Color flameColor = Color.Purple;
 
         private bool Spin
@@ -74,17 +74,20 @@ namespace ShardsOfAtheria.Projectiles.Magic
                 }
                 Projectile.ai[0] = 0;
             }
-            var color = Color.White;
-            Color fadeTo = new(60, 60, 60, 220);
-            float lightMultiplier = 1 - (0.1f * Projectile.ai[1]);
-            var position = Projectile.position;
-            position.X -= 22;
-            position.Y -= 22;
-            var dust = Dust.NewDustDirect(position, 50, 50, dustType, 0, 0, 0, Color.Lerp(fadeTo, color, lightMultiplier));
-            dust.noGravity = true;
-            dust.fadeIn = 1;
-            dust.velocity = Projectile.velocity
-                .RotatedByRandom(MathHelper.ToRadians(15));
+            int dustDenominator = 3;
+            if (Main.rand.NextBool(dustDenominator))
+            {
+                var color = Color.White;
+                Color fadeTo = new(60, 60, 60, 220);
+                float lightMultiplier = 1 - (0.1f * Projectile.ai[1]);
+                var position = Projectile.position;
+                position.X -= 22;
+                position.Y -= 22;
+                var dust = Dust.NewDustDirect(position, 50, 50, dustType, 0, 0, 0, Color.Lerp(fadeTo, color, lightMultiplier));
+                dust.noGravity = true;
+                dust.fadeIn = 1;
+                dust.velocity = Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(15));
+            }
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
