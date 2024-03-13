@@ -403,7 +403,7 @@ namespace ShardsOfAtheria.Players
 
         public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (SoA.ElementModEnabled)
+            if (SoA.BNEEnabled)
             {
                 modifiers.FinalDamage *= ResonatorRing.ModifyElements(Player, item, target);
             }
@@ -411,7 +411,7 @@ namespace ShardsOfAtheria.Players
 
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (SoA.ElementModEnabled)
+            if (SoA.BNEEnabled)
             {
                 modifiers.FinalDamage *= ResonatorRing.ModifyElements(Player, proj, target);
             }
@@ -426,7 +426,7 @@ namespace ShardsOfAtheria.Players
             }
             HardlightBraces.OnHitEffect(Player, target);
 
-            if (SoA.ElementModEnabled)
+            if (SoA.BNEEnabled)
             {
                 AreusRodEffect(target, item);
             }
@@ -443,7 +443,7 @@ namespace ShardsOfAtheria.Players
             {
                 HardlightBraces.OnHitEffect(Player, target);
             }
-            if (SoA.ElementModEnabled)
+            if (SoA.BNEEnabled)
             {
                 AreusRodEffect(target, proj);
             }

@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Items.BuffItems
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return SoA.ElementModEnabled;
+            return SoA.BNEEnabled;
         }
 
         public override void SetStaticDefaults()
@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Items.BuffItems
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return SoA.ElementModEnabled;
+            return SoA.BNEEnabled;
         }
 
         public override void SetStaticDefaults()

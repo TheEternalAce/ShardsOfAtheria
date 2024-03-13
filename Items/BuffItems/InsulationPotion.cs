@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Items.BuffItems
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return SoA.ElementModEnabled;
+            return SoA.BNEEnabled;
         }
 
         public override void SetStaticDefaults()
@@ -48,12 +48,12 @@ namespace ShardsOfAtheria.Items.BuffItems
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return SoA.ElementModEnabled;
+            return SoA.BNEEnabled;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (SoA.ElementModEnabled)
+            if (SoA.BNEEnabled)
             {
                 player.ElecMultiplier() -= 0.2f;
             }

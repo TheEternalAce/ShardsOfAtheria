@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Items.Accessories
     {
         public override bool IsLoadingEnabled(Mod mod)
         {
-            return SoA.ElementModEnabled;
+            return SoA.BNEEnabled;
         }
 
         public override void SetStaticDefaults()

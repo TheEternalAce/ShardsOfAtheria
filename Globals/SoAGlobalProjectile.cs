@@ -160,7 +160,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
-            if (SoA.ElementModEnabled)
+            if (SoA.BNEEnabled)
             {
                 ChangeElements(projectile, source);
             }

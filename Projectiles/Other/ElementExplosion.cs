@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Projectiles.Other
             SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
             if (Projectile.ai[1] == 1)
             {
-                if (SoA.ElementModEnabled)
+                if (SoA.BNEEnabled)
                 {
                     ElementalParticles();
                 }

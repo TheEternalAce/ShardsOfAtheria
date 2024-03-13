@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Utilities
                 explosion.ai[1] = 1;
             }
             ScreenShake.ShakeScreen(6, 60);
-            if (SoA.ElementModEnabled)
+            if (SoA.BNEEnabled)
             {
                 SetExplosionElements(projectile, explosion);
             }

@@ -88,7 +88,7 @@ namespace ShardsOfAtheria.Globals
                 damage += armorPlayer.areusDamage;
             }
 
-            if (SoA.ElementModEnabled)
+            if (SoA.BNEEnabled)
             {
                 ConductiveEffects(item, player, ref damage);
             }
@@ -424,7 +424,7 @@ namespace ShardsOfAtheria.Globals
                     item.damage = ContentSamples.ItemsByType[item.type].damage;
                 }
             }
-            if (SoA.ElementModEnabled)
+            if (SoA.BNEEnabled)
             {
                 ChangeElements(item, player);
             }

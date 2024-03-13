@@ -24,7 +24,7 @@ namespace ShardsOfAtheria.ShardsUI.ElementAffinity
         [JITWhenModsEnabled("BattleNetworkElements")]
         public override void OnInitialize()
         {
-            if (SoA.ElementModEnabled)
+            if (SoA.BNEEnabled)
             {
                 frame = new(ModContent.Request<Texture2D>("ShardsofAtheria/ShardsUI/ElementAffinity/AffinityFrame"));
                 frame.SetRectangle(0, 0, 78, 42);
@@ -61,7 +61,7 @@ namespace ShardsOfAtheria.ShardsUI.ElementAffinity
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (!display || !SoA.ElementModEnabled)
+            if (!display || !SoA.BNEEnabled)
             {
                 return;
             }
