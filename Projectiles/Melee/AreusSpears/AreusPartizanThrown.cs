@@ -76,7 +76,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             // Spawn some dusts upon javelin death
             for (int i = 0; i < NUM_DUSTS; i++)
             {
-                int dustType = ModContent.DustType<AreusDust>();
+                int dustType = ModContent.DustType<AreusDust_Dark>();
                 if (i > 40 || i < 16 && i > 8)
                 {
                     dustType = DustID.Gold;
