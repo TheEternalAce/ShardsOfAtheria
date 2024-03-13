@@ -9,12 +9,13 @@ namespace ShardsOfAtheria.Buffs.PlayerDebuff.GemCurse
         public override void SetStaticDefaults()
         {
             Main.debuff[Type] = true;
+            Main.buffNoSave[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.endurance -= 0.3f;
+            player.endurance -= 0.5f;
         }
     }
 }

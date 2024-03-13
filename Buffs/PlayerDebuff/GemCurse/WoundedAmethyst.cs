@@ -9,6 +9,7 @@ namespace ShardsOfAtheria.Buffs.PlayerDebuff.GemCurse
         public override void SetStaticDefaults()
         {
             Main.debuff[Type] = true;
+            Main.buffNoSave[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
     }
@@ -23,8 +24,11 @@ namespace ShardsOfAtheria.Buffs.PlayerDebuff.GemCurse
                 {
                     Player.lifeRegen = 0;
                 }
+                if (Player.lifeRegenCount > 0)
+                {
+                    Player.lifeRegenCount = 0;
+                }
                 Player.lifeRegenTime = 0;
-                Player.lifeRegenCount = 0;
             }
         }
     }

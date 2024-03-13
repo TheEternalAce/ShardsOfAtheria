@@ -9,6 +9,7 @@ namespace ShardsOfAtheria.Buffs.PlayerDebuff.GemCurse
         public override void SetStaticDefaults()
         {
             Main.debuff[Type] = true;
+            Main.buffNoSave[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 
