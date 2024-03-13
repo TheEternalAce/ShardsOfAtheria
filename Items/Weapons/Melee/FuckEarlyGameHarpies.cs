@@ -11,6 +11,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             ItemID.Sets.Spears[Type] = true;
+            Item.AddUpgradable();
             Item.AddAreus(true);
             Item.AddRedemptionElement(9);
         }
@@ -20,7 +21,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.width = 50;
             Item.height = 50;
 
-            Item.damage = 6;
+            Item.damage = 12;
             Item.DamageType = DamageClass.Melee;
             Item.knockBack = 2;
 
