@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Placeable.Banner;
+using ShardsOfAtheria.Projectiles.NPCProj.Variant;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Utilities;
@@ -65,15 +66,16 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             base.SetBestiary(database, bestiaryEntry);
         }
 
-        public override void SpecialAttack(Vector2 velocity)
+        public override void SpecialAttack(Vector2 normalizedVelocity)
         {
-            base.SpecialAttack(velocity);
+            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, normalizedVelocity * 6f,
+                ModContent.ProjectileType<SalamanderLaser>(), 9, 0f, Main.myPlayer);
         }
 
         public override void AI()
         {
             base.AI();
-            if (SoA.Eternity())
+            if (SoA.Massochist())
             {
                 Lighting.AddLight(NPC.Center, Color.Cyan.ToVector3());
 
