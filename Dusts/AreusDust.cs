@@ -20,7 +20,10 @@ namespace ShardsOfAtheria.Dusts
 
         public override bool Update(Dust dust)
         {
-            Lighting.AddLight(dust.position, color);
+            if (!dust.noLight)
+            {
+                Lighting.AddLight(dust.position, color);
+            }
             return base.Update(dust);
         }
 
