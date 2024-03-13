@@ -2406,6 +2406,17 @@ Items: {
 			'''
 	}
 
+	PlagueHandgun: {
+		DisplayName: Gamma Plague Handgun
+		Tooltip:
+			'''
+			Coats regular bullets with Plague if {$Items.PlagueCell.DisplayName}s are available
+			Will not consume bullets if {$Items.PlagueCell.DisplayName}s are available
+			'The last word out of your sorry mouth will be NURSE, and it will be loud!'
+			'''
+		Overdrive: Never consumes bullets
+	}
+
 	PlagueRailgun: {
 		DisplayName: Gamma Plague Railgun
 		Tooltip:
@@ -2414,6 +2425,7 @@ Items: {
 			66% chance to not consume cells
 			'Now I am become Death, destroyer of worlds'
 			'''
+		Overdrive: ""
 	}
 
 	Scarlet: {
@@ -2819,6 +2831,7 @@ Projectiles: {
 	PartisanHead.DisplayName: Partisan Head
 	SalamanderLaser.DisplayName: Salamander Laser
 	BloodBarrierHostileOrbit.DisplayName: Blood Barrier Hostile Orbit
+	PlagueBullet.DisplayName: Plague Bullet
 }
 
 NPCs: {

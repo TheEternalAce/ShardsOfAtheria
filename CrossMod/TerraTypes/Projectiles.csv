@@ -34,19 +34,20 @@ StormLance,Electric,
 StormSword,Electric,
 
 AcidWater,Water,Poison
-CactusNeedle,Grass,
-FlamePillar,Fire,
 Blood,Blood,
+CactusNeedle,Grass,
 Crystal,Rock,Fairy
+FlamePillar,Fire,
 Poison,Poison,
+SalamanderLaser,Electric,
 SandTrail,Ground,
 Sea,Water,
 Snow,Ice,
 Static,Electric,
 Stone,Rock,
+TidalWave,Water,
 Vile,Poison,
 Void,Dark,
-TidalWave,Water,
 
 ColdExplosion,Water,Ice
 CrystalExplosion,Rock,
@@ -223,7 +224,6 @@ FireCannon_Fire3,Fire,Electric
 FlameCannon,,
 HansBullet,Electric,
 WitheringPetal,Dark,Grass
-WitheringRose,,
 WitheringSeed,Dark,Grass
 AreusShardProjRanged,Electric,
 HardlightKnifeProj,Electric,
@@ -231,7 +231,9 @@ HeroBullet,Fire,
 KusarigamaKing,Water,
 LaserArrow,Electric,
 MetalBladeProj,Steel,
+PlagueBullet,Poison,
 PlagueBeam,Poison,
+PlagueBeam2,Poison,
 PrometheusFire,Fire,
 ScarletSpark,Electric,
 SilverBoltFriendly,Steel,
