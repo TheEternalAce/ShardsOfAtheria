@@ -47,5 +47,11 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 .AddTile(TileID.Anvils)
                 .Register();
         }
+
+        public override bool? UseItem(Player player)
+        {
+            Item.FixSwing(player);
+            return true;
+        }
     }
 }

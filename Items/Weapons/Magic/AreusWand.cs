@@ -78,6 +78,12 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             return base.CanUseItem(player);
         }
 
+        public override bool? UseItem(Player player)
+        {
+            Item.FixSwing(player);
+            return true;
+        }
+
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             if (player.altFunctionUse == 2)
