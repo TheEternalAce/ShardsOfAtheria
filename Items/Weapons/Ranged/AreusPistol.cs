@@ -16,8 +16,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void SetDefaults()
         {
-            Item.width = 70;
-            Item.height = 28;
+            Item.width = 34;
+            Item.height = 20;
             Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Bullet, 24, 16f);
 
             Item.damage = 62;
