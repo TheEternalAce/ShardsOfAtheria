@@ -395,7 +395,7 @@ Items: {
 		/* ShiftTooltip1:
 			'''
 			[i:ShardsOfAtheria/AmethystCore_Super] Amethyst Effects
-			Prevent buff time from decreasing when taking damage
+			Prevent buff time from decreasing after taking damage
 			Press <{$Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing an amethyst bomb when using a pickaxe
 			Hold shift to toggle wall exploding
 			Emit light
@@ -2794,6 +2794,7 @@ Projectiles: {
 	// HansBullet.DisplayName: BURST Bullet
 	// IronBall.DisplayName: Iron Ball
 	// PartisanHead.DisplayName: Partisan Head
+	// SalamanderLaser.DisplayName: Salamander Laser
 }
 
 NPCs: {

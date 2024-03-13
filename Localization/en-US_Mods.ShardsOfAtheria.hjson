@@ -2817,6 +2817,7 @@ Projectiles: {
 	HansBullet.DisplayName: BURST Bullet
 	IronBall.DisplayName: Iron Ball
 	PartisanHead.DisplayName: Partisan Head
+	SalamanderLaser.DisplayName: Salamander Laser
 }
 
 NPCs: {
