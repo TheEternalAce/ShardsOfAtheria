@@ -4,6 +4,7 @@ using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
 {
@@ -119,6 +120,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
                 playedSound = true;
                 SoundEngine.PlaySound(HeavySwing, Projectile.Center);
             }
+        }
+
+        public override void UpdateSwing(float progress, float interpolatedSwingProgress)
+        {
+            FireProjectile(progress, ModContent.ProjectileType<PartisanHead>(), (int)(Projectile.damage * 0.75f), (int)(Projectile.knockBack * 0.75f));
         }
 
         public override Vector2 GetOffsetVector(float progress)
