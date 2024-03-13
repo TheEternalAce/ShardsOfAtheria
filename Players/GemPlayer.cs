@@ -12,6 +12,8 @@ using ShardsOfAtheria.Items.Accessories.GemCores.Super;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Summon.Minions.GemCore;
 using ShardsOfAtheria.Utilities;
+using System;
+using System.Linq;
 using Terraria;
 using Terraria.Chat;
 using Terraria.GameInput;
@@ -76,6 +78,27 @@ namespace ShardsOfAtheria.Players
             { true, true, true, true, true, true, true }
         };
         public bool gemSoul;
+
+        public readonly int[] Curses =
+        [
+            ModContent.BuffType<WoundedAmethyst>(),
+            ModContent.BuffType<CrowdedAmber>(),
+            ModContent.BuffType<FrailDiamond>(),
+            ModContent.BuffType<TimidEmerald>(),
+            ModContent.BuffType<SpitefulRuby>(),
+            ModContent.BuffType<RecklessSapphire>(),
+            ModContent.BuffType<FragileTopaz>(),
+        ];
+        public readonly int[] Blessings =
+        [
+            ModContent.BuffType<EfficientAmethyst>(),
+            ModContent.BuffType<SwarmingAmber>(),
+            ModContent.BuffType<TenaciousDiamond>(),
+            ModContent.BuffType<FleetingEmerald>(),
+            ModContent.BuffType<VengefulRuby>(),
+            ModContent.BuffType<CunningSapphire>(),
+            ModContent.BuffType<MendingTopaz>(),
+        ];
 
         public override void ResetEffects()
         {
@@ -175,7 +198,7 @@ namespace ShardsOfAtheria.Players
                     }
                 }
             }
-            if (superTopazCore)
+            if (superTopazCore && !Player.moonLeech)
             {
                 if (++topazHealTimer >= 2400)
                 {
@@ -427,14 +450,14 @@ namespace ShardsOfAtheria.Players
 
         public override void PostHurt(Player.HurtInfo info)
         {
-            int normalBuffTime = 600;
+            int gemBlessingTime = 600;
             if (megaGemCore)
             {
-                normalBuffTime += 300;
+                gemBlessingTime += 300;
             }
             if (amberCore)
             {
-                Player.AddBuff<SwarmingAmber>(normalBuffTime * 3);
+                Player.AddBuff<SwarmingAmber>(gemBlessingTime * 3);
                 int type = ModContent.ProjectileType<AmberFly>();
                 int amount = 2;
                 if (megaGemCore)
@@ -449,31 +472,15 @@ namespace ShardsOfAtheria.Players
                     }
                 }
             }
+
             AddCurses();
-            if (amethystCore)
-            {
-                Player.AddBuff<EfficientAmethyst>(normalBuffTime);
-            }
-            if (diamondCore)
-            {
-                Player.AddBuff<TenaciousDiamond>(normalBuffTime);
-            }
-            if (emeraldCore)
-            {
-                Player.AddBuff<FleetingEmerald>(normalBuffTime);
-            }
-            if (rubyCore)
-            {
-                Player.AddBuff<VengefulRuby>(normalBuffTime);
-            }
-            if (sapphireCore)
-            {
-                Player.AddBuff<CunningSapphire>(normalBuffTime);
-            }
-            if (topazCore)
-            {
-                Player.AddBuff<MendingTopaz>(normalBuffTime);
-            }
+            if (amethystCore) Player.AddBuff<EfficientAmethyst>(gemBlessingTime);
+            if (diamondCore) Player.AddBuff<TenaciousDiamond>(gemBlessingTime);
+            if (emeraldCore) Player.AddBuff<FleetingEmerald>(gemBlessingTime);
+            if (rubyCore) Player.AddBuff<VengefulRuby>(gemBlessingTime);
+            if (sapphireCore) Player.AddBuff<CunningSapphire>(gemBlessingTime);
+            if (topazCore) Player.AddBuff<MendingTopaz>(gemBlessingTime);
+
             if (greaterSapphireCore)
             {
                 Vector2 vector = new(0, -10);
@@ -490,9 +497,10 @@ namespace ShardsOfAtheria.Players
             {
                 for (int i = 0; i < Player.CountBuffs(); i++)
                 {
-                    if (!BuffID.Sets.TimeLeftDoesNotDecrease[Player.buffType[i]])
+                    int buffID = Player.buffType[i];
+                    if (!BuffID.Sets.TimeLeftDoesNotDecrease[buffID] && !Curses.Contains(buffID))
                     {
-                        if (Main.debuff[Player.buffType[i]])
+                        if (Main.debuff[buffID])
                         {
                             Player.buffTime[i] -= 30;
                         }
@@ -551,7 +559,7 @@ namespace ShardsOfAtheria.Players
                 {
                     lifestealDenominator *= 4;
                 }
-                if (Main.rand.NextBool(lifestealDenominator))
+                if (Main.rand.NextBool(lifestealDenominator) && !Player.moonLeech)
                 {
                     int type = ModContent.ProjectileType<LifeStealGem>();
                     Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, type, 3, 0f, Player.whoAmI);
@@ -575,19 +583,23 @@ namespace ShardsOfAtheria.Players
                             AmberBanner.MakeOldestBannerFollowPlayer(Player);
                         }
                     }
-                    Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, type, 0, 0f, Player.whoAmI, ai0);
-                    if (bannerAmount >= maxAmberBanners)
+                    var nearestBanner = ShardsHelpers.FindClosestProjectile(target.Center, 150, type);
+                    if (nearestBanner == null)
                     {
-                        int firstBannerWhoAmI = AmberBanner.FindOldestBanner(Player);
-                        if (firstBannerWhoAmI > -1)
+                        Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, type, 0, 0f, Player.whoAmI, ai0);
+                        if (bannerAmount >= maxAmberBanners)
                         {
-                            var firstBanner = Main.projectile[firstBannerWhoAmI];
-                            firstBanner.Kill();
+                            int firstBannerWhoAmI = AmberBanner.FindOldestBanner(Player);
+                            if (firstBannerWhoAmI > -1)
+                            {
+                                var firstBanner = Main.projectile[firstBannerWhoAmI];
+                                firstBanner.Kill();
+                            }
+                            AmberBanner.MakeOldestBannerFollowPlayer(Player);
                         }
-                        AmberBanner.MakeOldestBannerFollowPlayer(Player);
                     }
                 }
-                if (greaterTopazCore)
+                if (greaterTopazCore && !Player.moonLeech)
                 {
                     Projectile.NewProjectile(target.GetSource_Death(), target.Center, new Vector2(0, -10),
                         ModContent.ProjectileType<TopazOrb>(), 0, 0f, Player.whoAmI);
