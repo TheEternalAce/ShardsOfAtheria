@@ -1,5 +1,6 @@
 ﻿using ShardsOfAtheria.Buffs.NPCDebuff;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Buffs.AnyDebuff
@@ -7,6 +8,13 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
     public class SpitefulRuby : ModBuff
     {
         public static readonly int DefenseReduction = 26;
+
+        public override void SetStaticDefaults()
+        {
+            Main.debuff[Type] = true;
+            Main.buffNoSave[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+        }
 
         public override void Update(Player player, ref int buffIndex)
         {
@@ -55,7 +63,7 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
                 {
                     Player.lifeRegen = 0;
                 }
-                Player.lifeRegen -= 30;
+                Player.lifeRegen -= 50;
                 Player.lifeRegenTime = 0;
             }
         }
