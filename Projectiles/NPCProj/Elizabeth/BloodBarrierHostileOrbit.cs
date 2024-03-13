@@ -9,8 +9,10 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
 {
-    public class BloodBarrierHostile : ModProjectile
+    public class BloodBarrierHostileOrbit : ModProjectile
     {
+        public override string Texture => ModContent.GetInstance<BloodBarrierHostile>().Texture;
+
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
@@ -22,7 +24,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             Projectile.width = 30;
             Projectile.height = 30;
 
-            Projectile.timeLeft = 120;
             Projectile.aiStyle = -1;
             Projectile.tileCollide = false;
 
@@ -34,6 +35,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             var npc = Main.npc[(int)Projectile.ai[0]];
             Projectile.Center = npc.Center + Projectile.velocity * 50;
 
+            Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(5));
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
 
             if (!npc.CanBeChasedBy())
@@ -51,11 +53,16 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
                         !projectile.hostile &&
                         projectile.active)
                     {
-                        SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, Projectile.Center);
-                        SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, Projectile.Center);
-                        projectile.hostile = true;
-                        projectile.velocity *= -1.5f;
-                        projectile.damage = (int)(Projectile.damage * 0.25f);
+                        projectile.Kill();
+                        for (var d = 0; d < 28; d++)
+                        {
+                            Vector2 speed = Main.rand.NextVector2CircularEdge(1f, 1f);
+                            Dust dust = Dust.NewDustPerfect(projectile.Center,
+                                DustID.Blood, speed * 2.4f);
+                            dust.fadeIn = 1.3f;
+                            dust.noGravity = true;
+                        }
+                        SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
                     }
                 }
             }

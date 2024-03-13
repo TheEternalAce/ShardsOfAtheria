@@ -348,7 +348,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 {
                     AddNonBlacklistedAttack(ref random, BloodSword);
                 }
-                if (Main.rand.NextBool(5))
+                if ((Main.rand.NextBool(5) || desperation) && !ShardsHelpers.AnyProjectile<BloodBarrierHostileOrbit>())
                 {
                     Player player = Main.player[NPC.target];
                     Vector2 center = NPC.Center;
@@ -698,10 +698,22 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         void DoBloodBarrier(Vector2 center, Vector2 toTarget)
         {
             toTarget.Normalize();
-            toTarget = toTarget.RotatedByRandom(MathHelper.PiOver2);
-            Projectile.NewProjectile(NPC.GetSource_FromAI(), center, toTarget,
-                ModContent.ProjectileType<BloodBarrierHostile>(), damage, 0f,
-                Main.myPlayer, NPC.whoAmI);
+            if (desperation)
+            {
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), center, toTarget,
+                    ModContent.ProjectileType<BloodBarrierHostileOrbit>(), damage, 0f,
+                    Main.myPlayer, NPC.whoAmI);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), center, toTarget.RotatedBy(MathHelper.Pi),
+                    ModContent.ProjectileType<BloodBarrierHostileOrbit>(), damage, 0f,
+                    Main.myPlayer, NPC.whoAmI);
+            }
+            else
+            {
+                toTarget = toTarget.RotatedByRandom(MathHelper.PiOver2);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), center, toTarget,
+                    ModContent.ProjectileType<BloodBarrierHostile>(), damage, 0f,
+                    Main.myPlayer, NPC.whoAmI);
+            }
         }
 
         public override bool? CanBeHitByProjectile(Projectile projectile)

@@ -431,8 +431,36 @@ namespace ShardsOfAtheria.Utilities
                     }
                 }
             }
-
             return closestProjectile;
+        }
+
+        public static bool AnyProjectile(int type)
+        {
+            bool projectileFound = false;
+            for (int k = 0; k < Main.maxProjectiles; k++)
+            {
+                Projectile target = Main.projectile[k];
+                if (target.active && target.type == type)
+                {
+                    projectileFound = true;
+                    break;
+                }
+            }
+            return projectileFound;
+        }
+        public static bool AnyProjectile<T>() where T : ModProjectile
+        {
+            bool projectileFound = false;
+            for (int k = 0; k < Main.maxProjectiles; k++)
+            {
+                Projectile target = Main.projectile[k];
+                if (target.active && target.type == ModContent.ProjectileType<T>())
+                {
+                    projectileFound = true;
+                    break;
+                }
+            }
+            return projectileFound;
         }
 
         public static bool NoInvasionOfAnyKind(this NPCSpawnInfo spawnInfo)

@@ -2818,6 +2818,7 @@ Projectiles: {
 	IronBall.DisplayName: Iron Ball
 	PartisanHead.DisplayName: Partisan Head
 	SalamanderLaser.DisplayName: Salamander Laser
+	BloodBarrierHostileOrbit.DisplayName: Blood Barrier Hostile Orbit
 }
 
 NPCs: {
