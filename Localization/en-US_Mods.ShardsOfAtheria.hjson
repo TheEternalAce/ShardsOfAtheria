@@ -163,7 +163,7 @@ Items: {
 		Tooltip:
 			'''
 			Gives a dash to the wearer
-			Boost other gem buffs after taking damage
+			Prevent buff time from decreasing after taking damage
 			'''
 	}
 
@@ -172,7 +172,7 @@ Items: {
 		Tooltip:
 			'''
 			Gives a dash to the wearer
-			Boost other gem buffs after taking damage
+			Prevent buff time from decreasing after taking damage
 			Press <{$Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing amethyst bombs
 			Hold shift to toggle wall exploding
 			Emit light
@@ -188,7 +188,7 @@ Items: {
 		Tooltip:
 			'''
 			Gives a great dash to the wearer
-			Boost other gem buffs after taking damage
+			Prevent buff time from decreasing after taking damage
 			Press <{$Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing an amethyst bomb when using a pickaxe
 			Hold shift to toggle wall exploding
 			Emit light
@@ -402,7 +402,7 @@ Items: {
 		ShiftTooltip1:
 			'''
 			[i:ShardsOfAtheria/AmethystCore_Super] Amethyst Effects
-			Boost other gem buffs after taking damage
+			Prevent buff time from decreasing after taking damage
 			Press <{$Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing an amethyst bomb when using a pickaxe
 			Hold shift to toggle wall exploding
 			Emit light
@@ -1898,6 +1898,11 @@ Items: {
 			'''
 	}
 
+	HeatedPan: {
+		DisplayName: Heated Pan
+		Tooltip: "'I don't care how big the room is, I said I cast iron!'"
+	}
+
 	Pandora: {
 		DisplayName: Frostspark Staff
 		Tooltip:
@@ -2798,9 +2803,9 @@ Projectiles: {
 	EmeraldShot.DisplayName: Emerald Shot
 	AcidWater.DisplayName: Acid Water
 	SandTrail.DisplayName: Sand Trail
-	AreusPartizan.DisplayName: Areus Partizan
-	AreusPartizanThrown.DisplayName: Areus Partizan Thrown
-	AreusRetribution.DisplayName: Areus Retribution
+	AreusPartizan.DisplayName: Areus Retribution
+	AreusPartizanThrown.DisplayName: Areus Retribution
+	AreusRetribution.DisplayName: Areus Retribution Beam
 	PlagueBeam2.DisplayName: Plague Beam2
 	StickingMagnetProj.DisplayName: MagnetDart
 	SolarBlade.DisplayName: Nature's Blade
@@ -2810,6 +2815,8 @@ Projectiles: {
 	ElectricPoe.DisplayName: Electric Spirit
 	CodeProjectile.DisplayName: Code Projectile
 	HansBullet.DisplayName: BURST Bullet
+	IronBall.DisplayName: Iron Ball
+	PartisanHead.DisplayName: Partisan Head
 }
 
 NPCs: {
@@ -3243,32 +3250,27 @@ Buffs: {
 	# Gem Curses
 	CrowdedAmber: {
 		DisplayName: Crowded Amber
-		Tooltip: Movement speed reduced
-		Description: Mods.ShardsOfAtheria.Buffs.CrowdedAmber.Description
+		Description: Movement speed reduced
 	}
 
 	FragileTopaz: {
 		DisplayName: Fragile Topaz
-		Tooltip: Endurance reduced
-		Description: Mods.ShardsOfAtheria.Buffs.FragileTopaz.Description
+		Description: Endurance reduced
 	}
 
 	FrailDiamond: {
 		DisplayName: Frail Diamond
-		Tooltip: Attacks weakened
-		Description: Mods.ShardsOfAtheria.Buffs.FrailDiamond.Description
+		Description: Attacks weakened
 	}
 
 	RecklessSapphire: {
 		DisplayName: Reckless Sapphire
-		Tooltip: Max life reduced
-		Description: Mods.ShardsOfAtheria.Buffs.RecklessSapphire.Description
+		Description: Max life reduced
 	}
 
 	TimidEmerald: {
 		DisplayName: Timid Emerald
-		Tooltip: Attack speed reduced
-		Description: Mods.ShardsOfAtheria.Buffs.TimidEmerald.Description
+		Description: Attack speed reduced
 	}
 
 	WoundedAmethyst: {
