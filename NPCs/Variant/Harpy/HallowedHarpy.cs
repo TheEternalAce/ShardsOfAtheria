@@ -48,10 +48,10 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             }
         }
 
-        public override void SpecialAttack(Vector2 velocity)
+        public override void SpecialAttack(Vector2 normalizedVelocity)
         {
-            Vector2 position = NPC.Center + Vector2.Normalize(velocity) * 10f;
-            Projectile proj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), position, velocity * 10f,
+            Vector2 position = NPC.Center + Vector2.Normalize(normalizedVelocity) * 10f;
+            Projectile proj = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), position, normalizedVelocity * 10f,
                 ProjectileID.QueenSlimeMinionBlueSpike, 10, 0f, Main.myPlayer);
             proj.friendly = false;
             proj.hostile = true;

@@ -54,7 +54,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             }
         }
 
-        public override void SpecialAttack(Vector2 velocity)
+        public override void SpecialAttack(Vector2 normalizedVelocity)
         {
             if (SoA.Eternity())
             {

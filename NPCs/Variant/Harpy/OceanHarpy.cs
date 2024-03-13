@@ -36,9 +36,9 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             debuffType = BuffID.Bleeding;
         }
 
-        public override void SpecialAttack(Vector2 velocity)
+        public override void SpecialAttack(Vector2 normalizedVelocity)
         {
-            Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, velocity * 7f,
+            Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, normalizedVelocity * 7f,
                 ModContent.ProjectileType<TidalWave>(), 10, 0f, Main.myPlayer);
         }
 

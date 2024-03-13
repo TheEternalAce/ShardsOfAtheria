@@ -80,7 +80,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             }
         }
 
-        public virtual void SpecialAttack(Vector2 velocity)
+        public virtual void SpecialAttack(Vector2 normalizedVelocity)
         {
 
         }

@@ -38,15 +38,15 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             debuffType = ModContent.BuffType<ElectricShock>();
         }
 
-        public override void SpecialAttack(Vector2 velocity)
+        public override void SpecialAttack(Vector2 normalizedVelocity)
         {
             SoundEngine.PlaySound(SoundID.Item1);
             float numberProjectiles = 5;
             float rotation = MathHelper.ToRadians(5);
-            Vector2 position = NPC.Center + Vector2.Normalize(velocity) * 10f;
+            Vector2 position = NPC.Center + Vector2.Normalize(normalizedVelocity) * 10f;
             for (int i = 0; i < numberProjectiles; i++)
             {
-                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
+                Vector2 perturbedSpeed = normalizedVelocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), position, perturbedSpeed * 12f,
                     ModContent.ProjectileType<CactusNeedle>(), 12, 0f, Main.myPlayer);
             }

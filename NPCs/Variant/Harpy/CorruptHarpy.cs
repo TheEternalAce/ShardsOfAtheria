@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             debuffType = BuffID.Weak;
         }
 
-        public override void SpecialAttack(Vector2 velocity)
+        public override void SpecialAttack(Vector2 normalizedVelocity)
         {
             NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCID.VileSpit);
         }

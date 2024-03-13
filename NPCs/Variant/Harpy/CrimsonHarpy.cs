@@ -36,9 +36,9 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             debuffType = BuffID.Ichor;
         }
 
-        public override void SpecialAttack(Vector2 velocity)
+        public override void SpecialAttack(Vector2 normalizedVelocity)
         {
-            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, velocity.RotatedByRandom(MathHelper.ToRadians(15)) * 6f,
+            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, normalizedVelocity.RotatedByRandom(MathHelper.ToRadians(15)) * 6f,
                 ProjectileID.GoldenShowerHostile, 13, 0f, Main.myPlayer);
         }
 

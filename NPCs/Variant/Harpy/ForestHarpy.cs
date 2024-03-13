@@ -36,13 +36,13 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             debuffType = BuffID.Poisoned;
         }
 
-        public override void SpecialAttack(Vector2 velocity)
+        public override void SpecialAttack(Vector2 normalizedVelocity)
         {
             float numberProjectiles = 3;
             float rotation = MathHelper.ToRadians(5);
             for (int i = 0; i < numberProjectiles; i++)
             {
-                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1)));
+                Vector2 perturbedSpeed = normalizedVelocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1)));
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, perturbedSpeed * 6f,
                     projectileType, projectileDamage, 0f, Main.myPlayer);
             }
