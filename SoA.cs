@@ -43,7 +43,7 @@ namespace ShardsOfAtheria
         public static ShardsDownedSystem DownedSystem { get; private set; }
         public static bool AprilFools => DateTime.Now is DateTime { Month: 4 };
 
-        public static bool ElementModEnabled => ModLoader.TryGetMod(ElementModName, out Mod _);
+        public static bool BNEEnabled => ModLoader.TryGetMod(ElementModName, out Mod _);
 
         public static Mod Instance { get; private set; }
 
@@ -314,14 +314,25 @@ namespace ShardsOfAtheria
                 rot.Call("CustomName", ModContent.NPCType<Death>(), "Mods.ShardsOfAtheria.NPCs.Death.DisplayName");
                 rot.Call("BossDesc", ModContent.NPCType<Death>(), "Mods.ShardsOfAtheria.NPCs.Death.BossDesc");
             }
+
+            //ShardsHelpers.SetGunStats(ModContent.ItemType<AreusAssaultRifle>(), "rifle", 30);
+            //ShardsHelpers.SetGunStats(ModContent.ItemType<AreusCalibratedShotgun>(), "shotgun", 8);
+            //ShardsHelpers.SetGunStats(ModContent.ItemType<AreusMagnum>(), "revolver", 1);
+            //ShardsHelpers.SetGunStats(ModContent.ItemType<AreusPistol>(), "pistol", 8);
+            //ShardsHelpers.SetGunStats(ModContent.ItemType<HansMachineGun>(), "lmg", 100);
+            //ShardsHelpers.SetGunStats(ModContent.ItemType<HeroGun>(), "pistol", 12);
+            //ShardsHelpers.SetGunStats(ModContent.ItemType<HuntingRifle>(), "rifle", 20);
+            //ShardsHelpers.SetGunStats(ModContent.ItemType<Magnus>(), "revolver", 8);
+            //ShardsHelpers.SetGunStats(ModContent.ItemType<P90>(), "smg", 50);
+            //ShardsHelpers.SetGunStats(ModContent.ItemType<PhantomRose>(), "pistol", 12);
+            //ShardsHelpers.SetGunStats(ModContent.ItemType<Scarlet>(), "sniper", 10);
         }
 
         public static void TryElementCall(params object[] args)
         {
-            if (ElementModEnabled)
+            if (ModLoader.TryGetMod(ElementModName, out var battleNetworkElements))
             {
-                var em = ModLoader.GetMod(ElementModName);
-                em.Call(args);
+                battleNetworkElements.Call(args);
             }
         }
 
@@ -335,7 +346,7 @@ namespace ShardsOfAtheria
 
         public static void TryReloadableGunsCall(params object[] args)
         {
-            if (ModLoader.TryGetMod("RelodableGunsRevitalized", out var rgr))
+            if (ModLoader.TryGetMod("ReloadableGunsRevitalized", out var rgr))
             {
                 rgr.Call(args);
             }

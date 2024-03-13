@@ -138,5 +138,11 @@ namespace ShardsOfAtheria.Utilities
         {
             SoA.TryRedemptionCall("addElementItem", elementID, item.type);
         }
+
+        public static void SetGunStats(this int itemID, string gunType, int ammo)
+        {
+            SoA.TryReloadableGunsCall("setguntype", itemID, gunType);
+            SoA.TryReloadableGunsCall("setmaxammo", itemID, ammo);
+        }
     }
 }
