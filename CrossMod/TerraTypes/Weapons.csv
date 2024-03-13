@@ -2,6 +2,7 @@ internalName,type,type,tooltipOverride
 AcidTrip,Poison,,
 HardlightBraces,Electric,,
 PowerTrip,Normal,,
+PrototypeAreusBand,Electric,,
 ValkyrieCrown,Electric,,
 
 AlphaSpectrum,Electric,,
@@ -12,7 +13,7 @@ RedAreusPickaxe,Electric,,
 AreusGambit,Electric,Poison,"{""Tooltips"": [{""Type"":""Electric"",""Tooltip"": ""Fang: {0}""},{""Type"": ""Electric,Poison"",""Tooltip"": ""Tail: {0}""}]}"
 AreusGamble,Electric,,
 AreusGauntlet,Electric,Fire,
-AreusGhostLantern,Electric,Fire,"{""Tooltips"": [{""Type"":""Electric,Ghost"",""Tooltip"": ""Ghosts: {0}""},{""Type"":""Fire,Ghost"",""Tooltip"": ""Flames: {0}""}]}"
+AreusGhostLantern,Electric,Fire,"{""Tooltips"": [{""Type"":""Electric,Ghost"",""Tooltip"": ""Spirits: {0}""},{""Type"":""Fire,Ghost"",""Tooltip"": ""Flames: {0}""}]}"
 AreusScepter,Electric,,
 AreusShrieker,Electric,Normal,
 AreusSigil,Electric,,
@@ -22,6 +23,7 @@ AreusWand,Electric,,
 BloodScepter,Blood,,
 Bytecrusher,Electric,,
 Gunsword,Steel,,
+HeatedPan,Fire,Steel,
 PerishSong,Ghost,,
 PlumeCodex,Electric,,
 ScreamLantern,Normal,,
@@ -36,7 +38,7 @@ AreusEdge,Electric,,
 AreusKatana,Electric,,
 AreusLance,Electric,,
 AreusOrbiter,Electric,Steel,"{""Tooltips"":[{""Type"":""Steel"",""Tooltip"": ""Magnet: {0}""},{""Type"":""Electric"",""Tooltip"": ""Areus Saw: {0}""}]}"
-AreusPartizan,Dark,Electric,"{""Tooltips"":[{""Type"":""Dark"",""Tooltip"": ""Spear: {0}""},{""Type"":""Electric"",""Tooltip"": ""Laser: {0}""}]}"
+AreusPartisan,Dark,Electric,"{""Tooltips"":[{""Type"":""Dark"",""Tooltip"": ""Spear: {0}""},{""Type"":""Electric"",""Tooltip"": ""Laser: {0}""}]}"
 AreusSawstring,Electric,,
 AreusStrikeChain,Electric,,
 AreusSword,Electric,,
