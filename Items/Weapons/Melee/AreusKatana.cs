@@ -20,8 +20,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void SetDefaults()
         {
-            Item.width = 40;
-            Item.height = 42;
+            Item.width = 56;
+            Item.height = 68;
 
             Item.damage = 60;
             Item.DamageType = DamageClass.Melee;
