@@ -58,7 +58,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
                     int inventoryIndex = player.FindItem(ModContent.ItemType<AreusGhostLantern>());
                     var lantern = player.inventory[inventoryIndex].ModItem as AreusGhostLantern;
                     lantern.poes++;
-                    for (int i = 0; i < 10; i++)
+                    for (int i = 0; i < 20; i++)
                     {
                         Vector2 spawnPos = player.Center + Main.rand.NextVector2CircularEdge(50, 50);
                         Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, DustID.Shadowflame, 0, 0, 100);
@@ -70,7 +70,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
                         }
                         dust.noGravity = true;
                     }
-                    for (int i = 0; i < 6; i++)
+                    for (int i = 0; i < 12; i++)
                     {
                         Vector2 spawnPos = player.Center + Main.rand.NextVector2CircularEdge(50, 50);
                         Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, DustID.Electric, 0, 0, 100);
