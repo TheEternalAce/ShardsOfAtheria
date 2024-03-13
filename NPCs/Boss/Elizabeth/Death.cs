@@ -34,7 +34,6 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         int attackCooldown = 40;
         int attackTypeNext = -1;
         int damagedTimer = 0;
-        bool stopSword = false;
 
         //int frameX = 0;
         //int frameY = 0;
@@ -285,8 +284,6 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 desperation = true;
             }
 
-            //if (!transitioning)
-            //{
             if (++damagedTimer >= 900 && NPC.life >= NPC.lifeMax * 0.75f)
             {
                 damagedTimer = 0;
@@ -309,19 +306,10 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             else
             {
                 animationState = STATE_IDLE;
+                frameX = 0;
                 DefaultMovement(player);
-                //if (phase2)
-                //{
-                //    frameX = 1;
-                //}
-                //else
-                //{
-                //    frameX = 0;
-                //}
-                // decrease wait timer when attack done
                 attackCooldown--;
             }
-            //}
             NPC.netUpdate = true;
         }
 
@@ -334,7 +322,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         const int BloodSickle = 5;
         const int BloodScythe = 6;
         const int BloodSword = 7;
-        readonly List<int> blacklistedAttacks = new();
+        readonly List<int> blacklistedAttacks = [];
         void ChoseAttacks()
         {
             WeightedRandom<int> random = new();
@@ -400,7 +388,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                         attackTypeNext = BloodScepter;
                     }
                     animationState = STATE_CROSSBOW_SHOOT;
-                    frameY = 5;
+                    frameX = 2;
                     break;
                 case BloodJavelin:
                     attackTimer = 60;
@@ -411,7 +399,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                         attackTypeNext = NeedleWave;
                     }
                     animationState = STATE_SWING;
-                    frameY = 2;
+                    frameX = 1;
                     break;
                 case NeedleWave:
                     attackTimer = 120;
@@ -436,6 +424,8 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     {
                         attackTypeNext = BloodSword;
                     }
+                    animationState = STATE_SCEPTER_CAST;
+                    frameX = 3;
                     break;
                 case BloodSickle:
                     attackTimer = 330;
@@ -449,13 +439,14 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     damage = 75;
                     blacklistedAttacks.Add(BloodSickle);
                     animationState = STATE_SCYTHE_SWING;
-                    frameY = 2;
+                    frameX = 1;
                     break;
                 case BloodSword:
                     attackTimer = 180;
                     attackCooldown = 60;
                     damage = 60;
-                    stopSword = false;
+                    //animationState = STATE_SWORD_SWING;
+                    //frameX = 1;
                     break;
             }
             blacklistedAttacks.Add(attackType);
@@ -698,21 +689,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     ModContent.ProjectileType<BloodSwordHostile>(), damage, 0f,
                     Main.myPlayer, player.whoAmI, NPC.whoAmI);
             }
-            bool endAttackEarly = false;
-            foreach (Projectile projectile in Main.projectile)
-            {
-                if (projectile.type == ModContent.ProjectileType<BloodSwordHostile>())
-                {
-                    if (!projectile.active)
-                    {
-                        endAttackEarly = true;
-                    }
-                    else
-                    {
-                        endAttackEarly = false; break;
-                    }
-                }
-            }
+            bool endAttackEarly = NPC.Distance(player.Center) < 100;
             if (endAttackEarly && attackTimer > 10)
             {
                 attackTimer = 10;
@@ -784,10 +761,12 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         private int animationState = STATE_IDLE;
         private const int STATE_IDLE = 0;
         private const int STATE_SWING = 1;
-        private const int STATE_CROSSBOW_SHOOT = 2;
-        private const int STATE_SCYTHE_SWING = 3;
-        private const int STATE_SWORD_SWING = 4;
+        private const int STATE_SCYTHE_SWING = 2;
+        private const int STATE_SWORD_SWING = 3;
+        private const int STATE_CROSSBOW_SHOOT = 4;
+        private const int STATE_SCEPTER_CAST = 5;
         private int frameY = 0;
+        private int frameX = 0;
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Asset<Texture2D> texture = ModContent.Request<Texture2D>(Texture);
@@ -795,31 +774,34 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             Vector2 drawPos = NPC.Center - screenPos;
 
             int frameYTime = 10;
-            int frameYMin;
             int frameYMax;
             switch (animationState)
             {
                 default:
                 case STATE_IDLE:
-                    frameYMin = 0;
+                    frameX = 0;
                     frameYMax = 1;
-                    break;
-                case STATE_CROSSBOW_SHOOT:
-                    frameYMin = 5;
-                    frameYMax = 6;
                     break;
                 case STATE_SWING:
                 case STATE_SCYTHE_SWING:
                 case STATE_SWORD_SWING:
-                    frameYMin = 2;
-                    frameYMax = 4;
+                    frameX = 1;
+                    frameYMax = 2;
+                    break;
+                case STATE_CROSSBOW_SHOOT:
+                    frameX = 2;
+                    frameYMax = 1;
+                    break;
+                case STATE_SCEPTER_CAST:
+                    frameX = 3;
+                    frameYMax = 1;
                     break;
             }
             if (animationState == STATE_SCYTHE_SWING)
             {
                 if (attackTimer > 60)
                 {
-                    frameY = frameYMin;
+                    frameY = 0;
                     frameYTime = 60;
                 }
                 if (frameY == 4)
@@ -833,13 +815,13 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 {
                     if (++frameY > frameYMax)
                     {
-                        frameY = frameYMin;
+                        frameY = 0;
                     }
                     NPC.frameCounter = 0;
                 }
             }
 
-            Rectangle frame = new(0, 66 * frameY, 94, 66);
+            Rectangle frame = new(94 * frameX, 66 * frameY, 94, 66);
             spriteBatch.Draw(texture.Value, drawPos, frame, drawColor, NPC.rotation, frame.Size() / 2f, NPC.scale, effects, 0f);
             return false;
         }
