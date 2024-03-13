@@ -48,7 +48,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 .AddIngredient(ItemID.HallowedBar, 10)
                 .AddIngredient<PlagueCell>(30)
                 .AddIngredient(ItemID.Wire, 20)
-                .AddTile(TileID.Anvils)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 
