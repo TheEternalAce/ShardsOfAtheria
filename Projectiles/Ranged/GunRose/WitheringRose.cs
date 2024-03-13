@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -28,13 +29,12 @@ namespace ShardsOfAtheria.Projectiles.Ranged.GunRose
             {
                 Projectile.scale += 0.1f;
             }
-            Projectile.ai[0]++;
-            if (Projectile.ai[0] == 60)
+            if (Projectile.timeLeft % 60 == 0 && Projectile.timeLeft > 145 && Projectile.timeLeft < 600)
             {
                 ShardsHelpers.ProjectileRing(Projectile.GetSource_FromThis(), Projectile.Center,
                     5, 1, 16f, ModContent.ProjectileType<WitheringPetal>(), Projectile.damage,
                     Projectile.knockBack, Projectile.owner);
-                Projectile.ai[0] = 0;
+                SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
             }
         }
 

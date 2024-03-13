@@ -146,6 +146,10 @@ namespace ShardsOfAtheria.ShardsUI
             {
                 CreateSlots(1);
             }
+            else if (mainSlot.Item.type == ModContent.ItemType<FuckEarlyGameHarpies>())
+            {
+                CreateSlots(2);
+            }
             else
             {
                 ClearSlots();

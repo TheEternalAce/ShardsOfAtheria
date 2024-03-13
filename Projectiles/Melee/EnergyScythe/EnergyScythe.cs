@@ -75,7 +75,6 @@ namespace ShardsOfAtheria.Projectiles.Melee.EnergyScythe
         {
             FireProjectile(progress, ModContent.ProjectileType<EnergyWave>(),
                 (int)(Projectile.damage * 0.75), (int)(Projectile.knockBack * 0.75));
-            base.UpdateSwing(progress, interpolatedSwingProgress);
         }
 
         public override float SwingProgress(float progress)

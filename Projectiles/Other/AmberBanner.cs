@@ -26,7 +26,8 @@ namespace ShardsOfAtheria.Projectiles.Other
             {
                 return;
             }
-            if (player.Gem().megaGemCore && Projectile.ai[0] == 1)
+            KillClosestBanner(Projectile.Center, Projectile.owner);
+            if (Projectile.ai[0] == 1)
             {
                 Projectile.timeLeft = 2;
                 Vector2 vector = new(0, -20);
@@ -77,6 +78,23 @@ namespace ShardsOfAtheria.Projectiles.Other
                     }
                 }
             }
+        }
+
+        public static void KillClosestBanner(Vector2 position, int owner)
+        {
+            var banner = ShardsHelpers.FindClosestProjectile(position, 150, projectile => IsNonFollowingBanner(projectile, owner));
+            if (banner != null)
+            {
+                banner.Kill();
+            }
+        }
+
+        private static bool IsNonFollowingBanner(Projectile projectile, int owner)
+        {
+            if (projectile.type != ModContent.ProjectileType<AmberBanner>()) return false;
+            if (projectile.owner != owner) return false;
+            if (projectile.ai[0] == 1) return false;
+            return true;
         }
 
         public static int FindOldestBanner(Player player)
