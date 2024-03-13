@@ -10,8 +10,10 @@ namespace ShardsOfAtheria.Projectiles.Ranged.GunRose
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddElement(1);
+            Projectile.AddElement(3);
             Projectile.AddRedemptionElement(9);
+            Projectile.AddRedemptionElement(10);
+            Projectile.AddRedemptionElement(11);
         }
 
         public override void SetDefaults()
