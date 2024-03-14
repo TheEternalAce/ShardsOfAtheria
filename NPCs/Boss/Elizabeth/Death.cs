@@ -152,7 +152,6 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
             LeadingConditionRule slayerMode = new(new IsSlayerMode());
-            LeadingConditionRule master = new(new Conditions.IsMasterMode());
 
             int[] drops = {
                 ModContent.ItemType<BloodScythe>(),
@@ -162,15 +161,15 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             };
 
             notExpertRule.OnSuccess(new OneFromOptionsDropRule(4, 3, drops));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<LifeCycleKeys>(), 4));
 
             //npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<DeathRelic>()));
             //npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DeathTrophy>(), 10));
-            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<LifeCycleKeys>(), 4));
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<AncientDeathsScythe>(), 4));
 
             slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<DeathSoulCrystal>()));
 
-            if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage) && !ShardsDownedSystem.downedValkyrie)
+            if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage) && !ShardsDownedSystem.downedDeath)
             {
                 npcLoot.Add(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
             }
