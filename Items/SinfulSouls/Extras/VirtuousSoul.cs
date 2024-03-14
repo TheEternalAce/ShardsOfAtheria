@@ -59,6 +59,12 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
     }
     public class HolyExplosion : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddRedemptionElement(8);
+            Projectile.AddRedemptionElement(15);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 2000;

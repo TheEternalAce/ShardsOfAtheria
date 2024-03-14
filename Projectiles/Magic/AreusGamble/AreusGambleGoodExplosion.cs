@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.AreusGamble
         {
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
+            Projectile.AddRedemptionElement(15);
         }
 
         public override void SetDefaults()

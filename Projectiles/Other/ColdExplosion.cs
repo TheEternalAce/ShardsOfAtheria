@@ -18,6 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Other
             Projectile.AddElement(1);
             Projectile.AddRedemptionElement(3);
             Projectile.AddRedemptionElement(4);
+            Projectile.AddRedemptionElement(15);
         }
 
         public override void SetDefaults()

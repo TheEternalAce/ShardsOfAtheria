@@ -1,4 +1,5 @@
 ﻿using BattleNetworkElements.Elements;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -16,6 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Other
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Type] = true;
+            Projectile.AddRedemptionElement(15);
         }
 
         public override void SetDefaults()

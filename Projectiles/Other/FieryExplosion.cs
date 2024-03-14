@@ -18,6 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Other
             ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Type] = true;
             Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
+            Projectile.AddRedemptionElement(15);
         }
 
         public override void SetDefaults()
