@@ -43,7 +43,6 @@ namespace ShardsOfAtheria.Projectiles.Other
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Torch, Scale: 1.3f);
                 dust.velocity *= 4f;
             }
-            ScreenShake.ShakeScreen(6, 10);
         }
 
         public override void AI()

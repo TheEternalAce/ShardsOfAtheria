@@ -45,7 +45,6 @@ namespace ShardsOfAtheria.Projectiles.Other
                 dust.velocity *= 4f;
                 dust.noGravity = true;
             }
-            ScreenShake.ShakeScreen(6, 10);
         }
 
         public override void AI()
