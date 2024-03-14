@@ -223,6 +223,14 @@ namespace ShardsOfAtheria.Players
             }
         }
 
+        public override void PostUpdateBuffs()
+        {
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<EmeraldTeleport>()] > 0)
+            {
+                Player.invis = true;
+            }
+        }
+
         public override void UpdateVisibleAccessories()
         {
             if (!megaGemCore && !megaGemCorePrevious)

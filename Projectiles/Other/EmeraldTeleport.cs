@@ -36,7 +36,6 @@ namespace ShardsOfAtheria.Projectiles.Other
             owner.velocity = Vector2.Zero;
             owner.immuneNoBlink = true;
             owner.immuneTime = 2;
-            owner.AddBuff(BuffID.Invisibility, 2);
             int cooldownTime = 360;
             if (owner.Gem().megaGemCore)
             {
