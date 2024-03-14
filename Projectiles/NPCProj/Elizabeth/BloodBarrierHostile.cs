@@ -43,13 +43,11 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
 
             foreach (var projectile in Main.projectile)
             {
-                if (projectile.Hitbox.Intersects(Projectile.Hitbox))
+                if (projectile.Hitbox.Intersects(Projectile.Hitbox) && projectile.active && Projectile.whoAmI != projectile.whoAmI)
                 {
                     if (SoAGlobalProjectile.ReflectAiList.Contains(projectile.aiStyle) &&
                         projectile.velocity != Vector2.Zero &&
-                        projectile.friendly &&
-                        !projectile.hostile &&
-                        projectile.active)
+                        projectile.friendly)
                     {
                         SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, Projectile.Center);
                         SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, Projectile.Center);

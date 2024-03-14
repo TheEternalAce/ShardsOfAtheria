@@ -68,7 +68,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             NPC.width = 24;
             NPC.height = 60;
             NPC.damage = 90;
-            NPC.defense = 180;
+            NPC.defense = 80;
             NPC.lifeMax = 242564;
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
@@ -166,6 +166,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             //npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<DeathRelic>()));
             //npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DeathTrophy>(), 10));
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<LifeCycleKeys>(), 4));
+            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<AncientDeathsScythe>(), 4));
 
             slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<DeathSoulCrystal>()));
 
@@ -174,8 +175,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 npcLoot.Add(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
             }
 
-            master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<BloodStainedCrossbow>()));
-            npcLoot.Add(master);
+            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<BloodStainedCrossbow>()));
 
             // Finally add the leading rule
             npcLoot.Add(notExpertRule);
@@ -322,6 +322,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         const int BloodSickle = 5;
         const int BloodScythe = 6;
         const int BloodSword = 7;
+        const int AncientScythe = 8;
         readonly List<int> blacklistedAttacks = [];
         void ChoseAttacks()
         {
@@ -355,6 +356,10 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     Vector2 targetPosition = player.Center;
                     Vector2 toTarget = targetPosition - center;
                     DoBloodBarrier(center, toTarget);
+                }
+                if (desperation)
+                {
+                    AddNonBlacklistedAttack(ref random, AncientScythe);
                 }
             }
             attackType = random;
@@ -447,6 +452,16 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     damage = 60;
                     //animationState = STATE_SWORD_SWING;
                     //frameX = 1;
+                    if (desperation)
+                    {
+                        attackTypeNext = AncientScythe;
+                    }
+                    break;
+                case AncientScythe:
+                    attackTimer = 60;
+                    attackCooldown = 60;
+                    damage = 50;
+                    blacklistedAttacks.Add(BloodSword);
                     break;
             }
             blacklistedAttacks.Add(attackType);
@@ -492,6 +507,10 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     break;
                 case BloodSword:
                     DoSwordDraw(player);
+                    break;
+                case AncientScythe:
+                    DefaultMovement(player);
+                    DoAncientScythe(center, toTarget);
                     break;
             }
         }
@@ -591,7 +610,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     perturbedSpeed *= Main.rand.NextFloat(0.66f, 1f);
                     var needle = Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), center,
                         perturbedSpeed, ModContent.ProjectileType<BloodNeedleHostile>(), damage, 6,
-                        Main.myPlayer, NPC.Center.X, NPC.Center.Y);
+                        Main.myPlayer, desperation ? 1 : 0);
                     needle.timeLeft *= 3;
                     needle.friendly = false;
                 }
@@ -614,7 +633,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                         i / (numProj - 1)));
                     perturbedSpeed *= Main.rand.NextFloat(0.66f, 1f);
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), center, perturbedSpeed,
-                        ModContent.ProjectileType<BloodBubbleHostile>(), damage, 6, Main.myPlayer);
+                        ModContent.ProjectileType<BloodBubbleHostile>(), damage, 6, Main.myPlayer, desperation ? 1 : 0);
                 }
             }
         }
@@ -713,6 +732,22 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), center, toTarget,
                     ModContent.ProjectileType<BloodBarrierHostile>(), damage, 0f,
                     Main.myPlayer, NPC.whoAmI);
+            }
+        }
+        void DoAncientScythe(Vector2 center, Vector2 toTarget)
+        {
+            if (attackTimer % 60 == 0)
+            {
+                int numProj = 3;
+                float rotation = MathHelper.TwoPi;
+                toTarget.Normalize();
+                for (int i = 0; i < numProj; i++)
+                {
+                    Vector2 perturbedSpeed = toTarget.RotatedByRandom(rotation);
+                    perturbedSpeed *= 7f;
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), center, perturbedSpeed,
+                        ModContent.ProjectileType<AncientDeathsScytheHostile>(), damage, 6, Main.myPlayer);
+                }
             }
         }
 

@@ -2484,6 +2484,11 @@ Items: {
 		DisplayName: Nestling Staff
 		Tooltip: Summons a fledgling harpy knight to fight for you
 	}
+
+	AncientDeathsScythe: {
+		// DisplayName: Ancient Death's Scythe
+		// Tooltip: Summons a relic from the past
+	}
 }
 
 Projectiles: {
@@ -2809,6 +2814,12 @@ Projectiles: {
 	// SalamanderLaser.DisplayName: Salamander Laser
 	// BloodBarrierHostileOrbit.DisplayName: Blood Barrier Hostile Orbit
 	// PlagueBullet.DisplayName: Plague Bullet
+	// Scythe.DisplayName: Ancient Death's Scythe
+	// AncientDeathsScytheHostile.DisplayName: Ancient Deaths Scythe Hostile
+	// BloodBoltHostile.DisplayName: Blood Bolt Hostile
+	// BloodExplosionHostile.DisplayName: Blood Explosion Hostile
+	// BloodExplosion.DisplayName: Blood Explosion
+	// BloodRocket.DisplayName: Blood Rocket
 }
 
 NPCs: {
@@ -2854,7 +2865,7 @@ NPCs: {
 			// Defeat: Congratulations, you've defeated Death herself. ... I need some coffee.
 			# Refight
 			// InitialSummonRe: Welcome back, ready for another round?
-			// MidFightRe: placeholder.
+			// MidFightRe: Halfway there. Coffee break? No? Alright then.
 			// DefeatRe: Well, that was fun. I'm off to get some coffee.
 			# Slayer
 			// InitialSummonSlayer: Your first mistake was starting this path. Your final mistake is crossing mine.
@@ -3466,7 +3477,17 @@ Buffs: {
 
 	Magnetic: {
 		// DisplayName: Magnetic
-		// Description: Mods.ShardsOfAtheria.Buffs.Magnetic.Description
+		// Description: Attract metalic projectiles
+	}
+
+	AncientScythe: {
+		// DisplayName: Ancient Death's Scythe
+		// Description: Once a weapon, now a humble companion
+	}
+
+	DeathBlood: {
+		// DisplayName: Death Blood
+		// Description: Elizabeth's bood is sure to detonate within you
 	}
 }
 

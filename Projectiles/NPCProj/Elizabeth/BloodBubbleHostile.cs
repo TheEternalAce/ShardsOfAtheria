@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -25,18 +26,17 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         Vector2 trackPosition = Vector2.Zero;
         Player player;
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
+            player = Projectile.FindClosestPlayer(2000);
+            float radius = 150 * Main.rand.NextFloat(0.6f, 1f);
+            float rotation = MathHelper.TwoPi;
+            trackPosition = Vector2.One.RotatedByRandom(rotation) * radius;
+        }
+
         public override void AI()
         {
-            if (Projectile.ai[0] == 0)
-            {
-                SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
-                player = Projectile.FindClosestPlayer(2000);
-                float radius = 150 * Main.rand.NextFloat(0.6f, 1f);
-                float rotation = MathHelper.TwoPi;
-                trackPosition = Vector2.One.RotatedByRandom(rotation) * radius;
-                Projectile.ai[0]++;
-            }
-
             var idlePosition = player.Center + trackPosition;
             var vectorToIdlePosition = idlePosition - Projectile.Center;
             Projectile.velocity = vectorToIdlePosition * 0.055f;
@@ -52,7 +52,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
 
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
                 vector, ModContent.ProjectileType<BloodNeedleHostile>(), Projectile.damage,
-                Projectile.knockBack, Projectile.owner, Projectile.Center.X, Projectile.Center.Y);
+                Projectile.knockBack, Projectile.owner, Projectile.ai[0]);
         }
 
         public override bool PreDraw(ref Color lightColor)

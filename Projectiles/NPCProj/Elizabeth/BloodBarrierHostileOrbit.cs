@@ -38,20 +38,18 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(5));
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
 
-            if (!npc.CanBeChasedBy())
+            if (npc.CanBeChasedBy())
             {
-                Projectile.Kill();
+                Projectile.timeLeft = 2;
             }
 
             foreach (var projectile in Main.projectile)
             {
-                if (projectile.Hitbox.Intersects(Projectile.Hitbox))
+                if (projectile.Hitbox.Intersects(Projectile.Hitbox) && projectile.active && Projectile.whoAmI != projectile.whoAmI)
                 {
                     if (SoAGlobalProjectile.ReflectAiList.Contains(projectile.aiStyle) &&
                         projectile.velocity != Vector2.Zero &&
-                        projectile.friendly &&
-                        !projectile.hostile &&
-                        projectile.active)
+                        projectile.friendly)
                     {
                         projectile.Kill();
                         for (var d = 0; d < 28; d++)
