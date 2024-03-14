@@ -19,6 +19,7 @@ using ShardsOfAtheria.Projectiles.Ammo;
 using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Projectiles.Other;
+using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Projectiles.Tools;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
@@ -156,23 +157,23 @@ namespace ShardsOfAtheria.Globals
                     slayer.soulCrystalProjectileCooldown = 60;
                     if (slayer.SkeletronSoul)
                     {
-                        Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 3.5f, ProjectileID.BookOfSkullsSkull, 40, 3.5f, player.whoAmI);
+                        Projectile.NewProjectile(source, player.Center, vel * 3.5f, ProjectileID.BookOfSkullsSkull, 40, 3.5f, player.whoAmI);
                     }
                     if (slayer.EoWSoul)
                     {
-                        Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 16f, ModContent.ProjectileType<VileShot>(), 30, 1, player.whoAmI);
+                        Projectile.NewProjectile(source, player.Center, vel * 16f, ModContent.ProjectileType<VileShot>(), 30, 1, player.whoAmI);
                         SoundEngine.PlaySound(SoundID.Item17);
                     }
                     if (slayer.NovaSoul && item.type != ModContent.ItemType<ValkyrieBlade>())
                     {
                         SoundEngine.PlaySound(SoundID.Item1);
                         int projtype = ModContent.ProjectileType<HardlightBlade>();
-                        ShardsHelpers.ProjectileRing(item.GetSource_FromThis(),
+                        ShardsHelpers.ProjectileRing(source,
                             Main.MouseWorld, 4, 150f, 16f, projtype, 18, 0f, player.whoAmI, 1);
                     }
                     if (slayer.BeeSoul)
                     {
-                        Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 18f, ModContent.ProjectileType<Stinger>(), 5, 0f, player.whoAmI);
+                        Projectile.NewProjectile(source, player.Center, vel * 18f, ModContent.ProjectileType<Stinger>(), 5, 0f, player.whoAmI);
                         SoundEngine.PlaySound(SoundID.Item17);
                     }
                     if (slayer.SkeletronSoul)
@@ -181,20 +182,43 @@ namespace ShardsOfAtheria.Globals
                         switch (Main.rand.Next(3))
                         {
                             case 0:
-                                Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 10f, ProjectileID.MiniRetinaLaser, 40, 3.5f, player.whoAmI);
+                                Projectile.NewProjectile(source, player.Center, vel * 10f, ProjectileID.MiniRetinaLaser, 40, 3.5f, player.whoAmI);
                                 break;
                             case 1:
-                                Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 8f, ProjectileID.RocketI, 40, 3.5f, player.whoAmI);
+                                Projectile.NewProjectile(source, player.Center, vel * 8f, ProjectileID.RocketI, 40, 3.5f, player.whoAmI);
                                 break;
                             case 2:
-                                Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 8f, ProjectileID.Grenade, 40, 3.5f, player.whoAmI);
+                                Projectile.NewProjectile(source, player.Center, vel * 8f, ProjectileID.Grenade, 40, 3.5f, player.whoAmI);
                                 break;
                         }
                     }
                     if (slayer.PlanteraSoul)
                     {
-                        Projectile.NewProjectile(item.GetSource_FromThis(), player.Center, vel * 16f, ModContent.ProjectileType<VenomSeed>(), 30, 1, player.whoAmI);
+                        Projectile.NewProjectile(source, player.Center, vel * 16f, ModContent.ProjectileType<VenomSeed>(), 30, 1, player.whoAmI);
                         SoundEngine.PlaySound(SoundID.Item17);
+                    }
+                    if (slayer.DeathSoul)
+                    {
+                        //if (item.DamageType == DamageClass.Melee)
+                        //{
+                        //    Projectile.NewProjectile(source, player.Center, vel * 16f, ModContent.ProjectileType<BloodRocket>(), 200, 7f, player.whoAmI);
+                        //    SoundEngine.PlaySound(SoundID.Item14);
+                        //}
+                        if (item.DamageType == DamageClass.Ranged)
+                        {
+                            Projectile.NewProjectile(source, player.Center, vel * 22f, ModContent.ProjectileType<BloodRocket>(), 200, 7f, player.whoAmI);
+                            SoundEngine.PlaySound(SoundID.Item14);
+                        }
+                        //if (item.DamageType == DamageClass.Magic)
+                        //{
+                        //    Projectile.NewProjectile(source, player.Center, vel * 16f, ModContent.ProjectileType<BloodRocket>(), 200, 7f, player.whoAmI);
+                        //    SoundEngine.PlaySound(SoundID.Item14);
+                        //}
+                        //if (item.DamageType == DamageClass.Summon)
+                        //{
+                        //    Projectile.NewProjectile(source, player.Center, vel * 16f, ModContent.ProjectileType<BloodRocket>(), 200, 7f, player.whoAmI);
+                        //    SoundEngine.PlaySound(SoundID.Item14);
+                        //}
                     }
                 }
             }
