@@ -42,6 +42,7 @@
     <None Remove="Buffs\PlayerBuff\MourningSatisfaction.png" />
     <None Remove="Buffs\PlayerBuff\PartisanBuff.png" />
     <None Remove="Buffs\PlayerBuff\ShadeState.png" />
+    <None Remove="Buffs\PlayerDebuff\DeathBlood.png" />
     <None Remove="Dusts\AreusDust_Dark.png" />
     <None Remove="Items\Accessories\GemCores\AmberCape.png" />
     <None Remove="Items\Armor\Areus\Imperial\ImperialGreaves.png" />
