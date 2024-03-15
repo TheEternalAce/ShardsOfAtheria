@@ -8,6 +8,7 @@ using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
 using ShardsOfAtheria.Items.Accessories.GemCores.Regular;
 using ShardsOfAtheria.Items.Accessories.GemCores.Super;
 using ShardsOfAtheria.Items.BossSummons;
+using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.NPCs.Boss.Elizabeth;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using ShardsOfAtheria.Systems;
@@ -315,17 +316,17 @@ namespace ShardsOfAtheria
                 rot.Call("BossDesc", ModContent.NPCType<Death>(), "Mods.ShardsOfAtheria.NPCs.Death.BossDesc");
             }
 
-            //ShardsHelpers.SetGunStats(ModContent.ItemType<AreusAssaultRifle>(), "rifle", 30);
-            //ShardsHelpers.SetGunStats(ModContent.ItemType<AreusCalibratedShotgun>(), "shotgun", 8);
-            //ShardsHelpers.SetGunStats(ModContent.ItemType<AreusMagnum>(), "revolver", 1);
-            //ShardsHelpers.SetGunStats(ModContent.ItemType<AreusPistol>(), "pistol", 8);
-            //ShardsHelpers.SetGunStats(ModContent.ItemType<HansMachineGun>(), "lmg", 100);
-            //ShardsHelpers.SetGunStats(ModContent.ItemType<HeroGun>(), "pistol", 12);
-            //ShardsHelpers.SetGunStats(ModContent.ItemType<HuntingRifle>(), "rifle", 20);
-            //ShardsHelpers.SetGunStats(ModContent.ItemType<Magnus>(), "revolver", 8);
-            //ShardsHelpers.SetGunStats(ModContent.ItemType<P90>(), "smg", 50);
-            //ShardsHelpers.SetGunStats(ModContent.ItemType<PhantomRose>(), "pistol", 12);
-            //ShardsHelpers.SetGunStats(ModContent.ItemType<Scarlet>(), "sniper", 10);
+            ShardsHelpers.SetGunStats(ModContent.ItemType<AreusAssaultRifle>(), "rifle", 30);
+            ShardsHelpers.SetGunStats(ModContent.ItemType<AreusCalibratedShotgun>(), "shotgun", 8);
+            ShardsHelpers.SetGunStats(ModContent.ItemType<AreusMagnum>(), "revolver", 1);
+            ShardsHelpers.SetGunStats(ModContent.ItemType<AreusPistol>(), "pistol", 8);
+            ShardsHelpers.SetGunStats(ModContent.ItemType<HansMachineGun>(), "lmg", 100);
+            ShardsHelpers.SetGunStats(ModContent.ItemType<HeroGun>(), "pistol", 12);
+            ShardsHelpers.SetGunStats(ModContent.ItemType<HuntingRifle>(), "rifle", 20);
+            ShardsHelpers.SetGunStats(ModContent.ItemType<Magnus>(), "revolver", 8);
+            ShardsHelpers.SetGunStats(ModContent.ItemType<P90>(), "smg", 50);
+            ShardsHelpers.SetGunStats(ModContent.ItemType<PhantomRose>(), "pistol", 12);
+            ShardsHelpers.SetGunStats(ModContent.ItemType<Scarlet>(), "sniper", 10);
         }
 
         public static void TryElementCall(params object[] args)
