@@ -31,6 +31,7 @@ namespace ShardsOfAtheria.Projectiles.Other
             Projectile.light = 1f;
             Projectile.penetrate = 7;
             Projectile.timeLeft = 10;
+            Projectile.stopsDealingDamageAfterPenetrateHits = true;
         }
 
         public override void OnSpawn(IEntitySource source)
