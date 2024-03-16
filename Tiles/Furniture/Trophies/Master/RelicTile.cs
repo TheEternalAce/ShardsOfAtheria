@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Items.Placeable.Furniture.Trophies.Master;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -16,7 +15,7 @@ namespace ShardsOfAtheria.Tiles.Furniture.Trophies.Master
     // Common code for a Master Mode boss relic
     // Contains comments for optional Item.placeStyle handling if you wish to add more relics but use the same tile type (then it would be wise to name this class something more generic like BossRelic)
     // And in case of wanting to add more relics but not wanting to go the optional way, scroll down to the bottom of the file
-    public class NovaRelicTile : ModTile
+    public abstract class RelicTile : ModTile
     {
         public const int FrameWidth = 18 * 3;
         public const int FrameHeight = 18 * 4;
@@ -27,7 +26,7 @@ namespace ShardsOfAtheria.Tiles.Furniture.Trophies.Master
 
         // Every relic has its own extra floating part, should be 50x50. Optional: Expand this sheet if you want to add more, stacked vertically
         // If you do not go the optional way, and you extend from this class, you can override this to point to a different texture
-        public virtual string RelicTextureName => "ShardsOfAtheria/Tiles/Furniture/Trophies/Master/NovaRelicTile";
+        public virtual string RelicTextureName => "ShardsOfAtheria/Tiles/Furniture/Trophies/Master/Relics";
 
         // All relics use the same pedestal texture, this one is copied from vanilla
         public override string Texture => "ShardsOfAtheria/Tiles/Furniture/Trophies/Master/RelicBase";
@@ -60,10 +59,10 @@ namespace ShardsOfAtheria.Tiles.Furniture.Trophies.Master
             TileObjectData.newTile.StyleHorizontal = false; // Based on how the alternate sprites are positioned on the sprite (by default, true)
 
             // Optional: If you decide to make your tile utilize different styles through Item.placeStyle, you need these, aswell as the code in SetDrawPositions
-            // TileObjectData.newTile.StyleWrapLimitVisualOverride = 2;
-            // TileObjectData.newTile.StyleMultiplier = 2;
-            // TileObjectData.newTile.StyleWrapLimit = 2;
-            // TileObjectData.newTile.styleLineSkipVisualOverride = 0;
+            //TileObjectData.newTile.StyleWrapLimitVisualOverride = 2;
+            //TileObjectData.newTile.StyleMultiplier = 2;
+            //TileObjectData.newTile.StyleWrapLimit = 2;
+            //TileObjectData.newTile.styleLineSkipVisualOverride = 0;
 
             // Register an alternate tile data with flipped direction
             TileObjectData.newAlternate.CopyFrom(TileObjectData.newTile); // Copy everything from above, saves us some code
@@ -76,28 +75,6 @@ namespace ShardsOfAtheria.Tiles.Furniture.Trophies.Master
             // Register map name and color
             // "MapObject.Relic" refers to the translation key for the vanilla "Relic" text
             AddMapEntry(new Color(233, 207, 94), Language.GetText("MapObject.Relic"));
-        }
-
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            // This code here infers the placeStyle the tile was placed with. Only required if you go the Item.placeStyle approach. You just need Item.NewItem otherwise
-            // The placeStyle calculated here corresponds to whatever placeStyle you specified on your items that place this tile (Either through Item.placeTile or Item.DefaultToPlacableTile)
-            int placeStyle = frameX / FrameWidth;
-
-            int itemType = 0;
-            switch (placeStyle)
-            {
-                case 0:
-                    itemType = ModContent.ItemType<NovaRelic>();
-                    break;
-                    // Optional: Add more cases here
-            }
-
-            if (itemType > 0)
-            {
-                // Spawn the item
-                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, itemType);
-            }
         }
 
         public override bool CreateDust(int i, int j, ref int type)
@@ -178,16 +155,24 @@ namespace ShardsOfAtheria.Tiles.Furniture.Trophies.Master
 
     // If you want to make more relics but do not go the optional way, you can use inheritance to avoid using duplicate code:
     // Your tile code would then inherit from the MinionBossRelic class (which you should make abstract) and should look like this:
-    /*
-	public class MyBossRelic : MinionBossRelic
-	{
-		public override string RelicTextureName => "ExampleMod/Content/Tiles/Furniture/MyBossRelic";
+    public class NovaRelicTile : RelicTile
+    {
+        public override string RelicTextureName => "ShardsOfAtheria/Tiles/Furniture/Trophies/Master/NovaRelicTile";
 
-		public override void OnKillMultiTile(int i, int j, int frameX, int frameY) {
-			Item.NewItem(i * 16, j * 16, 32, 32, ModContent.ItemType<Items.Placeable.Furniture.MyBossRelic>());
-		}
-	}
-	*/
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+        }
+    }
+    public class DeathRelicTile : RelicTile
+    {
+        public override string RelicTextureName => "ShardsOfAtheria/Tiles/Furniture/Trophies/Master/DeathRelicTile";
+
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+        }
+    }
 
     // Your item code would then just use the MyBossRelic tile type, and keep placeStyle on 0
     // The textures for MyBossRelic item/tile have to be supplied separately

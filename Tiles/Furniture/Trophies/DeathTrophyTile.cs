@@ -8,7 +8,7 @@ using Terraria.ObjectData;
 namespace ShardsOfAtheria.Tiles.Furniture.Trophies
 {
     // Simple 3x3 tile that can be placed on a wall
-    public class NovaTrophyTile : ModTile
+    public class DeathTrophyTile : ModTile
     {
         public override void SetStaticDefaults()
         {

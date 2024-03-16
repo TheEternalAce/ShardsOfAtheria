@@ -4,6 +4,8 @@ using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.GrabBags;
 using ShardsOfAtheria.Items.PetItems;
+using ShardsOfAtheria.Items.Placeable.Furniture.Trophies;
+using ShardsOfAtheria.Items.Placeable.Furniture.Trophies.Master;
 using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
@@ -163,8 +165,8 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             notExpertRule.OnSuccess(new OneFromOptionsDropRule(4, 3, drops));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<LifeCycleKeys>(), 4));
 
-            //npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<DeathRelic>()));
-            //npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DeathTrophy>(), 10));
+            npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<DeathRelic>()));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DeathTrophy>(), 10));
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<AncientDeathsScythe>(), 4));
 
             slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<DeathSoulCrystal>()));

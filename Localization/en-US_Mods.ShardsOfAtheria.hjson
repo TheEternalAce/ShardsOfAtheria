@@ -2512,6 +2512,16 @@ Items: {
 		DisplayName: Ancient Death's Scythe
 		Tooltip: Summons a relic from the past
 	}
+
+	DeathTrophy: {
+		DisplayName: Death Trophy
+		Tooltip: ""
+	}
+
+	DeathRelic: {
+		DisplayName: Death Relic
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
