@@ -52,28 +52,4 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
             }
         }
     }
-
-    public class SpiteRubyPlayer : ModPlayer
-    {
-        public override void UpdateBadLifeRegen()
-        {
-            if (Player.HasBuff<SpitefulRuby>())
-            {
-                if (Player.lifeRegen > 0)
-                {
-                    Player.lifeRegen = 0;
-                }
-                Player.lifeRegen -= 50;
-                Player.lifeRegenTime = 0;
-            }
-        }
-
-        public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
-        {
-            if (Player.HasBuff<SpitefulRuby>())
-            {
-                damage.Flat -= 0.15f;
-            }
-        }
-    }
 }

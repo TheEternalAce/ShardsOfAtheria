@@ -37,7 +37,6 @@ namespace ShardsOfAtheria
         public static ModKeybind SoulTeleport { get; private set; }
         public static ModKeybind ArmorSetBonusActive { get; private set; }
         public static ModKeybind ProcessorElement { get; private set; }
-        public static ModKeybind MasterCoreToggles { get; private set; }
 
         public static ShardsServer ServerConfig { get; private set; }
         public static ShardsClient ClientConfig { get; private set; }
@@ -119,7 +118,6 @@ namespace ShardsOfAtheria
             SoulTeleport = KeybindLoader.RegisterKeybind(Instance, "SoulCrystalTeleport", "V");
             ArmorSetBonusActive = KeybindLoader.RegisterKeybind(Instance, "ArmorSetBonus", "Mouse4");
             ProcessorElement = KeybindLoader.RegisterKeybind(Instance, "CycleElementAffinity", "C");
-            MasterCoreToggles = KeybindLoader.RegisterKeybind(Instance, "MasterCoreToggles", "Semicolon");
 
             ServerConfig = ModContent.GetInstance<ShardsServer>();
             ClientConfig = ModContent.GetInstance<ShardsClient>();

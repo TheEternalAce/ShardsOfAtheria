@@ -77,6 +77,7 @@ namespace ShardsOfAtheria.Players
             { true, true, true, true, true, true, true },
             { true, true, true, true, true, true, true }
         };
+        public bool masterCoreUI = false;
         public bool gemSoul;
 
         public readonly int[] Curses =
@@ -149,6 +150,7 @@ namespace ShardsOfAtheria.Players
             megaGemCorePrevious = megaGemCore;
             megaGemCore = false;
             gemSoul = false;
+            masterCoreUI = false;
         }
 
         public override void SaveData(TagCompound tag)
@@ -262,6 +264,43 @@ namespace ShardsOfAtheria.Players
             }
         }
 
+        public override void UpdateBadLifeRegen()
+        {
+            if (Player.HasBuff(ModContent.BuffType<WoundedAmethyst>()))
+            {
+                if (Player.lifeRegen > 0)
+                {
+                    Player.lifeRegen = 0;
+                }
+                if (Player.lifeRegenCount > 0)
+                {
+                    Player.lifeRegenCount = 0;
+                }
+                Player.lifeRegenTime = 0;
+            }
+            if (Player.HasBuff<SpitefulRuby>())
+            {
+                if (Player.lifeRegen > 0)
+                {
+                    Player.lifeRegen = 0;
+                }
+                Player.lifeRegen -= 10;
+                if (greaterRubyCore)
+                {
+                    Player.lifeRegen -= 10;
+                }
+                if (superRubyCore)
+                {
+                    Player.lifeRegen -= 10;
+                }
+                if (megaGemCore)
+                {
+                    Player.lifeRegen -= 10;
+                }
+                Player.lifeRegenTime = 0;
+            }
+        }
+
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
             if (SoA.AmethystBombToggle.JustPressed)
@@ -325,6 +364,13 @@ namespace ShardsOfAtheria.Players
                         }
                     }
                 }
+            }
+        }
+        public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
+        {
+            if (Player.HasBuff<SpitefulRuby>())
+            {
+                damage.Flat -= 0.15f;
             }
         }
 

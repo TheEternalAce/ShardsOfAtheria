@@ -51,6 +51,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         {
             var gem = player.Gem();
             int loadout = player.CurrentLoadoutIndex;
+            gem.masterCoreUI = true;
             gem.amberCape = gem.masterGemCoreToggles[loadout, 0];
             gem.amethystMask = gem.masterGemCoreToggles[loadout, 1];
             gem.diamondShield = gem.masterGemCoreToggles[loadout, 2];
@@ -75,6 +76,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             ModContent.GetInstance<TopazCore_Super>().UpdateAccessory(player, true);
 
             gem.megaGemCore = true;
+            gem.masterCoreUI = !hideVisual;
             player.GetDamage(DamageClass.Generic) += .05f;
             player.GetAttackSpeed(DamageClass.Generic) += .05f;
             gem.sapphireDodgeChance += 0.05f;

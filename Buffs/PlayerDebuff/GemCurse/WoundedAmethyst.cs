@@ -13,23 +13,4 @@ namespace ShardsOfAtheria.Buffs.PlayerDebuff.GemCurse
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
     }
-
-    public class AmethystCursePlayer : ModPlayer
-    {
-        public override void UpdateBadLifeRegen()
-        {
-            if (Player.HasBuff(ModContent.BuffType<WoundedAmethyst>()))
-            {
-                if (Player.lifeRegen > 0)
-                {
-                    Player.lifeRegen = 0;
-                }
-                if (Player.lifeRegenCount > 0)
-                {
-                    Player.lifeRegenCount = 0;
-                }
-                Player.lifeRegenTime = 0;
-            }
-        }
-    }
 }

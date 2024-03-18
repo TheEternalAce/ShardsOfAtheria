@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
             panel.Append(text);
 
             Asset<Texture2D> buttonDeleteTexture = ModContent.Request<Texture2D>("Terraria/Images/UI/ButtonDelete");
-            UIHoverImageButton closeButton = new UIHoverImageButton(buttonDeleteTexture, Language.GetTextValue("LegacyInterface.52")); // Localized text for "Close"
+            UIHoverImageButton closeButton = new(buttonDeleteTexture, Language.GetTextValue("LegacyInterface.52")); // Localized text for "Close"
             closeButton.SetRectangle(160 - 32f, 10, 22f, 22f);
             closeButton.OnLeftClick += new MouseEvent(CloseButtonClicked);
             panel.Append(closeButton);
@@ -108,40 +108,40 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
 
         private void ToggleAmber(UIMouseEvent evt, UIElement listeningElement)
         {
-            Toggle(amberToggle, 0);
+            Toggle(0);
         }
 
         private void ToggleAmethyst(UIMouseEvent evt, UIElement listeningElement)
         {
-            Toggle(amethystToggle, 1);
+            Toggle(1);
         }
 
         private void ToggleDiamond(UIMouseEvent evt, UIElement listeningElement)
         {
-            Toggle(diamondToggle, 2);
+            Toggle(2);
         }
 
         private void ToggleEmerald(UIMouseEvent evt, UIElement listeningElement)
         {
-            Toggle(emeraldToggle, 3);
+            Toggle(3);
         }
 
         private void ToggleRuby(UIMouseEvent evt, UIElement listeningElement)
         {
-            Toggle(rubyToggle, 4);
+            Toggle(4);
         }
 
         private void ToggleSapphire(UIMouseEvent evt, UIElement listeningElement)
         {
-            Toggle(sapphireToggle, 5);
+            Toggle(5);
         }
 
         private void ToggleTopaz(UIMouseEvent evt, UIElement listeningElement)
         {
-            Toggle(topazToggle, 6);
+            Toggle(6);
         }
 
-        private void Toggle(UIHoverImageButton toggle, int index)
+        private void Toggle(int index)
         {
             Player player = Main.LocalPlayer;
             int loadout = player.CurrentLoadoutIndex;
@@ -170,16 +170,27 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
             ModContent.GetInstance<MGCToggleUI>().ToggleVisualSettings();
         }
 
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (ModContent.GetInstance<GemCoreConfigOpener>().CurrentState != 0)
+            {
+                base.Draw(spriteBatch);
+            }
+        }
+
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-            UpdateHighlight(amberToggle, 0);
-            UpdateHighlight(amethystToggle, 1);
-            UpdateHighlight(diamondToggle, 2);
-            UpdateHighlight(emeraldToggle, 3);
-            UpdateHighlight(rubyToggle, 4);
-            UpdateHighlight(sapphireToggle, 5);
-            UpdateHighlight(topazToggle, 6);
+            if (ModContent.GetInstance<GemCoreConfigOpener>().CurrentState != 0)
+            {
+                base.Update(gameTime);
+                UpdateHighlight(amberToggle, 0);
+                UpdateHighlight(amethystToggle, 1);
+                UpdateHighlight(diamondToggle, 2);
+                UpdateHighlight(emeraldToggle, 3);
+                UpdateHighlight(rubyToggle, 4);
+                UpdateHighlight(sapphireToggle, 5);
+                UpdateHighlight(topazToggle, 6);
+            }
         }
     }
 
@@ -195,6 +206,7 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
                 mgcVisualsState = new();
                 mgcVisualsState.Activate();
                 mgcVisualsStateUI = new();
+                mgcVisualsStateUI.SetState(mgcVisualsState);
             }
         }
 
