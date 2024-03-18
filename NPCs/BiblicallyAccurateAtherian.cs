@@ -4,6 +4,7 @@ using ReLogic.Content;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Gores;
 using ShardsOfAtheria.Utilities;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -18,18 +19,21 @@ namespace ShardsOfAtheria.NPCs
     public class BiblicallyAccurateAtherian : ModNPC
     {
         static Asset<Texture2D> ringTexture;
+        static Asset<Texture2D> rodTexture;
 
         public override void Load()
         {
             if (!Main.dedServ)
             {
                 ringTexture = ModContent.Request<Texture2D>(Texture + "_Ring");
+                rodTexture = ModContent.Request<Texture2D>(Texture + "_Rod");
             }
         }
 
         public override void Unload()
         {
             ringTexture = null;
+            rodTexture = null;
         }
 
         public override void SetStaticDefaults()
@@ -75,6 +79,7 @@ namespace ShardsOfAtheria.NPCs
         int shootTimer = 0;
         public override void AI()
         {
+            //NPC.rotation = NPC.velocity.ToRotation() * 0.05f;
             shootTimer++;
             if (shootTimer == 20 || shootTimer == 40 || shootTimer == 60)
             {
@@ -90,7 +95,7 @@ namespace ShardsOfAtheria.NPCs
             {
                 for (var i = 0; i < 30; i++)
                 {
-                    Vector2 speed = Main.rand.NextVector2CircularEdge(1f, 1f);
+                    Vector2 speed = Main.rand.NextVector2CircularEdge(1f, 0.8f);
                     Dust d = Dust.NewDustPerfect(NPC.Center, DustID.Electric, speed * 6f);
                     d.fadeIn = 1.3f;
                     d.noGravity = true;
@@ -179,21 +184,69 @@ namespace ShardsOfAtheria.NPCs
             ShardsDrops.AreusCommonDrops(ref npcLoot);
         }
 
+        private static Vector2 RodWander => Main.rand.NextVector2Circular(0.5f, 0.5f);
+        private readonly Vector2[] rodWanderPositions =
+        [
+            // Behind Rods
+            new(0,0),
+            new(0,0),
+            new(0,0),
+
+            // Front Rods
+            new(0,0),
+            new(0,0),
+            new(0,0),
+            new(0,0),
+        ];
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            var position = NPC.Center - ringTexture.Size() * 0.5f - screenPos;
-
-            spriteBatch.Draw(
-                ringTexture.Value,
-                position,
-                drawColor);
-
             var texture = TextureAssets.Npc[Type];
-            spriteBatch.Draw(
-                texture.Value,
-                position + new Vector2(0, -18),
-                drawColor);
+            var position = NPC.Center - screenPos;
+            var fullSize = ringTexture.Size() + Vector2.One * 8;
+            var position_rods = NPC.Center - fullSize * 0.5f - screenPos;
+            float rotation = NPC.rotation;
+            Vector2[] rodStartPositions =
+            [
+                // Behind Rods
+                new(59,12),
+                new(27,36),
+                new(19,52),
+                
+                // Front Rods
+                new(15,14),
+                new(45,32),
+                new(55,44),
+                new(35,58),
+            ];
+            for (int i = 0; i < rodWanderPositions.Length; i++)
+            {
+                rodWanderPositions[i] += RodWander;
+                if (Math.Abs(rodWanderPositions[i].X) > 10)
+                {
+                    float y = rodWanderPositions[i].Y;
+                    rodWanderPositions[i].Normalize();
+                    rodWanderPositions[i].X *= 10;
+                    rodWanderPositions[i].Y = y;
+                }
+                if (Math.Abs(rodWanderPositions[i].Y) > 10)
+                {
+                    float x = rodWanderPositions[i].X;
+                    rodWanderPositions[i].Normalize();
+                    rodWanderPositions[i].Y *= 10;
+                    rodWanderPositions[i].X = x;
+                }
+            }
 
+            for (int i = 0; i < 3; i++)
+            {
+                spriteBatch.Draw(rodTexture.Value, position_rods + rodStartPositions[i] + rodWanderPositions[i], null, drawColor, rotation, new Vector2(3, 12), 1f, SpriteEffects.None, 0);
+            }
+            spriteBatch.Draw(ringTexture.Value, position, null, drawColor, rotation, ringTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0);
+            spriteBatch.Draw(texture.Value, position + new Vector2(16, -4), null, drawColor, rotation, texture.Size(), 1f, SpriteEffects.None, 0);
+            for (int i = 3; i < 7; i++)
+            {
+                spriteBatch.Draw(rodTexture.Value, position_rods + rodStartPositions[i] + rodWanderPositions[i], null, drawColor, rotation, new Vector2(3, 12), 1f, SpriteEffects.None, 0);
+            }
             return false;
         }
     }

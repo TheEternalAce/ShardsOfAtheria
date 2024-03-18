@@ -50,7 +50,7 @@ namespace ShardsOfAtheria.NPCs
         public override void SetDefaults()
         {
             NPC.width = 68;
-            NPC.height = 80;
+            NPC.height = 40;
             NPC.damage = 0;
             NPC.defense = 10;
             NPC.lifeMax = 200;
@@ -70,7 +70,8 @@ namespace ShardsOfAtheria.NPCs
         {
             NPC.TargetClosest();
 
-            if (!Target.dead && Collision.CanHit(NPC.Center, NPC.width, NPC.height, Target.Center, Target.width, Target.height))
+            var projectilePosition = NPC.Center + new Vector2(0, 4);
+            if (!Target.dead && Collision.CanHit(projectilePosition, 20, 22, Target.Center, 20, 22))
             {
                 float fireRate = 0.5f;
                 if (Main.masterMode)
@@ -84,13 +85,12 @@ namespace ShardsOfAtheria.NPCs
                 NPC.ai[0] += 1f;
                 if (NPC.ai[0] % (60 / fireRate) == 0)
                 {
-                    var position = NPC.Center + new Vector2(0, 16);
-                    var vector = Vector2.Normalize(Target.Center - position);
+                    var vector = Vector2.Normalize(Target.Center - projectilePosition);
                     int targetDirection = Target.Center.X > NPC.Center.X ? 1 : -1;
-                    float distance = Vector2.Distance(position, Target.Center);
+                    float distance = Vector2.Distance(projectilePosition, Target.Center);
                     float offsetAngle = MathHelper.ToRadians(0);
                     vector.RotatedBy(offsetAngle);
-                    Projectile.NewProjectile(NPC.GetSource_FromThis(), position,
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), projectilePosition,
                         vector * 16f, ModContent.ProjectileType<AreusGrenadeHostile>(),
                         15, 0, Main.myPlayer);
                     SoundEngine.PlaySound(SoundID.Item61, NPC.Center);
@@ -116,13 +116,15 @@ namespace ShardsOfAtheria.NPCs
         {
             Asset<Texture2D> Cannon = ModContent.Request<Texture2D>(Texture + "_Cannon");
             var rect = new Rectangle(0, 0, 36, 48);
-            var drawPos = NPC.Center - screenPos + new Vector2(0, 24);
+            Vector2 offset = new(0, 4);
+            var drawPos = NPC.Center - screenPos + offset;
             var origin = new Vector2(18, 40);
             float rotation = 0f;
             if (Target != null)
             {
-                rotation = (Target.Center - NPC.Center).ToRotation();
+                rotation = (Target.Center - NPC.Center - offset).ToRotation();
                 rotation += MathHelper.PiOver2;
+                //spriteBatch.DrawLine(22, drawPos, Target.Center - screenPos, Color.Yellow.UseA(0));
             }
             spriteBatch.Draw(Cannon.Value, drawPos, rect, drawColor, rotation, origin, 1f,
                 SpriteEffects.None, 0);
