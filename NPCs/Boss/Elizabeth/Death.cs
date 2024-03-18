@@ -818,7 +818,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         private int frameX = 0;
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Asset<Texture2D> texture = ModContent.Request<Texture2D>(Texture);
+            Asset<Texture2D> texture = ModContent.Request<Texture2D>(Texture + (SoA.Eternity() ? "_Eternity" : ""));
             SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             Vector2 drawPos = NPC.Center - screenPos;
 

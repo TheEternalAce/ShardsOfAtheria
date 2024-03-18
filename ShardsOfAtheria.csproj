@@ -56,6 +56,7 @@
     <None Remove="Mounts\LifeCycle_Back.png" />
     <None Remove="Mounts\LifeCycle_Front.png" />
     <None Remove="NPCs\AreusCrateNPC.png" />
+    <None Remove="NPCs\Boss\Elizabeth\Death_Eternity.png" />
     <None Remove="NPCs\Boss\NovaStellar\LightningValkyrie\NovaStellar_Eternity.png" />
     <None Remove="Projectiles\Magic\ElectricHook.png" />
     <None Remove="Projectiles\Magic\ElectricHook_Chain.png" />
