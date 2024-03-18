@@ -3527,8 +3527,8 @@ Conditions: {
 	NotSlayer: Slayer Mode disabled
 	// DownedNova: Defeat Nova Stellar
 	// NotDownedNova: Don't defeat Nova Stellar
-	// DownedDeath: Don't defeat Elizabeth Norman
-	// NotDownedDeath: Defeat Elizabeth Norman
+	// DownedDeath: Defeat Elizabeth Norman
+	// NotDownedDeath: Don't defeat Elizabeth Norman
 	// AtherianPresent: Atherian is present
 	// NotAtherianPresent: Atherian is not present
 	// DownedGenesis: Defeat Genesis

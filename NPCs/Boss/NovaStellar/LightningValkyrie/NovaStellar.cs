@@ -177,9 +177,15 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
             slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieSoulCrystal>()));
 
-            if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage) && !ShardsDownedSystem.downedValkyrie)
+            if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
             {
-                npcLoot.Add(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
+                LeadingConditionRule alreadyDowned = new(new DownedValkyrie());
+                alreadyDowned.OnFailedConditions(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
+            }
+
+            if (ModLoader.TryGetMod("FargowiltasSouls", out Mod souls))
+            {
+                npcLoot.Add(ItemDropRule.Common(souls.Find<ModItem>("WyvernFeather").Type, 20));
             }
 
             master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieStormLance>()));

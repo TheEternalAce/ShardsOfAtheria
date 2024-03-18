@@ -28,6 +28,29 @@ namespace ShardsOfAtheria.ShardsConditions.ItemDrop
         }
     }
 
+    // Very simple drop condition: drop after Elizabeth's defeat
+    public class DownedDeath : IItemDropRuleCondition
+    {
+        public bool CanDrop(DropAttemptInfo info)
+        {
+            if (!info.IsInSimulation)
+            {
+                return ShardsDownedSystem.downedDeath;
+            }
+            return false;
+        }
+
+        public bool CanShowItemDropInUI()
+        {
+            return true;
+        }
+
+        public string GetConditionDescription()
+        {
+            return Language.GetTextValue("Mods.ShardsOfAtheria.Condition.DownedDeath");
+        }
+    }
+
     // Very simple drop condition: drop after Golem's defeat
     public class DownedGolem : IItemDropRuleCondition
     {

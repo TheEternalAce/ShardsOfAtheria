@@ -171,9 +171,10 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
             slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<DeathSoulCrystal>()));
 
-            if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage) && !ShardsDownedSystem.downedDeath)
+            if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
             {
-                npcLoot.Add(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
+                LeadingConditionRule alreadyDowned = new(new DownedDeath());
+                alreadyDowned.OnFailedConditions(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
             }
 
             npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<BloodStainedCrossbow>()));
