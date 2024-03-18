@@ -26,7 +26,7 @@ Common: {
 }
 
 DiskFile: {
-	DataDisk000: Error 0: File not found in database. Please use a different disk.
+	DataDisk000: Error 0: Could not read data. Please use a different disk.
 	DataDisk001:
 		'''
 		Disk_001_Areus
