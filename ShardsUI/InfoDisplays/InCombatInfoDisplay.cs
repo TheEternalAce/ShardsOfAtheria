@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.InfoDisplays
+namespace ShardsOfAtheria.ShardsUI.InfoDisplays
 {
     // This example show how to create new informational display (like Radar, Watches, etc.)
     // Take a look at the ExampleInfoDisplayPlayer at the end of the file to see how to use it
