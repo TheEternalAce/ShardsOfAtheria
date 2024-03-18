@@ -1,4 +1,5 @@
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
+using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -40,6 +41,11 @@ namespace ShardsOfAtheria.Items.BossSummons
             Item.value = ItemDefaults.ValueDungeon;
         }
 
+        public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)
+        {
+            itemGroup = ContentSamples.CreativeHelper.ItemGroup.BossSpawners;
+        }
+
         // We use the CanUseItem hook to prevent a Player from using this item while the boss is present in the world.
         public override bool CanUseItem(Player player)
         {
@@ -67,8 +73,11 @@ namespace ShardsOfAtheria.Items.BossSummons
                     // This will only work if NPCID.Sets.MPAllowedEnemies[type] is true, which we set in MinionBossBody
                     NetMessage.SendData(MessageID.SpawnBossUseLicenseStartEvent, number: player.whoAmI, number2: type);
                 }
+                if (!SoA.ServerConfig.nonConsumeBoss)
+                {
+                    ShardsSystem.Instance.CrestGifted = false;
+                }
             }
-
             return true;
         }
     }

@@ -39,6 +39,11 @@ namespace ShardsOfAtheria.Items.BossSummons
             Item.value = ItemDefaults.ValueHardmodeDungeon;
         }
 
+        public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)
+        {
+            itemGroup = ContentSamples.CreativeHelper.ItemGroup.BossSpawners;
+        }
+
         public override void AddRecipes()
         {
             CreateRecipe()

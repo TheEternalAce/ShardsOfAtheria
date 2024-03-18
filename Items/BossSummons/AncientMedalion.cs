@@ -41,6 +41,11 @@ namespace ShardsOfAtheria.Items.BossSummons
             Item.value = ItemDefaults.ValueLunarPillars;
         }
 
+        public override void ModifyResearchSorting(ref ContentSamples.CreativeHelper.ItemGroup itemGroup)
+        {
+            itemGroup = ContentSamples.CreativeHelper.ItemGroup.BossSpawners;
+        }
+
         // We use the CanUseItem hook to prevent a Player from using this item while the boss is present in the world.
         public override bool CanUseItem(Player player)
         {
