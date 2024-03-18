@@ -33,6 +33,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Projectile.ownerHitCheck = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 30;
+            Projectile.DamageType = DamageClass.Melee;
 
             DrawOffsetX = -20;
             DrawOriginOffsetY = -20;
