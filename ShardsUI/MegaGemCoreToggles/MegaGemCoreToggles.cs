@@ -5,7 +5,6 @@ using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -37,35 +36,29 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
             text.SetRectangle(10, 10, 0, 0);
             panel.Append(text);
 
-            Asset<Texture2D> buttonDeleteTexture = ModContent.Request<Texture2D>("Terraria/Images/UI/ButtonDelete");
-            UIHoverImageButton closeButton = new(buttonDeleteTexture, Language.GetTextValue("LegacyInterface.52")); // Localized text for "Close"
-            closeButton.SetRectangle(160 - 32f, 10, 22f, 22f);
-            closeButton.OnLeftClick += new MouseEvent(CloseButtonClicked);
-            panel.Append(closeButton);
-
             MakeToggle(ref amberToggle, "Amber", 0, new(10, 40));
-            amberToggle.OnLeftClick += new(ToggleAmber);
+            amberToggle.OnLeftClick += (a, b) => ToggleAmber();
 
             MakeToggle(ref amethystToggle, "Amethyst", 0, new(60, 40));
-            amethystToggle.OnLeftClick += new(ToggleAmethyst);
+            amethystToggle.OnLeftClick += (a, b) => ToggleAmethyst();
 
             MakeToggle(ref diamondToggle, "Diamond", 1, new(110, 40));
-            diamondToggle.OnLeftClick += new(ToggleDiamond);
+            diamondToggle.OnLeftClick += (a, b) => ToggleDiamond();
 
             MakeToggle(ref emeraldToggle, "Emerald", 2, new(10, 90));
-            emeraldToggle.OnLeftClick += new(ToggleEmerald);
+            emeraldToggle.OnLeftClick += (a, b) => ToggleEmerald();
 
             MakeToggle(ref rubyToggle, "Ruby", 3, new(60, 90));
-            rubyToggle.OnLeftClick += new(ToggleRuby);
+            rubyToggle.OnLeftClick += (a, b) => ToggleRuby();
 
             MakeToggle(ref sapphireToggle, "Sapphire", 4, new(110, 90));
-            sapphireToggle.OnLeftClick += new(ToggleSapphire);
+            sapphireToggle.OnLeftClick += (a, b) => ToggleSapphire();
 
             MakeToggle(ref topazToggle, "Topaz", 5, new(10, 140));
-            topazToggle.OnLeftClick += new(ToggleTopaz);
+            topazToggle.OnLeftClick += (a, b) => ToggleTopaz();
 
             MakeAllToggle(ref toggleAll, new(60, 140));
-            toggleAll.OnLeftClick += new(ToggleAll);
+            toggleAll.OnLeftClick += (a, b) => ToggleAll();
 
             Append(panel);
         }
@@ -95,48 +88,48 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
             panel.Append(toggle);
         }
 
-        private void ToggleAll(UIMouseEvent evt, UIElement listeningElement)
+        private void ToggleAll()
         {
-            ToggleAmber(evt, listeningElement);
-            ToggleAmethyst(evt, listeningElement);
-            ToggleDiamond(evt, listeningElement);
-            ToggleEmerald(evt, listeningElement);
-            ToggleRuby(evt, listeningElement);
-            ToggleSapphire(evt, listeningElement);
-            ToggleTopaz(evt, listeningElement);
+            ToggleAmber();
+            ToggleAmethyst();
+            ToggleDiamond();
+            ToggleEmerald();
+            ToggleRuby();
+            ToggleSapphire();
+            ToggleTopaz();
         }
 
-        private void ToggleAmber(UIMouseEvent evt, UIElement listeningElement)
+        private void ToggleAmber()
         {
             Toggle(0);
         }
 
-        private void ToggleAmethyst(UIMouseEvent evt, UIElement listeningElement)
+        private void ToggleAmethyst()
         {
             Toggle(1);
         }
 
-        private void ToggleDiamond(UIMouseEvent evt, UIElement listeningElement)
+        private void ToggleDiamond()
         {
             Toggle(2);
         }
 
-        private void ToggleEmerald(UIMouseEvent evt, UIElement listeningElement)
+        private void ToggleEmerald()
         {
             Toggle(3);
         }
 
-        private void ToggleRuby(UIMouseEvent evt, UIElement listeningElement)
+        private void ToggleRuby()
         {
             Toggle(4);
         }
 
-        private void ToggleSapphire(UIMouseEvent evt, UIElement listeningElement)
+        private void ToggleSapphire()
         {
             Toggle(5);
         }
 
-        private void ToggleTopaz(UIMouseEvent evt, UIElement listeningElement)
+        private void ToggleTopaz()
         {
             Toggle(6);
         }
@@ -163,11 +156,6 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
             {
                 toggle.SetImage(toggleBack);
             }
-        }
-
-        void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
-        {
-            ModContent.GetInstance<MGCToggleUI>().ToggleVisualSettings();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
