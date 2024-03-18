@@ -27,8 +27,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "SevenSoul", Language.GetTextValue("Mods.ShardsOfAtheria.Common.SinfulSoulCommonDesc",
-                Language.GetTextValue("Mods.ShardsOfAtheria.ItemName.VirtuousDagger"))));
+            tooltips.Add(new TooltipLine(Mod, "SevenSoul", Language.GetTextValue("Mods.ShardsOfAtheria.Common.SinfulSoulCommonDesc")));
             base.ModifyTooltips(tooltips);
         }
 

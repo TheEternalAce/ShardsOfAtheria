@@ -23,6 +23,7 @@ Common: {
 		Hold LEFT/RIGHT to cycle tooltip slower/faster
 		'''
 	UpgradeMaterialNeeded: Material needed: {0} x{1}
+	SinfulSoulCommonDesc: Only one can be active and can only be removed by [i:ShardsOfAtheria/VirtuousDagger]{$Items.VirtuousDagger.DisplayName}.
 }
 
 DiskFile: {

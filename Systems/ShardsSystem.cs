@@ -16,9 +16,21 @@ namespace ShardsOfAtheria.Systems
 {
     public class ShardsSystem : ModSystem
     {
+        public static ShardsSystem Instance { get; private set; }
         public bool omegaKey;
         public bool omegaShrine;
         public bool atherianTomb;
+        public bool CrestGifted;
+
+        public override void Load()
+        {
+            Instance = this;
+        }
+
+        public override void Unload()
+        {
+            Instance = null;
+        }
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {

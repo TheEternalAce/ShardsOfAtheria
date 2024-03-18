@@ -225,7 +225,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
         private bool GiftCrest()
         {
             bool crest = false;
-            if (NPC.AnyNPCs(NPCID.Stylist))
+            if (NPC.AnyNPCs(NPCID.Stylist) && !ShardsSystem.Instance.CrestGifted)
             {
                 int whoAmI = NPC.FindFirstNPC(NPCID.Stylist);
                 if (whoAmI > -1)
@@ -242,6 +242,8 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                             NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
                             crest = true;
                         }
+
+                        ShardsSystem.Instance.CrestGifted = true;
                     }
                 }
             }

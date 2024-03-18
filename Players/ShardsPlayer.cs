@@ -16,7 +16,6 @@ using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.ShardsUI;
-using ShardsOfAtheria.ShardsUI.MegaGemCoreToggles;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -394,11 +393,6 @@ namespace ShardsOfAtheria.Players
                     }
                 }
             }
-            if (SoA.MasterCoreToggles.JustPressed)
-            {
-                MGCToggleUI toggleUI = ModContent.GetInstance<MGCToggleUI>();
-                toggleUI.ToggleVisualSettings();
-            }
         }
 
         public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
@@ -617,7 +611,7 @@ namespace ShardsOfAtheria.Players
                 while (!validTeleport)
                 {
                     teleport = Player.Center + Vector2.One.RotateRandom(MathHelper.TwoPi) * Main.rand.NextFloat(100, 200);
-                    validTeleport = ShardsHelpers.CheckTileCollision(teleport, Player.Hitbox);
+                    validTeleport = Utilities.ShardsHelpers.CheckTileCollision(teleport, Player.Hitbox);
                 }
                 Player.Teleport(teleport, 1);
                 NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, Player.whoAmI, teleport.X, teleport.Y, 1);

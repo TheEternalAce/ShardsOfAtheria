@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Tools.Misc.Slayer;
+using ShardsOfAtheria.ShardsUI.DataTablet;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -166,7 +167,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
 
         public override List<string> SetNPCNameList()
         {
-            return new List<string>() { "Faust" };
+            return ["Faust", "Angela"];
         }
 
         const string DialogueKeyBase = "Mods.ShardsOfAtheria.NPCs.Archivist.Dialogue.";
@@ -181,7 +182,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
         public override void SetChatButtons(ref string button, ref string button2)
         {
             button = Language.GetTextValue("LegacyInterface.28");
-            button2 = "Archive";
+            button2 = "Read Archive";
         }
 
         public override void OnChatButtonClicked(bool firstButton, ref string shopName)
@@ -189,6 +190,11 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
             if (firstButton)
             {
                 shopName = "Shop";
+            }
+            else
+            {
+                ModContent.GetInstance<DataTabletUI>().ShowTablet();
+                Main.npcChatText = "";
             }
         }
 

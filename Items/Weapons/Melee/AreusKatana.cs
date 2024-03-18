@@ -15,7 +15,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.AddAreus();
-            Item.AddUpgradable();
         }
 
         public override void SetDefaults()

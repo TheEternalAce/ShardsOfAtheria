@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Items.DataDisks;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -14,132 +14,39 @@ namespace ShardsOfAtheria.ShardsUI.DataTablet
 {
     internal class ScreenState : UIState
     {
-        private bool display = false;
-
         private UIText text;
         private UIImage screen;
-
-        // Stores the offset from the top left of the UIPanel while dragging
-        private Vector2 offset;
-        // A flag that checks if the panel is currently being dragged
-        private bool dragging;
-
-        public override void LeftMouseDown(UIMouseEvent evt)
-        {
-            // When you override UIElement methods, don't forget call the base method
-            // This helps to keep the basic behavior of the UIElement
-            base.LeftMouseDown(evt);
-            // When the mouse button is down, then we start dragging
-            DragStart(evt);
-        }
-
-        public override void LeftMouseUp(UIMouseEvent evt)
-        {
-            base.LeftMouseUp(evt);
-            // When the mouse button is up, then we stop dragging
-            DragEnd(evt);
-        }
-
-        private void DragStart(UIMouseEvent evt)
-        {
-            // The offset variable helps to remember the position of the panel relative to the mouse position
-            // So no matter where you start dragging the panel, it will move smoothly
-            offset = new Vector2(evt.MousePosition.X - Left.Pixels, evt.MousePosition.Y - Top.Pixels);
-            dragging = true;
-        }
-
-        private void DragEnd(UIMouseEvent evt)
-        {
-            Vector2 endMousePosition = evt.MousePosition;
-            dragging = false;
-
-            Left.Set(endMousePosition.X - offset.X, 0f);
-            Top.Set(endMousePosition.Y - offset.Y, 0f);
-
-            Recalculate();
-        }
 
         public override void OnInitialize()
         {
             screen = new UIImage(ModContent.Request<Texture2D>("ShardsOfAtheria/ShardsUI/DataTablet/Tablet")); // Tablet image
-            screen.Left.Set(0, 0f);
-            screen.Top.Set(0, 0f);
-            screen.Width.Set(700, 0f);
-            screen.Height.Set(500, 0f);
+            screen.SetRectangle(0, 0, 700, 500);
 
             text = new UIText("Loading...", 1f); // text to read disk contents
-            text.Left.Set(40, 0f);
-            text.Top.Set(40, 0f);
-            text.Width.Set(624, 0f);
-            text.Height.Set(424, 0f);
+            text.SetRectangle(40, 40, 624, 424);
             screen.Append(text);
 
+            UIImageButton closeButton = new(TextureAssets.CraftDownButton);
+            closeButton.SetRectangle(13, 13, 16, 16);
+            closeButton.OnLeftClick += (a, b) => ModContent.GetInstance<DataTabletUI>().HideTablet();
+            screen.Append(closeButton);
+
             Append(screen);
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            ShardsPlayer shardsPlayer = Main.LocalPlayer.Shards();
-
-            if (Main.LocalPlayer.HeldItem.ModItem is DataDisk disk)
-            {
-                if (disk.diskType != shardsPlayer.readingDisk)
-                {
-                    display = false;
-                    disk.readingDisk = false;
-                    return;
-                }
-                disk.readingDisk = true;
-            }
-            else
-            {
-                display = false;
-                return;
-            }
-            display = true;
-            base.Draw(spriteBatch);
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (!display)
-            {
-                return;
-            }
+            screen.CenterOnScreen();
             if (screen.ContainsPoint(Main.MouseScreen))
             {
                 Main.LocalPlayer.mouseInterface = true;
             }
 
-            if (dragging)
-            {
-                Left.Set(Main.mouseX - offset.X, 0f); // Main.MouseScreen.X and Main.mouseX are the same
-                Top.Set(Main.mouseY - offset.Y, 0f);
-                Recalculate();
-            }
-
-            // Here we check if the DragableUIPanel is outside the Parent UIElement rectangle
-            // (In our example, the parent would be ExampleCoinsUI, a UIState. This means that we are checking that the DragableUIPanel is outside the whole screen)
-            // By doing this and some simple math, we can snap the panel back on screen if the user resizes his window or otherwise changes resolution
-            var parentSpace = GetDimensions().ToRectangle();
-            if (!GetDimensions().ToRectangle().Intersects(parentSpace))
-            {
-                Left.Pixels = Utils.Clamp(Left.Pixels, 0, parentSpace.Right - Width.Pixels);
-                Top.Pixels = Utils.Clamp(Top.Pixels, 0, parentSpace.Bottom - Height.Pixels);
-                // Recalculate forces the UI system to do the positioning math again.
-                Recalculate();
-            }
-
             ShardsPlayer shardsPlayer = Main.LocalPlayer.Shards();
             int readingDisk = shardsPlayer.readingDisk;
 
-            string key = "Mods.";
-            if (Main.LocalPlayer.HeldItem.ModItem is DataDisk disk)
-            {
-                key += disk.mod;
-            }
-            key += ".DiskFile.DataDisk";
+            string key = "Mods.ShardsOfAtheria.DiskFile.DataDisk";
             if (readingDisk < 100)
             {
                 key += "0";
@@ -156,21 +63,29 @@ namespace ShardsOfAtheria.ShardsUI.DataTablet
     class DataTabletUI : ModSystem
     {
         internal ScreenState TabletScreenState;
-        private UserInterface _tabletScreenState;
+        private UserInterface tabletInterface;
 
         public override void Load()
         {
             if (!Main.dedServ)
             {
                 TabletScreenState = new();
-                _tabletScreenState = new();
-                _tabletScreenState.SetState(TabletScreenState);
+                tabletInterface = new();
             }
+        }
+
+        public void ShowTablet()
+        {
+            tabletInterface.SetState(TabletScreenState);
+        }
+        public void HideTablet()
+        {
+            tabletInterface.SetState(null);
         }
 
         public override void UpdateUI(GameTime gameTime)
         {
-            _tabletScreenState?.Update(gameTime);
+            tabletInterface?.Update(gameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -182,7 +97,7 @@ namespace ShardsOfAtheria.ShardsUI.DataTablet
                     "ShardsOfAtheria: Data Tablet",
                     delegate
                     {
-                        _tabletScreenState.Draw(Main.spriteBatch, new GameTime());
+                        tabletInterface.Draw(Main.spriteBatch, new GameTime());
                         return true;
                     },
                     InterfaceScaleType.UI)

@@ -227,7 +227,7 @@ namespace ShardsOfAtheria.Players
             {
                 if (RangerSet && Player.HasBuff<ElectricVeil>())
                 {
-                    ShardsHelpers.ProjectileRing(Player.GetSource_FromThis(), Player.Center, 8, 1f, 15f, ProjectileID.ThunderSpearShot, 50, 6f);
+                    Utilities.ShardsHelpers.ProjectileRing(Player.GetSource_FromThis(), Player.Center, 8, 1f, 15f, ProjectileID.ThunderSpearShot, 50, 6f);
                 }
                 if (CommanderSet)
                 {
