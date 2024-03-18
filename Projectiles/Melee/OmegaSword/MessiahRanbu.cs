@@ -69,18 +69,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
                 vector.Normalize();
                 vector *= 140f;
                 Projectile.velocity = vector;
-                if (Main.MouseWorld.X > player.Center.X)
-                {
-                    Projectile.direction = 1;
-                }
-                else
-                {
-                    Projectile.direction = -1;
-                }
+                Projectile.direction = (Main.MouseWorld.X > player.Center.X).ToDirectionInt();
             }
             Projectile.spriteDirection = Projectile.direction;
 
-            float angle = 0;
+            Projectile.rotation = vector.ToRotation();
             if (Projectile.direction == 1)
             {
                 DrawOffsetX = -160;
@@ -90,9 +83,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
             {
                 DrawOffsetX = 0;
                 DrawOriginOffsetX = -80;
-                angle = MathHelper.Pi;
+                Projectile.rotation += MathHelper.Pi;
             }
-            Projectile.rotation = vector.ToRotation() + angle;
             Projectile.netUpdate = true;
         }
 
