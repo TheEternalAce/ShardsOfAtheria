@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using ShardsOfAtheria.Items.DedicatedItems.Webmillio;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Weapons.Magic;
@@ -11,6 +9,7 @@ using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -20,18 +19,25 @@ namespace ShardsOfAtheria.ShardsUI
 {
     class UpgradeUI : UIState
     {
-        UIPanel panel;
+        UIPanel backPanel;
+        UIPanel upgradePanel;
         VanillaItemSlotWrapper mainSlot;
         VanillaItemSlotWrapper[] materialSlots;
         UIHoverImageButton upgradeButton;
+        UIPanel infoPanel;
+        UIText infoText;
         bool slotsCreated = false;
         static int AtherianType => ModContent.NPCType<Atherian>();
         static Atherian FirstActiveAtherian => NPC.AnyNPCs(AtherianType) ? Main.npc[NPC.FindFirstNPC(AtherianType)].ModNPC as Atherian : null;
 
         public override void OnInitialize()
         {
-            panel = new();
-            panel.SetRectangle(0, 0, 500, 500);
+            backPanel = new();
+            backPanel.SetRectangle(0, 0, 868, 500);
+
+            upgradePanel = new();
+            upgradePanel.SetRectangle(0, 0, 500, 500);
+            backPanel.Append(upgradePanel);
 
             mainSlot = new VanillaItemSlotWrapper(scale: 0.8f)
             {
@@ -39,15 +45,25 @@ namespace ShardsOfAtheria.ShardsUI
                 Top = { Pixels = 239 - 41.6f / 2 },
                 ValidItemFunc = item => item.IsAir || (!item.IsAir && item.IsUpgradable() /*&& (FirstActiveAtherian.UpgradeFinished() || !FirstActiveAtherian.upgrading)*/)
             };
-            panel.Append(mainSlot);
+            upgradePanel.Append(mainSlot);
 
-            Asset<Texture2D> buttonReforgeTexture = ModContent.Request<Texture2D>("Terraria/Images/UI/Reforge_0");
-            upgradeButton = new(buttonReforgeTexture, "Upgrade");
-            upgradeButton.SetRectangle(446, 446, 30f, 30f);
-            upgradeButton.OnLeftClick += new MouseEvent(UpgradeItem);
-            panel.Append(upgradeButton);
+            upgradeButton = new(TextureAssets.Reforge[0], "Upgrade");
+            upgradeButton.Left.Set(-30, 1f);
+            upgradeButton.Top.Set(-30, 1f);
+            upgradeButton.Width.Set(30, 0f);
+            upgradeButton.Height.Set(30, 0f);
+            upgradeButton.OnLeftClick += (a, b) => UpgradeItem();
+            upgradePanel.Append(upgradeButton);
 
-            Append(panel);
+            infoPanel = new();
+            infoPanel.SetRectangle(512, 0, 332, 500);
+            backPanel.Append(infoPanel);
+
+            infoText = new("Insert an upgradable item into the slot");
+            infoText.SetDimensions(308, 476);
+            infoPanel.Append(infoText);
+
+            Append(backPanel);
         }
 
         void CreateSlots(int amount)
@@ -68,7 +84,7 @@ namespace ShardsOfAtheria.ShardsUI
                     Top = { Pixels = center.X + vector.Y - (41.6f / 2) },
                     ValidItemFunc = item => true
                 };
-                panel.Append(materialSlots[i]);
+                upgradePanel.Append(materialSlots[i]);
             }
             slotsCreated = true;
         }
@@ -88,25 +104,56 @@ namespace ShardsOfAtheria.ShardsUI
                     {
                         NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
                     }
-                    panel.RemoveChild(slot);
+                    upgradePanel.RemoveChild(slot);
                 }
                 materialSlots = null;
             }
             slotsCreated = false;
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        private void ListMaterials()
         {
-            base.Draw(spriteBatch);
+            int upgradeItemType = mainSlot.Item.type;
+            var materials = GetMaterials(upgradeItemType, out int result);
+            if (upgradeItemType == ItemID.None || materials == null)
+            {
+                infoText.SetText("Insert an upgradable item into the slot.");
+                return;
+            }
+            string text = "";
+            for (int i = 0; i < materials.Rank; i++)
+            {
+                int materialType = materials[i, 0];
+                int materialCount = materials[i, 1];
+                Item MaterialItem = new(materialType);
+                string colorHex = AnySlotContains(materialType, materialCount) ? "00FF00" : "FFFFFF";
+                text += $"[i:{materialType}] [c/{colorHex}:{MaterialItem.Name} x{materialCount}],\n";
+            }
+            if (result > 0)
+            {
+                Item resultItem = new(result);
+                text += "Creates " + "[i:" + result + "] " + resultItem.Name + ".";
+            }
+            else
+            {
+                text += "Upgrading will make the weapon stronger.";
+            }
+            //if (Main.LocalPlayer.IsSlayer())
+            //{
+            //    Item resultItem = result > 0 ? new(result) : new(upgradeItemType);
+            //    int cost = resultItem.value * 4;
+            //    string colorHex = Main.LocalPlayer.CanAfford(cost) ? "00FF00" : "FF0000";
+            //    int[] costInCoins = Utils.CoinsSplit(cost);
+            //    text += $"\n[c/{colorHex}:Cost:] [i:PlatinumCoin][c/{colorHex}:{costInCoins[3]}][i:GoldCoin][c/{colorHex}:{costInCoins[2]}][i:SilverCoin][c/{colorHex}:{costInCoins[1]}][i:CopperCoin][c/{colorHex}:{costInCoins[0]}]";
+            //}
+            infoText.SetText(text);
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            int x = Main.screenWidth / 2 - 250;
-            int y = Main.screenHeight / 2 - 250;
-            panel.SetRectangle(x, y, 500, 500);
+            backPanel.CenterOnScreen();
 
             var player = Main.LocalPlayer;
             if (!player.isNearNPC(ModContent.NPCType<Atherian>(), 90))
@@ -114,7 +161,7 @@ namespace ShardsOfAtheria.ShardsUI
                 ModContent.GetInstance<UpgradeUISystem>().HideUI();
             }
 
-            if (ContainsPoint(Main.MouseScreen))
+            if (backPanel.ContainsPoint(Main.MouseScreen))
             {
                 player.mouseInterface = true;
             }
@@ -154,92 +201,152 @@ namespace ShardsOfAtheria.ShardsUI
             {
                 ClearSlots();
             }
+            ListMaterials();
         }
 
-        void UpgradeItem(UIMouseEvent evt, UIElement listeningElement)
+        void UpgradeItem()
         {
             var player = Main.LocalPlayer;
             var shards = player.Shards();
+            bool shouldUpgrade = false;
+            int resultType = 0;
+            int[,] materials = null;
 
             #region Arsenal upgrades (Genesis and Ragnarok)
             if (mainSlot.Item.type == ModContent.ItemType<GenesisAndRagnarok>())
             {
                 if (UpgradeArsenal1())
                 {
-                    int[,] materials = new[,]
-                    {
-                        { ModContent.ItemType<MemoryFragment>(), 1 }
-                    };
-                    ConsumeItems(materials);
+                    materials = GetMaterials<GenesisAndRagnarok>(out resultType, 0);
+                    shouldUpgrade = true;
                     shards.genesisRagnarockUpgrades++;
                 }
                 else if (UpgradeArsenal2())
                 {
-                    int[,] materials = new[,]
-                    {
-                        { ModContent.ItemType<MemoryFragment>(), 1 },
-                        { ItemID.ChlorophyteBar, 14 }
-                    };
-                    ConsumeItems(materials);
+                    materials = GetMaterials<GenesisAndRagnarok>(out resultType, 1);
+                    shouldUpgrade = true;
                     shards.genesisRagnarockUpgrades++;
                 }
                 else if (UpgradeArsenal3())
                 {
-                    int[,] materials = new[,]
-                    {
-                        { ModContent.ItemType<MemoryFragment>(), 1 },
-                        { ItemID.BeetleHusk, 16 }
-                    };
-                    ConsumeItems(materials);
+                    materials = GetMaterials<GenesisAndRagnarok>(out resultType, 2);
+                    shouldUpgrade = true;
                     shards.genesisRagnarockUpgrades++;
                 }
                 else if (UpgradeArsenal4())
                 {
-                    int[,] materials = new[,]
-                    {
-                        { ModContent.ItemType<MemoryFragment>(), 1 },
-                        { ItemID.FragmentSolar, 18 }
-                    };
-                    ConsumeItems(materials);
+                    materials = GetMaterials<GenesisAndRagnarok>(out resultType, 3);
+                    shouldUpgrade = true;
                     shards.genesisRagnarockUpgrades++;
                 }
                 else if (UpgradeArsenal5())
                 {
-                    int[,] materials = new[,]
-                    {
-                        { ModContent.ItemType<MemoryFragment>(), 1 },
-                        { ItemID.LunarBar, 20 }
-                    };
-                    ConsumeItems(materials);
+                    materials = GetMaterials<GenesisAndRagnarok>(out resultType, 4);
+                    shouldUpgrade = true;
                     shards.genesisRagnarockUpgrades++;
                 }
             }
             #endregion
             #region Areus upgrades
-            if (UpgradeKatana())
-            {
-                int[,] materials = new[,]
-                {
-                    { ItemID.BeetleHusk, 20 },
-                    { ItemID.SoulofFright, 14 },
-                };
-                ConsumeItems(materials);
-                mainSlot.Item = new(ModContent.ItemType<TheMourningStar>());
-            }
             if (UpgradeRailgun())
             {
-                int[,] materials = new[,]
-                {
-                    { ItemID.Flamethrower, 1 },
-                    { ItemID.BeetleHusk, 14 },
-                };
-                ConsumeItems(materials);
-                mainSlot.Item = new(ModContent.ItemType<AreusFlameCannon>());
+                materials = GetMaterials<AreusRailgun>(out resultType);
+                shouldUpgrade = true;
             }
             if (UpgradeGambit())
             {
-                int[,] materials = new[,]
+                materials = GetMaterials<AreusGambit>(out resultType);
+                shouldUpgrade = true;
+            }
+            if (UpgradeSawstring())
+            {
+                materials = GetMaterials<AreusSawstring>(out resultType);
+                shouldUpgrade = true;
+            }
+            if (RepairPartisan())
+            {
+                materials = GetMaterials<FuckEarlyGameHarpies>(out resultType);
+                shouldUpgrade = true;
+            }
+            #endregion
+            if (UpgradeWar())
+            {
+                materials = GetMaterials<War>(out resultType);
+                var war = mainSlot.Item.ModItem as War;
+                war.upgraded = true;
+            }
+            if (shouldUpgrade)
+            {
+                ConsumeItems(materials);
+                if (resultType > 0)
                 {
+                    mainSlot.Item.SetDefaults(resultType);
+                }
+            }
+        }
+
+        public static int[,] GetMaterials<T>(out int result, int currentLevel = 0) where T : ModItem
+        {
+            int[,] materials = GetMaterials(ModContent.ItemType<T>(), out result, currentLevel);
+            return materials;
+        }
+        public static int[,] GetMaterials(int baseItemType, out int result, int currentLevel = 0)
+        {
+            int[,] materials = null;
+            result = 0;
+            if (baseItemType == ModContent.ItemType<GenesisAndRagnarok>())
+            {
+                switch (currentLevel)
+                {
+                    case 0:
+                        materials = new[,]
+                         {
+                            { ModContent.ItemType<MemoryFragment>(), 1 },
+                        };
+                        break;
+                    case 1:
+                        materials = new[,]
+                         {
+                            { ModContent.ItemType<MemoryFragment>(), 1 },
+                            { ItemID.ChlorophyteBar, 14 },
+                        };
+                        break;
+                    case 2:
+                        materials = new[,]
+                         {
+                            { ModContent.ItemType<MemoryFragment>(), 1 },
+                            { ItemID.BeetleHusk , 16 },
+                        };
+                        break;
+                    case 3:
+                        materials = new[,]
+                         {
+                            { ModContent.ItemType<MemoryFragment>(), 1 },
+                            { ItemID.FragmentSolar, 18 },
+                        };
+                        break;
+                    case 4:
+                        materials = new[,]
+                         {
+                            { ModContent.ItemType<MemoryFragment>(), 1 },
+                            { ItemID.LunarBar, 20 },
+                        };
+                        break;
+                }
+            }
+            if (baseItemType == ModContent.ItemType<AreusRailgun>())
+            {
+                materials = new[,]
+                 {
+                    { ItemID.Flamethrower, 1 },
+                    { ItemID.BeetleHusk, 14 },
+                };
+                result = ModContent.ItemType<AreusFlameCannon>();
+            }
+            if (baseItemType == ModContent.ItemType<AreusGambit>())
+            {
+                materials = new[,]
+                 {
                     { ModContent.ItemType<AreusDagger>(), 1 },
                     { ModContent.ItemType<AreusBow>(), 1 },
                     { ModContent.ItemType<AreusKatana>(), 1 },
@@ -247,42 +354,34 @@ namespace ShardsOfAtheria.ShardsUI
                     { ModContent.ItemType<AreusRailgun>(), 1 },
                     { ItemID.BeetleHusk, 15 },
                 };
-                ConsumeItems(materials);
-                mainSlot.Item = new(ModContent.ItemType<AreusGauntlet>());
+                result = ModContent.ItemType<AreusGauntlet>();
             }
-            if (UpgradeSawstring())
+            if (baseItemType == ModContent.ItemType<AreusSawstring>())
             {
-                int[,] materials = new[,]
+                materials = new[,]
                 {
-                    { ModContent.ItemType<AreusSawstring>(), 1 },
                     { ItemID.LunarBar, 14 },
                     { ItemID.FragmentVortex, 10 },
                 };
-                ConsumeItems(materials);
-                mainSlot.Item = new(ModContent.ItemType<AreusOrbiter>());
+                result = ModContent.ItemType<AreusOrbiter>();
             }
-            if (RepairPartisan())
+            if (baseItemType == ModContent.ItemType<FuckEarlyGameHarpies>())
             {
-                int[,] materials = new[,]
+                materials = new[,]
                 {
-                    { ModContent.ItemType<FuckEarlyGameHarpies>(), 1 },
                     { ModContent.ItemType<AreusShard>(), 20 },
                     { ItemID.LunarBar, 14 },
                 };
-                ConsumeItems(materials);
-                mainSlot.Item = new(ModContent.ItemType<AreusPartisan>());
+                result = ModContent.ItemType<AreusPartisan>();
             }
-            #endregion
-            if (UpgradeWar())
+            if (baseItemType == ModContent.ItemType<War>())
             {
-                int[,] materials = new[,]
+                materials = new[,]
                 {
-                    { ItemID.HallowedBar, 20 }
+                    { ItemID.HallowedBar, 20 },
                 };
-                ConsumeItems(materials);
-                var war = mainSlot.Item.ModItem as War;
-                war.upgraded = true;
             }
+            return materials;
         }
 
         void ConsumeItems(int[,] items)
@@ -405,23 +504,6 @@ namespace ShardsOfAtheria.ShardsUI
         }
         #endregion
         #region Areus checks
-        bool UpgradeKatana()
-        {
-            var item = mainSlot.Item;
-            if (item.type != ModContent.ItemType<AreusKatana>())
-            {
-                return false;
-            }
-            if (!AnySlotContains(ItemID.BeetleHusk, 20))
-            {
-                return false;
-            }
-            if (!AnySlotContains(ItemID.SoulofFright, 14))
-            {
-                return false;
-            }
-            return true;
-        }
         bool UpgradeRailgun() // To Flame Cannon
         {
             var item = mainSlot.Item;
