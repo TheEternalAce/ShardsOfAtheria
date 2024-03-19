@@ -1,4 +1,3 @@
-using BattleNetworkElements.Utilities;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -6,7 +5,6 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.BuffItems
 {
-    [JITWhenModsEnabled("BattleNetworkElements")]
     public class InsulationPotion : ModItem
     {
         public override bool IsLoadingEnabled(Mod mod)
@@ -43,7 +41,6 @@ namespace ShardsOfAtheria.Items.BuffItems
         }
     }
 
-    [JITWhenModsEnabled("BattleNetworkElements")]
     public class Insulation : ModBuff
     {
         public override bool IsLoadingEnabled(Mod mod)
@@ -53,10 +50,7 @@ namespace ShardsOfAtheria.Items.BuffItems
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (SoA.BNEEnabled)
-            {
-                player.ElecMultiplier() -= 0.2f;
-            }
+            player.ModifyElementMultiplier(2, -0.2f);
         }
     }
 }

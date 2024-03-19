@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Buffs.PlayerBuff.GemBlessings;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -35,6 +35,7 @@ namespace ShardsOfAtheria.Projectiles.Other
                 Projectile.netUpdate = true;
             }
             Lighting.AddLight(Projectile.Center, TorchID.Yellow);
+            RepellBanners(1000);
             AmberAura(500);
         }
 
@@ -63,6 +64,24 @@ namespace ShardsOfAtheria.Projectiles.Other
                 dust.noGravity = true;
             }
             AmberBuff(radius);
+        }
+
+        private void RepellBanners(float maxDistance)
+        {
+            foreach (Projectile projectile in Main.projectile)
+            {
+                if (projectile.active && projectile.whoAmI != Projectile.whoAmI && projectile.type == Type)
+                {
+                    var distToPlayer = Vector2.Distance(projectile.Center, Projectile.Center);
+                    if (distToPlayer <= maxDistance)
+                    {
+                        var vector = projectile.Center - Projectile.Center;
+                        vector.Normalize();
+                        Projectile.velocity = vector * -4;
+                        projectile.velocity = vector * 4;
+                    }
+                }
+            }
         }
 
         private void AmberBuff(int maxDistance)

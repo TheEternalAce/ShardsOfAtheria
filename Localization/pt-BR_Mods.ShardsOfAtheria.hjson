@@ -81,26 +81,6 @@ SetBonus: {
 		Insert chips into the slots to gain their abilities
 		Recieve additional set bonus with class augments
 		''' */
-	/* AreusMelee:
-		'''
-		Stat bonuses given to melee weapons
-		Non-melee damage increased by a lesser amount
-		''' */
-	/* AreusRanged:
-		'''
-		Stat bonuses given to ranged weapons
-		Non-ranged damage increased by a lesser amount
-		''' */
-	/* AreusMagic:
-		'''
-		Stat bonuses given to magic weapons
-		Non-magic damage increased by a lesser amount
-		''' */
-	/* AreusSummon:
-		'''
-		Stat bonuses given to summon weapons
-		Non-summon damage increased by a lesser amount
-		''' */
 }
 
 Items: {
@@ -644,28 +624,26 @@ Items: {
 			Increased Areus weapon damage by 5%
 			Reduced mana usage by 8%
 			''' */
-		// SetBonus: Grants the ability to react to or prevent oncoming damage
+		// SetBonus: Double tap UP/DOWN to throw out a holographic banner with various effects
 		/* MeleeDamageClassBonus:
 			'''
-			Double tap UP/DOWN to create electric shields
-			Electric shields will destroy certain enemy projectiles
-			Can parry with good timing
+			Banners increase the damage, defense and endurance of players within its aura
+			Enemies within the aura will lose some defense
 			''' */
 		/* RangedDamageClassBonus:
 			'''
-			Double tap UP or DOWN to create an electric veil around yourself
-			Attackers will take damage and will be briefly shocked
-			Movement speed is increased and aggro is reduced
+			Banners increase the movement and attack speed, and reduce resource cost (ammo and mana) of players within its aura
+			Enemies within the aura will have reduced movement speed
 			''' */
 		/* MagicDamageClassBonus:
 			'''
-			Has a chance to teleport toward the cursor and dodge an attack
-			This teleport will dramatically increase mana regeneration and reduce mana cost for a time
+			Banners increase the damage, life and mana regen, and reduce resource (ammo and mana) cost of players within its aura
+			Enemies within the aura will leak mana for nearby players to absorb
 			''' */
 		/* SummonDamageClassBonus:
 			'''
-			Taking damage summons a temporary areus drone
-			There can be up to 6 of these drones
+			Banners increase the life and mana regen, movement speed and defense of players within its aura
+			Enemies within the aura will suffer small damage over time
 			''' */
 	}
 
@@ -842,6 +820,8 @@ Items: {
 			'''
 			Damage bonuses from areus armors increase summon damage
 			Areus armor set provides a summoner set bonus
+			Other damage types recieve a lesser bonus
+			Grants increased max minions
 			''' */
 	}
 
@@ -861,6 +841,8 @@ Items: {
 			'''
 			Damage bonuses from areus armors increase ranged damage
 			Areus armor set provides a ranger set bonus
+			Other damage types recieve a lesser bonus
+			Grants increased mobility
 			''' */
 	}
 
@@ -870,6 +852,8 @@ Items: {
 			'''
 			Damage bonuses from areus armors increase magic damage
 			Areus armor set provides a mage set bonus
+			Other damage types recieve a lesser bonus
+			Grants reduced mana cost and increased mana regeneration
 			''' */
 	}
 
@@ -893,6 +877,8 @@ Items: {
 			'''
 			Damage bonuses from areus armors increase melee damage
 			Areus armor set provides a melee set bonus
+			Other damage types recieve a lesser bonus
+			Grants increased defense
 			''' */
 	}
 
@@ -2831,6 +2817,8 @@ Projectiles: {
 	// BloodExplosionHostile.DisplayName: Blood Explosion Hostile
 	// BloodExplosion.DisplayName: Blood Explosion
 	// BloodRocket.DisplayName: Blood Rocket
+	// AreusTagLaser.DisplayName: Areus Tag Laser
+	// AreusHoloBannerProjector.DisplayName: Areus Holo Banner Projector
 }
 
 NPCs: {
@@ -3499,6 +3487,41 @@ Buffs: {
 	DeathBlood: {
 		// DisplayName: Death Blood
 		// Description: Elizabeth's bood is sure to detonate within you
+	}
+
+	AreusBannerMeleeDebuff: {
+		// DisplayName: Areus Banner Melee Debuff
+		// Description: Mods.ShardsOfAtheria.Buffs.AreusBannerMeleeDebuff.Description
+	}
+
+	AreusBannerRangedDebuff: {
+		// DisplayName: Areus Banner Ranged Debuff
+		// Description: Mods.ShardsOfAtheria.Buffs.AreusBannerRangedDebuff.Description
+	}
+
+	AreusBannerSummonDebuff: {
+		// DisplayName: Areus Banner Summon Debuff
+		// Description: Mods.ShardsOfAtheria.Buffs.AreusBannerSummonDebuff.Description
+	}
+
+	AreusBannerMagicBuff: {
+		// DisplayName: Areus Banner Magic Buff
+		// Description: Mods.ShardsOfAtheria.Buffs.AreusBannerMagicBuff.Description
+	}
+
+	AreusBannerMeleeBuff: {
+		// DisplayName: Areus Banner Melee Buff
+		// Description: Mods.ShardsOfAtheria.Buffs.AreusBannerMeleeBuff.Description
+	}
+
+	AreusBannerRangedBuff: {
+		// DisplayName: Areus Banner Ranged Buff
+		// Description: Mods.ShardsOfAtheria.Buffs.AreusBannerRangedBuff.Description
+	}
+
+	AreusBannerSummonBuff: {
+		// DisplayName: Areus Banner Summon Buff
+		// Description: Mods.ShardsOfAtheria.Buffs.AreusBannerSummonBuff.Description
 	}
 }
 

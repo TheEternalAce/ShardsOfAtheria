@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus
     public abstract class AreusArmorPiece : ModItem
     {
         public int slotType;
-        public float lesserNonSetDamage = 0;
+        public float lesserNonSetDamage = 0f;
 
         public AreusArmorPlayer ArmorPlayer;
 
@@ -53,28 +53,25 @@ namespace ShardsOfAtheria.Items.Armor.Areus
             if (melee)
             {
                 MeleeSet(player);
-                setBonusText += "\n" + Language.GetTextValue(SoA.LocalizeSetBonus + "AreusMelee");
             }
             else if (ranged)
             {
                 RangedSet(player);
-                setBonusText += "\n" + Language.GetTextValue(SoA.LocalizeSetBonus + "AreusRanged");
             }
             else if (magic)
             {
                 MagicSet(player);
-                setBonusText += "\n" + Language.GetTextValue(SoA.LocalizeSetBonus + "AreusMagic");
             }
             else if (summon)
             {
                 SummonSet(player);
-                setBonusText += "\n" + Language.GetTextValue(SoA.LocalizeSetBonus + "AreusSummon");
             }
             player.setBonus = setBonusText;
         }
 
         public virtual void MeleeSet(Player player)
         {
+            player.statDefense += 15;
             player.GetDamage(DamageClass.Ranged) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Magic) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Summon) += lesserNonSetDamage;
@@ -82,6 +79,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus
 
         public virtual void RangedSet(Player player)
         {
+            player.moveSpeed += 0.5f;
             player.GetDamage(DamageClass.Melee) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Magic) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Summon) += lesserNonSetDamage;
@@ -89,6 +87,8 @@ namespace ShardsOfAtheria.Items.Armor.Areus
 
         public virtual void MagicSet(Player player)
         {
+            player.manaCost -= 0.2f;
+            player.manaRegenBonus += 20;
             player.GetDamage(DamageClass.Melee) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Ranged) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Summon) += lesserNonSetDamage;
@@ -96,6 +96,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus
 
         public virtual void SummonSet(Player player)
         {
+            player.maxMinions += 2;
             player.GetDamage(DamageClass.Melee) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Ranged) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Magic) += lesserNonSetDamage;

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Buffs.PlayerBuff.GemBlessings;
 using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
 using ShardsOfAtheria.Buffs.PlayerDebuff.GemCurse;
 using ShardsOfAtheria.Buffs.Summons;

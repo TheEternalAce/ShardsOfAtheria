@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs.PlayerBuff
+namespace ShardsOfAtheria.Buffs.PlayerBuff.GemBlessings
 {
     public class EfficientAmethyst : ModBuff
     {

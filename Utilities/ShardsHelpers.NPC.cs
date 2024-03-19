@@ -207,6 +207,20 @@ namespace ShardsOfAtheria.Utilities
         }
 
         /// <summary>
+        /// Index 0: Fire <br/>
+        /// Index 1: Aqua <br/>
+        /// Index 2: Elec <br/>
+        /// Index 3: Wood
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <param name="element"></param>
+        /// <param name="multiplier"></param>
+        public static void ModifyElementMultiplier(this NPC npc, int element, float multiplier)
+        {
+            SoA.TryElementCall("modifyMultipliers", npc, element, multiplier);
+        }
+
+        /// <summary>
         /// 1	(Arcane) <br/>
         /// 2	(Fire) <br/>
         /// 3	(Water) <br/>

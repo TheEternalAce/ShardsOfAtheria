@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles.Ammo;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -134,24 +133,9 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         private void SearchForTargets(Player owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter)
         {
             // Starting search distance
-            distanceFromTarget = 700f;
+            distanceFromTarget = 500f;
             targetCenter = Projectile.position;
             foundTarget = false;
-
-            // This code is required if your minion weapon has the targeting feature
-            if (owner.HasMinionAttackTargetNPC)
-            {
-                NPC npc = Main.npc[owner.MinionAttackTargetNPC];
-                float between = Vector2.Distance(npc.Center, Projectile.Center);
-
-                // Reasonable distance away so it doesn't target across multiple screens
-                if (between < 2000f)
-                {
-                    distanceFromTarget = between;
-                    targetCenter = npc.Center;
-                    foundTarget = true;
-                }
-            }
 
             if (!foundTarget)
             {
@@ -191,29 +175,13 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                 Projectile.timeLeft = 1800;
                 speed = 8f;
                 inertia = 80f;
-                Vector2 vector = Projectile.Center - targetCenter;
-                vector.Normalize();
-                vector *= 200;
-                Vector2 newIdlePosition = targetCenter - Projectile.Center;
-                newIdlePosition += vector;
-
-                if (Projectile.Distance(newIdlePosition) > 200)
-                {
-                    speed = 16f;
-                    inertia = 40f;
-                }
-
-                newIdlePosition.Normalize();
-                newIdlePosition *= speed;
-
-                Projectile.velocity = (Projectile.velocity * (inertia - 1) + newIdlePosition) / inertia;
 
                 if (++ShootTimer >= 90 + Main.rand.Next(120))
                 {
                     SoundEngine.PlaySound(SoundID.Item72, Projectile.Center);
-                    Vector2 velocity = Vector2.Normalize(targetCenter + new Vector2(0, 10) - Projectile.Center) * 16f;
+                    Vector2 velocity = Vector2.Normalize(targetCenter - Projectile.Center) * 16f;
                     Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity,
-                        ModContent.ProjectileType<AreusBulletProj>(), Projectile.damage, 0, Projectile.owner);
+                        ModContent.ProjectileType<AreusTagLaser>(), Projectile.damage, 0, Projectile.owner);
 
                     ShootTimer = 0;
                 }
@@ -221,35 +189,36 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             else
             {
                 ShootTimer = 0;
-                // Minion doesn't have a target: return to player and idle
-                if (distanceToIdlePosition > 600f)
-                {
-                    // Speed up the minion if it's away from the player
-                    speed = 12f;
-                    inertia = 60f;
-                }
+            }
+
+            // Minion doesn't have a target: return to player and idle
+            if (distanceToIdlePosition > 600f)
+            {
+                // Speed up the minion if it's away from the player
+                speed = 12f;
+                inertia = 60f;
+            }
 
 
-                if (distanceToIdlePosition > 4000f)
-                {
-                    Projectile.Center = player.Center;
-                    Projectile.netUpdate = true;
-                }
-                else if (distanceToIdlePosition > 20f)
-                {
-                    // The immediate range around the player (when it passively floats about)
+            if (distanceToIdlePosition > 4000f)
+            {
+                Projectile.Center = player.Center;
+                Projectile.netUpdate = true;
+            }
+            else if (distanceToIdlePosition > 20f)
+            {
+                // The immediate range around the player (when it passively floats about)
 
-                    // This is a simple movement formula using the two parameters and its desired direction to create a "homing" movement
-                    vectorToIdlePosition.Normalize();
-                    vectorToIdlePosition *= speed;
-                    Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
-                }
-                else if (Projectile.velocity == Vector2.Zero)
-                {
-                    // If there is a case where it's not moving at all, give it a little "poke"
-                    Projectile.velocity.X = -0.15f;
-                    Projectile.velocity.Y = -0.05f;
-                }
+                // This is a simple movement formula using the two parameters and its desired direction to create a "homing" movement
+                vectorToIdlePosition.Normalize();
+                vectorToIdlePosition *= speed;
+                Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
+            }
+            else if (Projectile.velocity == Vector2.Zero)
+            {
+                // If there is a case where it's not moving at all, give it a little "poke"
+                Projectile.velocity.X = -0.15f;
+                Projectile.velocity.Y = -0.05f;
             }
         }
 

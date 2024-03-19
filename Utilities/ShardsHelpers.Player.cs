@@ -145,5 +145,19 @@ namespace ShardsOfAtheria.Utilities
             var item = player.HeldItem;
             return Math.Clamp(player.GetAdjustedItemScale(item), 0.5f * item.scale, 2f * item.scale);
         }
+
+        /// <summary>
+        /// Index 0: Fire <br/>
+        /// Index 1: Aqua <br/>
+        /// Index 2: Elec <br/>
+        /// Index 3: Wood
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="element"></param>
+        /// <param name="mod"></param>
+        public static void ModifyElementMultiplier(this Player player, int element, float mod)
+        {
+            SoA.TryElementCall("modifyMultipliers", player, element, mod);
+        }
     }
 }

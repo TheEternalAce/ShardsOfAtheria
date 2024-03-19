@@ -3,9 +3,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs.PlayerBuff
+namespace ShardsOfAtheria.Buffs.PlayerBuff.GemBlessings
 {
-    public class CunningSapphire : ModBuff
+    public class TenaciousDiamond : ModBuff
     {
         public override void SetStaticDefaults()
         {
@@ -20,6 +20,8 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
                 player.DelBuff(buffIndex);
                 buffIndex--;
             }
+
+            player.statDefense += 15;
         }
     }
 }

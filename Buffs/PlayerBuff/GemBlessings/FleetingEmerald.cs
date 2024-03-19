@@ -3,9 +3,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs.PlayerBuff
+namespace ShardsOfAtheria.Buffs.PlayerBuff.GemBlessings
 {
-    public class VengefulRuby : ModBuff
+    public class FleetingEmerald : ModBuff
     {
         public override void SetStaticDefaults()
         {
@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
                 buffIndex--;
             }
 
-            player.GetDamage(DamageClass.Generic) += 0.25f;
+            player.moveSpeed += 0.2f;
         }
     }
 }

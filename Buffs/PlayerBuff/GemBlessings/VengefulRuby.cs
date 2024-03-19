@@ -3,9 +3,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs.PlayerBuff
+namespace ShardsOfAtheria.Buffs.PlayerBuff.GemBlessings
 {
-    public class TenaciousDiamond : ModBuff
+    public class VengefulRuby : ModBuff
     {
         public override void SetStaticDefaults()
         {
@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
                 buffIndex--;
             }
 
-            player.statDefense += 15;
+            player.GetDamage(DamageClass.Generic) += 0.25f;
         }
     }
 }

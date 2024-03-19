@@ -1,10 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.AnyDebuff;
+﻿using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
 using ShardsOfAtheria.Items.AreusChips;
-using ShardsOfAtheria.Projectiles.Melee;
-using ShardsOfAtheria.Projectiles.Summon.Minions;
+using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Utilities;
 using System.Linq;
@@ -28,6 +26,15 @@ namespace ShardsOfAtheria.Players
         public bool areusLegs;
 
         public bool imperialSet;
+
+        public bool soldierSet;
+        public bool bannerDamage;
+        public bool bannerDefense;
+        public bool bannerEndurance;
+        public bool bannerMobility;
+        public bool bannerAttackSpeed;
+        public bool bannerResourceManagement;
+        public bool bannerRegen;
 
         public bool WarriorSet => classChip == DamageClass.Melee;
         public bool RangerSet => classChip == DamageClass.Ranged;
@@ -70,6 +77,13 @@ namespace ShardsOfAtheria.Players
             {
                 areusEnergy = AREUS_ENERGY_MAX;
             }
+            bannerDamage = false;
+            bannerDefense = false;
+            bannerEndurance = false;
+            bannerMobility = false;
+            bannerAttackSpeed = false;
+            bannerResourceManagement = false;
+            bannerRegen = false;
         }
 
         public void SetBonusEffects()
@@ -109,22 +123,11 @@ namespace ShardsOfAtheria.Players
                         if (soldierSet)
                         {
                             cooldownTime *= 10;
-                            if (WarriorSet)
-                            {
-                                SoldierActive_Melee();
-                            }
-                            //if (MageSet)
-                            //{
-                            //    SoldierActive_Magic();
-                            //}
-                            if (RangerSet)
-                            {
-                                SoldierActive_Ranged();
-                            }
-                            //if (CommanderSet)
-                            //{
-                            //    SoldierActive_Summon();
-                            //}
+                            var velocity = Main.MouseWorld - Player.Center;
+                            velocity.Normalize();
+                            var banner = Projectile.NewProjectileDirect(Player.GetSource_FromThis(), Player.Center, velocity * 16f,
+                                ModContent.ProjectileType<AreusHoloBannerProjector>(), 0, 0);
+                            banner.DamageType = classChip;
                         }
                         if (imperialSet)
                         {
@@ -175,23 +178,41 @@ namespace ShardsOfAtheria.Players
             }
         }
 
-        public override void PostUpdate()
+        public override void PostUpdateEquips()
         {
-            if (Player.ownedProjectileCounts[ModContent.ProjectileType<ElectricBarrier>()] > 0)
-            {
-                Player.statDefense += 20;
-            }
             if (royalSet)
             {
                 RoyalVoidStar();
             }
-        }
-
-        public override void PostUpdateEquips()
-        {
             if (Player.HasChipEquipped(ModContent.ItemType<FlightChip>()))
             {
                 Player.wingTimeMax += 20;
+            }
+            //if (imperialSet)
+            //{
+            //    if (CommanderSet)
+            //    {
+            //        if (Player.ownedProjectileCounts[ModContent.ProjectileType<AreusDrone>()] < 3)
+            //        {
+            //            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<AreusDrone>(),
+            //                (int)ClassDamage.ApplyTo(80), 0);
+            //        }
+            //    }
+            //}
+            if (bannerDamage) Player.GetDamage(DamageClass.Generic) += 0.15f;
+            if (bannerDefense) Player.statDefense += 15;
+            if (bannerEndurance) Player.endurance += 0.08f;
+            if (bannerMobility) Player.moveSpeed += 0.15f;
+            if (bannerAttackSpeed) Player.GetDamage(DamageClass.Generic) += 0.15f;
+            if (bannerResourceManagement) Player.manaCost -= 0.15f;
+            if (bannerRegen) Player.manaRegen += Player.statManaMax2 / 3;
+        }
+
+        public override void UpdateLifeRegen()
+        {
+            if (bannerRegen)
+            {
+                Player.lifeRegen += 12;
             }
         }
 
@@ -212,6 +233,15 @@ namespace ShardsOfAtheria.Players
 
         }
 
+        public override bool CanConsumeAmmo(Item weapon, Item ammo)
+        {
+            if (bannerResourceManagement)
+            {
+                return Main.rand.NextFloat() < 0.33f;
+            }
+            return base.CanConsumeAmmo(weapon, ammo);
+        }
+
         public override void PostHurt(Player.HurtInfo info)
         {
             if (guardSet && WarriorSet)
@@ -227,15 +257,7 @@ namespace ShardsOfAtheria.Players
             {
                 if (RangerSet && Player.HasBuff<ElectricVeil>())
                 {
-                    Utilities.ShardsHelpers.ProjectileRing(Player.GetSource_FromThis(), Player.Center, 8, 1f, 15f, ProjectileID.ThunderSpearShot, 50, 6f);
-                }
-                if (CommanderSet)
-                {
-                    if (Player.ownedProjectileCounts[ModContent.ProjectileType<AreusDrone>()] < 6)
-                    {
-                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<AreusDrone>(),
-                            (int)ClassDamage.ApplyTo(50), 0);
-                    }
+                    ShardsHelpers.ProjectileRing(Player.GetSource_FromThis(), Player.Center, 8, 1f, 15f, ProjectileID.ThunderSpearShot, 50, 6f);
                 }
             }
         }
