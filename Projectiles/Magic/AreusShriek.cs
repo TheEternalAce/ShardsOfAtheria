@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
             if (!player.HasBuff<ShadeState>())
             {
                 var areus = player.Areus();
-                areus.royalVoid -= 3;
+                areus.imperialVoid -= 3;
             }
         }
         public override bool PreDraw(ref Color lightColor)

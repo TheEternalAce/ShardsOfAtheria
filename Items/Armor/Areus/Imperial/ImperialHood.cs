@@ -1,4 +1,5 @@
 using ShardsOfAtheria.Items.AreusChips;
+using ShardsOfAtheria.ShardsUI.AreusVoid;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -36,6 +37,8 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
         public override void UpdateArmorSet(Player player)
         {
             ArmorPlayer.imperialSet = true;
+            ModContent.GetInstance<AreusVoidSystem>().ShowBar();
+            player.GetDamage(DamageClass.Generic) += ArmorPlayer.imperialVoid / 100f;
             if (ArmorPlayer.CommanderSet)
             {
                 player.maxMinions += 3;

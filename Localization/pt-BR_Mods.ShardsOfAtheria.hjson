@@ -675,11 +675,38 @@ Items: {
 			Increased Areus weapon damage by %
 			Reduced mana usage by %
 			''' */
-		// SetBonus: ""
-		// MeleeDamageClassBonus: ""
-		// RangedDamageClassBonus: ""
-		// MagicDamageClassBonus: ""
-		// SummonDamageClassBonus: ""
+		/* SetBonus:
+			'''
+			Grants the ability to harness Imperial Void
+			Consuming Imperial Void provides 'Shade State'
+			Melee damage dealt is also absorbed into mana
+			''' */
+		/* MeleeDamageClassBonus:
+			'''
+			Double tap UP or DOWN to create a void slash
+			This consumes 33 Imperial Void
+			Shade State creates void slashes when melee weapons are used
+			''' */
+		/* RangedDamageClassBonus:
+			'''
+			Double tap UP or DOWN to release a void blast
+			This consumes 33 Imperial Void
+			Shade State converts certain ranged projectiles into seeking void beams
+			''' */
+		/* MagicDamageClassBonus:
+			'''
+			Double tap UP or DOWN to shriek loudly
+			This consumes 33 Imperial Void
+			Shade State creates void daggers when striking enemies
+			''' */
+		/* SummonDamageClassBonus:
+			'''
+			Every 2 seconds a Black Star is summoned
+			This consumes 33 Imperial Void
+			After some time, the star will be ripped apart and fire a laser
+			Double tap UP or DOWN to do this manually
+			Shade State creates void tendrils from enemies struck by whips
+			''' */
 	}
 
 	ImperialGarments: {
@@ -710,38 +737,11 @@ Items: {
 			Increased Areus weapon damage by 10%
 			Reduced mana usage by 15%
 			''' */
-		/* SetBonus:
-			'''
-			Grants the ability to harness Royal Void
-			Consuming Royal Void provides 'Shade State'
-			Melee damage dealt is also absorbed into mana
-			''' */
-		/* MeleeDamageClassBonus:
-			'''
-			Double tap UP or DOWN to create a void slash
-			This consumes 33 Royal Void
-			Shade State creates void slashes when melee weapons are used
-			''' */
-		/* RangedDamageClassBonus:
-			'''
-			Double tap UP or DOWN to release a void blast
-			This consumes 33 Royal Void
-			Shade State converts certain ranged projectiles into seeking void beams
-			''' */
-		/* MagicDamageClassBonus:
-			'''
-			Double tap UP or DOWN to shriek loudly
-			This consumes 33 Royal Void
-			Shade State creates void daggers when striking enemies
-			''' */
-		/* SummonDamageClassBonus:
-			'''
-			Every 2 seconds a Black Star is summoned
-			This consumes 33 Royal Void
-			After some time, the star will be ripped apart and fire a laser
-			Double tap UP or DOWN to do this manually
-			Shade State creates void tendrils from enemies struck by whips
-			''' */
+		// SetBonus: ""
+		// MeleeDamageClassBonus: ""
+		// RangedDamageClassBonus: ""
+		// MagicDamageClassBonus: ""
+		// SummonDamageClassBonus: ""
 	}
 
 	RoyalJacket: {

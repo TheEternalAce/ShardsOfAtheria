@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                 if (!player.HasBuff<ShadeState>())
                 {
                     var areus = player.Areus();
-                    areus.royalVoid -= 3;
+                    areus.imperialVoid -= 3;
                 }
             }
             target.AddBuff(BuffID.Electrified, 600);

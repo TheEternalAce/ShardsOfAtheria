@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Buffs.AnyDebuff;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
 using ShardsOfAtheria.Items.AreusChips;
@@ -25,7 +26,7 @@ namespace ShardsOfAtheria.Players
         public bool areusBody;
         public bool areusLegs;
 
-        public bool imperialSet;
+        public bool royalSet;
 
         public bool soldierSet;
         public bool bannerDamage;
@@ -131,45 +132,45 @@ namespace ShardsOfAtheria.Players
                         }
                         if (imperialSet)
                         {
-                            if (WarriorSet)
-                            {
-                                ImperialActive_Melee();
-                            }
-                            if (MageSet)
-                            {
-                                ImperialActive_Magic();
-                            }
-                            if (RangerSet)
-                            {
-                                ImperialActive_Ranged();
-                            }
                             if (CommanderSet)
                             {
                                 ImperialActive_Summon();
                             }
-                        }
-                        if (royalSet)
-                        {
-                            if (CommanderSet)
-                            {
-                                RoyalActive_Summon();
-                            }
-                            else if (royalVoid >= 33)
+                            else if (imperialVoid >= 33)
                             {
                                 cooldownTime = 0;
                                 if (WarriorSet)
                                 {
-                                    RoyalActive_Melee();
+                                    ImperialActive_Melee();
                                 }
                                 if (MageSet)
                                 {
-                                    RoyalActive_Magic();
+                                    ImperialActive_Magic();
                                 }
                                 if (RangerSet)
                                 {
-                                    RoyalActive_Ranged();
+                                    ImperialActive_Ranged();
                                 }
-                                ConsumeRoyalVoid();
+                                ConsumeImperialVoid();
+                            }
+                        }
+                        if (royalSet)
+                        {
+                            if (WarriorSet)
+                            {
+                                RoyalActive_Melee();
+                            }
+                            if (MageSet)
+                            {
+                                RoyalActive_Magic();
+                            }
+                            if (RangerSet)
+                            {
+                                RoyalActive_Ranged();
+                            }
+                            if (CommanderSet)
+                            {
+                                RoyalActive_Summon();
                             }
                         }
                         Player.AddBuff<SetBonusCooldown>(cooldownTime);
@@ -180,25 +181,23 @@ namespace ShardsOfAtheria.Players
 
         public override void PostUpdateEquips()
         {
+            if (imperialSet)
+            {
+                ImperialVoidStar();
+            }
             if (royalSet)
             {
-                RoyalVoidStar();
+                int type = ModContent.ProjectileType<TheRoyalCrown>();
+                int headSlot = EquipLoader.GetEquipSlot(Mod, "RoyalCrown", EquipType.Head);
+                if (Player.ownedProjectileCounts[type] == 0 && Player.head == headSlot)
+                {
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, type, 0, 0);
+                }
             }
             if (Player.HasChipEquipped(ModContent.ItemType<FlightChip>()))
             {
                 Player.wingTimeMax += 20;
             }
-            //if (imperialSet)
-            //{
-            //    if (CommanderSet)
-            //    {
-            //        if (Player.ownedProjectileCounts[ModContent.ProjectileType<AreusDrone>()] < 3)
-            //        {
-            //            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<AreusDrone>(),
-            //                (int)ClassDamage.ApplyTo(80), 0);
-            //        }
-            //    }
-            //}
             if (bannerDamage) Player.GetDamage(DamageClass.Generic) += 0.15f;
             if (bannerDefense) Player.statDefense += 15;
             if (bannerEndurance) Player.endurance += 0.08f;
@@ -216,19 +215,19 @@ namespace ShardsOfAtheria.Players
             }
         }
 
-        private void ImperialActive_Melee()
+        private void RoyalActive_Melee()
         {
 
         }
-        private void ImperialActive_Ranged()
+        private void RoyalActive_Ranged()
         {
 
         }
-        private void ImperialActive_Magic()
+        private void RoyalActive_Magic()
         {
 
         }
-        private void ImperialActive_Summon()
+        private void RoyalActive_Summon()
         {
 
         }
@@ -268,9 +267,9 @@ namespace ShardsOfAtheria.Players
             {
                 areusEnergy++;
             }
-            if (royalSet)
+            if (imperialSet)
             {
-                RoyalOnHitEffect(target, hit);
+                ImperialOnHitEffect(target, hit);
             }
         }
 

@@ -1,6 +1,5 @@
 using ShardsOfAtheria.Items.AreusChips;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.ShardsUI.AreusVoid;
 using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
@@ -48,8 +47,6 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
         public override void UpdateArmorSet(Player player)
         {
             ArmorPlayer.royalSet = true;
-            ModContent.GetInstance<AreusVoidSystem>().ShowBar();
-            player.GetDamage(DamageClass.Generic) += ArmorPlayer.royalVoid / 100f;
             if (ArmorPlayer.CommanderSet)
             {
                 player.maxMinions += 4;

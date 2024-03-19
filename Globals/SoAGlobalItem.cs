@@ -283,13 +283,13 @@ namespace ShardsOfAtheria.Globals
                     shards.prototypeBandCooldown = shards.prototypeBandCooldownMax;
                 }
                 var areus = player.Areus();
-                if (areus.royalSet && areus.WarriorSet && player.HasBuff<ShadeState>())
+                if (areus.imperialSet && areus.WarriorSet && player.HasBuff<ShadeState>())
                 {
                     var spawnpos = Main.MouseWorld + Vector2.One.RotatedByRandom(MathHelper.TwoPi) * 130f;
                     var vector = Vector2.Normalize(Main.MouseWorld - spawnpos) * 32;
                     var meleeDamage = player.GetTotalDamage(DamageClass.Melee);
                     Projectile.NewProjectile(player.GetSource_FromThis(), spawnpos, vector, ModContent.ProjectileType<VoidSlash>(),
-                        (int)meleeDamage.ApplyTo(120 + areus.royalVoid), 8f);
+                        (int)meleeDamage.ApplyTo(120 + areus.imperialVoid), 8f);
                 }
                 if (player.Slayer().DeathSoul)
                 {

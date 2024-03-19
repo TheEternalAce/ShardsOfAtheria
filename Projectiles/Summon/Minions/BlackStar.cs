@@ -228,7 +228,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
         private bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || !owner.Areus().royalSet)
+            if (owner.dead || !owner.active || !owner.Areus().imperialSet)
             {
                 Projectile.timeLeft = 2;
                 return false;
@@ -254,7 +254,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         {
             var player = Projectile.GetPlayerOwner();
             var areus = player.Areus();
-            areus.royalVoid -= 3;
+            areus.imperialVoid -= 3;
         }
 
         public override void OnKill(int timeLeft)

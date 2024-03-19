@@ -50,7 +50,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             if (!player.HasBuff<ShadeState>())
             {
                 var areus = player.Areus();
-                areus.royalVoid -= 3;
+                areus.imperialVoid -= 3;
             }
         }
 
