@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Ammo;
-using ShardsOfAtheria.Projectiles.Ranged;
+using ShardsOfAtheria.Projectiles.Ranged.GunRose;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
@@ -14,8 +14,10 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
-            Item.AddElement(2);
-            Item.AddRedemptionElement(7);
+            Item.AddElement(3);
+            Item.AddRedemptionElement(9);
+            Item.AddRedemptionElement(10);
+            Item.AddRedemptionElement(12);
         }
 
         public override void SetDefaults()
@@ -31,7 +33,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.useTime = 40;
             Item.useAnimation = 40;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.UseSound = SoundID.Item11;
+            Item.UseSound = SoundID.Item40;
             Item.autoReuse = true;
             Item.noMelee = true;
 
@@ -79,13 +81,13 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            float numberProjectiles = 5; // 5 shots
-            float rotation = MathHelper.ToRadians(15);
+            float numberProjectiles = 2;
+            float rotation = MathHelper.ToRadians(20);
             for (int i = 0; i < numberProjectiles; i++)
             {
                 Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
                 perturbedSpeed.Normalize();
-                Projectile.NewProjectile(source, position, perturbedSpeed * 32f, ModContent.ProjectileType<ScarletSpark>(), damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, position, perturbedSpeed * 16f, ModContent.ProjectileType<ScarletRose>(), damage, knockback, player.whoAmI);
             }
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }

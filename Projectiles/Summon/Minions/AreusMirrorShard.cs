@@ -80,7 +80,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
         private bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || !owner.HasBuff(ModContent.BuffType<AreusMirrorBuff>()))
+            if (owner.dead || !owner.active || !owner.HasBuff(ModContent.BuffType<BrokenAreusMirrorBuff>()))
                 return false;
             else Projectile.timeLeft = 2;
             return true;

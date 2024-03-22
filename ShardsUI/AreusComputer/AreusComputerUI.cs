@@ -219,10 +219,6 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
                                     cloneLine = cloneLine.Substring(cloneLine.LastIndexOf('=') + 1);
                                     if (TryConvert(code, cloneLine, out int value))
                                     {
-                                        if (value > 100 - 4)
-                                        {
-                                            value = 100 - 4;
-                                        }
                                         output += "\n[Output] Changed item mana cost to " + value + ".";
                                         computer.mana = value;
                                     }

@@ -38,6 +38,7 @@
     <AdditionalFiles Remove="Localization\pt-BR.hjson" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Buffs\NPCDebuff\MarkedByAvatar.png" />
     <None Remove="Buffs\PlayerBuff\DiamondBarrierBuff.png" />
     <None Remove="Buffs\PlayerBuff\MourningSatisfaction.png" />
     <None Remove="Buffs\PlayerBuff\PartisanBuff.png" />
@@ -66,6 +67,8 @@
     <None Remove="Projectiles\Melee\VoidSlash.png" />
     <None Remove="Projectiles\Melee\ZenovaProjectile.png" />
     <None Remove="Projectiles\Other\RubyShard.png" />
+    <None Remove="Projectiles\Ranged\GunRose\ScarletPetal.png" />
+    <None Remove="Projectiles\Ranged\GunRose\ScarletRose.png" />
     <None Remove="Projectiles\Summon\Minions\AreusMirror.png" />
     <None Remove="Projectiles\NPCProj\Elizabeth\BloodScytheHostile.png" />
     <None Remove="Projectiles\Ammo\AreusRod.png" />
@@ -75,6 +78,9 @@
     <None Remove="Projectiles\Melee\DeathScythe.png" />
     <None Remove="Projectiles\Melee\DeathScythe_Flip.png" />
     <None Remove="Projectiles\Melee\PrototypeBandSlash.png" />
+    <None Remove="Projectiles\Summon\Minions\EMAvatar\ChargeLaser.png" />
+    <None Remove="Projectiles\Summon\Minions\EMAvatar\EMRitual.png" />
+    <None Remove="Projectiles\Summon\Minions\EMAvatar\SaberSlash.png" />
     <None Remove="Projectiles\Tools\AmethystDaggerProjectile.png" />
     <None Remove="ShardsUI\AreusEnergy\AreusEnergyBar.png" />
     <None Remove="ShardsUI\GemCoreConfigOpener.png" />

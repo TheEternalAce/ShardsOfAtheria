@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Placeable.Banner;
+using ShardsOfAtheria.Items.Weapons.Summon;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
@@ -112,6 +113,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                 { ItemID.Obsidian, 5 },
             };
             npcLoot.Add(ShardsDrops.ManyFromOptions(1, ores));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BrokenAreusMirror>(), 15));
             hardmode.OnSuccess(ItemDropRule.Common(ItemID.FireFeather, 5));
             // Finally add the leading rule
             npcLoot.Add(hardmode);

@@ -433,6 +433,65 @@ namespace ShardsOfAtheria.Utilities
             }
             return closestProjectile;
         }
+        public static Projectile FindOldestProjectile(Func<Projectile, bool> validProjectileFunc = null)
+        {
+            Projectile closestProjectile = null;
+            int timeLeft = 0;
+
+            for (int k = 0; k < Main.maxProjectiles; k++)
+            {
+                Projectile target = Main.projectile[k];
+                if (target.active)
+                {
+                    if (target.timeLeft > timeLeft)
+                    {
+                        if (validProjectileFunc == null || validProjectileFunc(target))
+                        {
+                            timeLeft = target.timeLeft;
+                            closestProjectile = target;
+                        }
+                    }
+                }
+            }
+            return closestProjectile;
+        }
+
+        public static void KillOldestSentry(Player player, int newTurretIndex = -1)
+        {
+            int currentTurretIndex = 0; // The javelin index
+            Point[] turrets = new Point[player.maxTurrets];
+
+            for (int i = 0; i < Main.maxProjectiles; i++) // Loop all projectiles
+            {
+                Projectile currentProjectile = Main.projectile[i];
+                if (i != newTurretIndex // Make sure the looped projectile is not the current javelin
+                    && currentProjectile.active // Make sure the projectile is active
+                    && currentProjectile.owner == player.whoAmI // Make sure the projectile's owner is the client's player
+                    && currentProjectile.sentry) // Make sure the projectile is a sentry
+                {
+                    turrets[currentTurretIndex++] = new Point(i, currentProjectile.timeLeft); // Add the current projectile's index and timeleft to the point array
+                    if (currentTurretIndex >= turrets.Length)  // If the javelin's index is bigger than or equal to the point array's length, break
+                        break;
+                }
+            }
+
+            // Remove the oldest sticky javelin if we exceeded the maximum
+            if (currentTurretIndex >= player.maxTurrets)
+            {
+                int oldTurretIndex = 0;
+                // Loop our point array
+                for (int i = 0; i < player.maxTurrets; i++)
+                {
+                    // Remove the already existing javelin if it's timeLeft value (which is the Y value in our point array) is smaller than the new javelin's timeLeft
+                    if (turrets[i].Y < turrets[oldTurretIndex].Y)
+                    {
+                        oldTurretIndex = i; // Remember the index of the removed javelin
+                    }
+                }
+                // Remember that the X value in our point array was equal to the index of that javelin, so it's used here to kill it.
+                Main.projectile[turrets[oldTurretIndex].X].Kill();
+            }
+        }
 
         public static bool AnyProjectile(int type)
         {

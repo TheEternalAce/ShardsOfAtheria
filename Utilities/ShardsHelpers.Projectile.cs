@@ -150,18 +150,19 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
-        public static void ApplyGravity(this Projectile projectile, ref int delay, float maxGravity = 16f)
+        public static void ApplyGravity(this Projectile projectile, ref int delay, float gravityStrength = 1f, float maxYVelocity = 16f)
         {
             if (--delay <= 0)
             {
-                projectile.ApplyGravity(maxGravity);
+                projectile.ApplyGravity(gravityStrength, maxYVelocity);
             }
         }
-        public static void ApplyGravity(this Projectile projectile, float maxGravity = 16f)
+        public static void ApplyGravity(this Projectile projectile, float gravityStrength = 1f, float maxYVelocity = 16f)
         {
-            if (++projectile.velocity.Y > maxGravity)
+            projectile.velocity.Y += gravityStrength;
+            if (projectile.velocity.Y > maxYVelocity)
             {
-                projectile.velocity.Y = maxGravity;
+                projectile.velocity.Y = maxYVelocity;
             }
         }
 
@@ -238,7 +239,7 @@ namespace ShardsOfAtheria.Utilities
                 Main.spriteBatch.Draw(texture, projectile.oldPos[i] + offset - Main.screenPosition, frame, color * (1f - progress), projectile.rotation, origin, Math.Max(projectile.scale * (1f - progress), 0.1f), effects, 0f);
             }
 
-            Main.spriteBatch.Draw(texture, projectile.position + offset - Main.screenPosition, frame, color, projectile.rotation, origin, projectile.scale, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(texture, projectile.position + offset - Main.screenPosition, frame, color, projectile.rotation, origin, projectile.scale, effects, 0f);
         }
         public static void DrawAfterImage(this Projectile projectile, Color color)
         {

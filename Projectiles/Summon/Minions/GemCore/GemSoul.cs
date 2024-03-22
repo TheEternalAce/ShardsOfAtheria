@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -159,33 +158,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                 SoundEngine.PlaySound(SoundID.Item53.WithPitchOffset(1), Projectile.Center);
                 emoteTimer = 0;
             }
-
-            float overlapVelocity = 0.04f;
-            for (int i = 0; i < Main.maxProjectiles; i++)
-            {
-                Projectile other = Main.projectile[i];
-
-                if (i != Projectile.whoAmI && other.active && other.owner == Projectile.owner && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
-                {
-                    if (Projectile.position.X < other.position.X)
-                    {
-                        Projectile.velocity.X -= overlapVelocity;
-                    }
-                    else
-                    {
-                        Projectile.velocity.X += overlapVelocity;
-                    }
-
-                    if (Projectile.position.Y < other.position.Y)
-                    {
-                        Projectile.velocity.Y -= overlapVelocity;
-                    }
-                    else
-                    {
-                        Projectile.velocity.Y += overlapVelocity;
-                    }
-                }
-            }
         }
 
         private void SearchForTargets(Player owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter)
@@ -238,7 +210,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                         }
                     }
                 }
-                else
+                else if (sleep)
                 {
                     sleep = false;
                     sleepyTimer = 0;
@@ -333,6 +305,10 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                 speed = 26f;
                 inertia = 40f;
             }
+            if (distanceToIdlePosition > 400f)
+            {
+                Projectile.velocity = vectorToIdlePosition * 0.05f;
+            }
             if (sleepyTimer >= 400)
             {
                 speed = 2;
@@ -386,6 +362,9 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             Projectile.frame = 8;
             Projectile.frameCounter = 0;
             Projectile.rotation = 0;
+            emoteTimer = 0;
+            shootTimer = 0;
+            projectileShootTimer = 0;
 
             if (Vector2.Distance(owner.Center, Projectile.Center) >= 200)
             {
@@ -410,9 +389,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             {
                 return;
             }
-
-            // So it will lean slightly towards the direction it's moving
-            Projectile.rotation = Projectile.velocity.X * 0.05f;
 
             int frameTime = 5;
             int maxframe = 4;

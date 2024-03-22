@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
         {
             panel = new DragablePanel();
             panel.SetPadding(0);
-            panel.SetRectangle(panelRect);
+            panel.SetRectangle(111, 266, 160, 190);
 
             UIText text = new("Core Cstm.");
             text.SetRectangle(10, 10, 0, 0);
@@ -158,27 +158,43 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
             }
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        private void UpdateHighlightAll(UIHoverImageButton toggle)
         {
-            if (ModContent.GetInstance<GemCoreConfigOpener>().CurrentState != 0)
+            Player player = Main.LocalPlayer;
+            int loadout = player.CurrentLoadoutIndex;
+            var gem = player.Gem();
+            bool allOn = true;
+
+            for (int i = 0; i < gem.masterGemCoreToggles.GetLength(loadout); i++)
             {
-                base.Draw(spriteBatch);
+                if (!gem.masterGemCoreToggles[loadout, i])
+                {
+                    allOn = false;
+                    break;
+                }
+            }
+
+            if (allOn)
+            {
+                toggle.SetImage(toggleBack_Highlight);
+            }
+            else
+            {
+                toggle.SetImage(toggleBack);
             }
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (ModContent.GetInstance<GemCoreConfigOpener>().CurrentState != 0)
-            {
-                base.Update(gameTime);
-                UpdateHighlight(amberToggle, 0);
-                UpdateHighlight(amethystToggle, 1);
-                UpdateHighlight(diamondToggle, 2);
-                UpdateHighlight(emeraldToggle, 3);
-                UpdateHighlight(rubyToggle, 4);
-                UpdateHighlight(sapphireToggle, 5);
-                UpdateHighlight(topazToggle, 6);
-            }
+            base.Update(gameTime);
+            UpdateHighlight(amberToggle, 0);
+            UpdateHighlight(amethystToggle, 1);
+            UpdateHighlight(diamondToggle, 2);
+            UpdateHighlight(emeraldToggle, 3);
+            UpdateHighlight(rubyToggle, 4);
+            UpdateHighlight(sapphireToggle, 5);
+            UpdateHighlight(topazToggle, 6);
+            UpdateHighlightAll(toggleAll);
         }
     }
 
@@ -194,7 +210,6 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
                 mgcVisualsState = new();
                 mgcVisualsState.Activate();
                 mgcVisualsStateUI = new();
-                mgcVisualsStateUI.SetState(mgcVisualsState);
             }
         }
 
@@ -212,6 +227,10 @@ namespace ShardsOfAtheria.ShardsUI.MegaGemCoreToggles
 
         public override void UpdateUI(GameTime gameTime)
         {
+            if (ModContent.GetInstance<GemCoreConfigOpener>().CurrentState == 1)
+                mgcVisualsStateUI.SetState(mgcVisualsState);
+            else mgcVisualsStateUI.SetState(null);
+
             if (mgcVisualsStateUI != null)
                 mgcVisualsStateUI?.Update(gameTime);
         }

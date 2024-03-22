@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Summon
+namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
 {
     public class AreusTagLaser : ModProjectile
     {
@@ -26,21 +26,12 @@ namespace ShardsOfAtheria.Projectiles.Summon
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.timeLeft = 600;
-            Projectile.extraUpdates = 99;
+            Projectile.extraUpdates = 20;
         }
 
         public override void AI()
         {
-            Projectile.velocity.Normalize();
-            Projectile.velocity *= 8;
-            if (++Projectile.ai[0] >= 5)
-            {
-                int type = DustID.Electric;
-                Dust d = Dust.NewDustDirect(Projectile.Center, 0, 0, type);
-                d.velocity *= 0;
-                d.fadeIn = 1.3f;
-                d.noGravity = true;
-            }
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -51,7 +42,8 @@ namespace ShardsOfAtheria.Projectiles.Summon
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.DrawBlurTrail(SoA.ElectricColor, SoA.LineBlur);
+            lightColor = SoA.ElectricColor;
+            Projectile.DrawBlurTrail(lightColor, SoA.LineBlur);
             return base.PreDraw(ref lightColor);
         }
     }

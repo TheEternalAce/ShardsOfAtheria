@@ -223,15 +223,17 @@ namespace ShardsOfAtheria.Globals
         {
             if (npc.HasBuff(ModContent.BuffType<Marked>()))
                 modifiers.FinalDamage *= 1.1f;
+            if (npc.HasBuff(ModContent.BuffType<MarkedByAvatar>()))
+                modifiers.ScalingBonusDamage += 1f;
             base.ModifyIncomingHit(npc, ref modifiers);
         }
 
         public override void DrawEffects(NPC npc, ref Color drawColor)
         {
             if (npc.HasBuff(ModContent.BuffType<Marked>()))
-            {
                 drawColor = Color.MediumPurple;
-            }
+            if (npc.HasBuff(ModContent.BuffType<MarkedByAvatar>()))
+                drawColor = Color.GreenYellow;
             if (npc.HasBuff(BuffID.Electrified) && Main.rand.NextBool(4))
             {
                 int dust = Dust.NewDust(npc.position, npc.width + 4, npc.height + 4, DustID.Electric, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1f);

@@ -58,6 +58,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 {
                     player.PickAmmo(plagueRail, out int _, out float _, out int _, out float _, out int _);
                     type = ModContent.ProjectileType<PlagueBullet>();
+                    velocity.Normalize();
+                    velocity *= 16;
                 }
             }
         }

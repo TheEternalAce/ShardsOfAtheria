@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.penetrate = 3;
-            Projectile.timeLeft = 180;
+            Projectile.timeLeft = 300;
             Projectile.usesLocalNPCImmunity = true;
         }
 
@@ -57,8 +57,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
 
         public override void OnKill(int timeLeft)
         {
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<AreusRetribution>(),
+            if (IsStickingToTarget)
+            {
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<AreusRetribution>(),
                 Projectile.damage, Projectile.knockBack);
+            }
 
             SoundEngine.PlaySound(SoundID.Dig, Projectile.Center); // Play a death sound
             Vector2 usePos = Projectile.position; // Position to use for dusts
@@ -201,7 +204,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             Projectile.SetVisualOffsets(130);
             if (++gravityTimer >= 15) // Use a timer to wait 15 ticks before applying gravity.
             {
-                Projectile.velocity.Y = Projectile.velocity.Y + 0.1f;
+                Projectile.velocity.Y += 0.1f;
             }
             if (Projectile.velocity.Y > 16f)
             {

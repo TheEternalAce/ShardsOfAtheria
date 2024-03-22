@@ -18,6 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.GunRose
             Projectile.width = refProj.width;
             Projectile.height = refProj.height;
 
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.aiStyle = -1;
             Projectile.timeLeft = 600;
             Projectile.scale = 0;

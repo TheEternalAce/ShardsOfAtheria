@@ -6,6 +6,7 @@ using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
 {
@@ -20,6 +21,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
         {
             base.SetDefaults();
 
+            Projectile.DamageType = DamageClass.Magic;
             Projectile.width = Projectile.height = 30;
             swordReach = 150;
             rotationOffset = -MathHelper.PiOver4 * 3f;

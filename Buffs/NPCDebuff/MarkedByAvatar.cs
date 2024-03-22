@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Buffs.NPCDebuff
 {
-    public class Marked : ModBuff
+    public class MarkedByAvatar : ModBuff
     {
         public override void SetStaticDefaults()
         {

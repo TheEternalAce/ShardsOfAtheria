@@ -99,6 +99,7 @@ TheBall,Blood,,
 
 AreusChain,Electric,Steel,"{""Tooltips"": [{""Type"":""Electric"",""Tooltip"": ""Whip: {0}""},{""Type"":""Steel"",""Tooltip"": ""Gold Chain: {0}""}]}"
 AreusCrate,Electric,,
+AreusMirror,Electric,,
 AreusStabberStaff,Electric,,
 AreusStriker,Electric,,
 BloodTome,Blood,,

@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.DedicatedItems.Webmillio;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
+using ShardsOfAtheria.Items.Weapons.Summon;
 using ShardsOfAtheria.NPCs.Town.TheAtherian;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
@@ -121,7 +123,7 @@ namespace ShardsOfAtheria.ShardsUI
                 return;
             }
             string text = "";
-            for (int i = 0; i < materials.Rank; i++)
+            for (int i = 0; i < materials.GetLength(0); i++)
             {
                 int materialType = materials[i, 0];
                 int materialCount = materials[i, 1];
@@ -166,36 +168,14 @@ namespace ShardsOfAtheria.ShardsUI
                 player.mouseInterface = true;
             }
 
-            if (mainSlot.Item.type == ModContent.ItemType<GenesisAndRagnarok>())
+            if (mainSlot.Item.type > ItemID.None)
             {
-                if (player.Shards().genesisRagnarockUpgrades == 0)
+                int[,] materials = GetMaterials(mainSlot.Item.type, out int _);
+                if (materials != null)
                 {
-                    CreateSlots(1);
+                    int slotsToMake = materials.GetLength(0);
+                    CreateSlots(slotsToMake);
                 }
-                else
-                {
-                    CreateSlots(2);
-                }
-            }
-            else if (mainSlot.Item.type == ModContent.ItemType<AreusKatana>())
-            {
-                CreateSlots(2);
-            }
-            else if (mainSlot.Item.type == ModContent.ItemType<AreusGambit>())
-            {
-                CreateSlots(6);
-            }
-            else if (mainSlot.Item.type == ModContent.ItemType<AreusRailgun>())
-            {
-                CreateSlots(2);
-            }
-            else if (mainSlot.Item.type == ModContent.ItemType<War>())
-            {
-                CreateSlots(1);
-            }
-            else if (mainSlot.Item.type == ModContent.ItemType<FuckEarlyGameHarpies>())
-            {
-                CreateSlots(2);
             }
             else
             {
@@ -266,6 +246,11 @@ namespace ShardsOfAtheria.ShardsUI
             if (RepairPartisan())
             {
                 materials = GetMaterials<FuckEarlyGameHarpies>(out resultType);
+                shouldUpgrade = true;
+            }
+            if (RepairMirror())
+            {
+                materials = GetMaterials<BrokenAreusMirror>(out resultType);
                 shouldUpgrade = true;
             }
             #endregion
@@ -373,6 +358,16 @@ namespace ShardsOfAtheria.ShardsUI
                     { ItemID.LunarBar, 14 },
                 };
                 result = ModContent.ItemType<AreusPartisan>();
+            }
+            if (baseItemType == ModContent.ItemType<BrokenAreusMirror>())
+            {
+                materials = new[,]
+                {
+                    { ModContent.ItemType<AreusShard>(), 10 },
+                    { ModContent.ItemType<Jade>(), 3 },
+                    { ItemID.CrystalShard, 15 },
+                };
+                result = ModContent.ItemType<AreusMirror>();
             }
             if (baseItemType == ModContent.ItemType<War>())
             {
@@ -583,6 +578,27 @@ namespace ShardsOfAtheria.ShardsUI
                 return false;
             }
             if (!AnySlotContains(ItemID.FragmentVortex, 10))
+            {
+                return false;
+            }
+            return true;
+        }
+        bool RepairMirror()
+        {
+            var item = mainSlot.Item;
+            if (!AnySlotContains(ModContent.ItemType<AreusShard>(), 10))
+            {
+                return false;
+            }
+            if (!AnySlotContains(ModContent.ItemType<Jade>(), 3))
+            {
+                return false;
+            }
+            if (item.type != ModContent.ItemType<BrokenAreusMirror>())
+            {
+                return false;
+            }
+            if (!AnySlotContains(ItemID.CrystalShard, 15))
             {
                 return false;
             }

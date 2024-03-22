@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.SinfulSouls;
+using ShardsOfAtheria.Projectiles.Ranged;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -35,6 +36,21 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.value = Item.sellPrice(0, 5);
             Item.shoot = ProjectileID.PurificationPowder;
             Item.useAmmo = AmmoID.Arrow;
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            player.AddBuff(BuffID.Midas, 3600);
+            return base.CanUseItem(player);
+        }
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            if (player.BuyItem(10000))
+            {
+                type = ModContent.ProjectileType<PantheonsGreedArrow>();
+                damage = (int)(damage * 1.5f);
+            }
         }
 
         public override Vector2? HoldoutOffset()

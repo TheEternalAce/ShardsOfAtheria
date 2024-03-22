@@ -759,11 +759,20 @@ Items: {
 			Increased Areus weapon damage by 10%
 			Reduced mana usage by 15%
 			'''
-		SetBonus: ""
-		MeleeDamageClassBonus: ""
-		RangedDamageClassBonus: ""
+		SetBonus:
+			'''
+			Summons an EM Avatar by your side
+			Double tap UP or DOWN to mark an enemy near your cursor
+			Marked enemies take extra damage
+			'''
+		MeleeDamageClassBonus: The EM Avatar attacks nearby enemies with rapid sword strikes
+		RangedDamageClassBonus: The EM Avatar shoots at nearby enemies with its buster
 		MagicDamageClassBonus: ""
-		SummonDamageClassBonus: ""
+		SummonDamageClassBonus:
+			'''
+			The EM Avatar commands a team of areus drones to fire at nearby enemies
+			Double tapping UP or DOWN charges the drones to fire a piercing laser
+			'''
 	}
 
 	RoyalJacket: {
@@ -2375,12 +2384,7 @@ Items: {
 
 	Pantheon: {
 		DisplayName: Pantheon
-		Tooltip:
-			'''
-			Right click with Gold or Platinum bars in inventory to increase projectiles fired by 1
-			Fires up to 5 projectiles
-			Resets after death
-			'''
+		Tooltip: Spend 1 gold to fire heavy, high damage, golden arrows
 	}
 
 	PhantomRose: {
@@ -2443,6 +2447,11 @@ Items: {
 			{$CommonItemTooltip.Whips}
 			Strikes cause golden chains to sprout from the target
 			'''
+	}
+
+	AreusMirror: {
+		DisplayName: Areus Mirror
+		Tooltip: Summons a stationary mirror to fight for you
 	}
 
 	AreusStabberStaff: {
@@ -2810,6 +2819,7 @@ Projectiles: {
 	EmeraldTeleport.DisplayName: Emerald Teleport
 	AreusStabber.DisplayName: Areus Blade
 	AreusMirrorBroken.DisplayName: Areus Mirror Broken
+	AreusMirror.DisplayName: Areus Mirror
 	ElectricHook.DisplayName: Electric Hook
 	AreusWandBlade.DisplayName: Areus Wand Blade
 	PlagueBeam.DisplayName: Gamma Plague Beam
@@ -2842,6 +2852,16 @@ Projectiles: {
 	BloodRocket.DisplayName: Blood Rocket
 	AreusTagLaser.DisplayName: Areus Tag Laser
 	AreusHoloBannerProjector.DisplayName: Areus Holo Banner Projector
+	BounceLaser.DisplayName: Areus Laser
+	MirrorPrism.DisplayName: Mirror Prism
+	AreusMirrorSentry.DisplayName: Areus Mirror
+	BusterShot.DisplayName: Buster Shot
+	EMAvatar.DisplayName: E M Avatar
+	SaberSlash.DisplayName: Saber Slash
+	PantheonsGreedArrow.DisplayName: Pantheons Greed Arrow
+	ScarletPetal.DisplayName: Scarlet Petal
+	ScarletRose.DisplayName: Scarlet Rose
+	ChargeLaser.DisplayName: Charge Laser
 }
 
 NPCs: {
@@ -3334,8 +3354,8 @@ Buffs: {
 	}
 
 	# Summons
-	AreusMirrorBuff: {
-		DisplayName: Areus Mirror
+	BrokenAreusMirrorBuff: {
+		DisplayName: Broken Areus Mirror
 		Description: The areus mirror shards will fight for you
 	}
 
@@ -3541,6 +3561,16 @@ Buffs: {
 	AreusBannerSummonBuff: {
 		DisplayName: Areus Banner Summon Buff
 		Description: Mods.ShardsOfAtheria.Buffs.AreusBannerSummonBuff.Description
+	}
+
+	MarkedByAvatar: {
+		DisplayName: Marked By Avatar
+		Description: Mods.ShardsOfAtheria.Buffs.MarkedByAvatar.Description
+	}
+
+	ChargingDrones: {
+		DisplayName: Charging Drones
+		Description: Mods.ShardsOfAtheria.Buffs.ChargingDrones.Description
 	}
 }
 

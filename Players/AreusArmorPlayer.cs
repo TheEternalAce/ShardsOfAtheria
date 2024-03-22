@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
 using ShardsOfAtheria.Items.AreusChips;
 using ShardsOfAtheria.Projectiles.Other;
+using ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar;
 using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Utilities;
 using System.Linq;
@@ -156,6 +158,13 @@ namespace ShardsOfAtheria.Players
                         }
                         if (royalSet)
                         {
+                            cooldownTime *= 10;
+                            var npc = ShardsHelpers.FindClosestNPC(Main.MouseWorld, null, 100f);
+                            if (npc != null)
+                            {
+                                Player.MinionAttackTargetNPC = npc.whoAmI;
+                                npc.AddBuff<MarkedByAvatar>(3600);
+                            }
                             if (WarriorSet)
                             {
                                 RoyalActive_Melee();
@@ -170,6 +179,7 @@ namespace ShardsOfAtheria.Players
                             }
                             if (CommanderSet)
                             {
+                                cooldownTime *= 2;
                                 RoyalActive_Summon();
                             }
                         }
@@ -192,6 +202,11 @@ namespace ShardsOfAtheria.Players
                 if (Player.ownedProjectileCounts[type] == 0 && Player.head == headSlot)
                 {
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, type, 0, 0);
+                }
+                type = ModContent.ProjectileType<EMAvatar>();
+                if (Player.ownedProjectileCounts[type] == 0)
+                {
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, type, 120, 0);
                 }
             }
             if (Player.HasChipEquipped(ModContent.ItemType<FlightChip>()))
@@ -217,7 +232,6 @@ namespace ShardsOfAtheria.Players
 
         private void RoyalActive_Melee()
         {
-
         }
         private void RoyalActive_Ranged()
         {
@@ -229,7 +243,7 @@ namespace ShardsOfAtheria.Players
         }
         private void RoyalActive_Summon()
         {
-
+            Player.AddBuff<ChargingDrones>(121);
         }
 
         public override bool CanConsumeAmmo(Item weapon, Item ammo)

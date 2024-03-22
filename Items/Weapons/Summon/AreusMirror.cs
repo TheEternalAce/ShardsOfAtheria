@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.Summons;
-using ShardsOfAtheria.Projectiles.Summon.Minions;
+using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Projectiles.Summon.Minions.Sentry;
+using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
@@ -9,12 +11,11 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Summon
 {
-    public class BrokenAreusMirror : ModItem
+    public class AreusMirror : ModItem
     {
         public override void SetStaticDefaults()
         {
             Item.AddAreus();
-            Item.AddUpgradable();
         }
 
         public override void SetDefaults()
@@ -22,9 +23,9 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             Item.width = 34;
             Item.height = 40;
 
-            Item.damage = 18;
+            Item.damage = 32;
             Item.DamageType = DamageClass.Summon;
-            Item.knockBack = 0;
+            Item.knockBack = 5;
             Item.crit = 5;
 
             Item.useTime = 20;
@@ -34,11 +35,10 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             Item.noMelee = true;
 
             Item.shootSpeed = 0;
-            Item.rare = ItemDefaults.RarityDungeon;
-            Item.value = 10000;
-            Item.shoot = ModContent.ProjectileType<AreusMirrorBroken>();
-
-            Item.buffType = ModContent.BuffType<BrokenAreusMirrorBuff>();
+            Item.rare = ItemDefaults.RarityEarlyHardmode;
+            Item.value = ItemDefaults.ValueEarlyHardmode;
+            Item.shoot = ModContent.ProjectileType<AreusMirrorSentry>();
+            Item.sentry = true;
         }
 
         public override bool AltFunctionUse(Player player)
@@ -54,13 +54,22 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            // This is needed so the buff that keeps your minion alive and allows you to despawn it properly applies
-            player.AddBuff(Item.buffType, 2);
-
             var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, Main.myPlayer, 1);
             projectile.originalDamage = Item.damage;
             // Since we spawned the projectile manually already, we do not need the game to spawn it for ourselves anymore, so return false
+            ShardsHelpers.KillOldestSentry(player, projectile.whoAmI);
             return false;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<BrokenAreusMirror>())
+                .AddIngredient(ModContent.ItemType<AreusShard>(), 10)
+                .AddIngredient<Jade>(3)
+                .AddIngredient(ItemID.CrystalShard, 15)
+                .AddCondition(SoAConditions.Upgrade)
+                .Register();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -6,15 +7,11 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Summon.Minions
+namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
 {
     public class AreusDrone : ModProjectile
     {
-        int ShootTimer
-        {
-            get => (int)Projectile.ai[1];
-            set => Projectile.ai[1] = value;
-        }
+        int shootTimer;
 
         public override void SetStaticDefaults()
         {
@@ -32,8 +29,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.aiStyle = -1;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 1800;
-            //Projectile.minion = true;
-            //Projectile.minionSlots = 0f;
+            Projectile.minion = true;
+            Projectile.minionSlots = 0f;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.friendly = true;
@@ -57,11 +54,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Player owner = Main.player[Projectile.owner];
 
             Projectile.netUpdate = true;
-            if (!CheckActive(owner))
-            {
-                Projectile.Kill();
-                return;
-            }
+            if (!CheckActive(owner)) return;
+            Projectile.timeLeft = 2;
 
             Projectile.rotation = Projectile.velocity.X * 0.05f;
             GeneralBehavior(owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition);
@@ -76,12 +70,21 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
         private void GeneralBehavior(Player owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition)
         {
-            Vector2 idlePosition = owner.Center;
-
-            // If your minion doesn't aimlessly move around when it's idle, you need to "put" it into the line of other summoned minions
-            // The index is projectile.minionPos
-            float minionPositionOffsetX = (10 + Projectile.minionPos * 40) * -owner.direction;
-            idlePosition.X += minionPositionOffsetX; // Go behind the player
+            if (Projectile.ai[0] == 0 && !owner.HasBuff<ChargingDrones>())
+            {
+                foundTargetIdlePos = Vector2.One.RotatedByRandom(MathHelper.TwoPi) * 25;
+            }
+            if (++Projectile.ai[0] >= 60)
+            {
+                Projectile.ai[0] = 0;
+            }
+            if (Projectile.localAI[0] == 0)
+            {
+                var target = ShardsHelpers.FindClosestProjectile(Projectile.Center, 3000, ModContent.ProjectileType<EMAvatar>(), Projectile.owner);
+                Projectile.localAI[0] = target.whoAmI;
+            }
+            var avatar = Main.projectile[(int)Projectile.localAI[0]];
+            Vector2 idlePosition = avatar.Center + foundTargetIdlePos;
 
             // All of this code below this line is adapted from Spazmamini code (ID 388, aiStyle 66)
 
@@ -133,7 +136,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         private void SearchForTargets(Player owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter)
         {
             // Starting search distance
-            distanceFromTarget = 500f;
+            distanceFromTarget = 200f;
             targetCenter = Projectile.position;
             foundTarget = false;
 
@@ -146,7 +149,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
                     if (npc.CanBeChasedBy())
                     {
-                        float distance = Vector2.Distance(npc.Center, Projectile.Center);
+                        float distance = Vector2.Distance(npc.Center, owner.Center);
                         bool closest = Vector2.Distance(Projectile.Center, targetCenter) > distance;
                         bool inRange = distance < distanceFromTarget;
                         bool lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height);
@@ -163,6 +166,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             }
         }
 
+        Vector2 foundTargetIdlePos;
         private void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
         {
             Player player = Main.player[Projectile.owner];
@@ -170,25 +174,24 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             float speed = 4;
             float inertia = 80;
 
-            if (foundTarget)
+            if (foundTarget && !player.HasBuff<ChargingDrones>())
             {
-                Projectile.timeLeft = 1800;
                 speed = 8f;
                 inertia = 80f;
 
-                if (++ShootTimer >= 90 + Main.rand.Next(120))
+                if (++shootTimer >= 90 + Main.rand.Next(120))
                 {
-                    SoundEngine.PlaySound(SoundID.Item72, Projectile.Center);
-                    Vector2 velocity = Vector2.Normalize(targetCenter - Projectile.Center) * 16f;
+                    SoundEngine.PlaySound(SoA.MagnetShot, Projectile.Center);
+                    Vector2 velocity = Vector2.Normalize(targetCenter - Projectile.Center) * 8f;
                     Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity,
                         ModContent.ProjectileType<AreusTagLaser>(), Projectile.damage, 0, Projectile.owner);
 
-                    ShootTimer = 0;
+                    shootTimer = 0;
                 }
             }
             else
             {
-                ShootTimer = 0;
+                shootTimer = 0;
             }
 
             // Minion doesn't have a target: return to player and idle
@@ -199,13 +202,18 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                 inertia = 60f;
             }
 
+            if (distanceToIdlePosition > 200f)
+            {
+                speed = 32f;
+                inertia = 20f;
+            }
 
             if (distanceToIdlePosition > 4000f)
             {
                 Projectile.Center = player.Center;
                 Projectile.netUpdate = true;
             }
-            else if (distanceToIdlePosition > 20f)
+            else if (distanceToIdlePosition > 20f && !player.HasBuff<ChargingDrones>())
             {
                 // The immediate range around the player (when it passively floats about)
 
@@ -220,12 +228,17 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                 Projectile.velocity.X = -0.15f;
                 Projectile.velocity.Y = -0.05f;
             }
+
+            if (player.HasBuff<ChargingDrones>())
+            {
+                Projectile.velocity = vectorToIdlePosition * 0.05f;
+            }
         }
 
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
         private static bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || !owner.Areus().soldierSet || !owner.Areus().CommanderSet)
+            if (owner.dead || !owner.active || !owner.Areus().royalSet || !owner.Areus().CommanderSet)
                 return false;
             return true;
         }

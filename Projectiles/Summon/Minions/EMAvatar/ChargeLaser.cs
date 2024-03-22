@@ -9,9 +9,9 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
+namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
 {
-    public class AreusRetribution : ModProjectile
+    public class ChargeLaser : ModProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             Projectile.height = 20;
             Projectile.aiStyle = -1;
             Projectile.penetrate = -1;
-            Projectile.DamageType = DamageClass.Melee;
+            Projectile.DamageType = DamageClass.Summon;
             Projectile.tileCollide = false;
             Projectile.friendly = true;
             Projectile.usesIDStaticNPCImmunity = true;
@@ -63,9 +63,14 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
                 opacityByProgress = (progress - 0.8f) / 0.2f;
             }
             Projectile.Opacity = 1f - opacityByProgress;
-            var dir = -Vector2.UnitY;
+            var dir = Projectile.velocity;
             Projectile.localAI[0] = 1200;
             Projectile.localAI[1] = dir.ToRotation();
+        }
+
+        public override bool ShouldUpdatePosition()
+        {
+            return false;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -76,7 +81,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             }
 
             float _ = 0f;
-            Vector2 beamEndPos = Projectile.Center + Vector2.UnitY * -Projectile.localAI[0];
+            Vector2 beamEndPos = Projectile.Center + Projectile.velocity * Projectile.localAI[0];
             return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, beamEndPos, 16f * Projectile.scale, ref _);
         }
 
@@ -89,7 +94,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
         public void DrawLaser()
         {
             float progress = Projectile.ai[1] / (Main.player[Projectile.owner].itemAnimationMax * 2f);
-            var dir = -Vector2.UnitY;
+            var dir = Projectile.velocity;
 
             if (progress < 0.25f)
             {
@@ -101,7 +106,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             var startPosition = Projectile.Center - Main.screenPosition + dir;
             var endPosition = Projectile.Center + dir * Projectile.localAI[0] - Main.screenPosition;
             float scale = Projectile.scale * progress;
-            var color = SoA.ElectricColor * progress * Projectile.Opacity;
+            var color = Color.Yellow * progress * Projectile.Opacity;
 
             float rotation = dir.ToRotation() - MathHelper.PiOver2;
             var texture = TextureAssets.Projectile[Type].Value;

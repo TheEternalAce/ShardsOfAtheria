@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Buffs.Summons
 {
-    public class AreusMirrorBuff : ModBuff
+    public class BrokenAreusMirrorBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {
