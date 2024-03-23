@@ -70,8 +70,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         {
             if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
             {
-                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, normalizedVelocity * 6f,
-                ModContent.ProjectileType<SalamanderLaser>(), 9, 0f, Main.myPlayer);
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, normalizedVelocity * 6f, ModContent.ProjectileType<SalamanderLaser>(), 9, 0f, Main.myPlayer);
             }
         }
 

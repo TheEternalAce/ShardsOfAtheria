@@ -43,9 +43,12 @@ namespace ShardsOfAtheria.Projectiles.Magic
         public override void AI()
         {
             var player = Projectile.GetPlayerOwner();
+            Projectile.velocity *= 0.85f;
             if (player.HasItem<AreusGhostLantern>())
             {
-                if (player.Overdrive() && Projectile.Distance(player.Center) < 200)
+                float pullRange = 50;
+                if (player.Overdrive()) pullRange += 150;
+                if (Projectile.Distance(player.Center) < pullRange)
                 {
                     var vectorToPlayer = player.Center - Projectile.Center;
                     ShardsHelpers.AdjustMagnitude(ref vectorToPlayer, 14f);
@@ -94,7 +97,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = SoA.ElectricColor;
-            Projectile.DrawBlurTrail(lightColor, SoA.OrbBlur, scale: 0.5f);
+            Projectile.DrawBloomTrail(lightColor.UseA(50), SoA.OrbBloom, scale: 0.5f);
             return base.PreDraw(ref lightColor);
         }
     }

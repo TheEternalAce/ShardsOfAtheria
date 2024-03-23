@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
 
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Projectile.rotation = Projectile.velocity.ToRotation();
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = SoA.ElectricColor;
-            Projectile.DrawBlurTrail(lightColor, SoA.LineBlur);
+            Projectile.DrawBloomTrail(lightColor.UseA(50), SoA.LineBloom);
             return base.PreDraw(ref lightColor);
         }
     }

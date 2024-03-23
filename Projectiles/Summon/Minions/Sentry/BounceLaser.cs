@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
         {
             Projectile.velocity.Normalize();
             Projectile.velocity *= 8f;
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Projectile.rotation = Projectile.velocity.ToRotation();
 
             foreach (var projectile in Main.projectile)
             {
@@ -74,7 +74,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.DrawBlurTrail(SoA.ElectricColor, SoA.LineBlur);
+            Projectile.DrawBloomTrail(SoA.ElectricColor.UseA(50), SoA.LineBloom);
             return base.PreDraw(ref lightColor);
         }
     }

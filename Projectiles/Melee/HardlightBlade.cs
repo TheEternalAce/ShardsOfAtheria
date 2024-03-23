@@ -70,8 +70,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Color color = new(227, 182, 245, 80);
-            Projectile.DrawBlurTrail(SoA.HardlightColor * 0.7f, SoA.DiamondBlur);
+            Projectile.DrawBloomTrail(SoA.HardlightColor.UseA(50), SoA.DiamondBloom, MathHelper.PiOver2);
             lightColor = Color.White;
             return true;
         }

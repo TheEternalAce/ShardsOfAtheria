@@ -2193,6 +2193,7 @@ Items: {
 				Increased bullet count
 				Reduced fire rate
 				Chance of misfire
+				50% benefit from attack speed boosts
 				''' */
 		}
 
@@ -2202,10 +2203,15 @@ Items: {
 				'''
 				Reduced spread, bullet count and fire rate
 				Increased damage
+				33% benefit from attack speed boosts
 				''' */
 		}
 
-		// Overdrive: Exagerates the features of the calibration modes
+		/* Overdrive:
+			'''
+			Exagerates the features of the calibration modes
+			Further reduced benefit from attack speed boosts
+			''' */
 	}
 
 	AreusFlameCannon: {
@@ -2844,6 +2850,7 @@ Projectiles: {
 	// ScarletPetal.DisplayName: Scarlet Petal
 	// ScarletRose.DisplayName: Scarlet Rose
 	// ChargeLaser.DisplayName: Charge Laser
+	// EMRitual.DisplayName: E M Ritual
 }
 
 NPCs: {
@@ -3643,17 +3650,14 @@ Tiles: {
 }
 
 Keybinds: {
-	// ToggleOverdrive.DisplayName: Toggle Overdrive
-	// KnowledgeBase.DisplayName: Cycle Knowledge Base
-	// EmeraldTeleport.DisplayName: Emerald Teleport
-	// PhaseType.DisplayName: Toggle Phase Type
-	// SoulCrystalTeleport.DisplayName: Soul Crystal Teleport
-	// ArmorSetBonus.DisplayName: Activate Armor Set Bonus
-	// ElementAffinity.DisplayName: Cycle Element Affinity
-	// RemoveAreusChip.DisplayName: Remove Areus Chip
-	// CycleElementAffinity.DisplayName: Cycle Element Affinity
-	// MasterCoreToggles.DisplayName: Master Gem Core Visual Toggles
-	// AmethystBombToggle.DisplayName: Amethyst Bomb Toggle
+	// ToggleOverdrive.DisplayName: "[i:ShardsOfAtheria/Biometal] Toggle Overdrive"
+	// KnowledgeBase.DisplayName: "[i:ShardsOfAtheria/TomeOfOmniscience] Cycle Knowledge Base"
+	// EmeraldTeleport.DisplayName: "[i:ShardsOfAtheria/EmeraldCore_Super] Emerald Teleport"
+	// PhaseType.DisplayName: "[i:ShardsOfAtheria/RushDrive] Toggle Phase Type"
+	// SoulCrystalTeleport.DisplayName: "[i:ShardsOfAtheria/LunaticSoulCrystal] Soul Crystal Teleport"
+	// ArmorSetBonus.DisplayName: "[i:ShardsOfAtheria/GuardHelmet] Activate Armor Set Bonus"
+	// CycleElementAffinity.DisplayName: "[i:ShardsOfAtheria/AreusProcessor] Cycle Element Affinity"
+	// AmethystBombToggle.DisplayName: "[i:ShardsOfAtheria/AmethystCore_Greater] Amethyst Bomb Toggle"
 }
 
 Configs: {

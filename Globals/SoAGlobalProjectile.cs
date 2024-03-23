@@ -164,6 +164,7 @@ namespace ShardsOfAtheria.Globals
             {
                 ChangeElements(projectile, source);
             }
+            base.OnSpawn(projectile, source);
         }
 
         [JITWhenModsEnabled("BattleNetworkElements")]

@@ -33,8 +33,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             Projectile.aiStyle = -1;
             Projectile.penetrate = -1;
             Projectile.timeLeft *= 5;
-            //Projectile.minion = true;
-            //Projectile.minionSlots = 0f;
+            Projectile.minion = true;
+            Projectile.minionSlots = 0.5f;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.friendly = true;

@@ -12,10 +12,6 @@
         public const string MagicWeapon = "ShardsOfAtheria/Items/Weapons/Magic/";
         public const string SummonWeapon = "ShardsOfAtheria/Items/Weapons/Summon/";
 
-        public const string OrbBlur = "ShardsOfAtheria/Assets/BlurTrails/OrbBlur";
-        public const string DiamondBlur = "ShardsOfAtheria/Assets/BlurTrails/DiamondBlur";
-        public const string LineBlur = "ShardsOfAtheria/Assets/BlurTrails/LineTrail";
-
         private const string ItemSoundPath = "ShardsOfAtheria/Sounds/Item/";
 
         public const string LocalizeCommon = "Mods.ShardsOfAtheria.Common.";

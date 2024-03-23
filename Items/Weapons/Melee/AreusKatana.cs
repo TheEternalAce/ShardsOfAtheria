@@ -39,6 +39,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<ElecKunai>();
         }
 
+        public override float UseSpeedMultiplier(Player player)
+        {
+            return 0.75f;
+        }
+
         public override void AddRecipes()
         {
             CreateRecipe()

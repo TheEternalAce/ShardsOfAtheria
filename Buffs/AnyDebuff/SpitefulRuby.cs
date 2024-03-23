@@ -33,6 +33,10 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
                     npc.lifeRegen = 0;
                 }
                 npc.lifeRegen -= 30;
+                if (damage < 15)
+                {
+                    damage = 15;
+                }
             }
         }
 

@@ -54,7 +54,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
                 rotation -= MathHelper.TwoPi;
             }
             Projectile.Center = position + Vector2.One.RotatedBy(Projectile.ai[0] / 4f * MathHelper.TwoPi + rotation) * 100;
-            Projectile.rotation = Vector2.Normalize(position - Projectile.Center).ToRotation() + MathHelper.ToRadians(225);
+            Projectile.rotation = (position - Projectile.Center).ToRotation() + MathHelper.ToRadians(225);
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -78,8 +78,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = Color.White;
-            Projectile.DrawBlurTrail(SoA.HardlightColor * 0.7f, SoA.DiamondBlur, MathHelper.ToRadians(45f));
-            Projectile.DrawAfterImage(lightColor);
             return true;
         }
     }

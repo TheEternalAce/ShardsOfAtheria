@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Projectile.rotation = Projectile.velocity.ToRotation();
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -58,7 +58,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = SoA.ElectricColor;
-            Projectile.DrawBlurTrail(lightColor, SoA.LineBlur);
+            Projectile.DrawBloomTrail(lightColor.UseA(50), SoA.LineBloom);
             return base.PreDraw(ref lightColor);
         }
     }

@@ -84,7 +84,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
                     rotation -= MathHelper.TwoPi;
                 }
                 Projectile.Center = player.Center + Vector2.One.RotatedBy(Projectile.ai[0] / 7f * MathHelper.TwoPi + rotation) * 225;
-                Projectile.rotation = Vector2.Normalize(Projectile.Center - player.Center).ToRotation() + MathHelper.ToRadians(225);
+                Projectile.rotation = (Projectile.Center - player.Center).ToRotation() + MathHelper.ToRadians(225);
                 if (!SoA.Eternity())
                 {
                     if (Projectile.timeLeft <= 40)
@@ -143,8 +143,6 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.DrawBlurTrail(SoA.HardlightColor * 0.7f,
-                SoA.DiamondBlur, MathHelper.ToRadians(45f));
             lightColor = Color.White;
             return true;
         }

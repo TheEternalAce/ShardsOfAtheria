@@ -46,7 +46,6 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
             if (Projectile.damage < 1)
             {
                 Projectile.damage = 1;
@@ -112,7 +111,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.DrawAfterImage(Color.White);
             if (Projectile.ai[0] == 1)
             {
-                Projectile.DrawBlurTrail(Color.Yellow, SoA.OrbBlur);
+                Projectile.DrawBloomTrail(Color.Yellow.UseA(50), SoA.OrbBloom);
             }
             return true;
         }

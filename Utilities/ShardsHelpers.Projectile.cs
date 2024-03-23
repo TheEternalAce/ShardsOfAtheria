@@ -201,18 +201,8 @@ namespace ShardsOfAtheria.Utilities
         //        0);
         //}
 
-        public static void DrawBlurTrail(this Projectile projectile, Color color, string style, float angleAdd = 0f, float scale = 1f)
+        public static void DrawBloomTrail(this Projectile projectile, Color color, Texture2D texture, float rotationToAdd = 0f, float scale = 1f)
         {
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, null, null, null, null, Main.GameViewMatrix.ZoomMatrix);
-
-            Main.instance.LoadProjectile(projectile.type);
-            Texture2D texture = ModContent.Request<Texture2D>(style).Value;
-            if (style == SoA.DiamondBlur || style == SoA.LineBlur)
-            {
-                angleAdd += MathHelper.PiOver2;
-            }
-
             for (int k = 0; k < projectile.oldPos.Length; k++)
             {
                 Vector2 offset = new(projectile.width / 2f, projectile.height / 2f);
@@ -220,10 +210,8 @@ namespace ShardsOfAtheria.Utilities
                 Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + offset;
                 float sizec = scale * (projectile.oldPos.Length - k) / (projectile.oldPos.Length * 0.8f);
                 Color drawColor = color * (1f - projectile.alpha) * ((projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
-                Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, projectile.oldRot[k] + angleAdd, frame.Size() / 2, sizec, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, projectile.oldRot[k] + rotationToAdd, frame.Size() / 2, sizec, SpriteEffects.None, 0);
             }
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Main.GameViewMatrix.ZoomMatrix);
         }
         //Credits to Aslysmic/Tewst Mod (so cool)
 

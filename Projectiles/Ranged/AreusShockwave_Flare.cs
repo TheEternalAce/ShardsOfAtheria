@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = SoA.ElectricColor;
-            Projectile.DrawBlurTrail(lightColor, SoA.OrbBlur, scale: Projectile.scale);
+            Projectile.DrawBloomTrail(lightColor.UseA(50), SoA.OrbBloom, scale: Projectile.scale);
             return false;
         }
     }

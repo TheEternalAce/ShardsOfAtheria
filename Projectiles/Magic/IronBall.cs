@@ -65,7 +65,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
         public override bool PreDraw(ref Color lightColor)
         {
             Projectile.DrawAfterImage(Color.White);
-            Projectile.DrawBlurTrail(Color.Yellow, SoA.OrbBlur);
+            Projectile.DrawBloomTrail(Color.Yellow.UseA(50), SoA.OrbBloom);
             return true;
         }
 

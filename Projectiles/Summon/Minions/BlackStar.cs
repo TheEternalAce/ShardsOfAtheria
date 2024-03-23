@@ -299,7 +299,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
         public override void PostDraw(Color lightColor)
         {
-            Projectile.DrawBlurTrail(lightColor, SoA.OrbBlur);
+            Projectile.DrawBloomTrail(lightColor.UseA(50), SoA.OrbBloom);
             Projectile.DrawAfterImage(lightColor);
         }
     }

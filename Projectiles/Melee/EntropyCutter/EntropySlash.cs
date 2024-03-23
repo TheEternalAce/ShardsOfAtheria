@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.EntropyCutter
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
-            ProjectileID.Sets.TrailingMode[Type] = 0;
+            ProjectileID.Sets.TrailingMode[Type] = 2;
             Projectile.AddElement(1);
             Projectile.AddRedemptionElement(7);
         }
@@ -41,8 +41,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.EntropyCutter
         {
             var color = new Color(90, 10, 120);
             lightColor = Color.White;
-            var rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            Projectile.DrawBlurTrail(color, SoA.DiamondBlur, rotation);
+            Projectile.DrawBloomTrail(color.UseA(50), SoA.DiamondBloom, MathHelper.PiOver2);
             Projectile.DrawAfterImage(lightColor);
             return base.PreDraw(ref lightColor);
         }

@@ -71,13 +71,9 @@ namespace ShardsOfAtheria.Projectiles.Magic
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = Color.White;
-            return base.PreDraw(ref lightColor);
-        }
-
-        public override void PostDraw(Color lightColor)
-        {
-            Projectile.DrawBlurTrail(lightColor, SoA.DiamondBlur);
+            Projectile.DrawBloomTrail(lightColor.UseA(50), SoA.DiamondBloom, MathHelper.PiOver2);
             Projectile.DrawAfterImage(lightColor);
+            return base.PreDraw(ref lightColor);
         }
     }
 }

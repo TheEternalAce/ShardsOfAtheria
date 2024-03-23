@@ -41,10 +41,9 @@ namespace ShardsOfAtheria.Projectiles.Ranged.GunRose
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.spriteBatch.Draw(ModContent.Request<Texture2D>(Texture).Value,
-                Projectile.position - Main.screenPosition - new Vector2(17) * Projectile.scale,
-                null, lightColor, 0f, Vector2.Zero, Projectile.scale, SpriteEffects.None,
-                1);
+            var texure = ModContent.Request<Texture2D>(Texture).Value;
+            Main.spriteBatch.Draw(texure, Projectile.position - Main.screenPosition - texure.Size() / 2 * Projectile.scale,
+                null, lightColor, 0f, Vector2.Zero, Projectile.scale, SpriteEffects.None, 0f);
             return false;
         }
     }

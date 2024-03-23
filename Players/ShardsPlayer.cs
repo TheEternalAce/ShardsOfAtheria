@@ -60,9 +60,6 @@ namespace ShardsOfAtheria.Players
         public bool pearlwoodSet;
         public int pearlwoodBowShoot;
 
-        public int projCooldown;
-        public bool ProjCooldown => projCooldown > 0;
-
         public int combatTimer;
         public bool InCombat => combatTimer > 0;
         /// <summary>
@@ -138,11 +135,6 @@ namespace ShardsOfAtheria.Players
             Biometal = BiometalHideVanity = BiometalForceVanity = false;
 
             UpdateResource();
-
-            if (projCooldown > 0)
-            {
-                projCooldown--;
-            }
 
             if (combatTimer > 0)
             {
@@ -240,7 +232,7 @@ namespace ShardsOfAtheria.Players
 
         private void TryAreusKatanaTransformation()
         {
-            if (katanaTransformTimer >= 600 + Main.rand.Next(300))
+            if (++katanaTransformTimer >= 600 + Main.rand.Next(300))
             {
                 katanaTransformTimer = 0;
                 if (Player.HasItem(ModContent.ItemType<AreusKatana>()) &&

@@ -89,7 +89,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
         private void GeneralBehavior(Player owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition)
         {
             Vector2 idlePosition = owner.Center;
-            idlePosition.X -= 48f * owner.direction + 40;
+            idlePosition.X -= 88f * owner.direction;
 
             vectorToIdlePosition = idlePosition - Projectile.Center;
             distanceToIdlePosition = vectorToIdlePosition.Length();
@@ -113,40 +113,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
 
             int torch = TorchID.Green;
             Lighting.AddLight(Projectile.Center, torch);
-
-            //if (++emoteTimer >= 900 + Main.rand.Next(300))
-            //{
-            //    CombatText.NewText(Projectile.Hitbox, Color.Blue, randomEmotes[Main.rand.Next(randomEmotes.Length)]);
-            //    SoundEngine.PlaySound(SoundID.Item53.WithPitchOffset(1), Projectile.Center);
-            //    emoteTimer = 0;
-            //}
-
-            //float overlapVelocity = 0.04f;
-            //for (int i = 0; i < Main.maxProjectiles; i++)
-            //{
-            //    Projectile other = Main.projectile[i];
-
-            //    if (i != Projectile.whoAmI && other.active && other.owner == Projectile.owner && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
-            //    {
-            //        if (Projectile.position.X < other.position.X)
-            //        {
-            //            Projectile.velocity.X -= overlapVelocity;
-            //        }
-            //        else
-            //        {
-            //            Projectile.velocity.X += overlapVelocity;
-            //        }
-
-            //        if (Projectile.position.Y < other.position.Y)
-            //        {
-            //            Projectile.velocity.Y -= overlapVelocity;
-            //        }
-            //        else
-            //        {
-            //            Projectile.velocity.Y += overlapVelocity;
-            //        }
-            //    }
-            //}
         }
 
         private void SearchForTargets(Player owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter)
@@ -229,9 +195,9 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
                 }
                 if (areus.MageSet)
                 {
-                    projectileType = ModContent.ProjectileType<BusterShot>();
+                    projectileType = ModContent.ProjectileType<EMRitual>();
                     projectileSpeed = 0;
-                    projectileTimerMax = 180;
+                    projectileTimerMax = 900;
                     shootSound = SoundID.Item8;
                 }
 

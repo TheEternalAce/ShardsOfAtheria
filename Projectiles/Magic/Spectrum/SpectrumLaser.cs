@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Spectrum
 
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
+            Projectile.rotation = Projectile.velocity.ToRotation();
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -47,7 +47,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Spectrum
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.DrawBlurTrail(laserColor, SoA.LineBlur);
+            Projectile.DrawBloomTrail(laserColor.UseA(50), SoA.LineBloom);
             return base.PreDraw(ref lightColor);
         }
     }

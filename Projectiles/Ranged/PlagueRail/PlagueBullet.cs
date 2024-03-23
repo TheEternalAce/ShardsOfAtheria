@@ -8,7 +8,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
 {
     public class PlagueBullet : ModProjectile
     {
-        public override string Texture => SoA.BlankTexture;
+        public override string Texture => "Terraria/Images/Projectile_927";
 
         public override void SetStaticDefaults()
         {
@@ -28,11 +28,12 @@ namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.aiStyle = 0;
             Projectile.ignoreWater = true;
+            //Projectile.alpha = 255;
         }
 
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Projectile.rotation = Projectile.velocity.ToRotation();
             int dustDelay = 11;
             if (++Projectile.ai[0] >= dustDelay)
             {
@@ -45,9 +46,10 @@ namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
 
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = Color.PaleGreen;
-            Projectile.DrawBlurTrail(lightColor, SoA.LineBlur);
-            return base.PreDraw(ref lightColor);
+            lightColor = Color.PaleGreen.UseA(50);
+            Projectile.DrawBloomTrail(lightColor, SoA.LineBloom);
+            //Projectile.DrawAfterImage(lightColor);
+            return false;
         }
     }
 }

@@ -65,14 +65,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.ElecKatana
 
         public override void UpdateSwing(float progress, float interpolatedSwingProgress)
         {
-            var player = Main.player[Projectile.owner];
-            var shards = player.Shards();
-            if (!shards.ProjCooldown)
-            {
-                FireProjectile(progress, ModContent.ProjectileType<ElecShuriken>(), Projectile.damage,
-                    Projectile.knockBack);
-                shards.projCooldown = 4;
-            }
+            FireProjectile(progress, ModContent.ProjectileType<ElecShuriken>(), Projectile.damage,
+                Projectile.knockBack);
         }
 
         public override float SwingProgress(float progress)

@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodthirstySword
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 70;
-            ProjectileID.Sets.TrailingMode[Type] = 0;
+            ProjectileID.Sets.TrailingMode[Type] = 2;
             Projectile.AddElement(1);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(12);
@@ -39,8 +39,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodthirstySword
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = Color.White;
-            var rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            Projectile.DrawBlurTrail(Color.DarkRed, SoA.DiamondBlur, rotation);
+            Projectile.DrawBloomTrail(Color.DarkRed.UseA(50), SoA.DiamondBloom, MathHelper.PiOver2);
             Projectile.DrawAfterImage(Color.White);
             return base.PreDraw(ref lightColor);
         }

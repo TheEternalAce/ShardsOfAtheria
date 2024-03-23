@@ -60,7 +60,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.EntropyCutter
         {
             var color = new Color(90, 10, 120);
             lightColor = Color.White;
-            Projectile.DrawBlurTrail(color, SoA.OrbBlur);
+            Projectile.DrawBloomTrail(color.UseA(50), SoA.OrbBloom);
             return base.PreDraw(ref lightColor);
         }
     }

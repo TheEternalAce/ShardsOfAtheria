@@ -100,7 +100,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.EventHorizon
         public override bool PreDraw(ref Color lightColor)
         {
             var color = new Color(90, 10, 120);
-            Projectile.DrawBlurTrail(color, SoA.DiamondBlur);
+            Projectile.DrawBloomTrail(color.UseA(50), SoA.DiamondBloom, MathHelper.PiOver2);
             lightColor = Color.White;
             return base.PreDraw(ref lightColor);
         }

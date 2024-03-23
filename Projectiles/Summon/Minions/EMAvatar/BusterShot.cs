@@ -46,7 +46,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = SoA.ElectricColor;
-            Projectile.DrawBlurTrail(lightColor, SoA.DiamondBlur, scale: 0.8f);
+            Projectile.DrawBloomTrail(lightColor.UseA(50), SoA.DiamondBloom, MathHelper.PiOver2, 0.8f);
             return base.PreDraw(ref lightColor);
         }
     }

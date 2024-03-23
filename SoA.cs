@@ -73,6 +73,9 @@ namespace ShardsOfAtheria
         public static readonly Vector3 ElectricColorV3 = ElectricColor.ToVector3();
         public static readonly Vector3 ElectricColorV3A = ElectricColorA.ToVector3();
 
+        public static Texture2D OrbBloom => ModContent.Request<Texture2D>("ShardsOfAtheria/Assets/BlurTrails/OrbBlur").Value;
+        public static Texture2D DiamondBloom => ModContent.Request<Texture2D>("ShardsOfAtheria/Assets/BlurTrails/DiamondBlur").Value;
+        public static Texture2D LineBloom => ModContent.Request<Texture2D>("ShardsOfAtheria/Assets/BlurTrails/LineTrail").Value;
         public static bool Eternity()
         {
             if (ModLoader.TryGetMod("FargowiltasSouls", out Mod souls))
@@ -236,7 +239,6 @@ namespace ShardsOfAtheria
                     terratyping.Call(overrideProjectile);
                 }
             }
-
             if (ModLoader.TryGetMod("BossChecklist", out Mod checklist))
             {
                 string despawnPath = "Mods.ShardsOfAtheria.NPCs.{0}.BossChecklistIntegration.Despawn";
@@ -267,7 +269,6 @@ namespace ShardsOfAtheria
                     }
                 );
             }
-
             if (ModLoader.TryGetMod("ShoeSlot", out Mod shoeSlot))
             {
                 shoeSlot.Call(ModContent.ItemType<EmeraldCore>());
@@ -275,7 +276,6 @@ namespace ShardsOfAtheria
                 shoeSlot.Call(ModContent.ItemType<EmeraldCore_Super>());
                 shoeSlot.Call(ModContent.ItemType<MegaGemCore>());
             }
-
             if (ModLoader.TryGetMod("ShieldSlot", out Mod shieldSlot))
             {
                 shieldSlot.Call(ModContent.ItemType<DiamondCore>(),
@@ -283,7 +283,6 @@ namespace ShardsOfAtheria
                     ModContent.ItemType<DiamondCore_Super>(),
                     ModContent.ItemType<MegaGemCore>());
             }
-
             if (ModLoader.TryGetMod("Fargowiltas", out Mod fargos))
             {
                 fargos.Call("AddSummon", 5.5f, ModContent.ItemType<ValkyrieCrest>(), () => ShardsDownedSystem.downedValkyrie, 50000);

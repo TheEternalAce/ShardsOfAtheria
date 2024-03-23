@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
         public override void SetDefaults()
         {
-            poes = 10;
+            poes = 20;
             Item.width = 26;
             Item.height = 40;
             Item.scale = 0.6f;
@@ -75,18 +75,31 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             string name = Language.GetTextValue(key) + " (" + poes + ")";
             Item.SetNameOverride(name);
 
+            int activePoes = CountPoes(player);
+            if (poes > 100) poes = 100;
+            if (player.shimmering || player.CCed || player.sleeping.isSleeping || poes + activePoes >= 100) return;
             if (++poeSpawnTimer >= 240 + Main.rand.Next(240) - player.Shards().combatTimer / 3)
             {
                 bool validPosition = false;
-                var vector = player.Center + Main.rand.NextVector2Circular(10, 10) * 50;
+                var position = player.Center + Main.rand.NextVector2Circular(10, 10) * 50;
                 while (!validPosition)
                 {
-                    vector = player.Center + Main.rand.NextVector2Circular(10, 10) * 50;
-                    validPosition = !Collision.SolidCollision(vector, 20, 20) && Collision.CanHit(player.position, player.width, player.height, vector, 20, 20);
+                    position = player.Center + Main.rand.NextVector2Circular(10, 10) * 50;
+                    validPosition = Collision.CanHit(player.position, player.width, player.height, position, 20, 20);
                 }
-                Projectile.NewProjectile(Item.GetSource_FromThis(), vector, Vector2.Zero, ModContent.ProjectileType<ElectricPoe>(), player.GetWeaponDamage(Item), 0);
+                Projectile.NewProjectile(Item.GetSource_FromThis(), position, Vector2.Zero, ModContent.ProjectileType<ElectricPoe>(), player.GetWeaponDamage(Item), 0);
                 poeSpawnTimer = 0;
             }
+        }
+
+        private int CountPoes(Player player)
+        {
+            int result = 0;
+            foreach (var projectile in Main.projectile)
+            {
+                if (projectile.active && projectile.type == Item.shoot && projectile.owner == player.whoAmI) result++;
+            }
+            return result;
         }
 
         public override bool CanUseItem(Player player)
@@ -109,10 +122,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             if (player.itemAnimation == player.itemAnimationMax)
             {
-                if (!player.Overdrive() || !Main.rand.NextBool(5))
-                {
-                    poes--;
-                }
+                if (!player.Overdrive() || !Main.rand.NextBool(5)) poes--;
             }
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }

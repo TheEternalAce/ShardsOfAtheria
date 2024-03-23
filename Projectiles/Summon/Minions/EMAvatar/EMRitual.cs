@@ -1,5 +1,9 @@
-﻿using ShardsOfAtheria.Utilities;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
@@ -8,11 +12,12 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
     {
         public override void SetDefaults()
         {
-            Projectile.width = 180;
-            Projectile.height = 180;
-            Projectile.timeLeft = 360000;
+            Projectile.width = 10;
+            Projectile.height = 10;
+            Projectile.timeLeft = 600;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
+            Projectile.scale = 0.25f;
         }
 
         public override void AI()
@@ -29,17 +34,47 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
             if (!CheckActive(owner) || avatar == null)
                 Projectile.Kill();
 
+            if (Projectile.scale < 1f)
+            {
+                Projectile.scale += 0.05f;
+            }
+
             Projectile.Center = avatar.Center;
             Projectile.netUpdate = true;
+            Projectile.rotation += MathHelper.ToRadians(1);
         }
 
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
         private bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || !owner.Slayer().CultistSoul)
+            if (owner.dead || !owner.active || !owner.Areus().royalSet || !owner.Areus().MageSet)
                 return false;
-            else Projectile.timeLeft = 2;
             return true;
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            if (timeLeft == 0)
+            {
+                SoundEngine.PlaySound(SoundID.Item9, Projectile.Center);
+                foreach (var player in Main.player)
+                {
+                    if (Projectile.Distance(player.Center) < 500)
+                    {
+                        player.Heal(player.statLifeMax2 / 10);
+                        player.ManaEffect(player.statManaMax2 / 3);
+                        player.statMana += player.statManaMax2 / 3;
+                    }
+                }
+            }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            var texure = ModContent.Request<Texture2D>(Texture).Value;
+            Main.spriteBatch.Draw(texure, Projectile.Center - Main.screenPosition,
+                null, SoA.ElectricColorA, Projectile.rotation, texure.Size() / 2, Projectile.scale, SpriteEffects.None, 0f);
+            return false;
         }
     }
 }
