@@ -3538,32 +3538,43 @@ Buffs: {
 
 	AreusBannerMeleeDebuff: {
 		DisplayName: Areus Banner Melee Debuff
-		Description: Mods.ShardsOfAtheria.Buffs.AreusBannerMeleeDebuff.Description
+		Description: Reduced defense
 	}
 
 	AreusBannerRangedDebuff: {
 		DisplayName: Areus Banner Ranged Debuff
-		Description: Mods.ShardsOfAtheria.Buffs.AreusBannerRangedDebuff.Description
+		Description: Reduced movement speed
 	}
 
 	AreusBannerSummonDebuff: {
 		DisplayName: Areus Banner Summon Debuff
-		Description: Mods.ShardsOfAtheria.Buffs.AreusBannerSummonDebuff.Description
+		Description:
+			'''
+			Increased defense, movement speed, and life and mana regen
+			'''
 	}
 
 	AreusBannerMagicBuff: {
 		DisplayName: Areus Banner Magic Buff
-		Description: Mods.ShardsOfAtheria.Buffs.AreusBannerMagicBuff.Description
+		Description:
+			'''
+			Increased damage, and life and mana regen
+			Reduced resource cost
+			'''
 	}
 
 	AreusBannerMeleeBuff: {
 		DisplayName: Areus Banner Melee Buff
-		Description: Mods.ShardsOfAtheria.Buffs.AreusBannerMeleeBuff.Description
+		Description: Increased damage, defense, and endurance
 	}
 
 	AreusBannerRangedBuff: {
 		DisplayName: Areus Banner Ranged Buff
-		Description: Mods.ShardsOfAtheria.Buffs.AreusBannerRangedBuff.Description
+		Description:
+			'''
+			Increased movement and attack speed speed
+			Reduced resource cost
+			'''
 	}
 
 	AreusBannerSummonBuff: {
