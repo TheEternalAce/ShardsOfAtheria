@@ -75,7 +75,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             string name = Language.GetTextValue(key) + " (" + poes + ")";
             Item.SetNameOverride(name);
 
-            int activePoes = CountPoes(player);
+            int activePoes = player.ownedProjectileCounts[ModContent.ProjectileType<ElectricPoe>()];
             if (poes > 100) poes = 100;
             if (player.shimmering || player.CCed || player.sleeping.isSleeping || poes + activePoes >= 100) return;
             if (++poeSpawnTimer >= 240 + Main.rand.Next(240) - player.Shards().combatTimer / 3)
@@ -90,16 +90,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 Projectile.NewProjectile(Item.GetSource_FromThis(), position, Vector2.Zero, ModContent.ProjectileType<ElectricPoe>(), player.GetWeaponDamage(Item), 0);
                 poeSpawnTimer = 0;
             }
-        }
-
-        private int CountPoes(Player player)
-        {
-            int result = 0;
-            foreach (var projectile in Main.projectile)
-            {
-                if (projectile.active && projectile.type == Item.shoot && projectile.owner == player.whoAmI) result++;
-            }
-            return result;
         }
 
         public override bool CanUseItem(Player player)
