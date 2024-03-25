@@ -2880,6 +2880,7 @@ Projectiles: {
 	// AncientDeathsScytheHostile.DisplayName: Ancient Deaths Scythe Hostile
 	// BloodBoltHostile.DisplayName: Blood Bolt Hostile
 	// BloodExplosionHostile.DisplayName: Blood Explosion Hostile
+	// FlameBusterPillar.DisplayName: Flame Buster Pillar
 }
 
 NPCs: {

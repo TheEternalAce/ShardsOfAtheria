@@ -69,44 +69,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            int multiplier = 1;
-            if (NPC.downedMoonlord)
-            {
-                multiplier++;
-            }
-            if (NPC.downedAncientCultist)
-            {
-                multiplier++;
-            }
-            if (NPC.downedGolemBoss)
-            {
-                multiplier++;
-            }
-            if (NPC.downedPlantBoss)
-            {
-                multiplier++;
-            }
-            if (NPC.downedMechBossAny)
-            {
-                multiplier++;
-            }
-            if (Main.hardMode)
-            {
-                multiplier++;
-            }
-            if (NPC.downedBoss3)
-            {
-                multiplier++;
-            }
-            if (NPC.downedBoss2)
-            {
-                multiplier++;
-            }
-            if (NPC.downedBoss1)
-            {
-                multiplier++;
-            }
-            damage *= multiplier;
+            damage = ShardsHelpers.ScaleByProggression(damage);
         }
 
         public override Vector2? HoldoutOffset()

@@ -101,16 +101,25 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameBuster
         {
             float numberProjectiles = 2;
             var source = Projectile.GetSource_FromThis();
+            var position = Projectile.Center;
             var velocity = Projectile.velocity;
             velocity.Normalize();
             velocity *= 12f;
             int type = ModContent.ProjectileType<FlameBusterBullet>();
             int damage = Projectile.damage / 2;
 
+            if (Projectile.ai[1] == 1)
+            {
+                position.Y -= 50;
+                velocity *= 0f;
+                type++;
+                Projectile.NewProjectile(source, position, velocity, type, damage, 2f);
+                return;
+            }
             for (int i = 0; i < numberProjectiles; i++)
             {
-                var position = Projectile.Center + Projectile.velocity.RotatedBy(MathHelper.PiOver2 + MathHelper.Pi * i) * 1f;
-                Projectile.NewProjectile(source, position, velocity, type, damage, 2f);
+                var adjustedPosition = position + Projectile.velocity.RotatedBy(MathHelper.PiOver2 + MathHelper.Pi * i) * 1f;
+                Projectile.NewProjectile(source, adjustedPosition, velocity, type, damage, 2f);
             }
         }
 

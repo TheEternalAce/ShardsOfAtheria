@@ -58,53 +58,25 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            int multiplier = 1;
-            if (NPC.downedMoonlord)
-            {
-                multiplier++;
-            }
-            if (NPC.downedAncientCultist)
-            {
-                multiplier++;
-            }
-            if (NPC.downedGolemBoss)
-            {
-                multiplier++;
-            }
-            if (NPC.downedPlantBoss)
-            {
-                multiplier++;
-            }
-            if (NPC.downedMechBossAny)
-            {
-                multiplier++;
-            }
-            if (Main.hardMode)
-            {
-                multiplier++;
-            }
-            if (NPC.downedBoss3)
-            {
-                multiplier++;
-            }
-            if (NPC.downedBoss2)
-            {
-                multiplier++;
-            }
-            if (NPC.downedBoss1)
-            {
-                multiplier++;
-            }
-            damage *= multiplier;
+            damage = ShardsHelpers.ScaleByProggression(damage);
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             if (charge == MaxCharge)
             {
-                velocity.Normalize();
-                type += 2;
-                //damage = (int)(damage * 1.5f);
+                if (player.Overdrive())
+                {
+                    velocity = Vector2.One;
+                    velocity.X *= player.direction;
+                    velocity *= Item.shootSpeed;
+                    damage = (int)(damage * 1.5f);
+                }
+                else
+                {
+                    velocity.Normalize();
+                    type = ModContent.ProjectileType<FlamethrowerBuster>();
+                }
             }
         }
 
@@ -130,7 +102,13 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            int previousCharge = charge;
             charge = 0;
+            if (previousCharge == MaxCharge)
+            {
+                Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0, 1);
+                return false;
+            }
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
     }
