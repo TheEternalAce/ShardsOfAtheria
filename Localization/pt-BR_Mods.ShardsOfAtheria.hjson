@@ -1117,6 +1117,11 @@ Items: {
 	}
 
 	# Pet items
+	AncientDeathsScythe: {
+		// DisplayName: Ancient Death's Scythe
+		// Tooltip: Summons a relic from the past
+	}
+
 	StrangeTissueSample: {
 		DisplayName: Amostra de Tecido Estranho
 		Tooltip: Invoca um Creeper de estimação para seguir você
@@ -1186,6 +1191,16 @@ Items: {
 
 	BurriedPartizanItem: {
 		// DisplayName: Burried Areus Partisan
+		// Tooltip: ""
+	}
+
+	DeathTrophy: {
+		// DisplayName: Elizabeth Norman Trophy
+		// Tooltip: ""
+	}
+
+	DeathRelic: {
+		// DisplayName: Elizabeth Norman Relic
 		// Tooltip: ""
 	}
 
@@ -2013,6 +2028,17 @@ Items: {
 			'''
 	}
 
+	FlameKnuckleBuster: {
+		// DisplayName: Theta Flame Knuckle Buster
+		/* Tooltip:
+			'''
+			Punches shoot plasma bullets
+			Charges while not in use
+			Charged attacks throw a wave of fire
+			''' */
+		// Overdrive: Charged attacks punch the ground, creating a pillar of fire instead
+	}
+
 	FuckEarlyGameHarpies: {
 		// DisplayName: Broken Areus Partisan
 		/* Tooltip:
@@ -2119,6 +2145,17 @@ Items: {
 			Absorbs even more blood on killing enemies
 			Shooting projectiles costs 10 blood
 			'''
+	}
+
+	TwinFlameSwords: {
+		// DisplayName: Theta Flame Sabers
+		/* Tooltip:
+			'''
+			Swings throw energy beams
+			Charges while not in use
+			Charged attacks fire a piercing beam
+			''' */
+		// Overdrive: Charged attacks fling you forward and explode on impact instead
 	}
 
 	ValkyrieBlade: {
@@ -2492,31 +2529,6 @@ Items: {
 		DisplayName: Nestling Staff
 		Tooltip: Summons a fledgling harpy knight to fight for you
 	}
-
-	AncientDeathsScythe: {
-		// DisplayName: Ancient Death's Scythe
-		// Tooltip: Summons a relic from the past
-	}
-
-	DeathTrophy: {
-		// DisplayName: Death Trophy
-		// Tooltip: ""
-	}
-
-	DeathRelic: {
-		// DisplayName: Death Relic
-		// Tooltip: ""
-	}
-
-	TwinFlameSwords: {
-		// DisplayName: Theta Flame Swords
-		// Tooltip: ""
-	}
-
-	FlameKnuckleBuster: {
-		// DisplayName: Theta Flame Knuckle Buster
-		// Tooltip: ""
-	}
 }
 
 Projectiles: {
@@ -2580,9 +2592,12 @@ Projectiles: {
 	CactusNeedle.DisplayName: Cactus Needle
 	FlamePillar.DisplayName: Flame Pillar
 	# Other
+	// AreusHoloBannerProjector.DisplayName: Areus Holo Banner Projector
+	// ColdExplosion.DisplayName: Cold Explosion
 	CreeperHitbox.DisplayName: Creeper, aw man
 	CrystalExplosion.DisplayName: CrystalExplosion
 	// ElectricBarrier.DisplayName: Electric Barrier
+	// ElectricExplosion.DisplayName: Electric Explosion
 	ElectricTrailFriendly.DisplayName: Electric Trail
 	ElementExplosion.DisplayName: Element Explosion
 	FoodChunk.DisplayName: Food Chunk
@@ -2644,6 +2659,7 @@ Projectiles: {
 	ElectricOrb.DisplayName: Electric Orb
 	ElectricSpike.DisplayName: Electric Spike
 	// ElectricWave.DisplayName: Electric Wave
+	// EMRitual.DisplayName: EM Ritual
 	// FireCannon_Fire_Gauntlet.DisplayName: Charged Fireball
 	GerdGun.DisplayName: Alpha Spectrum
 	GunswordGun.DisplayName: Gunsword Gun
@@ -2681,12 +2697,19 @@ Projectiles: {
 	CorruptRose.DisplayName: Corrupt Rose
 	ElectricBlade.DisplayName: Electric Blade
 	// ElecSaw.DisplayName: Electric Saw
+	// EnergyBeam.DisplayName: Energy Beam
 	EnergyScythe.DisplayName: Energy Scythe
 	EnergyWave.DisplayName: Energy Wave
 	EntropyBlade.DisplayName: Entropy Blade
 	// EntropySickle.DisplayName: Entropy Sickle
 	EntropySlash.DisplayName: Entropy Slash
 	FeatherBladeFriendly.DisplayName: Hardlight Feather
+	// FlameBuster.DisplayName: Theta Flame Buster
+	// FlameBusterBullet.DisplayName: Theta Buster Bullet
+	// FlameSlash.DisplayName: Theta Flame Slash
+	// FlameSword.DisplayName: Theta Flame Saber
+	// FlameSword_Thrust.DisplayName: Theta Flame Saber
+	// FlamethrowerBuster.DisplayName: Flamethrower Buster
 	Genesis_Spear.DisplayName: Genesis
 	Genesis_Spear2.DisplayName: Genesis
 	Genesis_Sword.DisplayName: Genesis
@@ -2697,7 +2720,6 @@ Projectiles: {
 	// HardlightBlade.DisplayName: Hardlight Blade
 	// HardlightSlash.DisplayName: Hardlight Slash
 	HardlightSword.DisplayName: Hardlight Sword
-	// PrototypeBandSlash.DisplayName: Unstable Areus Blade
 	// HellStar.DisplayName: Hell Star
 	HeroBlade.DisplayName: Hero Blade
 	// HeroSlash.DisplayName: Hero Sword
@@ -2709,10 +2731,12 @@ Projectiles: {
 	// MessiahRanbu.DisplayName: The Messiah
 	// Messiah.DisplayName: Messiah
 	MourningStar.DisplayName: Mourning Star
+	// PrototypeBandSlash.DisplayName: Unstable Areus Blade
 	Ragnarok_Shield.DisplayName: Ragnarok
 	RagnarokProj.DisplayName: Ragnarok
 	RagnarokProj2.DisplayName: Ragnarok
 	ReactorMeltdownProj.DisplayName: Reactor Meltdown
+	// SaberSlash.DisplayName: Saber Slash
 	SatanlanceProj.DisplayName: ecnalnataS
 	SoulBlade.DisplayName: Soul Blade
 	// StrikeChain.DisplayName: Strike Chain
@@ -2747,6 +2771,9 @@ Projectiles: {
 	BlackHoleBolt.DisplayName: Black Hole Bolt
 	// BloodArrowFriendly.DisplayName: Blood Arrow
 	// BloodJavelinFriendly.DisplayName: Blood Javelin
+	// BloodExplosion.DisplayName: Blood Explosion
+	// BloodRocket.DisplayName: Blood Rocket
+	// BusterShot.DisplayName: Buster Shot
 	// CoilgunProj.DisplayName: Coilgun
 	// ElecFirePillar.DisplayName: Charged Fire Pillar
 	// ElecKatana.DisplayName: Areus Katana
@@ -2759,14 +2786,17 @@ Projectiles: {
 	// FireCannon_Fire1.DisplayName: Charged Fireball Level 1
 	// FireCannon_Fire2.DisplayName: Charged Fireball Level 2
 	// FireCannon_Fire3.DisplayName: Charged Fireball Level 3
+	// HansBullet.DisplayName: BURST Bullet
 	HardlightKnifeProj.DisplayName: Hardlight Knife
 	HeroBullet.DisplayName: Hero Bullet
 	KusarigamaKing.DisplayName: King's Kusarigama
 	LaserArrow.DisplayName: Laser Arrow
 	MetalBladeProj.DisplayName: Metal Blade
+	// PantheonsGreedArrow.DisplayName: Pantheons Greed Arrow
 	PhantomBullet.DisplayName: Phantom Bullet
 	PrometheusFire.DisplayName: Prometheus Fire
-	// ScarletSpark.DisplayName: Scarlet Spark
+	// ScarletPetal.DisplayName: Scarlet Petal
+	// ScarletRose.DisplayName: Scarlet Rose
 	// SilverBoltFriendly.DisplayName: Silver Bolt
 	SoulArrow.DisplayName: Soul Arrow
 	// WitheringPetal.DisplayName: Withering Petal
@@ -2774,14 +2804,20 @@ Projectiles: {
 	// WitheringSeed.DisplayName: Withering Seed
 	# Summon
 	// AreusCrateProj.DisplayName: Areus Crate
+	// AreusMirrorSentry.DisplayName: Areus Mirror
+	// AreusTagLaser.DisplayName: Areus Tag Laser
 	// AreusTurret.DisplayName: Areus Turret
 	// BloodSickleFriendly.DisplayName: Blood Sickle
 	// BloodSigil.DisplayName: Blood Sigil
+	// BounceLaser.DisplayName: Areus Laser
+	// ChargeLaser.DisplayName: Charge Laser
 	// DragonBone.DisplayName: Dragon Bone
 	DragonSpineWhipProj.DisplayName: Dragon Spine
 	// ElectricSpark.DisplayName: Electric Spark
+	// EMAvatar.DisplayName: EM Avatar
 	FlailOfFleshProj.DisplayName: Leashed Hungry
 	FrostsparkDrone.DisplayName: Frostspark Drone
+	// MirrorPrism.DisplayName: Mirror Prism
 	SapphireBolt.DisplayName: Sapphire Bolt
 	SapphireSpirit.DisplayName: Sapphire Spirit
 	// StrikerCurrent.DisplayName: Striker Current
@@ -2832,12 +2868,9 @@ Projectiles: {
 	// PlagueBeam2.DisplayName: Plague Beam2
 	// StickingMagnetProj.DisplayName: MagnetDart
 	// SolarBlade.DisplayName: Nature's Blade
-	// ColdExplosion.DisplayName: Cold Explosion
-	// ElectricExplosion.DisplayName: Electric Explosion
 	// ElectricFlame.DisplayName: Ghost Flame
 	// ElectricPoe.DisplayName: Electric Spirit
 	// CodeProjectile.DisplayName: Code Projectile
-	// HansBullet.DisplayName: BURST Bullet
 	// IronBall.DisplayName: Iron Ball
 	// PartisanHead.DisplayName: Partisan Head
 	// SalamanderLaser.DisplayName: Salamander Laser
@@ -2847,28 +2880,6 @@ Projectiles: {
 	// AncientDeathsScytheHostile.DisplayName: Ancient Deaths Scythe Hostile
 	// BloodBoltHostile.DisplayName: Blood Bolt Hostile
 	// BloodExplosionHostile.DisplayName: Blood Explosion Hostile
-	// BloodExplosion.DisplayName: Blood Explosion
-	// BloodRocket.DisplayName: Blood Rocket
-	// AreusTagLaser.DisplayName: Areus Tag Laser
-	// AreusHoloBannerProjector.DisplayName: Areus Holo Banner Projector
-	// BounceLaser.DisplayName: Areus Laser
-	// MirrorPrism.DisplayName: Mirror Prism
-	// AreusMirrorSentry.DisplayName: Areus Mirror
-	// BusterShot.DisplayName: Buster Shot
-	// EMAvatar.DisplayName: E M Avatar
-	// SaberSlash.DisplayName: Saber Slash
-	// PantheonsGreedArrow.DisplayName: Pantheons Greed Arrow
-	// ScarletPetal.DisplayName: Scarlet Petal
-	// ScarletRose.DisplayName: Scarlet Rose
-	// ChargeLaser.DisplayName: Charge Laser
-	// EMRitual.DisplayName: E M Ritual
-	// FlameSlash.DisplayName: Flame Slash
-	// FlameSword.DisplayName: Flame Sword
-	// FlameSword_Thrust.DisplayName: Flame Sword_ Thrust
-	// EnergyBeam.DisplayName: Energy Beam
-	// FlameBuster.DisplayName: Flame Buster
-	// FlameBusterBullet.DisplayName: Flame Buster Bullet
-	// FlamethrowerBuster.DisplayName: Flamethrower Buster
 }
 
 NPCs: {

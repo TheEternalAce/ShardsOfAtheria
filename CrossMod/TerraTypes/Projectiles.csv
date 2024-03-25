@@ -149,10 +149,16 @@ ElecSaw,Electric,
 ElecShuriken,Electric,
 EnergyScythe,Fire,Electric
 EnergyWave,Electric,
+EntropyBeam,Fire,Fairy
 EntropyBlade,Dark,
 EntropySickle,Dark,
 EntropySlash,Dark,
 FeatherBladeFriendly,Electric,
+FlameBuster,Fire,Fairy
+FlameBusterBullet,Fire,Fairy
+FlameSlash,Fire,Fairy
+FlameSword,Fire,Fairy
+FlameSword_Thrust,Fire,Fairy
 Genesis_Spear,Ice,Electric
 Genesis_Spear2,Ice,Electric
 Genesis_Sword,Ice,Electric
