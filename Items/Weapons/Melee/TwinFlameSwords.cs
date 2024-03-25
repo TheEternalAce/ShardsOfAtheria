@@ -55,6 +55,13 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 .AddIngredient(ItemID.Wire, 20)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 20)
+                .AddIngredient(ItemID.TungstenBar, 15)
+                .AddIngredient(ItemID.SoulofFright, 10)
+                .AddIngredient(ItemID.Wire, 20)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
         }
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)

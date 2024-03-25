@@ -48,8 +48,15 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 20)
-                .AddIngredient(ItemID.SilverBar, 15)
+                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 10)
+                .AddIngredient(ItemID.SilverBar, 7)
+                .AddIngredient(ItemID.SoulofFright, 10)
+                .AddIngredient(ItemID.Wire, 20)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 10)
+                .AddIngredient(ItemID.TungstenBar, 7)
                 .AddIngredient(ItemID.SoulofFright, 10)
                 .AddIngredient(ItemID.Wire, 20)
                 .AddTile(TileID.MythrilAnvil)
