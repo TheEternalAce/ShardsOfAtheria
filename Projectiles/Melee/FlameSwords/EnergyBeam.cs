@@ -9,14 +9,23 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
+namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
 {
-    public class AreusRetribution : ModProjectile
+    public class EnergyBeam : ModProjectile
     {
+        Vector2 InitialPosition = Vector2.Zero;
+
         public override void SetStaticDefaults()
         {
-            Projectile.AddElement(2);
-            Projectile.AddRedemptionElement(7);
+            ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Type] = true;
+            Projectile.AddElement(0);
+            Projectile.AddRedemptionElement(2);
+            Projectile.AddRedemptionElement(8);
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            InitialPosition = Projectile.position;
         }
 
         public override void SetDefaults()
@@ -32,7 +41,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             Projectile.idStaticNPCHitCooldown = 8;
             Projectile.ignoreWater = true;
             Projectile.extraUpdates = 10;
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 300;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -40,32 +49,72 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             return lightColor.MaxRGBA(120);
         }
 
-        public override void OnSpawn(IEntitySource source)
-        {
-            var sound = SoundID.Item122;
-            sound.PitchVariance = 0.1f;
-            SoundEngine.PlaySound(sound, Projectile.Center);
-        }
-
         public override void AI()
         {
             float progress = 1f - Projectile.ai[1] / (Projectile.timeLeft * 2);
+            if (progress < 0f)
+            {
+                Projectile.Kill();
+                return;
+            }
 
-            float val = 1f / (Projectile.extraUpdates + 1);
-            Projectile.ai[1] += val;
-            float opacityByProgress = 0f;
+            if (Projectile.ai[1] == 0f)
+            {
+                Projectile.netUpdate = true;
+                Projectile.ai[1] += 1f;
+            }
+
+            if (Projectile.numUpdates == -1)
+            {
+                if (Projectile.frameCounter == 0)
+                {
+                    Projectile.frame = (Projectile.frame + 1) % Main.projFrames[Type];
+                    var s = SoundID.Item122;
+                    s.PitchVariance = 0.1f;
+                    SoundEngine.PlaySound(s, Projectile.Center);
+                    Projectile.frameCounter++;
+                }
+            }
+            //Projectile.position.X = InitialPosition.X;
+            //Projectile.position.Y = InitialPosition.Y;
+            Projectile.Center = Projectile.GetPlayerOwner().Center;
+            Projectile.ai[1] += progress * 1.1f;
+
+            Projectile.netUpdate = true;
+
+            float p = 0f;
             if (progress < 0.2f)
             {
-                opacityByProgress = 1f - progress / 0.2f;
+                p = 1f - progress / 0.2f;
             }
             else if (progress > 0.8f)
             {
-                opacityByProgress = (progress - 0.8f) / 0.2f;
+                p = (progress - 0.8f) / 0.2f;
             }
-            Projectile.Opacity = 1f - opacityByProgress;
-            var dir = -Vector2.UnitY;
-            Projectile.localAI[0] = 1200;
+            Projectile.Opacity = 1f - p;
+            Projectile.velocity = Vector2.Normalize(Projectile.velocity);
+            var dir = Projectile.velocity.SafeNormalize(-Vector2.UnitY);
+            Projectile.position += dir * (Projectile.ai[0] * 30f + 15f);
+            Projectile.spriteDirection = Projectile.velocity.X > 0f ? -1 : 1;
+            Projectile.rotation = dir.ToRotation() + (Projectile.spriteDirection == 1 ? MathHelper.Pi : 0f);
+
+            Projectile.localAI[0] = ScanLaser(dir);
             Projectile.localAI[1] = dir.ToRotation();
+        }
+
+        // The rest is Aequus code lol
+        public float ScanLaser(Vector2 dir)
+        {
+            float[] laserScanResults = new float[50];
+            Collision.LaserScan(Projectile.Center, dir, 8f * Projectile.scale, 2400f, laserScanResults);
+            float averageLengthSample = 0f;
+            for (int i = 0; i < laserScanResults.Length; ++i)
+            {
+                averageLengthSample += laserScanResults[i];
+            }
+            averageLengthSample /= laserScanResults.Length;
+
+            return averageLengthSample;
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -76,8 +125,14 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             }
 
             float _ = 0f;
-            Vector2 beamEndPos = Projectile.Center + Vector2.UnitY * -Projectile.localAI[0];
+            Vector2 beamEndPos = Projectile.Center + Projectile.localAI[1].ToRotationVector2() * Projectile.localAI[0];
             return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, beamEndPos, 16f * Projectile.scale, ref _);
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(BuffID.OnFire3, 300);
+            Projectile.damage = (int)(Projectile.damage * 0.85f);
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -89,19 +144,19 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
         public void DrawLaser()
         {
             float progress = Projectile.ai[1] / (Main.player[Projectile.owner].itemAnimationMax * 2f);
-            var dir = -Vector2.UnitY;
+            var dir = Projectile.velocity.SafeNormalize(-Vector2.UnitY);
 
-            if (progress < 0.25f)
-            {
-                return;
-            }
+            //if (progress < 0.25f)
+            //{
+            //    return;
+            //}
             progress -= 0.2f;
             progress /= 0.45f;
             progress = Math.Min(progress, 1f);
             var startPosition = Projectile.Center - Main.screenPosition + dir;
             var endPosition = Projectile.Center + dir * Projectile.localAI[0] - Main.screenPosition;
             float scale = Projectile.scale * progress;
-            var color = SoA.ElectricColor * progress * Projectile.Opacity;
+            var color = Color.Firebrick.UseA(0) * progress * Projectile.Opacity;
 
             float rotation = dir.ToRotation() - MathHelper.PiOver2;
             var texture = TextureAssets.Projectile[Type].Value;
@@ -109,7 +164,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             var origin = new Vector2(frame.Width / 2f, 6f);
             Main.spriteBatch.Draw(texture, startPosition, frame, color, rotation, origin, scale, SpriteEffects.None, 0f);
             Main.spriteBatch.Draw(texture, startPosition, frame, color, rotation, origin, scale, SpriteEffects.None, 0f);
-            float segmentBit = 14f * scale;
+            float segmentBit = 20 * scale;
             int segments = (int)((startPosition - endPosition).Length() / segmentBit);
             frame = frame.Frame(0, 1);
             ScreenCulling.SetPadding(100);

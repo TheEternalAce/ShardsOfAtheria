@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.Projectiles.Other
             owner.Center = Projectile.Center;
             owner.velocity = Vector2.Zero;
             owner.immuneNoBlink = true;
-            owner.immuneTime = 2;
+            owner.SetImmuneTimeForAllTypes(5);
             int cooldownTime = 360;
             if (owner.Gem().megaGemCore)
             {

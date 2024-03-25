@@ -556,8 +556,7 @@ namespace ShardsOfAtheria.Players
             {
                 if (Player.whoAmI == Main.myPlayer && Main.rand.NextFloat() < 0.1f)
                 {
-                    Player.immuneTime = 60;
-                    Player.immune = true;
+                    Player.SetImmuneTimeForAllTypes(Player.longInvince ? 100 : 60);
                     lunaticCircleFragments++;
                     return true;
                 }

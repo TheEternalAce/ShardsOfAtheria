@@ -172,7 +172,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
             var startPosition = Projectile.Center - Main.screenPosition + dir;
             var endPosition = Projectile.Center + dir * Projectile.localAI[0] - Main.screenPosition;
             float scale = Projectile.scale * progress;
-            var color = new Color(208, 231, 148, 125) * progress * Projectile.Opacity;
+            var color = new Color(208, 231, 148, 0) * progress * Projectile.Opacity;
 
             float rotation = dir.ToRotation() - MathHelper.PiOver2;
             var texture = TextureAssets.Projectile[Type].Value;
@@ -180,7 +180,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
             var origin = new Vector2(frame.Width / 2f, 6f);
             Main.spriteBatch.Draw(texture, startPosition, frame, color, rotation, origin, scale, SpriteEffects.None, 0f);
             Main.spriteBatch.Draw(texture, startPosition, frame, color, rotation, origin, scale, SpriteEffects.None, 0f);
-            float segmentBit = (frame.Height / 2f + 2.9f) * scale;
+            float segmentBit = 20 * scale;
             int segments = (int)((startPosition - endPosition).Length() / segmentBit);
             frame = frame.Frame(0, 1);
             ScreenCulling.SetPadding(100);

@@ -1993,7 +1993,7 @@ Items: {
 
 	AreusPartisan: {
 		DisplayName: Areus Retribution
-		Tooltip: ""
+		Tooltip: Strikes with the tip will deal increased damage
 	}
 
 	AreusSawstring: {
@@ -2046,6 +2046,7 @@ Items: {
 		DisplayName: Broken Areus Partisan
 		Tooltip:
 			'''
+			Strikes at with tip will deal increased damage
 			'A broken weapon is better than no weapon, right?'
 			'Specifically made to deal with early game harpies'
 			'''
@@ -2525,6 +2526,16 @@ Items: {
 		DisplayName: Death Relic
 		Tooltip: ""
 	}
+
+	TwinFlameSwords: {
+		DisplayName: Theta Flame Swords
+		Tooltip: ""
+	}
+
+	FlameKnuckleBuster: {
+		DisplayName: Theta Flame Knuckle Buster
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -2870,6 +2881,13 @@ Projectiles: {
 	ScarletRose.DisplayName: Scarlet Rose
 	ChargeLaser.DisplayName: Charge Laser
 	EMRitual.DisplayName: E M Ritual
+	FlameSlash.DisplayName: Flame Slash
+	FlameSword.DisplayName: Flame Sword
+	FlameSword_Thrust.DisplayName: Flame Sword_ Thrust
+	EnergyBeam.DisplayName: Energy Beam
+	FlameBuster.DisplayName: Flame Buster
+	FlameBusterBullet.DisplayName: Flame Buster Bullet
+	FlamethrowerBuster.DisplayName: Flamethrower Buster
 }
 
 NPCs: {

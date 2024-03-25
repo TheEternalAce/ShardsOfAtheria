@@ -195,8 +195,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJoustingLance
                 {
                     if (!owner.immune)
                     {
-                        owner.immune = true;
-                        owner.immuneTime = 3;
+                        owner.SetImmuneTimeForAllTypes(owner.longInvince ? 6 : 3);
                     }
                 }
             }

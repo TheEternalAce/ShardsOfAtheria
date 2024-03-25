@@ -64,11 +64,14 @@
     <None Remove="Projectiles\Magic\VoidDagger.png" />
     <None Remove="Projectiles\Melee\AreusJustitia\HardlightSlashHostile.png" />
     <None Remove="Projectiles\Melee\AreusRetribution.png" />
+    <None Remove="Projectiles\Melee\FlameSwords\FlameSlash.png" />
     <None Remove="Projectiles\Melee\VoidSlash.png" />
     <None Remove="Projectiles\Melee\ZenovaProjectile.png" />
+    <None Remove="Projectiles\NPCProj\Nova\PlagueBeam2.png" />
     <None Remove="Projectiles\Other\RubyShard.png" />
     <None Remove="Projectiles\Ranged\GunRose\ScarletPetal.png" />
     <None Remove="Projectiles\Ranged\GunRose\ScarletRose.png" />
+    <None Remove="Projectiles\Ranged\PlagueRail\PlagueBeam2.png" />
     <None Remove="Projectiles\Summon\Minions\AreusMirror.png" />
     <None Remove="Projectiles\NPCProj\Elizabeth\BloodScytheHostile.png" />
     <None Remove="Projectiles\Ammo\AreusRod.png" />

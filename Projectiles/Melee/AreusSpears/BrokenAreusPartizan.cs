@@ -154,6 +154,16 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             return 0f;
         }
 
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            var center = Projectile.GetPlayerOwner().Center;
+            bool headCollision = ShardsHelpers.DeathrayHitbox(center + AngleVector * (80 * Projectile.scale * scale), center + AngleVector * (swordReach * Projectile.scale * scale), target.Hitbox, swordSize * Projectile.scale * scale);
+            if (headCollision)
+            {
+                modifiers.ScalingBonusDamage += 0.8f;
+            }
+        }
+
         public override bool PreDraw(ref Color lightColor)
         {
             return GenericSwordDraw(lightColor);

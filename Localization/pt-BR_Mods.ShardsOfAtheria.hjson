@@ -1965,7 +1965,7 @@ Items: {
 
 	AreusPartisan: {
 		// DisplayName: Areus Retribution
-		// Tooltip: ""
+		// Tooltip: Strikes with the tip will deal increased damage
 	}
 
 	AreusSawstring: {
@@ -2017,6 +2017,7 @@ Items: {
 		// DisplayName: Broken Areus Partisan
 		/* Tooltip:
 			'''
+			Strikes at with tip will deal increased damage
 			'A broken weapon is better than no weapon, right?'
 			'Specifically made to deal with early game harpies'
 			''' */
@@ -2506,6 +2507,16 @@ Items: {
 		// DisplayName: Death Relic
 		// Tooltip: ""
 	}
+
+	TwinFlameSwords: {
+		// DisplayName: Theta Flame Swords
+		// Tooltip: ""
+	}
+
+	FlameKnuckleBuster: {
+		// DisplayName: Theta Flame Knuckle Buster
+		// Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -2851,6 +2862,13 @@ Projectiles: {
 	// ScarletRose.DisplayName: Scarlet Rose
 	// ChargeLaser.DisplayName: Charge Laser
 	// EMRitual.DisplayName: E M Ritual
+	// FlameSlash.DisplayName: Flame Slash
+	// FlameSword.DisplayName: Flame Sword
+	// FlameSword_Thrust.DisplayName: Flame Sword_ Thrust
+	// EnergyBeam.DisplayName: Energy Beam
+	// FlameBuster.DisplayName: Flame Buster
+	// FlameBusterBullet.DisplayName: Flame Buster Bullet
+	// FlamethrowerBuster.DisplayName: Flamethrower Buster
 }
 
 NPCs: {
@@ -3523,37 +3541,45 @@ Buffs: {
 
 	AreusBannerMeleeDebuff: {
 		// DisplayName: Areus Banner Melee Debuff
-		// Description: Mods.ShardsOfAtheria.Buffs.AreusBannerMeleeDebuff.Description
+		// Description: Reduced defense
 	}
 
 	AreusBannerRangedDebuff: {
 		// DisplayName: Areus Banner Ranged Debuff
-		// Description: Mods.ShardsOfAtheria.Buffs.AreusBannerRangedDebuff.Description
+		// Description: Reduced movement speed
 	}
 
 	AreusBannerSummonDebuff: {
 		// DisplayName: Areus Banner Summon Debuff
-		// Description: Mods.ShardsOfAtheria.Buffs.AreusBannerSummonDebuff.Description
+		// Description: Losing life
 	}
 
 	AreusBannerMagicBuff: {
-		// DisplayName: Areus Banner Magic Buff
-		// Description: Mods.ShardsOfAtheria.Buffs.AreusBannerMagicBuff.Description
+		// DisplayName: Areus Banner Empowerment
+		/* Description:
+			'''
+			Increased damage, and life and mana regen
+			Reduced resource cost
+			''' */
 	}
 
 	AreusBannerMeleeBuff: {
-		// DisplayName: Areus Banner Melee Buff
-		// Description: Mods.ShardsOfAtheria.Buffs.AreusBannerMeleeBuff.Description
+		// DisplayName: Areus Banner Empowerment
+		// Description: Increased damage, defense, and endurance
 	}
 
 	AreusBannerRangedBuff: {
-		// DisplayName: Areus Banner Ranged Buff
-		// Description: Mods.ShardsOfAtheria.Buffs.AreusBannerRangedBuff.Description
+		// DisplayName: Areus Banner Empowerment
+		/* Description:
+			'''
+			Increased movement and attack speed speed
+			Reduced resource cost
+			''' */
 	}
 
 	AreusBannerSummonBuff: {
-		// DisplayName: Areus Banner Summon Buff
-		// Description: Mods.ShardsOfAtheria.Buffs.AreusBannerSummonBuff.Description
+		// DisplayName: Areus Banner Empowerment
+		// Description: Increased defense, movement speed, and life and mana regen
 	}
 
 	MarkedByAvatar: {

@@ -69,8 +69,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                     deathText = insult[i] + " (" + deathText + ")";
                 }
                 player.Hurt(PlayerDeathReason.ByCustomReason(deathText), 100, 0);
-                player.immune = true;
-                player.immuneTime = 30;
+                player.SetImmuneTimeForAllTypes(player.longInvince ? 50 : 30);
             }
             return null;
         }

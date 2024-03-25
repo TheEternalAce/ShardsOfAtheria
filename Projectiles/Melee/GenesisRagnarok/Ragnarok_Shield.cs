@@ -95,8 +95,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
                                     reflProjectile.extraUpdates = extraUpdates;
                                     reflProjectile.knockBack = knockback;
 
-                                    player.immune = true;
-                                    player.immuneTime = 60;
+                                    player.SetImmuneTimeForAllTypes(player.longInvince ? 100 : 60);
                                 }
                             }
                         }
@@ -109,8 +108,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
                 NPC parryNPC = Main.npc[i];
                 if (Projectile.Hitbox.Intersects(parryNPC.getRect()) && !player.HasBuff(ModContent.BuffType<ParryCooldown>()) && parryNPC.CanBeChasedBy() && parryNPC.damage > 0)
                 {
-                    player.immune = true;
-                    player.immuneTime = 60;
+                    player.SetImmuneTimeForAllTypes(player.longInvince ? 100 : 60);
                     player.AddBuff(ModContent.BuffType<ParryCooldown>(), 300);
                     player.AddBuff(BuffID.ParryDamageBuff, 300);
 

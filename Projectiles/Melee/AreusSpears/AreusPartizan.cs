@@ -153,6 +153,12 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             base.ModifyHitNPC(target, ref modifiers);
+            var center = Projectile.GetPlayerOwner().Center;
+            bool headCollision = ShardsHelpers.DeathrayHitbox(center + AngleVector * (150 * Projectile.scale * scale), center + AngleVector * (swordReach * Projectile.scale * scale), target.Hitbox, swordSize * Projectile.scale * scale);
+            if (headCollision)
+            {
+                modifiers.ScalingBonusDamage += 0.8f;
+            }
             if (Projectile.GetPlayerOwner().HasBuff<PartisanBuff>())
             {
                 modifiers.ScalingBonusDamage += 2f;
