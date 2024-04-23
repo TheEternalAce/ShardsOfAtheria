@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
             player.GetDamage(DamageClass.Generic) += ArmorPlayer.imperialVoid / 100f;
             if (ArmorPlayer.CommanderSet)
             {
-                player.maxMinions += 3;
+                player.maxMinions += 1;
             }
             base.UpdateArmorSet(player);
         }

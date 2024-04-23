@@ -81,7 +81,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
             if (Projectile.localAI[0] == 0)
             {
                 var target = ShardsHelpers.FindClosestProjectile(Projectile.Center, 3000, ModContent.ProjectileType<EMAvatar>(), Projectile.owner);
-                Projectile.localAI[0] = target.whoAmI;
+                if (target != null) Projectile.localAI[0] = target.whoAmI;
             }
             var avatar = Main.projectile[(int)Projectile.localAI[0]];
             Vector2 idlePosition = avatar.Center + foundTargetIdlePos;

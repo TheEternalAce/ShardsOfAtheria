@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.damage = 16;
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 6;
-            Item.mana = 14;
+            Item.mana = 6;
 
             Item.useTime = 26;
             Item.useAnimation = 26;

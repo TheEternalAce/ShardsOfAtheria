@@ -79,6 +79,7 @@ namespace ShardsOfAtheria.Players
         };
         public bool masterCoreUI = false;
         public bool gemSoul;
+        public bool gemSoulPrevious;
 
         public readonly int[] Curses =
         [
@@ -149,6 +150,7 @@ namespace ShardsOfAtheria.Players
 
             megaGemCorePrevious = megaGemCore;
             megaGemCore = false;
+            gemSoulPrevious = gemSoul;
             gemSoul = false;
             masterCoreUI = false;
         }
@@ -243,11 +245,11 @@ namespace ShardsOfAtheria.Players
 
         private void SpawnSapphireSpirit()
         {
-            if (sapphireSpirit || gemSoul)
+            if (sapphireSpirit || gemSoul || gemSoulPrevious)
             {
                 int type = ModContent.ProjectileType<SapphireSpirit>();
                 int damage = 50;
-                if (gemSoul)
+                if (gemSoul || gemSoulPrevious)
                 {
                     type = ModContent.ProjectileType<GemSoul>();
                     if (sapphireSpiritUpgrade)

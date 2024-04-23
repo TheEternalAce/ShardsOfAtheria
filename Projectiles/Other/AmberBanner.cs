@@ -26,7 +26,6 @@ namespace ShardsOfAtheria.Projectiles.Other
             {
                 return;
             }
-            KillClosestBanner(Projectile.Center, Projectile.owner);
             if (Projectile.ai[0] == 1)
             {
                 Projectile.timeLeft = 2;
@@ -34,8 +33,9 @@ namespace ShardsOfAtheria.Projectiles.Other
                 Projectile.Center = player.Center + vector;
                 Projectile.netUpdate = true;
             }
+            else KillClosestBanner();
             Lighting.AddLight(Projectile.Center, TorchID.Yellow);
-            RepellBanners(1000);
+            Projectile.velocity *= 0.85f;
             AmberAura(500);
         }
 
@@ -66,24 +66,6 @@ namespace ShardsOfAtheria.Projectiles.Other
             AmberBuff(radius);
         }
 
-        private void RepellBanners(float maxDistance)
-        {
-            foreach (Projectile projectile in Main.projectile)
-            {
-                if (projectile.active && projectile.whoAmI != Projectile.whoAmI && projectile.type == Type)
-                {
-                    var distToPlayer = Vector2.Distance(projectile.Center, Projectile.Center);
-                    if (distToPlayer <= maxDistance)
-                    {
-                        var vector = projectile.Center - Projectile.Center;
-                        vector.Normalize();
-                        Projectile.velocity = vector * -4;
-                        projectile.velocity = vector * 4;
-                    }
-                }
-            }
-        }
-
         private void AmberBuff(int maxDistance)
         {
             foreach (Player player in Main.player)
@@ -99,20 +81,21 @@ namespace ShardsOfAtheria.Projectiles.Other
             }
         }
 
-        public static void KillClosestBanner(Vector2 position, int owner)
+        public void KillClosestBanner()
         {
-            var banner = ShardsHelpers.FindClosestProjectile(position, 150, projectile => IsNonFollowingBanner(projectile, owner));
+            var banner = ShardsHelpers.FindClosestProjectile(Projectile.Center, 500, IsNonFollowingBanner);
             if (banner != null)
             {
                 banner.Kill();
             }
         }
 
-        private static bool IsNonFollowingBanner(Projectile projectile, int owner)
+        private bool IsNonFollowingBanner(Projectile projectile)
         {
             if (projectile.type != ModContent.ProjectileType<AmberBanner>()) return false;
-            if (projectile.owner != owner) return false;
+            if (projectile.owner != Projectile.owner) return false;
             if (projectile.ai[0] == 1) return false;
+            if (projectile.whoAmI == Projectile.whoAmI) return false;
             return true;
         }
 

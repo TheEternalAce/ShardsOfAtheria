@@ -56,6 +56,10 @@ namespace ShardsOfAtheria.Items.BossSummons
         {
             if (player.whoAmI == Main.myPlayer)
             {
+                if (ModLoader.TryGetMod("Fargowiltas", out Mod _) && player.itemAnimation < player.itemAnimationMax)
+                {
+                    return true;
+                }
                 // If the Player using the item is the client
                 // (explicitely excluded serverside here)
                 SoundEngine.PlaySound(SoundID.Roar, player.position);

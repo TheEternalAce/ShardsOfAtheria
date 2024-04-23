@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 using Terraria.UI;
@@ -66,7 +67,7 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
                 string code = textBox.GetText();
                 if (code.Length > 0)
                 {
-                    string codeClone = code.ToLower();
+                    string codeClone = code;//.ToLower();
                     if (codeClone.Contains('_'))
                     {
                         codeClone = codeClone.Substring(codeClone.LastIndexOf('_') + 1);
@@ -275,16 +276,16 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
                                     cloneLine = cloneLine.Substring(cloneLine.LastIndexOf('=') + 1);
                                     if (TryConvert(code, cloneLine, out int value))
                                     {
-                                        if (value <= 0)
+                                        if (value < 0)
                                         {
-                                            value = 1;
+                                            value = 0;
                                         }
                                         if (value > ItemLoader.ItemCount - 1)
                                         {
                                             value = ItemLoader.ItemCount - 1;
                                         }
                                         ItemDefinition itemDefinition = new(value);
-                                        output += "\n[Output] Changed item projectile type to " + itemDefinition.DisplayName + "(type " + value + ").";
+                                        output += "\n[Output] Changed item type to " + itemDefinition.DisplayName + " (type " + value + ").";
                                         computer.SetDefaults(value);
                                     }
                                 }
@@ -346,6 +347,36 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
                                 else if (cloneLine.StartsWith("autoreuse") || cloneLine.StartsWith("autoswing"))
                                 {
                                     output += "\n[Output] Item auto reuse is set to " + computer.autoReuse + ".";
+                                }
+                                else if (cloneLine.StartsWith("finditem"))
+                                {
+                                    int id = 0;
+                                    cloneLine = line;
+                                    cloneLine = cloneLine.Trim(';');
+                                    cloneLine = cloneLine.Substring(cloneLine.IndexOf(' ') + 1);
+                                    bool foundItem = false;
+                                    for (id = 0; id < ItemLoader.ItemCount; id++)
+                                    {
+                                        if (ContentSamples.ItemsByType[id].Name == cloneLine) foundItem = true;
+                                        if (foundItem) break;
+                                    }
+                                    if (!foundItem) output += "\n[Output] Item \"" + cloneLine + "\" not found.";
+                                    else output += "\n[Output] Type of item \"" + cloneLine + "\" is " + id + ".";
+                                }
+                                else if (cloneLine.StartsWith("findprojectile"))
+                                {
+                                    int id = 0;
+                                    cloneLine = line;
+                                    cloneLine = cloneLine.Trim(';');
+                                    cloneLine = cloneLine.Substring(cloneLine.IndexOf(' ') + 1);
+                                    bool foundItem = false;
+                                    for (id = 0; id < ProjectileLoader.ProjectileCount; id++)
+                                    {
+                                        if (ContentSamples.ProjectilesByType[id].Name == cloneLine) foundItem = true;
+                                        if (foundItem) break;
+                                    }
+                                    if (!foundItem) output += "\n[Output] Projectile \"" + cloneLine + "\" not found.";
+                                    else output += "\n[Output] Type of projectile \"" + cloneLine + "\" is " + id + ".";
                                 }
                             }
                             else

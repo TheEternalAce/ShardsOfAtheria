@@ -31,6 +31,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
 
         public override void Load()
         {
+            if (Main.netMode == NetmodeID.Server)
+                return;
             glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
         }
 

@@ -27,9 +27,13 @@ namespace ShardsOfAtheria.Projectiles.Magic
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.tileCollide = true;
-            Projectile.light = 1;
             Projectile.penetrate = 10;
             Projectile.DamageType = DamageClass.Magic;
+        }
+
+        public override void AI()
+        {
+            Lighting.AddLight(Projectile.Center, TorchID.Torch);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

@@ -39,11 +39,10 @@ namespace ShardsOfAtheria.Players
         public bool bannerResourceManagement;
         public bool bannerRegen;
 
-        public bool WarriorSet => classChip == DamageClass.Melee;
-        public bool RangerSet => classChip == DamageClass.Ranged;
-        public bool MageSet => classChip == DamageClass.Magic;
-        public bool CommanderSet => classChip == DamageClass.Summon;
-
+        public bool WarriorSet => classChip.CountsAsClass(DamageClass.Melee);
+        public bool RangerSet => classChip.CountsAsClass(DamageClass.Ranged);
+        public bool MageSet => classChip.CountsAsClass(DamageClass.Magic);
+        public bool CommanderSet => classChip.CountsAsClass(DamageClass.Summon);
         public StatModifier ClassDamage => Player.GetTotalDamage(classChip);
 
         public bool ArmorSetCooldown => Player.ArmorSetCooldown();
@@ -98,8 +97,8 @@ namespace ShardsOfAtheria.Players
                     ModContent.GetInstance<ChipsUISystem>().ShowChips();
                 }
 
-                if (Player.controlDown && Player.releaseDown && Player.doubleTapCardinalTimer[0] < 15 ||
-                    Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[1] < 15)
+                if ((Player.controlDown && Player.releaseDown && Player.doubleTapCardinalTimer[0] < 15) ||
+                    (Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[1] < 15))
                 {
                     if (!ArmorSetCooldown)
                     {
@@ -122,6 +121,7 @@ namespace ShardsOfAtheria.Players
                             {
                                 GuardActive_Summon();
                             }
+                            areusEnergy = 0;
                         }
                         if (soldierSet)
                         {
@@ -138,22 +138,25 @@ namespace ShardsOfAtheria.Players
                             {
                                 ImperialActive_Summon();
                             }
-                            else if (imperialVoid >= 33)
+                            if (imperialVoid >= 33)
                             {
-                                cooldownTime = 0;
+                                bool consumeVoid = false;
                                 if (WarriorSet)
                                 {
                                     ImperialActive_Melee();
+                                    consumeVoid = true;
                                 }
                                 if (MageSet)
                                 {
                                     ImperialActive_Magic();
+                                    consumeVoid = true;
                                 }
                                 if (RangerSet)
                                 {
                                     ImperialActive_Ranged();
+                                    consumeVoid = true;
                                 }
-                                ConsumeImperialVoid();
+                                if (consumeVoid) ConsumeImperialVoid();
                             }
                         }
                         if (royalSet)
@@ -165,24 +168,13 @@ namespace ShardsOfAtheria.Players
                                 Player.MinionAttackTargetNPC = npc.whoAmI;
                                 npc.AddBuff<MarkedByAvatar>(3600);
                             }
-                            if (WarriorSet)
-                            {
-                                RoyalActive_Melee();
-                            }
-                            if (MageSet)
-                            {
-                                RoyalActive_Magic();
-                            }
-                            if (RangerSet)
-                            {
-                                RoyalActive_Ranged();
-                            }
                             if (CommanderSet)
                             {
                                 cooldownTime *= 2;
                                 RoyalActive_Summon();
                             }
                         }
+                        if (cooldownTime > 600) cooldownTime = 600;
                         Player.AddBuff<SetBonusCooldown>(cooldownTime);
                     }
                 }
@@ -230,17 +222,6 @@ namespace ShardsOfAtheria.Players
             }
         }
 
-        private void RoyalActive_Melee()
-        {
-        }
-        private void RoyalActive_Ranged()
-        {
-
-        }
-        private void RoyalActive_Magic()
-        {
-
-        }
         private void RoyalActive_Summon()
         {
             Player.AddBuff<ChargingDrones>(121);
@@ -277,7 +258,7 @@ namespace ShardsOfAtheria.Players
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (guardSet && classChip == DamageClass.Ranged)
+            if (guardSet && RangerSet)
             {
                 areusEnergy++;
             }

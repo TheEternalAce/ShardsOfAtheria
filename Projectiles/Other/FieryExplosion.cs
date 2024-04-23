@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Utilities;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -10,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Other
 {
     public class FieryExplosion : ModProjectile
     {
-        public override string Texture => "Terraria/Images/Projectile_" + ProjectileID.DD2BetsyFlameBreath;
+        public override string Texture => "Terraria/Images/Projectile_" + ProjectileID.Flames;
 
         public override void SetStaticDefaults()
         {
@@ -58,6 +59,12 @@ namespace ShardsOfAtheria.Projectiles.Other
                     Projectile.Kill();
                 }
             }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            lightColor = Color.Firebrick.UseA(0);
+            return base.PreDraw(ref lightColor);
         }
     }
 }

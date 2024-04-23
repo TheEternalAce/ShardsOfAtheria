@@ -78,6 +78,36 @@ namespace ShardsOfAtheria.Utilities
             return projectiles;
         }
 
+        public static Projectile[] ProjectileSpread(IEntitySource source, Vector2 position, Vector2 velocity, float amount,
+            float rotation, bool evenSpread, int type, int damage, float knockback, int owner = -1, float ai0 = 0f,
+            float ai1 = 0f, float ai2 = 0f, float speedVariation = 0f)
+        {
+            Projectile[] projectiles = new Projectile[(int)amount];
+            if (amount <= 1)
+            {
+                projectiles = new Projectile[1];
+                if (speedVariation > 0f) velocity *= 1f - Main.rand.NextFloat(speedVariation);
+                projectiles[0] = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, owner, ai0, ai1, ai2);
+                return projectiles;
+            }
+            for (int i = 0; i < amount; i++)
+            {
+                if (evenSpread)
+                {
+                    Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (amount - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
+                    if (speedVariation > 0f) perturbedSpeed *= 1 - Main.rand.NextFloat(speedVariation);
+                    projectiles[i] = Projectile.NewProjectileDirect(source, position, perturbedSpeed, type, damage, knockback, owner, ai0, ai1, ai2);
+                }
+                else
+                {
+                    Vector2 perturbedSpeed = velocity.RotatedByRandom(rotation);
+                    if (speedVariation > 0f) perturbedSpeed *= 1 - Main.rand.NextFloat(speedVariation);
+                    projectiles[i] = Projectile.NewProjectileDirect(source, position, perturbedSpeed, type, damage, knockback, owner, ai0, ai1, ai2);
+                }
+            }
+            return projectiles;
+        }
+
         public static void AdjustMagnitude(ref Vector2 vector, float num1, float num2 = 6f)
         {
             float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);

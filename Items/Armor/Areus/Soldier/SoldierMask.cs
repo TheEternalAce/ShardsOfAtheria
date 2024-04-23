@@ -10,7 +10,10 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
     [AutoloadEquip(EquipType.Head)]
     public class SoldierMask : AreusArmorPiece
     {
-        public override string Texture => SoA.PlaceholderTexture;
+        public override void SetStaticDefaults()
+        {
+            ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
+        }
 
         public override void SetDefaults()
         {
@@ -46,7 +49,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
             ArmorPlayer.soldierSet = true;
             if (ArmorPlayer.CommanderSet)
             {
-                player.maxMinions += 3;
+                player.maxMinions += 1;
             }
             base.UpdateArmorSet(player);
         }

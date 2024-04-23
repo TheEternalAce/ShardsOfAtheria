@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ShardsOfAtheria.Items.Placeable.Furniture.Trophies.Master;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -171,6 +172,7 @@ namespace ShardsOfAtheria.Tiles.Furniture.Trophies.Master
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
+            RegisterItemDrop(ModContent.ItemType<DeathRelic>());
         }
     }
 

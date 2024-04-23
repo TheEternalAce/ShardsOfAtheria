@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles.Ranged;
+using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -253,8 +253,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             var player = Projectile.GetPlayerOwner();
-            var areus = player.Areus();
-            areus.imperialVoid -= 3;
+            if (!player.HasBuff<ShadeState>())
+            {
+                var areus = player.Areus();
+                areus.imperialVoid -= 3;
+            }
         }
 
         public override void OnKill(int timeLeft)
@@ -286,8 +289,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                 }
                 var vector = position - Projectile.Center;
                 vector.Normalize();
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vector, ModContent.ProjectileType<ElectricShadeShot>(),
-                    Projectile.damage, Projectile.knockBack, -1, 0, 1);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vector, ModContent.ProjectileType<BlackShot>(),
+                    Projectile.damage, Projectile.knockBack);
             }
         }
 

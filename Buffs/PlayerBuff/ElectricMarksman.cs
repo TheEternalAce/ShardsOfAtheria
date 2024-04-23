@@ -13,20 +13,8 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
     {
         public override string Texture => SoA.BuffTemplate;
 
-        public override void SetStaticDefaults()
-        {
-            Main.buffNoTimeDisplay[Type] = true;
-            BuffID.Sets.TimeLeftDoesNotDecrease[Type] = true;
-        }
-
         public override void Update(Player player, ref int buffIndex)
         {
-            var areusPlayer = player.Areus();
-            areusPlayer.areusEnergy--;
-            if (areusPlayer.areusEnergy == 0 || !areusPlayer.guardSetPrevious)
-            {
-                player.DelBuff(buffIndex);
-            }
             player.GetAttackSpeed(DamageClass.Ranged) += 0.15f;
         }
     }
@@ -49,14 +37,17 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
             var player = projectile.GetPlayerOwner();
-            if (player.HasBuff<ElectricMarksman>())
+            if (player.Areus().guardSet && player.Areus().RangerSet)
             {
-                if (ConvertableProjectiles.Contains(projectile.type))
+                if (player.HasBuff<ElectricMarksman>())
                 {
-                    Projectile.NewProjectile(source, projectile.Center, projectile.velocity,
-                        ModContent.ProjectileType<ElectricMarksmanShot>(), projectile.damage,
-                        projectile.knockBack, projectile.owner);
-                    projectile.active = false;
+                    if (ConvertableProjectiles.Contains(projectile.type))
+                    {
+                        Projectile.NewProjectile(source, projectile.Center, projectile.velocity,
+                            ModContent.ProjectileType<ElectricMarksmanShot>(), projectile.damage,
+                            projectile.knockBack, projectile.owner);
+                        projectile.active = false;
+                    }
                 }
             }
         }

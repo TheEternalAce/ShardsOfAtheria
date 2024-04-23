@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
             ArmorPlayer.royalSet = true;
             if (ArmorPlayer.CommanderSet)
             {
-                player.maxMinions += 4;
+                player.maxMinions += 2;
             }
             base.UpdateArmorSet(player);
         }

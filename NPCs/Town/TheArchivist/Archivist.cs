@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Tools.Misc.Slayer;
+using ShardsOfAtheria.NPCs.Town.TheAtherian;
 using ShardsOfAtheria.ShardsUI.DataTablet;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.Personalities;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -29,12 +31,12 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
 
             NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 
-            //NPC.Happiness
-            //    .SetBiomeAffection<HallowBiome>(AffectionLevel.Love)
-            //    .SetBiomeAffection<UndergroundBiome>(AffectionLevel.Like)
-            //    .SetBiomeAffection<>(AffectionLevel.Hate)
-            //    .SetNPCAffection(NPCID.Stylist, AffectionLevel.Love)
-            //    .SetNPCAffection(NPCID.Guide, AffectionLevel.Like);
+            NPC.Happiness
+                .SetBiomeAffection<DesertBiome>(AffectionLevel.Love)
+                .SetBiomeAffection<UndergroundBiome>(AffectionLevel.Like)
+                .SetNPCAffection(NPCID.Guide, AffectionLevel.Like)
+                .SetNPCAffection(NPCID.Clothier, AffectionLevel.Like)
+                .SetNPCAffection<Atherian>(AffectionLevel.Like);
 
             NPC.AddElement(3);
             NPC.AddRedemptionElement(10);
@@ -103,15 +105,15 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
 
             //var stopWatch = new Stopwatch();
             var houseInsideTiles = GetHouseInsideTiles((left + right) / 2, (top + bottom) / 2);
-            bool bookshelfFound = BookshelfInHouse(houseInsideTiles);
+            bool bookshelfFound = CountBookshelfTiles(houseInsideTiles) >= 12;
             return bookshelfFound;
         }
 
         public static List<Point> GetHouseInsideTiles(int x, int y)
         {
             var addPoints = new List<Point>();
-            var checkedPoints = new List<Point>() { new Point(x, y) };
-            var offsets = new Point[] { new Point(1, 0), new Point(-1, 0), new Point(0, 1), new Point(0, -1), };
+            var checkedPoints = new List<Point>() { new(x, y) };
+            var offsets = new Point[] { new(1, 0), new(-1, 0), new(0, 1), new(0, -1), };
             for (int k = 0; k < 1000; k++)
             {
                 checkedPoints.AddRange(addPoints);
@@ -142,27 +144,21 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
             return checkedPoints;
         }
 
-        public static bool BookshelfInHouse(List<Point> insideTiles)
+        public static int CountBookshelfTiles(List<Point> insideTiles)
         {
-            bool shelfFound = false;
+            int bookshelfTiles = 0;
 
             foreach (var p in insideTiles)
             {
                 if (Main.tile[p].HasTile)
                 {
-                    //if (Main.tile[p].IsIncludedIn(TileID.Sets.RoomNeeds.CountsAsTable) ||
-                    //    Main.tile[p].IsIncludedIn(TileID.Sets.RoomNeeds.CountsAsChair) ||
-                    //    TileID.Sets.Torch[Main.tile[p].TileType])
-                    //{
-                    //    continue;
-                    //}
                     if (Main.tile[p].TileType == TileID.Bookcases)
                     {
-                        shelfFound = true;
+                        bookshelfTiles++;
                     }
                 }
             }
-            return shelfFound;
+            return bookshelfTiles;
         }
 
         public override List<string> SetNPCNameList()
@@ -176,6 +172,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
             WeightedRandom<string> chat = new();
             Player player = Main.LocalPlayer;
             chat.AddKey(DialogueKeyBase + "Placeholder");
+            chat.AddKey(DialogueKeyBase + "FindBook");
             return chat;
         }
 

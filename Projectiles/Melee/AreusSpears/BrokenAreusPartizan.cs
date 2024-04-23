@@ -124,7 +124,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
 
         public override void UpdateSwing(float progress, float interpolatedSwingProgress)
         {
-            FireProjectile(progress, ModContent.ProjectileType<PartisanHead>(), (int)(Projectile.damage * 0.75f), (int)(Projectile.knockBack * 0.75f));
+            FireProjectile(progress, ModContent.ProjectileType<PartisanHead>(), (int)(Projectile.damage * 0.75f), (int)(Projectile.knockBack * 0.75f), positionOffset: 20f);
         }
 
         public override Vector2 GetOffsetVector(float progress)

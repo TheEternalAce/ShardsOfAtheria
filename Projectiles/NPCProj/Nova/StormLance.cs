@@ -6,6 +6,7 @@ using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
 using ShardsOfAtheria.Utilities;
 using System.Linq;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
@@ -16,6 +17,8 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override void Load()
         {
+            if (Main.netMode == NetmodeID.Server)
+                return;
             glowmask = ModContent.Request<Texture2D>(Texture);
         }
 

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -12,18 +11,6 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 {
     public class LaserArrow : ModProjectile
     {
-        public static Asset<Texture2D> glowmask;
-
-        public override void Load()
-        {
-            glowmask = ModContent.Request<Texture2D>(Texture);
-        }
-
-        public override void Unload()
-        {
-            glowmask = null;
-        }
-
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10; // The length of old position to be recorded
@@ -90,7 +77,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
             int offsetY = 0;
             int offsetX = 0;
-            Texture2D glowmaskTexture = glowmask.Value;
+            Texture2D glowmaskTexture = TextureAssets.Projectile[Type].Value;
             float originX = (glowmaskTexture.Width - Projectile.width) * 0.5f + Projectile.width * 0.5f;
             ProjectileLoader.DrawOffset(Projectile, ref offsetX, ref offsetY, ref originX);
 

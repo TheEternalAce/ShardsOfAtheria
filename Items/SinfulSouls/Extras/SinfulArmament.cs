@@ -87,7 +87,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             else if (player.Pride().pride)
             {
                 armament = ModContent.ItemType<Magnus>();
-                text = "I am The Ambassador, the only weapon you'll ever need.";
+                text = "I am Magnus, the only weapon you'll ever need.";
                 color = Color.White;
             }
             else if (player.Sloth().sloth)

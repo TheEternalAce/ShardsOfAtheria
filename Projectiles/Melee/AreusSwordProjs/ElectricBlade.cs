@@ -29,7 +29,10 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSwordProjs
 
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(135);
+            Projectile.spriteDirection = Projectile.direction;
+            Projectile.rotation = Projectile.velocity.ToRotation();
+            if (Projectile.spriteDirection == 1) Projectile.rotation += MathHelper.PiOver4 * 3;
+            else Projectile.rotation += MathHelper.PiOver4;
             if (Main.rand.NextBool(20))
             {
                 Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Electric, Projectile.velocity.X * .2f, Projectile.velocity.Y * .2f, 200, Scale: 1f);

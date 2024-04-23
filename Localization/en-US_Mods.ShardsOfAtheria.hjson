@@ -371,7 +371,6 @@ Items: {
 		ShiftTooltip0:
 			'''
 			[i:ShardsOfAtheria/AmberCore_Super] Amber Effects
-			Further increased max minions after taking damage
 			Summon four Amber Flies after taking damage
 			Enemy kills drop Amber Banners
 			Banners increase nearby player movement and attack speed and defense
@@ -490,7 +489,7 @@ Items: {
 	}
 
 	HardlightBraces: {
-		DisplayName: Hardlight Braces
+		DisplayName: Hardlight Bracers
 		Tooltip: Attacks create 4 hardlight blades to inflict further damage
 	}
 
@@ -763,7 +762,7 @@ Items: {
 			'''
 			Summons an EM Avatar by your side
 			Double tap UP or DOWN to mark an enemy near your cursor
-			Marked enemies take extra damage
+			Marked enemies take extra damage and will be targeted by minions
 			'''
 		MeleeDamageClassBonus: The EM Avatar attacks nearby enemies with rapid sword strikes
 		RangedDamageClassBonus: The EM Avatar shoots at nearby enemies with its buster
@@ -915,7 +914,7 @@ Items: {
 
 	# Vanity
 	SkullMask: {
-		DisplayName: Skull Mask
+		DisplayName: Death Mask
 		Tooltip: ""
 	}
 
@@ -961,17 +960,48 @@ Items: {
 
 	AcesGoldFoxMask: {
 		DisplayName: Rockman Zeta's Gold Fox Mask
-		Tooltip: ""
+		Tooltip: Great for impersonating devs!
 	}
 
 	AcesJacket: {
 		DisplayName: Rockman Zeta's Jacket
-		Tooltip: "'Pockets included!'"
+		Tooltip:
+			'''
+			'Great for impersonating devs!'
+			'Pockets included!'
+			'''
 	}
 
 	AcesPants: {
 		DisplayName: Rockman Zeta's Pants
-		Tooltip: ""
+		Tooltip: Great for impersonating devs!
+	}
+
+	GhostFairyHood: {
+		DisplayName: Ghost Fairy Hood
+		Tooltip:
+			'''
+			'Great for impersonating devs!'
+			'Spooky month edition!'
+			'''
+	}
+
+	GhostFairyPants: {
+		DisplayName: Ghost Fairy Pants
+		Tooltip:
+			'''
+			'Great for impersonating devs!'
+			'Spooky month edition!'
+			'''
+	}
+
+	GhostFairyShirt: {
+		DisplayName: Ghost Fairy Shirt
+		Tooltip:
+			'''
+			'Great for impersonating devs!'
+			'Spooky month edition!'
+			'''
 	}
 
 	# nightlight
@@ -999,6 +1029,16 @@ Items: {
 			Hold use to charge with mana
 			Release use to fire off a barrage of lasers
 			'This is your final warning'
+			'''
+	}
+
+	TrainSpectrum: {
+		DisplayName: Train Spectrum
+		Tooltip:
+			'''
+			Hold use to charge with mana
+			Release use to fire a long bouncing train
+			'Not responsible for any damage caused to nearby card houses'
 			'''
 	}
 
@@ -2064,6 +2104,7 @@ Items: {
 			Punches shoot plasma bullets
 			Charges while not in use
 			Charged attacks throw a wave of fire
+			'Punch them into the ground!'
 			'''
 		Overdrive: Charged attacks punch the ground, creating a pillar of fire instead
 	}
@@ -2185,6 +2226,7 @@ Items: {
 			Swings throw energy beams
 			Charges while not in use
 			Charged attacks fire a piercing beam
+			'And burn them while they're down!'
 			'''
 		Overdrive: Charged attacks fling you forward and explode on impact instead
 	}
@@ -2318,7 +2360,7 @@ Items: {
 
 	AreusPistol: {
 		DisplayName: Areus Pistol
-		Tooltip: ""
+		Tooltip: Shoots fast bouncing bullets
 		Overdrive: Shots hit multiple times
 	}
 
@@ -2900,6 +2942,15 @@ Projectiles: {
 	BloodBoltHostile.DisplayName: Blood Bolt Hostile
 	BloodExplosionHostile.DisplayName: Blood Explosion Hostile
 	FlameBusterPillar.DisplayName: Flame Buster Pillar
+	BloodShuriken.DisplayName: Blood Shuriken
+	SpectrumTrain.DisplayName: Spectrum Train
+	TrainGun.DisplayName: Train Gun
+	SpectrumTrainBody.DisplayName: Spectrum Train Body
+	SpectrumTrainPortal.DisplayName: Spectrum Train Portal
+	BloodKris.DisplayName: Blood Kris
+	BloodGlob.DisplayName: Blood Glob
+	BloodDart.DisplayName: Blood Dart
+	BlackShot.DisplayName: Black Shot
 }
 
 NPCs: {
@@ -3032,21 +3083,24 @@ NPCs: {
 		Bestiary: Idk man lmfao
 
 		TownNPCMood: {
-			Content: I am content.
+			Content: I feel fine, thank you.
 			NoHome: I hate not having a home.
-			FarFromHome: I am too far from home.
+			FarFromHome: Just exploring, don't mind me.
 			LoveSpace: I love having so much space.
 			DislikeCrowded: I dislike how crowded I am.
 			HateCrowded: I hate how crowded I am.
-			LoveBiome: I love {BiomeName}.
-			LikeBiome: I like {BiomeName}.
-			LoveNPC: I love {NPCName}.
-			LikeNPC: I like {NPCName}.
+			LoveBiome: I heard of a library that was built in {BiomeName}, in a far away place. It's burried now. I would love to have my own library here. ... Minus the getting buried part.
+			LikeBiome: Come to think of it, having a library in {BiomeName} doesn't sound too bad. Desireable even.
+			LikeNPC: "{NPCName} is very helpful with organizing my books."
 			LikeNPC_Princess: I like {NPCName}.
 			Princess_LovesNPC: I like {NPCName}.
 		}
 
-		Dialogue.Placeholder: AAAA
+		Dialogue: {
+			Placeholder: AAAA
+			FindBook: May you find your book in my shop.
+		}
+
 		Census.SpawnCondition: Build a house with a bookshelf
 	}
 

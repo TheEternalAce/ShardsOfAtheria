@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Tools.Hooks
 {
-    internal class HardlightNeedle : ModItem
+    public class HardlightNeedle : ModItem
     {
         public override void SetStaticDefaults()
         {

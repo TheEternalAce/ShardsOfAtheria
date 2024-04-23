@@ -20,6 +20,7 @@ using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Ranged;
+using ShardsOfAtheria.Projectiles.Summon;
 using ShardsOfAtheria.Projectiles.Tools;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
@@ -41,6 +42,7 @@ namespace ShardsOfAtheria.Globals
         public static readonly List<int> SinfulItem = new();
         public static readonly List<int> Potions = new();
         public static readonly List<int> UpgradeableItem = new();
+        //public static readonly Dictionary<int, int> UpgradeableItems = new(); // Potentially use this in place of the above List<int>
         /// <summary>
         /// A list to let Conductive potion do it's work easily, automatically adds all items to ElecWeapon list
         /// </summary>
@@ -197,28 +199,28 @@ namespace ShardsOfAtheria.Globals
                         Projectile.NewProjectile(source, player.Center, vel * 16f, ModContent.ProjectileType<VenomSeed>(), 30, 1, player.whoAmI);
                         SoundEngine.PlaySound(SoundID.Item17);
                     }
-                    if (slayer.DeathSoul)
+                    if (slayer.DeathSoul && player.bleed)
                     {
-                        //if (item.DamageType == DamageClass.Melee)
-                        //{
-                        //    Projectile.NewProjectile(source, player.Center, vel * 16f, ModContent.ProjectileType<BloodRocket>(), 200, 7f, player.whoAmI);
-                        //    SoundEngine.PlaySound(SoundID.Item14);
-                        //}
-                        if (item.DamageType == DamageClass.Ranged)
+                        int bloodProjectile = 0;
+                        float amount = 1f;
+                        float rotation = MathHelper.ToRadians(15);
+                        bool evenSpread = true;
+                        float speedVariation = 0.33f;
+                        if (item.DamageType.CountsAsClass(DamageClass.Melee))
                         {
-                            Projectile.NewProjectile(source, player.Center, vel * 22f, ModContent.ProjectileType<BloodRocket>(), 200, 7f, player.whoAmI);
-                            SoundEngine.PlaySound(SoundID.Item14);
+                            bloodProjectile = ModContent.ProjectileType<BloodKris>();
+                            amount = 3;
+                            speedVariation = 0f;
                         }
-                        //if (item.DamageType == DamageClass.Magic)
-                        //{
-                        //    Projectile.NewProjectile(source, player.Center, vel * 16f, ModContent.ProjectileType<BloodRocket>(), 200, 7f, player.whoAmI);
-                        //    SoundEngine.PlaySound(SoundID.Item14);
-                        //}
-                        //if (item.DamageType == DamageClass.Summon)
-                        //{
-                        //    Projectile.NewProjectile(source, player.Center, vel * 16f, ModContent.ProjectileType<BloodRocket>(), 200, 7f, player.whoAmI);
-                        //    SoundEngine.PlaySound(SoundID.Item14);
-                        //}
+                        if (item.DamageType.CountsAsClass(DamageClass.Ranged)) bloodProjectile = ModContent.ProjectileType<BloodShuriken>();
+                        if (item.DamageType.CountsAsClass(DamageClass.Magic))
+                        {
+                            bloodProjectile = ModContent.ProjectileType<BloodGlob>();
+                            amount = 5;
+                            evenSpread = false;
+                        }
+                        if (item.DamageType.CountsAsClass(DamageClass.Summon)) bloodProjectile = ModContent.ProjectileType<BloodDart>();
+                        if (bloodProjectile > 0) ShardsHelpers.ProjectileSpread(source, player.Center, vel * 16f, amount, rotation, evenSpread, bloodProjectile, 200 / (int)amount, 7f, player.whoAmI, speedVariation: speedVariation);
                     }
                 }
             }

@@ -6,7 +6,6 @@ using ShardsOfAtheria.Buffs.PlayerBuff.AreusBannerBuffs;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,11 +14,14 @@ namespace ShardsOfAtheria.Projectiles.Other
     public class AreusHoloBannerProjector : ModProjectile
     {
         private static Asset<Texture2D> bannerTexture;
-        int mode = -1;
+        private static Asset<Texture2D> projectionTexture;
 
         public override void Load()
         {
+            if (Main.netMode == NetmodeID.Server)
+                return;
             bannerTexture = ModContent.Request<Texture2D>("ShardsOfAtheria/Projectiles/Other/AreusHoloBanner");
+            projectionTexture = ModContent.Request<Texture2D>("ShardsOfAtheria/Projectiles/Other/AreusHoloProjection");
         }
 
         public override void Unload()
@@ -39,19 +41,11 @@ namespace ShardsOfAtheria.Projectiles.Other
             Projectile.timeLeft *= 5;
         }
 
-        public override void OnSpawn(IEntitySource source)
-        {
-            mode = Main.rand.Next(3);
-        }
-
         public override void AI()
         {
             if (++Projectile.ai[0] > 40)
             {
-                if (Projectile.velocity != Vector2.Zero)
-                {
-                    Projectile.velocity *= 0.85f;
-                }
+                Projectile.velocity *= 0.85f;
             }
             UpdateVisuals();
             RepellBanners(1000);
@@ -117,10 +111,10 @@ namespace ShardsOfAtheria.Projectiles.Other
                     var distToPlayer = Vector2.Distance(player.Center, Projectile.Center);
                     if (distToPlayer <= maxDistance)
                     {
-                        if (Projectile.DamageType == DamageClass.Melee) player.AddBuff<AreusBannerMeleeBuff>(300);
-                        if (Projectile.DamageType == DamageClass.Ranged) player.AddBuff<AreusBannerRangedBuff>(300);
-                        if (Projectile.DamageType == DamageClass.Magic) player.AddBuff<AreusBannerMagicBuff>(300);
-                        if (Projectile.DamageType == DamageClass.Summon) player.AddBuff<AreusBannerSummonBuff>(300);
+                        if (Projectile.DamageType.CountsAsClass(DamageClass.Melee)) player.AddBuff<AreusBannerMeleeBuff>(300);
+                        if (Projectile.DamageType.CountsAsClass(DamageClass.Ranged)) player.AddBuff<AreusBannerRangedBuff>(300);
+                        if (Projectile.DamageType.CountsAsClass(DamageClass.Magic)) player.AddBuff<AreusBannerMagicBuff>(300);
+                        if (Projectile.DamageType.CountsAsClass(DamageClass.Summon)) player.AddBuff<AreusBannerSummonBuff>(300);
                     }
                 }
             }
@@ -131,9 +125,9 @@ namespace ShardsOfAtheria.Projectiles.Other
                     var distToNPC = Vector2.Distance(npc.Center, Projectile.Center);
                     if (distToNPC <= maxDistance)
                     {
-                        if (Projectile.DamageType == DamageClass.Melee) npc.AddBuff<AreusBannerMeleeDebuff>(300);
-                        if (Projectile.DamageType == DamageClass.Ranged) npc.AddBuff<AreusBannerRangedDebuff>(300);
-                        if (Projectile.DamageType == DamageClass.Magic)
+                        if (Projectile.DamageType.CountsAsClass(DamageClass.Melee)) npc.AddBuff<AreusBannerMeleeDebuff>(300);
+                        if (Projectile.DamageType.CountsAsClass(DamageClass.Ranged)) npc.AddBuff<AreusBannerRangedDebuff>(300);
+                        if (Projectile.DamageType.CountsAsClass(DamageClass.Magic))
                         {
                             foreach (Player player in Main.player)
                             {
@@ -150,7 +144,7 @@ namespace ShardsOfAtheria.Projectiles.Other
                                 }
                             }
                         }
-                        if (Projectile.DamageType == DamageClass.Summon) npc.AddBuff<AreusBannerSummonDebuff>(300);
+                        if (Projectile.DamageType.CountsAsClass(DamageClass.Summon)) npc.AddBuff<AreusBannerSummonDebuff>(300);
                     }
                 }
             }
@@ -167,6 +161,13 @@ namespace ShardsOfAtheria.Projectiles.Other
             lightColor = Color.White;
             Vector2 position = Projectile.Center - new Vector2(15, 93) - Main.screenPosition;
             Main.spriteBatch.Draw(bannerTexture.Value, position, null, lightColor);
+            int projectionType = 0;
+            if (Projectile.DamageType.CountsAsClass(DamageClass.Melee)) projectionType = 0;
+            if (Projectile.DamageType.CountsAsClass(DamageClass.Ranged)) projectionType = 1;
+            if (Projectile.DamageType.CountsAsClass(DamageClass.Magic)) projectionType = 2;
+            if (Projectile.DamageType.CountsAsClass(DamageClass.Summon)) projectionType = 3;
+            var frame = projectionTexture.Frame(1, 4, 0, projectionType);
+            Main.spriteBatch.Draw(projectionTexture.Value, position, frame, lightColor);
             return base.PreDraw(ref lightColor);
         }
     }

@@ -23,6 +23,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             Item.height = 18;
 
             Item.DefaultToWhip(ModContent.ProjectileType<DragonSpineWhipProj>(), 220, 2, 5, 26);
+            Item.autoReuse = true;
 
             Item.rare = ItemDefaults.RaritySlayer;
         }

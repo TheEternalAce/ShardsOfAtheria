@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Tools.Hooks
 {
-    internal class AreusTether : ModItem
+    public class AreusTether : ModItem
     {
         public override void SetStaticDefaults()
         {

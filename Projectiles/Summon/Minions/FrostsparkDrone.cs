@@ -235,7 +235,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                         projType, Projectile.damage, 0, Projectile.owner, ai0);
                     projectile.DamageType = DamageClass.Summon;
                     projectile.tileCollide = false;
-                    SoundEngine.PlaySound(soundType);
+                    SoundEngine.PlaySound(soundType, Projectile.Center);
                     Projectile.ai[1] = 0;
                     ShootTimer = 0;
                 }

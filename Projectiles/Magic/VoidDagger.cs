@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -55,7 +56,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
                 float rotation = MathHelper.Pi / 3;
                 Projectile.Center = target.Center + Vector2.One.RotatedBy(rotation * Projectile.ai[0]) * 90;
                 const float TimeBeforeFlight = 15f;
-                if (++Timer >= TimeBeforeFlight)
+                if (++Timer > TimeBeforeFlight)
                 {
                     float travel = (Timer - TimeBeforeFlight) * 8;
                     Projectile.Center += vector * travel;
@@ -66,6 +67,17 @@ namespace ShardsOfAtheria.Projectiles.Magic
         public override bool ShouldUpdatePosition()
         {
             return false;
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            var player = Projectile.GetPlayerOwner();
+            if (!player.HasBuff<ShadeState>())
+            {
+                var areus = player.Areus();
+                areus.imperialVoid -= 3;
+            }
+            target.AddBuff(BuffID.Electrified, 600);
         }
 
         public override bool PreDraw(ref Color lightColor)

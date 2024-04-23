@@ -71,13 +71,13 @@ namespace ShardsOfAtheria.Players
             }
         }
 
-        private void ConsumeImperialVoid()
+        public void ConsumeImperialVoid()
         {
             imperialVoid -= 33;
             Player.AddBuff<ShadeState>(180);
         }
 
-        private void ImperialVoidStar()
+        public void ImperialVoidStar()
         {
             if (CommanderSet)
             {

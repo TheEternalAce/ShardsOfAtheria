@@ -71,12 +71,12 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameBuster
 
         private void Fire()
         {
-            SoundEngine.PlaySound(SoundID.Item34, Projectile.Center);
+            if (Projectile.timeLeft % 25 == 0) SoundEngine.PlaySound(SoundID.Item34, Projectile.Center);
 
             if (Main.myPlayer == Projectile.owner)
             {
                 var source = Projectile.GetSource_FromThis();
-                float speed = 7f;
+                float speed = 8.5f;
                 var velocity = aimNormal * speed;
                 int flame = ProjectileID.Flames;
                 int damage = Projectile.originalDamage;

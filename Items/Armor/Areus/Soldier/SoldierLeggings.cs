@@ -10,8 +10,6 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
     [AutoloadEquip(EquipType.Legs)]
     public class SoldierLeggings : AreusArmorPiece
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetDefaults()
         {
             Item.width = 18;

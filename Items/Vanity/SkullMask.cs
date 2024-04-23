@@ -6,8 +6,6 @@ namespace ShardsOfAtheria.Items.Vanity
     [AutoloadEquip(EquipType.Head)]
     public class SkullMask : ModItem
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetDefaults()
         {
             Item.width = 18;

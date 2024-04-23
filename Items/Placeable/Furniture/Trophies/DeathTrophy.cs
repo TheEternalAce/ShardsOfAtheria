@@ -6,8 +6,6 @@ namespace ShardsOfAtheria.Items.Placeable.Furniture.Trophies
 {
     public class DeathTrophy : ModItem
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;

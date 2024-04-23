@@ -145,7 +145,7 @@ namespace ShardsOfAtheria.Globals
                 master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<FlailOfFlesh>()));
                 npcLoot.Add(master);
             }
-            if (npc.type == NPCID.TheDestroyer || npc.type == NPCID.TheDestroyerBody || npc.type == NPCID.TheDestroyerTail)
+            if (npc.type == NPCID.TheDestroyer)
             {
                 master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Coilgun>()));
                 npcLoot.Add(master);

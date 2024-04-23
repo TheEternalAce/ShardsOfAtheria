@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
         // Change this number if you want to alter how the alpha changes
         private const int ALPHA_REDUCTION = 25;
 
-        int gravityTimer = 0;
+        int gravityTimer = 8;
         public override void AI()
         {
             // Slowly remove alpha as it is present
@@ -58,6 +58,10 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             for (int i = 0; i < 4; i++)
             {
                 Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<AreusDust_Dark>(), Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
+            }
+            for (int i = 0; i < 2; i++)
+            {
+                Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Gold, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
             }
         }
     }

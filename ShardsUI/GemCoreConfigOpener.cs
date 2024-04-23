@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.ShardsUI
@@ -16,22 +18,11 @@ namespace ShardsOfAtheria.ShardsUI
             return "Master Gem Core Config";
         }
 
-        public override Color DisplayColorTexture()
-        {
-            if (CurrentState == 0)
-            {
-                return Color.Gray;
-            }
-            return base.DisplayColorTexture();
-        }
-
-        /*
         public override bool Draw(SpriteBatch spriteBatch, ref BuilderToggleDrawParams drawParams)
         {
-            Color[] colors = new[] { Color.Red, Color.Blue, Color.Green, Color.Yellow };
+            Color[] colors = [Color.Gray, Color.White];
             drawParams.Color = colors[CurrentState];
             return true;
         }
-        */
     }
 }

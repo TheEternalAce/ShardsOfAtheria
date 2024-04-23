@@ -10,8 +10,6 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
     [AutoloadEquip(EquipType.Body)]
     public class SoldierBreastplate : AreusArmorPiece
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetDefaults()
         {
             Item.width = 18;

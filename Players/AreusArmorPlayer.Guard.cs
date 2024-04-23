@@ -23,21 +23,19 @@ namespace ShardsOfAtheria.Players
         {
             Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<AreusShockwave_MeleeArmor>(),
                 (int)ClassDamage.ApplyTo(30 + areusEnergy), 0f);
-            areusEnergy = 0;
             SoundEngine.PlaySound(SoundID.Item38, Player.Center);
         }
         private void GuardActive_Ranged()
         {
             if (!Player.HasBuff<ElectricMarksman>())
             {
-                Player.AddBuff<ElectricMarksman>(18000);
+                Player.AddBuff<ElectricMarksman>(areusEnergy);
             }
         }
         private void GuardActive_Magic()
         {
             if (areusEnergy >= AREUS_ENERGY_MAX)
             {
-                areusEnergy = 0;
                 SoundEngine.PlaySound(SoundID.NPCDeath56);
                 float numberProjectiles = 3; // 3 shots
                 float rotation = MathHelper.ToRadians(10);

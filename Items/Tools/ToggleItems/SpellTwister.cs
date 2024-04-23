@@ -10,12 +10,10 @@ namespace ShardsOfAtheria.Items.Tools.ToggleItems
     {
         public bool active = true;
 
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetDefaults()
         {
-            Item.width = 32;
-            Item.height = 32;
+            Item.width = 34;
+            Item.height = 48;
 
             Item.rare = ItemDefaults.RarityMoonLord;
             Item.value = ItemDefaults.ValueDungeon;

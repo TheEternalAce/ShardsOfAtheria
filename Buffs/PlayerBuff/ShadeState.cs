@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
             var player = projectile.GetPlayerOwner();
-            if (player.Areus().imperialSet && player.Areus().classChip == DamageClass.Ranged)
+            if (player.Areus().imperialSet && player.Areus().RangerSet)
             {
                 if (player.HasBuff<ShadeState>())
                 {

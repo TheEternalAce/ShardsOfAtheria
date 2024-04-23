@@ -56,7 +56,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
         {
             if (timeLeft == 0)
             {
-                SoundEngine.PlaySound(SoundID.Item9, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.NPCDeath7, Projectile.Center);
                 foreach (var player in Main.player)
                 {
                     if (Projectile.Distance(player.Center) < 500)

@@ -15,8 +15,6 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.15f;
-            var areusPlayer = player.Areus();
-            areusPlayer.areusEnergy = 0;
         }
     }
 

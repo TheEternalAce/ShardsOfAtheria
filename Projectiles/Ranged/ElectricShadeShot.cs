@@ -39,14 +39,11 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (Projectile.ai[1] == 1)
+            var player = Projectile.GetPlayerOwner();
+            if (!player.HasBuff<ShadeState>())
             {
-                var player = Projectile.GetPlayerOwner();
-                if (!player.HasBuff<ShadeState>())
-                {
-                    var areus = player.Areus();
-                    areus.imperialVoid -= 3;
-                }
+                var areus = player.Areus();
+                areus.imperialVoid -= 3;
             }
             target.AddBuff(BuffID.Electrified, 600);
         }

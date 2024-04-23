@@ -4,6 +4,7 @@ using ReLogic.Content;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Tools
@@ -14,6 +15,8 @@ namespace ShardsOfAtheria.Projectiles.Tools
 
         public override void Load()
         {
+            if (Main.netMode == NetmodeID.Server)
+                return;
             glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
         }
 

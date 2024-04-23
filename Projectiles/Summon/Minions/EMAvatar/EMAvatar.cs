@@ -1,8 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,6 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
 {
     public class EMAvatar : ModProjectile
     {
+        static Asset<Texture2D> ArmTexture;
         int projectileTimer = 0;
         int chargeTimer = 0;
 
@@ -24,19 +28,29 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
         //const int ANIMATION_CAST = 3;
         //const int ANIMATION_COMMAND = 4;
 
+        public override void Load()
+        {
+            if (!Main.dedServ) ArmTexture = ModContent.Request<Texture2D>(Texture + "_Arm");
+        }
+        public override void Unload()
+        {
+            ArmTexture = null;
+        }
+
         public override void SetStaticDefaults()
         {
             // This is necessary for right-click targeting
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
             Main.projPet[Projectile.type] = true; // Denotes that this projectile is a pet or minion
+            Main.projFrames[Type] = 6;
         }
 
         public override void SetDefaults()
         {
             Projectile.netImportant = true;
-            Projectile.width = 38;
-            Projectile.height = 70;
+            Projectile.width = 28;
+            Projectile.height = 78;
             Projectile.aiStyle = -1;
             Projectile.penetrate = -1;
             Projectile.timeLeft *= 5;
@@ -47,8 +61,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Summon;
 
-            //DrawOffsetX = -6;
-            //DrawOriginOffsetY = -4;
+            DrawOffsetX = -24;
         }
 
         // Here you can decide if your minion breaks things like grass or pots
@@ -63,11 +76,12 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
             return false;
         }
 
-        //public override void OnSpawn(IEntitySource source)
-        //{
-        //    CombatText.NewText(Projectile.Hitbox, Color.Blue, "<3");
-        //    SoundEngine.PlaySound(SoundID.Item53.WithPitchOffset(1.5f), Projectile.Center);
-        //}
+        public override void OnSpawn(IEntitySource source)
+        {
+            CombatText.NewText(Projectile.Hitbox, Color.Cyan, "!");
+            SoundEngine.PlaySound(SoundID.NPCHit53, Projectile.Center);
+            idleFrame = Main.rand.Next(2);
+        }
 
         public override void AI()
         {
@@ -98,17 +112,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
                 Projectile.position = idlePosition;
                 Projectile.velocity *= 0.1f;
                 Projectile.netUpdate = true;
-            }
-
-            int direction = owner.direction;
-            if (idlePosition.X > owner.Center.X && Projectile.Center.X < owner.Center.X ||
-                idlePosition.X < owner.Center.X && Projectile.Center.X > owner.Center.X)
-            {
-                direction *= -1;
-            }
-            if (Projectile.frame != 4)
-            {
-                Projectile.spriteDirection = direction;
             }
 
             int torch = TorchID.Green;
@@ -175,9 +178,10 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
                 int projectileType = 0;
                 float projectileSpeed = 0f;
                 var areus = owner.Areus();
-                int targetDirection = (targetCenter.X < Projectile.Center.X).ToDirectionInt();
+                int targetDirection = (targetCenter.X > Projectile.Center.X).ToDirectionInt();
                 int projectileTimerMax = 60;
                 var shootSound = SoundID.Item1;
+                int animState = ANIMATION_IDLE;
 
                 if (areus.WarriorSet)
                 {
@@ -185,13 +189,16 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
                     projectileSpeed = 22f;
                     projectileTimerMax = 30;
                     shootSound = SoundID.Item71;
-                    vectorToIdlePosition = targetCenter + Vector2.UnitX * 100f * targetDirection - Projectile.Center;
+                    vectorToIdlePosition = targetCenter + Vector2.UnitX * 100f * -targetDirection - Projectile.Center;
+                    animState = ANIMATION_SWING;
+                    Projectile.spriteDirection = targetDirection;
                 }
                 if (areus.RangerSet)
                 {
                     projectileType = ModContent.ProjectileType<BusterShot>();
                     projectileSpeed = 10;
                     shootSound = SoA.MagnetShot;
+                    animState = ANIMATION_SHOOT;
                 }
                 if (areus.MageSet)
                 {
@@ -199,6 +206,12 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
                     projectileSpeed = 0;
                     projectileTimerMax = 900;
                     shootSound = SoundID.Item8;
+                    animState = ANIMATION_CAST;
+                }
+                if (areus.CommanderSet)
+                {
+                    SetAnimation(ANIMATION_POINT, 2);
+                    Projectile.spriteDirection = targetDirection;
                 }
 
                 if (++projectileTimer >= projectileTimerMax)
@@ -209,8 +222,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, velocity, projectileType, Projectile.damage, 0, Projectile.owner);
                         SoundEngine.PlaySound(shootSound, Projectile.Center);
 
-                        //Projectile.frame = 4;
-                        //Projectile.frameCounter = 0;
+                        SetAnimation(animState, projectileTimerMax * 2 / 3);
                         Projectile.spriteDirection = targetDirection;
                     }
                     projectileTimer = 0;
@@ -255,51 +267,57 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
             return true;
         }
 
+        const int ANIMATION_IDLE = 0;
+        const int ANIMATION_POINT = 2;
+        const int ANIMATION_SHOOT = 3;
+        const int ANIMATION_SWING = 4;
+        const int ANIMATION_CAST = 5;
+        int idleFrame = 0;
+        int animationState = ANIMATION_IDLE;
+        bool animationIdle = true;
+        int nonIdleFrameTime;
+        int armFrame = -1;
         private void Visuals()
         {
-            //int frameTime = 5;
-            //int maxframe = 4;
-            //if (animationState == ANIMATION_PLATFORM)
-            //{
-            //    maxframe = 7;
-            //}
-            //if (animationState == ANIMATION_IDLE)
-            //{
-            //    maxframe = 1;
-            //}
-            //switch (Projectile.frame)
-            //{
-            //    case 0:
-            //        frameTime = 7;
-            //        break;
-            //    case 1:
-            //    case 2:
-            //    case 3:
-            //        frameTime = 7;
-            //        break;
-            //    case 4:
-            //        frameTime = 30;
-            //        break;
-            //    case 5:
-            //    case 6:
-            //        frameTime = 20;
-            //        break;
-            //    case 7:
-            //        frameTime = 20;
-            //        animationState = ANIMATION_IDLE;
-            //        break;
-            //}
+            if (animationIdle) Projectile.frame = idleFrame;
+            else Projectile.frame = animationState;
+            if (armFrame > -1)
+            {
+                if (++Projectile.frameCounter > 4)
+                {
+                    Projectile.frameCounter = 0;
+                    if (++armFrame > 4) armFrame = -1;
+                }
+            }
+            if (nonIdleFrameTime > 0) nonIdleFrameTime--;
+            else if (nonIdleFrameTime == 0) { animationIdle = true; animationState = ANIMATION_IDLE; }
+            if (animationState != ANIMATION_SWING && animationState != ANIMATION_SHOOT)
+            {
+                var owner = Projectile.GetPlayerOwner();
+                int direction = owner.direction;
+                Projectile.spriteDirection = direction;
+            }
+        }
+        private void SetAnimation(int animationState, int animationTime = 60)
+        {
+            this.animationState = animationState;
+            nonIdleFrameTime = animationTime;
+            animationIdle = false;
+            if (animationState == ANIMATION_SWING) armFrame = 0;
+        }
 
-            //if (++Projectile.frameCounter >= frameTime)
-            //{
-            //    Projectile.frameCounter = 0;
-            //    Projectile.frame++;
-
-            //    if (Projectile.frame > maxframe)
-            //    {
-            //        Projectile.frame = 0;
-            //    }
-            //}
+        public override bool PreDraw(ref Color lightColor)
+        {
+            if (armFrame > -1)
+            {
+                Vector2 position = Projectile.Center - Main.screenPosition;
+                Vector2 offset = new(12 * Projectile.spriteDirection, -5);
+                Rectangle frame = ArmTexture.Frame(1, 5, 0, armFrame);
+                SpriteEffects effects = SpriteEffects.None;
+                if (Projectile.spriteDirection == -1) effects = SpriteEffects.FlipHorizontally;
+                Main.EntitySpriteDraw(ArmTexture.Value, position + offset, frame, lightColor, 0f, new Vector2(64, 50), 1f, effects);
+            }
+            return base.PreDraw(ref lightColor);
         }
 
         //public override void OnKill(int timeLeft)
