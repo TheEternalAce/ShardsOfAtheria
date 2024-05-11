@@ -46,12 +46,12 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
 
         public override void UpdateArmorSet(Player player)
         {
+            base.UpdateArmorSet(player);
             ArmorPlayer.soldierSet = true;
             if (ArmorPlayer.CommanderSet)
             {
                 player.maxMinions += 1;
             }
-            base.UpdateArmorSet(player);
         }
 
         public override void AddRecipes()

@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.ShardsUI.DataTablet
     {
         private UIText text;
         private UIImage screen;
+        readonly string DiskPath = "ShardsOfAtheria/ShardsUI/DataTablet/DataDisks/";
 
         public override void OnInitialize()
         {

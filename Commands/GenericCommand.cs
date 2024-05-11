@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Commands
             Player player = caller.Player;
             SlayerPlayer slayer = player.Slayer();
             ShardsPlayer shards = player.Shards();
-            ShardsDownedSystem soaWorld = SoA.DownedSystem;
+            ShardsDownedSystem downedSystem = SoA.DownedSystem;
 
             shards.genesisRagnarockUpgrades = 0;
             string arsenalReset = "Reset Genesis and Ragnarok upgrades";

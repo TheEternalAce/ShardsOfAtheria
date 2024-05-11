@@ -98,14 +98,13 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (!spawnInfo.PlayerInTown && spawnInfo.Player.ZoneUnderworldHeight)
-                return .05f;
+                return 0.1f;
             return 0f;
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             base.ModifyNPCLoot(npcLoot);
-            LeadingConditionRule hardmode = new(new Conditions.IsHardmode());
 
             int[,] ores = new int[,]
             {
@@ -114,9 +113,6 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             };
             npcLoot.Add(ShardsDrops.ManyFromOptions(1, ores));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BrokenAreusMirror>(), 15));
-            hardmode.OnSuccess(ItemDropRule.Common(ItemID.FireFeather, 5));
-            // Finally add the leading rule
-            npcLoot.Add(hardmode);
         }
     }
 }

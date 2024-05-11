@@ -32,10 +32,8 @@ DiskFile: {
 		'''
 		Disk_001_Areus
 		A typically pale blue metal which crackles with electricity, areus is used for
-		everything in Atheria. Different circumstances of forging areus may get it to
-		change its color permanently: red areus is forged with extreme heat, yellow
-		areus is melted and cast, white areus is alloyed with gold. If areus were lose
-		its electrical properties, its color will turn dark and it will harden.
+		everything in Atheria. If areus were to be heated at extreme temperatures,
+		its color will turn dark and it will harden and lose its electrical properties.
 		'''
 	DataDisk002:
 		'''
@@ -1876,6 +1874,7 @@ Items: {
 			'''
 			Spirits will spawn around you while this is in your inventory
 			Collect spirits and unleash them as a wave of electrical fire
+			Holding the lantern will attract spirits to you from farther away
 			'''
 		Overdrive:
 			'''
@@ -2048,7 +2047,12 @@ Items: {
 
 	AreusPartisan: {
 		DisplayName: Areus Retribution
-		Tooltip: Strikes with the tip will deal increased damage
+		Tooltip:
+			'''
+			Strikes with the tip will deal increased damage
+			Alt-use to throw the spear
+			Hits witth the thrown spear will empoer the melee attack
+			'''
 	}
 
 	AreusSawstring: {
@@ -2590,6 +2594,17 @@ Items: {
 		DisplayName: Nestling Staff
 		Tooltip: Summons a fledgling harpy knight to fight for you
 	}
+
+	NullFieldGenerator: {
+		DisplayName: Areus Null Field Generator
+		Tooltip:
+			'''
+			Once the field is deployed, nothing comes in and nothing comes out
+			Everything inside the field is invulnerable
+			If somehow something damaging makes it out of the field, it will not deal damage
+			When broken, it has a 20 second cooldown before the field can be deployed again
+			'''
+	}
 }
 
 Projectiles: {
@@ -2933,7 +2948,7 @@ Projectiles: {
 	ElectricPoe.DisplayName: Electric Spirit
 	CodeProjectile.DisplayName: Code Projectile
 	IronBall.DisplayName: Iron Ball
-	PartisanHead.DisplayName: Partisan Head
+	PartisanHead.DisplayName: Areus Partisan Head
 	SalamanderLaser.DisplayName: Salamander Laser
 	BloodBarrierHostileOrbit.DisplayName: Blood Barrier Hostile Orbit
 	PlagueBullet.DisplayName: Plague Bullet
@@ -2943,14 +2958,16 @@ Projectiles: {
 	BloodExplosionHostile.DisplayName: Blood Explosion Hostile
 	FlameBusterPillar.DisplayName: Flame Buster Pillar
 	BloodShuriken.DisplayName: Blood Shuriken
-	SpectrumTrain.DisplayName: Spectrum Train
 	TrainGun.DisplayName: Train Gun
+	SpectrumTrain.DisplayName: Spectrum Train
 	SpectrumTrainBody.DisplayName: Spectrum Train Body
 	SpectrumTrainPortal.DisplayName: Spectrum Train Portal
 	BloodKris.DisplayName: Blood Kris
 	BloodGlob.DisplayName: Blood Glob
 	BloodDart.DisplayName: Blood Dart
-	BlackShot.DisplayName: Black Shot
+	BlackShot.DisplayName: Black Star Shot
+	AreusLeadShriek.DisplayName: Areus Lead Shriek
+	AreusNullField.DisplayName: Areus Null Field
 }
 
 NPCs: {
@@ -3042,37 +3059,6 @@ NPCs: {
 			NovaDeath: "{0} leaves with Nova's death. 'She didn't deserve this...'"
 			GoddessDeath: "{0} leaves with the death of his goddess. 'Curse you till the end of time!'"
 			AllDeath: "{0} leaves from your genocide. 'Suffer beyond eternity!'"
-			# Upgrading
-			UpgradeGenesisAndRagnarok1:
-				'''
-				As I expected, the fragments did make them stronger.
-				Either way, Genesis is now able to take the form of a double-headed spear.
-				There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
-				'''
-			UpgradeGenesisAndRagnarok2:
-				'''
-				Genesis can now attach to Ragnarok for swinging.
-				There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
-				'''
-			UpgradeGenesisAndRagnarok3:
-				'''
-				Genesis and Ragnarok can now set enemies on fire.
-				There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
-				'''
-			UpgradeGenesisAndRagnarok4:
-				'''
-				Genesis is now capable of transforming into a sword.
-				There are still memories sealed within, if you find any more of those Memory Fragments then be sure to see me.
-				'''
-			UpgradeGenesisAndRagnarok5:
-				'''
-				Genesis and Ragnarok now have their ice capabilities are revealed.
-				All of the memory seals are now released, I cannot upgrade them further.
-				'''
-			UpgradeWeapon: That should do it. This is the best I can achieve. Use it well.
-			NoUpgradableItem: I don't think I could upgrade anything you have. If you find an areus weapon, I could probably upgrade that.
-			NoUpgradeMoney: Sorry pal, you don't have enough coins.
-			NotEnoughMaterial: "{0} - {1} [i:{2}]. I need at least {3}, you have {4}."
 		}
 
 		Census.SpawnCondition: Defeat your world's evil boss while not in Slayer mode.
@@ -3167,6 +3153,7 @@ NPCs: {
 	MiniAreusStar.DisplayName: Mini Areus Star
 	EmeraldPlatform.DisplayName: Emerald Platform
 	MiniAreusStar_Golden.DisplayName: Mini Areus Star_ Golden
+	ShriekingBeacon.DisplayName: Shrieking Beacon
 }
 
 Buffs: {
@@ -3672,6 +3659,11 @@ Buffs: {
 		DisplayName: Charging Drones
 		Description: Mods.ShardsOfAtheria.Buffs.ChargingDrones.Description
 	}
+
+	NullField: {
+		DisplayName: Null Field
+		Description: Mods.ShardsOfAtheria.Buffs.NullField.Description
+	}
 }
 
 Necronomicon: {
@@ -3712,6 +3704,12 @@ Conditions: {
 	SacrificeKatana: Sacrifice a katana in the Underworld.
 	Rain: Drops during the rain.
 	RainSurface: Drops in the rain.
+	EternityExpertOrMaster: Drops in Eternity or Master mode.
+	Eternity: Drops in Eternity mode.
+	VoidSet: Wear the full Areus Imperial set.
+	HaveCoin: Have the Areus Gambit in your inventory.
+	HaveDie: Have the Areus Gamble in your inventory.
+	HaveMessiah: Have The Messiah in your inventory.
 }
 
 ShopQuote: {
@@ -3735,10 +3733,7 @@ ShopQuote: {
 	Archivist.Necronomicon: This book has got some spooky vibes. You want it?
 }
 
-InfoDisplays: {
-	InCombatInfoDisplay.DisplayName: "{0}"
-	OverdriveTimeInfoDisplay.DisplayName: Overdrive Time
-}
+InfoDisplays.InCombatInfoDisplay.DisplayName: "{0}"
 
 Tiles: {
 	OmegaChest: {
@@ -3754,6 +3749,11 @@ Tiles: {
 	Trophy.MapEntry: Trophy
 	NightlightLamp.MapEntry: Nightlight Lamp
 	BurriedPartizan.MapEntry: Burried Areus Partisan
+
+	AreusNullFieldGenerator: {
+		$parentVal: Areus Null-Field Generator
+		MapEntry: Areus Null Field Generator
+	}
 }
 
 Keybinds: {
@@ -3805,6 +3805,11 @@ Configs: {
 		katanaScream: {
 			Label: "[i:ShardsOfAtheria/AreusKatana] Katana Scream"
 			Tooltip: Toggles whether or not the sound effect for transforming an Areus Katana plays.
+		}
+
+		upgradeWarning: {
+			Label: "[i:3617] Upgrade Warning"
+			Tooltip: Disabling removes the warning text from the Atherian's upgrade UI
 		}
 
 		loreTabletOffset: {

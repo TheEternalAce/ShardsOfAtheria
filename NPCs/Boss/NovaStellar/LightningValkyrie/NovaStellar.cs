@@ -160,7 +160,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
             LeadingConditionRule slayerMode = new(new IsSlayerMode());
-            LeadingConditionRule master = new(new Conditions.IsMasterMode());
+            LeadingConditionRule masterOrEternity = new(new EternityOrMaster());
 
             int[] drops = { ModContent.ItemType<ValkyrieBlade>(), ModContent.ItemType<DownBow>(), ModContent.ItemType<PlumeCodex>(), ModContent.ItemType<NestlingStaff>() };
 
@@ -168,6 +168,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HardlightKnife>(), 5, 150, 180));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieCrown>(), 5));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HardlightPrism>(), 1, 15, 28));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ThunderValkyrieMask>(), 7));
             notExpertRule.OnSuccess(ItemDropRule.Common(ItemID.GoldBar, 1, 8, 14));
 
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<NovaRelic>()));
@@ -185,15 +186,17 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
             if (ModLoader.TryGetMod("FargowiltasSouls", out Mod souls))
             {
-                npcLoot.Add(ItemDropRule.Common(souls.Find<ModItem>("WyvernFeather").Type, 20));
+                LeadingConditionRule eternity = new(new Eternity());
+                eternity.OnSuccess(ItemDropRule.Common(souls.Find<ModItem>("WyvernFeather").Type, 20));
+                npcLoot.Add(eternity);
             }
 
-            master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieStormLance>()));
-            npcLoot.Add(master);
+            masterOrEternity.OnSuccess(ItemDropRule.Common(ModContent.ItemType<ValkyrieStormLance>()));
 
             // Finally add the leading rule
             npcLoot.Add(notExpertRule);
             npcLoot.Add(slayerMode);
+            npcLoot.Add(masterOrEternity);
         }
 
         public override void OnKill()

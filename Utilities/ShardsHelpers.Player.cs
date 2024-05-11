@@ -9,6 +9,10 @@ namespace ShardsOfAtheria.Utilities
 {
     public partial class ShardsHelpers
     {
+        public static bool TryShards(this Player player, out ShardsPlayer shards)
+        {
+            return player.TryGetModPlayer(out shards);
+        }
         public static ShardsPlayer Shards(this Player player)
         {
             return player.GetModPlayer<ShardsPlayer>();

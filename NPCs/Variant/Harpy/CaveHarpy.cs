@@ -106,7 +106,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         {
             if (spawnInfo.Player.ZonePurity && (spawnInfo.Player.ZoneNormalUnderground ||
                 spawnInfo.Player.ZoneNormalCaverns))
-                return .05f;
+                return 0.1f;
             return 0f;
         }
 

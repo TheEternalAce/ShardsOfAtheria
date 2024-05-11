@@ -7,6 +7,7 @@ using ShardsOfAtheria.Items.PetItems;
 using ShardsOfAtheria.Items.Placeable.Furniture.Trophies;
 using ShardsOfAtheria.Items.Placeable.Furniture.Trophies.Master;
 using ShardsOfAtheria.Items.SoulCrystals;
+using ShardsOfAtheria.Items.Vanity;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
@@ -154,6 +155,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
             LeadingConditionRule slayerMode = new(new IsSlayerMode());
+            LeadingConditionRule masterOrEternity = new(new EternityOrMaster());
 
             int[] drops = {
                 ModContent.ItemType<BloodScythe>(),
@@ -162,8 +164,9 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 ModContent.ItemType<BloodTome>(),
             };
 
-            notExpertRule.OnSuccess(new OneFromOptionsDropRule(4, 3, drops));
+            notExpertRule.OnSuccess(new OneFromOptionsDropRule(1, 3, drops));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<LifeCycleKeys>(), 4));
+            notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SkullMask>(), 7));
 
             npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ModContent.ItemType<DeathRelic>()));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DeathTrophy>(), 10));
@@ -177,11 +180,12 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 alreadyDowned.OnFailedConditions(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
             }
 
-            npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<BloodStainedCrossbow>()));
+            masterOrEternity.OnSuccess(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<BloodStainedCrossbow>()));
 
             // Finally add the leading rule
             npcLoot.Add(notExpertRule);
             npcLoot.Add(slayerMode);
+            npcLoot.Add(masterOrEternity);
         }
 
         public override void OnKill()

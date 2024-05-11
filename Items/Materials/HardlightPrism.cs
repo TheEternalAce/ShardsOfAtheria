@@ -26,7 +26,8 @@ namespace ShardsOfAtheria.Items.Materials
         {
             CreateRecipe(2)
                 .AddIngredient(ItemID.GoldBar)
-                .AddIngredient<SoulOfDaylight>(15)
+                .AddIngredient(ItemID.Feather, 5)
+                .AddIngredient<SoulOfDaylight>(5)
                 .AddCondition(SoAConditions.DownedNova)
                 .AddTile(TileID.SkyMill)
                 .Register();

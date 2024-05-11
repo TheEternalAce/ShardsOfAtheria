@@ -1,6 +1,7 @@
 internalName,defType,defType,offType,offType,abilityBasic,abilityHidden
 AreusMortar,Electric,Steel,Electric,,,
 BiblicallyAccurateAtherian,Electric,Flying,Electric,,LightningRod,
+ShriekingBeacon,Electric,Normal,Normal,,LightningRod,
 Death,Blood,,Blood,,,
 NovaStellar,Flying,Electric,Flying,Electric,,
 Creeper,Blood,,Blood,,,

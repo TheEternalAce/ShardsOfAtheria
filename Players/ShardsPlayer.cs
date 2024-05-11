@@ -12,7 +12,6 @@ using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Tools.Misc.Slayer;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
-using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.ShardsUI;
@@ -45,10 +44,9 @@ namespace ShardsOfAtheria.Players
         public bool areusRod;
         public bool acidTrip;
         public bool powerTrip;
+        public bool areusNullField;
 
         public bool valkyrieCrown;
-        public bool valkyrieCrownHideVanity;
-        public bool valkyrieCrownForceVanity;
         public bool hardlightBraces;
         public int hardlightBracesCooldown;
         public int hardlightBracesCooldownMax = 60;
@@ -130,6 +128,7 @@ namespace ShardsOfAtheria.Players
             resonator = false;
             riggedCoin = 0;
             weightDie = 0;
+            areusNullField = false;
 
             BiometalPrevious = Biometal;
             Biometal = BiometalHideVanity = BiometalForceVanity = false;
@@ -387,6 +386,24 @@ namespace ShardsOfAtheria.Players
             }
         }
 
+        public override bool CanHitPvp(Item item, Player target)
+        {
+            if (areusNullField || target.Shards().areusNullField) return false;
+            return base.CanHitPvp(item, target);
+        }
+
+        public override bool CanHitPvpWithProj(Projectile proj, Player target)
+        {
+            if (areusNullField || target.Shards().areusNullField) return false;
+            return base.CanHitPvpWithProj(proj, target);
+        }
+
+        public override bool CanHitNPC(NPC target)
+        {
+            if (areusNullField) return false;
+            return base.CanHitNPC(target);
+        }
+
         public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
         {
             if (SoA.BNEEnabled)
@@ -403,7 +420,7 @@ namespace ShardsOfAtheria.Players
             }
         }
 
-        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             combatTimer = 300;
             if (valkyrieCrown)
@@ -411,7 +428,10 @@ namespace ShardsOfAtheria.Players
                 target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
             }
             HardlightBraces.OnHitEffect(Player, target);
+        }
 
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
+        {
             if (SoA.BNEEnabled)
             {
                 AreusRodEffect(target, item);
@@ -420,15 +440,6 @@ namespace ShardsOfAtheria.Players
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            combatTimer = 300;
-            if (valkyrieCrown)
-            {
-                target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
-            }
-            if (proj.type != ModContent.ProjectileType<HardlightFeatherMagic>())
-            {
-                HardlightBraces.OnHitEffect(Player, target);
-            }
             if (SoA.BNEEnabled)
             {
                 AreusRodEffect(target, proj);
@@ -480,11 +491,6 @@ namespace ShardsOfAtheria.Players
                 {
                     BiometalHideVanity = false;
                     BiometalForceVanity = true;
-                }
-                if (item.type == ModContent.ItemType<ValkyrieCrown>())
-                {
-                    valkyrieCrownHideVanity = false;
-                    valkyrieCrownForceVanity = true;
                 }
             }
         }

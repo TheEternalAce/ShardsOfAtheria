@@ -44,6 +44,7 @@ namespace ShardsOfAtheria.NPCs
                 BuffID.Electrified,
                 BuffID.OnFire,
                 BuffID.Poisoned,
+                BuffID.Venom,
                 BuffID.Confused,
                 ModContent.BuffType<ElectricShock>(),
             };

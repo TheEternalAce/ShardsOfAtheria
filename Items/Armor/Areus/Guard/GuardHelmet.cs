@@ -54,10 +54,10 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
 
         public override void UpdateArmorSet(Player player)
         {
+            base.UpdateArmorSet(player);
             ArmorPlayer.guardSet = true;
             ModContent.GetInstance<AreusEnergySystem>().ShowBar();
             player.GetDamage(DamageClass.Generic) += player.Areus().areusEnergy / 200f;
-            base.UpdateArmorSet(player);
         }
 
         public override void MagicSet(Player player)

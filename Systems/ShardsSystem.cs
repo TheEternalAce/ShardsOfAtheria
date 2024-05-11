@@ -74,10 +74,6 @@ namespace ShardsOfAtheria.Systems
                                 omegaKey = true;
                             }
                         }
-                        else if (style == ChestTypes.LockedGold)
-                        {
-                            //c.Insert(ModContent.ItemType<>(), 1);
-                        }
                     }
                 }
             }

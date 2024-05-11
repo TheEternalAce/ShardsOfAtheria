@@ -30,6 +30,7 @@ namespace ShardsOfAtheria.Globals
     public class SoAGlobalNPC : GlobalNPC
     {
         public bool flawless = true;
+        public bool areusNullField = true;
         readonly Asset<Texture2D> skyHarpy = ModContent.Request<Texture2D>("ShardsOfAtheria/NPCs/Variant/Harpy/SkyHarpy");
 
         public override bool InstancePerEntity => true;
@@ -45,14 +46,17 @@ namespace ShardsOfAtheria.Globals
 
         public override void ModifyShop(NPCShop shop)
         {
+            if (shop.NpcType == NPCID.Cyborg) shop.Add<AnchorChip>(SoAConditions.HasMessiah);
             if (shop.NpcType == NPCID.Wizard)
             {
                 shop.Add(new Item(ModContent.ItemType<SinfulSoul>()), SoAConditions.SlayerMode);
                 shop.Add(new Item(ModContent.ItemType<SinfulArmament>()), SoAConditions.SlayerMode);
+                shop.Add(new Item(ModContent.ItemType<SpellTwister>()), SoAConditions.AreusVoidSet);
             }
             if (shop.NpcType == NPCID.Merchant)
             {
-                shop.Add<RiggedCoin>(SoAConditions.AtherianPresent);
+                shop.Add<RiggedCoin>(SoAConditions.HasCoin);
+                shop.Add<WeightedDie>(SoAConditions.HasDie);
             }
         }
 
@@ -91,6 +95,10 @@ namespace ShardsOfAtheria.Globals
             LeadingConditionRule downedCultist = new(new DownedLunaticCultist());
             LeadingConditionRule downedMoonLord = new(new DownedMoonLord());
 
+            if (ModLoader.TryGetMod("FargowiltasSouls", out Mod _))
+            {
+                master = new(new EternityOrMaster());
+            }
             if (npc.type == NPCID.Mothron)
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BrokenHeroGun>(), 4));
@@ -192,6 +200,11 @@ namespace ShardsOfAtheria.Globals
             }
         }
 
+        public override void ResetEffects(NPC npc)
+        {
+            areusNullField = false;
+        }
+
         public override void AI(NPC npc)
         {
             if (npc.type == NPCID.Harpy)
@@ -207,6 +220,18 @@ namespace ShardsOfAtheria.Globals
                 }
             }
             base.AI(npc);
+        }
+
+        public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+        {
+            if (target.Shards().areusNullField || areusNullField) return false;
+            return base.CanHitPlayer(npc, target, ref cooldownSlot);
+        }
+
+        public override bool CanHitNPC(NPC npc, NPC target)
+        {
+            if (target.GetGlobalNPC<SoAGlobalNPC>().areusNullField || areusNullField) return false;
+            return base.CanHitNPC(npc, target);
         }
 
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)

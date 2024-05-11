@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Projectiles.Other
 
             if (vector2 == Vector2.Zero)
             {
-                Projectile.ApplyGravity(ref gravityDelay, 5f);
+                Projectile.ApplyGravity(ref gravityDelay, 1f, 5f);
             }
             else
             {

@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
         int gravityTimer;
         public override void AI()
         {
-            Projectile.ApplyGravity(ref gravityTimer, 0.1f);
+            Projectile.ApplyGravity(ref gravityTimer);
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
         }
 

@@ -95,10 +95,7 @@ namespace ShardsOfAtheria.Projectiles.Other
                             Main.NewText(Language.GetText(key));
                         }
                     }
-                    if (SoA.ClientConfig.katanaScream)
-                    {
-                        SoundEngine.PlaySound(SoA.KatanaScream, target.Center);
-                    }
+                    SoundEngine.PlaySound(SoundID.ScaryScream, target.Center);
                     break;
                 }
             }

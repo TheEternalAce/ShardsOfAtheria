@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.Globals
     {
         public bool tempAreus = false;
         public bool explosion = false;
+        public bool areusNullField = false;
 
         public static readonly Dictionary<int, bool> AreusProj = [];
         public static readonly List<int> Eraser = [];
@@ -205,6 +206,12 @@ namespace ShardsOfAtheria.Globals
             }
         }
 
+        public override bool PreAI(Projectile projectile)
+        {
+            areusNullField = false;
+            return base.PreAI(projectile);
+        }
+
         public override void PostAI(Projectile projectile)
         {
             int type = projectile.type;
@@ -244,6 +251,19 @@ namespace ShardsOfAtheria.Globals
                     ShardsHelpers.AdjustMagnitude(ref projectile.velocity, speed);
                 }
             }
+            base.PostAI(projectile);
+        }
+
+        public override bool? CanHitNPC(Projectile projectile, NPC target)
+        {
+            if (target.GetGlobalNPC<SoAGlobalNPC>().areusNullField || areusNullField) return false;
+            return base.CanHitNPC(projectile, target);
+        }
+
+        public override bool CanHitPlayer(Projectile projectile, Player target)
+        {
+            if (target.Shards().areusNullField || areusNullField) return false;
+            return base.CanHitPlayer(projectile, target);
         }
 
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)

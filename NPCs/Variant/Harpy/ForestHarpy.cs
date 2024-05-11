@@ -59,7 +59,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         {
             if (spawnInfo.NoInvasionOfAnyKind() && !spawnInfo.Player.ZoneSkyHeight &&
                 spawnInfo.Player.ZoneForest && !spawnInfo.Player.ZoneJungle && Main.dayTime)
-                return .05f;
+                return 0.1f;
             return 0f;
         }
 

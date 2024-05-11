@@ -56,7 +56,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 for (int i = 0; i < 4; i++)
                 {
                     Vector2 vel = Main.MouseWorld + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 120f;
-                    Projectile.NewProjectile(source, vel, Vector2.Normalize(Main.MouseWorld - vel) * Item.shootSpeed, type, damage, knockback, player.whoAmI, 1);
+                    Projectile.NewProjectile(source, vel, Vector2.Normalize(Main.MouseWorld - vel) * Item.shootSpeed, type, damage, knockback, player.whoAmI);
                 }
             }
             return false;

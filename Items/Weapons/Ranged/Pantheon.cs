@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Projectiles.Ranged;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,11 +10,10 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class Pantheon : SinfulItem
     {
-        //public override void SetStaticDefaults()
-        //{
-        //    Item.AddElement(2);
-        //    Item.AddRedemptionElement(7);
-        //}
+        public override void SetStaticDefaults()
+        {
+            Item.AddRedemptionElement(5);
+        }
 
         public override void SetDefaults()
         {

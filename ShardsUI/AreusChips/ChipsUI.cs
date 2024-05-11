@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.ShardsUI
             slotLocks = new UIImage[3];
             for (int i = 0; i < slotLocks.Length; i++)
             {
-                var slotLock = slotLocks[i] = new(ModContent.Request<Texture2D>("ShardsOfAtheria/ShardsUI/AreusChips/SlotLock"));
+                var slotLock = slotLocks[i] = new(ModContent.Request<Texture2D>(SoA.AreusLock));
                 slotLock.SetRectangle(5, 52 * i + 5, 32, 32);
             }
 
@@ -55,34 +55,16 @@ namespace ShardsOfAtheria.ShardsUI
         {
             if (!item.IsAir)
             {
-                if (item.ModItem is not AreusArmorChip chip)
-                {
-                    return false;
-                }
-                else if (chip.Type == ModContent.ItemType<AreusArmorChip>())
-                {
-                    return false;
-                }
+                if (item.ModItem is not AreusArmorChip chip) return false;
+                else if (chip.Type == ModContent.ItemType<AreusArmorChip>()) return false;
                 else if (chip.slotType != AreusArmorChip.SlotAny)
                 {
                     var player = Main.LocalPlayer;
                     var armorPlayer = player.Areus();
-                    if (chip.slotType != SlotTypes[ind])
-                    {
-                        return false;
-                    }
-                    else if (SlotTypes[ind] == AreusArmorChip.SlotHead && !armorPlayer.areusHead)
-                    {
-                        return false;
-                    }
-                    else if (SlotTypes[ind] == AreusArmorChip.SlotChest && !armorPlayer.areusBody)
-                    {
-                        return false;
-                    }
-                    else if (SlotTypes[ind] == AreusArmorChip.SlotLegs && !armorPlayer.areusLegs)
-                    {
-                        return false;
-                    }
+                    if (chip.slotType != SlotTypes[ind]) return false;
+                    else if (SlotTypes[ind] == AreusArmorChip.SlotHead && !armorPlayer.areusHead) return false;
+                    else if (SlotTypes[ind] == AreusArmorChip.SlotChest && !armorPlayer.areusBody) return false;
+                    else if (SlotTypes[ind] == AreusArmorChip.SlotLegs && !armorPlayer.areusLegs) return false;
                 }
             }
             return true;
@@ -91,7 +73,7 @@ namespace ShardsOfAtheria.ShardsUI
         public override void Draw(SpriteBatch spriteBatch)
         {
             var areus = Main.LocalPlayer.Areus();
-            if (!Main.playerInventory || !areus.areusArmorPiece)
+            if (!Main.playerInventory || !areus.AreusArmorPiece)
             {
                 ModContent.GetInstance<ChipsUISystem>().HideChips();
                 return;

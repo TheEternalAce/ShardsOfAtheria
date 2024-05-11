@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<DiamondCore_Greater>())
-                .AddIngredient(ItemID.BeetleHusk, 15)
+                .AddIngredient(ItemID.BeetleHusk, 10)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

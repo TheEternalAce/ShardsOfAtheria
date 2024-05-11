@@ -29,12 +29,11 @@ namespace ShardsOfAtheria.Items.Armor.Areus
                     }
                 }
             }
-
-            ArmorPlayer.areusArmorPiece = true;
         }
 
         public override void UpdateArmorSet(Player player)
         {
+            ArmorPlayer = player.Areus();
             string itemKey = this.GetLocalizationKey(string.Empty);
             string setBonusText = Language.GetTextValue(SoA.LocalizeSetBonus + "Areus");
 

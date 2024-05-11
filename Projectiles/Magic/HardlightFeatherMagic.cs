@@ -26,7 +26,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
 
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 10;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.tileCollide = false;
         }
@@ -34,22 +34,6 @@ namespace ShardsOfAtheria.Projectiles.Magic
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
-
-            if (Projectile.ai[0] == 1)
-            {
-                for (int i = 0; i < Main.maxProjectiles; i++)
-                {
-                    Projectile blade = Main.projectile[i];
-                    if (blade.type == ModContent.ProjectileType<HardlightFeatherMagic>() && blade.whoAmI != Projectile.whoAmI && Projectile.active && blade.active)
-                    {
-                        if (Projectile.Hitbox.Intersects(blade.Hitbox))
-                        {
-                            Projectile.Kill();
-                            blade.Kill();
-                        }
-                    }
-                }
-            }
         }
 
         public override void OnKill(int timeLeft)

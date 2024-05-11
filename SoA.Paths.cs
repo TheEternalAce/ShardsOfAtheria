@@ -7,6 +7,8 @@
         public const string BuffTemplate = "ShardsOfAtheria/Buffs/BuffTemp";
         public const string DebuffTemplate = "ShardsOfAtheria/Buffs/DebuffTemp";
         public const string SwordSlashTexture = "ShardsOfAtheria/Projectiles/Melee/SwordSlash";
+        public const string AreusLock = "ShardsOfAtheria/Assets/UI/AreusLock";
+        public const string Circle = "ShardsOfAtheria/Assets/Circle";
         public const string MeleeWeapon = "ShardsOfAtheria/Items/Weapons/Melee/";
         public const string RangedWeapon = "ShardsOfAtheria/Items/Weapons/Ranged/";
         public const string MagicWeapon = "ShardsOfAtheria/Items/Weapons/Magic/";

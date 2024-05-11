@@ -55,7 +55,7 @@ namespace ShardsOfAtheria.Projectiles.Other
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Tink);
-            ShardsHelpers.DustRing(Projectile.Center, 30, DustID.GemEmerald);
+            ShardsHelpers.DustRing(Projectile.Center, 10, DustID.GemEmerald);
         }
 
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)

@@ -81,6 +81,8 @@ namespace ShardsOfAtheria.NPCs
         {
             WeightedRandom<int> areusMachine = new();
             areusMachine.Add(ModContent.NPCType<AreusMortar>());
+            areusMachine.Add(ModContent.NPCType<ShriekingBeacon>());
+            areusMachine.Add(ModContent.NPCType<BiblicallyAccurateAtherian>());
             NPC.NewNPC(NPC.GetSource_Death(), (int)NPC.Center.X, (int)NPC.Center.Y, areusMachine);
         }
     }

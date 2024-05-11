@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             Item.width = 34;
             Item.height = 40;
 
-            Item.damage = 32;
+            Item.damage = 62;
             Item.DamageType = DamageClass.Summon;
             Item.knockBack = 5;
             Item.crit = 5;

@@ -86,11 +86,7 @@ namespace ShardsOfAtheria
         }
         public static bool Massochist()
         {
-            if (ModLoader.TryGetMod("FargowiltasSouls", out Mod souls))
-            {
-                return (bool)souls.Call("MasochistMode");
-            }
-            return false;
+            return Eternity() && Main.masterMode;
         }
         //Get stick bugged lmao
         //⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿

@@ -70,5 +70,10 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
             }
             return result;
         }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            return false;
+        }
     }
 }

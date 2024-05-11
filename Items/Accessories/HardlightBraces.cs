@@ -59,7 +59,7 @@ namespace ShardsOfAtheria.Items.Accessories
                 for (int i = 0; i < 4; i++)
                 {
                     Item braces = ModContent.GetInstance<HardlightBraces>().Item;
-                    Vector2 point = target.Center + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 120f;
+                    Vector2 point = target.Center + Vector2.UnitX.RotatedBy(MathHelper.ToRadians(90 * i)) * 120f;
                     Vector2 velocity = Vector2.Normalize(target.Center - point) * braces.shootSpeed;
                     Projectile.NewProjectileDirect(player.GetSource_Accessory(braces), point, velocity, braces.shoot,
                         player.GetWeaponDamage(braces), player.GetWeaponKnockback(braces), player.whoAmI);

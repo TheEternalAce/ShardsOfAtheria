@@ -204,11 +204,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             Projectile.SetVisualOffsets(130);
             if (++gravityTimer >= 15) // Use a timer to wait 15 ticks before applying gravity.
             {
-                Projectile.velocity.Y += 0.1f;
-            }
-            if (Projectile.velocity.Y > 16f)
-            {
-                Projectile.velocity.Y = 16f;
+                Projectile.ApplyGravity();
             }
         }
 

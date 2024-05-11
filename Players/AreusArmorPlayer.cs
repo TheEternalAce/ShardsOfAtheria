@@ -20,10 +20,10 @@ namespace ShardsOfAtheria.Players
     {
         public string[] chipNames = ["", "", ""];
 
-        public bool areusArmorPiece;
-        public DamageClass classChip;
+        public DamageClass classChip = DamageClass.Default;
         public float areusDamage;
 
+        public bool AreusArmorPiece => areusHead || areusBody || areusLegs;
         public bool areusHead;
         public bool areusBody;
         public bool areusLegs;
@@ -64,8 +64,7 @@ namespace ShardsOfAtheria.Players
         {
             SetBonusEffects();
 
-            areusArmorPiece = false;
-            classChip = DamageClass.Generic;
+            classChip = DamageClass.Default;
             areusHead = false;
             areusBody = false;
             areusLegs = false;
@@ -90,7 +89,7 @@ namespace ShardsOfAtheria.Players
 
         public void SetBonusEffects()
         {
-            if (areusArmorPiece)
+            if (AreusArmorPiece)
             {
                 if (Main.playerInventory)
                 {

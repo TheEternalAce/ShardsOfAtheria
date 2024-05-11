@@ -47,6 +47,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
             if (player.HasItem<AreusGhostLantern>())
             {
                 float pullRange = 50;
+                if (player.HeldItem.type == ModContent.ItemType<AreusGhostLantern>()) pullRange += 50;
                 if (player.Overdrive()) pullRange += 150;
                 if (Projectile.Distance(player.Center) < pullRange)
                 {

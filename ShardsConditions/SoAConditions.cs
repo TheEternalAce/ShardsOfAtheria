@@ -1,4 +1,6 @@
-﻿using ShardsOfAtheria.NPCs.Town.TheAtherian;
+﻿using ShardsOfAtheria.Items.Weapons.Magic;
+using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.NPCs.Town.TheAtherian;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -24,6 +26,14 @@ namespace ShardsOfAtheria.ShardsConditions
             () => ModLoader.TryGetMod("BattleNetworkElements", out var _));
         public static readonly Condition SacrificeKatana = new(KeyBase + "SacrificeKatana",
             () => false);
+        public static readonly Condition AreusVoidSet = new(KeyBase + "VoidSet",
+            () => Main.LocalPlayer.Areus().imperialSet);
+        public static readonly Condition HasCoin = new(KeyBase + "HaveCoin",
+            () => Main.LocalPlayer.HasItem<AreusGambit>());
+        public static readonly Condition HasDie = new(KeyBase + "HaveDie",
+            () => Main.LocalPlayer.HasItem<AreusGamble>());
+        public static readonly Condition HasMessiah = new(KeyBase + "HaveMessiah",
+            () => Main.LocalPlayer.HasItem<TheMessiah>());
 
         public static readonly Condition DownedNova = new(KeyBase + "DownedNova",
             () => ShardsDownedSystem.downedValkyrie);

@@ -48,7 +48,7 @@ namespace ShardsOfAtheria.Systems
         public bool slainSenterra = false;
         public bool slainGenesis = false;
 
-        public static List<int> slainBosses = new();
+        public static List<int> slainBosses = [];
 
         public override void OnWorldUnload()
         {
@@ -157,8 +157,8 @@ namespace ShardsOfAtheria.Systems
                 slainSkull = tag.GetBool("slainSkull");
             if (tag.ContainsKey("slainWall"))
                 slainWall = tag.GetBool("slainWall");
-            if (tag.ContainsKey("GetBool"))
-                slainMechWorm = tag.ContainsKey("slainMechWorm");
+            if (tag.ContainsKey("slainMechWorm"))
+                slainMechWorm = tag.GetBool("slainMechWorm");
             if (tag.ContainsKey("slainTwins"))
                 slainTwins = tag.GetBool("slainTwins");
             if (tag.ContainsKey("slainPrime"))

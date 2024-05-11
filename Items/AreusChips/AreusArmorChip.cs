@@ -57,7 +57,7 @@ namespace ShardsOfAtheria.Items.AreusChips
         {
             var player = Main.LocalPlayer;
             var areus = player.Areus();
-            return Type != ModContent.ItemType<AreusArmorChip>() && areus.areusArmorPiece;
+            return Type != ModContent.ItemType<AreusArmorChip>() && areus.AreusArmorPiece;
         }
 
         //public override bool ConsumeItem(Player player)
@@ -68,7 +68,7 @@ namespace ShardsOfAtheria.Items.AreusChips
         public override void RightClick(Player player)
         {
             var areusPlayer = player.Areus();
-            if (areusPlayer.areusArmorPiece)
+            if (areusPlayer.AreusArmorPiece)
             {
                 for (int i = 0; i < 3; i++)
                 {

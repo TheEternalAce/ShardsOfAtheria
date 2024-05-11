@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Vanity;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
@@ -50,6 +51,7 @@ namespace ShardsOfAtheria.Items.GrabBags
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<HardlightKnife>(), 5, 150, 180));
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ValkyrieCrown>(), 5));
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<HardlightPrism>(), 1, 15, 28));
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<ThunderValkyrieMask>(), 7));
             itemLoot.Add(ItemDropRule.Common(ItemID.GoldBar, 1, 8, 14));
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<NovaStellar>()));
             base.ModifyItemLoot(itemLoot);

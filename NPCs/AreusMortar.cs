@@ -25,6 +25,7 @@ namespace ShardsOfAtheria.NPCs
                 BuffID.Electrified,
                 BuffID.OnFire,
                 BuffID.Poisoned,
+                BuffID.Venom,
                 BuffID.Confused,
                 ModContent.BuffType<ElectricShock>(),
             ];
@@ -71,7 +72,7 @@ namespace ShardsOfAtheria.NPCs
             NPC.TargetClosest();
 
             var projectilePosition = NPC.Center + new Vector2(0, 4);
-            if (!Target.dead && Collision.CanHit(projectilePosition, 20, 22, Target.Center, 20, 22))
+            if (Target != null && !Target.dead && Collision.CanHit(projectilePosition, 20, 22, Target.Center, 20, 22))
             {
                 float fireRate = 0.5f;
                 if (Main.masterMode)

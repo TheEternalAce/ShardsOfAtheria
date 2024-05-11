@@ -1,6 +1,7 @@
 ﻿using ShardsOfAtheria.Items.Consumable;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -21,14 +22,8 @@ namespace ShardsOfAtheria.NPCs
             NPC.catchItem = ModContent.ItemType<MiniStarCritter_Golden>();
         }
 
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
+        public override void OnSpawn(IEntitySource source)
         {
-            float spawnChance = 0f;
-            if (spawnInfo.NoInvasionOfAnyKind() && spawnInfo.Player.ZoneNormalSpace && NPC.downedBoss2)
-                spawnChance += 0.08f;
-            if (spawnInfo.PlayerInTown)
-                spawnChance *= 2f;
-            return spawnChance;
         }
 
         public override void HitEffect(NPC.HitInfo hit)

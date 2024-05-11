@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.PetItems;
+using ShardsOfAtheria.Items.Vanity;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
@@ -51,6 +52,7 @@ namespace ShardsOfAtheria.Items.GrabBags
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<MidnightCloak>()));
             itemLoot.Add(ItemDropRule.OneFromOptions(1, loot));
             itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<LifeCycleKeys>(), 4));
+            itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SkullMask>(), 7));
             itemLoot.Add(ItemDropRule.CoinsBasedOnNPCValue(ModContent.NPCType<Death>()));
             base.ModifyItemLoot(itemLoot);
         }

@@ -34,26 +34,23 @@ namespace ShardsOfAtheria.Players
         }
         private void GuardActive_Magic()
         {
-            if (areusEnergy >= AREUS_ENERGY_MAX)
+            SoundEngine.PlaySound(SoundID.NPCDeath56);
+            float numberProjectiles = 3; // 3 shots
+            float rotation = MathHelper.ToRadians(10);
+            var source = Player.GetSource_FromThis();
+            var position = Player.Center;
+            var velocity = Main.MouseWorld - Player.Center;
+            float speed = 14f;
+            int type = ModContent.ProjectileType<ElectricWave>();
+            int damage = 50 * areusEnergy / 100;
+            float knockback = 0;
+            for (int i = 0; i < numberProjectiles; i++)
             {
-                SoundEngine.PlaySound(SoundID.NPCDeath56);
-                float numberProjectiles = 3; // 3 shots
-                float rotation = MathHelper.ToRadians(10);
-                var source = Player.GetSource_FromThis();
-                var position = Player.Center;
-                var velocity = Main.MouseWorld - Player.Center;
-                float speed = 14f;
-                int type = ModContent.ProjectileType<ElectricWave>();
-                int damage = 40;
-                float knockback = 0;
-                for (int i = 0; i < numberProjectiles; i++)
-                {
-                    Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                    perturbedSpeed.Normalize();
-                    perturbedSpeed *= speed;
-                    Projectile.NewProjectile(source, position, perturbedSpeed,
-                        type, damage, knockback, Player.whoAmI);
-                }
+                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
+                perturbedSpeed.Normalize();
+                perturbedSpeed *= speed;
+                Projectile.NewProjectile(source, position, perturbedSpeed,
+                    type, damage, knockback, Player.whoAmI);
             }
         }
         private void GuardActive_Summon()

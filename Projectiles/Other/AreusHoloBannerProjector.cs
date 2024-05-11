@@ -70,7 +70,10 @@ namespace ShardsOfAtheria.Projectiles.Other
             {
                 Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2CircularEdge(radius, radius);
                 Vector2 offset = spawnPos - Main.LocalPlayer.Center;
-                if (Math.Abs(offset.X) > Main.screenWidth * 0.6f || Math.Abs(offset.Y) > Main.screenHeight * 0.6f) //dont spawn dust if its pointless
+                bool onscreenX = Math.Abs(offset.X) > Main.screenWidth * 0.6f;
+                bool onscreenY = Math.Abs(offset.X) > Main.screenWidth * 0.6f;
+                bool tilecollision = Collision.SolidCollision(spawnPos, 4, 4);
+                if (onscreenX || onscreenY || tilecollision) //dont spawn dust if its pointless
                     continue;
                 Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, DustID.Electric, 0, 0, 100);
                 dust.velocity = Projectile.velocity;

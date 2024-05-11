@@ -5,6 +5,7 @@ using ShardsOfAtheria.Items.Consumable;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -46,6 +47,14 @@ namespace ShardsOfAtheria.NPCs
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCDeath14;
             NPC.ElementMultipliers([1.0f, 0.5f, 0.8f, 2.0f]);
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (Main.rand.NextBool(400))
+            {
+                NPC.Transform(Type + 1);
+            }
         }
 
         public override void AI()

@@ -46,12 +46,12 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
 
         public override void UpdateArmorSet(Player player)
         {
+            base.UpdateArmorSet(player);
             ArmorPlayer.royalSet = true;
             if (ArmorPlayer.CommanderSet)
             {
                 player.maxMinions += 2;
             }
-            base.UpdateArmorSet(player);
         }
 
         public override void AddRecipes()

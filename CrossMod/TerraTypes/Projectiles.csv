@@ -24,6 +24,7 @@ StormSword,Electric,
 
 AcidWater,Water,Poison
 AreusGrenadeHostile,Electric,
+AreusLeadShriek,Normal,
 Blood,Blood,
 CactusNeedle,Grass,
 Crystal,Rock,Fairy
@@ -105,6 +106,8 @@ ScreamShockwave,Normal,
 SigilLightning,Electric,
 SolarBlade,Grass,
 SpectrumLaser,Electric,
+SpectrimTrain,Fire,Water
+SpectrimTrainBody,Fire,Water
 VileShot,Poison,
 VoidDagger,Dark,Electric
 

@@ -44,10 +44,10 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             float speed = 16f;
 
             Projectile.SetVisualOffsets(78, true);
-            Projectile.ApplyGravity(ref gravityTimer);
             if (Projectile.penetrate == 2)
             {
                 Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
+                Projectile.ApplyGravity(ref gravityTimer);
 
                 var player = Main.player[Projectile.owner];
                 var shards = player.Shards();

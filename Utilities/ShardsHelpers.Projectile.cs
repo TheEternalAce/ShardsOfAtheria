@@ -150,7 +150,7 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
-        public static void ApplyGravity(this Projectile projectile, ref int delay, float gravityStrength = 1f, float maxYVelocity = 16f)
+        public static void ApplyGravity(this Projectile projectile, ref int delay, float gravityStrength = 0.1f, float maxYVelocity = 16f)
         {
             if (--delay <= 0)
             {
@@ -160,6 +160,7 @@ namespace ShardsOfAtheria.Utilities
         public static void ApplyGravity(this Projectile projectile, float gravityStrength = 1f, float maxYVelocity = 16f)
         {
             projectile.velocity.Y += gravityStrength;
+            maxYVelocity += maxYVelocity * projectile.GetPlayerOwner().GetTotalAttackSpeed(projectile.DamageType);
             if (projectile.velocity.Y > maxYVelocity)
             {
                 projectile.velocity.Y = maxYVelocity;

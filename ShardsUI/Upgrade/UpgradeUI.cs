@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.DedicatedItems.Webmillio;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
@@ -7,11 +9,11 @@ using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon;
 using ShardsOfAtheria.NPCs.Town.TheAtherian;
+using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,47 +27,83 @@ namespace ShardsOfAtheria.ShardsUI
         UIPanel upgradePanel;
         VanillaItemSlotWrapper mainSlot;
         VanillaItemSlotWrapper[] materialSlots;
-        UIHoverImageButton upgradeButton;
-        UIPanel infoPanel;
         UIText infoText;
+        UIText timerText;
+        UIImage slotLock;
         bool slotsCreated = false;
+        readonly float halfSlotWidth = 21;
         static int AtherianType => ModContent.NPCType<Atherian>();
         static Atherian FirstActiveAtherian => NPC.AnyNPCs(AtherianType) ? Main.npc[NPC.FindFirstNPC(AtherianType)].ModNPC as Atherian : null;
 
         public override void OnInitialize()
         {
             backPanel = new();
-            backPanel.SetRectangle(0, 0, 868, 500);
+            backPanel.SetDimensions(878, 524);
 
             upgradePanel = new();
-            upgradePanel.SetRectangle(0, 0, 500, 500);
+            upgradePanel.SetDimensions(500, 500);
             backPanel.Append(upgradePanel);
 
             mainSlot = new VanillaItemSlotWrapper(scale: 0.8f)
             {
-                Left = { Pixels = 239 - 41.6f / 2 },
-                Top = { Pixels = 239 - 41.6f / 2 },
-                ValidItemFunc = item => item.IsAir || (!item.IsAir && item.IsUpgradable() /*&& (FirstActiveAtherian.UpgradeFinished() || !FirstActiveAtherian.upgrading)*/)
+                Left = { Pixels = -halfSlotWidth, Percent = 0.5f },
+                Top = { Pixels = -halfSlotWidth, Percent = 0.5f },
+                ValidItemFunc = ValidateItem
             };
             upgradePanel.Append(mainSlot);
 
-            upgradeButton = new(TextureAssets.Reforge[0], "Upgrade");
+            UIHoverImageButton upgradeButton = new(ModContent.Request<Texture2D>("Terraria/Images/UI/Reforge_0"), "Upgrade");
             upgradeButton.Left.Set(-30, 1f);
             upgradeButton.Top.Set(-30, 1f);
-            upgradeButton.Width.Set(30, 0f);
-            upgradeButton.Height.Set(30, 0f);
+            upgradeButton.SetDimensions(30f, 30f);
             upgradeButton.OnLeftClick += (a, b) => UpgradeItem();
             upgradePanel.Append(upgradeButton);
 
-            infoPanel = new();
-            infoPanel.SetRectangle(512, 0, 332, 500);
+            UIPanel infoPanel = new();
+            infoPanel.Left.Set(-342, 1f);
+            infoPanel.SetDimensions(342, 500);
             backPanel.Append(infoPanel);
 
             infoText = new("Insert an upgradable item into the slot");
-            infoText.SetDimensions(308, 476);
+            infoText.SetDimensions(308, 386 + (ModContent.GetInstance<ShardsClient>().upgradeWarning ? 0f : 90f));
             infoPanel.Append(infoText);
 
+            timerText = new("");
+            timerText.Top.Set(-26f, 1f);
+            timerText.SetDimensions(40, 26);
+            upgradePanel.Append(timerText);
+
+            if (ModContent.GetInstance<ShardsClient>().upgradeWarning)
+            {
+                UIText warningText = new("Note: Upgrades will [c/FF0000:NOT] save on world\n" +
+                    "exit, make sure the upgrade is complete\n" +
+                    "and received before saving and exiting.");
+                warningText.SetDimensions(308, 78);
+                warningText.Top.Set(-78, 1f);
+                infoPanel.Append(warningText);
+            }
+
+            slotLock = new(ModContent.Request<Texture2D>(SoA.AreusLock))
+            {
+                Left = { Pixels = -16, Percent = 0.5f },
+                Top = { Pixels = -16, Percent = 0.5f }
+            };
+            slotLock.SetDimensions(30, 30);
             Append(backPanel);
+        }
+
+        bool ValidateItem(Item item)
+        {
+            if (!item.IsAir && !item.IsUpgradable()) return false;
+            return UpgradeSystem.UpgradeReady(Main.LocalPlayer.name);
+        }
+
+        public void InitializeSlotItem()
+        {
+            if (mainSlot.Item.IsAir && UpgradeSystem.UpgradeInProgress(Main.LocalPlayer.name, out int itemType))
+            {
+                mainSlot.Item = new(itemType);
+            }
         }
 
         void CreateSlots(int amount)
@@ -76,14 +114,14 @@ namespace ShardsOfAtheria.ShardsUI
             }
             materialSlots = new VanillaItemSlotWrapper[amount];
             float rotation = MathHelper.TwoPi / amount;
-            Vector2 center = new(239);
+            Vector2 center = new(238);
             for (int i = 0; i < amount; i++)
             {
-                var vector = new Vector2(1, 0).RotatedBy(rotation * i) * 150;
+                var vector = Vector2.UnitX.RotatedBy(rotation * i) * 150;
                 materialSlots[i] = new VanillaItemSlotWrapper(scale: 0.8f)
                 {
-                    Left = { Pixels = center.X + vector.X - (41.6f / 2) },
-                    Top = { Pixels = center.X + vector.Y - (41.6f / 2) },
+                    Left = { Pixels = center.X + vector.X - halfSlotWidth },
+                    Top = { Pixels = center.X + vector.Y - halfSlotWidth },
                     ValidItemFunc = item => true
                 };
                 upgradePanel.Append(materialSlots[i]);
@@ -116,7 +154,7 @@ namespace ShardsOfAtheria.ShardsUI
         private void ListMaterials()
         {
             int upgradeItemType = mainSlot.Item.type;
-            var materials = GetMaterials(upgradeItemType, out int result);
+            var materials = GetMaterials(upgradeItemType, out int result, out int upgradeTime);
             if (upgradeItemType == ItemID.None || materials == null)
             {
                 infoText.SetText("Insert an upgradable item into the slot.");
@@ -131,10 +169,11 @@ namespace ShardsOfAtheria.ShardsUI
                 string colorHex = AnySlotContains(materialType, materialCount) ? "00FF00" : "FFFFFF";
                 text += $"[i:{materialType}] [c/{colorHex}:{MaterialItem.Name} x{materialCount}],\n";
             }
+            text += $"Upgrade will take [c/FFFF00:{upgradeTime / 60} seconds.]\n";
             if (result > 0)
             {
                 Item resultItem = new(result);
-                text += "Creates " + "[i:" + result + "] " + resultItem.Name + ".";
+                text += "Creates " + "[i:" + result + "] " + resultItem.Name + ".\n";
             }
             else
             {
@@ -168,9 +207,14 @@ namespace ShardsOfAtheria.ShardsUI
                 player.mouseInterface = true;
             }
 
+            timerText.SetText("");
             if (mainSlot.Item.type > ItemID.None)
             {
-                int[,] materials = GetMaterials(mainSlot.Item.type, out int _);
+                if (!UpgradeSystem.UpgradeReady(Main.LocalPlayer.name)) upgradePanel.Append(slotLock);
+                else if (upgradePanel.HasChild(slotLock)) upgradePanel.RemoveChild(slotLock);
+                if (UpgradeSystem.UpgradeInProgress(Main.LocalPlayer.name, out int _, out int timeLeft) && timeLeft > 0)
+                    timerText.SetText(timeLeft / 60 + "s");
+                int[,] materials = GetMaterials(mainSlot.Item.type, out int _, out int _);
                 if (materials != null)
                 {
                     int slotsToMake = materials.GetLength(0);
@@ -179,6 +223,7 @@ namespace ShardsOfAtheria.ShardsUI
             }
             else
             {
+                if (upgradePanel.HasChild(slotLock)) upgradePanel.RemoveChild(slotLock);
                 ClearSlots();
             }
             ListMaterials();
@@ -190,6 +235,7 @@ namespace ShardsOfAtheria.ShardsUI
             var shards = player.Shards();
             bool shouldUpgrade = false;
             int resultType = 0;
+            int upgradeTime = 1200;
             int[,] materials = null;
 
             #region Arsenal upgrades (Genesis and Ragnarok)
@@ -197,31 +243,31 @@ namespace ShardsOfAtheria.ShardsUI
             {
                 if (UpgradeArsenal1())
                 {
-                    materials = GetMaterials<GenesisAndRagnarok>(out resultType, 0);
+                    materials = GetMaterials<GenesisAndRagnarok>(out resultType, out upgradeTime, 0);
                     shouldUpgrade = true;
                     shards.genesisRagnarockUpgrades++;
                 }
                 else if (UpgradeArsenal2())
                 {
-                    materials = GetMaterials<GenesisAndRagnarok>(out resultType, 1);
+                    materials = GetMaterials<GenesisAndRagnarok>(out resultType, out upgradeTime, 1);
                     shouldUpgrade = true;
                     shards.genesisRagnarockUpgrades++;
                 }
                 else if (UpgradeArsenal3())
                 {
-                    materials = GetMaterials<GenesisAndRagnarok>(out resultType, 2);
+                    materials = GetMaterials<GenesisAndRagnarok>(out resultType, out upgradeTime, 2);
                     shouldUpgrade = true;
                     shards.genesisRagnarockUpgrades++;
                 }
                 else if (UpgradeArsenal4())
                 {
-                    materials = GetMaterials<GenesisAndRagnarok>(out resultType, 3);
+                    materials = GetMaterials<GenesisAndRagnarok>(out resultType, out upgradeTime, 3);
                     shouldUpgrade = true;
                     shards.genesisRagnarockUpgrades++;
                 }
                 else if (UpgradeArsenal5())
                 {
-                    materials = GetMaterials<GenesisAndRagnarok>(out resultType, 4);
+                    materials = GetMaterials<GenesisAndRagnarok>(out resultType, out upgradeTime, 4);
                     shouldUpgrade = true;
                     shards.genesisRagnarockUpgrades++;
                 }
@@ -230,35 +276,36 @@ namespace ShardsOfAtheria.ShardsUI
             #region Areus upgrades
             if (UpgradeRailgun())
             {
-                materials = GetMaterials<AreusRailgun>(out resultType);
+                materials = GetMaterials<AreusRailgun>(out resultType, out upgradeTime);
                 shouldUpgrade = true;
             }
             if (UpgradeGambit())
             {
-                materials = GetMaterials<AreusGambit>(out resultType);
+                materials = GetMaterials<AreusGambit>(out resultType, out upgradeTime);
                 shouldUpgrade = true;
             }
             if (UpgradeSawstring())
             {
-                materials = GetMaterials<AreusSawstring>(out resultType);
+                materials = GetMaterials<AreusSawstring>(out resultType, out upgradeTime);
                 shouldUpgrade = true;
             }
             if (RepairPartisan())
             {
-                materials = GetMaterials<FuckEarlyGameHarpies>(out resultType);
+                materials = GetMaterials<FuckEarlyGameHarpies>(out resultType, out upgradeTime);
                 shouldUpgrade = true;
             }
             if (RepairMirror())
             {
-                materials = GetMaterials<BrokenAreusMirror>(out resultType);
+                materials = GetMaterials<BrokenAreusMirror>(out resultType, out upgradeTime);
                 shouldUpgrade = true;
             }
             #endregion
             if (UpgradeWar())
             {
-                materials = GetMaterials<War>(out resultType);
+                materials = GetMaterials<War>(out resultType, out upgradeTime);
                 var war = mainSlot.Item.ModItem as War;
                 war.upgraded = true;
+                UpgradeSystem.StartUpgrade(Main.LocalPlayer.name, resultType, upgradeTime);
             }
             if (shouldUpgrade)
             {
@@ -267,16 +314,18 @@ namespace ShardsOfAtheria.ShardsUI
                 {
                     mainSlot.Item.SetDefaults(resultType);
                 }
+                UpgradeSystem.StartUpgrade(Main.LocalPlayer.name, resultType, upgradeTime);
             }
         }
 
-        public static int[,] GetMaterials<T>(out int result, int currentLevel = 0) where T : ModItem
+        public static int[,] GetMaterials<T>(out int result, out int timeToUpgrade, int currentLevel = 0) where T : ModItem
         {
-            int[,] materials = GetMaterials(ModContent.ItemType<T>(), out result, currentLevel);
+            int[,] materials = GetMaterials(ModContent.ItemType<T>(), out result, out timeToUpgrade, currentLevel);
             return materials;
         }
-        public static int[,] GetMaterials(int baseItemType, out int result, int currentLevel = 0)
+        public static int[,] GetMaterials(int baseItemType, out int result, out int timeToUpgrade, int currentLevel = 0)
         {
+            timeToUpgrade = 1200;
             int[,] materials = null;
             result = 0;
             if (baseItemType == ModContent.ItemType<GenesisAndRagnarok>())
@@ -485,7 +534,6 @@ namespace ShardsOfAtheria.ShardsUI
         }
         bool ShouldUpgradeArsenal(int toLevel)
         {
-            var item = mainSlot.Item;
             var player = Main.LocalPlayer;
             if (player.Shards().genesisRagnarockUpgrades >= toLevel)
             {
@@ -643,20 +691,10 @@ namespace ShardsOfAtheria.ShardsUI
             upgradeInterface?.Update(gameTime);
         }
 
-        public void ToggleChips()
-        {
-            if (upgradeInterface.CurrentState == null)
-            {
-                ShowUI();
-            }
-            else
-            {
-                HideUI();
-            }
-        }
         public void ShowUI()
         {
             upgradeInterface.SetState(_UpgradeUI);
+            _UpgradeUI.InitializeSlotItem();
         }
         public void HideUI()
         {

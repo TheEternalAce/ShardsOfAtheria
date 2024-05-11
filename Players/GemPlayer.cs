@@ -168,7 +168,7 @@ namespace ShardsOfAtheria.Players
             }
         }
 
-        public override void UpdateEquips()
+        public override void PreUpdate()
         {
             SpawnSapphireSpirit();
             if (greaterDiamondCore)
@@ -245,7 +245,7 @@ namespace ShardsOfAtheria.Players
 
         private void SpawnSapphireSpirit()
         {
-            if (sapphireSpirit || gemSoul || gemSoulPrevious)
+            if ((sapphireSpirit || gemSoul || gemSoulPrevious) && !Player.dead)
             {
                 int type = ModContent.ProjectileType<SapphireSpirit>();
                 int damage = 50;

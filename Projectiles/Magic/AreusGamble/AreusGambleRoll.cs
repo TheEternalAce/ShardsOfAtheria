@@ -105,8 +105,8 @@ namespace ShardsOfAtheria.Projectiles.Magic.AreusGamble
                     {
                         var velocity = Main.MouseWorld - Projectile.Center;
                         velocity.Normalize();
-                        velocity *= 16f;
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center - velocity * 8, velocity,
+                        velocity *= 22f;
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center - velocity * 6, velocity,
                             ModContent.ProjectileType<AreusGambleDagger>(), (int)(Projectile.damage * 0.66f), 0, Projectile.owner);
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity,
                             ModContent.ProjectileType<AreusGambleDagger>(), (int)(Projectile.damage * 0.66f), 0, Projectile.owner);

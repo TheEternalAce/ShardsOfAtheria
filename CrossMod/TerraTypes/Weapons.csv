@@ -6,10 +6,13 @@ PrototypeAreusBand,Electric,,
 ValkyrieCrown,Electric,,
 
 AlphaSpectrum,Electric,,
+TrainSpectrum,Fire,Water,
 DeckOfCards,Normal,,"{""Tooltips"": [{""Type"":""Fire"",""Tooltip"": ""Ace: {0}""},{""Type"":""Water"",""Tooltip"": ""Hearts: {0}""},{""Type"":""Grass"",""Tooltip"": ""Clubs: {0}""},{""Type"":""Electric"",""Tooltip"": ""Diamonds: {0}""}]}"
+
 RedAreusChainsaw,Electric,,
 RedAreusDrill,Electric,,
 RedAreusPickaxe,Electric,,
+
 AreusGambit,Electric,Poison,"{""Tooltips"": [{""Type"":""Electric"",""Tooltip"": ""Fang: {0}""},{""Type"": ""Electric,Poison"",""Tooltip"": ""Tail: {0}""}]}"
 AreusGamble,Electric,,
 AreusGauntlet,Electric,Fire,
