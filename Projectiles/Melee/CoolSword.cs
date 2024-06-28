@@ -141,7 +141,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             if (progress == 0.5f && Main.myPlayer == Projectile.owner)
             {
                 Vector2 position = Projectile.Center;
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), position - AngleVector * Projectile.velocity.Length() * positionOffset,
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), position - AngleVector * positionOffset,
                     AngleVector * Projectile.velocity.Length() * velocity, type, damage, knockback, Projectile.owner);
             }
         }

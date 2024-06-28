@@ -43,6 +43,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
                 if (projectile.type == ModContent.ProjectileType<MirrorPrism>() && projectile.active &&
                     Projectile.Hitbox.Intersects(projectile.Hitbox))
                 {
+                    if (!CheckProjectile(projectile, Projectile.owner)) continue;
                     projectile.Kill();
                     var prism = ShardsHelpers.FindClosestProjectile(Projectile.Center, 1000, (proj) => CheckProjectile(proj, Projectile.owner));
                     var npc = Projectile.FindClosestNPC(null, 1000);
@@ -63,10 +64,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
             }
         }
 
-        private static bool CheckProjectile(Projectile projectile, int owner)
+        private bool CheckProjectile(Projectile projectile, int owner)
         {
             if (projectile.type != ModContent.ProjectileType<MirrorPrism>()) return false;
             if (projectile.owner != owner) return false;
+            if (projectile.ai[1] != Projectile.ai[1]) return false;
             if (Math.Abs(projectile.velocity.X) > 1) return false;
             if (Math.Abs(projectile.velocity.Y) > 1) return false;
             return true;

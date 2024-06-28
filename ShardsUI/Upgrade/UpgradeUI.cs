@@ -680,6 +680,8 @@ namespace ShardsOfAtheria.ShardsUI
 
         public override void Load()
         {
+            if (Main.netMode == NetmodeID.Server)
+                return;
             _UpgradeUI = new UpgradeUI();
             _UpgradeUI.Activate();
             upgradeInterface = new UserInterface();

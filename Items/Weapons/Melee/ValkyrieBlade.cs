@@ -63,8 +63,13 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             {
                 if (Main.myPlayer == player.whoAmI)
                 {
-                    ShardsHelpers.ProjectileRing(source, Main.MouseWorld, 6, 120f, 16f,
-                        type2, damage, knockback, player.whoAmI, 1);
+                    var projs = ShardsHelpers.ProjectileRing(source, Main.MouseWorld, 6, 120f, 16f,
+                        type2, damage, knockback, player.whoAmI);
+                    foreach (var projectile in projs)
+                    {
+                        projectile.tileCollide = false;
+                        projectile.timeLeft = 12;
+                    }
                 }
                 shoot = 0;
             }

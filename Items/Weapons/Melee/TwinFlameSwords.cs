@@ -94,6 +94,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 if (charge < MaxCharge)
                 {
                     charge++;
+                    if (SoA.ClientConfig.chargeSound && charge % 25 == 0) SoundEngine.PlaySound(SoA.ZeroCharge, player.Center);
                     for (int i = 0; i < 10; i++)
                     {
                         Vector2 spawnPos = player.Center + Main.rand.NextVector2CircularEdge(50, 50);
@@ -112,7 +113,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             int previousCharge = charge;
             charge = 0;
             if (++itemCombo > 2) itemCombo = 0;
-            if (previousCharge == 300)
+            if (previousCharge == MaxCharge)
             {
                 itemCombo = 0;
                 Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0, 1);

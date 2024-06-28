@@ -101,8 +101,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (!ShardsHelpers.NoInvasionOfAnyKind(spawnInfo) && spawnInfo.Player.ZoneHallow &&
-                spawnInfo.Player.ZoneOverworldHeight)
+            if (spawnInfo.NoInvasionOfAnyKind() && spawnInfo.Player.ZoneHallow && spawnInfo.Player.ZoneOverworldHeight)
                 return 0.1f;
             return 0f;
         }
@@ -113,6 +112,13 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             npcLoot.Add(ItemDropRule.Common(ItemID.CrystalShard, 3, 3, 6));
             npcLoot.Add(ItemDropRule.Common(ItemID.PixieDust, 3, 1, 3));
             npcLoot.Add(ItemDropRule.Common(ItemID.UnicornHorn, 3, 1, 3));
+            if (ModLoader.TryGetMod("GMR", out Mod gerdMod))
+            {
+                if (gerdMod.TryFind("LunarNovaAxe", out ModItem novaAxe))
+                {
+                    npcLoot.Add(ItemDropRule.Common(novaAxe.Type, 20));
+                }
+            }
         }
     }
 }

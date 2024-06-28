@@ -15,8 +15,8 @@ namespace ShardsOfAtheria.Items.BuffItems
 
         public override void SetDefaults()
         {
-            Item.width = 24;
-            Item.height = 50;
+            Item.width = 32;
+            Item.height = 38;
             Item.maxStack = 9999;
 
             Item.DefaultToPotion(BuffID.WellFed2, 28800);

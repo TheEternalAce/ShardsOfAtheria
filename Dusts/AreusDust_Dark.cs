@@ -18,15 +18,6 @@ namespace ShardsOfAtheria.Dusts
             dust.frame = new Rectangle(frameX, frameY, 8, 8);
         }
 
-        public override bool Update(Dust dust)
-        {
-            if (!dust.noLight)
-            {
-                Lighting.AddLight(dust.position, color);
-            }
-            return base.Update(dust);
-        }
-
         public override Color? GetAlpha(Dust dust, Color lightColor)
         {
             return base.GetAlpha(dust, Color.White);

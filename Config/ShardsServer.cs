@@ -12,6 +12,9 @@ namespace ShardsOfAtheria.Config
         [DefaultValue(true)]
         [ReloadRequired]
         public bool metalBladeSound;
+        [DefaultValue(false)]
+        [ReloadRequired]
+        public bool speedCapCrafting;
 
         [DefaultValue(true)]
         [ReloadRequired]

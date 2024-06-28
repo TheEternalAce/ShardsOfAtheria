@@ -29,14 +29,14 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.hostile = false;
             Projectile.timeLeft = 120;
             Projectile.DamageType = DamageClass.Summon;
-            Projectile.tileCollide = true;
+            Projectile.tileCollide = false;
             Projectile.extraUpdates = 0;
         }
 
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
-            if (++Projectile.ai[0] >= 60 && !Projectile.tileCollide)
+            if (++Projectile.ai[0] >= 30 && !Projectile.tileCollide)
             {
                 Projectile.tileCollide = true;
             }

@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             Projectile.penetrate = -1;
             Projectile.timeLeft *= 5;
             Projectile.minion = true;
-            Projectile.minionSlots = 0.5f;
+            Projectile.minionSlots = 0f;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.friendly = true;
@@ -195,7 +195,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                         SoundEngine.PlaySound(SoundID.Item17);
                         Vector2 velocity = Vector2.Normalize(targetCenter - Projectile.Center);
                         Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity * 12f,
-                            ModContent.ProjectileType<AmberSpit>(), Projectile.damage * 5, 0, Projectile.owner);
+                            ModContent.ProjectileType<AmberSpit>(), Projectile.damage, 0, Projectile.owner);
                         shootTimer = 0;
                     }
                 }

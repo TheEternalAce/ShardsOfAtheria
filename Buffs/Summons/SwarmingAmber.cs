@@ -22,7 +22,6 @@ namespace ShardsOfAtheria.Buffs.Summons
                 buffIndex--;
             }
 
-            player.maxMinions += 1;
             if (player.ownedProjectileCounts[ModContent.ProjectileType<AmberFly>()] == 0)
             {
                 player.DelBuff(buffIndex);

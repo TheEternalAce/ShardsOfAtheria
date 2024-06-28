@@ -50,7 +50,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (!ShardsHelpers.NoInvasionOfAnyKind(spawnInfo) && spawnInfo.Player.ZoneCrimson && spawnInfo.Player.ZoneOverworldHeight)
+            if (ShardsHelpers.NoInvasionOfAnyKind(spawnInfo) && spawnInfo.Player.ZoneCrimson && spawnInfo.Player.ZoneOverworldHeight)
                 return 0.1f;
             return 0f;
         }

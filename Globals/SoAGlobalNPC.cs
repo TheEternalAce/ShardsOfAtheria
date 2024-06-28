@@ -246,8 +246,10 @@ namespace ShardsOfAtheria.Globals
 
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
+            if (npc.HasBuff(ModContent.BuffType<Cleaved>()))
+                modifiers.Defense.Flat -= 8;
             if (npc.HasBuff(ModContent.BuffType<Marked>()))
-                modifiers.FinalDamage *= 1.1f;
+                modifiers.ScalingBonusDamage += 0.1f;
             if (npc.HasBuff(ModContent.BuffType<MarkedByAvatar>()))
                 modifiers.ScalingBonusDamage += 1f;
             base.ModifyIncomingHit(npc, ref modifiers);

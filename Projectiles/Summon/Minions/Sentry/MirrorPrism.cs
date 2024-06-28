@@ -9,11 +9,20 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
 {
     public class MirrorPrism : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.SentryShot[Type] = true;
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 22;
             Projectile.height = 34;
             Projectile.aiStyle = -1;
+
+            Projectile.friendly = true;
+            Projectile.penetrate = -1;
+            Projectile.DamageType = DamageClass.Summon;
         }
 
         public override void OnKill(int timeLeft)
@@ -52,20 +61,34 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
             }
         }
 
-        public static int FindNewestProjectile(int owner)
+        public static int FindNewestProjectile(int owner, int mirrorIndex)
         {
             int result = -1;
             int timeLeft = 0;
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
                 Projectile projectile = Main.projectile[i];
-                if (projectile.active && projectile.type == ModContent.ProjectileType<MirrorPrism>() && projectile.owner == owner)
+                if (projectile.active && projectile.type == ModContent.ProjectileType<MirrorPrism>() && projectile.owner == owner && projectile.ai[1] == mirrorIndex)
                 {
                     if (projectile.timeLeft > timeLeft)
                     {
                         result = projectile.whoAmI;
                         timeLeft = projectile.timeLeft;
                     }
+                }
+            }
+            return result;
+        }
+
+        public static int CountPrismsPerMirror(int owner, int mirrorIndex)
+        {
+            int result = 0;
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                Projectile projectile = Main.projectile[i];
+                if (projectile.active && projectile.type == ModContent.ProjectileType<MirrorPrism>() && projectile.owner == owner && projectile.ai[1] == mirrorIndex)
+                {
+                    result++;
                 }
             }
             return result;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -84,6 +85,7 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
                     npc.lifeRegen = 0;
                 }
                 int dpt = 10 * plagueSeverity;
+                if (npc.HasBuff<PlagueMark>()) dpt = (int)(dpt * 1.5f);
                 npc.lifeRegen -= dpt;
                 if (damage < dpt)
                 {
@@ -102,7 +104,7 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
 
         public override void DrawEffects(NPC npc, ref Color drawColor)
         {
-            if (plagueSeverity > 0 && Main.rand.NextBool(8))
+            if (npc.HasBuff<Plague>() && Main.rand.NextBool(plagueSeverity > 6 ? 2 : 8 - plagueSeverity))
             {
                 int type = ModContent.DustType<PlagueDust>();
                 int dust = Dust.NewDust(npc.position, npc.width + 4, npc.height + 4, type, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1f);
@@ -145,7 +147,9 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
                 }
                 Player.lifeRegenTime = 0;
                 // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 10 life lost per second, if the player is holding their left or right movement keys.
-                Player.lifeRegen -= 20 * plagueSeverity;
+                int dpt = 20 * plagueSeverity;
+                if (Player.HasBuff<PlagueMark>()) dpt = (int)(dpt * 1.5f);
+                Player.lifeRegen -= dpt;
             }
         }
 
@@ -155,7 +159,7 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
                 damageSource.SourceItem == null &&
                 damageSource.SourceProjectileType == 0)
             {
-                if (Player.HasBuff(ModContent.BuffType<Plague>()))
+                if (Player.HasBuff<Plague>())
                 {
                     damageSource = PlayerDeathReason.ByCustomReason(Player.name + " succumbed to the plague.");
                 }
@@ -165,7 +169,7 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
 
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
-            if (plagueSeverity > 0 && Main.rand.NextBool(8))
+            if (Player.HasBuff<Plague>() && Main.rand.NextBool(8 - plagueSeverity))
             {
                 int type = ModContent.DustType<PlagueDust>();
                 int dust = Dust.NewDust(Player.position, Player.width + 4, Player.height + 4, type, Player.velocity.X * 0.4f, Player.velocity.Y * 0.4f, 100, default, 1f);

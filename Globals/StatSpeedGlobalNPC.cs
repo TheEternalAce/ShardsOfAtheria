@@ -24,8 +24,8 @@ namespace ShardsOfAtheria.Globals
 
         public override void Load()
         {
-            IgnoreStatSpeed = new HashSet<int>();
-            Terraria.On_NPC.UpdateCollision += NPC_UpdateCollision;
+            IgnoreStatSpeed = [];
+            On_NPC.UpdateCollision += NPC_UpdateCollision;
         }
         private static void NPC_UpdateCollision(Terraria.On_NPC.orig_UpdateCollision orig, NPC self)
         {

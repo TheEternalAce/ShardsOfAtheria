@@ -275,14 +275,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                         {
                             if (projectile.Distance(player.Center) < 350f)
                             {
-                                bool hostileProjectileMovingTowardsPlayer = false;
-                                float coneLength = 400f;
-                                float maximumAngle = MathHelper.PiOver4;
-                                float coneRotation = projectile.velocity.ToRotation();
-                                if (player.Hitbox.IntersectsConeSlowMoreAccurate(projectile.Center, coneLength, coneRotation, maximumAngle))
-                                {
-                                    hostileProjectileMovingTowardsPlayer = true;
-                                }
+                                bool hostileProjectileMovingTowardsPlayer = ShardsHelpers.MovingTowardPoint(projectile.position, projectile.velocity, player.Center, 400f);
                                 if (hostileProjectileMovingTowardsPlayer)
                                 {
                                     sleep = false;

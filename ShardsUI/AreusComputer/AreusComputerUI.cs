@@ -456,6 +456,8 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
 
         public override void Load()
         {
+            if (Main.netMode == NetmodeID.Server)
+                return;
             TerminalState = new AreusComputerUI();
             TerminalState.Activate();
             @interface = new UserInterface();

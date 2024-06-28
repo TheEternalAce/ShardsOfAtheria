@@ -3,6 +3,7 @@ using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -65,6 +66,8 @@ namespace ShardsOfAtheria.ShardsUI.Monologue
 
         public override void Load()
         {
+            if (Main.netMode == NetmodeID.Server)
+                return;
             MonologueUI = new();
             MonologueUI.Activate();
             monologueInterface = new UserInterface();

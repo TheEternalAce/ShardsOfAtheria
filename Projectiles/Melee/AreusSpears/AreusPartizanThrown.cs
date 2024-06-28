@@ -40,8 +40,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
         // See ExampleBehindTilesProjectile. 
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            Projectile.hide = true;
-            behindNPCsAndTiles.Add(index);
+            if (IsStickingToTarget)
+            {
+                Projectile.hide = true;
+                behindNPCsAndTiles.Add(index);
+            }
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -197,15 +200,12 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             }
         }
 
-        int gravityTimer = 0;
+        int gravityTimer = 15;
         private void NormalAI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
             Projectile.SetVisualOffsets(130);
-            if (++gravityTimer >= 15) // Use a timer to wait 15 ticks before applying gravity.
-            {
-                Projectile.ApplyGravity();
-            }
+            Projectile.ApplyGravity(ref gravityTimer); // Use a timer to wait 15 ticks before applying gravity.
         }
 
         private void StickyAI()

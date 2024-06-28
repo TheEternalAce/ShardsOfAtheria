@@ -94,26 +94,28 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
                 {
                     shootTime *= 0.5f;
                 }
-                if (++Projectile.ai[0] >= shootTime + Main.rand.Next(90))
+                if (++Projectile.ai[0] >= shootTime + Main.rand.Next(45))
                 {
                     Projectile.ai[0] = 0f;
                     int type = ModContent.ProjectileType<MirrorPrism>();
                     float speed = 16f * (1f - Main.rand.NextFloat(0.33f));
                     var vectorToTarget = targetCenter - Projectile.Center;
                     vectorToTarget = vectorToTarget.RotatedByRandom(MathHelper.PiOver4);
-                    if (player.ownedProjectileCounts[ModContent.ProjectileType<MirrorPrism>()] >= 6)
+                    int damage = Projectile.damage;
+                    if (MirrorPrism.CountPrismsPerMirror(Projectile.owner, Projectile.whoAmI) >= 6)
                     {
-                        int prismWhoAmI = MirrorPrism.FindNewestProjectile(Projectile.owner);
+                        int prismWhoAmI = MirrorPrism.FindNewestProjectile(Projectile.owner, Projectile.whoAmI);
                         if (prismWhoAmI > -1)
                         {
                             var prism = Main.projectile[prismWhoAmI];
                             vectorToTarget = prism.Center - Projectile.Center;
                             speed = 8f;
                             type = ModContent.ProjectileType<BounceLaser>();
+                            damage *= 2;
                         }
                     }
                     vectorToTarget.Normalize();
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vectorToTarget * speed, type, Projectile.damage, Projectile.knockBack);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vectorToTarget * speed, type, damage, Projectile.knockBack, -1, 0f, Projectile.whoAmI);
                 }
             }
         }

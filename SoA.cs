@@ -56,7 +56,12 @@ namespace ShardsOfAtheria
         public static readonly SoundStyle MagnetWeakShot = new SoundStyle(ItemSoundPath + "MagnetWeakShot").WithVolumeScale(0.75f);
         public static readonly SoundStyle MagnetShot = new SoundStyle(ItemSoundPath + "MagnetShot").WithVolumeScale(0.75f);
         public static readonly SoundStyle KeyPress = new(ItemSoundPath + "KeyPress");
-        public static readonly SoundStyle ZeroCharge = new(ItemSoundPath + "ZeroCharge");
+        public static readonly SoundStyle ZeroCharge = new(ItemSoundPath + "ZeroCharge") { MaxInstances = 1 };
+        public static readonly SoundStyle Katana = new(ItemSoundPath + "Katana") { Volume = 0.25f, MaxInstances = 2, PitchVariance = 0.1f };
+        public static readonly SoundStyle HeavyCut = new(ItemSoundPath + "HeavyCut") { Volume = 0.5f, MaxInstances = 2, PitchVariance = 0.2f };
+        public static readonly SoundStyle Judgement1 = new(ItemSoundPath + "Judgement2_1") { Volume = 0.1f, MaxInstances = 2, PitchVariance = 0.1f };
+        public static readonly SoundStyle Judgement2 = new(ItemSoundPath + "Judgement2_2") { Volume = 0.1f, MaxInstances = 2, PitchVariance = 0.1f };
+        public static readonly SoundStyle Judgement3 = new(ItemSoundPath + "Judgement2_3") { Volume = 0.1f, MaxInstances = 2, PitchVariance = 0.1f };
 
         public static readonly Color HardlightColor = new(224, 92, 165);
         public static readonly Color HardlightColorA = HardlightColor.UseA(0);

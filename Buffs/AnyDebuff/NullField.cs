@@ -18,6 +18,8 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
         {
             player.SetImmuneTimeForAllTypes(2);
             player.immuneNoBlink = true;
+            player.noKnockback = true;
+            //player.GetDamage(DamageClass.Generic) *= 0;
             player.Shards().areusNullField = true;
         }
     }

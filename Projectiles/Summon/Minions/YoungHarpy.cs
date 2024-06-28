@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
-using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -203,13 +202,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                     newIdlePosition.Normalize();
                     newIdlePosition *= speed;
 
-                    if (!Collision.CanHitLine(newIdlePosition, Projectile.width, Projectile.height, targetCenter, 20, 20))
-                    {
-                        meleePhase = true;
-                        shootTimer = 0;
-                        shootCounter = 0;
-                    }
-
                     Projectile.velocity = (Projectile.velocity * (inertia - 1) + newIdlePosition) / inertia;
 
                     if (++shootTimer >= 90 + Main.rand.Next(50))
@@ -221,12 +213,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                         {
                             Vector2 vel = Vector2.Normalize(targetCenter - Projectile.Center);
                             Vector2 perturbedSpeed = vel.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * 10f; // Watch out for dividing by 0 if there is only 1 projectile.
-                            Projectile feather = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, perturbedSpeed,
-                                ModContent.ProjectileType<FeatherBladeFriendly>(), Projectile.damage / 2, 0, Projectile.owner);
-                            feather.friendly = true;
-                            feather.hostile = false;
-                            feather.penetrate = 1;
-                            feather.DamageType = DamageClass.Summon;
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, perturbedSpeed,
+                               ModContent.ProjectileType<FeatherBladeFriendly_Summon>(), Projectile.damage / 2, 0, Projectile.owner);
                         }
                         shootCounter++;
                         shootTimer = 0;

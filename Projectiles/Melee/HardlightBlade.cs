@@ -26,31 +26,11 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Projectile.friendly = true;
             Projectile.timeLeft = 120;
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.tileCollide = false;
         }
 
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
-            if (Projectile.ai[0] == 1)
-            {
-                for (int i = 0; i < Main.maxProjectiles; i++)
-                {
-                    Projectile blade = Main.projectile[i];
-                    if (blade.whoAmI != Projectile.whoAmI &&
-                        blade.type == Type &&
-                        blade.ai[0] == 1 &&
-                        blade.active &&
-                        Projectile.active)
-                    {
-                        if (Projectile.Hitbox.Intersects(blade.Hitbox))
-                        {
-                            Projectile.Kill();
-                            blade.Kill();
-                        }
-                    }
-                }
-            }
         }
 
         public override void OnKill(int timeLeft)

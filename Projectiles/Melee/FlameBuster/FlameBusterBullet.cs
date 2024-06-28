@@ -25,8 +25,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameBuster
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.timeLeft = 600;
-            Projectile.light = 0.5f;
+            Projectile.timeLeft = 300;
             Projectile.ignoreWater = true;
             Projectile.extraUpdates = 1;
         }

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -32,13 +33,13 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             AIType = ProjectileID.WoodenArrowFriendly; // Act exactly like default Arrow
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            SoundEngine.PlaySound(SoundID.Item12);
+        }
+
         public override void AI()
         {
-            if (Projectile.ai[1] == 0)
-            {
-                SoundEngine.PlaySound(SoundID.Item12);
-                Projectile.ai[1] = 1;
-            }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
         }
 

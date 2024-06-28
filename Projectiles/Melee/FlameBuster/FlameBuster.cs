@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -45,6 +46,13 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameBuster
             Projectile.extraUpdates = 1;
             Projectile.timeLeft = 60;
             Projectile.hide = true;
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            var player = Projectile.GetPlayerOwner();
+            if ((player.controlRight && Projectile.direction >= 0) || (player.controlLeft && Projectile.direction < 0))
+                player.velocity.X *= 1.1f;
         }
 
         public override void AI()
@@ -104,9 +112,10 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameBuster
             var position = Projectile.Center;
             var velocity = Projectile.velocity;
             velocity.Normalize();
-            velocity *= 12f;
+            velocity *= 16f;
             int type = ModContent.ProjectileType<FlameBusterBullet>();
-            int damage = Projectile.damage / 2;
+            int damage = Projectile.damage / 3;
+            if (Projectile.GetPlayerOwner().ownedProjectileCounts[type] >= 6) return;
 
             if (Projectile.ai[1] == 1)
             {
@@ -116,9 +125,12 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameBuster
                 Projectile.NewProjectile(source, position, velocity, type, damage, 2f);
                 return;
             }
+            var player = Projectile.GetPlayerOwner();
             for (int i = 0; i < numberProjectiles; i++)
             {
-                var adjustedPosition = position + Projectile.velocity.RotatedBy(MathHelper.PiOver2 + MathHelper.Pi * i) * 1f;
+                var adjustment = Projectile.velocity.RotatedBy(MathHelper.PiOver2 + MathHelper.Pi * i) * 1f;
+                var adjustedPosition = position + adjustment;
+                if (!Collision.CanHit(Projectile.Center, 0, 0, player.Center, 0, 0)) adjustedPosition = player.Center + adjustment;
                 Projectile.NewProjectile(source, adjustedPosition, velocity, type, damage, 2f);
             }
         }

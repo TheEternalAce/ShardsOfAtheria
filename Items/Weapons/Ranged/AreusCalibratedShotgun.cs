@@ -128,7 +128,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             bool overdrive = shards.Overdrive;
             if (calibrationMode == 2)
             {
-                damage *= 3.5f;
+                damage *= 2.5f;
                 if (overdrive)
                 {
                     damage *= 1.5f;

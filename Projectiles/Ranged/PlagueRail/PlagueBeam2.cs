@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -129,6 +130,15 @@ namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
             return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, beamEndPos, 16f * Projectile.scale, ref _);
         }
 
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (target.HasBuff<PlagueMark>())
+            {
+                modifiers.Defense -= 0.1f;
+                modifiers.ScalingBonusDamage += 0.1f;
+            }
+        }
+
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Projectile.ai[0] == 0)
@@ -141,7 +151,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
                 }
                 if (ModLoader.TryGetMod("GMR", out Mod gmr))
                 {
-                    if (gmr.TryFind<ModProjectile>("PlagueExplotion", out var explosion))
+                    if (gmr.TryFind<ModProjectile>("PlagueExplosion", out var explosion))
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, explosion.Type, Projectile.damage, 0);
                     }

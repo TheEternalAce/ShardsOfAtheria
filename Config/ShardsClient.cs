@@ -26,6 +26,9 @@ namespace ShardsOfAtheria.Config
         public bool biometalSound;
 
         [DefaultValue(true)]
+        public bool chargeSound;
+
+        [DefaultValue(true)]
         public bool reactorBeep;
 
         [Header("UI")]
@@ -41,6 +44,12 @@ namespace ShardsOfAtheria.Config
 
         [DefaultValue(15)]
         public int dialogueDuration;
+
+        [DefaultValue(200)]
+        [Range(1, 200)]
+        //[DrawTicks()]
+        [Slider()]
+        public int speedLimit;
 
         [DefaultValue(true)]
         [ReloadRequired()]

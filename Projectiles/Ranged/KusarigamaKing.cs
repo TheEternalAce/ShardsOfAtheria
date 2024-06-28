@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.height = 50;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Melee;
+            Projectile.DamageType = DamageClass.Ranged;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
             Projectile.ownerHitCheck = true;

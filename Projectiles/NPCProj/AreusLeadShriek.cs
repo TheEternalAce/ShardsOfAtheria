@@ -23,6 +23,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
             Projectile.height = 100;
             Projectile.scale = 0.1f;
 
+            Projectile.penetrate = -1;
             Projectile.timeLeft = 40;
             Projectile.aiStyle = -1;
             Projectile.hostile = true;

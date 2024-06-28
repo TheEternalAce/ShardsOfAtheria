@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -11,18 +9,6 @@ namespace ShardsOfAtheria.Projectiles.Other
 {
     public class SapphireShield : ModProjectile
     {
-        public static Asset<Texture2D> glowmask;
-
-        public override void Load()
-        {
-            glowmask = ModContent.Request<Texture2D>(Texture);
-        }
-
-        public override void Unload()
-        {
-            glowmask = null;
-        }
-
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 5;

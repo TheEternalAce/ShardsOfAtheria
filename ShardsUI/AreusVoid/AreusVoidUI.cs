@@ -5,6 +5,7 @@ using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -83,6 +84,8 @@ namespace ShardsOfAtheria.ShardsUI.AreusVoid
 
         public override void Load()
         {
+            if (Main.netMode == NetmodeID.Server)
+                return;
             VoidOrb = new AreusVoidUI();
             VoidOrb.Activate();
             barInterface = new UserInterface();

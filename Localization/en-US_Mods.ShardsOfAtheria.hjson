@@ -1331,7 +1331,7 @@ Items: {
 		Tooltip:
 			'''
 			{$CommonItemTooltip.MediumStats}
-			'No way eating metal is a good ideaa'
+			'Bah weep granah weep mini bong!'
 			'''
 	}
 
@@ -1772,6 +1772,20 @@ Items: {
 		Off: " (Disabled)"
 	}
 
+	SpeedCapper: {
+		DisplayName: Speed Limiter
+		Tooltip:
+			'''
+			Caps max horizontal speed
+			Set the max MPH in the client config
+			Right click to disable
+			# Shift right click to open Mod Config
+			'For when you're moving WAY too fast'
+			'''
+		On: " (Enabled)"
+		Off: " (Disabled)"
+	}
+
 	SpellTwister: {
 		DisplayName: Spell Twister
 		Tooltip:
@@ -2029,6 +2043,8 @@ Items: {
 			'''
 			Holding increases movement speed by 5%
 			75% benefit from attack speed boosts
+			Hits with the tip deal increased damage
+			May inflict 'Armor Cleave' which reduces defense
 			'I am all out of milk'
 			'''
 		Overdrive: Throws electric shuriken
@@ -2968,12 +2984,15 @@ Projectiles: {
 	BlackShot.DisplayName: Black Star Shot
 	AreusLeadShriek.DisplayName: Areus Lead Shriek
 	AreusNullField.DisplayName: Areus Null Field
+	BeaconLaser.DisplayName: Beacon Laser
+	FlameStab.DisplayName: Flame Stab
+	VolatilePlagueBeam.DisplayName: Volatile Plague Beam
 }
 
 NPCs: {
 	NovaStellar: {
 		DisplayName: Nova Stellar
-		Bestiary: Following her late father's footsteps, Nova became a noble knight. She wishes to rid the world of the Slayer Terrarian.
+		Bestiary: Following her late father's footsteps, Nova became a noble knight. She strives to rid the world of evil.
 		BossDesc: The Lightning Valkyrie
 
 		BossChecklistIntegration: {
@@ -3019,7 +3038,7 @@ NPCs: {
 			InitialSummonSlayer: Your first mistake was starting this path. Your final mistake is crossing mine.
 			MidFightSlayer: You won't kill me so easily. Try this on for size.
 			Desperation: Seems like I underestimated you... (This isn't good... I must do something...)
-			Death: Oh the irony... .
+			Death: Oh the irony... The next one will take my place... In due time...
 		}
 	}
 
@@ -3050,8 +3069,8 @@ NPCs: {
 				What a peculiar weapon. It shows capabilities of transforming into several types of weapon, but it's locked in spear and whip form.
 				There's also memories sealed inside the shield. Perhaps something to unlock those memories will make it stronger?
 				'''
-			AtheriaComment: Atheria is a lovely place, but there's an overpopulation problem. Long story short is: our goddess wasn't too keen on giving us such a short lifespan like humans. So she made us nigh-immortal and, turns out, that makes things not so great for a small planet.
-			ExComment: My ex? Yes, Nova, I'm sure you've already guessed by now. We didn't separate on exactly good terms.
+			AtheriaComment: Atheria is lovely, but unfortunately overpopulated. Long story short is: our goddess wasn't too keen on giving us such a short lifespan like humans. So she made us nigh-immortal and, turns out, that makes things not so great for a small planet.
+			ExComment: Hm, Nova. We didn't separate on exactly good terms.
 			MorshuMoment: Sorry {0}, what is this 'credit'? Come back when you have some coin! Or maybe you wanna chat? That's fine too.
 			CSGOReference: Last blood moon I heard {0} shouting 'Door stuck,' what's that about?
 			GiftCrest: Here, have this. No particular reason, I just don't want it anymore.
@@ -3652,17 +3671,27 @@ Buffs: {
 
 	MarkedByAvatar: {
 		DisplayName: Marked By Avatar
-		Description: Mods.ShardsOfAtheria.Buffs.MarkedByAvatar.Description
+		Description: Taking increased damage
 	}
 
 	ChargingDrones: {
 		DisplayName: Charging Drones
-		Description: Mods.ShardsOfAtheria.Buffs.ChargingDrones.Description
+		Description: Ready... Aim... FIRE!
 	}
 
 	NullField: {
 		DisplayName: Null Field
-		Description: Mods.ShardsOfAtheria.Buffs.NullField.Description
+		Description: You can hurt nothing and nothing can hurt you
+	}
+
+	Cleaved: {
+		DisplayName: Armor Cleave
+		Description: Defense lowered
+	}
+
+	PlagueMark: {
+		DisplayName: Plague Mark
+		Description: Taking increased damage from Plague sources
 	}
 }
 
@@ -3797,6 +3826,11 @@ Configs: {
 			Tooltip: Toggles the sound played when Biometal is equipped
 		}
 
+		chargeSound: {
+			Label: "[i:ShardsOfAtheria/FlameKnuckleBuster] Charge Sound"
+			Tooltip: Toggles the sound played when certain weapons are charging
+		}
+
 		reactorBeep: {
 			Label: "[i:ShardsOfAtheria/ReactorMeltdown] Reactor Meltdown Sound"
 			Tooltip: Toggles the sound played when Reactor Meltdown is spinning
@@ -3829,6 +3863,11 @@ Configs: {
 				Sets the speed of dilogue in the boxes
 				Does nothing if Dialogue is disabled
 				'''
+		}
+
+		speedLimit: {
+			Label: "[i:Stopwatch] Speed Limit"
+			Tooltip: Sets your max horizontal speed between 1 and 200 MPH.
 		}
 
 		windowTitle: {
@@ -3928,6 +3967,11 @@ Configs: {
 
 		overrideTypes: {
 			Label: Override TerraTypes
+			Tooltip: ""
+		}
+
+		speedCapCrafting: {
+			Label: speed Cap Crafting
 			Tooltip: ""
 		}
 	}

@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.ShardsUI.Monologue;
 using ShardsOfAtheria.Systems;
 using System.Collections.Generic;
 using Terraria;
@@ -102,7 +101,7 @@ namespace ShardsOfAtheria.Utilities
                 {
                     Main.NewText(dialogue, color);
                 }
-                MonologueUISystem.Instance.ShowMonologue(text);
+                //MonologueUISystem.Instance.ShowMonologue(text);
             }
         }
 

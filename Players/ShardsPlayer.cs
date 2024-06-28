@@ -10,6 +10,7 @@ using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BuffItems;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Tools.Misc.Slayer;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok;
@@ -301,8 +302,33 @@ namespace ShardsOfAtheria.Players
             }
         }
 
+        public override void PreUpdateMovement()
+        {
+            if (Player.HasItem<SpeedCapper>())
+            {
+                var index = Player.FindItem(ModContent.ItemType<SpeedCapper>());
+                var item = Player.inventory[index];
+                var limiter = item.ModItem as SpeedCapper;
+                if (limiter.active)
+                {
+                    float playerHorizontalSpeed = Player.velocity.X;
+                    float maxHorizontalSpeed = SoA.ClientConfig.speedLimit * (42240f / 216000f);
+                    if (playerHorizontalSpeed > maxHorizontalSpeed)
+                    {
+                        Player.velocity.X = maxHorizontalSpeed;
+                    }
+                }
+            }
+        }
+
         public override void UpdateLifeRegen()
         {
+            if (areusNullField)
+            {
+                Player.lifeRegen = 0;
+                Player.lifeRegenTime = 0;
+                return;
+            }
             if (Biometal && !Player.HasBuff(ModContent.BuffType<Overdrive>()))
                 Player.lifeRegen += 4;
             if (Player.HasBuff(ModContent.BuffType<SoulInfused>()))

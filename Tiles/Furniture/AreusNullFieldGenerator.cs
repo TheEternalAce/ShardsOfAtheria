@@ -62,6 +62,13 @@ namespace ShardsOfAtheria.Tiles.Furniture
 
                 Projectile.NewProjectile(player.GetSource_FromThis(), spawnPos, Vector2.Zero, ModContent.ProjectileType<AreusNullField>(), 0, 0f, player.whoAmI);
             }
+            else
+            {
+                foreach (Projectile projectile in Main.projectile)
+                {
+                    if (projectile.type == ModContent.ProjectileType<AreusNullField>() && projectile.ai[0] == 1) projectile.ai[0] = 2;
+                }
+            }
             return true;
         }
     }

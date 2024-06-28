@@ -3,7 +3,6 @@ using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using WebCom.Effects.ScreenShaking;
 //using WebCom.Effects.ScreenShaking;
@@ -32,13 +31,13 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.knockBack = 4;
             Item.crit = 5;
 
-            Item.useTime = 10;
-            Item.useAnimation = 10;
+            Item.useTime = 28;
+            Item.useAnimation = 28;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item11;
             Item.noMelee = true;
 
-            Item.shootSpeed = 20f;
+            Item.shootSpeed = 16f;
             Item.rare = ItemRarityID.Master;
             Item.value = 22500;
             Item.shoot = ProjectileID.Grenade;
@@ -47,22 +46,28 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool CanConsumeAmmo(Item item, Player player)
         {
-            return !(player.itemAnimation < Item.useAnimation);
+            return player.itemAnimation == player.itemAnimationMax;
         }
 
         public override void UpdateInventory(Player player)
         {
-            if (++charge == 300)
+            if (!player.ItemAnimationActive || player.HeldItem != Item)
             {
-                SoundEngine.PlaySound(SoundID.MaxMana);
-                CombatText.NewText(player.getRect(), Color.SkyBlue, Language.GetTextValue("Mods.ShardsOfAtheria.Common.FullCharge"));
+                if (charge < 300)
+                {
+                    charge++;
+                    if (SoA.ClientConfig.chargeSound && charge % 25 == 0) SoundEngine.PlaySound(SoA.ZeroCharge, player.Center);
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Vector2 spawnPos = player.Center + Main.rand.NextVector2CircularEdge(50, 50);
+                        Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, DustID.Torch, 0, 0, 100);
+                        dust.velocity = player.velocity;
+                        if (Main.rand.NextBool(3)) dust.velocity += Vector2.Normalize(player.Center - dust.position) * Main.rand.NextFloat(5f);
+                        dust.noGravity = true;
+                    }
+                }
+                if (charge == 300 - 1) SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
             }
-            if (charge > 301)
-            {
-                Item.useAnimation = 30;
-                charge = 301;
-            }
-            else Item.useAnimation = 10;
         }
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
@@ -72,16 +77,20 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 damage += 1f;
         }
 
-        int projType;
-
-        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
-            projType = type;
-        }
-
         public override bool CanUseItem(Player player)
         {
-            return player.ownedProjectileCounts[projType] < 3;
+            if (charge == 300)
+            {
+                Item.useTime = 10;
+                Item.useAnimation = 30;
+                Item.reuseDelay = 6;
+            }
+            else
+            {
+                Item.useTime = Item.useAnimation = 28;
+                Item.reuseDelay = 0;
+            }
+            return true;
         }
 
         public override bool? UseItem(Player player)

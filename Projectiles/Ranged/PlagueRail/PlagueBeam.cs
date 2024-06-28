@@ -1,4 +1,5 @@
 ﻿using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -38,9 +39,18 @@ namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
             SoundEngine.PlaySound(SoundID.Item72);
         }
 
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (target.HasBuff<PlagueMark>())
+            {
+                modifiers.Defense -= 0.1f;
+                modifiers.ScalingBonusDamage += 0.1f;
+            }
+        }
+
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff<Plague>(2);
+            target.AddBuff<Plague>(300);
             var player = Projectile.GetPlayerOwner();
             if (player.HasBuff<Plague>())
             {
@@ -50,7 +60,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff<Plague>(2);
+            target.AddBuff<Plague>(300);
             var player = Projectile.GetPlayerOwner();
             if (player.HasBuff<Plague>())
             {

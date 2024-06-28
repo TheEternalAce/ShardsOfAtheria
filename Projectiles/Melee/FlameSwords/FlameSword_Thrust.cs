@@ -81,6 +81,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
 
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2 - MathHelper.PiOver4 * Projectile.spriteDirection;
 
+            if (Timer == 5 && Projectile.ai[1] != 1f)
+            {
+                var vector = Vector2.Normalize(Projectile.velocity);
+                Projectile.NewProjectile(player.GetSource_FromThis(), player.Center + vector * 3f, vector * 28f, ModContent.ProjectileType<FlameStab>(), (int)(Projectile.damage * 0.75f), Projectile.knockBack * 0.75f);
+            }
             if (Projectile.ai[1] == 1 && player.Overdrive() && Timer > 18) Timer--;
 
             Projectile.SetVisualOffsets(52);

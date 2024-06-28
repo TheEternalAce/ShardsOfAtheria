@@ -516,15 +516,18 @@ namespace ShardsOfAtheria.Players
                 Player.AddBuff<SwarmingAmber>(gemBlessingTime * 3);
                 int type = ModContent.ProjectileType<AmberFly>();
                 int amount = 2;
+                int damage = 16;
+                if (greaterAmberCore) damage += 9;
                 if (megaGemCore)
                 {
                     amount = 4;
+                    damage += 25;
                 }
                 if (Player.ownedProjectileCounts[type] <= amount)
                 {
                     for (int i = 0; i < amount - Player.ownedProjectileCounts[type]; i++)
                     {
-                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.One, type, 16, 0f);
+                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.One, type, damage, 0f);
                     }
                 }
             }

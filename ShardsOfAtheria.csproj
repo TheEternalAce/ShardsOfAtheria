@@ -79,6 +79,7 @@
     <None Remove="Projectiles\Melee\AreusJustitia\HardlightSlashHostile.png" />
     <None Remove="Projectiles\Melee\AreusRetribution.png" />
     <None Remove="Projectiles\Melee\FlameSwords\FlameSlash.png" />
+    <None Remove="Projectiles\Melee\FlameSwords\FlameStab.png" />
     <None Remove="Projectiles\Melee\VoidSlash.png" />
     <None Remove="Projectiles\Melee\ZenovaProjectile.png" />
     <None Remove="Projectiles\NPCProj\Nova\PlagueBeam2.png" />

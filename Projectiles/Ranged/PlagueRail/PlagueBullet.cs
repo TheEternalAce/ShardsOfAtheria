@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -42,6 +44,21 @@ namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
                     Projectile.hostile = true;
                 }
             }
+        }
+
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (target.HasBuff<PlagueMark>())
+            {
+                modifiers.Defense -= 0.1f;
+                modifiers.ScalingBonusDamage += 0.1f;
+            }
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (target.HasBuff<Plague>()) target.AddBuff<Plague>(300);
+            target.AddBuff<PlagueMark>(600);
         }
 
         public override bool PreDraw(ref Color lightColor)

@@ -59,11 +59,6 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
                 Projectile.Kill();
                 return;
             }
-            else
-            {
-                // Important so that the sprite draws "in" the player's hand and not fully infront or behind the player
-                player.heldProj = Projectile.whoAmI;
-            }
 
             // Fade in and out
             // GetLerpValue returns a value between 0f and 1f - if clamped is true - representing how far Timer got along the "distance" defined by the first two parameters

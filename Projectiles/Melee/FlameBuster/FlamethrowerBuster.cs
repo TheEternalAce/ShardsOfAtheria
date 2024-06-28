@@ -81,7 +81,10 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameBuster
                 int flame = ProjectileID.Flames;
                 int damage = Projectile.originalDamage;
                 float knockback = 1.33f;
-                Projectile.NewProjectile(source, Projectile.Center, velocity, flame, damage, knockback, Owner.whoAmI);
+                var player = Projectile.GetPlayerOwner();
+                var position = player.Center;
+                if (Collision.CanHit(position, 0, 0, Projectile.Center, 0, 0)) position = Projectile.Center;
+                Projectile.NewProjectile(source, position, velocity, flame, damage, knockback, Owner.whoAmI);
             }
         }
 

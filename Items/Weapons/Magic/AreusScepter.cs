@@ -5,6 +5,7 @@ using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -29,10 +30,11 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.crit = 29;
             Item.mana = 12;
 
-            Item.useTime = 26;
-            Item.useAnimation = 26;
+            Item.useTime = 6;
+            Item.useAnimation = 24;
+            Item.reuseDelay = 12;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.UseSound = SoundID.Item43;
+            Item.UseSound = SoundID.Item72;
             Item.autoReuse = true;
             Item.staff[Type] = true;
             Item.noMelee = true;
@@ -40,7 +42,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.shootSpeed = 16;
             Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = 150000;
-            Item.shoot = ModContent.ProjectileType<AreusShardProj>();
+            Item.shoot = ModContent.ProjectileType<LightningBoltFriendly>();
         }
 
         public override void AddRecipes()
@@ -62,29 +64,26 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             {
                 ceilingLimit = player.Center.Y - 200f;
             }
-            // Loop these functions 3 times.
-            for (int i = 0; i < 3; i++)
+
+            position = player.Center - new Vector2(Main.rand.NextFloat(401) * player.direction, 600f);
+            position.Y -= 100;
+            Vector2 heading = target - position;
+
+            if (heading.Y < 0f)
             {
-                position = player.Center - new Vector2(Main.rand.NextFloat(401) * player.direction, 600f);
-                position.Y -= 100 * i;
-                Vector2 heading = target - position;
-
-                if (heading.Y < 0f)
-                {
-                    heading.Y *= -1f;
-                }
-
-                if (heading.Y < 20f)
-                {
-                    heading.Y = 20f;
-                }
-
-                heading.Normalize();
-                heading *= velocity.Length();
-                heading.Y += Main.rand.Next(-40, 41) * 0.02f;
-                Projectile.NewProjectile(source, position, heading, type, damage * 2, knockback, player.whoAmI, 0f, ceilingLimit);
+                heading.Y *= -1f;
             }
 
+            if (heading.Y < 20f)
+            {
+                heading.Y = 20f;
+            }
+
+            heading.Normalize();
+            heading *= velocity.Length();
+            heading.Y += Main.rand.Next(-40, 41) * 0.02f;
+            Projectile.NewProjectile(source, position, heading, type, damage * 2, knockback, player.whoAmI, 0f, ceilingLimit);
+            SoundEngine.PlaySound(Item.UseSound, player.Center);
             return false;
         }
     }

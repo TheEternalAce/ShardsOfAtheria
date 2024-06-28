@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     public class FlameKnuckleBuster : ModItem
     {
         int charge = 0;
-        const int MaxCharge = 150;
+        const int MaxCharge = 300;
         public override void SetStaticDefaults()
         {
             Item.AddElement(0);
@@ -94,6 +94,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 if (charge < MaxCharge)
                 {
                     charge++;
+                    if (SoA.ClientConfig.chargeSound && charge % 25 == 0) SoundEngine.PlaySound(SoA.ZeroCharge, player.Center);
                     for (int i = 0; i < 10; i++)
                     {
                         Vector2 spawnPos = player.Center + Main.rand.NextVector2CircularEdge(25, 25);

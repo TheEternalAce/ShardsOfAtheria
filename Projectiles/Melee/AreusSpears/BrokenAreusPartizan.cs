@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
         protected override void Initialize(Player player, ShardsPlayer shards)
         {
             base.Initialize(player, shards);
-            combo = 1;
+            shards.itemCombo = 1;
             swingDirection *= -1;
         }
 

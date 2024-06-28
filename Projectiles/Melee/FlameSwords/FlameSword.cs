@@ -58,7 +58,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
         public override void UpdateSwing(float progress, float interpolatedSwingProgress)
         {
             base.UpdateSwing(progress, interpolatedSwingProgress);
-            FireProjectile(progress, ModContent.ProjectileType<FlameSlash>(), (int)(Projectile.damage * 0.75f), Projectile.knockBack * 0.75f, 6f);
+            FireProjectile(progress, ModContent.ProjectileType<FlameSlash>(), (int)(Projectile.damage * 0.75f), Projectile.knockBack * 0.75f, 6f, 25f);
         }
 
         public override Vector2 GetOffsetVector(float progress)

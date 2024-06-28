@@ -95,14 +95,13 @@ namespace ShardsOfAtheria.NPCs
                 if (Collision.CanHit(NPC.position, 10, 10, Target.position, 10, 10) && (shootTimer == 20 || shootTimer == 30 || shootTimer == 40))
                 {
                     var projectilePosition = NPC.Center + new Vector2(0, 2);
-                    int num729 = Projectile.NewProjectile(NPC.GetSource_FromThis(), projectilePosition,
-                        Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center).RotatedByRandom(MathHelper.ToRadians(15)) * 12f,
-                        ProjectileID.MartianTurretBolt, 9, 0f, Main.myPlayer);
-                    Main.projectile[num729].timeLeft = 300;
+                    Projectile.NewProjectile(NPC.GetSource_FromThis(), projectilePosition,
+                        Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center).RotatedByRandom(MathHelper.ToRadians(15)) * 16f,
+                        ModContent.ProjectileType<BeaconLaser>(), 9, 0f, Main.myPlayer);
                 }
                 if (shootTimer == 50) state = CLOSE;
             }
-            if (shootTimer >= 400 + Main.rand.Next(200)) shootTimer = 0;
+            if (shootTimer >= 300 + Main.rand.Next(100)) shootTimer = 0;
         }
 
         int state = IDLE;

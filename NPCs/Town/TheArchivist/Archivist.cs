@@ -18,6 +18,11 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
     [AutoloadHead]
     public class Archivist : ModNPC
     {
+        public override bool IsLoadingEnabled(Mod mod)
+        {
+            return false;
+        }
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[Type] = 25;
@@ -72,14 +77,14 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
         {
             string key = this.GetLocalizationKey("Bestiary");
             // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+            bestiaryEntry.Info.AddRange([
 				// Sets the preferred biomes of this town NPC listed in the bestiary.
 				// With Town NPCs, you usually set this to what biome it likes the most in regards to NPC happiness.
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
 
 				// Sets your NPC's flavor text in the bestiary.
 				new FlavorTextBestiaryInfoElement(key)
-            });
+            ]);
         }
 
         public override void HitEffect(NPC.HitInfo hit)
@@ -163,7 +168,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
 
         public override List<string> SetNPCNameList()
         {
-            return ["Faust", "Angela"];
+            return ["Faust", "Angela", "Tessa"];
         }
 
         const string DialogueKeyBase = "Mods.ShardsOfAtheria.NPCs.Archivist.Dialogue.";

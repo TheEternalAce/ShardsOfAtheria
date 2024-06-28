@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -70,6 +71,8 @@ namespace ShardsOfAtheria.ShardsUI
 
         public override void Load()
         {
+            if (Main.netMode == NetmodeID.Server)
+                return;
             OverdriveBar = new OverdriveEnergyBar();
             OverdriveBar.Activate();
             barInterface = new UserInterface();

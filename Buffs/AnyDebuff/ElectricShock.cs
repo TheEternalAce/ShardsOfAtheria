@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -84,7 +83,7 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
                     Player.lifeRegen = 0;
                 }
                 Player.lifeRegenTime = 0;
-                if (Main.keyState.IsKeyDown(Keys.Left) || Main.keyState.IsKeyDown(Keys.Right))
+                if (Player.controlRight || Player.controlLeft)
                 {
                     // lifeRegen is measured in 1/2 life per second. Therefore, this effect causes 10 life lost per second, if the player is holding their left or right movement keys.
                     Player.lifeRegen -= 20;

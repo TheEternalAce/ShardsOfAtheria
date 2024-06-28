@@ -1,9 +1,12 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Weapons.Ammo;
 using ShardsOfAtheria.Projectiles.Ranged.PlagueRail;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -45,8 +48,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             CreateRecipe()
                 .AddIngredient<BionicBarItem>(20)
-                .AddIngredient(ItemID.HallowedBar, 10)
                 .AddIngredient<PlagueCell>(30)
+                .AddIngredient(ItemID.SoulofMight, 10)
                 .AddIngredient(ItemID.Wire, 20)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
@@ -59,7 +62,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (type == ModContent.ProjectileType<PlagueBeam2>())
+            if (charge == MaxCharge) type = ModContent.ProjectileType<VolatilePlagueBeam>();
+            if (type == ModContent.ProjectileType<PlagueBeam2>() || type == ModContent.ProjectileType<VolatilePlagueBeam>())
             {
                 var cloneVelocity = velocity;
                 cloneVelocity.Normalize();
@@ -70,6 +74,41 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
             damage = ShardsHelpers.ScaleByProggression(damage);
+        }
+
+        int charge = 0;
+        const int MaxCharge = 300;
+        public override void UpdateInventory(Player player)
+        {
+            if (!player.ItemAnimationActive || player.HeldItem != Item)
+            {
+                if (charge < MaxCharge)
+                {
+                    charge++;
+                    if (SoA.ClientConfig.chargeSound && charge % 25 == 0) SoundEngine.PlaySound(SoA.ZeroCharge, player.Center);
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Vector2 spawnPos = player.Center + Main.rand.NextVector2CircularEdge(50, 50);
+                        Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, ModContent.DustType<PlagueDust>(), 0, 0, 100, default, 0.6f);
+                        dust.velocity = player.velocity;
+                        if (Main.rand.NextBool(3)) dust.velocity += Vector2.Normalize(player.Center - dust.position) * Main.rand.NextFloat(5f);
+                        dust.noGravity = true;
+                    }
+                }
+                if (charge == MaxCharge - 1) SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
+            }
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            int previousCharge = charge;
+            charge = 0;
+            if (previousCharge == MaxCharge)
+            {
+                Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0, 1);
+                return false;
+            }
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 
         public override Vector2? HoldoutOffset()

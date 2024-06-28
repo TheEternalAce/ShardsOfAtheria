@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
             Projectile.aiStyle = 0;
             Projectile.tileCollide = false;
             Projectile.light = 1;
-            Projectile.timeLeft = 180;
+            Projectile.timeLeft = 60;
             Projectile.DamageType = DamageClass.Magic;
 
             DrawOffsetX = -5;

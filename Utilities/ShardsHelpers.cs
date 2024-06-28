@@ -552,6 +552,16 @@ namespace ShardsOfAtheria.Utilities
             return projectileFound;
         }
 
+        public static bool MovingTowardPoint(Vector2 targetPos, Vector2 velocity, Vector2 point, float checkDistance = 2000f)
+        {
+            velocity.Normalize();
+            Rectangle hitbox = new((int)point.X, (int)point.Y, 1, 1);
+            float maximumAngle = MathHelper.PiOver4;
+            float coneRotation = velocity.ToRotation();
+            if (Utils.IntersectsConeSlowMoreAccurate(hitbox, targetPos, checkDistance, coneRotation, maximumAngle)) return true;
+            return false;
+        }
+
         public static bool NoInvasionOfAnyKind(this NPCSpawnInfo spawnInfo)
         {
             return !(Main.eclipse || spawnInfo.Player.ZoneTowerNebula ||

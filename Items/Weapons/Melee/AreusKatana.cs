@@ -1,16 +1,18 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Melee.ElecKatana;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
-    public class AreusKatana : ModItem
+    public class AreusKatana : LobCorpLight
     {
         public override void SetStaticDefaults()
         {
@@ -29,11 +31,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
             Item.useTime = 15;
             Item.useAnimation = 15;
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.UseSound = SoundID.Item1;
+            Item.useStyle = 15;
+            Item.UseSound = SoA.Katana;
             Item.autoReuse = true;
 
-            Item.shootSpeed = 6;
+            Item.shootSpeed = 12f;
             Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = Item.sellPrice(0, 1, 50);
             Item.shoot = ModContent.ProjectileType<ElecKunai>();
@@ -74,6 +76,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             if (player.Shards().Overdrive)
             {
+                SoundEngine.PlaySound(SoundID.Item71);
                 type = ModContent.ProjectileType<ElecKatana>();
                 velocity.Normalize();
             }
@@ -88,6 +91,20 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 return true;
             }
             return base.UseItem(player);
+        }
+
+        public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (Vector2.Distance(player.Center, target.Center) > 73)
+            {
+                modifiers.ScalingBonusDamage += 0.5f;
+                SoundEngine.PlaySound(SoA.HeavyCut, target.Center);
+            }
+        }
+
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff<Cleaved>(150);
         }
     }
 }

@@ -31,8 +31,8 @@ namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
             Item.knockBack = 4;
             Item.crit = 4;
 
-            Item.useTime = 20;
-            Item.useAnimation = 20;
+            Item.useTime = 15;
+            Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.UseSound = SoundID.Item1;
             Item.noMelee = true;

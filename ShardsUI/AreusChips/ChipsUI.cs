@@ -152,6 +152,8 @@ namespace ShardsOfAtheria.ShardsUI
 
         public override void Load()
         {
+            if (Main.netMode == NetmodeID.Server)
+                return;
             ChipsIU = new ChipsUI();
             ChipsIU.Activate();
             chipsInterface = new UserInterface();
