@@ -1,5 +1,8 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Projectiles.Other;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather
 {
@@ -12,6 +15,12 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather
             base.SetDefaults();
             debuffType = BuffID.Stoned;
             dustType = DustID.Stone;
+        }
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            base.OnHitPlayer(target, info);
+            if (SoA.Massochist()) Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<ElectricExplosion_Hostile>(), Projectile.damage, 0);
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
 using ShardsOfAtheria.Utilities;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -38,6 +40,17 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             player.maxMinions++;
             player.maxTurrets += 3;
             player.Gem().superAmberCore = true;
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            var player = Main.LocalPlayer;
+            var gem = player.Gem();
+            if (gem.amberCore && gem.amethystCore)
+            {
+                TooltipLine line = new(Mod, "GemCurse", "Amber Curse") { OverrideColor = Color.Purple };
+                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
+            }
         }
     }
 }

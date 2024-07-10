@@ -142,6 +142,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
                 float speed = 20f;
                 int damage = Projectile.originalDamage;
                 int flame = ModContent.ProjectileType<FireCannon_Fire1>();
+                if (Owner.Shards().Overdrive) chargeLevel = 3;
                 if (chargeLevel >= 2)
                 {
                     //increase recoil value, make gun appear like it's actually firing with some force
@@ -156,28 +157,17 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
                         flame = ModContent.ProjectileType<FireCannon_Fire3>();
                     }
                 }
-                if (Owner.Shards().Overdrive)
-                {
-                    flame = ModContent.ProjectileType<FireCannon_Fire3>();
-                    if (chargeLevel != 2)
-                    {
-                        recoilAmount += 2f;
-                    }
-                    if (chargeLevel != 3)
-                    {
-                        recoilAmount += 3f;
-                        speed /= 2;
-                    }
-                }
                 if (shoot)
                 {
-                    if (chargeLevel == 3 || Owner.Shards().Overdrive)
-                    {
-                        ScreenShake.ShakeScreen(12, 60);
-                    }
-                    float numberProjectiles = 2; // 2 shots
                     var source = Projectile.GetSource_FromThis();
                     var velocity = aimNormal * speed;
+                    if (chargeLevel == 3)
+                    {
+                        ScreenShake.ShakeScreen(12, 60);
+                        Projectile.NewProjectile(source, shootOrigin, velocity, flame, damage, knockback, Owner.whoAmI);
+                        return;
+                    }
+                    float numberProjectiles = 2; // 2 shots
 
                     float num117 = (float)Math.PI / 10f;
                     float num90 = Main.mouseX + Main.screenPosition.X - shootOrigin.X;

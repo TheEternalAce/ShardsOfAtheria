@@ -1,0 +1,8 @@
+Changes
+- Diamond Barriers and Diamond Shot from Gem Soul will no longer destroy/target hostile summon projectiles.
+- Cavern Harpies now emit light while out of Massochist Mode.
+- Added config to replace Cavern harpies breaking tiles with explosive feathers and homing lasers in Massochist Mode.
+- Tweaked Areus Gambit interraction with bullets. Now creates an extremely fast projectile that targets other coins, then enemies.
+- Areus Gambit coin is now pulled toward the player when falling and within range.
+Fixes
+- Fixed Rigged Coin not always setting the Areus Gambit attack to the appropriate attack.

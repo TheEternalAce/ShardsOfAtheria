@@ -270,6 +270,21 @@ namespace ShardsOfAtheria.Utilities
             SoA.TryRedemptionCall("addNPCToElementTypeList", elementTypeName, npc.type);
         }
 
+        /// <summary>
+        /// Cold <br/>
+        /// Electricity <br/>
+        /// Heat <br/>
+        /// Sickness <br/>
+        /// Water <br/>
+        /// null : neutral, False : Resisted, True : Vulnerable
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <param name="elementTypeName"></param>
+        public static void SetDebuffResistance(this NPC npc, string elementTypeName, bool? enabled)
+        {
+            SoA.TryCalamityCall("SetDebuffVulnerability", npc, elementTypeName, enabled);
+        }
+
         public static readonly float[] NPCMultipliersFire = [0.8f, 2f, 1f, 0.5f];
 
         public static readonly float[] NPCMultipliersAqua = [0.5f, 0.8f, 2f, 1f];

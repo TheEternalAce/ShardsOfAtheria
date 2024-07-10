@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Projectiles.Other
             else KillClosestBanner();
             Lighting.AddLight(Projectile.Center, TorchID.Yellow);
             Projectile.velocity *= 0.85f;
-            AmberAura(500);
+            AmberAura(500 + 300 * Projectile.ai[0]);
         }
 
         private bool CheckActive(Player player)
@@ -46,7 +46,7 @@ namespace ShardsOfAtheria.Projectiles.Other
             return true;
         }
 
-        private void AmberAura(int radius)
+        private void AmberAura(float radius)
         {
             for (var i = 0; i < 20; i++)
             {
@@ -69,7 +69,7 @@ namespace ShardsOfAtheria.Projectiles.Other
             AmberBuff(radius);
         }
 
-        private void AmberBuff(int maxDistance)
+        private void AmberBuff(float maxDistance)
         {
             foreach (Player player in Main.player)
             {

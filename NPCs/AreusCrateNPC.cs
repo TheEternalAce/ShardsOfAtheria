@@ -12,6 +12,15 @@ namespace ShardsOfAtheria.NPCs
 {
     public class AreusCrateNPC : ModNPC
     {
+        public override void SetStaticDefaults()
+        {
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new()
+            {
+                Hide = true
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+        }
+
         public override void SetDefaults()
         {
             NPC.width = 34;

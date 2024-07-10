@@ -9,6 +9,7 @@ namespace ShardsOfAtheria.Items.AreusChips
         public override void SetDefaults()
         {
             base.SetDefaults();
+            Item.maxStack = 1;
             slotType = SlotChest;
         }
 

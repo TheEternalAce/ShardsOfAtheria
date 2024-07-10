@@ -74,7 +74,14 @@ namespace ShardsOfAtheria.NPCs
 
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCDeath14;
-            NPC.ElementMultipliers(new[] { 1.0f, 0.5f, 0.8f, 2.0f });
+
+            NPC.ElementMultipliers([1.0f, 0.5f, 0.8f, 2.0f]);
+
+            NPC.SetDebuffResistance("Sickness", false);
+            NPC.SetDebuffResistance("Electricity", false);
+            NPC.SetDebuffResistance("Heat", false);
+            NPC.SetDebuffResistance("Cold", false);
+            NPC.SetDebuffResistance("Water", true);
         }
 
         int shootTimer = 0;

@@ -9,6 +9,13 @@ namespace ShardsOfAtheria.Items.AreusChips
     {
         public DamageClass DamageClass { get; internal set; } = DamageClass.Default;
 
+        public override ModItem Clone(Item newEntity)
+        {
+            var clone = (ClassChip)base.Clone(newEntity);
+            clone.DamageClass = DamageClass;
+            return clone;
+        }
+
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 25;
@@ -17,6 +24,7 @@ namespace ShardsOfAtheria.Items.AreusChips
         public override void SetDefaults()
         {
             base.SetDefaults();
+            Item.maxStack = 1;
             slotType = SlotHead;
         }
 

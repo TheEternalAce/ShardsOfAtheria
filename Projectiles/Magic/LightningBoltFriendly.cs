@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -31,6 +32,11 @@ namespace ShardsOfAtheria.Projectiles.Magic
 
         internal Vector2 initialVel = Vector2.Zero;
         internal int DustTimer = 0;
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (Projectile.ai[1] == 3f) Projectile.tileCollide = false;
+        }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -105,6 +111,15 @@ namespace ShardsOfAtheria.Projectiles.Magic
                 d.velocity *= 0;
                 d.fadeIn = 1.3f;
                 d.noGravity = true;
+            }
+
+            if (Projectile.ai[1] == 3)
+            {
+                if (Projectile.GetPlayerOwner().Center.Y - 100 < Projectile.Center.Y)
+                {
+                    Projectile.tileCollide = true;
+                    Projectile.ai[0] = 0;
+                }
             }
         }
 

@@ -24,7 +24,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.width = 68;
             Item.height = 62;
 
-            Item.damage = 66;
+            Item.damage = 54;
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 3;
             Item.crit = 29;
@@ -65,7 +65,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 ceilingLimit = player.Center.Y - 200f;
             }
 
-            position = player.Center - new Vector2(Main.rand.NextFloat(401) * player.direction, 600f);
+            position -= new Vector2(Main.rand.NextFloat(401) * player.direction, 600f);
             position.Y -= 100;
             Vector2 heading = target - position;
 
@@ -82,7 +82,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             heading.Normalize();
             heading *= velocity.Length();
             heading.Y += Main.rand.Next(-40, 41) * 0.02f;
-            Projectile.NewProjectile(source, position, heading, type, damage * 2, knockback, player.whoAmI, 0f, ceilingLimit);
+            Projectile.NewProjectile(source, position, heading, type, damage * 2, knockback, player.whoAmI, 0f, 3f);
             SoundEngine.PlaySound(Item.UseSound, player.Center);
             return false;
         }

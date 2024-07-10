@@ -331,12 +331,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 
         private bool ValidProjectile(Projectile projectile)
         {
-            bool valid = true;
-            //if (projectile.owner == Projectile.owner) valid = false;
-            if (!projectile.hostile) valid = false;
-            if (!projectile.active) valid = false;
-            if (!SoAGlobalProjectile.ReflectAiList.Contains(projectile.aiStyle)) valid = false;
-            return valid;
+            if (!projectile.hostile) return false;
+            if (!projectile.active) return false;
+            if (!SoAGlobalProjectile.ReflectAiList.Contains(projectile.aiStyle)) return false;
+            if (Main.projPet[projectile.type]) return false;
+            return true;
         }
 
         void DoSleep()

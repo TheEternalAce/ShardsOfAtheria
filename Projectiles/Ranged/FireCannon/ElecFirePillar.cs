@@ -23,7 +23,10 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
             Projectile.aiStyle = -1;
             Projectile.tileCollide = false;
             Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 30;
             Projectile.timeLeft = 2 * 60;
+            Projectile.friendly = true;
+            Projectile.penetrate = 5;
         }
 
         public override void AI()

@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Magic;
+using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -36,10 +38,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
             gravityTimer++;
             if (gravityTimer >= 16)
             {
-                if (++Projectile.velocity.Y > 16)
-                {
-                    Projectile.velocity.Y = 16;
-                }
+                Projectile.ApplyGravity(0.5f * Projectile.knockBack);
                 gravityTimer = 16;
                 Projectile.friendly = true;
                 if (Projectile.Center.Y > player.Center.Y)
@@ -52,6 +51,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
                     var coin = player.HeldItem.ModItem as AreusGambit;
                     coin?.SetAttack(player);
                 }
+                if (player.Distance(Projectile.Center) < 150) Projectile.Track(player.position, 16f, 4f);
             }
             foreach (var proj in Main.projectile)
             {
@@ -61,38 +61,65 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
                     proj.damage > 0 &&
                     proj.active)
                 {
-                    if (ModLoader.TryGetMod("TerrariaMayQuake", out var mod))
+                    if (proj.Distance(Projectile.Center) <= 15)
                     {
-                        if (mod.TryFind("FeedbackerPunch", out ModProjectile arm))
+                        if (ModLoader.TryGetMod("TerrariaMayQuake", out var mod))
                         {
-                            if (proj.type == arm.Type)
+                            if (mod.TryFind("FeedbackerPunch", out ModProjectile arm))
                             {
-                                if (arm.Colliding(proj.Hitbox, Projectile.Hitbox) == null)
+                                if (proj.type == arm.Type)
                                 {
                                     gravityTimer = 0;
+                                    SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
+                                    break;
                                 }
-                                return;
                             }
                         }
-                    }
-                    if (proj.Distance(Projectile.Center) <= 30)
-                    {
-                        float speed = proj.velocity.Length();
-                        NPC npc = Projectile.FindClosestNPC(null, 1000);
-                        if (npc != null)
+                        if (ModLoader.TryGetMod("Terrakill", out var tk))
                         {
-                            if (npc.CanBeChasedBy())
+                            if (tk.TryFind("Feedbacker", out ModProjectile arm))
                             {
-                                proj.velocity = npc.Center - proj.Center;
-                                proj.velocity.Normalize();
-                                proj.velocity *= speed + 0.5f;
-                                proj.damage = (int)(proj.damage * 1.5f);
+                                if (proj.type == arm.Type)
+                                {
+                                    Projectile.velocity = Projectile.Center.DirectionTo(Main.MouseWorld) * 16f;
+                                    gravityTimer = 0;
+                                    SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
+                                    break;
+                                }
                             }
                         }
-                        Projectile.Kill();
+                        if (proj.type != ModContent.ProjectileType<HitscanBullet>())
+                        {
+                            float speed = proj.velocity.Length();
+                            Vector2 velocity = proj.velocity;
+                            var closestCoin = ShardsHelpers.FindClosestProjectile(Projectile.Center, 2000, ValidCoin);
+                            if (closestCoin != null) velocity = proj.Center.DirectionTo(closestCoin.Center) * speed;
+                            else
+                            {
+                                var closestEnemy = ShardsHelpers.FindClosestNPC(Projectile.Center, null, 2000);
+                                if (closestEnemy != null) velocity = Projectile.Center.DirectionTo(closestEnemy.Center) * speed;
+                            }
+                            int type = ModContent.ProjectileType<HitscanBullet>();
+                            if (proj.DamageType.CountsAsClass(DamageClass.Melee)) type = ModContent.ProjectileType<HitscanBullet_Melee>();
+                            if (proj.DamageType.CountsAsClass(DamageClass.Magic)) type = ModContent.ProjectileType<HitscanBullet_Magic>();
+                            if (proj.DamageType.CountsAsClass(DamageClass.Summon)) type = ModContent.ProjectileType<HitscanBullet_Summon>();
+
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, type, proj.damage, 3f);
+                            proj.Kill();
+                        }
+                        break;
                     }
                 }
             }
+        }
+
+        public bool ValidCoin(Projectile projectile)
+        {
+            if (!projectile.active) return false;
+            if (projectile.type != ModContent.ProjectileType<ElecCoin>()) return false;
+            if (projectile.whoAmI == Projectile.whoAmI) return false;
+            if (projectile.owner != Projectile.owner) return false;
+            return true;
         }
 
         public override void OnKill(int timeLeft)

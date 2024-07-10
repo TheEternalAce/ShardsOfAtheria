@@ -113,7 +113,12 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             {
                 AnimationType = NPCID.Stylist;
             }
-            NPC.ElementMultipliers(new[] { 0.5f, 1.0f, 0.8f, 2.0f });
+
+            NPC.ElementMultipliers([0.5f, 1.0f, 0.8f, 2.0f]);
+
+            NPC.SetDebuffResistance("Cold", true);
+            NPC.SetDebuffResistance("Electricity", false);
+            NPC.SetDebuffResistance("Sickness", true);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

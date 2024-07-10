@@ -30,8 +30,15 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.defense = 11;
             NPC.lifeMax = 60;
             BannerItem = ModContent.ItemType<SnowHarpyBanner>();
-            NPC.ElementMultipliers([2.0f, 0.8f, 2.0f, 1.0f]);
             NPC.coldDamage = true;
+
+            NPC.ElementMultipliers([2.0f, 0.8f, 2.0f, 1.0f]);
+
+            NPC.SetDebuffResistance("Heat", true);
+            NPC.SetDebuffResistance("Cold", false);
+            NPC.SetDebuffResistance("Electricity", true);
+            NPC.SetDebuffResistance("Water", false);
+            NPC.SetDebuffResistance("Sickness", true);
 
             projectileDamage = 10;
             projectileType = ModContent.ProjectileType<Snow>();

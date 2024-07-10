@@ -31,6 +31,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
             Projectile.penetrate = 5;
             Projectile.extraUpdates = 3;
             Projectile.timeLeft = 60;
+            Projectile.DamageType = DamageClass.Magic;
         }
 
         public override void AI()

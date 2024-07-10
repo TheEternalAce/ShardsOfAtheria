@@ -33,6 +33,7 @@
     <None Remove="Walls\**" />
   </ItemGroup>
   <ItemGroup>
+    <AdditionalFiles Remove="ChangeNotes\SoA 1.0.2.txt" />
     <AdditionalFiles Remove="Localization\pt-BR.hjson" />
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +43,7 @@
     <None Remove="Buffs\PlayerBuff\PartisanBuff.png" />
     <None Remove="Buffs\PlayerBuff\ShadeState.png" />
     <None Remove="Buffs\PlayerDebuff\DeathBlood.png" />
+    <None Remove="changenotes\SoA 1.0.3.txt" />
     <None Remove="Dusts\AreusDust_Dark.png" />
     <None Remove="Items\Accessories\GemCores\AmberCape.png" />
     <None Remove="Items\Armor\Areus\Imperial\ImperialGreaves.png" />
@@ -72,14 +74,17 @@
     <None Remove="NPCs\AreusCrateNPC.png" />
     <None Remove="NPCs\Boss\Elizabeth\Death_Eternity.png" />
     <None Remove="NPCs\Boss\NovaStellar\LightningValkyrie\NovaStellar_Eternity.png" />
+    <None Remove="Projectiles\BladeAura.png" />
     <None Remove="Projectiles\Magic\ElectricHook.png" />
     <None Remove="Projectiles\Magic\ElectricHook_Chain.png" />
     <None Remove="Projectiles\Magic\Spectrum\SpectrumTrain.png" />
     <None Remove="Projectiles\Magic\VoidDagger.png" />
     <None Remove="Projectiles\Melee\AreusJustitia\HardlightSlashHostile.png" />
     <None Remove="Projectiles\Melee\AreusRetribution.png" />
+    <None Remove="Projectiles\Melee\BladeAura.png" />
     <None Remove="Projectiles\Melee\FlameSwords\FlameSlash.png" />
     <None Remove="Projectiles\Melee\FlameSwords\FlameStab.png" />
+    <None Remove="Projectiles\Melee\StormSlash.png" />
     <None Remove="Projectiles\Melee\VoidSlash.png" />
     <None Remove="Projectiles\Melee\ZenovaProjectile.png" />
     <None Remove="Projectiles\NPCProj\Nova\PlagueBeam2.png" />

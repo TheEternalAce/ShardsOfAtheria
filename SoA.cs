@@ -335,6 +335,14 @@ namespace ShardsOfAtheria
             }
         }
 
+        public static void TryCalamityCall(params object[] args)
+        {
+            if (ModLoader.TryGetMod("CalamityMod", out var calamity))
+            {
+                calamity.Call(args);
+            }
+        }
+
         public static void TryRedemptionCall(params object[] args)
         {
             if (ModLoader.TryGetMod("Redemption", out var redemption))

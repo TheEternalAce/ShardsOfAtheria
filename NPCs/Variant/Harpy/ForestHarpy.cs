@@ -29,7 +29,12 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.defense = 2;
             NPC.lifeMax = 40;
             BannerItem = ModContent.ItemType<ForestHarpyBanner>();
+
             NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersWood);
+
+            NPC.SetDebuffResistance("Heat", true);
+            NPC.SetDebuffResistance("Electricity", false);
+            NPC.SetDebuffResistance("Sickness", true);
 
             projectileType = ModContent.ProjectileType<Poison>();
             projectileDamage = 5;

@@ -50,6 +50,34 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            float adjustedItemScale = player.GetAdjustedItemScale(Item); // Get the melee scale of the player and item.
+            Projectile.NewProjectile(source, player.MountedCenter, new Vector2(player.direction, 0f), ModContent.ProjectileType<StormSlash>(), damage, knockback, player.whoAmI,
+                player.direction * player.gravDir, player.itemAnimationMax, adjustedItemScale);
+            NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI); // Sync the changes in multiplayer.
+
+            Vector2 target = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
+            for (int i = 0; i < 3; i++)
+            {
+                position -= new Vector2(Main.rand.NextFloat(401) * player.direction, 600f);
+                position.Y -= 100;
+                Vector2 heading = target - position;
+
+                if (heading.Y < 0f)
+                {
+                    heading.Y *= -1f;
+                }
+
+                if (heading.Y < 20f)
+                {
+                    heading.Y = 20f;
+                }
+
+                heading.Normalize();
+                heading *= velocity.Length();
+                heading.Y += Main.rand.Next(-40, 41) * 0.02f;
+                Projectile.NewProjectile(source, position, heading, ModContent.ProjectileType<HardlightBlade>(), damage * 2, knockback, player.whoAmI, 0f, 3f);
+            }
+
             if (player.ownedProjectileCounts[type] > 0)
             {
                 return false;

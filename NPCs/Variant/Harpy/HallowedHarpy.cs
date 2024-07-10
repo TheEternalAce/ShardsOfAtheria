@@ -32,7 +32,12 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.defense = 20;
             NPC.lifeMax = 150;
             BannerItem = ModContent.ItemType<HallowedHarpyBanner>();
+
             NPC.ElementMultipliers([2.0f, 1.5f, 0.5f, 1.0f]);
+
+            NPC.SetDebuffResistance("Heat", true);
+            NPC.SetDebuffResistance("Electricity", false);
+            NPC.SetDebuffResistance("Sickness", false);
 
             projectileDamage = 28;
             projectileType = ModContent.ProjectileType<Crystal>();

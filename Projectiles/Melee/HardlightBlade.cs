@@ -19,12 +19,12 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         public override void SetDefaults()
         {
-            Projectile.width = 10;
-            Projectile.height = 10;
+            Projectile.width = 18;
+            Projectile.height = 18;
 
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 180;
             Projectile.DamageType = DamageClass.Melee;
         }
 

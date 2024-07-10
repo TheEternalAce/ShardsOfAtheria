@@ -27,6 +27,7 @@ namespace ShardsOfAtheria.Items.AreusChips
             Item.width = 32;
             Item.height = 32;
 
+            Item.maxStack = 9999;
             Item.rare = ItemDefaults.RarityDungeon;
             Item.value = ItemDefaults.ValueEarlyHardmode;
         }

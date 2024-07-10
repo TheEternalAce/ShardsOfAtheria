@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -30,7 +32,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
 
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = Color.White;
+            lightColor = SoA.ElectricColorA;
             return base.PreDraw(ref lightColor);
         }
 
@@ -85,13 +87,14 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
             if (++timer >= TimerMax)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero,
-                    ModContent.ProjectileType<ElectricTrailFriendly>(), Projectile.damage / 2, 0, Projectile.owner);
+                    ModContent.ProjectileType<ChargedFireTrail>(), Projectile.damage / 2, 0, Projectile.owner);
                 timer = 0;
             }
         }
     }
     public class FireCannon_Fire3 : FireCannon_Fire1
     {
+        public override string Texture => SoA.BlankTexture;
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -99,16 +102,25 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
             Projectile.height = 30;
 
             Projectile.timeLeft *= 2;
-            Projectile.penetrate = 10;
+            Projectile.penetrate = -1;
+        }
+
+        public override void ModifyDamageHitbox(ref Rectangle hitbox)
+        {
+            hitbox.X -= 35;
+            hitbox.Y -= 35;
+            hitbox.Width += 70;
+            hitbox.Height += 70;
         }
 
         int timer = 0;
-        int TimerMax = 18;
+        int TimerMax = 30;
         public override void AI()
         {
             base.AI();
             if (++timer >= TimerMax)
             {
+                SoundEngine.PlaySound(SoundID.Item20, Projectile.Center);
                 int numProjectiles = 6;
                 for (int i = 0; i < numProjectiles; i++)
                 {
@@ -117,14 +129,25 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
                     rotAngle += MathHelper.ToRadians(angle / 2);
                     Vector2 vector = Projectile.velocity.RotatedBy(rotAngle);
                     vector.Normalize();
-                    vector *= 14;
-                    Projectile spark = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(),
-                        Projectile.Center, vector, ProjectileID.ThunderSpearShot, Projectile.damage / 2, 0,
+                    vector *= 6;
+                    Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(),
+                        Projectile.Center, vector, ProjectileID.Flames, Projectile.damage / 2, 0,
                         Projectile.owner);
-                    spark.DamageType = Projectile.DamageType;
                 }
                 timer = 0;
             }
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<FieryExplosion>(), Projectile.damage, 1f);
+            return true;
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Main.EntitySpriteDraw(SoA.OrbBloom, Projectile.Center - Main.screenPosition, SoA.OrbBloom.Frame(), SoA.ElectricColorA, 0f, SoA.OrbBloom.Size() / 2, 2.5f, SpriteEffects.None);
+            return false;
         }
     }
 }

@@ -61,6 +61,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             NPC.AddElement(1);
             NPC.AddElement(3);
             NPC.AddRedemptionElement(12);
+
             NPC.AddRedemptionElementType("Humanoid");
             NPC.AddRedemptionElementType("Blood");
             NPC.AddRedemptionElementType("Armed");
@@ -83,7 +84,12 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             Music = MusicID.Boss1;
             NPC.value = 167900;
             NPC.npcSlots = 15f;
+
             NPC.ElementMultipliers([1.5f, 0.8f, 1.5f, 0.8f]);
+
+            NPC.SetDebuffResistance("Electricity", true);
+            NPC.SetDebuffResistance("Heat", true);
+            NPC.SetDebuffResistance("Sickness", false);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

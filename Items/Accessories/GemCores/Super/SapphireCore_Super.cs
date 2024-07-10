@@ -1,5 +1,7 @@
-﻿using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
 using ShardsOfAtheria.Utilities;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -43,6 +45,17 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             player.Gem().superSapphireCore = true;
             player.Gem().sapphireSpiritUpgrade = true;
             player.Gem().sapphireDodgeChance += 0.05f;
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            var player = Main.LocalPlayer;
+            var gem = player.Gem();
+            if (gem.rubyCore && gem.sapphireCore)
+            {
+                TooltipLine line = new(Mod, "GemCurse", "Sapphire Curse") { OverrideColor = Color.Red };
+                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
+            }
         }
     }
 }

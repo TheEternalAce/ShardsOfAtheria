@@ -43,7 +43,14 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.lifeMax = 100;
             NPC.lavaImmune = true;
             BannerItem = ModContent.ItemType<VoidHarpyBanner>();
+
             NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersFire);
+
+            NPC.SetDebuffResistance("Heat", false);
+            NPC.SetDebuffResistance("Cold", true);
+            NPC.SetDebuffResistance("Electricity", true);
+            NPC.SetDebuffResistance("Water", true);
+            NPC.SetDebuffResistance("Sickness", false);
         }
 
         public override void AI()

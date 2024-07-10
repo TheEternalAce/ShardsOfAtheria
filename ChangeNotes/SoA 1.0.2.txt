@@ -1,0 +1,20 @@
+Changes
+- Renamed Soul Extracting Dagger to Entropic Dagger.
+- Both magnetic launchers (Areus Railgun and Coilgun), Areus Flare Gun, Areus Flame Cannon, Areus Rocket Launcher, and Gamma Plague Railgun are now considered "specialist weapons."
+- Tweaked Areus Scepter. Now fires four lightning bolts consecutively. Reduced damage from 66 to 54.
+- Sapphire Bolts now deal summon damage.
+- Significantly reduced spawn chance of Mini Areus Stars.
+- Greater and Super gem cores will now display applicable curses, like the "regular" cores.
+- Reduced Gem Curse duration from 15 seconds to 7 seconds.
+- Renamed Ruby Explosive projectile to Shattering Ruby.
+- Made the fully charged fireball from Areus Flame Cannon significantly larger. The weapon will now only shoot one.
+- Added Calamity debuff resistances for most NPCs.
+- Increased radius of following amber banner.
+- Made tweaks to Valkyrie Storm.
+  1. Now swings with an aura like its component.
+  2. Now shoots an even spread of 3 hardlight blade projectiles.
+  3. Spinning sword shoots out hardlight blade projectiles, and stays out when using other weapons, and has an aura of its own.
+  4. Updated tooltip to reflect this change.
+- Slightly rotated the Hardlight Blade projectile ring.
+- Tweaked Hero Sword aura visuals.
+- Touched up on Areus Soldier armor sprites.

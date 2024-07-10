@@ -68,4 +68,14 @@ namespace ShardsOfAtheria.Projectiles.Other
             return base.PreDraw(ref lightColor);
         }
     }
+
+    public class ElectricExplosion_Hostile : ElectricExplosion
+    {
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Projectile.friendly = false;
+            Projectile.hostile = true;
+        }
+    }
 }

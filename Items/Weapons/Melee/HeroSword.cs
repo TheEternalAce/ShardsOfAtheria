@@ -1,6 +1,8 @@
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Melee.HeroSword;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -44,6 +46,16 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 .AddIngredient(ItemID.HallowedBar, 15)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            float adjustedItemScale = player.GetAdjustedItemScale(Item); // Get the melee scale of the player and item.
+            Projectile.NewProjectile(source, player.MountedCenter, new Vector2(player.direction, 0f), type, damage, knockback, player.whoAmI,
+                player.direction * player.gravDir, player.itemAnimationMax, adjustedItemScale);
+            NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI); // Sync the changes in multiplayer.
+
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
     }
 }

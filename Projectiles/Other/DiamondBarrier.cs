@@ -52,7 +52,8 @@ namespace ShardsOfAtheria.Projectiles.Other
                     if (SoAGlobalProjectile.ReflectAiList.Contains(reflProjectile.aiStyle))
                     {
                         if (reflProjectile.active && reflProjectile.hostile &&
-                            reflProjectile.velocity != Vector2.Zero)
+                            reflProjectile.velocity != Vector2.Zero &&
+                            !Main.projPet[reflProjectile.type])
                         {
                             reflProjectile.Kill();
                             for (int j = 0; j < 3; j++)

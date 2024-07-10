@@ -35,6 +35,10 @@ namespace ShardsOfAtheria.Items.Tools.ToggleItems
             {
                 rigMode = 2;
             }
+        }
+
+        public override void UpdateInventory(Player player)
+        {
             var shards = player.Shards();
             shards.riggedCoin = rigMode;
         }

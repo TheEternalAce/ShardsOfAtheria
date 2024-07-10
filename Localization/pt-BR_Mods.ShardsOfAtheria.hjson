@@ -98,7 +98,6 @@ Items: {
 		/* Tooltip:
 			'''
 			Increases max minions by 3
-			Further increased max minions after taking damage
 			Summon two Amber Flies after taking damage
 			''' */
 	}
@@ -108,7 +107,6 @@ Items: {
 		/* Tooltip:
 			'''
 			Increases max minions by 4
-			Further increased max minions after taking damage
 			Summon two Amber Flies after taking damage
 			Enemy kills drop Amber Banners
 			Banners increase nearby player movement and attack speed and defense
@@ -121,7 +119,6 @@ Items: {
 		/* Tooltip:
 			'''
 			Increases max minions by 5
-			Further increased max minions after taking damage
 			Summon two Amber Flies after taking damage
 			Enemy kills drop Amber Banners
 			Banners increase nearby player movement and attack speed and defense
@@ -2918,7 +2915,7 @@ Projectiles: {
 	// DiamondShot.DisplayName: Diamond Shot
 	// GemSoul.DisplayName: Gem Soul
 	// RubyShot.DisplayName: Ruby Shot
-	// RubyExplosive.DisplayName: Ruby Explosive
+	// RubyExplosive.DisplayName: Shattering Ruby
 	// RubyShard.DisplayName: Ruby Shard
 	// EmeraldTeleport.DisplayName: Emerald Teleport
 	// AreusStabber.DisplayName: Areus Blade
@@ -2964,6 +2961,15 @@ Projectiles: {
 	// BeaconLaser.DisplayName: Beacon Laser
 	// FlameStab.DisplayName: Flame Stab
 	// VolatilePlagueBeam.DisplayName: Volatile Plague Beam
+	// ChargedFireTrail.DisplayName: Charged Fire Trail
+	// StormSlash.DisplayName: Storm Slash
+	// BladeAura.DisplayName: Blade Aura
+	// HitscanBullet.DisplayName: Hitscan Bullet
+	// HitscanBullet_Magic.DisplayName: Hitscan Bullet_ Magic
+	// HitscanBullet_Melee.DisplayName: Hitscan Bullet_ Melee
+	// HitscanBullet_Summon.DisplayName: Hitscan Bullet_ Summon
+	// FieryExplosion_Hostile.DisplayName: Fiery Explosion_ Hostile
+	// ElectricExplosion_Hostile.DisplayName: Electric Explosion_ Hostile
 }
 
 NPCs: {
@@ -3088,7 +3094,7 @@ NPCs: {
 
 	CaveHarpy: {
 		DisplayName: Cavern Harpy
-		// Bestiary: Several harpies 300 years ago made their home in the dark caverns. Over time, their children have evolved into forms best fit for their new home.
+		// Bestiary: Centuries ago, harpies in the dark caverns have evolved to have bioluminescent limbs and adapted technology so well it could be mistaken for magic to the uneducated.
 	}
 
 	CorruptHarpy: {
@@ -3103,12 +3109,12 @@ NPCs: {
 
 	DesertHarpy: {
 		DisplayName: Arid Harpy
-		// Bestiary: Several harpies 300 years ago made their home in the harsh dessert. Over time, their children have evolved into forms best fit for their new home.
+		// Bestiary: Centuries ago, harpies in the harsh deserts have taken on a more territorial and aggressive behavior.
 	}
 
 	ForestHarpy: {
 		DisplayName: Forest Harpy
-		// Bestiary: Several harpies 300 years ago made their home in the tranquil forests and hostile jungles. Over time, their children have evolved into forms best fit for their new home.
+		// Bestiary: Centuries ago, harpies in the lush forests and jungles have evolved to blend in with the foliage and have taken a more peaceful behavior. Do not be misguided; however, they will still defend their home viciously.
 	}
 
 	HallowedHarpy: {
@@ -3125,7 +3131,7 @@ NPCs: {
 
 	SnowHarpy: {
 		DisplayName: Arctic Harpy
-		// Bestiary: Several harpies 300 years ago made their home in the cold tundra. Over time, their children have evolved into forms best fit for their new home.
+		// Bestiary: Centuries ago, harpies had spread to the frigid tundra, their feathers made it easier to addapt to the cold.
 	}
 
 	VoidHarpy: {
@@ -3148,7 +3154,7 @@ NPCs: {
 
 	// MiniAreusStar.DisplayName: Mini Areus Star
 	// EmeraldPlatform.DisplayName: Emerald Platform
-	// MiniAreusStar_Golden.DisplayName: Mini Areus Star_ Golden
+	// MiniAreusStar_Golden.DisplayName: Golden Mini Areus Star
 	// ShriekingBeacon.DisplayName: Shrieking Beacon
 }
 
@@ -3876,6 +3882,7 @@ Configs: {
 			// Mechanics: "[i:4818] Mechanics"
 			// Misc: Misc
 			// Commands: "[i:3617] Commands"
+			// NPC: N P C Header
 		}
 
 		metalBladeSound: {
@@ -3952,8 +3959,13 @@ Configs: {
 		}
 
 		speedCapCrafting: {
-			// Label: speed Cap Crafting
+			// Label: "[i:ShardsOfAtheria/SpeedCapper] Speed Capper Crafting"
 			// Tooltip: ""
+		}
+
+		antiGrief: {
+			// Label: "[i:Bomb] Anti-Griefing"
+			// Tooltip: Replaces Cavern Harpy Massochist Mode effect with something less destructive when enabled.
 		}
 	}
 }

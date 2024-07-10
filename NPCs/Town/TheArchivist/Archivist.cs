@@ -70,7 +70,12 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
             NPC.knockBackResist = 0.5f;
 
             AnimationType = NPCID.Guide;
+
             NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersWood);
+
+            NPC.SetDebuffResistance("Heat", true);
+            NPC.SetDebuffResistance("Electricity", false);
+            NPC.SetDebuffResistance("Sickness", true);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

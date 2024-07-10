@@ -14,6 +14,13 @@ namespace ShardsOfAtheria.Items.Armor.Areus
 
         public AreusArmorPlayer ArmorPlayer;
 
+        public override ModItem Clone(Item newEntity)
+        {
+            var clone = (AreusArmorPiece)base.Clone(newEntity);
+            clone.ArmorPlayer = null;
+            return clone;
+        }
+
         public override void UpdateEquip(Player player)
         {
             ArmorPlayer = player.Areus();

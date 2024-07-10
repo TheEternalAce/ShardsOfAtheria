@@ -50,7 +50,13 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                 NPC.lavaImmune = true;
             }
             BannerItem = ModContent.ItemType<CaveHarpyBanner>();
+
             NPC.ElementMultipliers([2.0f, 1.5f, 0.5f, 1.0f]);
+
+            NPC.SetDebuffResistance("Heat", true);
+            NPC.SetDebuffResistance("Cold", true);
+            NPC.SetDebuffResistance("Electricity", false);
+            NPC.SetDebuffResistance("Sickness", false);
 
             projectileType = ModContent.ProjectileType<Stone>();
             projectileDamage = 9;
@@ -77,28 +83,30 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         public override void AI()
         {
             base.AI();
+            Lighting.AddLight(NPC.Center, Color.Cyan.ToVector3());
             if (SoA.Massochist())
             {
-                Lighting.AddLight(NPC.Center, Color.Cyan.ToVector3());
-
-                int i = (int)Math.Floor(NPC.Center.X / 16);
-                int j = (int)Math.Floor(NPC.Center.Y / 16);
-                int pickaxePower = 75;
-                if (Main.tile[i, j].IsSolid()) Main.LocalPlayer.PickTile(i, j, pickaxePower);
-                if (Main.tile[i - 1, j].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j, pickaxePower);
-                if (Main.tile[i, j - 1].IsSolid()) Main.LocalPlayer.PickTile(i, j - 1, pickaxePower);
-                if (Main.tile[i - 1, j - 1].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j - 1, pickaxePower);
-                if (Main.tile[i + 1, j - 1].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j - 1, pickaxePower);
-                if (Main.tile[i, j - 2].IsSolid()) Main.LocalPlayer.PickTile(i, j - 2, pickaxePower);
-                if (Main.tile[i - 1, j - 2].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j - 2, pickaxePower);
-                if (Main.tile[i + 1, j - 2].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j - 2, pickaxePower);
-                if (Main.tile[i + 1, j].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j, pickaxePower);
-                if (Main.tile[i, j + 1].IsSolid()) Main.LocalPlayer.PickTile(i, j + 1, pickaxePower);
-                if (Main.tile[i + 1, j + 1].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j + 1, pickaxePower);
-                if (Main.tile[i - 1, j + 1].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j + 1, pickaxePower);
-                if (Main.tile[i, j + 2].IsSolid()) Main.LocalPlayer.PickTile(i, j + 2, pickaxePower);
-                if (Main.tile[i + 1, j + 2].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j + 2, pickaxePower);
-                if (Main.tile[i - 1, j + 2].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j + 2, pickaxePower);
+                if (!SoA.ServerConfig.antiGrief)
+                {
+                    int i = (int)Math.Floor(NPC.Center.X / 16);
+                    int j = (int)Math.Floor(NPC.Center.Y / 16);
+                    int pickaxePower = 75;
+                    if (Main.tile[i, j].IsSolid()) Main.LocalPlayer.PickTile(i, j, pickaxePower);
+                    if (Main.tile[i - 1, j].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j, pickaxePower);
+                    if (Main.tile[i, j - 1].IsSolid()) Main.LocalPlayer.PickTile(i, j - 1, pickaxePower);
+                    if (Main.tile[i - 1, j - 1].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j - 1, pickaxePower);
+                    if (Main.tile[i + 1, j - 1].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j - 1, pickaxePower);
+                    if (Main.tile[i, j - 2].IsSolid()) Main.LocalPlayer.PickTile(i, j - 2, pickaxePower);
+                    if (Main.tile[i - 1, j - 2].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j - 2, pickaxePower);
+                    if (Main.tile[i + 1, j - 2].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j - 2, pickaxePower);
+                    if (Main.tile[i + 1, j].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j, pickaxePower);
+                    if (Main.tile[i, j + 1].IsSolid()) Main.LocalPlayer.PickTile(i, j + 1, pickaxePower);
+                    if (Main.tile[i + 1, j + 1].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j + 1, pickaxePower);
+                    if (Main.tile[i - 1, j + 1].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j + 1, pickaxePower);
+                    if (Main.tile[i, j + 2].IsSolid()) Main.LocalPlayer.PickTile(i, j + 2, pickaxePower);
+                    if (Main.tile[i + 1, j + 2].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j + 2, pickaxePower);
+                    if (Main.tile[i - 1, j + 2].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j + 2, pickaxePower);
+                }
             }
         }
 

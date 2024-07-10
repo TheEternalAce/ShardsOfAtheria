@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 if (Main.myPlayer == player.whoAmI)
                 {
                     var projs = ShardsHelpers.ProjectileRing(source, Main.MouseWorld, 6, 120f, 16f,
-                        type2, damage, knockback, player.whoAmI);
+                        type2, damage, knockback, player.whoAmI, rotationAddition: MathHelper.ToRadians(15f));
                     foreach (var projectile in projs)
                     {
                         projectile.tileCollide = false;

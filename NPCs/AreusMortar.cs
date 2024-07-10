@@ -44,6 +44,7 @@ namespace ShardsOfAtheria.NPCs
             NPC.AddElement(0);
             NPC.AddElement(2);
             NPC.AddRedemptionElement(7);
+
             NPC.AddRedemptionElementType("Inorganic");
             NPC.AddRedemptionElementType("Robotic");
         }
@@ -63,6 +64,12 @@ namespace ShardsOfAtheria.NPCs
             NPC.DeathSound = SoundID.NPCDeath14;
 
             NPC.ElementMultipliers([0.8f, 2.0f, 0.8f, 2.0f]);
+
+            NPC.SetDebuffResistance("Sickness", false);
+            NPC.SetDebuffResistance("Electricity", false);
+            NPC.SetDebuffResistance("Heat", false);
+            NPC.SetDebuffResistance("Cold", false);
+            NPC.SetDebuffResistance("Water", true);
         }
 
         Player Target => Main.player[NPC.target];

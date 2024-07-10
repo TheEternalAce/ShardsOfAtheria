@@ -585,39 +585,23 @@ namespace ShardsOfAtheria.Players
 
         private void TryAddCurse<T>(int curseChanceDenominator = 5) where T : ModBuff
         {
-            if (Main.rand.NextBool(curseChanceDenominator))
-            {
-                int curseDuration = 900;
-                Player.AddBuff<T>(curseDuration);
-            }
+            if (Main.rand.NextBool(curseChanceDenominator)) Player.AddBuff<T>(420);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (Player.HasBuff<CunningSapphire>())
+            if (Player.HasBuff<CunningSapphire>()) target.AddBuff(BuffID.Confused, 300);
+            if (greaterRubyCore && rubyExplosiveCooldown == 0 && hit.Crit)
             {
-                target.AddBuff(BuffID.Confused, 300);
+                int type = ModContent.ProjectileType<RubyExplosive>();
+                Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, type, 60, 0f, Player.whoAmI);
+                rubyExplosiveCooldown = 180;
             }
-            if (greaterRubyCore && rubyExplosiveCooldown == 0)
-            {
-                if (hit.Crit)
-                {
-                    int type = ModContent.ProjectileType<RubyExplosive>();
-                    Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, type, 60, 0f, Player.whoAmI);
-                    rubyExplosiveCooldown = 180;
-                }
-            }
-            if (superRubyCore)
-            {
-                target.AddBuff<SpitefulRuby>(480);
-            }
+            if (superRubyCore) target.AddBuff<SpitefulRuby>(480);
             if (megaGemCore)
             {
                 int lifestealDenominator = 6;
-                if (hit.DamageType == DamageClass.Summon)
-                {
-                    lifestealDenominator *= 4;
-                }
+                if (hit.DamageType == DamageClass.Summon) lifestealDenominator *= 4;
                 if (Main.rand.NextBool(lifestealDenominator) && !Player.moonLeech)
                 {
                     int type = ModContent.ProjectileType<LifeStealGem>();
@@ -633,14 +617,8 @@ namespace ShardsOfAtheria.Players
                     int bannerAmount = Player.ownedProjectileCounts[type];
                     if (megaGemCore)
                     {
-                        if (bannerAmount == 0)
-                        {
-                            ai0 = 1f;
-                        }
-                        else
-                        {
-                            AmberBanner.MakeOldestBannerFollowPlayer(Player);
-                        }
+                        if (bannerAmount == 0) ai0 = 1f;
+                        else AmberBanner.MakeOldestBannerFollowPlayer(Player);
                     }
                     var nearestBanner = ShardsHelpers.FindClosestProjectile(target.Center, 150, type);
                     if (nearestBanner == null)
@@ -658,11 +636,7 @@ namespace ShardsOfAtheria.Players
                         }
                     }
                 }
-                if (greaterTopazCore && !Player.moonLeech)
-                {
-                    Projectile.NewProjectile(target.GetSource_Death(), target.Center, new Vector2(0, -10),
-                        ModContent.ProjectileType<TopazOrb>(), 0, 0f, Player.whoAmI);
-                }
+                if (greaterTopazCore && !Player.moonLeech) Projectile.NewProjectile(target.GetSource_Death(), target.Center, new Vector2(0, -10), ModContent.ProjectileType<TopazOrb>(), 0, 0f, Player.whoAmI);
                 if (superDiamondCore)
                 {
                     int buffTime = (int)(damageDone * 0.05f);
@@ -671,10 +645,7 @@ namespace ShardsOfAtheria.Players
                         int buffIndex = Player.FindBuffIndex(ModContent.BuffType<DiamondBarrierBuff>());
                         Player.buffTime[buffIndex] += buffTime;
                     }
-                    else
-                    {
-                        Player.AddBuff<DiamondBarrierBuff>(buffTime);
-                    }
+                    else Player.AddBuff<DiamondBarrierBuff>(buffTime);
                 }
             }
         }

@@ -48,13 +48,18 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
+            if (SoA.Massochist())
+            {
+                var player = ShardsHelpers.FindClosestPlayer(Projectile.Center);
+                if (Projectile.Distance(player.Center) < 200) Projectile.Track(player.Center, 6f, 24f);
+            }
         }
 
         public override void OnKill(int timeLeft)
         {
             if (SoA.Eternity())
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ElectricExplosion>(),
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ElectricExplosion_Hostile>(),
                     Projectile.damage, 0);
             }
         }

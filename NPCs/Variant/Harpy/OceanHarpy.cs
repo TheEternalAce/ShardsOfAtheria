@@ -29,7 +29,13 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.defense = 11;
             NPC.lifeMax = 60;
             BannerItem = ModContent.ItemType<OceanHarpyBanner>();
+
             NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersAqua);
+
+            NPC.SetDebuffResistance("Heat", false);
+            NPC.SetDebuffResistance("Electricity", true);
+            NPC.SetDebuffResistance("Water", false);
+            NPC.SetDebuffResistance("Sickness", false);
 
             projectileDamage = 10;
             projectileType = ModContent.ProjectileType<Sea>();

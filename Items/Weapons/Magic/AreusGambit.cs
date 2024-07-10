@@ -74,6 +74,10 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 Item.useTime = Item.useAnimation = 20;
                 Item.shoot = ModContent.ProjectileType<ElecCoin>();
             }
+            if (Item.shoot == ModContent.ProjectileType<ElecCoin>())
+            {
+                return player.ownedProjectileCounts[Item.shoot] < 4;
+            }
             return base.CanUseItem(player);
         }
 
@@ -88,7 +92,15 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             }
             if (type == ModContent.ProjectileType<ElecCoin>())
             {
-                velocity = new Vector2(0, -1) * 10 + player.velocity;
+                if (player.controlUp)
+                {
+                    velocity = velocity.RotatedBy(MathHelper.ToRadians(-15) * player.direction);
+                    velocity.Normalize();
+                    velocity = velocity * 10;
+                    knockback /= 5f;
+                }
+                else velocity = new Vector2(0, -1) * 10;
+                velocity += player.velocity;
             }
             base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
         }

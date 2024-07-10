@@ -1,5 +1,7 @@
-﻿using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
 using ShardsOfAtheria.Utilities;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -45,6 +47,17 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             player.moveSpeed += 0.05f;
             player.wingTimeMax += 15;
             player.Gem().superEmeraldCore = true;
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            var player = Main.LocalPlayer;
+            var gem = player.Gem();
+            if (gem.rubyCore && gem.emeraldCore)
+            {
+                TooltipLine line = new(Mod, "GemCurse", "Emerald Curse") { OverrideColor = Color.Red };
+                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
+            }
         }
     }
 }

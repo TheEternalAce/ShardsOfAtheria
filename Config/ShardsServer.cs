@@ -25,17 +25,20 @@ namespace ShardsOfAtheria.Config
         [ReloadRequired]
         public bool yamikoInsult;
 
-        [Header("Mechanics")]
+        [Header("NPC")]
         [DefaultValue(false)]
         public bool cluelessNPCs;
 
         [DefaultValue(true)]
         public bool catchableNPC;
 
-        [Header("Misc")]
         [DefaultValue(false)]
         public bool altCaveHarpy;
 
+        [DefaultValue(false)]
+        public bool antiGrief;
+
+        [Header("Misc")]
         [DefaultValue(true)]
         [ReloadRequired]
         public bool overrideTypes;

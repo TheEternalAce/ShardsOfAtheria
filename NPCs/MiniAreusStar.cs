@@ -33,6 +33,7 @@ namespace ShardsOfAtheria.NPCs
 
             NPC.AddElement(2);
             NPC.AddRedemptionElement(7);
+            NPC.AddRedemptionElementType("Inorganic");
         }
 
         public override void SetDefaults()
@@ -46,7 +47,14 @@ namespace ShardsOfAtheria.NPCs
 
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCDeath14;
+
             NPC.ElementMultipliers([1.0f, 0.5f, 0.8f, 2.0f]);
+
+            NPC.SetDebuffResistance("Sickness", false);
+            NPC.SetDebuffResistance("Electricity", false);
+            NPC.SetDebuffResistance("Heat", false);
+            NPC.SetDebuffResistance("Cold", false);
+            NPC.SetDebuffResistance("Water", true);
         }
 
         public override void OnSpawn(IEntitySource source)
@@ -83,7 +91,7 @@ namespace ShardsOfAtheria.NPCs
         {
             float spawnChance = 0f;
             if (spawnInfo.NoInvasionOfAnyKind() && spawnInfo.Player.ZoneNormalSpace && NPC.downedBoss2)
-                spawnChance += 0.8f;
+                spawnChance += 0.08f;
             if (spawnInfo.PlayerInTown)
                 spawnChance *= 2f;
             return spawnChance;
