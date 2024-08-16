@@ -180,6 +180,10 @@ namespace ShardsOfAtheria
                     case AddMagneticProjectile:
                         if (args[1] is Projectile magneticProjectile)
                         {
+                            if (SoAGlobalProjectile.Metalic.ContainsKey(magneticProjectile.type))
+                            {
+                                Logger.Info(magneticProjectile.Name + " is already magnetic.");
+                            }
                             if (args[2] is float magnetDamage)
                             {
                                 SoAGlobalProjectile.Metalic.Add(magneticProjectile.type, magnetDamage);
@@ -187,7 +191,8 @@ namespace ShardsOfAtheria
                             }
                             else
                             {
-                                throw new ArgumentException(args[2].GetType().Name + InvalidFloat);
+                                SoAGlobalProjectile.Metalic.Add(magneticProjectile.type, 1f);
+                                break;
                             }
                         }
                         else

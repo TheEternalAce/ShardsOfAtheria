@@ -157,7 +157,7 @@ namespace ShardsOfAtheria.Utilities
                 projectile.ApplyGravity(gravityStrength, maxYVelocity);
             }
         }
-        public static void ApplyGravity(this Projectile projectile, float gravityStrength = 1f, float maxYVelocity = 16f)
+        public static void ApplyGravity(this Projectile projectile, float gravityStrength = 0.1f, float maxYVelocity = 16f)
         {
             projectile.velocity.Y += gravityStrength;
             maxYVelocity += maxYVelocity * projectile.GetPlayerOwner().GetTotalAttackSpeed(projectile.DamageType);

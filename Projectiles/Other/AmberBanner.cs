@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Buffs.PlayerBuff.GemBlessings;
 using ShardsOfAtheria.Utilities;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -48,24 +48,24 @@ namespace ShardsOfAtheria.Projectiles.Other
 
         private void AmberAura(float radius)
         {
-            for (var i = 0; i < 20; i++)
-            {
-                Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2CircularEdge(radius, radius);
-                Vector2 offset = spawnPos - Main.LocalPlayer.Center;
-                bool onscreenX = Math.Abs(offset.X) > Main.screenWidth * 0.6f;
-                bool onscreenY = Math.Abs(offset.X) > Main.screenWidth * 0.6f;
-                bool tilecollision = Collision.SolidCollision(spawnPos, 4, 4);
-                if (onscreenX || onscreenY || tilecollision) //dont spawn dust if its pointless
-                    continue;
-                Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, DustID.AmberBolt, 0, 0, 100);
-                dust.velocity = Projectile.velocity;
-                if (Main.rand.NextBool(3))
-                {
-                    dust.velocity += Vector2.Normalize(Projectile.Center - dust.position) * Main.rand.NextFloat(5f);
-                    dust.position += dust.velocity * 5f;
-                }
-                dust.noGravity = true;
-            }
+            //for (var i = 0; i < 20; i++)
+            //{
+            //    Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2CircularEdge(radius, radius);
+            //    Vector2 offset = spawnPos - Main.LocalPlayer.Center;
+            //    bool onscreenX = Math.Abs(offset.X) > Main.screenWidth * 0.6f;
+            //    bool onscreenY = Math.Abs(offset.X) > Main.screenWidth * 0.6f;
+            //    bool tilecollision = Collision.SolidCollision(spawnPos, 4, 4);
+            //    if (onscreenX || onscreenY || tilecollision) //dont spawn dust if its pointless
+            //        continue;
+            //    Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, DustID.AmberBolt, 0, 0, 100);
+            //    dust.velocity = Projectile.velocity;
+            //    if (Main.rand.NextBool(3))
+            //    {
+            //        dust.velocity += Vector2.Normalize(Projectile.Center - dust.position) * Main.rand.NextFloat(5f);
+            //        dust.position += dust.velocity * 5f;
+            //    }
+            //    dust.noGravity = true;
+            //}
             AmberBuff(radius);
         }
 
@@ -125,6 +125,13 @@ namespace ShardsOfAtheria.Projectiles.Other
                 var firstBanner = Main.projectile[firstBannerWhoAmI];
                 firstBanner.ai[0] = 1f;
             }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            var texture = ModContent.Request<Texture2D>(SoA.Circle);
+            Main.EntitySpriteDraw(texture.Value, Projectile.Center - Main.screenPosition, null, Color.Orange.UseA(0) * 0.4f, 0f, texture.Size() / 2f, 2.35f + 1.4f * Projectile.ai[0], 0);
+            return base.PreDraw(ref lightColor);
         }
     }
 }

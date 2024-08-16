@@ -2,9 +2,9 @@ internalName,type,type,ability
 GuardHelmet,Electric,,
 GuardMail,Electric,,
 GuardLeggings,Electric,,
-SoldierMask,Electric,Fighting,
-SoldierBreastplate,Electric,Fighting,
-SoldierLeggings,Electric,Fighting,
+SoldierMask,Electric,Fighting,Scrappy
+SoldierBreastplate,Electric,Fighting,Scrappy
+SoldierLeggings,Electric,Fighting,Scrappy
 ImperialHood,Electric,Dark,MoldBreaker
 ImperialGarments,Electric,Dark,MoldBreaker
 ImperialGreaves,Electric,Dark,MoldBreaker

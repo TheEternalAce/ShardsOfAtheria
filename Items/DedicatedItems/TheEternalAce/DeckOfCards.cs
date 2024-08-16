@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Projectiles.Ranged.DeckOfCards;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -51,7 +52,7 @@ namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
 
         public override bool CanUseItem(Player player)
         {
-            if (player.altFunctionUse == 2)
+            if (player.altFunctionUse == 2 || player.Overdrive())
             {
                 if (++choiceCard >= 4)
                 {
@@ -83,8 +84,33 @@ namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
                     break;
             }
             string key = this.GetLocalizationKey("CardSuit" + choiceCard);
-            CombatText.NewText(player.getRect(), Color.Cyan, Language.GetTextValue(key));
+            if (!player.Overdrive()) CombatText.NewText(player.getRect(), Color.Cyan, Language.GetTextValue(key));
             return type;
+        }
+
+        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
+        {
+            if (player.Overdrive()) damage *= 0.5f;
+        }
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            if (!player.Overdrive()) type = ModContent.ProjectileType<AceOfClubs>() + Main.rand.Next(4);
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            if (player.Overdrive())
+            {
+                int type2 = ModContent.ProjectileType<AceOfClubs>();
+                for (int i = 0; i < 4; i++)
+                {
+                    var perturbedSpeed = velocity.RotatedByRandom(MathHelper.PiOver4) * Main.rand.NextFloat(0.66f, 1f);
+                    var card = type2 + Main.rand.Next(4);
+                    Projectile.NewProjectile(source, position, perturbedSpeed, card, damage, knockback);
+                }
+            }
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 
         public override void UpdateInventory(Player player)

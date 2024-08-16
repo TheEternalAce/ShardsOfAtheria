@@ -36,8 +36,6 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.aiStyle = 0;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 3;
             Projectile.ignoreWater = true;
             Projectile.stopsDealingDamageAfterPenetrateHits = true;
         }
@@ -49,29 +47,43 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         public override void AI()
         {
-            Projectile.velocity.Normalize();
-            Projectile.velocity *= 2;
+            if (Projectile.velocity != Vector2.Zero)
+            {
+                Projectile.velocity.Normalize();
+                Projectile.velocity *= 2;
+            }
             foreach (var coin in Main.projectile)
             {
                 if (coin.type == ModContent.ProjectileType<ElecCoin>() && coin.active && coin.owner == Projectile.owner)
                 {
                     if (Projectile.Distance(coin.Center) < 10)
                     {
-                        coin.Kill();
-                        positionsIndex++;
-                        recordedPositions.Add(Projectile.Center);
-                        var closestCoin = ShardsHelpers.FindClosestProjectile(Projectile.Center, 2000, ValidCoin);
-                        if (closestCoin != null) Projectile.velocity = Projectile.Center.DirectionTo(closestCoin.Center) * coin.velocity.Length();
-                        else
-                        {
-                            var closestEnemy = ShardsHelpers.FindClosestNPC(coin, null, 2000);
-                            if (closestEnemy != null) Projectile.velocity = Projectile.Center.DirectionTo(closestEnemy.Center) * coin.velocity.Length();
-                        }
-                        Projectile.damage = (int)(Projectile.damage * 1.1f);
+                        HitCoin(coin);
                         break;
                     }
                 }
             }
+        }
+
+        public virtual void HitCoin(Projectile coin)
+        {
+            coin.Kill();
+            Projectile.Center = coin.Center;
+            RecordPosition();
+            var closestCoin = ShardsHelpers.FindClosestProjectile(Projectile.Center, 2000, ValidCoin);
+            if (closestCoin != null) Projectile.velocity = Projectile.Center.DirectionTo(closestCoin.Center) * coin.velocity.Length();
+            else
+            {
+                var closestEnemy = ShardsHelpers.FindClosestNPC(coin, null, 2000);
+                if (closestEnemy != null) Projectile.velocity = Projectile.Center.DirectionTo(closestEnemy.Center) * coin.velocity.Length();
+            }
+            Projectile.damage = (int)(Projectile.damage * 1.1f);
+        }
+
+        public virtual void RecordPosition()
+        {
+            positionsIndex++;
+            recordedPositions.Add(Projectile.Center);
         }
 
         public bool ValidCoin(Projectile projectile)
@@ -84,21 +96,20 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         public void Stop()
         {
-            Projectile.timeLeft = (Projectile.extraUpdates + 1) * 10;
+            Projectile.timeLeft = (Projectile.extraUpdates + 1) * 4;
             Projectile.velocity *= 0f;
             Projectile.tileCollide = false;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            positionsIndex++;
+            RecordPosition();
             if (Projectile.penetrate == 1) Stop();
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            positionsIndex++;
-            recordedPositions.Add(Projectile.Center);
+            RecordPosition();
             if (--Projectile.ai[0] <= 0) Stop();
             return false;
         }

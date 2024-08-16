@@ -114,13 +114,15 @@ namespace ShardsOfAtheria.Globals
                 string overdriveKey = item.ModItem.GetLocalizationKey("Overdrive");
                 if (Language.Exists(overdriveKey))
                 {
-                    if (Main.LocalPlayer.Shards().Overdrive)
+                    if (Main.LocalPlayer.Overdrive())
                     {
                         tooltips[0].Text += Language.GetTextValue(SoA.LocalizeCommon + "OverdriveTag");
-                        var line = new TooltipLine(Mod, "OverdriveEffect",
+                        var line = new TooltipLine(Mod, "OverdriveHeader",
+                            Language.GetTextValue(SoA.LocalizeCommon + "OverdriveTooltip"));
+                        tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
+                        line = new TooltipLine(Mod, "OverdriveEffect",
                             Language.GetTextValue(overdriveKey));
-                        tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "Tooltip#"),
-                            line);
+                        tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
                     }
                 }
             }
@@ -150,81 +152,108 @@ namespace ShardsOfAtheria.Globals
 
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (player.whoAmI == Main.myPlayer)
+            if (item.damage > 0)
             {
-                Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center);
                 SlayerPlayer slayer = player.Slayer();
-                if (slayer.soulCrystalProjectileCooldown == 0 && item.damage > 0)
+                var shards = player.Shards();
+                if (player.whoAmI == Main.myPlayer)
                 {
-                    slayer.soulCrystalProjectileCooldown = 60;
-                    if (slayer.SkeletronSoul)
+                    Vector2 directionToMouse = player.Center.DirectionTo(Main.MouseWorld);
+                    if (slayer.soulCrystalProjectileCooldown == 0)
                     {
-                        Projectile.NewProjectile(source, player.Center, vel * 3.5f, ProjectileID.BookOfSkullsSkull, 40, 3.5f, player.whoAmI);
-                    }
-                    if (slayer.EoWSoul)
-                    {
-                        Projectile.NewProjectile(source, player.Center, vel * 16f, ModContent.ProjectileType<VileShot>(), 30, 1, player.whoAmI);
-                        SoundEngine.PlaySound(SoundID.Item17);
-                    }
-                    if (slayer.NovaSoul && item.type != ModContent.ItemType<ValkyrieBlade>())
-                    {
-                        SoundEngine.PlaySound(SoundID.Item1);
-                        int projtype = ModContent.ProjectileType<HardlightBlade>();
-                        ShardsHelpers.ProjectileRing(source,
-                            Main.MouseWorld, 4, 150f, 16f, projtype, 18, 0f, player.whoAmI, 1);
-                    }
-                    if (slayer.BeeSoul)
-                    {
-                        Projectile.NewProjectile(source, player.Center, vel * 18f, ModContent.ProjectileType<Stinger>(), 5, 0f, player.whoAmI);
-                        SoundEngine.PlaySound(SoundID.Item17);
-                    }
-                    if (slayer.SkeletronSoul)
-                    {
-                        Main.rand.Next(2);
-                        switch (Main.rand.Next(3))
+                        slayer.soulCrystalProjectileCooldown = 60;
+                        if (slayer.SkeletronSoul)
                         {
-                            case 0:
-                                Projectile.NewProjectile(source, player.Center, vel * 10f, ProjectileID.MiniRetinaLaser, 40, 3.5f, player.whoAmI);
-                                break;
-                            case 1:
-                                Projectile.NewProjectile(source, player.Center, vel * 8f, ProjectileID.RocketI, 40, 3.5f, player.whoAmI);
-                                break;
-                            case 2:
-                                Projectile.NewProjectile(source, player.Center, vel * 8f, ProjectileID.Grenade, 40, 3.5f, player.whoAmI);
-                                break;
+                            Projectile.NewProjectile(source, player.Center, directionToMouse * 3.5f, ProjectileID.BookOfSkullsSkull, 40, 3.5f, player.whoAmI);
+                        }
+                        if (slayer.EoWSoul)
+                        {
+                            Projectile.NewProjectile(source, player.Center, directionToMouse * 16f, ModContent.ProjectileType<VileShot>(), 30, 1, player.whoAmI);
+                            SoundEngine.PlaySound(SoundID.Item17);
+                        }
+                        if (slayer.NovaSoul && item.type != ModContent.ItemType<ValkyrieBlade>())
+                        {
+                            SoundEngine.PlaySound(SoundID.Item1);
+                            int projtype = ModContent.ProjectileType<HardlightBlade>();
+                            ShardsHelpers.ProjectileRing(source,
+                                Main.MouseWorld, 4, 150f, 16f, projtype, 18, 0f, player.whoAmI, 1);
+                        }
+                        if (slayer.BeeSoul)
+                        {
+                            Projectile.NewProjectile(source, player.Center, directionToMouse * 18f, ModContent.ProjectileType<Stinger>(), 5, 0f, player.whoAmI);
+                            SoundEngine.PlaySound(SoundID.Item17);
+                        }
+                        if (slayer.SkeletronSoul)
+                        {
+                            Main.rand.Next(2);
+                            switch (Main.rand.Next(3))
+                            {
+                                case 0:
+                                    Projectile.NewProjectile(source, player.Center, directionToMouse * 10f, ProjectileID.MiniRetinaLaser, 40, 3.5f, player.whoAmI);
+                                    break;
+                                case 1:
+                                    Projectile.NewProjectile(source, player.Center, directionToMouse * 8f, ProjectileID.RocketI, 40, 3.5f, player.whoAmI);
+                                    break;
+                                case 2:
+                                    Projectile.NewProjectile(source, player.Center, directionToMouse * 8f, ProjectileID.Grenade, 40, 3.5f, player.whoAmI);
+                                    break;
+                            }
+                        }
+                        if (slayer.PlanteraSoul)
+                        {
+                            Projectile.NewProjectile(source, player.Center, directionToMouse * 16f, ModContent.ProjectileType<VenomSeed>(), 30, 1, player.whoAmI);
+                            SoundEngine.PlaySound(SoundID.Item17);
+                        }
+                        if (slayer.DeathSoul && player.bleed)
+                        {
+                            int bloodProjectile = 0;
+                            float amount = 1f;
+                            float rotation = MathHelper.ToRadians(15);
+                            bool evenSpread = true;
+                            float speedVariation = 0.33f;
+                            if (item.DamageType.CountsAsClass(DamageClass.Melee))
+                            {
+                                bloodProjectile = ModContent.ProjectileType<BloodKris>();
+                                amount = 3;
+                                speedVariation = 0f;
+                            }
+                            if (item.DamageType.CountsAsClass(DamageClass.Ranged)) bloodProjectile = ModContent.ProjectileType<BloodShuriken>();
+                            if (item.DamageType.CountsAsClass(DamageClass.Magic))
+                            {
+                                bloodProjectile = ModContent.ProjectileType<BloodGlob>();
+                                amount = 5;
+                                evenSpread = false;
+                            }
+                            if (item.DamageType.CountsAsClass(DamageClass.Summon)) bloodProjectile = ModContent.ProjectileType<BloodDart>();
+                            if (bloodProjectile > 0) ShardsHelpers.ProjectileSpread(source, player.Center, directionToMouse * 16f, amount, rotation, evenSpread, bloodProjectile, 200 / (int)amount, 7f, player.whoAmI, speedVariation: speedVariation);
                         }
                     }
-                    if (slayer.PlanteraSoul)
+                }
+            }
+            if (ModLoader.TryGetMod("GMR", out var gmr))
+            {
+                if (gmr.TryFind("OvercooledNailgun", out ModItem nailgun))
+                {
+                    if (item.type == nailgun.Type && player.altFunctionUse == 2)
                     {
-                        Projectile.NewProjectile(source, player.Center, vel * 16f, ModContent.ProjectileType<VenomSeed>(), 30, 1, player.whoAmI);
-                        SoundEngine.PlaySound(SoundID.Item17);
-                    }
-                    if (slayer.DeathSoul && player.bleed)
-                    {
-                        int bloodProjectile = 0;
-                        float amount = 1f;
-                        float rotation = MathHelper.ToRadians(15);
-                        bool evenSpread = true;
-                        float speedVariation = 0.33f;
-                        if (item.DamageType.CountsAsClass(DamageClass.Melee))
-                        {
-                            bloodProjectile = ModContent.ProjectileType<BloodKris>();
-                            amount = 3;
-                            speedVariation = 0f;
-                        }
-                        if (item.DamageType.CountsAsClass(DamageClass.Ranged)) bloodProjectile = ModContent.ProjectileType<BloodShuriken>();
-                        if (item.DamageType.CountsAsClass(DamageClass.Magic))
-                        {
-                            bloodProjectile = ModContent.ProjectileType<BloodGlob>();
-                            amount = 5;
-                            evenSpread = false;
-                        }
-                        if (item.DamageType.CountsAsClass(DamageClass.Summon)) bloodProjectile = ModContent.ProjectileType<BloodDart>();
-                        if (bloodProjectile > 0) ShardsHelpers.ProjectileSpread(source, player.Center, vel * 16f, amount, rotation, evenSpread, bloodProjectile, 200 / (int)amount, 7f, player.whoAmI, speedVariation: speedVariation);
+                        Projectile.NewProjectile(source, position, velocity *= 2.75f, ModContent.ProjectileType<StickingMagnetProj>(), 1, knockback);
+                        return false;
                     }
                 }
             }
             return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
+        }
+
+        public override bool AltFunctionUse(Item item, Player player)
+        {
+            if (ModLoader.TryGetMod("GMR", out var gmr))
+            {
+                if (gmr.TryFind("OvercooledNailgun", out ModItem nailgun))
+                {
+                    if (item.type == nailgun.Type) return player.ownedProjectileCounts[ModContent.ProjectileType<StickingMagnetProj>()] < 3;
+                }
+            }
+            return base.AltFunctionUse(item, player);
         }
 
         public override bool CanUseItem(Item item, Player player)
@@ -232,6 +261,25 @@ namespace ShardsOfAtheria.Globals
             if (item.damage > 0 && player.HasBuff(ModContent.BuffType<CreeperShield>()))
             {
                 return false;
+            }
+            if (ModLoader.TryGetMod("GMR", out var gmr))
+            {
+                if (gmr.TryFind("OvercooledNailgun", out ModItem nailgun))
+                {
+                    if (item.type == nailgun.Type)
+                    {
+                        if (player.altFunctionUse == 2)
+                        {
+                            item.reuseDelay = 3;
+                            item.noUseGraphic = false;
+                        }
+                        else
+                        {
+                            item.reuseDelay = 10;
+                            item.noUseGraphic = true;
+                        }
+                    }
+                }
             }
             return base.CanUseItem(item, player);
         }
@@ -275,6 +323,20 @@ namespace ShardsOfAtheria.Globals
             var shards = player.Shards();
             if (item.damage > 0)
             {
+                if (player == Main.LocalPlayer)
+                {
+                    var directionToMouse = player.Center.DirectionTo(Main.MouseWorld);
+
+                    if (shards.spoonBender && shards.spoonBenderCD == 0)
+                    {
+                        Rectangle rect = new((int)player.Center.X - 50, (int)player.Center.Y - 50, 100, 100);
+                        var spoon = ModContent.GetInstance<TwistedUtensil>().Item;
+                        int tearDamage = player.GetWeaponDamage(spoon);
+                        float tearKB = player.GetWeaponKnockback(spoon);
+                        Projectile.NewProjectile(player.GetSource_FromThis(), Main.rand.NextVector2FromRectangle(rect), directionToMouse * 8f, spoon.shoot, tearDamage, tearKB);
+                        shards.spoonBenderCD = 25;
+                    }
+                }
                 if (shards.prototypeBand && shards.prototypeBandCooldown == 0)
                 {
                     if (player.HasItemEquipped<PrototypeAreusBand>(out var modItem))
@@ -494,46 +556,16 @@ namespace ShardsOfAtheria.Globals
             {
                 if (source is EntitySource_Loot parentSource && parentSource.Entity is NPC npc)
                 {
-                    if (npc.type == ModContent.NPCType<CaveHarpy>())
-                    {
-                        item.color = Color.Gray;
-                    }
-                    if (npc.type == ModContent.NPCType<CorruptHarpy>())
-                    {
-                        item.color = Color.Purple;
-                    }
-                    if (npc.type == ModContent.NPCType<CrimsonHarpy>())
-                    {
-                        item.color = Color.Red;
-                    }
-                    if (npc.type == ModContent.NPCType<DesertHarpy>())
-                    {
-                        item.color = Color.Yellow;
-                    }
-                    if (npc.type == ModContent.NPCType<ForestHarpy>())
-                    {
-                        item.color = Color.GreenYellow;
-                    }
-                    if (npc.type == ModContent.NPCType<HallowedHarpy>())
-                    {
-                        item.color = Color.Pink;
-                    }
-                    if (npc.type == NPCID.Harpy)
-                    {
-                        item.color = default;
-                    }
-                    if (npc.type == ModContent.NPCType<SnowHarpy>())
-                    {
-                        item.color = Color.LightBlue;
-                    }
-                    if (npc.type == ModContent.NPCType<OceanHarpy>())
-                    {
-                        item.color = Color.Cyan;
-                    }
-                    if (npc.type == ModContent.NPCType<VoidHarpy>())
-                    {
-                        item.color = Color.DarkGray;
-                    }
+                    if (npc.type == ModContent.NPCType<CaveHarpy>()) item.color = Color.Gray;
+                    if (npc.type == ModContent.NPCType<CorruptHarpy>()) item.color = Color.Purple;
+                    if (npc.type == ModContent.NPCType<CrimsonHarpy>()) item.color = Color.Red;
+                    if (npc.type == ModContent.NPCType<DesertHarpy>()) item.color = Color.Yellow;
+                    if (npc.type == ModContent.NPCType<ForestHarpy>()) item.color = Color.GreenYellow;
+                    if (npc.type == ModContent.NPCType<HallowedHarpy>()) item.color = Color.Pink;
+                    if (npc.type == NPCID.Harpy) item.color = default;
+                    if (npc.type == ModContent.NPCType<SnowHarpy>()) item.color = Color.LightBlue;
+                    if (npc.type == ModContent.NPCType<OceanHarpy>()) item.color = Color.Cyan;
+                    if (npc.type == ModContent.NPCType<VoidHarpy>()) item.color = Color.DarkGray;
                 }
             }
         }
@@ -564,54 +596,22 @@ namespace ShardsOfAtheria.Globals
         {
             Asset<Texture2D> feather;
             string path = "ShardsOfAtheria/Items/Materials/Feathers/";
-            if (AltFeather(item) == "Default")
-            {
-                feather = TextureAssets.Item[ItemID.Feather];
-            }
-            else
-            {
-                feather = ModContent.Request<Texture2D>(path + AltFeather(item));
-            }
+            string texture = AltFeather(item);
+            if (texture == "Default") feather = TextureAssets.Item[ItemID.Feather];
+            else feather = ModContent.Request<Texture2D>(path + texture);
             return feather;
         }
         private static string AltFeather(Item item)
         {
-            if (item.color == Color.Gray)
-            {
-                return "Cave";
-            }
-            if (item.color == Color.Purple)
-            {
-                return "Corrupt";
-            }
-            if (item.color == Color.Red)
-            {
-                return "Crimson";
-            }
-            if (item.color == Color.Yellow)
-            {
-                return "Dessert";
-            }
-            if (item.color == Color.GreenYellow)
-            {
-                return "Forest";
-            }
-            if (item.color == Color.Pink)
-            {
-                return "Hallowed";
-            }
-            if (item.color == Color.LightBlue)
-            {
-                return "Snow";
-            }
-            if (item.color == Color.Cyan)
-            {
-                return "Ocean";
-            }
-            if (item.color == Color.DarkGray)
-            {
-                return "Void";
-            }
+            if (item.color == Color.Gray) return "Cave";
+            if (item.color == Color.Purple) return "Corrupt";
+            if (item.color == Color.Red) return "Crimson";
+            if (item.color == Color.Yellow) return "Dessert";
+            if (item.color == Color.GreenYellow) return "Forest";
+            if (item.color == Color.Pink) return "Hallowed";
+            if (item.color == Color.LightBlue) return "Snow";
+            if (item.color == Color.Cyan) return "Ocean";
+            if (item.color == Color.DarkGray) return "Void";
             return "Default";
         }
     }

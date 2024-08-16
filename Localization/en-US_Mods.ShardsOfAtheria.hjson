@@ -8,6 +8,7 @@ Common: {
 	FiringMode3: Full-auto
 	FullCharge: Charge Ready!
 	OverdriveTag: " (Overcharged)"
+	OverdriveTooltip: "[c/ff0000:--Overdrive--]"
 	UpgradeableItem: Upgradeable Item
 	TitleText0: Shards of Atheria: Splitting Skies
 	TitleText1: Shards of Atheria: The World Revolving
@@ -21,6 +22,7 @@ Common: {
 		'''
 		Hold SHIFT to see more
 		Hold LEFT/RIGHT to cycle tooltip slower/faster
+		Hold CTRL to stop cycling tooltip
 		'''
 	UpgradeMaterialNeeded: Material needed: {0} x{1}
 	SinfulSoulCommonDesc: Only one can be active and can only be removed by [i:ShardsOfAtheria/VirtuousDagger]{$Items.VirtuousDagger.DisplayName}.
@@ -473,6 +475,15 @@ Items: {
 			'''
 	}
 
+	DestinyLance: {
+		DisplayName: Fate's Lance
+		Tooltip:
+			'''
+			Summons a spear in front of you
+			Use a weapon to thrust the spear for increased damage
+			'''
+	}
+
 	EntropicWings: {
 		DisplayName: Entropic Wings
 		Tooltip: Allows flight and grants slow fall
@@ -488,6 +499,15 @@ Items: {
 		Tooltip: Attacks create 4 hardlight blades to inflict further damage
 	}
 
+	JumperCables: {
+		DisplayName: Jumper Cables
+		Tooltip:
+			'''
+			Every 10 kills, reset certain cooldowns
+			Durring a boss fight, this may every 20 hits instead
+			'''
+	}
+
 	MidnightCloak: {
 		DisplayName: Midnight Cloak
 		Tooltip:
@@ -495,6 +515,17 @@ Items: {
 			Instead of dying, heal to 50% Life and teleport somewhere around you
 			5 minute cooldown
 			Defense reduced by 50 during cooldown
+			'''
+	}
+
+	MimicCloak: {
+		DisplayName: Mimic Cloak
+		Tooltip:
+			'''
+			Ignore one hit every five minutes
+			In a boss battle, this effect occurs once
+			While on cooldown, gain 25% damage increase and lose 15 defense
+			'To see what is under the rag is to witness true horror'
 			'''
 	}
 
@@ -547,6 +578,11 @@ Items: {
 			Allows the wearer to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration
 			Press <{$Keybinds.KnowledgeBase.DisplayName}> to cycle between the 3 Knowledge Bases
 			'''
+	}
+
+	TwistedUtensil: {
+		DisplayName: Twisted Utensil
+		Tooltip: Using weapons summons homing water orbs
 	}
 
 	ValkyrieCrown: {
@@ -908,6 +944,11 @@ Items: {
 	}
 
 	# Vanity
+	AreusDress: {
+		DisplayName: Areus Dress
+		Tooltip: ""
+	}
+
 	SkullMask: {
 		DisplayName: Death Mask
 		Tooltip: ""
@@ -951,6 +992,7 @@ Items: {
 		CardSuit1: Hearts
 		CardSuit2: Clubs
 		CardSuit3: Diamonds
+		Overdrive: Throws 4 extra cards
 	}
 
 	AcesGoldFoxMask: {
@@ -1143,6 +1185,16 @@ Items: {
 			'''
 	}
 
+	ZChargedModule: {
+		DisplayName: Z-Charged Module
+		Tooltip:
+			'''
+			Right click certain weapons to upgrade them to their ultimate form
+			Weapons that can be Z-Charged will be highlighted
+			'Donain Expansion: Hello World'
+			'''
+	}
+
 	# Misc
 	AreusRod: {
 		DisplayName: Areus Power Rod
@@ -1295,6 +1347,18 @@ Items: {
 	Jade: {
 		DisplayName: Jade
 		Tooltip: "'A rare stone that has the properties to emit temporary matter'"
+	}
+
+	# Misc Placeables
+	NullFieldGenerator: {
+		DisplayName: Areus Null Field Generator
+		Tooltip:
+			'''
+			Once the field is deployed, nothing comes in and nothing comes out
+			Everything inside the field is invulnerable
+			If somehow something damaging makes it out of the field, it will not deal damage
+			When broken, it has a 20 second cooldown before the field can be deployed again
+			'''
 	}
 
 	# Buff Items
@@ -1885,7 +1949,7 @@ Items: {
 			'''
 		Overdrive:
 			'''
-			Spirits will be attracted to you from farther away
+			Spirits will be attracted to you from even farther away
 			20% chance to not consume spirits
 			'''
 	}
@@ -1946,6 +2010,22 @@ Items: {
 		Tooltip: "'Does not crush bits'"
 	}
 
+	EarthmoverSpear: {
+		DisplayName: 50-NC - "Javelin"
+		Tooltip:
+			'''
+			Hold to charge and release to throw a spear
+			At full charge, shoot an electric beam instead
+			'It pierces the sky, like antanaes to Heaven'
+			'''
+		Overdrive:
+			'''
+			Always shoots electric beams, but more minimum charge is required
+			Charges faster
+			Damage bonus only at full charge
+			'''
+	}
+
 	Gunsword: {
 		DisplayName: Gun-Sword
 		Tooltip:
@@ -2003,6 +2083,12 @@ Items: {
 	WormTench: {
 		DisplayName: Worm Tench
 		Tooltip: "'Gross, absolutely vile..'"
+	}
+
+	ZEarthmoverSpear: {
+		DisplayName: Z-Charged 50-NC - "Javelin"
+		Tooltip: "'Shatters the sky without reason!'"
+		Overdrive: Charges faster
 	}
 
 	# Melee
@@ -2534,6 +2620,15 @@ Items: {
 		Overdrive: Flies faster and explodes on impact
 	}
 
+	ZHansMachineGun: {
+		DisplayName: Z-Charged B.U.R.S.T.
+		Tooltip:
+			'''
+			Calls a squadron to aid in firing
+			'Operation: Obliteration'
+			'''
+	}
+
 	# Summon
 	AreusCrate: {
 		DisplayName: Areus Crate
@@ -2604,14 +2699,27 @@ Items: {
 		Tooltip: Summons a fledgling harpy knight to fight for you
 	}
 
-	NullFieldGenerator: {
-		DisplayName: Areus Null Field Generator
+	WorldSketcher: {
+		DisplayName: World Sketcher
+		Tooltip: ""
+	}
+
+	GoldNail: {
+		DisplayName: Gold Nail
+		Tooltip: ""
+	}
+
+	Abaddon: {
+		DisplayName: Abaddon
+		Tooltip: ""
+	}
+
+	NailPounder: {
+		DisplayName: Nail Puncher
 		Tooltip:
 			'''
-			Once the field is deployed, nothing comes in and nothing comes out
-			Everything inside the field is invulnerable
-			If somehow something damaging makes it out of the field, it will not deal damage
-			When broken, it has a 20 second cooldown before the field can be deployed again
+			Fires extremely powerful nails at extremely poor range
+			'Career criminals my ass!'
 			'''
 	}
 }
@@ -2671,7 +2779,7 @@ Projectiles: {
 	Snow.DisplayName: Snow Feather
 	Poison.DisplayName: Poison Feather
 	Sea.DisplayName: Sea Feather
-	Static.DisplayName: Static Feather
+	Static.DisplayName: Dust Feather
 	Vile.DisplayName: Vile Feather
 	TidalWave.DisplayName: Tidal Wave
 	CactusNeedle.DisplayName: Cactus Needle
@@ -2892,6 +3000,7 @@ Projectiles: {
 	AreusMirrorSentry.DisplayName: Areus Mirror
 	AreusTagLaser.DisplayName: Areus Tag Laser
 	AreusTurret.DisplayName: Areus Turret
+	BlackStar.DisplayName: Black Star
 	BloodSickleFriendly.DisplayName: Blood Sickle
 	BloodSigil.DisplayName: Blood Sigil
 	BounceLaser.DisplayName: Areus Laser
@@ -2908,9 +3017,9 @@ Projectiles: {
 	StrikerCurrent.DisplayName: Striker Current
 	StrikerRod.DisplayName: Areus Rod
 	SoulDagger.DisplayName: Soul Dagger
+	# Uncategorized because lazy
 	ElectricShadeShot.DisplayName: Electric Void Shot
 	AreusVoidBlast.DisplayName: Areus Void Blast
-	BlackStar.DisplayName: Black Star
 	AreusShriek.DisplayName: Areus Shriek
 	VoidSlash.DisplayName: Void Slash
 	AreusDrone.DisplayName: Areus Drone
@@ -2989,6 +3098,20 @@ Projectiles: {
 	HitscanBullet_Summon.DisplayName: Hitscan Bullet_ Summon
 	FieryExplosion_Hostile.DisplayName: Fiery Explosion_ Hostile
 	ElectricExplosion_Hostile.DisplayName: Electric Explosion_ Hostile
+	ElectricJavelin.DisplayName: "{$Items.EarthmoverSpear.DisplayName}"
+	EarthmoverBeam.DisplayName: Electric Beam
+	EarthJavelin.DisplayName: "{$Items.EarthmoverSpear.DisplayName}"
+	AmbassadorBeam.DisplayName: Ambassador Beam
+	HomingTear.DisplayName: Homing Tear
+	SpearOfDestiny.DisplayName: Fate's Lance
+	ZHansBullet.DisplayName: Z-Charged BURST Bullet
+	ZEarthJavelin.DisplayName: "{$Items.ZEarthmoverSpear.DisplayName}"
+	ZEarthmoverBeam.DisplayName: Z-Charged Electric Beam
+	YamikoSlash.DisplayName: Yamiko Slash
+	PencilMark.DisplayName: Pencil Mark
+	Pencil.DisplayName: Pencil
+	GoldenNail.DisplayName: Golden Nail
+	PuncherArm.DisplayName: Puncher Arm
 }
 
 NPCs: {
@@ -3694,6 +3817,11 @@ Buffs: {
 	PlagueMark: {
 		DisplayName: Plague Mark
 		Description: Taking increased damage from Plague sources
+	}
+
+	DisguiseRegenerating: {
+		DisplayName: Disguise Regenerating
+		Description: Your disguise was busted!
 	}
 }
 

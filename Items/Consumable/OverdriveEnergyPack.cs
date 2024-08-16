@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Players;
+﻿using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -32,7 +33,7 @@ namespace ShardsOfAtheria.Items.Consumable
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddRecipeGroup(RecipeGroupID.IronBar, 10)
+                .AddIngredient<BionicBarItem>(10)
                 .AddIngredient(ItemID.Wire, 20)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();

@@ -56,12 +56,24 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         {
             Projectile.velocity.Normalize();
             Projectile.velocity *= 8;
-            if (++Projectile.ai[0] >= 5)
+            if (++Projectile.ai[0] >= 6)
             {
-                Dust d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Electric);
+                Dust d = Dust.NewDustPerfect(Projectile.Center, DustID.Electric, Vector2.Zero);
                 d.velocity *= 0;
                 d.fadeIn = 1.3f;
                 d.noGravity = true;
+
+                //float b = (float)Math.Cos(Projectile.ai[1]);
+                //var holy = ModContent.DustType<AreusDust>();
+                //var dark = ModContent.DustType<AreusDust_Dark>();
+                //float a = 6f;
+                //var dust = Dust.NewDustPerfect(Projectile.Center + new Vector2(0f, b * a).RotatedBy(Projectile.velocity.ToRotation()), holy);
+                //dust.noGravity = true;
+                //dust.velocity *= 0f;
+                //dust = Dust.NewDustPerfect(Projectile.Center + new Vector2(0f, -b * a).RotatedBy(Projectile.velocity.ToRotation()), dark);
+                //dust.noGravity = true;
+                //dust.velocity *= 0f;
+                //Projectile.ai[1] += MathHelper.ToRadians(2.5f);
             }
         }
 

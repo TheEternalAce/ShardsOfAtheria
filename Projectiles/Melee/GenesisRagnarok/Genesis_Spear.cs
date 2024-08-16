@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Magic;
@@ -17,7 +15,6 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
         // Define the range of the Spear Projectile. These are overrideable properties, in case you'll want to make a class inheriting from this one.
         protected virtual float HoldoutRangeMin => 24f;
         protected virtual float HoldoutRangeMax => 240;
-        public static Asset<Texture2D> glowmask;
 
         public override void SetStaticDefaults()
         {
@@ -27,18 +24,6 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
             Projectile.AddRedemptionElement(2);
             Projectile.AddRedemptionElement(4);
             Projectile.AddRedemptionElement(7);
-        }
-
-        public override void Load()
-        {
-            if (Main.netMode == NetmodeID.Server)
-                return;
-            glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
-        }
-
-        public override void Unload()
-        {
-            glowmask = null;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

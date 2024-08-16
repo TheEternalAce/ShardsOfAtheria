@@ -33,7 +33,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
 
         public override bool CanUseItem(Player player)
         {
-            return !player.immune && player.immuneTime == 0 && player.Sinful().SevenSoulUsed > 0;
+            return !player.immune && player.immuneTime == 0 && player.Sinful().SinfulSoulUsed > 0;
         }
 
         public override bool? UseItem(Player player)
@@ -46,14 +46,14 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
                     player.ClearBuff(SinfulPlayer.SinfulBuffs[i]);
                 }
             }
-            if (player.Sinful().SevenSoulUsed != ModContent.BuffType<VirtuousSoul>())
+            if (player.Sinful().SinfulSoulUsed != ModContent.BuffType<VirtuousSoul>())
             {
                 player.AddBuff(ModContent.BuffType<VirtuousSoul>(), 1800);
-                player.Sinful().SevenSoulUsed = ModContent.BuffType<VirtuousSoul>();
+                player.Sinful().SinfulSoulUsed = ModContent.BuffType<VirtuousSoul>();
             }
             else
             {
-                player.Sinful().SevenSoulUsed = 0;
+                player.Sinful().SinfulSoulUsed = 0;
             }
 
 

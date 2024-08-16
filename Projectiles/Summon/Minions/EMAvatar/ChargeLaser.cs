@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -45,6 +46,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
             var sound = SoundID.Item122;
             sound.PitchVariance = 0.1f;
             SoundEngine.PlaySound(sound, Projectile.Center);
+            if (Projectile.GetPlayerOwner().HasBuff<ChargingDrones>()) Projectile.GetPlayerOwner().ClearBuff<ChargingDrones>();
         }
 
         public override void AI()

@@ -38,14 +38,14 @@ namespace ShardsOfAtheria
         public static ModKeybind ArmorSetBonusActive { get; private set; }
         public static ModKeybind ProcessorElement { get; private set; }
 
-        public static ShardsServer ServerConfig { get; private set; }
-        public static ShardsClient ClientConfig { get; private set; }
-        public static ShardsDownedSystem DownedSystem { get; private set; }
+        public static ShardsServer ServerConfig => ModContent.GetInstance<ShardsServer>();
+        public static ShardsClient ClientConfig => ModContent.GetInstance<ShardsClient>();
+        public static ShardsDownedSystem DownedSystem => ModContent.GetInstance<ShardsDownedSystem>();
         public static bool AprilFools => DateTime.Now is DateTime { Month: 4 };
 
         public static bool BNEEnabled => ModLoader.TryGetMod(ElementModName, out Mod _);
 
-        public static Mod Instance { get; private set; }
+        public static Mod Instance => ModContent.GetInstance<SoA>();
 
         public static readonly SoundStyle ReactorAlarm = new(ItemSoundPath + "ReactorMeltdownAlarm");
         public static readonly SoundStyle TheMessiah = new(ItemSoundPath + "TheMessiah");
@@ -59,9 +59,9 @@ namespace ShardsOfAtheria
         public static readonly SoundStyle ZeroCharge = new(ItemSoundPath + "ZeroCharge") { MaxInstances = 1 };
         public static readonly SoundStyle Katana = new(ItemSoundPath + "Katana") { Volume = 0.25f, MaxInstances = 2, PitchVariance = 0.1f };
         public static readonly SoundStyle HeavyCut = new(ItemSoundPath + "HeavyCut") { Volume = 0.5f, MaxInstances = 2, PitchVariance = 0.2f };
-        public static readonly SoundStyle Judgement1 = new(ItemSoundPath + "Judgement2_1") { Volume = 0.1f, MaxInstances = 2, PitchVariance = 0.1f };
-        public static readonly SoundStyle Judgement2 = new(ItemSoundPath + "Judgement2_2") { Volume = 0.1f, MaxInstances = 2, PitchVariance = 0.1f };
-        public static readonly SoundStyle Judgement3 = new(ItemSoundPath + "Judgement2_3") { Volume = 0.1f, MaxInstances = 2, PitchVariance = 0.1f };
+        public static readonly SoundStyle Judgement1 = new(ItemSoundPath + "Judgement2_1") { Volume = 0.25f, MaxInstances = 2, PitchVariance = 0.1f };
+        public static readonly SoundStyle Judgement2 = new(ItemSoundPath + "Judgement2_2") { Volume = 0.25f, MaxInstances = 2, PitchVariance = 0.1f };
+        public static readonly SoundStyle Judgement3 = new(ItemSoundPath + "Judgement2_3") { Volume = 0.25f, MaxInstances = 2, PitchVariance = 0.1f };
 
         public static readonly Color HardlightColor = new(224, 92, 165);
         public static readonly Color HardlightColorA = HardlightColor.UseA(0);
@@ -112,8 +112,6 @@ namespace ShardsOfAtheria
         //⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣶⣶⣤⣤⣤⣄⣉⣉⣉⣉⠛⠛⠛⠿⠿⠿⠿⠿
         public override void Load()
         {
-            Instance = this;
-
             OverdriveKey = KeybindLoader.RegisterKeybind(Instance, "ToggleOverdrive", "F");
             TomeKey = KeybindLoader.RegisterKeybind(Instance, "KnowledgeBase", "N");
             EmeraldTeleportKey = KeybindLoader.RegisterKeybind(Instance, "EmeraldTeleport", "Z");
@@ -121,11 +119,7 @@ namespace ShardsOfAtheria
             PhaseSwitch = KeybindLoader.RegisterKeybind(Instance, "PhaseType", "RightAlt");
             SoulTeleport = KeybindLoader.RegisterKeybind(Instance, "SoulCrystalTeleport", "V");
             ArmorSetBonusActive = KeybindLoader.RegisterKeybind(Instance, "ArmorSetBonus", "Mouse4");
-            ProcessorElement = KeybindLoader.RegisterKeybind(Instance, "CycleElementAffinity", "C");
-
-            ServerConfig = ModContent.GetInstance<ShardsServer>();
-            ClientConfig = ModContent.GetInstance<ShardsClient>();
-            DownedSystem = ModContent.GetInstance<ShardsDownedSystem>();
+            if (BNEEnabled) ProcessorElement = KeybindLoader.RegisterKeybind(Instance, "CycleElementAffinity", "C");
 
             if (!Main.dedServ)
             {
@@ -138,14 +132,6 @@ namespace ShardsOfAtheria
                     wikithis.Call("AddWikiTexture", Instance, ModContent.Request<Texture2D>("ShardsOfAtheria/icon_small"));
                 }
             }
-        }
-
-        public override void Unload()
-        {
-            Instance = null;
-            ServerConfig = null;
-            ClientConfig = null;
-            DownedSystem = null;
         }
 
         public override void PostSetupContent()

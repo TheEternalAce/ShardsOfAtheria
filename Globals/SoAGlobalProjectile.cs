@@ -2,7 +2,11 @@
 using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Items.Weapons.Ranged;
+using ShardsOfAtheria.Projectiles.Ammo;
+using ShardsOfAtheria.Projectiles.Magic.ThorSpear;
 using ShardsOfAtheria.Utilities;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -16,6 +20,7 @@ namespace ShardsOfAtheria.Globals
         public bool tempAreus = false;
         public bool explosion = false;
         public bool areusNullField = false;
+        public bool nailPunch = false;
 
         public static readonly Dictionary<int, bool> AreusProj = [];
         public static readonly List<int> Eraser = [];
@@ -74,6 +79,12 @@ namespace ShardsOfAtheria.Globals
             {ProjectileID.SilverCoin, 1f },
             {ProjectileID.MechanicalPiranha, 1f },
             {ProjectileID.Harpoon, 1f },
+
+            {ModContent.ProjectileType<GoldenNail>(), 0.33f},
+            {ModContent.ProjectileType<StickingMagnetProj>(), 0f},
+            #endregion
+            #region Magic
+            { ModContent.ProjectileType<ElectricJavelin>(), 1f },
             #endregion
             #region Summon
             {ProjectileID.DD2BallistraProj, 1f },
@@ -159,11 +170,23 @@ namespace ShardsOfAtheria.Globals
 
         public override bool InstancePerEntity => true;
 
+        public override void SetStaticDefaults()
+        {
+            if (ModLoader.TryGetMod("GMR", out var gmr))
+            {
+                if (gmr.TryFind("OvercooledBullet", out ModProjectile overcooledNail)) Metalic.Add(overcooledNail.Type, 0.33f);
+            }
+        }
+
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
             if (SoA.BNEEnabled)
             {
                 ChangeElements(projectile, source);
+            }
+            if (source is EntitySource_ItemUse_WithAmmo nailgunSource)
+            {
+                if (nailgunSource.Item.type == ModContent.ItemType<NailPounder>()) nailPunch = true;
             }
             base.OnSpawn(projectile, source);
         }
@@ -241,17 +264,40 @@ namespace ShardsOfAtheria.Globals
             }
             if (Metalic.ContainsKey(type))
             {
-                var npc = ShardsHelpers.FindClosestNPC(projectile.Center, (npc) => npc.HasBuff<Magnetic>(), 200f);
-                if (npc != null)
+                var magnet = ShardsHelpers.FindClosestProjectile(projectile.Center, 200f, magnet => Magnet(magnet, projectile));
+                if (magnet != null)
                 {
                     float speed = projectile.velocity.Length();
-                    var vectorToTarget = npc.Center - projectile.Center;
+                    var vectorToTarget = magnet.Center - projectile.Center;
                     ShardsHelpers.AdjustMagnitude(ref vectorToTarget, speed);
-                    projectile.velocity = (4 * projectile.velocity + vectorToTarget) / 2f;
+                    projectile.velocity = (3 * projectile.velocity + vectorToTarget) / 2f;
                     ShardsHelpers.AdjustMagnitude(ref projectile.velocity, speed);
                 }
             }
+            if (projectile.aiStyle == 93 && nailPunch)
+            {
+                if (projectile.ai[0] == 0)
+                {
+                    if (projectile.ai[1] > 20) projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f + MathHelper.ToRadians(10f) * (projectile.ai[1] - 20) * projectile.direction;
+                    else if (projectile.ai[1] == 20) { projectile.damage = (int)(projectile.damage * 0.15f); projectile.ai[2] = 1; }
+                    else if (projectile.velocity.Length() > 5f) projectile.velocity *= 0.85f;
+                }
+                else if (projectile.ai[1] == 81) projectile.damage = (int)(projectile.damage * 0.15f * 0.75f);
+            }
             base.PostAI(projectile);
+        }
+        private static bool Magnet(Projectile magnet, Projectile searchingProj)
+        {
+            if (!magnet.active) return false;
+            if (magnet.whoAmI == searchingProj.whoAmI) return false;
+            if (magnet.type != ModContent.ProjectileType<StickingMagnetProj>()) return false;
+            if (searchingProj.type == ModContent.ProjectileType<StickingMagnetProj>())
+            {
+                if ((searchingProj.ModProjectile as StickingMagnetProj).IsStickingToTarget) return false;
+                if (!(magnet.ModProjectile as StickingMagnetProj).IsStickingToTarget) return false;
+            }
+            if (searchingProj.aiStyle == 93 && searchingProj.ai[0] != 0) return false;
+            return true;
         }
 
         public override bool? CanHitNPC(Projectile projectile, NPC target)

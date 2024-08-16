@@ -236,6 +236,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, type, Projectile.damage, 0);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, type, Projectile.damage, 0);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, type, Projectile.damage, 0);
+                owner.ownedProjectileCounts[type] = 3;
             }
 
             Projectile.velocity = vectorToIdlePosition * 0.055f;
@@ -248,11 +249,13 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
             {
                 int projectileType = ModContent.ProjectileType<ChargeLaser>();
                 int targetDirection = (Main.mouseX < Projectile.Center.X).ToDirectionInt();
-                Vector2 velocity = Vector2.Normalize(Main.MouseWorld - Projectile.Center);
+                Vector2 target = Main.MouseWorld;
+                var npc = ShardsHelpers.FindClosestNPC(Projectile.Center, null);
+                if (npc != null) target = npc.Center;
+                Vector2 velocity = Vector2.Normalize(target - Projectile.Center);
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, velocity, projectileType, Projectile.damage, 0);
 
                 //Projectile.frame = 4;
-                //Projectile.frameCounter = 0;
                 Projectile.spriteDirection = targetDirection;
                 chargeTimer = 0;
             }

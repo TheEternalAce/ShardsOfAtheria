@@ -1,0 +1,88 @@
+- Added 50-NC - "Javelin"
+- Charging Drones and Shade State buffs is excluded from time not counting down with Efficient Amethyst.
+- Efficient Amethyst no longer pairs with Mending Topaz.
+- Overdrive Energy Pack now needs Bionic Bars instead of Iron Bars to craft.
+- Cycling tooltips can now be stopped by holding the control key.
+- Tweaked banner aura visuals.
+- Added Disguise Cloak.
+- Resprited Areus Rocket Launcher.
+- Resprited Areus Railgun.
+- Deck of Cards now has an overcharged attack.
+- Areus Cannon Balls fall faster.
+- Reshaded Areus Flare Gun.
+- Reshaded Areus Flame Thrower.
+- Reshaded Areus Calibrated Shotgun. 
+- Reshaded Areus Pistol.
+- Reshaded Areus Assault Rifle.
+- Reshaded Areus Bow.
+- Reshaded Areus Flame Cannon. (+Projectiles)
+- Added Areus Dress.
+- Added Twisted Utensil.
+- Added Fate's Lance.
+- With TerraTyping enabled, Areus Shrieker's projectiles are Electric/Normal.
+- With TerraTyping enabled, Areus Soldier armor set provides the Scrappy ability.
+- Reduced Areus Shard buy price from 1 gold to 60 silver.
+- If the player's name is Gamma, they will start with both Gamma Plague Railgun and Gamma Plague Handgun.
+- If the player's name is Theta, they will start with both Theta Flame Sabers and Theta Flame Knucklebuster.
+- Added Z-Charged Module.
+- Added Z-Charged B.U.R.S.T.
+- Added Z-Charged 50-NC - "Javelin".
+- Sinful Armaments can no longer be used without the associated sin buff.
+- Yamiko now has a sword aura similar to Excalibur.
+- King's Kusarigama now knocks enemies in the correct direction while swinging.
+- Areus Processor keybind will not show in the list if Battle Network Elements is not enabled.
+- With TerraTyping enabled, Dragon Slayer is now Poison/Dragon.
+- Resprited Envy Soul.
+- Resprited Gluttony Soul.
+- Satanlance is now made at a Pre-Hardmode Anvil.
+- Valkyrie Crest can now be used on the surface.
+- Resprited Greed Soul.
+- Resprited Sloth Soul.
+- Resprited Lust Soul.
+- Added Golden Nail.
+- Added Nail Puncher.
+- Magnet Dart can now attract metalic projectiles without sticking to enemies.
+
+Compiled
+
+Additions
+- Added 50-NC - "Javelin".
+- Added Disguise Cloak.
+- Added Areus Dress.
+- Added Twisted Utensil.
+- Added Fate's Lance.
+- Added Z-Charged Module.
+- Added Z-Charged B.U.R.S.T.
+- Added Z-Charged 50-NC - "Javelin".
+Changes
+- Charging Drones and Shade State buffs is excluded from time not counting down with Efficient Amethyst.
+- Efficient Amethyst no longer pairs with Mending Topaz.
+- Overdrive Energy Pack now needs Bionic Bars instead of Iron Bars to craft.
+- Cycling tooltips can now be stopped by holding the control key.
+- Tweaked banner aura visuals.
+- Deck of Cards now has an overcharged attack.
+- Areus Cannon Balls fall faster.
+- With TerraTyping enabled, Areus Shrieker's projectiles are Electric/Normal.
+- With TerraTyping enabled, Areus Soldier armor set provides the Scrappy ability.
+- Reduced Areus Shard buy price from 1 gold to 60 silver.
+- If the player's name is Gamma, they will start with both Gamma Plague Railgun and Gamma Plague Handgun.
+- If the player's name is Theta, they will start with both Theta Flame Sabers and Theta Flame Knucklebuster.
+- Sinful Armaments can no longer be used without the associated sin buff.
+- Yamiko now has a sword aura similar to Excalibur.
+- King's Kusarigama now knocks enemies in the correct direction while swinging.
+- Areus Processor keybind will not show in the list if Battle Network Elements is not enabled.
+- With TerraTyping enabled, Dragon Slayer is now Poison/Dragon.
+- Satanlance is now made at a Pre-Hardmode Anvil.
+- Valkyrie Crest can now be used on the surface.
+Resprites
+- Reshaded Areus Rocket Launcher.
+- Reshaded Areus Railgun.
+- Reshaded Areus Flare Gun.
+- Reshaded Areus Flame Thrower.
+- Reshaded Areus Calibrated Shotgun.
+- Reshaded Areus Pistol.
+- Reshaded Areus Assault Rifle.
+- Reshaded Areus Bow.
+- Reshaded Areus Flame Cannon. (+Projectiles)
+- Resprited Envy Soul.
+- Resprited Gluttony Soul.

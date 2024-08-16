@@ -13,7 +13,7 @@
         public const string MagicWeapon = "ShardsOfAtheria/Items/Weapons/Magic/";
         public const string SummonWeapon = "ShardsOfAtheria/Items/Weapons/Summon/";
 
-        private const string ItemSoundPath = "ShardsOfAtheria/Sounds/Item/";
+        public const string ItemSoundPath = "ShardsOfAtheria/Sounds/Item/";
 
         public const string LocalizeCommon = "Mods.ShardsOfAtheria.Common.";
         public const string LocalizeSetBonus = "Mods.ShardsOfAtheria.SetBonus.";

@@ -45,6 +45,11 @@ namespace ShardsOfAtheria.Players
         public bool areusRod;
         public bool acidTrip;
         public bool powerTrip;
+        public bool disguiseCloak;
+        public bool spoonBender;
+        public int spoonBenderCD;
+        public bool jumperCable;
+        public int cableCounter;
         public bool areusNullField;
 
         public bool valkyrieCrown;
@@ -112,21 +117,20 @@ namespace ShardsOfAtheria.Players
             valkyrieCrown = false;
             showRagnarok = false;
             hardlightBraces = false;
-            if (hardlightBracesCooldown > 0)
-            {
-                hardlightBracesCooldown--;
-            }
+            if (hardlightBracesCooldown > 0) hardlightBracesCooldown--;
             prototypeBand = false;
-            if (prototypeBandCooldown > 0)
-            {
-                prototypeBandCooldown--;
-            }
+            if (prototypeBandCooldown > 0) prototypeBandCooldown--;
             pearlwoodSet = false;
             areusProcessorPrevious = areusProcessor;
             areusProcessor = false;
             acidTrip = false;
             powerTrip = false;
             resonator = false;
+            disguiseCloak = false;
+            spoonBender = false;
+            if (spoonBenderCD > 0) spoonBenderCD--;
+            if (!jumperCable) cableCounter = 0;
+            jumperCable = false;
             riggedCoin = 0;
             weightDie = 0;
             areusNullField = false;
@@ -136,30 +140,15 @@ namespace ShardsOfAtheria.Players
 
             UpdateResource();
 
-            if (combatTimer > 0)
-            {
-                combatTimer--;
-            }
-            else if (aggression > 0)
-            {
-                aggression--;
-            }
-            if (aggression >= 100)
-            {
-                aggression = 100;
-            }
-            else if (aggression < 0)
-            {
-                aggression = 0;
-            }
+            if (combatTimer > 0) combatTimer--;
+            else if (aggression > 0) aggression--;
+            if (aggression >= 100) aggression = 100;
+            else if (aggression < 0) aggression = 0;
 
             conductive = false;
             deathCloak = false;
 
-            if (NPC.downedPlantBoss && sacrificedKatana)
-            {
-                katanaTransformTimer++;
-            }
+            if (NPC.downedPlantBoss && sacrificedKatana) katanaTransformTimer++;
         }
 
         public override void Initialize()
@@ -198,12 +187,18 @@ namespace ShardsOfAtheria.Players
             if (Player.name.Contains("Gamma"))
             {
                 items.Add(new Item(ModContent.ItemType<PlagueRailgun>()));
+                items.Add(new Item(ModContent.ItemType<PlagueHandgun>()));
+            }
+            if (Player.name.Contains("Theta"))
+            {
+                items.Add(new Item(ModContent.ItemType<TwinFlameSwords>()));
+                items.Add(new Item(ModContent.ItemType<FlameKnuckleBuster>()));
             }
             if (!mediumCoreDeath)
             {
                 items.Add(new Item(ModContent.ItemType<Necronomicon>()));
             }
-            if (Player.GetModPlayer<SinfulPlayer>().SevenSoulUsed == 0)
+            if (Player.GetModPlayer<SinfulPlayer>().SinfulSoulUsed == 0)
             {
                 items.Add(new Item(ModContent.ItemType<SinfulSoul>()));
             }
@@ -384,7 +379,7 @@ namespace ShardsOfAtheria.Players
                     }
                 }
             }
-            if (SoA.ProcessorElement.JustPressed)
+            if (SoA.ProcessorElement != null && SoA.ProcessorElement.JustPressed)
             {
                 if (areusProcessor)
                 {
@@ -449,27 +444,56 @@ namespace ShardsOfAtheria.Players
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             combatTimer = 300;
-            if (valkyrieCrown)
-            {
-                target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
-            }
+            if (valkyrieCrown) target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
             HardlightBraces.OnHitEffect(Player, target);
+            if (jumperCable)
+            {
+                int maxCounter = 10;
+                if (ShardsHelpers.AnyBosses())
+                {
+                    maxCounter += 10;
+                    cableCounter++;
+                }
+                else if (target.life <= 0) cableCounter++;
+                if (cableCounter >= maxCounter && (!ShardsHelpers.AnyBosses() || Main.rand.NextBool(5)))
+                {
+                    if (Player.HasBuff<ClockCooldown>()) Player.ClearBuff<ClockCooldown>();
+                    if (Player.HasBuff<EmeraldTeleportCooldown>()) Player.ClearBuff<EmeraldTeleportCooldown>();
+                    if (Player.HasBuff<HeartBreak>()) Player.ClearBuff<HeartBreak>();
+                    if (Player.HasBuff<SetBonusCooldown>()) Player.ClearBuff<SetBonusCooldown>();
+                    if (Player.HasBuff<SoulTeleportCooldown>()) Player.ClearBuff<SoulTeleportCooldown>();
+                    if (ModLoader.TryGetMod("GMR", out Mod gerdMod) && gerdMod.TryFind("InfraRedCorrosion", out ModBuff infraRedCooldown) && Player.HasBuff(infraRedCooldown.Type))
+                        Player.ClearBuff(infraRedCooldown.Type);
+                    hardlightBracesCooldown = 0;
+                    prototypeBandCooldown = 0;
+                    Player.Slayer().soulCrystalProjectileCooldown = 0;
+                    cableCounter = 0;
+                }
+            }
+            if (Player.HasItem<TheMourningStar>())
+            {
+                int ind = Player.FindItem(ModContent.ItemType<TheMourningStar>());
+                Item item = Player.inventory[ind];
+                var sword = item.ModItem as TheMourningStar;
+                if (Player.Distance(target.Center) < 260f)
+                {
+                    int feedSword = 60;
+                    if (Player.Distance(target.Center) < 130) feedSword += 60;
+                    if (target.life <= 0) feedSword += 60;
+                    if (Player.HeldItem.type == item.type) feedSword *= 2;
+                    sword.blood += feedSword;
+                }
+            }
         }
 
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (SoA.BNEEnabled)
-            {
-                AreusRodEffect(target, item);
-            }
+            if (SoA.BNEEnabled) AreusRodEffect(target, item);
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (SoA.BNEEnabled)
-            {
-                AreusRodEffect(target, proj);
-            }
+            if (SoA.BNEEnabled) AreusRodEffect(target, proj);
         }
 
         [JITWhenModsEnabled("BattleNetworkElements")]
@@ -554,6 +578,18 @@ namespace ShardsOfAtheria.Players
             }
         }
 
+        public override bool ConsumableDodge(Player.HurtInfo info)
+        {
+            if (disguiseCloak && !Player.HasBuff<DisguiseRegenerating>())
+            {
+                Player.AddBuff<DisguiseRegenerating>(18000);
+                Player.SetImmuneTimeForAllTypes(60);
+                CombatText.NewText(Player.Hitbox, Color.White, "Disguse busted!");
+                return true;
+            }
+            return base.ConsumableDodge(info);
+        }
+
         public override void OnHurt(Player.HurtInfo info)
         {
             for (int i = 0; i < Main.maxNPCs; i++)
@@ -621,9 +657,15 @@ namespace ShardsOfAtheria.Players
                 damageSource.SourceItem == null &&
                 damageSource.SourceProjectileType == 0)
             {
-                if (Player.HasBuff(ModContent.BuffType<DeathBleed>()))
+                if (Player.HasBuff(ModContent.BuffType<DeathBleed>())) damageSource = PlayerDeathReason.ByCustomReason(Player.name + " bled out.");
+                if (Player.HasBuff(ModContent.BuffType<CorruptedBlood>()))
                 {
-                    damageSource = PlayerDeathReason.ByCustomReason(Player.name + " bled out.");
+                    string[] deathSuffix = [
+                        " was exsanguinated by The Mourning Star.",
+                        " was drained by The Mourning Star.",
+                        " let The Mourning Star eat their blood."
+                        ];
+                    damageSource = PlayerDeathReason.ByCustomReason(Player.name + deathSuffix[deathSuffix.Length - 1]);
                 }
             }
             if (deathCloak && !DeathCloakCooldown)

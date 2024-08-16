@@ -34,7 +34,7 @@ SalamanderLaser,Electric,
 SandTrail,Ground,
 Sea,Water,
 Snow,Ice,
-Static,Electric,
+Static,Ground,
 Stone,Rock,
 TidalWave,Water,
 Vile,Poison,
@@ -77,12 +77,13 @@ AreusGambleBadExplosion,Electric,
 AreusGambleDagger,Electric,
 AreusGambleGoodExplosion,Electric,
 AreusShardProj,Electric,
-AreusShockwave,Electric,
+AreusShockwave,Electric,Normal
 AreusWandBlade,Electric,
 BitBlock,Electric,
 BloodDropFriendly,Blood,
 BloodWaveFriendly,Blood,
 ByteBlock,,
+CodeProjectile,Electric,Psychic
 DeathNote,Ghost,
 ElecBlade,Electric,
 ElecCoin,Electric,
@@ -94,11 +95,14 @@ ElecScorpionTail,Electric,Poison
 ElectricFlame,Fire,Ghost
 ElectricHook,Electric,
 ElectricOrb,Electric,
-ElectricPie,Electric,Ghost
+ElectricPoe,Electric,Ghost
+ElectricJavelin,Electric,Ground
 ElectricSpike,Electric,
+EarthmoverBeam,Electric,
 FireCannon_Fire_Gauntlet,Electric,Fire
 GunswordProj,Steel,
 HardlightFeatherMagic,Electric,
+HomingTear,Water,Psychic
 IceBolt,Ice,
 IronBall,Fire,Steel
 LightningBoltFriendly,Electric,
@@ -110,6 +114,7 @@ SpectrimTrain,Fire,Water
 SpectrimTrainBody,Fire,Water
 VileShot,Poison,
 VoidDagger,Dark,Electric
+ZEarthmoverBeam,Electric,Fire
 
 AreusDaggerCurrent,Electric,
 AreusDaggerProj,Electric,
@@ -182,12 +187,14 @@ LightningBolt_Lance,Electric,
 Messiah,Fire,
 MessiahRanbu,Fire,
 OrbiterMagnet,Steel,
+PartisanHead,Dark,
 PrototypeBandSlash,Electric,
 Ragnarok_Shield,,
 RagnarokProj,Ice,Electric
 RagnarokProj2,Ice,Electric
 ReactorMeltdownProj,Poison,Electric
 SatanlanceProj,Fire,
+SpearOfDestiny,Fire,Psychic
 StrikeChain,Electric,
 StrikeChainCurrent,Electric,
 Swawstring,Electric,
@@ -199,6 +206,7 @@ Warframe_Upgrade,Electric,
 WarframeSlash,Electric,
 ZenovaProjectile,Dark,
 
+AmbassadorBeam,Electric,
 AmbassadorShot,Electric,
 AreusBounceShot,Electric,
 AreusCannonBall,Electric,
@@ -242,6 +250,7 @@ PlagueBeam2,Poison,
 PrometheusFire,Fire,
 ScarletSpark,Electric,
 SilverBoltFriendly,Steel,
+ZHansBullet,Electric,Fire
 
 AmberFly,Rock,Bug
 AmberSpit,Rock,Bug
@@ -253,8 +262,8 @@ BlackStar,Dark,Electric
 BloodSickleFriendly,Blood,
 BounceLaser,Electric,
 BusterShot,Electric,
-DragonBone,Dark,Poison
-DragonSpineWhipProj,Dark,Poison
+DragonBone,Poison,Dragon
+DragonSpineWhipProj,Poison,Dragon
 ElectricSpark,Electric,
 FlailOfFleshProj,Blood,
 GoldChain,Steel,

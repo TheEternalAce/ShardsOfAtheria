@@ -57,7 +57,7 @@ namespace ShardsOfAtheria.NPCs
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.NoInvasionOfAnyKind() && spawnInfo.Player.ZoneForest && Main.dayTime && NPC.downedBoss2)
+            if (spawnInfo.NoInvasionOfAnyKind() && spawnInfo.Player.ZoneForest && Main.dayTime && NPC.downedBoss2 && !spawnInfo.PlayerSafe)
                 return .05f;
             return 0f;
         }

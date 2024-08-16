@@ -39,23 +39,15 @@ namespace ShardsOfAtheria.ShardsUI.DataTablet
         {
             base.Update(gameTime);
             screen.CenterOnScreen();
-            if (screen.ContainsPoint(Main.MouseScreen))
-            {
-                Main.LocalPlayer.mouseInterface = true;
-            }
+            if (screen.ContainsPoint(Main.MouseScreen)) Main.LocalPlayer.mouseInterface = true;
 
             ShardsPlayer shardsPlayer = Main.LocalPlayer.Shards();
             int readingDisk = shardsPlayer.readingDisk;
 
             string key = "Mods.ShardsOfAtheria.DiskFile.DataDisk";
-            if (readingDisk < 100)
-            {
-                key += "0";
-            }
-            if (readingDisk < 10)
-            {
-                key += "0";
-            }
+            if (readingDisk > 999) key += "000";
+            else if (readingDisk < 100) key += "0";
+            else if (readingDisk < 10) key += "0";
             key += readingDisk;
             text.SetText(Language.GetTextValue(key));
         }

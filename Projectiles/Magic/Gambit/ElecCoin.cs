@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
             gravityTimer++;
             if (gravityTimer >= 16)
             {
-                Projectile.ApplyGravity(0.5f * Projectile.knockBack);
+                Projectile.ApplyGravity(Projectile.ai[0] == 1 ? 0.2f : 1f);
                 gravityTimer = 16;
                 Projectile.friendly = true;
                 if (Projectile.Center.Y > player.Center.Y)
@@ -51,7 +51,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
                     var coin = player.HeldItem.ModItem as AreusGambit;
                     coin?.SetAttack(player);
                 }
-                if (player.Distance(Projectile.Center) < 150) Projectile.Track(player.position, 16f, 4f);
+                if (player.Distance(Projectile.Center) < 120) Projectile.Track(player.position, 16f, 4f);
             }
             foreach (var proj in Main.projectile)
             {
@@ -88,7 +88,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
                                 }
                             }
                         }
-                        if (proj.type != ModContent.ProjectileType<HitscanBullet>())
+                        if (proj.ModProjectile != null && proj.ModProjectile is not HitscanBullet)
                         {
                             float speed = proj.velocity.Length();
                             Vector2 velocity = proj.velocity;

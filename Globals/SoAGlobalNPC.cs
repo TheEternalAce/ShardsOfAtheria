@@ -10,6 +10,7 @@ using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.SinfulSouls.Extras;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
+using ShardsOfAtheria.Items.Weapons.Ammo;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
@@ -47,16 +48,19 @@ namespace ShardsOfAtheria.Globals
         public override void ModifyShop(NPCShop shop)
         {
             if (shop.NpcType == NPCID.Cyborg) shop.Add<AnchorChip>(SoAConditions.HasMessiah);
+            if (shop.NpcType == NPCID.Steampunker) shop.Add<NailPounder>(Condition.DownedPlantera);
             if (shop.NpcType == NPCID.Wizard)
             {
                 shop.Add(new Item(ModContent.ItemType<SinfulSoul>()), SoAConditions.SlayerMode);
                 shop.Add(new Item(ModContent.ItemType<SinfulArmament>()), SoAConditions.SlayerMode);
                 shop.Add(new Item(ModContent.ItemType<SpellTwister>()), SoAConditions.AreusVoidSet);
             }
+            if (shop.NpcType == NPCID.ArmsDealer) shop.Add<GoldNail>(Condition.Eclipse);
             if (shop.NpcType == NPCID.Merchant)
             {
                 shop.Add<RiggedCoin>(SoAConditions.HasCoin);
                 shop.Add<WeightedDie>(SoAConditions.HasDie);
+                shop.Add<GoldNail>(Condition.Eclipse);
             }
         }
 
@@ -149,6 +153,8 @@ namespace ShardsOfAtheria.Globals
                 npcLoot.Add(notHardmode);
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulSoul>()));
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulArmament>()));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TwistedUtensil>(), 5));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DestinyLance>(), 5));
 
                 master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<FlailOfFlesh>()));
                 npcLoot.Add(master);
@@ -183,6 +189,7 @@ namespace ShardsOfAtheria.Globals
             if (npc.type == NPCID.MartianSaucerCore)
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ReactorMeltdown>(), 4));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<JumperCables>(), 5));
                 master.OnSuccess(ItemDropRule.Common(ModContent.ItemType<HansMachineGun>()));
                 npcLoot.Add(master);
             }

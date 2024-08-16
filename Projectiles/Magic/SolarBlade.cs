@@ -5,6 +5,7 @@ using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Magic
 {
@@ -19,6 +20,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
         public override void SetDefaults()
         {
             base.SetDefaults();
+            Projectile.DamageType = DamageClass.Magic;
 
             Projectile.width = Projectile.height = 30;
             swordReach = 230;

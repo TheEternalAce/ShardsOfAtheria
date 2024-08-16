@@ -113,7 +113,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (spawnInfo.Player.ZonePurity && (spawnInfo.Player.ZoneNormalUnderground ||
-                spawnInfo.Player.ZoneNormalCaverns))
+                spawnInfo.Player.ZoneNormalCaverns) && !spawnInfo.PlayerSafe)
                 return 0.1f;
             return 0f;
         }

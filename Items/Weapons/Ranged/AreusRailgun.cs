@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void SetDefaults()
         {
-            Item.width = 44;
+            Item.width = 76;
             Item.height = 26;
 
             Item.damage = 100;

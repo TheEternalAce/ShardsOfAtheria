@@ -7,7 +7,7 @@ namespace ShardsOfAtheria.Players
 {
     public class SinfulPlayer : ModPlayer
     {
-        public int SevenSoulUsed;
+        public int SinfulSoulUsed;
         public static readonly int[] SinfulBuffs = {
             ModContent.BuffType<EnvyBuff>(), ModContent.BuffType<GluttonyBuff>(), ModContent.BuffType<GreedBuff>(),
             ModContent.BuffType<LustBuff>(), ModContent.BuffType<PrideBuff>(), ModContent.BuffType<SlothBuff>(),
@@ -24,53 +24,53 @@ namespace ShardsOfAtheria.Players
 
         public override void Initialize()
         {
-            SevenSoulUsed = 0;
+            SinfulSoulUsed = 0;
         }
 
         public override void SaveData(TagCompound tag)
         {
-            tag["SevenSoulUsed"] = SevenSoulUsed;
+            tag["SevenSoulUsed"] = SinfulSoulUsed;
         }
 
         public override void LoadData(TagCompound tag)
         {
             if (tag.ContainsKey("SevenSoulUsed"))
             {
-                SevenSoulUsed = tag.GetInt("SevenSoulUsed");
+                SinfulSoulUsed = tag.GetInt("SevenSoulUsed");
             }
         }
 
         public override void PostUpdate()
         {
-            if (SevenSoulUsed == ModContent.BuffType<EnvyBuff>())
+            if (SinfulSoulUsed == ModContent.BuffType<EnvyBuff>())
             {
                 Player.AddBuff(ModContent.BuffType<EnvyBuff>(), 2);
             }
-            if (SevenSoulUsed == ModContent.BuffType<GluttonyBuff>())
+            if (SinfulSoulUsed == ModContent.BuffType<GluttonyBuff>())
             {
                 Player.AddBuff(ModContent.BuffType<GluttonyBuff>(), 2);
             }
-            if (SevenSoulUsed == ModContent.BuffType<GreedBuff>())
+            if (SinfulSoulUsed == ModContent.BuffType<GreedBuff>())
             {
                 Player.AddBuff(ModContent.BuffType<GreedBuff>(), 2);
             }
-            if (SevenSoulUsed == ModContent.BuffType<LustBuff>())
+            if (SinfulSoulUsed == ModContent.BuffType<LustBuff>())
             {
                 Player.AddBuff(ModContent.BuffType<LustBuff>(), 2);
             }
-            if (SevenSoulUsed == ModContent.BuffType<PrideBuff>())
+            if (SinfulSoulUsed == ModContent.BuffType<PrideBuff>())
             {
                 Player.AddBuff(ModContent.BuffType<PrideBuff>(), 2);
             }
-            if (SevenSoulUsed == ModContent.BuffType<SlothBuff>())
+            if (SinfulSoulUsed == ModContent.BuffType<SlothBuff>())
             {
                 Player.AddBuff(ModContent.BuffType<SlothBuff>(), 2);
             }
-            if (SevenSoulUsed == ModContent.BuffType<WrathBuff>())
+            if (SinfulSoulUsed == ModContent.BuffType<WrathBuff>())
             {
                 Player.AddBuff(ModContent.BuffType<WrathBuff>(), 2);
             }
-            if (SevenSoulUsed == ModContent.BuffType<VirtuousSoul>())
+            if (SinfulSoulUsed == ModContent.BuffType<VirtuousSoul>())
             {
                 Player.AddBuff(ModContent.BuffType<VirtuousSoul>(), 2);
             }

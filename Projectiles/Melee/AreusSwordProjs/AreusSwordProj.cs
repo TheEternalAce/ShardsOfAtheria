@@ -102,7 +102,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSwordProjs
                 spawnRegion.Y += (int)boxOffset.Y;
                 for (int i = 0; i < 5; i++)
                 {
-                    var position = ShardsHelpers.GetPointInRegion(spawnRegion);
+                    var position = Main.rand.NextVector2FromRectangle(spawnRegion);
                     var vector = Main.MouseWorld - position;
                     vector.Normalize();
                     vector *= 16;

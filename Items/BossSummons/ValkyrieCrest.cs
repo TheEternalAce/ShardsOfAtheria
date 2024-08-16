@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.Items.BossSummons
         // We use the CanUseItem hook to prevent a Player from using this item while the boss is present in the world.
         public override bool CanUseItem(Player player)
         {
-            return !NPC.AnyNPCs(ModContent.NPCType<NovaStellar>()) && player.ZoneSkyHeight && Main.dayTime;
+            return !NPC.AnyNPCs(ModContent.NPCType<NovaStellar>()) && (player.ZoneSkyHeight || player.ZoneOverworldHeight) && Main.dayTime;
         }
 
         public override bool? UseItem(Player player)

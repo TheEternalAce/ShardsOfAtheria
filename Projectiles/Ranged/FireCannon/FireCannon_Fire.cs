@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -11,6 +12,18 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
 {
     public class FireCannon_Fire1 : ModProjectile
     {
+        static Asset<Texture2D> glowmask;
+
+        public override void Load()
+        {
+            if (!Main.dedServ) glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
+        }
+
+        public override void Unload()
+        {
+            glowmask = null;
+        }
+
         public override void SetStaticDefaults()
         {
             Projectile.AddElement(0);
@@ -32,7 +45,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
 
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = SoA.ElectricColorA;
+            lightColor = Color.White;
+            Main.EntitySpriteDraw(glowmask.Value, Projectile.Center, null, SoA.ElectricColorA, 0f, glowmask.Size() / 2, 1f, 0);
             return base.PreDraw(ref lightColor);
         }
 
@@ -95,6 +109,14 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
     public class FireCannon_Fire3 : FireCannon_Fire1
     {
         public override string Texture => SoA.BlankTexture;
+
+        public override void Load()
+        {
+        }
+        public override void Unload()
+        {
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();

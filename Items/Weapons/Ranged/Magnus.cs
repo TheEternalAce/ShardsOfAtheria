@@ -1,17 +1,18 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.SinfulSouls;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class Magnus : SinfulItem
     {
+        public override int RequiredSin => SinfulPlayer.Pride;
+
         public override void SetStaticDefaults()
         {
             Item.AddElement(2);
@@ -38,23 +39,13 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.shootSpeed = 0f;
             Item.rare = ItemDefaults.RaritySinful;
             Item.value = Item.sellPrice(0, 10, 25);
-            Item.shoot = ModContent.ProjectileType<AmbassadorShot>();
+            Item.shoot = ModContent.ProjectileType<AmbassadorBeam>();
             Item.useAmmo = AmmoID.Bullet;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             type = Item.shoot;
-        }
-
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            if (player.IsLocal())
-            {
-                var position1 = Main.MouseWorld + new Vector2(-6, -6);
-                Projectile.NewProjectile(source, position1, Vector2.Zero, type, damage, knockback);
-            }
-            return false;
         }
 
         public override Vector2? HoldoutOffset()

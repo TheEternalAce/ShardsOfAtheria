@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.SinfulSouls;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -10,6 +11,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class Pantheon : SinfulItem
     {
+        public override int RequiredSin => SinfulPlayer.Greed;
+
         public override void SetStaticDefaults()
         {
             Item.AddRedemptionElement(5);

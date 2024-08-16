@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         int gravityTimer = 180;
         public override void AI()
         {
-            Projectile.ApplyGravity(ref gravityTimer);
+            Projectile.ApplyGravity(ref gravityTimer, 1);
 
             var player = Projectile.GetPlayerOwner();
             if (player.Shards().Overdrive)

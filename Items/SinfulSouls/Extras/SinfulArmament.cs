@@ -13,6 +13,8 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
 {
     public class SinfulArmament : SinfulItem
     {
+        public override int RequiredSin => -1;
+
         public override void SetDefaults()
         {
             Item.width = 54;
@@ -30,7 +32,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
 
         public override bool CanUseItem(Player player)
         {
-            return player.GetModPlayer<SinfulPlayer>().SevenSoulUsed > 0;
+            return player.GetModPlayer<SinfulPlayer>().SinfulSoulUsed > 0;
         }
 
         public override bool? UseItem(Player player)

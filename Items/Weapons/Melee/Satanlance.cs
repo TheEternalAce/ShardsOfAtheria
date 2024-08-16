@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             CreateRecipe()
                 .AddIngredient(ItemID.HellstoneBar, 20)
-                .AddTile(TileID.LunarCraftingStation)
+                .AddTile(TileID.Anvils)
                 .Register();
         }
 

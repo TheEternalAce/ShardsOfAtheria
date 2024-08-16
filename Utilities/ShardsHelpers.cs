@@ -242,16 +242,6 @@ namespace ShardsOfAtheria.Utilities
             return value == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
         }
 
-        public static Vector2 GetPointInRegion(Rectangle region)
-        {
-            Vector2 result = new()
-            {
-                X = region.X + Main.rand.Next(region.Width + 1),
-                Y = region.Y + Main.rand.Next(region.Height + 1)
-            };
-            return result;
-        }
-
         public static void AddKey(this WeightedRandom<string> random, string key, params object[] args)
         {
             random.Add(Language.GetTextValue(key, args));
@@ -589,21 +579,13 @@ namespace ShardsOfAtheria.Utilities
             TooltipLine line;
             var shards = Main.LocalPlayer.Shards();
             float cycleSpeed = 1f;
-            if (Main.keyState.IsKeyDown(Keys.Left))
-            {
-                cycleSpeed /= 2;
-            }
-            if (Main.keyState.IsKeyDown(Keys.Right))
-            {
-                cycleSpeed *= 2;
-            }
+            if (Main.keyState.IsKeyDown(Keys.Left)) cycleSpeed /= 2;
+            if (Main.keyState.IsKeyDown(Keys.Right)) cycleSpeed *= 2;
             shards.shiftTooltipCycleTimer += cycleSpeed;
+            if (Main.keyState.IsKeyDown(Keys.LeftControl) || Main.keyState.IsKeyDown(Keys.LeftControl)) shards.shiftTooltipCycleTimer = 0;
             if (shards.shiftTooltipCycleTimer >= 180)
             {
-                if (++shards.shiftTooltipIndex > maxIndex)
-                {
-                    shards.shiftTooltipIndex = 0;
-                }
+                if (++shards.shiftTooltipIndex > maxIndex) shards.shiftTooltipIndex = 0;
                 shards.shiftTooltipCycleTimer = 0;
             }
             string shiftText = Language.GetTextValue(modItem.GetLocalizationKey("ShiftTooltip" + shards.shiftTooltipIndex));

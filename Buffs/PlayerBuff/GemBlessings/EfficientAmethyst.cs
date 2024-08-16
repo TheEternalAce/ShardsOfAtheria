@@ -1,4 +1,5 @@
 ﻿using ShardsOfAtheria.Utilities;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,6 +8,12 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff.GemBlessings
 {
     public class EfficientAmethyst : ModBuff
     {
+        public static int[] BlacklistedBuffs = [
+            ModContent.BuffType<ChargedMinions>(),
+            ModContent.BuffType<ChargingDrones>(),
+            ModContent.BuffType<ShadeState>(),
+            ];
+
         public override void SetStaticDefaults()
         {
             BuffID.Sets.TimeLeftDoesNotDecrease[Type] = true;
@@ -24,7 +31,7 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff.GemBlessings
             for (int i = 0; i < player.CountBuffs(); i++)
             {
                 int buffID = player.buffType[i];
-                if (!Main.debuff[buffID] && !BuffID.Sets.TimeLeftDoesNotDecrease[buffID] && !Main.buffNoTimeDisplay[buffID])
+                if (!BlacklistedBuffs.Contains(buffID) && !Main.debuff[buffID] && !BuffID.Sets.TimeLeftDoesNotDecrease[buffID] && !Main.buffNoTimeDisplay[buffID])
                 {
                     player.buffTime[i] += 1;
                     if (player.buffTime[i] < 60)
@@ -32,17 +39,6 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff.GemBlessings
                         player.buffTime[i] = 60;
                     }
                 }
-            }
-        }
-    }
-
-    public class RallyingAmethystPlayer : ModPlayer
-    {
-        public override void UpdateLifeRegen()
-        {
-            if (Player.HasBuff<MendingTopaz>() && Player.HasBuff<EfficientAmethyst>())
-            {
-                Player.lifeRegen += 20;
             }
         }
     }

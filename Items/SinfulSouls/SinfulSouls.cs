@@ -1,5 +1,4 @@
-﻿using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Utilities;
+﻿using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -11,6 +10,8 @@ namespace ShardsOfAtheria.Items.SinfulSouls
     public abstract class SinfulSouls : SinfulItem
     {
         public virtual int SoulType => 0;
+
+        public override int RequiredSin => 0;
 
         public override void SetDefaults()
         {
@@ -29,11 +30,6 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         {
             tooltips.Add(new TooltipLine(Mod, "SevenSoul", Language.GetTextValue("Mods.ShardsOfAtheria.Common.SinfulSoulCommonDesc")));
             base.ModifyTooltips(tooltips);
-        }
-
-        public override bool CanUseItem(Player player)
-        {
-            return player.GetModPlayer<SinfulPlayer>().SevenSoulUsed == 0;
         }
 
         public override bool? UseItem(Player player)
@@ -61,7 +57,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.Sinful().SevenSoulUsed = Type;
+            player.Sinful().SinfulSoulUsed = Type;
             player.buffTime[buffIndex] = 18000;
             base.Update(player, ref buffIndex);
         }

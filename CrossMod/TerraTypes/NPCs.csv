@@ -1,7 +1,7 @@
 internalName,defType,defType,offType,offType,abilityBasic,abilityHidden
-AreusMortar,Electric,Steel,Electric,,,
-BiblicallyAccurateAtherian,Electric,Flying,Electric,,LightningRod,
-ShriekingBeacon,Electric,Normal,Normal,,LightningRod,
+AreusMortar,Electric,Steel,Electric,,FlashFire,
+BiblicallyAccurateAtherian,Electric,Flying,Electric,,LightningRod,MotorDrive
+ShriekingBeacon,Electric,Normal,Normal,,LightningRod,Scrappy
 Death,Blood,,Blood,,,
 NovaStellar,Flying,Electric,Flying,Electric,,
 Creeper,Blood,,Blood,,,
@@ -10,7 +10,7 @@ Atherian,Electric,,Electric,,,
 CaveHarpy,Flying,Rock,Rock,,,
 CorruptHarpy,Flying,Poison,Poison,,,
 CrimsonHarpy,Flying,Blood,Blood,,,
-DesertHarpy,Flying,Electric,Electric,,,
+DesertHarpy,Flying,Ground,Ground,,,
 ForestHarpy,Flying,Grass,Grass,,,
 HallowedHarpy,Flying,Fairy,Fairy,,,
 OceanHarpy,Flying,Water,Water,,,

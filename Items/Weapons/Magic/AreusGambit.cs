@@ -97,7 +97,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                     velocity = velocity.RotatedBy(MathHelper.ToRadians(-15) * player.direction);
                     velocity.Normalize();
                     velocity = velocity * 10;
-                    knockback /= 5f;
                 }
                 else velocity = new Vector2(0, -1) * 10;
                 velocity += player.velocity;
@@ -166,6 +165,11 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                     Projectile.NewProjectile(source, position, perturbedSpeed, type,
                         damage, knockback, player.whoAmI, 0, 1 - 2 * i);
                 }
+                return false;
+            }
+            if (type == ModContent.ProjectileType<ElecCoin>() && player.controlUp)
+            {
+                Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 1);
                 return false;
             }
             return base.Shoot(player, source, position, velocity, type, damage, knockback);

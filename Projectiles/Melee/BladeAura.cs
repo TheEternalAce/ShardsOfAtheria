@@ -5,16 +5,16 @@ using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.ID;
+using Terraria.GameContent.Drawing;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Melee
 {
-    public class BladeAura : ModProjectile
+    public abstract class BladeAura : ModProjectile
     {
-        public virtual Color AuraColor => Color.White;
-        public virtual int OutterDust => DustID.Stone;
-        public virtual int InnerDust => DustID.Stone;
+        public abstract Color AuraColor { get; }
+        public abstract int OutterDust { get; }
+        public abstract int InnerDust { get; }
         public virtual float ScaleMultiplier => 1f;
         public virtual float ScaleAdder => 1f;
         public virtual float HalfRotations => 1f;
@@ -48,27 +48,19 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            bool flag4 = false;
-            if (Projectile.DamageType.UseStandardCritCalcs && Main.rand.Next(100) < Projectile.CritChance)
-            {
-                flag4 = true;
-            }
+            // Vanilla has several particles that can easily be used anywhere.
+            // The particles from the Particle Orchestra are predefined by vanilla and most can not be customized that much.
+            // Use auto complete to see the other ParticleOrchestraType types there are.
+            // Here we are spawning the Excalibur particle randomly inside of the target's hitbox.
+            ParticleOrchestrator.RequestParticleSpawn(clientOnly: false, ParticleOrchestraType.Excalibur,
+                new ParticleOrchestraSettings { PositionInWorld = Main.rand.NextVector2FromRectangle(target.Hitbox) },
+                Projectile.owner);
 
-            float num21 = Projectile.knockBack;
+            // You could also spawn dusts at the enemy position. Here is simple an example:
+            // Dust.NewDust(Main.rand.NextVector2FromRectangle(target.Hitbox), 0, 0, ModContent.DustType<Content.Dusts.Sparkle>());
 
-            NPC.HitModifiers modifiers = target.GetIncomingStrikeModifiers(Projectile.DamageType, Projectile.direction);
-            int? num26 = Main.player[Projectile.owner].Center.X < target.Center.X ? 1 : -1;
-            modifiers.Knockback *= num21 / Projectile.knockBack;
-            if (num26.HasValue)
-            {
-                modifiers.HitDirectionOverride = num26;
-            }
-            NPC.HitInfo strike = modifiers.ToHitInfo(Projectile.damage, flag4, num21, damageVariation: true, Main.player[Projectile.owner].luck);
-
-            if (Main.netMode != NetmodeID.SinglePlayer)
-            {
-                NetMessage.SendStrikeNPC(target, in strike);
-            }
+            // Set the target's hit direction to away from the player so the knockback is in the correct direction.
+            hit.HitDirection = (Main.player[Projectile.owner].Center.X < target.Center.X) ? 1 : -1;
         }
 
         public override void AI()
@@ -88,14 +80,14 @@ namespace ShardsOfAtheria.Projectiles.Melee
             float num10 = Projectile.rotation + Main.rand.NextFloatDirection() * (MathHelper.Pi / 2f) * 0.7f;
             Vector2 vector2 = Projectile.Center + num10.ToRotationVector2() * 84f * Projectile.scale;
             Vector2 vector3 = (num10 + direction * (MathHelper.Pi / 2f)).ToRotationVector2();
-            if (Main.rand.NextFloat() * 2f < Projectile.Opacity)
+            if (InnerDust > -1 && Main.rand.NextFloat() * 2f < Projectile.Opacity)
             {
                 Dust dust8 = Dust.NewDustPerfect(Projectile.Center + num10.ToRotationVector2() * (Main.rand.NextFloat() * 80f * Projectile.scale + 20f * Projectile.scale), InnerDust, vector3 * 1f);
                 dust8.fadeIn = 0.4f + Main.rand.NextFloat() * 0.15f;
                 dust8.noGravity = true;
                 dust8.noLight = false;
             }
-            if (Main.rand.NextFloat() * 1.5f < Projectile.Opacity)
+            if (OutterDust > -1 && Main.rand.NextFloat() * 1.5f < Projectile.Opacity)
             {
                 var dust9 = Dust.NewDustPerfect(vector2, OutterDust, vector3 * 1f);
                 dust9.noGravity = true;

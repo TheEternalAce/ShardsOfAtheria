@@ -87,7 +87,7 @@ namespace ShardsOfAtheria.ShardsUI
             base.Update(gameTime);
 
             int x = Main.screenWidth - 400;
-            int y = 250;
+            int y = 100;
             panel.SetRectangle(x, y, 68, 170);
 
             var player = Main.LocalPlayer;

@@ -9,8 +9,10 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
-    public class HansMachineGun : ModItem
+    public class HansMachineGun : ZChargeable
     {
+        public override int ZChargedItem => ModContent.ItemType<ZHansMachineGun>();
+
         public override void SetStaticDefaults()
         {
             Item.AddElement(2);

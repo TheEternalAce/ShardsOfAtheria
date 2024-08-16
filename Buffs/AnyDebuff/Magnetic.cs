@@ -33,9 +33,9 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
         {
             if (npc.HasBuff<Magnetic>())
             {
-                if (SoAGlobalProjectile.Metalic.ContainsKey(projectile.type))
+                if (SoAGlobalProjectile.Metalic.TryGetValue(projectile.type, out float value))
                 {
-                    magnetLife -= SoAGlobalProjectile.Metalic[projectile.type];
+                    magnetLife -= value;
                     if (magnetLife <= 0f)
                     {
                         npc.ClearBuff<Magnetic>();

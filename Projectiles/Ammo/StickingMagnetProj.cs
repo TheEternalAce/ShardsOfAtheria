@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Ammo;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
@@ -19,8 +18,6 @@ namespace ShardsOfAtheria.Projectiles.Ammo
         {
             Projectile.AddRedemptionElement(5);
             Projectile.AddRedemptionElement(13);
-
-            SoAGlobalProjectile.Metalic.Add(Type, 0f);
         }
 
         public override void SetDefaults()

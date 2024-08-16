@@ -88,6 +88,15 @@ namespace ShardsOfAtheria.Utilities
             return player.GetModPlayer<GemPlayer>();
         }
 
+        public static int ApplyAttackSpeed(this Player player, int baseTime, DamageClass damage, int minTime = 0, float capAttackSpeedAt = 1f - float.Epsilon)
+        {
+            float attackSpeed = player.GetTotalAttackSpeed(damage) - 1f;
+            if (attackSpeed > capAttackSpeedAt) attackSpeed = capAttackSpeedAt;
+            int time = baseTime - (int)(baseTime * attackSpeed);
+            if (time < minTime) time = minTime;
+            return time;
+        }
+
         public static bool HasChipEquipped(this Player player, int chip)
         {
             foreach (string name in player.Areus().chipNames)

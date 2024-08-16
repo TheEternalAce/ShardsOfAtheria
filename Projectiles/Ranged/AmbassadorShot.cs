@@ -23,6 +23,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.aiStyle = -1;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
+            Projectile.DamageType = DamageClass.Ranged;
 
             DrawOffsetX = -28;
             DrawOriginOffsetY = -30;

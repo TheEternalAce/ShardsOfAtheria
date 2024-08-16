@@ -179,7 +179,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
                 Projectile.netUpdate = true; // netUpdate this javelin
                 Projectile.timeLeft = 3600;
                 Timer = 0;
-                Projectile.damage = 0; // Makes sure the sticking javelins do not deal damage anymore
+                Projectile.friendly = false; // Makes sure the sticking javelins do not deal damage anymore
             }
         }
 

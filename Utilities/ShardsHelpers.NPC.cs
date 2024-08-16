@@ -115,6 +115,15 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
+        public static bool AnyBosses()
+        {
+            foreach (NPC npc in Main.npc)
+            {
+                if (npc.active && npc.boss) return true;
+            }
+            return false;
+        }
+
         public static Player GetTargetPlayer(this NPC npc)
         {
             return Main.player[npc.target];

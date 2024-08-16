@@ -76,14 +76,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         void DoSwingAI(Player player)
         {
-            if (Projectile.tileCollide)
-            {
-                Projectile.tileCollide = false;
-            }
-            if (Projectile.velocity != Vector2.Zero)
-            {
-                Projectile.velocity *= 0;
-            }
+            if (Projectile.tileCollide) Projectile.tileCollide = false;
+            if (Projectile.velocity != Vector2.Zero) Projectile.velocity *= 0;
             var handPosition = Main.GetPlayerArmPosition(Projectile);
 
             int mouseDirection = Main.MouseWorld.X > player.Center.X ? 1 : -1;
@@ -173,6 +167,11 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                 return true;
             }
             return base.Colliding(projHitbox, targetHitbox);
+        }
+
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (Projectile.ai[1] != 0) modifiers.HitDirectionOverride = (Main.player[Projectile.owner].Center.X < target.Center.X) ? 1 : -1;
         }
 
         public override bool PreDraw(ref Color lightColor)

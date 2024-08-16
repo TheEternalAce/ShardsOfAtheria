@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Items.Materials
             Item.maxStack = 9999;
 
             Item.rare = ItemDefaults.RarityDungeon;
-            Item.value = 10000;
+            Item.value = 6000;
         }
     }
 }

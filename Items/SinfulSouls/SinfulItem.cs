@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -8,6 +10,8 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 {
     public abstract class SinfulItem : ModItem
     {
+        public abstract int RequiredSin { get; }
+
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
@@ -50,6 +54,19 @@ namespace ShardsOfAtheria.Items.SinfulSouls
                 multiplier++;
             }
             damage *= multiplier;
+        }
+
+        public bool SinfulItemUsable(Player player)
+        {
+            int soul = player.Sinful().SinfulSoulUsed;
+            int requiredSinBuff = 0;
+            if (RequiredSin > 0) requiredSinBuff = SinfulPlayer.SinfulBuffs[RequiredSin - 1];
+            return RequiredSin == -1 || soul == requiredSinBuff;
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            return SinfulItemUsable(player);
         }
     }
 }
