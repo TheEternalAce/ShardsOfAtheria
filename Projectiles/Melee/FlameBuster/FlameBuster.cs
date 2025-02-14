@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -6,6 +7,7 @@ using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Melee.FlameBuster
 {
@@ -107,6 +109,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameBuster
 
         public override void OnKill(int timeLeft)
         {
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             float numberProjectiles = 2;
             var source = Projectile.GetSource_FromThis();
             var position = Projectile.Center;
@@ -140,9 +143,14 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameBuster
             target.AddBuff(BuffID.OnFire3, 300);
             var player = Projectile.GetPlayerOwner();
             player.SetImmuneTimeForAllTypes(15);
-            player.velocity = Projectile.velocity;
-            player.velocity.Normalize();
-            player.velocity *= -4f;
+            player.immuneNoBlink = true;
+            var anchorChip = ToggleableTool.GetInstance<AnchorChip>(player);
+            if (anchorChip == null || !anchorChip.Active)
+            {
+                player.velocity = Projectile.velocity;
+                player.velocity.Normalize();
+                player.velocity *= -4f;
+            }
         }
     }
 }

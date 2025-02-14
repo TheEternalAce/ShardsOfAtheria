@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Projectiles.Summon;
+using ShardsOfAtheria.Projectiles.Summon.Active;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -18,8 +18,8 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 
         public override void SetDefaults()
         {
-            Item.width = 18;
-            Item.height = 18;
+            Item.width = 44;
+            Item.height = 30;
 
             Item.damage = 12;
             Item.DamageType = DamageClass.SummonMeleeSpeed;

@@ -44,6 +44,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
         {
             ModContent.GetInstance<SapphireCore>().UpdateAccessory(player, hideVisual);
             player.Gem().greaterSapphireCore = true;
+            player.Gem().greaterGemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

@@ -23,7 +23,6 @@ namespace ShardsOfAtheria.Projectiles.Ammo
             Projectile.DamageType = DamageClass.Ranged; // Is the projectile shoot by a ranged weapon?
             Projectile.timeLeft = 600; // The live time for the projectile (60 = 1 second, so 600 is 10 seconds)
             Projectile.alpha = 255; // The transparency of the projectile, 255 for completely transparent. (aiStyle 1 quickly fades the projectile in) Make sure to delete this if you aren't using an aiStyle that fades in. You'll wonder why your projectile is invisible.
-            Projectile.light = 0.5f; // How much light emit around the projectile
             Projectile.ignoreWater = true; // Does the projectile's speed be influenced by water?
             Projectile.extraUpdates = 1; // Set to above 0 if you want the projectile to update multiple time in a frame
 
@@ -36,7 +35,7 @@ namespace ShardsOfAtheria.Projectiles.Ammo
             {
                 if (Main.rand.NextBool(7))
                 {
-                    SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
+                    SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
                     for (int i = 0; i < 3; i++)
                     {
                         Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Tin);
@@ -51,7 +50,7 @@ namespace ShardsOfAtheria.Projectiles.Ammo
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
             return base.OnTileCollide(oldVelocity);
         }
     }

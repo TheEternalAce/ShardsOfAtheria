@@ -1,7 +1,7 @@
 ﻿using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.Localization;
 
 namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 {
@@ -24,7 +24,7 @@ namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 
         public string GetConditionDescription()
         {
-            return Language.GetTextValue("Mods.ShardsOfAtheria.Condition.DownedNova");
+            return ShardsHelpers.LocalizeCondition("DownedNova");
         }
     }
 
@@ -47,7 +47,7 @@ namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 
         public string GetConditionDescription()
         {
-            return Language.GetTextValue("Mods.ShardsOfAtheria.Condition.DownedDeath");
+            return ShardsHelpers.LocalizeCondition("DownedDeath");
         }
     }
 
@@ -70,7 +70,7 @@ namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 
         public string GetConditionDescription()
         {
-            return Language.GetTextValue("Mods.ShardsOfAtheria.Condition.PostGolem");
+            return ShardsHelpers.LocalizeCondition("PostGolem");
         }
     }
 
@@ -93,7 +93,7 @@ namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 
         public string GetConditionDescription()
         {
-            return Language.GetTextValue("Mods.ShardsOfAtheria.Condition.PostCultist");
+            return ShardsHelpers.LocalizeCondition("PostCultist");
         }
     }
     // Very simple drop condition: drop after Moon Lord's defeat
@@ -115,7 +115,7 @@ namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 
         public string GetConditionDescription()
         {
-            return Language.GetTextValue("Mods.ShardsOfAtheria.Condition.PostMoonLord");
+            return ShardsHelpers.LocalizeCondition("PostMoonLord");
         }
     }
 }

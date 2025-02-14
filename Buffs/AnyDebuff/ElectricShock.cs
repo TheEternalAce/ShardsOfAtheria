@@ -54,12 +54,10 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
 
         public override void DrawEffects(NPC npc, ref Color drawColor)
         {
-            if (shocked && Main.rand.NextBool(8))
+            if (shocked && Main.rand.NextBool(4))
             {
-                int dust = Dust.NewDust(npc.position, npc.width + 4, npc.height + 4, DustID.Electric, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1f);
+                int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Electric, npc.velocity.X * 1f, npc.velocity.Y * 1f, 100, default, 1f);
                 Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 1.8f;
-                Main.dust[dust].velocity.Y -= 0.5f;
             }
         }
     }

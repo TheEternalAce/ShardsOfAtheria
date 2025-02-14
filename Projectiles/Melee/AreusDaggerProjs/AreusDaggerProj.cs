@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
@@ -27,11 +28,9 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusDaggerProjs
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.DamageType = DamageClass.Melee;
+            if (SoA.ServerConfig.throwingWeapons) Projectile.DamageType = DamageClass.Throwing;
             Projectile.extraUpdates = 1; // Update 1+extraUpdates times per tick
-            Projectile.timeLeft = 360; // This value does not matter since we manually kill it earlier, it just has to be higher than the duration we use in AI
-
-            DrawOffsetX = -44;
-            DrawOriginOffsetX = 22;
+            Projectile.timeLeft = 180; // This value does not matter since we manually kill it earlier, it just has to be higher than the duration we use in AI
         }
 
         // See ExampleBehindTilesProjectile. 
@@ -41,15 +40,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusDaggerProjs
             behindNPCsAndTiles.Add(index);
         }
 
-        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        public override bool PreDraw(ref Color lightColor)
         {
-            // Inflate some target hitboxes if they are beyond 8,8 size
-            if (targetHitbox.Width > 8 && targetHitbox.Height > 8)
-            {
-                targetHitbox.Inflate(-targetHitbox.Width / 8, -targetHitbox.Height / 8);
-            }
-            // Return if the hitboxes intersects, which means the javelin collides or not
-            return projHitbox.Intersects(targetHitbox);
+            var point = (Projectile.Center / 16).ToPoint();
+            lightColor = Lighting.GetColor(point);
+            return base.PreDraw(ref lightColor);
         }
 
         public override void OnKill(int timeLeft)
@@ -77,7 +72,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusDaggerProjs
             for (int i = 0; i < NUM_DUSTS; i++)
             {
                 // Create a new dust
-                Dust dust = Dust.NewDustDirect(usePos, Projectile.width, Projectile.height, DustID.Tin);
+                Dust dust = Dust.NewDustDirect(usePos, Projectile.width, Projectile.height, ModContent.DustType<AreusDust>());
                 dust.position = (dust.position + Projectile.Center) / 2f;
                 dust.velocity += rotVector * 2f;
                 dust.velocity *= 0.5f;
@@ -179,6 +174,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusDaggerProjs
             UpdateAlpha();
             // Run either the Sticky AI or Normal AI
             // Separating into different methods helps keeps your AI clean
+            Projectile.SetVisualOffsets(new Vector2(48, 54));
             if (IsStickingToTarget) StickyAI();
             else NormalAI();
         }
@@ -217,30 +213,14 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusDaggerProjs
             // These 2 could probably be moved to the ModifyNPCHit hook, but in vanilla they are present in the AI
             Projectile.ignoreWater = true; // Make sure the projectile ignores water
             Projectile.tileCollide = false; // Make sure the projectile doesn't collide with tiles anymore
-            const int aiFactor = 15; // Change this factor to change the 'lifetime' of this sticking javelin
-            Projectile.localAI[0] += 1f;
 
-            // Every 30 ticks, the javelin will perform a hit effect
-            bool hitEffect = Projectile.localAI[0] % 30f == 0f;
             int projTargetIndex = TargetWhoAmI;
-            if (Projectile.localAI[0] >= 60 * aiFactor || projTargetIndex < 0 || projTargetIndex >= 200)
-            { // If the index is past its limits, kill it
-                Projectile.Kill();
-            }
-            else if (Main.npc[projTargetIndex].active && !Main.npc[projTargetIndex].dontTakeDamage)
-            { // If the target is active and can take damage
-              // Set the projectile's position relative to the target's center
+            if (Main.npc[projTargetIndex].active && !Main.npc[projTargetIndex].dontTakeDamage)
+            {
                 Projectile.Center = Main.npc[projTargetIndex].Center - Projectile.velocity * 2f;
                 Projectile.gfxOffY = Main.npc[projTargetIndex].gfxOffY;
-                if (hitEffect)
-                { // Perform a hit effect here
-                    Main.npc[projTargetIndex].HitEffect(0, 1.0);
-                }
             }
-            else
-            { // Otherwise, kill the projectile
-                Projectile.Kill();
-            }
+            else Projectile.Kill();
         }
     }
 }

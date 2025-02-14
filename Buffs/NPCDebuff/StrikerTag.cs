@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Projectiles.Summon;
+using ShardsOfAtheria.Projectiles.Summon.Active;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;

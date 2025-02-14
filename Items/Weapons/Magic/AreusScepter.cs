@@ -17,6 +17,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             Item.AddAreus();
+            Item.staff[Type] = true;
         }
 
         public override void SetDefaults()
@@ -36,7 +37,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item72;
             Item.autoReuse = true;
-            Item.staff[Type] = true;
             Item.noMelee = true;
 
             Item.shootSpeed = 16;
@@ -82,7 +82,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             heading.Normalize();
             heading *= velocity.Length();
             heading.Y += Main.rand.Next(-40, 41) * 0.02f;
-            Projectile.NewProjectile(source, position, heading, type, damage * 2, knockback, player.whoAmI, 0f, 3f);
+            Projectile.NewProjectile(source, position, heading, type, damage, knockback, player.whoAmI, 0f, 3f);
             SoundEngine.PlaySound(Item.UseSound, player.Center);
             return false;
         }

@@ -22,8 +22,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 8f;
 
-            Item.useTime = 90;
-            Item.useAnimation = 90;
+            Item.useTime = 60;
+            Item.useAnimation = 60;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item11;
             Item.autoReuse = true;
@@ -37,6 +37,11 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.useAmmo = AmmoID.NailFriendly;
         }
 
+        public override float UseSpeedMultiplier(Player player)
+        {
+            return 0.5f;
+        }
+
         public override void HoldItem(Player player)
         {
             int arm = ModContent.ProjectileType<PuncherArm>();
@@ -46,8 +51,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            damage = (int)(damage / 0.15f);
-            base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
+            damage = (int)(damage / 0.5f);
         }
     }
 }

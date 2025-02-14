@@ -6,6 +6,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 {
@@ -28,11 +29,12 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             Projectile.alpha = 255;
             Projectile.aiStyle = 0;
             Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
         }
 
         public override void OnSpawn(IEntitySource source)
         {
-            SoundEngine.PlaySound(SoundID.Item72);
+            SoundEngine.PlaySound(SoundID.Item72, Projectile.Center);
         }
 
         public override void AI()
@@ -57,6 +59,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 
         public override void OnKill(int timeLeft)
         {
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             NPC.NewNPC(Projectile.GetSource_FromThis(), (int)Projectile.Center.X, (int)Projectile.Center.Y, ModContent.NPCType<EmeraldPlatform>());
             ShardsHelpers.DustRing(Projectile.Center, 3f, DustID.GemEmerald);
         }

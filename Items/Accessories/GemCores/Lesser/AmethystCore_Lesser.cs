@@ -113,6 +113,13 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
 
                 // Here you'd be able to set an effect that happens when the dash first activates
                 // Some examples include:  the larger smoke effect from the Master Ninja Gear and Tabi
+                for (int i = 0; i++ < 12;)
+                {
+                    var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.GemAmethyst);
+                    dust.velocity = Vector2.UnitX * -Player.direction * (10f - Main.rand.NextFloat(0f, 0.33f));
+                    dust.velocity = dust.velocity.RotatedByRandom(MathHelper.PiOver4);
+                    dust.noGravity = true;
+                }
             }
 
             if (DashDelay > 0)

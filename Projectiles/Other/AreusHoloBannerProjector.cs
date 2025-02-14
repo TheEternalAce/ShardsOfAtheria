@@ -48,7 +48,9 @@ namespace ShardsOfAtheria.Projectiles.Other
             }
             UpdateVisuals();
             RepellBanners(1000);
-            AreusAura(500);
+            AreusBuffs(500);
+            var player = Projectile.GetPlayerOwner();
+            if (player.InCombat() && !player.dead && player.Areus().soldierSet) Projectile.timeLeft++;
         }
 
         private void UpdateVisuals()
@@ -61,29 +63,6 @@ namespace ShardsOfAtheria.Projectiles.Other
                     Projectile.frame = 0;
                 }
             }
-        }
-
-        private void AreusAura(int radius)
-        {
-            //for (var i = 0; i < 20; i++)
-            //{
-            //    Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2CircularEdge(radius, radius);
-            //    Vector2 offset = spawnPos - Main.LocalPlayer.Center;
-            //    bool onscreenX = Math.Abs(offset.X) > Main.screenWidth * 0.6f;
-            //    bool onscreenY = Math.Abs(offset.X) > Main.screenWidth * 0.6f;
-            //    bool tilecollision = Collision.SolidCollision(spawnPos, 4, 4);
-            //    if (onscreenX || onscreenY || tilecollision) //dont spawn dust if its pointless
-            //        continue;
-            //    Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, DustID.Electric, 0, 0, 100);
-            //    dust.velocity = Projectile.velocity;
-            //    if (Main.rand.NextBool(3))
-            //    {
-            //        dust.velocity += Vector2.Normalize(Projectile.Center - dust.position) * Main.rand.NextFloat(5f);
-            //        dust.position += dust.velocity * 5f;
-            //    }
-            //    dust.noGravity = true;
-            //}
-            AreusBuffs(radius);
         }
 
         private void RepellBanners(float maxDistance)
@@ -117,6 +96,7 @@ namespace ShardsOfAtheria.Projectiles.Other
                         if (Projectile.DamageType.CountsAsClass(DamageClass.Ranged)) player.AddBuff<AreusBannerRangedBuff>(300);
                         if (Projectile.DamageType.CountsAsClass(DamageClass.Magic)) player.AddBuff<AreusBannerMagicBuff>(300);
                         if (Projectile.DamageType.CountsAsClass(DamageClass.Summon)) player.AddBuff<AreusBannerSummonBuff>(300);
+                        if (Projectile.DamageType.CountsAsClass(DamageClass.Throwing)) player.AddBuff<AreusBannerThrowingBuff>(300);
                     }
                 }
             }
@@ -138,15 +118,13 @@ namespace ShardsOfAtheria.Projectiles.Other
                                     var distToPlayer = Vector2.Distance(player.Center, Projectile.Center);
                                     if (distToPlayer <= maxDistance)
                                     {
-                                        if (player.statMana < player.statManaMax2 && Main.rand.NextBool(10))
-                                        {
-                                            player.statMana++;
-                                        }
+                                        player.manaRegen += 5;
                                     }
                                 }
                             }
                         }
                         if (Projectile.DamageType.CountsAsClass(DamageClass.Summon)) npc.AddBuff<AreusBannerSummonDebuff>(300);
+                        if (Projectile.DamageType.CountsAsClass(DamageClass.Throwing)) npc.AddBuff<AreusBannerThrowingDebuff>(300);
                     }
                 }
             }

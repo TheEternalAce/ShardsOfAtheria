@@ -3,6 +3,7 @@ using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Projectiles.Other;
 using System;
 using Terraria;
@@ -32,26 +33,17 @@ namespace ShardsOfAtheria.Utilities
                 SetExplosionElements(projectile, explosion);
             }
         }
-        [JITWhenModsEnabled("BattleNetworkElements")]
-        private static void SetExplosionElements(Projectile proj, Projectile explosion)
+
+        public static bool IsTrueMelee(this Projectile projectile)
         {
-            BNGlobalProjectile elementExplosion = explosion.GetGlobalProjectile<BNGlobalProjectile>();
-            if (proj.IsFire())
-            {
-                elementExplosion.isFire = true;
-            }
-            if (proj.IsAqua())
-            {
-                elementExplosion.isAqua = true;
-            }
-            if (proj.IsElec())
-            {
-                elementExplosion.isElec = true;
-            }
-            if (proj.IsWood())
-            {
-                elementExplosion.isWood = true;
-            }
+            return SoAGlobalProjectile.TrueMelee.Contains(projectile.type) || (projectile.DamageType.CountsAsClass(DamageClass.Melee) &&
+              (projectile.aiStyle == 19 || projectile.aiStyle == 75 || projectile.aiStyle == 161 ||
+              projectile.ModProjectile is CoolSword || projectile.ModProjectile is BladeAura));
+        }
+
+        public static bool NonWhipSummon(this Projectile projectile)
+        {
+            return projectile.minion || projectile.sentry || ProjectileID.Sets.SentryShot[projectile.type] || ProjectileID.Sets.MinionShot[projectile.type];
         }
 
         /// <summary>
@@ -167,40 +159,10 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
-        /// <summary>
-        /// Draws a basic single-frame glowmask for an item dropped in the world. Use in <see cref="Terraria.ModLoader.ModProjectile.PostDraw"/>
-        /// </summary>
-        //public static void BasicInWorldGlowmask(this Projectile projectile, Texture2D glowTexture, Color color,
-        //    float rotation, float scale)
-        //{
-        //    float offsetX = 0f;
-        //    float originOffsetX = 0f;
-        //    float originOffsetY = 0f;
-        //    if (projectile.ModProjectile != null)
-        //    {
-        //        var modProjectile = projectile.ModProjectile;
-        //        offsetX = modProjectile.DrawOffsetX;
-        //        originOffsetX = modProjectile.DrawOriginOffsetX;
-        //        originOffsetY = modProjectile.DrawOriginOffsetY;
-        //    }
-        //    Vector2 origin = glowTexture.Size() * 0.5f;
-        //    origin.X += originOffsetX;
-        //    origin.Y += originOffsetY;
-
-        //    Main.EntitySpriteDraw(
-        //        glowTexture,
-        //        new Vector2(
-        //            projectile.position.X - Main.screenPosition.X + projectile.width * 05f + offsetX,
-        //            projectile.position.Y - Main.screenPosition.Y + projectile.height * 05f
-        //        ),
-        //        new Rectangle(0, 0, glowTexture.Width, glowTexture.Height),
-        //        color,
-        //        rotation,
-        //        origin,
-        //        scale,
-        //        SpriteEffects.None,
-        //        0);
-        //}
+        public static void CloneDefaults<T>(this Projectile projectile) where T : ModProjectile
+        {
+            projectile.CloneDefaults(ModContent.ProjectileType<T>());
+        }
 
         public static void DrawBloomTrail(this Projectile projectile, Color color, Texture2D texture, float rotationToAdd = 0f, float scale = 1f)
         {
@@ -212,6 +174,18 @@ namespace ShardsOfAtheria.Utilities
                 float sizec = scale * (projectile.oldPos.Length - k) / (projectile.oldPos.Length * 0.8f);
                 Color drawColor = color * (1f - projectile.alpha) * ((projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
                 Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, projectile.oldRot[k] + rotationToAdd, frame.Size() / 2, sizec, SpriteEffects.None, 0);
+            }
+        }
+
+        public static void DrawBloomTrail_NoDiminishingScale(this Projectile projectile, Color color, Texture2D texture, float rotationToAdd = 0f, float scale = 1f)
+        {
+            for (int k = 0; k < projectile.oldPos.Length; k++)
+            {
+                Vector2 offset = new(projectile.width / 2f, projectile.height / 2f);
+                var frame = texture.Frame(1, 1, 0, 0);
+                Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + offset;
+                Color drawColor = color * (1f - projectile.alpha) * ((projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
+                Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, projectile.oldRot[k] + rotationToAdd, frame.Size() / 2, scale, SpriteEffects.None, 0);
             }
         }
         //Credits to Aslysmic/Tewst Mod (so cool)
@@ -240,29 +214,6 @@ namespace ShardsOfAtheria.Utilities
         public static SoAGlobalProjectile Atheria(this Projectile projectile)
         {
             return projectile.GetGlobalProjectile<SoAGlobalProjectile>();
-        }
-
-        public static void AddAreus(this Projectile projectile, bool dark = false, bool forceAddElements = false)
-        {
-            projectile.type.AddAreusProj(dark);
-            if (!dark || forceAddElements)
-            {
-                projectile.AddElement(2);
-                projectile.AddRedemptionElement(7);
-            }
-        }
-        public static void AddAreusProj(this int projID, bool dark)
-        {
-            SoAGlobalProjectile.AreusProj.Add(projID, dark);
-        }
-        public static bool IsAreus(this Projectile projectile, bool includeDark)
-        {
-            if (!includeDark)
-            {
-                SoAGlobalProjectile.AreusProj.TryGetValue(projectile.type, out var dark);
-                return SoAGlobalProjectile.AreusProj.ContainsKey(projectile.type) && !dark;
-            }
-            else return SoAGlobalProjectile.AreusProj.ContainsKey(projectile.type);
         }
 
         public static void SpearHoming(this Projectile projectile, float num1)
@@ -294,6 +245,56 @@ namespace ShardsOfAtheria.Utilities
                 AdjustMagnitude(ref vector, num1);
                 projectile.velocity = (30f * projectile.velocity + vector) / 2f;
                 AdjustMagnitude(ref projectile.velocity, num1);
+            }
+        }
+
+        public static void MakeTrueMelee(this Projectile projectile)
+        {
+            SoAGlobalProjectile.TrueMelee.Add(projectile.type);
+        }
+
+        public static void AddAreus(this Projectile projectile, bool dark = false, bool forceAddElements = false)
+        {
+            projectile.type.AddAreusProj(dark);
+            if (!dark || forceAddElements)
+            {
+                projectile.AddElement(2);
+                projectile.AddRedemptionElement(7);
+            }
+        }
+        public static void AddAreusProj(this int projID, bool dark)
+        {
+            SoAGlobalProjectile.AreusProj.Add(projID, dark);
+        }
+        public static bool IsAreus(this Projectile projectile, bool includeDark)
+        {
+            if (!includeDark)
+            {
+                SoAGlobalProjectile.AreusProj.TryGetValue(projectile.type, out var dark);
+                return SoAGlobalProjectile.AreusProj.ContainsKey(projectile.type) && !dark;
+            }
+            else return SoAGlobalProjectile.AreusProj.ContainsKey(projectile.type);
+        }
+
+        [JITWhenModsEnabled("BattleNetworkElements")]
+        private static void SetExplosionElements(Projectile proj, Projectile explosion)
+        {
+            BNGlobalProjectile elementExplosion = explosion.GetGlobalProjectile<BNGlobalProjectile>();
+            if (proj.IsFire())
+            {
+                elementExplosion.isFire = true;
+            }
+            if (proj.IsAqua())
+            {
+                elementExplosion.isAqua = true;
+            }
+            if (proj.IsElec())
+            {
+                elementExplosion.isElec = true;
+            }
+            if (proj.IsWood())
+            {
+                elementExplosion.isWood = true;
             }
         }
 

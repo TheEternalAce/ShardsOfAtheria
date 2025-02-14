@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
 
         public override void OnSpawn(IEntitySource source)
         {
-            SoundEngine.PlaySound(SoundID.Item12);
+            SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
         }
 
         public override void AI()

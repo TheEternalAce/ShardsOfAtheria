@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Magic
 {
@@ -47,6 +48,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
 
         public override void OnKill(int timeLeft)
         {
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             bool flag = Main.rand.NextBool(2);
             for (int i = 0; i < 4; i++)
             {

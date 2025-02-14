@@ -44,6 +44,11 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.shoot = ModContent.ProjectileType<EarthJavelin>();
         }
 
+        public override bool CanUseItem(Player player)
+        {
+            return player.ownedProjectileCounts[Item.shoot] == 0;
+        }
+
         public override void AddRecipes()
         {
             CreateRecipe()

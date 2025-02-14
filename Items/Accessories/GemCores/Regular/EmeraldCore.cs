@@ -55,6 +55,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
             player.wingTimeMax += 10;
             player.Gem().emeraldCore = true;
             player.Gem().emeraldBoots = !hideVisual;
+            player.Gem().gemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

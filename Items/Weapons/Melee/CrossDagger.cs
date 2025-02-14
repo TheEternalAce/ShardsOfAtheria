@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.AddElement(1);
             Item.AddElement(3);
             Item.AddRedemptionElement(12);
+            Item.AddRedemptionElement(8);
         }
 
         public override void SetDefaults()
@@ -34,8 +35,10 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.autoReuse = true;
             Item.useTurn = true;
 
+            Item.shootSpeed = 12f;
             Item.value = Item.sellPrice(0, 15);
             Item.rare = ItemDefaults.RarityDemoniteCrimtane;
+            Item.shoot = ModContent.ProjectileType<BloodBlade>();
         }
 
         public override void AddRecipes()
@@ -46,6 +49,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 .AddIngredient(ItemID.ManaCrystal, 5)
                 .AddTile(TileID.Anvils)
                 .Register();
+        }
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            damage = (int)(damage * 0.75f);
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)

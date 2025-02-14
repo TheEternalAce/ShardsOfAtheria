@@ -11,6 +11,7 @@ using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.NPCs.Boss.Elizabeth;
 using ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie;
+using ShardsOfAtheria.NPCs.Town.TheAtherian;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using System;
@@ -35,7 +36,6 @@ namespace ShardsOfAtheria
         public static ModKeybind AmethystBombToggle { get; private set; }
         public static ModKeybind PhaseSwitch { get; private set; }
         public static ModKeybind SoulTeleport { get; private set; }
-        public static ModKeybind ArmorSetBonusActive { get; private set; }
         public static ModKeybind ProcessorElement { get; private set; }
 
         public static ShardsServer ServerConfig => ModContent.GetInstance<ShardsServer>();
@@ -62,6 +62,8 @@ namespace ShardsOfAtheria
         public static readonly SoundStyle Judgement1 = new(ItemSoundPath + "Judgement2_1") { Volume = 0.25f, MaxInstances = 2, PitchVariance = 0.1f };
         public static readonly SoundStyle Judgement2 = new(ItemSoundPath + "Judgement2_2") { Volume = 0.25f, MaxInstances = 2, PitchVariance = 0.1f };
         public static readonly SoundStyle Judgement3 = new(ItemSoundPath + "Judgement2_3") { Volume = 0.25f, MaxInstances = 2, PitchVariance = 0.1f };
+        public static readonly SoundStyle SilverRings = new(ItemSoundPath + "SilverRing");
+        public static readonly SoundStyle SilverRingsSoft = new(ItemSoundPath + "SilverRingSoft");
 
         public static readonly Color HardlightColor = new(224, 92, 165);
         public static readonly Color HardlightColorA = HardlightColor.UseA(0);
@@ -118,7 +120,6 @@ namespace ShardsOfAtheria
             AmethystBombToggle = KeybindLoader.RegisterKeybind(Instance, "AmethystBombToggle", "J");
             PhaseSwitch = KeybindLoader.RegisterKeybind(Instance, "PhaseType", "RightAlt");
             SoulTeleport = KeybindLoader.RegisterKeybind(Instance, "SoulCrystalTeleport", "V");
-            ArmorSetBonusActive = KeybindLoader.RegisterKeybind(Instance, "ArmorSetBonus", "Mouse4");
             if (BNEEnabled) ProcessorElement = KeybindLoader.RegisterKeybind(Instance, "CycleElementAffinity", "C");
 
             if (!Main.dedServ)
@@ -224,6 +225,19 @@ namespace ShardsOfAtheria
                         { "modtarget", "Terraria" }
                     };
                     terratyping.Call(overrideProjectile);
+                }
+            }
+            if (ModLoader.TryGetMod("RecipeBrowser", out Mod rb))
+            {
+                var iconTexture = ModContent.Request<Texture2D>(ModContent.GetInstance<Atherian>().HeadTexture);
+                rb.Call("AddItemCategory", "Upgrades", "", iconTexture, (Predicate<Item>)((Item item) => HasBlueprint(item)));
+                static bool HasBlueprint(Item item)
+                {
+                    foreach (UpgradeBlueprint blueprint in UpgradeBlueprintLoader.upgrades)
+                    {
+                        if (blueprint.ResultItem.type == item.type) return true;
+                    }
+                    return false;
                 }
             }
             if (ModLoader.TryGetMod("BossChecklist", out Mod checklist))
@@ -347,23 +361,15 @@ namespace ShardsOfAtheria
 
         public static string ChooseTitleText()
         {
-            WeightedRandom<string> title = new();
-            bool add = true;
+            WeightedRandom<string> titles = new();
             int i = 0;
-            while (add)
+            while (true)
             {
-                string path = LocalizeCommon + "TitleText" + i;
-                if (Language.Exists(path))
-                {
-                    title.Add(Language.GetTextValue(path));
-                    i++;
-                }
-                else
-                {
-                    add = false;
-                }
+                string titleText = ShardsHelpers.LocalizeCommon("TitleText" + i);
+                if (titleText.Equals("No key found.")) break;
+                else { titles.Add(titleText); i++; };
             }
-            return title;
+            return titles;
         }
 
         public static Dictionary<string, List<string>> GetContentArrayFile(string name)

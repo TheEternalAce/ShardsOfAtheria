@@ -5,6 +5,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Magic.ThorSpear
 {
@@ -29,18 +30,19 @@ namespace ShardsOfAtheria.Projectiles.Magic.ThorSpear
             var player = Projectile.GetPlayerOwner();
             float attackSpeed = player.GetTotalAttackSpeed(DamageClass.Magic);
 
-            if ((BeingHeld || Timer < minChargeRequired + (player.Overdrive() ? 40 : 0))) Timer += 0.25f * attackSpeed * (player.Overdrive() ? 1.2f : 1f);
+            if ((BeingHeld || timer < minChargeRequired + (player.Overdrive() ? 40 : 0))) timer += 0.25f * attackSpeed * (player.Overdrive() ? 1.2f : 1f);
 
             base.AI();
 
-            if (Timer >= minChargeRequired) Projectile.Kill();
+            if (timer >= minChargeRequired) Projectile.Kill();
         }
 
         public override void OnKill(int timeLeft)
         {
-            if (Timer < minChargeRequired) return;
+            if (timer < minChargeRequired) return;
             int type = ModContent.ProjectileType<ZEarthmoverBeam>();
             var player = Projectile.GetPlayerOwner();
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 16f, type, Projectile.damage, Projectile.knockBack);
             SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
         }

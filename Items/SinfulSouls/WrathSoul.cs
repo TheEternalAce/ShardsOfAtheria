@@ -1,14 +1,13 @@
 ﻿using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SinfulSouls
 {
     public class WrathSoul : SinfulSouls
     {
-        public override int SoulType => ModContent.BuffType<WrathBuff>();
+        public override int SoulBuffType => ModContent.BuffType<WrathBuff>();
     }
 
     public class WrathPlayer : ModPlayer
@@ -57,14 +56,9 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
     public class WrathBuff : SinfulSoulBuff
     {
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-        }
-
         public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
         {
-            tip = Language.GetTextValue("Mods.ShardsOfAtheria.ItemTooltip.WrathSoul", MathF.Round(Main.LocalPlayer.GetModPlayer<WrathPlayer>().anger, 3),
+            tip = ShardsHelpers.Localize("Items.WrathSoul.Tooltip", MathF.Round(Main.LocalPlayer.GetModPlayer<WrathPlayer>().anger, 3),
                 Main.LocalPlayer.GetModPlayer<WrathPlayer>().rage);
         }
 

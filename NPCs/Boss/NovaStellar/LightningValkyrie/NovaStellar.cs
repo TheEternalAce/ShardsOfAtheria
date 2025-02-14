@@ -592,10 +592,9 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             {
                 return;
             }
-            Item novaBook = ModContent.GetInstance<PlumeCodex>().Item;
             if (attackTimer == 240)
             {
-                SoundEngine.PlaySound(novaBook.UseSound);
+                SoundEngine.PlaySound(SoundID.Item43, center);
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), center, Vector2.Normalize(toTarget) * 7f,
                     ModContent.ProjectileType<FeatherBlade>(), damage, 0f, Main.myPlayer);
             }
@@ -615,7 +614,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             // The actual attack
             if (attackTimer == 180)
             {
-                SoundEngine.PlaySound(novaBook.UseSound);
+                SoundEngine.PlaySound(SoundID.Item43, center);
                 for (int i = 0; i < 4; i++)
                 {
                     Vector2 projPos = targetPosition + new Vector2(1.425f, 0).RotatedBy(MathHelper.ToRadians(90 * i)) * 150;
@@ -625,7 +624,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             }
             if (attackTimer == 120)
             {
-                SoundEngine.PlaySound(novaBook.UseSound);
+                SoundEngine.PlaySound(SoundID.Item43, center);
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), center, Vector2.Normalize(toTarget) * 7f,
                     ModContent.ProjectileType<FeatherBlade>(), damage, 0f, Main.myPlayer);
             }
@@ -645,7 +644,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             // the actual attack
             if (attackTimer == 60)
             {
-                SoundEngine.PlaySound(novaBook.UseSound);
+                SoundEngine.PlaySound(SoundID.Item43, center);
                 for (int i = 0; i < 4; i++)
                 {
                     Vector2 projPos = targetPosition + Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 150f;
@@ -711,7 +710,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 }
                 if (shouldFire)
                 {
-                    SoundEngine.PlaySound(SoundID.Item5);
+                    SoundEngine.PlaySound(SoundID.Item5, center);
                     float numberProjectiles = 3;
                     float rotation = MathHelper.ToRadians(5);
                     toTarget.Normalize();
@@ -736,8 +735,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             NPC.velocity = vectorToIdlePos * 0.055f;
             if (frameY == 0 && NPC.frameCounter == 0)
             {
-                var swordItem = ModContent.GetInstance<ValkyrieBlade>().Item;
-                SoundEngine.PlaySound(swordItem.UseSound);
+                SoundEngine.PlaySound(SoundID.Item1, NPC.Center);
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center,
                     Vector2.Zero, ModContent.ProjectileType<HardlightBladeHitbox>(),
                     damage, 0, Main.myPlayer);
@@ -759,8 +757,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 var vectorToPlayer = player.Center - NPC.Center;
                 vectorToPlayer.Normalize();
                 vectorToPlayer = vectorToPlayer.RotatedByRandom(MathHelper.ToRadians(10));
-                var knifeItem = ModContent.GetInstance<HardlightKnife>().Item;
-                SoundEngine.PlaySound(knifeItem.UseSound);
+                SoundEngine.PlaySound(SoundID.Item1, NPC.Center);
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, vectorToPlayer * 16f,
                     ModContent.ProjectileType<HardlightKnifeHostile>(), damage, 0, Main.myPlayer);
             }
@@ -810,7 +807,7 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
                 NPC.dontTakeDamage = true;
                 KillProjectiles();
-                SoundEngine.PlaySound(SoundID.Thunder);
+                SoundEngine.PlaySound(SoundID.Thunder, NPC.Center);
                 for (int i = 0; i < 4; i++)
                 {
                     Vector2 velocity = Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i)) * 1f;

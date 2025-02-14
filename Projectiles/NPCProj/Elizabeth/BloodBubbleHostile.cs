@@ -5,6 +5,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
 {
@@ -48,8 +49,9 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             {
                 Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
             }
-            var vector = Vector2.Normalize(player.Center - Projectile.Center) * 16f;
 
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
+            var vector = Vector2.Normalize(player.Center - Projectile.Center) * 16f;
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
                 vector, ModContent.ProjectileType<BloodNeedleHostile>(), Projectile.damage,
                 Projectile.knockBack, Projectile.owner, Projectile.ai[0]);

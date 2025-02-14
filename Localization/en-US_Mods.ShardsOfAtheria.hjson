@@ -9,7 +9,7 @@ Common: {
 	FullCharge: Charge Ready!
 	OverdriveTag: " (Overcharged)"
 	OverdriveTooltip: "[c/ff0000:--Overdrive--]"
-	UpgradeableItem: Upgradeable Item
+	UpgradeableItem: This item can be upgraded by the Atherian
 	TitleText0: Shards of Atheria: Splitting Skies
 	TitleText1: Shards of Atheria: The World Revolving
 	TitleText2: Shards of Atheria: Shattered Atheria
@@ -26,6 +26,8 @@ Common: {
 		'''
 	UpgradeMaterialNeeded: Material needed: {0} x{1}
 	SinfulSoulCommonDesc: Only one can be active and can only be removed by [i:ShardsOfAtheria/VirtuousDagger]{$Items.VirtuousDagger.DisplayName}.
+	Debug: "[c/ff0000:Debug Item]"
+	DamageScale: Damage scales with progression
 }
 
 DiskFile: {
@@ -262,7 +264,8 @@ Items: {
 		DisplayName: Greater Ruby Core
 		Tooltip:
 			'''
-			10% increased damage and attack speed
+			10% increased damage
+			4% increased attack speed
 			Further increased damage after taking damage
 			Critical hits create exploding rubies
 			All weapons autoswing
@@ -273,7 +276,8 @@ Items: {
 		DisplayName: Super Ruby Core
 		Tooltip:
 			'''
-			15% increased damage and attack speed
+			15% increased damage
+			8% increased attack speed
 			Further increased damage after taking damage
 			Critical hits create shattering rubies
 			All weapons autoswing
@@ -359,7 +363,8 @@ Items: {
 		Tooltip:
 			'''
 			Increases max life by 80
-			Increases damage and attack and movement speed by 20%
+			Increases damage and movement speed by 20%
+			Increased attack speed by 12%
 			+6 extra minion slots
 			20% chance to dodge attacks
 			Gives a super dash to the wearer
@@ -494,6 +499,19 @@ Items: {
 		Tooltip: "'The hardlight grants extra protection without impeding movement'"
 	}
 
+	HallowedSeal: {
+		DisplayName: Hallowed Seal
+		Tooltip:
+			'''
+			5% increased magic and melee damage
+			Provides immunity to fall damage
+			Melee hits restore 9 mana
+			Melee kills restore 6 more mana
+			True melee hits inflict a small amount of self knockback
+			'A holy seal that once protected an underground kingdom'
+			'''
+	}
+
 	HardlightBraces: {
 		DisplayName: Hardlight Bracers
 		Tooltip: Attacks create 4 hardlight blades to inflict further damage
@@ -623,28 +641,38 @@ Items: {
 			Reduced mana usage by 5%
 			'''
 		SetBonus: Grants the ability to harness Areus Energy
-		MeleeDamageClassBonus:
+		MeleeBonus:
 			'''
+			[c/AA0000:-Melee Set-]
 			Taking damage builds Areus Energy
-			Double tap UP/DOWN to release a shockwave of Areus Energy
+			Double tap UP or DOWN to release a shockwave of Areus Energy
 			'''
-		RangedDamageClassBonus:
+		RangedBonus:
 			'''
+			[c/96E19B:-Ranged Set-]
 			Build Areus Energy by dealing damage
-			Double tap UP/DOWN to activate Electric Marksman:
+			Double tap UP or DOWN to activate Electric Marksman:
 			Increases ranged attack speed
 			Converts certain arrows and bullets into instantaneous electric beams
 			'''
-		MagicDamageClassBonus:
+		MagicBonus:
 			'''
+			[c/78BEFF:-Magic Set-]
 			Passively builds Areus Energy
-			Double tap UP/DOWN to release a spread of electric waves
+			Double tap UP or DOWN to release a spread of electric waves
 			'''
-		SummonDamageClassBonus:
+		SummonBonus:
 			'''
+			[c/FF74C3:-Summon Set-]
 			Passively builds Areus Energy while in combat
-			Double tap UP/DOWN to charge all active minions
+			Double tap UP or DOWN to charge all active minions
 			Charged minions periodically release electric sparks while in combat
+			'''
+		ThrowingBonus:
+			'''
+			[c/A06E3C:-Ninja Set-]
+			Build Areus Energy by not attacking
+			Throwing weapon hits consume areus energy to emit sparks
 			'''
 	}
 
@@ -676,26 +704,36 @@ Items: {
 			Increased Areus weapon damage by 5%
 			Reduced mana usage by 8%
 			'''
-		SetBonus: Double tap UP/DOWN to throw out a holographic banner with various effects
-		MeleeDamageClassBonus:
+		SetBonus: Double tap UP or DOWN to throw out a holographic banner with various effects
+		MeleeBonus:
 			'''
+			[c/AA0000:-Melee Set-]
 			Banners increase the damage, defense and endurance of players within its aura
 			Enemies within the aura will lose some defense
 			'''
-		RangedDamageClassBonus:
+		RangedBonus:
 			'''
+			[c/96E19B:-Ranged Set-]
 			Banners increase the movement and attack speed, and reduce resource cost (ammo and mana) of players within its aura
 			Enemies within the aura will have reduced movement speed
 			'''
-		MagicDamageClassBonus:
+		MagicBonus:
 			'''
+			[c/78BEFF:-Magic Set-]
 			Banners increase the damage, life and mana regen, and reduce resource (ammo and mana) cost of players within its aura
 			Enemies within the aura will leak mana for nearby players to absorb
 			'''
-		SummonDamageClassBonus:
+		SummonBonus:
 			'''
+			[c/FF74C3:-Summon Set-]
 			Banners increase the life and mana regen, movement speed and defense of players within its aura
 			Enemies within the aura will suffer small damage over time
+			'''
+		ThrowingBonus:
+			'''
+			[c/A06E3C:-Ninja Set-]
+			Banners give increased attack speed, thrown velocity, and reduce resource cost (ammo and mana) of players within its aura
+			Enemies within the aura will lose some contact damage
 			'''
 	}
 
@@ -723,41 +761,53 @@ Items: {
 		DisplayName: Areus Imperial Hood
 		Tooltip:
 			'''
-			Increased damage and critical strike chance by %
-			Increased Areus weapon damage by %
-			Reduced mana usage by %
+			Increased damage and critical strike chance by 5%
+			Increased Areus weapon damage by 8%
+			Reduced mana usage by 12%
 			'''
 		SetBonus:
 			'''
 			Grants the ability to harness Imperial Void
 			Consuming Imperial Void provides 'Shade State'
 			Melee damage dealt is also absorbed into mana
+			Melee damage dealt is also absorbed into mana
 			'''
-		MeleeDamageClassBonus:
+		MeleeBonus:
 			'''
+			[c/AA0000:-Melee Set-]
 			Double tap UP or DOWN to create a void slash
 			This consumes 33 Imperial Void
 			Shade State creates void slashes when melee weapons are used
 			'''
-		RangedDamageClassBonus:
+		RangedBonus:
 			'''
+			[c/96E19B:-Ranged Set-]
 			Double tap UP or DOWN to release a void blast
 			This consumes 33 Imperial Void
 			Shade State converts certain ranged projectiles into seeking void beams
 			'''
-		MagicDamageClassBonus:
+		MagicBonus:
 			'''
+			[c/78BEFF:-Magic Set-]
 			Double tap UP or DOWN to shriek loudly
 			This consumes 33 Imperial Void
 			Shade State creates void daggers when striking enemies
 			'''
-		SummonDamageClassBonus:
+		SummonBonus:
 			'''
+			[c/FF74C3:-Summon Set-]
 			Every 2 seconds a Black Star is summoned
 			This consumes 33 Imperial Void
 			After some time, the star will be ripped apart and fire a laser
 			Double tap UP or DOWN to do this manually
 			Shade State creates void tendrils from enemies struck by whips
+			'''
+		ThrowingBonus:
+			'''
+			[c/A06E3C:-Ninja Set-]
+			Double tap UP or DOWN to throw a void blade
+			This consumes 33 Imperial Void
+			Shade State causes thrown weapon attacks to shoot a spread of void
 			'''
 	}
 
@@ -765,9 +815,9 @@ Items: {
 		DisplayName: Areus Imperial Garments
 		Tooltip:
 			'''
-			Increased damage and critical strike chance by %
-			Increased Areus weapon damage by %
-			Increased maximum mana by 
+			Increased damage and critical strike chance by 5%
+			Increased Areus weapon damage by 8%
+			Increased maximum mana by 120
 			'''
 	}
 
@@ -775,8 +825,8 @@ Items: {
 		DisplayName: Areus Imperial Greaves
 		Tooltip:
 			'''
-			Increased damage and critical strike chance by %
-			Increased Areus weapon damage by %
+			Increased damage and critical strike chance by 5%
+			Increased Areus weapon damage by 8%
 			Increased movement speed by 16%
 			'''
 	}
@@ -795,13 +845,31 @@ Items: {
 			Double tap UP or DOWN to mark an enemy near your cursor
 			Marked enemies take extra damage and will be targeted by minions
 			'''
-		MeleeDamageClassBonus: The EM Avatar attacks nearby enemies with rapid sword strikes
-		RangedDamageClassBonus: The EM Avatar shoots at nearby enemies with its buster
-		MagicDamageClassBonus: ""
-		SummonDamageClassBonus:
+		MeleeBonus:
 			'''
+			[c/AA0000:-Melee Set-]
+			The EM Avatar attacks nearby enemies with rapid sword strikes
+			'''
+		RangedBonus:
+			'''
+			[c/96E19B:-Ranged Set-]
+			The EM Avatar shoots at nearby enemies with its buster
+			'''
+		MagicBonus:
+			'''
+			[c/78BEFF:-Magic Set-]
+			The EM Avatar occasionally restores life and mana to nearby players
+			'''
+		SummonBonus:
+			'''
+			[c/FF74C3:-Summon Set-]
 			The EM Avatar commands a team of areus drones to fire at nearby enemies
 			Double tapping UP or DOWN charges the drones to fire a piercing laser
+			'''
+		ThrowingBonus:
+			'''
+			[c/A06E3C:-Ninja Set-]
+			EM Avatar throws psychic blades
 			'''
 	}
 
@@ -834,10 +902,31 @@ Items: {
 			Reduced mana usage by %
 			'''
 		SetBonus: ""
-		MeleeDamageClassBonus: ""
-		RangedDamageClassBonus: ""
-		MagicDamageClassBonus: ""
-		SummonDamageClassBonus: ""
+		MeleeBonus:
+			'''
+			[c/AA0000:-Melee Set-]
+			a
+			'''
+		RangedBonus:
+			'''
+			[c/78BEFF:-Magic Set-]
+			a
+			'''
+		MagicBonus:
+			'''
+			[c/78BEFF:-Magic Set-]
+			a
+			'''
+		SummonBonus:
+			'''
+			[c/FF74C3:-Summon Set-]
+			a
+			'''
+		ThrowingBonus:
+			'''
+			[c/78BEFF:-Ninja Set-]
+			a
+			'''
 	}
 
 	DivineJacket: {
@@ -894,6 +983,17 @@ Items: {
 	FlightChip: {
 		DisplayName: Overcharged Flight Chip
 		Tooltip: Increases flight time
+	}
+
+	NinjaChip: {
+		DisplayName: Ninja's Chip
+		Tooltip:
+			'''
+			Damage bonuses from areus armors increase throwing damage
+			Areus armor set provides a throwing set bonus
+			Other damage types recieve a lesser bonus
+			Grants increased thrown velocity
+			'''
 	}
 
 	RangerChip: {
@@ -957,6 +1057,16 @@ Items: {
 	ThunderValkyrieMask: {
 		DisplayName: Thunder Valkyrie Mask
 		Tooltip: ""
+	}
+
+	ZetaminShirt: {
+		DisplayName: Zetamin Shirt
+		Tooltip: "'It's a cooincidence, I swear!'"
+	}
+
+	ZetaminSkirt: {
+		DisplayName: Zetamin Skirt
+		Tooltip: "'It's a cooincidence, I swear!'"
 	}
 
 	# Boss summons
@@ -1054,7 +1164,7 @@ Items: {
 
 	# DaluyanMesses
 	StatueOfDaluyan: {
-		DisplayName: Golden Hat Statue
+		DisplayName: Parasol Idol
 		Tooltip: "'That's Fool's Gold! That ain't worth nothing!'"
 	}
 
@@ -1453,7 +1563,7 @@ Items: {
 		DisplayName: Gluttony Soul
 		Tooltip:
 			'''
-			Increases melee damage by 15%
+			Increases damage by 15%
 			Defense reduced by 7
 			Lose life when not fed
 			Critical strikes on enemies creates a food chunk that will heal you when it makes contact
@@ -1486,11 +1596,9 @@ Items: {
 		Tooltip:
 			'''
 			Every 10 seconds of not taking damage increases damage by 2%
-			Using a weapon that fires a projectile increases Shots Fired
-			Damaging an enemy with a non-summon projectile increases Shots Hit
-			If Shots Landed is not equal to Shots Fired after 5 seconds, you are weakened severely
-			Otherwise, damage is increased by 50%
-			Shots Fired = {0} | Shots Hit = {1}
+			Using the same weapon repeatedly reduces its damage
+			Missing more than 75% of your attacks weakens you severely
+			Landing all of your attacks instead grants you extra movement speed
 			'''
 	}
 
@@ -1799,21 +1907,22 @@ Items: {
 	# Toggle Items
 	AnchorChip: {
 		DisplayName: Anchor Chip
-		Tooltip: Prevents the jump from the final slash when using The Messiah
+		Tooltip: Weapons will not move you
+		On: " (Enabled)"
+		Off: " (Disabled)"
+	}
+
+	BrokenCable: {
+		DisplayName: Broken Cable
+		Tooltip: Weapons will not charge
 		On: " (Enabled)"
 		Off: " (Disabled)"
 	}
 
 	DevelopersKeyCard: {
 		DisplayName: Developer's Key Card
-		Tooltip: Grants unrestricted access to the Areus Terminal
+		Tooltip: Certain weapons are slightly modified
 		On: " (Enabled)"
-		Off: " (Disabled)"
-	}
-
-	WeightedDie: {
-		DisplayName: Weighted Die
-		Tooltip: Causes the Areus Gamble to always land on a certain face
 		Off: " (Disabled)"
 	}
 
@@ -1851,6 +1960,18 @@ Items: {
 			'We love casting spells'
 			'''
 		On: " (Enabled)"
+		Off: " (Disabled)"
+	}
+
+	TierLock: {
+		DisplayName: Tier Lock
+		Tooltip: Causes certain weapons to be scaled at a certain level
+		Off: " (Disabled)"
+	}
+
+	WeightedDie: {
+		DisplayName: Weighted Die
+		Tooltip: Causes the Areus Gamble to always land on a certain face
 		Off: " (Disabled)"
 	}
 
@@ -2094,7 +2215,11 @@ Items: {
 	# Melee
 	AreusBaton: {
 		DisplayName: Areus Baton
-		Tooltip: Occasionally pulses to damage nearby enemies
+		Tooltip:
+			'''
+			Attacks with a flurry of blows
+			At the end of the flurry, throw a returning baton
+			'''
 	}
 
 	AreusDagger: {
@@ -2102,7 +2227,8 @@ Items: {
 		Tooltip:
 			'''
 			Throws sticking daggers
-			Alt-use disgharges lightning arcs
+			Alt-use fires an electric beam
+			Electric beams deam more damage for each sticking dagger
 			'''
 	}
 
@@ -2203,6 +2329,7 @@ Items: {
 			Punches shoot plasma bullets
 			Charges while not in use
 			Charged attacks throw a wave of fire
+			{$Common.DamageScale}
 			'Punch them into the ground!'
 			'''
 		Overdrive: Charged attacks punch the ground, creating a pillar of fire instead
@@ -2325,6 +2452,7 @@ Items: {
 			Swings throw energy beams
 			Charges while not in use
 			Charged attacks fire a piercing beam
+			{$Common.DamageScale}
 			'And burn them while they're down!'
 			'''
 		Overdrive: Charged attacks fling you forward and explode on impact instead
@@ -2513,8 +2641,8 @@ Items: {
 		Tooltip:
 			'''
 			Charges passively when not in use
-			After 5 seconds of charging damage is increased and fire a burst of 3 grenades
-			'Demoman TF2'
+			After 5 seconds of charging damage is increased and fire a burst of 3 shots
+			'Rock on!'
 			'''
 	}
 
@@ -2589,6 +2717,7 @@ Items: {
 			'''
 			Coats regular bullets with Plague if {$Items.PlagueCell.DisplayName}s are available
 			Will not consume bullets if {$Items.PlagueCell.DisplayName}s are available
+			{$Common.DamageScale}
 			'The last word out of your sorry mouth will be NURSE, and it will be loud!'
 			'''
 		Overdrive: Never consumes bullets
@@ -2600,6 +2729,7 @@ Items: {
 			'''
 			Uses {$Items.PlagueCell.DisplayName}s as ammo
 			66% chance to not consume cells
+			{$Common.DamageScale}
 			'Now I am become Death, destroyer of worlds'
 			'''
 		Overdrive: ""
@@ -2701,7 +2831,11 @@ Items: {
 
 	WorldSketcher: {
 		DisplayName: World Sketcher
-		Tooltip: ""
+		Tooltip:
+			'''
+			Draws on the world
+			Alt-use to erase all marks
+			'''
 	}
 
 	GoldNail: {
@@ -2719,8 +2853,138 @@ Items: {
 		Tooltip:
 			'''
 			Fires extremely powerful nails at extremely poor range
+			50% benefit from attack speed boosts
 			'Career criminals my ass!'
 			'''
+	}
+
+	EntropicCatalyst: {
+		DisplayName: Entropic Catalyst
+		Tooltip:
+			'''
+			Alt-use to throw a bomb
+			Primary-use shockwaves will boost bombs
+			{$Common.DamageScale}
+			'''
+	}
+
+	EntropicHunter: {
+		DisplayName: Entropic Hunter
+		Tooltip:
+			'''
+			Alt-use to throw out up to 6 small singularities
+			The singularities can be shot with arrows to activate early
+			Singularities will fire additional arrows when you shoot with this bow
+			{$Common.DamageScale}
+			'''
+	}
+
+	SpellTag_Gleam: {
+		DisplayName: Diamond Gleam
+		Tooltip: Consumable Spell Tag
+	}
+
+	DataKnife: {
+		DisplayName: Data Shock Knife
+		Tooltip:
+			'''
+			Throw electrically charged, fang-like knives to heal yourself
+			{$Common.DamageScale}
+			'''
+		Overdrive:
+			'''
+			Strikes also restore mana
+			Kills restore more health and mana
+			Instantly kills enemies below 50 life
+			'''
+	}
+
+	EntropicArtifact: {
+		DisplayName: Entropic Artifact
+		Tooltip:
+			'''
+			Summons a Red Star to fight for you
+			Occasionally the star pulses to damage all nearby enemies
+			Alt-use targeting also makes the star attack manually
+			Damage scales with progression
+			'''
+	}
+
+	DataTome: {
+		DisplayName: Data Shock Tome
+		Tooltip:
+			'''
+			Fires a barrage of lightning
+			Alt-use to summon lashing vines
+			{$Common.DamageScale}
+			'''
+	}
+
+	LightAndShadow: {
+		DisplayName: Light And Shadow
+		Tooltip: ""
+	}
+
+	LightWithinDarkness: {
+		DisplayName: Light Within Darkness
+		Tooltip: ""
+	}
+
+	DarknessWithinLight: {
+		DisplayName: Darkness Within Light
+		Tooltip: ""
+	}
+
+	EntropicSaber: {
+		DisplayName: Entropic Saber
+		Tooltip: Damage scales with progression
+	}
+
+	MementoMoriAmulet: {
+		DisplayName: Memento Mori Amulet
+		Tooltip:
+			'''
+			Prevents death a number of times equal to enemies killed
+			These effects occur every time death is prevented:
+			 - Lose 10% max life
+			 - Lose 10% damage
+			 - Lose 10 defense
+			'One life feeds another'
+			'''
+		Stats:
+			'''
+			Deaths that can be prevented: {0}
+			Times weakened: {1}
+			'''
+	}
+
+	MagicStones: {
+		DisplayName: Magic Stones
+		Tooltip:
+			'''
+			Throw a volley of magical rocks
+			Alt-use to edit thrown rocks
+			Strengthened by gem cores
+			'''
+	}
+
+	SilverSpear: {
+		DisplayName: Silver Spear
+		Tooltip: Harness the spears power with correctly timed attacks
+	}
+
+	AreusKnife: {
+		DisplayName: Areus Knife
+		Tooltip:
+			'''
+			{$CommonItemTooltip.Whips}
+			Throws a blade that bounces between enemies
+			'''
+	}
+
+	PenmastersInstrument: {
+		DisplayName: Penmasters Instrument
+		Tooltip: ""
 	}
 }
 
@@ -2893,9 +3157,9 @@ Projectiles: {
 	EnergyBeam.DisplayName: Energy Beam
 	EnergyScythe.DisplayName: Energy Scythe
 	EnergyWave.DisplayName: Energy Wave
-	EntropyBlade.DisplayName: Entropy Blade
-	EntropySickle.DisplayName: Entropy Sickle
-	EntropySlash.DisplayName: Entropy Slash
+	EntropyBlade.DisplayName: Melancholy Blade
+	EntropySickle.DisplayName: Melancholy Sickle
+	EntropySlash.DisplayName: Melancholy Slash
 	FeatherBladeFriendly.DisplayName: Hardlight Feather
 	FlameBuster.DisplayName: Theta Flame Buster
 	FlameBusterBullet.DisplayName: Theta Buster Bullet
@@ -3106,12 +3370,58 @@ Projectiles: {
 	SpearOfDestiny.DisplayName: Fate's Lance
 	ZHansBullet.DisplayName: Z-Charged BURST Bullet
 	ZEarthJavelin.DisplayName: "{$Items.ZEarthmoverSpear.DisplayName}"
-	ZEarthmoverBeam.DisplayName: Z-Charged Electric Beam
+	ZEarthmoverBeam.DisplayName: Z-Charged Beam
 	YamikoSlash.DisplayName: Yamiko Slash
 	PencilMark.DisplayName: Pencil Mark
 	Pencil.DisplayName: Pencil
+	Pen.DisplayName: Pen
 	GoldenNail.DisplayName: Golden Nail
 	PuncherArm.DisplayName: Puncher Arm
+	CatalystBomb.DisplayName: Catalyst Bomb
+	CatalystShockwave.DisplayName: Catalyst Shockwave
+	HitscanBullet_Explosive.DisplayName: Hitscan Bullet_ Explosive
+	AreusTonfa.DisplayName: Areus Tonfa
+	AreusTonfa_HeldProj.DisplayName: Areus Tonfa_ Held Proj
+	AreusTonfaUppercut.DisplayName: Areus Tonfa Uppercut
+	EntropicArrow.DisplayName: Entropic Arrow
+	HunterBomb.DisplayName: Hunter Bomb
+	HunterBomb2.DisplayName: Hunter Bomb2
+	GleamShot.DisplayName: Gleam Shot
+	ShockKnife.DisplayName: Shock Knife
+	RedStar.DisplayName: Red Star
+	RedStarShot.DisplayName: Red Star Shot
+	RedStarSmall.DisplayName: Red Star Small
+	RedStarShotExplosion.DisplayName: Red Star Shot Explosion
+	VineWhip.DisplayName: Vine Whip
+	Vine.DisplayName: Vine
+	LightInShadow.DisplayName: Light In Shadow
+	ShadowWave.DisplayName: Shadow Wave
+	LightBeam.DisplayName: Light Beam
+	ShadowInLight.DisplayName: Shadow In Light
+	EntropicSlash_Blue.DisplayName: Entropic Saber
+	EntropicSlash_Red.DisplayName: Entropic Saber
+	EntropicCut_Blue.DisplayName: Entropic Cut
+	EntropicCut_Red.DisplayName: Entropic Cut
+	AmberFly2.DisplayName: Amber Fly2
+	AmberStone.DisplayName: Amber Stone
+	AmethystStone.DisplayName: Amethyst Stone
+	DiamondStone.DisplayName: Diamond Stone
+	EmeraldStone.DisplayName: Emerald Stone
+	MagicStone.DisplayName: Magic Stone
+	RubyStone.DisplayName: Ruby Stone
+	SapphireStone.DisplayName: Sapphire Stone
+	TopazStone.DisplayName: Topaz Stone
+	SilverSpearSwing.DisplayName: Silver Spear
+	SilverSpearThrust.DisplayName: Silver Spear
+	SilverRing.DisplayName: Silver Ring
+	BloodBlade.DisplayName: Holy Blood Blade
+	PuncherBlast.DisplayName: Puncher Blast
+	PlasmaShot.DisplayName: Plasma Shot
+	AreusBlade.DisplayName: Areus Blade
+	PsychicBlade.DisplayName: Psychic Blade
+	VoidBlade.DisplayName: Void Blade
+	VoidTrail.DisplayName: Void Trail
+	VoidOrb.DisplayName: Void Orb
 }
 
 NPCs: {
@@ -3784,7 +4094,7 @@ Buffs: {
 		DisplayName: Areus Banner Empowerment
 		Description:
 			'''
-			Increased movement and attack speed speed
+			Increased movement and attack speed
 			Reduced resource cost
 			'''
 	}
@@ -3823,14 +4133,52 @@ Buffs: {
 		DisplayName: Disguise Regenerating
 		Description: Your disguise was busted!
 	}
+
+	ThousandStrikes: {
+		DisplayName: Thousand Strikes
+		Description: Hit them fast and hard
+	}
+
+	EntropicStar: {
+		DisplayName: Entropic Star
+		Description: You will know the sound of a star
+	}
+
+	MementoMori: {
+		DisplayName: Remember: You [c/ff0000:will] die
+		Description: Death will have an easier time taking you
+	}
+
+	Embarassment: {
+		DisplayName: Embarassment
+		Description: Mods.ShardsOfAtheria.Buffs.Embarassment.Description
+	}
+
+	OverStuffed: {
+		DisplayName: Over Stuffed
+		Description: You ate too much
+	}
+
+	AreusBannerThrowingDebuff: {
+		DisplayName: Areus Banner Throwing Debuff
+		Description: Mods.ShardsOfAtheria.Buffs.AreusBannerThrowingDebuff.Description
+	}
+
+	AreusBannerThrowingBuff: {
+		DisplayName: Areus Banner Empowerment
+		Description:
+			'''
+			Increased attack speed and projectile velocity
+			Reduced resource cost
+			'''
+	}
 }
 
 Necronomicon: {
-	Active: Slayer Mode Active
 	GenericInfo:
 		'''
 		General Info:
-		Use on this page to toggle Slayer mode. Cannot be used while a boss is alive.
+		Drop, with the book open, with 10 evil bars to begin.
 		Bosses will drop every item in its loot table (in a stack of 1000 if the item is stackable), its slayer mode exclusive item and its Soul Crystal.
 		This boss is considered slain and cannot be fought again.
 		While Slayer mode is active, taking damage will reduce your defense. Defense will regenerate after a period of time.
@@ -3842,11 +4190,15 @@ Necronomicon: {
 		Soul Crystals are removable by making and using a Soul Extracting Dagger.
 		'''
 	WipSoulEntry: This Soul Crystal needs further research. Please wait for this boss to be introduced into the mod.
+	TurnPage: Right click to turn the page
+	TurnPageBack: Hold Left Shift and Right Click to turn the page backward
+	TurnToC: Hold Left Alt and Right Click to return to Table of Contents
 }
 
 Conditions: {
 	Slayer: Drops while in Slayer Mode
 	Upgrade: Upgraded by Atherian
+	BlueprintRequisites: Meet the blueprint prerequisite
 	SlayerMode: Slayer Mode enabled
 	NotSlayer: Slayer Mode disabled
 	DownedNova: Defeat Nova Stellar
@@ -3869,6 +4221,8 @@ Conditions: {
 	HaveCoin: Have the Areus Gambit in your inventory.
 	HaveDie: Have the Areus Gamble in your inventory.
 	HaveMessiah: Have The Messiah in your inventory.
+	TransformArmament: Transform a Sinful Armament with the appropriate Sinful Soul.
+	UpgradeRequisites: Mods.ShardsOfAtheria.Conditions.UpgradeRequisites
 }
 
 ShopQuote: {
@@ -3892,7 +4246,11 @@ ShopQuote: {
 	Archivist.Necronomicon: This book has got some spooky vibes. You want it?
 }
 
-InfoDisplays.InCombatInfoDisplay.DisplayName: "{0}"
+InfoDisplays: {
+	InCombatInfoDisplay.DisplayName: "{0}"
+	PrideData.DisplayName: Hits landed/Attacks made
+	GluttonyData.DisplayName: Gluttony Data
+}
 
 Tiles: {
 	OmegaChest: {
@@ -4024,13 +4382,16 @@ Configs: {
 			Dialogue: "[i:3617] Dialogue"
 			Mechanics: "[i:4818] Mechanics"
 			Misc: Misc
-			Commands: "[i:3617] Commands"
-			NPC: N P C Header
+			NPC: NPC Header
 		}
 
 		metalBladeSound: {
 			Label: "[i:ShardsOfAtheria/MetalBlade] Metal Blade Use Sound"
-			Tooltip: Enable for custom use sound, disable for vanilla use sound
+			Tooltip:
+				'''
+				Enable for custom use sound, disable for vanilla use sound.
+				World reload needed.
+				'''
 		}
 
 		nonConsumeBoss: {
@@ -4048,6 +4409,15 @@ Configs: {
 				'''
 				Enable for to enable changes to Life Crystal, Mana Crystal and Life Fruit
 				(Use time 15, auto reuse, use turn)
+				'''
+		}
+
+		throwingWeapons: {
+			Label: "[i:ShardsOfAtheria/HardlightKnife] Thrown Ranged to Throwing"
+			Tooltip:
+				'''
+				Converts thrown ranged weapons to throwing class.
+				World reload needed.
 				'''
 		}
 
@@ -4069,31 +4439,6 @@ Configs: {
 		catchableNPC: {
 			Label: "[i:1991] Catchable NPCs"
 			Tooltip: Enable to allow Town NPCs from this mod to be caught with a Bug Net
-		}
-
-		genericCommand: {
-			Label: Generic
-			Tooltip: ""
-		}
-
-		resetDowned: {
-			Label: Reset Defeated
-			Tooltip: ""
-		}
-
-		resetSlayer: {
-			Label: Reset Slayer
-			Tooltip: ""
-		}
-
-		slayBosses: {
-			Label: Slay Bosses
-			Tooltip: ""
-		}
-
-		validateSlayer: {
-			Label: Validate Slayer
-			Tooltip: ""
 		}
 
 		overrideTypes: {
@@ -4118,4 +4463,103 @@ GameTips: {
 	Atherian: Shards of Atheria: Defeating the world's evil may attract someone who can upgrade weapons.
 	TheMourningStar: Shards of Atheria: The sacrifice of a katana may draw power from Plantera's defeat.
 	GemCurse: Shards of Atheria: Beware of curses when combining multiple gem buffs.
+}
+
+Atherian: {
+	Blueprint: {
+		FlameCannonBlueprints: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: ""
+		}
+
+		FrostsparkUpgrade1: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: ""
+		}
+
+		FrostsparkUpgrade2: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: ""
+		}
+
+		FrostsparkUpgrade3: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: ""
+		}
+
+		FrostsparkUpgrade4: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: ""
+		}
+
+		FrostsparkUpgrade5: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: Item is at its maximum potential.
+		}
+
+		GauntletBlueprints: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: ""
+		}
+
+		MirrorBlueprints: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: ""
+		}
+
+		RetributionBlueprints: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: ""
+		}
+
+		WarBlueprints: {
+			ItemCheckFailed: Item is already upgraded.
+			PlayerCheckFailed: ""
+		}
+
+		ImperialGarmentBlueprint: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: ""
+		}
+
+		ImperialGreavesBlueprint: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: ""
+		}
+
+		ImperialHoodBlueprint: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: ""
+		}
+
+		RoyalCrownBlueprint: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: ""
+		}
+
+		RoyalGreavesBlueprint: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: ""
+		}
+
+		RoyalJacketBlueprint: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: ""
+		}
+
+		SoldierBreastplateBlueprint: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: ""
+		}
+
+		SoldierLeggingsBlueprint: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: ""
+		}
+
+		SoldierMaskBlueprint: {
+			ItemCheckFailed: ""
+			PlayerCheckFailed: ""
+		}
+	}
 }

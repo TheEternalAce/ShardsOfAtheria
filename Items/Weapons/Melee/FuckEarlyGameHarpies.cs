@@ -11,7 +11,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             ItemID.Sets.Spears[Type] = true;
-            Item.AddUpgradable();
             Item.AddAreus(true);
             Item.AddRedemptionElement(9);
         }

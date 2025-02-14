@@ -31,8 +31,6 @@ namespace ShardsOfAtheria.Projectiles.Magic.ThorSpear
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.width *= 20;
-            Projectile.height *= 20;
             Projectile.timeLeft /= 5;
             Projectile.penetrate = -1;
         }
@@ -58,6 +56,14 @@ namespace ShardsOfAtheria.Projectiles.Magic.ThorSpear
                     Projectile.Center + DirectionNormal.RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-20f, 20f),
                     ]);
             }
+        }
+
+        public override void ModifyDamageHitbox(ref Rectangle hitbox)
+        {
+            hitbox.Width *= 20;
+            hitbox.Height *= 20;
+            hitbox.X -= hitbox.Width / 2 - Projectile.width / 2;
+            hitbox.Y -= hitbox.Height / 2 - Projectile.height / 2;
         }
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
@@ -91,7 +97,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.ThorSpear
                 {
                     Main.spriteBatch.DrawLine(thickness, electricPositions[i][j] - Main.screenPosition, electricPositions[i + 1][j] - Main.screenPosition, lightColor);
                 }
-                Main.spriteBatch.DrawLine(thickness, electricPositions[electricPositions.Count - 1][j] - Main.screenPosition, Projectile.Center - Main.screenPosition, lightColor);
+                if (electricPositions.Count > 0) Main.spriteBatch.DrawLine(thickness, electricPositions[electricPositions.Count - 1][j] - Main.screenPosition, Projectile.Center - Main.screenPosition, lightColor);
             }
             return base.PreDraw(ref lightColor);
         }

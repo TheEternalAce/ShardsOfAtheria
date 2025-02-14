@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.AddElement(1);
-            Item.AddRedemptionElement(9);
+            Item.AddRedemptionElement(3);
         }
 
         public override void SetDefaults()

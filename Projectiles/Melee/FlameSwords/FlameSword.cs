@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
             base.SetDefaults();
 
             Projectile.width = Projectile.height = 30;
-            swordReach = 100;
+            swordReach = 40;
             rotationOffset = -MathHelper.PiOver4 * 3f;
             amountAllowedToHit = 5;
         }
@@ -57,7 +57,6 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
 
         public override void UpdateSwing(float progress, float interpolatedSwingProgress)
         {
-            base.UpdateSwing(progress, interpolatedSwingProgress);
             FireProjectile(progress, ModContent.ProjectileType<FlameSlash>(), (int)(Projectile.damage * 0.75f), Projectile.knockBack * 0.75f, 6f, 25f);
         }
 
@@ -68,7 +67,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
 
         public override float SwingProgress(float progress)
         {
-            return GenericSwing2(progress);
+            return SwingProgressAequus(progress);
         }
 
         public override float GetVisualOuter(float progress, float swingProgress)

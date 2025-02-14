@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
 {
@@ -47,7 +48,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
         private bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || !owner.Areus().royalSet || !owner.Areus().MageSet)
+            if (owner.dead || !owner.active || !owner.Areus().royalSet || !owner.Areus().MageSetChip)
                 return false;
             return true;
         }
@@ -56,6 +57,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
         {
             if (timeLeft == 0)
             {
+                if (!Projectile.GetPlayerOwner().IsLocal()) return;
                 SoundEngine.PlaySound(SoundID.NPCDeath7, Projectile.Center);
                 foreach (var player in Main.player)
                 {

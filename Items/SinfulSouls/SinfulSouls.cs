@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SinfulSouls
 {
     public abstract class SinfulSouls : SinfulItem
     {
-        public virtual int SoulType => 0;
+        public virtual int SoulBuffType => 0;
 
-        public override int RequiredSin => 0;
+        public override int RequiredSin => -1;
 
         public override void SetDefaults()
         {
@@ -28,13 +27,14 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips.Add(new TooltipLine(Mod, "SevenSoul", Language.GetTextValue("Mods.ShardsOfAtheria.Common.SinfulSoulCommonDesc")));
+            tooltips.Add(new TooltipLine(Mod, "SevenSoul", ShardsHelpers.LocalizeCommon("SinfulSoulCommonDesc")));
+            if (Item.material) tooltips.Remove(tooltips[tooltips.GetIndex("Material")]);
             base.ModifyTooltips(tooltips);
         }
 
         public override bool? UseItem(Player player)
         {
-            player.AddBuff(SoulType, 3600);
+            player.AddBuff(SoulBuffType, 3600);
             return true;
         }
 
@@ -52,14 +52,12 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         {
             Main.buffNoTimeDisplay[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
-            base.SetStaticDefaults();
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
             player.Sinful().SinfulSoulUsed = Type;
             player.buffTime[buffIndex] = 18000;
-            base.Update(player, ref buffIndex);
         }
     }
 

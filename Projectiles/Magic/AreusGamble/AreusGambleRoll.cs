@@ -59,14 +59,13 @@ namespace ShardsOfAtheria.Projectiles.Magic.AreusGamble
             {
                 if (player.HasItem(ModContent.ItemType<WeightedDie>()))
                 {
-                    int inventoryIndex = player.FindItem(ModContent.ItemType<WeightedDie>());
-                    var glove = player.inventory[inventoryIndex].ModItem as WeightedDie;
-                    if (glove.cheatSide > 0)
-                    {
-                        int result = glove.cheatSide;
-                        Projectile.frame = result - 1;
-                        Projectile.ai[0] = result;
-                    }
+                }
+                var glove = ToggleableTool.GetInstance<WeightedDie>(player);
+                if (glove != null && glove.Active)
+                {
+                    int result = glove.mode;
+                    Projectile.frame = result - 1;
+                    Projectile.ai[0] = result;
                 }
             }
             if (Projectile.timeLeft == 15)

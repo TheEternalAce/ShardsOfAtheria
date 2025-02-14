@@ -57,7 +57,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok.IceStuff
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Ice);
             }
-            SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
         }
     }
 }

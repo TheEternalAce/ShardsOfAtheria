@@ -10,6 +10,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
 {
     public class AmberCore_Super : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            Item.AddRedemptionElement(5);
+            Item.AddRedemptionElement(10);
+        }
+
         public override void SetDefaults()
         {
             Item.width = 32;
@@ -40,6 +46,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             player.maxMinions++;
             player.maxTurrets += 3;
             player.Gem().superAmberCore = true;
+            player.Gem().superGemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

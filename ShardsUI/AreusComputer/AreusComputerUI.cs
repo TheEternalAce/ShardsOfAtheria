@@ -60,7 +60,8 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
 
         public void RunCode()
         {
-            bool cardActive = DevelopersKeyCard.CardActive(Main.LocalPlayer, out var _);
+            var devCard = ToggleableTool.GetInstance<DevelopersKeyCard>(Main.LocalPlayer);
+            bool cardActive = devCard != null && devCard.Active;
             if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<AreusTerminal>() || cardActive)
             {
                 var computer = Main.LocalPlayer.HeldItem;

@@ -2,14 +2,12 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok;
-using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
@@ -21,7 +19,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void SetStaticDefaults()
         {
-            Item.AddUpgradable();
             Item.AddElement(0);
             Item.AddElement(1);
             Item.AddElement(2);
@@ -34,8 +31,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             ShardsPlayer shardsPlayer = Main.LocalPlayer.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
-            string key = "Mods.ShardsOfAtheria.Items.GenesisAndRagnarokUpgrade";
-            string text = Language.GetTextValue(key + upgrades);
+            string key = "Items.GenesisAndRagnarokUpgrade";
+            string text = ShardsHelpers.Localize(key + upgrades);
             var line = new TooltipLine(Mod, "Tooltip", text);
             tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
         }
@@ -68,40 +65,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 .AddIngredient(ItemID.HellstoneBar, 18)
                 .AddIngredient(ModContent.ItemType<HardlightPrism>(), 7)
                 .AddTile(TileID.Anvils)
-                .Register();
-
-            CreateRecipe()
-                .AddCondition(SoAConditions.Upgrade)
-                .AddIngredient(ModContent.ItemType<GenesisAndRagnarok>())
-                .AddIngredient(ModContent.ItemType<MemoryFragment>())
-                .Register();
-
-            CreateRecipe()
-                .AddCondition(SoAConditions.Upgrade)
-                .AddIngredient(ModContent.ItemType<GenesisAndRagnarok>())
-                .AddIngredient(ModContent.ItemType<MemoryFragment>())
-                .AddIngredient(ItemID.ChlorophyteBar, 14)
-                .Register();
-
-            CreateRecipe()
-                .AddCondition(SoAConditions.Upgrade)
-                .AddIngredient(ModContent.ItemType<GenesisAndRagnarok>())
-                .AddIngredient(ModContent.ItemType<MemoryFragment>())
-                .AddIngredient(ItemID.BeetleHusk, 16)
-                .Register();
-
-            CreateRecipe()
-                .AddCondition(SoAConditions.Upgrade)
-                .AddIngredient(ModContent.ItemType<GenesisAndRagnarok>())
-                .AddIngredient(ModContent.ItemType<MemoryFragment>())
-                .AddIngredient(ItemID.FragmentSolar, 18)
-                .Register();
-
-            CreateRecipe()
-                .AddCondition(SoAConditions.Upgrade)
-                .AddIngredient(ModContent.ItemType<GenesisAndRagnarok>())
-                .AddIngredient(ModContent.ItemType<MemoryFragment>())
-                .AddIngredient(ItemID.LunarBar, 20)
                 .Register();
         }
 

@@ -2,7 +2,6 @@ using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Armor.Entropic
@@ -42,7 +41,7 @@ namespace ShardsOfAtheria.Items.Armor.Entropic
         // UpdateArmorSet allows you to give set bonuses to the armor.
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = Language.GetTextValue(SoA.LocalizeSetBonus + "Slayer");
+            player.setBonus = ShardsHelpers.Localize("SetBonus.Slayer");
             player.manaCost -= 0.1f;
             player.statManaMax2 += 40;
             player.Slayer().slayerSet = true;

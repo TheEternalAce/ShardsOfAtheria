@@ -46,7 +46,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
         public override void SpecialAttack(Vector2 normalizedVelocity)
         {
-            SoundEngine.PlaySound(SoundID.Item1);
+            SoundEngine.PlaySound(SoundID.Item1, NPC.Center);
             float numberProjectiles = 5;
             float rotation = MathHelper.ToRadians(5);
             Vector2 position = NPC.Center + Vector2.Normalize(normalizedVelocity) * 10f;

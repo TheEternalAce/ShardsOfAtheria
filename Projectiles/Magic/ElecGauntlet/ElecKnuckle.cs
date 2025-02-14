@@ -5,6 +5,7 @@ using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Enums;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
 {
@@ -94,6 +95,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
 
         public override void OnKill(int timeLeft)
         {
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             float numberProjectiles = 3;
             float rotation = MathHelper.ToRadians(10);
             for (int i = 0; i < numberProjectiles; i++)

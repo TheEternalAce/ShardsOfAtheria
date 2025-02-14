@@ -17,11 +17,6 @@ namespace ShardsOfAtheria.Utilities
         {
             return player.GetModPlayer<ShardsPlayer>();
         }
-        public static bool Overdrive(this Player player, int minOverdrive = 0, int maxOverdrive = 300)
-        {
-            var shards = player.Shards();
-            return shards.Overdrive && shards.overdriveTimeCurrent >= minOverdrive && shards.overdriveTimeCurrent <= maxOverdrive;
-        }
 
         #region sinful players
         public static SinfulPlayer Sinful(this Player player)
@@ -88,6 +83,18 @@ namespace ShardsOfAtheria.Utilities
             return player.GetModPlayer<GemPlayer>();
         }
 
+        public static bool Overdrive(this Player player, int minOverdrive = 0, int maxOverdrive = 300)
+        {
+            var shards = player.Shards();
+            return shards.Overdrive && shards.overdriveTimeCurrent >= minOverdrive && shards.overdriveTimeCurrent <= maxOverdrive;
+        }
+
+        public static void RestoreMana(this Player player, int amount)
+        {
+            player.ManaEffect(amount);
+            player.statMana += amount;
+        }
+
         public static int ApplyAttackSpeed(this Player player, int baseTime, DamageClass damage, int minTime = 0, float capAttackSpeedAt = 1f - float.Epsilon)
         {
             float attackSpeed = player.GetTotalAttackSpeed(damage) - 1f;
@@ -139,18 +146,24 @@ namespace ShardsOfAtheria.Utilities
             return player.HasBuff<SetBonusCooldown>();
         }
 
-        public static void AddBuff<T>(this Player player, int time, bool quiet = true) where T : ModBuff
-        {
-            player.AddBuff(ModContent.BuffType<T>(), time, quiet);
-        }
-        public static void ClearBuff<T>(this Player player) where T : ModBuff
-        {
-            player.ClearBuff(ModContent.BuffType<T>());
-        }
-
         public static bool HasItem<T>(this Player player) where T : ModItem
         {
             return player.HasItem(ModContent.ItemType<T>());
+        }
+
+        public static bool HasItem<T>(this Player player, Item[] collection) where T : ModItem
+        {
+            return player.HasItem(ModContent.ItemType<T>(), collection);
+        }
+
+        public static int FindItem<T>(this Player player) where T : ModItem
+        {
+            return player.FindItem(ModContent.ItemType<T>());
+        }
+
+        public static int FindItem<T>(this Player player, Item[] collection) where T : ModItem
+        {
+            return player.FindItem(ModContent.ItemType<T>(), collection);
         }
 
         public static float CappedMeleeScale(this Player player)

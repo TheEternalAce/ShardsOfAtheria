@@ -4,6 +4,7 @@ using ShardsOfAtheria.Globals;
 using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Utilities
 {
@@ -21,6 +22,20 @@ namespace ShardsOfAtheria.Utilities
             potion.buffType = buff;
             potion.buffTime = buffTime;
             SoAGlobalItem.Potions.Add(potion.type);
+        }
+
+        public static bool IsTool(this Item item)
+        {
+            return item.hammer > 0 || item.pick > 0 || item.axe > 0;
+        }
+
+        public static bool IsWeapon(this Item item)
+        {
+            return item.damage > 0 && !item.IsTool();
+        }
+        public static bool IsWeapon(this Item item, DamageClass damageClass)
+        {
+            return item.damage > 0 && !item.IsTool() && item.DamageType.CountsAsClass(damageClass);
         }
 
         public static void FixSwing(this Item item, Player player)
@@ -80,14 +95,6 @@ namespace ShardsOfAtheria.Utilities
             else return SoAGlobalItem.AreusItem.ContainsKey(item.type);
         }
 
-        public static void AddUpgradable(this Item item)
-        {
-            item.type.AddUpgradableItem();
-        }
-        public static void AddUpgradableItem(this int id)
-        {
-            SoAGlobalItem.UpgradeableItem.Add(id);
-        }
         public static bool IsUpgradable(this Item item)
         {
             return SoAGlobalItem.UpgradeableItem.Contains(item.type);
@@ -113,6 +120,14 @@ namespace ShardsOfAtheria.Utilities
         public static void AddElement(this Item item, int elementID)
         {
             SoA.TryElementCall("assignElement", item, elementID);
+        }
+        public static void AddElementTooltip(this Item item, string tooltip)
+        {
+            SoA.TryElementCall("addElementTooltip", item, tooltip);
+        }
+        public static void AddElementTooltipKey(this Item item, string key)
+        {
+            SoA.TryElementCall("addElementTooltipKey", item, key);
         }
 
         /// <summary>

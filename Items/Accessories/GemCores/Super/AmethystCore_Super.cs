@@ -58,6 +58,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             player.buffImmune[BuffID.Electrified] = true;
             player.buffImmune[BuffID.Poisoned] = true;
             player.buffImmune[BuffID.Venom] = true;
+            player.Gem().superGemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

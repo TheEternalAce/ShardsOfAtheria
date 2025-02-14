@@ -23,7 +23,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.height = 10; // The height of projectile hitbox
             Projectile.aiStyle = -1; // The ai style of the projectile, please reference the source code of Terraria
             Projectile.friendly = true; // Can the projectile deal damage to enemies?
-            Projectile.DamageType = DamageClass.Throwing; // Is the projectile shoot by a ranged weapon?
+            Projectile.DamageType = DamageClass.Ranged; // Is the projectile shoot by a ranged weapon?
+            if (SoA.ServerConfig.throwingWeapons) Projectile.DamageType = DamageClass.Throwing;
             Projectile.timeLeft = 600; // The live time for the projectile (60 = 1 second, so 600 is 10 seconds)
             Projectile.ignoreWater = true; // Does the projectile's speed be influenced by water?
             Projectile.extraUpdates = 1; // Set to above 0 if you want the projectile to update multiple time in a frame

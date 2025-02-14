@@ -1,21 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Melee
 {
     public class SpearOfDestiny : ModProjectile
     {
-        public override string Texture => ModContent.GetInstance<DestinyLance>().Texture;
-
         public override void SetStaticDefaults()
         {
-            Projectile.AddElement(1);
+            Projectile.MakeTrueMelee();
+            Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
+            Projectile.AddRedemptionElement(13);
         }
 
         public override void SetDefaults()
@@ -33,23 +33,25 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override void AI()
         {
             var player = Projectile.GetPlayerOwner();
-            if (player.HasItemEquipped<DestinyLance>(out var _1)) Projectile.timeLeft = 2;
+            float MaxCooldown = 50f;
+            if (player.Shards().destinyLance) Projectile.timeLeft = 2;
             if (player.ownedProjectileCounts[Type] > 1)
             {
                 Projectile.Kill();
                 player.ownedProjectileCounts[Type]--;
             }
             Projectile.spriteDirection = Projectile.direction;
-            Projectile.SetVisualOffsets(70);
+            Projectile.SetVisualOffsets(108);
             if (Projectile.ai[0] == 0 && player.ItemAnimationActive && player.HeldItem.damage > 0)
             {
-                Projectile.ai[0] = 50;
+                Projectile.ai[0] = MaxCooldown;
                 SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
             }
-            Projectile.velocity = player.Center.DirectionTo(Main.MouseWorld);
-            Projectile.Center = player.MountedCenter + Projectile.velocity * (90f + Projectile.ai[0]);
+            if (player.IsLocal()) Projectile.velocity = player.Center.DirectionTo(Main.MouseWorld);
+            float cooldownPercent = Projectile.ai[0] / MaxCooldown;
+            Projectile.Center = player.MountedCenter + Projectile.velocity * (100f + 60 * cooldownPercent);
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2 - MathHelper.PiOver4 * Projectile.spriteDirection;
-            Projectile.scale = 1f + Projectile.ai[0] * 0.005f;
+            Projectile.scale = 1f + cooldownPercent * 0.25f;
             if (Projectile.ai[0] > 0f) Projectile.ai[0]--;
         }
 

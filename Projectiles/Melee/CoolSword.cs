@@ -136,13 +136,13 @@ namespace ShardsOfAtheria.Projectiles.Melee
         {
         }
 
-        public virtual void FireProjectile(float progress, int type, int damage, float knockback, float velocity = 16f, float positionOffset = 0f)
+        public virtual void FireProjectile(float progress, int type, int damage, float knockback, float velocity = 16f, float positionOffset = 0f, bool meleeSpeed = true)
         {
             if (progress == 0.5f && Main.myPlayer == Projectile.owner)
             {
                 Vector2 position = Projectile.Center;
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), position - AngleVector * positionOffset,
-                    AngleVector * Projectile.velocity.Length() * velocity, type, damage, knockback, Projectile.owner);
+                    AngleVector * velocity * (meleeSpeed ? Projectile.velocity.Length() : 1f), type, damage, knockback, Projectile.owner);
             }
         }
 
@@ -150,19 +150,19 @@ namespace ShardsOfAtheria.Projectiles.Melee
         {
             return progress;
         }
-        public static float GenericSwing3(float progress)
+        public static float SwingProgressSplit(float progress)
         {
             return progress >= 0.5f ? 0.5f + (0.5f - MathF.Pow(2f, 20f * (0.5f - (progress - 0.5f)) - 10f) / 2f) : MathF.Pow(2f, 20f * progress - 10f) / 2f;
         }
-        public static float GenericSwing2(float progress, float pow = 2f)
+        public static float SwingProgressAequus(float progress, float pow = 2f)
         {
             if (progress > 0.5f)
             {
-                return 0.5f - GenericSwing2(0.5f - (progress - 0.5f), pow) + 0.5f;
+                return 0.5f - SwingProgressAequus(0.5f - (progress - 0.5f), pow) + 0.5f;
             }
             return ((float)Math.Sin(Math.Pow(progress, pow) * MathHelper.TwoPi - MathHelper.PiOver2) + 1f) / 2f;
         }
-        public static float GenericSwing1(float progress, float pow = 2f, float startSwishing = 0.15f)
+        public static float SwingProgressBoring(float progress, float pow = 2f, float startSwishing = 0.15f)
         {
             float oldProg = progress;
             float max = 1f - startSwishing;

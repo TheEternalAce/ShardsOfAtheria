@@ -26,6 +26,7 @@ namespace ShardsOfAtheria.Players
         public bool slayerMode;
 
         public bool slayerSet;
+        public int artifactExtraSummons;
 
         public List<string> soulCrystalNames = new();
         public int maxCrystals = 6;
@@ -128,7 +129,7 @@ namespace ShardsOfAtheria.Players
                     TomeKnowledge = 0;
                 }
                 else TomeKnowledge += 1;
-                SoundEngine.PlaySound(SoundID.Item1, Player.position);
+                SoundEngine.PlaySound(SoundID.Item1, Player.Center);
             }
 
             if ((soulCrystalNames.Contains("LunaticSoulCrystal") ||
@@ -231,7 +232,7 @@ namespace ShardsOfAtheria.Players
                     if (spinningTimer == 1800)
                     {
                         Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SpinSkull>(), 100, 9f, Player.whoAmI);
-                        SoundEngine.PlaySound(SoundID.Roar, Player.position);
+                        SoundEngine.PlaySound(SoundID.Roar, Player.Center);
                     }
                     if (spinningTimer >= 1800)
                     {
@@ -302,7 +303,7 @@ namespace ShardsOfAtheria.Players
                     if (spinningTimer == 1800)
                     {
                         Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SpinPrime>(), 200, 9f, Player.whoAmI);
-                        SoundEngine.PlaySound(SoundID.Roar, Player.position);
+                        SoundEngine.PlaySound(SoundID.Roar, Player.Center);
                     }
                     if (spinningTimer >= 1800)
                     {

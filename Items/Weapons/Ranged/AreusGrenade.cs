@@ -15,8 +15,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.ResearchUnlockCount = 999;
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
             Item.AddAreus();
-            Item.AddElement(0);
-            Item.AddRedemptionElement(2);
             Item.AddRedemptionElement(15);
         }
 
@@ -30,6 +28,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
             Item.damage = 50;
             Item.DamageType = DamageClass.Ranged;
+            if (SoA.ServerConfig.throwingWeapons) Item.DamageType = DamageClass.Throwing;
             Item.knockBack = 7;
             Item.crit = 6;
 
@@ -49,7 +48,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void AddRecipes()
         {
-            CreateRecipe(60)
+            CreateRecipe(100)
                 .AddIngredient(ModContent.ItemType<AreusShard>(), 3)
                 .AddIngredient(ItemID.GoldBar)
                 .AddIngredient(ModContent.ItemType<SoulOfSpite>(), 2)

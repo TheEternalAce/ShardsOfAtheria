@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Ranged
 {
@@ -15,8 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
-            Projectile.AddElement(0);
-            Projectile.AddRedemptionElement(2);
+            Projectile.AddRedemptionElement(15);
             Main.projFrames[Type] = 2;
 
             SoAGlobalProjectile.Metalic.Add(Type, 1f);
@@ -30,6 +30,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.aiStyle = ProjAIStyleID.Explosive;
             Projectile.friendly = false;
             Projectile.DamageType = DamageClass.Ranged;
+            if (SoA.ServerConfig.throwingWeapons) Projectile.DamageType = DamageClass.Throwing;
             Projectile.penetrate = 1;
             Projectile.timeLeft = 240;
 
@@ -40,7 +41,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         {
             if (Projectile.timeLeft == 235)
             {
-                SoundEngine.PlaySound(SoundID.Unlock.WithPitchOffset(-1f).WithVolumeScale(0.6f), Projectile.position);
+                SoundEngine.PlaySound(SoundID.Unlock.WithPitchOffset(-1f).WithVolumeScale(0.6f), Projectile.Center);
                 Projectile.frame = 1;
                 Projectile.friendly = true;
                 for (int i = 0; i < 5; i++)
@@ -53,9 +54,9 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         public override void OnKill(int timeLeft)
         {
-            var explosion = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero,
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
+            Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero,
                 ModContent.ProjectileType<ElectricExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-            explosion.DamageType = Projectile.DamageType;
         }
     }
 }

@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
             var player = projectile.GetPlayerOwner();
-            if (player.Areus().guardSet && player.Areus().RangerSet)
+            if (player.Areus().guardSet && player.Areus().RangerSetChip)
             {
                 if (player.HasBuff<ElectricMarksman>())
                 {

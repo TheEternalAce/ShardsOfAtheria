@@ -42,36 +42,26 @@ namespace ShardsOfAtheria.Items.Armor.Areus
         {
             ArmorPlayer = player.Areus();
             string itemKey = this.GetLocalizationKey(string.Empty);
-            string setBonusText = Language.GetTextValue(SoA.LocalizeSetBonus + "Areus");
+            string setBonusText = ShardsHelpers.Localize("SetBonus.Areus");
 
-            bool melee = ArmorPlayer.WarriorSet;
-            bool ranged = ArmorPlayer.RangerSet;
-            bool magic = ArmorPlayer.MageSet;
-            bool summon = ArmorPlayer.CommanderSet;
+            bool melee = ArmorPlayer.WarriorSetChip;
+            bool ranged = ArmorPlayer.RangerSetChip;
+            bool magic = ArmorPlayer.MageSetChip;
+            bool summon = ArmorPlayer.CommanderSetChip;
+            bool throwing = ArmorPlayer.NinjaSetChip;
 
             setBonusText += "\n" + Language.GetTextValue(itemKey + "SetBonus");
 
-            if (melee || ranged || magic || summon)
+            if (melee || ranged || magic || summon || throwing)
             {
-                itemKey += ArmorPlayer.classChip.Name + "Bonus";
+                itemKey += ArmorPlayer.classChip.Name.Replace("DamageClass", "") + "Bonus";
                 setBonusText += "\n" + Language.GetTextValue(itemKey);
             }
-            if (melee)
-            {
-                MeleeSet(player);
-            }
-            else if (ranged)
-            {
-                RangedSet(player);
-            }
-            else if (magic)
-            {
-                MagicSet(player);
-            }
-            else if (summon)
-            {
-                SummonSet(player);
-            }
+            if (melee) MeleeSet(player);
+            else if (ranged) RangedSet(player);
+            else if (magic) MagicSet(player);
+            else if (summon) SummonSet(player);
+            else if (throwing) ThrowingSet(player);
             player.setBonus = setBonusText;
         }
 
@@ -81,6 +71,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus
             player.GetDamage(DamageClass.Ranged) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Magic) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Summon) += lesserNonSetDamage;
+            player.GetDamage(DamageClass.Throwing) += lesserNonSetDamage;
         }
 
         public virtual void RangedSet(Player player)
@@ -89,6 +80,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus
             player.GetDamage(DamageClass.Melee) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Magic) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Summon) += lesserNonSetDamage;
+            player.GetDamage(DamageClass.Throwing) += lesserNonSetDamage;
         }
 
         public virtual void MagicSet(Player player)
@@ -98,6 +90,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus
             player.GetDamage(DamageClass.Melee) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Ranged) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Summon) += lesserNonSetDamage;
+            player.GetDamage(DamageClass.Throwing) += lesserNonSetDamage;
         }
 
         public virtual void SummonSet(Player player)
@@ -106,6 +99,16 @@ namespace ShardsOfAtheria.Items.Armor.Areus
             player.GetDamage(DamageClass.Melee) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Ranged) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Magic) += lesserNonSetDamage;
+            player.GetDamage(DamageClass.Throwing) += lesserNonSetDamage;
+        }
+
+        public virtual void ThrowingSet(Player player)
+        {
+            ArmorPlayer.ninjaSet = true;
+            player.GetDamage(DamageClass.Melee) += lesserNonSetDamage;
+            player.GetDamage(DamageClass.Ranged) += lesserNonSetDamage;
+            player.GetDamage(DamageClass.Magic) += lesserNonSetDamage;
+            player.GetDamage(DamageClass.Summon) += lesserNonSetDamage;
         }
     }
 }

@@ -42,7 +42,7 @@ namespace ShardsOfAtheria.Projectiles.Ammo
 
                 if (Projectile.ai[0] == 0f)
                 {
-                    SoundEngine.PlaySound(SoundID.Item91, Projectile.position);
+                    SoundEngine.PlaySound(SoundID.Item91, Projectile.Center);
                     point = (player.MountedCenter + Projectile.velocity + (Projectile.rotation - MathHelper.PiOver2).ToRotationVector2().SafeNormalize(Vector2.Zero) * Vector2.Distance(player.Center, Main.MouseWorld)).ToPoint();
                     Projectile.tileCollide = true;
                     Projectile.velocity *= 0.9f;
@@ -65,7 +65,7 @@ namespace ShardsOfAtheria.Projectiles.Ammo
                 }
                 if (Projectile.timeLeft == 1 && Projectile.ai[0] == 3f)
                 {
-                    SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
+                    SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
                     Projectile.timeLeft = 60;
                     Projectile.penetrate = 1;
                     Projectile.velocity *= -1;
@@ -92,7 +92,7 @@ namespace ShardsOfAtheria.Projectiles.Ammo
             {
                 Projectile.ai[0] = 5f;
                 Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-                SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+                SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
             }
             return base.OnTileCollide(oldVelocity);
         }
@@ -102,7 +102,7 @@ namespace ShardsOfAtheria.Projectiles.Ammo
             if (Main.myPlayer == Projectile.owner)
             {
                 Player player = Main.player[Projectile.owner];
-                SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
+                SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
                 if (Projectile.ai[0] == 1f)
                 {
                     int damage = Projectile.damage;

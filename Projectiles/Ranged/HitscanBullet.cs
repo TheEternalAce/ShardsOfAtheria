@@ -1,10 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Projectiles.Magic.EntropyCatalyst;
 using ShardsOfAtheria.Projectiles.Magic.Gambit;
+using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 using WebCom.Extensions;
 
@@ -12,7 +15,9 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 {
     public class HitscanBullet : ModProjectile
     {
-        public virtual Color HitscanColor => Color.Yellow;
+        public virtual Color HitscanColor => Color.White;
+        public virtual int thickness => 4;
+
         public List<Vector2> recordedPositions = [];
         public int positionsIndex = 0;
         public int Bounces
@@ -20,6 +25,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             get => (int)Projectile.ai[0];
             set => Projectile.ai[0] = value;
         }
+        public int coinsHit = 0;
 
         public override string Texture => SoA.BlankTexture;
 
@@ -30,7 +36,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         public override void SetDefaults()
         {
-            Projectile.width = Projectile.height = 2;
+            Projectile.width = Projectile.height = 4;
             Projectile.extraUpdates = 199;
             Projectile.timeLeft *= 5;
             Projectile.friendly = true;
@@ -38,6 +44,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.aiStyle = 0;
             Projectile.ignoreWater = true;
             Projectile.stopsDealingDamageAfterPenetrateHits = true;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 120;
         }
 
         public override void OnSpawn(IEntitySource source)
@@ -52,32 +60,47 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                 Projectile.velocity.Normalize();
                 Projectile.velocity *= 2;
             }
-            foreach (var coin in Main.projectile)
+            foreach (var proj in Main.projectile)
             {
-                if (coin.type == ModContent.ProjectileType<ElecCoin>() && coin.active && coin.owner == Projectile.owner)
+                if (proj.active && proj.owner == Projectile.owner)
                 {
-                    if (Projectile.Distance(coin.Center) < 10)
+                    if (Projectile.Distance(proj.Center) < 10)
                     {
-                        HitCoin(coin);
-                        break;
+                        if (proj.type == ModContent.ProjectileType<ElecCoin>()) HitCoin(proj);
+                        if (proj.type == ModContent.ProjectileType<CatalystBomb>() && proj.active && proj.owner == Projectile.owner)
+                        {
+                            proj.damage = (int)(proj.damage * (1.1f + 0.1f * coinsHit));
+                            proj.Kill();
+                            proj.ModProjectile.OnKill(0);
+                            Stop();
+                        }
                     }
                 }
             }
+            if (Main.netMode == NetmodeID.MultiplayerClient) Projectile.netUpdate = true;
+            if (Projectile.timeLeft == (Projectile.extraUpdates + 1) * 4 + 1) Stop();
         }
 
         public virtual void HitCoin(Projectile coin)
         {
+            float maxDistance = Main.maxTilesX * 16f;
             coin.Kill();
             Projectile.Center = coin.Center;
             RecordPosition();
-            var closestCoin = ShardsHelpers.FindClosestProjectile(Projectile.Center, 2000, ValidCoin);
-            if (closestCoin != null) Projectile.velocity = Projectile.Center.DirectionTo(closestCoin.Center) * coin.velocity.Length();
+            Entity closestTarget = ShardsHelpers.FindClosestProjectile(Projectile.Center, maxDistance, proj => ValidTarget(proj, ModContent.ProjectileType<ElecCoin>()));
+            if (closestTarget != null) Projectile.velocity = Projectile.Center.DirectionTo(closestTarget.Center) * Projectile.velocity.Length();
             else
             {
-                var closestEnemy = ShardsHelpers.FindClosestNPC(coin, null, 2000);
-                if (closestEnemy != null) Projectile.velocity = Projectile.Center.DirectionTo(closestEnemy.Center) * coin.velocity.Length();
+                closestTarget = ShardsHelpers.FindClosestProjectile(Projectile.Center, maxDistance, proj => ValidTarget(proj, ModContent.ProjectileType<CatalystBomb>()));
+                if (closestTarget != null) Projectile.velocity = Projectile.Center.DirectionTo(closestTarget.Center) * Projectile.velocity.Length();
+                else
+                {
+                    closestTarget = ShardsHelpers.FindClosestNPC(coin, null, maxDistance);
+                    if (closestTarget != null) Projectile.velocity = Projectile.Center.DirectionTo(closestTarget.Center) * Projectile.velocity.Length();
+                }
             }
             Projectile.damage = (int)(Projectile.damage * 1.1f);
+            coinsHit++;
         }
 
         public virtual void RecordPosition()
@@ -86,19 +109,20 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             recordedPositions.Add(Projectile.Center);
         }
 
-        public bool ValidCoin(Projectile projectile)
+        public bool ValidTarget(Projectile projectile, int targetType)
         {
             if (!projectile.active) return false;
-            if (projectile.type != ModContent.ProjectileType<ElecCoin>()) return false;
+            if (projectile.type != targetType) return false;
             if (projectile.owner != Projectile.owner) return false;
             return true;
         }
 
-        public void Stop()
+        public virtual void Stop()
         {
             Projectile.timeLeft = (Projectile.extraUpdates + 1) * 4;
             Projectile.velocity *= 0f;
             Projectile.tileCollide = false;
+            Projectile.netUpdate = true;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -117,13 +141,17 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = HitscanColor;
-            int thickness = 4;
             for (int i = 0; i < recordedPositions.Count - 1; i++)
             {
                 Main.spriteBatch.DrawLine(thickness, recordedPositions[i] - Main.screenPosition, recordedPositions[i + 1] - Main.screenPosition, lightColor);
             }
-            Main.spriteBatch.DrawLine(thickness, recordedPositions[positionsIndex] - Main.screenPosition, Projectile.Center - Main.screenPosition, lightColor);
+            if (recordedPositions.Count > 0) Main.spriteBatch.DrawLine(thickness, recordedPositions[positionsIndex] - Main.screenPosition, Projectile.Center - Main.screenPosition, lightColor);
             return false;
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            base.OnKill(timeLeft);
         }
     }
 
@@ -157,6 +185,18 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         {
             base.SetDefaults();
             Projectile.DamageType = DamageClass.Summon;
+        }
+    }
+
+    public class HitscanBullet_Explosive : HitscanBullet
+    {
+        public override Color HitscanColor => Color.Orange;
+
+        public override void Stop()
+        {
+            base.Stop();
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<FieryExplosion>(),
+                (int)(Projectile.damage * 1.5f), Projectile.knockBack);
         }
     }
 }

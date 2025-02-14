@@ -7,6 +7,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Ranged
 {
@@ -28,6 +29,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Ranged;
+            if (SoA.ServerConfig.throwingWeapons) Projectile.DamageType = DamageClass.Throwing;
             Projectile.tileCollide = true;
             Projectile.penetrate = 10;
             Projectile.timeLeft = 1200;
@@ -123,6 +125,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             if (Projectile.ai[0] == 1)
             {
+                if (!Projectile.GetPlayerOwner().IsLocal()) return;
                 var explosion = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero,
                     ModContent.ProjectileType<FieryExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 explosion.DamageType = Projectile.DamageType;

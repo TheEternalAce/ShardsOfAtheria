@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Melee
 {
@@ -65,6 +66,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         {
             if (Projectile.frame == 7)
             {
+                if (!Projectile.GetPlayerOwner().IsLocal()) return;
                 Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ProjectileID.DaybreakExplosion, Projectile.damage, Projectile.knockBack, Projectile.owner);
                 return;
             }

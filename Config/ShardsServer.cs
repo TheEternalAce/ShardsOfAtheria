@@ -10,11 +10,12 @@ namespace ShardsOfAtheria.Config
 
         [Header("Item")]
         [DefaultValue(true)]
-        [ReloadRequired]
         public bool metalBladeSound;
         [DefaultValue(false)]
         [ReloadRequired]
         public bool speedCapCrafting;
+        [DefaultValue(false)]
+        public bool throwingWeapons;
 
         [DefaultValue(true)]
         [ReloadRequired]
@@ -35,29 +36,12 @@ namespace ShardsOfAtheria.Config
         [DefaultValue(false)]
         public bool altCaveHarpy;
 
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool antiGrief;
 
         [Header("Misc")]
         [DefaultValue(true)]
         [ReloadRequired]
         public bool overrideTypes;
-
-        [Header("Commands")]
-        [DefaultValue(false)]
-        [ReloadRequired]
-        public bool genericCommand;
-        [DefaultValue(false)]
-        [ReloadRequired]
-        public bool resetDowned;
-        [DefaultValue(false)]
-        [ReloadRequired]
-        public bool resetSlayer;
-        [DefaultValue(false)]
-        [ReloadRequired]
-        public bool slayBosses;
-        [DefaultValue(false)]
-        [ReloadRequired]
-        public bool validateSlayer;
     }
 }

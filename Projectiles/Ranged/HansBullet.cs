@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Ranged
 {
@@ -50,6 +51,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         public override void OnKill(int timeLeft)
         {
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             var explosion = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero,
                 ModContent.ProjectileType<ElectricExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             explosion.DamageType = Projectile.DamageType;

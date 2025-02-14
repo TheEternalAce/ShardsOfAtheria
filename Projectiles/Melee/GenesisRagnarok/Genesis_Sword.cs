@@ -117,7 +117,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
 
         public override float SwingProgress(float progress)
         {
-            return GenericSwing2(progress);
+            return SwingProgressAequus(progress);
         }
 
         public override float GetVisualOuter(float progress, float swingProgress)

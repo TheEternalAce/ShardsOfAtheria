@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Dusts;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -86,7 +87,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
                 Projectile projectile = Main.projectile[i];
-                if (projectile.active && projectile.type == ModContent.ProjectileType<MirrorPrism>() && projectile.owner == owner && projectile.ai[1] == mirrorIndex)
+                if (projectile.active && projectile.type == ModContent.ProjectileType<MirrorPrism>() && projectile.owner == owner && projectile.ai[1] == mirrorIndex &&
+                    Math.Abs(projectile.velocity.X) < 1 && Math.Abs(projectile.velocity.Y) < 1)
                 {
                     result++;
                 }

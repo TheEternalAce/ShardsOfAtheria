@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Ranged
 {
@@ -143,7 +144,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         public override void OnKill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
             for (int i = 0; i < 10; i++)
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.height, Projectile.width, DustID.Torch,
@@ -159,6 +160,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
             if (Projectile.ai[0] == 0)
             {
+                if (!Projectile.GetPlayerOwner().IsLocal()) return;
                 for (int i = 0; i < 5; i++)
                 {
                     Vector2 velocity = Projectile.velocity;

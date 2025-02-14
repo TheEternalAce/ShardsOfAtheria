@@ -44,8 +44,9 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             ModContent.GetInstance<RubyCore>().UpdateAccessory(player, hideVisual);
-            player.GetAttackSpeed(DamageClass.Generic) += .1f;
+            player.GetAttackSpeed(DamageClass.Generic) += .04f;
             player.Gem().greaterRubyCore = true;
+            player.Gem().greaterGemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

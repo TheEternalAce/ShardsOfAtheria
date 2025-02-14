@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameBuster
         {
             Projectile.width = 24;
             Projectile.height = 22;
-            Projectile.aiStyle = -1;
+            Projectile.aiStyle = 161;
             Projectile.penetrate = -1;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;

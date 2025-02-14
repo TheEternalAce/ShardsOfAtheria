@@ -62,7 +62,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            SoundEngine.PlaySound(Item.UseSound);
+            SoundEngine.PlaySound(Item.UseSound, player.Center);
             float numberProjectiles = 3;
             float rotation = MathHelper.ToRadians(5);
             position += Vector2.Normalize(velocity) * 10f;

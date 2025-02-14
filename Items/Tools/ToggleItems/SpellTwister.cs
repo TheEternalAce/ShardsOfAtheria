@@ -6,10 +6,8 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Tools.ToggleItems
 {
-    public class SpellTwister : ModItem
+    public class SpellTwister : ToggleableTool
     {
-        public bool active = true;
-
         public override void SetDefaults()
         {
             Item.width = 34;
@@ -28,14 +26,9 @@ namespace ShardsOfAtheria.Items.Tools.ToggleItems
             return false;
         }
 
-        public override void RightClick(Player player)
-        {
-            active = !active;
-        }
-
         public override void UpdateInventory(Player player)
         {
-            if (active)
+            if (Active)
             {
                 player.buffImmune[ModContent.BuffType<ShadeState>()] = true;
             }
@@ -43,17 +36,17 @@ namespace ShardsOfAtheria.Items.Tools.ToggleItems
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            string mode = "";
+            string suffix = "";
             var key = this.GetLocalizationKey(string.Empty);
-            if (active)
+            if (Active)
             {
-                mode = Language.GetOrRegister(key + "On").ToString();
+                suffix = Language.GetOrRegister(key + "On").ToString();
             }
             else
             {
-                mode = Language.GetOrRegister(key + "Off").ToString();
+                suffix = Language.GetOrRegister(key + "Off").ToString();
             }
-            tooltips[0].Text += mode;
+            tooltips[0].Text += suffix;
         }
     }
 }

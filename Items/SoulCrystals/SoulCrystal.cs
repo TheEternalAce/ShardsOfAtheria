@@ -68,15 +68,15 @@ namespace ShardsOfAtheria.Items.SoulCrystals
                 Dust.NewDustDirect(player.Center, 4, 4, DustID.SandstormInABottle, .2f, .2f, 0, Scale: 1.2f);
             Lighting.AddLight(player.Center, TorchID.Yellow);
             if (absorbSoulTimer == 299 && !SoA.ClientConfig.instantAbsorb)
-                SoundEngine.PlaySound(SoundID.Item46);
+                SoundEngine.PlaySound(SoundID.Item46, player.Center);
             if (absorbSoulTimer == 240)
-                SoundEngine.PlaySound(SoundID.Item43);
+                SoundEngine.PlaySound(SoundID.Item43, player.Center);
             if (absorbSoulTimer == 180)
-                SoundEngine.PlaySound(SoundID.Item43);
+                SoundEngine.PlaySound(SoundID.Item43, player.Center);
             if (absorbSoulTimer == 120)
-                SoundEngine.PlaySound(SoundID.Item43);
+                SoundEngine.PlaySound(SoundID.Item43, player.Center);
             if (absorbSoulTimer == 60)
-                SoundEngine.PlaySound(SoundID.Item43);
+                SoundEngine.PlaySound(SoundID.Item43, player.Center);
             if (absorbSoulTimer == 0 || SoA.ClientConfig.instantAbsorb)
             {
                 var slayer = player.Slayer();
@@ -90,7 +90,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
                 {
                     slayer.soulCrystalNames.Add(Name);
                     Item.TurnToAir();
-                    SoundEngine.PlaySound(SoundID.Item4);
+                    SoundEngine.PlaySound(SoundID.Item4, player.Center);
                     SoA.LogInfo(slayer.soulCrystalNames, "Soul crystals: ");
                 }
             }

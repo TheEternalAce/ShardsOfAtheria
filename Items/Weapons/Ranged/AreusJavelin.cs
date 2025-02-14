@@ -22,6 +22,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
             Item.damage = 115;
             Item.DamageType = DamageClass.Ranged;
+            if (SoA.ServerConfig.throwingWeapons) Item.DamageType = DamageClass.Throwing;
             Item.knockBack = 7f;
             Item.crit = 10;
 

@@ -54,6 +54,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
             player.Gem().topazCore = true;
             ModContent.GetInstance<TopazCore_Lesser>().UpdateAccessory(player, hideVisual);
             player.statLifeMax2 += 20;
+            player.Gem().gemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

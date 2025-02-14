@@ -90,7 +90,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
             if (foundTarget && distanceFromTarget < 1000)
             {
                 float shootTime = 60f;
-                if (player.ownedProjectileCounts[ModContent.ProjectileType<MirrorPrism>()] <= 6)
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<MirrorPrism>()] <= 3)
                 {
                     shootTime *= 0.5f;
                 }
@@ -102,7 +102,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
                     var vectorToTarget = targetCenter - Projectile.Center;
                     vectorToTarget = vectorToTarget.RotatedByRandom(MathHelper.PiOver4);
                     int damage = Projectile.damage;
-                    if (MirrorPrism.CountPrismsPerMirror(Projectile.owner, Projectile.whoAmI) >= 6)
+                    if (MirrorPrism.CountPrismsPerMirror(Projectile.owner, Projectile.whoAmI) >= 3)
                     {
                         int prismWhoAmI = MirrorPrism.FindNewestProjectile(Projectile.owner, Projectile.whoAmI);
                         if (prismWhoAmI > -1)

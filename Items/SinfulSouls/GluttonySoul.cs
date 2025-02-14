@@ -1,5 +1,7 @@
-﻿using ShardsOfAtheria.Projectiles.Other;
+﻿using ShardsOfAtheria.Buffs.PlayerDebuff.SinDebuffs;
+using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Utilities;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,85 +10,79 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 {
     public class GluttonySoul : SinfulSouls
     {
-        public override int SoulType => ModContent.BuffType<GluttonyBuff>();
-        public override bool? UseItem(Player player)
-        {
-            player.AddBuff(BuffID.NeutralHunger, 18000);
-            return base.UseItem(player);
-        }
+        public override int SoulBuffType => ModContent.BuffType<GluttonyBuff>();
     }
 
     public class GluttonyPlayer : ModPlayer
     {
-        public bool gluttony = false;
-        public int feed = 100;
-        public int feedTimer = 60;
+        public bool soulActive = false;
+        public int hunger = 100;
+        public const int HUNGER_MAX = 100;
+        public int hungerTimer = 60;
         public int foodCoolDown = 0;
-        const int foodCoolDownMax = 300;
+        public const int FOOD_COOLDOWN_MAX = 240;
 
         public override void ResetEffects()
         {
-            gluttony = false;
-            if (!(Player.HasBuff(BuffID.WellFed) || Player.HasBuff(BuffID.WellFed2) || Player.HasBuff(BuffID.WellFed3)))
-            {
-                if (--feedTimer <= 0)
-                {
-                    feed--;
-                    feedTimer = 30;
-                }
-            }
-            if (foodCoolDown < 0)
-            {
-                foodCoolDown = 0;
-            }
-            else if (foodCoolDown > 0)
-            {
-                foodCoolDown--;
-            }
+            soulActive = false;
+            if (foodCoolDown < 0) foodCoolDown = 0;
+            else if (foodCoolDown > 0) foodCoolDown--;
         }
 
         public override void OnRespawn()
         {
-            feed = 100;
-            feedTimer = 60;
+            hunger = 600;
         }
 
         public override void OnEnterWorld()
         {
-            feed = 100;
-            feedTimer = 60;
+            hunger = 100;
+            hungerTimer = 60;
         }
 
-        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
+        public override void UpdateBadLifeRegen()
         {
-            if (gluttony && foodCoolDown <= 0)
+            if (Player.HasBuff<OverStuffed>()) Player.lifeRegen /= 3;
+        }
+
+        public override void PreUpdate()
+        {
+            if (soulActive)
             {
-                if (target.lifeMax > 5 && target.life > 0 && hit.Crit)
+                if (hunger > 0 && --hungerTimer <= 0)
                 {
-                    Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Player.Center - target.Center * 10f, ModContent.ProjectileType<FoodChunk>(), 0, 0, Player.whoAmI, 0f);
-                    foodCoolDown = foodCoolDownMax;
+                    hunger--;
+                    if (!(Player.HasBuff(BuffID.WellFed) || Player.HasBuff(BuffID.WellFed2) || Player.HasBuff(BuffID.WellFed3))) hunger--;
+                    hungerTimer = 30;
                 }
-                if (target.life <= 0)
-                {
-                    Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Player.Center - target.Center * 10f, ModContent.ProjectileType<FoodChunk>(), 0, 0, Player.whoAmI, 1f);
-                    foodCoolDown = foodCoolDownMax;
-                }
+                if (hunger > 600) Player.AddBuff<OverStuffed>(121);
+                else if (hunger < 0) hunger = 0;
             }
         }
 
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
+        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
-            if (gluttony && foodCoolDown <= 0)
+            if (soulActive && hunger > 1)
             {
-                if (target.lifeMax > 5 && target.life > 0 && hit.Crit)
+                int maxReduction = ShardsHelpers.ScaleByProggression(Player, 10);
+                int reduction = Math.Min(hunger / 2, maxReduction);
+                modifiers.FinalDamage.Flat -= maxReduction;
+                hunger -= reduction * 2;
+            }
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (soulActive && foodCoolDown <= 0)
+            {
+                float foodChance = 0.1f;
+                if (hit.Crit || target.life <= 0) foodChance = 1f;
+                if (target.lifeMax > 5 && Main.rand.NextFloat() < foodChance)
                 {
-                    Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Player.Center - target.Center * 10f, ModContent.ProjectileType<FoodChunk>(), 0, 0, Player.whoAmI, 0f);
-                    foodCoolDown = foodCoolDownMax;
-                }
-                if (target.life <= 0)
-                {
-                    Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Player.Center - target.Center * 10f, ModContent.ProjectileType<FoodChunk>(), 0, 0, Player.whoAmI, 1f);
-                    foodCoolDown = foodCoolDownMax;
+                    float ai0 = 0;
+                    if (target.life <= 0) ai0 = 1;
+                    Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Player.Center - target.Center * 10f, ModContent.ProjectileType<FoodChunk>(), 0, 0, Player.whoAmI, ai0);
+                    foodCoolDown = FOOD_COOLDOWN_MAX;
                 }
             }
         }
@@ -94,15 +90,20 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
     public class GluttonyBuff : SinfulSoulBuff
     {
+        public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
+        {
+            tip = ShardsHelpers.Localize("Items.GluttonySoul.Tooltip");
+        }
+
         public override void Update(Player player, ref int buffIndex)
         {
             GluttonyPlayer gluttonyPlayer = player.Gluttony();
 
-            gluttonyPlayer.gluttony = true;
-            player.GetDamage(DamageClass.Melee) += .15f;
+            gluttonyPlayer.soulActive = true;
+            player.GetDamage(DamageClass.Generic) += .15f;
             player.statDefense -= 7;
 
-            if (gluttonyPlayer.feed <= 0 && !(player.HasBuff(BuffID.WellFed) || player.HasBuff(BuffID.WellFed2) || player.HasBuff(BuffID.WellFed3)))
+            if (gluttonyPlayer.hunger <= 0 && !(player.HasBuff(BuffID.WellFed) || player.HasBuff(BuffID.WellFed2) || player.HasBuff(BuffID.WellFed3)))
             {
                 player.starving = true;
             }

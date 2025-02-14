@@ -74,7 +74,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
             Projectile.ignoreWater = true; // Make sure the projectile ignores water
             Projectile.tileCollide = false; // Make sure the projectile doesn't collide with tiles anymore
             const int aiFactor = 15; // Change this factor to change the 'lifetime' of this sticking javelin
-            Projectile.timeLeft = 10;
+            //Projectile.timeLeft = 10;
 
             int projTargetIndex = TargetWhoAmI;
             var target = Main.npc[projTargetIndex];
@@ -126,7 +126,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
                 (target.Center - Projectile.Center) *
                 0.75f; // Change velocity based on delta center of targets (difference between entity centers)
             Projectile.netUpdate = true; // netUpdate this javelin
-            Projectile.timeLeft = 3600;
+            Projectile.timeLeft = 600;
             Projectile.damage = 0; // Makes sure the sticking javelins do not deal damage anymore
         }
 

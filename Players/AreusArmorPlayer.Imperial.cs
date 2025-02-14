@@ -4,6 +4,7 @@ using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Projectiles.Summon.Minions;
+using ShardsOfAtheria.Projectiles.Throwing;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -34,6 +35,15 @@ namespace ShardsOfAtheria.Players
             vector.Normalize();
             vector *= 8;
             Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, vector, ModContent.ProjectileType<AreusVoidBlast>(),
+                (int)ClassDamage.ApplyTo(120 + imperialVoid), 8f);
+        }
+        private void ImperialActive_Thrown()
+        {
+            SoundEngine.PlaySound(SoundID.NPCDeath52, Player.Center);
+            var vector = Main.MouseWorld - Player.Center;
+            vector.Normalize();
+            vector *= 8;
+            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, vector, ModContent.ProjectileType<VoidBlade>(),
                 (int)ClassDamage.ApplyTo(120 + imperialVoid), 8f);
         }
         private void ImperialActive_Magic()
@@ -79,7 +89,7 @@ namespace ShardsOfAtheria.Players
 
         public void ImperialVoidStar()
         {
-            if (CommanderSet)
+            if (CommanderSetChip)
             {
                 if (imperialVoid >= 33)
                 {
@@ -104,7 +114,7 @@ namespace ShardsOfAtheria.Players
                     Player.statMana += 5;
                 }
             }
-            if (!Player.HasBuff<ShadeState>() || CommanderSet)
+            if (!Player.HasBuff<ShadeState>() || CommanderSetChip)
             {
                 imperialVoid += 3;
                 if (imperialVoid > VOID_MAX)
@@ -114,7 +124,7 @@ namespace ShardsOfAtheria.Players
             }
             if (Player.HasBuff<ShadeState>())
             {
-                if (MageSet)
+                if (MageSetChip)
                 {
                     int type = ModContent.ProjectileType<VoidDagger>();
                     if (Player.ownedProjectileCounts[type] == 0)

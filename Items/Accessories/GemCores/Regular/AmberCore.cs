@@ -10,6 +10,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
 {
     public class AmberCore : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            Item.AddRedemptionElement(5);
+            Item.AddRedemptionElement(10);
+        }
+
         public override void Load()
         {
             if (Main.netMode != NetmodeID.Server)
@@ -49,6 +55,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
             player.maxMinions++;
             player.Gem().amberCore = true;
             player.Gem().amberCape = !hideVisual;
+            player.Gem().gemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

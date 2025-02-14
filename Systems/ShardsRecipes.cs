@@ -1,6 +1,7 @@
 ﻿using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -91,6 +92,11 @@ namespace ShardsOfAtheria.Systems
 
         public override void AddRecipes()
         {
+            foreach (UpgradeBlueprint blueprint in UpgradeBlueprintLoader.upgrades)
+            {
+                blueprint.CreateRecipe();
+            }
+
             Recipe.Create(ItemID.SoulofLight, 2)
                 .AddIngredient(ModContent.ItemType<SoulOfDaylight>(), 5)
                 .AddTile(TileID.MythrilAnvil)

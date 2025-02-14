@@ -76,7 +76,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             if (player.Shards().Overdrive)
             {
-                SoundEngine.PlaySound(SoundID.Item71);
+                SoundEngine.PlaySound(SoundID.Item71, position);
                 type = ModContent.ProjectileType<ElecKatana>();
                 velocity.Normalize();
             }

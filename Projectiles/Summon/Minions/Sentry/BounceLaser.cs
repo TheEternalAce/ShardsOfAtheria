@@ -40,8 +40,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
 
             foreach (var projectile in Main.projectile)
             {
-                if (projectile.type == ModContent.ProjectileType<MirrorPrism>() && projectile.active &&
-                    Projectile.Hitbox.Intersects(projectile.Hitbox))
+                if (CheckProjectile(projectile, Projectile.owner) && Projectile.Hitbox.Intersects(projectile.Hitbox))
                 {
                     if (!CheckProjectile(projectile, Projectile.owner)) continue;
                     projectile.Kill();
@@ -67,6 +66,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
         private bool CheckProjectile(Projectile projectile, int owner)
         {
             if (projectile.type != ModContent.ProjectileType<MirrorPrism>()) return false;
+            if (!projectile.active) return false;
             if (projectile.owner != owner) return false;
             if (projectile.ai[1] != Projectile.ai[1]) return false;
             if (Math.Abs(projectile.velocity.X) > 1) return false;

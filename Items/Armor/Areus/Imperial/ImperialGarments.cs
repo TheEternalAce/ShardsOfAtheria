@@ -1,8 +1,5 @@
 using ShardsOfAtheria.Items.AreusChips;
-using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
@@ -25,19 +22,10 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
         public override void UpdateEquip(Player player)
         {
             base.UpdateEquip(player);
-            player.GetDamage(ArmorPlayer.classChip) += 0.05f;
+            player.GetDamage(ArmorPlayer.classChip) += 0.1f;
+            ArmorPlayer.areusDamage += 0.08f;
+            player.statManaMax2 += 120;
             ArmorPlayer.areusBody = true;
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient<AreusShard>(24)
-                .AddIngredient(ItemID.GoldBar, 10)
-                .AddIngredient(ItemID.BeetleHusk, 12)
-                .AddIngredient(ItemID.Silk, 20)
-                .AddTile<AreusFabricator>()
-                .Register();
         }
     }
 }

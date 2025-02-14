@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Projectiles.Melee.FlameBuster;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -48,16 +49,16 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 10)
+                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 15)
                 .AddIngredient(ItemID.SilverBar, 7)
-                .AddIngredient(ItemID.SoulofFright, 10)
+                .AddIngredient(ItemID.SoulofMight, 10)
                 .AddIngredient(ItemID.Wire, 20)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 10)
+                .AddIngredient(ModContent.ItemType<BionicBarItem>(), 15)
                 .AddIngredient(ItemID.TungstenBar, 7)
-                .AddIngredient(ItemID.SoulofFright, 10)
+                .AddIngredient(ItemID.SoulofMight, 10)
                 .AddIngredient(ItemID.Wire, 20)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
@@ -65,7 +66,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            damage = ShardsHelpers.ScaleByProggression(damage);
+            damage = ShardsHelpers.ScaleByProggression(player, damage);
+            if (charge >= MaxCharge) damage += 1f;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -89,7 +91,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void UpdateInventory(Player player)
         {
-            if (!player.ItemAnimationActive || player.HeldItem != Item)
+            var cable = ToggleableTool.GetInstance<BrokenCable>(player);
+            if ((!player.ItemAnimationActive || player.HeldItem != Item) && (cable is null || !cable.Active))
             {
                 if (charge < MaxCharge)
                 {
@@ -106,13 +109,12 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 }
                 if (charge == MaxCharge - 1) SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
             }
+            if (player.HeldItem == Item && player.ItemAnimationActive && player.ItemAnimationEndingOrEnded) charge = 0;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            int previousCharge = charge;
-            charge = 0;
-            if (previousCharge == MaxCharge)
+            if (charge == MaxCharge)
             {
                 Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0, 1);
                 return false;

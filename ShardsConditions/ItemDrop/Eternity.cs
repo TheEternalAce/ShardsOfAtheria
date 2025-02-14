@@ -1,5 +1,5 @@
-﻿using Terraria.GameContent.ItemDropRules;
-using Terraria.Localization;
+﻿using ShardsOfAtheria.Utilities;
+using Terraria.GameContent.ItemDropRules;
 
 namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 {
@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 
         public string GetConditionDescription()
         {
-            return Language.GetTextValue("Mods.ShardsOfAtheria.Conditions.Eternity");
+            return ShardsHelpers.LocalizeCondition("Eternity");
         }
     }
 }

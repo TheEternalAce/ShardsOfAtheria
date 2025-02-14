@@ -4,6 +4,7 @@ using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Ranged
 {
@@ -65,6 +66,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         public override void OnKill(int timeLeft)
         {
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             Projectile.Explode(Projectile.Center, 200, dustParticles: false);
             DustRing();
         }

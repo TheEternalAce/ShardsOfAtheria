@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Other
 {
@@ -21,6 +23,7 @@ namespace ShardsOfAtheria.Projectiles.Other
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             for (int i = 0; i < 10; i++)
             {
                 Vector2 vector = Main.rand.NextVector2CircularEdge(1f, 1f);

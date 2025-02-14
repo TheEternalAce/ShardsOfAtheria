@@ -4,6 +4,7 @@ using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.AreusChips;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
@@ -230,7 +231,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
         private bool GiftCrest()
         {
             bool crest = false;
-            if (NPC.AnyNPCs(NPCID.Stylist) && !ShardsSystem.Instance.CrestGifted)
+            if (NPC.AnyNPCs(NPCID.Stylist) && !ShardsSystem.Instance.crestGifted)
             {
                 int whoAmI = NPC.FindFirstNPC(NPCID.Stylist);
                 if (whoAmI > -1)
@@ -248,7 +249,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                             crest = true;
                         }
 
-                        ShardsSystem.Instance.CrestGifted = true;
+                        ShardsSystem.Instance.crestGifted = true;
                     }
                 }
             }
@@ -306,10 +307,13 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                 .Add<RushDrive>()
                 .Add<AreusEdge>()
                 .Add<AreusStriker>()
+                .Add<AnchorChip>()
                 .Add<AreusProcessor>(SoAConditions.ElementModEnabled)
                 .Add<ResonatorRing>(SoAConditions.ElementModEnabled)
                 .Add<AreusLance>(Condition.Hardmode)
                 .Add<Bytecrusher>(Condition.DownedMechBossAny)
+                .Add<LightWithinDarkness>(Condition.DownedMechBossAny)
+                .Add<DarknessWithinLight>(Condition.DownedMechBossAny)
                 .Add<AreusKey>(Condition.DownedPlantera)
                 .Add<AreusPistol>(Condition.DownedPlantera)
                 .Add<AreusBaton>(Condition.DownedPlantera)

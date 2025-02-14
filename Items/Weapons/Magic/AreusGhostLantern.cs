@@ -12,6 +12,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Items.Weapons.Magic
 {
@@ -24,8 +25,9 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             Item.AddAreus(true, true);
             Item.AddElement(0);
+            Item.AddRedemptionElement(1);
             Item.AddRedemptionElement(2);
-            Item.AddRedemptionElement(9);
+            Item.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()
@@ -75,20 +77,23 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             string name = Language.GetTextValue(key) + " (" + poes + ")";
             Item.SetNameOverride(name);
 
-            int activePoes = player.ownedProjectileCounts[ModContent.ProjectileType<ElectricPoe>()];
-            if (poes > 100) poes = 100;
-            if (player.shimmering || player.CCed || player.sleeping.isSleeping || poes + activePoes >= 100) return;
-            if (++poeSpawnTimer >= 240 + Main.rand.Next(240) - player.Shards().combatTimer / 3)
+            if (player.IsLocal())
             {
-                bool validPosition = false;
-                var position = player.Center + Main.rand.NextVector2Circular(10, 10) * 50;
-                while (!validPosition)
+                int activePoes = player.ownedProjectileCounts[ModContent.ProjectileType<ElectricPoe>()];
+                if (poes > 100) poes = 100;
+                if (player.shimmering || player.CCed || player.sleeping.isSleeping || poes + activePoes >= 100) return;
+                if (++poeSpawnTimer >= 240 + Main.rand.Next(240) - player.Shards().combatTimer / 3)
                 {
-                    position = player.Center + Main.rand.NextVector2Circular(10, 10) * 50;
-                    validPosition = Collision.CanHit(player.position, player.width, player.height, position, 20, 20);
+                    bool validPosition = false;
+                    var position = player.Center + Main.rand.NextVector2Circular(10, 10) * 50;
+                    while (!validPosition)
+                    {
+                        position = player.Center + Main.rand.NextVector2Circular(10, 10) * 50;
+                        validPosition = Collision.CanHit(player.position, player.width, player.height, position, 20, 20);
+                    }
+                    Projectile.NewProjectile(Item.GetSource_FromThis(), position, Vector2.Zero, ModContent.ProjectileType<ElectricPoe>(), player.GetWeaponDamage(Item), 0);
+                    poeSpawnTimer = 0;
                 }
-                Projectile.NewProjectile(Item.GetSource_FromThis(), position, Vector2.Zero, ModContent.ProjectileType<ElectricPoe>(), player.GetWeaponDamage(Item), 0);
-                poeSpawnTimer = 0;
             }
         }
 

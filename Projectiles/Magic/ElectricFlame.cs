@@ -24,8 +24,10 @@ namespace ShardsOfAtheria.Projectiles.Magic
         {
             Main.projFrames[Type] = 7;
             Projectile.AddElement(0);
+            Projectile.AddElement(2);
+            Projectile.AddRedemptionElement(1);
             Projectile.AddRedemptionElement(2);
-            Projectile.AddRedemptionElement(9);
+            Projectile.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()

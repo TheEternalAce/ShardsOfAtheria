@@ -1,13 +1,13 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Utilities;
+using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SinfulSouls
 {
     public class LustSoul : SinfulSouls
     {
-        public override int SoulType => ModContent.BuffType<LustBuff>();
+        public override int SoulBuffType => ModContent.BuffType<LustBuff>();
     }
 
     public class LustPlayer : ModPlayer
@@ -85,7 +85,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
     {
         public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
         {
-            tip = Language.GetTextValue("Mods.ShardsOfAtheria.Items.LustSoul.Tooltip");
+            tip = ShardsHelpers.Localize("Items.LustSoul.Tooltip");
         }
 
         public override void Update(Player player, ref int buffIndex)

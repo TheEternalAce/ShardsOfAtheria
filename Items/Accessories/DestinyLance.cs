@@ -10,14 +10,14 @@ namespace ShardsOfAtheria.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Item.AddElement(1);
+            Item.AddElement(0);
             Item.AddRedemptionElement(2);
         }
 
         public override void SetDefaults()
         {
-            Item.width = 38;
-            Item.height = 26;
+            Item.width = 36;
+            Item.height = 36;
             Item.accessory = true;
 
             Item.damage = 42;
@@ -31,6 +31,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.Shards().destinyLance = true;
             if (player.ownedProjectileCounts[Item.shoot] == 0)
             {
                 Vector2 velocity = Vector2.Zero;

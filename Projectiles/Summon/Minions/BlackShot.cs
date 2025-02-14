@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
         public override void OnSpawn(IEntitySource source)
         {
-            SoundEngine.PlaySound(SoundID.Item72);
+            SoundEngine.PlaySound(SoundID.Item72, Projectile.Center);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

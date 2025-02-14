@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
 {
@@ -43,6 +44,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
         public override void OnKill(int timeLeft)
         {
             var player = Main.player[Projectile.owner];
+            if (!player.IsLocal()) return;
 
             var position = Projectile.Center + new Vector2(0, -10);
             int newTurretIndex = Projectile.NewProjectile(Projectile.GetSource_FromThis(), position,

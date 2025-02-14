@@ -22,6 +22,7 @@ namespace ShardsOfAtheria.Projectiles.Other
             Projectile.aiStyle = -1;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 10;
+            Projectile.ignoreWater = true;
 
             DrawOriginOffsetY = -5;
         }

@@ -44,7 +44,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             ModContent.GetInstance<RubyCore_Greater>().UpdateAccessory(player, hideVisual);
             player.Gem().superRubyCore = true;
             player.GetDamage(DamageClass.Generic) += .05f;
-            player.GetAttackSpeed(DamageClass.Generic) += .05f;
+            player.GetAttackSpeed(DamageClass.Generic) += .04f;
+            player.Gem().superGemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

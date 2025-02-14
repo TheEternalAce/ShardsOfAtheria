@@ -47,6 +47,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             player.moveSpeed += 0.05f;
             player.wingTimeMax += 15;
             player.Gem().superEmeraldCore = true;
+            player.Gem().superGemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

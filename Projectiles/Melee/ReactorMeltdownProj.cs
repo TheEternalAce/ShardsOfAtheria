@@ -62,7 +62,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
                 {
                     if (SoA.ClientConfig.reactorBeep)
                     {
-                        SoundEngine.PlaySound(SoA.ReactorAlarm);
+                        SoundEngine.PlaySound(SoA.ReactorAlarm, Projectile.Center);
                     }
                 }
                 if (Projectile.frame >= Main.projFrames[Type])

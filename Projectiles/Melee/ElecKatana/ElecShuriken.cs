@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Melee.ElecKatana
 {
@@ -31,6 +32,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.ElecKatana
 
         public override void OnKill(int timeLeft)
         {
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             for (int i = 0; i < 4; i++)
             {
                 var vector = Vector2.One.RotatedBy(MathHelper.ToRadians(90 * i));

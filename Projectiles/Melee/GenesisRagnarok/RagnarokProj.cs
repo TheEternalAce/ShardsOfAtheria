@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
 {
@@ -112,6 +113,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
         public override void OnKill(int timeLeft)
         {
             Player player = Main.player[Projectile.owner];
+            if (!player.IsLocal()) return;
             ShardsPlayer shardsPlayer = player.Shards();
             int upgrades = shardsPlayer.genesisRagnarockUpgrades;
             if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
@@ -119,7 +121,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
                 if (!player.dead && Main.mouseLeft && Main.myPlayer == Projectile.owner && player.ownedProjectileCounts[ModContent.ProjectileType<RagnarokProj2>()] == 0 && upgrades >= 2)
                 {
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, Vector2.Zero, ModContent.ProjectileType<RagnarokProj2>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
-                    SoundEngine.PlaySound(SoundID.Item71);
+                    SoundEngine.PlaySound(SoundID.Item71, Projectile.Center);
                 }
             }
         }

@@ -79,7 +79,7 @@ namespace ShardsOfAtheria.Items.BossSummons
                 }
                 if (!SoA.ServerConfig.nonConsumeBoss)
                 {
-                    ShardsSystem.Instance.CrestGifted = false;
+                    ShardsSystem.Instance.crestGifted = false;
                 }
             }
             return true;

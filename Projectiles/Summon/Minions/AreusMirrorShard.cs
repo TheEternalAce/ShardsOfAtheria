@@ -74,7 +74,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<AreusDust>());
             }
-            SoundEngine.PlaySound(SoundID.Shatter, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Shatter, Projectile.Center);
         }
 
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not

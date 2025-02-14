@@ -44,6 +44,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
         {
             ModContent.GetInstance<DiamondCore_Greater>().UpdateAccessory(player, hideVisual);
             player.Gem().superDiamondCore = true;
+            player.Gem().superGemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

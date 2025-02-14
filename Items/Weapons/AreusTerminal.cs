@@ -45,17 +45,18 @@ namespace ShardsOfAtheria.Items.Weapons
 
         public override void HoldItem(Player player)
         {
-            UpdateStats(player);
+            UpdateManaCost(player);
         }
 
         public override void UpdateInventory(Player player)
         {
-            UpdateStats(player);
+            UpdateManaCost(player);
         }
 
-        private void UpdateStats(Player player)
+        private void UpdateManaCost(Player player)
         {
-            bool cardActive = DevelopersKeyCard.CardActive(player, out var _);
+            var devCard = ToggleableTool.GetInstance<DevelopersKeyCard>(player);
+            bool cardActive = devCard != null && devCard.Active;
             if (!cardActive)
             {
                 int statTotal = (Item.damage + (60 / Item.useAnimation) + Item.crit + 4) / 5;

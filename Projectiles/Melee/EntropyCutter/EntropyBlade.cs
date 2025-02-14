@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.EntropyCutter
         public override void SetStaticDefaults()
         {
             Projectile.AddElement(1);
-            Projectile.AddRedemptionElement(9);
+            Projectile.AddRedemptionElement(3);
         }
 
         public override void SetDefaults()
@@ -91,7 +91,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.EntropyCutter
 
         public override float SwingProgress(float progress)
         {
-            return GenericSwing2(progress);
+            return SwingProgressAequus(progress);
         }
 
         public override float GetVisualOuter(float progress, float swingProgress)

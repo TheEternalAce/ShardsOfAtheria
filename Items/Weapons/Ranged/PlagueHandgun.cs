@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons.Ammo;
 using ShardsOfAtheria.Projectiles.Ranged.PlagueRail;
 using ShardsOfAtheria.Utilities;
@@ -43,7 +44,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             CreateRecipe()
                 .AddIngredient<BionicBarItem>(15)
                 .AddIngredient<PlagueCell>(20)
-                .AddIngredient(ItemID.SoulofMight, 5)
+                .AddIngredient(ItemID.SoulofSight, 5)
                 .AddIngredient(ItemID.Wire, 20)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
@@ -73,12 +74,14 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            damage = ShardsHelpers.ScaleByProggression(damage);
+            damage = ShardsHelpers.ScaleByProggression(player, damage);
+            if (charge >= MaxCharge) damage += 1f;
         }
 
         public override void UpdateInventory(Player player)
         {
-            if (!player.ItemAnimationActive || player.HeldItem != Item)
+            var cable = ToggleableTool.GetInstance<BrokenCable>(player);
+            if ((!player.ItemAnimationActive || player.HeldItem != Item) && (cable is null || !cable.Active))
             {
                 if (charge < MaxCharge)
                 {
@@ -95,6 +98,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 }
                 if (charge == MaxCharge - 1) SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
             }
+            if (player.HeldItem == Item && player.ItemAnimationActive && player.ItemAnimationEndingOrEnded) charge = 0;
         }
 
         public override bool CanUseItem(Player player)
@@ -115,7 +119,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            charge = 0;
             if (player.itemAnimation != player.itemAnimationMax) SoundEngine.PlaySound(Item.UseSound, player.Center);
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }

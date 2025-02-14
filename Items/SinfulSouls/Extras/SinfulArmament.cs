@@ -17,10 +17,9 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
 
         public override void SetDefaults()
         {
-            Item.width = 54;
-            Item.height = 52;
+            Item.width = 46;
+            Item.height = 38;
             Item.consumable = true;
-            Item.scale = .75f;
 
             Item.useTime = 20;
             Item.useAnimation = 20;
@@ -68,7 +67,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
                 text = "";
                 color = Color.Orange;
             }
-            else if (player.Gluttony().gluttony)
+            else if (player.Gluttony().soulActive)
             {
                 armament = ModContent.ItemType<Gomorrah>();
                 text = "I'm Gomorrah, no game can stand a chance against us!";
@@ -86,13 +85,13 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
                 text = "";
                 color = Color.Pink;
             }
-            else if (player.Pride().pride)
+            else if (player.Pride().soulActive)
             {
                 armament = ModContent.ItemType<Magnus>();
                 text = "I am Magnus, the only weapon you'll ever need.";
                 color = Color.White;
             }
-            else if (player.Sloth().sloth)
+            else if (player.Sloth().soulActive)
             {
                 armament = 0;//ModContent.ItemType<SinfulArmament>();
                 text = "";

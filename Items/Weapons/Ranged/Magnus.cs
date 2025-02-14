@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Ranged;
+using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -51,6 +52,14 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(0, 0);
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<PrideSoul>()
+                .AddCondition(SoAConditions.TransformArmament)
+                .Register();
         }
     }
 }

@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles.Summon;
+using ShardsOfAtheria.Projectiles.Summon.Active;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;

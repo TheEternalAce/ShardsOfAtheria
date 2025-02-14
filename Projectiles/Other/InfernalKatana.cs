@@ -6,7 +6,6 @@ using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 //using WebCom.Effects.ScreenShaking;
 
@@ -83,16 +82,16 @@ namespace ShardsOfAtheria.Projectiles.Other
 
                     if (SoA.ClientConfig.dialogue)
                     {
-                        string key = SoA.LocalizeCommon + "AreusKatanaTransformation";
+                        string key = "AreusKatanaTransformation";
                         if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
                         {
                             NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
-                            ChatHelper.SendChatMessageToClient(NetworkText.FromKey(key),
+                            ChatHelper.SendChatMessageToClient(ShardsHelpers.NetworkTextKeyCommon(key),
                                 Color.White, target.whoAmI);
                         }
                         else
                         {
-                            Main.NewText(Language.GetText(key));
+                            Main.NewText(ShardsHelpers.LocalizeCommon(key));
                         }
                     }
                     SoundEngine.PlaySound(SoundID.ScaryScream, target.Center);

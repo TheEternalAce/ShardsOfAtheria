@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Ranged.EventHorizon
 {
@@ -28,24 +29,26 @@ namespace ShardsOfAtheria.Projectiles.Ranged.EventHorizon
             Projectile.friendly = true;
             Projectile.timeLeft = 2 * 60;
             Projectile.tileCollide = false;
+            Projectile.alpha = 255;
 
             DrawOffsetX = 1;
         }
 
         public override void AI()
         {
+            if (Projectile.alpha > 0) Projectile.alpha -= 25;
+            else if (Projectile.alpha < 0) Projectile.alpha = 0;
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Player player = Main.player[Projectile.owner];
             if (Main.myPlayer == Projectile.owner)
             {
-                Player player = Main.player[Projectile.owner];
-
                 if (Projectile.ai[0] == 0f)
                 {
                     point = new((int)Projectile.ai[1], (int)Projectile.ai[2]);
                     //Projectile.velocity *= 0.9f;
                     Projectile.ai[0] = 1f;
                 }
-                if (Projectile.ai[0] == 1f)
+                if (Projectile.ai[0] == 1f && player.ownedProjectileCounts[ModContent.ProjectileType<BlackHole>()] < 10)
                 {
                     Dust dust = Dust.NewDustPerfect(point.ToVector2(), DustID.Stone, Vector2.Zero, 0, new Color(90, 10, 120));
                     dust.noGravity = true;
@@ -76,7 +79,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.EventHorizon
                         {
                             if (projectile.owner == Projectile.owner && projectile.active)
                             {
-                                if (Projectile.Hitbox.Intersects(projectile.Hitbox))
+                                if (Projectile.Distance(projectile.Center) < 20)
                                 {
                                     Projectile.Kill();
                                 }
@@ -89,9 +92,11 @@ namespace ShardsOfAtheria.Projectiles.Ranged.EventHorizon
 
         public override void OnKill(int timeLeft)
         {
-            if (Projectile.ai[0] == 1)
+            var player = Projectile.GetPlayerOwner();
+            if (Projectile.ai[0] == 1 && player.ownedProjectileCounts[ModContent.ProjectileType<BlackHole>()] < 10)
             {
-                SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
+                if (!player.IsLocal()) return;
+                SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
                     Vector2.Zero, ModContent.ProjectileType<BlackHole>(), 180, 0, Projectile.owner);
             }

@@ -28,7 +28,6 @@ namespace ShardsOfAtheria.Projectiles.Other
             Projectile.aiStyle = -1;
             Projectile.tileCollide = false;
             Projectile.friendly = true;
-            Projectile.light = 1f;
             Projectile.penetrate = 7;
             Projectile.timeLeft = 10;
             Projectile.stopsDealingDamageAfterPenetrateHits = true;

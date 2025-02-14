@@ -1,5 +1,6 @@
 ﻿using CollisionLib;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -39,6 +40,14 @@ namespace ShardsOfAtheria.NPCs.Misc
         public override void AI()
         {
             NPC.life--;
+            if (NPC.life <= 0)
+            {
+                SoundEngine.PlaySound(SoundID.Tink, NPC.Center);
+                for (int i = 0; i < 25; i++)
+                {
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.GemEmerald);
+                }
+            }
             collider.Update();
             collider.endPoints[0] = NPC.Center + (NPC.TopLeft - NPC.Center).RotatedBy(NPC.rotation);
             collider.endPoints[1] = NPC.Center + (NPC.TopRight - NPC.Center).RotatedBy(NPC.rotation);

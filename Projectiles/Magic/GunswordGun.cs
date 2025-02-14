@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
                     Projectile bullet = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center,
                         vector * 5f, ProjectileID.Bullet, Projectile.damage, Projectile.knockBack, Projectile.owner);
                     bullet.DamageType = DamageClass.Magic;
-                    SoundEngine.PlaySound(SoundID.Item11);
+                    SoundEngine.PlaySound(SoundID.Item11, Projectile.Center);
                     shotTimer = 0;
                 }
             }
@@ -63,7 +63,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
 
         public override void OnKill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.NPCHit42);
+            SoundEngine.PlaySound(SoundID.NPCHit42, Projectile.Center);
             for (int i = 0; i < 8; i++)
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Lead);

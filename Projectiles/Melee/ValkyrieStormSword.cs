@@ -8,6 +8,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Melee
 {
@@ -57,7 +58,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             if (player.ItemAnimationActive)
             {
                 float speed = 25f;
-                Projectile.Track(Main.MouseWorld, speed, speed / 2);
+                if (player.IsLocal()) Projectile.Track(Main.MouseWorld, speed, speed / 2);
             }
             else
             {

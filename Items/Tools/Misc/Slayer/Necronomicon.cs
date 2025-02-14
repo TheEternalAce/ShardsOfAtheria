@@ -1,14 +1,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Players;
+using ShardsOfAtheria.ShardsUI.EntropicSelection;
+using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using static ShardsOfAtheria.Utilities.Entry;
 
@@ -28,10 +27,6 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
             Item.width = 44;
             Item.height = 56;
 
-            Item.useTime = 45;
-            Item.useAnimation = 45;
-            Item.useStyle = ItemUseStyleID.HoldUp;
-
             Item.rare = ItemDefaults.RaritySlayer;
             Item.value = ItemDefaults.ValueEyeOfCthulhu;
         }
@@ -39,19 +34,15 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
         public override void AddRecipes()
         {
             CreateRecipe()
+                .AddIngredient(ItemID.Book)
+                .AddRecipeGroup(ShardsRecipes.EvilBar, 5)
                 .AddTile(TileID.DemonAltar)
                 .Register();
         }
 
         public override bool CanUseItem(Player player)
         {
-            for (int i = 0; i < Main.maxNPCs; i++)
-            {
-                NPC npc = Main.npc[i];
-                if (npc.active && npc.life > 0 && npc.boss)
-                    return false;
-            }
-            return page == 1;
+            return false;
         }
 
         public override bool ConsumeItem(Player player)
@@ -66,31 +57,16 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
 
         public override void RightClick(Player player)
         {
-            if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt) && page > 0)
-            {
-                page = 0;
-            }
+            if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt) && page > 0) page = 0;
             else if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
             {
-                if (page > 0)
-                {
-                    page--;
-                }
-                else
-                {
-                    page = SoA.MaxNecronomiconPages;
-                }
+                if (page > 0) page--;
+                else page = SoA.MaxNecronomiconPages;
             }
             else
             {
-                if (page < SoA.MaxNecronomiconPages)
-                {
-                    page++;
-                }
-                else
-                {
-                    page = 0;
-                }
+                if (page < SoA.MaxNecronomiconPages) page++;
+                else page = 0;
             }
             SoA.LogInfo(player.Slayer().slayerMode, "Slayer mode enabled: ");
             SoA.LogInfo(player.Slayer().slayerSet, "Entropy set bonus active: ");
@@ -99,38 +75,26 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
             SoA.LogInfo(player.Slayer().lunaticCircleFragments, "Cultist circle fragments: ");
         }
 
+        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+        {
+            Rectangle frame = new(0, 0, 68, 64);
+            Main.instance.LoadItem(ModContent.ItemType<Necronomicon>());
+            var book = TextureAssets.Item[ModContent.ItemType<Necronomicon>()].Value;
+            if (page > 0) frame.Y += 64;
+
+            spriteBatch.Draw(book, Item.position - Main.screenPosition, frame, lightColor, 0f, new Vector2(13, 4), scale, SpriteEffects.None, 0f);
+            return false;
+        }
+
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             frame = new(0, 0, 68, 64);
             Main.instance.LoadItem(ModContent.ItemType<Necronomicon>());
             var book = TextureAssets.Item[ModContent.ItemType<Necronomicon>()].Value;
-            if (page > 0)
-            {
-                frame.Y += 64;
-            }
+            if (page > 0) frame.Y += 64;
 
             spriteBatch.Draw(book, position, frame, drawColor, 0f, frame.Size() * 0.5f, scale * 2f, SpriteEffects.None, 0f);
             return false;
-        }
-
-        public override bool? UseItem(Player player)
-        {
-            if (page == 1)
-            {
-                if (!player.Slayer().slayerMode)
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Slayer mode enabled for " + player.name), Color.White);
-                    SoundEngine.PlaySound(SoundID.Roar, player.position);
-                    player.Slayer().slayerMode = true;
-                }
-                else
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Slayer mode disabled for " + player.name), Color.White);
-                    SoundEngine.PlaySound(SoundID.Roar, player.position);
-                    player.Slayer().slayerMode = false;
-                }
-            }
-            return true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -156,21 +120,8 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
                     }
                 }
             }
-            if (page == 1)
-            {
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "Page", Language.GetTextValue("Mods.ShardsOfAtheria.Necronomicon.GenericInfo")));
-                if (Main.LocalPlayer.Slayer().slayerMode)
-                {
-                    tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "SlayerMode", Language.GetTextValue("Mods.ShardsOfAtheria.Necronomicon.Active"))
-                    {
-                        OverrideColor = Color.Red
-                    });
-                }
-            }
-            if (page == 2)
-            {
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "Page", Language.GetTextValue("Mods.ShardsOfAtheria.Necronomicon.SoulCrystalInfo")));
-            }
+            if (page == 1) tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "Page", ShardsHelpers.LocalizeNecronomicon("GenericInfo")));
+            if (page == 2) tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "Page", ShardsHelpers.LocalizeNecronomicon("SoulCrystalInfo")));
 
             // Soul Crystal effects
             if (page >= 3)
@@ -178,23 +129,16 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
                 PageEntry entry = entries[page - 3];
                 if (slayer.HasSoulCrystal(entry.crystalItem) || SoA.ClientConfig.entryView)
                 {
-                    tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "Page", $"{entry.EntryText()}")
+                    tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "Page", entry.EntryText)
                     {
                         OverrideColor = entry.entryColor
                     });
                 }
             }
 
-            tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "TurnPage", "----------\n" +
-                "Right click to turn the page"));
-            if (page > 0)
-            {
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "TurnPageBack", "Hold Left Shift and Right Click to turn the page backward"));
-            }
-            if (page > 0)
-            {
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "CloseBook", "Hold Left Alt and Right Click to return to Table of Contents"));
-            }
+            tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "TurnPage", "----------\n" + ShardsHelpers.LocalizeNecronomicon("TurnPage")));
+            if (page > 0) tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "TurnPageBack", ShardsHelpers.LocalizeNecronomicon("TurnPageBack")));
+            if (page > 0) tooltips.Insert(tooltips.GetIndex("OneDropLogo"), new TooltipLine(Mod, "CloseBook", ShardsHelpers.LocalizeNecronomicon("TurnToC")));
             base.ModifyTooltips(tooltips);
         }
 
@@ -210,21 +154,58 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
                 if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftShift))
                 {
                     PageEntry entry = entries[page - 3];
-                    if (!slayer.HasSoulCrystal(entry.crystalItem))
-                    {
-                        page--;
-                    }
+                    if (!slayer.HasSoulCrystal(entry.crystalItem)) page--;
                 }
                 else
                 {
                     PageEntry entry = entries[page - 3];
-                    if (!slayer.HasSoulCrystal(entry.crystalItem))
+                    if (!slayer.HasSoulCrystal(entry.crystalItem)) page++;
+                    if (page > SoA.MaxNecronomiconPages) page = 0;
+                }
+            }
+        }
+
+        int transformTimer;
+        public override void Update(ref float gravity, ref float maxFallSpeed)
+        {
+            if (SlayerBookSelectionUI.Instance.UIActive) return;
+            if (page > 0)
+            {
+                bool evilBars = false;
+                bool amethysts = false;
+                foreach (Item item in Main.item)
+                {
+                    if (item.active && item.whoAmI != Item.whoAmI && item.Hitbox.Intersects(Item.Hitbox))
                     {
-                        page++;
+                        if ((item.type == ItemID.DemoniteBar || item.type == ItemID.CrimtaneBar) && item.stack >= 10) evilBars = true;
+                        if (item.type == ItemID.Amethyst && item.stack >= 5) amethysts = true;
                     }
-                    if (page > SoA.MaxNecronomiconPages)
+                }
+                if (evilBars && amethysts)
+                {
+                    if (++transformTimer > 120)
                     {
-                        page = 0;
+                        foreach (Item item in Main.item)
+                        {
+                            if (item.active && item.whoAmI != Item.whoAmI && item.Hitbox.Intersects(Item.Hitbox))
+                            {
+                                if ((item.type == ItemID.DemoniteBar || item.type == ItemID.CrimtaneBar) && item.stack >= 10)
+                                {
+                                    item.stack -= 10;
+                                    if (item.stack <= 0) item.TurnToAir();
+                                }
+                                if ((item.type == ItemID.Amethyst) && item.stack >= 5)
+                                {
+                                    item.stack -= 5;
+                                    if (item.stack <= 0) item.TurnToAir();
+                                }
+                            }
+                        }
+                        transformTimer = 0;
+                        //item.stack -= 10;
+                        //if (item.stack <= 0) item.TurnToAir();
+                        SlayerBookSelectionUI.Instance.Enable();
+                        ShardsHelpers.DustRing(Item.Center, 18f, DustID.ShadowbeamStaff);
                     }
                 }
             }

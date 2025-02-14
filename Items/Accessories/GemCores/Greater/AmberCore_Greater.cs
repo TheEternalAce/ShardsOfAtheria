@@ -10,6 +10,12 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
 {
     public class AmberCore_Greater : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            Item.AddRedemptionElement(5);
+            Item.AddRedemptionElement(10);
+        }
+
         public override void SetDefaults()
         {
             Item.width = 32;
@@ -41,6 +47,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             player.maxMinions++;
             player.Gem().greaterAmberCore = true;
             player.Gem().maxAmberBanners += 10;
+            player.Gem().greaterGemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

@@ -63,6 +63,7 @@ namespace ShardsOfAtheria.Projectiles.Other
                         var vector2 = vector + Projectile.Center;
                         if (!ShardsHelpers.MovingTowardPoint(vector2, projectile.velocity, Projectile.Center, 400)) vector *= -1;
                         projectile.velocity = vector.RotatedByRandom(MathHelper.ToRadians(15));
+                        projectile.netUpdate = true;
                     };
                     projectile.GetGlobalProjectile<SoAGlobalProjectile>().areusNullField = true;
                     if (projectile.damage > 0) projectile.damage = 0;

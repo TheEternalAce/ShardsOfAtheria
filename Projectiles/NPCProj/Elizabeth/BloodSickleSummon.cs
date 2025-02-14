@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
 {
@@ -59,6 +61,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
 
         public override void OnKill(int timeLeft)
         {
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             Vector2 vector = Target.Center - Projectile.Center;
             vector.Normalize();
             vector *= 4f * Main.rand.NextFloat(0.66f, 1f);

@@ -1,11 +1,15 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Ranged;
+using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.UI.Chat;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
@@ -56,9 +60,46 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             }
         }
 
+        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
+            if (Main.LocalPlayer.HeldItem.type == Type)
+            {
+                if (Main.LocalPlayer.mouseInterface || Main.gameMenu || !Main.PlayerLoaded)
+                    return;
+
+                var center = Main.MouseScreen;
+                center.X += 10;
+                center.Y += 40;
+                int coins = 0;
+                foreach (var item in Main.LocalPlayer.inventory)
+                {
+                    if (item.type == ItemID.GoldCoin) coins += item.stack;
+                    else if (item.type == ItemID.PlatinumCoin) coins += item.stack * 100;
+                }
+                foreach (var item in Main.LocalPlayer.bank.item)
+                {
+                    if (item.type == ItemID.GoldCoin) coins += item.stack;
+                    else if (item.type == ItemID.PlatinumCoin) coins += item.stack * 100;
+                }
+                //coins /= 10000;
+
+                var color = Color.Gold;
+                var font = FontAssets.MouseText.Value;
+                ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, coins + "g", center + new Vector2(8f, -24f), color, 0f, Vector2.Zero, new Vector2(1f) * 0.8f, spread: Main.inventoryScale);
+            }
+        }
+
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-20, -4);
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient<GreedSoul>()
+                .AddCondition(SoAConditions.TransformArmament)
+                .Register();
         }
     }
 }

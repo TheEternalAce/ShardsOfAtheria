@@ -15,7 +15,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
             Item.AddAreus();
-            Item.AddUpgradable();
         }
 
         public override void SetDefaults()

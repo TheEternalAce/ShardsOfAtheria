@@ -53,6 +53,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
             player.Gem().diamondShield = !hideVisual;
             player.Gem().diamondCore = true;
             player.hasRaisableShield = true;
+            player.Gem().gemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

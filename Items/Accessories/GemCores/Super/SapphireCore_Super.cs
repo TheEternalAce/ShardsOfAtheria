@@ -45,6 +45,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             player.Gem().superSapphireCore = true;
             player.Gem().sapphireSpiritUpgrade = true;
             player.Gem().sapphireDodgeChance += 0.05f;
+            player.Gem().superGemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

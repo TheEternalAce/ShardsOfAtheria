@@ -9,17 +9,15 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 {
     public class WorldSketcher : ModItem
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetStaticDefaults()
         {
             Item.AddElement(3);
-            Item.AddRedemptionElement(10);
+            Item.AddRedemptionElement(11);
         }
 
         public override void SetDefaults()
         {
-            Item.width = 18;
+            Item.width = 36;
             Item.height = 36;
 
             Item.damage = 14;
@@ -27,8 +25,8 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.knockBack = 0f;
             Item.mana = 12;
 
-            Item.useTime = 1;
-            Item.useAnimation = 1;
+            Item.useTime = 12;
+            Item.useAnimation = 12;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.autoReuse = true;
             Item.noMelee = true;

@@ -1,9 +1,6 @@
 using ShardsOfAtheria.Items.AreusChips;
-using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.ShardsUI.AreusVoid;
-using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
@@ -27,7 +24,9 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
         public override void UpdateEquip(Player player)
         {
             base.UpdateEquip(player);
-            player.GetDamage(ArmorPlayer.classChip) += 0.05f;
+            player.GetDamage(ArmorPlayer.classChip) += 0.1f;
+            ArmorPlayer.areusDamage += 0.08f;
+            player.manaCost -= 0.12f;
             ArmorPlayer.areusHead = true;
         }
 
@@ -43,21 +42,10 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
             ArmorPlayer.imperialSet = true;
             ModContent.GetInstance<AreusVoidSystem>().ShowBar();
             player.GetDamage(DamageClass.Generic) += ArmorPlayer.imperialVoid / 100f;
-            if (ArmorPlayer.CommanderSet)
+            if (ArmorPlayer.CommanderSetChip)
             {
                 player.maxMinions += 1;
             }
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient<AreusShard>(14)
-                .AddIngredient(ItemID.GoldBar, 4)
-                .AddIngredient(ItemID.BeetleHusk, 12)
-                .AddIngredient(ItemID.Silk, 20)
-                .AddTile<AreusFabricator>()
-                .Register();
         }
     }
 }

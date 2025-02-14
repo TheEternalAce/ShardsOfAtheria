@@ -1,3 +1,5 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
@@ -16,6 +18,7 @@ namespace ShardsOfAtheria.Items.AreusChips
         public int slotType { get; internal set; } = SlotAny;
 
         public override string Texture => "ShardsOfAtheria/Items/AreusChips/AreusArmorChip";
+        static readonly Texture2D BaseChip = ModContent.Request<Texture2D>("ShardsOfAtheria/Items/AreusChips/AreusArmorChip").Value;
 
         public override void SetStaticDefaults()
         {
@@ -117,6 +120,20 @@ namespace ShardsOfAtheria.Items.AreusChips
 
         public virtual void UpdateChip(Player player)
         {
+        }
+
+        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
+            spriteBatch.Draw(BaseChip, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 0f);
+            return base.PreDrawInInventory(spriteBatch, position, frame, drawColor, itemColor, origin, scale);
+        }
+
+        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
+        {
+            var frame = ShardsHelpers.Frame(BaseChip.Bounds, 0, 0);
+            var origin = BaseChip.Size() / 2f;
+            spriteBatch.Draw(BaseChip, Item.Center - Main.screenPosition, frame, lightColor, 0f, origin, scale, SpriteEffects.None, 0f);
+            return base.PreDrawInWorld(spriteBatch, lightColor, alphaColor, ref rotation, ref scale, whoAmI);
         }
     }
 }

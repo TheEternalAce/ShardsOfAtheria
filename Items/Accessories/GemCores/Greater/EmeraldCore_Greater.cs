@@ -44,6 +44,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             ModContent.GetInstance<EmeraldCore>().UpdateAccessory(player, hideVisual);
             player.Gem().greaterEmeraldCore = true;
             player.wingTimeMax += 10;
+            player.Gem().greaterGemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

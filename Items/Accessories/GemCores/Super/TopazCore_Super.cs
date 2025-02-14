@@ -45,6 +45,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             player.Gem().superTopazCore = true;
             player.statLifeMax2 += 20;
             player.lifeRegen += 1;
+            player.Gem().superGemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.SinfulSouls;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -43,16 +43,13 @@ namespace ShardsOfAtheria.Projectiles.Other
             {
                 Projectile.Kill();
                 player.Heal(Projectile.ai[0] == 1f ? (int)(player.statLifeMax2 * .2f) : 25);
-                player.GetModPlayer<GluttonyPlayer>().feed = 100;
+                player.Gluttony().hunger += 50;
             }
         }
 
         private bool CheckActive(Player player)
         {
-            if (player.dead || !player.active)
-            {
-                return false;
-            }
+            if (player.dead || !player.active) return false;
             else Projectile.timeLeft = 2;
             return true;
         }

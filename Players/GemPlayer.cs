@@ -21,6 +21,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Players
 {
@@ -70,6 +71,9 @@ namespace ShardsOfAtheria.Players
         public int topazHealTimer;
         public bool topazNecklace;
 
+        public bool gemCore;
+        public bool greaterGemCore;
+        public bool superGemCore;
         public bool megaGemCorePrevious;
         public bool megaGemCore;
         public bool[,] masterGemCoreToggles = {
@@ -148,6 +152,9 @@ namespace ShardsOfAtheria.Players
             superTopazCore = false;
             topazNecklace = false;
 
+            gemCore = false;
+            greaterGemCore = false;
+            superGemCore = false;
             megaGemCorePrevious = megaGemCore;
             megaGemCore = false;
             gemSoulPrevious = gemSoul;
@@ -305,7 +312,7 @@ namespace ShardsOfAtheria.Players
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-            if (SoA.AmethystBombToggle.JustPressed)
+            if (greaterAmethystCore && SoA.AmethystBombToggle.JustPressed)
             {
                 string key = "Mods.ShardsOfAtheria.Items.AmethystCore_Greater.Toggle";
                 if (Main.keyState.IsKeyDown(Keys.LeftShift))
@@ -506,6 +513,7 @@ namespace ShardsOfAtheria.Players
 
         public override void PostHurt(Player.HurtInfo info)
         {
+            if (!Player.IsLocal()) return;
             int gemBlessingTime = 600;
             if (megaGemCore)
             {

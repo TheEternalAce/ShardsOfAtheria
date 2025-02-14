@@ -1,7 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Melee.AreusSpears;
-using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -60,16 +58,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 type++;
                 velocity *= 16;
             }
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient<FuckEarlyGameHarpies>()
-                .AddIngredient<AreusShard>(20)
-                .AddIngredient(ItemID.LunarBar, 14)
-                .AddCondition(SoAConditions.Upgrade)
-                .Register();
         }
     }
 }

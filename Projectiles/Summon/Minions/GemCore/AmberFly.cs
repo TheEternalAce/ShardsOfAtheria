@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
     public class AmberFly : ModProjectile
     {
         int shootTimer = 0;
-        bool PowerBoosted => Projectile.GetPlayerOwner().Gem().megaGemCore;
+        public virtual bool PowerBoosted => Projectile.GetPlayerOwner().Gem().megaGemCore;
 
         public override void SetStaticDefaults()
         {
@@ -23,6 +23,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = false;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+            Projectile.AddRedemptionElement(5);
+            Projectile.AddRedemptionElement(10);
         }
 
         public override void SetDefaults()
@@ -192,7 +194,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                     Projectile.spriteDirection = targetCenter.X > Projectile.Center.X ? 1 : -1;
                     if (++shootTimer >= 120 + Main.rand.Next(60))
                     {
-                        SoundEngine.PlaySound(SoundID.Item17);
+                        SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
                         Vector2 velocity = Vector2.Normalize(targetCenter - Projectile.Center);
                         Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity * 12f,
                             ModContent.ProjectileType<AmberSpit>(), Projectile.damage, 0, Projectile.owner);
@@ -231,7 +233,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
         }
 
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
-        private bool CheckActive(Player owner)
+        public virtual bool CheckActive(Player owner)
         {
             if (owner.dead || !owner.active || !owner.HasBuff<SwarmingAmber>())
                 return false;

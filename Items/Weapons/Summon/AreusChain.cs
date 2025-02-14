@@ -1,5 +1,5 @@
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Projectiles.Summon.Whip;
+using ShardsOfAtheria.Projectiles.Summon.Active;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
 using Terraria;

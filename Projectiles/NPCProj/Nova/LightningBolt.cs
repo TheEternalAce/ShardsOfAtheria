@@ -13,47 +13,35 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override void SetStaticDefaults()
         {
+            ProjectileID.Sets.TrailingMode[Type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Type] = 200;
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = Projectile.height = 4;
+            Projectile.width = Projectile.height = 6;
             Projectile.timeLeft = 400;
             Projectile.extraUpdates = 22;
             Projectile.hostile = true;
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.alpha = 255;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 140;
         }
 
         Vector2 initialVel = Vector2.Zero;
-        int initialDmg = 0;
-        int DustTimer = 0;
 
         public override void AI()
         {
             if (initialVel == Vector2.Zero)
-            {
                 initialVel = Projectile.velocity;
-                initialDmg = Projectile.damage;
-            }
             if (++Projectile.ai[0] > 4)
             {
                 Projectile.velocity = initialVel.RotatedByRandom(MathHelper.ToRadians(35));
                 Projectile.ai[0] = 0;
             }
-
-            DustTimer++;
-            if (DustTimer > 17 || Projectile.ai[1] == 2)
-            {
-                Dust d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Electric);
-                d.velocity *= 0;
-                d.fadeIn = 1.3f;
-                d.noGravity = true;
-            }
+            Projectile.rotation = Projectile.velocity.ToRotation();
         }
 
         public override void OnKill(int timeLeft)
@@ -74,6 +62,12 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             {
                 target.AddBuff(ModContent.Find<ModBuff>("FargowiltasSouls", "ClippedWingsBuff").Type, 600);
             }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Projectile.DrawBloomTrail_NoDiminishingScale(SoA.ElectricColorA, SoA.LineBloom, 0, 0.5f);
+            return base.PreDraw(ref lightColor);
         }
     }
 }

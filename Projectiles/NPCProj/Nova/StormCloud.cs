@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
-using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -90,8 +89,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
             player.Center = newCenter;
             if (Projectile.ai[1] >= 60)
             {
-                Item novaBook = ModContent.GetInstance<PlumeCodex>().Item;
-                SoundEngine.PlaySound(novaBook.UseSound);
+                SoundEngine.PlaySound(SoundID.Item43, Projectile.Center);
                 Projectile.ai[1] = 0;
                 Vector2 velocity = new(0, 2);
                 for (int i = 0; i < 8; i++)

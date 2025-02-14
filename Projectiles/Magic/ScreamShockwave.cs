@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -16,8 +15,6 @@ namespace ShardsOfAtheria.Projectiles.Magic
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10; // The length of old position to be recorded
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0; // The recording mode
-            Projectile.AddElement(2);
-            Projectile.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()
@@ -61,7 +58,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
             else
             {
                 Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-                SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+                SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 
                 // If the projectile hits the left or right side of the tile, reverse the X velocity
                 if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon)
@@ -108,7 +105,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
         {
             // This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
             Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
         }
     }
 }

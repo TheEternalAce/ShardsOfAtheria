@@ -13,25 +13,25 @@ namespace ShardsOfAtheria.Projectiles.Magic
 
         public override void SetStaticDefaults()
         {
+            ProjectileID.Sets.TrailingMode[Type] = 2;
+            ProjectileID.Sets.TrailCacheLength[Type] = 200;
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = Projectile.height = 4;
+            Projectile.width = Projectile.height = 20;
             Projectile.timeLeft = 400;
             Projectile.extraUpdates = 22;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Magic;
-            Projectile.alpha = 255;
             Projectile.aiStyle = -1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 140;
         }
 
         internal Vector2 initialVel = Vector2.Zero;
-        internal int DustTimer = 0;
 
         public override void OnSpawn(IEntitySource source)
         {
@@ -44,7 +44,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
             if (Projectile.ai[1] == 1)
             {
                 ShardsHelpers.CallStorm(Projectile.GetSource_FromThis(), Projectile.Center, 3,
-                    (int)(Projectile.damage * 0.66f), Projectile.knockBack, Projectile.DamageType, Projectile.owner);
+                    (int)(Projectile.damage * 0.66f), Projectile.knockBack, Projectile.DamageType);
             }
             else if (Projectile.ai[1] == 2 && target.CanBeChasedBy())
             {
@@ -103,22 +103,14 @@ namespace ShardsOfAtheria.Projectiles.Magic
                 Projectile.velocity = initialVel.RotatedByRandom(MathHelper.ToRadians(35));
                 Projectile.ai[0] = 0;
             }
-
-            DustTimer++;
-            if (DustTimer > 17 || Projectile.ai[1] == 2)
-            {
-                Dust d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Electric);
-                d.velocity *= 0;
-                d.fadeIn = 1.3f;
-                d.noGravity = true;
-            }
+            Projectile.rotation = Projectile.velocity.ToRotation();
 
             if (Projectile.ai[1] == 3)
             {
                 if (Projectile.GetPlayerOwner().Center.Y - 100 < Projectile.Center.Y)
                 {
                     Projectile.tileCollide = true;
-                    Projectile.ai[0] = 0;
+                    Projectile.ai[1] = 0;
                 }
             }
         }
@@ -132,6 +124,12 @@ namespace ShardsOfAtheria.Projectiles.Magic
                 d.fadeIn = 1.3f;
                 d.noGravity = true;
             }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Projectile.DrawBloomTrail_NoDiminishingScale(SoA.ElectricColorA, SoA.LineBloom, 0, 0.5f);
+            return base.PreDraw(ref lightColor);
         }
     }
 }

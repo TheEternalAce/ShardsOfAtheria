@@ -1,17 +1,19 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
+using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WebCom.Effects.ScreenShaking;
-//using WebCom.Effects.ScreenShaking;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class HandCanon : ModItem
     {
         public int charge;
+        const int MaxCharge = 300;
 
         public override void SetStaticDefaults()
         {
@@ -40,20 +42,15 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.shootSpeed = 16f;
             Item.rare = ItemRarityID.Master;
             Item.value = 22500;
-            Item.shoot = ProjectileID.Grenade;
-            Item.useAmmo = ItemID.Grenade;
-        }
-
-        public override bool CanConsumeAmmo(Item item, Player player)
-        {
-            return player.itemAnimation == player.itemAnimationMax;
+            Item.shoot = ModContent.ProjectileType<PlasmaShot>();
         }
 
         public override void UpdateInventory(Player player)
         {
-            if (!player.ItemAnimationActive || player.HeldItem != Item)
+            var cable = ToggleableTool.GetInstance<BrokenCable>(player);
+            if ((!player.ItemAnimationActive || player.HeldItem != Item) && (cable is null || !cable.Active))
             {
-                if (charge < 300)
+                if (charge < MaxCharge)
                 {
                     charge++;
                     if (SoA.ClientConfig.chargeSound && charge % 25 == 0) SoundEngine.PlaySound(SoA.ZeroCharge, player.Center);
@@ -66,20 +63,19 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                         dust.noGravity = true;
                     }
                 }
-                if (charge == 300 - 1) SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
+                if (charge == MaxCharge - 1) SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
             }
+            if (player.HeldItem == Item && player.ItemAnimationActive && player.ItemAnimationEndingOrEnded) charge = 0;
         }
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            base.ModifyWeaponDamage(player, ref damage);
-            if (charge >= 300)
-                damage += 1f;
+            if (charge >= MaxCharge) damage += 1f;
         }
 
         public override bool CanUseItem(Player player)
         {
-            if (charge == 300)
+            if (charge == MaxCharge)
             {
                 Item.useTime = 10;
                 Item.useAnimation = 30;
@@ -95,12 +91,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool? UseItem(Player player)
         {
-            if (charge >= 300)
-            {
-                ScreenShake.ShakeScreen(6, 60);
-            }
-            charge = 0;
-            SoundEngine.PlaySound(Item.UseSound.Value);
+            if (charge >= MaxCharge) ScreenShake.ShakeScreen(6, 60);
+            SoundEngine.PlaySound(Item.UseSound, player.Center);
             return base.UseItem(player);
         }
     }

@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
 
         public override void OnSpawn(IEntitySource source)
         {
-            SoundEngine.PlaySound(SoundID.Item72);
+            SoundEngine.PlaySound(SoundID.Item72, Projectile.Center);
         }
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)

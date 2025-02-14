@@ -1,5 +1,6 @@
 using ShardsOfAtheria.Items.AreusChips;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Tiles.Crafting;
@@ -41,6 +42,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
             CreateRecipe()
                 .AddIngredient<AreusShard>(14)
                 .AddIngredient(ItemID.GoldBar, 4)
+                .AddIngredient<Jade>(4)
                 .AddIngredient<SoulOfDaylight>(12)
                 .AddTile<AreusFabricator>()
                 .Register();
@@ -63,7 +65,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
         public override void MagicSet(Player player)
         {
             base.MagicSet(player);
-            if (++ArmorPlayer.energyTimer >= AreusArmorPlayer.EnergyTimerMax)
+            if (ArmorPlayer.areusEnergy < AreusArmorPlayer.AREUS_ENERGY_MAX && ++ArmorPlayer.energyTimer >= 20)
             {
                 ArmorPlayer.areusEnergy += 3;
                 ArmorPlayer.energyTimer = 0;
@@ -73,14 +75,22 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
         public override void SummonSet(Player player)
         {
             base.SummonSet(player);
-            if (player.InCombat())
+            if (ArmorPlayer.areusEnergy < AreusArmorPlayer.AREUS_ENERGY_MAX && player.InCombat() && ++ArmorPlayer.energyTimer >= 20)
             {
-                if (++ArmorPlayer.energyTimer >= AreusArmorPlayer.EnergyTimerMax)
-                {
-                    ArmorPlayer.areusEnergy++;
-                    ArmorPlayer.energyTimer = 0;
-                }
+                ArmorPlayer.areusEnergy++;
+                ArmorPlayer.energyTimer = 0;
             }
+        }
+
+        public override void ThrowingSet(Player player)
+        {
+            base.ThrowingSet(player);
+            if (ArmorPlayer.areusEnergy < AreusArmorPlayer.AREUS_ENERGY_MAX && player.HeldItem.IsWeapon() && !player.ItemAnimationActive && ++ArmorPlayer.energyTimer >= 8)
+            {
+                ArmorPlayer.areusEnergy++;
+                ArmorPlayer.energyTimer = 0;
+            }
+            if (ArmorPlayer.thrownEnergyBurstCooldown > 0) ArmorPlayer.thrownEnergyBurstCooldown--;
         }
     }
 }

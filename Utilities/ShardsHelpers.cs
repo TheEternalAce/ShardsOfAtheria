@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
 using ShardsOfAtheria.Projectiles.Other;
@@ -23,7 +24,7 @@ namespace ShardsOfAtheria.Utilities
     public static partial class ShardsHelpers
     {
         public static Projectile[] CallStorm(IEntitySource source, Vector2 position, int amount, int damage,
-            float knockback, DamageClass damageClass, int owner = -1, int pierce = 1, bool hostile = false)
+            float knockback, DamageClass damageClass, float ai0 = 0f, float ai1 = 0f, float ai2 = 0f, int owner = -1, int pierce = 1, bool hostile = false)
         {
             Projectile[] projectiles = new Projectile[amount];
             SoundEngine.PlaySound(SoundID.NPCDeath56, position);
@@ -36,13 +37,13 @@ namespace ShardsOfAtheria.Utilities
             {
                 projectiles[i] = Projectile.NewProjectileDirect(source,
                     new Vector2(position.X + Main.rand.Next(-60 * amount, 60 * amount), position.Y - 600),
-                    new Vector2(0, 5), projectileType, damage, knockback, owner);
+                    new Vector2(0, 5), projectileType, damage, knockback, owner, ai0, ai1, ai2);
                 projectiles[i].penetrate = pierce;
                 projectiles[i].DamageType = damageClass;
             }
             projectiles[amount - 1] = Projectile.NewProjectileDirect(source,
                 new Vector2(position.X, position.Y - 600),
-                new Vector2(0, 5), projectileType, damage, knockback, owner);
+                new Vector2(0, 5), projectileType, damage, knockback, owner, ai0, ai1, ai2);
             projectiles[amount - 1].penetrate = pierce;
             projectiles[amount - 1].DamageType = damageClass;
             return projectiles;
@@ -132,47 +133,23 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
-        public static int ScaleByProggression(int baseAmount = 1)
+        public static int ProgressionMultiplier(Player player)
         {
-            int multiplier = 1;
-            if (NPC.downedMoonlord)
-            {
-                multiplier = 5;
-            }
-            else if (NPC.downedGolemBoss)
-            {
-                multiplier = 4;
-            }
-            else if (Main.hardMode)
-            {
-                multiplier = 3;
-            }
-            else if (NPC.downedBoss3)
-            {
-                multiplier = 2;
-            }
-            return baseAmount * multiplier;
+            var tierLock = ToggleableTool.GetInstance<TierLock>(player);
+            if (tierLock != null && tierLock.mode > 0) return tierLock.mode;
+            if (NPC.downedMoonlord) return 5;
+            else if (NPC.downedGolemBoss) return 4;
+            else if (Main.hardMode) return 3;
+            else if (NPC.downedBoss3) return 2;
+            return 1;
         }
-        public static StatModifier ScaleByProggression(StatModifier baseAmount)
+        public static int ScaleByProggression(Player player, int baseAmount = 1)
         {
-            int multiplier = 1;
-            if (NPC.downedMoonlord)
-            {
-                multiplier = 5;
-            }
-            else if (NPC.downedGolemBoss)
-            {
-                multiplier = 4;
-            }
-            else if (Main.hardMode)
-            {
-                multiplier = 3;
-            }
-            else if (NPC.downedBoss3)
-            {
-                multiplier = 2;
-            }
-            return baseAmount * multiplier;
+            return baseAmount * ProgressionMultiplier(player);
+        }
+        public static StatModifier ScaleByProggression(Player player, StatModifier baseAmount)
+        {
+            return baseAmount * ProgressionMultiplier(player);
         }
 
         public static float Wave(float time, float minimum, float maximum)
@@ -231,6 +208,21 @@ namespace ShardsOfAtheria.Utilities
         {
             return TextureAssets.Projectile[projectile.type].Value.Frame(1, Main.projFrames[projectile.type], 0, projectile.frame);
         }
+
+        public static ref Rectangle Resize(this ref Rectangle rectangle, int size)
+        {
+            return ref rectangle.Resize(size, size);
+        }
+        public static ref Rectangle Resize(this ref Rectangle rectangle, int width, int height)
+        {
+            Point center = rectangle.Center;
+            rectangle.Width = width;
+            rectangle.Height = height;
+            rectangle.X = center.X - width / 2;
+            rectangle.Y = center.Y - height / 2;
+            return ref rectangle;
+        }
+
 
         public static SpriteEffects GetSpriteEffect(this Projectile projectile)
         {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -56,9 +57,13 @@ namespace ShardsOfAtheria.Projectiles.Melee
             target.AddBuff(BuffID.Electrified, 600);
             ScreenShake.ShakeScreen(6, 60);
             var player = Main.player[Projectile.owner];
-            var vector = player.Center - target.Center;
-            vector.Normalize();
-            player.velocity = vector * Projectile.knockBack;
+            var anchorChip = ToggleableTool.GetInstance<AnchorChip>(player);
+            if (anchorChip == null || !anchorChip.Active)
+            {
+                var vector = player.Center - target.Center;
+                vector.Normalize();
+                player.velocity = vector * Projectile.knockBack;
+            }
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -98,7 +103,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         public override float SwingProgress(float progress)
         {
-            return GenericSwing2(progress);
+            return SwingProgressAequus(progress);
         }
 
         public override float GetVisualOuter(float progress, float swingProgress)

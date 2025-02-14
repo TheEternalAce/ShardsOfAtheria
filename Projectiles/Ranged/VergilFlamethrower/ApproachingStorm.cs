@@ -119,7 +119,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.VergilFlamethrower
             Projectile.timeLeft = 60;
             if (Projectile.soundDelay <= 0)
             {
-                SoundEngine.PlaySound(in SoundID.Item34, Projectile.position);
+                SoundEngine.PlaySound(SoundID.Item34, Projectile.Center);
                 Projectile.soundDelay = 20;
             }
             Vector2 vector13 = Main.player[Projectile.owner].RotatedRelativePoint(Main.player[Projectile.owner].MountedCenter);

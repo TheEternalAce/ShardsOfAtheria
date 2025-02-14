@@ -26,7 +26,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             if (Item.damage > 0)
-                tooltips.Add(new TooltipLine(Mod, "Damage", "Damage scales with progression"));
+                tooltips.Add(new TooltipLine(Mod, "Damage", ShardsHelpers.LocalizeCommon("DamageScale")));
             var line = new TooltipLine(Mod, "Sinful", "Sinful")
             {
                 OverrideColor = Color.Orange
@@ -36,24 +36,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            int multiplier = 1;
-            if (NPC.downedMoonlord)
-            {
-                multiplier++;
-            }
-            if (NPC.downedGolemBoss)
-            {
-                multiplier++;
-            }
-            if (NPC.downedPlantBoss)
-            {
-                multiplier++;
-            }
-            if (NPC.downedMechBossAny)
-            {
-                multiplier++;
-            }
-            damage *= multiplier;
+            damage = ShardsHelpers.ScaleByProggression(player, damage);
         }
 
         public bool SinfulItemUsable(Player player)

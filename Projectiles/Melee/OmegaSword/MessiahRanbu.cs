@@ -49,13 +49,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
             UpdateVisuals();
 
             Player player = Main.player[Projectile.owner];
-            bool jump = true;
-            if (player.HasItem(ModContent.ItemType<AnchorChip>()))
-            {
-                int slot = player.FindItem(ModContent.ItemType<AnchorChip>());
-                var item = player.inventory[slot].ModItem as AnchorChip;
-                jump = !item.active;
-            }
+            var anchorChip = ToggleableTool.GetInstance<AnchorChip>(player);
+            bool jump = anchorChip == null && !anchorChip.Active;
             if (jump && combo == 7 && !launchPlayer)
             {
                 launchPlayer = true;
@@ -106,7 +101,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
                     }
                     else
                     {
-                        SoundEngine.PlaySound(SoundID.Item1);
+                        SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
                         Spark();
                     }
                 }

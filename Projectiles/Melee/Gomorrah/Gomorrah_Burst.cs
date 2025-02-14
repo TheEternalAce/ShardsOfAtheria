@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.Gomorrah
             if (Projectile.ai[0] == 0)
             {
                 ScreenShake.ShakeScreen(6, 60);
-                SoundEngine.PlaySound(SoundID.Item14);
+                SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
                 Projectile.ai[0] = 1;
             }
             for (int i = 0; i < 6; i++)

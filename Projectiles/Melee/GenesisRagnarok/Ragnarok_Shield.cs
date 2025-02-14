@@ -54,7 +54,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
             if (!player.dead && !Main.mouseLeft && Main.myPlayer == Projectile.owner)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center, velocity.RotatedByRandom(MathHelper.ToRadians(5)), ModContent.ProjectileType<RagnarokProj>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
-                SoundEngine.PlaySound(SoundID.Item1);
+                SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
             }
         }
 

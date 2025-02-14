@@ -59,7 +59,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity,
                             ModContent.ProjectileType<GunswordGun>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
-                        SoundEngine.PlaySound(SoundID.Item11);
+                        SoundEngine.PlaySound(SoundID.Item11, Projectile.Center);
                         player.manaRegenDelay = 120;
                         player.statMana -= 6;
                     }

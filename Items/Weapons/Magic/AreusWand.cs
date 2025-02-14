@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
             Item.AddAreus();
+            Item.staff[Type] = true;
         }
 
         public override void SetDefaults()
@@ -33,7 +34,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item43;
             Item.autoReuse = true;
-            Item.staff[Type] = true;
             Item.noMelee = true;
 
             Item.shootSpeed = 16;
@@ -64,23 +64,19 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                 Item.useStyle = ItemUseStyleID.Swing;
                 Item.UseSound = SoundID.Item1;
                 Item.noUseGraphic = true;
-                Item.useTime = 16;
-                Item.useAnimation = 16;
             }
             else
             {
                 Item.useStyle = ItemUseStyleID.Shoot;
                 Item.UseSound = SoundID.Item43;
                 Item.noUseGraphic = false;
-                Item.useTime = 26;
-                Item.useAnimation = 26;
             }
             return base.CanUseItem(player);
         }
 
         public override bool? UseItem(Player player)
         {
-            Item.FixSwing(player);
+            if (player.altFunctionUse == 2) Item.FixSwing(player);
             return true;
         }
 

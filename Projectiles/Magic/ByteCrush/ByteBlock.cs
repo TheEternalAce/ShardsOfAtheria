@@ -5,6 +5,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Magic.ByteCrush
 {
@@ -74,7 +75,8 @@ namespace ShardsOfAtheria.Projectiles.Magic.ByteCrush
         public override void OnKill(int timeLeft)
         {
             var position = Projectile.Center;
-            SoundEngine.PlaySound(SoundID.Item14);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             for (int i = 0; i < 16; i++)
             {
                 var velocity = Vector2.One.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(10f, 16f);

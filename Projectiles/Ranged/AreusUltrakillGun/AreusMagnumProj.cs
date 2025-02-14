@@ -104,6 +104,15 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
                             }
                             ChargeTimer = 20 - 20 * AttackSpeed;
                         }
+                        else
+                        {
+                            for (int i = 0; i < 4; i++)
+                            {
+                                Vector2 shootOrigin = Projectile.Center + aimNormal * 40;
+                                Dust dust = Dust.NewDustPerfect(shootOrigin, DustID.Electric, aimNormal.RotatedBy(MathHelper.PiOver2 * i) * 1.5f);
+                                dust.noGravity = true;
+                            }
+                        }
                     }
                 }
             }
@@ -125,9 +134,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
             Vector2 shootOrigin = Projectile.Center + aimNormal * 20;
 
             bool shoot = Owner.PickAmmo(Owner.HeldItem, out int bullet, out float _,
-                out int _, out float knockback, out int _);
+                out int damage, out float knockback, out int _);
             float speed = 16f;
-            int damage = Projectile.originalDamage;
             recoilAmount += 2f;
             recoilAmount -= recoilAmount * AttackSpeed;
             if (chargeLevel == 9 || Owner.Shards().Overdrive)
@@ -143,6 +151,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
                 var s = SoundID.Item122;
                 s.PitchVariance = 0.1f;
                 SoundEngine.PlaySound(s, Projectile.Center);
+                damage = (int)(damage * 1.5f);
             }
             if (shoot)
             {

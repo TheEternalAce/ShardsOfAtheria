@@ -7,12 +7,10 @@ namespace ShardsOfAtheria.Items.Accessories
 {
     public class MimicCloak : ModItem
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetDefaults()
         {
-            Item.width = 34;
-            Item.height = 34;
+            Item.width = 32;
+            Item.height = 32;
             Item.accessory = true;
 
             Item.rare = ItemDefaults.RarityEarlyHardmode;

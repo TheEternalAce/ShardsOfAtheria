@@ -6,60 +6,41 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Tools.ToggleItems
 {
-    public class RiggedCoin : ModItem
+    public class RiggedCoin : ToggleableTool
     {
-        int rigMode = 2;
-
         public override void SetDefaults()
         {
             Item.width = 32;
             Item.height = 32;
+            maxMode = 2;
 
             Item.rare = ItemDefaults.RarityDungeon;
             Item.value = ItemDefaults.ValueDungeon;
         }
 
-        public override bool CanRightClick()
-        {
-            return true;
-        }
-        public override bool ConsumeItem(Player player)
-        {
-            return false;
-        }
-
-        public override void RightClick(Player player)
-        {
-            rigMode--;
-            if (rigMode < 0)
-            {
-                rigMode = 2;
-            }
-        }
-
         public override void UpdateInventory(Player player)
         {
             var shards = player.Shards();
-            shards.riggedCoin = rigMode;
+            shards.riggedCoin = mode;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            string mode = "";
+            string suffix = "";
             var key = this.GetLocalizationKey(string.Empty);
-            if (rigMode == 0)
+            if (mode == 0)
             {
-                mode = Language.GetTextValue(key + "Off");
+                suffix = Language.GetTextValue(key + "Off");
             }
-            if (rigMode == 1)
+            if (mode == 1)
             {
-                mode = Language.GetTextValue(key + "Tails");
+                suffix = Language.GetTextValue(key + "Tails");
             }
-            if (rigMode == 2)
+            if (mode == 2)
             {
-                mode = Language.GetTextValue(key + "Heads");
+                suffix = Language.GetTextValue(key + "Heads");
             }
-            tooltips[0].Text += mode;
+            tooltips[0].Text += suffix;
         }
     }
 }

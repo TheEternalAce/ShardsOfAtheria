@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Projectiles.Melee;
-using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -45,7 +45,6 @@ namespace ShardsOfAtheria.Items.DedicatedItems.Webmillio
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            Item.AddUpgradable();
             Item.AddElement(2);
         }
 
@@ -90,26 +89,21 @@ namespace ShardsOfAtheria.Items.DedicatedItems.Webmillio
                 .AddIngredient(ItemID.BluePhasesaber)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
-
-            CreateRecipe()
-                .AddCondition(SoAConditions.Upgrade)
-                .AddIngredient(Type)
-                .AddIngredient(ItemID.HallowedBar, 20)
-                .Register();
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (upgraded)
+            if (upgraded) type = ModContent.ProjectileType<Warframe_Upgrade>();
+            var anchorChip = ToggleableTool.GetInstance<AnchorChip>(player);
+            if (anchorChip == null || !anchorChip.Active)
             {
-                type = ModContent.ProjectileType<Warframe_Upgrade>();
-            }
-            player.velocity += velocity * knockback;
-            float maxVelocity = knockback * 1.5f;
-            if (player.velocity.Length() > maxVelocity)
-            {
-                player.velocity.Normalize();
-                player.velocity *= maxVelocity;
+                player.velocity += velocity * knockback;
+                float maxVelocity = knockback * 1.5f;
+                if (player.velocity.Length() > maxVelocity)
+                {
+                    player.velocity.Normalize();
+                    player.velocity *= maxVelocity;
+                }
             }
         }
 

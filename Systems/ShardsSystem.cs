@@ -10,6 +10,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.IO;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.WorldBuilding;
 
 namespace ShardsOfAtheria.Systems
@@ -20,7 +21,7 @@ namespace ShardsOfAtheria.Systems
         public bool omegaKey;
         public bool omegaShrine;
         public bool atherianTomb;
-        public bool CrestGifted;
+        public bool crestGifted;
 
         public override void Load()
         {
@@ -30,6 +31,16 @@ namespace ShardsOfAtheria.Systems
         public override void Unload()
         {
             Instance = null;
+        }
+
+        public override void SaveWorldData(TagCompound tag)
+        {
+            tag["crestGifted"] = crestGifted;
+        }
+
+        public override void LoadWorldData(TagCompound tag)
+        {
+            if (tag.ContainsKey("crestGifted")) crestGifted = tag.GetBool("crestGifted");
         }
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)

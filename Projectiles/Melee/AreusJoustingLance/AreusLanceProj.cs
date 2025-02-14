@@ -24,6 +24,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJoustingLance
             // velocity to always be the same even if the player has increased attack speed.
             ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
 
+            Projectile.MakeTrueMelee();
             Projectile.AddAreus();
         }
 

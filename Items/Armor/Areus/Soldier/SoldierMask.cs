@@ -1,6 +1,4 @@
 using ShardsOfAtheria.Items.AreusChips;
-using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -48,21 +46,10 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
         {
             base.UpdateArmorSet(player);
             ArmorPlayer.soldierSet = true;
-            if (ArmorPlayer.CommanderSet)
+            if (ArmorPlayer.CommanderSetChip)
             {
                 player.maxMinions += 1;
             }
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient<AreusShard>(14)
-                .AddIngredient(ItemID.GoldBar, 4)
-                .AddIngredient(ItemID.SoulofLight, 12)
-                .AddIngredient(ItemID.Silk, 20)
-                .AddTile<AreusFabricator>()
-                .Register();
         }
     }
 }

@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
 {
@@ -56,6 +57,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
                 Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f);
             }
 
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             var numProjs = 5;
             var rotation = MathHelper.ToRadians(15);
             for (int i = 0; i < numProjs; i++)

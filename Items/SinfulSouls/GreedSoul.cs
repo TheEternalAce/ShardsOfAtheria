@@ -8,7 +8,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 {
     public class GreedSoul : SinfulSouls
     {
-        public override int SoulType => ModContent.BuffType<GreedBuff>();
+        public override int SoulBuffType => ModContent.BuffType<GreedBuff>();
     }
 
     public class GreedPlayer : ModPlayer
@@ -46,9 +46,9 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
     public class GreedBuff : SinfulSoulBuff
     {
-        public override void SetStaticDefaults()
+        public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
         {
-            base.SetStaticDefaults();
+            tip = ShardsHelpers.Localize("Items.GreedSoul.Tooltip");
         }
 
         public override void Update(Player player, ref int buffIndex)

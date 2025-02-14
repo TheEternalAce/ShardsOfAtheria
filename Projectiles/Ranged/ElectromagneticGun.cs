@@ -105,10 +105,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             }
             else
             {
-                if (charging) //run for a single frame when player stops channeling weapon
-                {
-                    Fire();
-                }
+                if (charging) Fire(); //run for a single frame when player stops channeling weapon
                 charging = false;
             }
         }
@@ -118,7 +115,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             var soundType = SoA.MagnetWeakShot;
 
             //where the projectile should spawn, modified so the projectile actually looks like it's coming out of the barrel
-            Vector2 shootOrigin = Projectile.Center + aimNormal * 40;
+            Vector2 shootOrigin = Projectile.Center;
+            if (Collision.CanHit(shootOrigin, 0, 0, Projectile.GetPlayerOwner().Center, 0, 0)) shootOrigin = Projectile.GetPlayerOwner().Center;
 
             bool shoot = owner.PickAmmo(owner.HeldItem, out int dart, out float _,
                 out int _, out float knockback, out int _);
@@ -130,13 +128,12 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                 //increase recoil value, make gun appear like it's actually firing with some force
                 soundType = SoA.MagnetShot;
                 recoilAmount += 2f;
-                speed *= 2;
+                speed *= 1.5f;
                 damage += 50;
                 if (chargeLevel == 3)
                 {
                     recoilAmount += 3f;
                     damage += 50;
-                    Projectile.Explode(owner.Center, damage / 2, hostile: true);
                 }
             }
             if (shoot)

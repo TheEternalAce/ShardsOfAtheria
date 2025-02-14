@@ -1,8 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Projectiles.Summon.Minions.Sentry;
-using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
@@ -59,17 +56,6 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             // Since we spawned the projectile manually already, we do not need the game to spawn it for ourselves anymore, so return false
             ShardsHelpers.KillOldestSentry(player, projectile.whoAmI);
             return false;
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<BrokenAreusMirror>())
-                .AddIngredient(ModContent.ItemType<AreusShard>(), 10)
-                .AddIngredient<Jade>(3)
-                .AddIngredient(ItemID.CrystalShard, 15)
-                .AddCondition(SoAConditions.Upgrade)
-                .Register();
         }
     }
 }

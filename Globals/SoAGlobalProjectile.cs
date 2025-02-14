@@ -1,7 +1,6 @@
 ﻿using BattleNetworkElements;
 using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Projectiles.Ammo;
 using ShardsOfAtheria.Projectiles.Magic.ThorSpear;
@@ -17,13 +16,15 @@ namespace ShardsOfAtheria.Globals
 {
     public class SoAGlobalProjectile : GlobalProjectile
     {
-        public bool tempAreus = false;
         public bool explosion = false;
         public bool areusNullField = false;
         public bool nailPunch = false;
 
+        int voidTrailCooldown = 0;
+
         public static readonly Dictionary<int, bool> AreusProj = [];
         public static readonly List<int> Eraser = [];
+        public static readonly List<int> TrueMelee = [];
         public static readonly Dictionary<int, float> Metalic = new()
         {
             #region Melee
@@ -184,9 +185,9 @@ namespace ShardsOfAtheria.Globals
             {
                 ChangeElements(projectile, source);
             }
-            if (source is EntitySource_ItemUse_WithAmmo nailgunSource)
+            if (source is EntitySource_ItemUse_WithAmmo weaponSource)
             {
-                if (nailgunSource.Item.type == ModContent.ItemType<NailPounder>()) nailPunch = true;
+                if (weaponSource.Item.type == ModContent.ItemType<NailPounder>()) nailPunch = true;
             }
             base.OnSpawn(projectile, source);
         }
@@ -264,11 +265,11 @@ namespace ShardsOfAtheria.Globals
             }
             if (Metalic.ContainsKey(type))
             {
-                var magnet = ShardsHelpers.FindClosestProjectile(projectile.Center, 200f, magnet => Magnet(magnet, projectile));
-                if (magnet != null)
+                var magnetPos = ShardsHelpers.FindClosestProjectile(projectile.Center, 200f, magnet => Magnet(magnet, projectile));
+                if (magnetPos != null)
                 {
                     float speed = projectile.velocity.Length();
-                    var vectorToTarget = magnet.Center - projectile.Center;
+                    var vectorToTarget = magnetPos.Center - projectile.Center;
                     ShardsHelpers.AdjustMagnitude(ref vectorToTarget, speed);
                     projectile.velocity = (3 * projectile.velocity + vectorToTarget) / 2f;
                     ShardsHelpers.AdjustMagnitude(ref projectile.velocity, speed);
@@ -276,7 +277,7 @@ namespace ShardsOfAtheria.Globals
             }
             if (projectile.aiStyle == 93 && nailPunch)
             {
-                if (projectile.ai[0] == 0)
+                if (projectile.ai[0] == 0) // Tumble logic
                 {
                     if (projectile.ai[1] > 20) projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f + MathHelper.ToRadians(10f) * (projectile.ai[1] - 20) * projectile.direction;
                     else if (projectile.ai[1] == 20) { projectile.damage = (int)(projectile.damage * 0.15f); projectile.ai[2] = 1; }
@@ -310,26 +311,6 @@ namespace ShardsOfAtheria.Globals
         {
             if (target.Shards().areusNullField || areusNullField) return false;
             return base.CanHitPlayer(projectile, target);
-        }
-
-        public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            var player = projectile.GetPlayerOwner();
-            var shards = player.Shards();
-            if (projectile.IsAreus(false) || tempAreus)
-            {
-                int buffType = ModContent.BuffType<ElectricShock>();
-                int buffTime = 600;
-                if (shards.conductive)
-                {
-                    buffTime *= 2;
-                }
-                if (NPC.downedPlantBoss)
-                {
-                    buffType = BuffID.Electrified;
-                }
-                target.AddBuff(buffType, buffTime);
-            }
         }
     }
 }

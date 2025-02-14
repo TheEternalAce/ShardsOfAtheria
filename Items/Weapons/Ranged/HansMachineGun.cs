@@ -46,17 +46,11 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
+            if (type == ProjectileID.Bullet) type = ModContent.ProjectileType<HansBullet>();
             velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
-            if (type == ProjectileID.Bullet)
-            {
-                type = ModContent.ProjectileType<HansBullet>();
-            }
             float rotation = velocity.ToRotation();
             Vector2 muzzleOffset = new Vector2(45, -20 * player.direction).RotatedBy(rotation);
-            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-            {
-                position += muzzleOffset;
-            }
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0)) position += muzzleOffset;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

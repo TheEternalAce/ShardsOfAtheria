@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Buffs.PlayerBuff.OnHitBuffs;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
 {
@@ -62,8 +63,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
         {
             if (IsStickingToTarget)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<AreusRetribution>(),
-                Projectile.damage, Projectile.knockBack);
+                if (Projectile.GetPlayerOwner().IsLocal()) Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<AreusRetribution>(),
+                    Projectile.damage, Projectile.knockBack);
             }
 
             SoundEngine.PlaySound(SoundID.Dig, Projectile.Center); // Play a death sound

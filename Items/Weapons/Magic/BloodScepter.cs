@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.AddElement(1);
             Item.AddElement(3);
             Item.AddRedemptionElement(12);
+            Item.staff[Type] = true;
         }
 
         public override void SetDefaults()
@@ -32,7 +33,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item43;
             Item.autoReuse = true;
-            Item.staff[Type] = true;
 
             Item.shootSpeed = 10;
             Item.rare = ItemDefaults.RarityDeath;

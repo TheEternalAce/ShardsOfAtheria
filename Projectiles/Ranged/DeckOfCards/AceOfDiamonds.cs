@@ -18,6 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.DeckOfCards
             Projectile.width = 18;
             Projectile.height = 18;
             Projectile.DamageType = DamageClass.Ranged;
+            if (SoA.ServerConfig.throwingWeapons) Projectile.DamageType = DamageClass.Throwing;
             Projectile.penetrate = 5;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
@@ -27,6 +28,11 @@ namespace ShardsOfAtheria.Projectiles.Ranged.DeckOfCards
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Projectile.damage = (int)(Projectile.damage * 0.85f);
         }
     }
 }

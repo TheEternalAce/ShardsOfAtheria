@@ -1,8 +1,5 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Projectiles.Magic.ElecGauntlet;
-using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
@@ -43,20 +40,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.rare = ItemDefaults.RarityDukeFishron;
             Item.value = 50000;
             Item.shoot = ModContent.ProjectileType<ElecBlade>();
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<AreusGambit>())
-                .AddIngredient(ModContent.ItemType<AreusBow>())
-                .AddIngredient(ModContent.ItemType<AreusKatana>())
-                .AddIngredient(ModContent.ItemType<AreusDagger>())
-                .AddIngredient(ModContent.ItemType<AreusMagnum>())
-                .AddIngredient(ModContent.ItemType<AreusRailgun>())
-                .AddIngredient(ItemID.BeetleHusk, 15)
-                .AddCondition(SoAConditions.Upgrade)
-                .Register();
         }
 
         public override bool AltFunctionUse(Player player)

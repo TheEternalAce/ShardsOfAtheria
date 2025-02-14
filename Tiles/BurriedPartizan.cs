@@ -28,7 +28,6 @@ namespace ShardsOfAtheria.Tiles
             // Etc
             AddMapEntry(SoA.AreusColor, CreateMapEntryName());
             RegisterItemDrop(ModContent.ItemType<FuckEarlyGameHarpies>(), 0);
-
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)

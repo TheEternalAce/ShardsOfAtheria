@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Ammo
         public override void SetStaticDefaults()
         {
             Projectile.AddElement(1);
-            Projectile.AddRedemptionElement(14);
+            Projectile.AddRedemptionElement(1);
         }
 
         public override void SetDefaults()

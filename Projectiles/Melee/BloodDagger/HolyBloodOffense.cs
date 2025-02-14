@@ -14,7 +14,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodDagger
         {
             Projectile.AddElement(1);
             Projectile.AddElement(3);
-            Projectile.AddRedemptionElement(7);
+            Projectile.AddRedemptionElement(12);
+            Projectile.AddRedemptionElement(8);
         }
 
         public override void SetDefaults()
@@ -49,14 +50,14 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodDagger
             }
             else
             {
-                if (Target == null)
+                if (Target == null || !Target.CanBeChasedBy())
                 {
                     Projectile.velocity +=
                         new Vector2(
                             Main.rand.NextFloat(-2f, 2f),
                             Main.rand.NextFloat(-2f, 2f)
                         );
-                    Target = Projectile.FindClosestNPC(null, 100);
+                    Target = Projectile.FindClosestNPC(null, 200f);
                     return;
                 }
                 Projectile.Track(Target, 400);

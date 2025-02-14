@@ -20,6 +20,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
 
+            Projectile.MakeTrueMelee();
             Projectile.AddAreus();
         }
 
@@ -53,7 +54,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
                 {
                     Projectile.ai[1] = 1f;
                     SoundStyle style = SoA.Judgement1;
-                    SoundEngine.PlaySound(in style);
+                    SoundEngine.PlaySound(in style, Projectile.Center);
                     if (Main.myPlayer == Projectile.owner)
                     {
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), ownerMountedCenter, Projectile.velocity * 22f, ModContent.ProjectileType<AreusJustitia_Slash>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1f);
@@ -123,7 +124,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), ownerMountedCenter, new Vector2(20f, 0f).RotatedBy(rot), ModContent.ProjectileType<AreusJustitia_Stab>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1f, 3f);
                     }
                     SoundStyle style = SoA.Judgement2;
-                    SoundEngine.PlaySound(in style);
+                    SoundEngine.PlaySound(in style, Projectile.Center);
                 }
                 if (Projectile.ai[1] < 3f && progress > 0.46f)
                 {
@@ -133,7 +134,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), ownerMountedCenter, new Vector2(20f, 0f).RotatedBy(rot), ModContent.ProjectileType<AreusJustitia_Stab>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1f, 3f);
                     }
                     SoundStyle style = SoA.Judgement3;
-                    SoundEngine.PlaySound(in style);
+                    SoundEngine.PlaySound(in style, Projectile.Center);
                 }
             }
             else
@@ -146,7 +147,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), ownerMountedCenter, Projectile.velocity * 16f, ModContent.ProjectileType<AreusJustitia_Slash>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 2f);
                     }
                     SoundStyle style = SoA.Judgement2;
-                    SoundEngine.PlaySound(in style);
+                    SoundEngine.PlaySound(in style, Projectile.Center);
                 }
                 if (!(progress < 0.7f))
                 {

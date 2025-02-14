@@ -30,6 +30,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 
+            Projectile.MakeTrueMelee();
             Projectile.AddAreus();
         }
 
@@ -39,7 +40,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Projectile.height = 92;
             Projectile.DamageType = DamageClass.Melee;
 
-            Projectile.aiStyle = 0;
+            Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
@@ -72,6 +73,9 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Projectile.rotation = Projectile.velocity.ToRotation() +
                 (Projectile.spriteDirection == 1 ? MathHelper.ToRadians(-45f) :
                 MathHelper.ToRadians(225f));
+            //Projectile.rotation = Projectile.velocity.ToRotation() +
+            //    (Projectile.spriteDirection == 1 ? 0 :
+            //    MathHelper.ToRadians(180f));
             if (Main.rand.NextBool(2))
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Electric);

@@ -194,7 +194,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             {
                 Projectile.friendly = meleePhase;
                 Projectile.hostile = false;
-                if (shootCounter < 10 && !meleePhase)
+                if (++shootCounter > 600 + Main.rand.Next(180)) { shootCounter = 0; meleePhase = !meleePhase; }
+                if (!meleePhase)
                 {
                     Vector2 newIdlePosition = targetCenter - Projectile.Center;
                     newIdlePosition.Y -= 124f;
@@ -216,7 +217,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                             Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, perturbedSpeed,
                                ModContent.ProjectileType<FeatherBladeFriendly_Summon>(), Projectile.damage / 2, 0, Projectile.owner);
                         }
-                        shootCounter++;
                         shootTimer = 0;
                     }
                 }
@@ -225,14 +225,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                 {
                     speed = 12f;
                     inertia = 2f;
-                    meleePhase = true;
-                    if (++shootTimer >= 180)
-                    {
-                        if (--shootCounter <= 0)
-                        {
-                            meleePhase = false;
-                        }
-                    }
                     // The immediate range around the target (so it doesn't latch onto it when close)
                     Vector2 direction = targetCenter - Projectile.Center;
                     direction.Normalize();

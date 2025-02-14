@@ -1,6 +1,6 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Utilities;
+using Terraria;
 using Terraria.GameContent.ItemDropRules;
-using Terraria.Localization;
 
 namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 {
@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 
         public string GetConditionDescription()
         {
-            return Language.GetTextValue("Mods.ShardsOfAtheria.Conditions.RainSurface");
+            return ShardsHelpers.LocalizeCondition("RainSurface");
         }
     }
 }

@@ -46,6 +46,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
             ModContent.GetInstance<SapphireCore_Lesser>().UpdateAccessory(player, hideVisual);
             player.Gem().sapphireDodgeChance += 0.05f;
             player.Gem().sapphireCore = true;
+            player.Gem().gemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

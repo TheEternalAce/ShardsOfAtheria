@@ -22,6 +22,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
 
         public override void SetStaticDefaults()
         {
+            Projectile.MakeTrueMelee();
             Projectile.AddElement(0);
             Projectile.AddElement(1);
             Projectile.AddElement(2);

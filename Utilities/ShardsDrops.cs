@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Utilities
     {
         public static ManyFromOptionsDropRule ManyFromOptions(int chanceDenominator, int[,] options)
         {
-            return new ManyFromOptionsDropRule(chanceDenominator, 1, options);
+            return new(chanceDenominator, 1, options);
         }
 
         public static void AreusCommonDrops(ref NPCLoot npcLoot)

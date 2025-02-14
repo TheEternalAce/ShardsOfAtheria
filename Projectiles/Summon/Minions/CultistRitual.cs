@@ -41,7 +41,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                     Projectile.ai[1]++;
                     if (Projectile.ai[1] == 1)
                     {
-                        SoundEngine.PlaySound(SoundID.Item120.WithVolumeScale(0.5f));
+                        SoundEngine.PlaySound(SoundID.Item120.WithVolumeScale(0.5f), Projectile.Center);
                         if (owner.Slayer().lunaticCircleFragments > 1)
                         {
                             float numberProjectiles = owner.Slayer().lunaticCircleFragments;

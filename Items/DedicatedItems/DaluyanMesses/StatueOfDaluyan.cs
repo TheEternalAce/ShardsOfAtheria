@@ -12,8 +12,8 @@ namespace ShardsOfAtheria.Items.DedicatedItems.DaluyanMesses
 
         public override void SetDefaults()
         {
-            Item.width = 38;
-            Item.height = 36;
+            Item.width = 44;
+            Item.height = 44;
             Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = ItemDefaults.ValueDungeon;
         }

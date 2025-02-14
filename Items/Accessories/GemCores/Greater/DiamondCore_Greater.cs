@@ -46,6 +46,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             ModContent.GetInstance<DiamondCore>().UpdateAccessory(player, hideVisual);
             player.Gem().diamondShield = !hideVisual;
             player.Gem().greaterDiamondCore = true;
+            player.Gem().greaterGemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

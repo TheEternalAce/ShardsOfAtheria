@@ -53,6 +53,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
             player.Gem().rubyCore = true;
             player.Gem().rubyGauntlet = !hideVisual;
             player.GetDamage(DamageClass.Generic) += .1f;
+            player.Gem().gemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

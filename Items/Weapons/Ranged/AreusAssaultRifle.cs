@@ -5,7 +5,6 @@ using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
@@ -90,11 +89,11 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                     fireMode = 0;
 
                 if (fireMode == 0)
-                    CombatText.NewText(player.Hitbox, Color.White, Language.GetTextValue("Mods.ShardsOfAtheria.Common.FiringMode1"));
+                    CombatText.NewText(player.Hitbox, Color.White, ShardsHelpers.LocalizeCommon("FiringMode1"));
                 if (fireMode == 1)
-                    CombatText.NewText(player.Hitbox, Color.White, Language.GetTextValue("Mods.ShardsOfAtheria.Common.FiringMode2"));
+                    CombatText.NewText(player.Hitbox, Color.White, ShardsHelpers.LocalizeCommon("FiringMode2"));
                 if (fireMode == 2)
-                    CombatText.NewText(player.Hitbox, Color.White, Language.GetTextValue("Mods.ShardsOfAtheria.Common.FiringMode3"));
+                    CombatText.NewText(player.Hitbox, Color.White, ShardsHelpers.LocalizeCommon("FiringMode3"));
             }
             else
             {
@@ -132,13 +131,13 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             switch (fireMode)
             {
                 case 0:
-                    tooltips.Add(new TooltipLine(Mod, "Fire mode", Language.GetTextValue("Mods.ShardsOfAtheria.Common.FiringMode1")));
+                    tooltips.Add(new TooltipLine(Mod, "Fire mode", ShardsHelpers.LocalizeCommon("FiringMode1")));
                     break;
                 case 1:
-                    tooltips.Add(new TooltipLine(Mod, "Fire mode", Language.GetTextValue("Mods.ShardsOfAtheria.Common.FiringMode2")));
+                    tooltips.Add(new TooltipLine(Mod, "Fire mode", ShardsHelpers.LocalizeCommon("FiringMode2")));
                     break;
                 case 2:
-                    tooltips.Add(new TooltipLine(Mod, "Fire mode", Language.GetTextValue("Mods.ShardsOfAtheria.Common.FiringMode3")));
+                    tooltips.Add(new TooltipLine(Mod, "Fire mode", ShardsHelpers.LocalizeCommon("FiringMode3")));
                     break;
             }
             base.ModifyTooltips(tooltips);

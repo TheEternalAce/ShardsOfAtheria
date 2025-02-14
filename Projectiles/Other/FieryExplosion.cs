@@ -33,6 +33,8 @@ namespace ShardsOfAtheria.Projectiles.Other
             Projectile.light = 1f;
             Projectile.penetrate = 7;
             Projectile.stopsDealingDamageAfterPenetrateHits = true;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 10;
         }
 
         public override void OnSpawn(IEntitySource source)

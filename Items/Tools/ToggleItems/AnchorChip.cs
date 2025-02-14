@@ -5,10 +5,8 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Tools.ToggleItems
 {
-    public class AnchorChip : ModItem
+    public class AnchorChip : ToggleableTool
     {
-        public bool active = true;
-
         public override void SetDefaults()
         {
             Item.width = 36;
@@ -16,6 +14,7 @@ namespace ShardsOfAtheria.Items.Tools.ToggleItems
 
             Item.rare = ItemDefaults.RarityMoonLord;
             Item.value = ItemDefaults.ValueDungeon;
+            mode = 1;
         }
 
         public override bool CanRightClick()
@@ -27,24 +26,19 @@ namespace ShardsOfAtheria.Items.Tools.ToggleItems
             return false;
         }
 
-        public override void RightClick(Player player)
-        {
-            active = !active;
-        }
-
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            string mode = "";
+            string suffix = "";
             var key = this.GetLocalizationKey(string.Empty);
-            if (active)
+            if (mode > 0)
             {
-                mode = Language.GetOrRegister(key + "On").ToString();
+                suffix = Language.GetOrRegister(key + "On").ToString();
             }
             else
             {
-                mode = Language.GetOrRegister(key + "Off").ToString();
+                suffix = Language.GetOrRegister(key + "Off").ToString();
             }
-            tooltips[0].Text += mode;
+            tooltips[0].Text += suffix;
         }
     }
 }

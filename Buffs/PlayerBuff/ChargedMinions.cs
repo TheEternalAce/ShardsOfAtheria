@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Projectiles.Summon;
+using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -54,16 +54,13 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
                                         Projectile.NewProjectile(projectile.GetSource_FromThis(), position, velocity, ModContent.ProjectileType<ElectricSpark>(),
                                             22, 0, player.whoAmI);
                                     }
-                                    SoundEngine.PlaySound(SoundID.NPCHit53);
+                                    SoundEngine.PlaySound(SoundID.NPCHit53, projectile.Center);
                                     sparkTimer = 0;
                                 }
                             }
                         }
                     }
-                    else
-                    {
-                        sparkTimer = 0;
-                    }
+                    else sparkTimer = 0;
                 }
             }
         }

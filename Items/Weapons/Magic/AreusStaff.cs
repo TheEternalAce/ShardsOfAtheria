@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             Item.AddAreus();
+            Item.staff[Item.type] = true;
         }
 
         public override void SetDefaults()
@@ -32,7 +33,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.UseSound = SoundID.Item43;
             Item.autoReuse = true;
             Item.noMelee = true;
-            Item.staff[Item.type] = true;
 
             Item.shootSpeed = 12f;
             Item.rare = ItemDefaults.RarityLunarPillars;

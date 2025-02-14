@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Items.Placeable;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -6,8 +7,6 @@ namespace ShardsOfAtheria.Items.Materials
 {
     public class ZChargedModule : ModItem
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 100;
@@ -15,8 +14,8 @@ namespace ShardsOfAtheria.Items.Materials
 
         public override void SetDefaults()
         {
-            Item.width = 32;
-            Item.height = 32;
+            Item.width = 40;
+            Item.height = 28;
             Item.maxStack = 9999;
 
             Item.rare = ItemRarityID.Purple;
@@ -27,6 +26,7 @@ namespace ShardsOfAtheria.Items.Materials
         {
             CreateRecipe()
                 .AddIngredient<HardlightPrism>(10)
+                .AddIngredient<BionicBarItem>(10)
                 .AddIngredient<AreusShard>(5)
                 .AddIngredient(ItemID.LunarBar)
                 //.AddIngredient<DryskalScale>()

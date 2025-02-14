@@ -71,7 +71,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
                         Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, vel * 15,
                                 ModContent.ProjectileType<AreusBulletProj>(), Projectile.damage, Projectile.knockBack,
                                 Projectile.owner);
-                        SoundEngine.PlaySound(SoundID.Item11);
+                        SoundEngine.PlaySound(SoundID.Item11, Projectile.Center);
                         if (shootTimer >= 40)
                         {
                             shootCooldown = 60;

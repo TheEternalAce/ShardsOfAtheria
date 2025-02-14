@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WebCom.Effects.ScreenShaking;
@@ -73,6 +74,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             Projectile.aiStyle = -1;
             Projectile.tileCollide = false;
             Projectile.friendly = true;
+            Projectile.ownerHitCheck = true;
             Projectile.light = 1f;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 10;
@@ -81,25 +83,20 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             DrawOriginOffsetY = Projectile.height / 2 - 40;
         }
 
-        public override void AI()
+        public override void OnSpawn(IEntitySource source)
         {
-            Projectile.Center = Main.player[Projectile.owner].Center;
-            if (Projectile.ai[0] == 0)
+            if (Main.myPlayer == Projectile.owner)
             {
-                if (Main.myPlayer == Projectile.owner)
-                {
-                    Projectile.width = Main.screenWidth;
-                    Projectile.height = Main.screenHeight;
+                Projectile.width = Main.screenWidth;
+                Projectile.height = Main.screenHeight;
 
-                    DrawOffsetX = Projectile.width / 2 - 20;
-                    DrawOriginOffsetY = Projectile.height / 2 - 90;
-                }
-                ScreenShake.ShakeScreen(6, 60);
-                SoundEngine.PlaySound(SoundID.Item14);
-                Projectile.ai[0] = 1;
+                DrawOffsetX = Projectile.width / 2 - 20;
+                DrawOriginOffsetY = Projectile.height / 2 - 90;
             }
+            ScreenShake.ShakeScreen(6, 60);
+            SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 60; i++)
             {
                 Dust obj4 = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 2f)];
                 obj4.noGravity = true;
@@ -107,7 +104,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
                 obj4.velocity += Projectile.localAI[0].ToRotationVector2();
                 obj4.fadeIn = 1.5f;
             }
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 30; i++)
             {
                 Dust obj4 = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 2f)];
                 obj4.noGravity = true;
@@ -115,6 +112,11 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
                 obj4.velocity += Projectile.localAI[0].ToRotationVector2();
                 obj4.fadeIn = 1.5f;
             }
+        }
+
+        public override bool? CanCutTiles()
+        {
+            return false;
         }
     }
 }

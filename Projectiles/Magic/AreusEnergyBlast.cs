@@ -3,6 +3,7 @@ using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Magic
 {
@@ -48,6 +49,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
 
         public override void OnKill(int timeLeft)
         {
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             Projectile.Explode(Projectile.Center, Projectile.damage, dustParticles: false);
             ShardsHelpers.DustRing(Projectile.Center, 6, DustID.Electric);
         }

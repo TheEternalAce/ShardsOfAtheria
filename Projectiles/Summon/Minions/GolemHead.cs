@@ -59,7 +59,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             else fireTimer = 0;
             if (fireTimer > 60)
             {
-                SoundEngine.PlaySound(SoundID.Item33);
+                SoundEngine.PlaySound(SoundID.Item33, Projectile.Center);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + new Vector2(16, -12), Vector2.Normalize(targetCenter - Projectile.Center) * 16, ModContent.ProjectileType<GolemBeam>(), 90, 1, owner.whoAmI);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center - new Vector2(16, 12), Vector2.Normalize(targetCenter - Projectile.Center) * 16, ModContent.ProjectileType<GolemBeam>(), 90, 1, owner.whoAmI);
                 fireTimer = 0;

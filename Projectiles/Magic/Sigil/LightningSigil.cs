@@ -72,7 +72,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Sigil
                             velocity = velocity.RotatedByRandom(MathHelper.TwoPi);
                             Projectile.NewProjectile(source, position, velocity, type, damage, knockback);
                         }
-                        SoundEngine.PlaySound(SoundID.Thunder);
+                        SoundEngine.PlaySound(SoundID.Thunder, Projectile.Center);
                         player.statMana -= 24;
                     }
                 }

@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Ranged.FireCannon;
-using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -54,16 +53,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             type = ModContent.ProjectileType<FlameCannon>();
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<AreusRailgun>())
-                .AddIngredient(ItemID.Flamethrower)
-                .AddIngredient(ItemID.BeetleHusk, 14)
-                .AddCondition(SoAConditions.Upgrade)
-                .Register();
         }
     }
 }

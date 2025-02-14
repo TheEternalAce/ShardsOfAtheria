@@ -75,8 +75,14 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             if (BeingHeld)
             {
                 Projectile.timeLeft = 2;
-                if (owner.ItemAnimationJustStarted) recoilAmount = 10f;
-                if (owner.itemAnimation == owner.ApplyAttackSpeed(30, DamageClass.Ranged)) SoundEngine.PlaySound(SoundID.Research, Projectile.Center);
+                if (owner.ItemAnimationJustStarted)
+                {
+                    recoilAmount = 10f;
+                    var nailpuncher = owner.HeldItem;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, aimNormal * 8f, ModContent.ProjectileType<PuncherBlast>(),
+                        owner.GetWeaponDamage(nailpuncher), owner.GetWeaponKnockback(nailpuncher));
+                }
+                if (owner.itemAnimation == owner.ApplyAttackSpeed(30, DamageClass.Ranged, 5)) SoundEngine.PlaySound(SoundID.Research, Projectile.Center);
             }
         }
 

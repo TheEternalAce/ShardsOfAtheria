@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -14,7 +15,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
         public const int FadeInDuration = 7;
         public const int FadeOutDuration = 4;
 
-        public const int TotalDuration = 22;
+        public const int TotalDuration = 26;
 
         public float CollisionWidth => 10f * Projectile.scale;
 
@@ -34,11 +35,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
         public override void SetDefaults()
         {
             Projectile.Size = new Vector2(18);
-            Projectile.aiStyle = -1;
+            Projectile.aiStyle = 161;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
-            Projectile.scale = 1f;
+            Projectile.scale = 1.75f;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.ownerHitCheck = true;
             Projectile.extraUpdates = 1;
@@ -81,7 +82,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
 
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2 - MathHelper.PiOver4 * Projectile.spriteDirection;
 
-            if (Timer == 5 && Projectile.ai[1] != 1f)
+            if (Timer == 10 && Projectile.ai[1] != 1f)
             {
                 var vector = Vector2.Normalize(Projectile.velocity);
                 Projectile.NewProjectile(player.GetSource_FromThis(), player.Center + vector * 3f, vector * 28f, ModContent.ProjectileType<FlameStab>(), (int)(Projectile.damage * 0.75f), Projectile.knockBack * 0.75f);
@@ -119,9 +120,13 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
             if (Projectile.ai[1] == 1 && player.Overdrive())
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<FieryExplosion>(), damageDone * 2, Projectile.knockBack);
-                player.velocity = Projectile.velocity;
-                player.velocity.Normalize();
-                player.velocity *= -15f;
+                var anchorChip = ToggleableTool.GetInstance<AnchorChip>(player);
+                if (anchorChip == null || !anchorChip.Active)
+                {
+                    player.velocity = Projectile.velocity;
+                    player.velocity.Normalize();
+                    player.velocity *= -15f;
+                }
             }
         }
     }

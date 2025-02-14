@@ -32,8 +32,8 @@ namespace ShardsOfAtheria.Items.Vanity
         {
             CreateRecipe()
                 .AddIngredient(ItemID.Silk, 20)
-                .AddIngredient<AreusShard>(20)
-                .AddIngredient(ItemID.GoldBar, 14)
+                .AddIngredient<AreusShard>(10)
+                .AddIngredient(ItemID.GoldBar, 4)
                 .AddTile<AreusFabricator>()
                 .AddTile(TileID.Loom)
                 .Register();

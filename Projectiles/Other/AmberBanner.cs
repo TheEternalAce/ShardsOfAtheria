@@ -93,7 +93,7 @@ namespace ShardsOfAtheria.Projectiles.Other
             }
         }
 
-        private bool IsNonFollowingBanner(Projectile projectile)
+        public bool IsNonFollowingBanner(Projectile projectile)
         {
             if (projectile.type != ModContent.ProjectileType<AmberBanner>()) return false;
             if (projectile.owner != Projectile.owner) return false;
@@ -104,14 +104,15 @@ namespace ShardsOfAtheria.Projectiles.Other
 
         public static int FindOldestBanner(Player player)
         {
+            int timeleft = 3600;
             int result = -1;
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
                 Projectile banner = Main.projectile[i];
-                if (banner.active && banner.type == ModContent.ProjectileType<AmberBanner>() && banner.owner == player.whoAmI)
+                if (banner.active && banner.type == ModContent.ProjectileType<AmberBanner>() && banner.owner == player.whoAmI && banner.timeLeft < timeleft)
                 {
                     result = i;
-                    break;
+                    timeleft = banner.timeLeft;
                 }
             }
             return result;

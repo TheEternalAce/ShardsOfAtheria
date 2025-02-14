@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             if (!soundPlayed && Main.myPlayer == player.whoAmI)
             {
                 soundPlayed = true;
-                SoundEngine.PlaySound(SoA.TheMessiah);
+                SoundEngine.PlaySound(SoA.TheMessiah, player.Center);
             }
             player.Shards().overdriveTimeCurrent = ShardsPlayer.OVERDRIVE_TIME_MAX;
         }

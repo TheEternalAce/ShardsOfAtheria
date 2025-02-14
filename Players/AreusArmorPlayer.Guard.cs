@@ -16,8 +16,8 @@ namespace ShardsOfAtheria.Players
         public bool guardSet;
         public int areusEnergy;
         public const int AREUS_ENERGY_MAX = 100;
-        public const int EnergyTimerMax = 20;
         public int energyTimer;
+        public int thrownEnergyBurstCooldown;
 
         private void GuardActive_Melee()
         {
@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Players
         }
         private void GuardActive_Magic()
         {
-            SoundEngine.PlaySound(SoundID.NPCDeath56);
+            SoundEngine.PlaySound(SoundID.NPCDeath56, Player.Center);
             float numberProjectiles = 3; // 3 shots
             float rotation = MathHelper.ToRadians(10);
             var source = Player.GetSource_FromThis();
@@ -55,13 +55,8 @@ namespace ShardsOfAtheria.Players
         }
         private void GuardActive_Summon()
         {
-            if (areusEnergy >= AREUS_ENERGY_MAX)
-            {
-                if (!Player.HasBuff<ChargedMinions>())
-                {
-                    Player.AddBuff<ChargedMinions>(600);
-                }
-            }
+            if (areusEnergy >= AREUS_ENERGY_MAX && !Player.HasBuff<ChargedMinions>())
+                Player.AddBuff<ChargedMinions>(600);
         }
     }
 }

@@ -6,6 +6,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
 {
@@ -59,6 +60,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
         {
             if (SoA.Eternity())
             {
+                if (!Projectile.GetPlayerOwner().IsLocal()) return;
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ElectricExplosion_Hostile>(),
                     Projectile.damage, 0);
             }

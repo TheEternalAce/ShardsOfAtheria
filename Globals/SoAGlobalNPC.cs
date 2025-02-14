@@ -23,7 +23,6 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Globals
@@ -41,13 +40,12 @@ namespace ShardsOfAtheria.Globals
             base.OnSpawn(npc, source);
             if (npc.type == NPCID.Harpy)
             {
-                npc.GivenName = Language.GetTextValue("Mods.ShardsOfAtheria.NPCs.SkyHarpy.DisplayName");
+                npc.GivenName = ShardsHelpers.Localize("NPCs.SkyHarpy.DisplayName");
             }
         }
 
         public override void ModifyShop(NPCShop shop)
         {
-            if (shop.NpcType == NPCID.Cyborg) shop.Add<AnchorChip>(SoAConditions.HasMessiah);
             if (shop.NpcType == NPCID.Steampunker) shop.Add<NailPounder>(Condition.DownedPlantera);
             if (shop.NpcType == NPCID.Wizard)
             {
@@ -216,12 +214,13 @@ namespace ShardsOfAtheria.Globals
         {
             if (npc.type == NPCID.Harpy)
             {
-                if (npc.ai[0] == 30f || npc.ai[0] == 60f || npc.ai[0] == 90f)
+                if (Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height) &&
+                    (npc.ai[0] == 30f || npc.ai[0] == 60f || npc.ai[0] == 90f))
                 {
                     if (Main.rand.NextBool(3))
                     {
                         ShardsHelpers.CallStorm(npc.GetSource_FromAI(), Main.player[npc.target].Center,
-                            3, 20, 0, DamageClass.Generic, Main.myPlayer, 1, true);
+                            3, 20, 0, DamageClass.Generic, hostile: true);
                         npc.ai[0] = 91;
                     }
                 }
@@ -259,7 +258,6 @@ namespace ShardsOfAtheria.Globals
                 modifiers.ScalingBonusDamage += 0.1f;
             if (npc.HasBuff(ModContent.BuffType<MarkedByAvatar>()))
                 modifiers.ScalingBonusDamage += 1f;
-            base.ModifyIncomingHit(npc, ref modifiers);
         }
 
         public override void DrawEffects(NPC npc, ref Color drawColor)
@@ -270,10 +268,8 @@ namespace ShardsOfAtheria.Globals
                 drawColor = Color.GreenYellow;
             if (npc.HasBuff(BuffID.Electrified) && Main.rand.NextBool(4))
             {
-                int dust = Dust.NewDust(npc.position, npc.width + 4, npc.height + 4, DustID.Electric, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1f);
+                int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.Electric, npc.velocity.X * 0.1f, npc.velocity.Y * 0.1f, 100, default, 1f);
                 Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 1.8f;
-                Main.dust[dust].velocity.Y -= 0.5f;
             }
         }
 

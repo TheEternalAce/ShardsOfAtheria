@@ -1,5 +1,6 @@
 using ShardsOfAtheria.Items.AreusChips;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
@@ -37,6 +38,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
             CreateRecipe()
                 .AddIngredient<AreusShard>(18)
                 .AddIngredient(ItemID.GoldBar, 6)
+                .AddIngredient<Jade>(6)
                 .AddIngredient<SoulOfTwilight>(12)
                 .AddTile<AreusFabricator>()
                 .Register();

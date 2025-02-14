@@ -11,6 +11,7 @@ using ShardsOfAtheria.Items.BuffItems;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Tools.Misc.Slayer;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
+using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok;
@@ -50,7 +51,11 @@ namespace ShardsOfAtheria.Players
         public int spoonBenderCD;
         public bool jumperCable;
         public int cableCounter;
+        public bool destinyLance;
         public bool areusNullField;
+        public bool hallowedSeal;
+        public int hallowedSealCooldown;
+        public bool HallowedSeal => hallowedSeal && hallowedSealCooldown <= 0;
 
         public bool valkyrieCrown;
         public bool hardlightBraces;
@@ -60,6 +65,10 @@ namespace ShardsOfAtheria.Players
         public bool prototypeBand;
         public int prototypeBandCooldown;
         public int prototypeBandCooldownMax = 15;
+
+        public bool deathAmulet;
+        public int deathAmuletCharges;
+        public int deathInevitibility;
 
         public bool pearlwoodSet;
         public int pearlwoodBowShoot;
@@ -131,9 +140,13 @@ namespace ShardsOfAtheria.Players
             if (spoonBenderCD > 0) spoonBenderCD--;
             if (!jumperCable) cableCounter = 0;
             jumperCable = false;
+            destinyLance = false;
             riggedCoin = 0;
             weightDie = 0;
             areusNullField = false;
+            deathAmulet = false;
+            hallowedSeal = false;
+            if (hallowedSealCooldown > 0) hallowedSealCooldown--;
 
             BiometalPrevious = Biometal;
             Biometal = BiometalHideVanity = BiometalForceVanity = false;
@@ -183,16 +196,21 @@ namespace ShardsOfAtheria.Players
 
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
         {
-            List<Item> items = new();
-            if (Player.name.Contains("Gamma"))
+            List<Item> items = [];
+            if (Player.name.StartsWith("Gamma"))
             {
                 items.Add(new Item(ModContent.ItemType<PlagueRailgun>()));
                 items.Add(new Item(ModContent.ItemType<PlagueHandgun>()));
             }
-            if (Player.name.Contains("Theta"))
+            if (Player.name.StartsWith("Theta"))
             {
                 items.Add(new Item(ModContent.ItemType<TwinFlameSwords>()));
                 items.Add(new Item(ModContent.ItemType<FlameKnuckleBuster>()));
+            }
+            if (Player.name.StartsWith("Data"))
+            {
+                items.Add(new Item(ModContent.ItemType<DataTome>()));
+                items.Add(new Item(ModContent.ItemType<DataKnife>()));
             }
             if (!mediumCoreDeath)
             {
@@ -301,10 +319,8 @@ namespace ShardsOfAtheria.Players
         {
             if (Player.HasItem<SpeedCapper>())
             {
-                var index = Player.FindItem(ModContent.ItemType<SpeedCapper>());
-                var item = Player.inventory[index];
-                var limiter = item.ModItem as SpeedCapper;
-                if (limiter.active)
+                var speedLimit = ToggleableTool.GetInstance<SpeedCapper>(Player);
+                if (speedLimit != null && speedLimit.Active)
                 {
                     float playerHorizontalSpeed = Player.velocity.X;
                     float maxHorizontalSpeed = SoA.ClientConfig.speedLimit * (42240f / 216000f);
@@ -370,7 +386,7 @@ namespace ShardsOfAtheria.Players
                     {
                         Player.AddBuff(ModContent.BuffType<Overdrive>(), 2);
                         CombatText.NewText(Player.Hitbox, Color.Green, "Overdrive: ON", true);
-                        SoundEngine.PlaySound(SoundID.Item4, Player.position);
+                        SoundEngine.PlaySound(SoundID.Item4, Player.Center);
                     }
                     else
                     {
@@ -427,23 +443,23 @@ namespace ShardsOfAtheria.Players
 
         public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (SoA.BNEEnabled)
-            {
-                modifiers.FinalDamage *= ResonatorRing.ModifyElements(Player, item, target);
-            }
+            if (SoA.BNEEnabled) modifiers.FinalDamage *= ResonatorRing.ModifyElements(Player, item, target);
         }
 
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (SoA.BNEEnabled)
-            {
-                modifiers.FinalDamage *= ResonatorRing.ModifyElements(Player, proj, target);
-            }
+            if (SoA.BNEEnabled) modifiers.FinalDamage *= ResonatorRing.ModifyElements(Player, proj, target);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            combatTimer = 300;
+            bool killingBlow = false;
+            if (target.life <= 0) killingBlow = true;
+            if (killingBlow)
+            {
+                if (deathAmulet && deathAmuletCharges < 10) deathAmuletCharges++;
+            }
+            if (target.lifeMax > 5) combatTimer = 300;
             if (valkyrieCrown) target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
             HardlightBraces.OnHitEffect(Player, target);
             if (jumperCable)
@@ -454,7 +470,7 @@ namespace ShardsOfAtheria.Players
                     maxCounter += 10;
                     cableCounter++;
                 }
-                else if (target.life <= 0) cableCounter++;
+                else if (killingBlow) cableCounter++;
                 if (cableCounter >= maxCounter && (!ShardsHelpers.AnyBosses() || Main.rand.NextBool(5)))
                 {
                     if (Player.HasBuff<ClockCooldown>()) Player.ClearBuff<ClockCooldown>();
@@ -470,16 +486,27 @@ namespace ShardsOfAtheria.Players
                     cableCounter = 0;
                 }
             }
+            if (HallowedSeal)
+            {
+                if (hit.DamageType.CountsAsClass(DamageClass.Melee))
+                {
+                    int mana = 9;
+                    if (killingBlow) mana += 6;
+                    Player.statMana += mana;
+                    Player.ManaEffect(mana);
+                    hallowedSealCooldown = Player.itemAnimation;
+                }
+            }
             if (Player.HasItem<TheMourningStar>())
             {
-                int ind = Player.FindItem(ModContent.ItemType<TheMourningStar>());
+                int ind = Player.FindItem<TheMourningStar>();
                 Item item = Player.inventory[ind];
                 var sword = item.ModItem as TheMourningStar;
                 if (Player.Distance(target.Center) < 260f)
                 {
                     int feedSword = 60;
                     if (Player.Distance(target.Center) < 130) feedSword += 60;
-                    if (target.life <= 0) feedSword += 60;
+                    if (killingBlow) feedSword += 60;
                     if (Player.HeldItem.type == item.type) feedSword *= 2;
                     sword.blood += feedSword;
                 }
@@ -489,11 +516,25 @@ namespace ShardsOfAtheria.Players
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (SoA.BNEEnabled) AreusRodEffect(target, item);
+            var chip = ToggleableTool.GetInstance<AnchorChip>(Player);
+            if (hallowedSeal && item.DamageType == DamageClass.Melee && (chip == null || !chip.Active))
+            {
+                var vector = Player.Center - target.Center;
+                vector.Normalize();
+                Player.velocity = vector * 5f;
+            }
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (SoA.BNEEnabled) AreusRodEffect(target, proj);
+            var chip = ToggleableTool.GetInstance<AnchorChip>(Player);
+            if (hallowedSeal && proj.IsTrueMelee() && (chip == null || !chip.Active))
+            {
+                var vector = Player.Center - target.Center;
+                vector.Normalize();
+                Player.velocity = vector * 5f;
+            }
         }
 
         [JITWhenModsEnabled("BattleNetworkElements")]
@@ -501,34 +542,14 @@ namespace ShardsOfAtheria.Players
         {
             if (areusRod)
             {
-                if (source is Item item)
-                {
-                    if (item.IsElec())
-                    {
-                        if (NPC.downedPlantBoss)
-                        {
-                            target.AddBuff(BuffID.Electrified, 600);
-                        }
-                        else
-                        {
-                            target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
-                        }
-                    }
-                }
-                if (source is Projectile proj)
-                {
-                    if (proj.IsElec())
-                    {
-                        if (NPC.downedPlantBoss)
-                        {
-                            target.AddBuff(BuffID.Electrified, 600);
-                        }
-                        else
-                        {
-                            target.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
-                        }
-                    }
-                }
+                int electricDebuff = ModContent.BuffType<ElectricShock>();
+                int debuffTime = 600;
+                bool inflictDebuff = false;
+                if (source is Item item && item.IsElec()) inflictDebuff = true;
+                if (source is Projectile proj && proj.IsElec()) inflictDebuff = true;
+                if (NPC.downedPlantBoss) electricDebuff = BuffID.Electrified;
+                if (conductive) debuffTime *= 2;
+                if (inflictDebuff) target.AddBuff(electricDebuff, debuffTime);
             }
         }
 
@@ -584,7 +605,7 @@ namespace ShardsOfAtheria.Players
             {
                 Player.AddBuff<DisguiseRegenerating>(18000);
                 Player.SetImmuneTimeForAllTypes(60);
-                CombatText.NewText(Player.Hitbox, Color.White, "Disguse busted!");
+                CombatText.NewText(Player.Hitbox, Color.White, "Disguse busted!", true);
                 return true;
             }
             return base.ConsumableDodge(info);
@@ -665,8 +686,17 @@ namespace ShardsOfAtheria.Players
                         " was drained by The Mourning Star.",
                         " let The Mourning Star eat their blood."
                         ];
-                    damageSource = PlayerDeathReason.ByCustomReason(Player.name + deathSuffix[deathSuffix.Length - 1]);
+                    damageSource = PlayerDeathReason.ByCustomReason(Player.name + deathSuffix[^1]);
                 }
+            }
+            if (deathAmulet && deathAmuletCharges > 0 && deathInevitibility < 10)
+            {
+                deathAmuletCharges--;
+                deathInevitibility++;
+                Player.Heal(Player.statLifeMax2);
+                Player.SetImmuneTimeForAllTypes(30);
+                Player.AddBuff<MementoMori>(2);
+                return false;
             }
             if (deathCloak && !DeathCloakCooldown)
             {
@@ -677,13 +707,18 @@ namespace ShardsOfAtheria.Players
                 while (!validTeleport)
                 {
                     teleport = Player.Center + Vector2.One.RotateRandom(MathHelper.TwoPi) * Main.rand.NextFloat(100, 200);
-                    validTeleport = Utilities.ShardsHelpers.CheckTileCollision(teleport, Player.Hitbox);
+                    validTeleport = ShardsHelpers.CheckTileCollision(teleport, Player.Hitbox);
                 }
                 Player.Teleport(teleport, 1);
                 NetMessage.SendData(MessageID.TeleportEntity, -1, -1, null, 0, Player.whoAmI, teleport.X, teleport.Y, 1);
                 return false;
             }
             return true;
+        }
+
+        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+        {
+            deathInevitibility = 0;
         }
 
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)

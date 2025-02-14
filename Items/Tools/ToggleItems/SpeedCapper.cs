@@ -6,10 +6,8 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Tools.ToggleItems
 {
-    public class SpeedCapper : ModItem
+    public class SpeedCapper : ToggleableTool
     {
-        public bool active = true;
-
         public override string Texture => SoA.PlaceholderTexture;
 
         public override void SetStaticDefaults()
@@ -25,33 +23,19 @@ namespace ShardsOfAtheria.Items.Tools.ToggleItems
             Item.rare = ItemDefaults.RarityShimmerPermanentUpgrade;
         }
 
-        public override bool CanRightClick()
-        {
-            return true;
-        }
-        public override bool ConsumeItem(Player player)
-        {
-            return false;
-        }
-
-        public override void RightClick(Player player)
-        {
-            active = !active;
-        }
-
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            string mode = "";
+            string suffix = "";
             var key = this.GetLocalizationKey(string.Empty);
-            if (active)
+            if (mode > 0)
             {
-                mode = Language.GetOrRegister(key + "On").ToString();
+                suffix = Language.GetOrRegister(key + "On").ToString();
             }
             else
             {
-                mode = Language.GetOrRegister(key + "Off").ToString();
+                suffix = Language.GetOrRegister(key + "Off").ToString();
             }
-            tooltips[0].Text += mode;
+            tooltips[0].Text += suffix;
         }
 
         public override void AddRecipes()

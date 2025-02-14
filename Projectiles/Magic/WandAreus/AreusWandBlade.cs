@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Utilities;
@@ -43,9 +44,13 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
             if (player.HasBuff<WandBuff>())
             {
                 int mana = 24;
-                var vector = player.Center - target.Center;
-                vector.Normalize();
-                player.velocity += vector * 16f;
+                var anchorChip = ToggleableTool.GetInstance<AnchorChip>(player);
+                if (anchorChip == null || !anchorChip.Active)
+                {
+                    var vector = player.Center - target.Center;
+                    vector.Normalize();
+                    player.velocity += vector * 16f;
+                }
                 player.ClearBuff<WandBuff>();
                 player.ManaEffect(mana);
                 player.statMana += mana;
@@ -88,7 +93,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
 
         public override float SwingProgress(float progress)
         {
-            return GenericSwing2(progress);
+            return SwingProgressAequus(progress);
         }
 
         public override float GetVisualOuter(float progress, float swingProgress)

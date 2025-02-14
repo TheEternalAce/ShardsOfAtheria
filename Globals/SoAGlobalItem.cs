@@ -3,13 +3,11 @@ using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Consumable;
 using ShardsOfAtheria.Items.Placeable.Furniture;
-using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.NPCs.Town.TheArchivist;
 using ShardsOfAtheria.NPCs.Town.TheAtherian;
@@ -38,22 +36,23 @@ namespace ShardsOfAtheria.Globals
     public class SoAGlobalItem : GlobalItem
     {
         #region Item Categories
-        public static readonly List<int> SlayerItem = new();
-        public static readonly List<int> SinfulItem = new();
-        public static readonly List<int> Potions = new();
-        public static readonly List<int> UpgradeableItem = new();
+        public static readonly List<int> SlayerItem = [];
+        public static readonly List<int> SinfulItem = [];
+        public static readonly List<int> Potions = [];
+        public static readonly List<int> UpgradeableItem = [];
+        public static readonly List<int> DebugItem = [];
         //public static readonly Dictionary<int, int> UpgradeableItems = new(); // Potentially use this in place of the above List<int>
         /// <summary>
         /// A list to let Conductive potion do it's work easily, automatically adds all items to ElecWeapon list
         /// </summary>
-        public static readonly Dictionary<int, bool> AreusItem = new();
+        public static readonly Dictionary<int, bool> AreusItem = [];
         /// <summary>
         /// A list of weapons that can erase projectiles or spawn projectiles that can erase other projectiles
         /// </summary>
-        public static readonly List<int> Eraser = new();
+        public static readonly List<int> Eraser = [];
         #endregion
 
-        int transformTimer = 10;
+        int transformTimer = 0;
 
         public override bool InstancePerEntity => true;
 
@@ -70,14 +69,6 @@ namespace ShardsOfAtheria.Globals
 
                 case ItemID.Feather:
                     item.color = new Color(101, 187, 236);
-                    break;
-
-                case ItemID.Grenade:
-                case ItemID.Beenade:
-                case ItemID.StickyGrenade:
-                case ItemID.BouncyGrenade:
-                case ItemID.PartyGirlGrenade:
-                    item.ammo = ItemID.Grenade;
                     break;
             }
         }
@@ -116,9 +107,9 @@ namespace ShardsOfAtheria.Globals
                 {
                     if (Main.LocalPlayer.Overdrive())
                     {
-                        tooltips[0].Text += Language.GetTextValue(SoA.LocalizeCommon + "OverdriveTag");
+                        tooltips[0].Text += ShardsHelpers.LocalizeCommon("OverdriveTag");
                         var line = new TooltipLine(Mod, "OverdriveHeader",
-                            Language.GetTextValue(SoA.LocalizeCommon + "OverdriveTooltip"));
+                            ShardsHelpers.LocalizeCommon("OverdriveTooltip"));
                         tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
                         line = new TooltipLine(Mod, "OverdriveEffect",
                             Language.GetTextValue(overdriveKey));
@@ -126,11 +117,10 @@ namespace ShardsOfAtheria.Globals
                     }
                 }
             }
-            string commonKey = "Mods.ShardsOfAtheria.Common.";
             if (SlayerItem.Contains(item.type))
             {
                 var line = new TooltipLine(Mod, "SlayerItem",
-                    Language.GetTextValue(commonKey + "SlayerItem"))
+                    ShardsHelpers.LocalizeCommon("SlayerItem"))
                 {
                     OverrideColor = Color.Red
                 };
@@ -139,14 +129,20 @@ namespace ShardsOfAtheria.Globals
             if (UpgradeableItem.Contains(item.type))
             {
                 var line = new TooltipLine(Mod, "UpgradeItem",
-                    Language.GetTextValue(commonKey + "UpgradeableItem"));
+                    ShardsHelpers.LocalizeCommon("UpgradeableItem"));
                 tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
             }
             if (Eraser.Contains(item.type))
             {
                 var line = new TooltipLine(Mod, "Eraser",
-                    Language.GetTextValue(commonKey + "Eraser"));
+                    ShardsHelpers.LocalizeCommon("Eraser"));
                 tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
+            }
+            if (DebugItem.Contains(item.type))
+            {
+                var line = new TooltipLine(Mod, "Debug",
+                    ShardsHelpers.LocalizeCommon("Debug"));
+                tooltips.Add(line);
             }
         }
 
@@ -169,11 +165,11 @@ namespace ShardsOfAtheria.Globals
                         if (slayer.EoWSoul)
                         {
                             Projectile.NewProjectile(source, player.Center, directionToMouse * 16f, ModContent.ProjectileType<VileShot>(), 30, 1, player.whoAmI);
-                            SoundEngine.PlaySound(SoundID.Item17);
+                            SoundEngine.PlaySound(SoundID.Item17, position);
                         }
                         if (slayer.NovaSoul && item.type != ModContent.ItemType<ValkyrieBlade>())
                         {
-                            SoundEngine.PlaySound(SoundID.Item1);
+                            SoundEngine.PlaySound(SoundID.Item1, position);
                             int projtype = ModContent.ProjectileType<HardlightBlade>();
                             ShardsHelpers.ProjectileRing(source,
                                 Main.MouseWorld, 4, 150f, 16f, projtype, 18, 0f, player.whoAmI, 1);
@@ -181,7 +177,7 @@ namespace ShardsOfAtheria.Globals
                         if (slayer.BeeSoul)
                         {
                             Projectile.NewProjectile(source, player.Center, directionToMouse * 18f, ModContent.ProjectileType<Stinger>(), 5, 0f, player.whoAmI);
-                            SoundEngine.PlaySound(SoundID.Item17);
+                            SoundEngine.PlaySound(SoundID.Item17, position);
                         }
                         if (slayer.SkeletronSoul)
                         {
@@ -202,7 +198,7 @@ namespace ShardsOfAtheria.Globals
                         if (slayer.PlanteraSoul)
                         {
                             Projectile.NewProjectile(source, player.Center, directionToMouse * 16f, ModContent.ProjectileType<VenomSeed>(), 30, 1, player.whoAmI);
-                            SoundEngine.PlaySound(SoundID.Item17);
+                            SoundEngine.PlaySound(SoundID.Item17, position);
                         }
                         if (slayer.DeathSoul && player.bleed)
                         {
@@ -217,14 +213,14 @@ namespace ShardsOfAtheria.Globals
                                 amount = 3;
                                 speedVariation = 0f;
                             }
-                            if (item.DamageType.CountsAsClass(DamageClass.Ranged)) bloodProjectile = ModContent.ProjectileType<BloodShuriken>();
-                            if (item.DamageType.CountsAsClass(DamageClass.Magic))
+                            else if (item.DamageType.CountsAsClass(DamageClass.Ranged)) bloodProjectile = ModContent.ProjectileType<BloodShuriken>();
+                            else if (item.DamageType.CountsAsClass(DamageClass.Magic))
                             {
                                 bloodProjectile = ModContent.ProjectileType<BloodGlob>();
                                 amount = 5;
                                 evenSpread = false;
                             }
-                            if (item.DamageType.CountsAsClass(DamageClass.Summon)) bloodProjectile = ModContent.ProjectileType<BloodDart>();
+                            else if (item.DamageType.CountsAsClass(DamageClass.Summon)) bloodProjectile = ModContent.ProjectileType<BloodDart>();
                             if (bloodProjectile > 0) ShardsHelpers.ProjectileSpread(source, player.Center, directionToMouse * 16f, amount, rotation, evenSpread, bloodProjectile, 200 / (int)amount, 7f, player.whoAmI, speedVariation: speedVariation);
                         }
                     }
@@ -266,6 +262,7 @@ namespace ShardsOfAtheria.Globals
             {
                 if (gmr.TryFind("OvercooledNailgun", out ModItem nailgun))
                 {
+                    var defaultNailgun = new Item(nailgun.Type);
                     if (item.type == nailgun.Type)
                     {
                         if (player.altFunctionUse == 2)
@@ -275,13 +272,13 @@ namespace ShardsOfAtheria.Globals
                         }
                         else
                         {
-                            item.reuseDelay = 10;
+                            item.reuseDelay = defaultNailgun.reuseDelay;
                             item.noUseGraphic = true;
                         }
                     }
                 }
             }
-            return base.CanUseItem(item, player);
+            return true;
         }
 
         public override bool? UseItem(Item item, Player player)
@@ -347,7 +344,7 @@ namespace ShardsOfAtheria.Globals
                     shards.prototypeBandCooldown = shards.prototypeBandCooldownMax;
                 }
                 var areus = player.Areus();
-                if (areus.imperialSet && areus.WarriorSet && player.HasBuff<ShadeState>())
+                if (areus.imperialSet && areus.WarriorSetChip && player.HasBuff<ShadeState>())
                 {
                     var spawnpos = Main.MouseWorld + Vector2.One.RotatedByRandom(MathHelper.TwoPi) * 130f;
                     var vector = Vector2.Normalize(Main.MouseWorld - spawnpos) * 32;
@@ -395,85 +392,39 @@ namespace ShardsOfAtheria.Globals
                     }
                 }
             }
-            return base.UseItem(item, player);
+            return null;
         }
 
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
         {
             if (item.type == ItemID.FloatingIslandFishingCrateHard)
-            {
                 itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<OmegaKey>(), 14));
-            }
         }
 
         public override bool ConsumeItem(Item item, Player player)
         {
-            if (Potions.Contains(item.type) && !ModLoader.TryGetMod("Overhaul", out _))
-            {
-                Item.NewItem(item.GetSource_FromThis(), player.getRect(), ItemID.Bottle, 1);
-            }
+            var areusPlayer = player.Areus();
+            if (areusPlayer.bannerResourceManagement && item.IsWeapon() && Main.rand.NextBool(3)) return false;
 
-            GluttonyPlayer gluttonyPlayer = player.GetModPlayer<GluttonyPlayer>();
-            if (gluttonyPlayer.gluttony)
+            if (Potions.Contains(item.type) && !ModLoader.TryGetMod("Overhaul", out _))
+                Item.NewItem(item.GetSource_FromThis(), player.getRect(), ItemID.Bottle, 1);
+
+            var gluttonyPlayer = player.Gluttony();
+            if (gluttonyPlayer.soulActive)
             {
-                if (item.buffType == BuffID.WellFed)
+                int gluttonyHealing = item.buffTime;
+                if (item.buffType == BuffID.WellFed) gluttonyHealing /= 1800;
+                else if (item.buffType == BuffID.WellFed2) gluttonyHealing /= 1200;
+                else if (item.buffType == BuffID.WellFed3) gluttonyHealing /= 900;
+                else gluttonyHealing = 0;
+                if (gluttonyHealing > 0)
                 {
-                    player.Heal(25);
-                    gluttonyPlayer.feed = 50;
-                }
-                if (item.buffType == BuffID.WellFed2)
-                {
-                    player.Heal(50);
-                    gluttonyPlayer.feed = 75;
-                }
-                if (item.buffType == BuffID.WellFed3)
-                {
-                    player.Heal(75);
-                    gluttonyPlayer.feed = 100;
+                    player.Heal(gluttonyHealing);
+                    gluttonyPlayer.hunger += gluttonyHealing * 2;
                 }
             }
 
             return base.ConsumeItem(item, player);
-        }
-
-        public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            if (item.IsAreus(false))
-            {
-                int buffTime = 600;
-                if (player.Shards().conductive)
-                {
-                    buffTime *= 2;
-                }
-                if (Main.hardMode)
-                {
-                    target.AddBuff(BuffID.Electrified, buffTime);
-                }
-                else
-                {
-                    target.AddBuff(ModContent.BuffType<ElectricShock>(), buffTime);
-                }
-            }
-        }
-
-        public override void OnHitPvp(Item item, Player player, Player target, Player.HurtInfo hurtInfo)
-        {
-            if (item.IsAreus(false))
-            {
-                int buffTime = 600;
-                if (player.Shards().conductive)
-                {
-                    buffTime *= 2;
-                }
-                if (Main.hardMode)
-                {
-                    target.AddBuff(BuffID.Electrified, buffTime);
-                }
-                else
-                {
-                    target.AddBuff(ModContent.BuffType<ElectricShock>(), buffTime);
-                }
-            }
         }
 
         public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
@@ -485,7 +436,7 @@ namespace ShardsOfAtheria.Globals
                     var player = item.Center.FindClosestPlayer();
                     if (player.ZoneUnderworldHeight)
                     {
-                        if (--transformTimer <= 0)
+                        if (++transformTimer >= 30)
                         {
                             item.TurnToAir();
                             var shards = player.Shards();

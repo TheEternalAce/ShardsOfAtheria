@@ -16,7 +16,6 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             Item.AddAreus(true, true);
-            Item.AddUpgradable();
         }
 
         public override void SetDefaults()

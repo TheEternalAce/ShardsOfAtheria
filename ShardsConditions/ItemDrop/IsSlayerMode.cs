@@ -23,7 +23,7 @@ namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 
         public string GetConditionDescription()
         {
-            return Language.GetTextValue("Mods.ShardsOfAtheria.Conditions.Slayer");
+            return ShardsHelpers.LocalizeCondition("Slayer");
         }
     }
 }

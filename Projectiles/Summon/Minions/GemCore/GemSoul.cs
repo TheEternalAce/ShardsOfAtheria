@@ -6,6 +6,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 {
@@ -457,6 +458,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 
         public override void OnKill(int timeLeft)
         {
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             CombatText.NewText(Projectile.Hitbox, Color.Blue, "...");
             SoundEngine.PlaySound(SoundID.Item53.WithPitchOffset(0.5f), Projectile.Center);
         }

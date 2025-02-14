@@ -31,16 +31,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
 
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            var owner = Projectile.GetPlayerOwner();
             var target = Projectile.FindClosestNPC(null, 500);
-            if (Projectile.GetPlayerOwner().HasMinionAttackTargetNPC)
-            {
-                target = Main.npc[Projectile.GetPlayerOwner().MinionAttackTargetNPC];
-            }
-            if (target != null)
-            {
-                Projectile.Track(target, 10, 10);
-            }
+            if (owner.HasMinionAttackTargetNPC) target = Main.npc[owner.MinionAttackTargetNPC];
+            if (target != null) Projectile.Track(target, 10, 10);
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
 
         public override bool PreDraw(ref Color lightColor)

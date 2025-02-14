@@ -39,7 +39,6 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.Shards().hardlightBraces = true;
-            player.statDefense += 8;
             player.wingTimeMax += 10;
         }
 

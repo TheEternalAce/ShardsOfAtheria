@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.EntropyCutter
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
             ProjectileID.Sets.TrailingMode[Type] = 2;
             Projectile.AddElement(1);
-            Projectile.AddRedemptionElement(7);
+            Projectile.AddRedemptionElement(3);
         }
 
         public override void SetDefaults()
@@ -28,6 +28,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.EntropyCutter
             Projectile.tileCollide = false;
             Projectile.localNPCHitCooldown = 20;
             Projectile.usesLocalNPCImmunity = true;
+            Projectile.extraUpdates = 1;
 
             Projectile.timeLeft = 15;
         }

@@ -238,7 +238,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
         private static bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || !owner.Areus().royalSet || !owner.Areus().CommanderSet)
+            if (owner.dead || !owner.active || !owner.Areus().royalSet || !owner.Areus().CommanderSetChip)
                 return false;
             return true;
         }

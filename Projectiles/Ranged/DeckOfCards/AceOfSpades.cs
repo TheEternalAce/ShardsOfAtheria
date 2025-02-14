@@ -3,6 +3,7 @@ using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Ranged.DeckOfCards
 {
@@ -20,6 +21,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.DeckOfCards
             Projectile.width = 18;
             Projectile.height = 18;
             Projectile.DamageType = DamageClass.Ranged;
+            if (SoA.ServerConfig.throwingWeapons) Projectile.DamageType = DamageClass.Throwing;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.timeLeft = 300;
@@ -32,6 +34,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.DeckOfCards
 
         public override void OnKill(int timeLeft)
         {
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             var explosion = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero,
                 ModContent.ProjectileType<FieryExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             explosion.DamageType = Projectile.DamageType;

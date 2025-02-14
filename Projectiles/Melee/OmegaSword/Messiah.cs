@@ -7,6 +7,7 @@ using Terraria.Audio;
 using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
 {
@@ -30,6 +31,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
 
         public override void SetStaticDefaults()
         {
+            Projectile.MakeTrueMelee();
             Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
         }
@@ -157,6 +159,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
         public override void OnKill(int timeLeft)
         {
             Player player = Main.player[Projectile.owner];
+            if (!player.IsLocal()) return;
             SoundEngine.PlaySound(SoA.Rekkoha.WithVolumeScale(0.5f), Projectile.Center);
             int spacing = 150;
             int numFire = 9;

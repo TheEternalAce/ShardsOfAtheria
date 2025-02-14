@@ -7,7 +7,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 {
     public class EnvySoul : SinfulSouls
     {
-        public override int SoulType => ModContent.BuffType<EnvyBuff>();
+        public override int SoulBuffType => ModContent.BuffType<EnvyBuff>();
     }
 
     public class EnvyPlayer : ModPlayer
@@ -89,9 +89,9 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
     public class EnvyBuff : SinfulSoulBuff
     {
-        public override void SetStaticDefaults()
+        public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
         {
-            base.SetStaticDefaults();
+            tip = ShardsHelpers.Localize("Items.EnvySoul.Tooltip");
         }
 
         public override void Update(Player player, ref int buffIndex)

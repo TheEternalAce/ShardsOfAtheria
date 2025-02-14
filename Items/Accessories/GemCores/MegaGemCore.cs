@@ -5,7 +5,6 @@ using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Accessories.GemCores
@@ -14,7 +13,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
+            Item.AddRedemptionElement(5);
+            Item.AddRedemptionElement(10);
         }
 
         public override void SetDefaults()
@@ -78,7 +78,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             gem.megaGemCore = true;
             gem.masterCoreUI = !hideVisual;
             player.GetDamage(DamageClass.Generic) += .05f;
-            player.GetAttackSpeed(DamageClass.Generic) += .05f;
+            player.GetAttackSpeed(DamageClass.Generic) += .04f;
             gem.sapphireDodgeChance += 0.05f;
             player.maxMinions++;
             player.statLifeMax2 += 20;
@@ -100,7 +100,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            string holdShiftText = Language.GetTextValue(SoA.LocalizeCommon + "HoldShiftTooltip");
+            string holdShiftText = ShardsHelpers.LocalizeCommon("HoldShiftTooltip");
             TooltipLine line = new(Mod, "HoldShift", holdShiftText);
             if (Main.keyState.IsKeyDown(Keys.LeftShift) || Main.keyState.IsKeyDown(Keys.RightShift))
             {

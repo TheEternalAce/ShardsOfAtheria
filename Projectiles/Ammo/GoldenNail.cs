@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Projectiles.Ammo
         public override void AI()
         {
             base.AI();
-            if (Projectile.ai[0] != 0) Projectile.ai[1] -= 0.85f;
+            if (Projectile.ai[0] != 0) Projectile.ai[1] -= 0.75f;
         }
     }
 }

@@ -79,7 +79,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
             Projectile.ai[1]++;
             if (Projectile.ai[1] == 10)
             {
-                SoundEngine.PlaySound(SoundID.Item71);
+                SoundEngine.PlaySound(SoundID.Item71, Projectile.Center);
                 Projectile.ai[1] = 0;
                 if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())
                 {

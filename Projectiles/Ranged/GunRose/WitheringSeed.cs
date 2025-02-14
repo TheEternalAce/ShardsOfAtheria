@@ -3,6 +3,7 @@ using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Ranged.GunRose
 {
@@ -35,6 +36,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.GunRose
 
         public override void OnKill(int timeLeft)
         {
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
                 Vector2.Zero, ModContent.ProjectileType<WitheringRose>(), 180, 0, Projectile.owner);
         }

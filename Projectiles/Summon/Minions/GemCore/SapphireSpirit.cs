@@ -6,6 +6,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 {
@@ -179,8 +180,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 
                     if (npc.CanBeChasedBy())
                     {
-                        float between = Vector2.Distance(npc.Center, Projectile.Center);
-                        bool closest = Vector2.Distance(Projectile.Center, targetCenter) > between;
+                        float between = Vector2.Distance(npc.Center, owner.Center);
+                        bool closest = Vector2.Distance(owner.Center, targetCenter) > between;
                         bool inRange = between < distanceFromTarget;
                         bool lineOfSight = Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height);
                         // Additional check for this specific minion behavior, otherwise it will stop attacking once it dashed through an enemy while flying though tiles afterwards
@@ -208,13 +209,13 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
         private void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
         {
             // Default movement parameters (here for attacking)
-            float speed = 12;
+            float speed = 10;
             float inertia = 80;
 
             if (foundTarget)
             {
                 sleepyTimer = 0;
-                speed = 16f;
+                speed = 14f;
                 inertia = 80f;
 
                 var idlePosition = targetCenter;
@@ -232,7 +233,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                     Projectile.frameCounter = 0;
                     Projectile.damage = 150;
                     Projectile.spriteDirection = targetCenter.X < Projectile.Center.X ? -1 : 1;
-                    SoundEngine.PlaySound(SoundID.Item1);
+                    SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
                     float numberProjectiles = 3; // 3 shots
                     float rotation = MathHelper.ToRadians(5);
                     for (int i = 0; i < numberProjectiles; i++)
@@ -252,7 +253,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 
             if (distanceToIdlePosition > 200f)
             {
-                speed = 26f;
+                speed = 20f;
                 inertia = 40f;
             }
             if (sleepyTimer >= 400)
@@ -374,6 +375,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 
         public override void OnKill(int timeLeft)
         {
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             CombatText.NewText(Projectile.Hitbox, Color.Blue, ":(");
             SoundEngine.PlaySound(SoundID.Item53.WithPitchOffset(1.5f), Projectile.Center);
         }

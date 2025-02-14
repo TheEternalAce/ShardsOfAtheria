@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
 {
@@ -78,6 +79,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
             }
             if (Projectile.GetPlayerOwner().Shards().Overdrive)
             {
+                if (!Projectile.GetPlayerOwner().IsLocal()) return;
                 ShardsHelpers.CallStorm(Projectile.GetSource_FromThis(), Projectile.Center, 3,
                     (int)(Projectile.damage * 0.66f), Projectile.knockBack, DamageClass.Ranged, Projectile.owner);
             }

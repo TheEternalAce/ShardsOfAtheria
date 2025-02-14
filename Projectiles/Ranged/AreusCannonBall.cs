@@ -121,7 +121,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.velocity = Main.MouseWorld - Projectile.Center;
             Projectile.velocity.Normalize();
             Projectile.velocity *= 20;
-            SoundEngine.PlaySound(SoundID.NPCHit4);
+            SoundEngine.PlaySound(SoundID.NPCHit4, Projectile.Center);
             Projectile.ai[0] = 1;
             Projectile.ai[1]++;
             gravityTimer = 180;

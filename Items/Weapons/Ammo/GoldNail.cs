@@ -1,5 +1,4 @@
 using ShardsOfAtheria.Projectiles.Ammo;
-using ShardsOfAtheria.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,8 +33,9 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
         public override void AddRecipes()
         {
             CreateRecipe(50)
-                .AddRecipeGroup(ShardsRecipes.Copper)
-                .AddTile(TileID.WorkBenches)
+                .AddIngredient(ItemID.Nail, 50)
+                .AddIngredient(ItemID.GoldBar)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
     }

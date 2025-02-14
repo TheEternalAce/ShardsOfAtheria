@@ -29,13 +29,10 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.useAnimation = 48;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item61;
-            Item.channel = true;
             Item.noMelee = true;
-            Item.noUseGraphic = true;
 
-            Item.shootSpeed = 0f;
-            Item.rare = ItemRarityID.Master;
-            Item.value = Item.sellPrice(0, 2, 75);
+            Item.shootSpeed = 10f;
+            Item.rare = ItemDefaults.RaritySinful;
             Item.shoot = ProjectileID.PurificationPowder;
             Item.useAmmo = AmmoID.Dart;
         }

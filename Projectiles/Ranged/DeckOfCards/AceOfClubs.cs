@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.DeckOfCards
             Projectile.width = 18;
             Projectile.height = 18;
             Projectile.DamageType = DamageClass.Ranged;
+            if (SoA.ServerConfig.throwingWeapons) Projectile.DamageType = DamageClass.Throwing;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.timeLeft = 300;

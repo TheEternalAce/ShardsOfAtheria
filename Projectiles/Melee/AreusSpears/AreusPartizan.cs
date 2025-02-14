@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Buffs.PlayerBuff.OnHitBuffs;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -135,7 +135,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
 
         public override float SwingProgress(float progress)
         {
-            return GenericSwing2(progress);
+            return SwingProgressAequus(progress);
         }
 
         public override float GetVisualOuter(float progress, float swingProgress)

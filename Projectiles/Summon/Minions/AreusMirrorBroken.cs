@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Dusts;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Summon.Minions
 {
@@ -28,7 +30,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<AreusDust>());
             }
-            SoundEngine.PlaySound(SoundID.Shatter, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Shatter, Projectile.Center);
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             for (int i = 0; i < 3; i++)
             {
                 Vector2 velocity = Vector2.One.RotatedByRandom(MathHelper.TwoPi);

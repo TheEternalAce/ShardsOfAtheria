@@ -41,8 +41,6 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
             Projectile.penetrate = -1;
             Projectile.light = 0.5f;
             Projectile.timeLeft = 12;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
             Projectile.ownerHitCheck = true;
 
             DrawOriginOffsetY = -39;

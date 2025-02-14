@@ -49,6 +49,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
             mp.DashVelocity = 13f;
             ModContent.GetInstance<AmethystCore>().UpdateAccessory(player, hideVisual);
+            player.Gem().greaterGemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

@@ -65,6 +65,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Regular
             ModContent.GetInstance<AmethystCore_Lesser>().UpdateAccessory(player, hideVisual);
             player.Gem().amethystCore = true;
             player.Gem().amethystMask = !hideVisual;
+            player.Gem().gemCore = true;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

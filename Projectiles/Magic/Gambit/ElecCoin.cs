@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons.Magic;
+using ShardsOfAtheria.Projectiles.Magic.EntropyCatalyst;
 using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -38,7 +40,10 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
             gravityTimer++;
             if (gravityTimer >= 16)
             {
-                Projectile.ApplyGravity(Projectile.ai[0] == 1 ? 0.2f : 1f);
+                var devCard = ToggleableTool.GetInstance<DevelopersKeyCard>(player);
+                bool cardActive = devCard != null && devCard.Active;
+                if (cardActive) Projectile.velocity *= 0.8f;
+                else Projectile.ApplyGravity(Projectile.ai[0] == 1 ? 0.2f : 1f);
                 gravityTimer = 16;
                 Projectile.friendly = true;
                 if (Projectile.Center.Y > player.Center.Y)
@@ -88,24 +93,39 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
                                 }
                             }
                         }
-                        if (proj.ModProjectile != null && proj.ModProjectile is not HitscanBullet)
+                        if (proj.ModProjectile is not HitscanBullet)
                         {
                             float speed = proj.velocity.Length();
                             Vector2 velocity = proj.velocity;
-                            var closestCoin = ShardsHelpers.FindClosestProjectile(Projectile.Center, 2000, ValidCoin);
-                            if (closestCoin != null) velocity = proj.Center.DirectionTo(closestCoin.Center) * speed;
+                            float maxDistance = Main.maxTilesX * 16f;
+
+                            Entity closestTarget = ShardsHelpers.FindClosestProjectile(Projectile.Center, maxDistance, proj => ValidTarget(proj, ModContent.ProjectileType<ElecCoin>()));
+                            if (closestTarget != null) velocity = Projectile.Center.DirectionTo(closestTarget.Center) * speed;
                             else
                             {
-                                var closestEnemy = ShardsHelpers.FindClosestNPC(Projectile.Center, null, 2000);
-                                if (closestEnemy != null) velocity = Projectile.Center.DirectionTo(closestEnemy.Center) * speed;
+                                closestTarget = ShardsHelpers.FindClosestProjectile(Projectile.Center, maxDistance, proj => ValidTarget(proj, ModContent.ProjectileType<CatalystBomb>()));
+                                if (closestTarget != null && proj.ModProjectile is not CatalystBomb) velocity = Projectile.Center.DirectionTo(closestTarget.Center) * speed;
+                                else
+                                {
+                                    closestTarget = ShardsHelpers.FindClosestNPC(Projectile, null, maxDistance);
+                                    if (closestTarget != null) velocity = Projectile.Center.DirectionTo(closestTarget.Center) * speed;
+                                }
                             }
+                            Projectile.Kill();
+                            proj.Kill();
+                            if (Main.netMode == NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.netUpdate = true;
+                                proj.netUpdate = true;
+                            }
+
                             int type = ModContent.ProjectileType<HitscanBullet>();
                             if (proj.DamageType.CountsAsClass(DamageClass.Melee)) type = ModContent.ProjectileType<HitscanBullet_Melee>();
                             if (proj.DamageType.CountsAsClass(DamageClass.Magic)) type = ModContent.ProjectileType<HitscanBullet_Magic>();
                             if (proj.DamageType.CountsAsClass(DamageClass.Summon)) type = ModContent.ProjectileType<HitscanBullet_Summon>();
+                            if (proj.ModProjectile is CatalystBomb) type = ModContent.ProjectileType<HitscanBullet_Explosive>();
 
-                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, type, proj.damage, 3f);
-                            proj.Kill();
+                            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, type, (int)(proj.damage * 1.1f), 3f);
                         }
                         break;
                     }
@@ -117,6 +137,15 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
         {
             if (!projectile.active) return false;
             if (projectile.type != ModContent.ProjectileType<ElecCoin>()) return false;
+            if (projectile.whoAmI == Projectile.whoAmI) return false;
+            if (projectile.owner != Projectile.owner) return false;
+            return true;
+        }
+
+        public bool ValidTarget(Projectile projectile, int targetType)
+        {
+            if (!projectile.active) return false;
+            if (projectile.type != targetType) return false;
             if (projectile.whoAmI == Projectile.whoAmI) return false;
             if (projectile.owner != Projectile.owner) return false;
             return true;

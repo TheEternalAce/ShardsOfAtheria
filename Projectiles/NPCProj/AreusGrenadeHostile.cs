@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj
 {
@@ -15,8 +16,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
-            Projectile.AddElement(0);
-            Projectile.AddRedemptionElement(2);
+            Projectile.AddRedemptionElement(15);
 
             Main.projFrames[Type] = 2;
 
@@ -56,6 +56,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj
 
         public override void OnKill(int timeLeft)
         {
+            if (!Projectile.GetPlayerOwner().IsLocal()) return;
             Projectile.Explode(Projectile.Center, Projectile.damage, true);
         }
     }

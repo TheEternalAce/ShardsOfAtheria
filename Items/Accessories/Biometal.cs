@@ -82,7 +82,7 @@ namespace ShardsOfAtheria.Items.Accessories
             player.spikedBoots = 1;
 
             var bar = ModContent.GetInstance<OverdriveEnergyBarSystem>();
-            if (!bar.BarShowing)
+            if (bar != null && !bar.BarShowing)
             {
                 bar.ShowBar();
             }
@@ -132,9 +132,9 @@ namespace ShardsOfAtheria.Items.Accessories
             {
                 if (!shardsPlayer.BiometalSound)
                 {
-                    if (player.Male)
-                        SoundEngine.PlaySound(MegamergeMale);
-                    else SoundEngine.PlaySound(MegamergeFemale);
+                    var soundType = MegamergeFemale;
+                    if (player.Male) soundType = MegamergeMale;
+                    SoundEngine.PlaySound(soundType, player.Center);
                     shardsPlayer.BiometalSound = true;
                 }
             }
@@ -155,7 +155,7 @@ namespace ShardsOfAtheria.Items.Accessories
             ShardsPlayer shardsPlayer = player.Shards();
             if (shardsPlayer.BiometalSound)
             {
-                SoundEngine.PlaySound(SoundID.Item4);
+                SoundEngine.PlaySound(SoundID.Item4, player.Center);
                 shardsPlayer.BiometalSound = false;
             }
         }
