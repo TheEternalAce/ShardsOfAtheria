@@ -39,6 +39,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.value = Item.sellPrice(0, 2, 50);
         }
 
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+
         public override void AddRecipes()
         {
             CreateRecipe()

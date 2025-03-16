@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Melee.OmegaSword;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -22,14 +21,12 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void LoadData(TagCompound tag)
         {
-            if (tag.ContainsKey("theMessiah"))
-            {
-                soundPlayed = tag.GetBool("theMessiah");
-            }
+            if (tag.ContainsKey("theMessiah")) soundPlayed = tag.GetBool("theMessiah");
         }
 
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(3);
             Item.AddElement(0);
             Item.AddEraser();
             Item.AddRedemptionElement(2);
@@ -59,6 +56,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<MessiahRanbu>();
         }
 
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+
         public override void UpdateInventory(Player player)
         {
             if (!soundPlayed && Main.myPlayer == player.whoAmI)
@@ -66,7 +68,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 soundPlayed = true;
                 SoundEngine.PlaySound(SoA.TheMessiah, player.Center);
             }
-            player.Shards().overdriveTimeCurrent = ShardsPlayer.OVERDRIVE_TIME_MAX;
         }
 
         public override bool AltFunctionUse(Player player)

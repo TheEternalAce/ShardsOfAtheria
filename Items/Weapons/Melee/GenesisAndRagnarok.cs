@@ -59,6 +59,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             combo = 0;
         }
 
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+
         public override void AddRecipes()
         {
             CreateRecipe()

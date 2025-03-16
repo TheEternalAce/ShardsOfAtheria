@@ -38,6 +38,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             PreviouslyHitNPC = -1;
         }
 
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+
         public override float UseSpeedMultiplier(Player player)
         {
             return 0.35f;

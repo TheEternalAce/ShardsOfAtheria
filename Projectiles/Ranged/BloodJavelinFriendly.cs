@@ -30,8 +30,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.extraUpdates = 1;
-            Projectile.DamageType = DamageClass.Ranged;
-            if (SoA.ServerConfig.throwingWeapons) Projectile.DamageType = DamageClass.Throwing;
+            Projectile.DamageType = DamageClass.Ranged.TryThrowing();
 
             DrawOffsetX = -8;
         }

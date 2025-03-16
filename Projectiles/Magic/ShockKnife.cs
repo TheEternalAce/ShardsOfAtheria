@@ -21,6 +21,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            Projectile.AddDamageType(5);
             Projectile.AddElement(1);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
@@ -91,7 +92,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
         {
             var vector = Vector2.Normalize(Projectile.velocity) * 2f;
             for (int i = 0; i < Main.rand.Next(4, 7); i++) Dust.NewDust(target.position, target.width, target.height, DustID.Blood, -vector.X * 0.5f, -vector.Y);
-            SoundEngine.PlaySound(SoA.HeavyCut.WithVolumeScale(0.25f), Projectile.Center);
+            SoundEngine.PlaySound(SoA.HeavyCut, Projectile.Center);
 
             if (target.CanBeChasedBy())
             {

@@ -38,13 +38,14 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<EntropyBlade>();
         }
 
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            base.ModifyWeaponDamage(player, ref damage);
-            if (player.timeSinceLastDashStarted < 30)
-            {
-                damage += .5f;
-            }
+            if (player.timeSinceLastDashStarted < 30) damage += .5f;
         }
 
         public override void AddRecipes()

@@ -1,7 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
+﻿using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
 using ShardsOfAtheria.Utilities;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -45,19 +43,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             ModContent.GetInstance<DiamondCore_Greater>().UpdateAccessory(player, hideVisual);
             player.Gem().superDiamondCore = true;
             player.Gem().superGemCore = true;
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            var player = Main.LocalPlayer;
-            var gem = player.Gem();
-            if (gem.diamondCore && gem.rubyCore)
-            {
-                TooltipLine line = new(Mod, "GemCurse", "Diamond Curse") { OverrideColor = Color.Red };
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
-                line = new(Mod, "GemCurse", "Ruby Curse") { OverrideColor = Color.Cyan };
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
-            }
         }
     }
 }

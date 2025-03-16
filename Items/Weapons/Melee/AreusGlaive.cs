@@ -43,6 +43,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<AreusGlaive_Swing>();
         }
 
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -85,7 +90,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool? UseItem(Player player)
         {
-            base.UseItem(player);
+            if (combo == 0 || combo == 1) Item.FixSwing(player);
             if (combo >= 4)
                 combo = 0;
             else combo++;

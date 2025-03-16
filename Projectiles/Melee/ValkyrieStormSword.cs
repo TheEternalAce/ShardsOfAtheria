@@ -18,6 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(5);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
@@ -33,8 +34,8 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.friendly = true;
-            Projectile.localNPCHitCooldown = 5;
             Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 25;
         }
 
         public override void AI()
@@ -49,7 +50,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             if (Projectile.rotation > MathHelper.TwoPi) Projectile.rotation -= MathHelper.TwoPi;
             if (++Projectile.ai[0] >= 60)
             {
-                ShardsHelpers.ProjectileRing(Projectile.GetSource_FromThis(), Projectile.Center, 6, 1f, 14f, ModContent.ProjectileType<HardlightBlade>(),
+                ShardsHelpers.ProjectileRing(Projectile.GetSource_FromThis(), Projectile.Center, 6, 1f, 14f, ModContent.ProjectileType<StormBlade>(),
                     Projectile.damage / 3, Projectile.knockBack, rotationAddition: MathHelper.ToRadians(15f));
                 SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
                 Projectile.ai[0] = 0;

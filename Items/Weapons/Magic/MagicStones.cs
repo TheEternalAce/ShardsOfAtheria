@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(4);
             Item.AddRedemptionElement(5);
         }
 
@@ -30,7 +31,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.damage = 24;
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 8f;
-            Item.mana = 10;
+            Item.mana = 8;
 
             Item.useTime = 10;
             Item.useAnimation = 30;

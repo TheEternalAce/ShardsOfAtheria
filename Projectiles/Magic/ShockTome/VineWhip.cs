@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.ShockTome
             // This makes the projectile use whip collision detection and allows flasks to be applied to it.
             ProjectileID.Sets.IsAWhip[Type] = true;
 
+            Projectile.AddDamageType(11);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(10);
         }

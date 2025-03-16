@@ -30,12 +30,11 @@ namespace ShardsOfAtheria.Projectiles.Magic.ThorSpear
 
         public override void AI()
         {
-            if (Projectile.alpha > 0) Projectile.alpha -= 25;
-            else if (Projectile.alpha < 0) Projectile.alpha = 0;
             Projectile.spriteDirection = Projectile.direction;
             Projectile.SetVisualOffsets(72);
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2 - MathHelper.PiOver4 * Projectile.spriteDirection;
             if (++Projectile.ai[0] >= 32f) Projectile.ApplyGravity();
+            if (Projectile.alpha > 0) Projectile.alpha = 0;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

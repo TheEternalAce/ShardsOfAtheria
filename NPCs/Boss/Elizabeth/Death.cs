@@ -58,6 +58,8 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             ];
             NPC.SetImmuneTo(buffTypes);
 
+            NPC.AddDamageType(7);
+
             NPC.AddElement(1);
             NPC.AddElement(3);
             NPC.AddRedemptionElement(12);
@@ -163,12 +165,12 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             LeadingConditionRule slayerMode = new(new IsSlayerMode());
             LeadingConditionRule masterOrEternity = new(new EternityOrMaster());
 
-            int[] drops = {
+            int[] drops = [
                 ModContent.ItemType<BloodScythe>(),
                 ModContent.ItemType<BloodJavelin>(),
                 ModContent.ItemType<BloodScepter>(),
                 ModContent.ItemType<BloodTome>(),
-            };
+            ];
 
             notExpertRule.OnSuccess(new OneFromOptionsDropRule(1, 3, drops));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<LifeCycleKeys>(), 4));
@@ -192,6 +194,11 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             npcLoot.Add(notExpertRule);
             npcLoot.Add(slayerMode);
             npcLoot.Add(masterOrEternity);
+        }
+
+        public override void BossLoot(ref string name, ref int potionType)
+        {
+            potionType = ItemID.GreaterHealingPotion;
         }
 
         public override void OnKill()

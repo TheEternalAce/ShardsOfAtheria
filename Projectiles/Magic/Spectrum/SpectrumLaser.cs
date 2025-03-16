@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Spectrum
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 10;
             ProjectileID.Sets.TrailingMode[Type] = 2;
+            Projectile.AddDamageType(4);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }

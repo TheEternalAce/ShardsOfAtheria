@@ -8,6 +8,7 @@ using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Consumable;
 using ShardsOfAtheria.Items.Placeable.Furniture;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.NPCs.Town.TheArchivist;
 using ShardsOfAtheria.NPCs.Town.TheAtherian;
@@ -113,6 +114,21 @@ namespace ShardsOfAtheria.Globals
                         tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
                         line = new TooltipLine(Mod, "OverdriveEffect",
                             Language.GetTextValue(overdriveKey));
+                        tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
+                    }
+                }
+                string devKey = item.ModItem.GetLocalizationKey("DeveloperKeyChange");
+                if (Language.Exists(devKey))
+                {
+                    var devCard = ToggleableTool.GetInstance<DevelopersKeyCard>(Main.LocalPlayer);
+                    bool cardActive = devCard != null && devCard.Active;
+                    if (cardActive)
+                    {
+                        var line = new TooltipLine(Mod, "DevKeyHeader",
+                            ShardsHelpers.LocalizeCommon("DeveloperKeyHeader"));
+                        tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
+                        line = new TooltipLine(Mod, "DevKeyChange",
+                            Language.GetTextValue(devKey));
                         tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
                     }
                 }

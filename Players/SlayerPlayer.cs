@@ -28,7 +28,7 @@ namespace ShardsOfAtheria.Players
         public bool slayerSet;
         public int artifactExtraSummons;
 
-        public List<string> soulCrystalNames = new();
+        public List<string> soulCrystalNames = [];
         public int maxCrystals = 6;
 
         public bool creeperPet;

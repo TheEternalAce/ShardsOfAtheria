@@ -37,6 +37,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<BrokenAreusPartizan>();
         }
 
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+
         public override bool? UseItem(Player player)
         {
             Item.FixSwing(player);

@@ -26,6 +26,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
             Projectile.sentry = true;
             Projectile.minionSlots = 1;
             Projectile.timeLeft = Projectile.SentryLifeTime;
+            Projectile.friendly = true;
 
             DrawOffsetX = -14;
             DrawOriginOffsetY = -20;
@@ -99,6 +100,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            return false;
+        }
+
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             return false;
         }

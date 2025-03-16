@@ -41,6 +41,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.height = 138;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
+            Projectile.friendly = true;
         }
 
         public override void AI()
@@ -131,8 +132,14 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.friendly = foundTarget;
         }
 
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return false;
+        }
+
         public override void PostDraw(Color lightColor)
         {
+
             //TODO Generic glowmask draw, maybe generalize method
             Player player = Main.player[Projectile.owner];
 
@@ -141,7 +148,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Texture2D glowmaskTexture = glowmask.Value;
             float originX = (glowmaskTexture.Width - Projectile.width) * 0.5f + Projectile.width * 0.5f;
             ProjectileLoader.DrawOffset(Projectile, ref offsetX, ref offsetY, ref originX);
-
             SpriteEffects spriteEffects = SpriteEffects.None;
             if (Projectile.spriteDirection == -1)
             {

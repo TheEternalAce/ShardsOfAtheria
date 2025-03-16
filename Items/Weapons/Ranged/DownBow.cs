@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(7);
             Item.AddElement(2);
             Item.AddRedemptionElement(7);
         }
@@ -54,10 +55,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (type == ProjectileID.WoodenArrowFriendly)
-            {
-                type = ModContent.ProjectileType<FeatherBladeFriendly>();
-            }
+            if (type == ProjectileID.WoodenArrowFriendly) type = ModContent.ProjectileType<FeatherBladeFriendly>();
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

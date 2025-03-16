@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         bool bombThrow = false;
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(7);
             Item.AddElement(3);
             Item.AddRedemptionElement(10);
         }

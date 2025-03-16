@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
             Projectile.scale = 0.25f;
+            Projectile.friendly = true;
         }
 
         public override void AI()
@@ -71,11 +72,16 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
             }
         }
 
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return false;
+        }
+
         public override bool PreDraw(ref Color lightColor)
         {
             var texure = ModContent.Request<Texture2D>(Texture).Value;
             Main.spriteBatch.Draw(texure, Projectile.Center - Main.screenPosition,
-                null, SoA.ElectricColorA, Projectile.rotation, texure.Size() / 2, Projectile.scale, SpriteEffects.None, 0f);
+                null, SoA.ElectricColorA0, Projectile.rotation, texure.Size() / 2, Projectile.scale, SpriteEffects.None, 0f);
             return false;
         }
     }

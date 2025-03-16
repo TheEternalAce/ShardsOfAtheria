@@ -44,6 +44,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<SilverSpearSwing>();
         }
 
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+
         public override void HoldItem(Player player)
         {
             comboTimer--;

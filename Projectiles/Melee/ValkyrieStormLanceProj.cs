@@ -23,6 +23,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
 
             Projectile.MakeTrueMelee();
+            Projectile.AddDamageType(7);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }

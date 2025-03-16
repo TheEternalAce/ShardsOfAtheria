@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Projectiles.Melee;
+using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -18,10 +19,7 @@ namespace ShardsOfAtheria.Items.DedicatedItems.Webmillio
 
         public override void Load()
         {
-            if (!Main.dedServ)
-            {
-                glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
-            }
+            if (!Main.dedServ) glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
         }
 
         public override void Unload()
@@ -36,15 +34,15 @@ namespace ShardsOfAtheria.Items.DedicatedItems.Webmillio
 
         public override void LoadData(TagCompound tag)
         {
-            if (tag.ContainsKey("upgraded"))
-            {
-                upgraded = tag.GetBool("upgraded");
-            }
+            if (tag.ContainsKey("upgraded")) upgraded = tag.GetBool("upgraded");
         }
 
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
+
+            Item.AddDamageType(11);
+
             Item.AddElement(2);
         }
 
@@ -71,14 +69,24 @@ namespace ShardsOfAtheria.Items.DedicatedItems.Webmillio
             Item.shootSpeed = 1;
             Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = ItemDefaults.ValueEarlyHardmode;
+
+            if (ShardsSystem.ContentFinished && upgraded) Item.AddDamageType(5);
         }
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            if (upgraded)
-            {
-                damage += 0.12f;
-            }
+            if (upgraded) damage += 0.12f;
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            Item.FixSwing(player);
+            return true;
         }
 
         public override void AddRecipes()
@@ -109,18 +117,12 @@ namespace ShardsOfAtheria.Items.DedicatedItems.Webmillio
 
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            if (upgraded)
-            {
-                spriteBatch.Draw(glowmask.Value, position, frame, drawColor, 0f, glowmask.Value.Size() * 0.5f, scale, SpriteEffects.None, 0f);
-            }
+            if (upgraded) spriteBatch.Draw(glowmask.Value, position, frame, drawColor, 0f, glowmask.Value.Size() * 0.5f, scale, SpriteEffects.None, 0f);
         }
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            if (upgraded)
-            {
-                Item.BasicInWorldGlowmask(spriteBatch, glowmask.Value, Color.White, rotation, 1f);
-            }
+            if (upgraded) Item.BasicInWorldGlowmask(spriteBatch, glowmask.Value, Color.White, rotation, 1f);
         }
     }
 }

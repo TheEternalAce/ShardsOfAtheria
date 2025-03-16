@@ -4,6 +4,7 @@ using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WebCom.Extensions;
@@ -17,6 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Main.projFrames[Type] = 10;
             ProjectileID.Sets.TrailingMode[Type] = 2;
 
+            Projectile.AddDamageType(4);
             Projectile.AddElement(0);
             Projectile.AddElement(1);
             Projectile.AddElement(2);
@@ -39,6 +41,11 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Projectile.penetrate = 3;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 0;
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            Projectile.frame = Main.rand.Next(Main.projFrames[Type]);
         }
 
         // See ExampleBehindTilesProjectile. 
@@ -109,9 +116,6 @@ namespace ShardsOfAtheria.Projectiles.Melee
             get => (int)Projectile.ai[1];
             set => Projectile.ai[1] = value;
         }
-
-        // Randomize projectile frame
-        public bool frameSet = false;
 
         private const int MAX_STICKY_JAVELINS = 20; // This is the max. amount of javelins being able to attach
         private readonly Point[] _stickingJavelins = new Point[MAX_STICKY_JAVELINS]; // The point array holding for sticking javelins
@@ -237,11 +241,6 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         private void NormalAI()
         {
-            if (!frameSet)
-            {
-                Projectile.frame = Main.rand.Next(Main.projFrames[Type]);
-                frameSet = true;
-            }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(45f);
         }
 
@@ -286,7 +285,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
                     Projectile.DrawAfterImage(lightColor);
                     break;
                 case 9:
-                    lightColor = SoA.ElectricColorA;
+                    lightColor = SoA.ElectricColorA0;
                     break;
             }
             return base.PreDraw(ref lightColor);

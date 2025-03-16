@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.Baton
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
+            Projectile.AddDamageType(5);
         }
 
         public override void SetDefaults()

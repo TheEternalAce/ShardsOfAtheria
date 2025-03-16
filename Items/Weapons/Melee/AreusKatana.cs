@@ -41,6 +41,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<ElecKunai>();
         }
 
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+
         public override float UseSpeedMultiplier(Player player)
         {
             return 0.75f;

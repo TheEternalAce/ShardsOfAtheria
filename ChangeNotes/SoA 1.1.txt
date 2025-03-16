@@ -109,5 +109,14 @@
 - Reduced the number of beetle husks needed to make Areus Imperial armor.
 - Added a Recipe Browser category that shows possible upgrades.
 - Areus Armor sets will now require some jade to make.
-- Added config to convert thrown ranged weapons to throwing class.
+- Added config to convert thrown ranged and melee weapons to throwing class.
 - Added Silver Spear.
+- Tweaked King's Kusarigama.
+- The Omega Shrine can now spawn in worlds using The Depths mod.
+- Added Zetamin vanity set.
+- Removed gem curses.
+- Areus Mirror prims now shoot small weak lasers while active.
+- Swaped Frostspark Staff's primary and alt uses.
+- Frostspark Staff and its summons now shoot ice and electric beams.
+- Added support for the Dungeons and Terrarians mod.
+- Elizabeth now drops Greater Healing Potions.

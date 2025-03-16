@@ -12,6 +12,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
     {
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(12);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }

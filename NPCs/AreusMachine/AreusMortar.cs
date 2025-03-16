@@ -13,7 +13,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.NPCs
+namespace ShardsOfAtheria.NPCs.AreusMachine
 {
     public class AreusMortar : ModNPC
     {
@@ -36,13 +36,17 @@ namespace ShardsOfAtheria.NPCs
             // Influences how the NPC looks in the Bestiary
             NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new()
             {
-                CustomTexturePath = "ShardsOfAtheria/NPCs/AreusMortar_Bestiary"
+                CustomTexturePath = "ShardsOfAtheria/NPCs/AreusMachine/AreusMortar_Bestiary"
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
             NPC.AddElement(0);
             NPC.AddElement(2);
+
+            NPC.AddDamageType(4, 5);
+            NPC.AddVulnerabilities(2, 8, 9);
+
             NPC.AddRedemptionElement(7);
 
             NPC.AddRedemptionElementType("Inorganic");

@@ -11,6 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Spectrum
     {
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(2, 3);
             Projectile.AddElement(0);
             Projectile.AddElement(1);
             Projectile.AddRedemptionElement(2);

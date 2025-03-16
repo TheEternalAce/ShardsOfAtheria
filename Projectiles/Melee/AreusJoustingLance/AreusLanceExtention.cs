@@ -91,7 +91,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJoustingLance
 
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = SoA.ElectricColorA;
+            lightColor = SoA.ElectricColorA0;
             return base.PreDraw(ref lightColor);
         }
     }

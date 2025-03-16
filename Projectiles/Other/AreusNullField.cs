@@ -74,7 +74,7 @@ namespace ShardsOfAtheria.Projectiles.Other
         public override bool PreDraw(ref Color lightColor)
         {
             Asset<Texture2D> circle = ModContent.Request<Texture2D>(SoA.Circle);
-            Main.EntitySpriteDraw(circle.Value, Projectile.Center - Main.screenPosition, null, SoA.AreusColorA * 0.4f, 0, circle.Size() / 2, Projectile.scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(circle.Value, Projectile.Center - Main.screenPosition, null, SoA.AreusColorA0 * 0.4f, 0, circle.Size() / 2, Projectile.scale, SpriteEffects.None);
             return base.PreDraw(ref lightColor);
         }
     }

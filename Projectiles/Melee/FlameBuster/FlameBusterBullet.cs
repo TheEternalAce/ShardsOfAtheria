@@ -16,6 +16,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameBuster
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+
+            Projectile.AddDamageType(3, 10);
+            Projectile.AddElement(0);
+            Projectile.AddRedemptionElement(2);
+            Projectile.AddRedemptionElement(8);
         }
 
         public override void SetDefaults()

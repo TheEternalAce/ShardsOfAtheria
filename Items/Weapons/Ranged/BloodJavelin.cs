@@ -12,6 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(6);
             Item.AddElement(1);
             Item.AddElement(3);
             Item.AddRedemptionElement(12);
@@ -23,8 +24,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.height = 54;
 
             Item.damage = 100;
-            Item.DamageType = DamageClass.Ranged;
-            if (SoA.ServerConfig.throwingWeapons) Item.DamageType = DamageClass.Throwing;
+            Item.DamageType = DamageClass.Ranged.TryThrowing();
             Item.knockBack = 4f;
             Item.crit = 16;
 

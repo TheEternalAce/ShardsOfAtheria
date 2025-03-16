@@ -52,7 +52,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.AreusGamble
 
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = SoA.ElectricColorA;
+            lightColor = SoA.ElectricColorA0;
             return base.PreDraw(ref lightColor);
         }
     }

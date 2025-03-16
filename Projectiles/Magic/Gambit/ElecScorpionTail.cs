@@ -84,7 +84,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
         {
             var player = Main.player[Projectile.owner];
 
-            lightColor = SoA.ElectricColorA;
+            lightColor = SoA.ElectricColorA0;
             Vector2 mountedCenter = player.MountedCenter;
             Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>(ChainTexturePath);
 

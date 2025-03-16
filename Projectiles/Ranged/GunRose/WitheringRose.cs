@@ -26,10 +26,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.GunRose
 
         public override void AI()
         {
-            if (Projectile.scale < 1f)
-            {
-                Projectile.scale += 0.1f;
-            }
+            if (Projectile.scale < 1f) Projectile.scale += 0.1f;
             if (Projectile.timeLeft % 60 == 0 && Projectile.timeLeft > 145 && Projectile.timeLeft < 600)
             {
                 ShardsHelpers.ProjectileRing(Projectile.GetSource_FromThis(), Projectile.Center,

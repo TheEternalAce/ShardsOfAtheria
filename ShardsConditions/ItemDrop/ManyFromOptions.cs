@@ -4,21 +4,13 @@ using Terraria.GameContent.ItemDropRules;
 
 namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 {
-    public class ManyFromOptionsDropRule : IItemDropRule
+    public class ManyFromOptionsDropRule(int chanceDenominator, int chanceNumerator, int[,] options) : IItemDropRule
     {
-        public int[,] dropIds;
-        public int chanceDenominator;
-        public int chanceNumerator;
+        public int[,] dropIds = options;
+        public int chanceDenominator = chanceDenominator;
+        public int chanceNumerator = chanceNumerator;
 
-        public List<IItemDropRuleChainAttempt> ChainedRules { get; private set; }
-
-        public ManyFromOptionsDropRule(int chanceDenominator, int chanceNumerator, int[,] options)
-        {
-            this.chanceDenominator = chanceDenominator;
-            this.chanceNumerator = chanceNumerator;
-            dropIds = options;
-            ChainedRules = new List<IItemDropRuleChainAttempt>();
-        }
+        public List<IItemDropRuleChainAttempt> ChainedRules { get; private set; } = [];
 
         public bool CanDrop(DropAttemptInfo info)
         {

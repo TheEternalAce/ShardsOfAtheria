@@ -29,8 +29,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
             Projectile.aiStyle = ProjAIStyleID.Explosive;
             Projectile.friendly = false;
-            Projectile.DamageType = DamageClass.Ranged;
-            if (SoA.ServerConfig.throwingWeapons) Projectile.DamageType = DamageClass.Throwing;
+            Projectile.DamageType = DamageClass.Ranged.TryThrowing();
             Projectile.penetrate = 1;
             Projectile.timeLeft = 240;
 

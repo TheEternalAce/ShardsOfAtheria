@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
     {
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(7, 11);
             Item.AddElement(2);
             Item.AddRedemptionElement(7);
         }

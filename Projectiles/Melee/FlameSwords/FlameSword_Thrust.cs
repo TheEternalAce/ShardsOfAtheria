@@ -27,6 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(3, 10);
             Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
             Projectile.AddRedemptionElement(8);

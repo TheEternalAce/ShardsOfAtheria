@@ -12,7 +12,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.NPCs
+namespace ShardsOfAtheria.NPCs.AreusMachine
 {
     public class ShriekingBeacon : ModNPC
     {
@@ -42,7 +42,12 @@ namespace ShardsOfAtheria.NPCs
 
             NPC.AddElement(0);
             NPC.AddElement(2);
+
+            NPC.AddDamageType(5, 12);
+            NPC.AddVulnerabilities(2, 8, 9);
+
             NPC.AddRedemptionElement(7);
+
             NPC.AddRedemptionElementType("Inorganic");
             NPC.AddRedemptionElementType("Robotic");
         }

@@ -1,7 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Accessories.GemCores.Regular;
+﻿using ShardsOfAtheria.Items.Accessories.GemCores.Regular;
 using ShardsOfAtheria.Utilities;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -47,29 +45,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             player.GetAttackSpeed(DamageClass.Generic) += .04f;
             player.Gem().greaterRubyCore = true;
             player.Gem().greaterGemCore = true;
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            var player = Main.LocalPlayer;
-            var gem = player.Gem();
-            if (gem.rubyCore && gem.sapphireCore)
-            {
-                TooltipLine line = new(Mod, "GemCurse", "Sapphire Curse") { OverrideColor = Color.Red };
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
-            }
-            if (gem.rubyCore && gem.diamondCore)
-            {
-                TooltipLine line = new(Mod, "GemCurse", "Ruby Curse") { OverrideColor = Color.Cyan };
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
-                line = new(Mod, "GemCurse", "Diamond Curse") { OverrideColor = Color.Red };
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
-            }
-            if (gem.rubyCore && gem.emeraldCore)
-            {
-                TooltipLine line = new(Mod, "GemCurse", "Emerald Curse") { OverrideColor = Color.Red };
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
-            }
         }
     }
 }

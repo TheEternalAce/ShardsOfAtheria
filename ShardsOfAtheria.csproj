@@ -107,6 +107,7 @@
     <None Remove="Projectiles\Melee\SilverRing.png" />
     <None Remove="Projectiles\Melee\SilverSpearThrust_Flip.png" />
     <None Remove="Projectiles\Melee\SpearOfDestiny.png" />
+    <None Remove="Projectiles\Melee\StormBlade.png" />
     <None Remove="Projectiles\Melee\VoidSlash.png" />
     <None Remove="Projectiles\Melee\ZenovaProjectile.png" />
     <None Remove="Projectiles\NPCProj\Nova\PlagueBeam2.png" />

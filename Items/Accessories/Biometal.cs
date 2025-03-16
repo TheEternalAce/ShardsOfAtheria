@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Placeable;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Utilities;
@@ -70,11 +71,15 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            var devCard = ToggleableTool.GetInstance<DevelopersKeyCard>(player);
+            bool cardActive = devCard != null && devCard.Active;
+
             ShardsPlayer shardsPlayer = player.Shards();
             BiometalSound(player);
 
             shardsPlayer.Biometal = true;
             shardsPlayer.BiometalHideVanity = hideVisual;
+            if (cardActive) shardsPlayer.overdriveTimeCurrent = ShardsPlayer.OVERDRIVE_TIME_MAX;
 
             player.GetDamage(DamageClass.Generic) += 0.15f;
             player.statManaMax2 += 40;
@@ -82,10 +87,7 @@ namespace ShardsOfAtheria.Items.Accessories
             player.spikedBoots = 1;
 
             var bar = ModContent.GetInstance<OverdriveEnergyBarSystem>();
-            if (bar != null && !bar.BarShowing)
-            {
-                bar.ShowBar();
-            }
+            if (bar != null && !bar.BarShowing) bar.ShowBar();
 
             BiometalDashPlayer mp = player.GetModPlayer<BiometalDashPlayer>();
             //If the dash is not active, immediately return so we don't do any of the logic for it

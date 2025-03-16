@@ -3,7 +3,6 @@ using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.PetItems;
 using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Items.Weapons.Melee;
-using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -575,30 +574,16 @@ namespace ShardsOfAtheria.Globals
 
         public override bool PreAI(NPC npc)
         {
-            int Type = npc.type;
+            int type = npc.type;
             Color color = Color.White;
+            string slainBoss = "";
 
-            if (Type == NPCID.KingSlime && SoA.DownedSystem.slainKing)
-            {
-                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("King Slime was slain..."), color);
-                npc.active = false;
-                return false;
-            }
-            else if (Type == NPCID.EyeofCthulhu && SoA.DownedSystem.slainEOC)
-            {
-                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Eye of Cthulhu was slain..."), color);
-                npc.active = false;
-                return false;
-            }
+            if (type == NPCID.KingSlime && SoA.DownedSystem.slainKing) slainBoss = npc.GivenOrTypeName;
+            else if (type == NPCID.EyeofCthulhu && SoA.DownedSystem.slainEOC) slainBoss = npc.GivenOrTypeName;
             else if (SoA.DownedSystem.slainBOC)
             {
-                if (Type == NPCID.BrainofCthulhu)
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Brain of Cthulhu was slain..."), color);
-                    npc.active = false;
-                    return false;
-                }
-                else if (Type == NPCID.Creeper && SoA.DownedSystem.slainBOC)
+                if (type == NPCID.BrainofCthulhu) slainBoss = npc.GivenOrTypeName;
+                else if (type == NPCID.Creeper && SoA.DownedSystem.slainBOC)
                 {
                     npc.active = false;
                     return false;
@@ -606,73 +591,38 @@ namespace ShardsOfAtheria.Globals
             }
             else if (SoA.DownedSystem.slainEOW)
             {
-                if (Type == NPCID.EaterofWorldsHead)
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Eater of Worlds was slain..."), color);
-                    npc.active = false;
-                    return false;
-                }
-                else if (Type == NPCID.EaterofWorldsBody || Type == NPCID.EaterofWorldsTail)
+                if (type == NPCID.EaterofWorldsHead) slainBoss = npc.GivenOrTypeName;
+                else if (type == NPCID.EaterofWorldsBody || type == NPCID.EaterofWorldsTail)
                 {
                     npc.active = false;
                     return false;
                 }
             }
-            else if (Type == NPCID.QueenBee && SoA.DownedSystem.slainBee)
-            {
-                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Queen Bee was slain..."), color);
-                npc.active = false;
-                return false;
-            }
+            else if (type == NPCID.QueenBee && SoA.DownedSystem.slainBee) slainBoss = npc.GivenOrTypeName;
             else if (SoA.DownedSystem.slainSkull)
             {
-                if (Type == NPCID.SkeletronHead || Type == NPCID.DungeonGuardian)
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Skeletron was slain..."), color);
-                    npc.active = false;
-                    return false;
-                }
-                else if (Type == NPCID.SkeletronHand)
+                if (type == NPCID.SkeletronHead || type == NPCID.DungeonGuardian) slainBoss = npc.GivenOrTypeName;
+                else if (type == NPCID.SkeletronHand)
                 {
                     npc.active = false;
                     return false;
                 }
             }
-            else if (Type == NPCID.Deerclops && SoA.DownedSystem.slainDeerclops)
-            {
-                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Deerclops was slain..."), color);
-                npc.active = false;
-                return false;
-            }
+            else if (type == NPCID.Deerclops && SoA.DownedSystem.slainDeerclops) slainBoss = npc.GivenOrTypeName;
             else if (SoA.DownedSystem.slainWall)
             {
-                if (Type == NPCID.WallofFlesh)
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("the Wall of Flesh was slain..."), color);
-                    npc.active = false;
-                    return false;
-                }
-                else if (Type == NPCID.WallofFleshEye)
+                if (type == NPCID.WallofFlesh) slainBoss = npc.GivenOrTypeName;
+                else if (type == NPCID.WallofFleshEye)
                 {
                     npc.active = false;
                     return false;
                 }
             }
-            else if (Type == NPCID.QueenSlimeBoss && SoA.DownedSystem.slainQueen)
-            {
-                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Queen Slime was slain..."), color);
-                npc.active = false;
-                return false;
-            }
+            else if (type == NPCID.QueenSlimeBoss && SoA.DownedSystem.slainQueen) slainBoss = npc.GivenOrTypeName;
             else if (SoA.DownedSystem.slainMechWorm)
             {
-                if (Type == NPCID.TheDestroyer)
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Destroyer was slain..."), color);
-                    npc.active = false;
-                    return false;
-                }
-                else if (Type == NPCID.TheDestroyerBody || Type == NPCID.TheDestroyerTail)
+                if (type == NPCID.TheDestroyer) slainBoss = npc.GivenOrTypeName;
+                else if (type == NPCID.TheDestroyerBody || type == NPCID.TheDestroyerTail)
                 {
                     npc.active = false;
                     return false;
@@ -680,28 +630,13 @@ namespace ShardsOfAtheria.Globals
             }
             else if (SoA.DownedSystem.slainTwins)
             {
-                if (Type == NPCID.Spazmatism)
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Spazmatism was slain..."), color);
-                    npc.active = false;
-                    return false;
-                }
-                if (Type == NPCID.Retinazer)
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Retinazer was slain..."), color);
-                    npc.active = false;
-                    return false;
-                }
+                if (type == NPCID.Spazmatism) slainBoss = npc.GivenOrTypeName;
+                if (type == NPCID.Retinazer) slainBoss = npc.GivenOrTypeName;
             }
             else if (SoA.DownedSystem.slainPrime)
             {
-                if (Type == NPCID.SkeletronPrime)
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Skeletron Prime was slain... (Again, how???)"), color);
-                    npc.active = false;
-                    return false;
-                }
-                else if (Type == NPCID.PrimeCannon || Type == NPCID.PrimeLaser || Type == NPCID.PrimeSaw || Type == NPCID.PrimeVice)
+                if (type == NPCID.SkeletronPrime) slainBoss = npc.GivenOrTypeName;
+                else if (type == NPCID.PrimeCannon || type == NPCID.PrimeLaser || type == NPCID.PrimeSaw || type == NPCID.PrimeVice)
                 {
                     npc.active = false;
                     return false;
@@ -709,13 +644,8 @@ namespace ShardsOfAtheria.Globals
             }
             else if (SoA.DownedSystem.slainPlant)
             {
-                if (Type == NPCID.Plantera)
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Plantera was slain..."), color);
-                    npc.active = false;
-                    return false;
-                }
-                else if (Type == NPCID.PlanterasHook || Type == NPCID.PlanterasTentacle)
+                if (type == NPCID.Plantera) slainBoss = npc.GivenOrTypeName;
+                else if (type == NPCID.PlanterasHook || type == NPCID.PlanterasTentacle)
                 {
                     npc.active = false;
                     return false;
@@ -723,92 +653,73 @@ namespace ShardsOfAtheria.Globals
             }
             else if (SoA.DownedSystem.slainGolem)
             {
-                if (Type == NPCID.Golem)
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Golem was slain..."), color);
-                    npc.active = false;
-                    return false;
-                }
-                else if (Type == NPCID.GolemFistLeft || Type == NPCID.GolemFistRight || Type == NPCID.GolemHead)
+                if (type == NPCID.Golem) slainBoss = npc.GivenOrTypeName;
+                else if (type == NPCID.GolemFistLeft || type == NPCID.GolemFistRight || type == NPCID.GolemHead)
                 {
                     npc.active = false;
                     return false;
                 }
             }
-            else if (Type == NPCID.DukeFishron && SoA.DownedSystem.slainDuke)
-            {
-                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Duke Fishron was slain..."), color);
-                npc.active = false;
-                return false;
-            }
-            else if (Type == NPCID.HallowBoss && SoA.DownedSystem.slainEmpress)
-            {
-                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Empress of Light was slain..."), color);
-                npc.active = false;
-                return false;
-            }
+            else if (type == NPCID.DukeFishron && SoA.DownedSystem.slainDuke) slainBoss = npc.GivenOrTypeName;
+            else if (type == NPCID.HallowBoss && SoA.DownedSystem.slainEmpress) slainBoss = npc.GivenOrTypeName;
             else if (SoA.DownedSystem.slainLunatic)
             {
-                if (Type == NPCID.CultistBoss)
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Lunatic Cultist was slain..."), color);
-                    npc.active = false;
-                    return false;
-                }
-                else if (Type == NPCID.CultistTablet)
+                if (type == NPCID.CultistBoss) slainBoss = npc.GivenOrTypeName;
+                else if (type == NPCID.CultistTablet)
                 {
                     npc.active = false;
                     return false;
                 }
-                else if (Type == NPCID.CultistArcherBlue)
+                else if (type == NPCID.CultistArcherBlue)
                 {
                     npc.active = false;
                     return false;
                 }
-                else if (Type == NPCID.CultistArcherWhite)
+                else if (type == NPCID.CultistArcherWhite)
                 {
                     npc.active = false;
                     return false;
                 }
-                else if (Type == NPCID.CultistDevote)
+                else if (type == NPCID.CultistDevote)
                 {
                     npc.active = false;
                     return false;
                 }
             }
-            else if (Type == NPCID.LunarTowerNebula && SoA.DownedSystem.slainPillarNebula)
+            else if (type == NPCID.LunarTowerNebula && SoA.DownedSystem.slainPillarNebula)
             {
                 npc.active = false;
                 return false;
             }
-            else if (Type == NPCID.LunarTowerSolar && SoA.DownedSystem.slainPillarSolar)
+            else if (type == NPCID.LunarTowerSolar && SoA.DownedSystem.slainPillarSolar)
             {
                 npc.active = false;
                 return false;
             }
-            else if (Type == NPCID.LunarTowerStardust && SoA.DownedSystem.slainPillarStardust)
+            else if (type == NPCID.LunarTowerStardust && SoA.DownedSystem.slainPillarStardust)
             {
                 npc.active = false;
                 return false;
             }
-            else if (Type == NPCID.LunarTowerVortex && SoA.DownedSystem.slainPillarVortex)
+            else if (type == NPCID.LunarTowerVortex && SoA.DownedSystem.slainPillarVortex)
             {
                 npc.active = false;
                 return false;
             }
             else if (SoA.DownedSystem.slainMoonLord)
             {
-                if (Type == NPCID.MoonLordCore)
-                {
-                    ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("The Moon Lord was slain..."), color);
-                    npc.active = false;
-                    return false;
-                }
-                else if (Type == NPCID.MoonLordHand || Type == NPCID.MoonLordHead)
+                if (type == NPCID.MoonLordCore) slainBoss = npc.GivenOrTypeName;
+                else if (type == NPCID.MoonLordHand || type == NPCID.MoonLordHead)
                 {
                     npc.active = false;
                     return false;
                 }
+            }
+            if (slainBoss != "")
+            {
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(slainBoss + " was slain..."), color);
+                npc.active = false;
+                return false;
             }
             return base.PreAI(npc);
         }

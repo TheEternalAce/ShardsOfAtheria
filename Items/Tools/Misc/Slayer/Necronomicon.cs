@@ -177,7 +177,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
                 {
                     if (item.active && item.whoAmI != Item.whoAmI && item.Hitbox.Intersects(Item.Hitbox))
                     {
-                        if ((item.type == ItemID.DemoniteBar || item.type == ItemID.CrimtaneBar) && item.stack >= 10) evilBars = true;
+                        if (ShardsRecipes.EvilBar.ContainsItem(item.type) && item.stack >= 10) evilBars = true;
                         if (item.type == ItemID.Amethyst && item.stack >= 5) amethysts = true;
                     }
                 }
@@ -189,7 +189,7 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
                         {
                             if (item.active && item.whoAmI != Item.whoAmI && item.Hitbox.Intersects(Item.Hitbox))
                             {
-                                if ((item.type == ItemID.DemoniteBar || item.type == ItemID.CrimtaneBar) && item.stack >= 10)
+                                if (ShardsRecipes.EvilBar.ContainsItem(item.type) && item.stack >= 10)
                                 {
                                     item.stack -= 10;
                                     if (item.stack <= 0) item.TurnToAir();
@@ -202,8 +202,6 @@ namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
                             }
                         }
                         transformTimer = 0;
-                        //item.stack -= 10;
-                        //if (item.stack <= 0) item.TurnToAir();
                         SlayerBookSelectionUI.Instance.Enable();
                         ShardsHelpers.DustRing(Item.Center, 18f, DustID.ShadowbeamStaff);
                     }

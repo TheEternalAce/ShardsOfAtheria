@@ -40,9 +40,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Star
             Projectile.minionSlots = 1f;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
+            Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Summon;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
         }
 
         // Here you can decide if your minion breaks things like grass or pots
@@ -175,7 +174,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Star
                 {
                     var velocity = Main.rand.NextVector2CircularEdge(1, 1);
                     velocity += Projectile.velocity;
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, Type + 3, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.whoAmI);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<RedStarSmall>(), Projectile.damage, Projectile.knockBack,
+                        Projectile.owner, Projectile.whoAmI);
                 }
                 if (shootingTimer == 30) pulseCounter++;
                 if (shootingTimer >= 80)

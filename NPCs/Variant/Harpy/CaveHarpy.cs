@@ -5,7 +5,6 @@ using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
-using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -21,10 +20,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
         public override void Load()
         {
-            if (!Main.dedServ)
-            {
-                glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
-            }
+            if (!Main.dedServ) glowmask = ModContent.Request<Texture2D>(Texture + "_Glow");
         }
 
         public override void Unload()
@@ -45,10 +41,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.damage = 14;
             NPC.defense = 10;
             NPC.lifeMax = 50;
-            if (SoA.Eternity())
-            {
-                NPC.lavaImmune = true;
-            }
+            if (SoA.Eternity()) NPC.lavaImmune = true;
             BannerItem = ModContent.ItemType<CaveHarpyBanner>();
 
             NPC.ElementMultipliers([2.0f, 1.5f, 0.5f, 1.0f]);
@@ -75,45 +68,39 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         public override void SpecialAttack(Vector2 normalizedVelocity)
         {
             if (Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
-            {
                 Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, normalizedVelocity * 6f, ModContent.ProjectileType<SalamanderLaser>(), 9, 0f, Main.myPlayer);
-            }
         }
 
         public override void AI()
         {
             base.AI();
             Lighting.AddLight(NPC.Center, Color.Cyan.ToVector3());
-            if (SoA.Massochist())
+            if (SoA.Massochist() && !SoA.ServerConfig.antiGrief)
             {
-                if (!SoA.ServerConfig.antiGrief)
-                {
-                    int i = (int)Math.Floor(NPC.Center.X / 16);
-                    int j = (int)Math.Floor(NPC.Center.Y / 16);
-                    int pickaxePower = 75;
-                    if (Main.tile[i, j].IsSolid()) Main.LocalPlayer.PickTile(i, j, pickaxePower);
-                    if (Main.tile[i - 1, j].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j, pickaxePower);
-                    if (Main.tile[i, j - 1].IsSolid()) Main.LocalPlayer.PickTile(i, j - 1, pickaxePower);
-                    if (Main.tile[i - 1, j - 1].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j - 1, pickaxePower);
-                    if (Main.tile[i + 1, j - 1].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j - 1, pickaxePower);
-                    if (Main.tile[i, j - 2].IsSolid()) Main.LocalPlayer.PickTile(i, j - 2, pickaxePower);
-                    if (Main.tile[i - 1, j - 2].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j - 2, pickaxePower);
-                    if (Main.tile[i + 1, j - 2].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j - 2, pickaxePower);
-                    if (Main.tile[i + 1, j].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j, pickaxePower);
-                    if (Main.tile[i, j + 1].IsSolid()) Main.LocalPlayer.PickTile(i, j + 1, pickaxePower);
-                    if (Main.tile[i + 1, j + 1].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j + 1, pickaxePower);
-                    if (Main.tile[i - 1, j + 1].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j + 1, pickaxePower);
-                    if (Main.tile[i, j + 2].IsSolid()) Main.LocalPlayer.PickTile(i, j + 2, pickaxePower);
-                    if (Main.tile[i + 1, j + 2].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j + 2, pickaxePower);
-                    if (Main.tile[i - 1, j + 2].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j + 2, pickaxePower);
-                }
+                int i = (int)Math.Floor(NPC.Center.X / 16);
+                int j = (int)Math.Floor(NPC.Center.Y / 16);
+                int pickaxePower = 75;
+                if (Main.tile[i, j].IsSolid()) Main.LocalPlayer.PickTile(i, j, pickaxePower);
+                if (Main.tile[i - 1, j].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j, pickaxePower);
+                if (Main.tile[i, j - 1].IsSolid()) Main.LocalPlayer.PickTile(i, j - 1, pickaxePower);
+                if (Main.tile[i - 1, j - 1].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j - 1, pickaxePower);
+                if (Main.tile[i + 1, j - 1].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j - 1, pickaxePower);
+                if (Main.tile[i, j - 2].IsSolid()) Main.LocalPlayer.PickTile(i, j - 2, pickaxePower);
+                if (Main.tile[i - 1, j - 2].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j - 2, pickaxePower);
+                if (Main.tile[i + 1, j - 2].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j - 2, pickaxePower);
+                if (Main.tile[i + 1, j].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j, pickaxePower);
+                if (Main.tile[i, j + 1].IsSolid()) Main.LocalPlayer.PickTile(i, j + 1, pickaxePower);
+                if (Main.tile[i + 1, j + 1].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j + 1, pickaxePower);
+                if (Main.tile[i - 1, j + 1].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j + 1, pickaxePower);
+                if (Main.tile[i, j + 2].IsSolid()) Main.LocalPlayer.PickTile(i, j + 2, pickaxePower);
+                if (Main.tile[i + 1, j + 2].IsSolid()) Main.LocalPlayer.PickTile(i + 1, j + 2, pickaxePower);
+                if (Main.tile[i - 1, j + 2].IsSolid()) Main.LocalPlayer.PickTile(i - 1, j + 2, pickaxePower);
             }
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.Player.ZonePurity && (spawnInfo.Player.ZoneNormalUnderground ||
-                spawnInfo.Player.ZoneNormalCaverns) && !spawnInfo.PlayerSafe)
+            if (spawnInfo.Player.ZoneNormalUnderground || spawnInfo.Player.ZoneNormalCaverns)
                 return 0.1f;
             return 0f;
         }
@@ -135,7 +122,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                 { ModContent.ItemType<BionicOreItem>(), maxOres }
             };
 
-            npcLoot.Add(new ManyFromOptionsDropRule(1, 1, ores));
+            npcLoot.Add(ShardsDrops.ManyFromOptions(1, ores));
 
             int maxGems = 3;
             int[,] gems = new[,]

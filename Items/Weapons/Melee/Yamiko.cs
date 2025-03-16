@@ -49,6 +49,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<YamikoSlash>();
         }
 
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+
         public override bool AltFunctionUse(Player player)
         {
             return true;

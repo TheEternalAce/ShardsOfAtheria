@@ -20,6 +20,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Main.projFrames[Type] = 10;
             ProjectileID.Sets.TrailingMode[Type] = 2;
 
+            Projectile.AddDamageType(4);
             Projectile.AddElement(0);
             Projectile.AddElement(1);
             Projectile.AddElement(2);
@@ -196,7 +197,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
                     Projectile.DrawAfterImage(lightColor);
                     break;
                 case 9:
-                    lightColor = SoA.ElectricColorA;
+                    lightColor = SoA.ElectricColorA0;
                     break;
             }
             return base.PreDraw(ref lightColor);

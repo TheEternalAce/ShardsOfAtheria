@@ -62,7 +62,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return SoA.ElectricColorA;
+            return SoA.ElectricColorA0;
         }
 
         public override void AI()

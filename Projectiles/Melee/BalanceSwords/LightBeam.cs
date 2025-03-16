@@ -24,6 +24,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.BalanceSwords
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(10);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
             Projectile.AddRedemptionElement(8);

@@ -47,7 +47,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = Color.White;
-            Main.EntitySpriteDraw(glowmask.Value, Projectile.Center, null, SoA.ElectricColorA, 0f, glowmask.Size() / 2, 1f, 0);
+            Main.EntitySpriteDraw(glowmask.Value, Projectile.Center, null, SoA.ElectricColorA0, 0f, glowmask.Size() / 2, 1f, 0);
             return base.PreDraw(ref lightColor);
         }
 
@@ -170,7 +170,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Main.EntitySpriteDraw(SoA.OrbBloom, Projectile.Center - Main.screenPosition, SoA.OrbBloom.Frame(), SoA.ElectricColorA, 0f, SoA.OrbBloom.Size() / 2, 2.5f, SpriteEffects.None);
+            Main.EntitySpriteDraw(SoA.OrbBloom, Projectile.Center - Main.screenPosition, SoA.OrbBloom.Frame(), SoA.ElectricColorA0, 0f, SoA.OrbBloom.Size() / 2, 2.5f, SpriteEffects.None);
             return false;
         }
     }

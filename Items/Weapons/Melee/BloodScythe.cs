@@ -10,6 +10,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(6);
             Item.AddElement(1);
             Item.AddElement(3);
             Item.AddEraser();
@@ -39,6 +40,17 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityDeath;
             Item.value = 321000;
             Item.shoot = ModContent.ProjectileType<DeathScythe>();
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            Item.FixSwing(player);
+            return true;
         }
     }
 }

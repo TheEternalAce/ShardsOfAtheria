@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
             Projectile.height = 22; // The height of projectile hitbox
             Projectile.aiStyle = -1; // The ai style of the projectile, please reference the source code of Terraria
             Projectile.DamageType = DamageClass.Summon; // Is the projectile shoot by a ranged weapon?
+            Projectile.friendly = true;
         }
 
         public override void AI()
@@ -39,6 +40,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
         {
             fallThrough = false;
             return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+        }
+
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return false;
         }
 
         public override void OnKill(int timeLeft)

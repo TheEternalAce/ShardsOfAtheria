@@ -33,6 +33,8 @@ namespace ShardsOfAtheria.ShardsConditions
             () => Main.LocalPlayer.HasItem<AreusGambit>());
         public static readonly Condition HasDie = new(KeyBase + "HaveDie",
             () => Main.LocalPlayer.HasItem<AreusGamble>());
+        public static readonly Condition ThrowingWeapon = new(KeyBase + "ThrowingWeapon",
+            () => SoA.ServerConfig.throwingWeapons);
 
         public static readonly Condition DownedNova = new(KeyBase + "DownedNova",
             () => ShardsDownedSystem.downedValkyrie);

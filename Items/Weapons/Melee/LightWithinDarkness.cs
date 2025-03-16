@@ -10,6 +10,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(10);
             Item.AddElement(2);
             Item.AddRedemptionElement(7);
             Item.AddRedemptionElement(8);
@@ -38,6 +39,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = 100000;
             Item.shoot = ModContent.ProjectileType<LightInShadow>();
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
         }
 
         public override bool? UseItem(Player player)

@@ -519,34 +519,38 @@ namespace ShardsOfAtheria.Players
             {
                 gemBlessingTime += 300;
             }
-            if (amberCore)
+
+            //AddCurses();
+            if (sapphireCore)
             {
-                Player.AddBuff<SwarmingAmber>(gemBlessingTime * 3);
-                int type = ModContent.ProjectileType<AmberFly>();
-                int amount = 2;
-                int damage = 16;
-                if (greaterAmberCore) damage += 9;
-                if (megaGemCore)
+                if (amberCore)
                 {
-                    amount = 4;
-                    damage += 25;
-                }
-                if (Player.ownedProjectileCounts[type] <= amount)
-                {
-                    for (int i = 0; i < amount - Player.ownedProjectileCounts[type]; i++)
+                    Player.AddBuff<SwarmingAmber>(gemBlessingTime * 3);
+                    int type = ModContent.ProjectileType<AmberFly>();
+                    int amount = 2;
+                    int damage = 16;
+                    if (greaterAmberCore) damage += 9;
+                    if (megaGemCore)
                     {
-                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.One, type, damage, 0f);
+                        amount = 4;
+                        damage += 25;
+                    }
+                    if (Player.ownedProjectileCounts[type] <= amount)
+                    {
+                        for (int i = 0; i < amount - Player.ownedProjectileCounts[type]; i++)
+                        {
+                            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.One, type, damage, 0f);
+                        }
                     }
                 }
-            }
 
-            AddCurses();
-            if (amethystCore) Player.AddBuff<EfficientAmethyst>(gemBlessingTime);
-            if (diamondCore) Player.AddBuff<TenaciousDiamond>(gemBlessingTime);
-            if (emeraldCore) Player.AddBuff<FleetingEmerald>(gemBlessingTime);
-            if (rubyCore) Player.AddBuff<VengefulRuby>(gemBlessingTime);
-            if (sapphireCore) Player.AddBuff<CunningSapphire>(gemBlessingTime);
-            if (topazCore) Player.AddBuff<MendingTopaz>(gemBlessingTime);
+                Player.AddBuff<CunningSapphire>(gemBlessingTime);
+                if (amethystCore) Player.AddBuff<EfficientAmethyst>(gemBlessingTime);
+                if (diamondCore) Player.AddBuff<TenaciousDiamond>(gemBlessingTime);
+                if (emeraldCore) Player.AddBuff<FleetingEmerald>(gemBlessingTime);
+                if (rubyCore) Player.AddBuff<VengefulRuby>(gemBlessingTime);
+                if (topazCore) Player.AddBuff<MendingTopaz>(gemBlessingTime);
+            }
 
             if (greaterSapphireCore)
             {
@@ -599,24 +603,29 @@ namespace ShardsOfAtheria.Players
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Player.HasBuff<CunningSapphire>()) target.AddBuff(BuffID.Confused, 300);
-            if (greaterRubyCore && rubyExplosiveCooldown == 0 && hit.Crit)
-            {
-                int type = ModContent.ProjectileType<RubyExplosive>();
-                Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, type, 60, 0f, Player.whoAmI);
-                rubyExplosiveCooldown = 180;
-            }
             if (superRubyCore) target.AddBuff<SpitefulRuby>(480);
-            if (megaGemCore)
+            if (target.CanBeChasedBy())
             {
-                int lifestealDenominator = 6;
-                if (hit.DamageType == DamageClass.Summon) lifestealDenominator *= 4;
-                if (Main.rand.NextBool(lifestealDenominator) && !Player.moonLeech)
+                if (greaterRubyCore && rubyExplosiveCooldown == 0 && hit.Crit)
                 {
-                    int type = ModContent.ProjectileType<LifeStealGem>();
-                    Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, type, 3, 0f, Player.whoAmI);
+                    int type = ModContent.ProjectileType<RubyExplosive>();
+                    Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, type, 60, 0f, Player.whoAmI);
+                    rubyExplosiveCooldown = 180;
+                }
+
+                if (megaGemCore && !Player.moonLeech)
+                {
+                    int lifestealDenominator = 6;
+                    if (hit.DamageType == DamageClass.Summon) lifestealDenominator *= 4;
+                    if (Main.rand.NextBool(lifestealDenominator) && !Player.moonLeech)
+                    {
+                        int type = ModContent.ProjectileType<LifeStealGem>();
+                        Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, type, 3, 0f, Player.whoAmI);
+                    }
                 }
             }
-            if (target.life <= 0)
+
+            if (target.life <= 0 && target.lifeMax > 5)
             {
                 if (greaterAmberCore)
                 {
@@ -644,7 +653,6 @@ namespace ShardsOfAtheria.Players
                         }
                     }
                 }
-                if (greaterTopazCore && !Player.moonLeech) Projectile.NewProjectile(target.GetSource_Death(), target.Center, new Vector2(0, -10), ModContent.ProjectileType<TopazOrb>(), 0, 0f, Player.whoAmI);
                 if (superDiamondCore)
                 {
                     int buffTime = (int)(damageDone * 0.05f);
@@ -655,6 +663,7 @@ namespace ShardsOfAtheria.Players
                     }
                     else Player.AddBuff<DiamondBarrierBuff>(buffTime);
                 }
+                if (!Player.moonLeech && greaterTopazCore) Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.UnitY * -10f, ModContent.ProjectileType<TopazOrb>(), 0, 0f, Player.whoAmI);
             }
         }
     }

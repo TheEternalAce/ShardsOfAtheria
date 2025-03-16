@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
             Item.SetWeaponValues(50, 6f, 100); // A special method that sets the damage, knockback, and bonus critical strike chance.
 
-            Item.SetShopValues(ItemRarityColor.StrongRed10, Item.buyPrice(0, 4, 25)); // A special method that sets the rarity and value.
+            Item.SetShopValues(ItemRarityColor.Orange3, Item.buyPrice(0, 4, 25)); // A special method that sets the rarity and value.
 
             Item.channel = true; // Channel is important for our projectile.
 

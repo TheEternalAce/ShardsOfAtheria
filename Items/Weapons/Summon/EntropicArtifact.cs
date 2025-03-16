@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(5);
             Item.AddElement(2);
             Item.AddRedemptionElement(7);
         }
@@ -39,7 +40,6 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             Item.UseSound = SoundID.Item82;
             Item.noMelee = true;
 
-            Item.shootSpeed = 2f;
             Item.rare = ItemDefaults.RaritySlayer;
             Item.value = ItemDefaults.ValueEyeOfCthulhu;
             Item.shoot = ModContent.ProjectileType<RedStar>();
@@ -52,27 +52,44 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             return true;
         }
 
-        public override bool CanUseItem(Player player)
+        //public override bool CanUseItem(Player player)
+        //{
+        //    if (player.altFunctionUse == 2)
+        //    {
+        //        Item.shoot = ModContent.ProjectileType<RedStar>();
+        //        Item.mana = 0;
+        //    }
+        //    else
+        //    {
+        //        Item.shoot = ProjectileID.None;
+        //        Item.mana = 8;
+        //    }
+        //    return base.CanUseItem(player);
+        //}
+
+        public override bool? UseItem(Player player)
         {
-            int manualManaRequired = (int)(20 * player.manaCost);
-            if (player.altFunctionUse == 2 && player.ownedProjectileCounts[Item.shoot] > 0 && manualCooldown == 0 && player.statMana >= manualManaRequired)
+            int manaCost = (int)(20 * player.manaCost);
+            int starType = ModContent.ProjectileType<RedStar>();
+            if (player.altFunctionUse == 2 && player.ownedProjectileCounts[starType] > 0 && manualCooldown == 0 && player.statMana >= manaCost)
             {
                 foreach (Projectile proj in Main.projectile)
                 {
-                    if (proj.active && proj.type == Item.shoot && proj.owner == player.whoAmI)
+                    if (proj.active && proj.type == starType && proj.owner == player.whoAmI)
                     {
                         var devCard = ToggleableTool.GetInstance<DevelopersKeyCard>(player);
                         bool cardActive = devCard != null && devCard.Active;
                         (proj.ModProjectile as RedStar).shoot = true;
                         (proj.ModProjectile as RedStar).shootingTimer = 0;
                         if (!cardActive) manualCooldown = 120;
-                        player.statMana -= manualManaRequired;
+                        player.MinionAttackTargetNPC = ShardsHelpers.FindClosestNPCIndex(Main.MouseWorld);
+                        player.statMana -= manaCost;
                         player.manaRegenDelay = 60;
                         break;
                     }
                 }
             }
-            return base.CanUseItem(player);
+            return true;
         }
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
@@ -82,18 +99,18 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 
         public override void UpdateInventory(Player player)
         {
-            if (manualCooldown > 0) manualCooldown--;
             if (manualCooldown == 1)
             {
                 SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
                 ShardsHelpers.DustRing(player.Center, 3f, DustID.GemAmethyst);
             }
+            if (manualCooldown > 0) manualCooldown--;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             // Here you can change where the minion is spawned. Most vanilla minions spawn at the cursor position
-            position = Main.MouseWorld;
+            position = player.Center;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

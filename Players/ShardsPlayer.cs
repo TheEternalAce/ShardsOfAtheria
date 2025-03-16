@@ -18,6 +18,7 @@ using ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Utilities;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -47,6 +48,7 @@ namespace ShardsOfAtheria.Players
         public bool acidTrip;
         public bool powerTrip;
         public bool disguiseCloak;
+        public int disguiseCloakCD;
         public bool spoonBender;
         public int spoonBenderCD;
         public bool jumperCable;
@@ -70,8 +72,7 @@ namespace ShardsOfAtheria.Players
         public int deathAmuletCharges;
         public int deathInevitibility;
 
-        public bool pearlwoodSet;
-        public int pearlwoodBowShoot;
+        public int frostsparkDronesTier;
 
         public int combatTimer;
         public bool InCombat => combatTimer > 0;
@@ -129,13 +130,13 @@ namespace ShardsOfAtheria.Players
             if (hardlightBracesCooldown > 0) hardlightBracesCooldown--;
             prototypeBand = false;
             if (prototypeBandCooldown > 0) prototypeBandCooldown--;
-            pearlwoodSet = false;
             areusProcessorPrevious = areusProcessor;
             areusProcessor = false;
             acidTrip = false;
             powerTrip = false;
             resonator = false;
             disguiseCloak = false;
+            if (disguiseCloakCD > 0) disguiseCloakCD--;
             spoonBender = false;
             if (spoonBenderCD > 0) spoonBenderCD--;
             if (!jumperCable) cableCounter = 0;
@@ -317,18 +318,13 @@ namespace ShardsOfAtheria.Players
 
         public override void PreUpdateMovement()
         {
-            if (Player.HasItem<SpeedCapper>())
+            var speedLimit = ToggleableTool.GetInstance<SpeedCapper>(Player);
+            if (speedLimit != null && speedLimit.Active)
             {
-                var speedLimit = ToggleableTool.GetInstance<SpeedCapper>(Player);
-                if (speedLimit != null && speedLimit.Active)
-                {
-                    float playerHorizontalSpeed = Player.velocity.X;
-                    float maxHorizontalSpeed = SoA.ClientConfig.speedLimit * (42240f / 216000f);
-                    if (playerHorizontalSpeed > maxHorizontalSpeed)
-                    {
-                        Player.velocity.X = maxHorizontalSpeed;
-                    }
-                }
+                int direction = Player.velocity.X > 0 ? 1 : -1;
+                float playerHorizontalSpeed = Math.Abs(Player.velocity.X);
+                float maxHorizontalSpeed = SoA.ClientConfig.speedLimit * (42240f / 216000f);
+                if (playerHorizontalSpeed > maxHorizontalSpeed) Player.velocity.X = maxHorizontalSpeed * direction;
             }
         }
 
@@ -601,8 +597,9 @@ namespace ShardsOfAtheria.Players
 
         public override bool ConsumableDodge(Player.HurtInfo info)
         {
-            if (disguiseCloak && !Player.HasBuff<DisguiseRegenerating>())
+            if (disguiseCloak && disguiseCloakCD == 0 && !Player.HasBuff<DisguiseRegenerating>())
             {
+                disguiseCloakCD = 18000;
                 Player.AddBuff<DisguiseRegenerating>(18000);
                 Player.SetImmuneTimeForAllTypes(60);
                 CombatText.NewText(Player.Hitbox, Color.White, "Disguse busted!", true);

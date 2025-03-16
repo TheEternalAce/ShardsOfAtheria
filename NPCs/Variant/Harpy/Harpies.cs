@@ -30,6 +30,8 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+
+            NPC.AddDamageType(11);
         }
 
         public override void SetDefaults()

@@ -51,14 +51,13 @@ namespace ShardsOfAtheria
         public static readonly SoundStyle TheMessiah = new(ItemSoundPath + "TheMessiah");
         public static readonly SoundStyle Rekkoha = new(ItemSoundPath + "MessiahRekkoha");
         public static readonly SoundStyle Coin = new(ItemSoundPath + "Coin");
-        public static readonly SoundStyle KatanaScream = new(ItemSoundPath + "KatanaScream");
-        public static readonly SoundStyle MagnetChargeUp = new SoundStyle(ItemSoundPath + "MagnetChargeUp").WithVolumeScale(0.75f);
-        public static readonly SoundStyle MagnetWeakShot = new SoundStyle(ItemSoundPath + "MagnetWeakShot").WithVolumeScale(0.75f);
-        public static readonly SoundStyle MagnetShot = new SoundStyle(ItemSoundPath + "MagnetShot").WithVolumeScale(0.75f);
+        public static readonly SoundStyle MagnetChargeUp = new(ItemSoundPath + "MagnetChargeUp") { Volume = 0.75f };
+        public static readonly SoundStyle MagnetWeakShot = new(ItemSoundPath + "MagnetWeakShot") { Volume = 0.75f };
+        public static readonly SoundStyle MagnetShot = new(ItemSoundPath + "MagnetShot") { Volume = 0.75f };
         public static readonly SoundStyle KeyPress = new(ItemSoundPath + "KeyPress");
         public static readonly SoundStyle ZeroCharge = new(ItemSoundPath + "ZeroCharge") { MaxInstances = 1 };
         public static readonly SoundStyle Katana = new(ItemSoundPath + "Katana") { Volume = 0.25f, MaxInstances = 2, PitchVariance = 0.1f };
-        public static readonly SoundStyle HeavyCut = new(ItemSoundPath + "HeavyCut") { Volume = 0.5f, MaxInstances = 2, PitchVariance = 0.2f };
+        public static readonly SoundStyle HeavyCut = new(ItemSoundPath + "HeavyCut") { Volume = 0.15f, MaxInstances = 2, PitchVariance = 0.2f };
         public static readonly SoundStyle Judgement1 = new(ItemSoundPath + "Judgement2_1") { Volume = 0.25f, MaxInstances = 2, PitchVariance = 0.1f };
         public static readonly SoundStyle Judgement2 = new(ItemSoundPath + "Judgement2_2") { Volume = 0.25f, MaxInstances = 2, PitchVariance = 0.1f };
         public static readonly SoundStyle Judgement3 = new(ItemSoundPath + "Judgement2_3") { Volume = 0.25f, MaxInstances = 2, PitchVariance = 0.1f };
@@ -70,15 +69,20 @@ namespace ShardsOfAtheria
         public static readonly Vector3 HardlightColorV3 = HardlightColor.ToVector3();
         public static readonly Vector3 HardlightColorV3A = HardlightColorA.ToVector3();
 
+        public static readonly Color HardlightBlueColor = new(189, 209, 242);
+        public static readonly Color HardlightBlueColorA = HardlightBlueColor.UseA(0);
+        public static readonly Vector3 HardlightBlueColorV3 = HardlightBlueColor.ToVector3();
+        public static readonly Vector3 HardlightBlueColorV3A = HardlightBlueColorA.ToVector3();
+
         public static readonly Color AreusColor = Color.Cyan;
-        public static readonly Color AreusColorA = AreusColor.UseA(0);
+        public static readonly Color AreusColorA0 = AreusColor.UseA(0);
         public static readonly Vector3 AreusColorV3 = AreusColor.ToVector3();
-        public static readonly Vector3 AreusColorV3A = AreusColorA.ToVector3();
+        public static readonly Vector3 AreusColorV3A0 = AreusColorA0.ToVector3();
 
         public static readonly Color ElectricColor = new(113, 251, 255);
-        public static readonly Color ElectricColorA = ElectricColor.UseA(0);
+        public static readonly Color ElectricColorA0 = ElectricColor.UseA(0);
         public static readonly Vector3 ElectricColorV3 = ElectricColor.ToVector3();
-        public static readonly Vector3 ElectricColorV3A = ElectricColorA.ToVector3();
+        public static readonly Vector3 ElectricColorV3A0 = ElectricColorA0.ToVector3();
 
         public static Texture2D OrbBloom => ModContent.Request<Texture2D>("ShardsOfAtheria/Assets/BlurTrails/OrbBlur").Value;
         public static Texture2D DiamondBloom => ModContent.Request<Texture2D>("ShardsOfAtheria/Assets/BlurTrails/DiamondBlur").Value;
@@ -332,6 +336,14 @@ namespace ShardsOfAtheria
             if (ModLoader.TryGetMod(ElementModName, out var battleNetworkElements))
             {
                 battleNetworkElements.Call(args);
+            }
+        }
+
+        public static void TryDungeonCall(params object[] args)
+        {
+            if (ModLoader.TryGetMod("DNT", out var dnt))
+            {
+                dnt.Call(args);
             }
         }
 

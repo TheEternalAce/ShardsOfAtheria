@@ -17,6 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Other
         {
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.LunarFlare];
             ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Type] = true;
+            Projectile.AddDamageType(4, 5);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
             Projectile.AddRedemptionElement(15);
@@ -64,7 +65,7 @@ namespace ShardsOfAtheria.Projectiles.Other
 
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = SoA.ElectricColorA;
+            lightColor = SoA.ElectricColorA0;
             return base.PreDraw(ref lightColor);
         }
     }

@@ -68,7 +68,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         {
             if (spawnInfo.NoInvasionOfAnyKind() && spawnInfo.Player.ZoneOverworldHeight &&
                 spawnInfo.Player.ZoneDesert && !spawnInfo.Player.ZoneCorrupt &&
-                !spawnInfo.Player.ZoneCrimson && !spawnInfo.Player.ZoneHallow && !spawnInfo.PlayerSafe)
+                !spawnInfo.Player.ZoneCrimson && !spawnInfo.Player.ZoneHallow)
                 return 0.1f;
             return 0f;
         }

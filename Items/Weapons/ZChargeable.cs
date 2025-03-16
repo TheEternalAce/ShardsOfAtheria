@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.Items.Weapons
         {
             var player = Main.LocalPlayer;
             if (ZChargedItem != Type && player.HasItem(ModuleType))
-                Main.EntitySpriteDraw(SoA.OrbBloom, position, null, SoA.ElectricColorA, 0f, SoA.OrbBloom.Size() / 2, 1f, 0);
+                Main.EntitySpriteDraw(SoA.OrbBloom, position, null, SoA.ElectricColorA0, 0f, SoA.OrbBloom.Size() / 2, 1f, 0);
             return base.PreDrawInInventory(spriteBatch, position, frame, drawColor, itemColor, origin, scale);
         }
     }

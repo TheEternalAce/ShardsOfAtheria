@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(2, 11);
             Item.AddElement(1);
             Item.AddRedemptionElement(3);
         }
@@ -26,8 +27,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.DamageType = DamageClass.Melee;
             Item.knockBack = 4f;
 
-            Item.useTime = 16;
-            Item.useAnimation = 16;
+            Item.useTime = 12;
+            Item.useAnimation = 12;
             Item.UseSound = SoundID.Item1;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.autoReuse = true;
@@ -37,6 +38,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shootSpeed = 1f;
             Item.rare = ItemDefaults.RaritySlayer;
             Item.shoot = ModContent.ProjectileType<EntropicSlash_Red>();
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
         }
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)

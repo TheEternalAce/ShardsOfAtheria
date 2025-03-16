@@ -108,7 +108,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
 
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = SoA.ElectricColorA;
+            lightColor = SoA.ElectricColorA0;
             return false;
         }
 

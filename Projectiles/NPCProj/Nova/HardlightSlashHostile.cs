@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
             ProjectileID.Sets.TrailingMode[Type] = 6;
+            Projectile.AddDamageType(11);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }

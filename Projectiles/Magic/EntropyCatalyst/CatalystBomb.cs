@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.EntropyCatalyst
         bool Boosted => Projectile.ai[0] > 0;
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(3, 4);
             Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
         }

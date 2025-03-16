@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Projectiles.Ranged.DeckOfCards;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -16,6 +17,9 @@ namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
+
+            Item.AddDamageType(2, 3, 4, 5, 8);
+
             Item.AddElement(0);
             Item.AddElement(1);
             Item.AddElement(2);
@@ -28,8 +32,7 @@ namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
             Item.height = 22;
 
             Item.damage = 70;
-            Item.DamageType = DamageClass.Ranged;
-            if (SoA.ServerConfig.throwingWeapons) Item.DamageType = DamageClass.Throwing;
+            Item.DamageType = DamageClass.Ranged.TryThrowing();
             Item.knockBack = 4;
             Item.crit = 4;
 
@@ -40,7 +43,7 @@ namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
             Item.noMelee = true;
             Item.noUseGraphic = true;
 
-            Item.shootSpeed = 15;
+            Item.shootSpeed = 16f;
             Item.rare = ItemDefaults.RarityDevSet;
             Item.value = ItemDefaults.ValueEarlyHardmode;
             Item.shoot = ModContent.ProjectileType<AceOfSpades>();
@@ -79,7 +82,11 @@ namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            if (player.Overdrive()) damage *= 0.5f;
+            var devCard = ToggleableTool.GetInstance<DevelopersKeyCard>(player);
+            bool cardActive = devCard != null && devCard.Active;
+
+            if (cardActive) damage *= 2f;
+            if (player.Overdrive()) damage *= 0.75f;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -96,12 +103,13 @@ namespace ShardsOfAtheria.Items.DedicatedItems.TheEternalAce
             if (player.Overdrive())
             {
                 int type2 = ModContent.ProjectileType<AceOfClubs>();
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     var perturbedSpeed = velocity.RotatedByRandom(MathHelper.PiOver4) * Main.rand.NextFloat(0.66f, 1f);
                     var card = type2 + Main.rand.Next(4);
                     Projectile.NewProjectile(source, position, perturbedSpeed, card, damage, knockback);
                 }
+                return false;
             }
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }

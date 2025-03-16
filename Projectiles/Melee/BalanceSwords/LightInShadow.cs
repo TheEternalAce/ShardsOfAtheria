@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.BalanceSwords
     {
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(10);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
             Projectile.AddRedemptionElement(8);
@@ -45,10 +46,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.BalanceSwords
         public override void AI()
         {
             base.AI();
-            if (Main.player[Projectile.owner].itemAnimation <= 1)
-            {
-                Main.player[Projectile.owner].Shards().itemCombo = (ushort)(combo == 0 ? 20 : 0);
-            }
+            if (Main.player[Projectile.owner].itemAnimation <= 1) Main.player[Projectile.owner].Shards().itemCombo = (ushort)(combo == 0 ? 20 : 0);
             if (!playedSound && AnimProgress > 0.4f)
             {
                 playedSound = true;
@@ -63,10 +61,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.BalanceSwords
 
         public override void UpdateSwing(float progress, float interpolatedSwingProgress)
         {
-            if (progress > 0.85f)
-            {
-                Projectile.Opacity = 1f - (progress - 0.85f) / 0.15f;
-            }
+            if (progress > 0.85f) Projectile.Opacity = 1f - (progress - 0.85f) / 0.15f;
 
             Projectile.oldPos[0] = AngleVector * 60f * Projectile.scale;
             Projectile.oldRot[0] = Projectile.oldPos[0].ToRotation() + MathHelper.PiOver4;

@@ -23,6 +23,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 
             Item.damage = 12;
             Item.DamageType = DamageClass.SummonMeleeSpeed;
+            Item.mana = 8;
 
             Item.useTime = 12;
             Item.useAnimation = 12;

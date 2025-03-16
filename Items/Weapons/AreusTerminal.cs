@@ -17,6 +17,7 @@ namespace ShardsOfAtheria.Items.Weapons
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
             Item.AddAreus();
+            Item.AddDamageType(9);
             Item.AddRedemptionElement(13);
         }
 

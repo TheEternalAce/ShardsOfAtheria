@@ -27,8 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusDaggerProjs
             Projectile.aiStyle = -1; // Use our own AI to customize how it behaves, if you don't want that, keep this at ProjAIStyleID.ShortSword. You would still need to use the code in SetVisualOffsets() though
             Projectile.friendly = true;
             Projectile.penetrate = -1;
-            Projectile.DamageType = DamageClass.Melee;
-            if (SoA.ServerConfig.throwingWeapons) Projectile.DamageType = DamageClass.Throwing;
+            Projectile.DamageType = DamageClass.Melee.TryThrowing();
             Projectile.extraUpdates = 1; // Update 1+extraUpdates times per tick
             Projectile.timeLeft = 180; // This value does not matter since we manually kill it earlier, it just has to be higher than the duration we use in AI
         }
