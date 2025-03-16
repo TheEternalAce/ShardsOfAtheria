@@ -13,33 +13,27 @@ namespace ShardsOfAtheria.Projectiles.Magic.ThorSpear
     {
         public override string Texture => ModContent.GetInstance<ZEarthmoverSpear>().Texture;
 
-        public override void SetStaticDefaults()
+        public override void SetDefaults()
         {
-            Projectile.AddElement(2);
-            Projectile.AddRedemptionElement(5);
-            Projectile.AddRedemptionElement(7);
+            base.SetDefaults();
+            Projectile.extraUpdates += 1;
         }
 
         public override void OnSpawn(IEntitySource source)
         {
-            minChargeRequired = maxCharge;
+            base.OnSpawn(source);
+            minCharge = maxCharge;
         }
 
         public override void AI()
         {
-            var player = Projectile.GetPlayerOwner();
-            float attackSpeed = player.GetTotalAttackSpeed(DamageClass.Magic);
-
-            if ((BeingHeld || timer < minChargeRequired + (player.Overdrive() ? 40 : 0))) timer += 0.25f * attackSpeed * (player.Overdrive() ? 1.2f : 1f);
-
             base.AI();
-
-            if (timer >= minChargeRequired) Projectile.Kill();
+            if (charge >= minCharge) Projectile.Kill();
         }
 
         public override void OnKill(int timeLeft)
         {
-            if (timer < minChargeRequired) return;
+            if (charge < minCharge) return;
             int type = ModContent.ProjectileType<ZEarthmoverBeam>();
             var player = Projectile.GetPlayerOwner();
             if (!Projectile.GetPlayerOwner().IsLocal()) return;

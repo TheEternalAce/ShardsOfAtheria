@@ -11,6 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.AreusGamble
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
+            Projectile.AddDamageType(5);
 
             SoAGlobalProjectile.Metalic.Add(Type, 0.2f);
         }

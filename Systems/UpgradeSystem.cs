@@ -5,7 +5,7 @@ namespace ShardsOfAtheria.Systems
 {
     public class UpgradeSystem : ModSystem
     {
-        public static Dictionary<string, int[]> atherianUpgrades = [];
+        public static readonly Dictionary<string, int[]> atherianUpgrades = [];
 
         public static void StartUpgrade(string playerName, int itemType, int time = 1200)
         {
@@ -37,10 +37,6 @@ namespace ShardsOfAtheria.Systems
 
         // Loading isn't working for some reason
         // Since upgrades [usually] take only 20 seconds hopefully that's not an issue
-        //public override void OnWorldUnload()
-        //{
-        //    atherianUpgrades = [];
-        //}
         //public override void LoadWorldData(TagCompound tag)
         //{
         //    if (tag.ContainsKey("atherianUpgradesKeys") && tag.ContainsKey("atherianUpgradesValues"))
@@ -59,12 +55,12 @@ namespace ShardsOfAtheria.Systems
         //    tag["atherianUpgradesValues"] = atherianUpgrades.Values;
         //}
 
-        public override void PostUpdateWorld()
-        {
-            foreach (var item in atherianUpgrades)
-            {
-                item.Value[1]--;
-            }
-        }
+        //public override void PostUpdateWorld()
+        //{
+        //    foreach (var item in atherianUpgrades)
+        //    {
+        //        item.Value[1]--;
+        //    }
+        //}
     }
 }

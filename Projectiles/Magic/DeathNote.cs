@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
             ProjectileID.Sets.CultistIsResistantTo[Type] = true;
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
             ProjectileID.Sets.TrailingMode[Type] = 0;
+            Projectile.AddDamageType(6, 12);
             Projectile.AddElement(1);
             Projectile.AddRedemptionElement(9);
         }

@@ -10,6 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(3, 5);
             base.SetStaticDefaults();
             Projectile.AddElement(0);
             Projectile.AddRedemptionElement(3);

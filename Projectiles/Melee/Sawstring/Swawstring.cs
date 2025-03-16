@@ -21,6 +21,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.Sawstring
             ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 15f;
 
             Projectile.AddAreus();
+            Projectile.AddDamageType(5);
         }
 
         public override void SetDefaults()

@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.ElecKatana
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
+            Projectile.AddDamageType(5);
             SoAGlobalProjectile.Eraser.Add(Type);
         }
 

@@ -22,8 +22,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
 
         public override void Load()
         {
-            if (Main.netMode == NetmodeID.Server)
-                return;
+            if (Main.netMode == NetmodeID.Server) return;
             glowmask = ModContent.Request<Texture2D>(Texture);
         }
 
@@ -36,6 +35,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            Projectile.AddDamageType(11);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }

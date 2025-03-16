@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
 
+            Projectile.AddDamageType(10);
             Projectile.AddRedemptionElement(14);
         }
 

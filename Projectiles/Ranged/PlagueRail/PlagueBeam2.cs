@@ -20,6 +20,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Type] = true;
+            Projectile.AddDamageType(6, 8);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(11);
         }
@@ -149,13 +150,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
                 {
                     player.Heal(40);
                 }
-                if (ModLoader.TryGetMod("GMR", out Mod gmr))
-                {
-                    if (gmr.TryFind<ModProjectile>("PlagueExplosion", out var explosion))
-                    {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, explosion.Type, Projectile.damage, 0);
-                    }
-                }
+                if (ShardsHelpers.TryGetModContent("GMR", "PlagueExplosion", out ModProjectile explosion))
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, explosion.Type, Projectile.damage, 0);
                 Projectile.ai[0] = 1;
             }
             Projectile.damage = (int)(Projectile.damage * 0.8f);

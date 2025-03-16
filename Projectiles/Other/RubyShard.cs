@@ -11,6 +11,12 @@ namespace ShardsOfAtheria.Projectiles.Other
     {
         int gravityTimer;
 
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddDamageType(7);
+            Projectile.AddRedemptionElement(5);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = Projectile.height = 12;

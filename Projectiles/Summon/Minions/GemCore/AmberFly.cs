@@ -23,6 +23,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = false;
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+            Projectile.AddDamageType(7);
             Projectile.AddRedemptionElement(5);
             Projectile.AddRedemptionElement(10);
         }
@@ -42,7 +43,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Summon;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;
+            Projectile.localNPCHitCooldown = 30;
 
             DrawOffsetX = -6;
             DrawOriginOffsetY = -4;
@@ -61,6 +62,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
         public override void AI()
         {
             Player owner = Main.player[Projectile.owner];
+            int damage = Projectile.damage;
 
             Projectile.netUpdate = true;
             if (!CheckActive(owner))

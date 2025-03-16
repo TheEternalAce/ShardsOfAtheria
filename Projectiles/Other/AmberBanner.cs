@@ -22,21 +22,18 @@ namespace ShardsOfAtheria.Projectiles.Other
         public override void AI()
         {
             Player player = Projectile.GetPlayerOwner();
-            if (!CheckActive(player))
-            {
-                return;
-            }
+            if (!CheckActive(player)) return;
             if (Projectile.ai[0] == 1)
             {
                 Projectile.timeLeft = 2;
                 Vector2 vector = new(0, -20);
-                Projectile.Center = player.Center + vector;
+                Projectile.Center = player.MountedCenter + vector;
                 Projectile.netUpdate = true;
             }
-            else KillClosestBanner();
+            else RepellBanners(500f);
             Lighting.AddLight(Projectile.Center, TorchID.Yellow);
             Projectile.velocity *= 0.85f;
-            AmberAura(500 + 300 * Projectile.ai[0]);
+            AmberBuff(500f + 300f * Projectile.ai[0]);
         }
 
         private bool CheckActive(Player player)
@@ -46,27 +43,22 @@ namespace ShardsOfAtheria.Projectiles.Other
             return true;
         }
 
-        private void AmberAura(float radius)
+        private void RepellBanners(float maxDistance)
         {
-            //for (var i = 0; i < 20; i++)
-            //{
-            //    Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2CircularEdge(radius, radius);
-            //    Vector2 offset = spawnPos - Main.LocalPlayer.Center;
-            //    bool onscreenX = Math.Abs(offset.X) > Main.screenWidth * 0.6f;
-            //    bool onscreenY = Math.Abs(offset.X) > Main.screenWidth * 0.6f;
-            //    bool tilecollision = Collision.SolidCollision(spawnPos, 4, 4);
-            //    if (onscreenX || onscreenY || tilecollision) //dont spawn dust if its pointless
-            //        continue;
-            //    Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, DustID.AmberBolt, 0, 0, 100);
-            //    dust.velocity = Projectile.velocity;
-            //    if (Main.rand.NextBool(3))
-            //    {
-            //        dust.velocity += Vector2.Normalize(Projectile.Center - dust.position) * Main.rand.NextFloat(5f);
-            //        dust.position += dust.velocity * 5f;
-            //    }
-            //    dust.noGravity = true;
-            //}
-            AmberBuff(radius);
+            foreach (Projectile projectile in Main.projectile)
+            {
+                if (IsNonFollowingBanner(projectile))
+                {
+                    var distToPlayer = Vector2.Distance(projectile.Center, Projectile.Center);
+                    if (distToPlayer <= maxDistance)
+                    {
+                        var vector = projectile.Center - Projectile.Center;
+                        vector.Normalize();
+                        Projectile.velocity = vector * -4;
+                        projectile.velocity = vector * 4;
+                    }
+                }
+            }
         }
 
         private void AmberBuff(float maxDistance)
@@ -84,18 +76,10 @@ namespace ShardsOfAtheria.Projectiles.Other
             }
         }
 
-        public void KillClosestBanner()
-        {
-            var banner = ShardsHelpers.FindClosestProjectile(Projectile.Center, 500, IsNonFollowingBanner);
-            if (banner != null)
-            {
-                banner.Kill();
-            }
-        }
-
         public bool IsNonFollowingBanner(Projectile projectile)
         {
-            if (projectile.type != ModContent.ProjectileType<AmberBanner>()) return false;
+            if (!projectile.active) return false;
+            if (projectile.type != Type) return false;
             if (projectile.owner != Projectile.owner) return false;
             if (projectile.ai[0] == 1) return false;
             if (projectile.whoAmI == Projectile.whoAmI) return false;

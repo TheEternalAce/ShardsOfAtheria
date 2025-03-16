@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Projectiles.Magic;
+using ShardsOfAtheria.Projectiles.Summon.Active;
 using ShardsOfAtheria.Projectiles.Summon.Minions;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -10,14 +10,13 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Weapons
+namespace ShardsOfAtheria.Items.Weapons.Summon
 {
     public class Pandora : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 1;
-            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+            Item.AddDamageType(2, 5);
             Item.AddElement(1);
             Item.AddElement(2);
             Item.AddRedemptionElement(4);
@@ -30,19 +29,19 @@ namespace ShardsOfAtheria.Items.Weapons
             Item.height = 32;
 
             Item.damage = 77;
-            Item.DamageType = DamageClass.Magic;
-            Item.knockBack = 6;
+            Item.DamageType = DamageClass.Summon;
+            Item.knockBack = 0f;
             Item.mana = 6;
 
-            Item.useTime = 35;
-            Item.useAnimation = 35;
+            Item.useTime = 18;
+            Item.useAnimation = 18;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.UseSound = SoundID.Item1;
+            Item.UseSound = SoundID.Item43;
             Item.autoReuse = true;
             Item.noMelee = true;
             Item.staff[Item.type] = true;
 
-            Item.shootSpeed = 15f;
+            Item.shootSpeed = 1f;
             Item.value = Item.sellPrice(0, 3, 25);
             Item.rare = ItemDefaults.RarityHardmodeDungeon;
         }
@@ -67,49 +66,38 @@ namespace ShardsOfAtheria.Items.Weapons
         {
             if (player.altFunctionUse == 2)
             {
-                Item.useTime = 16;
-                Item.useAnimation = 16;
-                Item.UseSound = SoundID.Item28;
-                Item.damage = 92;
-                Item.DamageType = DamageClass.Magic;
-                Item.mana = 8;
-                Item.knockBack = 3;
-                Item.shoot = ModContent.ProjectileType<IceBolt>();
-                Item.shootSpeed = 16f;
-                Item.buffType = 0;
+                Item.mana = 0;
+                Item.knockBack = 0f;
+                Item.shoot = ModContent.ProjectileType<FrostsparkDrone>();
+                Item.buffType = ModContent.BuffType<FrostsparkDroneBuff>();
+                Item.UseSound = SoundID.Item43;
             }
             else
             {
-                Item.useTime = 35;
-                Item.useAnimation = 35;
-                Item.UseSound = SoundID.Item43;
-                Item.damage = 77;
-                Item.DamageType = DamageClass.Summon;
-                Item.mana = 0;
-                Item.knockBack = 0;
-                Item.shoot = ModContent.ProjectileType<FrostsparkDrone>();
-                Item.shootSpeed = 1f;
-                Item.buffType = ModContent.BuffType<FrostsparkDroneBuff>();
+                Item.mana = 8;
+                Item.knockBack = 3f;
+                Item.shoot = ModContent.ProjectileType<FrostsparkBeam>();
+                Item.buffType = 0;
+                Item.UseSound = null;
             }
             return base.CanUseItem(player);
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (player.altFunctionUse == 2)
-            {
-                base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
-            }
-            else
-            {
-                position = Main.MouseWorld;
-            }
+            if (player.altFunctionUse == 2) position = Main.MouseWorld;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (player.altFunctionUse != 2)
+            if (player.altFunctionUse == 2)
             {
+                if (player.ownedProjectileCounts[type] > 0)
+                {
+                    player.Shards().frostsparkDronesTier++;
+                    return false;
+                }
+                else player.Shards().frostsparkDronesTier = 0;
                 // This is needed so the buff that keeps your minion alive and allows you to despawn it properly applies
                 player.AddBuff(Item.buffType, 2);
 
@@ -119,6 +107,7 @@ namespace ShardsOfAtheria.Items.Weapons
                     var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI, i);
                     projectile.originalDamage = Item.damage;
                 }
+                player.ownedProjectileCounts[type] = 2;
                 // Since we spawned the projectile manually already, we do not need the game to spawn it for ourselves anymore, so return false
                 return false;
             }

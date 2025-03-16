@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.MagicalGems
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(4);
             Projectile.AddRedemptionElement(5);
 
             ProjectileID.Sets.TrailingMode[Type] = 2;
@@ -70,8 +71,6 @@ namespace ShardsOfAtheria.Projectiles.Magic.MagicalGems
 
     public class AmethystStone : MagicStone
     {
-        bool bounced = false;
-
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -83,31 +82,34 @@ namespace ShardsOfAtheria.Projectiles.Magic.MagicalGems
             Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
             SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 
-            if (!bounced)
+            // If the projectile hits the left or right side of the tile, reverse the X velocity
+            if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon)
             {
-                // If the projectile hits the left or right side of the tile, reverse the X velocity
-                if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon)
-                {
-                    Projectile.velocity.X = -oldVelocity.X * 1.05f;
-                }
-
-                // If the projectile hits the top or bottom side of the tile, reverse the Y velocity
-                if (Math.Abs(Projectile.velocity.Y - oldVelocity.Y) > float.Epsilon)
-                {
-                    Projectile.velocity.Y = -oldVelocity.Y * 1.05f;
-                }
-
-                var npc = Projectile.FindClosestNPC(null, 100);
-                if (npc != null)
-                {
-                    var velocity = npc.Center - Projectile.Center;
-                    velocity.Normalize();
-                    Projectile.velocity = velocity *= 16f;
-                }
-                bounced = true;
-                return false;
+                Projectile.velocity.X = -oldVelocity.X * 1.05f;
             }
-            return true;
+
+            // If the projectile hits the top or bottom side of the tile, reverse the Y velocity
+            if (Math.Abs(Projectile.velocity.Y - oldVelocity.Y) > float.Epsilon)
+            {
+                Projectile.velocity.Y = -oldVelocity.Y * 1.05f;
+            }
+
+            float speed = Projectile.velocity.Length();
+            if (speed > 20f)
+            {
+                Projectile.velocity.Normalize();
+                Projectile.velocity *= 20f;
+                speed = 20f;
+            }
+
+            var npc = Projectile.FindClosestNPC(null, 100);
+            if (npc != null)
+            {
+                var velocity = npc.Center - Projectile.Center;
+                velocity.Normalize();
+                Projectile.velocity = velocity *= speed;
+            }
+            return false;
         }
     }
 
@@ -116,7 +118,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.MagicalGems
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.penetrate = 2;
+            Projectile.penetrate = 5;
             dustID = DustID.GemDiamond;
         }
 

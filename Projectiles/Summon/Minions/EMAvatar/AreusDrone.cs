@@ -184,7 +184,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
                     SoundEngine.PlaySound(SoA.MagnetShot, Projectile.Center);
                     Vector2 velocity = Vector2.Normalize(targetCenter - Projectile.Center) * 8f;
                     Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity,
-                        ModContent.ProjectileType<AreusTagLaser>(), Projectile.damage, 0, Projectile.owner);
+                        ModContent.ProjectileType<AreusDroneLaser>(), Projectile.damage, 0, Projectile.owner);
 
                     shootTimer = 0;
                 }

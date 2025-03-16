@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -14,6 +15,11 @@ namespace ShardsOfAtheria.Projectiles.Other
         public int bounces = 0;
         public float dustFadeIn = 0f;
         public abstract int DustType { get; }
+
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddDamageType(7);
+        }
 
         public override void SetDefaults()
         {

@@ -26,6 +26,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJoustingLance
 
             Projectile.MakeTrueMelee();
             Projectile.AddAreus();
+            Projectile.AddDamageType(7);
         }
 
         public override void SetDefaults()

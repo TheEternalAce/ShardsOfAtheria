@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(7);
             Item.AddRedemptionElement(5);
         }
 

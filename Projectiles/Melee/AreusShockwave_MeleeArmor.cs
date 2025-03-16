@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            Projectile.AddDamageType(5);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }

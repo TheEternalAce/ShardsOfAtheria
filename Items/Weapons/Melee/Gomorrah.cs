@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             ItemID.Sets.Spears[Type] = true;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+            Item.AddDamageType(7);
             Item.AddElement(2);
             Item.AddRedemptionElement(7);
         }

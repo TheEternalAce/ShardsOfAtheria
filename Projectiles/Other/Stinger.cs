@@ -10,6 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Other
     {
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(7, 8);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(11);
         }

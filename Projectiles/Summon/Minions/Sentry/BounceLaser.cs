@@ -13,11 +13,12 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddElement(2);
-            Projectile.AddRedemptionElement(7);
             ProjectileID.Sets.TrailingMode[Type] = 2;
             ProjectileID.Sets.TrailCacheLength[Type] = 40;
             ProjectileID.Sets.SentryShot[Type] = true;
+            Projectile.AddDamageType(5);
+            Projectile.AddElement(2);
+            Projectile.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()

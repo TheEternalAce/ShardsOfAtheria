@@ -1,10 +1,16 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Utilities;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Other
 {
     public class SpinSkull : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddDamageType(1);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 80;

@@ -11,6 +11,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(3);
             Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
         }

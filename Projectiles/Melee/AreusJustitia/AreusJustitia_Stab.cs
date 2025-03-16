@@ -24,6 +24,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(5, 9);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
@@ -46,6 +47,17 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
         }
 
         public override void AI()
+        {
+            BaseAI();
+
+            for (int i = 0; i < 2; i++)
+            {
+                var dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Electric);
+                dust.noGravity = true;
+            }
+        }
+
+        internal void BaseAI()
         {
             Player player = Main.player[Projectile.owner];
 
@@ -73,10 +85,6 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
             Projectile.Center = playerCenter + Projectile.velocity * (Timer - 1f);
 
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
-            if (Main.rand.NextBool(2))
-            {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Electric);
-            }
         }
 
         public override bool ShouldUpdatePosition()
@@ -91,7 +99,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
 
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = SoA.ElectricColorA;
+            lightColor = SoA.ElectricColor.UseA(125);
             return base.PreDraw(ref lightColor);
         }
     }

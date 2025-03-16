@@ -4,6 +4,7 @@ AmberCore_Greater,Rock,Bug,
 AmberCore_Super,Rock,Bug,
 SapphireCore_Greater,Rock,,
 SapphireCore_Super,Rock,,
+RubyCore_Super,Rock,,
 MegaGemCore,Rock,,"{""Tooltips"":[{""Type"":""Rock,Bug"",""Tooltip"": ""Amber flies are {0}""}, {""Type"":""Rock"",""Tooltip"": ""Everything else is {0}""}]}"
 TwistedUtensil,Water,Psychic,
 DestinyLance,Fire,Psychic,

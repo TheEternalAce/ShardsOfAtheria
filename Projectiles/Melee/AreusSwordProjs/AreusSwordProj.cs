@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSwordProjs
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
+            Projectile.AddDamageType(5);
             SoAGlobalProjectile.Eraser.Add(Type);
         }
 

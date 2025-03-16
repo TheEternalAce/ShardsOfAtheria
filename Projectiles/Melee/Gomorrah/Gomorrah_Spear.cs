@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.Gomorrah
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(7);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }

@@ -10,6 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
     {
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(12);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
@@ -49,7 +50,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
 
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = SoA.ElectricColorA;
+            lightColor = SoA.ElectricColorA0;
             return base.PreDraw(ref lightColor);
         }
     }

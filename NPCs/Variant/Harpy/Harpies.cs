@@ -30,6 +30,8 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+
+            NPC.AddDamageType(11);
         }
 
         public override void SetDefaults()
@@ -62,7 +64,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                 {
                     Vector2 position = NPC.Center;
                     Vector2 velocity = Vector2.Normalize(Main.player[NPC.target].Center - position);
-                    if (Main.rand.NextBool(3 - (SoA.Massochist() ? 2 : 0)) && NPC.ai[0] == 30f)
+                    if (Main.rand.NextBool(3 - (SoA.Massochist() ? 1 : 0)) && NPC.ai[0] == 30f)
                     {
                         SpecialAttack(velocity);
                         NPC.ai[0] = 91f;

@@ -11,6 +11,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }

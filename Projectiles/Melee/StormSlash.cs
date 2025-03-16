@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
 {
     public class StormSlash : BladeAura
     {
-        public override Color AuraColor => SoA.ElectricColor;
+        public override Color AuraColor => SoA.HardlightBlueColor;
         public override int OutterDust => DustID.Electric;
         public override int InnerDust => ModContent.DustType<HardlightDust_Blue>();
         public override float ScaleMultiplier => 1f;
@@ -17,6 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(5);
             base.SetStaticDefaults();
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);

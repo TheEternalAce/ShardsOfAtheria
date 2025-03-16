@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,6 +9,11 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class HuntingRifle : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            Item.AddDamageType(7);
+        }
+
         public override void SetDefaults()
         {
             Item.width = 58;

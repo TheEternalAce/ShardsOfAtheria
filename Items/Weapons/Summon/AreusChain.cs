@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
         public override void SetStaticDefaults()
         {
             Item.AddAreus();
+            Item.AddDamageType(1, 11);
         }
 
         public override void SetDefaults()

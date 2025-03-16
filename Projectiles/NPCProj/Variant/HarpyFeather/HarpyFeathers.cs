@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,6 +11,11 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather
         public int debuffType = 0;
         public int dustType = 0;
         public virtual bool DebuffCondition => Main.expertMode || Main.hardMode;
+
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddDamageType(7);
+        }
 
         public override void SetDefaults()
         {

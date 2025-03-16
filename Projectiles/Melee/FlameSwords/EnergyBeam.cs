@@ -18,6 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Type] = true;
+            Projectile.AddDamageType(3);
             Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
             Projectile.AddRedemptionElement(8);

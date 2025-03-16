@@ -22,6 +22,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 4;
+            Projectile.AddDamageType(11);
         }
 
         public override void SetDefaults()

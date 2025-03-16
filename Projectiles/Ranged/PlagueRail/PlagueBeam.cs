@@ -17,6 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Type] = true;
+            Projectile.AddDamageType(6, 8);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(11);
         }

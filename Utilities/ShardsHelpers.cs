@@ -109,6 +109,37 @@ namespace ShardsOfAtheria.Utilities
             return projectiles;
         }
 
+        public static DamageClass TryThrowing(this DamageClass damage)
+        {
+            if (SoA.ServerConfig.throwingWeapons) return DamageClass.Throwing;
+            return damage;
+        }
+
+        public static bool TryGetModContent(string modName, string entityName, out ModItem entity)
+        {
+            entity = null;
+            if (ModLoader.TryGetMod(modName, out Mod mod) && mod.TryFind(entityName, out entity)) return true;
+            return false;
+        }
+        public static bool TryGetModContent(string modName, string entityName, out ModNPC entity)
+        {
+            entity = null;
+            if (ModLoader.TryGetMod(modName, out Mod mod) && mod.TryFind(entityName, out entity)) return true;
+            return false;
+        }
+        public static bool TryGetModContent(string modName, string entityName, out ModBuff entity)
+        {
+            entity = null;
+            if (ModLoader.TryGetMod(modName, out Mod mod) && mod.TryFind(entityName, out entity)) return true;
+            return false;
+        }
+        public static bool TryGetModContent(string modName, string entityName, out ModProjectile entity)
+        {
+            entity = null;
+            if (ModLoader.TryGetMod(modName, out Mod mod) && mod.TryFind(entityName, out entity)) return true;
+            return false;
+        }
+
         public static void AdjustMagnitude(ref Vector2 vector, float num1, float num2 = 6f)
         {
             float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
@@ -269,12 +300,18 @@ namespace ShardsOfAtheria.Utilities
             return valid;
         }
 
-        public static NPC FindClosestNPC(Vector2 pos, Func<NPC, bool> additionalChecks, float maxDist = 2000f, params int[] blacklistedWhoAmI)
+        public static int FindClosestNPCIndex(Vector2 pos, Func<NPC, bool> additionalChecks = null, float maxDist = 2000f, params int[] blacklistedWhoAmI)
+        {
+            NPC npc = FindClosestNPC(pos, additionalChecks, maxDist, blacklistedWhoAmI);
+            return npc is null ? -1 : npc.whoAmI;
+        }
+        public static NPC FindClosestNPC(Vector2 pos, Func<NPC, bool> additionalChecks = null, float maxDist = 2000f, params int[] blacklistedWhoAmI)
         {
             NPC closestNPC = null;
 
             // Using squared values in distance checks will let us skip square root calculations, drastically improving this method's speed.
             float sqrMaxDetectDistance = maxDist * maxDist;
+            if (maxDist == -1) sqrMaxDetectDistance = float.PositiveInfinity;
 
             // Loop through all NPCs(max always 200)
             for (int k = 0; k < Main.maxNPCs; k++)

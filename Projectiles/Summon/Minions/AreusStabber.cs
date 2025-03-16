@@ -21,6 +21,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
             Projectile.AddAreus();
+            Projectile.AddDamageType(5);
         }
 
         public override void SetDefaults()

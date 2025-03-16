@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
         public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(26);
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(6, 8);
             Item.AddElement(3);
             Item.AddRedemptionElement(11);
         }

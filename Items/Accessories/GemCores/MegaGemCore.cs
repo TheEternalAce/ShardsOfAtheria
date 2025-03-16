@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
     {
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(0, 7);
             Item.AddRedemptionElement(5);
             Item.AddRedemptionElement(10);
         }

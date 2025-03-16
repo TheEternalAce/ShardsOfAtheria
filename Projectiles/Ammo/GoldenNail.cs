@@ -1,4 +1,5 @@
 ﻿using ShardsOfAtheria.Items.Weapons.Ammo;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,6 +9,12 @@ namespace ShardsOfAtheria.Projectiles.Ammo
     public class GoldenNail : ModProjectile
     {
         public override string Texture => ModContent.GetInstance<GoldNail>().Texture;
+
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddDamageType(4);
+            Projectile.AddRedemptionElement(15);
+        }
 
         public override void SetDefaults()
         {

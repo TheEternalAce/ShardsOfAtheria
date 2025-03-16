@@ -9,6 +9,7 @@ Common: {
 	FullCharge: Carregamento pronto!
 	// OverdriveTag: " (Overcharged)"
 	// OverdriveTooltip: "[c/ff0000:--Overdrive--]"
+	// DeveloperKeyHeader: "[c/00ff00:--Developer Mode--]"
 	UpgradeableItem: Item Atualizável
 	TitleText0: Shards of Atheria: Splitting Skies
 	TitleText1: Shards of Atheria: The World Revolving
@@ -466,6 +467,7 @@ Items: {
 			Aumenta o HP máximo em 100 e mana máxima em 40
 			Concede dash, deslizamento na parede e imunidade a dano de queda
 			'''
+		// DeveloperKeyChange: Overdrive time will never run out
 	}
 
 	DestinyLance: {
@@ -1079,7 +1081,8 @@ Items: {
 		// CardSuit1: Hearts
 		// CardSuit2: Clubs
 		// CardSuit3: Diamonds
-		// Overdrive: Throws 4 extra cards
+		// Overdrive: Throws 3 random cards in a spread
+		// DeveloperKeyChange: Doubled damage
 	}
 
 	AcesGoldFoxMask: {
@@ -1583,6 +1586,26 @@ Items: {
 			'''
 	}
 
+	Apathy: {
+		// DisplayName: Apathy
+		/* Description:
+			'''
+			Increased damage by 15%
+			Decreased movement and attack speed by 10%
+			'You're not really feeling it today'
+			''' */
+	}
+
+	Motivation: {
+		// DisplayName: Motivation
+		/* Description:
+			'''
+			Increased movement and attack speed by 10%
+			Decreased damage by 15%
+			'Today is a good day!'
+			''' */
+	}
+
 	WrathSoul: {
 		DisplayName: Wrath Soul
 		Tooltip:
@@ -2010,6 +2033,7 @@ Items: {
 			'Great for losing your life savings!'
 			''' */
 		// Overdrive: Use both attacks
+		// DeveloperKeyChange: Coins are not affected by gravity
 	}
 
 	AreusGamble: {
@@ -2077,6 +2101,7 @@ Items: {
 			'There's a sticky note with a random arangement of letters and numbers'
 			'Presumably a password, not that you need it'
 			''' */
+		// DeveloperKeyChange: No mana cost and unlimited access
 	}
 
 	AreusTrimmedTome: {
@@ -2208,6 +2233,11 @@ Items: {
 	AreusEdge: {
 		// DisplayName: Areus Judgement
 		// Tooltip: "'Its scale would never neglect the weight of even the smallest sin'"
+	}
+
+	ZAreusEdge: {
+		// DisplayName: Z-Charged Areus Judgement
+		// Tooltip: "'Free... At last...'"
 	}
 
 	AreusGlaive: {
@@ -2397,7 +2427,6 @@ Items: {
 			'''
 			Alt-use stabs the ground
 			This causes fireballs to rain down and also heals you
-			Infinite overdrive time
 			''' */
 	}
 
@@ -2845,6 +2874,7 @@ Items: {
 			Primary-use shockwaves will boost bombs
 			{$Common.DamageScale}
 			''' */
+		// DeveloperKeyChange: No cooldown
 	}
 
 	EntropicHunter: {
@@ -2856,6 +2886,7 @@ Items: {
 			Singularities will fire additional arrows when you shoot with this bow
 			{$Common.DamageScale}
 			''' */
+		// DeveloperKeyChange: Unlimited singularities
 	}
 
 	SpellTag_Gleam: {
@@ -2887,6 +2918,7 @@ Items: {
 			Alt-use targeting also makes the star attack manually
 			Damage scales with progression
 			''' */
+		// DeveloperKeyChange: No cooldown
 	}
 
 	DataTome: {
@@ -3101,7 +3133,6 @@ Projectiles: {
 	GunswordGun.DisplayName: Gunsword Gun
 	GunswordProj.DisplayName: Gunsword
 	HardlightFeatherMagic.DisplayName: Hardlight Feather
-	IceBolt.DisplayName: Ice Bolt
 	// LightningBolt_Gauntlet.DisplayName: Lightning Bolt
 	LightningBoltFriendly.DisplayName: Lightning Bolt
 	ScreamShockwave.DisplayName: Scream Shock Wave
@@ -3254,6 +3285,7 @@ Projectiles: {
 	// EMAvatar.DisplayName: EM Avatar
 	FlailOfFleshProj.DisplayName: Leashed Hungry
 	FrostsparkDrone.DisplayName: Frostspark Drone
+	// FrostsparkBeam.DisplayName: Frostspark Beam
 	// MirrorPrism.DisplayName: Mirror Prism
 	SapphireBolt.DisplayName: Sapphire Bolt
 	SapphireSpirit.DisplayName: Sapphire Spirit
@@ -3401,6 +3433,12 @@ Projectiles: {
 	// VoidBlade.DisplayName: Void Blade
 	// VoidTrail.DisplayName: Void Trail
 	// VoidOrb.DisplayName: Void Orb
+	// TinyLaser.DisplayName: Tiny Laser
+	// StormBlade.DisplayName: Storm Blade
+	// AreusDroneLaser.DisplayName: Areus Drone Laser
+	// ZAreusJustitia.DisplayName: Z Areus Justitia
+	// FlameSlashExtention.DisplayName: Flame Slash Extention
+	// FlameStabExtention.DisplayName: Flame Stab Extention
 }
 
 NPCs: {
@@ -4155,6 +4193,21 @@ Buffs: {
 			Reduced resource cost
 			''' */
 	}
+
+	Apathy: {
+		// DisplayName: Apathy
+		// Description: Mods.ShardsOfAtheria.Buffs.Apathy.Description
+	}
+
+	Fury: {
+		// DisplayName: Fury
+		// Description: Mods.ShardsOfAtheria.Buffs.Fury.Description
+	}
+
+	Motivation: {
+		// DisplayName: Motivation
+		// Description: Mods.ShardsOfAtheria.Buffs.Motivation.Description
+	}
 }
 
 Necronomicon: {
@@ -4205,7 +4258,7 @@ Conditions: {
 	// HaveDie: Have the Areus Gamble in your inventory.
 	// HaveMessiah: Have The Messiah in your inventory.
 	// TransformArmament: Transform a Sinful Armament with the appropriate Sinful Soul.
-	// UpgradeRequisites: Mods.ShardsOfAtheria.Conditions.UpgradeRequisites
+	// ThrowingWeapon: Enable Throwing Weapons config.
 }
 
 ShopQuote: {

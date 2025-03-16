@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(11);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(10);
         }
@@ -54,6 +55,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
                     Projectile.timeLeft = 3600;
                     player.SetDummyItemTime(10);
                     player.manaRegenDelay = 10;
+                    player.manaRegen = 0;
                     if (++Projectile.ai[1] >= 2) { player.CheckMana(1, true); Projectile.ai[1] = 0; }
                     if (player.IsLocal()) { Projectile.Center = Main.MouseWorld; Projectile.netUpdate = true; }
 

@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.AddAreus(true);
+            Item.AddDamageType(6);
             Item.AddElement(1);
             Item.AddElement(3);
             Item.AddRedemptionElement(12);
@@ -47,32 +48,25 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.value = 100000;
         }
 
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+
         public override void UpdateInventory(Player player)
         {
-            if (blood > 0)
-            {
-                blood--;
-            }
+            if (blood > 0) blood--;
             if (blood == 0)
             {
-                if (!player.HasBuff<CorruptedBlood>())
-                {
-                    CombatText.NewText(player.Hitbox, Color.DarkRed, "Feed me");
-                }
+                if (!player.HasBuff<CorruptedBlood>()) CombatText.NewText(player.Hitbox, Color.DarkRed, "Feed me");
                 player.AddBuff<CorruptedBlood>(300);
             }
-            if (blood > 1200)
-            {
-                player.AddBuff(ModContent.BuffType<MourningSatisfaction>(), blood - 1200);
-            }
+            if (blood > 1200) player.AddBuff(ModContent.BuffType<MourningSatisfaction>(), blood - 1200);
         }
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            if (player.HasBuff<MourningSatisfaction>())
-            {
-                damage += 0.5f;
-            }
+            if (player.HasBuff<MourningSatisfaction>()) damage += 0.5f;
         }
 
         public override bool? UseItem(Player player)

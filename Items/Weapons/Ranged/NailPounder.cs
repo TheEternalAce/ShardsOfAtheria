@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Ranged;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,6 +11,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(4);
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
         }
 

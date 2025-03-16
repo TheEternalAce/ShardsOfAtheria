@@ -26,7 +26,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.width = 4;
             Projectile.height = 4;
             Projectile.aiStyle = -1;
-            Projectile.friendly = false;
+            Projectile.friendly = true;
             Projectile.timeLeft = 360000;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
@@ -127,6 +127,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             // Both things depend on if it has a target or not, so it's just one assignment here
             // You don't need this assignment if your minion is shooting things instead of dealing contact damage
             Projectile.friendly = foundTarget;
+        }
+
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return false;
         }
     }
 }

@@ -12,6 +12,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.MinionShot[Type] = true;
+            Projectile.AddDamageType(0);
             Projectile.AddRedemptionElement(5);
             Projectile.AddRedemptionElement(10);
         }

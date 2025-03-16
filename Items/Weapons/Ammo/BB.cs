@@ -1,5 +1,6 @@
 using ShardsOfAtheria.Projectiles.Ammo;
 using ShardsOfAtheria.Systems;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,6 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 99;
+            Item.AddDamageType(7);
         }
 
         public override void SetDefaults()

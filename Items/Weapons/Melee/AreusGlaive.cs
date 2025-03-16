@@ -17,6 +17,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             ItemID.Sets.Spears[Type] = true;
             Item.AddAreus();
+            Item.AddDamageType(11);
         }
 
         public override void SetDefaults()
@@ -41,6 +42,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityDungeon;
             Item.value = Item.sellPrice(0, 1);
             Item.shoot = ModContent.ProjectileType<AreusGlaive_Swing>();
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
         }
 
         public override void AddRecipes()
@@ -85,7 +91,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool? UseItem(Player player)
         {
-            base.UseItem(player);
+            if (combo == 0 || combo == 1) Item.FixSwing(player);
             if (combo >= 4)
                 combo = 0;
             else combo++;

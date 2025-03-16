@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
         {
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
+            Projectile.AddDamageType(3);
             Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
         }

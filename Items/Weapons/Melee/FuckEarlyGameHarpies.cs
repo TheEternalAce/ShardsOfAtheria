@@ -12,6 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             ItemID.Sets.Spears[Type] = true;
             Item.AddAreus(true);
+            Item.AddDamageType(7);
             Item.AddRedemptionElement(9);
         }
 
@@ -35,6 +36,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityPreBoss;
             Item.value = 0;
             Item.shoot = ModContent.ProjectileType<BrokenAreusPartizan>();
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
         }
 
         public override bool? UseItem(Player player)

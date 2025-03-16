@@ -16,8 +16,10 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.LunarFlare];
+            Projectile.AddDamageType(4, 6);
             Projectile.AddElement(1);
             Projectile.AddElement(3);
+            Projectile.AddRedemptionElement(1);
             Projectile.AddRedemptionElement(12);
             Projectile.AddRedemptionElement(15);
         }

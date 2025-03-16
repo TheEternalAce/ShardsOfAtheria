@@ -94,6 +94,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Spectrum
             {
                 Projectile.timeLeft = 10; //constantly set timeLeft to greater than zero to allow projectile to remain infinitely as long as player channels weapon
                 Owner.manaRegenDelay = 10;
+                Owner.manaRegen = 0;
 
                 if (charging)
                 {

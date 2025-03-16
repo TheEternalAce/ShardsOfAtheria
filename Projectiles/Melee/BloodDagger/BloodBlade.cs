@@ -10,6 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodDagger
     {
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(7);
             Projectile.AddElement(1);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(12);

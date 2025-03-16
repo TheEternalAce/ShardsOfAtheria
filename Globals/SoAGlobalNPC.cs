@@ -97,25 +97,13 @@ namespace ShardsOfAtheria.Globals
             LeadingConditionRule downedCultist = new(new DownedLunaticCultist());
             LeadingConditionRule downedMoonLord = new(new DownedMoonLord());
 
-            if (ModLoader.TryGetMod("FargowiltasSouls", out Mod _))
-            {
-                master = new(new EternityOrMaster());
-            }
+            if (ModLoader.TryGetMod("FargowiltasSouls", out Mod _)) master = new(new EternityOrMaster());
             if (npc.type == NPCID.Mothron)
-            {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BrokenHeroGun>(), 4));
-            }
             if (npc.type == NPCID.Reaper)
-            {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AncientMedalion>(), 4));
-            }
-            if (npc.type == NPCID.BlackRecluse ||
-                npc.type == NPCID.BlackRecluseWall ||
-                npc.type == NPCID.JungleCreeper ||
-                npc.type == NPCID.JungleCreeperWall)
-            {
+            if (npc.type == NPCID.BlackRecluse || npc.type == NPCID.BlackRecluseWall || npc.type == NPCID.JungleCreeper || npc.type == NPCID.JungleCreeperWall)
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AcidTrip>(), 10));
-            }
 
             // Master mode drops
             if (npc.type == NPCID.KingSlime)

@@ -3,7 +3,6 @@ using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
@@ -14,6 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(8);
             Item.AddElement(3);
             Item.AddRedemptionElement(10);
         }

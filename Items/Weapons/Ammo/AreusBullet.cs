@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
         {
             Item.ResearchUnlockCount = 999;
             Item.AddAreus();
+            Item.AddDamageType(7);
         }
 
         public override void SetDefaults()

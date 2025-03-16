@@ -3,12 +3,13 @@ using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Other
+namespace ShardsOfAtheria.Projectiles.Summon.Minions
 {
     public class PhantasmalEye : ModProjectile
     {
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(10);
             Projectile.AddRedemptionElement(14);
         }
 

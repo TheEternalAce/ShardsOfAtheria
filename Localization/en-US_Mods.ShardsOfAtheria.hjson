@@ -9,6 +9,7 @@ Common: {
 	FullCharge: Charge Ready!
 	OverdriveTag: " (Overcharged)"
 	OverdriveTooltip: "[c/ff0000:--Overdrive--]"
+	DeveloperKeyHeader: "[c/00ff00:--Developer Mode--]"
 	UpgradeableItem: This item can be upgraded by the Atherian
 	TitleText0: Shards of Atheria: Splitting Skies
 	TitleText1: Shards of Atheria: The World Revolving
@@ -478,6 +479,7 @@ Items: {
 			Overdrive lasts until you get hit or run out of Overdrive time
 			Overdrive may cause certain weapons to become Overcharged
 			'''
+		DeveloperKeyChange: Overdrive time will never run out
 	}
 
 	DestinyLance: {
@@ -1102,7 +1104,8 @@ Items: {
 		CardSuit1: Hearts
 		CardSuit2: Clubs
 		CardSuit3: Diamonds
-		Overdrive: Throws 4 extra cards
+		Overdrive: Throws 3 random cards in a spread
+		DeveloperKeyChange: Doubled damage
 	}
 
 	AcesGoldFoxMask: {
@@ -1606,9 +1609,32 @@ Items: {
 		DisplayName: Sloth Soul
 		Tooltip:
 			'''
-			Decreased movement speed by 25%
-			Increased summon damage by 25%
-			While not moving, all damage is increased by 20% and defense by 10
+			Defense increased by 5 while mounted
+			Life regen increased by 16
+			At the beginning of each day, you may feel motivated
+			Most days you�ll feel apathetic
+			Motivation increases movement and attack speed by 10%, but reduces damage by 15%
+			Apathy decreases movement and attack speed by 25%, but increases damage by 15%
+			'''
+	}
+
+	Apathy: {
+		DisplayName: Apathy
+		Description:
+			'''
+			Increased damage by 15%
+			Decreased movement and attack speed by 10%
+			'You're not really feeling it today'
+			'''
+	}
+
+	Motivation: {
+		DisplayName: Motivation
+		Description:
+			'''
+			Increased movement and attack speed by 10%
+			Decreased damage by 15%
+			'Today is a good day!'
 			'''
 	}
 
@@ -1616,13 +1642,11 @@ Items: {
 		DisplayName: Wrath Soul
 		Tooltip:
 			'''
-			Each time damage is taken damage is increased by 1%
-			Once damage bonus goes to 5% increase, crit chance starts to go up by 1% as well
-			Dying increases both by 5%
-			There is no limit to these boosts
-			Boots slowly decrease while out of combat
-			Current damage increase: +{0}%
-			Current critical strike chance increase: +{1}%
+			Increases damage by how much you take
+			4% chance to take a critical hit
+			When you take a critical hit, gain 'Fury'
+			Fury significantly increases damage and movement speed
+			You die when Fury runs out, dealing damage prevents Fury from running out
 			'''
 	}
 
@@ -2037,6 +2061,7 @@ Items: {
 			'Great for losing your life savings!'
 			'''
 		Overdrive: Use both attacks
+		DeveloperKeyChange: Coins are not affected by gravity
 	}
 
 	AreusGamble: {
@@ -2104,6 +2129,7 @@ Items: {
 			'There's a sticky note with a random arangement of letters and numbers'
 			'Presumably a password, not that you need it'
 			'''
+		DeveloperKeyChange: No mana cost and unlimited access
 	}
 
 	AreusTrimmedTome: {
@@ -2165,9 +2191,11 @@ Items: {
 		DisplayName: Frostspark Staff
 		Tooltip:
 			'''
-			Summons 2 Frostspark Drones to fight for you
-			Alt-fire shoots ice bolts
-			Your summons focus struck enemies by ice bolts
+			Shoots a cold electric beam
+			{$CommonItemTooltip.Whips}
+			Alt-use Summons 2 Frostspark Drones to fight for you
+			Further summons strengthens Frostspark Drones
+			Uses 2 minion slots per summon
 			'Destiny of destruction awaits'
 			'''
 	}
@@ -2235,6 +2263,11 @@ Items: {
 	AreusEdge: {
 		DisplayName: Areus Judgement
 		Tooltip: "'Its scale would never neglect the weight of even the smallest sin'"
+	}
+
+	ZAreusEdge: {
+		DisplayName: Z-Charged Areus Judgement
+		Tooltip: "'Free... At last...'"
 	}
 
 	AreusGlaive: {
@@ -2429,7 +2462,6 @@ Items: {
 			'''
 			Alt-use stabs the ground
 			This causes fireballs to rain down and also heals you
-			Infinite overdrive time
 			'''
 	}
 
@@ -2676,7 +2708,8 @@ Items: {
 		Tooltip:
 			'''
 			Swings a gel kusarigama
-			Alt-use throws a gravity affected kusarigama
+			Release/Tap use to throw
+			Deals extra damage while returning
 			'Cowabunga it is'
 			'''
 	}
@@ -2866,6 +2899,7 @@ Items: {
 			Primary-use shockwaves will boost bombs
 			{$Common.DamageScale}
 			'''
+		DeveloperKeyChange: No cooldown
 	}
 
 	EntropicHunter: {
@@ -2877,6 +2911,7 @@ Items: {
 			Singularities will fire additional arrows when you shoot with this bow
 			{$Common.DamageScale}
 			'''
+		DeveloperKeyChange: Unlimited singularities
 	}
 
 	SpellTag_Gleam: {
@@ -2908,6 +2943,7 @@ Items: {
 			Alt-use targeting also makes the star attack manually
 			Damage scales with progression
 			'''
+		DeveloperKeyChange: No cooldown
 	}
 
 	DataTome: {
@@ -3122,7 +3158,6 @@ Projectiles: {
 	GunswordGun.DisplayName: Gunsword Gun
 	GunswordProj.DisplayName: Gunsword
 	HardlightFeatherMagic.DisplayName: Hardlight Feather
-	IceBolt.DisplayName: Ice Bolt
 	LightningBolt_Gauntlet.DisplayName: Lightning Bolt
 	LightningBoltFriendly.DisplayName: Lightning Bolt
 	ScreamShockwave.DisplayName: Scream Shockwave
@@ -3275,6 +3310,7 @@ Projectiles: {
 	EMAvatar.DisplayName: EM Avatar
 	FlailOfFleshProj.DisplayName: Leashed Hungry
 	FrostsparkDrone.DisplayName: Frostspark Drone
+	FrostsparkBeam.DisplayName: Frostspark Beam
 	MirrorPrism.DisplayName: Mirror Prism
 	SapphireBolt.DisplayName: Sapphire Bolt
 	SapphireSpirit.DisplayName: Sapphire Spirit
@@ -3422,6 +3458,12 @@ Projectiles: {
 	VoidBlade.DisplayName: Void Blade
 	VoidTrail.DisplayName: Void Trail
 	VoidOrb.DisplayName: Void Orb
+	TinyLaser.DisplayName: Tiny Laser
+	StormBlade.DisplayName: Storm Blade
+	AreusDroneLaser.DisplayName: Areus Drone Laser
+	ZAreusJustitia.DisplayName: Z Areus Justitia
+	FlameSlashExtention.DisplayName: Flame Slash Extention
+	FlameStabExtention.DisplayName: Flame Stab Extention
 }
 
 NPCs: {
@@ -4172,6 +4214,21 @@ Buffs: {
 			Reduced resource cost
 			'''
 	}
+
+	Apathy: {
+		DisplayName: Apathy
+		Description: Mods.ShardsOfAtheria.Buffs.Apathy.Description
+	}
+
+	Fury: {
+		DisplayName: Fury
+		Description: Mods.ShardsOfAtheria.Buffs.Fury.Description
+	}
+
+	Motivation: {
+		DisplayName: Motivation
+		Description: Mods.ShardsOfAtheria.Buffs.Motivation.Description
+	}
 }
 
 Necronomicon: {
@@ -4222,7 +4279,7 @@ Conditions: {
 	HaveDie: Have the Areus Gamble in your inventory.
 	HaveMessiah: Have The Messiah in your inventory.
 	TransformArmament: Transform a Sinful Armament with the appropriate Sinful Soul.
-	UpgradeRequisites: Mods.ShardsOfAtheria.Conditions.UpgradeRequisites
+	ThrowingWeapon: Enable Throwing Weapons config.
 }
 
 ShopQuote: {

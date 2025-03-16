@@ -18,6 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
+            Projectile.AddDamageType(5, 8);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
             Projectile.AddRedemptionElement(11);
@@ -84,7 +85,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
         {
             var player = Main.player[Projectile.owner];
 
-            lightColor = SoA.ElectricColorA;
+            lightColor = SoA.ElectricColorA0;
             Vector2 mountedCenter = player.MountedCenter;
             Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>(ChainTexturePath);
 

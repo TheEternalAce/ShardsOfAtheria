@@ -24,6 +24,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetStaticDefaults()
         {
             Item.AddAreus(true, true);
+            Item.AddDamageType(3, 5, 6);
             Item.AddElement(0);
             Item.AddRedemptionElement(1);
             Item.AddRedemptionElement(2);

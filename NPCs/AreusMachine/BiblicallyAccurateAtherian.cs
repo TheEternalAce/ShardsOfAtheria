@@ -14,7 +14,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.NPCs
+namespace ShardsOfAtheria.NPCs.AreusMachine
 {
     public class BiblicallyAccurateAtherian : ModNPC
     {
@@ -55,12 +55,17 @@ namespace ShardsOfAtheria.NPCs
             // Influences how the NPC looks in the Bestiary
             NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new()
             {
-                CustomTexturePath = "ShardsOfAtheria/NPCs/BiblicallyAccurateAtherian_Bestiary"
+                CustomTexturePath = "ShardsOfAtheria/NPCs/AreusMachine/BiblicallyAccurateAtherian_Bestiary"
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
             NPC.AddElement(2);
+
+            NPC.AddDamageType(5);
+            NPC.AddVulnerabilities(2, 8, 9);
+
             NPC.AddRedemptionElement(7);
+
             NPC.AddRedemptionElementType("Inorganic");
             NPC.AddRedemptionElementType("Robotic");
         }

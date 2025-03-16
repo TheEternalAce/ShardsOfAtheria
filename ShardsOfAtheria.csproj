@@ -70,6 +70,7 @@
     <None Remove="Items\DedicatedItems\TheEternalAce\GhostFairyShirt.png" />
     <None Remove="Items\DedicatedItems\TheEternalAce\GhostFairyShirt_Body.png" />
     <None Remove="Items\Placeable\Furniture\Trophies\Master\DeathRelic.png" />
+    <None Remove="Items\SinfulSouls\Apathy.png" />
     <None Remove="Items\Vanity\AreusDress.png" />
     <None Remove="Items\Vanity\AreusDress_Body.png" />
     <None Remove="Items\Vanity\AreusDress_Legs.png" />
@@ -81,6 +82,7 @@
     <None Remove="Items\Weapons\Magic\WorldSketcher.png" />
     <None Remove="Items\Weapons\Melee\HardlightSlash.png" />
     <None Remove="Items\Weapons\Melee\SilverSpear.png" />
+    <None Remove="Items\Weapons\Melee\ZAreusEdge.png" />
     <None Remove="Items\Weapons\Ranged\Abaddon.png" />
     <None Remove="Items\Weapons\Ranged\BloodStainedCrossbow.png" />
     <None Remove="Items\Weapons\Ranged\EntropicHunter.png" />
@@ -107,6 +109,7 @@
     <None Remove="Projectiles\Melee\SilverRing.png" />
     <None Remove="Projectiles\Melee\SilverSpearThrust_Flip.png" />
     <None Remove="Projectiles\Melee\SpearOfDestiny.png" />
+    <None Remove="Projectiles\Melee\StormBlade.png" />
     <None Remove="Projectiles\Melee\VoidSlash.png" />
     <None Remove="Projectiles\Melee\ZenovaProjectile.png" />
     <None Remove="Projectiles\NPCProj\Nova\PlagueBeam2.png" />

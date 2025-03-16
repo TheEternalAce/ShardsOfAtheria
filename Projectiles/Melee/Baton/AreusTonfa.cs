@@ -29,6 +29,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.Baton
         {
             Projectile.MakeTrueMelee();
             Projectile.AddAreus();
+            Projectile.AddDamageType(5);
         }
 
         public override void SetDefaults()
@@ -130,9 +131,9 @@ namespace ShardsOfAtheria.Projectiles.Melee.Baton
             var texture = TextureAssets.Projectile[927];
             var offset = Vector2.Normalize(Projectile.velocity).RotatedBy(MathHelper.PiOver2 * Projectile.direction) * 8f;
             var position = Projectile.Center + Projectile.velocity * 30f + offset - Main.screenPosition;
-            Main.EntitySpriteDraw(texture.Value, position, null, SoA.ElectricColorA, Projectile.rotation + MathHelper.PiOver4 * Projectile.direction, texture.Size() / 2f, new Vector2(0.2f, 5f), SpriteEffects.None);
+            Main.EntitySpriteDraw(texture.Value, position, null, SoA.ElectricColorA0, Projectile.rotation + MathHelper.PiOver4 * Projectile.direction, texture.Size() / 2f, new Vector2(0.2f, 5f), SpriteEffects.None);
             position = Projectile.Center + Projectile.velocity * 15f + offset - Main.screenPosition;
-            Main.EntitySpriteDraw(texture.Value, position, null, SoA.ElectricColorA, Projectile.rotation + MathHelper.PiOver4 * Projectile.direction, texture.Size() / 2f, new Vector2(0.2f, 5f), SpriteEffects.None);
+            Main.EntitySpriteDraw(texture.Value, position, null, SoA.ElectricColorA0, Projectile.rotation + MathHelper.PiOver4 * Projectile.direction, texture.Size() / 2f, new Vector2(0.2f, 5f), SpriteEffects.None);
             return base.PreDraw(ref lightColor);
         }
     }

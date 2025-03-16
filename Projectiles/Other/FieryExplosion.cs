@@ -17,6 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Other
         {
             Main.projFrames[Projectile.type] = Main.projFrames[ProjectileID.LunarFlare];
             ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Type] = true;
+            Projectile.AddDamageType(3, 4);
             Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
             Projectile.AddRedemptionElement(15);

@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 
+            Projectile.AddDamageType(5);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
             Projectile.AddRedemptionElement(15);
@@ -32,7 +33,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
             Projectile.timeLeft = 300;
             Projectile.aiStyle = -1;
             Projectile.hostile = true;
-            Projectile.extraUpdates = 5;
+            Projectile.extraUpdates = 2;
             Projectile.ignoreWater = true;
         }
 
@@ -43,7 +44,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            Projectile.penetrate--;
+            Projectile.Kill();
         }
 
         public override void AI()
@@ -51,19 +52,23 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Variant
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (SoA.Massochist())
             {
-                var player = ShardsHelpers.FindClosestPlayer(Projectile.Center);
-                if (Projectile.Distance(player.Center) < 200) Projectile.Track(player.Center, 6f, 24f);
+                var player = ShardsHelpers.FindClosestPlayer(Projectile.Center, 200);
+                if (player != null)
+                {
+                    float speed = Projectile.velocity.Length();
+                    var vectorToTarget = player.Center - Projectile.Center;
+                    ShardsHelpers.AdjustMagnitude(ref vectorToTarget, speed);
+                    Projectile.velocity = (3 * Projectile.velocity + vectorToTarget) / 2f;
+                    ShardsHelpers.AdjustMagnitude(ref Projectile.velocity, speed);
+                }
             }
         }
 
         public override void OnKill(int timeLeft)
         {
-            if (SoA.Eternity())
-            {
-                if (!Projectile.GetPlayerOwner().IsLocal()) return;
+            if (SoA.Eternity() && Main.LocalPlayer.IsLocal())
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ElectricExplosion_Hostile>(),
                     Projectile.damage, 0);
-            }
         }
 
         public override bool PreDraw(ref Color lightColor)

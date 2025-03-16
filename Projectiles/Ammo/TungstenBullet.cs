@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Globals;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,6 +12,7 @@ namespace ShardsOfAtheria.Projectiles.Ammo
         public override void SetStaticDefaults()
         {
             SoAGlobalProjectile.Metalic.Add(Type, 1f);
+            Projectile.AddDamageType(7);
         }
 
         public override void SetDefaults()

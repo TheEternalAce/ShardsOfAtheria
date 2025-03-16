@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.EventHorizon
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
             ProjectileID.Sets.TrailingMode[Type] = 2;
+            Projectile.AddDamageType(6);
             Projectile.AddElement(1);
             Projectile.AddRedemptionElement(9);
         }

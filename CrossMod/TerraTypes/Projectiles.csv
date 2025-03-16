@@ -112,7 +112,6 @@ GleamShot,Rock,Fairy
 GunswordProj,Steel,
 HardlightFeatherMagic,Electric,Flying
 HomingTear,Water,Psychic
-IceBolt,Ice,
 IronBall,Fire,Steel
 LightningBoltFriendly,Electric,
 MagicStone,Rock,
@@ -297,6 +296,7 @@ DragonBone,Poison,Dragon
 DragonSpineWhipProj,Poison,Dragon
 ElectricSpark,Electric,
 FlailOfFleshProj,Blood,
+FrostsparkBeam,Ice,Electric
 GoldChain,Steel,
 HardlightBladeFriendly_Summon,Electric,Flying
 IceFragment,Ice,

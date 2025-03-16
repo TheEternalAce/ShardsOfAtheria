@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
+            Projectile.AddDamageType(4);
             Projectile.AddRedemptionElement(15);
             Main.projFrames[Type] = 2;
 
@@ -29,8 +30,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
             Projectile.aiStyle = ProjAIStyleID.Explosive;
             Projectile.friendly = false;
-            Projectile.DamageType = DamageClass.Ranged;
-            if (SoA.ServerConfig.throwingWeapons) Projectile.DamageType = DamageClass.Throwing;
+            Projectile.DamageType = DamageClass.Ranged.TryThrowing();
             Projectile.penetrate = 1;
             Projectile.timeLeft = 240;
 

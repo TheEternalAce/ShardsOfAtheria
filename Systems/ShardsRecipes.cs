@@ -47,9 +47,29 @@ namespace ShardsOfAtheria.Systems
 
         public override void AddRecipeGroups()
         {
-            EvilMaterial = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Evil Material",
-                   ItemID.ShadowScale, ItemID.TissueSample);
-            RecipeGroup.RegisterGroup("Shards:EvilMaterials", EvilMaterial);
+            if (ModLoader.TryGetMod("Avalon", out Mod avalon))
+            {
+                if (avalon.TryFind("BacciliteBar", out ModItem bacciliteBar) && avalon.TryFind("Booger", out ModItem booger))
+                {
+                    EvilMaterial = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Evil Material",
+                           ItemID.ShadowScale, ItemID.TissueSample, booger.Type);
+                    RecipeGroup.RegisterGroup("Shards:EvilMaterials", EvilMaterial);
+
+                    EvilBar = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Evil Bar",
+                           ItemID.DemoniteBar, ItemID.CrimtaneBar, bacciliteBar.Type);
+                    RecipeGroup.RegisterGroup("Shards:EvilBars", EvilBar);
+                }
+            }
+            else
+            {
+                EvilMaterial = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Evil Material",
+                       ItemID.ShadowScale, ItemID.TissueSample);
+                RecipeGroup.RegisterGroup("Shards:EvilMaterials", EvilMaterial);
+
+                EvilBar = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Evil Bar",
+                       ItemID.DemoniteBar, ItemID.CrimtaneBar);
+                RecipeGroup.RegisterGroup("Shards:EvilBars", EvilBar);
+            }
 
             Copper = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} {Lang.GetItemNameValue(ItemID.CopperBar)}",
                    ItemID.CopperBar, ItemID.TinBar);
@@ -62,10 +82,6 @@ namespace ShardsOfAtheria.Systems
             Gold = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} {Lang.GetItemNameValue(ItemID.GoldBar)}",
                    ItemID.GoldBar, ItemID.PlatinumBar);
             RecipeGroup.RegisterGroup("Shards:GoldBars", Gold);
-
-            EvilBar = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Evil Bar",
-                   ItemID.DemoniteBar, ItemID.CrimtaneBar);
-            RecipeGroup.RegisterGroup("Shards:EvilBars", EvilBar);
 
             Cobalt = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} Tier 1 Bar",
                    ItemID.CobaltBar, ItemID.PalladiumBar);

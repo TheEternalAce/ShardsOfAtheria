@@ -10,6 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.EventHorizon
     {
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(6);
             Projectile.AddElement(1);
             Projectile.AddRedemptionElement(9);
         }

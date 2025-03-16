@@ -4,12 +4,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Other
+namespace ShardsOfAtheria.Projectiles.Summon.Minions
 {
     public class GolemBeam : ModProjectile
     {
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(4);
             Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
         }

@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+            Projectile.AddDamageType(3, 5, 6);
             Projectile.AddElement(0);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(1);

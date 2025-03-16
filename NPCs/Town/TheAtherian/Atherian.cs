@@ -5,7 +5,6 @@ using ShardsOfAtheria.Items.AreusChips;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
-using ShardsOfAtheria.Items.Weapons;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;

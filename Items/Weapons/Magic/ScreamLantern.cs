@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Magic;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -10,6 +11,11 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
     public class ScreamLantern : ModItem
     {
         int shockwave = 0;
+
+        public override void SetStaticDefaults()
+        {
+            Item.AddDamageType(12);
+        }
 
         public override void SetDefaults()
         {

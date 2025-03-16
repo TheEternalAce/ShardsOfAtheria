@@ -8,6 +8,7 @@ using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Consumable;
 using ShardsOfAtheria.Items.Placeable.Furniture;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.NPCs.Town.TheArchivist;
 using ShardsOfAtheria.NPCs.Town.TheAtherian;
@@ -113,6 +114,21 @@ namespace ShardsOfAtheria.Globals
                         tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
                         line = new TooltipLine(Mod, "OverdriveEffect",
                             Language.GetTextValue(overdriveKey));
+                        tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
+                    }
+                }
+                string devKey = item.ModItem.GetLocalizationKey("DeveloperKeyChange");
+                if (Language.Exists(devKey))
+                {
+                    var devCard = ToggleableTool.GetInstance<DevelopersKeyCard>(Main.LocalPlayer);
+                    bool cardActive = devCard != null && devCard.Active;
+                    if (cardActive)
+                    {
+                        var line = new TooltipLine(Mod, "DevKeyHeader",
+                            ShardsHelpers.LocalizeCommon("DeveloperKeyHeader"));
+                        tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
+                        line = new TooltipLine(Mod, "DevKeyChange",
+                            Language.GetTextValue(devKey));
                         tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
                     }
                 }
@@ -226,29 +242,18 @@ namespace ShardsOfAtheria.Globals
                     }
                 }
             }
-            if (ModLoader.TryGetMod("GMR", out var gmr))
+            if (ShardsHelpers.TryGetModContent("GMR", "OvercooledNailgun", out ModItem nailgun) && item.type == nailgun.Type && player.altFunctionUse == 2)
             {
-                if (gmr.TryFind("OvercooledNailgun", out ModItem nailgun))
-                {
-                    if (item.type == nailgun.Type && player.altFunctionUse == 2)
-                    {
-                        Projectile.NewProjectile(source, position, velocity *= 2.75f, ModContent.ProjectileType<StickingMagnetProj>(), 1, knockback);
-                        return false;
-                    }
-                }
+                Projectile.NewProjectile(source, position, velocity *= 2.75f, ModContent.ProjectileType<StickingMagnetProj>(), 1, knockback);
+                return false;
             }
             return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
         }
 
         public override bool AltFunctionUse(Item item, Player player)
         {
-            if (ModLoader.TryGetMod("GMR", out var gmr))
-            {
-                if (gmr.TryFind("OvercooledNailgun", out ModItem nailgun))
-                {
-                    if (item.type == nailgun.Type) return player.ownedProjectileCounts[ModContent.ProjectileType<StickingMagnetProj>()] < 3;
-                }
-            }
+            if (ShardsHelpers.TryGetModContent("GMR", "OvercooledNailgun", out ModItem nailgun) && item.type == nailgun.Type)
+                return player.ownedProjectileCounts[ModContent.ProjectileType<StickingMagnetProj>()] < 3;
             return base.AltFunctionUse(item, player);
         }
 
@@ -258,24 +263,18 @@ namespace ShardsOfAtheria.Globals
             {
                 return false;
             }
-            if (ModLoader.TryGetMod("GMR", out var gmr))
+            if (ShardsHelpers.TryGetModContent("GMR", "OvercooledNailgun", out ModItem nailgun) && item.type == nailgun.Type)
             {
-                if (gmr.TryFind("OvercooledNailgun", out ModItem nailgun))
+                var defaultNailgun = new Item(nailgun.Type);
+                if (player.altFunctionUse == 2)
                 {
-                    var defaultNailgun = new Item(nailgun.Type);
-                    if (item.type == nailgun.Type)
-                    {
-                        if (player.altFunctionUse == 2)
-                        {
-                            item.reuseDelay = 3;
-                            item.noUseGraphic = false;
-                        }
-                        else
-                        {
-                            item.reuseDelay = defaultNailgun.reuseDelay;
-                            item.noUseGraphic = true;
-                        }
-                    }
+                    item.reuseDelay = 3;
+                    item.noUseGraphic = false;
+                }
+                else
+                {
+                    item.reuseDelay = defaultNailgun.reuseDelay;
+                    item.noUseGraphic = true;
                 }
             }
             return true;

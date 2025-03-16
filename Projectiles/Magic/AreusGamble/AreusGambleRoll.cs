@@ -44,6 +44,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.AreusGamble
         {
             var player = Projectile.GetPlayerOwner();
             player.manaRegenDelay = 60;
+            player.manaRegen = 0;
             Projectile.Center = player.Center + new Vector2(0, -70);
 
             if (Projectile.timeLeft > 30)

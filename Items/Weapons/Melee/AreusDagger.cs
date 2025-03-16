@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.AddAreus();
+            Item.AddDamageType(5, 7);
         }
 
         public override void SetDefaults()
@@ -21,8 +22,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.height = 54;
 
             Item.damage = 40;
-            Item.DamageType = DamageClass.Melee;
-            if (SoA.ServerConfig.throwingWeapons) Item.DamageType = DamageClass.Throwing;
+            Item.DamageType = DamageClass.Melee.TryThrowing();
             Item.knockBack = 2;
 
             Item.useTime = 25;

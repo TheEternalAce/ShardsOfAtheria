@@ -1,7 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Accessories.GemCores.Regular;
+﻿using ShardsOfAtheria.Items.Accessories.GemCores.Regular;
 using ShardsOfAtheria.Utilities;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,6 +10,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
     {
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(7);
             Item.AddRedemptionElement(5);
             Item.AddRedemptionElement(10);
         }
@@ -48,17 +47,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             player.Gem().greaterAmberCore = true;
             player.Gem().maxAmberBanners += 10;
             player.Gem().greaterGemCore = true;
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            var player = Main.LocalPlayer;
-            var gem = player.Gem();
-            if (gem.amberCore && gem.amethystCore)
-            {
-                TooltipLine line = new(Mod, "GemCurse", "Amber Curse") { OverrideColor = Color.Purple };
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
-            }
         }
     }
 }

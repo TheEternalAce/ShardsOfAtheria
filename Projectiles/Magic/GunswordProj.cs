@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Enums;
@@ -21,6 +22,11 @@ namespace ShardsOfAtheria.Projectiles.Magic
         {
             get => (int)Projectile.ai[0];
             set => Projectile.ai[0] = value;
+        }
+
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddDamageType(7);
         }
 
         public override void SetDefaults()
@@ -61,6 +67,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
                             ModContent.ProjectileType<GunswordGun>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
                         SoundEngine.PlaySound(SoundID.Item11, Projectile.Center);
                         player.manaRegenDelay = 120;
+                        player.manaRegen = 0;
                         player.statMana -= 6;
                     }
                 }

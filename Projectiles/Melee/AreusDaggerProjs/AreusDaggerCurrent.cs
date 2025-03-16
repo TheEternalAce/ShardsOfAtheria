@@ -12,6 +12,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusDaggerProjs
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(5);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
@@ -22,8 +23,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusDaggerProjs
             Projectile.timeLeft = 400;
             Projectile.extraUpdates = 22;
             Projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Melee;
-            if (SoA.ServerConfig.throwingWeapons) Projectile.DamageType = DamageClass.Throwing;
+            Projectile.DamageType = DamageClass.Melee.TryThrowing();
             Projectile.alpha = 255;
             Projectile.penetrate = -1;
             Projectile.usesLocalNPCImmunity = true;

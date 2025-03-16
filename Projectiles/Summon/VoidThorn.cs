@@ -18,6 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Summon
         {
             ProjectileID.Sets.TrailingMode[Type] = 2;
             ProjectileID.Sets.TrailCacheLength[Type] = 20;
+            Projectile.AddDamageType(6);
             Projectile.AddElement(2);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(7);

@@ -52,6 +52,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Sigil
             {
                 Projectile.timeLeft = 10;
                 player.manaRegenDelay = 120;
+                player.manaRegen = 0;
 
                 player.heldProj = Projectile.whoAmI;
                 if (player.statMana >= 24)

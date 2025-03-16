@@ -14,8 +14,10 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 3;
+            Projectile.AddDamageType(6);
             Projectile.AddElement(1);
             Projectile.AddElement(3);
+            Projectile.AddRedemptionElement(1);
             Projectile.AddRedemptionElement(12);
         }
 

@@ -22,6 +22,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusGlaive
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
+            Projectile.AddDamageType(11);
         }
 
         public override void SetDefaults()

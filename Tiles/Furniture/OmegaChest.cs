@@ -61,11 +61,11 @@ namespace ShardsOfAtheria.Tiles.Furniture
 
         public override bool IsLockedChest(int i, int j) => Main.tile[i, j].TileFrameX / 36 == 1;
 
-        //public override bool UnlockChest(int i, int j, ref short frameXAdjustment, ref int dustType, ref bool manual)
-        //{
-        //    DustType = dustType;
-        //    return true;
-        //}
+        public override bool UnlockChest(int i, int j, ref short frameXAdjustment, ref int dustType, ref bool manual)
+        {
+            DustType = dustType;
+            return true;
+        }
 
         public static string MapChestName(string name, int i, int j)
         {

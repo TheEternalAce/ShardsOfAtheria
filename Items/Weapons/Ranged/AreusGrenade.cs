@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.ResearchUnlockCount = 999;
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
             Item.AddAreus();
+            Item.AddDamageType(4, 5);
             Item.AddRedemptionElement(15);
         }
 
@@ -27,8 +28,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.ammo = ItemID.Grenade;
 
             Item.damage = 50;
-            Item.DamageType = DamageClass.Ranged;
-            if (SoA.ServerConfig.throwingWeapons) Item.DamageType = DamageClass.Throwing;
+            Item.DamageType = DamageClass.Ranged.TryThrowing();
             Item.knockBack = 7;
             Item.crit = 6;
 

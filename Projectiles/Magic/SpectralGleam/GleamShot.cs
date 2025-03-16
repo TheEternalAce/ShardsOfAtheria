@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.SpectralGleam
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(9);
             Projectile.AddRedemptionElement(5);
         }
 

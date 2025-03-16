@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
             Item.AddAreus();
+            Item.AddDamageType(3, 5);
             Item.AddElement(0);
             Item.AddRedemptionElement(2);
         }

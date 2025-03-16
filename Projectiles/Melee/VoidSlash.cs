@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 70;
             ProjectileID.Sets.TrailingMode[Type] = 2;
+            Projectile.AddDamageType(6);
             Projectile.AddRedemptionElement(9);
         }
 

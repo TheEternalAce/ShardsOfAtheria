@@ -176,6 +176,52 @@ namespace ShardsOfAtheria.Utilities
         }
 
         /// <summary>
+        /// 0 (Acid) <br/>
+        /// 1 (Bludgeoning) <br/>
+        /// 2 (Cold) <br/>
+        /// 3 (Fire) <br/>
+        /// 4 (Force) <br/>
+        /// 5 (Lightning) <br/>
+        /// 6 (Necrotic) <br/>
+        /// 7 (Piercing) <br/>
+        /// 8 (Poison) <br/>
+        /// 9 (Psychic) <br/>
+        /// 10 (Radiant) <br/>
+        /// 11 (Slashing) <br/>
+        /// 12 (Thunder) <br/>
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <param name="elementIDs"></param>
+        public static void AddDamageType(this NPC npc, params int[] elementIDs)
+        {
+            SoA.TryDungeonCall("addDamageElement", "npc", npc.type, elementIDs);
+        }
+
+        /// <summary>
+        /// 0 (Acid) <br/>
+        /// 1 (Bludgeoning) <br/>
+        /// 2 (Cold) <br/>
+        /// 3 (Fire) <br/>
+        /// 4 (Force) <br/>
+        /// 5 (Lightning) <br/>
+        /// 6 (Necrotic) <br/>
+        /// 7 (Piercing) <br/>
+        /// 8 (Poison) <br/>
+        /// 9 (Psychic) <br/>
+        /// 10 (Radiant) <br/>
+        /// 11 (Slashing) <br/>
+        /// 12 (Thunder) <br/>
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <param name="elementIDs"></param>
+        public static void AddVulnerabilities(this NPC npc, int type, params int[] elementIDs)
+        {
+            if (type == 0) SoA.TryDungeonCall("addVulnerableElement", npc.type, elementIDs);
+            else if (type == 1) SoA.TryDungeonCall("addResistElement", npc.type, elementIDs);
+            else if (type == 2) SoA.TryDungeonCall("addImmuneElement", npc.type, elementIDs);
+        }
+
+        /// <summary>
         /// 0 (Fire) <br/>
         /// 1 (Aqua) <br/>
         /// 2 (Elec) <br/>

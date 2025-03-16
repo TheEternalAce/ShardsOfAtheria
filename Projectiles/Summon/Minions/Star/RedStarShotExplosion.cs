@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Star
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(4);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
             Projectile.AddRedemptionElement(9);

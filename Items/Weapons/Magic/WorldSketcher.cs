@@ -11,6 +11,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
     {
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(11);
             Item.AddElement(3);
             Item.AddRedemptionElement(11);
         }

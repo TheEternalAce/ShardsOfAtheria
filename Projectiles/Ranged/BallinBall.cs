@@ -17,6 +17,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         {
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0; // The recording mode
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20; // The length of old position to be recorded
+
+            Projectile.AddDamageType(4);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(10);
         }
@@ -28,8 +30,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Ranged;
-            if (SoA.ServerConfig.throwingWeapons) Projectile.DamageType = DamageClass.Throwing;
+            Projectile.DamageType = DamageClass.Ranged.TryThrowing();
             Projectile.tileCollide = true;
             Projectile.penetrate = 10;
             Projectile.timeLeft = 1200;

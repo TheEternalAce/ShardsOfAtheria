@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus(true);
+            Projectile.AddDamageType(1);
 
             SoAGlobalProjectile.Metalic.Add(Type, 0.5f);
         }
@@ -68,30 +69,18 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
                 {
                     if (proj.Distance(Projectile.Center) <= 15)
                     {
-                        if (ModLoader.TryGetMod("TerrariaMayQuake", out var mod))
+                        if (ShardsHelpers.TryGetModContent("TerrariaMayQuake", "FeedbackerPunch", out ModProjectile arm) && proj.type == arm.Type)
                         {
-                            if (mod.TryFind("FeedbackerPunch", out ModProjectile arm))
-                            {
-                                if (proj.type == arm.Type)
-                                {
-                                    gravityTimer = 0;
-                                    SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
-                                    break;
-                                }
-                            }
+                            gravityTimer = 0;
+                            SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
+                            break;
                         }
-                        if (ModLoader.TryGetMod("Terrakill", out var tk))
+                        if (ShardsHelpers.TryGetModContent("Terrakill", "Feedbacker", out arm) && proj.type == arm.Type)
                         {
-                            if (tk.TryFind("Feedbacker", out ModProjectile arm))
-                            {
-                                if (proj.type == arm.Type)
-                                {
-                                    Projectile.velocity = Projectile.Center.DirectionTo(Main.MouseWorld) * 16f;
-                                    gravityTimer = 0;
-                                    SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
-                                    break;
-                                }
-                            }
+                            Projectile.velocity = Projectile.Center.DirectionTo(Main.MouseWorld) * 16f;
+                            gravityTimer = 0;
+                            SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
+                            break;
                         }
                         if (proj.ModProjectile is not HitscanBullet)
                         {

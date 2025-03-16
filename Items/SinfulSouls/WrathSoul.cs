@@ -1,6 +1,8 @@
 ﻿using ShardsOfAtheria.Utilities;
-using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SinfulSouls
@@ -12,62 +14,82 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
     public class WrathPlayer : ModPlayer
     {
-        public bool wrath;
-        public float anger;
-        public int rage;
-        public int calming;
+        public bool soulActive;
+        int lastDamageTaken;
+        public int retainFuryTime;
 
         public override void ResetEffects()
         {
-            wrath = false;
+            soulActive = false;
+            if (retainFuryTime > 0) retainFuryTime--;
         }
 
-        public override void PreUpdate()
+        public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
-            if (!wrath)
-            {
-                anger = 0f;
-                rage = 0;
-            }
-            if (Player.Shards().combatTimer == 0 && (anger > 0 || rage > 0))
-            {
-                calming++;
-                if (calming == 60)
-                {
-                    calming = 0;
-                    if (anger > 0)
-                        anger -= .01f;
-                    if (rage > 0)
-                        rage--;
-                }
-            }
+            CritWrath(ref modifiers);
         }
 
-        public override void OnHurt(Player.HurtInfo info)
+        public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
-            if (wrath)
+            CritWrath(ref modifiers);
+        }
+
+        public override void PostHurt(Player.HurtInfo info)
+        {
+            lastDamageTaken = info.Damage;
+        }
+
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            modifiers.FlatBonusDamage += lastDamageTaken;
+            lastDamageTaken = 0;
+            if (Player.HasBuff<Fury>() && target.CanBeChasedBy()) retainFuryTime = 60;
+        }
+
+        public void CritWrath(ref Player.HurtModifiers modifiers)
+        {
+            if (soulActive && Main.rand.NextFloat() < 0.04f)
             {
-                anger += .01f;
-                if (anger > .05f)
-                    rage += 1;
+                Player.AddBuff<Fury>(600);
+                modifiers.FinalDamage *= 2f;
+                SoundEngine.PlaySound(SoundID.ScaryScream, Player.Center);
             }
         }
     }
 
     public class WrathBuff : SinfulSoulBuff
     {
-        public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
+        public override void Update(Player player, ref int buffIndex)
         {
-            tip = ShardsHelpers.Localize("Items.WrathSoul.Tooltip", MathF.Round(Main.LocalPlayer.GetModPlayer<WrathPlayer>().anger, 3),
-                Main.LocalPlayer.GetModPlayer<WrathPlayer>().rage);
+            player.Wrath().soulActive = true;
+            base.Update(player, ref buffIndex);
+        }
+    }
+
+    public class Fury : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            Main.debuff[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.Wrath().wrath = true;
-            player.GetDamage(DamageClass.Generic) += player.GetModPlayer<WrathPlayer>().anger;
-            player.GetCritChance(DamageClass.Generic) += player.GetModPlayer<WrathPlayer>().rage;
-            base.Update(player, ref buffIndex);
+            if (player.buffTime[buffIndex] == 0)
+            {
+                string gender = player.Male ? "his" : "her";
+                PlayerDeathReason death = new()
+                {
+                    SourceCustomReason = $"{player.name}'s rage burned {gender} soul away.",
+                };
+                player.KillMe(death, player.statLifeMax2 * 2, 1);
+            }
+            if (player.Wrath().retainFuryTime > 0) player.buffTime[buffIndex]++;
+
+            player.GetDamage(DamageClass.Generic) += 0.5f;
+            player.GetAttackSpeed(DamageClass.Generic) += 0.08f;
+            player.moveSpeed += 0.1f;
         }
     }
 }

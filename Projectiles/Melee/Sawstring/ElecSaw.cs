@@ -12,6 +12,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.Sawstring
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 30;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 3;
+            Projectile.AddDamageType(5);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
@@ -78,7 +79,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.Sawstring
 
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = SoA.ElectricColorA;
+            lightColor = SoA.ElectricColorA0;
             Projectile.DrawAfterImage(lightColor);
             return true;
         }

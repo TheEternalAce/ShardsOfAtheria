@@ -15,6 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
             Item.AddAreus();
+            Item.AddDamageType(3, 5);
             Item.AddElement(0);
             Item.AddRedemptionElement(2);
         }
@@ -63,14 +64,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             int convertibleFlare = -1;
-            if (ModLoader.TryGetMod("NotEnoughFlareGuns", out Mod arsonal))
-            {
-                convertibleFlare = arsonal.Find<ModProjectile>("ConvertibleFlare").Type;
-            }
-            if (type == ProjectileID.BlueFlare || type == convertibleFlare)
-            {
-                type = ModContent.ProjectileType<AreusFlare>();
-            }
+            if (ShardsHelpers.TryGetModContent("NotEnoughFlareGuns", "ConvertibleFlare", out ModItem flare)) convertibleFlare = flare.Type;
+            if (type == ProjectileID.BlueFlare || type == convertibleFlare) type = ModContent.ProjectileType<AreusFlare>();
         }
     }
 }

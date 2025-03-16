@@ -24,6 +24,7 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void SetStaticDefaults()
         {
             Item.AddAreus();
+            Item.AddDamageType(11);
         }
 
         public override void SetDefaults()

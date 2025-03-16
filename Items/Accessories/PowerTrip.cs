@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Items.Accessories
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
+            Item.AddDamageType(0, 2, 3, 5);
         }
 
         public override void SetDefaults()

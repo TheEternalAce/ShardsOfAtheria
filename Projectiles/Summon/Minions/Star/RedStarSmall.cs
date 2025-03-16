@@ -74,7 +74,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Star
                 var vector = position - Projectile.Center;
                 vector.Normalize();
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vector, ModContent.ProjectileType<RedStarShot>(),
-                    (int)(Projectile.damage * (1f + player.Slayer().artifactExtraSummons * 0.15f)), Projectile.knockBack);
+                    (int)(Projectile.damage * (1f + player.Slayer().artifactExtraSummons * 0.6f)) * ShardsHelpers.ProgressionMultiplier(player), Projectile.knockBack);
             }
         }
 

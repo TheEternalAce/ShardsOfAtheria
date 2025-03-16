@@ -9,6 +9,7 @@ namespace ShardsOfAtheria.Projectiles.Ammo
     {
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(6);
             Projectile.AddElement(1);
             Projectile.AddRedemptionElement(1);
         }

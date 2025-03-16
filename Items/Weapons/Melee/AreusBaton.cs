@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.AddAreus();
+            Item.AddDamageType(5);
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
         }
 
@@ -25,8 +26,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.knockBack = 3.84f;
 
-            Item.useTime = 4;
-            Item.useAnimation = 4;
+            Item.useTime = 6;
+            Item.useAnimation = 6;
             Item.useStyle = ItemUseStyleID.Rapier;
             Item.UseSound = SoundID.Item1;
             Item.noMelee = true;
@@ -37,6 +38,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityDukeFishron;
             Item.value = Item.sellPrice(0, 4, 25);
             Item.shoot = ModContent.ProjectileType<AreusTonfa>();
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
         }
 
         public override bool AltFunctionUse(Player player)
@@ -96,7 +102,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 velocity.Normalize();
                 velocity *= 30f;
             }
-            base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.EntropyCutter
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
             ProjectileID.Sets.TrailingMode[Type] = 2;
+            Projectile.AddDamageType(2);
             Projectile.AddElement(1);
             Projectile.AddRedemptionElement(3);
         }

@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Active
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(5);
             Projectile.AddAreus();
 
             SoAGlobalProjectile.Metalic.Add(Type, 0.5f);

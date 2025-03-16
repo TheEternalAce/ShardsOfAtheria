@@ -17,6 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
             ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling[Type] = true;
             ProjectileID.Sets.TrailingMode[Type] = 2;
             ProjectileID.Sets.TrailCacheLength[Type] = 20;
+            Projectile.AddDamageType(6, 8);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(11);
         }

@@ -129,7 +129,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
             }
             Lighting.AddLight(Projectile.Center, torch);
 
-            if (owner.rocketTime == 0 && owner.wingTime == 0 && owner.mount.FlyTime == 0 && owner.velocity.Y > 0)
+            bool throwPlatform = false;
+            if (owner.rocketTime == 0 && owner.wingTime == 0 && owner.mount.FlyTime == 0) throwPlatform = true;
+            if (owner.rocketBoots == 0 && owner.equippedWings == null && (!owner.mount.CanFly() || !owner.mount.Active || owner.mount.Type == MountID.WitchBroom)) throwPlatform = false;
+
+            if (owner.Gem().sapphireSpiritUpgrade && throwPlatform && owner.velocity.Y > 0)
             {
                 if (Projectile.ai[0] == 0)
                 {

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Projectiles.Ranged;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -14,7 +15,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 999;
+            Item.ResearchUnlockCount = 9999;
+            Item.AddDamageType(11);
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
         }
 
@@ -26,8 +28,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.maxStack = 9999;
 
             Item.damage = 60;
-            Item.DamageType = DamageClass.Ranged;
-            if (SoA.ServerConfig.throwingWeapons) Item.DamageType = DamageClass.Throwing;
+            Item.DamageType = DamageClass.Ranged.TryThrowing();
             Item.knockBack = 3;
             Item.crit = 6;
 

@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             ItemID.Sets.Spears[Type] = true;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
             Item.AddAreus(true);
+            Item.AddDamageType(6);
             Item.AddRedemptionElement(9);
         }
 
@@ -38,6 +39,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityMoonLord;
             Item.value = ItemDefaults.ValueEyeOfCthulhu;
             Item.shoot = ModContent.ProjectileType<AreusPartizan>();
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
         }
 
         public override bool? UseItem(Player player)

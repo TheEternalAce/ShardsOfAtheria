@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Utilities;
+using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -13,6 +14,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.MinionShot[Type] = true;
+            Projectile.AddDamageType(4);
+            Projectile.AddRedemptionElement(5);
         }
 
         public override void SetDefaults()

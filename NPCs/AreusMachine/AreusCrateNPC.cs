@@ -8,7 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
-namespace ShardsOfAtheria.NPCs
+namespace ShardsOfAtheria.NPCs.AreusMachine
 {
     public class AreusCrateNPC : ModNPC
     {
@@ -19,6 +19,8 @@ namespace ShardsOfAtheria.NPCs
                 Hide = true
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+
+            NPC.AddVulnerabilities(2, 8, 9);
         }
 
         public override void SetDefaults()
@@ -34,9 +36,9 @@ namespace ShardsOfAtheria.NPCs
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
             string key = this.GetLocalizationKey("Bestiary");
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+            bestiaryEntry.Info.AddRange([
                 new FlavorTextBestiaryInfoElement(key)
-            });
+            ]);
         }
 
         public override void OnSpawn(IEntitySource source)

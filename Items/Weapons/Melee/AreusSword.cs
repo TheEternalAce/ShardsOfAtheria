@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.AddAreus();
+            Item.AddDamageType(5);
             Item.AddEraser();
         }
 
@@ -37,6 +38,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityLunarPillars;
             Item.value = Item.sellPrice(0, 4, 25);
             Item.shoot = ModContent.ProjectileType<AreusSwordProj>();
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
         }
 
         public override void AddRecipes()

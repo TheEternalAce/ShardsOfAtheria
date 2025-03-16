@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
     {
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(5);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }

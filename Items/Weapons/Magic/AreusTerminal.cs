@@ -8,7 +8,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Weapons
+namespace ShardsOfAtheria.Items.Weapons.Magic
 {
     public class AreusTerminal : ModItem
     {
@@ -17,6 +17,7 @@ namespace ShardsOfAtheria.Items.Weapons
             Item.ResearchUnlockCount = 1;
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
             Item.AddAreus();
+            Item.AddDamageType(9);
             Item.AddRedemptionElement(13);
         }
 
@@ -59,7 +60,7 @@ namespace ShardsOfAtheria.Items.Weapons
             bool cardActive = devCard != null && devCard.Active;
             if (!cardActive)
             {
-                int statTotal = (Item.damage + (60 / Item.useAnimation) + Item.crit + 4) / 5;
+                int statTotal = (Item.damage + 60 / Item.useAnimation + Item.crit + 4) / 5;
                 Item.mana = statTotal;
             }
         }

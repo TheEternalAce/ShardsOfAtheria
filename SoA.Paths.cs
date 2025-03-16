@@ -2,14 +2,14 @@
 {
     public partial class SoA
     {
-        public const string BlankTexture = "ShardsOfAtheria/Blank";
+        public const string BlankTexture = "ShardsOfAtheria/Assets/Blank";
         public const string PlaceholderTexture = "ShardsOfAtheria/Assets/Placeholder/PlaceholderSprite";
-        public const string SinDataTexture = "ShardsOfAtheria/ShardsUI/InfoDisplays/SinData";
-        public const string BuffTemplate = "ShardsOfAtheria/Buffs/BuffTemp";
-        public const string DebuffTemplate = "ShardsOfAtheria/Buffs/DebuffTemp";
+        public const string BuffTemplate = "ShardsOfAtheria/Assets/BuffTemp";
+        public const string DebuffTemplate = "ShardsOfAtheria/Assets/DebuffTemp";
         public const string AreusLock = "ShardsOfAtheria/Assets/UI/AreusLock";
         public const string Circle = "ShardsOfAtheria/Assets/Circle";
         public const string BlankSpellTag = "ShardsOfAtheria/Items/Weapons/Magic/SpellTagBase";
+        public const string SinDataTexture = "ShardsOfAtheria/ShardsUI/InfoDisplays/SinData";
 
         public const string MeleeWeapon = "ShardsOfAtheria/Items/Weapons/Melee/";
         public const string RangedWeapon = "ShardsOfAtheria/Items/Weapons/Ranged/";

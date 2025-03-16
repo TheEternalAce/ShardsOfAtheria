@@ -18,6 +18,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         const int MaxCharge = 300;
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(3, 10);
             Item.AddElement(0);
             Item.AddRedemptionElement(2);
             Item.AddRedemptionElement(8);
@@ -46,6 +47,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = Item.sellPrice(0, 1, 50);
             Item.shoot = ModContent.ProjectileType<FlameSword>();
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
         }
 
         public override void AddRecipes()

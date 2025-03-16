@@ -3,7 +3,7 @@ using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Tiles;
 using ShardsOfAtheria.Tiles.Furniture;
 using ShardsOfAtheria.Utilities;
-using StructureHelper;
+using StructureHelper.API;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -17,6 +17,7 @@ namespace ShardsOfAtheria.Systems
 {
     public class ShardsSystem : ModSystem
     {
+        public static bool ContentFinished = false;
         public static ShardsSystem Instance { get; private set; }
         public bool omegaKey;
         public bool omegaShrine;
@@ -41,6 +42,11 @@ namespace ShardsOfAtheria.Systems
         public override void LoadWorldData(TagCompound tag)
         {
             if (tag.ContainsKey("crestGifted")) crestGifted = tag.GetBool("crestGifted");
+        }
+
+        public override void PostSetupContent()
+        {
+            ContentFinished = true;
         }
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
@@ -83,12 +89,14 @@ namespace ShardsOfAtheria.Systems
                             {
                                 c.Insert(ModContent.ItemType<OmegaKey>(), 1);
                                 omegaKey = true;
+
                             }
                         }
                     }
                 }
             }
-            base.PostWorldGen();
+            if (!omegaKey) Mod.Logger.Info("Omega Key has not been placed.");
+            if (!omegaShrine) Mod.Logger.Info("Omega Shrine has not been placed.");
         }
     }
 
@@ -132,7 +140,9 @@ namespace ShardsOfAtheria.Systems
                 {
                     int y = WorldGen.genRand.Next((int)(Main.maxTilesY * 0.85f), Main.maxTilesY);
 
-                    if (Main.tile[x, y].TileType == TileID.Ash && !Main.tile[x, y - 1].HasTile && Main.tile[x, y - 1].LiquidType != LiquidID.Lava)
+                    int shaleType = -1;
+                    if (ModLoader.TryGetMod("TheDepths", out Mod depths) && depths.TryFind<ModTile>("ShaleBlock", out var shale)) shaleType = shale.Type;
+                    if ((Main.tile[x, y].TileType == TileID.Ash || Main.tile[x, y].TileType == shaleType) && !Main.tile[x, y - 1].HasTile && Main.tile[x, y - 1].LiquidType != LiquidID.Lava)
                     {
                         if (!ModContent.GetInstance<ShardsSystem>().omegaShrine)
                         {

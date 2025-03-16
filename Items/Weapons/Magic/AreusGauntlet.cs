@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
             Item.AddAreus();
+            Item.AddDamageType(5);
             Item.AddElement(0);
             Item.AddRedemptionElement(2);
         }

@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus(true);
+            Projectile.AddDamageType(7);
             Projectile.AddRedemptionElement(9);
 
             SoAGlobalProjectile.Metalic.Add(Type, 1f);

@@ -10,6 +10,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(6, 10);
             Item.AddElement(0);
             Item.AddElement(2);
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
@@ -38,6 +39,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = Item.sellPrice(0, 1, 50);
             Item.shoot = ModContent.ProjectileType<LightInShadow>();
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
         }
 
         public override void AddRecipes()

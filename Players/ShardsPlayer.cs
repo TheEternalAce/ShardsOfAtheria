@@ -18,6 +18,7 @@ using ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Utilities;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -47,6 +48,7 @@ namespace ShardsOfAtheria.Players
         public bool acidTrip;
         public bool powerTrip;
         public bool disguiseCloak;
+        public int disguiseCloakCD;
         public bool spoonBender;
         public int spoonBenderCD;
         public bool jumperCable;
@@ -70,8 +72,7 @@ namespace ShardsOfAtheria.Players
         public int deathAmuletCharges;
         public int deathInevitibility;
 
-        public bool pearlwoodSet;
-        public int pearlwoodBowShoot;
+        public int frostsparkDronesTier;
 
         public int combatTimer;
         public bool InCombat => combatTimer > 0;
@@ -129,13 +130,13 @@ namespace ShardsOfAtheria.Players
             if (hardlightBracesCooldown > 0) hardlightBracesCooldown--;
             prototypeBand = false;
             if (prototypeBandCooldown > 0) prototypeBandCooldown--;
-            pearlwoodSet = false;
             areusProcessorPrevious = areusProcessor;
             areusProcessor = false;
             acidTrip = false;
             powerTrip = false;
             resonator = false;
             disguiseCloak = false;
+            if (disguiseCloakCD > 0) disguiseCloakCD--;
             spoonBender = false;
             if (spoonBenderCD > 0) spoonBenderCD--;
             if (!jumperCable) cableCounter = 0;
@@ -152,6 +153,7 @@ namespace ShardsOfAtheria.Players
             Biometal = BiometalHideVanity = BiometalForceVanity = false;
 
             UpdateResource();
+            UpdateItemFields();
 
             if (combatTimer > 0) combatTimer--;
             else if (aggression > 0) aggression--;
@@ -182,16 +184,11 @@ namespace ShardsOfAtheria.Players
 
         public override void LoadData(TagCompound tag)
         {
-            if (tag.ContainsKey("overdriveTimeCurrent"))
-                overdriveTimeCurrent = (int)tag["overdriveTimeCurrent"];
-            if (tag.ContainsKey("phaseOffense"))
-                phaseOffense = tag.GetBool("phaseOffense");
-            if (tag.ContainsKey(nameof(areusRod)))
-                areusRod = tag.GetBool(nameof(areusRod));
-            if (tag.ContainsKey(nameof(genesisRagnarockUpgrades)))
-                genesisRagnarockUpgrades = tag.GetInt(nameof(genesisRagnarockUpgrades));
-            if (tag.ContainsKey(nameof(sacrificedKatana)))
-                sacrificedKatana = tag.GetBool(nameof(sacrificedKatana));
+            if (tag.TryGet("overdriveTimeCurrent", out int overdrive)) overdriveTimeCurrent = overdrive;
+            if (tag.TryGet("phaseOffense", out bool phaseDrive)) phaseOffense = phaseDrive;
+            if (tag.TryGet(nameof(areusRod), out bool rod)) areusRod = rod;
+            if (tag.TryGet(nameof(genesisRagnarockUpgrades), out int frostspark)) genesisRagnarockUpgrades = frostspark;
+            if (tag.TryGet(nameof(sacrificedKatana), out bool katana)) sacrificedKatana = katana;
         }
 
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
@@ -215,10 +212,7 @@ namespace ShardsOfAtheria.Players
             if (!mediumCoreDeath)
             {
                 items.Add(new Item(ModContent.ItemType<Necronomicon>()));
-            }
-            if (Player.GetModPlayer<SinfulPlayer>().SinfulSoulUsed == 0)
-            {
-                items.Add(new Item(ModContent.ItemType<SinfulSoul>()));
+                if (Player.GetModPlayer<SinfulPlayer>().SinfulSoulUsed == 0) items.Add(new Item(ModContent.ItemType<SinfulSoul>()));
             }
 
             return items;
@@ -231,10 +225,7 @@ namespace ShardsOfAtheria.Players
                 Player.ClearBuff(ModContent.BuffType<Overdrive>());
                 Player.buffImmune[ModContent.BuffType<Overdrive>()] = true;
             }
-            else
-            {
-                Player.buffImmune[ModContent.BuffType<Overdrive>()] = false;
-            }
+            else Player.buffImmune[ModContent.BuffType<Overdrive>()] = false;
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<Ragnarok_Shield>()] > 0)
             {
                 Player.statDefense += 20;
@@ -245,36 +236,23 @@ namespace ShardsOfAtheria.Players
 
         private void TryAreusKatanaTransformation()
         {
-            if (++katanaTransformTimer >= 600 + Main.rand.Next(300))
+            if (Player.HasItem(ModContent.ItemType<AreusKatana>()) && sacrificedKatana && NPC.downedPlantBoss)
             {
-                katanaTransformTimer = 0;
-                if (Player.HasItem(ModContent.ItemType<AreusKatana>()) &&
-                    NPC.downedPlantBoss && sacrificedKatana)
+                if (++katanaTransformTimer >= 600 + Main.rand.Next(300))
                 {
-                    var pos = Player.Center + Vector2.One.RotatedByRandom(MathHelper.TwoPi) * 75;
-                    var vel = Player.Center - pos;
-                    vel.Normalize();
-                    vel *= 16f;
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), pos, vel,
-                        ModContent.ProjectileType<InfernalKatana>(), 1, 0, Player.whoAmI);
+                    katanaTransformTimer = 0;
+                    var position = Player.Center + Vector2.One.RotatedByRandom(MathHelper.TwoPi) * 75;
+                    var velocity = position.DirectionTo(Player.Center) * 16f;
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), position, velocity, ModContent.ProjectileType<InfernalKatana>(), 1, 0, Player.whoAmI);
                 }
             }
         }
 
         public override void PostUpdateBuffs()
         {
-            if (Biometal)
-            {
-                Player.moveSpeed += .1f;
-            }
-            if (Player.HasBuff(ModContent.BuffType<Overdrive>()))
-            {
-                Player.moveSpeed += .5f;
-            }
-            if (Player.HasBuff(ModContent.BuffType<SoulInfused>()))
-            {
-                Player.moveSpeed += .5f;
-            }
+            if (Biometal) Player.moveSpeed += .1f;
+            if (Player.HasBuff(ModContent.BuffType<Overdrive>())) Player.moveSpeed += .5f;
+            if (Player.HasBuff(ModContent.BuffType<SoulInfused>())) Player.moveSpeed += .5f;
             Player.GetDamage(DamageClass.Generic) += 0.01f * aggression;
             Player.moveSpeed += 0.01f * aggression;
             Player.aggro += aggression;
@@ -282,10 +260,7 @@ namespace ShardsOfAtheria.Players
 
         public void UpdateItemFields()
         {
-            if (itemCombo > 0)
-            {
-                itemCombo--;
-            }
+            if (itemCombo > 0) itemCombo--;
         }
 
         public override void UpdateEquips()
@@ -298,37 +273,29 @@ namespace ShardsOfAtheria.Players
                     {
                         Player.GetDamage(DamageClass.Generic) += 1f;
                         Player.GetCritChance(DamageClass.Generic) += 0.05f;
-                        Player.statDefense /= 2;
+                        Player.statDefense = Player.statDefense * 3 / 4;
                     }
                     else
                     {
-                        Player.GetDamage(DamageClass.Generic) -= 0.5f;
+                        Player.GetDamage(DamageClass.Generic) -= 0.25f;
                         Player.endurance += 0.2f;
                         Player.statDefense *= 2;
                     }
                     Player.moveSpeed += .2f;
                 }
             }
-            if (Player.HeldItem.type == ModContent.ItemType<AreusKatana>())
-            {
-                Player.moveSpeed += .05f;
-            }
+            if (Player.HeldItem.type == ModContent.ItemType<AreusKatana>()) Player.moveSpeed += .05f;
         }
 
         public override void PreUpdateMovement()
         {
-            if (Player.HasItem<SpeedCapper>())
+            var speedLimit = ToggleableTool.GetInstance<SpeedCapper>(Player);
+            if (speedLimit != null && speedLimit.Active)
             {
-                var speedLimit = ToggleableTool.GetInstance<SpeedCapper>(Player);
-                if (speedLimit != null && speedLimit.Active)
-                {
-                    float playerHorizontalSpeed = Player.velocity.X;
-                    float maxHorizontalSpeed = SoA.ClientConfig.speedLimit * (42240f / 216000f);
-                    if (playerHorizontalSpeed > maxHorizontalSpeed)
-                    {
-                        Player.velocity.X = maxHorizontalSpeed;
-                    }
-                }
+                int direction = Player.velocity.X > 0 ? 1 : -1;
+                float playerHorizontalSpeed = Math.Abs(Player.velocity.X);
+                float maxHorizontalSpeed = SoA.ClientConfig.speedLimit * (42240f / 216000f);
+                if (playerHorizontalSpeed > maxHorizontalSpeed) Player.velocity.X = maxHorizontalSpeed * direction;
             }
         }
 
@@ -340,12 +307,9 @@ namespace ShardsOfAtheria.Players
                 Player.lifeRegenTime = 0;
                 return;
             }
-            if (Biometal && !Player.HasBuff(ModContent.BuffType<Overdrive>()))
-                Player.lifeRegen += 4;
-            if (Player.HasBuff(ModContent.BuffType<SoulInfused>()))
-                Player.lifeRegen += 4;
-            if (areusKey)
-                Player.lifeRegen *= 2;
+            if (Biometal && !Player.HasBuff(ModContent.BuffType<Overdrive>())) Player.lifeRegen += 4;
+            if (Player.HasBuff(ModContent.BuffType<SoulInfused>())) Player.lifeRegen += 4;
+            if (areusKey) Player.lifeRegen *= 2;
         }
 
         private void UpdateResource()
@@ -366,8 +330,7 @@ namespace ShardsOfAtheria.Players
 
         public override bool CanConsumeAmmo(Item weapon, Item ammo)
         {
-            if (baseConservation)
-                return Main.rand.NextFloat() >= .15f;
+            if (baseConservation) return Main.rand.NextFloat() <= .15f;
             return true;
         }
 
@@ -378,48 +341,30 @@ namespace ShardsOfAtheria.Players
                 readingDisk = 0;
                 ModContent.GetInstance<UpgradeUISystem>().HideUI();
             }
-            if (SoA.OverdriveKey.JustPressed)
+            if (Biometal && SoA.OverdriveKey.JustPressed)
             {
-                if (Biometal)
+                if (overdriveTimeCurrent > 0 && !Player.HasBuff(ModContent.BuffType<Overdrive>()))
                 {
-                    if (overdriveTimeCurrent > 0 && !Player.HasBuff(ModContent.BuffType<Overdrive>()))
-                    {
-                        Player.AddBuff(ModContent.BuffType<Overdrive>(), 2);
-                        CombatText.NewText(Player.Hitbox, Color.Green, "Overdrive: ON", true);
-                        SoundEngine.PlaySound(SoundID.Item4, Player.Center);
-                    }
-                    else
-                    {
-                        Player.ClearBuff(ModContent.BuffType<Overdrive>());
-                        CombatText.NewText(Player.Hitbox, Color.Red, "Overdrive: OFF");
-                    }
+                    Player.AddBuff(ModContent.BuffType<Overdrive>(), 2);
+                    CombatText.NewText(Player.Hitbox, Color.Green, "Overdrive: ON", true);
+                    SoundEngine.PlaySound(SoundID.Item4, Player.Center);
+                }
+                else
+                {
+                    Player.ClearBuff(ModContent.BuffType<Overdrive>());
+                    CombatText.NewText(Player.Hitbox, Color.Red, "Overdrive: OFF");
                 }
             }
-            if (SoA.ProcessorElement != null && SoA.ProcessorElement.JustPressed)
+            if (areusProcessor && SoA.ProcessorElement != null && SoA.ProcessorElement.JustPressed)
             {
-                if (areusProcessor)
-                {
-                    if (++processorElement > 3)
-                    {
-                        processorElement = 0;
-                    }
-                }
+                processorElement++;
+                if (processorElement > 3) processorElement = 0;
             }
-            if (SoA.PhaseSwitch.JustPressed)
+            if (rushDrive && Player.statLife >= Player.statLifeMax2 / 2 && SoA.PhaseSwitch.JustPressed)
             {
-                if (Player.statLife >= Player.statLifeMax2 / 2 && rushDrive)
-                {
-                    if (phaseOffense)
-                    {
-                        phaseOffense = false;
-                        ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Phase 2 Type: Defensive"), Color.White, Player.whoAmI);
-                    }
-                    else
-                    {
-                        phaseOffense = true;
-                        ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Phase 2 Type: Offensive"), Color.White, Player.whoAmI);
-                    }
-                }
+                if (phaseOffense) ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Phase 2 Type: Defensive"), Color.White, Player.whoAmI);
+                else ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("Phase 2 Type: Offensive"), Color.White, Player.whoAmI);
+                phaseOffense = !phaseOffense;
             }
         }
 
@@ -455,10 +400,7 @@ namespace ShardsOfAtheria.Players
         {
             bool killingBlow = false;
             if (target.life <= 0) killingBlow = true;
-            if (killingBlow)
-            {
-                if (deathAmulet && deathAmuletCharges < 10) deathAmuletCharges++;
-            }
+            if (deathAmulet && deathAmuletCharges < 10 && killingBlow) deathAmuletCharges++;
             if (target.lifeMax > 5) combatTimer = 300;
             if (valkyrieCrown) target.AddBuff(ModContent.BuffType<ElectricShock>(), 60);
             HardlightBraces.OnHitEffect(Player, target);
@@ -471,31 +413,36 @@ namespace ShardsOfAtheria.Players
                     cableCounter++;
                 }
                 else if (killingBlow) cableCounter++;
-                if (cableCounter >= maxCounter && (!ShardsHelpers.AnyBosses() || Main.rand.NextBool(5)))
+                if (cableCounter >= maxCounter)
                 {
-                    if (Player.HasBuff<ClockCooldown>()) Player.ClearBuff<ClockCooldown>();
-                    if (Player.HasBuff<EmeraldTeleportCooldown>()) Player.ClearBuff<EmeraldTeleportCooldown>();
-                    if (Player.HasBuff<HeartBreak>()) Player.ClearBuff<HeartBreak>();
-                    if (Player.HasBuff<SetBonusCooldown>()) Player.ClearBuff<SetBonusCooldown>();
-                    if (Player.HasBuff<SoulTeleportCooldown>()) Player.ClearBuff<SoulTeleportCooldown>();
-                    if (ModLoader.TryGetMod("GMR", out Mod gerdMod) && gerdMod.TryFind("InfraRedCorrosion", out ModBuff infraRedCooldown) && Player.HasBuff(infraRedCooldown.Type))
-                        Player.ClearBuff(infraRedCooldown.Type);
-                    hardlightBracesCooldown = 0;
-                    prototypeBandCooldown = 0;
-                    Player.Slayer().soulCrystalProjectileCooldown = 0;
+                    if (!ShardsHelpers.AnyBosses() || Main.rand.NextBool(5))
+                    {
+                        Player.TryClearBuff<ClockCooldown>();
+                        Player.TryClearBuff<EaterReviveCooldown>();
+                        Player.TryClearBuff<EmeraldTeleportCooldown>();
+                        Player.TryClearBuff<HeartBreak>();
+                        Player.TryClearBuff<MidnightCooldown>();
+                        Player.TryClearBuff<ParryCooldown>();
+                        Player.TryClearBuff<SetBonusCooldown>();
+                        Player.TryClearBuff<SoulTeleportCooldown>();
+                        Player.TryClearBuff<YamikoDashCooldown>();
+                        if (ShardsHelpers.TryGetModContent("GMR", "InfraRedCorrosion", out ModBuff infraRedCooldown))
+                            Player.TryClearBuff(infraRedCooldown.Type);
+                        hardlightBracesCooldown = 0;
+                        prototypeBandCooldown = 0;
+                        Player.Slayer().soulCrystalProjectileCooldown = 0;
+                        hallowedSealCooldown = 0;
+                    }
                     cableCounter = 0;
                 }
             }
-            if (HallowedSeal)
+            if (HallowedSeal & hit.DamageType.CountsAsClass(DamageClass.Melee))
             {
-                if (hit.DamageType.CountsAsClass(DamageClass.Melee))
-                {
-                    int mana = 9;
-                    if (killingBlow) mana += 6;
-                    Player.statMana += mana;
-                    Player.ManaEffect(mana);
-                    hallowedSealCooldown = Player.itemAnimation;
-                }
+                int mana = 9;
+                if (killingBlow) mana += 6;
+                Player.statMana += mana;
+                Player.ManaEffect(mana);
+                hallowedSealCooldown = Player.itemAnimation;
             }
             if (Player.HasItem<TheMourningStar>())
             {
@@ -601,8 +548,9 @@ namespace ShardsOfAtheria.Players
 
         public override bool ConsumableDodge(Player.HurtInfo info)
         {
-            if (disguiseCloak && !Player.HasBuff<DisguiseRegenerating>())
+            if (disguiseCloak && disguiseCloakCD == 0 && !Player.HasBuff<DisguiseRegenerating>())
             {
+                disguiseCloakCD = 18000;
                 Player.AddBuff<DisguiseRegenerating>(18000);
                 Player.SetImmuneTimeForAllTypes(60);
                 CombatText.NewText(Player.Hitbox, Color.White, "Disguse busted!", true);

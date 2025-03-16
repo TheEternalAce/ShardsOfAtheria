@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
     {
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(11);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
@@ -31,10 +32,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         protected override void Initialize(Player player, ShardsPlayer shards)
         {
             base.Initialize(player, shards);
-            if (shards.itemCombo > 0)
-            {
-                swingDirection *= -1;
-            }
+            if (shards.itemCombo > 0) swingDirection *= -1;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -59,10 +57,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override void AI()
         {
             base.AI();
-            if (Main.player[Projectile.owner].itemAnimation <= 1)
-            {
-                Main.player[Projectile.owner].Shards().itemCombo = (ushort)(combo == 0 ? 20 : 0);
-            }
+            if (Main.player[Projectile.owner].itemAnimation <= 1) Main.player[Projectile.owner].Shards().itemCombo = (ushort)(combo == 0 ? 20 : 0);
             if (!playedSound && AnimProgress > 0.4f)
             {
                 playedSound = true;

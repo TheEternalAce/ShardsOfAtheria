@@ -24,6 +24,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJoustingLance
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(5);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
@@ -91,7 +92,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJoustingLance
 
         public override bool PreDraw(ref Color lightColor)
         {
-            lightColor = SoA.ElectricColorA;
+            lightColor = SoA.ElectricColorA0;
             return base.PreDraw(ref lightColor);
         }
     }

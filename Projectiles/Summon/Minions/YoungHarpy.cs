@@ -28,6 +28,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             ProjectileID.Sets.MinionSacrificable[Projectile.type] = true; // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
             ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true; // Make the cultist resistant to this projectile, as it's resistant to all homing projectiles.
 
+            Projectile.AddDamageType(11);
+            Projectile.AddDamageType(11);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
@@ -113,23 +115,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
                 if (i != Projectile.whoAmI && other.active && other.owner == Projectile.owner && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
                 {
-                    if (Projectile.position.X < other.position.X)
-                    {
-                        Projectile.velocity.X -= overlapVelocity;
-                    }
-                    else
-                    {
-                        Projectile.velocity.X += overlapVelocity;
-                    }
+                    if (Projectile.position.X < other.position.X) Projectile.velocity.X -= overlapVelocity;
+                    else Projectile.velocity.X += overlapVelocity;
 
-                    if (Projectile.position.Y < other.position.Y)
-                    {
-                        Projectile.velocity.Y -= overlapVelocity;
-                    }
-                    else
-                    {
-                        Projectile.velocity.Y += overlapVelocity;
-                    }
+                    if (Projectile.position.Y < other.position.Y) Projectile.velocity.Y -= overlapVelocity;
+                    else Projectile.velocity.Y += overlapVelocity;
                 }
             }
         }

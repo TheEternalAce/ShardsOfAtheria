@@ -18,6 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Active
         public override void SetStaticDefaults()
         {
             Main.projFrames[Projectile.type] = 3;
+            Projectile.AddDamageType(7);
             Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
             Projectile.AddRedemptionElement(12);

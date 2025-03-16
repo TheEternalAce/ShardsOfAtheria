@@ -7,26 +7,30 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
-    public class AreusEdge : LobCorpLight
+    public class AreusEdge : ZLobCorpLight
     {
         private int PreviouslyHitNPC;
+
+        public override int ZChargedItem => ModContent.ItemType<ZAreusEdge>();
 
         public override void SetStaticDefaults()
         {
             Item.AddAreus();
+            Item.AddDamageType(5, 9);
         }
 
         public override void SetDefaults()
         {
-            Item.width = 48;
-            Item.height = 54;
+            Item.width = 68;
+            Item.height = 68;
+            Item.scale = 1.3f;
 
             Item.damage = 32;
             Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.knockBack = 3;
 
-            Item.useTime = 26;
-            Item.useAnimation = 26;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
             Item.useStyle = 15;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
@@ -36,6 +40,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.value = 150000;
             Item.shoot = ModContent.ProjectileType<AreusJustitia>();
             PreviouslyHitNPC = -1;
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
         }
 
         public override float UseSpeedMultiplier(Player player)

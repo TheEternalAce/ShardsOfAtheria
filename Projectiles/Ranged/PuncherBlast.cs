@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -9,6 +10,11 @@ namespace ShardsOfAtheria.Projectiles.Ranged
     public class PuncherBlast : ModProjectile
     {
         public override string Texture => SoA.BlankTexture;
+
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddDamageType(4);
+        }
 
         public override void SetDefaults()
         {

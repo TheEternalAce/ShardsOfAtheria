@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.ShockTome
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
+            Projectile.AddDamageType(11);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(10);
         }

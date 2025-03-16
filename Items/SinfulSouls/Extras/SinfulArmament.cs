@@ -97,7 +97,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
                 text = "";
                 color = Color.Orange;
             }
-            else if (player.Wrath().wrath)
+            else if (player.Wrath().soulActive)
             {
                 armament = ModContent.ItemType<Yamiko>();
                 text = "My name is Yamiko, my edge is sharper than those pathetic blades.";

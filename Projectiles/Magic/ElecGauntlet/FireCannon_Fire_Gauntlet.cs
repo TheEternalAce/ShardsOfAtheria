@@ -12,7 +12,10 @@ namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(3, 5);
+            Projectile.AddElement(0);
             Projectile.AddElement(2);
+            Projectile.AddRedemptionElement(2);
             Projectile.AddRedemptionElement(7);
         }
 

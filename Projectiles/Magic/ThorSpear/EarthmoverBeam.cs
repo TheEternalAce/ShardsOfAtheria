@@ -60,10 +60,8 @@ namespace ShardsOfAtheria.Projectiles.Magic.ThorSpear
 
         public override void ModifyDamageHitbox(ref Rectangle hitbox)
         {
-            hitbox.Width *= 20;
-            hitbox.Height *= 20;
-            hitbox.X -= hitbox.Width / 2 - Projectile.width / 2;
-            hitbox.Y -= hitbox.Height / 2 - Projectile.height / 2;
+            int size = 30;
+            hitbox.Inflate(size, size);
         }
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)

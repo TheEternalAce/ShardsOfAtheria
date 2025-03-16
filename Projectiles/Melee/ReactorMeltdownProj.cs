@@ -24,6 +24,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             // Vanilla values range from 9f(Wood) to 17.5f(Terrarian), and defaults to 10f
             ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 14f;
             Main.projFrames[Projectile.type] = 2;
+            Projectile.AddDamageType(5, 10);
             Projectile.AddElement(2);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(7);

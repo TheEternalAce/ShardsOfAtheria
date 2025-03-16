@@ -20,6 +20,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(11);
             Item.AddElement(0);
             Item.AddElement(2);
             Item.AddRedemptionElement(2);
@@ -47,6 +48,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = Item.sellPrice(0, 1, 25);
             Item.shoot = ModContent.ProjectileType<YamikoSlash>();
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
         }
 
         public override bool AltFunctionUse(Player player)

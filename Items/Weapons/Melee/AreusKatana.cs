@@ -17,6 +17,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.AddAreus();
+            Item.AddDamageType(5);
         }
 
         public override void SetDefaults()
@@ -39,6 +40,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = Item.sellPrice(0, 1, 50);
             Item.shoot = ModContent.ProjectileType<ElecKunai>();
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
         }
 
         public override float UseSpeedMultiplier(Player player)

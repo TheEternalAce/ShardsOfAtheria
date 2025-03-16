@@ -26,6 +26,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override void SetStaticDefaults()
         {
             Projectile.MakeTrueMelee();
+            Projectile.AddDamageType(5);
             Projectile.AddAreus();
         }
 

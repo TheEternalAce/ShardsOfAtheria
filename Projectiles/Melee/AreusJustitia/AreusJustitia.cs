@@ -5,6 +5,7 @@ using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,6 +23,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
 
             Projectile.MakeTrueMelee();
             Projectile.AddAreus();
+            Projectile.AddDamageType(5, 9);
         }
 
         public override void SetDefaults()
@@ -38,6 +40,12 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
             Projectile.tileCollide = false;
             Projectile.friendly = true;
             Projectile.hostile = false;
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (Projectile.GetPlayerOwner().meleeScaleGlove)
+                Projectile.scale *= 1.1f;
         }
 
         public override void AI()

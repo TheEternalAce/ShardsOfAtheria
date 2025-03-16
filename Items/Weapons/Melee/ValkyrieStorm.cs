@@ -12,6 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(5);
             Item.AddElement(2);
             Item.AddRedemptionElement(7);
         }
@@ -38,6 +39,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ModContent.ProjectileType<ValkyrieStormSword>();
         }
 
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+
         public override void AddRecipes()
         {
             CreateRecipe()
@@ -62,30 +68,19 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 position.Y -= 100;
                 Vector2 heading = target - position;
 
-                if (heading.Y < 0f)
-                {
-                    heading.Y *= -1f;
-                }
+                if (heading.Y < 0f) heading.Y *= -1f;
 
-                if (heading.Y < 20f)
-                {
-                    heading.Y = 20f;
-                }
+                if (heading.Y < 20f) heading.Y = 20f;
 
                 heading.Normalize();
                 heading *= velocity.Length();
                 heading.Y += Main.rand.Next(-40, 41) * 0.02f;
-                Projectile.NewProjectile(source, position, heading, ModContent.ProjectileType<HardlightBlade>(), damage * 2, knockback, player.whoAmI, 0f, 3f);
+                heading = heading.RotatedByRandom(MathHelper.ToRadians(1f));
+                Projectile.NewProjectile(source, position, heading, ModContent.ProjectileType<StormBlade>(), damage * 2, knockback, player.whoAmI, 0f, 3f);
             }
 
-            if (player.ownedProjectileCounts[type] > 0)
-            {
-                return false;
-            }
-            else
-            {
-                return base.Shoot(player, source, position, velocity, type, damage, knockback);
-            }
+            if (player.ownedProjectileCounts[type] > 0) return false;
+            else return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
     }
 }

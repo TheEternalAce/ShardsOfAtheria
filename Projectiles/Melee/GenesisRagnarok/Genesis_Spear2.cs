@@ -19,10 +19,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddElement(0);
+            Projectile.MakeTrueMelee();
+
+            Projectile.AddDamageType(2, 5);
             Projectile.AddElement(1);
             Projectile.AddElement(2);
-            Projectile.AddRedemptionElement(2);
             Projectile.AddRedemptionElement(4);
             Projectile.AddRedemptionElement(7);
         }

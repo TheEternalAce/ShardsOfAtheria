@@ -31,6 +31,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(7);
             SoAGlobalProjectile.Metalic.Add(Type, 1f);
         }
 
@@ -169,6 +170,12 @@ namespace ShardsOfAtheria.Projectiles.Ranged
     public class HitscanBullet_Magic : HitscanBullet
     {
         public override Color HitscanColor => Color.Cyan;
+
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddDamageType(4);
+            base.SetStaticDefaults();
+        }
 
         public override void SetDefaults()
         {

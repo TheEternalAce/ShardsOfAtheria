@@ -11,8 +11,10 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(2, 9);
             Item.AddElement(1);
             Item.AddRedemptionElement(3);
+            Item.AddRedemptionElement(13);
         }
 
         public override void SetDefaults()

@@ -1,9 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.AnyDebuff;
+﻿using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
 using ShardsOfAtheria.Items.Accessories.GemCores.Lesser;
 using ShardsOfAtheria.Utilities;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -59,22 +57,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             player.buffImmune[BuffID.Poisoned] = true;
             player.buffImmune[BuffID.Venom] = true;
             player.Gem().superGemCore = true;
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            var player = Main.LocalPlayer;
-            var gem = player.Gem();
-            if (gem.amberCore && gem.amethystCore)
-            {
-                TooltipLine line = new(Mod, "GemCurse", "Amber Curse") { OverrideColor = Color.Purple };
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
-            }
-            if (gem.amethystCore && gem.topazCore)
-            {
-                TooltipLine line = new(Mod, "GemCurse", "Amethyst Curse") { OverrideColor = Color.Orange };
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
-            }
         }
     }
 }

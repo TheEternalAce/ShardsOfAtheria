@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
+            Projectile.AddDamageType(5);
         }
 
         public override void SetDefaults()
@@ -115,7 +116,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
 
         public override bool PreDraw(ref Color lightColor)
         {
-            return SingleEdgeSwordDraw(SoA.ElectricColorA);
+            return SingleEdgeSwordDraw(SoA.ElectricColorA0);
         }
     }
 }

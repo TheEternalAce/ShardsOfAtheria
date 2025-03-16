@@ -17,7 +17,11 @@ namespace ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (ShardsHelpers.AnyBosses()) player.buffTime[buffIndex] = 3600;
+            if (ShardsHelpers.AnyBosses())
+            {
+                player.Shards().disguiseCloakCD = 3600;
+                player.buffTime[buffIndex] = 3600;
+            }
         }
     }
 }

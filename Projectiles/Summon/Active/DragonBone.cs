@@ -11,6 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Active
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(6, 8);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(11);
         }

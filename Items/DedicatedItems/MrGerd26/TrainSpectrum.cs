@@ -13,8 +13,12 @@ namespace ShardsOfAtheria.Items.DedicatedItems.MrGerd26
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
+
+            Item.AddDamageType(2, 3);
+
             Item.AddElement(0);
             Item.AddElement(1);
+
             Item.AddRedemptionElement(2);
             Item.AddRedemptionElement(3);
         }

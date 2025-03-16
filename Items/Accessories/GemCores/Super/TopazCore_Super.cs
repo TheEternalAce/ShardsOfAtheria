@@ -1,7 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
+﻿using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
 using ShardsOfAtheria.Utilities;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -46,22 +44,6 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
             player.statLifeMax2 += 20;
             player.lifeRegen += 1;
             player.Gem().superGemCore = true;
-        }
-
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            var player = Main.LocalPlayer;
-            var gem = player.Gem();
-            if (gem.amethystCore && gem.topazCore)
-            {
-                TooltipLine line = new(Mod, "GemCurse", "Amethyst Curse") { OverrideColor = Color.Orange };
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
-            }
-            if (gem.rubyCore && gem.sapphireCore)
-            {
-                TooltipLine line = new(Mod, "GemCurse", "Topaz Curse") { OverrideColor = Color.Cyan };
-                tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
-            }
         }
     }
 }

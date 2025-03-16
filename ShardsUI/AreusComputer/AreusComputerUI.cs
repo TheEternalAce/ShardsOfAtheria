@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
-using ShardsOfAtheria.Items.Weapons;
+using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Utilities;
 using System;
 using System.Collections.Generic;

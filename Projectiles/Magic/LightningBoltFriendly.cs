@@ -15,6 +15,8 @@ namespace ShardsOfAtheria.Projectiles.Magic
         {
             ProjectileID.Sets.TrailingMode[Type] = 2;
             ProjectileID.Sets.TrailCacheLength[Type] = 200;
+
+            Projectile.AddDamageType(5);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
@@ -128,7 +130,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Projectile.DrawBloomTrail_NoDiminishingScale(SoA.ElectricColorA, SoA.LineBloom, 0, 0.5f);
+            Projectile.DrawBloomTrail_NoDiminishingScale(SoA.ElectricColorA0, SoA.LineBloom, 0, 0.5f);
             return base.PreDraw(ref lightColor);
         }
     }

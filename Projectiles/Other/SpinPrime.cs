@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -21,6 +22,11 @@ namespace ShardsOfAtheria.Projectiles.Other
         public override void Unload()
         {
             glowmask = null;
+        }
+
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddDamageType(4);
         }
 
         public override void SetDefaults()

@@ -4,6 +4,7 @@ using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WebCom.Extensions;
@@ -13,9 +14,9 @@ namespace ShardsOfAtheria.Projectiles.Magic.ThorSpear
     public class EarthJavelin : ModProjectile
     {
         public bool fullyCharged = false;
-        public float timer = 0;
-        public int minChargeRequired = 10;
-        public int maxCharge = 50;
+        public float charge = 0;
+        public int minCharge = 1;
+        public int maxCharge = 40;
 
         public bool BeingHeld => Main.player[Projectile.owner].channel && !Main.player[Projectile.owner].noItems && !Main.player[Projectile.owner].CCed;
 
@@ -37,13 +38,19 @@ namespace ShardsOfAtheria.Projectiles.Magic.ThorSpear
             Projectile.tileCollide = false;
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            var player = Projectile.GetPlayerOwner();
+            if (player.Overdrive()) minCharge += 40;
+        }
+
         public override void AI()
         {
             var player = Projectile.GetPlayerOwner();
             float attackSpeed = player.GetTotalAttackSpeed(DamageClass.Magic);
             int endLagBase = 20;
-            int endLag = endLagBase - (int)(endLagBase * (attackSpeed - 1));
-            float progress = (float)timer / maxCharge;
+            int endLag = (int)(endLagBase - (float)(endLagBase * (attackSpeed - 1)));
+            float progress = (float)(charge / maxCharge);
 
             if (player.ownedProjectileCounts[Type] > 1)
             {
@@ -56,15 +63,15 @@ namespace ShardsOfAtheria.Projectiles.Magic.ThorSpear
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2 - MathHelper.PiOver4 * Projectile.spriteDirection;
 
             player.heldProj = Projectile.whoAmI;
-            player.SetDummyItemTime(endLag);
+            player.SetDummyItemTime(endLag * 2);
             player.manaRegenDelay = endLag * 2;
-            player.manaRegenCount = 0;
+            player.manaRegen = 0;
 
-            if (BeingHeld || timer < minChargeRequired + (player.Overdrive() ? 40 : 0))
+            if (BeingHeld || charge < minCharge)
             {
                 Projectile.timeLeft = 10;
-                if (timer < maxCharge) timer += 0.125f * attackSpeed * (player.Overdrive() ? 1.2f : 1f);
-                if (timer >= maxCharge && !fullyCharged)
+                if (charge < maxCharge) charge += 0.125f * attackSpeed * (player.Overdrive() ? 1.2f : 1f);
+                if (charge >= maxCharge && !fullyCharged)
                 {
                     fullyCharged = true;
                     if (player.controlUseTile) Projectile.Kill();
@@ -77,10 +84,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.ThorSpear
             Projectile.Center = player.MountedCenter + Projectile.velocity * 30f + Projectile.velocity * 50f * (1f - progress);
             player.ChangeDir(Projectile.direction);
             player.itemRotation = Projectile.DirectionFrom(player.MountedCenter).ToRotation();
-            if (Projectile.Center.X < player.MountedCenter.X)
-            {
-                player.itemRotation += (float)Math.PI;
-            }
+            if (Projectile.Center.X < player.MountedCenter.X) player.itemRotation += (float)Math.PI;
             player.itemRotation = MathHelper.WrapAngle(player.itemRotation);
         }
 
@@ -91,7 +95,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.ThorSpear
 
         public override void OnKill(int timeLeft)
         {
-            if (timer < minChargeRequired) return;
+            if (charge < minCharge) return;
             int type = ModContent.ProjectileType<ElectricJavelin>();
             var player = Projectile.GetPlayerOwner();
             if (!player.IsLocal()) return;

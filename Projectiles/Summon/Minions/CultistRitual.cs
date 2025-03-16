@@ -23,6 +23,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.timeLeft = 360000;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
+            Projectile.friendly = true;
         }
 
         public override void AI()
@@ -73,6 +74,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                 return false;
             else Projectile.timeLeft = 2;
             return true;
+        }
+
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return false;
         }
 
         public override bool PreDraw(ref Color lightColor)

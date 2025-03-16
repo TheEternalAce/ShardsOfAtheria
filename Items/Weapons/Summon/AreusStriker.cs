@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
         public override void SetStaticDefaults()
         {
             Item.AddAreus();
+            Item.AddDamageType(5, 7);
         }
 
         public override void SetDefaults()
@@ -23,6 +24,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 
             Item.damage = 12;
             Item.DamageType = DamageClass.SummonMeleeSpeed;
+            Item.mana = 8;
 
             Item.useTime = 12;
             Item.useAnimation = 12;

@@ -173,23 +173,15 @@ namespace ShardsOfAtheria.Globals
 
         public override void SetStaticDefaults()
         {
-            if (ModLoader.TryGetMod("GMR", out var gmr))
-            {
-                if (gmr.TryFind("OvercooledBullet", out ModProjectile overcooledNail)) Metalic.Add(overcooledNail.Type, 0.33f);
-            }
+            if (ShardsHelpers.TryGetModContent("GMR", "OvercooledBullet", out ModProjectile overcooledNail)) Metalic.Add(overcooledNail.Type, 0.33f);
         }
 
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
             if (SoA.BNEEnabled)
-            {
                 ChangeElements(projectile, source);
-            }
             if (source is EntitySource_ItemUse_WithAmmo weaponSource)
-            {
                 if (weaponSource.Item.type == ModContent.ItemType<NailPounder>()) nailPunch = true;
-            }
-            base.OnSpawn(projectile, source);
         }
 
         [JITWhenModsEnabled("BattleNetworkElements")]

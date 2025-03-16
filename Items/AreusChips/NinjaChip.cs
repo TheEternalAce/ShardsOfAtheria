@@ -1,3 +1,4 @@
+using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Tiles.Crafting;
 using Terraria;
 using Terraria.ID;
@@ -25,6 +26,7 @@ namespace ShardsOfAtheria.Items.AreusChips
                 .AddIngredient<AreusArmorChip>()
                 .AddIngredient(ItemID.Shuriken, 100)
                 .AddIngredient(ItemID.Wire, 20)
+                .AddCondition(SoAConditions.ThrowingWeapon)
                 .AddTile<AreusFabricator>()
                 .Register();
         }

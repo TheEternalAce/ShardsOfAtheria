@@ -24,6 +24,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
             Projectile.sentry = true;
             Projectile.minionSlots = 1;
             Projectile.timeLeft = Projectile.SentryLifeTime;
+            Projectile.friendly = true;
         }
 
         public override void AI()
@@ -118,6 +119,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vectorToTarget * speed, type, damage, Projectile.knockBack, -1, 0f, Projectile.whoAmI);
                 }
             }
+        }
+
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return false;
         }
 
         public override void OnKill(int timeLeft)

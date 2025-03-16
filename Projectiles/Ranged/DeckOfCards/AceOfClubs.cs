@@ -10,6 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.DeckOfCards
     {
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(8);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(10);
         }
@@ -18,8 +19,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.DeckOfCards
         {
             Projectile.width = 18;
             Projectile.height = 18;
-            Projectile.DamageType = DamageClass.Ranged;
-            if (SoA.ServerConfig.throwingWeapons) Projectile.DamageType = DamageClass.Throwing;
+            Projectile.DamageType = DamageClass.Ranged.TryThrowing();
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.timeLeft = 300;

@@ -141,7 +141,7 @@ namespace ShardsOfAtheria.Projectiles.Other
             lightColor = Color.White;
             Vector2 position = Projectile.Center - new Vector2(15, 93) - Main.screenPosition;
             var texture = ModContent.Request<Texture2D>(SoA.Circle);
-            Main.EntitySpriteDraw(texture.Value, Projectile.Center - Main.screenPosition, null, SoA.ElectricColorA * 0.4f, 0f, texture.Size() / 2f, 2.3f, 0);
+            Main.EntitySpriteDraw(texture.Value, Projectile.Center - Main.screenPosition, null, SoA.ElectricColorA0 * 0.4f, 0f, texture.Size() / 2f, 2.3f, 0);
             Main.spriteBatch.Draw(bannerTexture.Value, position, null, lightColor);
             int projectionType = 0;
             if (Projectile.DamageType.CountsAsClass(DamageClass.Melee)) projectionType = 0;

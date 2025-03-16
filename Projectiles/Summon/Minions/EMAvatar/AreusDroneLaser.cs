@@ -6,12 +6,13 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
 {
-    public class AreusTagLaser : ModProjectile
+    public class AreusDroneLaser : ModProjectile
     {
         public override string Texture => SoA.BlankTexture;
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(5);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
             ProjectileID.Sets.TrailingMode[Type] = 2;
@@ -32,12 +33,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
-        }
-
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            var player = Main.player[Projectile.owner];
-            player.MinionAttackTargetNPC = target.whoAmI;
         }
 
         public override bool PreDraw(ref Color lightColor)

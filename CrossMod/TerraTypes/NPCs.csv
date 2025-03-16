@@ -1,9 +1,9 @@
 internalName,defType,defType,offType,offType,abilityBasic,abilityHidden
 AreusMortar,Electric,Steel,Electric,,FlashFire,
-BiblicallyAccurateAtherian,Electric,Flying,Electric,,LightningRod,MotorDrive
-ShriekingBeacon,Electric,Normal,Normal,,LightningRod,Scrappy
-Death,Blood,,Blood,,,
-NovaStellar,Flying,Electric,Flying,Electric,,
+BiblicallyAccurateAtherian,Electric,Flying,Electric,,MotorDrive,
+ShriekingBeacon,Electric,Normal,Normal,,Scrappy,
+Death,Blood,,Blood,,PrismArmor,
+NovaStellar,Flying,Electric,Flying,Electric,Flammable,
 Creeper,Blood,,Blood,,,
 Archivist,Grass,,Grass,,,
 Atherian,Electric,,Electric,,,

@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(4);
             Item.AddRedemptionElement(1);
         }
 
@@ -42,6 +43,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityPlantera;
             Item.value = Item.sellPrice(0, 4, 25);
             Item.shoot = ModContent.ProjectileType<SilverSpearSwing>();
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
         }
 
         public override void HoldItem(Player player)

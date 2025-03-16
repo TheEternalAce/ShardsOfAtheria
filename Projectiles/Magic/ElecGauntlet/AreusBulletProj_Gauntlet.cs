@@ -1,5 +1,6 @@
 ﻿using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Projectiles.Ammo;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -8,6 +9,12 @@ namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
     public class AreusBulletProj_Gauntlet : AreusBulletProj
     {
         public override string Texture => "ShardsOfAtheria/Projectiles/Ammo/AreusBulletProj";
+
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddDamageType(5);
+            base.SetStaticDefaults();
+        }
 
         public override void SetDefaults()
         {

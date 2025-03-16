@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(5);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
@@ -139,7 +140,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
         {
             var player = Main.player[Projectile.owner];
 
-            lightColor = SoA.ElectricColorA;
+            lightColor = SoA.ElectricColorA0;
             Vector2 mountedCenter = player.MountedCenter;
             Asset<Texture2D> chainTexture = ModContent.Request<Texture2D>(ChainTexturePath);
 

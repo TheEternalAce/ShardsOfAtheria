@@ -117,13 +117,8 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             npcLoot.Add(ItemDropRule.Common(ItemID.CrystalShard, 3, 3, 6));
             npcLoot.Add(ItemDropRule.Common(ItemID.PixieDust, 3, 1, 3));
             npcLoot.Add(ItemDropRule.Common(ItemID.UnicornHorn, 3, 1, 3));
-            if (ModLoader.TryGetMod("GMR", out Mod gerdMod))
-            {
-                if (gerdMod.TryFind("LunarNovaAxe", out ModItem novaAxe))
-                {
-                    npcLoot.Add(ItemDropRule.Common(novaAxe.Type, 20));
-                }
-            }
+            if (ShardsHelpers.TryGetModContent("GMR", "LunarNovaAxe", out ModItem novaAxe))
+                npcLoot.Add(ItemDropRule.Common(novaAxe.Type, 20));
         }
     }
 }

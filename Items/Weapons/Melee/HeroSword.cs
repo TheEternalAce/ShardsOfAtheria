@@ -12,6 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
+            Item.AddDamageType(3);
             Item.AddElement(0);
             Item.AddRedemptionElement(2);
         }
@@ -37,6 +38,11 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shootSpeed = 6f;
             Item.rare = ItemDefaults.RarityHardmodeDungeon;
             Item.value = Item.sellPrice(0, 2, 50);
+        }
+
+        public override bool MeleePrefix()
+        {
+            return true;
         }
 
         public override void AddRecipes()

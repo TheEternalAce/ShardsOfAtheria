@@ -17,6 +17,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.Sawstring
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             Projectile.AddAreus();
+            Projectile.AddDamageType(5);
 
             SoAGlobalProjectile.Metalic.Add(Type, 1f);
         }

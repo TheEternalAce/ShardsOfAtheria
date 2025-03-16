@@ -33,6 +33,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.minionSlots = 1f;
             Projectile.ignoreWater = true;
             Projectile.minion = true;
+            Projectile.friendly = true;
 
             DrawOriginOffsetY = -6;
         }

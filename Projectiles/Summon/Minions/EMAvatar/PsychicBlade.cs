@@ -12,8 +12,10 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
 
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(5, 9);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
+            Projectile.AddRedemptionElement(13);
             ProjectileID.Sets.TrailingMode[Type] = 2;
             ProjectileID.Sets.TrailCacheLength[Type] = 20;
         }

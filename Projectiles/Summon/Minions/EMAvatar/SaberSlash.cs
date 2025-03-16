@@ -13,6 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 
+            Projectile.AddDamageType(5);
             Projectile.AddAreus();
         }
 

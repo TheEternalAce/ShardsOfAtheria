@@ -14,6 +14,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Active
 
         private const string ChainTexturePath = "ShardsOfAtheria/Projectiles/Summon/Active/GoldChain_Link";
 
+        public override void SetStaticDefaults()
+        {
+            Projectile.AddDamageType(1);
+        }
+
         public override void SetDefaults()
         {
             Projectile.width = 14;

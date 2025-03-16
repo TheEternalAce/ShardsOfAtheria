@@ -58,8 +58,10 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             ];
             NPC.SetImmuneTo(buffTypes);
 
+            NPC.AddDamageType(4);
             NPC.AddElement(1);
             NPC.AddElement(3);
+            NPC.AddRedemptionElement(1);
             NPC.AddRedemptionElement(12);
 
             NPC.AddRedemptionElementType("Humanoid");
@@ -163,12 +165,12 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             LeadingConditionRule slayerMode = new(new IsSlayerMode());
             LeadingConditionRule masterOrEternity = new(new EternityOrMaster());
 
-            int[] drops = {
+            int[] drops = [
                 ModContent.ItemType<BloodScythe>(),
                 ModContent.ItemType<BloodJavelin>(),
                 ModContent.ItemType<BloodScepter>(),
                 ModContent.ItemType<BloodTome>(),
-            };
+            ];
 
             notExpertRule.OnSuccess(new OneFromOptionsDropRule(1, 3, drops));
             notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<LifeCycleKeys>(), 4));
@@ -180,10 +182,10 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
             slayerMode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<DeathSoulCrystal>()));
 
-            if (ModLoader.TryGetMod("MagicStorage", out Mod magicStorage))
+            if (ShardsHelpers.TryGetModContent("MagicStorage", "ShadowDiamond", out ModItem diamond))
             {
                 LeadingConditionRule alreadyDowned = new(new DownedDeath());
-                alreadyDowned.OnFailedConditions(ItemDropRule.Common(magicStorage.Find<ModItem>("ShadowDiamond").Type));
+                alreadyDowned.OnFailedConditions(ItemDropRule.Common(diamond.Type));
             }
 
             masterOrEternity.OnSuccess(ItemDropRule.MasterModeDropOnAllPlayers(ModContent.ItemType<BloodStainedCrossbow>()));
@@ -192,6 +194,11 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             npcLoot.Add(notExpertRule);
             npcLoot.Add(slayerMode);
             npcLoot.Add(masterOrEternity);
+        }
+
+        public override void BossLoot(ref string name, ref int potionType)
+        {
+            potionType = ItemID.GreaterHealingPotion;
         }
 
         public override void OnKill()
@@ -530,10 +537,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
         void DefaultMovement(Player player)
         {
             Vector2 idlePos = new(375, 0);
-            if (player.Center.X > NPC.Center.X)
-            {
-                idlePos.X *= -1;
-            }
+            if (player.Center.X > NPC.Center.X) idlePos.X *= -1;
             idlePos += player.Center;
             var vectorToIdlePos = idlePos - NPC.Center;
             NPC.velocity = vectorToIdlePos * 0.055f;
@@ -545,10 +549,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             toTarget.Normalize();
             toTarget *= 20f;
             if (attackTimer % 30 == 0)
-            {
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), center, toTarget,
-                    ModContent.ProjectileType<SilverBoltHostile>(), damage, 0f, Main.myPlayer);
-            }
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), center, toTarget, ModContent.ProjectileType<SilverBoltHostile>(), damage, 0f, Main.myPlayer);
             if (BloodAttacksEnabled && SoA.Eternity())
             {
                 int type = ModContent.ProjectileType<BloodArrowHostile>();

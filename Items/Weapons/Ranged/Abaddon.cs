@@ -10,6 +10,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void SetStaticDefaults()
         {
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
+            Item.AddDamageType(7);
             Item.AddElement(2);
             Item.AddRedemptionElement(11);
         }

@@ -95,10 +95,18 @@ namespace ShardsOfAtheria.Utilities
             player.statMana += amount;
         }
 
+        public static void TryClearBuff(this Player player, int buffID)
+        {
+            if (player.HasBuff(buffID)) player.ClearBuff(buffID);
+        }
+        public static void TryClearBuff<T>(this Player player) where T : ModBuff
+        {
+            if (player.HasBuff<T>()) player.ClearBuff<T>();
+        }
+
         public static int ApplyAttackSpeed(this Player player, int baseTime, DamageClass damage, int minTime = 0, float capAttackSpeedAt = 1f - float.Epsilon)
         {
-            float attackSpeed = player.GetTotalAttackSpeed(damage) - 1f;
-            if (attackSpeed > capAttackSpeedAt) attackSpeed = capAttackSpeedAt;
+            float attackSpeed = Math.Min(player.GetTotalAttackSpeed(damage) - 1f, capAttackSpeedAt);
             int time = baseTime - (int)(baseTime * attackSpeed);
             if (time < minTime) time = minTime;
             return time;
@@ -109,13 +117,8 @@ namespace ShardsOfAtheria.Utilities
             foreach (string name in player.Areus().chipNames)
             {
                 var item = new Item(chip);
-                if (item.ModItem != null)
-                {
-                    if (item.ModItem.Name == name)
-                    {
-                        return true;
-                    }
-                }
+                if (item.ModItem != null && item.ModItem.Name == name)
+                    return true;
             }
             return false;
         }

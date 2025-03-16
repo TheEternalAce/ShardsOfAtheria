@@ -18,6 +18,9 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 
             SoAGlobalProjectile.Metalic.Add(Type, 1f);
+
+            Projectile.AddDamageType(4);
+            Projectile.AddRedemptionElement(1);
         }
 
         public override void SetDefaults()

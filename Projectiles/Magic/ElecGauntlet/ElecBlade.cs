@@ -14,6 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
     {
         public override void SetStaticDefaults()
         {
+            Projectile.AddDamageType(5);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
         }
@@ -62,7 +63,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
 
         public override Color? GetAlpha(Color lightColor)
         {
-            return SoA.ElectricColorA;
+            return SoA.ElectricColorA0;
         }
 
         public override void AI()
