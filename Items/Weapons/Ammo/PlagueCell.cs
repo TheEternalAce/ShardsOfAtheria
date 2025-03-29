@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Utilities;
@@ -11,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
     {
         public override void SetStaticDefaults()
         {
-            Item.ResearchUnlockCount = 999;
+            Item.ResearchUnlockCount = 9999;
             Item.AddDamageType(0, 6, 8);
             Item.AddElement(3);
             Item.AddRedemptionElement(11);
@@ -27,6 +28,20 @@ namespace ShardsOfAtheria.Items.Weapons.Ammo
             Item.rare = ItemDefaults.RarityHardmodeDungeon;
             Item.value = 1000;
             Item.ammo = Type;
+        }
+
+        public override void UpdateInventory(Player player)
+        {
+            if (player.HasItemEquipped<PlaguePack>(true) && Item.stack < 200)
+            {
+                Item.noGrabDelay++;
+                if (Item.noGrabDelay > 300)
+                {
+                    Item.stack++;
+                    Item.noGrabDelay = 0;
+                    Item.value = 0;
+                }
+            }
         }
 
         public override void AddRecipes()

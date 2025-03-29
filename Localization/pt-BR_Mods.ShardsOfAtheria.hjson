@@ -537,6 +537,16 @@ Items: {
 			''' */
 	}
 
+	PlaguePack: {
+		// DisplayName: Plague Pack
+		/* Tooltip:
+			'''
+			Generates Plague Cells continuously
+			Will not produce over 200 cells
+			Works in vanity slots
+			''' */
+	}
+
 	PowerTrip: {
 		// DisplayName: Power Trip
 		/* Tooltip:

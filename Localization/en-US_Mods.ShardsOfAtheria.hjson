@@ -549,6 +549,16 @@ Items: {
 			'''
 	}
 
+	PlaguePack: {
+		DisplayName: Plague Pack
+		Tooltip:
+			'''
+			Generates Plague Cells continuously
+			Will not produce over 200 cells
+			Works in vanity slots
+			'''
+	}
+
 	PowerTrip: {
 		DisplayName: Power Trip
 		Tooltip:
@@ -1555,11 +1565,7 @@ Items: {
 
 	EnvySoul: {
 		DisplayName: Envy Soul
-		Tooltip:
-			'''
-			Consecutive strikes on an enemy will increase the damage they take by 3
-			Darkness debuff
-			'''
+		Tooltip: Consecutive strikes on an enemy will increase the damage they take by 3
 	}
 
 	GluttonySoul: {
