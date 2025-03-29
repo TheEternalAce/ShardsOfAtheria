@@ -326,20 +326,15 @@ namespace ShardsOfAtheria.Systems
             bool validPlacement = false;
             while (!validPlacement)
             {
-                if (Main.tile[x, y].HasTile && Main.tile[x, y].TileType == TileID.Dirt)
-                {
-                    validPlacement = true; break;
-                }
+                if (Main.tile[x, y].HasTile && Main.tile[x, y].TileType == TileID.Dirt) break;
                 int maxTilesXOver7 = Main.maxTilesX / 7;
                 int maxTilesYOver7 = Main.maxTilesY / 7;
                 x = WorldGen.genRand.Next(maxTilesXOver7 * 3, maxTilesXOver7 * 4);
                 y = WorldGen.genRand.Next(maxTilesYOver7, maxTilesYOver7 * 2);
             }
-            if (validPlacement)
-            {
-                Point16 point = new(x, y);
-                Generator.GenerateStructure("Structures/AtherianTomb", point, SoA.Instance);
-            }
+
+            Point16 point = new(x, y);
+            Generator.GenerateStructure("Structures/AtherianTomb", point, SoA.Instance);
         }
     }
 }
