@@ -65,7 +65,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 Item plagueRail = ModContent.GetInstance<PlagueRailgun>().Item;
                 if (player.HasAmmo(plagueRail))
                 {
-                    player.PickAmmo(plagueRail, out int _, out float _, out int _, out float _, out int _);
+                    bool dontConsumeCell = !player.ItemAnimationJustStarted || Main.rand.NextFloat() < 0.66f;
+                    player.PickAmmo(plagueRail, out int _, out float _, out int _, out float _, out int _, dontConsumeCell);
                     type = ModContent.ProjectileType<PlagueBullet>();
                     velocity.Normalize();
                     velocity *= 16;
