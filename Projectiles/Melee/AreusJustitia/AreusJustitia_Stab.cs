@@ -27,6 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
             Projectile.AddDamageType(5, 9);
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(7);
+            Projectile.AddRedemptionElement(13);
         }
 
         public override void SetDefaults()

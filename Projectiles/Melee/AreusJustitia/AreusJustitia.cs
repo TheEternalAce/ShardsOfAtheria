@@ -7,7 +7,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
@@ -18,12 +17,13 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
 
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
+            //ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            //ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
 
             Projectile.MakeTrueMelee();
             Projectile.AddAreus();
             Projectile.AddDamageType(5, 9);
+            Projectile.AddRedemptionElement(13);
         }
 
         public override void SetDefaults()
