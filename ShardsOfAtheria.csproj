@@ -53,6 +53,8 @@
     <None Remove="Items\Accessories\GemCores\AmberCape.png" />
     <None Remove="Items\Accessories\HallowedSeal.png" />
     <None Remove="Items\Accessories\MementoMoriAmulet.png" />
+    <None Remove="Items\Accessories\PlaguePack.png" />
+    <None Remove="Items\Accessories\PlaguePack_Back.png" />
     <None Remove="Items\Armor\Areus\Imperial\ImperialGreaves.png" />
     <None Remove="Items\Armor\Areus\Royal\RoyalCrown_Head.png" />
     <None Remove="Items\Armor\Areus\Royal\RoyalJacket_Back.png" />
