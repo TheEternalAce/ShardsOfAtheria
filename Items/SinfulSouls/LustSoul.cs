@@ -1,5 +1,6 @@
 ﻿using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,70 +13,42 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
     public class LustPlayer : ModPlayer
     {
-        public bool lust;
+        public bool soulActive;
 
         public override void ResetEffects()
         {
-            lust = false;
+            soulActive = false;
         }
 
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (lust)
-            {
-                if (Main.rand.NextBool(50))
-                {
-                    Item.NewItem(target.GetSource_OnHurt(item), target.getRect(), ItemID.Heart);
-                }
-            }
+            if (soulActive && Main.rand.NextBool(50)) Item.NewItem(target.GetSource_OnHurt(item), target.getRect(), ItemID.Heart);
         }
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (lust)
+            if (soulActive)
             {
-                if (proj.DamageType == DamageClass.Melee)
-                {
-                    if (Main.rand.NextBool(50))
-                    {
-                        Item.NewItem(target.GetSource_OnHurt(proj), target.getRect(), ItemID.Heart);
-                    }
-                }
-                else if (Main.rand.NextBool(100))
-                {
-                    Item.NewItem(target.GetSource_OnHurt(proj), target.getRect(), ItemID.Heart);
-                }
+                int heartChance = 100;
+                if (proj.DamageType.CountsAsClass(DamageClass.Melee)) heartChance = 50;
+                if (Main.rand.NextBool(heartChance)) Item.NewItem(target.GetSource_OnHurt(proj), target.getRect(), ItemID.Heart);
             }
         }
 
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
-            if (lust)
+            if (soulActive)
             {
                 float critChance = 0.25f;
-                if (Main.expertMode)
-                {
-                    critChance += 0.06f;
-                }
-                if (Main.masterMode)
-                {
-                    critChance += 0.12f;
-                }
-                if (Main.hardMode)
-                {
-                    critChance += 0.08f;
-                }
-                if (NPC.downedPlantBoss)
-                {
-                    critChance += 0.06f;
-                }
-                if (NPC.downedAncientCultist)
-                {
-                    critChance += 0.12f;
-                }
+                if (Main.expertMode) critChance += 0.06f;
+                if (Main.masterMode) critChance += 0.12f;
+                if (Main.hardMode) critChance += 0.08f;
+                if (NPC.downedPlantBoss) critChance += 0.06f;
+                if (NPC.downedAncientCultist) critChance += 0.12f;
                 if (Main.rand.NextFloat() < critChance)
                 {
                     modifiers.FinalDamage *= 2;
+                    SoundEngine.PlaySound(SoundID.AbigailCry, Player.Center);
                 }
             }
         }
@@ -92,7 +65,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         {
             player.maxMinions += 3;
             player.GetDamage(DamageClass.Generic) -= .2f;
-            player.GetModPlayer<LustPlayer>().lust = true;
+            player.GetModPlayer<LustPlayer>().soulActive = true;
             base.Update(player, ref buffIndex);
         }
     }
