@@ -282,10 +282,7 @@ namespace ShardsOfAtheria.Globals
 
         public override bool? UseItem(Item item, Player player)
         {
-            if (item.DamageType == DamageClass.Magic)
-            {
-                player.ClearBuff<SpareChange>();
-            }
+            if (item.DamageType.CountsAsClass(DamageClass.Magic)) player.ClearBuff<SpareChange>();
             if (item.type == ItemID.BugNet ||
                 item.type == ItemID.FireproofBugNet ||
                 item.type == ItemID.GoldenBugNet)
@@ -355,23 +352,27 @@ namespace ShardsOfAtheria.Globals
                 {
                     if (player.bleed)
                     {
-                        if (item.DamageType == DamageClass.Magic)
+                        if (item.DamageType.CountsAsClass(DamageClass.Magic))
                         {
 
                         }
-                        if (item.DamageType == DamageClass.Melee)
+                        if (item.DamageType.CountsAsClass(DamageClass.Melee))
                         {
 
                         }
-                        if (item.DamageType == DamageClass.Ranged)
+                        if (item.DamageType.CountsAsClass(DamageClass.Ranged))
                         {
 
                         }
-                        if (item.DamageType == DamageClass.Summon)
+                        if (item.DamageType.CountsAsClass(DamageClass.Summon))
                         {
 
                         }
-                        if (item.DamageType == DamageClass.Generic)
+                        if (item.DamageType.CountsAsClass(DamageClass.Throwing))
+                        {
+
+                        }
+                        if (item.DamageType.CountsAsClass(DamageClass.Generic))
                         {
 
                         }
