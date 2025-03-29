@@ -11,6 +11,7 @@ using ShardsOfAtheria.Items.BuffItems;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Tools.Misc.Slayer;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
+using ShardsOfAtheria.Items.Weapons.Ammo;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
@@ -194,10 +195,16 @@ namespace ShardsOfAtheria.Players
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
         {
             List<Item> items = [];
+
+            if (Player.name.StartsWith("Gamma") || Player.name.StartsWith("Theta") || Player.name.StartsWith("Data"))
+                items.Add(new Item(ModContent.ItemType<Biometal>()));
             if (Player.name.StartsWith("Gamma"))
             {
                 items.Add(new Item(ModContent.ItemType<PlagueRailgun>()));
                 items.Add(new Item(ModContent.ItemType<PlagueHandgun>()));
+                items.Add(new Item(ModContent.ItemType<PlagueCell>()));
+                items.Add(new Item(ModContent.ItemType<PlaguePack>()));
+                items.Add(new Item(ItemID.MusketBall, 100));
             }
             if (Player.name.StartsWith("Theta"))
             {
@@ -464,7 +471,7 @@ namespace ShardsOfAtheria.Players
         {
             if (SoA.BNEEnabled) AreusRodEffect(target, item);
             var chip = ToggleableTool.GetInstance<AnchorChip>(Player);
-            if (hallowedSeal && item.DamageType == DamageClass.Melee && (chip == null || !chip.Active))
+            if (hallowedSeal && item.DamageType.CountsAsClass(DamageClass.Melee) && (chip == null || !chip.Active))
             {
                 var vector = Player.Center - target.Center;
                 vector.Normalize();
