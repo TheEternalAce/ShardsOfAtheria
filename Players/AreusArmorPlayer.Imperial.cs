@@ -107,20 +107,12 @@ namespace ShardsOfAtheria.Players
 
         private void ImperialOnHitEffect(NPC target, NPC.HitInfo hit)
         {
-            if (hit.DamageType == DamageClass.Melee)
-            {
-                if (Player.statMana != Player.statManaMax2)
-                {
-                    Player.statMana += 5;
-                }
-            }
+            if (hit.DamageType.CountsAsClass(DamageClass.Melee) && Player.statMana != Player.statManaMax2)
+                Player.statMana += 5;
             if (!Player.HasBuff<ShadeState>() || CommanderSetChip)
             {
                 imperialVoid += 3;
-                if (imperialVoid > VOID_MAX)
-                {
-                    imperialVoid = VOID_MAX;
-                }
+                if (imperialVoid > VOID_MAX) imperialVoid = VOID_MAX;
             }
             if (Player.HasBuff<ShadeState>())
             {
@@ -131,8 +123,7 @@ namespace ShardsOfAtheria.Players
                     {
                         for (int i = 0; i < 6; i++)
                         {
-                            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, type,
-                                (int)ClassDamage.ApplyTo(65), 0f, Player.whoAmI, i, target.whoAmI);
+                            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, type, (int)ClassDamage.ApplyTo(65), 0f, Player.whoAmI, i, target.whoAmI);
                         }
                     }
                 }
