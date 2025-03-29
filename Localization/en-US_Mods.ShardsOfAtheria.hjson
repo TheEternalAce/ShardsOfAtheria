@@ -3245,6 +3245,9 @@ Projectiles: {
 	Warframe.DisplayName: Providince Claymore
 	Warframe_Upgrade.DisplayName: Providince Claymore
 	WarframeSlash.DisplayName: Providince Claymore
+	ZAreusJustitia.DisplayName: Z-Charged Areus Judgement
+	FlameSlashExtention.DisplayName: Z-Charged Areus Judgement
+	FlameStabExtention.DisplayName: Z-Charged Areus Judgement
 	ZenovaProjectile.DisplayName: Zenova Weapons
 	ZenovaProjectile2.DisplayName: Zenova Weapons
 	# Ranged
@@ -3467,9 +3470,6 @@ Projectiles: {
 	TinyLaser.DisplayName: Tiny Laser
 	StormBlade.DisplayName: Storm Blade
 	AreusDroneLaser.DisplayName: Areus Drone Laser
-	ZAreusJustitia.DisplayName: Z Areus Justitia
-	FlameSlashExtention.DisplayName: Flame Slash Extention
-	FlameStabExtention.DisplayName: Flame Stab Extention
 }
 
 NPCs: {
