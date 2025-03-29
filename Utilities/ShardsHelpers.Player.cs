@@ -123,20 +123,31 @@ namespace ShardsOfAtheria.Utilities
             return false;
         }
 
-        public static bool HasItemEquipped<T>(this Player player, out ModItem item) where T : ModItem
+        public static bool HasItemEquipped<T>(this Player player, out ModItem modItem, bool allowVanity = false) where T : ModItem
         {
-            bool equipped = false;
-            item = null;
-            foreach (Item i in player.armor)
+            modItem = null;
+            for (int i = 0; i < player.armor.Length; i++)
             {
-                if (i.type == ModContent.ItemType<T>())
+                Item item = player.armor[i];
+                if (item.type == ModContent.ItemType<T>())
                 {
-                    item = i.ModItem as T;
-                    equipped = true;
-                    break;
+                    modItem = item.ModItem as T;
+                    return true;
                 }
+                if (i > 7 + player.extraAccessorySlots && !allowVanity) return false;
             }
-            return equipped;
+            return false;
+        }
+
+        public static bool HasItemEquipped<T>(this Player player, bool allowVanity = false) where T : ModItem
+        {
+            for (int i = 0; i < player.armor.Length; i++)
+            {
+                Item item = player.armor[i];
+                if (item.type == ModContent.ItemType<T>()) return true;
+                if (i > 7 + player.extraAccessorySlots && !allowVanity) return false;
+            }
+            return false;
         }
 
         public static bool InCombat(this Player player)
