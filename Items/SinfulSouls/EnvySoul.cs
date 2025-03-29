@@ -1,6 +1,5 @@
 ﻿using ShardsOfAtheria.Utilities;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SinfulSouls
@@ -13,14 +12,14 @@ namespace ShardsOfAtheria.Items.SinfulSouls
     public class EnvyPlayer : ModPlayer
     {
         public bool targetFound;
-        public bool envy;
+        public bool soulActive;
         public NPC target;
         public int targetStrikes;
 
         public override void ResetEffects()
         {
             targetFound = false;
-            envy = false;
+            soulActive = false;
         }
 
         public override void PreUpdate()
@@ -30,7 +29,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (envy)
+            if (soulActive)
             {
                 if (target.life <= 0 && target == this.target)
                 {
@@ -42,7 +41,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (envy)
+            if (soulActive)
             {
                 if (target.life <= 0 && target == this.target)
                 {
@@ -54,7 +53,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (envy)
+            if (soulActive)
             {
                 if (target != this.target || !targetFound)
                 {
@@ -71,7 +70,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (envy)
+            if (soulActive)
             {
                 if (target != this.target || !targetFound)
                 {
@@ -96,8 +95,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.Envy().envy = true;
-            player.AddBuff(BuffID.Darkness, 2);
+            player.Envy().soulActive = true;
             base.Update(player, ref buffIndex);
         }
     }

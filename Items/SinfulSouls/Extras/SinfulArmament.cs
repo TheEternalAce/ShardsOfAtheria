@@ -61,7 +61,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             text = "";
             color = Color.White;
 
-            if (player.Envy().envy)
+            if (player.Envy().soulActive)
             {
                 armament = 0;
                 text = "";
@@ -79,7 +79,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
                 text = "My name is Pantheon, together we'll become the richest in the world!";
                 color = Color.Gold;
             }
-            else if (player.Lust().lust)
+            else if (player.Lust().soulActive)
             {
                 armament = 0;//ModContent.ItemType<SinfulArmament>();
                 text = "";
