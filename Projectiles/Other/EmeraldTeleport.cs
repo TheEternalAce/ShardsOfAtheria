@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
+using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -26,22 +27,26 @@ namespace ShardsOfAtheria.Projectiles.Other
         {
             Vector2 position = new(Projectile.ai[0], Projectile.ai[1]);
             Projectile.Track(position, 13f, 1f);
-            if (Projectile.Distance(position) < 10)
-            {
-                Projectile.Kill();
-            }
+            if (Projectile.Distance(position) < 10) Projectile.Kill();
 
             Player owner = Main.player[Projectile.owner];
-            owner.Center = Projectile.Center;
+            owner.Center = Projectile.Center + Projectile.velocity;
             owner.velocity = Vector2.Zero;
             owner.immuneNoBlink = true;
             owner.SetImmuneTimeForAllTypes(5);
-            int cooldownTime = 360;
-            if (owner.Gem().megaGemCore)
+
+            Dust dust = Dust.NewDustPerfect(position, DustID.GemEmerald);
+            dust.noGravity = true;
+            dust.velocity *= 2f;
+
+            var devCard = ToggleableTool.GetInstance<DevelopersKeyCard>(owner);
+            bool cardActive = devCard != null && devCard.Active;
+            if (!cardActive)
             {
-                cooldownTime = 180;
+                int cooldownTime = 360;
+                if (owner.Gem().megaGemCore) cooldownTime = 180;
+                owner.AddBuff<EmeraldTeleportCooldown>(cooldownTime);
             }
-            owner.AddBuff<EmeraldTeleportCooldown>(cooldownTime);
 
             if (Projectile.ai[2] == 0)
             {

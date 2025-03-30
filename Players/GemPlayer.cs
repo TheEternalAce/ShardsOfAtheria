@@ -289,23 +289,11 @@ namespace ShardsOfAtheria.Players
             }
             if (Player.HasBuff<SpitefulRuby>())
             {
-                if (Player.lifeRegen > 0)
-                {
-                    Player.lifeRegen = 0;
-                }
+                if (Player.lifeRegen > 0) Player.lifeRegen = 0;
                 Player.lifeRegen -= 10;
-                if (greaterRubyCore)
-                {
-                    Player.lifeRegen -= 10;
-                }
-                if (superRubyCore)
-                {
-                    Player.lifeRegen -= 10;
-                }
-                if (megaGemCore)
-                {
-                    Player.lifeRegen -= 10;
-                }
+                if (greaterRubyCore) Player.lifeRegen -= 10;
+                if (superRubyCore) Player.lifeRegen -= 10;
+                if (megaGemCore) Player.lifeRegen -= 10;
                 Player.lifeRegenTime = 0;
             }
         }
@@ -319,59 +307,30 @@ namespace ShardsOfAtheria.Players
                 {
                     key += "Wall";
                     amethystWallBomb = !amethystWallBomb;
-                    if (amethystWallBomb)
-                    {
-                        key += "On";
-                    }
-                    else
-                    {
-                        key += "Off";
-                    }
+                    if (amethystWallBomb) key += "On";
+                    else key += "Off";
                 }
                 else
                 {
                     amethystBomb = !amethystBomb;
-                    if (amethystBomb)
-                    {
-                        key += "On";
-                    }
-                    else
-                    {
-                        key += "Off";
-                    }
+                    if (amethystBomb) key += "On";
+                    else key += "Off";
                 }
-                if (Main.netMode == NetmodeID.SinglePlayer)
-                {
-                    Main.NewText(Language.GetOrRegister(key));
-                }
-                else
-                {
-                    ChatHelper.SendChatMessageToClient(NetworkText.FromKey(key), Color.White, Player.whoAmI);
-                }
+                if (Main.netMode == NetmodeID.SinglePlayer) Main.NewText(Language.GetOrRegister(key));
+                else ChatHelper.SendChatMessageToClient(NetworkText.FromKey(key), Color.White, Player.whoAmI);
             }
-            if (SoA.EmeraldTeleportKey.JustPressed)
+            if (SoA.EmeraldTeleportKey.JustPressed && (megaGemCore || superEmeraldCore) && !Player.HasBuff<EmeraldTeleportCooldown>() &&
+                Player.ownedProjectileCounts[ModContent.ProjectileType<EmeraldTeleport>()] <= 0)
             {
-                if (megaGemCore || superEmeraldCore)
+                Vector2 teleportPosition;
+                teleportPosition.X = Main.mouseX + Main.screenPosition.X;
+                if (Player.gravDir == 1f) teleportPosition.Y = Main.mouseY + Main.screenPosition.Y;
+                else teleportPosition.Y = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
+                if (teleportPosition.X > 50f && teleportPosition.X < Main.maxTilesX * 16 - 50 && teleportPosition.Y > 50f && teleportPosition.Y < Main.maxTilesY * 16 - 50)
                 {
-                    if (!Player.HasBuff<EmeraldTeleportCooldown>())
-                    {
-                        Vector2 teleportPosition;
-                        teleportPosition.X = Main.mouseX + Main.screenPosition.X;
-                        if (Player.gravDir == 1f)
-                        {
-                            teleportPosition.Y = Main.mouseY + Main.screenPosition.Y;
-                        }
-                        else
-                        {
-                            teleportPosition.Y = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
-                        }
-                        if (teleportPosition.X > 50f && teleportPosition.X < Main.maxTilesX * 16 - 50 && teleportPosition.Y > 50f && teleportPosition.Y < Main.maxTilesY * 16 - 50)
-                        {
-                            Player.SetImmuneTimeForAllTypes(Player.longInvince ? 100 : 60);
-                            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<EmeraldTeleport>(),
-                                0, 0, Player.whoAmI, teleportPosition.X, teleportPosition.Y);
-                        }
-                    }
+                    Player.SetImmuneTimeForAllTypes(Player.longInvince ? 100 : 60);
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<EmeraldTeleport>(),
+                        0, 0, Player.whoAmI, teleportPosition.X, teleportPosition.Y);
                 }
             }
         }

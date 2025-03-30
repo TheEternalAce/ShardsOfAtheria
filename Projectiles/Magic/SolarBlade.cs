@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;

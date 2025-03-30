@@ -11,12 +11,12 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Melee
+namespace ShardsOfAtheria.Common.Projectiles
 {
     public abstract class CoolSword : ModProjectile
     {
-        public static Asset<Texture2D> SwishTexture => ModContent.Request<Texture2D>(typeof(CoolSword).Namespace.Replace('.', '/') + "/Swish", AssetRequestMode.ImmediateLoad);
-        public static Asset<Texture2D> Swish2Texture => ModContent.Request<Texture2D>(typeof(CoolSword).Namespace.Replace('.', '/') + "/Swish2", AssetRequestMode.ImmediateLoad);
+        public static Asset<Texture2D> SwishTexture => ModContent.Request<Texture2D>("ShardsOfAtheria/Assets/Swish", AssetRequestMode.ImmediateLoad);
+        public static Asset<Texture2D> Swish2Texture => ModContent.Request<Texture2D>("ShardsOfAtheria/Assets/Swish2", AssetRequestMode.ImmediateLoad);
 
         public static SoundStyle HeavySwing => SoundID.DD2_MonkStaffSwing;
 
@@ -45,9 +45,13 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public virtual float AnimProgress => 1f - (Main.player[Projectile.owner].itemAnimation * (Projectile.extraUpdates + 1) + Projectile.numUpdates + 1) / (float)(Main.player[Projectile.owner].itemAnimationMax * (Projectile.extraUpdates + 1));
         public float lastAnimProgress;
 
-        public int amountAllowedToHit;
+        public int hitsLeft;
 
         public virtual bool SwingSwitchDir => AnimProgress > 0.4f && AnimProgress < 0.6f;
+
+        public Player Owner => Projectile.GetPlayerOwner();
+
+        public bool BeingHeld => Owner.channel && !Owner.noItems && !Owner.CCed;
 
         public override void SetDefaults()
         {
@@ -60,7 +64,8 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Projectile.ignoreWater = true;
             Projectile.ownerHitCheck = true;
             Projectile.aiStyle = ProjAIStyleID.Spear;
-            amountAllowedToHit = 2;
+            Projectile.extraUpdates = 4;
+            hitsLeft = 2;
             swordReach = 100;
             swordSize = 30;
         }
@@ -283,15 +288,15 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (amountAllowedToHit > 0)
+            if (hitsLeft > 0)
             {
-                amountAllowedToHit--;
+                hitsLeft--;
             }
         }
 
         public override bool? CanHitNPC(NPC target)
         {
-            return amountAllowedToHit == 0 ? false : null;
+            return hitsLeft == 0 ? false : null;
         }
 
         public override void SendExtraAI(BinaryWriter writer)

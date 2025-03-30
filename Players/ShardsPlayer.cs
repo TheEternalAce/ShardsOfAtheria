@@ -83,6 +83,8 @@ namespace ShardsOfAtheria.Players
         /// <para>A usage example would be a weapon with a 3 swing pattern. Each swing will increase the combo meter by 60, and when it becomes greater than 120, reset to 0.</para>
         /// </summary>
         public ushort itemCombo;
+        public ushort itemUsage;
+        public ushort itemSwitch;
 
         public bool Biometal;
         public bool BiometalPrevious;
@@ -268,6 +270,13 @@ namespace ShardsOfAtheria.Players
         public void UpdateItemFields()
         {
             if (itemCombo > 0) itemCombo--;
+            if (itemSwitch > 0)
+            {
+                itemUsage = 0;
+                itemSwitch--;
+            }
+            else if (Player.itemTime > 0) itemUsage++;
+            else itemUsage = 0;
         }
 
         public override void UpdateEquips()

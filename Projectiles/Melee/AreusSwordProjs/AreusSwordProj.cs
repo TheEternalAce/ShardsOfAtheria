@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
@@ -27,7 +28,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSwordProjs
             Projectile.width = Projectile.height = 30;
             swordReach = 100;
             rotationOffset = -MathHelper.PiOver4 * 3f;
-            amountAllowedToHit = 5;
+            hitsLeft = 5;
         }
 
         protected override void Initialize(Player player, ShardsPlayer shards)
@@ -104,10 +105,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSwordProjs
                 for (int i = 0; i < 5; i++)
                 {
                     var position = Main.rand.NextVector2FromRectangle(spawnRegion);
-                    var vector = Main.MouseWorld - position;
-                    vector.Normalize();
-                    vector *= 16;
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, vector,
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, BaseAngleVector * 16f,
                         ModContent.ProjectileType<ElectricBlade>(), Projectile.damage,
                         Projectile.knockBack, player.whoAmI);
                 }

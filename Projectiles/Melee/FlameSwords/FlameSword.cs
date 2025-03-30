@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -25,7 +26,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
             Projectile.width = Projectile.height = 30;
             swordReach = 40;
             rotationOffset = -MathHelper.PiOver4 * 3f;
-            amountAllowedToHit = 5;
+            hitsLeft = 5;
         }
 
         protected override void Initialize(Player player, ShardsPlayer shards)

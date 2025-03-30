@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
@@ -27,7 +28,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodthirstySword
             Projectile.width = Projectile.height = 30;
             swordReach = 50;
             rotationOffset = -MathHelper.PiOver4 * 3f;
-            amountAllowedToHit = 5;
+            hitsLeft = 5;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

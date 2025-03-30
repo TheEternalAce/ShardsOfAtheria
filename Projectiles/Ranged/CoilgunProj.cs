@@ -1,8 +1,9 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Common.Projectiles;
+using Terraria;
 
 namespace ShardsOfAtheria.Projectiles.Ranged
 {
-    public class CoilgunProj : ElectromagneticGun
+    public class CoilgunProj : ChargeGun
     {
         public override string Texture => "ShardsOfAtheria/Items/Weapons/Ranged/Coilgun";
 

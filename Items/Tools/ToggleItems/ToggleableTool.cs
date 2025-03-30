@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Items.Tools.ToggleItems
             if (++mode > maxMode) mode = 0;
         }
 
-        public static ToggleableTool GetInstance<T>(Player player) where T : ModItem
+        public static ToggleableTool GetInstance<T>(Player player) where T : ToggleableTool
         {
             ToggleableTool tool = null;
             int type = ModContent.ItemType<T>();
@@ -59,6 +59,13 @@ namespace ShardsOfAtheria.Items.Tools.ToggleItems
                 if (item.type == type) { tool = item.ModItem as ToggleableTool; break; }
             }
             return tool;
+        }
+
+        public static bool GetActive<T>(Player player) where T : ToggleableTool
+        {
+            var tool = GetInstance<T>(player);
+            if (tool == null) return false;
+            return tool.Active;
         }
     }
 }

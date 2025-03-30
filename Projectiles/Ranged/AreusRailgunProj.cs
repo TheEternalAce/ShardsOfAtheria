@@ -1,8 +1,9 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Common.Projectiles;
+using Terraria;
 
 namespace ShardsOfAtheria.Projectiles.Ranged
 {
-    public class AreusRailgunProj : ElectromagneticGun
+    public class AreusRailgunProj : ChargeGun
     {
         public override string Texture => "ShardsOfAtheria/Items/Weapons/Ranged/AreusRailgun";
         public override string FlashPath => "ShardsOfAtheria/Projectiles/Ranged/AreusRailgunProj_Flash";

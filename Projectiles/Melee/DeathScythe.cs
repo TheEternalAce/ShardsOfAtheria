@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
@@ -11,31 +12,32 @@ namespace ShardsOfAtheria.Projectiles.Melee
 {
     public class DeathScythe : CoolSword
     {
+        float charge = 0f;
+
         public override void SetStaticDefaults()
         {
             SoAGlobalProjectile.Eraser.Add(Type);
             Projectile.AddDamageType(6);
-            Projectile.AddElement(1);
-            Projectile.AddElement(3);
-            Projectile.AddRedemptionElement(1);
-            Projectile.AddRedemptionElement(12);
+            Projectile.AddElement(1, 3);
+            Projectile.AddRedemptionElement(1, 12);
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            Projectile.width = Projectile.height = 30;
-            swordReach = 25;
+            Projectile.width = Projectile.height = 50;
+            swordReach = 250;
             rotationOffset = -MathHelper.PiOver4 * 3f;
-            amountAllowedToHit = -1;
+            hitsLeft = -1;
         }
 
         protected override void Initialize(Player player, ShardsPlayer shards)
         {
             base.Initialize(player, shards);
-            combo = 1;
-            swingDirection *= -1;
+            //if (shards.itemCombo > 0) swingDirection *= -1;
+            shards.itemCombo = 1;
+            swingDirection = -player.direction;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -46,11 +48,35 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override void AI()
         {
             base.AI();
-            if (Main.player[Projectile.owner].itemAnimation <= 1)
+            if (Owner.itemAnimation <= 1)
+                Owner.Shards().itemCombo = (ushort)(combo == 0 ? 20 : 0);
+            if (BeingHeld && !Owner.controlUseTile && charge < 0.8f)
             {
-                Main.player[Projectile.owner].Shards().itemCombo = (ushort)(combo == 0 ? 20 : 0);
+                Projectile.timeLeft = 3600;
+                if (AnimProgress < 0.35f)
+                {
+                    Owner.itemAnimation--;
+                    Owner.itemTime--;
+                }
+                else if (charge < 0.8f)
+                {
+                    float chargeIncrement = 0.0036f * (Owner.GetWeaponAttackSpeed(Owner.HeldItem));
+                    charge += chargeIncrement;
+                    scale += chargeIncrement;
+                }
+                AngleVector = GetOffsetVector(0);
+                Projectile.velocity = Owner.Center.DirectionTo(Main.MouseWorld);
+                freezeFrame = 3;
+                int direction = Main.MouseWorld.X >= Owner.Center.X ? 1 : -1;
+                Owner.direction = direction;
+                swingDirection = Projectile.direction = -direction;
             }
-            if (!playedSound && AnimProgress > 0.4f)
+            else if (freezeFrame > 0 && AnimProgress >= 0.35f)
+            {
+                Owner.itemAnimation = Owner.itemAnimationMax;
+                Owner.itemTime = Owner.itemTimeMax;
+            }
+            else if (!playedSound && AnimProgress > 0.4f)
             {
                 playedSound = true;
                 SoundEngine.PlaySound(SoundID.Item71.WithPitchOffset(-1f), Projectile.Center);
@@ -59,7 +85,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         public override Vector2 GetOffsetVector(float progress)
         {
-            return BaseAngleVector.RotatedBy((progress * (MathHelper.Pi * 0.85f) - MathHelper.PiOver2 * 1.5f) * -swingDirection * 1.1f);
+            return BaseAngleVector.RotatedBy((progress * (MathHelper.Pi * 1.8f) - MathHelper.PiOver2 * 1.5f) * -swingDirection * 1.1f);
         }
 
         public override float SwingProgress(float progress)
@@ -84,15 +110,21 @@ namespace ShardsOfAtheria.Projectiles.Melee
             return 0f;
         }
 
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            var center = Owner.Center;
+            return ShardsHelpers.DeathrayHitbox(center, center + AngleVector * (swordReach * Projectile.scale), targetHitbox, swordSize * Projectile.scale * scale);
+        }
+
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (target.life < target.lifeMax / 50) modifiers.ScalingBonusDamage += 0.8f;
+            modifiers.ScalingBonusDamage += charge * 2.5f;
+        }
+
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             base.OnHitNPC(target, hit, damageDone);
-            //float distance = Projectile.Distance(target.Center);
-            //if (distance >= 175)
-            //{
-            //    target.StrikeNPC(hit);
-            //    freezeFrame = 6;
-            //}
             target.AddBuff<DeathBleed>(1200);
         }
 

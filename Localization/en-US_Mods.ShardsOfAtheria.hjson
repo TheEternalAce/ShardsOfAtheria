@@ -242,8 +242,9 @@ Items: {
 			Increases flight time
 			Further increased movement speed after taking damage
 			Every active debuff increases movement speed
-			Press <{$Keybinds.EmeraldTeleport.DisplayName}> to teleport to your cursor
+			Press <{$Keybinds.EmeraldTeleport.DisplayName}> to encase yourself and fly to your cursor
 			'''
+		DeveloperKeyChange: No fly cooldown
 	}
 
 	# Ruby
@@ -371,6 +372,7 @@ Items: {
 			Gives a super dash to the wearer
 			All weapons autoswing
 			'''
+		DeveloperKeyChange: No fly cooldown
 		ShiftTooltip0:
 			'''
 			[i:ShardsOfAtheria/AmberCore_Super] Amber Effects
@@ -2334,7 +2336,12 @@ Items: {
 
 	BloodScythe: {
 		DisplayName: Blood Scythe
-		Tooltip: "'And thus, her family was torn apart'"
+		Tooltip:
+			'''
+			Hits are always critical
+			Deals extra damage to sufficiently wounded targets
+			'And thus, her family was torn apart'
+			'''
 	}
 
 	Cataracnia: {

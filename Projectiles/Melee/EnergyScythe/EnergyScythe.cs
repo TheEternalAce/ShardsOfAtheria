@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Items.Weapons;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
@@ -28,7 +29,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.EnergyScythe
             Projectile.width = Projectile.height = 30;
             swordReach = 50;
             rotationOffset = -MathHelper.PiOver4 * 3f;
-            amountAllowedToHit = 3;
+            hitsLeft = 3;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -81,6 +82,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.EnergyScythe
         public override float SwingProgress(float progress)
         {
             return SwingProgressAequus(progress);
+        }
+
+        public override Vector2 GetOffsetVector(float progress)
+        {
+            return BaseAngleVector.RotatedBy((progress * (MathHelper.Pi * 1.5f) - MathHelper.PiOver2 * 1.5f) * -swingDirection * 1.1f);
         }
 
         public override float GetVisualOuter(float progress, float swingProgress)

@@ -139,9 +139,10 @@ namespace ShardsOfAtheria.Utilities
         /// </summary>
         /// <param name="item"></param>
         /// <param name="elementID"></param>
-        public static void AddElement(this Item item, int elementID)
+        public static void AddElement(this Item item, params int[] elementIDs)
         {
-            SoA.TryElementCall("assignElement", item, elementID);
+            foreach (int elementID in elementIDs)
+                SoA.TryElementCall("assignElement", item, elementID);
         }
         public static void AddElementTooltip(this Item item, string tooltip)
         {
@@ -171,9 +172,10 @@ namespace ShardsOfAtheria.Utilities
         /// </summary>
         /// <param name="item"></param>
         /// <param name="elementID"></param>
-        public static void AddRedemptionElement(this Item item, int elementID)
+        public static void AddRedemptionElement(this Item item, params int[] elementIDs)
         {
-            SoA.TryRedemptionCall("addElementItem", elementID, item.type);
+            foreach (int elementID in elementIDs)
+                SoA.TryRedemptionCall("addElementItem", elementID, item.type);
         }
 
         public static void SetGunStats(this int itemID, string gunType, int ammo)

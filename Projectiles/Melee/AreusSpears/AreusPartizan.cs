@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff.OnHitBuffs;
+using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -27,7 +28,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             Projectile.width = Projectile.height = 30;
             swordReach = 200;
             rotationOffset = -MathHelper.PiOver4 * 3f;
-            amountAllowedToHit = 5;
+            hitsLeft = 5;
         }
 
         protected override void Initialize(Player player, ShardsPlayer shards)

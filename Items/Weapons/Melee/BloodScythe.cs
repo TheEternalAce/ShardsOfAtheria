@@ -11,30 +11,29 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.AddDamageType(6);
-            Item.AddElement(1);
-            Item.AddElement(3);
+            Item.AddElement(1, 3);
             Item.AddEraser();
-            Item.AddRedemptionElement(12);
+            Item.AddRedemptionElement(1, 12);
         }
 
         public override void SetDefaults()
         {
-            Item.width = 64;
+            Item.width = 94;
             Item.height = 76;
-            Item.scale = 3f;
 
             Item.damage = 150;
             Item.DamageType = DamageClass.Melee;
             Item.knockBack = 6f;
             Item.crit = 96;
 
-            Item.useTime = 35;
-            Item.useAnimation = 35;
+            Item.useTime = 50;
+            Item.useAnimation = 50;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.UseSound = SoundID.Item1;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.autoReuse = true;
+            Item.channel = true;
 
             Item.shootSpeed = 1f;
             Item.rare = ItemDefaults.RarityDeath;

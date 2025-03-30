@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
@@ -27,7 +28,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.ElecKatana
             Projectile.scale = 2f;
             swordReach = 100;
             rotationOffset = -MathHelper.PiOver4 * 3f;
-            amountAllowedToHit = 3;
+            hitsLeft = 3;
         }
 
         protected override void Initialize(Player player, ShardsPlayer shards)

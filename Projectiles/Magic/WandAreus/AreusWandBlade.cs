@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
             Projectile.width = Projectile.height = 30;
             swordReach = 150;
             rotationOffset = -MathHelper.PiOver4 * 3f;
-            amountAllowedToHit = 3;
+            hitsLeft = 3;
         }
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)

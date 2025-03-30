@@ -2,8 +2,8 @@
 using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Projectiles.Other;
 using System;
 using Terraria;
@@ -38,6 +38,17 @@ namespace ShardsOfAtheria.Utilities
         public static bool NonWhipSummon(this Projectile projectile)
         {
             return projectile.minion || projectile.sentry || ProjectileID.Sets.SentryShot[projectile.type] || ProjectileID.Sets.MinionShot[projectile.type];
+        }
+
+        public static void ScaleUp(Projectile proj)
+        {
+            float scale = Main.player[proj.owner].CappedMeleeScale();
+            if (scale != 1f)
+            {
+                proj.scale *= scale;
+                proj.width = (int)(proj.width * proj.scale);
+                proj.height = (int)(proj.height * proj.scale);
+            }
         }
 
         /// <summary>
@@ -136,6 +147,14 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
+        public static void GetDrawInfo(this Projectile projectile, out Texture2D texture, out Vector2 offset, out Rectangle frame, out Vector2 origin, out int trailLength)
+        {
+            texture = TextureAssets.Projectile[projectile.type].Value;
+            offset = projectile.Size / 2f;
+            frame = projectile.Frame();
+            origin = frame.Size() / 2f;
+            trailLength = ProjectileID.Sets.TrailCacheLength[projectile.type];
+        }
         public static void ApplyGravity(this Projectile projectile, ref int delay, float gravityStrength = 0.1f, float maxYVelocity = 16f)
         {
             if (--delay <= 0)
@@ -321,10 +340,11 @@ namespace ShardsOfAtheria.Utilities
         /// 3 (Wood)
         /// </summary>
         /// <param name="projectile"></param>
-        /// <param name="elementID"></param>
-        public static void AddElement(this Projectile projectile, int elementID)
+        /// <param name="elementIDs"></param>
+        public static void AddElement(this Projectile projectile, params int[] elementIDs)
         {
-            SoA.TryElementCall("assignElement", projectile, elementID);
+            foreach (int elementID in elementIDs)
+                SoA.TryElementCall("assignElement", projectile, elementID);
         }
 
         /// <summary>
@@ -346,9 +366,10 @@ namespace ShardsOfAtheria.Utilities
         /// </summary>
         /// <param name="projectile"></param>
         /// <param name="elementID"></param>
-        public static void AddRedemptionElement(this Projectile projectile, int elementID)
+        public static void AddRedemptionElement(this Projectile projectile, params int[] elementIDs)
         {
-            SoA.TryRedemptionCall("addElementProj", elementID, projectile.type);
+            foreach (int elementID in elementIDs)
+                SoA.TryRedemptionCall("addElementProj", elementID, projectile.type);
         }
     }
 }

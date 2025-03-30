@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
@@ -26,7 +27,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             Projectile.width = Projectile.height = 30;
             swordReach = 130;
             rotationOffset = -MathHelper.PiOver4 * 3f;
-            amountAllowedToHit = 4;
+            hitsLeft = 4;
         }
 
         protected override void Initialize(Player player, ShardsPlayer shards)

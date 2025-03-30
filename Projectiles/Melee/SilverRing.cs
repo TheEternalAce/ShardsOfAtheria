@@ -26,6 +26,11 @@ namespace ShardsOfAtheria.Projectiles.Melee
             AIType = ProjectileID.BouncyGrenade;
         }
 
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (target.type == NPCID.Werewolf) modifiers.ScalingBonusDamage += 1f;
+        }
+
         public override bool PreDraw(ref Color lightColor)
         {
             lightColor = Color.White;

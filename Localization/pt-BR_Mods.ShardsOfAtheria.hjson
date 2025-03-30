@@ -238,6 +238,7 @@ Items: {
 			Efeitos do Monte de Balões, Colar do pânico, Botas Terraísca e Nadadeiras
 			Garante voo, desaceleração de queda e imunidade a debuffs de frio
 			'''
+		// DeveloperKeyChange: No fly cooldown
 	}
 
 	# Ruby
@@ -363,6 +364,7 @@ Items: {
 			Use to disable Gravitation
 			Grants flight and slow fall
 			'''
+		// DeveloperKeyChange: No fly cooldown
 		/* ShiftTooltip0:
 			'''
 			[i:ShardsOfAtheria/AmberCore_Super] Amber Effects
@@ -2305,7 +2307,12 @@ Items: {
 
 	BloodScythe: {
 		DisplayName: Blood Scythe
-		// Tooltip: "'And thus, her family was torn apart'"
+		/* Tooltip:
+			'''
+			Hits are always critical
+			Deals extra damage to sufficiently wounded targets
+			'And thus, her family was torn apart'
+			''' */
 	}
 
 	Cataracnia: {

@@ -106,12 +106,11 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         {
             if (player.altFunctionUse == 2)
             {
-                var devCard = ToggleableTool.GetInstance<DevelopersKeyCard>(player);
-                bool cardActive = devCard != null && devCard.Active;
+                var devCard = ToggleableTool.GetActive<DevelopersKeyCard>(player);
                 bombCooldown = 120;
                 if (NPC.downedPlantBoss) bombCooldown /= 2;
                 if (NPC.downedMoonlord) bombCooldown /= 2;
-                if (cardActive) bombCooldown = 0;
+                if (devCard) bombCooldown = 0;
             }
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }

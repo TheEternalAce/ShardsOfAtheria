@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -24,18 +24,15 @@ namespace ShardsOfAtheria.Projectiles.Melee
             base.SetDefaults();
 
             Projectile.width = Projectile.height = 30;
-            swordReach = 250;
+            swordReach = 220;
             rotationOffset = -MathHelper.PiOver4 * 3f;
-            amountAllowedToHit = 5;
+            hitsLeft = 5;
         }
 
         protected override void Initialize(Player player, ShardsPlayer shards)
         {
             base.Initialize(player, shards);
-            if (shards.itemCombo > 0)
-            {
-                swingDirection *= -1;
-            }
+            if (shards.itemCombo == 0) swingDirection *= -1;
         }
 
         public override Color? GetAlpha(Color lightColor)
@@ -68,10 +65,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             player.heldProj = Projectile.whoAmI;
             Init(player, shards);
 
-            if (SwingSwitchDir)
-            {
-                UpdateDirection(player);
-            }
+            if (SwingSwitchDir) UpdateDirection(player);
 
             if (!player.frozen && !player.stoned)
             {
@@ -86,38 +80,24 @@ namespace ShardsOfAtheria.Projectiles.Melee
                 InterpolateSword(progress, out var angleVector, out float swingProgress, out float scale, out float outer);
                 if (forced50)
                 {
-                    if (LockedAngleVector == Vector2.Zero)
-                    {
-                        LockedAngleVector = angleVector;
-                    }
-                    else
-                    {
-                        angleVector = LockedAngleVector;
-                    }
+                    if (LockedAngleVector == Vector2.Zero) LockedAngleVector = angleVector;
+                    else angleVector = LockedAngleVector;
                 }
                 if (freezeFrame <= 0)
-                {
                     AngleVector = angleVector;
-                }
                 Projectile.position = arm + AngleVector * swordReach;
                 Projectile.position.X -= Projectile.width / 2f;
                 Projectile.position.Y -= Projectile.height / 2f;
                 Projectile.rotation = (arm - Projectile.Center).ToRotation() + rotationOffset;
                 if (freezeFrame <= 0)
-                {
                     UpdateSwing(progress, swingProgress);
-                }
                 if (Main.netMode != NetmodeID.Server)
-                {
                     SetArmRotation(player, progress, swingProgress);
-                }
                 Projectile.scale = scale;
                 visualOutwards = (int)outer;
             }
             if (Main.player[Projectile.owner].itemAnimation <= 1)
-            {
                 Main.player[Projectile.owner].Shards().itemCombo = (ushort)(combo == 0 ? 20 : 0);
-            }
             if (!playedSound && AnimProgress > 0.4f)
             {
                 playedSound = true;
@@ -129,9 +109,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override void UpdateSwing(float progress, float interpolatedSwingProgress)
         {
             if (progress == 0.5f && Main.myPlayer == Projectile.owner && Projectile.ai[1] == 1f)
-            {
                 SilverSpear.ShootRings(Projectile, AngleVector);
-            }
         }
 
         public override Vector2 GetOffsetVector(float progress)
@@ -154,7 +132,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             }
             if (progress < 0.8f)
             {
-                float p = 1f - (1f - progress) / 0.2f;
+                float p = 1f - (1f - progress) / 0.15f;
                 Projectile.alpha = (int)(p * 255);
                 return 20f * p;
             }
@@ -163,7 +141,12 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         public override float GetScale(float progress)
         {
-            return base.GetScale(progress) + (float)Math.Sin(progress * MathHelper.Pi) * 0.4f;
+            return base.GetScale(progress);
+        }
+
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (target.type == NPCID.Werewolf) modifiers.ScalingBonusDamage += 1f;
         }
 
         public override bool PreDraw(ref Color lightColor)

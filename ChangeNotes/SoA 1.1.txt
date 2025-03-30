@@ -124,3 +124,7 @@
 - Reworked Sloth and Wrath souls.
 - Diamond Barrier buff gives a little more defense.
 - Added Z-Charged Areus Judgement.
+- Resprited Blood Scythe.
+- Added Plague Pack.
+- Reworked Blood Scythe.
+- Emerald flight now shows the end destination.

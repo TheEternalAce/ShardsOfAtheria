@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -24,7 +25,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.EntropyCutter
             Projectile.width = Projectile.height = 30;
             swordReach = 230;
             rotationOffset = -MathHelper.PiOver4 * 3f;
-            amountAllowedToHit = 5;
+            hitsLeft = 5;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

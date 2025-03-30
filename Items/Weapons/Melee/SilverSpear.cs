@@ -92,7 +92,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             float numberProjectiles = 4;
             float shardRotation = MathHelper.ToRadians(20f);
-            Vector2 position = projectile.Center - angleVector * 30f;
+            Vector2 position = projectile.Center - angleVector * 40f;
             Vector2 velocity = angleVector * 12f;
             for (int i = 0; i < numberProjectiles; i++)
             {
