@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 
-namespace ShardsOfAtheria.Projectiles.Melee
+namespace ShardsOfAtheria.Projectiles.Melee.BloodArtifact
 {
     public class DeathScythe : CoolSword
     {
@@ -50,7 +50,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             base.AI();
             if (Owner.itemAnimation <= 1)
                 Owner.Shards().itemCombo = (ushort)(combo == 0 ? 20 : 0);
-            if (BeingHeld && !Owner.controlUseTile && charge < 0.8f)
+            if (BeingHeld && !Owner.controlUseTile && charge < 1f)
             {
                 Projectile.timeLeft = 3600;
                 if (AnimProgress < 0.35f)
@@ -58,11 +58,12 @@ namespace ShardsOfAtheria.Projectiles.Melee
                     Owner.itemAnimation--;
                     Owner.itemTime--;
                 }
-                else if (charge < 0.8f)
+                else
                 {
-                    float chargeIncrement = 0.0036f * (Owner.GetWeaponAttackSpeed(Owner.HeldItem));
+                    float chargeIncrement = 0.0036f * Owner.GetWeaponAttackSpeed(Owner.HeldItem);
                     charge += chargeIncrement;
                     scale += chargeIncrement;
+                    scale = MathHelper.Clamp(scale, 1f, 1.8f);
                 }
                 AngleVector = GetOffsetVector(0);
                 Projectile.velocity = Owner.Center.DirectionTo(Main.MouseWorld);
@@ -81,6 +82,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
                 playedSound = true;
                 SoundEngine.PlaySound(SoundID.Item71.WithPitchOffset(-1f), Projectile.Center);
             }
+            charge = MathHelper.Clamp(charge, 0f, 1f);
         }
 
         public override Vector2 GetOffsetVector(float progress)
@@ -118,7 +120,11 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (target.life < target.lifeMax / 50) modifiers.ScalingBonusDamage += 0.8f;
+            if (target.life < target.lifeMax / 2)
+            {
+                modifiers.ScalingBonusDamage += 0.8f;
+                SoundEngine.PlaySound(SoA.HeavyCut, target.Center);
+            }
             modifiers.ScalingBonusDamage += charge * 2.5f;
         }
 
@@ -126,6 +132,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         {
             base.OnHitNPC(target, hit, damageDone);
             target.AddBuff<DeathBleed>(1200);
+            if (target.CanBeChasedBy() && !Owner.moonLeech && charge == 1f && hitsLeft == -1) Owner.Heal(Owner.statLifeMax2 / 10);
         }
 
         public override bool PreDraw(ref Color lightColor)
