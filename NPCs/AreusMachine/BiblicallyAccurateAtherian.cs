@@ -55,7 +55,7 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
             // Influences how the NPC looks in the Bestiary
             NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new()
             {
-                CustomTexturePath = "ShardsOfAtheria/NPCs/AreusMachine/BiblicallyAccurateAtherian_Bestiary"
+                CustomTexturePath = Texture + "_Bestiary"
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
