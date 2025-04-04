@@ -56,7 +56,7 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
         {
             NPC.width = 42;
             NPC.height = 32;
-            NPC.damage = 0;
+            NPC.damage = 10;
             NPC.defense = 10;
             NPC.lifeMax = 200;
             NPC.lavaImmune = true;
