@@ -1,4 +1,5 @@
-using ShardsOfAtheria.Projectiles.Melee;
+using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Projectiles.Melee.BloodArtifact;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -10,6 +11,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         public override void SetStaticDefaults()
         {
+            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+
             Item.AddDamageType(6);
             Item.AddElement(1, 3);
             Item.AddEraser();
@@ -44,6 +47,26 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override bool MeleePrefix()
         {
             return true;
+        }
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                float attackSpeed = player.GetWeaponAttackSpeed(Item);
+                int useTime = (int)(40 / attackSpeed);
+                player.itemTime = useTime;
+                player.itemAnimation = useTime;
+
+                velocity *= 16f;
+                type = ModContent.ProjectileType<BloodSwordFriendly>();
+                damage = (int)(damage * 0.4f);
+            }
         }
 
         public override bool? UseItem(Player player)

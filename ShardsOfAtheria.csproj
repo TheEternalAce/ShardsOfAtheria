@@ -105,6 +105,7 @@
     <None Remove="Projectiles\Melee\BalanceSwords\LightInShadow.png" />
     <None Remove="Projectiles\Melee\BalanceSwords\ShadowInLight.png" />
     <None Remove="Projectiles\Melee\Baton\AreusTonfaUppercut.png" />
+    <None Remove="Projectiles\Melee\BloodArtifact\BloodSwordFriendly.png" />
     <None Remove="Projectiles\Melee\EntropicCut_Red.png" />
     <None Remove="Projectiles\Melee\FlameSwords\FlameSlash.png" />
     <None Remove="Projectiles\Melee\FlameSwords\FlameStab.png" />

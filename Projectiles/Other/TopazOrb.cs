@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Projectiles.Other
                 if (Projectile.Hitbox.Intersects(player.Hitbox))
                 {
                     Projectile.Kill();
-                    player.Heal(20 + player.statLifeMax2 / 20);
+                    player.Heal(20);
                 }
             }
 
@@ -77,12 +77,8 @@ namespace ShardsOfAtheria.Projectiles.Other
                 }
                 foreach (Player player1 in Main.player)
                 {
-                    if (player1.team == player.team &&
-                        player1.whoAmI != player.whoAmI &&
-                        player1.Distance(Projectile.Center) < 1000)
-                    {
+                    if (player1.team == player.team && player1.whoAmI != player.whoAmI && player1.Distance(Projectile.Center) < 1000)
                         player1.Heal(20 + player1.statLifeMax2 / 20);
-                    }
                 }
             }
         }

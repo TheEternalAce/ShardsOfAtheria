@@ -128,3 +128,7 @@
 - Added Plague Pack.
 - Reworked Blood Scythe.
 - Emerald flight now shows the end destination.
+- Added amber banner smawning cooldown.
+- Reduced healing from topaz orb to 20.
+- Resprited Shrieking Beacon, and it now has the hovering ai instead of being stationary.
+- Death Bleed now disables some healing effects.
