@@ -35,7 +35,7 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
             // Influences how the NPC looks in the Bestiary
             NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new()
             {
-                CustomTexturePath = "ShardsOfAtheria/NPCs/ShriekingBeacon_Bestiary"
+                CustomTexturePath = Texture + "_Bestiary"
             };
 
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
@@ -62,6 +62,8 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
             NPC.lavaImmune = true;
             NPC.value = 2000;
             NPC.knockBackResist = 0;
+            NPC.aiStyle = 22;
+            NPC.noGravity = true;
 
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCDeath14;
@@ -167,9 +169,10 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
         int frame = 0;
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
+
             Asset<Texture2D> head = ModContent.Request<Texture2D>(Texture + "_Head");
             var rect = new Rectangle(0, 28 * frame, 24, 28);
-            Vector2 offset = new(0, 12);
+            Vector2 offset = new(0, 4);
             var drawPos = NPC.Center - screenPos + offset;
             var origin = new Vector2(11, 22);
             float rotation = 0f;
