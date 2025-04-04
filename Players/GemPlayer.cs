@@ -32,6 +32,7 @@ namespace ShardsOfAtheria.Players
         public bool superAmberCore;
         public bool amberCape;
         public int maxAmberBanners;
+        public int bannerCooldown;
 
         public bool amethystCore;
         public bool greaterAmethystCore;
@@ -112,6 +113,7 @@ namespace ShardsOfAtheria.Players
             greaterAmberCore = false;
             superAmberCore = false;
             maxAmberBanners = 0;
+            if (bannerCooldown > 0) bannerCooldown--;
             amberCape = false;
 
             amethystCore = false;
@@ -135,9 +137,7 @@ namespace ShardsOfAtheria.Players
             superRubyCore = false;
             rubyGauntlet = false;
             if (rubyExplosiveCooldown > 0)
-            {
                 rubyExplosiveCooldown--;
-            }
 
             sapphireDodgeChance = 0f;
             sapphireCore = false;
@@ -169,10 +169,7 @@ namespace ShardsOfAtheria.Players
 
         public override void LoadData(TagCompound tag)
         {
-            if (tag.ContainsKey(nameof(masterGemCoreToggles)))
-            {
-                masterGemCoreToggles = tag.Get<bool[,]>(nameof(masterGemCoreToggles));
-            }
+            if (tag.TryGet(nameof(masterGemCoreToggles), out bool[,] value)) masterGemCoreToggles = value;
         }
 
         public override void PreUpdate()
@@ -184,13 +181,8 @@ namespace ShardsOfAtheria.Players
                 if (Player.ownedProjectileCounts[type] == 0)
                 {
                     Item core = ModContent.GetInstance<DiamondCore_Greater>().Item;
-                    Projectile.NewProjectile(Player.GetSource_Accessory(core), Player.Center,
-                        Vector2.Zero, type, 0, 0f, Player.whoAmI);
-                    if (megaGemCore)
-                    {
-                        Projectile.NewProjectile(Player.GetSource_Accessory(core), Player.Center,
-                            Vector2.Zero, type, 0, 0f, Player.whoAmI, 1f);
-                    }
+                    Projectile.NewProjectile(Player.GetSource_Accessory(core), Player.Center, Vector2.Zero, type, 0, 0f, Player.whoAmI);
+                    if (megaGemCore) Projectile.NewProjectile(Player.GetSource_Accessory(core), Player.Center, Vector2.Zero, type, 0, 0f, Player.whoAmI, 1f);
                 }
             }
             if (superAmberCore)
@@ -201,10 +193,7 @@ namespace ShardsOfAtheria.Players
                     {
                         foreach (var otherPlayer in Main.player)
                         {
-                            if (otherPlayer.team == Player.team)
-                            {
-                                otherPlayer.statDefense += 4;
-                            }
+                            if (otherPlayer.team == Player.team) otherPlayer.statDefense += 4;
                         }
                     }
                 }
@@ -222,13 +211,7 @@ namespace ShardsOfAtheria.Players
                 float debuffSpeed = 0f;
                 for (int i = 0; i < Player.CountBuffs(); i++)
                 {
-                    if (!BuffID.Sets.TimeLeftDoesNotDecrease[Player.buffType[i]])
-                    {
-                        if (Main.debuff[Player.buffType[i]])
-                        {
-                            debuffSpeed += 0.08f;
-                        }
-                    }
+                    if (!BuffID.Sets.TimeLeftDoesNotDecrease[Player.buffType[i]] && Main.debuff[Player.buffType[i]]) debuffSpeed += 0.08f;
                 }
                 Player.moveSpeed += debuffSpeed;
             }
@@ -236,18 +219,12 @@ namespace ShardsOfAtheria.Players
 
         public override void PostUpdateBuffs()
         {
-            if (Player.ownedProjectileCounts[ModContent.ProjectileType<EmeraldTeleport>()] > 0)
-            {
-                Player.invis = true;
-            }
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<EmeraldTeleport>()] > 0) Player.invis = true;
         }
 
         public override void UpdateVisibleAccessories()
         {
-            if (!megaGemCore && !megaGemCorePrevious)
-            {
-                SpawnSapphireSpirit();
-            }
+            if (!megaGemCore && !megaGemCorePrevious) SpawnSapphireSpirit();
         }
 
         private void SpawnSapphireSpirit()
@@ -259,10 +236,7 @@ namespace ShardsOfAtheria.Players
                 if (gemSoul || gemSoulPrevious)
                 {
                     type = ModContent.ProjectileType<GemSoul>();
-                    if (sapphireSpiritUpgrade)
-                    {
-                        damage = 80;
-                    }
+                    if (sapphireSpiritUpgrade) damage = 80;
                 }
                 if (Player.ownedProjectileCounts[type] == 0)
                 {
@@ -277,14 +251,8 @@ namespace ShardsOfAtheria.Players
         {
             if (Player.HasBuff(ModContent.BuffType<WoundedAmethyst>()))
             {
-                if (Player.lifeRegen > 0)
-                {
-                    Player.lifeRegen = 0;
-                }
-                if (Player.lifeRegenCount > 0)
-                {
-                    Player.lifeRegenCount = 0;
-                }
+                if (Player.lifeRegen > 0) Player.lifeRegen = 0;
+                if (Player.lifeRegenCount > 0) Player.lifeRegenCount = 0;
                 Player.lifeRegenTime = 0;
             }
             if (Player.HasBuff<SpitefulRuby>())
@@ -336,21 +304,12 @@ namespace ShardsOfAtheria.Players
         }
         public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
         {
-            if (Player.HasBuff<SpitefulRuby>())
-            {
-                damage.Flat -= 0.15f;
-            }
+            if (Player.HasBuff<SpitefulRuby>()) damage.Flat -= 0.15f;
         }
 
         public override bool? CanAutoReuseItem(Item item)
         {
-            if (megaGemCore || greaterRubyCore || superRubyCore)
-            {
-                if (item.damage > 0)
-                {
-                    return true;
-                }
-            }
+            if ((megaGemCore || greaterRubyCore || superRubyCore) && item.damage > 0) return true;
             return base.CanAutoReuseItem(item);
         }
 
@@ -375,84 +334,52 @@ namespace ShardsOfAtheria.Players
                     if (item.type == ModContent.ItemType<AmberCore>() ||
                         item.type == ModContent.ItemType<AmberCore_Greater>() ||
                         item.type == ModContent.ItemType<AmberCore_Super>())
-                    {
                         amberCape = true;
-                    }
                     if (item.type == ModContent.ItemType<AmethystCore>() ||
                         item.type == ModContent.ItemType<AmethystCore_Greater>() ||
                         item.type == ModContent.ItemType<AmethystCore_Super>())
-                    {
                         amethystMask = true;
-                    }
                     if (item.type == ModContent.ItemType<DiamondCore>() ||
                         item.type == ModContent.ItemType<DiamondCore_Greater>() ||
                         item.type == ModContent.ItemType<DiamondCore_Super>())
-                    {
                         diamondShield = true;
-                    }
                     if (item.type == ModContent.ItemType<EmeraldCore>() ||
                         item.type == ModContent.ItemType<DiamondCore_Greater>() ||
                         item.type == ModContent.ItemType<EmeraldCore_Super>())
-                    {
                         emeraldBoots = true;
-                    }
                     if (item.type == ModContent.ItemType<RubyCore>() ||
                         item.type == ModContent.ItemType<RubyCore_Greater>() ||
                         item.type == ModContent.ItemType<RubyCore_Super>())
-                    {
                         rubyGauntlet = true;
-                    }
                     if (item.type == ModContent.ItemType<SapphireCore>() ||
                         item.type == ModContent.ItemType<SapphireCore_Greater>() ||
                         item.type == ModContent.ItemType<SapphireCore_Super>())
-                    {
                         sapphireSpirit = true;
-                    }
                     if (item.type == ModContent.ItemType<TopazCore>() ||
                         item.type == ModContent.ItemType<TopazCore_Greater>() ||
                         item.type == ModContent.ItemType<TopazCore_Super>())
-                    {
                         topazNecklace = true;
-                    }
                 }
             }
         }
 
         public override void FrameEffects()
         {
-            if (amberCape)
-            {
-                Player.back = EquipLoader.GetEquipSlot(Mod, "AmberCape", EquipType.Back);
-            }
-            if (amethystMask)
-            {
-                Player.head = EquipLoader.GetEquipSlot(Mod, "AmethystMask", EquipType.Head);
-            }
-            if (diamondShield)
-            {
-                Player.shield = (sbyte)EquipLoader.GetEquipSlot(Mod, "DiamondShield", EquipType.Shield);
-            }
-            if (emeraldBoots)
-            {
-                Player.shoe = (sbyte)EquipLoader.GetEquipSlot(Mod, "EmeraldBoots", EquipType.Shoes);
-            }
+            if (amberCape) Player.back = EquipLoader.GetEquipSlot(Mod, "AmberCape", EquipType.Back);
+            if (amethystMask) Player.head = EquipLoader.GetEquipSlot(Mod, "AmethystMask", EquipType.Head);
+            if (diamondShield) Player.shield = (sbyte)EquipLoader.GetEquipSlot(Mod, "DiamondShield", EquipType.Shield);
+            if (emeraldBoots) Player.shoe = (sbyte)EquipLoader.GetEquipSlot(Mod, "EmeraldBoots", EquipType.Shoes);
             if (rubyGauntlet)
             {
                 Player.handon = (sbyte)EquipLoader.GetEquipSlot(Mod, "RubyGauntlet", EquipType.HandsOn);
                 Player.handoff = (sbyte)EquipLoader.GetEquipSlot(Mod, "RubyGauntlet_Off", EquipType.HandsOff);
             }
-            if (topazNecklace)
-            {
-                Player.neck = (sbyte)EquipLoader.GetEquipSlot(Mod, "TopazAmulet", EquipType.Neck);
-            }
+            if (topazNecklace) Player.neck = (sbyte)EquipLoader.GetEquipSlot(Mod, "TopazAmulet", EquipType.Neck);
         }
 
         public override bool FreeDodge(Player.HurtInfo info)
         {
-            if (sapphireDodgeChance > 0)
-            {
-                return TrySapphireDodge(sapphireDodgeChance);
-            }
+            if (sapphireDodgeChance > 0) return TrySapphireDodge(sapphireDodgeChance);
             return base.FreeDodge(info);
         }
 
@@ -474,10 +401,7 @@ namespace ShardsOfAtheria.Players
         {
             if (!Player.IsLocal()) return;
             int gemBlessingTime = 600;
-            if (megaGemCore)
-            {
-                gemBlessingTime += 300;
-            }
+            if (megaGemCore) gemBlessingTime += 300;
 
             //AddCurses();
             if (sapphireCore)
@@ -530,33 +454,11 @@ namespace ShardsOfAtheria.Players
                     int buffID = Player.buffType[i];
                     if (!BuffID.Sets.TimeLeftDoesNotDecrease[buffID] && !Curses.Contains(buffID))
                     {
-                        if (Main.debuff[buffID])
-                        {
-                            Player.buffTime[i] -= 30;
-                        }
-                        else
-                        {
-                            Player.buffTime[i] += 60;
-                        }
+                        if (Main.debuff[buffID]) Player.buffTime[i] -= 30;
+                        else Player.buffTime[i] += 60;
                     }
                 }
             }
-        }
-
-        private void AddCurses()
-        {
-            if (Player.HasBuff<SwarmingAmber>() && Player.HasBuff<EfficientAmethyst>()) TryAddCurse<CrowdedAmber>();
-            if (Player.HasBuff<EfficientAmethyst>() && Player.HasBuff<MendingTopaz>()) TryAddCurse<WoundedAmethyst>();
-            if (Player.HasBuff<FleetingEmerald>() && Player.HasBuff<VengefulRuby>()) TryAddCurse<TimidEmerald>();
-            if (Player.HasBuff<TenaciousDiamond>() && Player.HasBuff<VengefulRuby>()) TryAddCurse<FrailDiamond>();
-            if (Player.HasBuff<VengefulRuby>() && Player.HasBuff<TenaciousDiamond>()) TryAddCurse<SpitefulRuby>();
-            if (Player.HasBuff<CunningSapphire>() && Player.HasBuff<VengefulRuby>()) TryAddCurse<RecklessSapphire>();
-            if (Player.HasBuff<MendingTopaz>() && Player.HasBuff<TenaciousDiamond>()) TryAddCurse<FragileTopaz>();
-        }
-
-        private void TryAddCurse<T>(int curseChanceDenominator = 5) where T : ModBuff
-        {
-            if (Main.rand.NextBool(curseChanceDenominator)) Player.AddBuff<T>(420);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -584,9 +486,9 @@ namespace ShardsOfAtheria.Players
                 }
             }
 
-            if (target.life <= 0)
+            if (target.life <= 0 && target.lifeMax > 5)
             {
-                if (greaterAmberCore)
+                if (greaterAmberCore && bannerCooldown == 0)
                 {
                     int type = ModContent.ProjectileType<AmberBanner>();
                     float ai0 = 0f;
@@ -608,6 +510,7 @@ namespace ShardsOfAtheria.Players
                         }
                         AmberBanner.MakeOldestBannerFollowPlayer(Player);
                     }
+                    bannerCooldown = 60;
                 }
                 if (superDiamondCore) Player.AddBuff<DiamondBarrierBuff>(10);
                 if (!Player.moonLeech && greaterTopazCore) Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.UnitY * -10f, ModContent.ProjectileType<TopazOrb>(), 0, 0f, Player.whoAmI);

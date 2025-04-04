@@ -2340,7 +2340,11 @@ Items: {
 			'''
 			Hits are always critical
 			Deals extra damage to sufficiently wounded targets
+			Hold use to charge a devastating slash
+			Full charge heals 10% max life once
+			Alt-use to throw a slightly faster, long-range blade
 			'And thus, her family was torn apart'
+			'Goodbye'
 			'''
 	}
 
@@ -3477,6 +3481,7 @@ Projectiles: {
 	TinyLaser.DisplayName: Tiny Laser
 	StormBlade.DisplayName: Storm Blade
 	AreusDroneLaser.DisplayName: Areus Drone Laser
+	BloodSwordFriendly.DisplayName: Blood Sword
 }
 
 NPCs: {
@@ -3669,7 +3674,7 @@ Buffs: {
 	# Any debuff
 	DeathBleed: {
 		DisplayName: Death Bleed
-		Description: Losing life
+		Description: Losing life and unable to absorb healing effects
 	}
 
 	ElectricShock: {

@@ -16,6 +16,7 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetModPlayer<BleedPlayer>().deathBleed = true;
+            player.moonLeech = true;
         }
 
         public override void Update(NPC npc, ref int buffIndex)
