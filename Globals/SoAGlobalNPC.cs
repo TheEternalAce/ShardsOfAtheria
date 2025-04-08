@@ -20,7 +20,6 @@ using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Utilities;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,15 +33,6 @@ namespace ShardsOfAtheria.Globals
         readonly Asset<Texture2D> skyHarpy = ModContent.Request<Texture2D>("ShardsOfAtheria/NPCs/Variant/Harpy/SkyHarpy");
 
         public override bool InstancePerEntity => true;
-
-        public override void OnSpawn(NPC npc, IEntitySource source)
-        {
-            base.OnSpawn(npc, source);
-            if (npc.type == NPCID.Harpy)
-            {
-                npc.GivenName = ShardsHelpers.Localize("NPCs.SkyHarpy.DisplayName");
-            }
-        }
 
         public override void ModifyShop(NPCShop shop)
         {
@@ -68,26 +58,6 @@ namespace ShardsOfAtheria.Globals
             nextSlot++;
             base.SetupTravelShop(shop, ref nextSlot);
         }
-
-        public override void OnKill(NPC npc)
-        {
-            if (npc.lifeMax > 5)
-            {
-                if (Main.dayTime && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneOverworldHeight)
-                {
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SoulOfDaylight>());
-                }
-                if ((Main.eclipse || !Main.dayTime) && Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneOverworldHeight)
-                {
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SoulOfTwilight>());
-                }
-                if (Main.rand.NextFloat() < .2f && Main.LocalPlayer.ZoneUnderworldHeight)
-                {
-                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SoulOfSpite>());
-                }
-            }
-        }
-
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             LeadingConditionRule notHardmode = new(new Conditions.IsPreHardmode());
@@ -98,6 +68,17 @@ namespace ShardsOfAtheria.Globals
             LeadingConditionRule downedMoonLord = new(new DownedMoonLord());
 
             if (ModLoader.TryGetMod("FargowiltasSouls", out Mod _)) master = new(new EternityOrMaster());
+
+            LeadingConditionRule daylight = new(new IsInDaylight());
+            LeadingConditionRule twilight = new(new IsInTwilight());
+            LeadingConditionRule underworld = new(new IsInUnderworld());
+            if (npc.CanBeChasedBy())
+            {
+                npcLoot.Add(daylight.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SoulOfDaylight>(), 5)));
+                npcLoot.Add(twilight.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SoulOfTwilight>(), 5)));
+                npcLoot.Add(underworld.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SoulOfSpite>(), 5)));
+            }
+
             if (npc.type == NPCID.Mothron)
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BrokenHeroGun>(), 4));
             if (npc.type == NPCID.Reaper)
@@ -202,13 +183,14 @@ namespace ShardsOfAtheria.Globals
         {
             if (npc.type == NPCID.Harpy)
             {
-                if (Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height) &&
+                var player = Main.player[npc.target];
+                if (Collision.CanHit(npc.position, npc.width, npc.height, player.position, player.width, player.height) &&
+                    Collision.CanHit(npc.position, npc.width, npc.height, player.position - Vector2.UnitY * -600, player.width, player.height) &&
                     (npc.ai[0] == 30f || npc.ai[0] == 60f || npc.ai[0] == 90f))
                 {
                     if (Main.rand.NextBool(3))
                     {
-                        ShardsHelpers.CallStorm(npc.GetSource_FromAI(), Main.player[npc.target].Center,
-                            3, 20, 0, DamageClass.Generic, hostile: true);
+                        ShardsHelpers.CallStorm(npc.GetSource_FromAI(), player.Center, 3, 10, 0, DamageClass.Generic, hostile: true);
                         npc.ai[0] = 91;
                     }
                 }

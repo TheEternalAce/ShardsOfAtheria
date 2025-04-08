@@ -105,14 +105,8 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.knockBackResist = 0.5f;
 
-            if (SoA.AprilFools)
-            {
-                AnimationType = NPCID.Guide;
-            }
-            else
-            {
-                AnimationType = NPCID.Stylist;
-            }
+            if (SoA.AprilFools) AnimationType = NPCID.Guide;
+            else AnimationType = NPCID.Stylist;
 
             NPC.ElementMultipliers([0.5f, 1.0f, 0.8f, 2.0f]);
 
@@ -125,23 +119,21 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
         {
             string key = this.GetLocalizationKey("Bestiary");
             // We can use AddRange instead of calling Add multiple times in order to add multiple items at once
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+            bestiaryEntry.Info.AddRange([
 				// Sets the preferred biomes of this town NPC listed in the bestiary.
 				// With Town NPCs, you usually set this to what biome it likes the most in regards to NPC happiness.
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheHallow,
 
 				// Sets your NPC's flavor text in the bestiary.
 				new FlavorTextBestiaryInfoElement(key)
-            });
+            ]);
         }
 
         public override void HitEffect(NPC.HitInfo hit)
         {
             int num = NPC.life > 0 ? 1 : 5;
             for (int k = 0; k < num; k++)
-            {
                 Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood);
-            }
         }
 
         public override bool CanTownNPCSpawn(int numTownNPCs)
@@ -188,7 +180,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
 
         public override List<string> SetNPCNameList()
         {
-            return new List<string>() { "Jordan", "Damien", "Jason", "Kevin", "Rain", "Sage", "Archimedes" };
+            return ["Jordan", "Damien", "Jason", "Kevin", "Rain", "Sage", "Archimedes"];
         }
 
         const string DialogueKeyBase = "Mods.ShardsOfAtheria.NPCs.Atherian.Dialogue.";
@@ -197,11 +189,6 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             WeightedRandom<string> chat = new();
             int playerWhoAmI = NPC.FindClosestPlayer();
             var player = Main.player[playerWhoAmI];
-
-            if (GiftCrest())
-            {
-                return Language.GetTextValue(this.GetLocalizationKey("Dialogue.GiftCrest"));
-            }
 
             if (player.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
             {
@@ -227,34 +214,6 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             return chat;
         }
 
-        private bool GiftCrest()
-        {
-            bool crest = false;
-            if (NPC.AnyNPCs(NPCID.Stylist) && !ShardsSystem.Instance.crestGifted)
-            {
-                int whoAmI = NPC.FindFirstNPC(NPCID.Stylist);
-                if (whoAmI > -1)
-                {
-                    var stylist = Main.npc[whoAmI];
-                    if (NPC.Distance(stylist.Center) <= 500)
-                    {
-                        int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<ValkyrieCrest>());
-                        Main.item[newItem].noGrabDelay = 0; // Set the new item to be able to be picked up instantly
-
-                        // Here we need to make sure the item is synced in multiplayer games.
-                        if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
-                        {
-                            NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
-                            crest = true;
-                        }
-
-                        ShardsSystem.Instance.crestGifted = true;
-                    }
-                }
-            }
-            return crest;
-        }
-
         public bool UpgradeFinished()
         {
             bool finished = false;
@@ -269,17 +228,37 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             return finished;
         }
 
+        private bool CrestAvailable()
+        {
+            int whoAmI = NPC.FindFirstNPC(NPCID.Stylist);
+            if (ShardsSystem.Instance.crestGifted) return false;
+            if (whoAmI == -1) return false;
+            NPC stylist = Main.npc[whoAmI];
+            if (stylist.Center.Distance(NPC.Center) > 500) return false;
+            return true;
+        }
         public override void SetChatButtons(ref string button, ref string button2)
         {
             button = Language.GetTextValue("LegacyInterface.28");
-            button2 = "Upgrade";
+
+            if (CrestAvailable()) button2 = "Get Crest";
+            else button2 = "Upgrade";
         }
 
         public override void OnChatButtonClicked(bool firstButton, ref string shopName)
         {
-            if (firstButton)
+            if (firstButton) shopName = "Shop";
+            else if (CrestAvailable())
             {
-                shopName = "Shop";
+                int newItem = Item.NewItem(NPC.GetSource_DropAsItem(), NPC.Hitbox, ModContent.ItemType<ValkyrieCrest>());
+                Main.item[newItem].noGrabDelay = 0; // Set the new item to be able to be picked up instantly
+
+                // Here we need to make sure the item is synced in multiplayer games.
+                if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+
+                ShardsSystem.Instance.crestGifted = true;
+                Main.npcChatText = Language.GetTextValue(this.GetLocalizationKey("Dialogue.GiftCrest"));
             }
             else
             {
@@ -292,10 +271,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
         public override void AI()
         {
             base.AI();
-            if (upgrading && upgradeTimer > 0)
-            {
-                upgradeTimer--;
-            }
+            if (upgrading && upgradeTimer > 0) upgradeTimer--;
         }
 
         public override void AddShops()

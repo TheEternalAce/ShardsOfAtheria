@@ -4272,7 +4272,10 @@ Conditions: {
 	// ElementModEnabled: Have the Battle Network Elements mod enabled
 	// SacrificeKatana: Sacrifice a katana in the Underworld.
 	// Rain: Drops during the rain.
-	// RainSurface: Drops in the rain.
+	// RainSurface: Drops while in the rain.
+	// Daylight: Drops while in daylight.
+	// Twilight: Drops while in twilight.
+	// Surface: Drops at the Underworld.
 	// EternityExpertOrMaster: Drops in Eternity or Master mode.
 	// Eternity: Drops in Eternity mode.
 	// VoidSet: Wear the full Areus Imperial set.
