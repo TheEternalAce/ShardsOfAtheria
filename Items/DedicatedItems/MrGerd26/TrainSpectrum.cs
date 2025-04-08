@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Projectiles.Magic.Spectrum;
+﻿using ShardsOfAtheria.Common.Items;
+using ShardsOfAtheria.Projectiles.Magic.Spectrum;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;
 using Terraria;

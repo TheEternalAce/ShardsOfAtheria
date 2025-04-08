@@ -1,4 +1,5 @@
 using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Common.Items;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Localization;

@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Projectiles.Ranged.FireCannon;
 using ShardsOfAtheria.Utilities;
 using Terraria;

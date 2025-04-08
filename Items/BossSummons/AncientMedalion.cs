@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.NPCs.Boss.Elizabeth;
 using ShardsOfAtheria.Utilities;
 using Terraria;

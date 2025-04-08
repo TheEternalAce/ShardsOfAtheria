@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Projectiles.Magic;
+﻿using ShardsOfAtheria.Common.Items;
+using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;

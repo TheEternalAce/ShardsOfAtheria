@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Projectiles.Magic.ElecGauntlet;
 using ShardsOfAtheria.Utilities;
 using Terraria;

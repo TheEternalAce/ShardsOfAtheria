@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.NPCs.Town.TheAtherian;
+﻿using ShardsOfAtheria.Common.Items;
+using ShardsOfAtheria.NPCs.Town.TheAtherian;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;

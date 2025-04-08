@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Projectiles.Melee.BloodthirstySword;
 using ShardsOfAtheria.Utilities;
 using Terraria;

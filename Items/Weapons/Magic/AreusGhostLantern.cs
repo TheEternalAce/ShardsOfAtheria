@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Systems;

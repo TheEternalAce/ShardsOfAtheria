@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Projectiles.Magic.ThorSpear;
 using ShardsOfAtheria.Utilities;
 using Terraria;

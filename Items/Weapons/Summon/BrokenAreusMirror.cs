@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Projectiles.Summon.Minions;
 using ShardsOfAtheria.Utilities;
 using Terraria;

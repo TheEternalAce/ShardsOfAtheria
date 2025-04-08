@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.NPCs.Town.TheArchivist;
+﻿using ShardsOfAtheria.Common.Items;
+using ShardsOfAtheria.NPCs.Town.TheArchivist;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;

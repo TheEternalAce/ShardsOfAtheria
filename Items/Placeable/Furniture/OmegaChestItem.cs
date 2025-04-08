@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Tiles.Furniture;
+﻿using ShardsOfAtheria.Common.Items;
+using ShardsOfAtheria.Tiles.Furniture;
 using Terraria.ID;
 using Terraria.ModLoader;
 

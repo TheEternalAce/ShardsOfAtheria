@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Projectiles.Melee.AreusSpears;
 using ShardsOfAtheria.Utilities;
 using Terraria;

@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Melee.Sawstring;
 using ShardsOfAtheria.Tiles.Crafting;

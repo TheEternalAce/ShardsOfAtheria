@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Tools.ToggleItems;

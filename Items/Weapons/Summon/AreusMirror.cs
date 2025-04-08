@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Projectiles.Summon.Minions.Sentry;
 using ShardsOfAtheria.Utilities;
 using Terraria;

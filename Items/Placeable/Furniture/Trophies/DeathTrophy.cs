@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Tiles.Furniture.Trophies;
+﻿using ShardsOfAtheria.Common.Items;
+using ShardsOfAtheria.Tiles.Furniture.Trophies;
 using Terraria;
 using Terraria.ModLoader;
 

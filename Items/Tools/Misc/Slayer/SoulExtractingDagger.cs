@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Tools;
 using ShardsOfAtheria.Systems;

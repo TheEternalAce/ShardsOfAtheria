@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
+﻿using ShardsOfAtheria.Common.Items;
+using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;

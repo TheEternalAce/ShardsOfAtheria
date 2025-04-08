@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 
-namespace ShardsOfAtheria.Items
+namespace ShardsOfAtheria.Common.Items
 {
     public static class ItemDefaults
     {

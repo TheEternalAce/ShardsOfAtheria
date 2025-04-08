@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.ShardsUI.EntropicSelection;
 using ShardsOfAtheria.Systems;

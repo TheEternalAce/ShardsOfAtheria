@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Globals;
 using System.Collections.Generic;
 using Terraria;

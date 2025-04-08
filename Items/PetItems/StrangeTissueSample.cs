@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Pets;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Projectiles.Pets;
 using Terraria;
 using Terraria.ModLoader;

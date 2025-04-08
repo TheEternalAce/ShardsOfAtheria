@@ -1,4 +1,5 @@
 ﻿using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
 using ShardsOfAtheria.Items.Accessories.GemCores.Lesser;
 using ShardsOfAtheria.Utilities;

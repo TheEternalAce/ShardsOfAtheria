@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Input;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Items.Accessories.GemCores.Lesser;
 using ShardsOfAtheria.Items.Accessories.GemCores.Super;
 using ShardsOfAtheria.Utilities;

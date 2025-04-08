@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Common.Items;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

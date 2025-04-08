@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ShardsOfAtheria.Common.Items;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;

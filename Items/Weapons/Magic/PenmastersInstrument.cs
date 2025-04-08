@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Projectiles.Magic.Penmaster;
 using ShardsOfAtheria.Projectiles.Melee.AreusSwordProjs;
 using ShardsOfAtheria.Utilities;

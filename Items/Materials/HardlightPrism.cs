@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.ShardsConditions;
 using Terraria;
 using Terraria.ID;

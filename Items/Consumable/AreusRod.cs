@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Items.Materials;
+﻿using ShardsOfAtheria.Common.Items;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;

@@ -1,4 +1,5 @@
 ﻿using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;

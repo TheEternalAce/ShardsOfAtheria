@@ -1,5 +1,6 @@
 ﻿using BattleNetworkElements;
 using BattleNetworkElements.Utilities;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;

@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Items.AreusChips;
 using Terraria;
 using Terraria.ID;

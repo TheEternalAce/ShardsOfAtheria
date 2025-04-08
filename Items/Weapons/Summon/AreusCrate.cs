@@ -1,3 +1,4 @@
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Summon.Minions.Sentry;
 using ShardsOfAtheria.Tiles.Crafting;

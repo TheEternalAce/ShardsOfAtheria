@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.NPCs;
+﻿using ShardsOfAtheria.Common.Items;
+using ShardsOfAtheria.NPCs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Items.Placeable;
+﻿using ShardsOfAtheria.Common.Items;
+using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;

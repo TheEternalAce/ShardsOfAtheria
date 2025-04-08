@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Buffs.Summons;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Projectiles.Summon.Minions.Star;
 using ShardsOfAtheria.Utilities;

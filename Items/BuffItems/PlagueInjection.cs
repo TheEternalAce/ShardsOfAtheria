@@ -1,4 +1,5 @@
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Weapons.Ammo;
 using ShardsOfAtheria.Utilities;

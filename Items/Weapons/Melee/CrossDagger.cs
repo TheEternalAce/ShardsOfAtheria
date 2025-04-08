@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Projectiles.Melee.BloodDagger;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Utilities;

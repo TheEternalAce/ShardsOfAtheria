@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using ShardsOfAtheria.Common.Items;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.DedicatedItems.DaluyanMesses

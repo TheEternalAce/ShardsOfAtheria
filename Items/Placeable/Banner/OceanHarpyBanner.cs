@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Tiles.Banner;
+﻿using ShardsOfAtheria.Common.Items;
+using ShardsOfAtheria.Tiles.Banner;
 using Terraria;
 using Terraria.ModLoader;
 

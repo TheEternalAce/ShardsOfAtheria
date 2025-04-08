@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Items.Materials;
+﻿using ShardsOfAtheria.Common.Items;
+using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Ranged.VergilFlamethrower;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
