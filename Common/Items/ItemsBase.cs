@@ -3,7 +3,7 @@ using System;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Weapons
+namespace ShardsOfAtheria.Common.Items
 {
     /// <summary>
     /// Use useStyle = 15 to use the light animation :)

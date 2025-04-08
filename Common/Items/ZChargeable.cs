@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Items.Weapons
+namespace ShardsOfAtheria.Common.Items
 {
     public abstract class ZChargeable : ModItem
     {
