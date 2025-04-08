@@ -29,10 +29,7 @@ namespace ShardsOfAtheria.Utilities
             Projectile[] projectiles = new Projectile[amount];
             SoundEngine.PlaySound(SoundID.NPCDeath56, position);
             int projectileType = ModContent.ProjectileType<LightningBoltFriendly>();
-            if (hostile)
-            {
-                projectileType = ModContent.ProjectileType<LightningBolt>();
-            }
+            if (hostile) projectileType = ModContent.ProjectileType<LightningBolt>();
             for (var i = 0; i < amount - 1; i++)
             {
                 projectiles[i] = Projectile.NewProjectileDirect(source,
