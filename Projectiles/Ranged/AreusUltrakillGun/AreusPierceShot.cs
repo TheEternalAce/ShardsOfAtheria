@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -8,9 +9,11 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
 {
-    public class AreusPierceShot : ModProjectile
+    public class AreusPierceShot : BasicBeam
     {
         public override string Texture => SoA.BlankTexture;
+
+        public override int DustType => DustID.Electric;
 
         public override void SetStaticDefaults()
         {
@@ -51,19 +54,6 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff<ElectricShock>(600);
-        }
-
-        public override void AI()
-        {
-            Projectile.velocity.Normalize();
-            Projectile.velocity *= 8;
-            if (++Projectile.ai[0] >= 5)
-            {
-                Dust d = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Electric);
-                d.velocity *= 0;
-                d.fadeIn = 1.3f;
-                d.noGravity = true;
-            }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

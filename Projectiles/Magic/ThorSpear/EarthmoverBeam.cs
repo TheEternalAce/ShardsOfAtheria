@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Projectiles.Ammo;
+using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;

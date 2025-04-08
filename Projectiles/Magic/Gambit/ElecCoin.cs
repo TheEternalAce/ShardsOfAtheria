@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Projectiles.Magic.EntropyCatalyst;
+using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;

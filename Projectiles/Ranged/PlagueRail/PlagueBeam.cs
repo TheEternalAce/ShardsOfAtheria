@@ -1,5 +1,6 @@
 ﻿using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.NPCDebuff;
+using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -10,9 +11,11 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
 {
-    public class PlagueBeam : ModProjectile
+    public class PlagueBeam : BasicBeam
     {
         public override string Texture => SoA.BlankTexture;
+
+        public override int DustType => ModContent.DustType<PlagueDust>();
 
         public override void SetStaticDefaults()
         {
@@ -32,7 +35,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
             Projectile.alpha = 255;
             Projectile.aiStyle = 0;
             Projectile.ignoreWater = true;
-            Projectile.arrow = true;
+            dustFadeIn = 1.3f;
+            dustDelay = 11;
         }
 
         public override void OnSpawn(IEntitySource source)
@@ -53,43 +57,20 @@ namespace ShardsOfAtheria.Projectiles.Ranged.PlagueRail
         {
             target.AddBuff<Plague>(300);
             var player = Projectile.GetPlayerOwner();
-            if (player.HasBuff<Plague>())
-            {
-                player.Heal(40);
-            }
+            if (player.HasBuff<Plague>()) player.Heal(40);
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
             target.AddBuff<Plague>(300);
             var player = Projectile.GetPlayerOwner();
-            if (player.HasBuff<Plague>())
-            {
-                player.Heal(80);
-            }
+            if (player.HasBuff<Plague>()) player.Heal(80);
         }
 
         public override void AI()
         {
-            Projectile.velocity.Normalize();
-            Projectile.velocity *= 8;
-            int dustDelay = 11;
-            if (Projectile.direction == -1)
-            {
-                dustDelay++;
-            }
-            if (++Projectile.ai[0] >= dustDelay)
-            {
-                if (!Projectile.hostile)
-                {
-                    Projectile.hostile = true;
-                }
-                int type = ModContent.DustType<PlagueDust>();
-                Dust d = Dust.NewDustDirect(Projectile.Center, 0, 0, type);
-                d.velocity *= 0;
-                d.fadeIn = 1.3f;
-                d.noGravity = true;
-            }
+            base.AI();
+            if (dustTimer > dustDelay && !Projectile.hostile) Projectile.hostile = true;
         }
     }
 }

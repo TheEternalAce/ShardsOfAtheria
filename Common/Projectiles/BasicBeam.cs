@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Projectiles.Other
+namespace ShardsOfAtheria.Common.Projectiles
 {
     public abstract class BasicBeam : ModProjectile
     {
@@ -14,12 +13,9 @@ namespace ShardsOfAtheria.Projectiles.Other
 
         public int bounces = 0;
         public float dustFadeIn = 0f;
+        public int dustDelay = 6;
+        public int dustTimer = 0;
         public abstract int DustType { get; }
-
-        public override void SetStaticDefaults()
-        {
-            Projectile.AddDamageType(7);
-        }
 
         public override void SetDefaults()
         {
@@ -36,9 +32,11 @@ namespace ShardsOfAtheria.Projectiles.Other
         {
             Projectile.velocity.Normalize();
             Projectile.velocity *= 8;
-            if (++Projectile.ai[0] >= 6)
+
+            Vector2 spawnPos = Projectile.Center;
+            if ((Math.Abs(spawnPos.X) > Main.screenWidth * 0.6f || Math.Abs(spawnPos.Y) > Main.screenHeight * 0.6f) && ++dustTimer >= dustDelay)
             {
-                Dust d = Dust.NewDustPerfect(Projectile.Center, DustType, Vector2.Zero);
+                Dust d = Dust.NewDustPerfect(spawnPos, DustType, Vector2.Zero);
                 d.velocity *= 0;
                 d.fadeIn = dustFadeIn;
                 d.noGravity = true;
@@ -54,15 +52,11 @@ namespace ShardsOfAtheria.Projectiles.Other
             {
                 // If the projectile hits the left or right side of the tile, reverse the X velocity
                 if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon)
-                {
-                    Projectile.velocity.X = -oldVelocity.X * 1.05f;
-                }
+                    Projectile.velocity.X = -oldVelocity.X;
 
                 // If the projectile hits the top or bottom side of the tile, reverse the Y velocity
                 if (Math.Abs(Projectile.velocity.Y - oldVelocity.Y) > float.Epsilon)
-                {
-                    Projectile.velocity.Y = -oldVelocity.Y * 1.05f;
-                }
+                    Projectile.velocity.Y = -oldVelocity.Y;
 
                 return false;
             }
