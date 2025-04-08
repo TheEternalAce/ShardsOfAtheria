@@ -6,6 +6,7 @@ using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 
 namespace ShardsOfAtheria.Projectiles.Melee.BloodArtifact
@@ -13,6 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodArtifact
     public class DeathScythe : CoolSword
     {
         float charge = 0f;
+        bool dontCharge = false;
 
         public override void SetStaticDefaults()
         {
@@ -20,6 +22,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodArtifact
             Projectile.AddDamageType(6);
             Projectile.AddElement(1, 3);
             Projectile.AddRedemptionElement(1, 12);
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (Owner.controlUseTile) dontCharge = true;
         }
 
         public override void SetDefaults()
@@ -50,7 +57,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodArtifact
             base.AI();
             if (Owner.itemAnimation <= 1)
                 Owner.Shards().itemCombo = (ushort)(combo == 0 ? 20 : 0);
-            if (BeingHeld && !Owner.controlUseTile && charge < 1f)
+            if (BeingHeld && !dontCharge && charge < 1f)
             {
                 Projectile.timeLeft = 3600;
                 if (AnimProgress < 0.35f)
