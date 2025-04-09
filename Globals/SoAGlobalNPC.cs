@@ -74,9 +74,9 @@ namespace ShardsOfAtheria.Globals
             LeadingConditionRule underworld = new(new IsInUnderworld());
             if (npc.CanBeChasedBy())
             {
-                npcLoot.Add(daylight.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SoulOfDaylight>(), 5)));
-                npcLoot.Add(twilight.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SoulOfTwilight>(), 5)));
-                npcLoot.Add(underworld.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SoulOfSpite>(), 5)));
+                npcLoot.Add(ItemDropRule.ByCondition(new IsInDaylight(), ModContent.ItemType<SoulOfDaylight>(), 5));
+                npcLoot.Add(ItemDropRule.ByCondition(new IsInTwilight(), ModContent.ItemType<SoulOfTwilight>(), 5));
+                npcLoot.Add(ItemDropRule.ByCondition(new IsInUnderworld(), ModContent.ItemType<SoulOfSpite>(), 5));
             }
 
             if (npc.type == NPCID.Mothron)

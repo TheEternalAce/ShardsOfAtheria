@@ -72,9 +72,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         {
             base.ModifyNPCLoot(npcLoot);
             npcLoot.Add(ItemDropRule.Common(ItemID.Mushroom, 1, 3, 6));
-            LeadingConditionRule rain = new(new IsInRain());
-            rain.OnSuccess(ItemDropRule.Common(ItemID.Worm, 3, 1, 3));
-            npcLoot.Add(rain);
+            npcLoot.Add(ItemDropRule.ByCondition(new IsInRain(), ItemID.Worm, 3, 1, 3));
         }
 
         public override void HitEffect(NPC.HitInfo hit)

@@ -4,7 +4,7 @@ using Terraria.GameContent.ItemDropRules;
 
 namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 {
-    // Very simple drop condition: drop while it is raining
+    // Very simple drop condition: drop while the player is on the surface during the day
     public class IsInDaylight : IItemDropRuleCondition
     {
         public bool CanDrop(DropAttemptInfo info)
