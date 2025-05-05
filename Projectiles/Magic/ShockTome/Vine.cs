@@ -31,7 +31,6 @@ namespace ShardsOfAtheria.Projectiles.Magic.ShockTome
             Projectile.friendly = true;
             Projectile.penetrate = 5;
             Projectile.extraUpdates = 3;
-            Projectile.timeLeft = 90;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.tileCollide = false;
         }
