@@ -86,7 +86,7 @@ namespace ShardsOfAtheria.Items.Accessories
                                     player.name + "'s band malfunctioned")
                             };
                             player.Hurt(info);
-                            player.AddBuff(ModContent.BuffType<ElectricShock>(), 600);
+                            player.AddBuff(ModContent.BuffType<ElectricShock>(), 300);
                         }
                     }
                     if (fireBlade)

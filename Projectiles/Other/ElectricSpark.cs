@@ -73,7 +73,7 @@ namespace ShardsOfAtheria.Projectiles.Other
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff<ElectricShock>(600);
+            target.AddBuff<ElectricShock>(300);
         }
     }
 }

@@ -65,7 +65,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Nova
                 Projectile.netUpdate = true;
                 Projectile.tileCollide = false;
             }
-            target.AddBuff<ElectricShock>(600);
+            target.AddBuff<ElectricShock>(300);
             if (SoA.Eternity() && Main.rand.NextBool(5))
             {
                 target.AddBuff(ModContent.Find<ModBuff>("FargowiltasSouls", "ClippedWingsBuff").Type, 600);

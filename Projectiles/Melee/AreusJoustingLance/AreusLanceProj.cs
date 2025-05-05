@@ -181,7 +181,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJoustingLance
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff<ElectricShock>(600);
+            target.AddBuff<ElectricShock>(300);
             Player owner = Projectile.GetPlayerOwner(); // Get the owner of the projectile.
             float minimumDustVelocity = 6f;
             float playerVelocity = owner.velocity.Length();

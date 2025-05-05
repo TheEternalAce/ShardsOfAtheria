@@ -27,37 +27,13 @@ namespace ShardsOfAtheria.Projectiles.Pets
         {
             Player player = Main.player[Projectile.owner];
             if (!player.dead && player.HasBuff(ModContent.BuffType<AncientScythe>()))
-            {
                 Projectile.timeLeft = 2;
-            }
 
-            var idlePosition = player.Center + new Vector2(-50, 0) * player.direction;
+            var idlePosition = player.Center + new Vector2(-100 * player.direction, 0);
             var vectorToIdlePosition = idlePosition - Projectile.Center;
             Projectile.velocity = vectorToIdlePosition * 0.055f;
-            Projectile.spriteDirection = Projectile.direction = (Projectile.velocity.X > 0).ToDirectionInt();
-            if (Projectile.velocity.Length() > 1f)
-            {
-                Projectile.rotation += MathHelper.ToRadians(Projectile.velocity.Length() * 1.5f) * player.direction;
-            }
-            else
-            {
-                float rotation = (player.Center - Projectile.Center).ToRotation();
-                float direction = Projectile.rotation - rotation > 0 ? 1 : -1;
-                if (Projectile.velocity.X < 0)
-                {
-                    rotation += MathHelper.Pi;
-                }
-                Projectile.rotation = MathHelper.Lerp(Projectile.rotation, rotation * direction, MathHelper.ToRadians(5) * direction);
-                //Projectile.rotation = rotation;
-            }
-            if (Projectile.rotation > MathHelper.TwoPi)
-            {
-                Projectile.rotation -= MathHelper.TwoPi;
-            }
-            if (Projectile.rotation < -MathHelper.TwoPi)
-            {
-                Projectile.rotation += MathHelper.TwoPi;
-            }
+            Projectile.spriteDirection = Projectile.direction = (Projectile.Center.X < player.Center.X).ToDirectionInt();
+            Projectile.rotation += MathHelper.ToRadians(Projectile.velocity.Length() * 1.5f * Projectile.direction);
         }
     }
 }

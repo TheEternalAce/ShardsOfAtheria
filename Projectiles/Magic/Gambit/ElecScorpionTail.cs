@@ -74,7 +74,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff<ElectricShock>(600);
+            target.AddBuff<ElectricShock>(300);
             if (Main.rand.NextBool(4))
             {
                 target.AddBuff(BuffID.Poisoned, 600);

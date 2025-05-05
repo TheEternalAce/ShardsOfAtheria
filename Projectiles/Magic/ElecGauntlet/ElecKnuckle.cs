@@ -113,7 +113,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
         private ElecGauntletPlayer gplayer => Main.player[Projectile.owner].GetModPlayer<ElecGauntletPlayer>();
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff<ElectricShock>(600);
+            target.AddBuff<ElectricShock>(300);
             gplayer.AddType(Type);
         }
 

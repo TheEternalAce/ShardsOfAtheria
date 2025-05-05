@@ -39,7 +39,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff<ElectricShock>(600);
+            target.AddBuff<ElectricShock>(300);
         }
 
         public override bool? CanHitNPC(NPC target)

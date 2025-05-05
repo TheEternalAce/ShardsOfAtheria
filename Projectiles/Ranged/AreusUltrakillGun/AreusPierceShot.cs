@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff<ElectricShock>(600);
+            target.AddBuff<ElectricShock>(300);
             if (target.life >= 1000 && target.CanBeChasedBy())
             {
                 var copyHit = hit;
@@ -53,7 +53,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            target.AddBuff<ElectricShock>(600);
+            target.AddBuff<ElectricShock>(300);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
