@@ -832,7 +832,8 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
                 NPC.frameCounter = 0;
             }
             Rectangle frame = new(100 * frameX, 100 * frameY, 100, 100);
-            spriteBatch.Draw(texture.Value, drawPos, frame, drawColor, NPC.rotation, frame.Size() / 2f, NPC.scale, effects, 0f);
+            drawColor = NPC.GetNPCColorTintedByBuffs(drawColor);
+            Main.EntitySpriteDraw(texture.Value, NPC.Center - screenPos, frame, drawColor, NPC.rotation, frame.Size() / 2, NPC.scale, effects);
             return false;
         }
     }
