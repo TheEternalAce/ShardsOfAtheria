@@ -128,10 +128,11 @@
 - Added Plague Pack.
 - Reworked Blood Scythe.
 - Emerald flight now shows the end destination.
-- Added amber banner smawning cooldown.
+- Added amber banner spawning cooldown.
 - Reduced healing from topaz orb to 20.
 - Resprited Shrieking Beacon, and it now has the hovering ai instead of being stationary.
 - Death Bleed now disables some healing effects.
-- Reduced lightning bolt debuff duration to 5 seconds.
+- Reduced electric shock debuff duration from most sources.
 - Slightly changed how the Atherian gives the player a Hardlight Crest.
 - Pre hardmode souls are now loot drops. (They appear in the bestiary.)
+- Slightly adjusted Ancient Death's Scythe rotation.
