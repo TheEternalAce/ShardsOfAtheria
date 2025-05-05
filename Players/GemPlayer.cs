@@ -512,7 +512,7 @@ namespace ShardsOfAtheria.Players
                     }
                     bannerCooldown = 60;
                 }
-                if (superDiamondCore) Player.AddBuff<DiamondBarrierBuff>(10);
+                if (superDiamondCore) Player.AddBuff<DiamondBarrierBuff>(60);
                 if (!Player.moonLeech && greaterTopazCore) Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.UnitY * -10f, ModContent.ProjectileType<TopazOrb>(), 0, 0f, Player.whoAmI);
             }
         }

@@ -8,12 +8,13 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff.GemBlessings
     {
         public override void Update(Player player, ref int buffIndex)
         {
+            int buffTime = player.buffTime[buffIndex];
             if (player.HasBuff<EfficientAmethyst>()) player.buffTime[buffIndex]--;
             int maxDefense = 20;
-            float multiplier = 0.1f;
-            int temporaryDefense = (int)(player.buffTime[buffIndex] * multiplier);
-            Math.Clamp(player.buffTime[buffIndex], 0, (int)(maxDefense / multiplier));
-            player.statDefense += Math.Max(1, temporaryDefense);
+            int divisor = 30;
+            Math.Clamp(buffTime, 0, maxDefense * divisor);
+            int temporaryDefense = buffTime / divisor;
+            player.statDefense += Math.Max(2, temporaryDefense);
         }
 
         public override bool ReApply(Player player, int time, int buffIndex)
