@@ -15,10 +15,6 @@ namespace ShardsOfAtheria.Items.BossSummons
         {
             ItemID.Sets.SortingPriorityBossSpawns[Type] = 12; // This helps sort inventory know that this is a boss summoning Item.
 
-            // This is set to true for all NPCs that can be summoned via an Item (calling NPC.SpawnOnPlayer). If this is for a modded boss,
-            // write this in the bosses file instead
-            NPCID.Sets.MPAllowedEnemies[ModContent.NPCType<NovaStellar>()] = true;
-
             Item.ResearchUnlockCount = 3;
             Item.AddElement(2);
         }
