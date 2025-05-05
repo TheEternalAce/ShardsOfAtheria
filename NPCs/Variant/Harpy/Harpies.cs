@@ -111,7 +111,8 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         {
             Asset<Texture2D> texture = ModContent.Request<Texture2D>(Texture);
             SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            NPC.BasicInWorldGlowmask(spriteBatch, texture.Value, drawColor, screenPos, effects);
+            drawColor = NPC.GetNPCColorTintedByBuffs(drawColor);
+            Main.EntitySpriteDraw(texture.Value, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2f, 1f, effects);
             return false;
         }
     }

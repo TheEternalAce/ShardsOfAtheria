@@ -142,7 +142,8 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            NPC.BasicInWorldGlowmask(spriteBatch, glowmask.Value, Color.White, screenPos, effects);
+            drawColor = NPC.GetNPCColorTintedByBuffs(Color.White);
+            NPC.BasicInWorldGlowmask(spriteBatch, glowmask.Value, drawColor, screenPos, effects);
         }
     }
 }
