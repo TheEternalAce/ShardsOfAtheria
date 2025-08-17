@@ -1,6 +1,7 @@
 ﻿using Humanizer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Newtonsoft.Json;
 using ShardsOfAtheria.Config;
 using ShardsOfAtheria.Items.Accessories.GemCores;
@@ -37,6 +38,7 @@ namespace ShardsOfAtheria
         public static ModKeybind PhaseSwitch { get; private set; }
         public static ModKeybind SoulTeleport { get; private set; }
         public static ModKeybind ProcessorElement { get; private set; }
+        public static ModKeybind ChargeWeapons { get; private set; }
 
         public static ShardsServer ServerConfig => ModContent.GetInstance<ShardsServer>();
         public static ShardsClient ClientConfig => ModContent.GetInstance<ShardsClient>();
@@ -119,13 +121,14 @@ namespace ShardsOfAtheria
         //⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣶⣶⣤⣤⣤⣄⣉⣉⣉⣉⠛⠛⠛⠿⠿⠿⠿⠿
         public override void Load()
         {
-            OverdriveKey = KeybindLoader.RegisterKeybind(Instance, "ToggleOverdrive", "F");
-            TomeKey = KeybindLoader.RegisterKeybind(Instance, "KnowledgeBase", "N");
-            EmeraldTeleportKey = KeybindLoader.RegisterKeybind(Instance, "EmeraldTeleport", "Z");
-            AmethystBombToggle = KeybindLoader.RegisterKeybind(Instance, "AmethystBombToggle", "J");
-            PhaseSwitch = KeybindLoader.RegisterKeybind(Instance, "PhaseType", "RightAlt");
-            SoulTeleport = KeybindLoader.RegisterKeybind(Instance, "SoulCrystalTeleport", "V");
-            if (BNEEnabled) ProcessorElement = KeybindLoader.RegisterKeybind(Instance, "CycleElementAffinity", "C");
+            OverdriveKey = KeybindLoader.RegisterKeybind(Instance, "ToggleOverdrive", Keys.F);
+            TomeKey = KeybindLoader.RegisterKeybind(Instance, "KnowledgeBase", Keys.N);
+            EmeraldTeleportKey = KeybindLoader.RegisterKeybind(Instance, "EmeraldTeleport", Keys.Z);
+            AmethystBombToggle = KeybindLoader.RegisterKeybind(Instance, "AmethystBombToggle", Keys.J);
+            PhaseSwitch = KeybindLoader.RegisterKeybind(Instance, "PhaseType", Keys.RightAlt);
+            SoulTeleport = KeybindLoader.RegisterKeybind(Instance, "SoulCrystalTeleport", Keys.V);
+            ChargeWeapons = KeybindLoader.RegisterKeybind(Instance, "ChargeWeapons", Keys.LeftShift);
+            if (BNEEnabled) ProcessorElement = KeybindLoader.RegisterKeybind(Instance, "CycleElementAffinity", Keys.C);
 
             if (!Main.dedServ)
             {
@@ -142,16 +145,8 @@ namespace ShardsOfAtheria
 
         public override void PostSetupContent()
         {
-            if (!Main.dedServ)
-            {
-                if (ClientConfig.windowTitle)
-                {
-                    if (Main.rand.NextBool(3))
-                    {
-                        Main.instance.Window.Title = ChooseTitleText();
-                    }
-                }
-            }
+            if (!Main.dedServ && ClientConfig.windowTitle && Main.rand.NextBool(3))
+                Main.instance.Window.Title = ChooseTitleText();
 
             if (ModLoader.TryGetMod("TerraTyping", out Mod terratyping))
             {
@@ -380,7 +375,8 @@ namespace ShardsOfAtheria
             {
                 string titleText = ShardsHelpers.LocalizeCommon("TitleText" + i);
                 if (titleText.Equals("No key found.")) break;
-                else { titles.Add(titleText); i++; };
+                else { titles.Add(titleText); i++; }
+                ;
             }
             return titles;
         }

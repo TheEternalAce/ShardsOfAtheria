@@ -1,5 +1,4 @@
 using ShardsOfAtheria.Common.Items;
-using ShardsOfAtheria.Globals;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Localization;
@@ -11,7 +10,6 @@ namespace ShardsOfAtheria.Items.Tools.ToggleItems
     {
         public override void SetDefaults()
         {
-            SoAGlobalItem.DebugItem.Add(Type);
             Item.width = 32;
             Item.height = 32;
 

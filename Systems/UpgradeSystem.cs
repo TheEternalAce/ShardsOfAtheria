@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -41,21 +42,19 @@ namespace ShardsOfAtheria.Systems
         // Since upgrades [usually] take only 20 seconds hopefully that's not an issue
         public override void LoadWorldData(TagCompound tag)
         {
-            if (tag.ContainsKey("atherianUpgradesKeys") && tag.ContainsKey("atherianUpgradesValues"))
+            if (tag.TryGet("atherianUpgradesKeys", out List<string> keys) && tag.TryGet("atherianUpgradesValues", out List<int[]> values))
             {
-                var keys = tag.GetList<string>("atherianUpgradesKeys");
-                var values = tag.GetList<int[]>("atherianUpgradesValues");
                 for (int i = 0; i < keys.Count; i++)
                 {
-                    atherianUpgrades.Add(keys[i], values[i]);
+                    atherianUpgrades.TryAdd(keys[i], values[i]);
                 }
             }
         }
-        //public override void SaveWorldData(TagCompound tag)
-        //{
-        //    tag["atherianUpgradesKeys"] = atherianUpgrades.Keys;
-        //    tag["atherianUpgradesValues"] = atherianUpgrades.Values;
-        //}
+        public override void SaveWorldData(TagCompound tag)
+        {
+            tag["atherianUpgradesKeys"] = atherianUpgrades.Keys.ToList();
+            tag["atherianUpgradesValues"] = atherianUpgrades.Values.ToList();
+        }
 
         public override void PostUpdateWorld()
         {
@@ -65,7 +64,7 @@ namespace ShardsOfAtheria.Systems
                 if (item.Value[1] == 1)
                 {
                     Item item1 = new Item(item.Value[0]);
-                    Main.NewText($"[i:{item.Value[0]}] {item1.Name} is ready!]");
+                    Main.NewText($"[i:{item.Value[0]}] {item1.Name} is ready!");
                 }
             }
         }

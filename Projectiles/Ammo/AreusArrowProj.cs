@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Ammo
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
-            Projectile.AddDamageType(5);
+            Projectile.AddDamageType(11);
         }
 
         public override void SetDefaults()

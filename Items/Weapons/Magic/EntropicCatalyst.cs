@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
         public override void SetStaticDefaults()
         {
-            Item.AddDamageType(3, 4);
+            Item.AddDamageType(3, 12);
             Item.AddElement(0);
             Item.AddRedemptionElement(2);
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;

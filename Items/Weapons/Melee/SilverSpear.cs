@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void SetStaticDefaults()
         {
-            Item.AddDamageType(4);
+            Item.AddDamageType(11, 1);
             Item.AddRedemptionElement(1);
         }
 

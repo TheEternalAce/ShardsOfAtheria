@@ -33,6 +33,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.ShockTome
             Projectile.extraUpdates = 3;
             Projectile.DamageType = DamageClass.Magic;
             Projectile.tileCollide = false;
+            Projectile.timeLeft = 90;
         }
 
         public override void OnSpawn(IEntitySource source)

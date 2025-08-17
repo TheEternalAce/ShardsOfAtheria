@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodthirstySword
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 70;
             ProjectileID.Sets.TrailingMode[Type] = 2;
-            Projectile.AddDamageType(6);
+            Projectile.AddDamageType(11);
             Projectile.AddElement(1);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(12);

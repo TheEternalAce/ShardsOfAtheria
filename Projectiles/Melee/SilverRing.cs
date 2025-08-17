@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
     {
         public override void SetStaticDefaults()
         {
-            Projectile.AddDamageType(4);
+            Projectile.AddDamageType(1);
             Projectile.AddRedemptionElement(1);
         }
 

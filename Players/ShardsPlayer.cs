@@ -210,7 +210,7 @@ namespace ShardsOfAtheria.Players
             }
             if (Player.name.StartsWith("Theta"))
             {
-                items.Add(new Item(ModContent.ItemType<TwinFlameSwords>()));
+                items.Add(new Item(ModContent.ItemType<FlameSwordTwins>()));
                 items.Add(new Item(ModContent.ItemType<FlameKnuckleBuster>()));
             }
             if (Player.name.StartsWith("Data"))
@@ -642,15 +642,15 @@ namespace ShardsOfAtheria.Players
                 damageSource.SourceItem == null &&
                 damageSource.SourceProjectileType == 0)
             {
-                if (Player.HasBuff(ModContent.BuffType<DeathBleed>())) damageSource = PlayerDeathReason.ByCustomReason(Player.name + " bled out.");
-                if (Player.HasBuff(ModContent.BuffType<CorruptedBlood>()))
+                if (Player.HasBuff(ModContent.BuffType<DeathBleed>()))
                 {
-                    string[] deathSuffix = [
-                        " was exsanguinated by The Mourning Star.",
-                        " was drained by The Mourning Star.",
-                        " let The Mourning Star eat their blood."
-                        ];
-                    damageSource = PlayerDeathReason.ByCustomReason(Player.name + deathSuffix[^1]);
+                    string key = "Mods.ShardsOfAtheria.DeathMessages.DeathBleed";
+                    damageSource = PlayerDeathReason.ByCustomReason(NetworkText.FromKey(key, Player.name));
+                }
+                else if (Player.HasBuff(ModContent.BuffType<CorruptedBlood>()))
+                {
+                    string key = "Mods.ShardsOfAtheria.DeathMessages.MourningStar" + (Main.rand.Next(3) + 1);
+                    damageSource = PlayerDeathReason.ByCustomReason(NetworkText.FromKey(key, Player.name));
                 }
             }
             if (deathAmulet && deathAmuletCharges > 0 && deathInevitibility < 10)

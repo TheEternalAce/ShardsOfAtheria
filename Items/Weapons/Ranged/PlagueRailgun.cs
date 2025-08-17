@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Items.Placeable;
@@ -6,6 +7,7 @@ using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons.Ammo;
 using ShardsOfAtheria.Projectiles.Ranged.PlagueRail;
 using ShardsOfAtheria.Utilities;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -86,7 +88,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void UpdateInventory(Player player)
         {
             var cable = ToggleableTool.GetInstance<BrokenCable>(player);
-            if ((!player.ItemAnimationActive || player.HeldItem != Item) && (cable is null || !cable.Active))
+            bool charging = SoA.ChargeWeapons.GetAssignedKeys().Count > 0 && Main.keyState.IsKeyDown(Enum.Parse<Keys>(SoA.ChargeWeapons.GetAssignedKeys()[0]));
+            if ((!player.ItemAnimationActive || player.HeldItem != Item) && (cable is null || !cable.Active) && charging)
             {
                 if (charge < MaxCharge)
                 {
@@ -103,6 +106,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 }
                 if (charge == MaxCharge - 1) SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
             }
+            else if (charge < MaxCharge) charge = 0;
             if (player.HeldItem == Item && player.ItemAnimationActive && player.ItemAnimationEndingOrEnded) charge = 0;
         }
 

@@ -18,7 +18,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void SetStaticDefaults()
         {
             Item.AddAreus();
-            Item.AddDamageType(5);
+            Item.AddDamageType(11, 5);
         }
 
         public override void SetDefaults()
@@ -87,7 +87,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 type = ModContent.ProjectileType<ElecKatana>();
                 velocity.Normalize();
             }
-            base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
+            else damage = (int)(damage * 0.75f);
         }
 
         public override bool? UseItem(Player player)

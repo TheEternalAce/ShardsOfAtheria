@@ -88,7 +88,14 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
                                 cloneLine = cloneLine.Replace(" ", "");
                                 cloneLine = cloneLine.Trim(';');
                                 // There is most definitely a better way to do all of this...
-                                if (cloneLine.StartsWith("damage="))
+                                if (cloneLine.StartsWith("help"))
+                                {
+                                    output += "\nPossible commands:\n" +
+                                        "Set/get values: damage, damageclass, knockback, usetime, useanimation, reusedelay,\n" +
+                                        "    crit, mana, shoot, shootspeed, autoreuse, type\n" +
+                                        "Other: resetdefaults, finditem, findprojectile";
+                                }
+                                else if (cloneLine.StartsWith("damage="))
                                 {
                                     cloneLine = cloneLine.Substring(cloneLine.LastIndexOf('=') + 1);
                                     if (TryConvert(code, cloneLine, out int value))

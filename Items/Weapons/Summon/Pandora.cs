@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             Item.damage = 77;
             Item.DamageType = DamageClass.Summon;
             Item.knockBack = 0f;
-            Item.mana = 6;
+            Item.mana = 10;
 
             Item.useTime = 18;
             Item.useAnimation = 18;

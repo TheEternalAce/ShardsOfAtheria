@@ -7,6 +7,7 @@ Common: {
 	FiringMode2: Burst fire
 	FiringMode3: Full-auto
 	FullCharge: Charge Ready!
+	HoldToCharge: Hold <{$Keybinds.ChargeWeapons.DisplayName}> to charge
 	OverdriveTag: " (Overcharged)"
 	OverdriveTooltip: "[c/ff0000:--Overdrive--]"
 	DeveloperKeyHeader: "[c/00ff00:--Developer Mode--]"
@@ -1249,7 +1250,7 @@ Items: {
 
 	HardlightNeedle: {
 		DisplayName: Hardlight Needle
-		Tooltip: ""
+		Tooltip: "'A needle!'"
 	}
 
 	# Materials
@@ -1953,7 +1954,11 @@ Items: {
 
 	DevelopersKeyCard: {
 		DisplayName: Developer's Key Card
-		Tooltip: Certain weapons are slightly modified
+		Tooltip:
+			'''
+			Certain weapons are slightly modified
+			{$Common.Debug}
+			'''
 		On: " (Enabled)"
 		Off: " (Disabled)"
 	}
@@ -1997,7 +2002,11 @@ Items: {
 
 	TierLock: {
 		DisplayName: Tier Lock
-		Tooltip: Causes certain weapons to be scaled at a certain level
+		Tooltip:
+			'''
+			Causes certain weapons to be scaled at a certain level
+			{$Common.Debug}
+			'''
 		Off: " (Disabled)"
 	}
 
@@ -2331,7 +2340,7 @@ Items: {
 
 	AreusSword: {
 		DisplayName: Areus Sword
-		Tooltip: ""
+		Tooltip: {$Common.Eraser}
 	}
 
 	BloodScythe: {
@@ -2343,6 +2352,7 @@ Items: {
 			Hold use to charge a devastating slash
 			Full charge heals 10% max life once
 			Alt-use to throw a slightly faster, long-range blade
+			{$Common.Eraser}
 			'And thus, her family was torn apart'
 			'Goodbye'
 			'''
@@ -2377,12 +2387,25 @@ Items: {
 		Tooltip:
 			'''
 			Punches shoot plasma bullets
-			Charges while not in use
+			{$Common.HoldToCharge}
 			Charged attacks throw a wave of fire
+			Hold UP to punch the ground, creating a pillar of fire instead
 			{$Common.DamageScale}
 			'Punch them into the ground!'
 			'''
-		Overdrive: Charged attacks punch the ground, creating a pillar of fire instead
+	}
+
+	FlameSwordTwins: {
+		DisplayName: Theta Flame Sabers
+		Tooltip:
+			'''
+			Swings throw energy beams
+			{$Common.HoldToCharge}
+			Charged attacks fire a piercing beam
+			Hold UP to fling you forward and explode on impact instead
+			{$Common.DamageScale}
+			'And burn them while they're down!'
+			'''
 	}
 
 	FuckEarlyGameHarpies: {
@@ -2473,6 +2496,7 @@ Items: {
 			'''
 			Attacks with a 7-slash combo
 			Final slash sends you upward
+			{$Common.Eraser}
 			'I am the messiah!'
 			'''
 		Overdrive:
@@ -2492,19 +2516,6 @@ Items: {
 			Inflicts Mourning Hunger when not fed
 			Strike enemies with the blade to keep it fed
 			'''
-	}
-
-	TwinFlameSwords: {
-		DisplayName: Theta Flame Sabers
-		Tooltip:
-			'''
-			Swings throw energy beams
-			Charges while not in use
-			Charged attacks fire a piercing beam
-			{$Common.DamageScale}
-			'And burn them while they're down!'
-			'''
-		Overdrive: Charged attacks fling you forward and explode on impact instead
 	}
 
 	ValkyrieBlade: {
@@ -2970,6 +2981,7 @@ Items: {
 			Fires a barrage of lightning
 			Alt-use to summon lashing vines
 			{$Common.DamageScale}
+			{$Common.HoldToCharge}
 			'''
 	}
 
@@ -4360,6 +4372,7 @@ Keybinds: {
 	ArmorSetBonus.DisplayName: "[i:ShardsOfAtheria/GuardHelmet] Activate Armor Set Bonus"
 	CycleElementAffinity.DisplayName: "[i:ShardsOfAtheria/AreusProcessor] Cycle Element Affinity"
 	AmethystBombToggle.DisplayName: "[i:ShardsOfAtheria/AmethystCore_Greater] Amethyst Bomb Toggle"
+	ChargeWeapons.DisplayName: "[i:ShardsOfAtheria/FlameKnuckleBuster] Charge Weapons"
 }
 
 Configs: {
@@ -4534,6 +4547,13 @@ Configs: {
 			Tooltip: Replaces Cavern Harpy Massochist Mode effect with something less destructive when enabled.
 		}
 	}
+}
+
+DeathMessages: {
+	MourningStar1: "{0} was exsanguinated by The Mourning Star."
+	MourningStar2: "{0} was drained by The Mourning Star."
+	MourningStar3: "{0} let The Mourning Star eat their blood."
+	DeathBleed: "{0} bled out."
 }
 
 GameTips: {

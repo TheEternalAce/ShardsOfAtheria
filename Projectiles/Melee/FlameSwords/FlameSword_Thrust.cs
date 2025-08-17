@@ -44,7 +44,6 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
             Projectile.DamageType = DamageClass.Melee;
             Projectile.ownerHitCheck = true;
             Projectile.extraUpdates = 1;
-            Projectile.timeLeft = 60;
             Projectile.hide = true;
         }
 
@@ -53,7 +52,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
             if (Projectile.ai[1] == 1)
             {
                 var player = Projectile.GetPlayerOwner();
-                if (player.Overdrive()) player.velocity = Projectile.velocity * 5f;
+                if (player.controlUp)
+                {
+                    player.velocity = Projectile.velocity * 5f;
+                    Projectile.ai[1] = 2;
+                }
                 else Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity,
                         ModContent.ProjectileType<EnergyBeam>(), Projectile.damage, 0f);
             }
@@ -69,10 +72,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
                 Projectile.Kill();
                 return;
             }
-            else
-            {
-                player.heldProj = Projectile.whoAmI;
-            }
+
+            player.heldProj = Projectile.whoAmI;
 
             Projectile.Opacity = Utils.GetLerpValue(0f, FadeInDuration, Timer, clamped: true) * Utils.GetLerpValue(TotalDuration, TotalDuration - FadeOutDuration, Timer, clamped: true);
 
@@ -83,14 +84,19 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
 
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2 - MathHelper.PiOver4 * Projectile.spriteDirection;
 
-            if (Timer == 10 && Projectile.ai[1] != 1f)
+            if (Timer == 10 && Projectile.ai[1] < 1f)
             {
                 var vector = Vector2.Normalize(Projectile.velocity);
                 Projectile.NewProjectile(player.GetSource_FromThis(), player.Center + vector * 3f, vector * 28f, ModContent.ProjectileType<FlameStab>(), (int)(Projectile.damage * 0.75f), Projectile.knockBack * 0.75f);
             }
-            if (Projectile.ai[1] == 1 && player.Overdrive() && Timer > 18) Timer--;
+            if (Projectile.ai[1] == 2f && Timer > 18) Timer--;
 
             Projectile.SetVisualOffsets(52);
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            base.OnKill(timeLeft);
         }
 
         public override bool ShouldUpdatePosition()
@@ -118,7 +124,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.FlameSwords
         {
             target.AddBuff(BuffID.OnFire3, 300);
             var player = Projectile.GetPlayerOwner();
-            if (Projectile.ai[1] == 1 && player.Overdrive())
+            if (Projectile.ai[1] == 2)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center, Vector2.Zero, ModContent.ProjectileType<FieryExplosion>(), damageDone * 2, Projectile.knockBack);
                 var anchorChip = ToggleableTool.GetInstance<AnchorChip>(player);

@@ -37,14 +37,13 @@ namespace ShardsOfAtheria.Globals
     public class SoAGlobalItem : GlobalItem
     {
         #region Item Categories
-        public static readonly List<int> SlayerItem = [];
-        public static readonly List<int> SinfulItem = [];
         public static readonly List<int> Potions = [];
         public static readonly List<int> UpgradeableItem = [];
-        public static readonly List<int> DebugItem = [];
-        //public static readonly Dictionary<int, int> UpgradeableItems = new(); // Potentially use this in place of the above List<int>
+        // Potentially use this in place of the above List<int>
+        //public static readonly Dictionary<int, int> UpgradeableItems = new();
         /// <summary>
-        /// A list to let Conductive potion do it's work easily, automatically adds all items to ElecWeapon list
+        /// A list to let Conductive potion do it's work easily
+        /// Automatically adds the electric element to the item if it isn't dark
         /// </summary>
         public static readonly Dictionary<int, bool> AreusItem = [];
         /// <summary>
@@ -60,18 +59,8 @@ namespace ShardsOfAtheria.Globals
         public override void SetDefaults(Item item)
         {
             base.SetDefaults(item);
-            switch (item.type)
-            {
-                case ItemID.TungstenBullet:
-                    // Add penetration and extra velocity
-                    item.shoot = ModContent.ProjectileType<TungstenBullet>();
-                    item.shootSpeed += 4f;
-                    break;
-
-                case ItemID.Feather:
-                    item.color = new Color(101, 187, 236);
-                    break;
-            }
+            if (item.type == ItemID.Feather)
+                item.color = new Color(101, 187, 236);
         }
 
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
@@ -133,15 +122,6 @@ namespace ShardsOfAtheria.Globals
                     }
                 }
             }
-            if (SlayerItem.Contains(item.type))
-            {
-                var line = new TooltipLine(Mod, "SlayerItem",
-                    ShardsHelpers.LocalizeCommon("SlayerItem"))
-                {
-                    OverrideColor = Color.Red
-                };
-                tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
-            }
             if (UpgradeableItem.Contains(item.type))
             {
                 var line = new TooltipLine(Mod, "UpgradeItem",
@@ -153,12 +133,6 @@ namespace ShardsOfAtheria.Globals
                 var line = new TooltipLine(Mod, "Eraser",
                     ShardsHelpers.LocalizeCommon("Eraser"));
                 tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
-            }
-            if (DebugItem.Contains(item.type))
-            {
-                var line = new TooltipLine(Mod, "Debug",
-                    ShardsHelpers.LocalizeCommon("Debug"));
-                tooltips.Add(line);
             }
         }
 

@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
         public override void SetStaticDefaults()
         {
-            Item.AddDamageType(4);
+            Item.AddDamageType(1);
             Item.AddRedemptionElement(5);
         }
 

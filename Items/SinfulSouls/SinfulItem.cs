@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Common.Items;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
@@ -16,7 +15,6 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         public override void SetStaticDefaults()
         {
             Item.ResearchUnlockCount = 1;
-            SoAGlobalItem.SinfulItem.Add(Type);
         }
 
         public override void SetDefaults()

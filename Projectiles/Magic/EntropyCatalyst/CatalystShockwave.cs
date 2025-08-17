@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.EntropyCatalyst
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddDamageType(4);
+            Projectile.AddDamageType(12);
             Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
         }

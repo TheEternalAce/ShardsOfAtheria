@@ -102,11 +102,7 @@ namespace ShardsOfAtheria.Utilities
 
         public static void AddEraser(this Item item)
         {
-            item.type.AddEraserItem();
-        }
-        public static void AddEraserItem(this int id)
-        {
-            SoAGlobalItem.Eraser.Add(id);
+            SoAGlobalItem.Eraser.Add(item.type);
         }
 
         /// <summary>

@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddDamageType(6);
+            Projectile.AddDamageType(11);
             Projectile.AddElement(1);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(1);

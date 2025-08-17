@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
             SoAGlobalProjectile.Metalic.Add(Type, 1f);
 
-            Projectile.AddDamageType(4);
+            Projectile.AddDamageType(7);
             Projectile.AddRedemptionElement(1);
         }
 

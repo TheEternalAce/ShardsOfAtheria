@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodArtifact
         public override void SetStaticDefaults()
         {
             SoAGlobalProjectile.Eraser.Add(Type);
-            Projectile.AddDamageType(6);
+            Projectile.AddDamageType(11);
             Projectile.AddElement(1, 3);
             Projectile.AddRedemptionElement(1, 12);
         }

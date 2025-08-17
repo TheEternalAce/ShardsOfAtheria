@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         {
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-            Projectile.AddDamageType(6);
+            Projectile.AddDamageType(11);
             Projectile.AddElement(1);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(1);
