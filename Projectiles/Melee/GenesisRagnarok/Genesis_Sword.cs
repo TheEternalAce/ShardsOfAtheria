@@ -140,7 +140,6 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
 
         public override bool PreDraw(ref Color lightColor)
         {
-            DrawSwish();
             return GenericSwordDraw(lightColor);
         }
     }

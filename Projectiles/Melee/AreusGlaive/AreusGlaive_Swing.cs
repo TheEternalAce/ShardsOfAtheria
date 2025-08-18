@@ -82,7 +82,6 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusGlaive
 
         public override bool PreDraw(ref Color lightColor)
         {
-            DrawSwish();
             return SingleEdgeSwordDraw(lightColor);
         }
     }

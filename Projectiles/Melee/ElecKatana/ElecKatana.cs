@@ -95,7 +95,6 @@ namespace ShardsOfAtheria.Projectiles.Melee.ElecKatana
 
         public override bool PreDraw(ref Color lightColor)
         {
-            DrawSwish();
             return SingleEdgeSwordDraw<AreusKatana>(lightColor);
         }
     }

@@ -205,7 +205,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
 
         public override bool PreDraw(ref Color lightColor)
         {
-            return GenericSwordDraw(lightColor);
+            return GenericSwordDraw(lightColor, false);
         }
     }
 }

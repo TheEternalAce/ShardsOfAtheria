@@ -124,8 +124,6 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
             Main.EntitySpriteDraw(glowmask.Value, handPosition - Main.screenPosition, null, drawColor, Projectile.rotation, origin, Projectile.scale, effects, 0);
 
-            DrawSwish();
-
             return GenericSwordDraw(lightColor);
         }
     }

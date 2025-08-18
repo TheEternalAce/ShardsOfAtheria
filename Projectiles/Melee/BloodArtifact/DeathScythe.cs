@@ -144,7 +144,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodArtifact
 
         public override bool PreDraw(ref Color lightColor)
         {
-            return SingleEdgeSwordDraw(lightColor);
+            return SingleEdgeSwordDraw(lightColor, false);
         }
     }
 }

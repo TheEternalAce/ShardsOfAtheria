@@ -318,7 +318,7 @@ namespace ShardsOfAtheria.Common.Projectiles
             //DrawDebug();
         }
 
-        public bool GenericSwordDraw(Color lightColor)
+        public bool GenericSwordDraw(Color lightColor, bool drawSwish = true)
         {
             var texture = TextureAssets.Projectile[Type].Value;
             var handPosition = Main.GetPlayerArmPosition(Projectile) + AngleVector * visualOutwards;
@@ -331,19 +331,14 @@ namespace ShardsOfAtheria.Common.Projectiles
             if (AnimProgress > 0.35f && AnimProgress < 0.75f)
             {
                 float intensity = (float)Math.Sin((AnimProgress - 0.35f) / 0.4f * MathHelper.Pi);
-                Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor.UseA(0) * intensity * 0.5f, Projectile.rotation, origin, Projectile.scale, effects, 0);
+                Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor * intensity * 0.5f, Projectile.rotation, origin, Projectile.scale, effects, 0);
 
-                //var swish = SwishTexture.Value;
-                //var swishOrigin = swish.Size() / 2f;
-                //var swishColor = new Color(100, 120, 140, 80) * intensity * intensity * Projectile.Opacity * 0.5f;
-                //float r = BaseAngleVector.ToRotation() + ((AnimProgress - 0.45f) / 0.2f * 2f - 1f) * -swingDirection * 0.6f;
-                //var swishLocation = Main.player[Projectile.owner].Center - Main.screenPosition + r.ToRotationVector2() * (size - 20f) * scale;
-                //Main.EntitySpriteDraw(swish, swishLocation, null, swishColor.UseA(0), r + MathHelper.PiOver2, swishOrigin, 1f, effects, 0);
+                if (drawSwish) DrawSwish(lightColor);
             }
             return false;
         }
 
-        public bool SingleEdgeSwordDraw<T>(Color lightColor) where T : ModItem
+        public bool SingleEdgeSwordDraw<T>(Color lightColor, bool drawSwish = true) where T : ModItem
         {
             var texture = TextureAssets.Projectile[Type].Value;
             var handPosition = Main.GetPlayerArmPosition(Projectile) + AngleVector * visualOutwards;
@@ -363,28 +358,23 @@ namespace ShardsOfAtheria.Common.Projectiles
             if (AnimProgress > 0.35f && AnimProgress < 0.75f)
             {
                 float intensity = (float)Math.Sin((AnimProgress - 0.35f) / 0.4f * MathHelper.Pi);
-                Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor.UseA(0) * intensity * 0.5f, Projectile.rotation, origin, Projectile.scale, effects, 0);
+                Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor * intensity * 0.5f, Projectile.rotation, origin, Projectile.scale, effects, 0);
 
-                //var swish = SwishTexture.Value;
-                //var swishOrigin = swish.Size() / 2f;
-                //var swishColor = new Color(100, 120, 140, 80) * intensity * intensity * Projectile.Opacity * 0.5f;
-                //float r = BaseAngleVector.ToRotation() + ((AnimProgress - 0.45f) / 0.2f * 2f - 1f) * -swingDirection * 0.6f;
-                //var swishLocation = Main.player[Projectile.owner].Center - Main.screenPosition + r.ToRotationVector2() * (size - 20f) * scale;
-                //Main.EntitySpriteDraw(swish, swishLocation, null, swishColor.UseA(0), r + MathHelper.PiOver2, swishOrigin, 1f, effects, 0);
+                if (drawSwish) DrawSwish(lightColor);
             }
             return false;
         }
 
-        public bool SingleEdgeSwordDraw(Color lightColor)
+        public bool SingleEdgeSwordDraw(Color lightColor, bool drawSwish = true)
         {
-            return SingleEdgeSwordDraw(lightColor, Texture);
+            return SingleEdgeSwordDraw(lightColor, Texture, drawSwish);
         }
 
-        public bool SingleEdgeSwordDraw(Color lightColor, string path)
+        public bool SingleEdgeSwordDraw(Color lightColor, string path, bool drawSwish = true)
         {
             var texture = ModContent.Request<Texture2D>(path).Value;
             var handPosition = Main.GetPlayerArmPosition(Projectile) + AngleVector * visualOutwards;
-            var drawColor = Projectile.GetAlpha(lightColor) * Projectile.Opacity;
+            var drawColor = lightColor * Projectile.Opacity;
             //float size = texture.Size().Length();
             var effects = SpriteEffects.None;
             var origin = new Vector2(0f, texture.Height);
@@ -401,17 +391,12 @@ namespace ShardsOfAtheria.Common.Projectiles
                 float intensity = (float)Math.Sin((AnimProgress - 0.35f) / 0.4f * MathHelper.Pi);
                 Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor.UseA(0) * intensity * 0.5f, Projectile.rotation, origin, Projectile.scale, effects, 0);
 
-                //var swish = SwishTexture.Value;
-                //var swishOrigin = swish.Size() / 2f;
-                //var swishColor = new Color(100, 120, 140, 80) * intensity * intensity * Projectile.Opacity * 0.5f;
-                //float r = BaseAngleVector.ToRotation() + ((AnimProgress - 0.45f) / 0.2f * 2f - 1f) * -swingDirection * 0.6f;
-                //var swishLocation = Main.player[Projectile.owner].Center - Main.screenPosition + r.ToRotationVector2() * (size - 20f) * scale;
-                //Main.EntitySpriteDraw(swish, swishLocation, null, swishColor.UseA(0), r + MathHelper.PiOver2, swishOrigin, 1f, effects, 0);
+                if (drawSwish) DrawSwish(lightColor);
             }
             return false;
         }
 
-        public void DrawSwish()
+        public void DrawSwish(Color lightColor)
         {
             var texture = TextureAssets.Projectile[Type].Value;
             float size = texture.Size().Length();
@@ -422,7 +407,7 @@ namespace ShardsOfAtheria.Common.Projectiles
                 float intensity = (float)Math.Sin((AnimProgress - 0.35f) / 0.4f * MathHelper.Pi);
                 var swish = SwishTexture.Value;
                 var swishOrigin = swish.Size() / 2f;
-                var swishColor = new Color(100, 120, 140, 80) * intensity * intensity * Projectile.Opacity * 0.5f;
+                var swishColor = lightColor.UseA(88) * intensity * intensity * Projectile.Opacity * 0.5f;
                 float r = BaseAngleVector.ToRotation() + ((AnimProgress - 0.45f) / 0.2f * 2f - 1f) * -swingDirection * 0.6f;
                 var swishLocation = Main.player[Projectile.owner].Center - Main.screenPosition + r.ToRotationVector2() * (size - 20f) * scale;
                 Main.EntitySpriteDraw(swish, swishLocation, null, swishColor.UseA(0), r + MathHelper.PiOver2, swishOrigin, 1f, effects, 0);
