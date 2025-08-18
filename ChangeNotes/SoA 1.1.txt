@@ -137,3 +137,4 @@
 - Pre hardmode souls are now loot drops. (They appear in the bestiary.)
 - Slightly adjusted Ancient Death's Scythe rotation.
 - Moved Tungsten Bullet to Rockman Zeta's Vanilla Tweaks mod.
+- Adjust Amethyst Core dash.
