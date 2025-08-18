@@ -44,7 +44,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
         {
             player.Gem().superAmethystCore = true;
             AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
-            mp.DashVelocity = 13f;
+            mp.dashPower = 1.5f;
             ModContent.GetInstance<AmethystCore_Greater>().UpdateAccessory(player, hideVisual);
             player.buffImmune[BuffID.OnFire] = true;
             player.buffImmune[BuffID.OnFire3] = true;

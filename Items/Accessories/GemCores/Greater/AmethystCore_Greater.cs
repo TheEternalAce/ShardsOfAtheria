@@ -46,7 +46,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             player.Gem().greaterAmethystCore = true;
             Lighting.AddLight(player.Center, TorchID.Purple);
             AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
-            mp.DashVelocity = 13f;
+            mp.dashSpeed = 13f;
             ModContent.GetInstance<AmethystCore>().UpdateAccessory(player, hideVisual);
             player.Gem().greaterGemCore = true;
         }

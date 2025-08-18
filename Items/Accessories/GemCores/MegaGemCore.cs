@@ -67,7 +67,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
         {
             var gem = player.Gem();
             AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
-            mp.DashVelocity = 20f;
+            mp.dashSpeed = 20f;
 
             ModContent.GetInstance<AmberCore_Super>().UpdateAccessory(player, true);
             ModContent.GetInstance<AmethystCore_Super>().UpdateAccessory(player, true);

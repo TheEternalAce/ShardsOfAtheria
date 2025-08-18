@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
-            mp.DashAccessoryEquipped = true;
+            mp.dashAccessoryEquipped = true;
         }
     }
 
@@ -51,21 +51,24 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
         public const int DashDuration = 35; // Duration of the dash afterimage effect in frames
 
         // The initial velocity.  10 velocity is about 37.5 tiles/second or 50 mph
-        public float DashVelocity = 10f;
+        public float dashSpeed = 10f;
 
         // The direction the player has double tapped.  Defaults to -1 for no dash double tap
         public int DashDir = -1;
 
         // The fields related to the dash accessory
-        public bool DashAccessoryEquipped;
-        public int DashDelay = 0; // frames remaining till we can dash again
-        public int DashTimer = 0; // frames remaining in the dash
+        public bool dashAccessoryEquipped;
+        public int dashDelay = 0; // frames remaining till we can dash again
+        public int dashTimer = 0; // frames remaining in the dash
+
+        public float dashPower = 1f; // The power of the dash, used to modify the velocity
 
         public override void ResetEffects()
         {
             // Reset our equipped flag. If the accessory is equipped somewhere, ExampleShield.UpdateAccessory will be called and set the flag before PreUpdateMovement
-            DashAccessoryEquipped = false;
-            DashVelocity = 10f;
+            dashAccessoryEquipped = false;
+            dashPower = 1f;
+            dashSpeed = 10f;
 
             // ResetEffects is called not long after player.doubleTapCardinalTimer's values have been set
             // When a directional key is pressed and released, vanilla starts a 15 tick (1/4 second) timer during which a second press activates a dash
@@ -86,21 +89,20 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
 
         // This is the perfect place to apply dash movement, it's after the vanilla movement code, and before the player's position is modified based on velocity.
         // If they double tapped this frame, they'll move fast this frame
+        Vector2 dashVelocity = Vector2.Zero;
         public override void PreUpdateMovement()
         {
             // if the player can use our dash, has double tapped in a direction, and our dash isn't currently on cooldown
-            if (CanUseDash() && DashDir != -1 && DashDelay == 0)
+            if (CanUseDash() && DashDir != -1 && dashDelay == 0)
             {
-                Vector2 newVelocity = Player.velocity;
-
                 switch (DashDir)
                 {
-                    case DashLeft when Player.velocity.X > -DashVelocity:
-                    case DashRight when Player.velocity.X < DashVelocity:
+                    case DashLeft when Player.velocity.X > -dashSpeed:
+                    case DashRight when Player.velocity.X < dashSpeed:
                         {
                             // X-velocity is set here
                             float dashDirection = DashDir == DashRight ? 1 : -1;
-                            newVelocity.X = dashDirection * DashVelocity;
+                            dashVelocity.X = dashDirection * dashSpeed * dashPower;
                             break;
                         }
                     default:
@@ -108,9 +110,8 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
                 }
 
                 // start our dash
-                DashDelay = DashCooldown;
-                DashTimer = DashDuration;
-                Player.velocity = newVelocity;
+                dashDelay = DashCooldown;
+                dashTimer = DashDuration;
 
                 // Here you'd be able to set an effect that happens when the dash first activates
                 // Some examples include:  the larger smoke effect from the Master Ninja Gear and Tabi
@@ -123,21 +124,27 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
                 }
             }
 
-            if (DashDelay > 0)
-                DashDelay--;
+            if (dashDelay > 0)
+                dashDelay--;
 
-            if (DashTimer > 0)
+            if (dashTimer > 0)
             {
                 Player.armorEffectDrawShadow = true;
+                Player.velocity.X = dashVelocity.X;
+                if (Main.rand.NextBool(3))
+                {
+                    var dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.GemAmethyst);
+                    dust.noGravity = true;
+                }
 
                 // count down frames remaining
-                DashTimer--;
+                dashTimer--;
             }
         }
 
         private bool CanUseDash()
         {
-            return DashAccessoryEquipped
+            return dashAccessoryEquipped
                 && Player.dashType == DashID.None // player doesn't have Tabi or EoCShield equipped (give priority to those dashes)
                 && !Player.setSolar // player isn't wearing solar armor
                 && !Player.mount.Active; // player isn't mounted, since dashes on a mount look weird
