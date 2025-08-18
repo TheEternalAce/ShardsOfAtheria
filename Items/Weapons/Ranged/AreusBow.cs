@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.UseSound = SoundID.Item91;
+            Item.UseSound = SoundID.Item5;
             Item.autoReuse = true;
             Item.noMelee = true;
 

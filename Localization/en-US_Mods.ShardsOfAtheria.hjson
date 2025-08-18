@@ -3494,6 +3494,8 @@ Projectiles: {
 	StormBlade.DisplayName: Storm Blade
 	AreusDroneLaser.DisplayName: Areus Drone Laser
 	BloodSwordFriendly.DisplayName: Blood Sword
+	ElectricArrow.DisplayName: Electric Arrow
+	ElectricArrow_Gauntlet.DisplayName: Electric Arrow_ Gauntlet
 }
 
 NPCs: {

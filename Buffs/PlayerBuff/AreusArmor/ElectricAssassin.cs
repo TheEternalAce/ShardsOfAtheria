@@ -20,6 +20,9 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff.AreusArmor
     public class AssassinProjectile : GlobalProjectile
     {
         bool sparked = false;
+
+        public override bool InstancePerEntity => true;
+
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (!sparked)

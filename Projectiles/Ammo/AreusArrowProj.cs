@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,111 +10,75 @@ namespace ShardsOfAtheria.Projectiles.Ammo
 {
     public class AreusArrowProj : ModProjectile
     {
-        Point point;
+        Vector2 point;
 
         public override void SetStaticDefaults()
         {
             Projectile.AddAreus();
-            Projectile.AddDamageType(11);
+            Projectile.AddDamageType(7);
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = 16;
-            Projectile.height = 16;
+            Projectile.width = 12;
+            Projectile.height = 12;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
-            Projectile.tileCollide = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 120;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 5;
 
-            DrawOffsetX = 1;
+            DrawOffsetX = 2;
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (Main.myPlayer == Projectile.owner)
+            {
+                Player player = Main.player[Projectile.owner];
+                SoundEngine.PlaySound(SoundID.Item91, Projectile.Center);
+                point = (Projectile.Center + Vector2.Normalize(Projectile.velocity) * Vector2.Distance(player.Center, Main.MouseWorld));
+            }
         }
 
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
-
-            if (Main.myPlayer == Projectile.owner)
+            if (point != Vector2.Zero)
             {
-                Player player = Main.player[Projectile.owner];
-
-                if (Projectile.ai[0] == 0f)
-                {
-                    SoundEngine.PlaySound(SoundID.Item91, Projectile.Center);
-                    point = (player.MountedCenter + Projectile.velocity + (Projectile.rotation - MathHelper.PiOver2).ToRotationVector2().SafeNormalize(Vector2.Zero) * Vector2.Distance(player.Center, Main.MouseWorld)).ToPoint();
-                    Projectile.tileCollide = true;
-                    Projectile.velocity *= 0.9f;
-                    Projectile.ai[0] = 1f;
-                }
-                if (Projectile.ai[0] == 1f)
-                {
-                    Dust dust = Dust.NewDustPerfect(point.ToVector2(), DustID.Electric, Vector2.Zero);
-                    dust.noGravity = true;
-                    if (Projectile.Hitbox.Contains(point))
-                    {
-                        Projectile.Kill();
-                    }
-                }
-                if (Projectile.ai[0] == 2f)
-                {
-                    Projectile.timeLeft = 30;
-                    Projectile.ai[0] = 3f;
-                    Projectile.netUpdate = true;
-                }
-                if (Projectile.timeLeft == 1 && Projectile.ai[0] == 3f)
-                {
-                    SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
-                    Projectile.timeLeft = 60;
-                    Projectile.penetrate = 1;
-                    Projectile.velocity *= -1;
-                    Projectile.ai[0] = 4f;
-                    Projectile.netUpdate = true;
-                }
-                if (Projectile.ai[0] == 4f)
-                {
-                    float maxDetectRadius = 400f;
-
-                    NPC closestNPC = Projectile.FindClosestNPC(null, maxDetectRadius);
-                    if (closestNPC == null)
-                        return;
-
-                    Projectile.Track(closestNPC, inertia: 8f);
-                    Projectile.netUpdate = true;
-                }
+                Dust dust = Dust.NewDustPerfect(point, DustID.Electric, Vector2.Zero);
+                dust.noGravity = true;
+                if (Projectile.Distance(point) < 16f)
+                    Projectile.Kill();
             }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (Projectile.ai[0] == 1f)
-            {
-                Projectile.ai[0] = 5f;
-                Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-                SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
-            }
+            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+            SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
+            Projectile.ai[0] = 1;
             return base.OnTileCollide(oldVelocity);
         }
 
         public override void OnKill(int timeLeft)
         {
-            if (Main.myPlayer == Projectile.owner)
+            if (Main.myPlayer == Projectile.owner && Projectile.ai[0] == 0)
             {
                 Player player = Main.player[Projectile.owner];
                 SoundEngine.PlaySound(SoundID.Item74, Projectile.Center);
-                if (Projectile.ai[0] == 1f)
+
+                int damage = Projectile.damage;
+                damage /= 3;
+                float offset = MathHelper.ToRadians(Main.rand.NextFloat(60f));
+                for (int i = 0; i < 6; i++)
                 {
-                    int damage = Projectile.damage;
-                    damage /= 3;
-                    for (int i = 0; i < 6; i++)
-                    {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(1, 0).RotatedBy(MathHelper.ToRadians(60 * i)) * 16,
-                            Type, damage, Projectile.knockBack, player.whoAmI, 2f);
-                        Projectile.netUpdate = true;
-                    }
+                    var velocity = new Vector2(1, 0).RotatedBy(MathHelper.ToRadians(60f * i) + offset) * 16f;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity,
+                        ModContent.ProjectileType<ElectricArrow>(), damage, Projectile.knockBack, player.whoAmI);
+                    Projectile.netUpdate = true;
                 }
             }
         }
