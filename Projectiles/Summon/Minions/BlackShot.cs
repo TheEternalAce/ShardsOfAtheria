@@ -1,4 +1,4 @@
-﻿using ShardsOfAtheria.Buffs.PlayerBuff;
+﻿using ShardsOfAtheria.Buffs.PlayerBuff.AreusArmor;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;

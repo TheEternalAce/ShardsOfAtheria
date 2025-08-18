@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.NPCDebuff;
-using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Buffs.PlayerBuff.AreusArmor;
 using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
 using ShardsOfAtheria.Items.AreusChips;
 using ShardsOfAtheria.Projectiles.Other;
@@ -111,6 +111,7 @@ namespace ShardsOfAtheria.Players
                             if (MageSetChip) GuardActive_Magic();
                             if (RangerSetChip) GuardActive_Ranged();
                             if (CommanderSetChip) GuardActive_Summon();
+                            if (NinjaSetChip) GuardActive_Throwing();
                             areusEnergy = 0;
                         }
                         if (soldierSet)

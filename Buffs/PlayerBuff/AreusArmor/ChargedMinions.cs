@@ -6,7 +6,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Buffs.PlayerBuff
+namespace ShardsOfAtheria.Buffs.PlayerBuff.AreusArmor
 {
     public class ChargedMinions : ModBuff
     {

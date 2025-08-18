@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Buffs.PlayerBuff.AreusArmor;
 using ShardsOfAtheria.Common.Items;
 using System.Collections.Generic;
 using Terraria;
