@@ -2340,7 +2340,7 @@ Items: {
 
 	AreusSword: {
 		DisplayName: Areus Sword
-		Tooltip: {$Common.Eraser}
+		Tooltip: "{$Common.Eraser}"
 	}
 
 	BloodScythe: {

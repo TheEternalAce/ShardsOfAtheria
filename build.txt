@@ -1,4 +1,4 @@
-displayName = Shards of Atheria (Shattered Atheria)
+displayName = Shards of Atheria (Sins & Virtues Part 1)
 author = Rockman Zeta
 version = 1.1
 homepage = https://forums.terraria.org/index.php?threads/shards-of-atheria-mod.112953/
