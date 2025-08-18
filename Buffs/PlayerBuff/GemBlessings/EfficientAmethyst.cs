@@ -1,4 +1,5 @@
-﻿using ShardsOfAtheria.Utilities;
+﻿using ShardsOfAtheria.Buffs.PlayerBuff.AreusArmor;
+using ShardsOfAtheria.Utilities;
 using System.Linq;
 using Terraria;
 using Terraria.ID;

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Buffs.PlayerBuff.AreusArmor;
 using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Projectiles.Ranged;

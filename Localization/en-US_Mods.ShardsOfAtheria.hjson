@@ -4259,6 +4259,11 @@ Buffs: {
 		DisplayName: Motivation
 		Description: Mods.ShardsOfAtheria.Buffs.Motivation.Description
 	}
+
+	ElectricAssassin: {
+		DisplayName: Electric Assassin
+		Description: Mods.ShardsOfAtheria.Buffs.ElectricAssassin.Description
+	}
 }
 
 Necronomicon: {

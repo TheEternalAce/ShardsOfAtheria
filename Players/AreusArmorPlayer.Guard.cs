@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Buffs.PlayerBuff.AreusArmor;
 using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Utilities;
@@ -57,6 +57,11 @@ namespace ShardsOfAtheria.Players
         {
             if (areusEnergy >= AREUS_ENERGY_MAX && !Player.HasBuff<ChargedMinions>())
                 Player.AddBuff<ChargedMinions>(600);
+        }
+        private void GuardActive_Throwing()
+        {
+            if (areusEnergy >= AREUS_ENERGY_MAX && !Player.HasBuff<ElectricAssassin>())
+                Player.AddBuff<ElectricAssassin>(600);
         }
     }
 }
