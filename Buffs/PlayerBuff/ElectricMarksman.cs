@@ -1,5 +1,4 @@
-﻿using ShardsOfAtheria.Projectiles.Ammo;
-using ShardsOfAtheria.Projectiles.Ranged;
+﻿using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;
 using System.Linq;
 using Terraria;
@@ -21,8 +20,8 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
 
     public class MarksmanProjectile : GlobalProjectile
     {
-        public static readonly int[] ConvertableProjectiles = new int[]
-        {
+        public static readonly int[] ConvertableProjectiles =
+        [
             ProjectileID.WoodenArrowFriendly,
             ProjectileID.FlamingArrow,
             ProjectileID.FrostburnArrow,
@@ -31,8 +30,7 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
             ProjectileID.Bullet,
             ProjectileID.SilverBullet,
             ProjectileID.MeteorShot,
-            ModContent.ProjectileType<TungstenBullet>(),
-        };
+        ];
 
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
