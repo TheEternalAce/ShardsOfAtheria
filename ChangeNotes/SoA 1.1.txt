@@ -134,7 +134,7 @@
 - Death Bleed now disables some healing effects.
 - Reduced electric shock debuff duration from most sources.
 - Slightly changed how the Atherian gives the player a Hardlight Crest.
-- Pre hardmode souls are now loot drops. (They appear in the bestiary.)
+- Fixed pre-hardmode souls not dropping in multiplayer/when running a dedicated server.
 - Slightly adjusted Ancient Death's Scythe rotation.
 - Moved Tungsten Bullet to Rockman Zeta's Vanilla Tweaks mod.
 - Adjust Amethyst Core dash.

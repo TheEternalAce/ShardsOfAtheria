@@ -143,7 +143,7 @@ namespace ShardsOfAtheria.Common.Projectiles
 
         public virtual void FireProjectile(float progress, int type, int damage, float knockback, float velocity = 16f, float positionOffset = 0f, bool meleeSpeed = true)
         {
-            if (progress == 0.5f && Main.myPlayer == Projectile.owner)
+            if (progress == 0.5f && Main.myPlayer == Projectile.owner && Collision.CanHit(Projectile.Center, 0, 0, Projectile.GetPlayerOwner().Center, 0, 0))
             {
                 Vector2 position = Projectile.Center;
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), position - AngleVector * positionOffset,
@@ -313,16 +313,17 @@ namespace ShardsOfAtheria.Common.Projectiles
             combo = reader.ReadInt32();
         }
 
-        public override void PostDraw(Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            //DrawDebug();
+            lightColor = Lighting.GetColor(Projectile.GetPlayerOwner().Center.ToTileCoordinates());
+            return base.PreDraw(ref lightColor);
         }
 
         public bool GenericSwordDraw(Color lightColor, bool drawSwish = true)
         {
             var texture = TextureAssets.Projectile[Type].Value;
             var handPosition = Main.GetPlayerArmPosition(Projectile) + AngleVector * visualOutwards;
-            var drawColor = Projectile.GetAlpha(lightColor) * Projectile.Opacity;
+            var drawColor = lightColor * Projectile.Opacity;
             var effects = SpriteEffects.None;
             var origin = new Vector2(0f, texture.Height);
 
@@ -342,7 +343,7 @@ namespace ShardsOfAtheria.Common.Projectiles
         {
             var texture = TextureAssets.Projectile[Type].Value;
             var handPosition = Main.GetPlayerArmPosition(Projectile) + AngleVector * visualOutwards;
-            var drawColor = Projectile.GetAlpha(lightColor) * Projectile.Opacity;
+            var drawColor = lightColor * Projectile.Opacity;
             //float size = texture.Size().Length();
             var effects = SpriteEffects.None;
             var origin = new Vector2(0f, texture.Height);

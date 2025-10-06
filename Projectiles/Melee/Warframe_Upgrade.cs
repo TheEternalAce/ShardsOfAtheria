@@ -117,6 +117,8 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         public override bool PreDraw(ref Color lightColor)
         {
+            base.PreDraw(ref lightColor);
+
             var handPosition = Main.GetPlayerArmPosition(Projectile) + AngleVector * visualOutwards;
             var drawColor = SoA.ElectricColorA0 * Projectile.Opacity;
             var origin = new Vector2(0f, glowmask.Value.Height);

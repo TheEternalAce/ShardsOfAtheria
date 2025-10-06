@@ -38,6 +38,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
         {
             AmethystDashPlayer mp = player.GetModPlayer<AmethystDashPlayer>();
             mp.dashAccessoryEquipped = true;
+            mp.dashPower = 0.6f;
         }
     }
 

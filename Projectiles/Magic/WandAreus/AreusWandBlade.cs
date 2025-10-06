@@ -116,6 +116,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
 
         public override bool PreDraw(ref Color lightColor)
         {
+            base.PreDraw(ref lightColor);
             return SingleEdgeSwordDraw(SoA.ElectricColorA0);
         }
     }

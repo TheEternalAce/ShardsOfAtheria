@@ -68,11 +68,13 @@ namespace ShardsOfAtheria.ShardsUI
 
             if (ModContent.GetInstance<ShardsClient>().upgradeWarning)
             {
-                UIText warningText = new("Note: Upgrades will [c/FF0000:NOT] save on world\n" +
-                    "exit, make sure the upgrade is complete\n" +
-                    "and received before saving and exiting.");
-                warningText.SetDimensions(308, 78);
-                warningText.Top.Set(-78, 1f);
+                UIText warningText = new("Note: Upgraded items may [c/FF0000:disapear]\n" +
+                    "when you close the game, make sure the\n" +
+                    "upgrade is complete and received before\n" +
+                    "saving and exiting.\n" +
+                    "This message can be disabled in configs.");
+                warningText.SetDimensions(308, 130);
+                warningText.Top.Set(-130, 1f);
                 infoPanel.Append(warningText);
             }
 

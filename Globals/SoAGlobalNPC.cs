@@ -58,6 +58,23 @@ namespace ShardsOfAtheria.Globals
             nextSlot++;
             base.SetupTravelShop(shop, ref nextSlot);
         }
+
+        public override void OnKill(NPC npc)
+        {
+            if (npc.lifeMax > 5)
+            {
+                var whoAmI = npc.lastInteraction;
+                if (whoAmI == 255) return;
+                var player = Main.player[whoAmI];
+                if (Main.dayTime && Main.rand.NextFloat() < .2f && player.ZoneOverworldHeight)
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SoulOfDaylight>());
+                if ((Main.eclipse || !Main.dayTime) && Main.rand.NextFloat() < .2f && player.ZoneOverworldHeight)
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SoulOfTwilight>());
+                if (Main.rand.NextFloat() < .2f && player.ZoneUnderworldHeight)
+                    Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<SoulOfSpite>());
+            }
+        }
+
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             LeadingConditionRule notHardmode = new(new Conditions.IsPreHardmode());
@@ -68,16 +85,6 @@ namespace ShardsOfAtheria.Globals
             LeadingConditionRule downedMoonLord = new(new DownedMoonLord());
 
             if (ModLoader.TryGetMod("FargowiltasSouls", out Mod _)) master = new(new EternityOrMaster());
-
-            LeadingConditionRule daylight = new(new IsInDaylight());
-            LeadingConditionRule twilight = new(new IsInTwilight());
-            LeadingConditionRule underworld = new(new IsInUnderworld());
-            if (npc.CanBeChasedBy())
-            {
-                npcLoot.Add(ItemDropRule.ByCondition(new IsInDaylight(), ModContent.ItemType<SoulOfDaylight>(), 5));
-                npcLoot.Add(ItemDropRule.ByCondition(new IsInTwilight(), ModContent.ItemType<SoulOfTwilight>(), 5));
-                npcLoot.Add(ItemDropRule.ByCondition(new IsInUnderworld(), ModContent.ItemType<SoulOfSpite>(), 5));
-            }
 
             if (npc.type == NPCID.Mothron)
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BrokenHeroGun>(), 4));

@@ -25,6 +25,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.damage = 12;
             Item.DamageType = DamageClass.Melee;
             Item.knockBack = 2;
+            Item.ArmorPenetration = 5;
 
             Item.useTime = 30;
             Item.useAnimation = 30;
