@@ -8,8 +8,6 @@ namespace ShardsOfAtheria.Items.Accessories
 {
     public class TwistedUtensil : ModItem
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetStaticDefaults()
         {
             Item.AddDamageType(2, 9);

@@ -7,8 +7,6 @@ namespace ShardsOfAtheria.Items.Accessories
 {
     public class JumperCables : ModItem
     {
-        public override string Texture => SoA.PlaceholderTexture;
-
         public override void SetDefaults()
         {
             Item.width = 16;

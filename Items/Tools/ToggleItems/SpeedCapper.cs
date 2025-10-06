@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using ShardsOfAtheria.Common.Items;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Items.Tools.ToggleItems
 {
     public class SpeedCapper : ToggleableTool
     {
-        public override string Texture => SoA.PlaceholderTexture;
+        public override string Texture => "Terraria/Images/Item_" + ItemID.Stopwatch;
 
         public override void SetStaticDefaults()
         {

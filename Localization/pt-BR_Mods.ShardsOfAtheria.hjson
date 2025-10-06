@@ -511,7 +511,7 @@ Items: {
 	}
 
 	JumperCables: {
-		// DisplayName: Jumper Cables
+		// DisplayName: Charged Battery
 		/* Tooltip:
 			'''
 			Every 10 kills, reset certain cooldowns
