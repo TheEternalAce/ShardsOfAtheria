@@ -109,6 +109,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.ElecGauntlet
 
         public override bool PreDraw(ref Color lightColor)
         {
+            base.PreDraw(ref lightColor);
             return SingleEdgeSwordDraw(lightColor);
         }
     }

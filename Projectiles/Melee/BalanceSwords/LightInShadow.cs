@@ -101,6 +101,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.BalanceSwords
 
         public override bool PreDraw(ref Color lightColor)
         {
+            base.PreDraw(ref lightColor);
             return SingleEdgeSwordDraw<LightWithinDarkness>(lightColor);
         }
     }

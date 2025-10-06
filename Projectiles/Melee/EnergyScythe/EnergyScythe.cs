@@ -108,6 +108,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.EnergyScythe
 
         public override bool PreDraw(ref Color lightColor)
         {
+            base.PreDraw(ref lightColor);
             return SingleEdgeSwordDraw<Prometheus>(lightColor);
         }
     }

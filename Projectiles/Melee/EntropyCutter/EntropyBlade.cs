@@ -115,6 +115,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.EntropyCutter
 
         public override bool PreDraw(ref Color lightColor)
         {
+            base.PreDraw(ref lightColor);
             return SingleEdgeSwordDraw(lightColor);
         }
     }

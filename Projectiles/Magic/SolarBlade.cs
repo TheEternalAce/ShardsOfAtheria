@@ -96,6 +96,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
 
         public override bool PreDraw(ref Color lightColor)
         {
+            base.PreDraw(ref lightColor);
             return GenericSwordDraw(Color.Green.UseA(0));
         }
     }

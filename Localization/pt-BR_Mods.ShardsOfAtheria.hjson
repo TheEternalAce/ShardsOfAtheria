@@ -2293,7 +2293,7 @@ Items: {
 			'''
 			Strikes with the tip will deal increased damage
 			Alt-use to throw the spear
-			Hits witth the thrown spear will empoer the melee attack
+			Hits witth the thrown spear will empower the next melee attack
 			''' */
 	}
 
@@ -2383,6 +2383,7 @@ Items: {
 		/* Tooltip:
 			'''
 			Strikes at with tip will deal increased damage
+			Broken but can penetrate armor
 			'A broken weapon is better than no weapon, right?'
 			'Specifically made to deal with early game harpies'
 			''' */

@@ -135,6 +135,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.BloodthirstySword
 
         public override bool PreDraw(ref Color lightColor)
         {
+            base.PreDraw(ref lightColor);
             if (swingDirection == -Projectile.direction)
             {
                 string path = "ShardsOfAtheria/Projectiles/Melee/BloodthirstySword/MourningStarBloodEdge";
