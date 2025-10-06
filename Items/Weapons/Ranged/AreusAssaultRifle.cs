@@ -83,7 +83,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 Item.useAnimation = 6;
                 Item.reuseDelay = 20;
                 Item.autoReuse = false;
-                Item.shoot = ItemID.None;
+                Item.shoot = ProjectileID.None;
                 Item.UseSound = SoundID.Unlock;
 
                 fireMode += 1;

@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.shootSpeed = 16f;
             Item.rare = ItemDefaults.RarityPlantera;
             Item.value = Item.sellPrice(0, 3, 25);
-            Item.shoot = ItemID.PurificationPowder;
+            Item.shoot = ProjectileID.PurificationPowder;
             Item.useAmmo = AmmoID.Bullet;
         }
 
@@ -81,7 +81,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 Item.useTime = 20;
                 Item.useAnimation = 20;
                 Item.autoReuse = false;
-                Item.shoot = ItemID.None;
+                Item.shoot = ProjectileID.None;
                 Item.UseSound = SoundID.Unlock;
                 if (fullAuto)
                     fullAuto = false;
@@ -95,7 +95,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             {
                 if (!fullAuto)
                 {
-                    Item.shoot = ItemID.PurificationPowder;
+                    Item.shoot = ProjectileID.PurificationPowder;
                     Item.useTime = 6;
                     Item.useAnimation = 6;
                     Item.UseSound = SoundID.Item40;
@@ -103,7 +103,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 }
                 else if (fullAuto)
                 {
-                    Item.shoot = ItemID.PurificationPowder;
+                    Item.shoot = ProjectileID.PurificationPowder;
                     Item.useTime = 6;
                     Item.useAnimation = 6;
                     Item.UseSound = SoundID.Item40;

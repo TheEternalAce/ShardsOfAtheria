@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.shootSpeed = 16;
             Item.rare = ItemRarityID.Master;
             Item.value = Item.sellPrice(0, 2, 75);
-            Item.shoot = ItemID.PurificationPowder;
+            Item.shoot = ProjectileID.PurificationPowder;
             Item.useAmmo = AmmoID.Arrow;
         }
 
