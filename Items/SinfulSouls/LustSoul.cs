@@ -64,7 +64,8 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         public override void Update(Player player, ref int buffIndex)
         {
             player.maxMinions += 3;
-            player.GetDamage(DamageClass.Generic) -= .2f;
+            player.GetDamage(DamageClass.Generic) -= 0.2f;
+            player.moveSpeed -= 0.1f;
             player.GetModPlayer<LustPlayer>().soulActive = true;
             base.Update(player, ref buffIndex);
         }

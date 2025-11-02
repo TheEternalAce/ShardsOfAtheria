@@ -33,6 +33,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item5;
             Item.noMelee = true;
+            Item.autoReuse = true;
 
             Item.shootSpeed = 16f;
             Item.rare = ItemDefaults.RaritySlayer;
@@ -89,16 +90,30 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (type != Item.shoot && player.ownedProjectileCounts[Item.shoot + 1] > 0)
+            int bombType = ModContent.ProjectileType<HunterBomb2>();
+            if (type == Item.shoot && player.controlUp)
             {
                 foreach (Projectile proj in Main.projectile)
                 {
-                    if (proj.active && proj.owner == player.whoAmI && proj.type == Item.shoot + 1)
+                    if (proj.active && proj.owner == player.whoAmI && proj.type == bombType)
                     {
-                        ShardsHelpers.DustRing(proj.Center, 20, DustID.ShadowbeamStaff);
-                        Projectile.NewProjectile(source, proj.Center, proj.DirectionTo(Main.MouseWorld) * velocity.Length() * Main.rand.NextFloat(0.66f, 1f), type, (int)(damage * 0.25f), knockback);
+                        proj.Kill();
                     }
                 }
+                return false;
+            }
+            if (type != Item.shoot && player.ownedProjectileCounts[bombType] > 0)
+            {
+                int i = 0;
+                foreach (Projectile proj in Main.projectile)
+                {
+                    if (proj.active && proj.owner == player.whoAmI && proj.type == bombType)
+                    {
+                        i++;
+                        (proj.ModProjectile as HunterBomb2).SetShootStats(i * 2, source, Main.MouseWorld, velocity.Length(), type, damage, knockback);
+                    }
+                }
+                Item.reuseDelay = i * 2;
             }
             bombThrow = false;
             return base.Shoot(player, source, position, velocity, type, damage, knockback);

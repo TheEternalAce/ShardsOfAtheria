@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
-            NPC.AddVulnerabilities(2, 8, 9);
+            NPC.AddVulnerabilities("immune", 8, 9);
         }
 
         public override void SetDefaults()

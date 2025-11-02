@@ -59,8 +59,8 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             NPC.SetImmuneTo(buffTypes);
 
             NPC.AddDamageType(5);
-            NPC.AddVulnerabilities(0, 3);
-            NPC.AddVulnerabilities(1, 2, 5, 12);
+            NPC.AddVulnerabilities("weak", 3);
+            NPC.AddVulnerabilities("resist", 2, 5, 12);
 
             NPC.AddElement(2);
 

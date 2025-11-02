@@ -13,32 +13,43 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
     public class GreedPlayer : ModPlayer
     {
-        public bool greed;
+        public bool soulActive;
 
         public override void ResetEffects()
         {
-            greed = false;
+            soulActive = false;
+        }
+
+        public override bool OnPickup(Item item)
+        {
+            if (item.value > 1000) Player.AddBuff<GreedFire>(150);
+            return base.OnPickup(item);
+        }
+
+        public override void UpdateBadLifeRegen()
+        {
+            if (Player.HasBuff<GreedFire>())
+            {
+                if (Player.lifeRegen > 0)
+                    Player.lifeRegen = 0;
+                Player.lifeRegenTime = 0;
+                Player.lifeRegen -= 20;
+            }
         }
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
-            if (greed)
+            if (soulActive)
             {
-                if (Player.HasItem(ItemID.PlatinumCoin))
+                int i = 0;
+                foreach (var item in Player.inventory)
                 {
-                    Player.inventory[Main.LocalPlayer.FindItem(ItemID.PlatinumCoin)].TurnToAir();
-                }
-                if (Player.HasItem(ItemID.GoldCoin))
-                {
-                    Player.inventory[Main.LocalPlayer.FindItem(ItemID.GoldCoin)].TurnToAir();
-                }
-                if (Player.HasItem(ItemID.SilverCoin))
-                {
-                    Player.inventory[Main.LocalPlayer.FindItem(ItemID.SilverCoin)].TurnToAir();
-                }
-                if (Player.HasItem(ItemID.CopperCoin))
-                {
-                    Player.inventory[Main.LocalPlayer.FindItem(ItemID.CopperCoin)].TurnToAir();
+                    if (item.IsAir) continue;
+                    if (i <= 9) continue;
+                    if (Main.rand.NextBool()) continue;
+                    Item.NewItem(Player.GetSource_Death(), Player.Hitbox, item);
+                    item.TurnToAir();
+                    i++;
                 }
             }
         }
@@ -55,14 +66,24 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         {
             if (player.HasItem(ItemID.GoldCoin))
             {
-                for (int i = 0; i < player.inventory[player.FindItem(ItemID.GoldCoin)].stack; i++)
+                for (int i = 0; i < player.inventory[player.FindItem(ItemID.GoldCoin)].stack && i < 10; i++)
                 {
                     player.GetDamage(DamageClass.Generic) += .05f;
                     player.statDefense -= 2;
                 }
             }
-            player.Greed().greed = true;
+            player.Greed().soulActive = true;
             base.Update(player, ref buffIndex);
+        }
+    }
+
+    public class GreedFire : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.LongerExpertDebuff[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+            Main.debuff[Type] = true;
         }
     }
 }

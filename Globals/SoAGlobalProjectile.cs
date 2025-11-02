@@ -180,8 +180,8 @@ namespace ShardsOfAtheria.Globals
         {
             if (SoA.BNEEnabled)
                 ChangeElements(projectile, source);
-            if (source is EntitySource_ItemUse_WithAmmo weaponSource)
-                if (weaponSource.Item.type == ModContent.ItemType<NailPounder>()) nailPunch = true;
+            if (source is EntitySource_ItemUse_WithAmmo ammoWeaponSource)
+                if (ammoWeaponSource.Item.type == ModContent.ItemType<NailPounder>()) nailPunch = true;
         }
 
         [JITWhenModsEnabled("BattleNetworkElements")]

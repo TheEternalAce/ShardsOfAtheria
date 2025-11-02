@@ -73,7 +73,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
                 text = "I'm Gomorrah, no game can stand a chance against us!";
                 color = Color.Orange;
             }
-            else if (player.Greed().greed)
+            else if (player.Greed().soulActive)
             {
                 armament = ModContent.ItemType<Pantheon>();
                 text = "My name is Pantheon, together we'll become the richest in the world!";

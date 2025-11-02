@@ -139,3 +139,5 @@
 - Moved Tungsten Bullet to Rockman Zeta's Vanilla Tweaks mod.
 - Adjust Amethyst Core dash.
 - Added Charged Battery.
+- Adjusted Atherian dialogue.
+- Adjusted Gluttony, Greed, and Lust souls effects.

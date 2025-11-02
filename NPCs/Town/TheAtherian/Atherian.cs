@@ -60,12 +60,12 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             NPCID.Sets.AttackAverageChance[Type] = 30;
             NPCID.Sets.HatOffsetY[Type] = 4;
 
-            List<int> buffTypes = new()
-            {
+            List<int> buffTypes =
+            [
                 BuffID.Poisoned,
                 BuffID.Confused,
                 ModContent.BuffType<ElectricShock>()
-            };
+            ];
             NPC.SetImmuneTo(buffTypes);
 
             // Set Atherian's biome and neighbor preferences with the NPCHappiness hook. You can add happiness text and remarks with localization (See an example in ExampleMod/Localization/en-US.lang
@@ -151,6 +151,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             return false;
         }
 
+        string DialogueKeyBase => this.GetLocalizationKey("Dialogue.");
         public override bool PreAI()
         {
             if (!SoA.ServerConfig.cluelessNPCs)
@@ -183,12 +184,17 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             return ["Jordan", "Damien", "Jason", "Kevin", "Rain", "Sage", "Archimedes"];
         }
 
-        const string DialogueKeyBase = "Mods.ShardsOfAtheria.NPCs.Atherian.Dialogue.";
         public override string GetChat()
         {
             WeightedRandom<string> chat = new();
             int playerWhoAmI = NPC.FindClosestPlayer();
             var player = Main.player[playerWhoAmI];
+
+            chat.AddKey(DialogueKeyBase + "Random1");
+            chat.AddKey(DialogueKeyBase + "Random2");
+            chat.AddKey(DialogueKeyBase + "Random3");
+            chat.AddKey(DialogueKeyBase + "Random4");
+            chat.AddKey(DialogueKeyBase + "Random5");
 
             if (player.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
             {
@@ -199,17 +205,9 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
                     chat.AddKey(DialogueKeyBase + "BaseGenesisAndRagnarok");
                 }
             }
-
-            chat.AddKey(DialogueKeyBase + "AtheriaComment");
-            if (ShardsDownedSystem.downedValkyrie)
-            {
-                chat.AddKey(DialogueKeyBase + "ExComment");
-            }
+            if (ShardsDownedSystem.downedValkyrie) chat.AddKey(DialogueKeyBase + "ExComment");
             int guide = NPC.FindFirstNPC(NPCID.Guide);
-            if (guide >= 0)
-            {
-                chat.AddKey(DialogueKeyBase + "CSGOReference", Main.npc[guide].GivenName);
-            }
+            if (guide >= 0) chat.AddKey(DialogueKeyBase + "CSGOReference", Main.npc[guide].GivenName);
             chat.AddKey(DialogueKeyBase + "MorshuMoment", player.name);
             return chat;
         }

@@ -214,11 +214,11 @@ namespace ShardsOfAtheria.Utilities
         /// </summary>
         /// <param name="npc"></param>
         /// <param name="elementIDs"></param>
-        public static void AddVulnerabilities(this NPC npc, int type, params int[] elementIDs)
+        public static void AddVulnerabilities(this NPC npc, string type, params int[] elementIDs)
         {
-            if (type == 0) SoA.TryDungeonCall("addVulnerableElement", npc.type, elementIDs);
-            else if (type == 1) SoA.TryDungeonCall("addResistElement", npc.type, elementIDs);
-            else if (type == 2) SoA.TryDungeonCall("addImmuneElement", npc.type, elementIDs);
+            if (type.Equals("weak")) SoA.TryDungeonCall("addVulnerableElement", npc.type, elementIDs);
+            else if (type.Equals("resist")) SoA.TryDungeonCall("addResistElement", npc.type, elementIDs);
+            else if (type.Equals("immune")) SoA.TryDungeonCall("addImmuneElement", npc.type, elementIDs);
         }
 
         /// <summary>

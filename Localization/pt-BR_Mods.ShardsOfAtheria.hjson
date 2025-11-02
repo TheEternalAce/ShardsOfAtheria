@@ -2119,8 +2119,8 @@ Items: {
 		/* Tooltip:
 			'''
 			Alt-use to open the customization UI
-			'There's a sticky note with a random arangement of letters and numbers'
-			'Presumably a password, not that you need it'
+			'There are marks where a sticky note was'
+			'Presumably the password was lost'
 			''' */
 		// DeveloperKeyChange: No mana cost and unlimited access
 	}
@@ -3532,13 +3532,13 @@ NPCs: {
 
 	Atherian: {
 		DisplayName: Atherian
-		// Bestiary: After the young goddess, Senterra, created her world, she populated it with beings called Atherians, their design inspired by the angels in a certain human culture.
+		// Bestiary: After the young goddess, Senterra, created her world, she populated it with beings called Atherians, their design inspired by the angels of a certain human culture.
 
 		TownNPCMood: {
 			// Content: I'm good, thanks for checking in.
 			// NoHome: At least I'm not in a crowded area, but I'd still rather not be homeless.
 			// FarFromHome: It seems I've wandered too far. Or have I been relocated?
-			// LoveSpace: This is good, thank you for this place.
+			// LoveSpace: This is exactly what I was looking for, thank you.
 			// DislikeCrowded: Seems to be getting a bit crowded here, no?
 			// HateCrowded: I hate to be rude, but I came here to get out of an overpopulated area, not to go into another.
 			// LoveBiome: "{BiomeName} reminds me of home, I love it."
@@ -3547,7 +3547,7 @@ NPCs: {
 			// LoveNPC: "{NPCName} does a great job with my hair. What's this about a crush? I don't know what you mean!"
 			// LikeNPC: Nobody gives {NPCName} enough credit. He knows the Soul of Eternity's whole crafting tree yet you have to look it up on Recipe Browser!
 			// LikeNPC_Princess: I tried to teach {NPCName} my language. It didn't go well.. Well she had fun trying regardless!
-			// Princess_LovesNPC: "{NPCName}'s wings are just gorgeous!"
+			// Princess_LovesNPC: "{NPCName}'s wings are just gorgeous! They're super sweet too!"
 		}
 
 		Dialogue: {
@@ -3557,10 +3557,14 @@ NPCs: {
 				What a peculiar weapon. It shows capabilities of transforming into several types of weapon, but it's locked in spear and whip form.
 				There's also memories sealed inside the shield. Perhaps something to unlock those memories will make it stronger?
 				''' */
-			// AtheriaComment: Atheria is lovely, but unfortunately overpopulated. Long story short is: our goddess wasn't too keen on giving us such a short lifespan like humans. So she made us nigh-immortal and, turns out, that makes things not so great for a small planet.
-			// ExComment: Hm, Nova. We didn't separate on exactly good terms.
+			// RandomText1: Hey! How is it going?
+			// RandomText2: Lovely wheather, isn't it?
+			// RandomText3: Have you seen a giant bird around, in the desert? No? Alright then.
+			// RandomText4: I hope there is good coming out of your conquest.
+			// RandomText5: I heard there is a coin you can toss and shoot. Seems pretty flashy, no?
+			// ExComment: So you fought Nova. We go back a while, but we don't talk anymore.
 			// MorshuMoment: Sorry {0}, what is this 'credit'? Come back when you have some coin! Or maybe you wanna chat? That's fine too.
-			// CSGOReference: Last blood moon I heard {0} shouting 'Door stuck,' what's that about?
+			// CSGOReference: Last blood moon I heard {0} shouting "Door stuck!" what's that about?
 			// GiftCrest: Here, have this. No particular reason, I just don't want it anymore.
 			# Slayer mode
 			// NovaDeath: "{0} leaves with Nova's death. 'She didn't deserve this...'"
@@ -4248,6 +4252,16 @@ Buffs: {
 	ElectricAssassin: {
 		// DisplayName: Electric Assassin
 		// Description: Mods.ShardsOfAtheria.Buffs.ElectricAssassin.Description
+	}
+
+	GluttonyAcid: {
+		// DisplayName: Gluttony Acid
+		// Description: Mods.ShardsOfAtheria.Buffs.GluttonyAcid.Description
+	}
+
+	GreedFire: {
+		// DisplayName: Greed Fire
+		// Description: Mods.ShardsOfAtheria.Buffs.GreedFire.Description
 	}
 }
 

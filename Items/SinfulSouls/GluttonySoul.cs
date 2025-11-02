@@ -86,6 +86,32 @@ namespace ShardsOfAtheria.Items.SinfulSouls
                 }
             }
         }
+
+        public override bool OnPickup(Item item)
+        {
+            if (soulActive && (item.type == ItemID.Heart || item.type == ItemID.CandyApple || item.type == ItemID.CandyCane ||
+                item.type == ItemID.ManaCloakStar || item.type == ItemID.Star || item.type == ItemID.SoulCake || item.type == ItemID.SugarPlum))
+            {
+                Player.AddBuff<GluttonyAcid>(150);
+            }
+            return base.OnPickup(item);
+        }
+    }
+
+    public class GluttonyAcid : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            BuffID.Sets.LongerExpertDebuff[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+            Main.debuff[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.statDefense -= 20;
+            player.GetDamage(DamageClass.Generic) -= 0.2f;
+        }
     }
 
     public class GluttonyBuff : SinfulSoulBuff

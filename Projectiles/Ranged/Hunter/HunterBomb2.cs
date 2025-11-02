@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Ranged.Hunter
@@ -30,12 +32,30 @@ namespace ShardsOfAtheria.Projectiles.Ranged.Hunter
                 Main.projectile[i].Kill();
                 player.ownedProjectileCounts[Type]--;
             }
+
+            if (shootTimer == 1)
+            {
+                Fire();
+            }
+            if (shootTimer > 0) shootTimer--;
+        }
+        object[] shootStats = new object[5];
+        int shootTimer = 0;
+        public void SetShootStats(int shootDelay, EntitySource_ItemUse_WithAmmo source, Vector2 position, float speed, int type, int damage, float knockback)
+        {
+            shootTimer = shootDelay;
+            shootStats[0] = source;
+            shootStats[1] = Projectile.DirectionTo(position) * speed * Main.rand.NextFloat(0.66f, 1f);
+            shootStats[2] = type;
+            shootStats[3] = (int)(damage * 0.25f);
+            shootStats[4] = knockback;
         }
 
-        public void Bomb()
+        public void Fire()
         {
-            Projectile.ai[0] = 1;
-            Projectile.timeLeft = 3600;
+            ShardsHelpers.DustRing(Projectile.Center, 20, DustID.ShadowbeamStaff);
+            Projectile.NewProjectile((IEntitySource)shootStats[0], Projectile.Center, (Vector2)shootStats[1], (int)shootStats[2], (int)shootStats[3], (float)shootStats[4]);
+            Projectile.timeLeft += Projectile.GetPlayerOwner().itemAnimationMax + 10;
         }
 
         public static int FindOldestBomb(Player player)

@@ -44,7 +44,7 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
             NPC.AddElement(2);
 
             NPC.AddDamageType(5, 12);
-            NPC.AddVulnerabilities(2, 8, 9);
+            NPC.AddVulnerabilities("immune", 8, 9);
 
             NPC.AddRedemptionElement(7);
 

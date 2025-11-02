@@ -45,7 +45,7 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
             NPC.AddElement(2);
 
             NPC.AddDamageType(4, 5);
-            NPC.AddVulnerabilities(2, 8, 9);
+            NPC.AddVulnerabilities("immune", 8, 9);
 
             NPC.AddRedemptionElement(7);
 
@@ -56,13 +56,15 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
         public override void SetDefaults()
         {
             NPC.width = 68;
-            NPC.height = 40;
+            NPC.height = 46;
             NPC.damage = 0;
             NPC.defense = 10;
             NPC.lifeMax = 200;
             NPC.lavaImmune = true;
             NPC.value = 2000;
             NPC.knockBackResist = 0;
+            NPC.aiStyle = 22;
+            NPC.noGravity = true;
 
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCDeath14;
@@ -77,6 +79,7 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
         }
 
         Player Target => Main.player[NPC.target];
+        int shootTimer = 0;
 
         public override void AI()
         {
@@ -94,8 +97,8 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
                 {
                     fireRate = 0.75f;
                 }
-                NPC.ai[0] += 1f;
-                if (NPC.ai[0] % (60 / fireRate) == 0)
+                shootTimer++;
+                if (shootTimer % (int)(60f / fireRate) == 0)
                 {
                     var vector = Vector2.Normalize(Target.Center - projectilePosition);
                     int targetDirection = Target.Center.X > NPC.Center.X ? 1 : -1;
@@ -106,6 +109,7 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
                         vector * 16f, ModContent.ProjectileType<AreusGrenadeHostile>(),
                         15, 0, Main.myPlayer);
                     SoundEngine.PlaySound(SoundID.Item61, NPC.Center);
+                    shootTimer = 0;
                 }
             }
         }
@@ -113,9 +117,9 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
             string key = this.GetLocalizationKey("Bestiary");
-            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+            bestiaryEntry.Info.AddRange([
                 new FlavorTextBestiaryInfoElement(key)
-            });
+            ]);
         }
 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -130,7 +134,7 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
             var rect = new Rectangle(0, 0, 36, 48);
             Vector2 offset = new(0, 4);
             var drawPos = NPC.Center - screenPos + offset;
-            var origin = new Vector2(18, 40);
+            var origin = new Vector2(18, 36);
             float rotation = 0f;
             if (Target != null)
             {
