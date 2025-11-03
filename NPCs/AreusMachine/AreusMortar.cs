@@ -63,7 +63,7 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
             NPC.lavaImmune = true;
             NPC.value = 2000;
             NPC.knockBackResist = 0;
-            NPC.aiStyle = 22;
+            NPC.aiStyle = NPCAIStyleID.HoveringFighter;
             NPC.noGravity = true;
 
             NPC.HitSound = SoundID.NPCHit4;

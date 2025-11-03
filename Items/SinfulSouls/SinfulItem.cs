@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Common.Items;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -40,10 +39,8 @@ namespace ShardsOfAtheria.Items.SinfulSouls
 
         public bool SinfulItemUsable(Player player)
         {
-            int soul = player.Sinful().SinfulSoulUsed;
-            int requiredSinBuff = 0;
-            if (RequiredSin > 0) requiredSinBuff = SinfulPlayer.SinfulBuffs[RequiredSin - 1];
-            return RequiredSin == -1 || soul == requiredSinBuff;
+            int sin = player.Sinner().sinID;
+            return RequiredSin == sin;
         }
 
         public override bool CanUseItem(Player player)

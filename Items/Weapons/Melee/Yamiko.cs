@@ -6,7 +6,6 @@ using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Melee;
 using ShardsOfAtheria.Projectiles.Ranged;
-using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
@@ -17,7 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class Yamiko : SinfulItem
     {
-        public override int RequiredSin => SinfulPlayer.Wrath;
+        public override int RequiredSin => SinnerPlayer.WRATH;
 
         public override void SetStaticDefaults()
         {
@@ -100,14 +99,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 player.AddBuff(ModContent.BuffType<YamikoDashCooldown>(), 120);
             }
             return false;
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient<WrathSoul>()
-                .AddCondition(SoAConditions.TransformArmament)
-                .Register();
         }
     }
 }

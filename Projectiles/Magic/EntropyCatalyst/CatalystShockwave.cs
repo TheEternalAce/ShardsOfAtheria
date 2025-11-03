@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.EntropyCatalyst
                         player.ManaEffect(8);
                         proj.velocity *= 2f;
                     }
-                    if (player.Pride().soulActive && player.InCombat()) player.Pride().attacks--;
+                    player.Sinner().PrideCancelAttack();
                 }
             }
         }

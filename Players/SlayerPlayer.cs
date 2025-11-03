@@ -15,6 +15,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.Utilities;
@@ -604,15 +605,12 @@ namespace ShardsOfAtheria.Players
             {
                 if (soulCrystalNames.Count <= 1)
                 {
-                    if (Player.Male)
-                    {
-                        damageSource = PlayerDeathReason.ByCustomReason(Player.name + " had his heart ripped out.");
-                    }
-                    else damageSource = PlayerDeathReason.ByCustomReason(Player.name + " had her heart ripped out.");
+                    string gender = Player.Male ? "his" : "her";
+                    damageSource = PlayerDeathReason.ByCustomReason(NetworkText.FromKey("ShardsOfAtheria.DeathMessages.HeartExtracted", Player.name, gender));
                 }
                 else
                 {
-                    damageSource = PlayerDeathReason.ByCustomReason(Player.name + " had dug too deep.");
+                    damageSource = PlayerDeathReason.ByCustomReason(NetworkText.FromKey("ShardsOfAtheria.DeathMessages.SoulDamage", Player.name));
                 }
             }
             if (!Player.HasBuff(ModContent.BuffType<EaterReviveCooldown>()) && EoWSoul)

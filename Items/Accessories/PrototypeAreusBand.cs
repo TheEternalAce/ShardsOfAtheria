@@ -10,6 +10,7 @@ using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using WebCom.Extensions;
 
@@ -82,8 +83,7 @@ namespace ShardsOfAtheria.Items.Accessories
                             var info = new Player.HurtInfo()
                             {
                                 Damage = (int)meleeDamage.ApplyTo(Item.damage),
-                                DamageSource = PlayerDeathReason.ByCustomReason(
-                                    player.name + "'s band malfunctioned")
+                                DamageSource = PlayerDeathReason.ByCustomReason(NetworkText.FromKey("ShardsOfAtheria.DeathMessages.BandMalfunction", player.name))
                             };
                             player.Hurt(info);
                             player.AddBuff(ModContent.BuffType<ElectricShock>(), 300);

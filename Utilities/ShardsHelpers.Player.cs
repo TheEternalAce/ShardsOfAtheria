@@ -1,5 +1,4 @@
 ﻿using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
-using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Players;
 using System;
 using Terraria;
@@ -18,47 +17,10 @@ namespace ShardsOfAtheria.Utilities
             return player.GetModPlayer<ShardsPlayer>();
         }
 
-        #region sinful players
-        public static SinfulPlayer Sinful(this Player player)
+        public static SinnerPlayer Sinner(this Player player)
         {
-            return player.GetModPlayer<SinfulPlayer>();
+            return player.GetModPlayer<SinnerPlayer>();
         }
-
-        public static EnvyPlayer Envy(this Player player)
-        {
-            return player.GetModPlayer<EnvyPlayer>();
-        }
-
-        public static GluttonyPlayer Gluttony(this Player player)
-        {
-            return player.GetModPlayer<GluttonyPlayer>();
-        }
-
-        public static GreedPlayer Greed(this Player player)
-        {
-            return player.GetModPlayer<GreedPlayer>();
-        }
-
-        public static LustPlayer Lust(this Player player)
-        {
-            return player.GetModPlayer<LustPlayer>();
-        }
-
-        public static PridePlayer Pride(this Player player)
-        {
-            return player.GetModPlayer<PridePlayer>();
-        }
-
-        public static SlothPlayer Sloth(this Player player)
-        {
-            return player.GetModPlayer<SlothPlayer>();
-        }
-
-        public static WrathPlayer Wrath(this Player player)
-        {
-            return player.GetModPlayer<WrathPlayer>();
-        }
-        #endregion
 
         public static SlayerPlayer Slayer(this Player player)
         {

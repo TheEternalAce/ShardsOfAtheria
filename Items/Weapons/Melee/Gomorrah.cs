@@ -1,7 +1,5 @@
 using ShardsOfAtheria.Common.Items;
-using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Projectiles.Melee.Gomorrah;
-using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -66,14 +64,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 Item.shoot = ModContent.ProjectileType<Gomorrah_Spear>();
             }
             return player.ownedProjectileCounts[ModContent.ProjectileType<Gomorrah_Spear>()] < 1;
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient<GluttonySoul>()
-                .AddCondition(SoAConditions.TransformArmament)
-                .Register();
         }
     }
 }

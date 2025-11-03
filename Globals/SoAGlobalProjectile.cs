@@ -20,8 +20,6 @@ namespace ShardsOfAtheria.Globals
         public bool areusNullField = false;
         public bool nailPunch = false;
 
-        int voidTrailCooldown = 0;
-
         public static readonly Dictionary<int, bool> AreusProj = [];
         public static readonly List<int> Eraser = [];
         public static readonly List<int> TrueMelee = [];
@@ -267,7 +265,7 @@ namespace ShardsOfAtheria.Globals
                     ShardsHelpers.AdjustMagnitude(ref projectile.velocity, speed);
                 }
             }
-            if (projectile.aiStyle == 93 && nailPunch)
+            if (projectile.aiStyle == ProjAIStyleID.Nail && nailPunch)
             {
                 if (projectile.ai[0] == 0) // Tumble logic
                 {
@@ -289,7 +287,7 @@ namespace ShardsOfAtheria.Globals
                 if ((searchingProj.ModProjectile as StickingMagnetProj).IsStickingToTarget) return false;
                 if (!(magnet.ModProjectile as StickingMagnetProj).IsStickingToTarget) return false;
             }
-            if (searchingProj.aiStyle == 93 && searchingProj.ai[0] != 0) return false;
+            if (searchingProj.aiStyle == ProjAIStyleID.Nail && searchingProj.ai[0] != 0) return false;
             return true;
         }
 

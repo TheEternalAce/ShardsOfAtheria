@@ -8,7 +8,6 @@ using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BuffItems;
-using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Tools.Misc.Slayer;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons.Ammo;
@@ -221,7 +220,6 @@ namespace ShardsOfAtheria.Players
             if (!mediumCoreDeath)
             {
                 items.Add(new Item(ModContent.ItemType<Necronomicon>()));
-                if (Player.GetModPlayer<SinfulPlayer>().SinfulSoulUsed == 0) items.Add(new Item(ModContent.ItemType<SinfulSoul>()));
             }
 
             return items;
@@ -245,14 +243,14 @@ namespace ShardsOfAtheria.Players
 
         private void TryAreusKatanaTransformation()
         {
-            if (Player.HasItem(ModContent.ItemType<AreusKatana>()) && sacrificedKatana && NPC.downedPlantBoss)
+            if (Player.HasItem(ModContent.ItemType<AreusKatana>()) && sacrificedKatana && NPC.downedPlantBoss && Player.statLife > 50)
             {
                 if (++katanaTransformTimer >= 600 + Main.rand.Next(300))
                 {
                     katanaTransformTimer = 0;
                     var position = Player.Center + Vector2.One.RotatedByRandom(MathHelper.TwoPi) * 75;
                     var velocity = position.DirectionTo(Player.Center) * 16f;
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), position, velocity, ModContent.ProjectileType<InfernalKatana>(), 1, 0, Player.whoAmI);
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), position, velocity, ModContent.ProjectileType<InfernalKatana>(), 50, 0, Player.whoAmI);
                 }
             }
         }

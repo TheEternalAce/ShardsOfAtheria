@@ -102,6 +102,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             }
             Projectile.damage = (int)(Projectile.damage * 1.1f);
             coinsHit++;
+            Projectile.GetPlayerOwner().Sinner().PrideCancelAttack();
         }
 
         public virtual void RecordPosition()

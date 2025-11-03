@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
@@ -95,7 +96,8 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         {
             if (SoA.Eternity())
             {
-                info.DamageSource = PlayerDeathReason.ByCustomReason(target.name + " had their soul reaped.");
+                string gender = target.Male ? "his" : "her";
+                info.DamageSource = PlayerDeathReason.ByCustomReason(NetworkText.FromKey("ShardsOfAtheria.DeathMessages.Reap", target.name, gender));
                 target.KillMe(info.DamageSource, info.Damage, info.HitDirection);
             }
             target.AddBuff<DeathBleed>(1200);

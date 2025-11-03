@@ -3,6 +3,7 @@ using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Buffs.NPCDebuff
@@ -43,7 +44,7 @@ namespace ShardsOfAtheria.Buffs.NPCDebuff
                         {
                             if (Vector2.Distance(player.Center, npc.Center) <= 100)
                             {
-                                PlayerDeathReason deathReason = PlayerDeathReason.ByCustomReason(player.name + " perished with " + npc.TypeName + ".");
+                                PlayerDeathReason deathReason = PlayerDeathReason.ByCustomReason(NetworkText.FromKey("ShardsOfAtheria.DeathMessages.PerishSong", player.name, npc.TypeName));
                                 player.KillMe(deathReason, player.statLifeMax2 * 6, 0);
                             }
                         }

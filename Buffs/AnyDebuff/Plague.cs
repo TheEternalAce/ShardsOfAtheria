@@ -5,6 +5,7 @@ using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Buffs.AnyDebuff
@@ -161,7 +162,7 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
             {
                 if (Player.HasBuff<Plague>())
                 {
-                    damageSource = PlayerDeathReason.ByCustomReason(Player.name + " succumbed to the plague.");
+                    damageSource = PlayerDeathReason.ByCustomReason(NetworkText.FromKey("ShardsOfAtheria.DeathMessages.Plague", Player.name));
                 }
             }
             return base.PreKill(damage, hitDirection, pvp, ref playSound, ref genDust, ref damageSource);

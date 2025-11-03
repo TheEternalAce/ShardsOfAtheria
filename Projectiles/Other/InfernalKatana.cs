@@ -4,7 +4,6 @@ using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 //using WebCom.Effects.ScreenShaking;
@@ -44,24 +43,6 @@ namespace ShardsOfAtheria.Projectiles.Other
                 if (Projectile.ai[0] == 1f)
                 {
                     Projectile.velocity *= 0.65f;
-                }
-            }
-
-            if (Projectile.ai[0] != 1)
-            {
-                var player = Projectile.GetPlayerOwner();
-                if (Projectile.Colliding(Projectile.Hitbox, player.Hitbox))
-                {
-                    string customDeath = player.name + "'s death was not supposed to happen";
-                    Player.HurtInfo info = new()
-                    {
-                        Damage = 1,
-                        Knockback = 0f,
-                        Dodgeable = false,
-                        DamageSource = PlayerDeathReason.ByCustomReason(customDeath)
-                    };
-                    player.Hurt(info);
-                    OnHitPlayer(player, info);
                 }
             }
         }

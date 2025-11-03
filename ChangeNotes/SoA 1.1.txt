@@ -41,8 +41,8 @@
 - Resprited Lust Soul.
 - Added Golden Nail.
 - Added Nail Puncher.
-- Magnet Dart can now attract metalic projectiles without sticking to enemies.
-- Fixed Areus Gamble coin not interacting with vanilla projectiles.
+- Magnet Dart can now attract metallic projectiles without sticking to enemies.
+- Fixed Areus Gambit coin not interacting with vanilla projectiles.
 - Fixed Deck of Cards cycling cards when overdrive isn't active.
 - Ace of Diamonds now loses 15% damage when hitting enemies.
 - Reworked Areus Baton.
@@ -62,7 +62,7 @@
 - Added Light and Shadow.
 - Tweaked Event Horizon.
    - Black holes spawn bolts every 10 ticks instead of 15, and there can only be 10 active per player.
-   - When a player has more than 10 black holes active, black hole bolts will travel further.
+   - When a player has 10 black holes active, black hole bolts will travel further.
 - Added Memento Mori Amulet.
 - Added Data Shock Tome.
 - Added Data Shock Dagger.
@@ -76,7 +76,6 @@
 - Anchor Chip is now sold by Atherian without any other conditions.
 - Anchor Chip now prevents all weapons from moving the player.
 - Toggleable items will now work in all banks as well as the player's inventory.
-- Golden Nails are now crafted with regular nails and gold bars at a mythril anvil.
 - Tweaked lightning projectile visuals.
 - Fixed placeable items disappearing when used even if a tile wasn't placed.
 - Added held sprite and placed sprite for Gigavolt Delicacy.
@@ -105,7 +104,7 @@
 - Areus Dagger alt use now fires a straight beam.
 - Added the Flying type to hardlight weapons and projectiles.
 - Overhauled the upgrade system. Possible upgrades, now known as Upgrade Blueprints, are no longer hard-coded.
-- Added Upgrade Blueprints for higher tier areus armors.
+- Added upgrade blueprints for higher tier areus armors.
 - Reduced the number of beetle husks needed to make Areus Imperial armor.
 - Added a Recipe Browser category that shows possible upgrades.
 - Areus Armor sets will now require some jade to make.
@@ -140,4 +139,4 @@
 - Adjust Amethyst Core dash.
 - Added Charged Battery.
 - Adjusted Atherian dialogue.
-- Adjusted Gluttony, Greed, and Lust souls effects.
+- Adjusted Greed and Lust souls effects.

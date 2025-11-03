@@ -21,7 +21,6 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.Sinful().SinfulSoulUsed = Type;
             player.statDefense += 10;
             player.GetDamage(DamageClass.Generic) += .1f;
             player.thorns = 1;

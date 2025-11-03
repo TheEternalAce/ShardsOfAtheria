@@ -4,6 +4,7 @@ using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Common.Projectiles
@@ -205,7 +206,7 @@ namespace ShardsOfAtheria.Common.Projectiles
 
         private static void DrawPrettyStarSparkle(float opacity, SpriteEffects dir, Vector2 drawpos, Color drawColor, Color shineColor, float flareCounter, float fadeInStart, float fadeInEnd, float fadeOutStart, float fadeOutEnd, float rotation, Vector2 scale, Vector2 fatness)
         {
-            Texture2D value = TextureAssets.Extra[98].Value;
+            Texture2D value = TextureAssets.Extra[ExtrasID.SharpTears].Value;
             Color color = shineColor * opacity * 0.5f;
             color.A = 0;
             Vector2 origin = value.Size() / 2f;

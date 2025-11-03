@@ -3,7 +3,6 @@ using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Ranged;
-using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -13,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class Magnus : SinfulItem
     {
-        public override int RequiredSin => SinfulPlayer.Pride;
+        public override int RequiredSin => SinnerPlayer.PRIDE;
 
         public override void SetStaticDefaults()
         {
@@ -54,14 +53,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(0, 0);
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient<PrideSoul>()
-                .AddCondition(SoAConditions.TransformArmament)
-                .Register();
         }
     }
 }

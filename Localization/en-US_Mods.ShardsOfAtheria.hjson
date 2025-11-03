@@ -1560,12 +1560,7 @@ Items: {
 		Tooltip: ""
 	}
 
-	# Sinful
-	SinfulSoul: {
-		DisplayName: Sinful Soul
-		Tooltip: ""
-	}
-
+	# Sinful Souls
 	EnvySoul: {
 		DisplayName: Envy Soul
 		Tooltip: Consecutive strikes on an enemy will increase the damage they take by 3
@@ -4576,6 +4571,14 @@ DeathMessages: {
 	MourningStar2: "{0} was drained by The Mourning Star."
 	MourningStar3: "{0} let The Mourning Star eat their blood."
 	DeathBleed: "{0} bled out."
+	DaggerPurify: "{0} was purified into nothing."
+	WrathRage: "{0}'s rage burned {1} soul away."
+	Plague: "{0} succumbed to the plague."
+	PerishSong: "{0} perished with {1}."
+	HeartExtracted: "{0} had {1} heart ripped out."
+	SoulDamage: "{0} had dug too deep."
+	BandMalfunction: "{0}'s prototype band malfunctioned."
+	Reap: "{0} had {1} soul reaped."
 }
 
 GameTips: {

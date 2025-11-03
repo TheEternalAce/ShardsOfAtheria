@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
 
         public override bool CanUseItem(Player player)
         {
-            return player.GetModPlayer<SinfulPlayer>().SinfulSoulUsed > 0;
+            return player.Sinner().SinActive;
         }
 
         public override bool? UseItem(Player player)
@@ -61,43 +61,43 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             text = "";
             color = Color.White;
 
-            if (player.Envy().soulActive)
+            if (player.Sinner().sinID == SinnerPlayer.ENVY)
             {
                 armament = 0;
                 text = "";
                 color = Color.Orange;
             }
-            else if (player.Gluttony().soulActive)
+            else if (player.Sinner().sinID == SinnerPlayer.GLUTTONY)
             {
                 armament = ModContent.ItemType<Gomorrah>();
                 text = "I'm Gomorrah, no game can stand a chance against us!";
                 color = Color.Orange;
             }
-            else if (player.Greed().soulActive)
+            else if (player.Sinner().sinID == SinnerPlayer.GREED)
             {
                 armament = ModContent.ItemType<Pantheon>();
                 text = "My name is Pantheon, together we'll become the richest in the world!";
                 color = Color.Gold;
             }
-            else if (player.Lust().soulActive)
+            else if (player.Sinner().sinID == SinnerPlayer.LUST)
             {
                 armament = 0;//ModContent.ItemType<SinfulArmament>();
                 text = "";
                 color = Color.Pink;
             }
-            else if (player.Pride().soulActive)
+            else if (player.Sinner().sinID == SinnerPlayer.PRIDE)
             {
                 armament = ModContent.ItemType<Magnus>();
                 text = "I am Magnus, the only weapon you'll ever need.";
                 color = Color.White;
             }
-            else if (player.Sloth().soulActive)
+            else if (player.Sinner().sinID == SinnerPlayer.SLOTH)
             {
                 armament = 0;//ModContent.ItemType<SinfulArmament>();
                 text = "";
                 color = Color.Orange;
             }
-            else if (player.Wrath().soulActive)
+            else if (player.Sinner().sinID == SinnerPlayer.WRATH)
             {
                 armament = ModContent.ItemType<Yamiko>();
                 text = "My name is Yamiko, my edge is sharper than those pathetic blades.";

@@ -115,6 +115,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
                             if (proj.ModProjectile is CatalystBomb) type = ModContent.ProjectileType<HitscanBullet_Explosive>();
 
                             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, type, (int)(proj.damage * 1.1f), 3f);
+                            player.Sinner().PrideCancelAttack();
                         }
                         break;
                     }

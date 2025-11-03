@@ -9,7 +9,6 @@ using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.Consumable;
 using ShardsOfAtheria.Items.Placeable.Furniture;
-using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.NPCs.Town.TheArchivist;
@@ -136,11 +135,6 @@ namespace ShardsOfAtheria.Globals
                     ShardsHelpers.LocalizeCommon("Eraser"));
                 tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
             }
-        }
-
-        public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
-            if (player.Lust().soulActive) velocity = velocity.RotatedByRandom(MathHelper.PiOver4);
         }
 
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -360,13 +354,6 @@ namespace ShardsOfAtheria.Globals
                     }
                 }
             }
-            if (item.buffType > 0 || item.healLife > 0 || item.healMana > 0)
-            {
-                if (player.Gluttony().soulActive)
-                {
-                    player.AddBuff<GluttonyAcid>(150);
-                }
-            }
             if (player.ItemAnimationJustStarted)
             {
                 if (item.pick > 0)
@@ -396,21 +383,6 @@ namespace ShardsOfAtheria.Globals
 
             if (Potions.Contains(item.type) && !ModLoader.TryGetMod("Overhaul", out _))
                 Item.NewItem(item.GetSource_FromThis(), player.getRect(), ItemID.Bottle, 1);
-
-            var gluttonyPlayer = player.Gluttony();
-            if (gluttonyPlayer.soulActive)
-            {
-                int gluttonyHealing = item.buffTime;
-                if (item.buffType == BuffID.WellFed) gluttonyHealing /= 1800;
-                else if (item.buffType == BuffID.WellFed2) gluttonyHealing /= 1200;
-                else if (item.buffType == BuffID.WellFed3) gluttonyHealing /= 900;
-                else gluttonyHealing = 0;
-                if (gluttonyHealing > 0)
-                {
-                    player.Heal(gluttonyHealing);
-                    gluttonyPlayer.hunger += gluttonyHealing * 2;
-                }
-            }
 
             return base.ConsumeItem(item, player);
         }

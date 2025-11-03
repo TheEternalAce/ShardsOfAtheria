@@ -7,7 +7,6 @@ using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Items.SinfulSouls.Extras;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons.Ammo;
@@ -39,7 +38,6 @@ namespace ShardsOfAtheria.Globals
             if (shop.NpcType == NPCID.Steampunker) shop.Add<NailPounder>(Condition.DownedPlantera);
             if (shop.NpcType == NPCID.Wizard)
             {
-                shop.Add(new Item(ModContent.ItemType<SinfulSoul>()), SoAConditions.SlayerMode);
                 shop.Add(new Item(ModContent.ItemType<SinfulArmament>()), SoAConditions.SlayerMode);
                 shop.Add(new Item(ModContent.ItemType<SpellTwister>()), SoAConditions.AreusVoidSet);
             }
@@ -125,7 +123,6 @@ namespace ShardsOfAtheria.Globals
             {
                 notHardmode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<MemoryFragment>()));
                 npcLoot.Add(notHardmode);
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulSoul>()));
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SinfulArmament>()));
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TwistedUtensil>(), 5));
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DestinyLance>(), 5));

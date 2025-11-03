@@ -1,0 +1,3 @@
+- Removed all Sinful Souls.
+- Replaced the removed souls with a UI to select a sin. (Still optional)
+- Tweak timers for Gluttony Sin.

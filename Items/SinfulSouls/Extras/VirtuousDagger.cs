@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.SinfulSouls.Extras
@@ -34,30 +34,19 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
 
         public override bool CanUseItem(Player player)
         {
-            return !player.immune && player.immuneTime == 0 && player.Sinful().SinfulSoulUsed > 0;
+            return !player.immune && player.immuneTime == 0 && player.Sinner().SinActive;
         }
 
         public override bool? UseItem(Player player)
         {
-            player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " was purified into nothing."), player.statLifeMax2 / 5, -player.direction);
-            for (int i = 0; i < SinfulPlayer.SinfulBuffs.Length; i++)
+            Player.HurtInfo info = new()
             {
-                if (player.HasBuff(SinfulPlayer.SinfulBuffs[i]))
-                {
-                    player.ClearBuff(SinfulPlayer.SinfulBuffs[i]);
-                }
-            }
-            if (player.Sinful().SinfulSoulUsed != ModContent.BuffType<VirtuousSoul>())
-            {
-                player.AddBuff(ModContent.BuffType<VirtuousSoul>(), 1800);
-                player.Sinful().SinfulSoulUsed = ModContent.BuffType<VirtuousSoul>();
-            }
-            else
-            {
-                player.Sinful().SinfulSoulUsed = 0;
-            }
-
-
+                DamageSource = PlayerDeathReason.ByCustomReason(NetworkText.FromKey("ShardsOfAtheria.DeathMessages.DaggerPurify", player.name)),
+                Damage = player.statLifeMax2 / 5,
+                Knockback = -player.direction
+            };
+            player.Hurt(info);
+            player.Sinner().sinID = -1;
             for (int i = 0; i < 10; i++)
             {
                 Dust.NewDust(player.position, player.width, player.height, DustID.WhiteTorch, 0, 0, 0, Color.White, 2);

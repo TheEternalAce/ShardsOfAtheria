@@ -43,7 +43,7 @@ namespace ShardsOfAtheria.Projectiles.Other
             {
                 Projectile.Kill();
                 player.Heal(Projectile.ai[0] == 1f ? (int)(player.statLifeMax2 * .2f) : 25);
-                player.Gluttony().hunger += 50;
+                player.Sinner().hunger += 50;
             }
         }
 
