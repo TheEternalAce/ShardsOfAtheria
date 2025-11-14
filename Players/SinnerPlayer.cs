@@ -135,16 +135,18 @@ namespace ShardsOfAtheria.Players
         void GreedPickUp(Item item)
         {
             if (sinID != GREED) return;
-            if (item.value > 1000) Player.AddBuff<GreedFire>(150);
+            if (item.value > 10000) Player.AddBuff<GreedFire>(150);
         }
         void GreedFire()
         {
             if (Player.HasBuff<GreedFire>())
             {
+                int flames = Player.statLifeMax2 / 20;
+                if (flames % 2 != 0) flames++;
                 if (Player.lifeRegen > 0)
                     Player.lifeRegen = 0;
                 Player.lifeRegenTime = 0;
-                Player.lifeRegen -= 20;
+                Player.lifeRegen -= flames;
             }
         }
         void GreedDeath()
@@ -371,6 +373,7 @@ namespace ShardsOfAtheria.Players
         {
             hunger = 1800;
             hungerTimer = 120;
+            sinID = -1;
         }
 
         public override void UpdateBadLifeRegen()
