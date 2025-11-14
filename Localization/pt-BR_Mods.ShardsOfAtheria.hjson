@@ -1529,110 +1529,6 @@ Items: {
 		// Tooltip: ""
 	}
 
-	# Sinful
-	SinfulSoul: {
-		DisplayName: Sinful Soul
-		Tooltip: ""
-	}
-
-	EnvySoul: {
-		DisplayName: Envy Soul
-		Tooltip:
-			'''
-			Consecutive strikes on an enemy will increase the damage they take by 3
-			Darkness debuff
-			'''
-	}
-
-	GluttonySoul: {
-		DisplayName: Gluttony Soul
-		Tooltip:
-			'''
-			Increases melee damage by 15%
-			Defense reduced by 7
-			Lose life when not fed
-			Critical strikes on enemies creates a food chunk that will heal you when it makes contact
-			If an attack kills an enemy the food chunk will heal for more
-			'''
-	}
-
-	GreedSoul: {
-		DisplayName: Greed Soul
-		Tooltip:
-			'''
-			Every gold coin in your inventory increases damage by 5% and reduces defense by 2
-			All coins disappear on death
-			'''
-	}
-
-	LustSoul: {
-		DisplayName: Lust Soul
-		Tooltip:
-			'''
-			Increases max minions by 3
-			Damage reduced by 20%
-			Lovestruck buff
-			Damaging enemies may cause them to drop hearts
-			'''
-	}
-
-	PrideSoul: {
-		DisplayName: Pride Soul
-		Tooltip:
-			'''
-			Every 10 seconds of not taking damage increases damage by 2%
-			Using a weapon that fires a projectile increases Shots Fired
-			Damaging an enemy with a non-summon projectile increases Shots Hit
-			If Shots Landed is not equal to Shots Fired after 5 seconds, you are weakened severely
-			Otherwise, damage is increased by 50%
-			Shots Fired = {0} | Shots Hit = {1}
-			'''
-	}
-
-	SlothSoul: {
-		DisplayName: Sloth Soul
-		Tooltip:
-			'''
-			Decreased movement speed by 25%
-			Increased summon damage by 25%
-			While not moving, all damage is increased by 20% and defense by 10
-			'''
-	}
-
-	Apathy: {
-		// DisplayName: Apathy
-		/* Description:
-			'''
-			Increased damage by 15%
-			Decreased movement and attack speed by 10%
-			'You're not really feeling it today'
-			''' */
-	}
-
-	Motivation: {
-		// DisplayName: Motivation
-		/* Description:
-			'''
-			Increased movement and attack speed by 10%
-			Decreased damage by 15%
-			'Today is a good day!'
-			''' */
-	}
-
-	WrathSoul: {
-		DisplayName: Wrath Soul
-		Tooltip:
-			'''
-			Each time damage is taken damage is increased by 1%
-			Once damage bonus goes to 5% increase, crit chance starts to go up by 1% as well
-			Dying increases both by 5%
-			There is no limit to these boosts
-			Boots slowly decrease while out of combat
-			Current damage increase: +{0}%
-			Current critical strike chance increase: +{1}%
-			'''
-	}
-
 	VirtuousDagger: {
 		DisplayName: Virtuous Dagger
 		Tooltip:
@@ -3810,42 +3706,6 @@ Buffs: {
 		// Description: Increased magic damage and mana conservation
 	}
 
-	# Sinful Souls
-	EnvyBuff: {
-		DisplayName: Envy
-		Description: Mods.ShardsOfAtheria.Items.EnvySoul.Tooltip
-	}
-
-	GluttonyBuff: {
-		DisplayName: Gluttony
-		Description: Mods.ShardsOfAtheria.Items.GluttonySoul.Tooltip
-	}
-
-	GreedBuff: {
-		DisplayName: Greed
-		Description: Mods.ShardsOfAtheria.Items.GreedSoul.Tooltip
-	}
-
-	LustBuff: {
-		DisplayName: Lust
-		Description: Mods.ShardsOfAtheria.Items.LustSoul.Tooltip
-	}
-
-	PrideBuff: {
-		DisplayName: Pride
-		Description: Mods.ShardsOfAtheria.Items.PrideSoul.Tooltip
-	}
-
-	SlothBuff: {
-		DisplayName: Sloth
-		Description: Mods.ShardsOfAtheria.Items.SlothSoul.Tooltip
-	}
-
-	WrathBuff: {
-		DisplayName: Wrath
-		Description: Mods.ShardsOfAtheria.Items.WrathSoul.Tooltip
-	}
-
 	VirtuousSoul: {
 		DisplayName: Righteous
 		Description:
@@ -4212,7 +4072,7 @@ Buffs: {
 
 	Embarassment: {
 		// DisplayName: Embarassment
-		// Description: Mods.ShardsOfAtheria.Buffs.Embarassment.Description
+		// Description: How could you fail such a simple task?
 	}
 
 	OverStuffed: {
@@ -4236,17 +4096,27 @@ Buffs: {
 
 	Apathy: {
 		// DisplayName: Apathy
-		// Description: Mods.ShardsOfAtheria.Buffs.Apathy.Description
+		/* Description:
+			'''
+			Increased damage by 15%
+			Decreased movement and attack speed by 10%
+			'You're not really feeling it today'
+			''' */
 	}
 
 	Fury: {
 		// DisplayName: Fury
-		// Description: Mods.ShardsOfAtheria.Buffs.Fury.Description
+		// Description: Punished for your Wrath
 	}
 
 	Motivation: {
 		// DisplayName: Motivation
-		// Description: Mods.ShardsOfAtheria.Buffs.Motivation.Description
+		/* Description:
+			'''
+			Increased movement and attack speed by 10%
+			Decreased damage by 15%
+			'Today is a good day!'
+			''' */
 	}
 
 	ElectricAssassin: {
@@ -4256,12 +4126,12 @@ Buffs: {
 
 	GluttonyAcid: {
 		// DisplayName: Gluttony Acid
-		// Description: Mods.ShardsOfAtheria.Buffs.GluttonyAcid.Description
+		// Description: Punished for your Gluttony
 	}
 
 	GreedFire: {
 		// DisplayName: Greed Fire
-		// Description: Mods.ShardsOfAtheria.Buffs.GreedFire.Description
+		// Description: Punished for your Greed
 	}
 }
 
@@ -4558,6 +4428,14 @@ DeathMessages: {
 	// MourningStar2: "{0} was drained by The Mourning Star."
 	// MourningStar3: "{0} let The Mourning Star eat their blood."
 	// DeathBleed: "{0} bled out."
+	// DaggerPurify: "{0} was purified into nothing."
+	// WrathRage: "{0}'s rage burned {1} soul away."
+	// Plague: "{0} succumbed to the plague."
+	// PerishSong: "{0} perished with {1}."
+	// HeartExtracted: "{0} had {1} heart ripped out."
+	// SoulDamage: "{0} had dug too deep."
+	// BandMalfunction: "{0}'s prototype band malfunctioned."
+	// Reap: "{0} had {1} soul reaped."
 }
 
 GameTips: {
