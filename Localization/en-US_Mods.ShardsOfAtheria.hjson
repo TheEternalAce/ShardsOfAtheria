@@ -1,8 +1,5 @@
 Common: {
-	Combat: Combat
-	Conservation: Conservation
 	Eraser: Can erase projectiles
-	Exploration: Exploration
 	FiringMode1: Semi-auto
 	FiringMode2: Burst fire
 	FiringMode3: Full-auto
@@ -660,6 +657,9 @@ Items: {
 		DisplayName: Tome of Omniscience
 		Tooltip: Allows the wearer to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration
 		CycleKnowledgeBase: Press <{0}> to cycle between the 3 Knowledge Bases
+		Combat: The tome gives you excelent combat knowledge
+		Conservation: The tome informs you on how to conserve resources effectively
+		Exploration: The tome grants you sight of your surroundings for exploration
 	}
 
 	TwistedUtensil: {

@@ -1,8 +1,5 @@
 Common: {
-	Combat: Combate
-	Conservation: Conservação
 	Eraser: Pode apagar projéteis
-	Exploration: Exploração
 	FiringMode1: Semiautomático
 	FiringMode2: Pré-determinado
 	FiringMode3: Automático
@@ -646,6 +643,9 @@ Items: {
 		DisplayName: Tomo da Onisciência
 		Tooltip: Permite ao usuário ciclar entre 3 bases de conhecimento: Combate, Conservação e Exploração
 		// CycleKnowledgeBase: Press <{0}> to cycle between the 3 Knowledge Bases
+		// Combat: The tome gives you excelent combat knowledge
+		// Conservation: The tome informs you on how to conserve resources
+		// Exploration: The tome grants you sight of your surroundings for exploration
 	}
 
 	TwistedUtensil: {

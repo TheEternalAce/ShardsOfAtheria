@@ -43,17 +43,17 @@ namespace ShardsOfAtheria.Items.Accessories
             SlayerPlayer slayer = Main.LocalPlayer.Slayer();
             TooltipLine line = new(Mod, "Verbose:RemoveMe", "This tooltip won't show in-game");
             if (slayer.TomeKnowledge == 0)
-                line = new(Mod, "CurrentKnowledgeBase", ShardsHelpers.LocalizeCommon("Combat"))
+                line = new(Mod, "CurrentKnowledgeBase", this.GetLocalization("Combat").Value)
                 {
                     OverrideColor = Color.Red
                 };
             if (slayer.TomeKnowledge == 1)
-                line = new(Mod, "CurrentKnowledgeBase", ShardsHelpers.LocalizeCommon("Conservation"))
+                line = new(Mod, "CurrentKnowledgeBase", this.GetLocalization("Conservation").Value)
                 {
                     OverrideColor = Color.Green
                 };
             if (slayer.TomeKnowledge == 2)
-                line = new(Mod, "CurrentKnowledgeBase", ShardsHelpers.LocalizeCommon("Exploration"))
+                line = new(Mod, "CurrentKnowledgeBase", this.GetLocalization("Exploration").Value)
                 {
                     OverrideColor = Color.Blue
                 };
