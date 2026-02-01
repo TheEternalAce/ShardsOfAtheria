@@ -1,5 +1,8 @@
-﻿using ShardsOfAtheria.Common.Items;
+﻿using Humanizer;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Utilities;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -21,6 +24,13 @@ namespace ShardsOfAtheria.Items.Accessories
 
             Item.rare = ItemDefaults.RarityDungeon;
             Item.value = ItemDefaults.ValueDungeon;
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            string lineText = this.GetLocalization("ChangePhase").Value.FormatWith(SoA.PhaseSwitch.GetAssignedKeys().FirstOrDefault());
+            TooltipLine line = new(Mod, "ChangePhaseType", lineText);
+            tooltips.AddTooltip(line);
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

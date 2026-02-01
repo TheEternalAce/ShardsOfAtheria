@@ -1,22 +1,20 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Projectiles.Magic.ShockTome;
 using ShardsOfAtheria.Utilities;
-using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Magic
 {
-    public class DataTome : ModItem
+    public class DataTome : ChargeWeapon
     {
+        public override DustInfo ChargeDustInfo => new(DustID.Torch, 100);
+
         public override void SetStaticDefaults()
         {
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
@@ -70,34 +68,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
             damage = ShardsHelpers.ScaleByProggression(player, damage);
-            if (charge >= MaxCharge) damage += 1f;
-        }
-
-        int charge = 0;
-        const int MaxCharge = 300;
-        public override void UpdateInventory(Player player)
-        {
-            var cable = ToggleableTool.GetInstance<BrokenCable>(player);
-            bool charging = SoA.ChargeWeapons.GetAssignedKeys().Count > 0 && Main.keyState.IsKeyDown(Enum.Parse<Keys>(SoA.ChargeWeapons.GetAssignedKeys()[0]));
-            if ((!player.ItemAnimationActive || player.HeldItem != Item) && (cable is null || !cable.Active) && charging)
-            {
-                if (charge < MaxCharge)
-                {
-                    charge++;
-                    if (SoA.ClientConfig.chargeSound && charge % 25 == 0) SoundEngine.PlaySound(SoA.ZeroCharge, player.Center);
-                    for (int i = 0; i < 4; i++)
-                    {
-                        Vector2 spawnPos = player.Center + Main.rand.NextVector2CircularEdge(50, 50);
-                        Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, DustID.Electric, 0, 0, 100, default, 0.6f);
-                        dust.velocity = player.velocity;
-                        if (Main.rand.NextBool(3)) dust.velocity += Vector2.Normalize(player.Center - dust.position) * Main.rand.NextFloat(5f);
-                        dust.noGravity = true;
-                    }
-                }
-                if (charge == MaxCharge - 1) SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
-            }
-            else if (charge < MaxCharge) charge = 0;
-            if (player.HeldItem == Item && player.ItemAnimationActive && player.ItemAnimationEndingOrEnded) charge = 0;
+            base.ModifyWeaponDamage(player, ref damage);
         }
 
         public override bool AltFunctionUse(Player player)
@@ -124,19 +95,13 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             return base.CanUseItem(player);
         }
 
-        public override bool? UseItem(Player player)
-        {
-            if (player.ItemAnimationEndingOrEnded) charge = 0;
-            return base.UseItem(player);
-        }
-
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (type == ModContent.ProjectileType<VineWhip>())
             {
                 float numberProjectiles = 2;
                 float rotation = MathHelper.ToRadians(25);
-                if (charge == MaxCharge)
+                if (FullyCharged)
                 {
                     numberProjectiles = 12;
                     rotation = MathHelper.TwoPi;
@@ -153,7 +118,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
                     Projectile.NewProjectile(source, position, perturbedSpeed, type, damage / 2, knockback);
                 }
             }
-            else if (charge == MaxCharge)
+            else if (FullyCharged)
             {
                 ShardsHelpers.CallStorm(source, Main.MouseWorld, 2, damage, knockback, Item.DamageType, 0f, 3f);
                 return false;

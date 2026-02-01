@@ -4,6 +4,7 @@ using ShardsOfAtheria.Items.Accessories.GemCores.Lesser;
 using ShardsOfAtheria.Items.Accessories.GemCores.Super;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -106,7 +107,9 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             TooltipLine line = new(Mod, "HoldShift", holdShiftText);
             if (Main.keyState.IsKeyDown(Keys.LeftShift) || Main.keyState.IsKeyDown(Keys.RightShift))
             {
-                line = this.ShiftTooltipCycle(7);
+                line = this.ShiftTooltipCycleWithArgs(7,
+                    SoA.AmethystBombToggle.GetAssignedKeys().FirstOrDefault(),
+                    SoA.EmeraldTeleportKey.GetAssignedKeys().FirstOrDefault());
             }
             tooltips.Insert(tooltips.GetIndex("OneDropLogo"), line);
         }

@@ -31,6 +31,7 @@ namespace ShardsOfAtheria
     {
         public static int MaxNecronomiconPages = 2;
 
+        #region Keybinds
         public static ModKeybind OverdriveKey { get; private set; }
         public static ModKeybind TomeKey { get; private set; }
         public static ModKeybind EmeraldTeleportKey { get; private set; }
@@ -39,6 +40,8 @@ namespace ShardsOfAtheria
         public static ModKeybind SoulTeleport { get; private set; }
         public static ModKeybind ProcessorElement { get; private set; }
         public static ModKeybind ChargeWeapons { get; private set; }
+        public static ModKeybind SinAbility { get; private set; }
+        #endregion
 
         public static ShardsServer ServerConfig => ModContent.GetInstance<ShardsServer>();
         public static ShardsClient ClientConfig => ModContent.GetInstance<ShardsClient>();
@@ -49,6 +52,7 @@ namespace ShardsOfAtheria
 
         public static Mod Instance => ModContent.GetInstance<SoA>();
 
+        #region Sounds
         public static readonly SoundStyle ReactorAlarm = new(ItemSoundPath + "ReactorMeltdownAlarm");
         public static readonly SoundStyle TheMessiah = new(ItemSoundPath + "TheMessiah");
         public static readonly SoundStyle Rekkoha = new(ItemSoundPath + "MessiahRekkoha");
@@ -66,7 +70,9 @@ namespace ShardsOfAtheria
         public static readonly SoundStyle Judgement3 = new(ItemSoundPath + "Judgement2_3") { Volume = 0.15f, MaxInstances = 2, PitchVariance = 0.1f };
         public static readonly SoundStyle SilverRings = new(ItemSoundPath + "SilverRing");
         public static readonly SoundStyle SilverRingsSoft = new(ItemSoundPath + "SilverRingSoft");
+        #endregion
 
+        #region Colors
         public static readonly Color HardlightColor = new(224, 92, 165);
         public static readonly Color HardlightColorA = HardlightColor.UseA(0);
         public static readonly Vector3 HardlightColorV3 = HardlightColor.ToVector3();
@@ -86,6 +92,7 @@ namespace ShardsOfAtheria
         public static readonly Color ElectricColorA0 = ElectricColor.UseA(0);
         public static readonly Vector3 ElectricColorV3 = ElectricColor.ToVector3();
         public static readonly Vector3 ElectricColorV3A0 = ElectricColorA0.ToVector3();
+        #endregion
 
         public static Texture2D OrbBloom => ModContent.Request<Texture2D>("ShardsOfAtheria/Assets/BlurTrails/OrbBlur").Value;
         public static Texture2D DiamondBloom => ModContent.Request<Texture2D>("ShardsOfAtheria/Assets/BlurTrails/DiamondBlur").Value;
@@ -126,9 +133,10 @@ namespace ShardsOfAtheria
             EmeraldTeleportKey = KeybindLoader.RegisterKeybind(Instance, "EmeraldTeleport", Keys.Z);
             AmethystBombToggle = KeybindLoader.RegisterKeybind(Instance, "AmethystBombToggle", Keys.J);
             PhaseSwitch = KeybindLoader.RegisterKeybind(Instance, "PhaseType", Keys.RightAlt);
+            if (BNEEnabled) ProcessorElement = KeybindLoader.RegisterKeybind(Instance, "CycleElementAffinity", Keys.C);
             SoulTeleport = KeybindLoader.RegisterKeybind(Instance, "SoulCrystalTeleport", Keys.V);
             ChargeWeapons = KeybindLoader.RegisterKeybind(Instance, "ChargeWeapons", Keys.LeftShift);
-            if (BNEEnabled) ProcessorElement = KeybindLoader.RegisterKeybind(Instance, "CycleElementAffinity", Keys.C);
+            SinAbility = KeybindLoader.RegisterKeybind(Instance, "SinAbility", Keys.X);
 
             if (!Main.dedServ)
             {
@@ -370,13 +378,10 @@ namespace ShardsOfAtheria
         public static string ChooseTitleText()
         {
             WeightedRandom<string> titles = new();
-            int i = 0;
-            while (true)
+            for (int i = 0; i < 2; i++)
             {
                 string titleText = ShardsHelpers.LocalizeCommon("TitleText" + i);
-                if (titleText.Equals("No key found.")) break;
-                else { titles.Add(titleText); i++; }
-                ;
+                titles.Add(titleText);
             }
             return titles;
         }

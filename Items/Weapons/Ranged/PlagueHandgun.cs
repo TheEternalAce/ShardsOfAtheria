@@ -1,13 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons.Ammo;
 using ShardsOfAtheria.Projectiles.Ranged.PlagueRail;
 using ShardsOfAtheria.Utilities;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -16,10 +13,9 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
-    public class PlagueHandgun : ModItem
+    public class PlagueHandgun : ChargeWeapon
     {
-        int charge = 0;
-        const int MaxCharge = 300;
+        public override DustInfo ChargeDustInfo => new(ModContent.DustType<PlagueDust>(), 100);
 
         public override void SetStaticDefaults()
         {
@@ -81,37 +77,12 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
             damage = ShardsHelpers.ScaleByProggression(player, damage);
-            if (charge >= MaxCharge) damage += 1f;
-        }
-
-        public override void UpdateInventory(Player player)
-        {
-            var cable = ToggleableTool.GetInstance<BrokenCable>(player);
-            bool charging = SoA.ChargeWeapons.GetAssignedKeys().Count > 0 && Main.keyState.IsKeyDown(Enum.Parse<Keys>(SoA.ChargeWeapons.GetAssignedKeys()[0]));
-            if ((!player.ItemAnimationActive || player.HeldItem != Item) && (cable is null || !cable.Active) && charging)
-            {
-                if (charge < MaxCharge)
-                {
-                    charge++;
-                    if (SoA.ClientConfig.chargeSound && charge % 25 == 0) SoundEngine.PlaySound(SoA.ZeroCharge, player.Center);
-                    for (int i = 0; i < 10; i++)
-                    {
-                        Vector2 spawnPos = player.Center + Main.rand.NextVector2CircularEdge(25, 25);
-                        Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, ModContent.DustType<PlagueDust>(), 0, 0, 100, default, 0.6f);
-                        dust.velocity = player.velocity;
-                        if (Main.rand.NextBool(3)) dust.velocity += Vector2.Normalize(player.Center - dust.position) * Main.rand.NextFloat(5f);
-                        dust.noGravity = true;
-                    }
-                }
-                if (charge == MaxCharge - 1) SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
-            }
-            else if (charge < MaxCharge) charge = 0;
-            if (player.HeldItem == Item && player.ItemAnimationActive && player.ItemAnimationEndingOrEnded) charge = 0;
+            base.ModifyWeaponDamage(player, ref damage);
         }
 
         public override bool CanUseItem(Player player)
         {
-            if (charge == MaxCharge)
+            if (FullyCharged)
             {
                 Item.useTime = 12;
                 Item.useAnimation = 72;

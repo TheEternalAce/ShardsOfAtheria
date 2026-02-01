@@ -1,10 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Humanizer;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.ShardsUI;
 using ShardsOfAtheria.Utilities;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -58,6 +61,13 @@ namespace ShardsOfAtheria.Items.Accessories
 
             Item.rare = ItemDefaults.RarityPreMechs;
             Item.value = ItemDefaults.ValueEarlyHardmode;
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            string lineText = this.GetLocalization("AcrivateOverdrive").Value.FormatWith(SoA.OverdriveKey.GetAssignedKeys().FirstOrDefault());
+            TooltipLine line = new(Mod, "Overdrive", lineText);
+            tooltips.AddTooltip(line);
         }
 
         public override void AddRecipes()

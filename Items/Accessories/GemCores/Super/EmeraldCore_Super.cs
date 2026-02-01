@@ -1,6 +1,9 @@
-﻿using ShardsOfAtheria.Common.Items;
+﻿using Humanizer;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
 using ShardsOfAtheria.Utilities;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,6 +25,13 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
 
             Item.rare = ItemDefaults.RarityLunaticCultist;
             Item.value = ItemDefaults.ValueLunarPillars;
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            string lineText = this.GetLocalization("ActivateEmeraldFlight").Value.FormatWith(SoA.EmeraldTeleportKey.GetAssignedKeys().FirstOrDefault());
+            TooltipLine line = new(Mod, "EmeraldFlight", lineText);
+            tooltips.AddTooltip(line);
         }
 
         public override void AddRecipes()

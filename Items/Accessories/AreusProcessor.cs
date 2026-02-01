@@ -1,8 +1,10 @@
 ﻿using BattleNetworkElements;
+using Humanizer;
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -38,6 +40,10 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
+            string lineText = this.GetLocalization("CycleElement").Value.FormatWith(SoA.ProcessorElement.GetAssignedKeys().FirstOrDefault());
+            TooltipLine line = new(Mod, "CycleElement", lineText);
+            tooltips.AddTooltip(line);
+
             var player = Main.LocalPlayer;
             var shards = player.Shards();
 
@@ -62,11 +68,11 @@ namespace ShardsOfAtheria.Items.Accessories
                     element = "[i:BattleNetworkElements/WoodIcon] Wood";
                     break;
             }
-            var tooltip = new TooltipLine(Mod, "Processor Element", element)
+            var tooltip = new TooltipLine(Mod, "ProcessorElement", element)
             {
                 OverrideColor = color
             };
-            tooltips.Insert(tooltips.GetIndex("OneDropLogo"), tooltip);
+            tooltips.AddTooltip(tooltip);
         }
     }
 }

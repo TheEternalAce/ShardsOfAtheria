@@ -1,7 +1,10 @@
-﻿using ShardsOfAtheria.Common.Items;
+﻿using Humanizer;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Items.Accessories.GemCores.Lesser;
 using ShardsOfAtheria.Items.Accessories.GemCores.Regular;
 using ShardsOfAtheria.Utilities;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,6 +26,13 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
 
             Item.rare = ItemDefaults.RarityMechs;
             Item.value = ItemDefaults.ValueEarlyHardmode;
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            string lineText = this.GetLocalization("ThrowBomb").Value.FormatWith(SoA.AmethystBombToggle.GetAssignedKeys().FirstOrDefault());
+            TooltipLine line = new(Mod, "Bomb", lineText);
+            tooltips.AddTooltip(line);
         }
 
         public override void AddRecipes()

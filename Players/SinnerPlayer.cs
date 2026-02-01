@@ -1,12 +1,18 @@
-﻿using ShardsOfAtheria.Buffs.PlayerBuff;
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff.SinDebuffs;
 using ShardsOfAtheria.Projectiles.Other;
+using ShardsOfAtheria.ShardsUI.SinfulSelection;
 using ShardsOfAtheria.Utilities;
 using System;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Chat;
 using Terraria.DataStructures;
+using Terraria.GameInput;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -24,8 +30,7 @@ namespace ShardsOfAtheria.Players
         public int sinID = -1;
 
         // Envy
-        public NPC target;
-        public int targetStrikes;
+        public int targetID;
 
         // Gluttony
         public int hunger = 100;
@@ -57,30 +62,32 @@ namespace ShardsOfAtheria.Players
         void EnvyKill(NPC target)
         {
             if (sinID != ENVY) return;
-            if (target.life <= 0 && target == this.target)
+            if (target.life <= 0 && target.whoAmI == targetID)
             {
-                target = null;
-                targetStrikes = 0;
+                targetID = -1;
             }
         }
         void EnvyModifyHit(NPC target, ref NPC.HitModifiers modifiers)
         {
             if (sinID != ENVY) return;
-            if (this.target == null)
+            if (targetID == -1)
             {
-                this.target = target;
-                targetStrikes = 0;
+                targetID = target.whoAmI;
             }
-            else if (target != this.target) modifiers.FinalDamage -= 0.4f;
+            else if (target.whoAmI != targetID) modifiers.FinalDamage -= 0.5f;
             else
             {
-                modifiers.FlatBonusDamage += targetStrikes * 3;
-                targetStrikes++;
+                modifiers.FlatBonusDamage += Player.statDefense / 10 + 3;
             }
         }
         #endregion
 
         #region Gluttony
+        void GluttonySetHunger()
+        {
+            hunger = 3600;
+            hungerTimer = 120;
+        }
         void GluttonyPreUpdate()
         {
             if (sinID != GLUTTONY) return;
@@ -113,7 +120,7 @@ namespace ShardsOfAtheria.Players
                 Player.AddBuff<GluttonyAcid>(150);
             }
         }
-        void GluttonyHit(NPC.HitInfo hit)
+        void GluttonyHit(NPC target, NPC.HitInfo hit)
         {
             if (sinID != GLUTTONY) return;
             if (foodCoolDown <= 0)
@@ -324,7 +331,7 @@ namespace ShardsOfAtheria.Players
                 SoundEngine.PlaySound(SoundID.ScaryScream, Player.Center);
             }
         }
-        public void WrathModifyHit(ref NPC.HitModifiers modifiers)
+        public void WrathModifyHit(NPC target, ref NPC.HitModifiers modifiers)
         {
             if (sinID != WRATH) return;
             modifiers.FlatBonusDamage += lastDamageTaken;
@@ -366,14 +373,20 @@ namespace ShardsOfAtheria.Players
 
         public override void OnRespawn()
         {
-            hunger = 3600;
+            GluttonySetHunger();
         }
 
         public override void OnEnterWorld()
         {
-            hunger = 1800;
-            hungerTimer = 120;
-            sinID = -1;
+            GluttonySetHunger();
+
+            if (sinID == -1)
+            {
+                string key = SoA.SinAbility.GetAssignedKeys().FirstOrDefault();
+                string text = ShardsHelpers.LocalizeCommon("SinNotification", key);
+                NetworkText networkText = NetworkText.FromLiteral(text);
+                ChatHelper.SendChatMessageToClient(networkText, Color.Purple, Player.whoAmI);
+            }
         }
 
         public override void UpdateBadLifeRegen()
@@ -382,15 +395,28 @@ namespace ShardsOfAtheria.Players
             GreedFire();
         }
 
+        public override void ProcessTriggers(TriggersSet triggersSet)
+        {
+            if (SoA.SinAbility.JustPressed)
+            {
+                switch (sinID)
+                {
+                    case -1:
+                        SinfulUI.Instance.ToggleSelections();
+                        break;
+                }
+            }
+        }
+
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             EnvyModifyHit(target, ref modifiers);
-            WrathModifyHit(ref modifiers);
+            WrathModifyHit(target, ref modifiers);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            GluttonyHit(hit);
+            GluttonyHit(target, hit);
             EnvyKill(target);
         }
 

@@ -1,4 +1,5 @@
-﻿using Terraria.Localization;
+﻿using Humanizer;
+using Terraria.Localization;
 
 namespace ShardsOfAtheria.Utilities
 {
@@ -7,7 +8,12 @@ namespace ShardsOfAtheria.Utilities
         public static string Localize(string content, params object[] args)
         {
             string key = "Mods.ShardsOfAtheria." + content;
-            if (Language.Exists(key)) return Language.GetTextValue(key, args);
+            if (Language.Exists(key))
+            {
+                if (args.Length > 0) return Language.GetText(key).Value.FormatWith(args);
+                else return Language.GetText(key).Value;
+            }
+            Language.GetOrRegister(key);
             return "No key found.";
         }
         public static string LocalizeCommon(string content, params object[] args)
@@ -29,7 +35,7 @@ namespace ShardsOfAtheria.Utilities
         }
         public static NetworkText NetworkTextKeyCommon(string content)
         {
-            return NetworkTextKey("common." + content);
+            return NetworkTextKey("Common." + content);
         }
 
         public static LocalizedText LocalizedText(string content)

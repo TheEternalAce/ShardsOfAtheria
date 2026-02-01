@@ -1,8 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Humanizer;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,6 +36,10 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
+            string lineText = this.GetLocalization("CycleKnowledgeBase").Value.FormatWith(SoA.TomeKey.GetAssignedKeys().FirstOrDefault());
+            TooltipLine line1 = new(Mod, "ChangePhaseType", lineText);
+            tooltips.AddTooltip(line1);
+
             SlayerPlayer slayer = Main.LocalPlayer.Slayer();
             TooltipLine line = new(Mod, "Verbose:RemoveMe", "This tooltip won't show in-game");
             if (slayer.TomeKnowledge == 0)

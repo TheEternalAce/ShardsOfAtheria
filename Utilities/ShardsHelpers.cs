@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Humanizer;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
@@ -616,6 +617,25 @@ namespace ShardsOfAtheria.Utilities
             }
             string shiftText = Language.GetTextValue(modItem.GetLocalizationKey("ShiftTooltip" + shards.shiftTooltipIndex));
             line = new(modItem.Mod, "ShiftTooltip", shiftText);
+            return line;
+        }
+
+        public static TooltipLine ShiftTooltipCycleWithArgs(this ModItem modItem, int maxIndex, params object[] args)
+        {
+            TooltipLine line;
+            var shards = Main.LocalPlayer.Shards();
+            float cycleSpeed = 1f;
+            if (Main.keyState.IsKeyDown(Keys.Left)) cycleSpeed /= 2;
+            if (Main.keyState.IsKeyDown(Keys.Right)) cycleSpeed *= 2;
+            shards.shiftTooltipCycleTimer += cycleSpeed;
+            if (Main.keyState.IsKeyDown(Keys.LeftControl) || Main.keyState.IsKeyDown(Keys.LeftControl)) shards.shiftTooltipCycleTimer = 0;
+            if (shards.shiftTooltipCycleTimer >= 180)
+            {
+                if (++shards.shiftTooltipIndex > maxIndex) shards.shiftTooltipIndex = 0;
+                shards.shiftTooltipCycleTimer = 0;
+            }
+            string shiftText = Language.GetTextValue(modItem.GetLocalizationKey("ShiftTooltip" + shards.shiftTooltipIndex));
+            line = new(modItem.Mod, "ShiftTooltip", shiftText.FormatWith(args));
             return line;
         }
     }

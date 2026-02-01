@@ -11,7 +11,6 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class EntropicHunter : ModItem
     {
-        bool bombThrow = false;
         public override void SetStaticDefaults()
         {
             Item.AddDamageType(7);
@@ -58,9 +57,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 Item.noUseGraphic = true;
                 Item.shootSpeed = 4f;
                 Item.useAmmo = AmmoID.None;
-                bombThrow = true;
             }
-            else if (!bombThrow)
+            else
             {
                 Item.useTime = 18;
                 Item.useAnimation = 18;
@@ -80,7 +78,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (bombThrow)
+            if (player.altFunctionUse == 2)
             {
                 velocity = velocity.RotatedByRandom(MathHelper.ToRadians(15f)) * Main.rand.NextFloat(0.66f, 1f);
                 type = Item.shoot;
@@ -90,15 +88,13 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            int bombType = ModContent.ProjectileType<HunterBomb2>();
+            int bombType = ModContent.ProjectileType<HunterSingularity>();
             if (type == Item.shoot && player.controlUp)
             {
                 foreach (Projectile proj in Main.projectile)
                 {
                     if (proj.active && proj.owner == player.whoAmI && proj.type == bombType)
-                    {
-                        proj.Kill();
-                    }
+                        (proj.ModProjectile as HunterSingularity).Explode();
                 }
                 return false;
             }
@@ -107,15 +103,14 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                 int i = 0;
                 foreach (Projectile proj in Main.projectile)
                 {
-                    if (proj.active && proj.owner == player.whoAmI && proj.type == bombType)
+                    if (proj.active && proj.owner == player.whoAmI && proj.type == bombType && proj.ai[0] == 0)
                     {
                         i++;
-                        (proj.ModProjectile as HunterBomb2).SetShootStats(i * 2, source, Main.MouseWorld, velocity.Length(), type, damage, knockback);
+                        (proj.ModProjectile as HunterSingularity).SetShootStats(i * 2, source, Main.MouseWorld, velocity.Length(), type, damage, knockback);
                     }
                 }
-                Item.reuseDelay = i * 2;
+                Item.reuseDelay = i;
             }
-            bombThrow = false;
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 

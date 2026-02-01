@@ -42,8 +42,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            var processor = ModContent.GetInstance<AreusProcessor>();
-            processor.ModifyTooltips(tooltips);
+            ModContent.GetInstance<AreusProcessor>().ModifyTooltips(tooltips);
         }
 
         public override void AddRecipes()

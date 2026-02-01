@@ -53,7 +53,7 @@ namespace ShardsOfAtheria.Globals
                 sinner.attacksMade++;
                 if (sinner.attackTimer <= 0) sinner.attackTimer = 300;
             }
-            return true;
+            return null;
         }
 
         public override bool ConsumeItem(Item item, Player player)

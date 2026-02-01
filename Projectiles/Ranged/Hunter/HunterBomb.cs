@@ -51,7 +51,9 @@ namespace ShardsOfAtheria.Projectiles.Ranged.Hunter
 
         public override void OnKill(int timeLeft)
         {
-            if (Projectile.owner == Main.myPlayer) Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, Type + 1, 0, 0f);
+            if (Projectile.owner == Main.myPlayer)
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero,
+                    ModContent.ProjectileType<HunterSingularity>(), Projectile.damage / 2, 0f);
         }
 
         public static int FindOldestBomb(Player player)
@@ -61,7 +63,8 @@ namespace ShardsOfAtheria.Projectiles.Ranged.Hunter
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
                 Projectile bomb = Main.projectile[i];
-                if (bomb.active && bomb.type == ModContent.ProjectileType<HunterBomb>() && bomb.owner == player.whoAmI && bomb.timeLeft < timeleft)
+                if (bomb.active && bomb.type == ModContent.ProjectileType<HunterBomb>() && bomb.owner == player.whoAmI &&
+                    bomb.ai[0] == 0 && bomb.timeLeft < timeleft)
                 {
                     result = i;
                     timeleft = bomb.timeLeft;

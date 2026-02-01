@@ -75,7 +75,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
             player.ChangeDir(newDirection);
             Projectile.direction = newDirection;
 
-            Projectile.rotation += 0.4f * Projectile.direction;
+            Projectile.rotation += MathHelper.PiOver4 * Projectile.direction;
 
             Projectile.ai[1]++;
             if (Projectile.ai[1] == 10)
@@ -97,12 +97,12 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
             }
 
             Projectile.ai[0]++;
-            if (Projectile.ai[0] >= 15)
+            if (Projectile.ai[0] >= 20)
             {
                 Projectile.velocity = Vector2.Normalize(player.Center - Projectile.Center) * 30;
             }
 
-            if (Projectile.getRect().Intersects(player.getRect()) && Projectile.ai[0] >= 15)
+            if (Projectile.getRect().Intersects(player.getRect()) && Projectile.ai[0] >= 20)
                 Projectile.Kill();
 
             if (player.HeldItem.type == ModContent.ItemType<GenesisAndRagnarok>())

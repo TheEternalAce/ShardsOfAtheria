@@ -48,4 +48,13 @@ namespace ShardsOfAtheria.Items.SinfulSouls
             return SinfulItemUsable(player);
         }
     }
+
+    public class SinfulSoul : ModItem
+    {
+        public override void SetDefaults()
+        {
+            Item.width = 26;
+            Item.height = 26;
+        }
+    }
 }

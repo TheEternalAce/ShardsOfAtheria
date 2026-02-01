@@ -2,6 +2,7 @@
 using ReLogic.Content;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
+using Terraria.Localization;
 
 namespace ShardsOfAtheria.ShardsUI
 {
@@ -28,6 +29,28 @@ namespace ShardsOfAtheria.ShardsUI
             // IsMouseHovering becomes true when the mouse hovers over the current UIElement
             if (IsMouseHovering)
                 Main.hoverItemName = hoverText;
+        }
+    }
+
+    internal class UIHoverImageButtonLocalized : UIImageButton
+    {
+        // Tooltip text that will be shown on hover
+        internal LocalizedText hoverText;
+
+        public UIHoverImageButtonLocalized(Asset<Texture2D> texture, LocalizedText hoverText) : base(texture)
+        {
+            this.hoverText = hoverText;
+        }
+
+        protected override void DrawSelf(SpriteBatch spriteBatch)
+        {
+            // When you override UIElement methods, don't forget call the base method
+            // This helps to keep the basic behavior of the UIElement
+            base.DrawSelf(spriteBatch);
+
+            // IsMouseHovering becomes true when the mouse hovers over the current UIElement
+            if (IsMouseHovering)
+                Main.hoverItemName = hoverText.Value;
         }
     }
 }

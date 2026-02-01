@@ -7,7 +7,7 @@ Common: {
 	FiringMode2: Burst fire
 	FiringMode3: Full-auto
 	FullCharge: Charge Ready!
-	HoldToCharge: Hold <{$Keybinds.ChargeWeapons.DisplayName}> to charge
+	HoldToCharge: Hold <{0}> to charge
 	OverdriveTag: " (Overcharged)"
 	OverdriveTooltip: "[c/ff0000:--Overdrive--]"
 	DeveloperKeyHeader: "[c/00ff00:--Developer Mode--]"
@@ -27,9 +27,66 @@ Common: {
 		Hold CTRL to stop cycling tooltip
 		'''
 	UpgradeMaterialNeeded: Material needed: {0} x{1}
-	SinfulSoulCommonDesc: Only one can be active and can only be removed by [i:ShardsOfAtheria/VirtuousDagger]{$Items.VirtuousDagger.DisplayName}.
+	SinNotification: Press <{0}> to select a sin.
 	Debug: "[c/ff0000:Debug Item]"
 	DamageScale: Damage scales with progression
+}
+
+SinfulSouls: {
+	Envy:
+		'''
+		Envy
+		Consecutive strikes on an enemy increases damage
+		Hits on multiple enemies are severely reduced
+		'''
+	Gluttony:
+		'''
+		Gluttony
+		Increases damage by 15%
+		Strikes create healing food chunks
+		Defense reduced by 7
+		Lose life when not fed
+		'''
+	Greed:
+		'''
+		Greed
+		Hoarding valuables makes you stronger
+		Lose some items on death
+		Picking up valuable items sets you on fire
+		'''
+	Lust:
+		'''
+		Lust
+		Increases max minions by 3
+		Damaging enemies may cause them to drop hearts
+		Severe winds reduce your damage and accuracy
+		'''
+	Pride:
+		'''
+		Pride
+		Every 10 seconds of not taking damage increases damage by 2%
+		Using the same weapon repeatedly reduces its damage
+		Missing more than 75% of your attacks weakens you severely
+		Landing most of your attacks instead grants extra movement speed
+		'''
+	Sloth:
+		'''
+		Sloth
+		Defense increased while mounted
+		Life regen increased by 16
+		At the beginning of each day, you may feel motivated
+		Most days you'll feel apathetic
+		Motivation increases movement and attack speed, but reduces damage
+		Apathy decreases movement and attack speed, but increases damage
+		'''
+	Wrath:
+		'''
+		Wrath
+		Increases damage by how much you take
+		4% chance to take a critical hit and gain 'Fury'
+		Fury significantly increases damage and movement speed
+		You die when Fury runs out, dealing damage prevents Fury from running out
+		'''
 }
 
 DiskFile: {
@@ -155,10 +212,10 @@ Items: {
 			'''
 			Gives a dash to the wearer
 			Prevent buff time from decreasing after taking damage
-			Press <{$Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing amethyst bombs
 			Hold shift to toggle wall exploding
 			Emit light
 			'''
+		ThrowBomb: Press <{0}> to toggle throwing an amethyst bomb while using a pickaxe
 		ToggleOn: Pickackes will throw amethyst bombs.
 		ToggleOff: Pickackes will not throw amethyst bombs.
 		ToggleWallOn: Amethyst bombs will destroy walls.
@@ -171,7 +228,6 @@ Items: {
 			'''
 			Gives a great dash to the wearer
 			Prevent buff time from decreasing after taking damage
-			Press <{$Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing an amethyst bomb when using a pickaxe
 			Hold shift to toggle wall exploding
 			Emit light
 			Grants immunity to fire, cold, electric, and poison debuffs
@@ -243,8 +299,8 @@ Items: {
 			Increases flight time
 			Further increased movement speed after taking damage
 			Every active debuff increases movement speed
-			Press <{$Keybinds.EmeraldTeleport.DisplayName}> to encase yourself and fly to your cursor
 			'''
+		ActivateEmeraldFlight: Press <{0}> to encase yourself and fly to your cursor
 		DeveloperKeyChange: No fly cooldown
 	}
 
@@ -389,7 +445,7 @@ Items: {
 			'''
 			[i:ShardsOfAtheria/AmethystCore_Super] Amethyst Effects
 			Prevent buff time from decreasing after taking damage
-			Press <{$Keybinds.AmethystBombToggle.DisplayName}> to toggle throwing an amethyst bomb when using a pickaxe
+			Press <{0}> to toggle throwing an amethyst bomb when using a pickaxe
 			Hold shift to toggle wall exploding
 			Emit light
 			Grants immunity to fire, cold, electric, and poison debuffs
@@ -407,7 +463,7 @@ Items: {
 			Increases flight time
 			Further increased movement speed after taking damage
 			Every active debuff increases movement speed
-			Press <{$Keybinds.EmeraldTeleport.DisplayName}> to teleport to your cursor
+			Press <{1}> to teleport to your cursor
 			'''
 		ShiftTooltip4:
 			'''
@@ -461,11 +517,8 @@ Items: {
 
 	AreusProcessor: {
 		DisplayName: Areus Processor
-		Tooltip:
-			'''
-			Changes attacks to a chosen element
-			Press <{$Keybinds.CycleElementAffinity.DisplayName}> to switch element
-			'''
+		Tooltip: Changes attacks to a chosen element
+		CycleElement: Press <{0}> to switch element
 	}
 
 	Biometal: {
@@ -477,11 +530,11 @@ Items: {
 			Increases movement speed by 10%
 			Increased max mana by 40
 			Grants dash, wall sliding and immunity to fall damage
-			Press <{$Keybinds.ToggleOverdrive.DisplayName}> to activate or deactivate Overdrive
 			Overdrive increases all damage by 100%
 			Overdrive lasts until you get hit or run out of Overdrive time
 			Overdrive may cause certain weapons to become Overcharged
 			'''
+		ActivateOverdrive: Press <{0}> to activate or deactivate Overdrive
 		DeveloperKeyChange: Overdrive time will never run out
 	}
 
@@ -567,7 +620,6 @@ Items: {
 		Tooltip:
 			'''
 			Changes attacks to a chosen element
-			Press <{$Keybinds.CycleElementAffinity.DisplayName}> to switch element
 			Release cloud based on chosen element when injured
 			May confuse enemies
 			'We're going Sub-Zero'
@@ -597,20 +649,17 @@ Items: {
 		Tooltip:
 			'''
 			Gives the user a 'phase 2' when below 50% life
-			Press <{$Keybinds.PhaseType.DisplayName}> to chose between two phase types:
 			Offensive: Sacrifice half of total defense for doubled damage and 5% increased crit chance
 			Defensive: Sacrifice half of total damage for doubled defense and 20% reduced damage
 			Always get 20% increased movement speed
 			'''
+		ChangePhase: Press <{0}> to choose between the two phase types
 	}
 
 	TomeOfOmniscience: {
 		DisplayName: Tome of Omniscience
-		Tooltip:
-			'''
-			Allows the wearer to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration
-			Press <{$Keybinds.KnowledgeBase.DisplayName}> to cycle between the 3 Knowledge Bases
-			'''
+		Tooltip: Allows the wearer to cycle between 3 Knowledge Bases: Combat, Conservation and Exploration
+		CycleKnowledgeBase: Press <{0}> to cycle between the 3 Knowledge Bases
 	}
 
 	TwistedUtensil: {
@@ -1283,7 +1332,7 @@ Items: {
 		DisplayName: Memory Fragment
 		Tooltip:
 			'''
-			Can be used to upgrade Genesis and Ragnarok
+			Can be used to upgrade Frostspark Arsenal
 			'The faint voice of a young boy echoes from within'
 			'''
 	}
@@ -1723,7 +1772,6 @@ Items: {
 			'''
 			Increased max flight time
 			Summon a Sharknado over your head
-			Press <{$Keybinds.SoulCrystalTeleport.DisplayName}> to teleport to your cursor
 			'''
 	}
 
@@ -1744,8 +1792,8 @@ Items: {
 			Summons a magic circle behind you that fires ice fragments at your cursor
 			Gives a chance to dodge attacks
 			Every dodge increases ice fragments fired by 1, up to 5 total
-			Press <{$Keybinds.SoulCrystalTeleport.DisplayName}> to teleport to your cursor
 			'''
+		Teleport: Press <{0}> to teleport to your cursor
 	}
 
 	LordSoulCrystal: {
@@ -2288,7 +2336,6 @@ Items: {
 		Tooltip:
 			'''
 			Punches shoot plasma bullets
-			{$Common.HoldToCharge}
 			Charged attacks throw a wave of fire
 			Hold UP to punch the ground, creating a pillar of fire instead
 			{$Common.DamageScale}
@@ -2301,7 +2348,6 @@ Items: {
 		Tooltip:
 			'''
 			Swings throw energy beams
-			{$Common.HoldToCharge}
 			Charged attacks fire a piercing beam
 			Hold UP to fling you forward and explode on impact instead
 			{$Common.DamageScale}
@@ -2321,7 +2367,7 @@ Items: {
 	}
 
 	GenesisAndRagnarok: {
-		DisplayName: Genesis and Ragnarok
+		DisplayName: Frostspark Arsenal
 		Tooltip:
 			'''
 			After a second of inactivity, the combo is reset
@@ -2839,6 +2885,8 @@ Items: {
 			Alt-use to throw out up to 6 small singularities
 			The singularities can be shot with arrows to activate early
 			Singularities will fire additional arrows when you shoot with this bow
+			Each active singularity slightly increases the weapon's use delay
+			Hold UP and press alt-use to destroy all singularities, creating an explosion
 			{$Common.DamageScale}
 			'''
 		DeveloperKeyChange: Unlimited singularities
@@ -2883,7 +2931,6 @@ Items: {
 			Fires a barrage of lightning
 			Alt-use to summon lashing vines
 			{$Common.DamageScale}
-			{$Common.HoldToCharge}
 			'''
 	}
 
@@ -2951,6 +2998,11 @@ Items: {
 
 	PenmastersInstrument: {
 		DisplayName: Penmasters Instrument
+		Tooltip: ""
+	}
+
+	SinfulSoul: {
+		DisplayName: Sinful Soul
 		Tooltip: ""
 	}
 }
@@ -3133,10 +3185,10 @@ Projectiles: {
 	FlameSword.DisplayName: Theta Flame Saber
 	FlameSword_Thrust.DisplayName: Theta Flame Saber
 	FlamethrowerBuster.DisplayName: Flamethrower Buster
-	Genesis_Spear.DisplayName: Genesis
-	Genesis_Spear2.DisplayName: Genesis
-	Genesis_Sword.DisplayName: Genesis
-	Genesis_Whip.DisplayName: Genesis
+	Genesis_Spear.DisplayName: Frostspark Spear
+	Genesis_Spear2.DisplayName: Frostspark Spear
+	Genesis_Sword.DisplayName: Frostspark Spear
+	Genesis_Whip.DisplayName: Frostspark Spear
 	Gomorrah_Burst.DisplayName: Gomorrah Explosion
 	Gomorrah_Javelin.DisplayName: Gomorrah
 	Gomorrah_Spear.DisplayName: Gomorrah
@@ -3155,9 +3207,9 @@ Projectiles: {
 	Messiah.DisplayName: Messiah
 	MourningStar.DisplayName: The Mourning Star
 	PrototypeBandSlash.DisplayName: Unstable Areus Blade
-	Ragnarok_Shield.DisplayName: Ragnarok
-	RagnarokProj.DisplayName: Ragnarok
-	RagnarokProj2.DisplayName: Ragnarok
+	Ragnarok_Shield.DisplayName: Frostspark Shield
+	RagnarokProj.DisplayName: Frostspark Shield
+	RagnarokProj2.DisplayName: Frostspark Shield
 	ReactorMeltdownProj.DisplayName: Reactor Meltdown
 	SaberSlash.DisplayName: Saber Slash
 	SatanlanceProj.DisplayName: Satanlance
@@ -3355,7 +3407,7 @@ Projectiles: {
 	AreusTonfaUppercut.DisplayName: Areus Tonfa Uppercut
 	EntropicArrow.DisplayName: Entropic Arrow
 	HunterBomb.DisplayName: Hunter Bomb
-	HunterBomb2.DisplayName: Hunter Bomb2
+	HunterSingularity.DisplayName: Entrpoic Singularity Explosion
 	GleamShot.DisplayName: Gleam Shot
 	ShockKnife.DisplayName: Shock Knife
 	RedStar.DisplayName: Red Star
@@ -4270,6 +4322,7 @@ Keybinds: {
 	CycleElementAffinity.DisplayName: "[i:ShardsOfAtheria/AreusProcessor] Cycle Element Affinity"
 	AmethystBombToggle.DisplayName: "[i:ShardsOfAtheria/AmethystCore_Greater] Amethyst Bomb Toggle"
 	ChargeWeapons.DisplayName: "[i:ShardsOfAtheria/FlameKnuckleBuster] Charge Weapons"
+	SinAbility.DisplayName: "[i:ShardsOfAtheria/SinfulSoul] Sin Ability"
 }
 
 Configs: {

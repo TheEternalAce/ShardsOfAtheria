@@ -1,4 +1,8 @@
-- Removed all Sinful Souls.
-- Replaced the removed souls with a UI to select a sin. (Still optional)
+- Removed all Sinful Souls items.
+- Replaced the removed sinful soul items with a UI to select a sin. Choosing a sin is still optional. The default key to open the UI is X.
 - Tweak timers for Gluttony Sin.
 - Greed Fire now scales with max life.
+- Decreased the use delay of Entropic Hunter when singularities are active.
+ - Added a tooltip that tells the player of this effect.
+- The set keybind is now shown instead of the keybind's name in item tooltips and other text.
+- Fixed typo in Rush Drive tooltip.

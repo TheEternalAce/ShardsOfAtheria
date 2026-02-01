@@ -3,6 +3,7 @@ using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
 using ShardsOfAtheria.Items.Accessories.GemCores.Lesser;
 using ShardsOfAtheria.Utilities;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -24,6 +25,11 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Super
 
             Item.rare = ItemDefaults.RarityLunaticCultist;
             Item.value = ItemDefaults.ValueLunarPillars;
+        }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            ModContent.GetInstance<AmethystCore_Greater>().ModifyTooltips(tooltips);
         }
 
         public override void AddRecipes()

@@ -1,10 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Humanizer;
+using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.NPCs.Misc;
 using ShardsOfAtheria.Projectiles.Tools;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -132,6 +134,25 @@ namespace ShardsOfAtheria.Items.SoulCrystals
         }
     }
 
+    public class DukeSoulCrystal : SoulCrystal
+    {
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            ModContent.GetInstance<LunaticSoulCrystal>().ModifyTooltips(tooltips);
+        }
+    }
+
+    public class LunaticSoulCrystal : SoulCrystal
+    {
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            string lineText = this.GetLocalization("Teleport").Value.FormatWith(SoA.SoulTeleport.GetAssignedKeys().FirstOrDefault());
+            TooltipLine line = new(Mod, "SoulCrystalTeleport", lineText);
+            tooltips.AddTooltip(line);
+        }
+
+    }
+
     #region Create Soul Crystals
     public class KingSoulCrystal : SoulCrystal
     {
@@ -188,15 +209,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
     {
     }
 
-    public class DukeSoulCrystal : SoulCrystal
-    {
-    }
-
     public class EmpressSoulCrystal : SoulCrystal
-    {
-    }
-
-    public class LunaticSoulCrystal : SoulCrystal
     {
     }
 
