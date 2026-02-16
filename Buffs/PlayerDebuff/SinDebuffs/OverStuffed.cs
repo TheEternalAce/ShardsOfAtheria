@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Buffs.PlayerDebuff.SinDebuffs
         public override void Update(Player player, ref int buffIndex)
         {
             player.moveSpeed /= 2;
-            player.GetDamage(DamageClass.Generic) -= 0.5f;
+            player.GetAttackSpeed(DamageClass.Generic) -= 0.5f;
         }
     }
 }
