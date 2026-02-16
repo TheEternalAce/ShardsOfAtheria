@@ -1,0 +1,4 @@
+﻿- Updated Gluttony thresholds to match with timers.
+- Removed food chunk projectile. Being close to enemies when damaging them restores hunger instead.
+- Overstuffed reduces attack speed instead of damage.
+- Updated Gluttony description to inform user about acid.
