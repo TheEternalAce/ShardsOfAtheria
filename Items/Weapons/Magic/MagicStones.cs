@@ -46,6 +46,9 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.value = 50000;
             Item.shoot = ModContent.ProjectileType<MagicStone>();
             Item.shootSpeed = 6;
+
+            bool[] weaponAbilities = [false, false, true, true, true, true];
+            SoA.TryDungeonCall("addManualWeaponStat", Item, weaponAbilities);
         }
 
         public override bool AltFunctionUse(Player player)
