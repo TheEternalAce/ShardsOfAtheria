@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff.SinDebuffs;
-using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.ShardsUI.SinfulSelection;
 using ShardsOfAtheria.Utilities;
 using System;
@@ -34,7 +33,7 @@ namespace ShardsOfAtheria.Players
 
         // Gluttony
         public int hunger = 100;
-        public const int HUNGER_MAX = 100;
+        public const int HUNGER_MAX = 3600;
         public int hungerTimer = 60;
         public int foodCoolDown = 0;
         public const int FOOD_COOLDOWN_MAX = 240;
@@ -91,24 +90,43 @@ namespace ShardsOfAtheria.Players
         void GluttonyPreUpdate()
         {
             if (sinID != GLUTTONY) return;
-            if (hunger > 0 && --hungerTimer <= 0)
+            if (hunger > 0)
             {
-                hunger--;
-                if (!(Player.HasBuff(BuffID.WellFed) || Player.HasBuff(BuffID.WellFed2) || Player.HasBuff(BuffID.WellFed3))) hunger--;
-                hungerTimer = 30;
+                if (--hungerTimer <= 0)
+                {
+                    int hungerDecay = 4;
+                    int hungerDecayTimer = 30;
+                    if (Player.HasBuff(BuffID.WellFed)) hungerDecay--;
+                    if (Player.HasBuff(BuffID.WellFed2)) hungerDecay -= 2;
+                    if (Player.HasBuff(BuffID.WellFed3)) hungerDecay -= 3;
+                    if (Player.HasBuff<GluttonyAcid>()) hungerDecayTimer -= 15;
+                    if (Player.sleeping.FullyFallenAsleep)
+                    {
+                        hungerDecay = 1;
+                        hungerDecayTimer += 90;
+                    }
+                    hunger -= hungerDecay;
+                    hungerTimer = hungerDecayTimer;
+                }
             }
-            if (hunger > 600) Player.AddBuff<OverStuffed>(121);
+            if (hunger > HUNGER_MAX) Player.AddBuff<OverStuffed>(121);
             else if (hunger < 0) hunger = 0;
+            else if (hunger == 0) Player.AddBuff(BuffID.Starving, 180);
+        }
+        void GluttonyRegenDebuff()
+        {
+            if (Player.HasBuff<GluttonyAcid>()) RegenDebuff();
+            if (Player.HasBuff<OverStuffed>()) Player.lifeRegen /= 3;
         }
         void GluttonyModifyHurt(ref Player.HurtModifiers modifiers)
         {
             if (sinID != GLUTTONY) return;
-            if (hunger > 1)
+            if (hunger > 3)
             {
                 int maxReduction = ShardsHelpers.ScaleByProggression(Player, 10);
-                int reduction = Math.Min(hunger / 2, maxReduction);
+                int reduction = Math.Min(hunger / 3, maxReduction);
                 modifiers.FinalDamage.Flat -= maxReduction;
-                hunger -= reduction * 2;
+                hunger -= reduction * 3;
             }
         }
         void GluttonyPickUp(Item item)
@@ -117,22 +135,24 @@ namespace ShardsOfAtheria.Players
             if (item.type == ItemID.Heart || item.type == ItemID.CandyApple || item.type == ItemID.CandyCane ||
                 item.type == ItemID.ManaCloakStar || item.type == ItemID.Star || item.type == ItemID.SoulCake || item.type == ItemID.SugarPlum)
             {
-                Player.AddBuff<GluttonyAcid>(150);
+                Player.AddBuff<GluttonyAcid>(120);
             }
         }
         void GluttonyHit(NPC target, NPC.HitInfo hit)
         {
             if (sinID != GLUTTONY) return;
-            if (foodCoolDown <= 0)
+            bool canBeChased = target.chaseable && target.lifeMax > 5;
+            if (canBeChased && Vector2.Distance(Player.Center, target.Center) < 200)
             {
                 float foodChance = 0.1f;
                 if (hit.Crit || target.life <= 0) foodChance = 1f;
-                if (target.lifeMax > 5 && Main.rand.NextFloat() < foodChance)
+                if (hit.DamageType.CountsAsClass(DamageClass.Summon)) foodChance *= 0.5f;
+                if (Main.rand.NextFloat() < foodChance && foodCoolDown <= 0)
                 {
-                    float ai0 = 0;
-                    if (target.life <= 0) ai0 = 1;
-                    Projectile.NewProjectile(target.GetSource_OnHurt(Player), target.Center, Player.Center - target.Center * 10f, ModContent.ProjectileType<FoodChunk>(), 0, 0, Player.whoAmI, ai0);
-                    foodCoolDown = FOOD_COOLDOWN_MAX;
+                    int hungerRefill = 120;
+                    if (target.life <= 0) hungerRefill += 180;
+                    else foodCoolDown = FOOD_COOLDOWN_MAX;
+                    hunger += hungerRefill;
                 }
             }
         }
@@ -146,15 +166,7 @@ namespace ShardsOfAtheria.Players
         }
         void GreedFire()
         {
-            if (Player.HasBuff<GreedFire>())
-            {
-                int flames = Player.statLifeMax2 / 20;
-                if (flames % 2 != 0) flames++;
-                if (Player.lifeRegen > 0)
-                    Player.lifeRegen = 0;
-                Player.lifeRegenTime = 0;
-                Player.lifeRegen -= flames;
-            }
+            if (Player.HasBuff<GreedFire>()) RegenDebuff();
         }
         void GreedDeath()
         {
@@ -340,6 +352,16 @@ namespace ShardsOfAtheria.Players
         }
         #endregion
 
+        private void RegenDebuff()
+        {
+            int rate = Player.statLifeMax2 / 20;
+            if (rate % 2 != 0) rate++;
+            if (Player.lifeRegen > 0)
+                Player.lifeRegen = 0;
+            Player.lifeRegenTime = 0;
+            Player.lifeRegen -= rate;
+        }
+
         public override void SaveData(TagCompound tag)
         {
             tag["selectedSin"] = sinID;
@@ -391,7 +413,7 @@ namespace ShardsOfAtheria.Players
 
         public override void UpdateBadLifeRegen()
         {
-            if (Player.HasBuff<OverStuffed>()) Player.lifeRegen /= 3;
+            GluttonyRegenDebuff();
             GreedFire();
         }
 

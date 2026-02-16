@@ -40,9 +40,10 @@ SinfulSouls: {
 		'''
 		Gluttony
 		Increases damage by 15%
-		Strikes create healing food chunks
 		Defense reduced by 7
 		Lose life when not fed
+		Strikes in close range feed you
+		Burn in acid when picking up hearts and mana, and when gaining buffs
 		''' */
 	/* Greed:
 		'''
@@ -644,7 +645,7 @@ Items: {
 		Tooltip: Permite ao usuário ciclar entre 3 bases de conhecimento: Combate, Conservação e Exploração
 		// CycleKnowledgeBase: Press <{0}> to cycle between the 3 Knowledge Bases
 		// Combat: The tome gives you excelent combat knowledge
-		// Conservation: The tome informs you on how to conserve resources
+		// Conservation: The tome informs you on how to conserve resources effectively
 		// Exploration: The tome grants you sight of your surroundings for exploration
 	}
 
