@@ -43,9 +43,10 @@ namespace ShardsOfAtheria.Globals
         public override bool? UseItem(Item item, Player player)
         {
             var sinner = player.Sinner();
-            if (sinner.sinID == SinnerPlayer.GLUTTONY && (item.buffType > 0 || item.healLife > 0 || item.healMana > 0))
+            bool wellFedBuff = item.buffType == BuffID.WellFed || item.buffType == BuffID.WellFed2 || item.buffType == BuffID.WellFed3;
+            if (sinner.sinID == SinnerPlayer.GLUTTONY && ((item.buffType > 0 && !wellFedBuff) || item.healLife > 0 || item.healMana > 0) && !item.IsWeapon())
             {
-                player.AddBuff<GluttonyAcid>(150);
+                player.AddBuff<GluttonyAcid>(300);
             }
             if (sinner.sinID == SinnerPlayer.PRIDE && player.InCombat() && item.IsWeapon() && !item.DamageType.CountsAsClass(DamageClass.Summon))
             {
@@ -62,14 +63,14 @@ namespace ShardsOfAtheria.Globals
             if (sinner.sinID == SinnerPlayer.GLUTTONY)
             {
                 int gluttonyHealing = item.buffTime;
-                if (item.buffType == BuffID.WellFed) gluttonyHealing /= 1800;
-                else if (item.buffType == BuffID.WellFed2) gluttonyHealing /= 1200;
-                else if (item.buffType == BuffID.WellFed3) gluttonyHealing /= 900;
+                if (item.buffType == BuffID.WellFed) gluttonyHealing /= 180;
+                else if (item.buffType == BuffID.WellFed2) gluttonyHealing /= 60;
+                else if (item.buffType == BuffID.WellFed3) gluttonyHealing /= 30;
                 else gluttonyHealing = 0;
                 if (gluttonyHealing > 0)
                 {
-                    player.Heal(gluttonyHealing);
-                    sinner.hunger += gluttonyHealing * 2;
+                    player.Heal(gluttonyHealing / 2);
+                    sinner.hunger += gluttonyHealing;
                 }
             }
             return base.ConsumeItem(item, player);
