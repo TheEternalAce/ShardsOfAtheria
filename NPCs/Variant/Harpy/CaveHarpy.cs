@@ -109,6 +109,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         {
             base.ModifyNPCLoot(npcLoot);
             int maxOres = 25;
+            // Todo, make ores match those found in world.
             int[,] ores = new int[,]
             {
                 { ItemID.CopperOre, maxOres },

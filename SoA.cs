@@ -238,7 +238,7 @@ namespace ShardsOfAtheria
             if (ModLoader.TryGetMod("RecipeBrowser", out Mod rb))
             {
                 var iconTexture = ModContent.Request<Texture2D>(ModContent.GetInstance<Atherian>().HeadTexture);
-                rb.Call("AddItemCategory", "Upgrades", "", iconTexture, (Predicate<Item>)((Item item) => HasBlueprint(item)));
+                rb.Call("AddItemCategory", "Upgrades", "", iconTexture, (Predicate<Item>)(item => HasBlueprint(item)));
                 static bool HasBlueprint(Item item)
                 {
                     foreach (UpgradeBlueprint blueprint in UpgradeBlueprintLoader.upgrades)
@@ -322,6 +322,7 @@ namespace ShardsOfAtheria
                 rot.Call("BossDesc", ModContent.NPCType<Death>(), "Mods.ShardsOfAtheria.NPCs.Death.BossDesc");
             }
 
+            #region Reloadable Guns
             ShardsHelpers.SetGunStats(ModContent.ItemType<AreusAssaultRifle>(), "rifle", 30);
             ShardsHelpers.SetGunStats(ModContent.ItemType<AreusCalibratedShotgun>(), "shotgun", 8);
             ShardsHelpers.SetGunStats(ModContent.ItemType<AreusMagnum>(), "revolver", 1);
@@ -333,6 +334,7 @@ namespace ShardsOfAtheria
             ShardsHelpers.SetGunStats(ModContent.ItemType<P90>(), "smg", 50);
             ShardsHelpers.SetGunStats(ModContent.ItemType<PhantomRose>(), "pistol", 12);
             ShardsHelpers.SetGunStats(ModContent.ItemType<Scarlet>(), "sniper", 10);
+            #endregion
         }
 
         public static void TryElementCall(params object[] args)

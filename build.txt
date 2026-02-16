@@ -1,6 +1,6 @@
-displayName = Shards of Atheria (Sins & Virtues Part 2)
+displayName = Shards of Atheria (Sins & Virtues Part 3)
 author = Rockman Zeta
-version = 1.1.1
+version = 1.1.2
 homepage = https://forums.terraria.org/index.php?threads/shards-of-atheria-mod.112953/
 modReferences = WebCom, CollisionLib, StructureHelper
 weakReferences = BattleNetworkElements

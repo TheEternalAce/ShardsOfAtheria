@@ -1,7 +1,7 @@
 Shards of Atheria is an ambitious project where I aim to bring a cohesive story into Terraria, while also adding fun and interesting content. Currently it only adds content and there isn't much lore.
 
 Join the Discord/Guilded server to report bugs, see spoilers and other things. Invite links in the Forum thread.
-Visit the Forum thread for more info.
+Visit the [url=https://forums.terraria.org/index.php?threads/shards-of-atheria-mod.112953/] Forum [/url] thread for more info.
 
 --- Contributions ---
 Sprites:
@@ -24,6 +24,6 @@ Ertila007 (Brazilian Portuguese)
 Huge thank you to the TML team and others in the server for the huge help otherwise I would have never gotten this far in making the mod.
 
 As well as the following from other mods:
-The creator of the Parrying Daggers mod: code.
-The creator of the Aequus mod: code.
-The creator of the Lobotomy Corporation mod: code.
+The creator of the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2765225124] Parrying Daggers [/url] mod: code.
+The creator of the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2787632488] Aequus [/url] mod: code.
+The creator of the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2797072909] Lobotomy Corporation [/url] mod: code.
