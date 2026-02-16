@@ -40,6 +40,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityMoonLord;
             Item.value = ItemDefaults.ValueEyeOfCthulhu;
             Item.shoot = ModContent.ProjectileType<AreusPartizan>();
+
+            SoA.TryDungeonCall("addFinesseWeapon", Type);
         }
 
         public override bool MeleePrefix()

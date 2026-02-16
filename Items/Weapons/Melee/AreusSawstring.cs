@@ -38,6 +38,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityDukeFishron;
             Item.value = Item.sellPrice(0, 4, 25);
             Item.shoot = ModContent.ProjectileType<Swawstring>();
+
+            SoA.TryDungeonCall("addFinesseWeapon", Type);
         }
 
         public override void AddRecipes()

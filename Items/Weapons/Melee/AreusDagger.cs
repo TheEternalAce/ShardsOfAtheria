@@ -38,6 +38,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityDungeon;
             Item.value = Item.sellPrice(0, 0, 50);
             Item.shoot = ModContent.ProjectileType<AreusDaggerProj>();
+
+            if (Item.DamageType == DamageClass.Melee) SoA.TryDungeonCall("addFinesseWeapon", Type);
         }
 
         public override void AddRecipes()

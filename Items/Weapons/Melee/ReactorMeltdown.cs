@@ -40,6 +40,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityMartians;
             Item.value = Item.sellPrice(0, 2, 20);
             Item.shoot = ModContent.ProjectileType<ReactorMeltdownProj>();
+
+            SoA.TryDungeonCall("addFinesseWeapon", Type);
         }
     }
 }

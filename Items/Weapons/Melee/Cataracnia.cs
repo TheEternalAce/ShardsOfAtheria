@@ -36,6 +36,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shootSpeed = 16;
             Item.rare = ItemRarityID.Master;
             Item.value = Item.sellPrice(0, 10);
+
+            SoA.TryDungeonCall("addFinesseWeapon", Type);
         }
 
         public override bool AltFunctionUse(Player player)

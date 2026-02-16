@@ -47,6 +47,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shootSpeed = 1;
             Item.rare = ItemDefaults.RarityPlantera;
             Item.value = 100000;
+
+            SoA.TryDungeonCall("addFinesseWeapon", Type);
         }
 
         public override bool MeleePrefix()
