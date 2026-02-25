@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
             Item.width = 18;
             Item.height = 18;
             Item.defense = 14;
-            lesserNonSetDamage = 0.15f;
+            lesserNonSetDamage = 0.1f;
 
             slotType = AreusArmorChip.SlotHead;
 

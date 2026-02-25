@@ -259,7 +259,6 @@ namespace ShardsOfAtheria.Players
         {
             if (Biometal) Player.moveSpeed += .1f;
             if (Player.HasBuff(ModContent.BuffType<Overdrive>())) Player.moveSpeed += .5f;
-            if (Player.HasBuff(ModContent.BuffType<SoulInfused>())) Player.moveSpeed += .5f;
             Player.GetDamage(DamageClass.Generic) += 0.01f * aggression;
             Player.moveSpeed += 0.01f * aggression;
             Player.aggro += aggression;

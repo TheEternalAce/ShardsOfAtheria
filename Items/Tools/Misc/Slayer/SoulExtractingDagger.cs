@@ -9,7 +9,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static ShardsOfAtheria.Utilities.Entry;
+using static ShardsOfAtheria.Systems.SlayerSystem;
 
 namespace ShardsOfAtheria.Items.Tools.Misc.Slayer
 {

@@ -24,9 +24,9 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Royal
         {
             base.UpdateEquip(player);
             player.GetDamage(ArmorPlayer.classChip) += 0.15f;
-            player.GetCritChance(ArmorPlayer.classChip) += 0.15f;
+            player.GetCritChance(ArmorPlayer.classChip) += 0.05f;
             ArmorPlayer.areusDamage += 0.1f;
-            player.moveSpeed += 0.2f;
+            player.moveSpeed += 0.1f;
             ArmorPlayer.areusLegs = true;
         }
     }

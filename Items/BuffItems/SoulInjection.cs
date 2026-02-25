@@ -67,7 +67,7 @@ namespace ShardsOfAtheria.Items.BuffItems
         {
             player.statLifeMax2 += 50;
             player.statDefense += 10;
-            player.GetDamage(DamageClass.Generic) += .15f;
+            player.GetDamage(DamageClass.Generic) += .1f;
             player.lifeRegen += 10;
         }
     }

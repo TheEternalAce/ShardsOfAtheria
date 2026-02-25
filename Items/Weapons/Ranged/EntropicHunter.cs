@@ -96,6 +96,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
                     if (proj.active && proj.owner == player.whoAmI && proj.type == bombType)
                         (proj.ModProjectile as HunterSingularity).Explode();
                 }
+                Item.reuseDelay = 0;
                 return false;
             }
             if (type != Item.shoot && player.ownedProjectileCounts[bombType] > 0)

@@ -210,10 +210,13 @@ Items: {
 			'''
 			Gives a dash to the wearer
 			Prevent buff time from decreasing after taking damage
-			Hold shift to toggle wall exploding
 			Emit light
 			'''
-		ThrowBomb: Press <{0}> to toggle throwing an amethyst bomb while using a pickaxe
+		ThrowBomb:
+			'''
+			Press <{0}> to toggle throwing an amethyst bomb while using a pickaxe
+			Hold shift to toggle wall exploding
+			'''
 		ToggleOn: Pickackes will throw amethyst bombs.
 		ToggleOff: Pickackes will not throw amethyst bombs.
 		ToggleWallOn: Amethyst bombs will destroy walls.
@@ -226,7 +229,6 @@ Items: {
 			'''
 			Gives a great dash to the wearer
 			Prevent buff time from decreasing after taking damage
-			Hold shift to toggle wall exploding
 			Emit light
 			Grants immunity to fire, cold, electric, and poison debuffs
 			'''
@@ -443,10 +445,10 @@ Items: {
 			'''
 			[i:ShardsOfAtheria/AmethystCore_Super] Amethyst Effects
 			Prevent buff time from decreasing after taking damage
-			Press <{0}> to toggle throwing an amethyst bomb when using a pickaxe
-			Hold shift to toggle wall exploding
 			Emit light
 			Grants immunity to fire, cold, electric, and poison debuffs
+			Press <{0}> to toggle throwing an amethyst bomb when using a pickaxe
+			Hold shift to toggle wall exploding
 			'''
 		ShiftTooltip2:
 			'''
@@ -528,11 +530,14 @@ Items: {
 			Increases movement speed by 10%
 			Increased max mana by 40
 			Grants dash, wall sliding and immunity to fall damage
+			'''
+		ActivateOverdrive:
+			'''
+			Press <{0}> to activate or deactivate Overdrive
 			Overdrive increases all damage by 100%
 			Overdrive lasts until you get hit or run out of Overdrive time
 			Overdrive may cause certain weapons to become Overcharged
 			'''
-		ActivateOverdrive: Press <{0}> to activate or deactivate Overdrive
 		DeveloperKeyChange: Overdrive time will never run out
 	}
 
@@ -644,14 +649,14 @@ Items: {
 
 	RushDrive: {
 		DisplayName: Rush Drive
-		Tooltip:
+		Tooltip: Gives the user a 'phase 2' when below 50% life
+		ChangePhase:
 			'''
-			Gives the user a 'phase 2' when below 50% life
+			Press <{0}> to choose between the two phase types
 			Offensive: Sacrifice half of total defense for doubled damage and 5% increased crit chance
 			Defensive: Sacrifice half of total damage for doubled defense and 20% reduced damage
 			Always get 20% increased movement speed
 			'''
-		ChangePhase: Press <{0}> to choose between the two phase types
 	}
 
 	TomeOfOmniscience: {
@@ -701,7 +706,7 @@ Items: {
 		DisplayName: Areus Guard Helmet
 		Tooltip:
 			'''
-			Increased damage and critical strike chance by 5%
+			Increased damage by 5%
 			Increased Areus weapon damage by 3%
 			Reduced mana usage by 5%
 			'''
@@ -710,13 +715,13 @@ Items: {
 			'''
 			[c/AA0000:-Melee Set-]
 			Taking damage builds Areus Energy
-			Double tap UP or DOWN to release a shockwave of Areus Energy
+			Double tap {0} to release a shockwave of Areus Energy
 			'''
 		RangedBonus:
 			'''
 			[c/96E19B:-Ranged Set-]
 			Build Areus Energy by dealing damage
-			Double tap UP or DOWN to activate Electric Marksman:
+			Double tap {0} to activate Electric Marksman:
 			Increases ranged attack speed
 			Converts certain arrows and bullets into instantaneous electric beams
 			'''
@@ -724,13 +729,13 @@ Items: {
 			'''
 			[c/78BEFF:-Magic Set-]
 			Passively builds Areus Energy
-			Double tap UP or DOWN to release a spread of electric waves
+			Double tap {0} to release a spread of electric waves
 			'''
 		SummonBonus:
 			'''
 			[c/FF74C3:-Summon Set-]
 			Passively builds Areus Energy while in combat
-			Double tap UP or DOWN to charge all active minions
+			Double tap {0} to charge all active minions
 			Charged minions periodically release electric sparks while in combat
 			'''
 		ThrowingBonus:
@@ -745,7 +750,7 @@ Items: {
 		DisplayName: Areus Guard Mail
 		Tooltip:
 			'''
-			Increased damage and critical strike chance by 5%
+			Increased damage by 5%
 			Increased Areus weapon damage by 3%
 			Increased maximum mana by 60
 			'''
@@ -755,9 +760,8 @@ Items: {
 		DisplayName: Areus Guard Leggings
 		Tooltip:
 			'''
-			Increased damage and critical strike chance by 5%
+			Increased damage by 5%
 			Increased Areus weapon damage by 3%
-			Increased movement speed by 8%
 			'''
 	}
 
@@ -765,11 +769,11 @@ Items: {
 		DisplayName: Areus Soldier Mask
 		Tooltip:
 			'''
-			Increased damage and critical strike chance by 8%
+			Increased damage by 8%
 			Increased Areus weapon damage by 5%
 			Reduced mana usage by 8%
 			'''
-		SetBonus: Double tap UP or DOWN to throw out a holographic banner with various effects
+		SetBonus: Double tap {0} to throw out a holographic banner with various effects
 		MeleeBonus:
 			'''
 			[c/AA0000:-Melee Set-]
@@ -806,7 +810,7 @@ Items: {
 		DisplayName: Areus Soldier Breastplate
 		Tooltip:
 			'''
-			Increased damage and critical strike chance by 8%
+			Increased damage by 8%
 			Increased Areus weapon damage by 5%
 			Increased maximum mana by 90
 			'''
@@ -816,9 +820,9 @@ Items: {
 		DisplayName: Areus Soldier Leggings
 		Tooltip:
 			'''
-			Increased damage and critical strike chance by 8%
+			Increased damage by 8%
 			Increased Areus weapon damage by 5%
-			Increased movement speed by 13%
+			Increased movement speed by 10%
 			'''
 	}
 
@@ -826,7 +830,7 @@ Items: {
 		DisplayName: Areus Imperial Hood
 		Tooltip:
 			'''
-			Increased damage and critical strike chance by 5%
+			Increased damage by 10%
 			Increased Areus weapon damage by 8%
 			Reduced mana usage by 12%
 			'''
@@ -840,21 +844,21 @@ Items: {
 		MeleeBonus:
 			'''
 			[c/AA0000:-Melee Set-]
-			Double tap UP or DOWN to create a void slash
+			Double tap {0} to create a void slash
 			This consumes 33 Imperial Void
 			Shade State creates void slashes when melee weapons are used
 			'''
 		RangedBonus:
 			'''
 			[c/96E19B:-Ranged Set-]
-			Double tap UP or DOWN to release a void blast
+			Double tap {0} to release a void blast
 			This consumes 33 Imperial Void
 			Shade State converts certain ranged projectiles into seeking void beams
 			'''
 		MagicBonus:
 			'''
 			[c/78BEFF:-Magic Set-]
-			Double tap UP or DOWN to shriek loudly
+			Double tap {0} to shriek loudly
 			This consumes 33 Imperial Void
 			Shade State creates void daggers when striking enemies
 			'''
@@ -864,13 +868,13 @@ Items: {
 			Every 2 seconds a Black Star is summoned
 			This consumes 33 Imperial Void
 			After some time, the star will be ripped apart and fire a laser
-			Double tap UP or DOWN to do this manually
+			Double tap {0} to do this manually
 			Shade State creates void tendrils from enemies struck by whips
 			'''
 		ThrowingBonus:
 			'''
 			[c/A06E3C:-Ninja Set-]
-			Double tap UP or DOWN to throw a void blade
+			Double tap {0} to throw a void blade
 			This consumes 33 Imperial Void
 			Shade State causes thrown weapon attacks to shoot a spread of void
 			'''
@@ -880,7 +884,7 @@ Items: {
 		DisplayName: Areus Imperial Garments
 		Tooltip:
 			'''
-			Increased damage and critical strike chance by 5%
+			Increased damage by 10%
 			Increased Areus weapon damage by 8%
 			Increased maximum mana by 120
 			'''
@@ -890,9 +894,9 @@ Items: {
 		DisplayName: Areus Imperial Greaves
 		Tooltip:
 			'''
-			Increased damage and critical strike chance by 5%
+			Increased damage by 10%
 			Increased Areus weapon damage by 8%
-			Increased movement speed by 16%
+			Increased movement speed by 10%
 			'''
 	}
 
@@ -900,14 +904,15 @@ Items: {
 		DisplayName: Areus Royal Circlet
 		Tooltip:
 			'''
-			Increased damage and critical strike chance by 15%
+			Increased damage by 15%
+			Increased critical strike chance by 5%
 			Increased Areus weapon damage by 10%
 			Reduced mana usage by 15%
 			'''
 		SetBonus:
 			'''
 			Summons an EM Avatar by your side
-			Double tap UP or DOWN to mark an enemy near your cursor
+			Double tap {0} to mark an enemy near your cursor
 			Marked enemies take extra damage and will be targeted by minions
 			'''
 		MeleeBonus:
@@ -929,7 +934,7 @@ Items: {
 			'''
 			[c/FF74C3:-Summon Set-]
 			The EM Avatar commands a team of areus drones to fire at nearby enemies
-			Double tapping UP or DOWN charges the drones to fire a piercing laser
+			Double tapping {0} charges the drones to fire a piercing laser
 			'''
 		ThrowingBonus:
 			'''
@@ -942,7 +947,8 @@ Items: {
 		DisplayName: Areus Royal Jacket
 		Tooltip:
 			'''
-			Increased damage and critical strike chance by 15%
+			Increased damage by 15%
+			Increased critical strike chance by 5%
 			Increased Areus weapon damage by 10%
 			Increased maximum mana by 120
 			'''
@@ -952,9 +958,10 @@ Items: {
 		DisplayName: Areus Royal Greaves
 		Tooltip:
 			'''
-			Increased damage and critical strike chance by 15%
+			Increased damage by 15%
+			Increased critical strike chance by 5%
 			Increased Areus weapon damage by 10%
-			Increased movement speed by 20%
+			Increased movement speed by 10%
 			'''
 	}
 
@@ -1010,7 +1017,7 @@ Items: {
 			'''
 			Increased damage and critical strike chance by %
 			Increased Areus weapon damage by %
-			Increased movement speed by %
+			Increased movement speed by 10%
 			'''
 	}
 
@@ -1036,7 +1043,7 @@ Items: {
 			Damage bonuses from areus armors increase summon damage
 			Areus armor set provides a summoner set bonus
 			Other damage types recieve a lesser bonus
-			Grants increased max minions
+			Increases max minions by 2
 			'''
 	}
 
@@ -1057,7 +1064,7 @@ Items: {
 			Damage bonuses from areus armors increase throwing damage
 			Areus armor set provides a throwing set bonus
 			Other damage types recieve a lesser bonus
-			Grants increased thrown velocity
+			20% increased thrown velocity
 			'''
 	}
 
@@ -1068,7 +1075,7 @@ Items: {
 			Damage bonuses from areus armors increase ranged damage
 			Areus armor set provides a ranger set bonus
 			Other damage types recieve a lesser bonus
-			Grants increased mobility
+			2% increased movement speed
 			'''
 	}
 
@@ -1079,7 +1086,8 @@ Items: {
 			Damage bonuses from areus armors increase magic damage
 			Areus armor set provides a mage set bonus
 			Other damage types recieve a lesser bonus
-			Grants reduced mana cost and increased mana regeneration
+			2% reduced mana cost
+			Increases mana regeneration
 			'''
 	}
 
@@ -1104,7 +1112,7 @@ Items: {
 			Damage bonuses from areus armors increase melee damage
 			Areus armor set provides a melee set bonus
 			Other damage types recieve a lesser bonus
-			Grants increased defense
+			15 defense
 			'''
 	}
 
@@ -1614,8 +1622,7 @@ Items: {
 		DisplayName: Virtuous Dagger
 		Tooltip:
 			'''
-			Replaces your current sin with a holy buff
-			Use another to remove this holy buff
+			Clenses your soul of sin, painfully
 			Shatters on use
 			'''
 	}
@@ -1648,8 +1655,8 @@ Items: {
 		DisplayName: Soul Crystal (Brain of Cthulhu)
 		Tooltip:
 			'''
-			Spawns 4 Creepers
-			While Creepers are alive you are invulnerable and cannot attack
+			Spawns 8 Creepers
+			While Creepers are alive you are invulnerable, cannot attack, and severely slowed
 			Gain a temporary 20% damage boost when all of the creepers die
 			Creepers take 1 minute to respawn
 			Cannot be immune to knockback
@@ -1826,6 +1833,35 @@ Items: {
 	Necronomicon: {
 		DisplayName: Necronomicon
 		Tooltip: ""
+		TableOfContents:
+			'''
+			Table of Contents:
+			General Info
+			Soul Crystal Info
+			'''
+		GenericInfo:
+			'''
+			General Info:
+			Drop the book, open, with 10 Entropic Fragments and 5 Amethyst to begin.
+			Bosses will drop every item in its loot table (in a stack of 1000 if the item is stackable), its slayer mode exclusive item and its Soul Crystal.
+			This boss is considered slain and cannot be fought again.
+			While Slayer mode is active, taking damage will reduce your defense. Defense will regenerate after a period of time.
+			'''
+		SoulCrystalInfo:
+			'''
+			Soul Crystal Info:
+			Absorbing a boss' Soul Crystal gives you it's powers.
+			Be warned: absorbing too many Soul Crystals may casue you to descend into madness.
+			Soul Crystals are removable by making and using a Soul Extracting Dagger.
+			'''
+		WipSoulEntry: This Soul Crystal needs further research. Please wait for this boss to be introduced into the mod.
+		BookGuide: Right click to open the book
+		PagesGuide:
+			'''
+			Right click to turn the page
+			Hold Left Shift and Right Click to turn the page backward
+			Hold Left Alt and Right Click to return to Table of Contents
+			'''
 	}
 
 	OmegaKey: {
@@ -2409,8 +2445,9 @@ Items: {
 		DisplayName: Gomorrah
 		Tooltip:
 			'''
-			Alt-use throws a spear
-			Sticking 8 spears into the same target causes a large burst of damage
+			'O' blood and viscera, divine!'
+			Strikes build gore
+			Alt-use to consume gore and throw a bone bolt, viscera piles, or a tendon whip
 			'''
 	}
 
@@ -3008,6 +3045,8 @@ Items: {
 	}
 }
 
+Item.SkullSoulCrystal.Tooltip: Mods.ShardsOfAtheria.Item.SkullSoulCrystal.Tooltip
+
 Projectiles: {
 	# Hooks
 	AreusTetherHook.DisplayName: Areus Tether
@@ -3451,6 +3490,9 @@ Projectiles: {
 	BloodSwordFriendly.DisplayName: Blood Sword
 	ElectricArrow.DisplayName: Electric Arrow
 	ElectricArrow_Gauntlet.DisplayName: Electric Arrow_ Gauntlet
+	BoneSpike.DisplayName: Bone Spike
+	TendonWhip.DisplayName: Tendon Whip
+	FleshBit.DisplayName: Flesh Bit
 }
 
 NPCs: {
@@ -3508,7 +3550,7 @@ NPCs: {
 
 	Atherian: {
 		DisplayName: Atherian
-		Bestiary: After the young goddess, Senterra, created her world, she populated it with beings called Atherians, their design inspired by the angels of a certain human culture.
+		Bestiary: After the young goddess, Senterra, created her world, she populated it with beings called Atherians.
 
 		TownNPCMood: {
 			Content: I'm good, thanks for checking in.
@@ -3538,9 +3580,9 @@ NPCs: {
 			RandomText3: Have you seen a giant bird around, in the desert? No? Alright then.
 			RandomText4: I hope there is good coming out of your conquest.
 			RandomText5: I heard there is a coin you can toss and shoot. Seems pretty flashy, no?
-			ExComment: So you fought Nova. We go back a while, but we don't talk anymore.
-			MorshuMoment: Sorry {0}, what is this 'credit'? Come back when you have some coin! Or maybe you wanna chat? That's fine too.
+			RandomText6: Sorry {0}, what is this 'credit'? Come back when you have some coin! Or maybe you wanna chat? That's fine too.
 			CSGOReference: Last blood moon I heard {0} shouting "Door stuck!" what's that about?
+			ExComment: So you fought Nova. We go back a while, but we don't talk anymore.
 			GiftCrest: Here, have this. No particular reason, I just don't want it anymore.
 			# Slayer mode
 			NovaDeath: "{0} leaves with Nova's death. 'She didn't deserve this...'"
@@ -3571,7 +3613,7 @@ NPCs: {
 
 		Dialogue: {
 			Placeholder: AAAA
-			FindBook: May you find your book in my shop.
+			RandomText1: May you find your book in my shop.
 		}
 
 		Census.SpawnCondition: Build a house with a bookshelf
@@ -3880,7 +3922,7 @@ Buffs: {
 
 	SoulInfused: {
 		DisplayName: Soul Infused
-		Description: Increased max life by 50, defense by 10 and damage by 15%
+		Description: Increased max life by 50, defense by 10 and damage by 10%
 	}
 
 	# Summons
@@ -3891,7 +3933,7 @@ Buffs: {
 
 	CreeperShield: {
 		DisplayName: Creeper Shield
-		Description: Immune to damage, cannot attack and summons severely weakened
+		Description: Immune to damage, cannot attack, summons severely weakened, and severely slowed
 	}
 
 	JuvenileHarpy: {
@@ -4211,27 +4253,6 @@ Buffs: {
 	}
 }
 
-Necronomicon: {
-	GenericInfo:
-		'''
-		General Info:
-		Drop, with the book open, with 10 evil bars to begin.
-		Bosses will drop every item in its loot table (in a stack of 1000 if the item is stackable), its slayer mode exclusive item and its Soul Crystal.
-		This boss is considered slain and cannot be fought again.
-		While Slayer mode is active, taking damage will reduce your defense. Defense will regenerate after a period of time.
-		'''
-	SoulCrystalInfo:
-		'''
-		Soul Crystal Info:
-		Absorbing a boss' Soul Crystal gives you it's powers. Be warned: absorbing too many Soul Crystals may descend you into madness.
-		Soul Crystals are removable by making and using a Soul Extracting Dagger.
-		'''
-	WipSoulEntry: This Soul Crystal needs further research. Please wait for this boss to be introduced into the mod.
-	TurnPage: Right click to turn the page
-	TurnPageBack: Hold Left Shift and Right Click to turn the page backward
-	TurnToC: Hold Left Alt and Right Click to return to Table of Contents
-}
-
 Conditions: {
 	Slayer: Drops while in Slayer Mode
 	Upgrade: Upgraded by Atherian
@@ -4289,7 +4310,7 @@ ShopQuote: {
 InfoDisplays: {
 	InCombatInfoDisplay.DisplayName: "{0}"
 	PrideData.DisplayName: Hits landed/Attacks made
-	GluttonyData.DisplayName: Gluttony Data
+	GluttonyData.DisplayName: Gluttony Hunger
 }
 
 Tiles: {
@@ -4620,3 +4641,5 @@ Atherian: {
 		}
 	}
 }
+
+Necronomicon.WipSoulEntry: Mods.ShardsOfAtheria.Necronomicon.WipSoulEntry

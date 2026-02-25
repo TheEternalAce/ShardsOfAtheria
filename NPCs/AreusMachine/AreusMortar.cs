@@ -71,11 +71,11 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
 
             NPC.ElementMultipliers([0.8f, 2.0f, 0.8f, 2.0f]);
 
-            NPC.SetDebuffResistance("Sickness", false);
-            NPC.SetDebuffResistance("Electricity", false);
-            NPC.SetDebuffResistance("Heat", false);
-            NPC.SetDebuffResistance("Cold", false);
-            NPC.SetDebuffResistance("Water", true);
+            NPC.SetCalamityDebuffResistance("Sickness", false);
+            NPC.SetCalamityDebuffResistance("Electricity", false);
+            NPC.SetCalamityDebuffResistance("Heat", false);
+            NPC.SetCalamityDebuffResistance("Cold", false);
+            NPC.SetCalamityDebuffResistance("Water", true);
         }
 
         Player Target => Main.player[NPC.target];

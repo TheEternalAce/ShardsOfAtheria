@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.Center = owner.Center;
             if (Main.myPlayer == Projectile.owner)
             {
-                if (Main.mouseLeft && !Main.LocalPlayer.mouseInterface && owner.HeldItem.type != ModContent.ItemType<SoulExtractingDagger>())
+                if (owner.controlUseItem && !Main.LocalPlayer.mouseInterface && owner.HeldItem.type != ModContent.ItemType<SoulExtractingDagger>())
                 {
                     Projectile.ai[1]++;
                     if (Projectile.ai[1] == 1)

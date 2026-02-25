@@ -19,6 +19,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             Item.AddAreus();
             Item.AddDamageType(11, 5);
+
+            Item.AddFinesseWeapon();
         }
 
         public override void SetDefaults()
@@ -41,8 +43,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityEarlyHardmode;
             Item.value = Item.sellPrice(0, 1, 50);
             Item.shoot = ModContent.ProjectileType<ElecKunai>();
-
-            SoA.TryDungeonCall("addFinesseWeapon", Type);
         }
 
         public override bool MeleePrefix()

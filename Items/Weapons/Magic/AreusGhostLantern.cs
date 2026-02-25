@@ -6,11 +6,11 @@ using ShardsOfAtheria.Projectiles.Magic;
 using ShardsOfAtheria.Systems;
 using ShardsOfAtheria.Tiles.Crafting;
 using ShardsOfAtheria.Utilities;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
 using WebCom.Extensions;
@@ -73,12 +73,13 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, ghosts, center + new Vector2(8f, -24f) * Main.inventoryScale, color, 0f, Vector2.Zero, new Vector2(1f) * Main.inventoryScale * 0.8f, spread: Main.inventoryScale);
         }
 
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips[tooltips.GetIndex("ItemName")].Text += $" ({poes})";
+        }
+
         public override void UpdateInventory(Player player)
         {
-            string key = this.GetLocalizationKey("DisplayName");
-            string name = Language.GetTextValue(key) + " (" + poes + ")";
-            Item.SetNameOverride(name);
-
             if (player.IsLocal())
             {
                 int activePoes = player.ownedProjectileCounts[ModContent.ProjectileType<ElectricPoe>()];

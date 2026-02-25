@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Projectiles.Summon;
 using ShardsOfAtheria.Utilities;
@@ -31,7 +32,7 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff.AreusArmor
             {
                 if (player.HasBuff<ShadeState>())
                 {
-                    if (MarksmanProjectile.ConvertableProjectiles.Contains(projectile.type))
+                    if (SoAGlobalProjectile.ConvertableProjectiles.Contains(projectile.type))
                     {
                         Projectile.NewProjectile(source, projectile.Center, projectile.velocity,
                             ModContent.ProjectileType<ElectricShadeShot>(), projectile.damage,

@@ -62,16 +62,15 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             SoundEngine.PlaySound(Item.UseSound, player.Center);
-            float numberProjectiles = 3;
+            float numberProjectiles = 2;
             float rotation = MathHelper.ToRadians(5);
-            position += Vector2.Normalize(velocity) * 10f;
             for (int i = 0; i < numberProjectiles; i++)
             {
-                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                Projectile proj = Projectile.NewProjectileDirect(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
+                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * 0.9f; // Watch out for dividing by 0 if there is only 1 projectile.
+                Projectile proj = Projectile.NewProjectileDirect(source, position, perturbedSpeed, type, damage / 3, knockback, player.whoAmI);
                 proj.DamageType = DamageClass.Ranged;
             }
-            return false;
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 
         public override Vector2? HoldoutOffset()

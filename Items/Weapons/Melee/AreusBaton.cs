@@ -16,6 +16,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.AddAreus();
             Item.AddDamageType(5);
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+
+            Item.AddFinesseWeapon();
         }
 
         public override void SetDefaults()
@@ -39,8 +41,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityDukeFishron;
             Item.value = Item.sellPrice(0, 4, 25);
             Item.shoot = ModContent.ProjectileType<AreusTonfa>();
-
-            SoA.TryDungeonCall("addFinesseWeapon", Type);
         }
 
         public override bool MeleePrefix()

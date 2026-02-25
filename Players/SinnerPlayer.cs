@@ -96,10 +96,14 @@ namespace ShardsOfAtheria.Players
                 {
                     int hungerDecay = 4;
                     int hungerDecayTimer = 30;
-                    if (Player.HasBuff(BuffID.WellFed)) hungerDecay--;
-                    if (Player.HasBuff(BuffID.WellFed2)) hungerDecay -= 2;
                     if (Player.HasBuff(BuffID.WellFed3)) hungerDecay -= 3;
-                    if (Player.HasBuff<GluttonyAcid>()) hungerDecayTimer -= 15;
+                    else if (Player.HasBuff(BuffID.WellFed2)) hungerDecay -= 2;
+                    else if (Player.HasBuff(BuffID.WellFed)) hungerDecay--;
+                    if (Player.HasBuff<GluttonyAcid>())
+                    {
+                        hungerDecay += 6;
+                        hungerDecayTimer -= 15;
+                    }
                     if (Player.sleeping.FullyFallenAsleep)
                     {
                         hungerDecay = 1;
@@ -112,6 +116,11 @@ namespace ShardsOfAtheria.Players
             if (hunger > HUNGER_MAX) Player.AddBuff<OverStuffed>(121);
             else if (hunger < 0) hunger = 0;
             else if (hunger == 0) Player.AddBuff(BuffID.Starving, 180);
+            if (Player.ItemAnimationActive && Player.HeldItem.IsWeapon())
+            {
+                float range = 200f;
+                ShardsHelpers.DustAura(Player.Center, range, DustID.Blood, 20, Player.velocity);
+            }
         }
         void GluttonyRegenDebuff()
         {
@@ -141,18 +150,21 @@ namespace ShardsOfAtheria.Players
         void GluttonyHit(NPC target, NPC.HitInfo hit)
         {
             if (sinID != GLUTTONY) return;
-            bool canBeChased = target.chaseable && target.lifeMax > 5;
-            if (canBeChased && Vector2.Distance(Player.Center, target.Center) < 200)
+            float range = 200f;
+            bool canBeChased = target.chaseable && target.lifeMax > 5 && !target.immortal;
+            if (canBeChased && Vector2.Distance(Player.Center, target.Center) < range)
             {
                 float foodChance = 0.1f;
-                if (hit.Crit || target.life <= 0) foodChance = 1f;
+                if (target.life <= 0 || target.boss) foodChance = 1f;
+                else if (hit.Crit) foodChance += 0.4f;
                 if (hit.DamageType.CountsAsClass(DamageClass.Summon)) foodChance *= 0.5f;
                 if (Main.rand.NextFloat() < foodChance && foodCoolDown <= 0)
                 {
                     int hungerRefill = 120;
                     if (target.life <= 0) hungerRefill += 180;
-                    else foodCoolDown = FOOD_COOLDOWN_MAX;
+                    else if (hunger > FOOD_COOLDOWN_MAX * 3 / 4) foodCoolDown = FOOD_COOLDOWN_MAX;
                     hunger += hungerRefill;
+                    CombatText.NewText(Player.Hitbox, Color.Yellow, hungerRefill);
                 }
             }
         }

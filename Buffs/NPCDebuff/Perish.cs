@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
+using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -12,21 +12,8 @@ namespace ShardsOfAtheria.Buffs.NPCDebuff
     {
         public override void Update(NPC npc, ref int buffIndex)
         {
-            for (var i = 0; i < 20; i++)
-            {
-                Vector2 spawnPos = npc.Center + Main.rand.NextVector2CircularEdge(100, 100);
-                Vector2 offset = spawnPos - Main.LocalPlayer.Center;
-                if (Math.Abs(offset.X) > Main.screenWidth * 0.6f || Math.Abs(offset.Y) > Main.screenHeight * 0.6f) //dont spawn dust if its pointless
-                    continue;
-                Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, DustID.Stone, 0, 0, 100, Color.DarkGray);
-                dust.velocity = npc.velocity;
-                if (Main.rand.NextBool(3))
-                {
-                    dust.velocity += Vector2.Normalize(npc.Center - dust.position) * Main.rand.NextFloat(5f);
-                    dust.position += dust.velocity * 5f;
-                }
-                dust.noGravity = true;
-            }
+            Dust[] ring = ShardsHelpers.DustAura(npc.Center, 100, DustID.Stone, 20, npc.velocity);
+            foreach (Dust d in ring) d.color = Color.DarkGray;
         }
     }
 

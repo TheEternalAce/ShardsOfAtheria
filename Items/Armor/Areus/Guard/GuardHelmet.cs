@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
             Item.width = 18;
             Item.height = 18;
             Item.defense = 6;
-            lesserNonSetDamage = 0.1f;
+            lesserNonSetDamage = 0.06f;
 
             slotType = AreusArmorChip.SlotHead;
 
@@ -32,7 +32,6 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
         {
             base.UpdateEquip(player);
             player.GetDamage(ArmorPlayer.classChip) += 0.05f;
-            player.GetCritChance(ArmorPlayer.classChip) += 0.05f;
             player.manaCost -= 0.05f;
             ArmorPlayer.areusDamage += 0.03f;
             ArmorPlayer.areusHead = true;
@@ -60,7 +59,6 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
             base.UpdateArmorSet(player);
             ArmorPlayer.guardSet = true;
             ModContent.GetInstance<AreusEnergySystem>().ShowBar();
-            player.GetDamage(DamageClass.Generic) += player.Areus().areusEnergy / 200f;
         }
 
         public override void MagicSet(Player player)

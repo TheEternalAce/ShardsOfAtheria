@@ -14,6 +14,8 @@ namespace ShardsOfAtheria.Buffs.Summons
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetDamage(DamageClass.Summon) -= .75f;
+            //player.moveSpeed /= 10;
+            player.slow = true;
         }
     }
 }

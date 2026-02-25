@@ -601,6 +601,27 @@ namespace ShardsOfAtheria.Utilities
             return dusts;
         }
 
+        public static Dust[] DustAura(Vector2 center, float radius, int dustType, int amount = 28, Vector2 addVelocity = new())
+        {
+            Dust[] dusts = new Dust[amount];
+            for (var i = 0; i < amount; i++)
+            {
+                Vector2 spawnPos = center + Main.rand.NextVector2CircularEdge(radius, radius);
+                Vector2 offset = spawnPos - Main.LocalPlayer.Center;
+                if (Math.Abs(offset.X) > Main.screenWidth * 0.6f || Math.Abs(offset.Y) > Main.screenHeight * 0.6f) //dont spawn dust if its pointless
+                    continue;
+                Dust dust = Dust.NewDustDirect(spawnPos, 0, 0, dustType, 0, 0, 100);
+                dust.velocity = addVelocity;
+                if (Main.rand.NextBool(3))
+                {
+                    dust.velocity += Vector2.Normalize(center - dust.position) * Main.rand.NextFloat(5f);
+                    dust.position += dust.velocity * 5f;
+                }
+                dust.noGravity = true;
+            }
+            return dusts;
+        }
+
         public static TooltipLine ShiftTooltipCycle(this ModItem modItem, int maxIndex)
         {
             TooltipLine line;

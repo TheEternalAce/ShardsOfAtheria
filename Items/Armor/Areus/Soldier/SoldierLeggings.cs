@@ -25,9 +25,8 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Soldier
         {
             base.UpdateEquip(player);
             player.GetDamage(ArmorPlayer.classChip) += 0.08f;
-            player.GetCritChance(ArmorPlayer.classChip) += 0.08f;
             ArmorPlayer.areusDamage += 0.05f;
-            player.moveSpeed += 0.13f;
+            player.moveSpeed += 0.1f;
             ArmorPlayer.areusLegs = true;
         }
     }

@@ -87,7 +87,7 @@ namespace ShardsOfAtheria.Items.AreusChips
                             player.inventory[inventoryIndex] = new(modItem.Type);
                         }
                         areusPlayer.chipNames[i] = Name;
-                        ModContent.GetInstance<ChipsUISystem>().SetSlotItem(i, new(Type));
+                        ChipsUISystem.Instance.SetSlotItem(i, new(Type));
                         break;
                     }
                     else if (slotType == SlotAny)
@@ -112,7 +112,7 @@ namespace ShardsOfAtheria.Items.AreusChips
                             player.inventory[inventoryIndex] = new(modItem.Type);
                         }
                         areusPlayer.chipNames[slotIndex] = Name;
-                        ModContent.GetInstance<ChipsUISystem>().SetSlotItem(slotIndex, new(Type));
+                        ChipsUISystem.Instance.SetSlotItem(slotIndex, new(Type));
                         break;
                     }
                 }

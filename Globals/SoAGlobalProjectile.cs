@@ -19,6 +19,7 @@ namespace ShardsOfAtheria.Globals
         public bool explosion = false;
         public bool areusNullField = false;
         public bool nailPunch = false;
+        public bool canHitCoin = false;
 
         public static readonly Dictionary<int, bool> AreusProj = [];
         public static readonly List<int> Eraser = [];
@@ -166,6 +167,18 @@ namespace ShardsOfAtheria.Globals
             181
         ];
         #endregion
+
+        public static readonly int[] ConvertableProjectiles =
+        [
+            ProjectileID.WoodenArrowFriendly,
+            ProjectileID.FlamingArrow,
+            ProjectileID.FrostburnArrow,
+            ProjectileID.UnholyArrow,
+
+            ProjectileID.Bullet,
+            ProjectileID.SilverBullet,
+            ProjectileID.MeteorShot,
+        ];
 
         public override bool InstancePerEntity => true;
 

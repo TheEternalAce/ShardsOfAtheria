@@ -13,6 +13,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             Item.AddAreus();
             Item.AddDamageType(5);
+
+            Item.AddFinesseWeapon();
         }
 
         public override void SetDefaults()
@@ -37,8 +39,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.rare = ItemDefaults.RarityLunarPillars;
             Item.value = 200000;
             Item.shoot = ModContent.ProjectileType<StrikeChain>();
-
-            SoA.TryDungeonCall("addFinesseWeapon", Type);
         }
 
         public override bool CanUseItem(Player player)

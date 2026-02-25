@@ -3,8 +3,10 @@ using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Buffs.PlayerBuff.AreusArmor;
 using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.AreusChips;
 using ShardsOfAtheria.Projectiles.Other;
+using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar;
 using ShardsOfAtheria.Projectiles.Throwing;
 using ShardsOfAtheria.ShardsUI;
@@ -95,69 +97,66 @@ namespace ShardsOfAtheria.Players
 
         public void SetBonusEffects()
         {
-            if (AreusArmorPiece)
+            if (AreusArmorPiece && Main.playerInventory)
+                ChipsUISystem.Instance.ShowChips();
+        }
+
+        public override void ArmorSetBonusActivated()
+        {
+            if (!ArmorSetCooldown)
             {
-                if (Main.playerInventory) ModContent.GetInstance<ChipsUISystem>().ShowChips();
-
-                if ((Player.controlDown && Player.releaseDown && Player.doubleTapCardinalTimer[0] < 15) ||
-                    (Player.controlUp && Player.releaseUp && Player.doubleTapCardinalTimer[1] < 15))
+                int cooldownTime = 60;
+                if (guardSet && areusEnergy > 0)
                 {
-                    if (!ArmorSetCooldown)
+                    if (WarriorSetChip) GuardActive_Melee();
+                    if (MageSetChip) GuardActive_Magic();
+                    if (RangerSetChip) GuardActive_Ranged();
+                    if (CommanderSetChip) GuardActive_Summon();
+                    if (NinjaSetChip) GuardActive_Throwing();
+                    areusEnergy = 0;
+                }
+                if (soldierSet)
+                {
+                    cooldownTime *= 10;
+                    var velocity = Main.MouseWorld - Player.Center;
+                    velocity.Normalize();
+                    var banner = Projectile.NewProjectileDirect(Player.GetSource_FromThis(), Player.Center, velocity * 16f,
+                        ModContent.ProjectileType<AreusHoloBannerProjector>(), 0, 0);
+                    banner.DamageType = classChip;
+                }
+                if (imperialSet)
+                {
+                    if (CommanderSetChip) ImperialActive_Summon();
+                    if (imperialVoid >= 33)
                     {
-                        int cooldownTime = 60;
-                        if (guardSet && areusEnergy > 0)
-                        {
-                            if (WarriorSetChip) GuardActive_Melee();
-                            if (MageSetChip) GuardActive_Magic();
-                            if (RangerSetChip) GuardActive_Ranged();
-                            if (CommanderSetChip) GuardActive_Summon();
-                            if (NinjaSetChip) GuardActive_Throwing();
-                            areusEnergy = 0;
-                        }
-                        if (soldierSet)
-                        {
-                            cooldownTime *= 10;
-                            var velocity = Main.MouseWorld - Player.Center;
-                            velocity.Normalize();
-                            var banner = Projectile.NewProjectileDirect(Player.GetSource_FromThis(), Player.Center, velocity * 16f,
-                                ModContent.ProjectileType<AreusHoloBannerProjector>(), 0, 0);
-                            banner.DamageType = classChip;
-                        }
-                        if (imperialSet)
-                        {
-                            if (CommanderSetChip) ImperialActive_Summon();
-                            if (imperialVoid >= 33)
-                            {
-                                bool consumeVoid = false;
-                                if (WarriorSetChip || MageSetChip || RangerSetChip || NinjaSetChip) consumeVoid = true;
+                        bool consumeVoid = false;
+                        if (WarriorSetChip || MageSetChip || RangerSetChip || NinjaSetChip) consumeVoid = true;
 
-                                if (WarriorSetChip) ImperialActive_Melee();
-                                if (MageSetChip) ImperialActive_Magic();
-                                if (RangerSetChip) ImperialActive_Ranged();
-                                if (NinjaSetChip) ImperialActive_Thrown();
+                        if (WarriorSetChip) ImperialActive_Melee();
+                        if (MageSetChip) ImperialActive_Magic();
+                        if (RangerSetChip) ImperialActive_Ranged();
+                        if (NinjaSetChip) ImperialActive_Thrown();
 
-                                if (consumeVoid) ConsumeImperialVoid();
-                            }
-                        }
-                        if (royalSet)
-                        {
-                            cooldownTime *= 10;
-                            var npc = ShardsHelpers.FindClosestNPC(Main.MouseWorld, null, 100f);
-                            if (npc != null)
-                            {
-                                Player.MinionAttackTargetNPC = npc.whoAmI;
-                                npc.AddBuff<MarkedByAvatar>(3600);
-                            }
-                            if (CommanderSetChip)
-                            {
-                                cooldownTime *= 2;
-                                RoyalActive_Summon();
-                            }
-                        }
-                        if (cooldownTime > 600) cooldownTime = 600;
-                        Player.AddBuff<SetBonusCooldown>(cooldownTime);
+                        if (consumeVoid) ConsumeImperialVoid();
                     }
                 }
+                if (royalSet)
+                {
+                    cooldownTime *= 10;
+                    var npc = ShardsHelpers.FindClosestNPC(Main.MouseWorld, null, 100f);
+                    if (npc != null)
+                    {
+                        Player.MinionAttackTargetNPC = npc.whoAmI;
+                        npc.AddBuff<MarkedByAvatar>(3600);
+                    }
+                    if (CommanderSetChip)
+                    {
+                        cooldownTime *= 2;
+                        RoyalActive_Summon();
+                    }
+                }
+                if (cooldownTime > 600) cooldownTime = 600;
+                Player.AddBuff<SetBonusCooldown>(cooldownTime);
             }
         }
 
@@ -217,8 +216,16 @@ namespace ShardsOfAtheria.Players
 
         public override void ModifyShootStats(Item item, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (ninjaSet && item.DamageType.CountsAsClass(DamageClass.Throwing)) velocity *= 1.2f;
-            if (bannerVelocity) velocity *= 1.2f;
+            if (guardSet && RangerSetChip && Player.HasBuff<ElectricMarksman>() &&
+                SoAGlobalProjectile.ConvertableProjectiles.Contains(type))
+            {
+                type = ModContent.ProjectileType<ElectricMarksmanShot>();
+                return;
+            }
+
+            Vector2 percentVelocity = velocity * 0.2f;
+            if (ninjaSet && item.DamageType.CountsAsClass(DamageClass.Throwing)) velocity += percentVelocity;
+            if (bannerVelocity) velocity += percentVelocity;
         }
 
         public override bool Shoot(Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

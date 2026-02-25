@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Imperial
             base.UpdateEquip(player);
             player.GetDamage(ArmorPlayer.classChip) += 0.1f;
             ArmorPlayer.areusDamage += 0.08f;
-            player.moveSpeed += 0.16f;
+            player.moveSpeed += 0.1f;
             ArmorPlayer.areusLegs = true;
         }
     }

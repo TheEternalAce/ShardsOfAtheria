@@ -15,6 +15,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.AddDamageType(2);
             Item.AddElement(1);
             Item.AddRedemptionElement(3);
+
+            Item.AddFinesseWeapon();
         }
 
         public override void SetDefaults()
@@ -38,8 +40,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shootSpeed = 15f;
             Item.rare = ItemDefaults.RaritySlayer;
             Item.shoot = ModContent.ProjectileType<EntropyBlade>();
-
-            SoA.TryDungeonCall("addFinesseWeapon", Type);
         }
 
         public override bool MeleePrefix()

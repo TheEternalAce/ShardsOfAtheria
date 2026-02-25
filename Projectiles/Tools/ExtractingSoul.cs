@@ -4,8 +4,9 @@ using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
-using static ShardsOfAtheria.Utilities.Entry;
+using static ShardsOfAtheria.Systems.SlayerSystem;
 
 namespace ShardsOfAtheria.Projectiles.Tools
 {
@@ -55,7 +56,7 @@ namespace ShardsOfAtheria.Projectiles.Tools
                     Damage = 100,
                     Knockback = 0f,
                     Dodgeable = false,
-                    DamageSource = PlayerDeathReason.ByCustomReason(customDeath)
+                    DamageSource = PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(customDeath))
                 };
                 player.Hurt(info);
                 OnHitPlayer(player, info);

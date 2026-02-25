@@ -9,11 +9,17 @@ namespace ShardsOfAtheria.Items.Tools.Misc
 {
     public class AmethystDagger : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            SoA.TryDungeonCall("excludeWeapon", Item.type);
+        }
+
         public override void SetDefaults()
         {
             Item.width = 46;
             Item.height = 46;
 
+            Item.damage = 100;
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Shoot;

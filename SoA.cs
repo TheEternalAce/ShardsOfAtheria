@@ -29,8 +29,6 @@ namespace ShardsOfAtheria
 {
     public partial class SoA : Mod
     {
-        public static int MaxNecronomiconPages = 2;
-
         #region Keybinds
         public static ModKeybind OverdriveKey { get; private set; }
         public static ModKeybind TomeKey { get; private set; }
@@ -49,6 +47,7 @@ namespace ShardsOfAtheria
         public static bool AprilFools => DateTime.Now is DateTime { Month: 4 };
 
         public static bool BNEEnabled => ModLoader.TryGetMod(ElementModName, out Mod _);
+        public static bool ContentSetup { get; private set; }
 
         public static Mod Instance => ModContent.GetInstance<SoA>();
 
@@ -149,6 +148,11 @@ namespace ShardsOfAtheria
                     wikithis.Call("AddWikiTexture", Instance, ModContent.Request<Texture2D>("ShardsOfAtheria/icon_small"));
                 }
             }
+        }
+
+        public override void Unload()
+        {
+            ContentSetup = false;
         }
 
         public override void PostSetupContent()
@@ -335,6 +339,8 @@ namespace ShardsOfAtheria
             ShardsHelpers.SetGunStats(ModContent.ItemType<PhantomRose>(), "pistol", 12);
             ShardsHelpers.SetGunStats(ModContent.ItemType<Scarlet>(), "sniper", 10);
             #endregion
+
+            ContentSetup = true;
         }
 
         public static void TryElementCall(params object[] args)

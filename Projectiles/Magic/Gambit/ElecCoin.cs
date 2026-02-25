@@ -61,9 +61,10 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
             }
             foreach (var proj in Main.projectile)
             {
+                bool canHitCoin = proj.aiStyle == 1 || proj.aiStyle == 0 || proj.GetGlobalProjectile<SoAGlobalProjectile>().canHitCoin;
                 if (proj.friendly &&
                     proj.owner == Projectile.owner &&
-                    (proj.aiStyle == 1 || proj.aiStyle == 0) &&
+                    canHitCoin &&
                     proj.damage > 0 &&
                     proj.active)
                 {

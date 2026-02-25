@@ -28,7 +28,6 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
         {
             base.UpdateEquip(player);
             player.GetDamage(ArmorPlayer.classChip) += 0.05f;
-            player.GetCritChance(ArmorPlayer.classChip) += 0.05f;
             player.statManaMax2 += 60;
             ArmorPlayer.areusDamage += 0.03f;
             ArmorPlayer.areusBody = true;

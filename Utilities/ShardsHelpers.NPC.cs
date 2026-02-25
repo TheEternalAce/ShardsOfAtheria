@@ -322,7 +322,7 @@ namespace ShardsOfAtheria.Utilities
         /// </summary>
         /// <param name="npc"></param>
         /// <param name="elementTypeName"></param>
-        public static void SetDebuffResistance(this NPC npc, string elementTypeName, bool? enabled)
+        public static void SetCalamityDebuffResistance(this NPC npc, string elementTypeName, bool? enabled)
         {
             SoA.TryCalamityCall("SetDebuffVulnerability", npc, elementTypeName, enabled);
         }

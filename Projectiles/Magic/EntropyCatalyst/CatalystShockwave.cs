@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -65,6 +66,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.EntropyCatalyst
                         proj.velocity *= 2f;
                     }
                     player.Sinner().PrideCancelAttack();
+                    proj.GetGlobalProjectile<SoAGlobalProjectile>().canHitCoin = true;
                 }
             }
         }

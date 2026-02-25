@@ -97,7 +97,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
 
             NPC.width = 18;
             NPC.height = 40;
-            NPC.aiStyle = 7;
+            NPC.aiStyle = NPCAIStyleID.Passive;
             NPC.damage = 60;
             NPC.defense = 10;
             NPC.lifeMax = 1000;
@@ -110,9 +110,9 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
 
             NPC.ElementMultipliers([0.5f, 1.0f, 0.8f, 2.0f]);
 
-            NPC.SetDebuffResistance("Cold", true);
-            NPC.SetDebuffResistance("Electricity", false);
-            NPC.SetDebuffResistance("Sickness", true);
+            NPC.SetCalamityDebuffResistance("Cold", true);
+            NPC.SetCalamityDebuffResistance("Electricity", false);
+            NPC.SetCalamityDebuffResistance("Sickness", true);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -190,11 +190,12 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             int playerWhoAmI = NPC.FindClosestPlayer();
             var player = Main.player[playerWhoAmI];
 
-            chat.AddKey(DialogueKeyBase + "Random1");
-            chat.AddKey(DialogueKeyBase + "Random2");
-            chat.AddKey(DialogueKeyBase + "Random3");
-            chat.AddKey(DialogueKeyBase + "Random4");
-            chat.AddKey(DialogueKeyBase + "Random5");
+            chat.AddKey(DialogueKeyBase + "RandomText1");
+            chat.AddKey(DialogueKeyBase + "RandomText2");
+            chat.AddKey(DialogueKeyBase + "RandomText3");
+            chat.AddKey(DialogueKeyBase + "RandomText4");
+            chat.AddKey(DialogueKeyBase + "RandomText5");
+            chat.AddKey(DialogueKeyBase + "RandomText6", player.name);
 
             if (player.HasItem(ModContent.ItemType<GenesisAndRagnarok>()))
             {
@@ -208,7 +209,6 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
             if (ShardsDownedSystem.downedValkyrie) chat.AddKey(DialogueKeyBase + "ExComment");
             int guide = NPC.FindFirstNPC(NPCID.Guide);
             if (guide >= 0) chat.AddKey(DialogueKeyBase + "CSGOReference", Main.npc[guide].GivenName);
-            chat.AddKey(DialogueKeyBase + "MorshuMoment", player.name);
             return chat;
         }
 

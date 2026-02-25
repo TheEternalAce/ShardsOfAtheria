@@ -65,7 +65,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            string lineText = this.GetLocalization("AcrivateOverdrive").Value.FormatWith(SoA.OverdriveKey.GetAssignedKeys().FirstOrDefault());
+            string lineText = this.GetLocalization("ActivateOverdrive").Value.FormatWith(SoA.OverdriveKey.GetAssignedKeys().FirstOrDefault());
             TooltipLine line = new(Mod, "Overdrive", lineText);
             tooltips.AddTooltip(line);
         }

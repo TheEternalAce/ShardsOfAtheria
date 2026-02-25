@@ -3,7 +3,6 @@ using ShardsOfAtheria.Buffs.PlayerDebuff.GemCurse;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -19,7 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Tools
             Projectile.height = 16;
             Projectile.aiStyle = -1;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 60;
+            Projectile.timeLeft = 15;
             Projectile.hostile = true;
         }
 
@@ -36,39 +35,8 @@ namespace ShardsOfAtheria.Projectiles.Tools
             timer--;
 
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
-            if (Projectile.direction == 1)
-            {
-                Projectile.rotation += MathHelper.PiOver2;
-            }
+            if (Projectile.direction == 1) Projectile.rotation += MathHelper.PiOver2;
             Projectile.SetVisualOffsets(46);
-
-            if (Projectile.Colliding(Projectile.Hitbox, player.Hitbox))
-            {
-                int damage = player.statLifeMax2 / 10;
-                var gem = player.Gem();
-                if (gem.amethystCore)
-                {
-                    damage = (int)(damage * 0.8f);
-                }
-                if (gem.greaterAmethystCore)
-                {
-                    damage = (int)(damage * 0.8f);
-                }
-                if (gem.superAmethystCore)
-                {
-                    damage = (int)(damage * 0.8f);
-                }
-                Player.HurtInfo info = new()
-                {
-                    Damage = damage,
-                    Knockback = 0f,
-                    Dodgeable = false,
-                    DamageSource = PlayerDeathReason.ByProjectile(player.whoAmI, Projectile.whoAmI)
-                };
-                player.Hurt(info);
-                player.AddBuff<WoundedAmethyst>(60);
-                Projectile.Kill();
-            }
         }
 
         public override bool ShouldUpdatePosition()
@@ -79,6 +47,30 @@ namespace ShardsOfAtheria.Projectiles.Tools
         public override bool CanHitPlayer(Player target)
         {
             return target.whoAmI == Projectile.owner && !target.immune && !target.creativeGodMode;
+        }
+
+        public override bool? CanHitNPC(NPC target)
+        {
+            return false;
+        }
+
+        public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
+        {
+            var gem = target.Gem();
+            if (gem.amethystCore)
+                modifiers.IncomingDamageMultiplier *= 0.8f;
+            if (gem.greaterAmethystCore)
+                modifiers.IncomingDamageMultiplier *= 0.8f;
+            if (gem.superAmethystCore)
+                modifiers.IncomingDamageMultiplier *= 0.8f;
+            modifiers.ScalingArmorPenetration += 1f;
+            modifiers.Knockback *= 0f;
+        }
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff<WoundedAmethyst>(60);
+            Projectile.Kill();
         }
 
         public override void OnKill(int timeLeft)

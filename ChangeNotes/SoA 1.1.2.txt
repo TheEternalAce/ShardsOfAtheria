@@ -2,3 +2,26 @@
 - Removed food chunk projectile. Being close to enemies when damaging them restores hunger instead.
 - Overstuffed reduces attack speed instead of damage.
 - Updated Gluttony description to inform user about acid.
+- Reduced time to use soul crystals.
+- Creeper Sheild now reduces movement speed.
+- Adjustmented the Brain of Cthulu soul crystal creepers movement. Overall it is much cleaner.
+- Adjustmented the Planterra Soul Crystal tentacles movement. It will keep up better.
+  - Also extended its range.
+- Amethyst Dagger now deals 100 damage instead of scaling with max life.
+- Soul Injection no longer increases movement speed.
+- Areus Guard Leggings no longer increases movement speed.
+- Reduced movement speed bonus from Areus Soldier, Imperial, and Royal Greaves to 10%.
+- Areus Wand tweaks.
+  - Removed alt use function.
+  - Instead the sword is swung while having the buff.
+  - The buff now has a short duration instead of lasting until hit with the sword.
+  - Decreased life time after hitting an enemy with the hook.
+- Fixed incorrect Areus Imperial armor piece tooltips.
+- Decreased non-class damage boost from Areus Armors.
+- Areus Guard and Soldier Armor pieces no longer increase critical strike chance.
+- Added visual to show the range at which Gluttony regains hunger.
+  - Also added visual to show how much hunger was gained.
+- Down Bow's extra projectiles are now slower and weaker.
+- Reworked and resprited Gomorrah.
+  - Now a broadsword style weapon, builds gore on hit.
+  - Alt use consumes gore and throws a random projectile.

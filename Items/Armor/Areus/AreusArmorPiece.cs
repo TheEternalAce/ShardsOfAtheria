@@ -54,8 +54,9 @@ namespace ShardsOfAtheria.Items.Armor.Areus
 
             if (melee || ranged || magic || summon || throwing)
             {
+                string doubleTapDirection = Language.GetTextValue(Main.ReversedUpDownArmorSetBonuses ? "Key.UP" : "Key.DOWN");
                 itemKey += ArmorPlayer.classChip.Name.Replace("DamageClass", "") + "Bonus";
-                setBonusText += "\n" + Language.GetTextValue(itemKey);
+                setBonusText += "\n" + Language.GetTextValue(itemKey, doubleTapDirection);
             }
             if (melee) MeleeSet(player);
             else if (ranged) RangedSet(player);
@@ -76,7 +77,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus
 
         public virtual void RangedSet(Player player)
         {
-            player.moveSpeed += 0.5f;
+            player.moveSpeed += 0.02f;
             player.GetDamage(DamageClass.Melee) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Magic) += lesserNonSetDamage;
             player.GetDamage(DamageClass.Summon) += lesserNonSetDamage;

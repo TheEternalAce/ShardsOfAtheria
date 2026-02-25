@@ -3,7 +3,7 @@ using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
 using ShardsOfAtheria.Buffs.Summons;
-using ShardsOfAtheria.NPCs.Misc;
+using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Summon.Minions;
 using ShardsOfAtheria.Projectiles.Tools;
@@ -386,20 +386,13 @@ namespace ShardsOfAtheria.Players
             }
             if (BoCSoul)
             {
-                if (!Player.HasBuff(ModContent.BuffType<CreeperShield>()))
-                    creeperSpawnTimer++;
-                else creeperSpawnTimer = 0;
+                creeperSpawnTimer++;
+                if (Player.HasBuff(ModContent.BuffType<CreeperShield>()) ||
+                    Player.HasBuff(ModContent.BuffType<CreeperRevenge>()))
+                    creeperSpawnTimer = 0;
                 if (creeperSpawnTimer >= 360)
                 {
-                    if (Player.HasBuff(ModContent.BuffType<CreeperShield>()))
-                        return;
-                    else
-                    {
-                        NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X + 20), (int)(Player.Center.Y + 20), ModContent.NPCType<Creeper>());
-                        NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X - 20), (int)(Player.Center.Y + 20), ModContent.NPCType<Creeper>());
-                        NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X + 20), (int)(Player.Center.Y - 20), ModContent.NPCType<Creeper>());
-                        NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X - 20), (int)(Player.Center.Y - 20), ModContent.NPCType<Creeper>());
-                    }
+                    ModContent.GetInstance<BrainSoulCrystal>().CompleteAbsorption(Player);
                     creeperSpawnTimer = 0;
                 }
             }
@@ -568,35 +561,21 @@ namespace ShardsOfAtheria.Players
 
         public override void PostHurt(Player.HurtInfo info)
         {
-            if (slayerMode)
-            {
-                totalDamageTaken += info.Damage;
-                lastDamageTaken = info.Damage;
-            }
+            totalDamageTaken += info.Damage;
+            lastDamageTaken = info.Damage;
 
             if (QueenSoul)
-            {
                 Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<CrystalExplosion>(), 60, 6f, Player.whoAmI);
-            }
             if (totalDamageTaken >= 100)
             {
                 if (DestroyerSoul && Player.ownedProjectileCounts[ModContent.ProjectileType<TheDestroyersProbeAttack>()] < 5)
-                {
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<TheDestroyersProbeAttack>(), 50, 0f, Player.whoAmI);
-                }
                 if (MoonLordSoul && Player.ownedProjectileCounts[ModContent.ProjectileType<TrueEyeOfCthulhuAttack>()] < 2)
-                {
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<TrueEyeOfCthulhuAttack>(), 90, 2f, Player.whoAmI);
-                }
                 totalDamageTaken = 0;
             }
-            if (DeathSoul)
-            {
-                if (Main.rand.NextBool(4))
-                {
-                    Player.AddBuff(BuffID.Bleeding, 900);
-                }
-            }
+            if (DeathSoul && Main.rand.NextBool(4))
+                Player.AddBuff(BuffID.Bleeding, 900);
         }
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
@@ -630,67 +609,20 @@ namespace ShardsOfAtheria.Players
 
         public override void OnRespawn()
         {
-            if (EoCSoul)
-            {
-                Projectile.NewProjectile(Player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<AllSeeingEye>(), 0, 0f, Player.whoAmI);
-            }
-            if (BoCSoul)
-            {
-                NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X + 20), (int)(Player.Center.Y + 20), ModContent.NPCType<Creeper>());
-                NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X - 20), (int)(Player.Center.Y + 20), ModContent.NPCType<Creeper>());
-                NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X + 20), (int)(Player.Center.Y - 20), ModContent.NPCType<Creeper>());
-                NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X - 20), (int)(Player.Center.Y - 20), ModContent.NPCType<Creeper>());
-            }
-            if (DestroyerSoul)
-            {
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<TheDestroyersProbe>()] == 0)
-                {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<TheDestroyersProbe>(), 0, 0f, Player.whoAmI);
-                }
-            }
-            if (MoonLordSoul)
-            {
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<TrueEyeOfCthulhu>()] == 0)
-                {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<TrueEyeOfCthulhu>(), 0, 0f, Player.whoAmI);
-                }
-            }
-            soulCrystalNames = soulCrystalNames.Distinct().ToList();
+            if (EoCSoul) ModContent.GetInstance<EyeSoulCrystal>().CompleteAbsorption(Player);
+            if (BoCSoul) ModContent.GetInstance<BrainSoulCrystal>().CompleteAbsorption(Player);
+            if (DestroyerSoul) ModContent.GetInstance<DestroyerSoulCrystal>().CompleteAbsorption(Player);
+            if (MoonLordSoul) ModContent.GetInstance<LordSoulCrystal>().CompleteAbsorption(Player);
+            soulCrystalNames = [.. soulCrystalNames.Distinct()];
         }
 
         public override void OnEnterWorld()
         {
-            if (!Entry.entriesLoaded)
-            {
-                Entry.IncludedEntries();
-                Entry.entriesLoaded = true;
-            }
-            if (EoCSoul)
-            {
-                Projectile.NewProjectile(Player.GetSource_FromThis(), Main.MouseWorld, Vector2.Zero, ModContent.ProjectileType<AllSeeingEye>(), 0, 0f, Player.whoAmI);
-            }
-            if (BoCSoul)
-            {
-                NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X + 20), (int)(Player.Center.Y + 20), ModContent.NPCType<Creeper>());
-                NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X - 20), (int)(Player.Center.Y + 20), ModContent.NPCType<Creeper>());
-                NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X + 20), (int)(Player.Center.Y - 20), ModContent.NPCType<Creeper>());
-                NPC.NewNPC(NPC.GetBossSpawnSource(Player.whoAmI), (int)(Player.Center.X - 20), (int)(Player.Center.Y - 20), ModContent.NPCType<Creeper>());
-            }
-            if (DestroyerSoul)
-            {
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<TheDestroyersProbe>()] == 0)
-                {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<TheDestroyersProbe>(), 0, 0f, Player.whoAmI);
-                }
-            }
-            if (MoonLordSoul)
-            {
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<TrueEyeOfCthulhu>()] == 0)
-                {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<TrueEyeOfCthulhu>(), 0, 0f, Player.whoAmI);
-                }
-            }
-            soulCrystalNames = soulCrystalNames.Distinct().ToList();
+            if (EoCSoul) ModContent.GetInstance<EyeSoulCrystal>().CompleteAbsorption(Player);
+            if (BoCSoul) ModContent.GetInstance<BrainSoulCrystal>().CompleteAbsorption(Player);
+            if (DestroyerSoul) ModContent.GetInstance<DestroyerSoulCrystal>().CompleteAbsorption(Player);
+            if (MoonLordSoul) ModContent.GetInstance<LordSoulCrystal>().CompleteAbsorption(Player);
+            soulCrystalNames = [.. soulCrystalNames.Distinct()];
         }
 
         #region Soul crystal checks

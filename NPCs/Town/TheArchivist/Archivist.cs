@@ -61,7 +61,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
 
             NPC.width = 18;
             NPC.height = 40;
-            NPC.aiStyle = 7;
+            NPC.aiStyle = NPCAIStyleID.Passive;
             NPC.damage = 19;
             NPC.defense = 10;
             NPC.lifeMax = 250;
@@ -73,9 +73,9 @@ namespace ShardsOfAtheria.NPCs.Town.TheArchivist
 
             NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersWood);
 
-            NPC.SetDebuffResistance("Heat", true);
-            NPC.SetDebuffResistance("Electricity", false);
-            NPC.SetDebuffResistance("Sickness", true);
+            NPC.SetCalamityDebuffResistance("Heat", true);
+            NPC.SetCalamityDebuffResistance("Electricity", false);
+            NPC.SetCalamityDebuffResistance("Sickness", true);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

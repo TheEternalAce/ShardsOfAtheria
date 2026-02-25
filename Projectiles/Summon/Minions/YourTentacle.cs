@@ -5,6 +5,7 @@ using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,7 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 {
     public class YourTentacle : ModProjectile
     {
-        float degrees;
+        float randomRotation;
 
         public override void SetStaticDefaults()
         {
@@ -42,6 +43,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.penetrate = 9;
 
             DrawOriginOffsetY = -6;
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            randomRotation = Main.rand.NextFloat(MathHelper.TwoPi);
         }
 
         // Here you can decide if your minion breaks things like grass or pots
@@ -76,22 +82,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             }
             Projectile.rotation = Vector2.Normalize(Projectile.Center - owner.Center).ToRotation() + MathHelper.Pi;
 
-            float maxDetectRadius = 400f; // The maximum radius at which a projectile can detect a target
-            float projSpeed = 5f; // The speed at which the projectile moves towards the target
-
-
-            // Trying to find NPC closest to the projectile
-            NPC closestNPC = Projectile.FindClosestNPC(null, maxDetectRadius);
-            if (closestNPC == null)
-            {
-                GeneralBehavior(owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition);
-                Movement(distanceToIdlePosition, vectorToIdlePosition);
-                return;
-            }
-
-            // If found, change the velocity of the projectile and turn it in the direction of the target
-            // Use the SafeNormalize extension method to avoid NaNs returned by Vector2.Normalize when the vector is zero
-            Projectile.velocity = (closestNPC.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * projSpeed;
+            GeneralBehavior(owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition);
+            Movement(distanceToIdlePosition, vectorToIdlePosition);
         }
 
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
@@ -105,16 +97,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
         private void GeneralBehavior(Player owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition)
         {
-            if (Projectile.ai[0] == 0)
-            {
-                degrees = Main.rand.NextFloat(360);
-                Projectile.ai[0] = 1;
-            }
-            Vector2 idlePosition = owner.Center + Vector2.One.RotatedBy(MathHelper.ToRadians(degrees)) * 90;
-            // If your minion doesn't aimlessly move around when it's idle, you need to "put" it into the line of other summoned minions
-            // The index is projectile.minionPos
-            float minionPositionOffsetX = (10 + Projectile.minionPos * 40) * -owner.direction;
-            idlePosition.X += minionPositionOffsetX; // Go behind the player
+            Vector2 idlePosition = owner.Center + Vector2.One.RotatedBy(randomRotation) * 150f;
 
             // All of this code below this line is adapted from Spazmamini code (ID 388, aiStyle 66)
 
@@ -142,66 +125,45 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                 if (i != Projectile.whoAmI && other.active && other.owner == Projectile.owner && Math.Abs(Projectile.position.X - other.position.X) + Math.Abs(Projectile.position.Y - other.position.Y) < Projectile.width)
                 {
                     if (Projectile.position.X < other.position.X)
-                    {
                         Projectile.velocity.X -= overlapVelocity;
-                    }
                     else
-                    {
                         Projectile.velocity.X += overlapVelocity;
-                    }
 
                     if (Projectile.position.Y < other.position.Y)
-                    {
                         Projectile.velocity.Y -= overlapVelocity;
-                    }
                     else
-                    {
                         Projectile.velocity.Y += overlapVelocity;
-                    }
                 }
             }
         }
 
         private void Movement(float distanceToIdlePosition, Vector2 vectorToIdlePosition)
         {
-            float speed;
-            float inertia;
-            // Default movement parameters (here for attacking)
-            float maxDetectRadius = 400f;
+            float speed = 10f;
+            float inertia = 30f;
 
-            NPC closestNPC = Projectile.FindClosestNPC(null, maxDetectRadius);
-
-            if (closestNPC == null)
+            if (distanceToIdlePosition > 1600f)
             {
-                // Minion doesn't have a target: return to player and idle
-                if (distanceToIdlePosition > 600f)
-                {
-                    // Speed up the minion if it's away from the player
-                    speed = 12f;
-                    inertia = 60f;
-                }
-                else
-                {
-                    // Slow down the minion if closer to the player
-                    speed = 4f;
-                    inertia = 80f;
-                }
+                // Speed up the minion if it's away from the player
+                speed = 12f;
+                inertia = 60f;
+            }
 
-                if (distanceToIdlePosition > 20f)
-                {
-                    // The immediate range around the player (when it passively floats about)
+            if (distanceToIdlePosition > 20f)
+            {
+                // The immediate range around the player (when it passively floats about)
 
-                    // This is a simple movement formula using the two parameters and its desired direction to create a "homing" movement
-                    vectorToIdlePosition.Normalize();
-                    vectorToIdlePosition *= speed;
-                    Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
-                }
-                else if (Projectile.velocity == Vector2.Zero)
-                {
-                    // If there is a case where it's not moving at all, give it a little "poke"
-                    Projectile.velocity.X = -0.15f;
-                    Projectile.velocity.Y = -0.05f;
-                }
+                // This is a simple movement formula using the two parameters and its desired direction to create a "homing" movement
+                vectorToIdlePosition.Normalize();
+                vectorToIdlePosition *= speed;
+                //vectorToIdlePosition += Projectile.GetPlayerOwner().velocity;
+                Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
+            }
+            else if (Projectile.velocity == Vector2.Zero)
+            {
+                // If there is a case where it's not moving at all, give it a little "poke"
+                Projectile.velocity.X = -0.15f;
+                Projectile.velocity.Y = -0.05f;
             }
         }
 

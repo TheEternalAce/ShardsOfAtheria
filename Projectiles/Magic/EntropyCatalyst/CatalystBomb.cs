@@ -23,6 +23,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.EntropyCatalyst
         {
             Projectile.Size = new Vector2(14);
             Projectile.friendly = true;
+            Projectile.aiStyle = -1;
             Projectile.DamageType = DamageClass.Magic;
 
             DrawOriginOffsetY = -7;
@@ -61,7 +62,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.EntropyCatalyst
                             if (proj.type == Type && proj.ai[0] == 0) break;
                             proj.Kill();
                             Projectile.Kill();
-                            OnKill(0);
+                            OnKill(-1);
                             break;
                         }
                     }
@@ -81,18 +82,28 @@ namespace ShardsOfAtheria.Projectiles.Magic.EntropyCatalyst
         // Make sure the bomb doesn't explode when hitting coins
         public override void OnKill(int timeLeft)
         {
-            if (Projectile.GetPlayerOwner().IsLocal() && timeLeft == 0) Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<FieryExplosion>(),
-                (int)(Projectile.damage * 1.5f), Projectile.knockBack);
+            if (timeLeft == 0) Explode();
+        }
+
+        private void Explode()
+        {
+            if (Projectile.GetPlayerOwner().IsLocal())
+            {
+                float multiplier = Boosted ? 1.5f : 0.75f;
+                int damage = (int)(Projectile.damage * multiplier);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero,
+                    ModContent.ProjectileType<FieryExplosion>(), damage, Projectile.knockBack);
+            }
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            OnKill(0);
+            Explode();
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            OnKill(0);
+            Explode();
             return base.OnTileCollide(oldVelocity);
         }
     }

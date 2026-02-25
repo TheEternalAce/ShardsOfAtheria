@@ -15,6 +15,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.AddElement(1);
             Item.AddElement(3);
             Item.AddRedemptionElement(12);
+
+            Item.AddFinesseWeapon();
         }
 
         public override void SetDefaults()
@@ -36,8 +38,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shootSpeed = 16;
             Item.rare = ItemRarityID.Master;
             Item.value = Item.sellPrice(0, 10);
-
-            SoA.TryDungeonCall("addFinesseWeapon", Type);
         }
 
         public override bool AltFunctionUse(Player player)

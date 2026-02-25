@@ -8,8 +8,8 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff
     {
         public override void SetStaticDefaults()
         {
-            BuffID.Sets.TimeLeftDoesNotDecrease[Type] = true;
-            Main.buffNoTimeDisplay[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+            Main.debuff[Type] = true;
         }
     }
 }

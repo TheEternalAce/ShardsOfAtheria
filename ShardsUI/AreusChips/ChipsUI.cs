@@ -75,7 +75,7 @@ namespace ShardsOfAtheria.ShardsUI
             var areus = Main.LocalPlayer.Areus();
             if (!Main.playerInventory || !areus.AreusArmorPiece)
             {
-                ModContent.GetInstance<ChipsUISystem>().HideChips();
+                ChipsUISystem.Instance.HideChips();
                 return;
             }
 
@@ -147,6 +147,7 @@ namespace ShardsOfAtheria.ShardsUI
 
     public class ChipsUISystem : ModSystem
     {
+        public static ChipsUISystem Instance { get; private set; }
         internal ChipsUI ChipsIU;
         private UserInterface chipsInterface;
 
@@ -158,6 +159,7 @@ namespace ShardsOfAtheria.ShardsUI
             ChipsIU.Activate();
             chipsInterface = new UserInterface();
             chipsInterface.SetState(null);
+            Instance = this;
         }
 
         public override void UpdateUI(GameTime gameTime)

@@ -28,9 +28,7 @@ namespace ShardsOfAtheria.Players
         private void GuardActive_Ranged()
         {
             if (!Player.HasBuff<ElectricMarksman>())
-            {
-                Player.AddBuff<ElectricMarksman>(areusEnergy);
-            }
+                Player.AddBuff<ElectricMarksman>(areusEnergy * 15);
         }
         private void GuardActive_Magic()
         {

@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 {
     public class EntropicArtifact : ModItem
     {
-        int manualCooldown;
+        int manualShootCooldown;
 
         public override void SetStaticDefaults()
         {
@@ -72,7 +72,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
         {
             int manaCost = (int)(20 * player.manaCost);
             int starType = ModContent.ProjectileType<RedStar>();
-            if (player.altFunctionUse == 2 && player.ownedProjectileCounts[starType] > 0 && manualCooldown == 0 && player.statMana >= manaCost)
+            if (player.altFunctionUse == 2 && player.ownedProjectileCounts[starType] > 0 && manualShootCooldown == 0 && player.statMana >= manaCost)
             {
                 foreach (Projectile proj in Main.projectile)
                 {
@@ -82,7 +82,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
                         bool cardActive = devCard != null && devCard.Active;
                         (proj.ModProjectile as RedStar).shoot = true;
                         (proj.ModProjectile as RedStar).shootingTimer = 0;
-                        if (!cardActive) manualCooldown = 120;
+                        if (!cardActive) manualShootCooldown = 120;
                         player.MinionAttackTargetNPC = ShardsHelpers.FindClosestNPCIndex(Main.MouseWorld);
                         player.statMana -= manaCost;
                         player.manaRegenDelay = 60;
@@ -101,12 +101,12 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 
         public override void UpdateInventory(Player player)
         {
-            if (manualCooldown == 1)
+            if (manualShootCooldown == 1)
             {
                 SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
                 ShardsHelpers.DustRing(player.Center, 3f, DustID.GemAmethyst);
             }
-            if (manualCooldown > 0) manualCooldown--;
+            if (manualShootCooldown > 0) manualShootCooldown--;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -136,9 +136,9 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            if (manualCooldown > 0)
+            if (manualShootCooldown > 0)
             {
-                float percent = manualCooldown / 120f;
+                float percent = manualShootCooldown / 120f;
                 var hitbox = frame;
                 hitbox.X = (int)(position.X - origin.X);
                 hitbox.Y = (int)(position.Y - origin.Y);

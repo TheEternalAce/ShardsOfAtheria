@@ -89,9 +89,9 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
             NPC.ElementMultipliers([1.5f, 0.8f, 1.5f, 0.8f]);
 
-            NPC.SetDebuffResistance("Electricity", true);
-            NPC.SetDebuffResistance("Heat", true);
-            NPC.SetDebuffResistance("Sickness", false);
+            NPC.SetCalamityDebuffResistance("Electricity", true);
+            NPC.SetCalamityDebuffResistance("Heat", true);
+            NPC.SetCalamityDebuffResistance("Sickness", false);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

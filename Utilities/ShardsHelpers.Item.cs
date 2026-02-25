@@ -126,6 +126,10 @@ namespace ShardsOfAtheria.Utilities
         {
             SoA.TryDungeonCall("addDamageElement", "item", item.type, elementIDs);
         }
+        public static void AddFinesseWeapon(this Item item)
+        {
+            SoA.TryDungeonCall("addFinesseWeapon", item.type);
+        }
 
         /// <summary>
         /// 0 (Fire) <br/>

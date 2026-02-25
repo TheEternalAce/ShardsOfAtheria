@@ -23,14 +23,14 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
 
         public override void SetDefaults()
         {
-            Projectile.width = 20;
-            Projectile.height = 20;
+            Projectile.width = 50;
+            Projectile.height = 50;
             Projectile.DamageType = DamageClass.Magic;
 
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.tileCollide = false;
-            Projectile.penetrate = 5;
+            Projectile.stopsDealingDamageAfterPenetrateHits = true;
             Projectile.timeLeft = 60;
             Projectile.extraUpdates = 3;
 
@@ -42,6 +42,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
             Player player = Main.player[Projectile.owner];
             Vector2 vector2 = Projectile.Center - player.Center;
 
+            Projectile.SetVisualOffsets(new Vector2(18, 20), true);
             player.ChangeDir(Projectile.Center.X > player.Center.X ? 1 : -1);
             player.itemAnimation = 2;
             player.itemTime = 2;
@@ -74,24 +75,20 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
             // These 2 could probably be moved to the ModifyNPCHit hook, but in vanilla they are present in the AI
             Projectile.ignoreWater = true; // Make sure the projectile ignores water
             Projectile.tileCollide = false; // Make sure the projectile doesn't collide with tiles anymore
-            const int aiFactor = 15; // Change this factor to change the 'lifetime' of this sticking javelin
             //Projectile.timeLeft = 10;
 
             int projTargetIndex = TargetWhoAmI;
             var target = Main.npc[projTargetIndex];
             int targetSize = (target.width + target.height) / 4;
+            float distanceToTarget = target.Distance(player.Center);
 
-            if (Projectile.localAI[0] >= 60 * aiFactor || projTargetIndex < 0 || projTargetIndex >= 200 || Projectile.Distance(player.Center) < 50 + targetSize)
+            if (projTargetIndex < 0 || projTargetIndex >= 200 || distanceToTarget < 50 + targetSize)
             {
                 if (target.lifeMax < 2000 && !target.boss && target.CanBeChasedBy())
-                {
                     target.velocity *= 0;
-                }
-                else
-                {
-                    player.velocity *= 0;
-                }
-                player.itemAnimation = 0;
+                else player.velocity *= 0;
+                player.reuseDelay = 5;
+                player.AddBuff<WandBuff>(30);
                 Projectile.Kill();
             }
             else if (target.active && !target.dontTakeDamage)
@@ -120,14 +117,13 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Electrified, 600);
-            Projectile.GetPlayerOwner().AddBuff<WandBuff>(2);
             IsStickingToTarget = true; // we are sticking to a target
             TargetWhoAmI = target.whoAmI; // Set the target whoAmI
             Projectile.velocity =
                 (target.Center - Projectile.Center) *
                 0.75f; // Change velocity based on delta center of targets (difference between entity centers)
             Projectile.netUpdate = true; // netUpdate this javelin
-            Projectile.timeLeft = 600;
+            Projectile.timeLeft = 120;
             Projectile.damage = 0; // Makes sure the sticking javelins do not deal damage anymore
         }
 

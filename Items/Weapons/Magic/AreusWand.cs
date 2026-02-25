@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Magic.WandAreus;
@@ -56,12 +57,12 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
         public override bool AltFunctionUse(Player player)
         {
-            return true;
+            return false;
         }
 
         public override bool CanUseItem(Player player)
         {
-            if (player.altFunctionUse == 2)
+            if (player.HasBuff<WandBuff>())
             {
                 Item.useStyle = ItemUseStyleID.Swing;
                 Item.UseSound = SoundID.Item1;
@@ -84,7 +85,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (player.altFunctionUse == 2)
+            if (player.HasBuff<WandBuff>())
             {
                 velocity.Normalize();
                 type = ModContent.ProjectileType<AreusWandBlade>();

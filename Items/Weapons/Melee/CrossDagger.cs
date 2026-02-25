@@ -18,6 +18,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.AddElement(3);
             Item.AddRedemptionElement(12);
             Item.AddRedemptionElement(8);
+
+            Item.AddFinesseWeapon();
         }
 
         public override void SetDefaults()
@@ -41,8 +43,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.value = Item.sellPrice(0, 15);
             Item.rare = ItemDefaults.RarityDemoniteCrimtane;
             Item.shoot = ModContent.ProjectileType<BloodBlade>();
-
-            SoA.TryDungeonCall("addFinesseWeapon", Type);
         }
 
         public override void AddRecipes()

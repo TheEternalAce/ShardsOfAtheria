@@ -33,9 +33,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             if (Projectile.GetPlayerOwner().HasBuff<WandBuff>())
-            {
                 modifiers.ScalingBonusDamage += 1f;
-            }
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -55,6 +53,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.WandAreus
                 player.ClearBuff<WandBuff>();
                 player.ManaEffect(mana);
                 player.statMana += mana;
+                player.reuseDelay = 10;
             }
             base.OnHitNPC(target, hit, damageDone);
         }

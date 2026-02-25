@@ -1,14 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
-namespace ShardsOfAtheria.Utilities
+namespace ShardsOfAtheria.Systems
 {
-    public class Entry
+    public class SlayerSystem : ModSystem
     {
-        public static bool entriesLoaded = false;
-        public static List<PageEntry> entries = new();
+        public static int MaxNecronomiconPages { get; private set; } = 2;
+        public static readonly List<PageEntry> entries = [];
+        private static bool entriesLoaded = false;
 
         public static void NewEntry(string mod, string name, string tooltip, string crystalItem)
         {
@@ -17,36 +20,27 @@ namespace ShardsOfAtheria.Utilities
         public static void NewEntry(string mod, string name, string tooltip, Color pageColor, string crystalItem)
         {
             entries.Add(new PageEntry(mod, name, tooltip, pageColor, crystalItem));
-            SoA.MaxNecronomiconPages++;
+            MaxNecronomiconPages++;
         }
         public static void NewEntryWithKeys(string mod, string nameKey, string tooltipKey, Color pageColor, string crystalItem)
         {
             entries.Add(new PageEntry(mod, Language.GetTextValue(nameKey), Language.GetTextValue(tooltipKey), pageColor, crystalItem));
-            SoA.MaxNecronomiconPages++;
+            MaxNecronomiconPages++;
         }
 
-        public struct PageEntry
+        public struct PageEntry(string mod, string entryName, string soulCrystalTooltip, Color entryColor, string crystalItem)
         {
-            public string mod = "";
-            public string soulCrystalTooltip = "";
-            public string entryName = "";
-            public Color entryColor = Color.White;
-            public string crystalItem = "";
-
-            public PageEntry(string mod, string entryName, string soulCrystalTooltip, Color entryColor, string crystalItem)
-            {
-                this.mod = mod;
-                this.entryName = entryName;
-                this.soulCrystalTooltip = soulCrystalTooltip;
-                this.entryColor = entryColor;
-                this.crystalItem = crystalItem;
-            }
+            public string mod = mod;
+            public string soulCrystalTooltip = soulCrystalTooltip;
+            public string entryName = entryName;
+            public Color entryColor = entryColor;
+            public string crystalItem = crystalItem;
 
             public readonly string EntryText => $"{entryName} ({mod})\n" +
                     $"{soulCrystalTooltip}";
         }
 
-        public static void IncludedEntries()
+        public static void LoadIncludedEntries()
         {
             string KeyBase = "Mods.ShardsOfAtheria.Items.";
             NewEntry("Terraria", "King Slime", Language.GetTextValue(KeyBase + "KingSoulCrystal.Tooltip"), Color.Blue, "KingSoulCrystal");
@@ -71,11 +65,17 @@ namespace ShardsOfAtheria.Utilities
             NewEntry("Shards of Atheria", "Senterra, Atherial Land", WipEntry(), Color.Green, "LandSoulCrystal");
             NewEntry("Shards of Atheria", "Genesis, Atherial Time", WipEntry(), Color.BlueViolet, "TimeSoulCrystal");
             NewEntry("Shards of Atheria", "Elizabeth Norman, Death", WipEntry(), Color.DarkGray, "DeathSoulCrystal");
+            entriesLoaded = true;
         }
 
         public static string WipEntry()
         {
             return ShardsHelpers.LocalizeNecronomicon("WipSoulEntry");
+        }
+
+        public override void PostSetupContent()
+        {
+            if (!entriesLoaded) LoadIncludedEntries();
         }
     }
 }

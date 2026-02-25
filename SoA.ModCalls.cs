@@ -111,7 +111,7 @@ namespace ShardsOfAtheria
                         else
                         {
                             var mod = (Mod)args[1];
-                            Entry.NewEntry(mod.Name, (string)args[2], (string)args[3], (string)args[4]);
+                            SlayerSystem.NewEntry(mod.Name, (string)args[2], (string)args[3], (string)args[4]);
                         }
                         break;
                     case ADD_COLORED_NECRO_ENTRY:
@@ -138,7 +138,7 @@ namespace ShardsOfAtheria
                         else
                         {
                             var mod = (Mod)args[1];
-                            Entry.NewEntry(mod.Name, (string)args[2], (string)args[3], (Color)args[4], (string)args[5]);
+                            SlayerSystem.NewEntry(mod.Name, (string)args[2], (string)args[3], (Color)args[4], (string)args[5]);
                         }
                         break;
                     case ADD_MAGNETIC_PROJECTILE:
@@ -180,7 +180,7 @@ namespace ShardsOfAtheria
                         }
                         else throw new ArgumentException(args[1].GetType().Name + INVALID_PROJECTILE);
                     case GET_PLACEHOLDER_NECRO_ENTRY:
-                        return Entry.WipEntry();
+                        return SlayerSystem.WipEntry();
                     case FLAG_HAS_SOUL_CYSTAL_ABSORBED:
                         if (args[1] is Player soulsPlayer)
                         {

@@ -89,9 +89,9 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
 
             NPC.ElementMultipliers([2.0f, 0.8f, 0.8f, 1.5f]);
 
-            NPC.SetDebuffResistance("Electricity", false);
-            NPC.SetDebuffResistance("Heat", true);
-            NPC.SetDebuffResistance("Sickness", true);
+            NPC.SetCalamityDebuffResistance("Electricity", false);
+            NPC.SetCalamityDebuffResistance("Heat", true);
+            NPC.SetCalamityDebuffResistance("Sickness", true);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

@@ -32,10 +32,10 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
 
             NPC.ElementMultipliers(ShardsHelpers.NPCMultipliersAqua);
 
-            NPC.SetDebuffResistance("Heat", true);
-            NPC.SetDebuffResistance("Cold", false);
-            NPC.SetDebuffResistance("Electricity", true);
-            NPC.SetDebuffResistance("Sickness", false);
+            NPC.SetCalamityDebuffResistance("Heat", true);
+            NPC.SetCalamityDebuffResistance("Cold", false);
+            NPC.SetCalamityDebuffResistance("Electricity", true);
+            NPC.SetCalamityDebuffResistance("Sickness", false);
 
             projectileDamage = 13;
             projectileType = ModContent.ProjectileType<Blood>();
