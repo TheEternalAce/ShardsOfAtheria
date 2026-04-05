@@ -17,12 +17,13 @@ namespace ShardsOfAtheria.Systems
 {
     public class ShardsSystem : ModSystem
     {
-        public static bool ContentFinished = false;
+        public static bool ContentFinished { get; private set; } = false;
         public static ShardsSystem Instance { get; private set; }
         public bool omegaKey;
         public bool omegaShrine;
         public bool atherianTomb;
         public bool crestGifted;
+        public List<int> generatedOres = [];
 
         public override void Load()
         {
@@ -37,11 +38,13 @@ namespace ShardsOfAtheria.Systems
         public override void SaveWorldData(TagCompound tag)
         {
             tag["crestGifted"] = crestGifted;
+            tag["ores"] = generatedOres.ToArray();
         }
 
         public override void LoadWorldData(TagCompound tag)
         {
             if (tag.ContainsKey("crestGifted")) crestGifted = tag.GetBool("crestGifted");
+            if (tag.ContainsKey("ores")) generatedOres = [.. tag.GetIntArray("ores")];
         }
 
         public override void PostSetupContent()
@@ -89,14 +92,32 @@ namespace ShardsOfAtheria.Systems
                             {
                                 c.Insert(ModContent.ItemType<OmegaKey>(), 1);
                                 omegaKey = true;
-
                             }
                         }
                     }
                 }
             }
+            RecordOres();
             if (!omegaKey) Mod.Logger.Info("Omega Key has not been placed.");
             if (!omegaShrine) Mod.Logger.Info("Omega Shrine has not been placed.");
+        }
+
+        public override void OnWorldLoad()
+        {
+            if (generatedOres.Count == 0) RecordOres();
+        }
+
+        private void RecordOres()
+        {
+            for (int x = 0; x < Main.maxTilesX; x++)
+            {
+                for (int y = 0; y < Main.maxTilesY; y++)
+                {
+                    var tile = Main.tile[x, y];
+                    if (!generatedOres.Contains(tile.TileType) && (tile.TileType == TileID.Copper || tile.TileType == TileID.Tin || tile.TileType == TileID.Iron || tile.TileType == TileID.Lead || tile.TileType == TileID.Silver || tile.TileType == TileID.Tungsten || tile.TileType == TileID.Gold || tile.TileType == TileID.Platinum))
+                        generatedOres.Add(tile.TileType);
+                }
+            }
         }
     }
 
@@ -139,7 +160,6 @@ namespace ShardsOfAtheria.Systems
                 if (x < Main.maxTilesX * 0.2f && x > Main.maxTilesX * 0.05f || x > Main.maxTilesX * 0.8f && x < Main.maxTilesX * 0.95f)
                 {
                     int y = WorldGen.genRand.Next((int)(Main.maxTilesY * 0.85f), Main.maxTilesY);
-
                     int shaleType = -1;
                     if (ModLoader.TryGetMod("TheDepths", out Mod depths) && depths.TryFind<ModTile>("ShaleBlock", out var shale)) shaleType = shale.Type;
                     if ((Main.tile[x, y].TileType == TileID.Ash || Main.tile[x, y].TileType == shaleType) && !Main.tile[x, y - 1].HasTile && Main.tile[x, y - 1].LiquidType != LiquidID.Lava)

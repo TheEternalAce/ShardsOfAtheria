@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Items.Tools.Misc.Slayer;
+using ShardsOfAtheria.Items.Tools.Slayer;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;

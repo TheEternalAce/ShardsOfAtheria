@@ -48,7 +48,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            damage = ShardsHelpers.ScaleByProggression(player, damage);
+            damage.Flat += ShardsHelpers.ProggressionValue(player, [0, 4, 30, 60, 80]);
         }
 
         float bladeDirection = 1.1f;

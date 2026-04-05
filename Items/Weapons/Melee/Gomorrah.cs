@@ -1,22 +1,26 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Common.Items;
-using ShardsOfAtheria.Projectiles.Melee.Gomorrah;
+using ShardsOfAtheria.Items.SinfulSouls;
+using ShardsOfAtheria.Players;
+using ShardsOfAtheria.Projectiles.Melee.GomorrahProjectiles;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI.Chat;
 using Terraria.Utilities;
 
 namespace ShardsOfAtheria.Items.Weapons.Melee
 {
-    public class Gomorrah : ModItem
+    public class Gomorrah : SinfulItem
     {
-        int gore = 0;
+        bool throwDefault = false;
+
+        public override int RequiredSin => SinnerPlayer.GLUTTONY;
+
+        // Base damages: 50, 130, 230
+        public override int[] DamageSpread => [0, 80, 100];
 
         public override void SetStaticDefaults()
         {
@@ -50,6 +54,21 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shoot = ProjectileID.PurificationPowder;
         }
 
+        public override bool CanRightClick()
+        {
+            return true;
+        }
+
+        public override void RightClick(Player player)
+        {
+            throwDefault = !throwDefault;
+        }
+
+        public override bool ConsumeItem(Player player)
+        {
+            return false;
+        }
+
         public override bool AltFunctionUse(Player player)
         {
             return true;
@@ -57,43 +76,25 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool CanUseItem(Player player)
         {
-            if (player.altFunctionUse == 2 && gore > 0)
+            var sinner = player.Sinner();
+            bool cleaverThrow = throwDefault ? !player.controlUp : player.controlUp;
+            if ((player.altFunctionUse == 2 && sinner.gluttonyHunger > 100) || cleaverThrow)
             {
                 Item.noUseGraphic = true;
                 Item.noMelee = true;
             }
-            else
+            else if (!cleaverThrow)
             {
                 Item.noUseGraphic = false;
                 Item.noMelee = false;
             }
-            return true;
+            return base.CanUseItem(player);
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            tooltips[tooltips.GetIndex("ItemName")].Text += $" ({gore})";
-        }
-
-        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
-        {
-            if (Main.playerInventory || Main.gameMenu || !Main.PlayerLoaded)
-                return;
-
-            var center = position;
-            center.X -= TextureAssets.InventoryBack.Value.Width / 2f * Main.inventoryScale;
-            center.Y += TextureAssets.InventoryBack.Value.Height / 2f * Main.inventoryScale;
-            string viscera = gore.ToString();
-
-            var color = Color.Red;
-            var font = FontAssets.MouseText.Value;
-            ChatManager.DrawColorCodedStringWithShadow(spriteBatch, font, viscera, center + new Vector2(8f, -24f) * Main.inventoryScale, color, 0f, Vector2.Zero, new Vector2(1f) * Main.inventoryScale * 0.8f, spread: Main.inventoryScale);
-        }
-
-        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            bool canBeChased = target.chaseable && target.lifeMax > 5 && !target.immortal;
-            if (canBeChased) gore += 5;
+            TooltipLine line = new(Mod, "PrimaryAttackMode", this.GetLocalizedValue("PrimaryAttackMode" + (throwDefault ? 1 : 0)));
+            tooltips.Insert(tooltips.GetIndex("Tooltip#"), line);
         }
 
         readonly int whip = ModContent.ProjectileType<TendonWhip>();
@@ -101,34 +102,47 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         readonly int pile = ModContent.ProjectileType<FleshBit>();
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            WeightedRandom<int> goreProjectile = new();
-            goreProjectile.Add(whip);
-            goreProjectile.Add(spike);
-            goreProjectile.Add(pile);
+            bool cleaverThrow = throwDefault ? !player.controlUp : player.controlUp;
+            if (player.altFunctionUse == 2 && player.Sinner().gluttonyHunger > 100)
+            {
+                WeightedRandom<int> goreProjectile = new();
+                goreProjectile.Add(whip);
+                goreProjectile.Add(spike);
+                goreProjectile.Add(pile);
 
-            type = goreProjectile;
-            if (type == whip)
-            {
-                velocity *= 3f;
-                damage = (int)(damage * 1.8f);
+                type = goreProjectile;
+
+                if (type == whip)
+                {
+                    velocity *= 3f;
+                    damage = (int)(damage * 1.5f);
+                }
+                else if (type == spike)
+                {
+                    velocity *= 16f;
+                    damage = (int)(damage * 1.8f);
+                }
+                else if (type == pile)
+                {
+                    velocity *= 12f;
+                    damage = (int)(damage * 0.5f);
+                }
             }
-            else if (type == spike)
+            else if (cleaverThrow)
             {
-                velocity *= 16f;
-                damage = (int)(damage * 1.5f);
-            }
-            else if (type == pile)
-            {
-                velocity *= 12f;
-                damage = (int)(damage * 0.5f);
+                type = ModContent.ProjectileType<Cleaver>();
+                velocity *= 15f;
+                if (NPC.downedGolemBoss) velocity *= 2f;
             }
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (player.altFunctionUse == 2 && gore > 0)
+            var sinner = player.Sinner();
+            bool cleaverThrow = throwDefault ? !player.controlUp : player.controlUp;
+            if (player.altFunctionUse == 2 && sinner.gluttonyHunger >= 100)
             {
-                gore--;
+                sinner.gluttonyHunger -= 100;
                 if (type == pile)
                 {
                     int numberProjectiles = 2 + Main.rand.Next(0, 3);
@@ -145,6 +159,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
                 }
                 return true;
             }
+            if (cleaverThrow) return true;
             return false;
         }
     }

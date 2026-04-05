@@ -47,10 +47,9 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusDaggerProjs
         static int GetStuckDaggers(NPC target, bool killDaggers = false)
         {
             int stuckDaggers = 0;
-            foreach (Projectile projectile in Main.projectile)
+            foreach (Projectile projectile in Main.ActiveProjectiles)
             {
                 if (projectile.ModProjectile is AreusDaggerProj dagger &&
-                    projectile.active &&
                     dagger.IsStickingToTarget &&
                     dagger.TargetWhoAmI == target.whoAmI)
                 {

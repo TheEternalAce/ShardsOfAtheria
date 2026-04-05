@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.ShardsUI.InfoDisplays
         {
             var player = Main.LocalPlayer;
             var gluttony = player.Sinner();
-            return "" + gluttony.hunger;
+            return "" + gluttony.gluttonyHunger;
         }
     }
 }

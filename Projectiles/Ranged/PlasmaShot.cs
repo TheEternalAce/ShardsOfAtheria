@@ -37,7 +37,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
         public override bool PreDraw(ref Color lightColor)
         {
             Projectile.DrawAfterImage(Color.White);
-            return true;
+            return false;
         }
 
         public override void OnKill(int timeLeft)

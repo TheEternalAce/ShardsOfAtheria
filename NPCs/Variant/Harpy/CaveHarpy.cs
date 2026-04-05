@@ -5,8 +5,11 @@ using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
+using ShardsOfAtheria.ShardsConditions;
+using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Utilities;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
@@ -109,34 +112,33 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         {
             base.ModifyNPCLoot(npcLoot);
             int maxOres = 25;
-            // Todo, make ores match those found in world.
-            int[,] ores = new int[,]
-            {
-                { ItemID.CopperOre, maxOres },
-                { ItemID.TinOre, maxOres },
-                { ItemID.IronOre, maxOres },
-                { ItemID.LeadOre, maxOres },
-                { ItemID.SilverOre, maxOres },
-                { ItemID.TungstenOre, maxOres },
-                { ItemID.GoldOre, maxOres },
-                { ItemID.PlatinumOre, maxOres },
-                { ModContent.ItemType<BionicOreItem>(), maxOres }
-            };
+            List<ItemDrop> ores =
+            [
+                new(ItemID.CopperOre, maxOres, SoAConditions.WorldGeneratedOre(TileID.Copper)),
+                new(ItemID.TinOre, maxOres, SoAConditions.WorldGeneratedOre(TileID.Tin)),
+                new(ItemID.IronOre, maxOres, SoAConditions.WorldGeneratedOre(TileID.Iron)),
+                new(ItemID.LeadOre, maxOres, SoAConditions.WorldGeneratedOre(TileID.Lead)),
+                new(ItemID.SilverOre, maxOres, SoAConditions.WorldGeneratedOre(TileID.Silver)),
+                new(ItemID.TungstenOre, maxOres, SoAConditions.WorldGeneratedOre(TileID.Tungsten)),
+                new(ItemID.GoldOre, maxOres, SoAConditions.WorldGeneratedOre(TileID.Gold)),
+                new(ItemID.PlatinumOre, maxOres, SoAConditions.WorldGeneratedOre(TileID.Platinum)),
+                new(ModContent.ItemType<BionicOreItem>(), maxOres),
+            ];
 
             npcLoot.Add(ShardsDrops.ManyFromOptions(1, ores));
 
             int maxGems = 3;
-            int[,] gems = new[,]
-            {
-                { ItemID.Amethyst, maxGems },
-                { ItemID.Diamond, maxGems },
-                { ItemID.Emerald, maxGems },
-                { ItemID.Ruby, maxGems },
-                { ItemID.Sapphire, maxGems },
-                { ItemID.Topaz, maxGems },
-                { ItemID.Amber, maxGems },
-                { ModContent.ItemType<Jade>(), maxGems }
-            };
+            List<ItemDrop> gems =
+            [
+                new(ItemID.Amethyst, maxGems),
+                new(ItemID.Diamond, maxGems),
+                new(ItemID.Emerald, maxGems),
+                new(ItemID.Ruby, maxGems),
+                new(ItemID.Sapphire, maxGems),
+                new(ItemID.Topaz, maxGems),
+                new(ItemID.Amber, maxGems),
+                new(ModContent.ItemType<Jade>(), maxGems),
+            ];
             npcLoot.Add(ShardsDrops.ManyFromOptions(1, gems));
         }
 

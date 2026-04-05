@@ -67,7 +67,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            damage = ShardsHelpers.ScaleByProggression(player, damage);
+            damage.Flat = ShardsHelpers.ProggressionValue(player, [0, 36, 60, 80], 1);
             base.ModifyWeaponDamage(player, ref damage);
         }
 

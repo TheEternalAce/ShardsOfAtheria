@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Projectiles.Summon.Active;
-using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,7 +11,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 {
     public class FrostsparkDrone : ModProjectile
     {
-        public bool ElectricMode => Projectile.ai[0] == 1f;
         int ShootTimer
         {
             get => (int)Projectile.ai[1];
@@ -39,7 +38,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.penetrate = -1;
             Projectile.timeLeft *= 5;
             Projectile.minion = true;
-            Projectile.minionSlots = 1f;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.friendly = true;
@@ -47,6 +45,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
 
             DrawOffsetX = -9;
             DrawOriginOffsetY = -9;
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (Projectile.ai[0] == 1) Projectile.frame = 1;
         }
 
         // Here you can decide if your minion breaks things like grass or pots
@@ -59,12 +62,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         public override bool MinionContactDamage()
         {
             return false;
-        }
-
-        public override bool PreAI()
-        {
-            Projectile.minionSlots = 1f + Projectile.GetPlayerOwner().Shards().frostsparkDronesTier;
-            return base.PreAI();
         }
 
         public override void AI()
@@ -182,33 +179,33 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
                 inertia = 80f;
                 float shootSpeed = 2f;
                 int projType = ModContent.ProjectileType<FrostsparkBeam>();
-                if (Projectile.ai[1] == 0)
+                if (ShootTimer == 0)
                 {
                     foundTargetIdlePos = Vector2.One.RotatedByRandom(MathHelper.TwoPi) * 150;
-                    Projectile.ai[1] = 1;
+                    ShootTimer = 1;
                 }
                 Vector2 idlePos = targetCenter + foundTargetIdlePos;
                 vectorToIdlePosition = idlePos - Projectile.Center;
 
                 if (++ShootTimer >= 120 + Main.rand.Next(60))
                 {
-                    Vector2 vel = Vector2.Normalize(targetCenter - Projectile.Center) * shootSpeed;
-                    int damage = (int)(Projectile.originalDamage * (1 + player.Shards().frostsparkDronesTier));
-                    var projectile = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, vel, projType, damage, 0, Projectile.owner, 0f, 1f);
+                    Vector2 velocity = Vector2.Normalize(targetCenter - Projectile.Center) * shootSpeed;
+                    int damage = Projectile.originalDamage;
+                    var projectile = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(),
+                        Projectile.Center, velocity, projType, damage, 0, Projectile.owner, 1f);
                     projectile.tileCollide = false;
-                    Projectile.ai[1] = 0;
                     ShootTimer = 0;
                 }
             }
             else
             {
-                if (Projectile.ai[1] == 0) foundTargetIdlePos = Vector2.One.RotatedByRandom(MathHelper.TwoPi) * 100;
+                if (ShootTimer == 0) foundTargetIdlePos = Vector2.One.RotatedByRandom(MathHelper.TwoPi) * 100;
                 Vector2 idlePos = player.Center + foundTargetIdlePos;
                 vectorToIdlePosition = idlePos - Projectile.Center;
-                if (++Projectile.ai[1] >= 60) Projectile.ai[1] = 0;
+                if (++ShootTimer >= 60) ShootTimer = 0;
             }
 
-            if (distanceToIdlePosition > 400f)
+            if ((foundTarget && distanceFromTarget > 400f) || (!foundTarget && distanceToIdlePosition > 400f))
             {
                 speed = 26f;
                 inertia = 40f;
@@ -236,11 +233,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
         // This is the "active check", makes sure the minion is alive while the player is alive, and despawns if not
         private bool CheckActive(Player owner)
         {
-            if (owner.dead || !owner.active || !owner.HasBuff<FrostsparkDroneBuff>() || owner.ownedProjectileCounts[Type] < 2)
-            {
-                owner.Shards().frostsparkDronesTier = 0;
+            if (owner.dead || !owner.active || !owner.HasBuff<FrostsparkDroneBuff>())
                 return false;
-            }
             else Projectile.timeLeft = 2;
             return true;
         }
@@ -253,9 +247,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             if (Projectile.spriteDirection == -1) DrawOffsetX = -2;
             else DrawOffsetX = -9;
             Projectile.spriteDirection = Projectile.direction;
-
-            if (ElectricMode) Projectile.frame = 1;
-            else Projectile.frame = 0;
         }
     }
 }

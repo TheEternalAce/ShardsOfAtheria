@@ -73,7 +73,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            damage = ShardsHelpers.ScaleByProggression(player, damage);
+            damage.Flat += ShardsHelpers.ProggressionValue(player, [0, 2, 22, 50, 60]);
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -91,9 +91,9 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             int bombType = ModContent.ProjectileType<HunterSingularity>();
             if (type == Item.shoot && player.controlUp)
             {
-                foreach (Projectile proj in Main.projectile)
+                foreach (Projectile proj in Main.ActiveProjectiles)
                 {
-                    if (proj.active && proj.owner == player.whoAmI && proj.type == bombType)
+                    if (proj.owner == player.whoAmI && proj.type == bombType)
                         (proj.ModProjectile as HunterSingularity).Explode();
                 }
                 Item.reuseDelay = 0;
@@ -102,9 +102,9 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             if (type != Item.shoot && player.ownedProjectileCounts[bombType] > 0)
             {
                 int i = 0;
-                foreach (Projectile proj in Main.projectile)
+                foreach (Projectile proj in Main.ActiveProjectiles)
                 {
-                    if (proj.active && proj.owner == player.whoAmI && proj.type == bombType && proj.ai[0] == 0)
+                    if (proj.owner == player.whoAmI && proj.type == bombType && proj.ai[0] == 0)
                     {
                         i++;
                         (proj.ModProjectile as HunterSingularity).SetShootStats(i * 2, source, Main.MouseWorld, velocity.Length(), type, damage, knockback);

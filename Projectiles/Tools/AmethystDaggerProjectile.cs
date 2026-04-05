@@ -27,7 +27,6 @@ namespace ShardsOfAtheria.Projectiles.Tools
             Player player = Projectile.GetPlayerOwner();
 
             int newDirection = Projectile.Center.X > player.Center.X ? 1 : -1;
-            player.ChangeDir(newDirection);
             Projectile.direction = newDirection;
             Projectile.spriteDirection = -newDirection;
 
@@ -56,7 +55,10 @@ namespace ShardsOfAtheria.Projectiles.Tools
 
         public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
         {
+            // Cut damage in half since hostile projectile damage is doubled for some reason.
+            modifiers.IncomingDamageMultiplier *= 0.5f;
             var gem = target.Gem();
+            // Reduce damage with gem cores.
             if (gem.amethystCore)
                 modifiers.IncomingDamageMultiplier *= 0.8f;
             if (gem.greaterAmethystCore)
@@ -65,6 +67,7 @@ namespace ShardsOfAtheria.Projectiles.Tools
                 modifiers.IncomingDamageMultiplier *= 0.8f;
             modifiers.ScalingArmorPenetration += 1f;
             modifiers.Knockback *= 0f;
+            modifiers = modifiers with { Dodgeable = false };
         }
 
         public override void OnHitPlayer(Player target, Player.HurtInfo info)

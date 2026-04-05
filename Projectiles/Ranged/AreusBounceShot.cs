@@ -6,7 +6,6 @@ using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Ranged
 {
@@ -27,16 +26,9 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         public override void SetDefaults()
         {
-            Projectile.width = Projectile.height = 4;
-            Projectile.timeLeft = 600;
-            Projectile.extraUpdates = 99;
-            Projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Ranged;
-            Projectile.alpha = 255;
-            Projectile.aiStyle = 0;
+            base.SetDefaults();
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-            Projectile.ignoreWater = true;
             Projectile.penetrate = -1;
             bounces = 3;
         }
@@ -66,10 +58,12 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             if (bounces-- != 0)
             {
                 // If the projectile hits the left or right side of the tile, reverse the X velocity
+                float diffX = Math.Abs(Projectile.velocity.X - oldVelocity.X);
                 if (Math.Abs(Projectile.velocity.X - oldVelocity.X) > float.Epsilon)
                     Projectile.velocity.X = -oldVelocity.X * 1.05f;
 
                 // If the projectile hits the top or bottom side of the tile, reverse the Y velocity
+                float diffY = Math.Abs(Projectile.velocity.Y - oldVelocity.Y);
                 if (Math.Abs(Projectile.velocity.Y - oldVelocity.Y) > float.Epsilon)
                     Projectile.velocity.Y = -oldVelocity.Y * 1.05f;
                 var npc = Projectile.FindClosestNPC(null, 100);

@@ -5,6 +5,7 @@ namespace ShardsOfAtheria.Buffs.NPCDebuff
 {
     public class Marked : ModBuff
     {
+        public override string Texture => SoA.DebuffTemplate;
         public override void SetStaticDefaults()
         {
             Main.debuff[Type] = true;

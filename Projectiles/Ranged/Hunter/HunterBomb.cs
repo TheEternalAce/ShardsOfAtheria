@@ -21,14 +21,13 @@ namespace ShardsOfAtheria.Projectiles.Ranged.Hunter
             Projectile.ai[0]++;
             if (Projectile.ai[0] > 15) Projectile.velocity *= 0.99f;
             Projectile.rotation += Vector2.Normalize(Projectile.velocity).Length() * 0.05f;
-            foreach (var proj in Main.projectile)
+            foreach (var proj in Main.ActiveProjectiles)
             {
                 if (proj.friendly &&
                     proj.whoAmI != Projectile.whoAmI &&
                     proj.owner == Projectile.owner &&
                     (proj.aiStyle == 1 || proj.aiStyle == 0) &&
                     proj.damage > 0 &&
-                    proj.active &&
                     proj.arrow)
                 {
                     if (proj.Distance(Projectile.Center) <= 15)

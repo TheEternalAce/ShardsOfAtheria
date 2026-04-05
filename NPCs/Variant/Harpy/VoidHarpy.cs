@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Items.Placeable.Banner;
 using ShardsOfAtheria.Items.Weapons.Summon;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
+using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -113,11 +114,11 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
         {
             base.ModifyNPCLoot(npcLoot);
 
-            int[,] ores = new int[,]
-            {
-                { ItemID.Hellstone, 3 },
-                { ItemID.Obsidian, 5 },
-            };
+            List<ItemDrop> ores =
+            [
+                new(ItemID.Hellstone, 3),
+                new(ItemID.Obsidian, 5),
+            ];
             npcLoot.Add(ShardsDrops.ManyFromOptions(1, ores));
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BrokenAreusMirror>(), 15));
         }

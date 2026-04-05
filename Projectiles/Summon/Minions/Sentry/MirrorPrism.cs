@@ -120,9 +120,9 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.Sentry
 
         private void RepellPrisms(float maxDistance)
         {
-            foreach (Projectile projectile in Main.projectile)
+            foreach (Projectile projectile in Main.ActiveProjectiles)
             {
-                if (projectile.active && projectile.whoAmI != Projectile.whoAmI && projectile.type == Type)
+                if (projectile.whoAmI != Projectile.whoAmI && projectile.type == Type)
                 {
                     var distToPlayer = Vector2.Distance(projectile.Center, Projectile.Center);
                     if (distToPlayer <= maxDistance)

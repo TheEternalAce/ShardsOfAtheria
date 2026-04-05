@@ -4,13 +4,33 @@ using Terraria.GameContent.ItemDropRules;
 
 namespace ShardsOfAtheria.ShardsConditions.ItemDrop
 {
-    public class ManyFromOptionsDropRule(int chanceDenominator, int chanceNumerator, int[,] options) : IItemDropRule
+    public struct ItemDrop(int type, int count, Condition condition = null)
     {
-        public int[,] dropIds = options;
+        public int Type = type;
+        public int Count = count;
+        public Condition Condition = condition;
+    }
+
+    public class ManyFromOptionsDropRule(int chanceDenominator, int chanceNumerator, List<ItemDrop> options) : IItemDropRule
+    {
+        public static readonly int IndexItemID = 0;
+        public static readonly int IndexItemCount = 1;
+
+        public List<ItemDrop> drops = options;
         public int chanceDenominator = chanceDenominator;
         public int chanceNumerator = chanceNumerator;
 
         public List<IItemDropRuleChainAttempt> ChainedRules { get; private set; } = [];
+
+        List<ItemDrop> GetDropableItems()
+        {
+            List<ItemDrop> result = [];
+            foreach (ItemDrop drop in drops)
+            {
+                if (drop.Condition == null || drop.Condition.IsMet()) result.Add(drop);
+            }
+            return result;
+        }
 
         public bool CanDrop(DropAttemptInfo info)
         {
@@ -22,9 +42,11 @@ namespace ShardsOfAtheria.ShardsConditions.ItemDrop
             ItemDropAttemptResult result;
             if (info.player.RollLuck(chanceDenominator) < chanceNumerator)
             {
-                int ind = info.rng.Next(dropIds.Length / 2);
-                int amount = Main.rand.Next(dropIds[ind, 1] + 1);
-                CommonCode.DropItem(info, dropIds[ind, 0], amount);
+                var drops = GetDropableItems();
+                int ind = info.rng.Next(drops.Count);
+                var drop = drops[ind];
+                int amount = Main.rand.Next(drop.Count + 1);
+                CommonCode.DropItem(info, drop.Type, amount);
                 result = default;
                 result.State = ItemDropAttemptResultState.Success;
                 return result;
@@ -39,10 +61,11 @@ namespace ShardsOfAtheria.ShardsConditions.ItemDrop
         {
             float num = chanceNumerator / (float)chanceDenominator;
             float num2 = num * ratesInfo.parentDroprateChance;
-            float dropRate = 1f / dropIds.Length / 2 * num2;
-            for (int i = 0; i < dropIds.Length / 2; i++)
+            float dropRate = 1f / this.drops.Count * num2;
+            for (int i = 0; i < this.drops.Count; i++)
             {
-                drops.Add(new DropRateInfo(dropIds[i, 0], 1, dropIds[i, 1], dropRate, ratesInfo.conditions));
+                var drop = this.drops[i];
+                drops.Add(new DropRateInfo(drop.Type, 1, drops.Count, dropRate, ratesInfo.conditions));
             }
 
             Chains.ReportDroprates(ChainedRules, num, drops, ratesInfo);

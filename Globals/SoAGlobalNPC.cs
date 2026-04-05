@@ -15,6 +15,7 @@ using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon;
 using ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok;
+using ShardsOfAtheria.Projectiles.Melee.MaliceProjectiles;
 using ShardsOfAtheria.ShardsConditions;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Utilities;
@@ -226,12 +227,30 @@ namespace ShardsOfAtheria.Globals
 
         public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
         {
+            if (npc.HasBuff<LoomingEntropy>())
+                modifiers.Defense.Flat -= LoomingEntropy.DefenseReduction;
             if (npc.HasBuff(ModContent.BuffType<Cleaved>()))
                 modifiers.Defense.Flat -= 8;
             if (npc.HasBuff(ModContent.BuffType<Marked>()))
                 modifiers.ScalingBonusDamage += 0.1f;
             if (npc.HasBuff(ModContent.BuffType<MarkedByAvatar>()))
                 modifiers.ScalingBonusDamage += 1f;
+        }
+
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
+        {
+            if (npc.HasBuff<MaliceDebuff>() && projectile.type == ModContent.ProjectileType<MaliceSpear>())
+                modifiers.ScalingBonusDamage += MaliceDebuff.DamageBonus;
+
+            // Only player attacks should benefit from this buff, hence the NPC and trap checks.
+            if (projectile.npcProj || projectile.trap || !projectile.IsMinionOrSentryRelated)
+                return;
+
+            // SummonTagDamageMultiplier scales down tag damage for some specific minion and sentry projectiles for balance purposes.
+            var projTagMultiplier = ProjectileID.Sets.SummonTagDamageMultiplier[projectile.type];
+            // Apply a flat bonus to every hit
+            if (npc.HasBuff<LoomingEntropy>())
+                modifiers.FlatBonusDamage += LoomingEntropy.TagDamage * projTagMultiplier;
         }
 
         public override void DrawEffects(NPC npc, ref Color drawColor)

@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Lesser
             Item.height = 32;
             Item.accessory = true;
 
-            Item.defense = 7;
+            Item.defense = 3;
 
             Item.rare = ItemDefaults.RarityPreBoss;
             Item.value = ItemDefaults.ValueEyeOfCthulhu;

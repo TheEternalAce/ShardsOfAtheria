@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             Item.noMelee = true;
             Item.noUseGraphic = true;
 
-            Item.shootSpeed = 10;
+            Item.shootSpeed = 10f;
             Item.rare = ItemDefaults.RarityDungeon;
             Item.value = 50000;
             Item.shoot = ModContent.ProjectileType<ElecCoin>();
@@ -84,20 +84,15 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (player.altFunctionUse != 2)
-            {
-                if (player.Shards().Overdrive)
-                {
-                    type = ModContent.ProjectileType<ElecScorpionFang>();
-                }
-            }
+            if (player.altFunctionUse != 2 && player.Shards().Overdrive)
+                type = ModContent.ProjectileType<ElecScorpionFang>();
             if (type == ModContent.ProjectileType<ElecCoin>())
             {
                 if (player.controlUp)
                 {
                     velocity = velocity.RotatedBy(MathHelper.ToRadians(-15) * player.direction);
                     velocity.Normalize();
-                    velocity = velocity * 10;
+                    velocity *= 10f;
                 }
                 else velocity = new Vector2(0, -1) * 10;
                 velocity += player.velocity;

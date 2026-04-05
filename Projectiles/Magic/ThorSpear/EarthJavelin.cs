@@ -101,7 +101,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.ThorSpear
             var player = Projectile.GetPlayerOwner();
             if (!player.IsLocal()) return;
             if (player.Overdrive()) type = ModContent.ProjectileType<EarthmoverBeam>();
-            if (fullyCharged)
+            else if (fullyCharged)
             {
                 type = ModContent.ProjectileType<EarthmoverBeam>();
                 Projectile.damage = (int)(Projectile.damage * 2.5f);

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using ShardsOfAtheria.Items.Tools.Misc.Slayer;
+using ShardsOfAtheria.Items.Tools.Slayer;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
@@ -50,7 +50,7 @@ namespace ShardsOfAtheria.ShardsUI.EntropicSelection
             MakeSelectButton(ref artifactSelect, "Entropic Artifact", "Weapons/Summon/EntropicArtifact", 0.8f);
             artifactSelect.OnLeftClick += (a, b) => CreateItem<EntropicArtifact>();
 
-            MakeSelectButton(ref daggerSelect, "Entropic Dagger", "Tools/Misc/Slayer/SoulExtractingDagger", 1f);
+            MakeSelectButton(ref daggerSelect, "Entropic Dagger", "Tools/Slayer/SoulExtractingDagger", 1f);
             daggerSelect.OnLeftClick += (a, b) => CreateItem<SoulExtractingDagger>();
 
             Append(panel);

@@ -152,6 +152,8 @@ AreusTonfa,Electric,Fighting
 AquaSlash,Water,
 BrokenAreusPartizan,Dark,
 BloodCutter,Blood,
+BoneSpike,Bone,
+Cleaver,Steel,Blood
 ElecSlash,Electric,
 FireSlash,Fire,
 IceSpike,Ice,
@@ -182,13 +184,11 @@ FlameBusterPillar,Fire,Fairy
 FlameSlash,Fire,Fairy
 FlameSword,Fire,Fairy
 FlameSword_Thrust,Fire,Fairy
+FleshBit,Blood,
 Genesis_Spear,Ice,Electric
 Genesis_Spear2,Ice,Electric
 Genesis_Sword,Ice,Electric
 Genesis_Whip,Ice,Electric
-Gomorrah_Burst,Bone,
-Gomorrah_Javelin,Steel,
-Gomorrah_Spear,Steel,
 HardlightBlade,Electric,Flying
 HardlightSlash,Electric,Flying
 HardlightSword,Electric,Flying
@@ -224,6 +224,7 @@ SpearOfDestiny,Fire,Psychic
 StrikeChain,Electric,
 StrikeChainCurrent,Electric,
 Swawstring,Electric,
+TendonWhip,Blood,
 ValkyrieStormLanceProj,Electric,Flying
 ValkyrieStormSword,Electric,Flying
 VoidSlash,Dark,Electric

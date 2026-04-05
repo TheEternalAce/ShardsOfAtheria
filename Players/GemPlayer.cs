@@ -9,13 +9,14 @@ using ShardsOfAtheria.Items.Accessories.GemCores;
 using ShardsOfAtheria.Items.Accessories.GemCores.Greater;
 using ShardsOfAtheria.Items.Accessories.GemCores.Regular;
 using ShardsOfAtheria.Items.Accessories.GemCores.Super;
-using ShardsOfAtheria.Projectiles.Other;
+using ShardsOfAtheria.Projectiles.GemCore;
 using ShardsOfAtheria.Projectiles.Summon.Minions.GemCore;
 using ShardsOfAtheria.Utilities;
 using System;
 using System.Linq;
 using Terraria;
 using Terraria.Chat;
+using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
@@ -32,7 +33,8 @@ namespace ShardsOfAtheria.Players
         public bool superAmberCore;
         public bool amberCape;
         public int maxAmberBanners;
-        public int bannerCooldown;
+        public int amberBannerCooldown;
+        public const int BANNER_COOLDOWN_MAX = 600;
 
         public bool amethystCore;
         public bool greaterAmethystCore;
@@ -65,6 +67,10 @@ namespace ShardsOfAtheria.Players
         public bool sapphireSpiritPrevious;
         public bool sapphireSpirit;
         public bool sapphireSpiritUpgrade;
+        public int sapphireSpikeCooldown;
+        public const int SAPPHIRE_SPIKE_COOLDOWN_MAX = 180;
+        public int sapphireShellCooldown;
+        public const int SAPPHIRE_SHELL_COOLDOWN_MAX = 1800;
 
         public bool topazCore;
         public bool greaterTopazCore;
@@ -113,7 +119,7 @@ namespace ShardsOfAtheria.Players
             greaterAmberCore = false;
             superAmberCore = false;
             maxAmberBanners = 0;
-            if (bannerCooldown > 0) bannerCooldown--;
+            if (amberBannerCooldown > 0) amberBannerCooldown--;
             amberCape = false;
 
             amethystCore = false;
@@ -136,8 +142,7 @@ namespace ShardsOfAtheria.Players
             greaterRubyCore = false;
             superRubyCore = false;
             rubyGauntlet = false;
-            if (rubyExplosiveCooldown > 0)
-                rubyExplosiveCooldown--;
+            if (rubyExplosiveCooldown > 0) rubyExplosiveCooldown--;
 
             sapphireDodgeChance = 0f;
             sapphireCore = false;
@@ -146,6 +151,8 @@ namespace ShardsOfAtheria.Players
             sapphireSpiritPrevious = sapphireSpirit;
             sapphireSpirit = false;
             sapphireSpiritUpgrade = false;
+            if (sapphireSpikeCooldown > 0) sapphireSpikeCooldown--;
+            if (sapphireShellCooldown > 0) sapphireShellCooldown--;
 
             topazCore = false;
             greaterTopazCore = false;
@@ -187,9 +194,9 @@ namespace ShardsOfAtheria.Players
             }
             if (superAmberCore)
             {
-                foreach (Projectile projectile in Main.projectile)
+                foreach (Projectile projectile in Main.ActiveProjectiles)
                 {
-                    if (projectile.active && projectile.owner == Player.whoAmI && projectile.sentry)
+                    if (projectile.owner == Player.whoAmI && projectile.sentry)
                     {
                         foreach (var otherPlayer in Main.player)
                         {
@@ -198,7 +205,7 @@ namespace ShardsOfAtheria.Players
                     }
                 }
             }
-            if (superTopazCore && !Player.moonLeech)
+            if (superTopazCore && !Player.moonLeech && Player.statLife < Player.statLifeMax2)
             {
                 if (++topazHealTimer >= 2400)
                 {
@@ -386,13 +393,14 @@ namespace ShardsOfAtheria.Players
         public bool TrySapphireDodge(float percentChance)
         {
             float roll = Main.rand.NextFloat();
-            bool doDodge = roll < percentChance;
+            bool doDodge = roll < percentChance && sapphireShellCooldown == 0;
             Main.rand.NextBool();
             if (doDodge)
             {
                 Player.SetImmuneTimeForAllTypes(Player.longInvince ? 100 : 60);
                 Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero,
                     ModContent.ProjectileType<SapphireShield>(), 0, 0, Player.whoAmI);
+                sapphireShellCooldown = SAPPHIRE_SHELL_COOLDOWN_MAX;
             }
             return doDodge;
         }
@@ -400,42 +408,55 @@ namespace ShardsOfAtheria.Players
         public override void PostHurt(Player.HurtInfo info)
         {
             if (!Player.IsLocal()) return;
+            IEntitySource projectileSource = Player.GetSource_FromThis();
+            Vector2 playerCenter = Player.Center;
             int gemBlessingTime = 600;
             if (megaGemCore) gemBlessingTime += 300;
 
             //AddCurses();
-            if (sapphireCore)
+            if (amberCore)
             {
-                if (amberCore)
+                Player.AddBuff<SwarmingAmber>(gemBlessingTime * 3);
+                int type = ModContent.ProjectileType<AmberFly>();
+                int amount = 2;
+                int damage = 16;
+                if (greaterAmberCore) damage += 9;
+                if (megaGemCore)
                 {
-                    Player.AddBuff<SwarmingAmber>(gemBlessingTime * 3);
-                    int type = ModContent.ProjectileType<AmberFly>();
-                    int amount = 2;
-                    int damage = 16;
-                    if (greaterAmberCore) damage += 9;
-                    if (megaGemCore)
+                    amount = 4;
+                    damage += 25;
+                }
+                if (Player.ownedProjectileCounts[type] <= amount)
+                {
+                    for (int i = 0; i < amount - Player.ownedProjectileCounts[type]; i++)
                     {
-                        amount = 4;
-                        damage += 25;
-                    }
-                    if (Player.ownedProjectileCounts[type] <= amount)
-                    {
-                        for (int i = 0; i < amount - Player.ownedProjectileCounts[type]; i++)
-                        {
-                            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.One, type, damage, 0f);
-                        }
+                        Projectile.NewProjectile(projectileSource, playerCenter, Vector2.One,
+                            type, damage, 0f);
                     }
                 }
-
-                Player.AddBuff<CunningSapphire>(gemBlessingTime);
-                if (amethystCore) Player.AddBuff<EfficientAmethyst>(gemBlessingTime);
-                if (diamondCore) Player.AddBuff<TenaciousDiamond>(gemBlessingTime);
-                if (emeraldCore) Player.AddBuff<FleetingEmerald>(gemBlessingTime);
-                if (rubyCore) Player.AddBuff<VengefulRuby>(gemBlessingTime);
-                if (topazCore) Player.AddBuff<MendingTopaz>(gemBlessingTime);
             }
+            if (amethystCore) Player.AddBuff<EfficientAmethyst>(gemBlessingTime);
+            if (diamondCore) Player.AddBuff<TenaciousDiamond>(gemBlessingTime);
+            if (emeraldCore) Player.AddBuff<FleetingEmerald>(gemBlessingTime);
+            if (rubyCore) Player.AddBuff<VengefulRuby>(gemBlessingTime);
+            if (sapphireCore)
+            {
+                Player.AddBuff<CunningSapphire>(gemBlessingTime);
+                int type = ModContent.ProjectileType<SapphireBlade>();
+                int amount = 2;
+                int damage = 10;
+                if (Player.ownedProjectileCounts[type] <= amount)
+                {
+                    for (int i = 0; i < amount; i++)
+                    {
+                        Projectile.NewProjectile(projectileSource, playerCenter, Vector2.One,
+                            type, damage, 0f, -1, i);
+                    }
+                }
+            }
+            if (topazCore) Player.AddBuff<MendingTopaz>(gemBlessingTime);
 
-            if (greaterSapphireCore)
+            if (greaterSapphireCore && sapphireSpikeCooldown == 0)
             {
                 Vector2 vector = new(0, -10);
                 float rotation = MathHelper.PiOver2;
@@ -443,9 +464,10 @@ namespace ShardsOfAtheria.Players
                 {
                     var perturbedSpeed = vector.RotatedByRandom(rotation);
                     perturbedSpeed *= 1f - Main.rand.NextFloat(0.33f);
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, perturbedSpeed,
+                    Projectile.NewProjectile(projectileSource, playerCenter, perturbedSpeed,
                         ModContent.ProjectileType<SapphireSpike>(), 60, 0f);
                 }
+                sapphireSpikeCooldown = SAPPHIRE_SPIKE_COOLDOWN_MAX;
             }
             if (superSapphireCore)
             {
@@ -463,7 +485,6 @@ namespace ShardsOfAtheria.Players
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (Player.HasBuff<CunningSapphire>()) target.AddBuff(BuffID.Confused, 300);
             if (superRubyCore) target.AddBuff<SpitefulRuby>(480);
             if (target.CanBeChasedBy())
             {
@@ -488,7 +509,7 @@ namespace ShardsOfAtheria.Players
 
             if (target.life <= 0 && target.lifeMax > 5)
             {
-                if (greaterAmberCore && bannerCooldown == 0)
+                if (greaterAmberCore && amberBannerCooldown == 0 && Main.rand.NextBool(3))
                 {
                     int type = ModContent.ProjectileType<AmberBanner>();
                     float ai0 = 0f;
@@ -499,7 +520,12 @@ namespace ShardsOfAtheria.Players
                         else AmberBanner.MakeOldestBannerFollowPlayer(Player);
                     }
 
-                    Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, type, 0, 0f, Player.whoAmI, ai0);
+                    Projectile nearestBanner = ShardsHelpers.FindClosestProjectile(target.Center, 400, type);
+                    if (nearestBanner == null)
+                    {
+                        Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.Zero, type, 0, 0f, Player.whoAmI, ai0);
+                        bannerAmount++;
+                    }
                     if (bannerAmount >= maxAmberBanners)
                     {
                         int firstBannerWhoAmI = AmberBanner.FindOldestBanner(Player);
@@ -510,7 +536,7 @@ namespace ShardsOfAtheria.Players
                         }
                         AmberBanner.MakeOldestBannerFollowPlayer(Player);
                     }
-                    bannerCooldown = 60;
+                    amberBannerCooldown = BANNER_COOLDOWN_MAX;
                 }
                 if (superDiamondCore) Player.AddBuff<DiamondBarrierBuff>(60);
                 if (!Player.moonLeech && greaterTopazCore) Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.UnitY * -10f, ModContent.ProjectileType<TopazOrb>(), 0, 0f, Player.whoAmI);

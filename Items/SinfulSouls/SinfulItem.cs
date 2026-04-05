@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Common.Items;
+﻿using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -10,6 +9,14 @@ namespace ShardsOfAtheria.Items.SinfulSouls
     public abstract class SinfulItem : ModItem
     {
         public abstract int RequiredSin { get; }
+
+        /// <summary>
+        /// Tiers:<br/>
+        /// 2 - Post Moon Lord<br/>
+        /// 1 - Post Golem<br/>
+        /// 0 - Hardmode<br/>
+        /// </summary>
+        public abstract int[] DamageSpread { get; }
 
         public override void SetStaticDefaults()
         {
@@ -25,16 +32,13 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         {
             if (Item.damage > 0)
                 tooltips.Add(new TooltipLine(Mod, "Damage", ShardsHelpers.LocalizeCommon("DamageScale")));
-            var line = new TooltipLine(Mod, "Sinful", "Sinful")
-            {
-                OverrideColor = Color.Orange
-            };
-            tooltips.Add(line);
         }
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            damage = ShardsHelpers.ScaleByProggression(player, damage);
+            if (DamageSpread.Length > 0)
+                damage.Flat += ShardsHelpers.ProggressionValue(player, DamageSpread, 2);
+            base.ModifyWeaponDamage(player, ref damage);
         }
 
         public bool SinfulItemUsable(Player player)
@@ -46,15 +50,6 @@ namespace ShardsOfAtheria.Items.SinfulSouls
         public override bool CanUseItem(Player player)
         {
             return SinfulItemUsable(player);
-        }
-    }
-
-    public class SinfulSoul : ModItem
-    {
-        public override void SetDefaults()
-        {
-            Item.width = 26;
-            Item.height = 26;
         }
     }
 }

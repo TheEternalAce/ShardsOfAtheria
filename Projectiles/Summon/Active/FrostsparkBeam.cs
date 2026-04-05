@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.Summons;
+using ShardsOfAtheria.Projectiles.Summon.Minions;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -32,13 +34,15 @@ namespace ShardsOfAtheria.Projectiles.Summon.Active
             Projectile.extraUpdates = 4;
             Projectile.light = 1;
             Projectile.DamageType = DamageClass.Summon;
-            Projectile.alpha = 255;
+            //Projectile.alpha = 255;
         }
 
         public override void OnSpawn(IEntitySource source)
         {
             SoundEngine.PlaySound(SoundID.Item28, Projectile.Center);
             SoundEngine.PlaySound(SoundID.Item72, Projectile.Center);
+            Projectile.rotation = MathHelper.PiOver2;
+            if (Projectile.ai[0] == 0) Projectile.alpha = 255;
         }
 
         public override void AI()
@@ -46,15 +50,13 @@ namespace ShardsOfAtheria.Projectiles.Summon.Active
             Projectile.velocity.Normalize();
             Projectile.velocity *= 4f;
 
-            if (Projectile.ai[0] == 0) Projectile.ai[0] = MathHelper.PiOver2;
-
-            if (Projectile.alpha > 0) Projectile.alpha -= 30;
+            if (Projectile.alpha > 0) Projectile.alpha -= 15;
             else if (Projectile.alpha < 0) Projectile.alpha = 0;
             else
             {
-                Projectile.ai[0] += MathHelper.ToRadians(5f);
+                Projectile.rotation += MathHelper.ToRadians(5f);
 
-                Vector2 offset = Vector2.Normalize(Projectile.velocity).RotatedBy(MathHelper.PiOver2 + Projectile.ai[0]) * 4f;
+                Vector2 offset = Vector2.Normalize(Projectile.velocity).RotatedBy(Projectile.rotation) * 4f;
                 Dust dust = Dust.NewDustPerfect(Projectile.Center + offset, DustID.Ice);
                 dust.velocity *= 0f;
                 dust.noGravity = true;
@@ -67,8 +69,22 @@ namespace ShardsOfAtheria.Projectiles.Summon.Active
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            //target.AddBuff(BuffID.Frostburn, 10 * 60);
-            if (Projectile.ai[1] == 0) Main.player[Projectile.owner].MinionAttackTargetNPC = target.whoAmI;
+            target.AddBuff(BuffID.Frostburn2, 600);
+            if (Projectile.ai[0] == 0)
+            {
+                var player = Main.player[Projectile.owner];
+                player.MinionAttackTargetNPC = target.whoAmI;
+
+                player.AddBuff<FrostsparkDroneBuff>(300);
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<FrostsparkDrone>()] == 0)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, Vector2.Zero,
+                            ModContent.ProjectileType<FrostsparkDrone>(), Projectile.damage, Projectile.knockBack, player.whoAmI, i);
+                    }
+                }
+            }
         }
 
         public override void OnKill(int timeLeft)

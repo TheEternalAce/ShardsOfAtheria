@@ -36,7 +36,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.ThorSpear
             if (charge < minCharge) return;
             int type = ModContent.ProjectileType<ZEarthmoverBeam>();
             var player = Projectile.GetPlayerOwner();
-            if (!Projectile.GetPlayerOwner().IsLocal()) return;
+            if (!player.IsLocal()) return;
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 16f, type, Projectile.damage, Projectile.knockBack);
             SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
         }

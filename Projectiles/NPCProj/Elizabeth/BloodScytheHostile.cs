@@ -78,8 +78,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
         {
             if (SoA.Eternity())
             {
-                string gender = target.Male ? "his" : "her";
-                info.DamageSource = PlayerDeathReason.ByCustomReason(NetworkText.FromKey("ShardsOfAtheria.DeathMessages.Reap", target.name, gender));
+                info.DamageSource = PlayerDeathReason.ByCustomReason(NetworkText.FromKey("ShardsOfAtheria.DeathMessages.Reap", target.name));
                 target.KillMe(info.DamageSource, info.Damage, info.HitDirection);
             }
             target.AddBuff<DeathBleed>(1200);

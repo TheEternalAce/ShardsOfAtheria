@@ -55,9 +55,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.EventHorizon
                     dust.noGravity = true;
                     dust.fadeIn = 1;
                     if (Projectile.Distance(point.ToVector2()) <= 10)
-                    {
                         Projectile.Kill();
-                    }
                 }
                 if (Projectile.ai[0] == 2f)
                 {
@@ -67,25 +65,15 @@ namespace ShardsOfAtheria.Projectiles.Ranged.EventHorizon
                 if (Projectile.ai[0] == 3f)
                 {
                     if (Projectile.alpha > 0)
-                    {
                         Projectile.alpha -= 25;
-                    }
                     if (Projectile.alpha < 0)
-                    {
                         Projectile.alpha = 0;
-                    }
-                    foreach (var projectile in Main.projectile)
+                    foreach (var projectile in Main.ActiveProjectiles)
                     {
-                        if (projectile.type == ModContent.ProjectileType<BlackHole>())
-                        {
-                            if (projectile.owner == Projectile.owner && projectile.active)
-                            {
-                                if (Projectile.Distance(projectile.Center) < 20)
-                                {
-                                    Projectile.Kill();
-                                }
-                            }
-                        }
+                        if (projectile.type == ModContent.ProjectileType<BlackHole>() &&
+                            projectile.owner == Projectile.owner &&
+                            Projectile.Distance(projectile.Center) < 20)
+                            Projectile.Kill();
                     }
                 }
             }

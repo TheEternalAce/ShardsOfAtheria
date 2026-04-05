@@ -83,7 +83,7 @@ namespace ShardsOfAtheria.ShardsUI.AreusComputer
                             string cloneLine = line.ToLower();
                             int lineLength = line.Length;
                             char[] lineArray = line.ToCharArray();
-                            if (lineArray[lineLength - 1] == ';')
+                            if (lineArray[^1] == ';')
                             {
                                 cloneLine = cloneLine.Replace(" ", "");
                                 cloneLine = cloneLine.Trim(';');

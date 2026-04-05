@@ -43,25 +43,24 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
                 Projectile.timeLeft = 2;
             }
 
-            foreach (var projectile in Main.projectile)
+            foreach (var projectile in Main.ActiveProjectiles)
             {
-                if (projectile.Hitbox.Intersects(Projectile.Hitbox) && projectile.active && Projectile.whoAmI != projectile.whoAmI)
+                if (projectile.Hitbox.Intersects(Projectile.Hitbox) &&
+                    Projectile.whoAmI != projectile.whoAmI &&
+                    SoAGlobalProjectile.ReflectAiList.Contains(projectile.aiStyle) &&
+                    projectile.velocity != Vector2.Zero &&
+                    projectile.friendly)
                 {
-                    if (SoAGlobalProjectile.ReflectAiList.Contains(projectile.aiStyle) &&
-                        projectile.velocity != Vector2.Zero &&
-                        projectile.friendly)
+                    projectile.Kill();
+                    for (var d = 0; d < 28; d++)
                     {
-                        projectile.Kill();
-                        for (var d = 0; d < 28; d++)
-                        {
-                            Vector2 speed = Main.rand.NextVector2CircularEdge(1f, 1f);
-                            Dust dust = Dust.NewDustPerfect(projectile.Center,
-                                DustID.Blood, speed * 2.4f);
-                            dust.fadeIn = 1.3f;
-                            dust.noGravity = true;
-                        }
-                        SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+                        Vector2 speed = Main.rand.NextVector2CircularEdge(1f, 1f);
+                        Dust dust = Dust.NewDustPerfect(projectile.Center,
+                            DustID.Blood, speed * 2.4f);
+                        dust.fadeIn = 1.3f;
+                        dust.noGravity = true;
                     }
+                    SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
                 }
             }
         }

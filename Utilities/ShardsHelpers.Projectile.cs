@@ -265,6 +265,10 @@ namespace ShardsOfAtheria.Utilities
         {
             SoAGlobalProjectile.TrueMelee.Add(projectile.type);
         }
+        public static void MakeMetalic(this Projectile projectile, float magnetDamage = 1f)
+        {
+            SoAGlobalProjectile.Metalic.Add(projectile.type, magnetDamage);
+        }
 
         public static void AddAreus(this Projectile projectile, bool dark = false, bool forceAddElements = false)
         {

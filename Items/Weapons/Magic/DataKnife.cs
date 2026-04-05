@@ -67,13 +67,13 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            damage = ShardsHelpers.ScaleByProggression(player, damage);
+            damage.Flat += ShardsHelpers.ProggressionValue(player, [0, 20, 50, 60], 1);
             base.ModifyWeaponDamage(player, ref damage);
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            float numberProjectiles = 4;
+            float numberProjectiles = 4f;
             float rotation = MathHelper.ToRadians(25);
             for (int i = 0; i < numberProjectiles; i++)
             {

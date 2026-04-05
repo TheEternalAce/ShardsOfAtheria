@@ -27,6 +27,7 @@ Common: {
 	SinNotification: Press <{0}> to select a sin.
 	Debug: "[c/ff0000:Debug Item]"
 	DamageScale: Damage scales with progression
+	NoSoul: You have no Soul Crystals to extract
 }
 
 SinfulSouls: {
@@ -57,7 +58,7 @@ SinfulSouls: {
 		Lust
 		Increases max minions by 3
 		Damaging enemies may cause them to drop hearts
-		Severe winds reduce your damage and accuracy
+		Severe winds slow you down and reduce your damage and accuracy
 		'''
 	Pride:
 		'''
@@ -169,7 +170,7 @@ Items: {
 			'''
 			Increases max minions by 4
 			Summon two Amber Flies after taking damage
-			Enemy kills drop Amber Banners
+			Enemy kills may drop Amber Banners
 			Banners increase nearby player movement and attack speed and defense
 			Can have up to 10 banners
 			'''
@@ -181,7 +182,7 @@ Items: {
 			'''
 			Increases max minions by 5
 			Summon two Amber Flies after taking damage
-			Enemy kills drop Amber Banners
+			Enemy kills may drop Amber Banners
 			Banners increase nearby player movement and attack speed and defense
 			Can have up to 10 banners
 			Increases max sentries by 3
@@ -434,7 +435,7 @@ Items: {
 			'''
 			[i:ShardsOfAtheria/AmberCore_Super] Amber Effects
 			Summon four Amber Flies after taking damage
-			Enemy kills drop Amber Banners
+			Enemy kills may drop Amber Banners
 			Banners increase nearby player movement and attack speed and defense
 			Can have up to 15 banners
 			The first banner will follow you
@@ -1328,7 +1329,7 @@ Items: {
 	}
 
 	FragmentEntropy: {
-		DisplayName: Entropic Fragment
+		DisplayName: Entropic Essence
 		Tooltip: "'Feelings of universal decay emanate from this fragment'"
 	}
 
@@ -1633,6 +1634,16 @@ Items: {
 	}
 
 	# Soul crystals
+	SampleSoulCrystal: {
+		DisplayName: Soul Crystal (Sample)
+		Tooltip: This is a template Soul Crystal
+	}
+
+	SampleSoulCrystal1: {
+		DisplayName: Soul Crystal (Sample 1)
+		Tooltip: This is another template Soul Crystal
+	}
+
 	KingSoulCrystal: {
 		DisplayName: Soul Crystal (King Slime)
 		Tooltip:
@@ -1831,7 +1842,7 @@ Items: {
 	}
 
 	Necronomicon: {
-		DisplayName: Necronomicon
+		DisplayName: Book of Entropy
 		Tooltip: ""
 		TableOfContents:
 			'''
@@ -1911,7 +1922,11 @@ Items: {
 
 	SoulExtractingDagger: {
 		DisplayName: Entropic Dagger
-		Tooltip: Used to extract Soul Crystals, rather painfully
+		Tooltip:
+			'''
+			Used to extract Soul Crystals, rather painfully
+			Right click to cycle the soul to extract
+			'''
 	}
 
 	WandOfHealing: {
@@ -2196,9 +2211,7 @@ Items: {
 			'''
 			Shoots a cold electric beam
 			{$CommonItemTooltip.Whips}
-			Alt-use Summons 2 Frostspark Drones to fight for you
-			Further summons strengthens Frostspark Drones
-			Uses 2 minion slots per summon
+			Strike enemies to summon a pair of friendly drones
 			'Destiny of destruction awaits'
 			'''
 	}
@@ -2446,9 +2459,12 @@ Items: {
 		Tooltip:
 			'''
 			'O' blood and viscera, divine!'
-			Strikes build gore
-			Alt-use to consume gore and throw a bone bolt, viscera piles, or a tendon whip
+			Hold UP to throw the cleaver
+			Right click to swap cleaver swing and throw controls
+			Alt-use to consume hunger and throw a gore projectile
 			'''
+		PrimaryAttackMode0: Swing
+		PrimaryAttackMode1: Throw
 	}
 
 	HeroSword: {
@@ -2529,9 +2545,9 @@ Items: {
 		Tooltip: ""
 	}
 
-	Yamiko: {
-		DisplayName: Yamiko
-		Tooltip: "'I'm not tsundere! You're tsundere!'"
+	Malice: {
+		DisplayName: Malice
+		Tooltip: ""
 	}
 
 	Zenova: {
@@ -3039,9 +3055,18 @@ Items: {
 		Tooltip: ""
 	}
 
-	SinfulSoul: {
-		DisplayName: Sinful Soul
+	HitscanGun: {
+		DisplayName: Hitscan Gun
 		Tooltip: ""
+	}
+
+	Lilith: {
+		DisplayName: Lilith
+		Tooltip:
+			'''
+			'Naughty boys and girls will be punished!~'
+			{$CommonItemTooltip.Whips}
+			'''
 	}
 }
 
@@ -3433,7 +3458,6 @@ Projectiles: {
 	ZHansBullet.DisplayName: Z-Charged BURST Bullet
 	ZEarthJavelin.DisplayName: "{$Items.ZEarthmoverSpear.DisplayName}"
 	ZEarthmoverBeam.DisplayName: Z-Charged Beam
-	YamikoSlash.DisplayName: Yamiko Slash
 	PencilMark.DisplayName: Pencil Mark
 	Pencil.DisplayName: Pencil
 	Pen.DisplayName: Pen
@@ -3493,6 +3517,15 @@ Projectiles: {
 	BoneSpike.DisplayName: Bone Spike
 	TendonWhip.DisplayName: Tendon Whip
 	FleshBit.DisplayName: Flesh Bit
+	PrideGold.DisplayName: Pride Gold
+	Cleaver.DisplayName: Cleaver
+	HitscanBullet_Electric.DisplayName: Hitscan Bullet_ Electric
+	HitscanBullet_Bounce3.DisplayName: Hitscan Bullet_ Bounce3
+	LilithHeart.DisplayName: Lilith
+	LilithWhip.DisplayName: Lilith
+	MaliceSpear.DisplayName: Malice
+	MaliceJavelin.DisplayName: Malice
+	SapphireBlade.DisplayName: Sapphire Blade
 }
 
 NPCs: {
@@ -3731,11 +3764,6 @@ Buffs: {
 	SoulTeleportCooldown: {
 		DisplayName: Soul Teleport Cooldown
 		Description: You cannot use your Soul Crystal Teleport right now
-	}
-
-	YamikoDashCooldown: {
-		DisplayName: Yamiko Dash Cooldown
-		Description: You cannot use Yamiko's Dash ability for now
 	}
 
 	# NPC debuff
@@ -4251,6 +4279,26 @@ Buffs: {
 		DisplayName: Greed Fire
 		Description: Punished for your Greed
 	}
+
+	EgoBoost: {
+		DisplayName: Ego Boost
+		Description: You're a crackshot!
+	}
+
+	AreusWhipDebuff: {
+		DisplayName: Areus Whip Debuff
+		Description: Mods.ShardsOfAtheria.Buffs.AreusWhipDebuff.Description
+	}
+
+	MaliceDebuff: {
+		DisplayName: Malice Debuff
+		Description: Mods.ShardsOfAtheria.Buffs.MaliceDebuff.Description
+	}
+
+	Hatred: {
+		DisplayName: Hatred
+		Description: Mods.ShardsOfAtheria.Buffs.Hatred.Description
+	}
 }
 
 Conditions: {
@@ -4284,6 +4332,15 @@ Conditions: {
 	HaveMessiah: Have The Messiah in your inventory.
 	TransformArmament: Transform a Sinful Armament with the appropriate Sinful Soul.
 	ThrowingWeapon: Enable Throwing Weapons config.
+	7: Mods.ShardsOfAtheria.Conditions.7
+	166: Mods.ShardsOfAtheria.Conditions.166
+	6: Mods.ShardsOfAtheria.Conditions.6
+	167: Mods.ShardsOfAtheria.Conditions.167
+	9: Mods.ShardsOfAtheria.Conditions.9
+	168: Mods.ShardsOfAtheria.Conditions.168
+	8: Mods.ShardsOfAtheria.Conditions.8
+	169: Mods.ShardsOfAtheria.Conditions.169
+	OreGenerated: Mods.ShardsOfAtheria.Conditions.OreGenerated
 }
 
 ShopQuote: {
@@ -4344,7 +4401,7 @@ Keybinds: {
 	CycleElementAffinity.DisplayName: "[i:ShardsOfAtheria/AreusProcessor] Cycle Element Affinity"
 	AmethystBombToggle.DisplayName: "[i:ShardsOfAtheria/AmethystCore_Greater] Amethyst Bomb Toggle"
 	ChargeWeapons.DisplayName: "[i:ShardsOfAtheria/FlameKnuckleBuster] Charge Weapons"
-	SinAbility.DisplayName: "[i:ShardsOfAtheria/SinfulSoul] Sin Ability"
+	SinAbility.DisplayName: "[i:ShardsOfAtheria/SinfulArmament] Cardinal Soul Ability"
 }
 
 Configs: {
@@ -4484,11 +4541,6 @@ Configs: {
 				'''
 		}
 
-		yamikoInsult: {
-			Label: "[i:ShardsOfAtheria/Yamiko] Yamiko Insult"
-			Tooltip: Disable if you want to keep your feelings intact
-		}
-
 		cluelessNPCs: {
 			Label: "[i:893] Clueless Atherian"
 			Tooltip: Enable to allow the atherian to upgrade items even while in Slayer mode
@@ -4518,6 +4570,11 @@ Configs: {
 			Label: "[i:Bomb] Anti-Griefing"
 			Tooltip: Replaces Cavern Harpy Massochist Mode effect with something less destructive when enabled.
 		}
+
+		yamikoInsult: {
+			Label: yamiko Insult
+			Tooltip: ""
+		}
 	}
 }
 
@@ -4527,13 +4584,13 @@ DeathMessages: {
 	MourningStar3: "{0} let The Mourning Star eat their blood."
 	DeathBleed: "{0} bled out."
 	DaggerPurify: "{0} was purified into nothing."
-	WrathRage: "{0}'s rage burned {1} soul away."
+	WrathRage: "{0}'s rage burned their soul away."
 	Plague: "{0} succumbed to the plague."
 	PerishSong: "{0} perished with {1}."
-	HeartExtracted: "{0} had {1} heart ripped out."
+	HeartExtracted: "{0} had their heart ripped out."
 	SoulDamage: "{0} had dug too deep."
 	BandMalfunction: "{0}'s prototype band malfunctioned."
-	Reap: "{0} had {1} soul reaped."
+	Reap: "{0} had their soul reaped."
 }
 
 GameTips: {
@@ -4643,3 +4700,12 @@ Atherian: {
 }
 
 Necronomicon.WipSoulEntry: Mods.ShardsOfAtheria.Necronomicon.WipSoulEntry
+
+ShardsOfAtheria: {
+	Items: {
+		SampleSoulCrystal1: {
+			DisplayName: Mods.ShardsOfAtheria.ShardsOfAtheria.Items.SampleSoulCrystal1.DisplayName
+			Tooltip: Mods.ShardsOfAtheria.ShardsOfAtheria.Items.SampleSoulCrystal1.Tooltip
+		}
+	}
+}

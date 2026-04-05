@@ -17,6 +17,8 @@ namespace ShardsOfAtheria.Globals
     {
         public override void OnKill(NPC npc)
         {
+            if (Main.rand.NextBool(3) && npc.chaseable && npc.lifeMax > 5)
+                Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<FragmentEntropy>());
             Player lastPlayerToHitThisNPC = npc.AnyInteractions() ? Main.player[npc.lastInteraction] : null;
             if (lastPlayerToHitThisNPC != null)
             {
@@ -482,7 +484,6 @@ namespace ShardsOfAtheria.Globals
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.FragmentSolar, 1000);
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.FragmentStardust, 1000);
                         Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.FragmentVortex, 1000);
-                        Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<FragmentEntropy>(), 1000);
                     }
 
                     Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ItemID.AncientCultistTrophy);

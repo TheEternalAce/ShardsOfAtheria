@@ -2,6 +2,8 @@ internalName,type,type,tooltipOverride
 AmberCore,Rock,Bug,
 AmberCore_Greater,Rock,Bug,
 AmberCore_Super,Rock,Bug,
+RubyCore_Greater,Rock,,
+RubyCore_Super,Rock,,
 SapphireCore_Greater,Rock,,
 SapphireCore_Super,Rock,,
 RubyCore_Super,Rock,,

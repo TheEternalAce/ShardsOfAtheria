@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
 using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Items.SoulCrystals;
 using ShardsOfAtheria.Projectiles.Other;
+using ShardsOfAtheria.Projectiles.Slayer;
 using ShardsOfAtheria.Projectiles.Summon.Minions;
 using ShardsOfAtheria.Projectiles.Tools;
 using ShardsOfAtheria.Utilities;
@@ -35,10 +37,9 @@ namespace ShardsOfAtheria.Players
         public bool creeperPet;
 
         //Spider Clock
-        public Vector2 recentPos;
-        public int recentLife;
-        public int recentMana;
-        public int recentCharge;
+        public Vector2 spiderClockRecentPos;
+        public int spiderClockRecentLife;
+        public int spiderClockRecentMana;
 
         public int TomeKnowledge;
         public bool omnicientTome;
@@ -79,17 +80,11 @@ namespace ShardsOfAtheria.Players
         public override void LoadData(TagCompound tag)
         {
             if (tag.ContainsKey("slayerMode"))
-            {
                 slayerMode = tag.GetBool("slayerMode");
-            }
             if (tag.ContainsKey("soulCrystalNames"))
-            {
                 soulCrystalNames = tag.Get<List<string>>("soulCrystalNames");
-            }
             if (tag.ContainsKey("TomeKnowledge"))
-            {
                 TomeKnowledge = tag.GetInt("TomeKnowledge");
-            }
         }
 
         public override void SaveData(TagCompound tag)
@@ -114,10 +109,7 @@ namespace ShardsOfAtheria.Players
 
         public override bool CanConsumeAmmo(Item weapon, Item ammo)
         {
-            if (slayerSet)
-            {
-                return Main.rand.NextFloat() >= .1f;
-            }
+            if (slayerSet) return Main.rand.NextFloat() >= .1f;
             return base.CanConsumeAmmo(weapon, ammo);
         }
 
@@ -126,9 +118,7 @@ namespace ShardsOfAtheria.Players
             if (SoA.TomeKey.JustPressed && omnicientTome)
             {
                 if (TomeKnowledge == 2)
-                {
                     TomeKnowledge = 0;
-                }
                 else TomeKnowledge += 1;
                 SoundEngine.PlaySound(SoundID.Item1, Player.Center);
             }
@@ -141,13 +131,9 @@ namespace ShardsOfAtheria.Players
                 Vector2 vector21 = default;
                 vector21.X = Main.mouseX + Main.screenPosition.X;
                 if (Player.gravDir == 1f)
-                {
                     vector21.Y = Main.mouseY + Main.screenPosition.Y - Player.height;
-                }
                 else
-                {
                     vector21.Y = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
-                }
                 vector21.X -= Player.width / 2;
                 if (vector21.X > 50f && vector21.X < Main.maxTilesX * 16 - 50 && vector21.Y > 50f && vector21.Y < Main.maxTilesY * 16 - 50)
                 {
@@ -179,9 +165,9 @@ namespace ShardsOfAtheria.Players
                 Player.statDefense += 8;
                 Player.wingTimeMax += 40;
 
-                ValkyrieDashPlayer mp = Player.GetModPlayer<ValkyrieDashPlayer>();
+                ValkyrieDashPlayer valkyriePlayer = Player.GetModPlayer<ValkyrieDashPlayer>();
 
-                if (mp.DashActive)
+                if (valkyriePlayer.DashActive)
                 {
                     if (Player.ownedProjectileCounts[ModContent.ProjectileType<ElectricTrailFriendly>()] < 20)
                         valkyrieDashTimer--;
@@ -194,34 +180,34 @@ namespace ShardsOfAtheria.Players
                     //This is where we set the afterimage effect.  You can replace these two lines with whatever you want to happen during the dash
                     //Some examples include:  spawning dust where the player is, adding buffs, making the player immune, etc.
                     //Here we take advantage of "player.eocDash" and "player.armorEffectDrawShadowEOCShield" to get the Shield of Cthulhu's afterimage effect
-                    Player.eocDash = mp.DashTimer;
+                    Player.eocDash = valkyriePlayer.DashTimer;
                     Player.armorEffectDrawShadowEOCShield = true;
 
                     //If the dash has just started, apply the dash velocity in whatever direction we wanted to dash towards
-                    if (mp.DashTimer == ValkyrieDashPlayer.MAX_DASH_TIMER)
+                    if (valkyriePlayer.DashTimer == ValkyrieDashPlayer.MAX_DASH_TIMER)
                     {
                         Vector2 newVelocity = Player.velocity;
 
-                        if (mp.DashDir == ValkyrieDashPlayer.DashLeft && Player.velocity.X > -mp.DashVelocity || mp.DashDir == ValkyrieDashPlayer.DashRight && Player.velocity.X < mp.DashVelocity)
+                        if (valkyriePlayer.DashDir == ValkyrieDashPlayer.DashLeft && Player.velocity.X > -valkyriePlayer.DashVelocity || valkyriePlayer.DashDir == ValkyrieDashPlayer.DashRight && Player.velocity.X < valkyriePlayer.DashVelocity)
                         {
                             //X-velocity is set here
-                            int dashDirection = mp.DashDir == ValkyrieDashPlayer.DashRight ? 1 : -1;
-                            newVelocity.X = dashDirection * mp.DashVelocity;
+                            int dashDirection = valkyriePlayer.DashDir == ValkyrieDashPlayer.DashRight ? 1 : -1;
+                            newVelocity.X = dashDirection * valkyriePlayer.DashVelocity;
                         }
 
                         Player.velocity = newVelocity;
                     }
 
                     //Decrement the timers
-                    mp.DashTimer--;
-                    mp.DashDelay--;
+                    valkyriePlayer.DashTimer--;
+                    valkyriePlayer.DashDelay--;
 
-                    if (mp.DashDelay == 0)
+                    if (valkyriePlayer.DashDelay == 0)
                     {
                         //The dash has ended.  Reset the fields
-                        mp.DashDelay = ValkyrieDashPlayer.MAX_DASH_DELAY;
-                        mp.DashTimer = ValkyrieDashPlayer.MAX_DASH_TIMER;
-                        mp.DashActive = false;
+                        valkyriePlayer.DashDelay = ValkyrieDashPlayer.MAX_DASH_DELAY;
+                        valkyriePlayer.DashTimer = ValkyrieDashPlayer.MAX_DASH_TIMER;
+                        valkyriePlayer.DashActive = false;
                     }
                 }
             }
@@ -284,8 +270,7 @@ namespace ShardsOfAtheria.Players
             }
             if (WoFSoul && Player.ownedProjectileCounts[ModContent.ProjectileType<TheHungry>()] < 5)
             {
-                theHungrySpawnTimer++;
-                if (theHungrySpawnTimer > 300)
+                if (++theHungrySpawnTimer > 300)
                 {
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Normalize(Main.MouseWorld - Player.Center), ModContent.ProjectileType<TheHungry>(), 50, 3f, Player.whoAmI);
                     theHungrySpawnTimer = 0;
@@ -296,24 +281,21 @@ namespace ShardsOfAtheria.Players
                 Player.lifeRegen += 8;
                 Player.manaRegen += 8;
             }
-            if (PrimeSoul)
+            if (PrimeSoul && Player.Shards().InCombat)
             {
-                if (Player.Shards().InCombat)
+                spinningTimer++;
+                if (spinningTimer == 1800)
                 {
-                    spinningTimer++;
-                    if (spinningTimer == 1800)
-                    {
-                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SpinPrime>(), 200, 9f, Player.whoAmI);
-                        SoundEngine.PlaySound(SoundID.Roar, Player.Center);
-                    }
-                    if (spinningTimer >= 1800)
-                    {
-                        Player.statDefense *= 2;
-                        Player.GetDamage(DamageClass.Generic) += 1f;
-                    }
-                    if (spinningTimer == 2100)
-                        spinningTimer = 0;
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<SpinPrime>(), 200, 9f, Player.whoAmI);
+                    SoundEngine.PlaySound(SoundID.Roar, Player.Center);
                 }
+                if (spinningTimer >= 1800)
+                {
+                    Player.statDefense *= 2;
+                    Player.GetDamage(DamageClass.Generic) += 1f;
+                }
+                if (spinningTimer == 2100)
+                    spinningTimer = 0;
             }
             if (PlanteraSoul && Player.ownedProjectileCounts[ModContent.ProjectileType<YourTentacle>()] < 8)
             {
@@ -328,13 +310,17 @@ namespace ShardsOfAtheria.Players
 
         public override void UpdateEquips()
         {
-            if (BoCSoul)
+            if (BoCSoul) Player.noKnockback = false;
+            if (GolemSoul) Player.shinyStone = true;
+        }
+
+        public override void UpdateBadLifeRegen()
+        {
+            if (Player.HasBuff(ModContent.BuffType<LoomingEntropy>()))
             {
-                Player.noKnockback = false;
-            }
-            if (GolemSoul)
-            {
-                Player.shinyStone = true;
+                if (Player.lifeRegen > 0) Player.lifeRegen = 0;
+                Player.lifeRegenTime = 0;
+                Player.lifeRegen -= 50;
             }
         }
 
@@ -343,13 +329,9 @@ namespace ShardsOfAtheria.Players
             if (omnicientTome)
             {
                 if (TomeKnowledge == 0)
-                {
                     Player.AddBuff(ModContent.BuffType<BaseCombat>(), 2);
-                }
                 else if (TomeKnowledge == 1)
-                {
                     Player.AddBuff(ModContent.BuffType<BaseConservation>(), 2);
-                }
                 else if (TomeKnowledge == 2)
                 {
                     Player.AddBuff(ModContent.BuffType<BaseExploration>(), 2);
@@ -364,14 +346,10 @@ namespace ShardsOfAtheria.Players
         public override void PostUpdate()
         {
             if (soulCrystalNames.Count > maxCrystals)
-            {
                 Player.AddBuff(ModContent.BuffType<Madness>(), 600);
-            }
 
             if (soulCrystalProjectileCooldown > 0)
-            {
                 soulCrystalProjectileCooldown--;
-            }
 
             if (EoCSoul && Player.ownedProjectileCounts[ModContent.ProjectileType<Servant>()] < 3)
             {
@@ -396,82 +374,49 @@ namespace ShardsOfAtheria.Players
                     creeperSpawnTimer = 0;
                 }
             }
-            if (BeeSoul)
+            if (BeeSoul && Player.Shards().InCombat)
             {
-                if (Player.Shards().InCombat)
+                beeSpawnTimer++;
+                if (beeSpawnTimer >= 600)
                 {
-                    beeSpawnTimer++;
-                    if (beeSpawnTimer >= 600)
-                    {
-                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Normalize(Main.MouseWorld - Player.Center), ProjectileID.Bee, 1, 0, Player.whoAmI);
-                        beeSpawnTimer = 0;
-                    }
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Normalize(Main.MouseWorld - Player.Center), ProjectileID.Bee, 1, 0, Player.whoAmI);
+                    beeSpawnTimer = 0;
                 }
             }
-            if (DestroyerSoul)
+            if (DestroyerSoul && Player.ownedProjectileCounts[ModContent.ProjectileType<TheDestroyersProbe>()] == 0)
+                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center - new Vector2(0, 90), Vector2.Zero, ModContent.ProjectileType<TheDestroyersProbe>(), 0, 0, Player.whoAmI);
+            if (PlanteraSoul && Player.statLife > Player.statLifeMax2 / 2)
+                Player.statDefense += 15;
+            if (GolemSoul && Player.statLife < Player.statLifeMax2 / 2)
             {
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<TheDestroyersProbe>()] == 0)
-                {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center - new Vector2(0, 90), Vector2.Zero, ModContent.ProjectileType<TheDestroyersProbe>(), 0, 0, Player.whoAmI);
-                }
-            }
-            if (PlanteraSoul)
-            {
-                if (Player.statLife > Player.statLifeMax2 / 2)
-                {
-                    Player.statDefense += 15;
-                }
-            }
-            if (GolemSoul)
-            {
-                if (Player.statLife < Player.statLifeMax2 / 2)
-                {
-                    Player.lifeRegen += 15;
-                    if (Player.ownedProjectileCounts[ModContent.ProjectileType<GolemHead>()] == 0)
-                    {
-                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center - new Vector2(0, 90), Vector2.Zero, ModContent.ProjectileType<GolemHead>(), 0, 0, Player.whoAmI);
-                    }
-                }
+                Player.lifeRegen += 15;
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<GolemHead>()] == 0)
+                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center - new Vector2(0, 90), Vector2.Zero, ModContent.ProjectileType<GolemHead>(), 0, 0, Player.whoAmI);
             }
             if (DukeSoul)
             {
                 Player.wingTimeMax += 120;
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<Sharknado>()] == 0)
-                {
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center - new Vector2(0, 90), Vector2.Zero, ModContent.ProjectileType<Sharknado>(), 0, 0, Player.whoAmI);
-                }
             }
             if (EoLSoul)
             {
                 Player.wingTimeMax += 120;
                 Player.AddBuff(BuffID.Shine, 2);
                 Player.AddBuff(BuffID.NightOwl, 2);
-                if (Main.dayTime)
-                {
-                    Player.GetDamage(DamageClass.Generic) += .20f;
-                }
-                else
-                {
-                    Player.statDefense += 20;
-                }
+                if (Main.dayTime) Player.GetDamage(DamageClass.Generic) += .20f;
+                else Player.statDefense += 20;
             }
             if (CultistSoul)
             {
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<CultistRitual>()] == 0)
-                {
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<CultistRitual>(), 0, 0, Player.whoAmI);
-                }
                 if (lunaticCircleFragments > 5)
                     lunaticCircleFragments = 5;
             }
             else lunaticCircleFragments = 1;
-            if (MoonLordSoul)
-            {
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<TrueEyeOfCthulhu>()] == 0)
-                {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<TrueEyeOfCthulhu>(), 0, 0, Player.whoAmI);
-                }
-            }
+            if (MoonLordSoul && Player.ownedProjectileCounts[ModContent.ProjectileType<TrueEyeOfCthulhu>()] == 0)
+                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<TrueEyeOfCthulhu>(), 0, 0, Player.whoAmI);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -479,19 +424,13 @@ namespace ShardsOfAtheria.Players
             if (lastDamageTaken > 0)
             {
                 if (KingSoul && !QueenSoul)
-                {
                     Player.Heal(lastDamageTaken / 4);
-                }
                 else if (QueenSoul)
-                {
                     Player.Heal(lastDamageTaken / 2);
-                }
                 lastDamageTaken = 0;
             }
             if (BeeSoul)
-            {
                 target.AddBuff(BuffID.Poisoned, 600);
-            }
         }
 
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
@@ -544,9 +483,7 @@ namespace ShardsOfAtheria.Players
         {
             if (Player.HasBuff(ModContent.BuffType<CreeperShield>()) &&
                 info.DamageSource.SourceProjectileType != ModContent.ProjectileType<ExtractingSoul>())
-            {
                 return true;
-            }
             if (CultistSoul && !Player.immune)
             {
                 if (Player.whoAmI == Main.myPlayer && Main.rand.NextFloat() < 0.1f)
@@ -583,14 +520,9 @@ namespace ShardsOfAtheria.Players
             if (damageSource.SourceProjectileType == ModContent.ProjectileType<ExtractingSoul>())
             {
                 if (soulCrystalNames.Count <= 1)
-                {
-                    string gender = Player.Male ? "his" : "her";
-                    damageSource = PlayerDeathReason.ByCustomReason(NetworkText.FromKey("ShardsOfAtheria.DeathMessages.HeartExtracted", Player.name, gender));
-                }
+                    damageSource = PlayerDeathReason.ByCustomReason(NetworkText.FromKey("ShardsOfAtheria.DeathMessages.HeartExtracted", Player.name));
                 else
-                {
                     damageSource = PlayerDeathReason.ByCustomReason(NetworkText.FromKey("ShardsOfAtheria.DeathMessages.SoulDamage", Player.name));
-                }
             }
             if (!Player.HasBuff(ModContent.BuffType<EaterReviveCooldown>()) && EoWSoul)
             {
@@ -609,14 +541,15 @@ namespace ShardsOfAtheria.Players
 
         public override void OnRespawn()
         {
-            if (EoCSoul) ModContent.GetInstance<EyeSoulCrystal>().CompleteAbsorption(Player);
-            if (BoCSoul) ModContent.GetInstance<BrainSoulCrystal>().CompleteAbsorption(Player);
-            if (DestroyerSoul) ModContent.GetInstance<DestroyerSoulCrystal>().CompleteAbsorption(Player);
-            if (MoonLordSoul) ModContent.GetInstance<LordSoulCrystal>().CompleteAbsorption(Player);
-            soulCrystalNames = [.. soulCrystalNames.Distinct()];
+            InitializeSoulCrystals();
         }
 
         public override void OnEnterWorld()
+        {
+            InitializeSoulCrystals();
+        }
+
+        private void InitializeSoulCrystals()
         {
             if (EoCSoul) ModContent.GetInstance<EyeSoulCrystal>().CompleteAbsorption(Player);
             if (BoCSoul) ModContent.GetInstance<BrainSoulCrystal>().CompleteAbsorption(Player);
@@ -630,28 +563,28 @@ namespace ShardsOfAtheria.Players
         {
             return soulCrystalNames.Contains(crystalName);
         }
-        public bool KingSoul => soulCrystalNames.Contains("KingSoulCrystal");
-        public bool EoCSoul => soulCrystalNames.Contains("EyeSoulCrystal");
-        public bool EoWSoul => soulCrystalNames.Contains("EaterSoulCrystal");
-        public bool BoCSoul => soulCrystalNames.Contains("BrainSoulCrystal");
-        public bool BeeSoul => soulCrystalNames.Contains("BeeSoulCrystal");
-        public bool SkeletronSoul => soulCrystalNames.Contains("SkullSoulCrystal");
-        public bool NovaSoul => soulCrystalNames.Contains("ValkyrieSoulCrystal");
-        public bool DeerclopsSoul => soulCrystalNames.Contains("DeerclopsSoulCrystal");
-        public bool WoFSoul => soulCrystalNames.Contains("WallSoulCrystal");
-        public bool QueenSoul => soulCrystalNames.Contains("QueenSoulCrystal");
-        public bool DestroyerSoul => soulCrystalNames.Contains("DestroyerSoulCrystal");
-        public bool PrimeSoul => soulCrystalNames.Contains("PrimeSoulCrystal");
-        public bool TwinSoul => soulCrystalNames.Contains("TwinsSoulCrystal");
-        public bool PlanteraSoul => soulCrystalNames.Contains("PlantSoulCrystal");
-        public bool GolemSoul => soulCrystalNames.Contains("GolemSoulCrystal");
-        public bool DukeSoul => soulCrystalNames.Contains("DukeSoulCrystal");
-        public bool EoLSoul => soulCrystalNames.Contains("EmpressSoulCrystal");
-        public bool CultistSoul => soulCrystalNames.Contains("LunaticSoulCrystal");
-        public bool MoonLordSoul => soulCrystalNames.Contains("LordSoulCrystal");
-        public bool DeathSoul => soulCrystalNames.Contains("DeathSoulCrystal");
-        public bool SenterraSoul => soulCrystalNames.Contains("LandSoulCrystal");
-        public bool GenesisSoul => soulCrystalNames.Contains("TimeSoulCrystal");
+        public bool KingSoul => HasSoulCrystal("KingSoulCrystal");
+        public bool EoCSoul => HasSoulCrystal("EyeSoulCrystal");
+        public bool EoWSoul => HasSoulCrystal("EaterSoulCrystal");
+        public bool BoCSoul => HasSoulCrystal("BrainSoulCrystal");
+        public bool BeeSoul => HasSoulCrystal("BeeSoulCrystal");
+        public bool SkeletronSoul => HasSoulCrystal("SkullSoulCrystal");
+        public bool NovaSoul => HasSoulCrystal("ValkyrieSoulCrystal");
+        public bool DeerclopsSoul => HasSoulCrystal("DeerclopsSoulCrystal");
+        public bool WoFSoul => HasSoulCrystal("WallSoulCrystal");
+        public bool QueenSoul => HasSoulCrystal("QueenSoulCrystal");
+        public bool DestroyerSoul => HasSoulCrystal("DestroyerSoulCrystal");
+        public bool PrimeSoul => HasSoulCrystal("PrimeSoulCrystal");
+        public bool TwinSoul => HasSoulCrystal("TwinsSoulCrystal");
+        public bool PlanteraSoul => HasSoulCrystal("PlantSoulCrystal");
+        public bool GolemSoul => HasSoulCrystal("GolemSoulCrystal");
+        public bool DukeSoul => HasSoulCrystal("DukeSoulCrystal");
+        public bool EoLSoul => HasSoulCrystal("EmpressSoulCrystal");
+        public bool CultistSoul => HasSoulCrystal("LunaticSoulCrystal");
+        public bool MoonLordSoul => HasSoulCrystal("LordSoulCrystal");
+        public bool DeathSoul => HasSoulCrystal("DeathSoulCrystal");
+        public bool SenterraSoul => HasSoulCrystal("LandSoulCrystal");
+        public bool GenesisSoul => HasSoulCrystal("TimeSoulCrystal");
         #endregion
     }
 

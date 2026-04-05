@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.ShardsUI.InfoDisplays
             var player = Main.LocalPlayer;
             if (!player.InCombat()) displayColor = Color.Gray;
             var pride = player.Sinner();
-            return pride.attacksHit + "/" + pride.attacksMade;
+            return pride.prideAttacksHit + "/" + pride.prideAttacksMade;
         }
     }
 }

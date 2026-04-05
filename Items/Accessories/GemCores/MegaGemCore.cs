@@ -25,7 +25,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores
             Item.width = 32;
             Item.height = 32;
             Item.accessory = true;
-            Item.defense = 25;
+            Item.defense = 10;
 
             Item.rare = ItemDefaults.RarityLunarPillars;
             Item.value = ItemDefaults.ValueLunarPillars;

@@ -41,20 +41,19 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
                 Projectile.Kill();
             }
 
-            foreach (var projectile in Main.projectile)
+            foreach (var projectile in Main.ActiveProjectiles)
             {
-                if (projectile.Hitbox.Intersects(Projectile.Hitbox) && projectile.active && Projectile.whoAmI != projectile.whoAmI)
+                if (projectile.Hitbox.Intersects(Projectile.Hitbox) &&
+                    Projectile.whoAmI != projectile.whoAmI &&
+                    SoAGlobalProjectile.ReflectAiList.Contains(projectile.aiStyle) &&
+                    projectile.velocity != Vector2.Zero &&
+                    projectile.friendly)
                 {
-                    if (SoAGlobalProjectile.ReflectAiList.Contains(projectile.aiStyle) &&
-                        projectile.velocity != Vector2.Zero &&
-                        projectile.friendly)
-                    {
-                        SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, Projectile.Center);
-                        SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, Projectile.Center);
-                        projectile.hostile = true;
-                        projectile.velocity *= -1.5f;
-                        projectile.damage = (int)(Projectile.damage * 0.25f);
-                    }
+                    SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, Projectile.Center);
+                    projectile.hostile = true;
+                    projectile.velocity *= -1.5f;
+                    projectile.damage = (int)(Projectile.damage * 0.25f);
                 }
             }
         }

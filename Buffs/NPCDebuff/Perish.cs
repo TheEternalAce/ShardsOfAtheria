@@ -10,6 +10,7 @@ namespace ShardsOfAtheria.Buffs.NPCDebuff
 {
     public class Perish : ModBuff
     {
+        public override string Texture => SoA.DebuffTemplate;
         public override void Update(NPC npc, ref int buffIndex)
         {
             Dust[] ring = ShardsHelpers.DustAura(npc.Center, 100, DustID.Stone, 20, npc.velocity);

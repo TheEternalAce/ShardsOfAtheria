@@ -51,24 +51,15 @@ namespace ShardsOfAtheria.Projectiles.Magic.ByteCrush
                 Projectile.velocity = InitialVelocity;
             }
 
-            foreach (Projectile projectile in Main.projectile)
+            foreach (Projectile projectile in Main.ActiveProjectiles)
             {
-                if (projectile.active)
+                if (projectile.type == Type &&
+                    projectile.whoAmI != Projectile.whoAmI &&
+                    projectile.owner == Projectile.owner &&
+                    Projectile.Hitbox.Intersects(projectile.Hitbox))
                 {
-                    if (projectile.type == Type)
-                    {
-                        if (projectile.whoAmI != Projectile.whoAmI)
-                        {
-                            if (projectile.owner == Projectile.owner)
-                            {
-                                if (Projectile.Hitbox.Intersects(projectile.Hitbox))
-                                {
-                                    projectile.Kill();
-                                    Projectile.Kill();
-                                }
-                            }
-                        }
-                    }
+                    projectile.Kill();
+                    Projectile.Kill();
                 }
             }
         }

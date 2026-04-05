@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             Item.width = 32;
             Item.height = 32;
             Item.accessory = true;
-            Item.defense = 15;
+            Item.defense = 6;
 
             Item.rare = ItemDefaults.RarityMechs;
             Item.value = ItemDefaults.ValueEarlyHardmode;

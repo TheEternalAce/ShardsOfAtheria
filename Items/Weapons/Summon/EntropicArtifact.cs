@@ -74,9 +74,9 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
             int starType = ModContent.ProjectileType<RedStar>();
             if (player.altFunctionUse == 2 && player.ownedProjectileCounts[starType] > 0 && manualShootCooldown == 0 && player.statMana >= manaCost)
             {
-                foreach (Projectile proj in Main.projectile)
+                foreach (Projectile proj in Main.ActiveProjectiles)
                 {
-                    if (proj.active && proj.type == starType && proj.owner == player.whoAmI)
+                    if (proj.type == starType && proj.owner == player.whoAmI)
                     {
                         var devCard = ToggleableTool.GetInstance<DevelopersKeyCard>(player);
                         bool cardActive = devCard != null && devCard.Active;
@@ -96,7 +96,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            damage = ShardsHelpers.ScaleByProggression(player, damage);
+            damage.Flat += ShardsHelpers.ProggressionValue(player, [0, 6, 10, 50, 60]);
         }
 
         public override void UpdateInventory(Player player)

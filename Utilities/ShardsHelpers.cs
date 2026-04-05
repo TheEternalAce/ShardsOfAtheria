@@ -162,23 +162,55 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
-        public static int ProgressionMultiplier(Player player)
+        /// <summary>
+        /// Tiers:<br/>
+        /// 4 - Post Moon Lord<br/>
+        /// 3 - Post Golem<br/>
+        /// 2 - Hardmode<br/>
+        /// 1 - Post Skeletron<br/>
+        /// 0 - Pre Skeletron<br/>
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="damageRange"></param>
+        /// <param name="tier"></param>
+        /// <returns></returns>
+        public static int ProggressionValue(Player player, int[] damageRange, int tier = 0)
         {
+            int result;
+            float[] damageRangeF = new float[damageRange.Length];
+            for (int i = 0; i < damageRange.Length; i++)
+                damageRangeF[i] = damageRange[i];
+            result = (int)ProggressionValue(player, damageRangeF, tier);
+            return result;
+        }
+        /// <summary>
+        /// Tiers:<br/>
+        /// 4 - Post Moon Lord<br/>
+        /// 3 - Post Golem<br/>
+        /// 2 - Hardmode<br/>
+        /// 1 - Post Skeletron<br/>
+        /// 0 - Pre Skeletron<br/>
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="damageRange"></param>
+        /// <param name="tier"></param>
+        /// <returns></returns>
+        public static float ProggressionValue(Player player, float[] damageRange, int tier = 0)
+        {
+            float result = 0;
+            int stage = 0;
             var tierLock = ToggleableTool.GetInstance<TierLock>(player);
-            if (tierLock != null && tierLock.mode > 0) return tierLock.mode;
-            if (NPC.downedMoonlord) return 5;
-            else if (NPC.downedGolemBoss) return 4;
-            else if (Main.hardMode) return 3;
-            else if (NPC.downedBoss3) return 2;
-            return 1;
-        }
-        public static int ScaleByProggression(Player player, int baseAmount = 1)
-        {
-            return baseAmount * ProgressionMultiplier(player);
-        }
-        public static StatModifier ScaleByProggression(Player player, StatModifier baseAmount)
-        {
-            return baseAmount * ProgressionMultiplier(player);
+            if (tierLock != null && tierLock.mode > 0) stage = tierLock.mode;
+            else if (NPC.downedMoonlord && tier < 4) stage = 4;
+            else if (NPC.downedGolemBoss && tier < 3) stage = 3;
+            else if (Main.hardMode && tier < 2) stage = 2;
+            else if (NPC.downedBoss3 && tier < 1) stage = 1;
+            int maxStage = Math.Clamp(stage - tier, 0, damageRange.Length - 1);
+            for (int i = 0; i < maxStage + 1; i++)
+            {
+                result += damageRange[i];
+            }
+            return result;
         }
 
         public static float Wave(float time, float minimum, float maximum)

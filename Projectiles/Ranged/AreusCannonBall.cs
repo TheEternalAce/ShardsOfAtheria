@@ -80,11 +80,10 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                 }
                 else
                 {
-                    foreach (var proj in Main.projectile)
+                    foreach (var proj in Main.ActiveProjectiles)
                     {
                         //if (proj.aiStyle == ProjAIStyleID.Hook &&
-                        //    proj.owner == Projectile.owner &&
-                        //    proj.active)
+                        //    proj.owner == Projectile.owner)
                         //{
                         //    if (proj.Distance(player.Center) > 50)
                         //    {
@@ -101,8 +100,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
                         //    }
                         //}
                         if (proj.ModProjectile is CoolSword sword &&
-                        proj.owner == Projectile.owner &&
-                        proj.active)
+                        proj.owner == Projectile.owner)
                         {
                             if (sword.Colliding(proj.Hitbox, Projectile.Hitbox) == null)
                             {

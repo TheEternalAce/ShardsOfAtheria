@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Projectiles.Magic.EntropyCatalyst;
-using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -51,22 +52,23 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
                 {
                     Projectile.tileCollide = true;
                 }
-                if (Projectile.Hitbox.Intersects(player.Hitbox))
+                if (player.HeldItem.ModItem is AreusGambit coin)
                 {
-                    Projectile.Kill();
-                    var coin = player.HeldItem.ModItem as AreusGambit;
-                    coin?.SetAttack(player);
+                    if (Projectile.Hitbox.Intersects(player.Hitbox))
+                    {
+                        Projectile.Kill();
+                        coin?.SetAttack(player);
+                    }
+                    if (player.Distance(Projectile.Center) < 120) Projectile.Track(player.position, 16f, 4f);
                 }
-                if (player.Distance(Projectile.Center) < 120) Projectile.Track(player.position, 16f, 4f);
             }
-            foreach (var proj in Main.projectile)
+            foreach (var proj in Main.ActiveProjectiles)
             {
-                bool canHitCoin = proj.aiStyle == 1 || proj.aiStyle == 0 || proj.GetGlobalProjectile<SoAGlobalProjectile>().canHitCoin;
+                bool canHitCoin = proj.aiStyle == ProjAIStyleID.Arrow || proj.aiStyle == 0 || proj.GetGlobalProjectile<SoAGlobalProjectile>().canHitCoin;
                 if (proj.friendly &&
                     proj.owner == Projectile.owner &&
                     canHitCoin &&
-                    proj.damage > 0 &&
-                    proj.active)
+                    proj.damage > 0)
                 {
                     if (proj.Distance(Projectile.Center) <= 15)
                     {
@@ -83,7 +85,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
                             SoundEngine.PlaySound(SoundID.Tink, Projectile.Center);
                             break;
                         }
-                        if (proj.ModProjectile is not HitscanBullet)
+                        if (proj.ModProjectile is not HitscanBullet && proj.ModProjectile is not BasicBeam)
                         {
                             float speed = proj.velocity.Length();
                             Vector2 velocity = proj.velocity;
@@ -99,6 +101,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
                                 {
                                     closestTarget = ShardsHelpers.FindClosestNPC(Projectile, null, maxDistance);
                                     if (closestTarget != null) velocity = Projectile.Center.DirectionTo(closestTarget.Center) * speed;
+                                    else velocity = Vector2.One.RotatedByRandom(MathHelper.TwoPi);
                                 }
                             }
                             Projectile.Kill();
@@ -151,6 +154,21 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
                 d.fadeIn = 1.3f;
                 d.noGravity = true;
             }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            if (Projectile.ai[0] == 1)
+            {
+                Texture2D texture = SoA.DiamondBloom;
+                Rectangle frame = texture.Frame(1, 1);
+                Vector2 drawPos = Projectile.Center - Main.screenPosition;
+                Color drawColor = SoA.ElectricColor.UseA(50);
+                float rotation = Projectile.rotation;
+                float scale = 0.35f;
+                Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, rotation, frame.Size() / 2, scale, SpriteEffects.None, 0);
+            }
+            return base.PreDraw(ref lightColor);
         }
     }
 }

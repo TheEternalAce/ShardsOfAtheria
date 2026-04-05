@@ -84,7 +84,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
             {
                 int activePoes = player.ownedProjectileCounts[ModContent.ProjectileType<ElectricPoe>()];
                 if (poes > 100) poes = 100;
-                if (player.shimmering || player.CCed || player.sleeping.isSleeping || poes + activePoes >= 100) return;
+                if (player.shimmering || player.CCed || player.sleeping.FullyFallenAsleep || poes + activePoes >= 100) return;
                 if (++poeSpawnTimer >= 240 + Main.rand.Next(240) - player.Shards().combatTimer / 3)
                 {
                     bool validPosition = false;

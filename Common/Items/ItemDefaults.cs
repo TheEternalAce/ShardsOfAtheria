@@ -6,8 +6,8 @@ namespace ShardsOfAtheria.Common.Items
     public static class ItemDefaults
     {
         public const int RarityDataDisc = ItemRarityID.Green;
-        public const int RaritySinful = RarityEarlyHardmode;
-        public const int RaritySlayer = RarityMoonLord;
+        public const int RaritySinful = ItemRarityID.LightRed;
+        public const int RaritySlayer = ItemRarityID.Red;
 
         public const int RarityShimmerPermanentUpgrade = ItemRarityID.LightPurple;
         public const int RarityPreBoss = ItemRarityID.White;

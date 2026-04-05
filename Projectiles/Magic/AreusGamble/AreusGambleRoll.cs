@@ -73,14 +73,13 @@ namespace ShardsOfAtheria.Projectiles.Magic.AreusGamble
             {
                 CombatText.NewText(Projectile.Hitbox, Color.Cyan, (int)Projectile.ai[0]);
             }
-            foreach (var proj in Main.projectile)
+            foreach (var proj in Main.ActiveProjectiles)
             {
                 if (proj.friendly &&
                     proj.owner == Projectile.owner &&
-                    (proj.aiStyle == 1 || proj.aiStyle == 0) &&
+                    (proj.aiStyle == ProjAIStyleID.Arrow || proj.aiStyle == 0) &&
                     proj.type != ModContent.ProjectileType<AreusGambleDagger>() &&
-                    proj.damage > 0 &&
-                    proj.active)
+                    proj.damage > 0)
                 {
                     if (proj.Distance(Projectile.Center) <= 30)
                     {

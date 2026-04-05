@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Dusts;
 using ShardsOfAtheria.Items.Placeable.Furniture;
-using ShardsOfAtheria.Projectiles.Other;
-using ShardsOfAtheria.Utilities;
+using ShardsOfAtheria.Projectiles.Areus;
 using Terraria;
 using Terraria.GameContent.ObjectInteractions;
 using Terraria.ID;
@@ -13,6 +12,8 @@ namespace ShardsOfAtheria.Tiles.Furniture
 {
     public class AreusNullFieldGenerator : ModTile
     {
+        public int fieldIndex = -1;
+
         public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
@@ -38,18 +39,9 @@ namespace ShardsOfAtheria.Tiles.Furniture
 
         public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            foreach (Projectile projectile in Main.projectile)
-            {
-                if (projectile.type == ModContent.ProjectileType<AreusNullField>()) projectile.Kill();
-            }
-            base.KillMultiTile(i, j, frameX, frameY);
-        }
-
         public override bool RightClick(int i, int j)
         {
-            if (!ShardsHelpers.AnyProjectile<AreusNullField>())
+            if (fieldIndex == -1)
             {
                 Player player = Main.LocalPlayer;
                 Tile generator = Main.tile[i, j];
@@ -60,13 +52,15 @@ namespace ShardsOfAtheria.Tiles.Furniture
                 Vector2 offset = new(26, 16);
                 Vector2 spawnPos = tilePos + offset;
 
-                Projectile.NewProjectile(player.GetSource_FromThis(), spawnPos, Vector2.Zero, ModContent.ProjectileType<AreusNullField>(), 0, 0f, player.whoAmI);
+                fieldIndex = Projectile.NewProjectile(player.GetSource_FromThis(), spawnPos, Vector2.Zero, ModContent.ProjectileType<AreusNullField>(), 0, 0f, player.whoAmI);
             }
             else
             {
-                foreach (Projectile projectile in Main.projectile)
+                var areusField = Main.projectile[fieldIndex];
+                if (areusField.ai[0] == 1)
                 {
-                    if (projectile.type == ModContent.ProjectileType<AreusNullField>() && projectile.ai[0] == 1) projectile.ai[0] = 2;
+                    areusField.ai[0] = 2;
+                    fieldIndex = -1;
                 }
             }
             return true;

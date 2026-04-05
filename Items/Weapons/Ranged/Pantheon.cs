@@ -17,6 +17,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override int RequiredSin => SinnerPlayer.GREED;
 
+        public override int[] DamageSpread => [0, 35, 40];
+
         public override void SetStaticDefaults()
         {
             Item.AddDamageType(7);
@@ -48,13 +50,13 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override bool CanUseItem(Player player)
         {
-            player.AddBuff(BuffID.Midas, 3600);
+            if (base.CanUseItem(player)) player.AddBuff(BuffID.Midas, 3600);
             return base.CanUseItem(player);
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (player.BuyItem(10000))
+            if (player.BuyItem(Item.buyPrice(0, 1)))
             {
                 type = ModContent.ProjectileType<PantheonsGreedArrow>();
                 damage = (int)(damage * 1.5f);

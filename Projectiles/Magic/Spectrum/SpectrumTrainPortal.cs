@@ -37,9 +37,9 @@ namespace ShardsOfAtheria.Projectiles.Magic.Spectrum
 
         public override void AI()
         {
-            foreach (var projectile in Main.projectile)
+            foreach (var projectile in Main.ActiveProjectiles)
             {
-                if (projectile.active && projectile.type == Type - 1 && projectile.owner == Projectile.owner && Projectile.whoAmI != projectile.whoAmI &&
+                if (projectile.type == ModContent.ProjectileType<SpectrumTrain>() && projectile.owner == Projectile.owner && Projectile.whoAmI != projectile.whoAmI &&
                     projectile.Hitbox.Intersects(Projectile.Hitbox))
                 {
                     Projectile.timeLeft = 60;

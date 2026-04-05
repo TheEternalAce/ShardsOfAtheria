@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
+using ShardsOfAtheria.Items.Weapons.Summon;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -14,6 +15,8 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
     public class SinfulArmament : SinfulItem
     {
         public override int RequiredSin => -1;
+
+        public override int[] DamageSpread => [];
 
         public override void SetDefaults()
         {
@@ -55,7 +58,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             return true;
         }
 
-        void SwitchSoulType(Player player, out int armament, out string text, out Color color)
+        static void SwitchSoulType(Player player, out int armament, out string text, out Color color)
         {
             armament = 0;
             text = "";
@@ -63,14 +66,15 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
 
             if (player.Sinner().sinID == SinnerPlayer.ENVY)
             {
-                armament = 0;
+                // TODO: Create Envy armament.
+                armament = ModContent.ItemType<SinfulArmament>();
                 text = "";
                 color = Color.Orange;
             }
             else if (player.Sinner().sinID == SinnerPlayer.GLUTTONY)
             {
                 armament = ModContent.ItemType<Gomorrah>();
-                text = "I'm Gomorrah, no game can stand a chance against us!";
+                text = "I'm Gomorrah, no prey can stand a chance against us!";
                 color = Color.Orange;
             }
             else if (player.Sinner().sinID == SinnerPlayer.GREED)
@@ -81,7 +85,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             }
             else if (player.Sinner().sinID == SinnerPlayer.LUST)
             {
-                armament = 0;//ModContent.ItemType<SinfulArmament>();
+                armament = ModContent.ItemType<Lilith>();
                 text = "";
                 color = Color.Pink;
             }
@@ -93,14 +97,15 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             }
             else if (player.Sinner().sinID == SinnerPlayer.SLOTH)
             {
-                armament = 0;//ModContent.ItemType<SinfulArmament>();
+                // TODO: Create Malice.
+                armament = ModContent.ItemType<SinfulArmament>();
                 text = "";
                 color = Color.Orange;
             }
             else if (player.Sinner().sinID == SinnerPlayer.WRATH)
             {
-                armament = ModContent.ItemType<Yamiko>();
-                text = "My name is Yamiko, my edge is sharper than those pathetic blades.";
+                armament = ModContent.ItemType<Malice>();
+                text = "I am Malice, my edge is sharper than those pathetic blades.";
                 color = Color.Red;
             }
         }

@@ -5,10 +5,11 @@ using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.PlayerBuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff;
 using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
+using ShardsOfAtheria.Buffs.Sinner;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BuffItems;
-using ShardsOfAtheria.Items.Tools.Misc.Slayer;
+using ShardsOfAtheria.Items.Tools.Slayer;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons.Ammo;
 using ShardsOfAtheria.Items.Weapons.Magic;
@@ -71,8 +72,6 @@ namespace ShardsOfAtheria.Players
         public bool deathAmulet;
         public int deathAmuletCharges;
         public int deathInevitibility;
-
-        public int frostsparkDronesTier;
 
         public int combatTimer;
         public bool InCombat => combatTimer > 0;
@@ -438,7 +437,7 @@ namespace ShardsOfAtheria.Players
                         Player.TryClearBuff<ParryCooldown>();
                         Player.TryClearBuff<SetBonusCooldown>();
                         Player.TryClearBuff<SoulTeleportCooldown>();
-                        Player.TryClearBuff<YamikoDashCooldown>();
+                        Player.TryClearBuff<Hatred>();
                         if (ShardsHelpers.TryGetModContent("GMR", "InfraRedCorrosion", out ModBuff infraRedCooldown))
                             Player.TryClearBuff(infraRedCooldown.Type);
                         hardlightBracesCooldown = 0;
@@ -589,9 +588,7 @@ namespace ShardsOfAtheria.Players
             if (Player.HasBuff(ModContent.BuffType<Overdrive>()))
                 Player.ClearBuff(ModContent.BuffType<Overdrive>());
             if (healingItem && !heartBreak)
-            {
                 Player.AddBuff(ModContent.BuffType<HeartBreak>(), 900);
-            }
             if (powerTrip)
             {
                 Item trip = ModContent.GetInstance<AcidTrip>().Item;
@@ -618,18 +615,17 @@ namespace ShardsOfAtheria.Players
             }
         }
 
-        void TripEffect(Item trip, int projType)
+        void TripEffect(Item trip, int type)
         {
-            if (projType == ProjectileID.ToxicCloud)
-            {
-                projType += Main.rand.Next(3);
-            }
+            int type2 = type;
             for (int i = 0; i < 8; i++)
             {
+                if (type == ProjectileID.ToxicCloud)
+                    type2 += Main.rand.Next(3);
                 var vector = Vector2.One * 8 * Main.rand.NextFloat();
                 Projectile.NewProjectile(Player.GetSource_Accessory(trip), Player.Center,
-                    vector.RotatedByRandom(MathHelper.TwoPi), projType,
-                    Player.GetWeaponDamage(trip), Player.GetWeaponKnockback(trip), Player.whoAmI);
+                    vector.RotatedByRandom(MathHelper.TwoPi), type2, Player.GetWeaponDamage(trip),
+                    Player.GetWeaponKnockback(trip), Player.whoAmI);
             }
         }
 

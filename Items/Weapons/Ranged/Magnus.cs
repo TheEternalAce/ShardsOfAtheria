@@ -14,6 +14,9 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
     {
         public override int RequiredSin => SinnerPlayer.PRIDE;
 
+        // Base damages: 43, 74, 180
+        public override int[] DamageSpread => [0, 31, 106];
+
         public override void SetStaticDefaults()
         {
             Item.AddDamageType(5, 7);
@@ -27,7 +30,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.height = 28;
             Item.scale = .85f;
 
-            Item.damage = 26;
+            Item.damage = 43;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 4f;
             Item.crit = 5;
@@ -38,7 +41,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.UseSound = SoundID.Item41;
             Item.noMelee = true;
 
-            Item.shootSpeed = 0f;
+            Item.shootSpeed = 1f;
             Item.rare = ItemDefaults.RaritySinful;
             Item.value = Item.sellPrice(0, 10, 25);
             Item.shoot = ModContent.ProjectileType<AmbassadorBeam>();
@@ -48,11 +51,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             type = Item.shoot;
-        }
-
-        public override Vector2? HoldoutOffset()
-        {
-            return new Vector2(0, 0);
+            //type = ModContent.ProjectileType<HitscanBullet>();
         }
     }
 }

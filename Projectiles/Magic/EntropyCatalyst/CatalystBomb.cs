@@ -48,21 +48,20 @@ namespace ShardsOfAtheria.Projectiles.Magic.EntropyCatalyst
                 if (Projectile.ai[1] > 6) Projectile.ApplyGravity();
                 if (Projectile.ai[1] > 15) Projectile.velocity.X *= 0.99f;
                 Projectile.rotation += Projectile.velocity.X * 0.05f;
-                foreach (var proj in Main.projectile)
+                foreach (var proj in Main.ActiveProjectiles)
                 {
                     if (proj.friendly &&
                         proj.whoAmI != Projectile.whoAmI &&
                         proj.owner == Projectile.owner &&
-                        (proj.aiStyle == 1 || proj.aiStyle == 0) &&
-                        proj.damage > 0 &&
-                        proj.active)
+                        (proj.aiStyle == ProjAIStyleID.Arrow || proj.aiStyle == 0) &&
+                        proj.damage > 0)
                     {
                         if (proj.Distance(Projectile.Center) <= 15)
                         {
                             if (proj.type == Type && proj.ai[0] == 0) break;
                             proj.Kill();
                             Projectile.Kill();
-                            OnKill(-1);
+                            Explode();
                             break;
                         }
                     }

@@ -20,14 +20,13 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
         {
             Item.width = 34;
             Item.height = 20;
-            Item.DefaultToRangedWeapon(ProjectileID.PurificationPowder, AmmoID.Bullet, 24, 16f);
+            Item.DefaultToRangedWeapon(ModContent.ProjectileType<AreusBounceShot>(), AmmoID.Bullet, 24, 1f, true);
 
             Item.damage = 62;
             Item.knockBack = 2f;
             Item.crit = 0;
 
             Item.UseSound = SoundID.Item41;
-            Item.autoReuse = true;
 
             Item.rare = ItemDefaults.RarityDukeFishron;
             Item.value = Item.sellPrice(0, 4, 25);
@@ -35,7 +34,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            type = ModContent.ProjectileType<AreusBounceShot>();
+            type = Item.shoot;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Buffs.PlayerDebuff.SinDebuffs;
+using ShardsOfAtheria.Buffs.Sinner;
+using ShardsOfAtheria.Items.Weapons.Summon;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -37,7 +38,12 @@ namespace ShardsOfAtheria.Globals
 
         public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (player.Sinner().sinID == SinnerPlayer.LUST) velocity = velocity.RotatedByRandom(MathHelper.PiOver4);
+            if (player.Sinner().sinID == SinnerPlayer.LUST)
+            {
+                float rotation = MathHelper.PiOver4;
+                if (item.type == ModContent.ItemType<Lilith>()) rotation = MathHelper.Pi / 6f;
+                velocity = velocity.RotatedByRandom(rotation);
+            }
         }
 
         public override bool? UseItem(Item item, Player player)
@@ -45,14 +51,12 @@ namespace ShardsOfAtheria.Globals
             var sinner = player.Sinner();
             bool wellFedBuff = item.buffType == BuffID.WellFed || item.buffType == BuffID.WellFed2 || item.buffType == BuffID.WellFed3;
             if (sinner.sinID == SinnerPlayer.GLUTTONY && ((item.buffType > 0 && !wellFedBuff) || item.healLife > 0 || item.healMana > 0) && !item.IsWeapon())
-            {
-                player.AddBuff<GluttonyAcid>(300);
-            }
+                player.AddBuff<GluttonyAcid>(SinnerPlayer.GLUTTONY_ACID_DURATION);
             if (sinner.sinID == SinnerPlayer.PRIDE && player.InCombat() && item.IsWeapon() && !item.DamageType.CountsAsClass(DamageClass.Summon))
             {
                 uses++;
-                sinner.attacksMade++;
-                if (sinner.attackTimer <= 0) sinner.attackTimer = 300;
+                sinner.prideAttacksMade++;
+                if (sinner.prideAttackTimer <= 0) sinner.prideAttackTimer = 300;
             }
             return null;
         }
@@ -70,7 +74,8 @@ namespace ShardsOfAtheria.Globals
                 if (gluttonyHealing > 0)
                 {
                     player.Heal(gluttonyHealing / 2);
-                    sinner.hunger += gluttonyHealing;
+                    sinner.gluttonyHunger += gluttonyHealing;
+                    player.buffImmune[ModContent.BuffType<GluttonyAcid>()] = true;
                 }
             }
             return base.ConsumeItem(item, player);

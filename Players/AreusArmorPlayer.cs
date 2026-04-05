@@ -5,6 +5,7 @@ using ShardsOfAtheria.Buffs.PlayerBuff.AreusArmor;
 using ShardsOfAtheria.Buffs.PlayerDebuff.Cooldowns;
 using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.AreusChips;
+using ShardsOfAtheria.Projectiles.Areus;
 using ShardsOfAtheria.Projectiles.Other;
 using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar;

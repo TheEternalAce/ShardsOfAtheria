@@ -51,9 +51,9 @@ namespace ShardsOfAtheria.Projectiles.Magic.EntropyCatalyst
         {
             var player = Projectile.GetPlayerOwner();
             if (++Projectile.ai[0] > 20) Projectile.velocity *= 0.9f;
-            foreach (Projectile proj in Main.projectile)
+            foreach (Projectile proj in Main.ActiveProjectiles)
             {
-                if (proj.active && proj.owner == Projectile.owner && proj.type == Projectile.type - 1 && Projectile.Hitbox.Intersects(proj.Hitbox) && proj.ai[0] == 0)
+                if (proj.owner == Projectile.owner && proj.type == Projectile.type - 1 && Projectile.Hitbox.Intersects(proj.Hitbox) && proj.ai[0] == 0)
                 {
                     proj.ai[0] = 1;
                     proj.extraUpdates = 20;

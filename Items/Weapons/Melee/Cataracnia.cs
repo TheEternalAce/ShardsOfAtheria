@@ -47,18 +47,10 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool CanUseItem(Player player)
         {
-            foreach (Projectile projectile in Main.projectile)
+            foreach (Projectile projectile in Main.ActiveProjectiles)
             {
-                if (projectile.active)
-                {
-                    if (projectile.type == ModContent.ProjectileType<CataracniaEye>())
-                    {
-                        if (projectile.owner == player.whoAmI)
-                        {
-                            projectile.Kill();
-                        }
-                    }
-                }
+                if (projectile.type == ModContent.ProjectileType<CataracniaEye>() && projectile.owner == player.whoAmI)
+                    projectile.Kill();
             }
             if (player.altFunctionUse == 2)
             {

@@ -41,9 +41,9 @@ namespace ShardsOfAtheria.Items.Tools.Misc
 
         public override bool? UseItem(Player player)
         {
-            player.Teleport(player.Slayer().recentPos);
-            player.statLife = player.Slayer().recentLife;
-            player.statMana = player.Slayer().recentMana;
+            player.Teleport(player.Slayer().spiderClockRecentPos);
+            player.statLife = player.Slayer().spiderClockRecentLife;
+            player.statMana = player.Slayer().spiderClockRecentMana;
             player.AddBuff(ModContent.BuffType<ClockCooldown>(), 5 * 60);
             return true;
         }
@@ -55,9 +55,9 @@ namespace ShardsOfAtheria.Items.Tools.Misc
                 saveTimer++;
                 if (saveTimer == 300)
                 {
-                    player.Slayer().recentPos = player.position;
-                    player.Slayer().recentLife = player.statLife;
-                    player.Slayer().recentMana = player.statMana;
+                    player.Slayer().spiderClockRecentPos = player.position;
+                    player.Slayer().spiderClockRecentLife = player.statLife;
+                    player.Slayer().spiderClockRecentMana = player.statMana;
                     CombatText.NewText(player.getRect(), Color.Gray, "Time shift ready");
                 }
                 if (saveTimer >= 302)

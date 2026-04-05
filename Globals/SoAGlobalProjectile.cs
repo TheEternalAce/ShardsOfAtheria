@@ -1,6 +1,7 @@
 ﻿using BattleNetworkElements;
 using BattleNetworkElements.Utilities;
 using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Buffs.Sinner;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Projectiles.Ammo;
 using ShardsOfAtheria.Projectiles.Magic.ThorSpear;
@@ -313,6 +314,7 @@ namespace ShardsOfAtheria.Globals
         public override bool CanHitPlayer(Projectile projectile, Player target)
         {
             if (target.Shards().areusNullField || areusNullField) return false;
+            if (target.HasBuff<Hatred>()) return true;
             return base.CanHitPlayer(projectile, target);
         }
     }

@@ -23,5 +23,34 @@
   - Also added visual to show how much hunger was gained.
 - Down Bow's extra projectiles are now slower and weaker.
 - Reworked and resprited Gomorrah.
-  - Now a broadsword style weapon, builds gore on hit.
-  - Alt use consumes gore and throws a random projectile.
+  - Now a broadsword style weapon.
+  - Alt use consumes gluttony hunger and throws a random projectile.
+- Renamed Entropic Fragment to Entropic Essence.
+- Entropic Essence now drops from any enemy at 50% rate.
+- Entropic Essence now has no value.
+- Wrath Fury now deals massive damage instead of killing the user outright.
+- Fixed Gomorrah not requiring Gluttony.
+- Renamed Necronomicon to Book of Entropy.
+- Gluttony damage reduction is no longer flat.
+- Fixed Theta Flame Sabers not having any TerraTypes.
+- Areus Judgement and its Z-Charged variant now have the Psychic TerraType.
+- Gomorrah now has the Blood TerraType.
+- Greater Ruby Core and its Super variant now has the Rock TerraType.
+- Added Hitscan Gun. (Unobtainable, debug item)
+- Added Lilith.
+- Tweaked damage scaling weapons.
+- Fixed Lust not reducing damage.
+- Renamed Yamiko to Malice and reworked.
+- Frostspark Drone now summons drones on hit. Removed alt-use functionality.
+- Removed Sinful Soul.
+- Removed Sinful tooltip.
+- Amber Banners now have a 1/3 chance of appearing. Updated tooltip to reflect change.
+- Increased Amber Banner cooldown.
+- Added cooldown for sapphire spikes and sapphire shell.
+- Reduced Diamond Core defense bonuses. (Lesser -> 3, Regular & Greater -> 6, Super -> 8)
+- Reduced Mega Gem Core defense bonus to 10.
+- Reduced Tenacious Diamond defense bonus to 4.
+- Gem core post-hurt buffs are now independant from Sapphire Core.
+- Gem core post-hurt buffs are no longer infinite duration until combat ends. (Now 10-15 seconds)
+- Cunning Sapphire now creates orbiting sapphire blades.
+- Cavern Harpies now drop ores that were generated during world creation.

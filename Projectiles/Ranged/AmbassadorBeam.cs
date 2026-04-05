@@ -22,15 +22,10 @@ namespace ShardsOfAtheria.Projectiles.Ranged
 
         public override void SetDefaults()
         {
-            Projectile.width = Projectile.height = 4;
-            Projectile.timeLeft = 600;
-            Projectile.extraUpdates = 20;
-            Projectile.friendly = true;
+            base.SetDefaults();
             Projectile.DamageType = DamageClass.Ranged;
-            Projectile.aiStyle = 0;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 5;
-            Projectile.ignoreWater = true;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

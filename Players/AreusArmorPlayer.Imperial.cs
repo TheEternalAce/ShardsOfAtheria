@@ -71,9 +71,9 @@ namespace ShardsOfAtheria.Players
         }
         private void ImperialActive_Summon()
         {
-            foreach (var projectile in Main.projectile)
+            foreach (var projectile in Main.ActiveProjectiles)
             {
-                if (projectile.active && projectile.type == ModContent.ProjectileType<BlackStar>() &&
+                if (projectile.type == ModContent.ProjectileType<BlackStar>() &&
                     projectile.owner == Player.whoAmI)
                 {
                     projectile.Kill();

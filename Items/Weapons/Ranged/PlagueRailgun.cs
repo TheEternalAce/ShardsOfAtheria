@@ -29,7 +29,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.width = 112;
             Item.height = 28;
 
-            Item.damage = 30;
+            Item.damage = 45;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 7f;
             Item.crit = 6;
@@ -77,7 +77,8 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
         {
-            damage = ShardsHelpers.ScaleByProggression(player, damage);
+            // Base damages: 45, 90, 180, 240
+            damage.Flat = ShardsHelpers.ProggressionValue(player, [0, 45, 90, 60], 2);
             base.ModifyWeaponDamage(player, ref damage);
         }
 

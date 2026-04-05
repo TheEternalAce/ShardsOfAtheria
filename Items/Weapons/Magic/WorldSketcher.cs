@@ -52,9 +52,9 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 
         public override bool CanUseItem(Player player)
         {
-            if (player.altFunctionUse == 2) foreach (Projectile projectile in Main.projectile)
+            if (player.altFunctionUse == 2) foreach (Projectile projectile in Main.ActiveProjectiles)
                 {
-                    if (projectile.active && projectile.type == Item.shoot && projectile.owner == player.whoAmI) projectile.Kill();
+                    if (projectile.type == Item.shoot && projectile.owner == player.whoAmI) projectile.Kill();
                 }
             return base.CanUseItem(player);
         }

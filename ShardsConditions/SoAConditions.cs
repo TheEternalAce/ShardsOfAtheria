@@ -36,6 +36,11 @@ namespace ShardsOfAtheria.ShardsConditions
         public static readonly Condition ThrowingWeapon = new(KeyBase + "ThrowingWeapon",
             () => SoA.ServerConfig.throwingWeapons);
 
+        public static Condition WorldGeneratedOre(int tileType)
+        {
+            return new(KeyBase + "OreGenerated", () => ShardsSystem.Instance.generatedOres.Contains(tileType));
+        }
+
         public static readonly Condition DownedNova = new(KeyBase + "DownedNova",
             () => ShardsDownedSystem.downedValkyrie);
         public static readonly Condition NotDownedNova = new(KeyBase + "NotDownedNova",
