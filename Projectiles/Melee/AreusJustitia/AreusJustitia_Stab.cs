@@ -24,10 +24,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
 
         public override void SetStaticDefaults()
         {
-            Projectile.AddDamageType(5, 9);
-            Projectile.AddElement(2);
-            Projectile.AddRedemptionElement(7);
-            Projectile.AddRedemptionElement(13);
+            Type.AddAreusProj(false);
+            Projectile.AddDamageType(4);
         }
 
         public override void SetDefaults()

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -21,15 +20,12 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusGlaive
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.Spear);
-            Projectile.ownerHitCheck = false;
         }
 
         public override bool PreAI()
         {
             Player player = Main.player[Projectile.owner]; // Since we access the owner player instance so much, it's useful to create a helper local variable for this
             int duration = player.itemAnimationMax; // Define the duration the projectile will exist in frames
-            ShardsPlayer shardsPlayer = player.Shards();
-            int upgrades = shardsPlayer.genesisRagnarockUpgrades;
 
             player.heldProj = Projectile.whoAmI; // Update the player's held projectile id
 
@@ -73,11 +69,10 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusGlaive
 
             return false; // Don't execute vanilla AI.
         }
+    }
 
-        public override bool PreDraw(ref Color lightColor)
-        {
-            lightColor = Color.White;
-            return base.PreDraw(ref lightColor);
-        }
+    public class AreusGlaive_ThrustBackwards : AreusGlaive_Thrust
+    {
+
     }
 }

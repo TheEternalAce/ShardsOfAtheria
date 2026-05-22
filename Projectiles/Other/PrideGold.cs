@@ -2,7 +2,6 @@
 using ShardsOfAtheria.Buffs.Sinner;
 using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Globals;
-using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -20,7 +19,7 @@ namespace ShardsOfAtheria.Projectiles.Other
         {
             Projectile.AddDamageType(1);
 
-            SoAGlobalProjectile.Metalic.Add(Type, 0.5f);
+            SoAGlobalProjectile.Sets.Metalic[Type] = 0.5f;
         }
 
         public override void SetDefaults()

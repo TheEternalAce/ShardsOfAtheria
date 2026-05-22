@@ -56,7 +56,6 @@ namespace ShardsOfAtheria.Projectiles.GemCore
                     {
                         var vector = projectile.Center - Projectile.Center;
                         vector.Normalize();
-                        Projectile.velocity = vector * -4;
                         projectile.velocity = vector * 4;
                     }
                 }

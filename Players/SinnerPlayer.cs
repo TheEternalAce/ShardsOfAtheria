@@ -33,13 +33,27 @@ namespace ShardsOfAtheria.Players
         public bool SinActive => sinID >= 0;
 
         #region Envy
+        public int EnvyQuarrel
+        {
+            get => envyQuarrel;
+            set
+            {
+                envyQuarrel = value;
+                envyQuarrelTimer = 180;
+            }
+        }
+        int envyQuarrel;
+        int envyQuarrelTimer;
+        public int envyQuarrelTarget = -1;
         public int envyTargetID;
         public bool envyTargetMarked;
-        void EnvyKill(NPC target)
+        void EnvyPostUpdate()
         {
-            if (sinID != ENVY) return;
-            if (target.life <= 0 && target.whoAmI == envyTargetID)
-                envyTargetID = -1;
+            if (envyQuarrel >= 0)
+            {
+                if (envyQuarrelTimer >= 0) envyQuarrelTimer--;
+                else envyQuarrel--;
+            }
         }
         void EnvyModifyHit(NPC target, ref NPC.HitModifiers modifiers)
         {
@@ -47,6 +61,12 @@ namespace ShardsOfAtheria.Players
             if (envyTargetID == -1) envyTargetID = target.whoAmI;
             else if (target.whoAmI != envyTargetID) modifiers.FinalDamage -= 0.5f;
             else modifiers.FlatBonusDamage += Player.statDefense / 10 + 3;
+        }
+        void EnvyHit(NPC target)
+        {
+            if (sinID != ENVY) return;
+            if (target.life <= 0 && target.whoAmI == envyTargetID)
+                envyTargetID = -1;
         }
         #endregion
 
@@ -389,7 +409,8 @@ namespace ShardsOfAtheria.Players
         public void WrathCrit(ref Player.HurtModifiers modifiers)
         {
             if (sinID != WRATH) return;
-            if (Main.rand.NextFloat() < 0.04f)
+            modifiers.ModifyHurtInfo += StoreDamage;
+            if (Main.rand.NextFloat() < 0.04f && storedDamage > 10)
             {
                 Player.AddBuff<Fury>(600);
                 modifiers.FinalDamage *= 2f;
@@ -447,6 +468,7 @@ namespace ShardsOfAtheria.Players
 
         public override void PostUpdate()
         {
+            EnvyPostUpdate();
             LustPostUpdate();
             PridePostUpdate();
             SlothPostUpdate();
@@ -480,26 +502,33 @@ namespace ShardsOfAtheria.Players
         {
             if (SoA.SinAbility.JustPressed)
             {
-                switch (sinID)
+                if (sinID > -1 && Player.controlTorch)
                 {
-                    case -1:
-                        SinfulUI.Instance.ToggleSelections();
-                        break;
-                    case ENVY:
-                        break;
-                    case GLUTTONY:
-                        break;
-                    case GREED:
-                        break;
-                    case LUST:
-                        break;
-                    case PRIDE:
-                        PrideCoin();
-                        break;
-                    case SLOTH:
-                        break;
-                    case WRATH:
-                        break;
+                    SinfulUI.Instance.ToggleSelected();
+                }
+                else
+                {
+                    switch (sinID)
+                    {
+                        case -1:
+                            SinfulUI.Instance.ToggleSelections();
+                            break;
+                        case ENVY:
+                            break;
+                        case GLUTTONY:
+                            break;
+                        case GREED:
+                            break;
+                        case LUST:
+                            break;
+                        case PRIDE:
+                            PrideCoin();
+                            break;
+                        case SLOTH:
+                            break;
+                        case WRATH:
+                            break;
+                    }
                 }
             }
         }
@@ -518,7 +547,7 @@ namespace ShardsOfAtheria.Players
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             GluttonyHit(target, hit);
-            EnvyKill(target);
+            EnvyHit(target);
         }
 
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)

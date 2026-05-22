@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Utilities;
-using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -29,22 +29,29 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusGlaive
         {
             Projectile.width = 102;
             Projectile.height = 102;
+            Projectile.scale = 1.2f;
 
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
+            Projectile.ownerHitCheck = true;
+        }
+        float speed;
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            speed = Projectile.velocity.Length();
         }
 
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            player.itemAnimation = 10;
-            player.itemTime = 10;
 
-            Projectile.rotation += MathHelper.PiOver4 * Projectile.direction;
-            Projectile.SetVisualOffsets(new Vector2(102, 106));
+            Projectile.rotation += MathHelper.ToRadians(30f) * Projectile.direction;
+            Projectile.SetVisualOffsets(new Vector2(102, 106), true);
+            Projectile.spriteDirection = -Projectile.direction;
 
             Timer++;
             if (Timer >= TotalDuration)
@@ -52,11 +59,6 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusGlaive
                 // Kill the projectile if it reaches it's intented lifetime
                 Projectile.Kill();
                 return;
-            }
-            else
-            {
-                // Important so that the sprite draws "in" the player's hand and not fully infront or behind the player
-                player.heldProj = Projectile.whoAmI;
             }
 
             // Fade in and out
@@ -68,7 +70,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusGlaive
             // Keep locked onto the player, but extend further based on the given velocity (Requires ShouldUpdatePosition returning false to work)
             Vector2 playerCenter = player.RotatedRelativePoint(player.MountedCenter, reverseRotation: false, addGfxOffY: false);
             Projectile.velocity.Normalize();
-            Projectile.velocity *= 16;
+            Projectile.velocity *= speed;
             if (Timer % 10 == 0)
             {
                 SoundEngine.PlaySound(SoundID.Item71, Projectile.position);
@@ -82,38 +84,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusGlaive
             {
                 Projectile.Center = playerCenter + Projectile.velocity * (Timer - 1f);
             }
-
-            if (Main.rand.NextBool(2))
-            {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Electric);
-            }
         }
 
-        public override Color? GetAlpha(Color lightColor)
+        public override bool ShouldUpdatePosition()
         {
-            return Color.White;
-        }
-
-        public override bool PreDraw(ref Color lightColor)
-        {
-            var player = Main.player[Projectile.owner];
-
-            Vector2 mountedCenter = player.MountedCenter;
-
-            var drawPosition = Main.MouseWorld;
-            var remainingVectorToPlayer = mountedCenter - drawPosition;
-
-            if (Projectile.alpha == 0)
-            {
-                int direction = -1;
-
-                if (Main.MouseWorld.X < mountedCenter.X)
-                    direction = 1;
-
-                player.itemRotation = (float)Math.Atan2(remainingVectorToPlayer.Y * direction, remainingVectorToPlayer.X * direction);
-            }
-            lightColor = Color.White;
-            return true;
+            return false;
         }
     }
 }

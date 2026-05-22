@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon;
@@ -66,8 +67,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
 
             if (player.Sinner().sinID == SinnerPlayer.ENVY)
             {
-                // TODO: Create Envy armament.
-                armament = ModContent.ItemType<SinfulArmament>();
+                armament = ModContent.ItemType<Vendetta>();
                 text = "";
                 color = Color.Orange;
             }
@@ -97,7 +97,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             }
             else if (player.Sinner().sinID == SinnerPlayer.SLOTH)
             {
-                // TODO: Create Malice.
+                // TODO: Create Morgana.
                 armament = ModContent.ItemType<SinfulArmament>();
                 text = "";
                 color = Color.Orange;

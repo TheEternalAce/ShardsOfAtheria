@@ -6,6 +6,9 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <AdditionalFiles Remove="ChangeNotes\SoA 1.1.3.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="BattleNetworkElements">
       <HintPath>..\ModAssemblies\BattleNetworkElements_v1.0.dll</HintPath>
     </Reference>

@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);
 
-            SoAGlobalProjectile.Metalic.Add(Type, 1f);
+            SoAGlobalProjectile.Sets.Metalic[Type] = 1f;
         }
 
         public override void OnSpawn(IEntitySource source)

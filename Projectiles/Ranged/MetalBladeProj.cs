@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 
-            SoAGlobalProjectile.Metalic.Add(Type, 1f);
+            SoAGlobalProjectile.Sets.Metalic[Type] = 1f;
             Projectile.AddDamageType(11);
         }
 

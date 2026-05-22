@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Buffs.PlayerBuff.OnHitBuffs;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Enums;
@@ -27,7 +28,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.Baton
 
         public override void SetStaticDefaults()
         {
-            Projectile.MakeTrueMelee();
+            SoAGlobalProjectile.Sets.TrueMelee[Type] = true;
             Projectile.AddAreus();
             Projectile.AddDamageType(5);
         }

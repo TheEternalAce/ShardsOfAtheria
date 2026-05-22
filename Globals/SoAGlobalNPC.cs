@@ -77,6 +77,7 @@ namespace ShardsOfAtheria.Globals
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             LeadingConditionRule notHardmode = new(new Conditions.IsPreHardmode());
+            LeadingConditionRule hardmode = new(new Conditions.IsHardmode());
             LeadingConditionRule master = new(new Conditions.IsMasterMode());
             LeadingConditionRule firstTimeKillingPlantera = new(new Conditions.FirstTimeKillingPlantera());
             LeadingConditionRule downedGolem = new(new DownedGolem());
@@ -90,7 +91,10 @@ namespace ShardsOfAtheria.Globals
             if (npc.type == NPCID.Reaper)
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AncientMedalion>(), 4));
             if (npc.type == NPCID.BlackRecluse || npc.type == NPCID.BlackRecluseWall || npc.type == NPCID.JungleCreeper || npc.type == NPCID.JungleCreeperWall)
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<AcidTrip>(), 10));
+            {
+                hardmode.OnSuccess(ItemDropRule.Common(ModContent.ItemType<AcidTrip>(), 10));
+                npcLoot.Add(hardmode);
+            }
 
             // Master mode drops
             if (npc.type == NPCID.KingSlime)

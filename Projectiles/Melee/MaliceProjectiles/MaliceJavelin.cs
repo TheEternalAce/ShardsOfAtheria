@@ -42,11 +42,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.MaliceProjectiles
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
 
             Vector2 offset = Vector2.Normalize(Projectile.velocity).RotatedBy(MathHelper.PiOver2 + Projectile.ai[0]) * 4f;
-            Dust dust = Dust.NewDustPerfect(Projectile.Center + offset, DustID.ShadowbeamStaff);
+            Dust dust = Dust.NewDustPerfect(Projectile.Center + offset, DustID.Torch);
             dust.velocity *= 0f;
             dust.noGravity = true;
 
-            dust = Dust.NewDustPerfect(Projectile.Center - offset, DustID.ShadowbeamStaff);
+            dust = Dust.NewDustPerfect(Projectile.Center - offset, DustID.Torch);
             dust.velocity *= 0f;
             dust.noGravity = true;
 
@@ -63,7 +63,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.MaliceProjectiles
         {
             for (int i = 0; i < 10; i++)
             {
-                Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.ShadowbeamStaff);
+                Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Torch);
             }
         }
     }

@@ -30,7 +30,7 @@ namespace ShardsOfAtheria.Utilities
 
         public static bool IsTrueMelee(this Projectile projectile)
         {
-            return SoAGlobalProjectile.TrueMelee.Contains(projectile.type) || (projectile.DamageType.CountsAsClass(DamageClass.Melee) &&
+            return SoAGlobalProjectile.Sets.TrueMelee[projectile.type] || (projectile.DamageType.CountsAsClass(DamageClass.Melee) &&
               (projectile.aiStyle == 19 || projectile.aiStyle == 75 || projectile.aiStyle == 161 || projectile.GetPlayerOwner().heldProj == projectile.whoAmI ||
               projectile.ModProjectile is CoolSword || projectile.ModProjectile is BladeAura));
         }
@@ -261,36 +261,27 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
-        public static void MakeTrueMelee(this Projectile projectile)
+        public static void AddAreus(this Projectile projectile, bool? dark = null, bool forceAddElements = false)
         {
-            SoAGlobalProjectile.TrueMelee.Add(projectile.type);
-        }
-        public static void MakeMetalic(this Projectile projectile, float magnetDamage = 1f)
-        {
-            SoAGlobalProjectile.Metalic.Add(projectile.type, magnetDamage);
-        }
-
-        public static void AddAreus(this Projectile projectile, bool dark = false, bool forceAddElements = false)
-        {
+            if (dark == false) return;
             projectile.type.AddAreusProj(dark);
-            if (!dark || forceAddElements)
+            if (!dark == null || forceAddElements)
             {
                 projectile.AddElement(2);
                 projectile.AddRedemptionElement(7);
             }
         }
-        public static void AddAreusProj(this int projID, bool dark)
+        public static void AddAreusProj(this int projID, bool? dark = null)
         {
-            SoAGlobalProjectile.AreusProj.Add(projID, dark);
+            if (dark == false) return;
+            SoAGlobalProjectile.Sets.Areus[projID] = dark;
         }
         public static bool IsAreus(this Projectile projectile, bool includeDark)
         {
-            if (!includeDark)
-            {
-                SoAGlobalProjectile.AreusProj.TryGetValue(projectile.type, out var dark);
-                return SoAGlobalProjectile.AreusProj.ContainsKey(projectile.type) && !dark;
-            }
-            else return SoAGlobalProjectile.AreusProj.ContainsKey(projectile.type);
+            int type = projectile.type;
+            bool isAreus = SoAGlobalProjectile.Sets.Areus[type] == null;
+            if (includeDark) isAreus = SoAGlobalProjectile.Sets.Areus[type] == true;
+            return isAreus;
         }
 
         [JITWhenModsEnabled("BattleNetworkElements")]

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Dusts;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -17,12 +18,9 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
 
         public override void SetStaticDefaults()
         {
-            Projectile.MakeTrueMelee();
-            Projectile.AddAreus();
-            Projectile.AddDamageType(3, 5, 9);
-            Projectile.AddElement(0);
-            Projectile.AddRedemptionElement(2);
-            Projectile.AddRedemptionElement(13);
+            SoAGlobalProjectile.Sets.TrueMelee[Type] = true;
+            Type.AddAreusProj(false);
+            Projectile.AddDamageType(4);
         }
 
         public override void SetDefaults()
@@ -64,7 +62,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
                     SoundEngine.PlaySound(in style, Projectile.Center);
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), ownerMountedCenter, Projectile.velocity * 32f, ModContent.ProjectileType<FlameSlashExtention>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1f);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), ownerMountedCenter, Projectile.velocity * 32f, ModContent.ProjectileType<AreusJustitia_Slash>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1f);
                     }
                 }
                 if (progress < 0.05f)
@@ -128,7 +126,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
                     Projectile.ai[1] = 2f;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), ownerMountedCenter, new Vector2(30f, 0f).RotatedBy(rot), ModContent.ProjectileType<FlameStabExtention>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1f, 3f);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), ownerMountedCenter, new Vector2(30f, 0f).RotatedBy(rot), ModContent.ProjectileType<AreusJustitia_Stab>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1f, 3f);
                     }
                     SoundStyle style = SoA.Judgement2;
                     SoundEngine.PlaySound(in style, Projectile.Center);
@@ -138,7 +136,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
                     Projectile.ai[1] = 3f;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), ownerMountedCenter, new Vector2(30f, 0f).RotatedBy(rot), ModContent.ProjectileType<FlameStabExtention>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1f, 3f);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), ownerMountedCenter, new Vector2(30f, 0f).RotatedBy(rot), ModContent.ProjectileType<AreusJustitia_Stab>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1f, 3f);
                     }
                     SoundStyle style = SoA.Judgement3;
                     SoundEngine.PlaySound(in style, Projectile.Center);
@@ -151,7 +149,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
                     Projectile.ai[1] = 4f;
                     if (Main.myPlayer == Projectile.owner)
                     {
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), ownerMountedCenter, Projectile.velocity * 26f, ModContent.ProjectileType<FlameSlashExtention>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 2f);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), ownerMountedCenter, Projectile.velocity * 26f, ModContent.ProjectileType<AreusJustitia_Slash>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 2f);
                     }
                     SoundStyle style = SoA.Judgement2;
                     SoundEngine.PlaySound(in style, Projectile.Center);

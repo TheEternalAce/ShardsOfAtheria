@@ -19,7 +19,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.Sawstring
             Projectile.AddAreus();
             Projectile.AddDamageType(5);
 
-            SoAGlobalProjectile.Metalic.Add(Type, 1f);
+            SoAGlobalProjectile.Sets.Metalic[Type] = 1f;
         }
 
         public override void SetDefaults()

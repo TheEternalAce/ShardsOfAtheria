@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Sinner;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Projectiles.Ammo;
-using ShardsOfAtheria.Projectiles.Magic.ThorSpear;
 using ShardsOfAtheria.Utilities;
 using System;
 using System.Collections.Generic;
@@ -22,76 +21,14 @@ namespace ShardsOfAtheria.Globals
         public bool nailPunch = false;
         public bool canHitCoin = false;
 
-        public static readonly Dictionary<int, bool> AreusProj = [];
-        public static readonly List<int> Eraser = [];
-        public static readonly List<int> TrueMelee = [];
-        public static readonly Dictionary<int, float> Metalic = new()
+        [ReinitializeDuringResizeArrays]
+        public static class Sets
         {
-            #region Melee
-            {ProjectileID.Anchor, 1f},
-            {ProjectileID.BallOHurt, 1f},
-            {ProjectileID.BloodyMachete, 1f},
-            {ProjectileID.ChainGuillotine, 1f },
-            {ProjectileID.ChainKnife, 1f },
-            {ProjectileID.ChlorophyteOrb, 1f},
-            {ProjectileID.FlamingMace, 1f},
-            {ProjectileID.Mace, 1f},
-            {ProjectileID.TheMeatball, 1f},
-            #endregion
-            #region Ranged
-            {ProjectileID.Bullet, 1f},
-            {ProjectileID.BulletDeadeye, 1f},
-            {ProjectileID.BulletHighVelocity, 1f},
-            {ProjectileID.BulletSnowman, 1f},
-            {ProjectileID.ChlorophyteBullet, 1f},
-            {ProjectileID.MoonlordBullet, 1f},
-            {ProjectileID.SilverBullet, 1f},
-            {ProjectileID.SniperBullet, 1f},
+            public static readonly bool?[] Areus = new bool?[ProjectileLoader.ProjectileCount];
+            public static readonly bool[] TrueMelee = new bool[ProjectileLoader.ProjectileCount];
+            public static readonly float[] Metalic = new float[ProjectileLoader.ProjectileCount];
+        }
 
-            {ProjectileID.ChlorophyteArrow, 1f},
-            {ProjectileID.MoonlordArrow, 1f},
-
-            {ProjectileID.Nail, 0.33f},
-            {ProjectileID.NailFriendly, 0.1f},
-
-            {ProjectileID.RocketI, 3f },
-            {ProjectileID.RocketII, 3f },
-            {ProjectileID.RocketIII, 3f },
-            {ProjectileID.RocketIV, 3f },
-            {ProjectileID.MiniNukeRocketI, 3f },
-            {ProjectileID.MiniNukeRocketII, 3f },
-            {ProjectileID.ClusterRocketI, 3f },
-            {ProjectileID.ClusterRocketII, 3f },
-
-            {ProjectileID.DD2JavelinHostile, 1f },
-            {ProjectileID.DD2JavelinHostileT3, 1f },
-            {ProjectileID.JavelinFriendly, 1f },
-            {ProjectileID.JavelinHostile, 1f },
-            {ProjectileID.PoisonedKnife, 1f },
-            {ProjectileID.Shuriken, 1f },
-            {ProjectileID.SpikyBall, 1f },
-            {ProjectileID.ThrowingKnife, 1f },
-
-            {ProjectileID.PoisonDartBlowgun, 1f },
-
-            {ProjectileID.CopperCoin, 1f },
-            {ProjectileID.GoldCoin, 1f },
-            {ProjectileID.PlatinumCoin, 1f },
-            {ProjectileID.SilverCoin, 1f },
-            {ProjectileID.MechanicalPiranha, 1f },
-            {ProjectileID.Harpoon, 1f },
-
-            {ModContent.ProjectileType<GoldenNail>(), 0.33f},
-            {ModContent.ProjectileType<StickingMagnetProj>(), 0f},
-            #endregion
-            #region Magic
-            { ModContent.ProjectileType<ElectricJavelin>(), 1f },
-            #endregion
-            #region Summon
-            {ProjectileID.DD2BallistraProj, 1f },
-            #endregion
-        };
-        #region Reflectable AI Styles
         public static readonly List<int> ReflectAiList =
         [
             0,
@@ -167,7 +104,6 @@ namespace ShardsOfAtheria.Globals
             179,
             181
         ];
-        #endregion
 
         public static readonly int[] ConvertableProjectiles =
         [
@@ -185,7 +121,65 @@ namespace ShardsOfAtheria.Globals
 
         public override void SetStaticDefaults()
         {
-            if (ShardsHelpers.TryGetModContent("GMR", "OvercooledBullet", out ModProjectile overcooledNail)) Metalic.Add(overcooledNail.Type, 0.33f);
+            #region Magnetic Melee
+            Sets.Metalic[ProjectileID.Anchor] = 1f;
+            Sets.Metalic[ProjectileID.BallOHurt] = 1f;
+            Sets.Metalic[ProjectileID.BloodyMachete] = 1f;
+            Sets.Metalic[ProjectileID.ChainGuillotine] = 1f;
+            Sets.Metalic[ProjectileID.ChainKnife] = 1f;
+            Sets.Metalic[ProjectileID.ChlorophyteOrb] = 1f;
+            Sets.Metalic[ProjectileID.FlamingMace] = 1f;
+            Sets.Metalic[ProjectileID.Mace] = 1f;
+            Sets.Metalic[ProjectileID.TheMeatball] = 1f;
+            #endregion
+            #region Magnetic Ranged
+            Sets.Metalic[ProjectileID.Bullet] = 1f;
+            Sets.Metalic[ProjectileID.BulletDeadeye] = 1f;
+            Sets.Metalic[ProjectileID.BulletHighVelocity] = 1f;
+            Sets.Metalic[ProjectileID.BulletSnowman] = 1f;
+            Sets.Metalic[ProjectileID.MoonlordBullet] = 1f;
+            Sets.Metalic[ProjectileID.SilverBullet] = 1f;
+            Sets.Metalic[ProjectileID.SniperBullet] = 1f;
+
+            Sets.Metalic[ProjectileID.ChlorophyteArrow] = 1f;
+            Sets.Metalic[ProjectileID.MoonlordArrow] = 1f;
+
+            Sets.Metalic[ProjectileID.NailFriendly] = 0.01f;
+            Sets.Metalic[ProjectileID.Nail] = 0.01f;
+            if (ShardsHelpers.TryGetModContent("GMR", "OvercooledBullet", out ModProjectile overcooledNail))
+                Sets.Metalic[overcooledNail.Type] = 0.01f;
+
+            Sets.Metalic[ProjectileID.RocketI] = 3f;
+            Sets.Metalic[ProjectileID.RocketII] = 3f;
+            Sets.Metalic[ProjectileID.RocketIII] = 3f;
+            Sets.Metalic[ProjectileID.RocketIV] = 3f;
+            Sets.Metalic[ProjectileID.MiniNukeRocketI] = 3f;
+            Sets.Metalic[ProjectileID.MiniNukeRocketII] = 3f;
+            Sets.Metalic[ProjectileID.ClusterRocketI] = 3f;
+            Sets.Metalic[ProjectileID.ClusterRocketII] = 3f;
+
+            Sets.Metalic[ProjectileID.DD2JavelinHostile] = 1f;
+            Sets.Metalic[ProjectileID.DD2JavelinHostileT3] = 1f;
+            Sets.Metalic[ProjectileID.JavelinFriendly] = 1f;
+            Sets.Metalic[ProjectileID.JavelinHostile] = 1f;
+            Sets.Metalic[ProjectileID.PoisonedKnife] = 1f;
+            Sets.Metalic[ProjectileID.SpikyBall] = 1f;
+            Sets.Metalic[ProjectileID.ThrowingKnife] = 1f;
+
+            Sets.Metalic[ProjectileID.PoisonDartBlowgun] = 1f;
+
+            Sets.Metalic[ProjectileID.CopperCoin] = 1f;
+            Sets.Metalic[ProjectileID.GoldCoin] = 1f;
+            Sets.Metalic[ProjectileID.PlatinumCoin] = 1f;
+            Sets.Metalic[ProjectileID.SilverCoin] = 1f;
+            Sets.Metalic[ProjectileID.MechanicalPiranha] = 1f;
+            Sets.Metalic[ProjectileID.Harpoon] = 1f;
+            #endregion
+            #region Magnetic Magic
+            #endregion
+            #region Magnetic Summon
+            Sets.Metalic[ProjectileID.DD2BallistraProj] = 1f;
+            #endregion
         }
 
         public override void OnSpawn(Projectile projectile, IEntitySource source)
@@ -243,31 +237,7 @@ namespace ShardsOfAtheria.Globals
         public override void PostAI(Projectile projectile)
         {
             int type = projectile.type;
-            if (Eraser.Contains(type))
-            {
-                for (int i = 0; i < Main.maxProjectiles; i++)
-                {
-                    Projectile proj = Main.projectile[i];
-                    if (ReflectAiList.Contains(proj.aiStyle))
-                    {
-                        if (projectile.Hitbox.Intersects(proj.Hitbox) &&
-                            proj.whoAmI != projectile.whoAmI &&
-                            proj.hostile && proj.active)
-                        {
-                            for (var d = 0; d < 28; d++)
-                            {
-                                Vector2 speed = Main.rand.NextVector2CircularEdge(1f, 1f);
-                                Dust dust = Dust.NewDustPerfect(proj.Center,
-                                    DustID.YellowTorch, speed * 2.4f);
-                                dust.fadeIn = 1.3f;
-                                dust.noGravity = true;
-                            }
-                            proj.Kill();
-                        }
-                    }
-                }
-            }
-            if (Metalic.ContainsKey(type))
+            if (Sets.Metalic[type] > 0f)
             {
                 var magnetPos = ShardsHelpers.FindClosestProjectile(projectile.Center, 200f, magnet => Magnet(magnet, projectile));
                 if (magnetPos != null)

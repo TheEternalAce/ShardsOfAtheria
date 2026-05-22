@@ -22,6 +22,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             Item.AddDamageType(11, 1);
             Item.AddRedemptionElement(1);
+            ItemID.Sets.Spears[Type] = true;
         }
 
         public override void SetDefaults()
@@ -91,14 +92,16 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public static void ShootRings(Projectile projectile, Vector2 angleVector)
         {
+            bool inline = Main.rand.NextBool();
             float numberProjectiles = 4;
             float shardRotation = MathHelper.ToRadians(20f);
-            Vector2 position = projectile.Center - angleVector * 40f;
+            Vector2 position = projectile.Center - angleVector * 60f;
             Vector2 velocity = angleVector * 12f;
+            int damage = (int)(projectile.damage * 0.75);
             for (int i = 0; i < numberProjectiles; i++)
             {
                 Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-shardRotation, shardRotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                Projectile.NewProjectile(projectile.GetSource_FromThis(), position, perturbedSpeed, ModContent.ProjectileType<SilverRing>(), (int)(projectile.damage * 0.75f), 0f);
+                Projectile.NewProjectile(projectile.GetSource_FromThis(), position, perturbedSpeed, ModContent.ProjectileType<SilverRing>(), damage, 0f);
             }
         }
 

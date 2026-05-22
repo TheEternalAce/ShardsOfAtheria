@@ -32,9 +32,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
             Item.useTime = 20;
             Item.useAnimation = 20;
-            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.UseSound = SoundID.Item1;
-            Item.channel = true;
             Item.autoReuse = true;
             Item.noMelee = true;
             Item.noUseGraphic = true;
@@ -62,32 +61,43 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool CanUseItem(Player player)
         {
+            int swing = ModContent.ProjectileType<AreusGlaive_Swing>();
+            int thrust = ModContent.ProjectileType<AreusGlaive_Thrust>();
+            int thrustBack = ModContent.ProjectileType<AreusGlaive_ThrustBackwards>();
+            int spearThrow = ModContent.ProjectileType<AreusGlaive_Throw>();
+            if (player.altFunctionUse == 2) combo = 4;
             switch (combo)
             {
                 case 0:
                 case 1:
-                    Item.shoot = ModContent.ProjectileType<AreusGlaive_Swing>();
+                    Item.shoot = swing;
                     Item.shootSpeed = 1f;
                     Item.UseSound = SoundID.Item1;
+                    Item.useStyle = ItemUseStyleID.Swing;
                     break;
                 case 2:
-                    Item.shoot = ModContent.ProjectileType<AreusGlaive_Thrust>();
-                    Item.shootSpeed = 5.5f;
-                    Item.UseSound = SoundID.DD2_MonkStaffSwing;
+                    Item.shoot = thrust;
+                    SetSpearDefaults();
                     break;
                 case 3:
-                    Item.shoot = ModContent.ProjectileType<AreusGlaive_Thrust2>();
-                    Item.shootSpeed = 5f;
-                    Item.UseSound = SoundID.DD2_MonkStaffSwing;
+                    Item.shoot = thrustBack;
+                    SetSpearDefaults();
                     break;
                 case 4:
-                    Item.shoot = ModContent.ProjectileType<AreusGlaive_Throw>();
+                    Item.shoot = spearThrow;
                     Item.shootSpeed = 16f;
                     Item.UseSound = SoundID.Item71;
+                    Item.useStyle = ItemUseStyleID.Swing;
                     break;
             }
-            return player.ownedProjectileCounts[ModContent.ProjectileType<AreusGlaive_Swing>()] < 1 && player.ownedProjectileCounts[ModContent.ProjectileType<AreusGlaive_Thrust>()] < 1
-                    && player.ownedProjectileCounts[ModContent.ProjectileType<AreusGlaive_Thrust2>()] < 1 && player.ownedProjectileCounts[ModContent.ProjectileType<AreusGlaive_Throw>()] < 1;
+            void SetSpearDefaults()
+            {
+                Item.shootSpeed = 5.5f;
+                Item.UseSound = SoundID.DD2_MonkStaffSwing;
+                Item.useStyle = ItemUseStyleID.Shoot;
+            }
+            return player.ownedProjectileCounts[swing] < 1 && player.ownedProjectileCounts[thrust] < 1 &&
+                player.ownedProjectileCounts[spearThrow] < 1;
         }
 
         public override bool? UseItem(Player player)

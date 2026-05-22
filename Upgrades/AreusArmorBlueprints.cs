@@ -2,8 +2,6 @@
 using ShardsOfAtheria.Items.Armor.Areus.Imperial;
 using ShardsOfAtheria.Items.Armor.Areus.Royal;
 using ShardsOfAtheria.Items.Armor.Areus.Soldier;
-using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -20,9 +18,6 @@ namespace ShardsOfAtheria.Upgrades
 
         public override int[,] Materials => new int[,]
         {
-            { ModContent.ItemType<AreusShard>(), 2},
-            { ModContent.ItemType<Jade>(), 1},
-            { ItemID.GoldBar, 1 },
             { ItemID.SoulofLight, 12 },
         };
     }
@@ -35,9 +30,6 @@ namespace ShardsOfAtheria.Upgrades
 
         public override int[,] Materials => new int[,]
         {
-            { ModContent.ItemType<AreusShard>(), 2},
-            { ModContent.ItemType<Jade>(), 1},
-            { ItemID.GoldBar, 1 },
             { ItemID.SoulofNight, 12 },
         };
     }
@@ -50,9 +42,6 @@ namespace ShardsOfAtheria.Upgrades
 
         public override int[,] Materials => new int[,]
         {
-            { ModContent.ItemType<AreusShard>(), 2},
-            { ModContent.ItemType<Jade>(), 1},
-            { ItemID.GoldBar, 1 },
             { ItemID.SoulofFlight, 12 },
         };
     }
@@ -66,9 +55,6 @@ namespace ShardsOfAtheria.Upgrades
 
         public override int[,] Materials => new int[,]
         {
-            { ModContent.ItemType<AreusShard>(), 2},
-            { ModContent.ItemType<Jade>(), 1},
-            { ItemID.GoldBar, 1 },
             { ItemID.BeetleHusk, 8 },
         };
     }
@@ -81,9 +67,6 @@ namespace ShardsOfAtheria.Upgrades
 
         public override int[,] Materials => new int[,]
         {
-            { ModContent.ItemType<AreusShard>(), 2},
-            { ModContent.ItemType<Jade>(), 1},
-            { ItemID.GoldBar, 1 },
             { ItemID.BeetleHusk, 8 },
         };
     }
@@ -96,9 +79,6 @@ namespace ShardsOfAtheria.Upgrades
 
         public override int[,] Materials => new int[,]
         {
-            { ModContent.ItemType < AreusShard >(), 2 },
-            { ModContent.ItemType<Jade>(), 1},
-            { ItemID.GoldBar, 1 },
             { ItemID.BeetleHusk, 8 },
         };
     }
@@ -112,9 +92,6 @@ namespace ShardsOfAtheria.Upgrades
 
         public override int[,] Materials => new int[,]
         {
-            { ModContent.ItemType < AreusShard >(), 2 },
-            { ModContent.ItemType<Jade>(), 1},
-            { ItemID.GoldBar, 1 },
             { ItemID.FragmentStardust, 12 },
         };
     }
@@ -127,9 +104,6 @@ namespace ShardsOfAtheria.Upgrades
 
         public override int[,] Materials => new int[,]
         {
-            { ModContent.ItemType<AreusShard>(), 2},
-            { ModContent.ItemType<Jade>(), 1},
-            { ItemID.GoldBar, 1 },
             { ItemID.FragmentSolar, 12 },
             { ItemID.FragmentNebula, 12 },
         };
@@ -143,9 +117,6 @@ namespace ShardsOfAtheria.Upgrades
 
         public override int[,] Materials => new int[,]
         {
-            { ModContent.ItemType < AreusShard >(), 2 },
-            { ModContent.ItemType<Jade>(), 1},
-            { ItemID.GoldBar, 1 },
             { ItemID.FragmentVortex, 12 },
         };
     }

@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Common.Projectiles;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -20,6 +21,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusGlaive
         {
             base.SetDefaults();
 
+            Projectile.scale = 1.2f;
             Projectile.width = Projectile.height = 30;
             swordReach = 158;
             rotationOffset = -MathHelper.PiOver4 * 3f;
@@ -65,19 +67,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusGlaive
 
         public override float GetVisualOuter(float progress, float swingProgress)
         {
-            if (progress > 0.8f)
-            {
-                float p = 1f - (1f - progress) / 0.2f;
-                Projectile.alpha = (int)(p * 255);
-                return -20f * p;
-            }
-            if (progress < 0.35f)
-            {
-                float p = 1f - progress / 0.35f;
-                Projectile.alpha = (int)(p * 255);
-                return -20f * p;
-            }
-            return 0f;
+            return -170f + ((float)Math.Sin(swingProgress * MathHelper.Pi) + 1f) * 80f;
         }
 
         public override bool PreDraw(ref Color lightColor)

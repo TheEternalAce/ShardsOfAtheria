@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -12,7 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
     {
         public override void SetStaticDefaults()
         {
-            Projectile.MakeTrueMelee();
+            SoAGlobalProjectile.Sets.TrueMelee[Type] = true;
             Projectile.AddDamageType(3, 9);
             Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);

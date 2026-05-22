@@ -20,7 +20,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged
             Projectile.AddRedemptionElement(15);
             Main.projFrames[Type] = 2;
 
-            SoAGlobalProjectile.Metalic.Add(Type, 1f);
+            SoAGlobalProjectile.Sets.Metalic[Type] = 1f;
         }
 
         public override void SetDefaults()

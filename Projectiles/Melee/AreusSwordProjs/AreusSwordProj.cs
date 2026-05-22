@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Common.Projectiles;
-using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
@@ -18,7 +17,6 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSwordProjs
         {
             Projectile.AddAreus();
             Projectile.AddDamageType(5);
-            SoAGlobalProjectile.Eraser.Add(Type);
         }
 
         public override void SetDefaults()

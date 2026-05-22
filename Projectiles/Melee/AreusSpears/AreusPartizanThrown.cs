@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             Projectile.AddDamageType(10);
             Projectile.AddRedemptionElement(9);
 
-            SoAGlobalProjectile.Metalic.Add(Type, 1f);
+            SoAGlobalProjectile.Sets.Metalic[Type] = 1f;
         }
 
         public override void SetDefaults()

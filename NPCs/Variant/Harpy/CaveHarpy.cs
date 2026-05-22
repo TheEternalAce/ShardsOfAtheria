@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -140,6 +141,8 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                 new(ModContent.ItemType<Jade>(), maxGems),
             ];
             npcLoot.Add(ShardsDrops.ManyFromOptions(1, gems));
+
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Jade>(), 3, 1, maxGems));
         }
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)

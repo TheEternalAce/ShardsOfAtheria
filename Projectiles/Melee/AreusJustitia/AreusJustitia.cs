@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Dusts;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -20,10 +21,9 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJustitia
             //ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             //ProjectileID.Sets.TrailCacheLength[Projectile.type] = 10;
 
-            Projectile.MakeTrueMelee();
-            Projectile.AddAreus();
-            Projectile.AddDamageType(5, 9);
-            Projectile.AddRedemptionElement(13);
+            SoAGlobalProjectile.Sets.TrueMelee[Type] = true;
+            Type.AddAreusProj(false);
+            Projectile.AddDamageType(4);
         }
 
         public override void SetDefaults()

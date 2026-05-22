@@ -37,20 +37,24 @@ namespace ShardsOfAtheria.Globals
 {
     public class SoAGlobalItem : GlobalItem
     {
+        [ReinitializeDuringResizeArrays]
+        public class Sets
+        {
+            public static readonly bool[] UpgradeableItem = new bool[ItemLoader.ItemCount];
+            /// <summary>
+            /// A list to let Conductive potion do it's work easily<br/>
+            /// Automatically adds the electric element to the item if it isn't dark<br/>
+            /// Dark areus is true, normal areus is null, and not areus is false
+            /// </summary>
+            public static readonly bool?[] Areus = new bool?[ItemLoader.ItemCount];
+        }
         #region Item Categories
-        public static readonly List<int> Potions = [];
         public static readonly List<int> UpgradeableItem = [];
-        // Potentially use this in place of the above List<int>
-        //public static readonly Dictionary<int, int> UpgradeableItems = new();
         /// <summary>
-        /// A list to let Conductive potion do it's work easily
+        /// A list to let Conductive potion do it's work easily<br/>
         /// Automatically adds the electric element to the item if it isn't dark
         /// </summary>
         public static readonly Dictionary<int, bool> AreusItem = [];
-        /// <summary>
-        /// A list of weapons that can erase projectiles or spawn projectiles that can erase other projectiles
-        /// </summary>
-        public static readonly List<int> Eraser = [];
         #endregion
 
         int transformTimer = 0;
@@ -129,10 +133,10 @@ namespace ShardsOfAtheria.Globals
                     ShardsHelpers.LocalizeCommon("UpgradeableItem"));
                 tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
             }
-            if (Eraser.Contains(item.type))
+            if (Sets.UpgradeableItem[item.type])
             {
-                var line = new TooltipLine(Mod, "Eraser",
-                    ShardsHelpers.LocalizeCommon("Eraser"));
+                var line = new TooltipLine(Mod, "UpgradeItem",
+                    ShardsHelpers.LocalizeCommon("UpgradeableItem"));
                 tooltips.Insert(ShardsHelpers.GetIndex(tooltips, "OneDropLogo"), line);
             }
         }
@@ -380,9 +384,6 @@ namespace ShardsOfAtheria.Globals
         {
             var areusPlayer = player.Areus();
             if (areusPlayer.bannerResourceManagement && item.IsWeapon() && Main.rand.NextBool(3)) return false;
-
-            if (Potions.Contains(item.type) && !ModLoader.TryGetMod("Overhaul", out _))
-                Item.NewItem(item.GetSource_FromThis(), player.getRect(), ItemID.Bottle, 1);
 
             return base.ConsumeItem(item, player);
         }

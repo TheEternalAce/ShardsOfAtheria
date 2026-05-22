@@ -16,7 +16,7 @@ namespace ShardsOfAtheria.Projectiles.NPCProj.Elizabeth
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 
-            SoAGlobalProjectile.Metalic.Add(Type, 1f);
+            SoAGlobalProjectile.Sets.Metalic[Type] = 1f;
             Projectile.AddDamageType(4);
             Projectile.AddRedemptionElement(1);
         }

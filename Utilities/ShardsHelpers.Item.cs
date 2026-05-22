@@ -21,7 +21,6 @@ namespace ShardsOfAtheria.Utilities
 
             potion.buffType = buff;
             potion.buffTime = buffTime;
-            SoAGlobalItem.Potions.Add(potion.type);
         }
 
         public static bool IsTool(this Item item)
@@ -74,6 +73,7 @@ namespace ShardsOfAtheria.Utilities
 
         public static void AddAreus(this Item item, bool dark = false, bool forceAddElements = false)
         {
+            if (dark == false) return;
             item.type.AddAreusItem(dark);
             if (!dark || forceAddElements)
             {
@@ -81,28 +81,22 @@ namespace ShardsOfAtheria.Utilities
                 item.AddRedemptionElement(7);
             }
         }
-        public static void AddAreusItem(this int id, bool dark)
+        public static void AddAreusItem(this int id, bool? dark = null)
         {
-            SoAGlobalItem.AreusItem.Add(id, dark);
+            if (dark == false) return;
+            SoAGlobalItem.Sets.Areus[id] = dark;
         }
         public static bool IsAreus(this Item item, bool includeDark)
         {
-            if (!includeDark)
-            {
-                SoAGlobalItem.AreusItem.TryGetValue(item.type, out var dark);
-                return SoAGlobalItem.AreusItem.ContainsKey(item.type) && !dark;
-            }
-            else return SoAGlobalItem.AreusItem.ContainsKey(item.type);
+            int type = item.type;
+            bool isAreus = SoAGlobalItem.Sets.Areus[type] == null;
+            if (includeDark) isAreus = SoAGlobalItem.Sets.Areus[type] == true;
+            return isAreus;
         }
 
         public static bool IsUpgradable(this Item item)
         {
             return SoAGlobalItem.UpgradeableItem.Contains(item.type);
-        }
-
-        public static void AddEraser(this Item item)
-        {
-            SoAGlobalItem.Eraser.Add(item.type);
         }
 
         /// <summary>

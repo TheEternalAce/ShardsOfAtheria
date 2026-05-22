@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -30,7 +31,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 20;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 
-            Projectile.MakeTrueMelee();
+            SoAGlobalProjectile.Sets.TrueMelee[Type] = true;
             Projectile.AddAreus();
             Projectile.AddDamageType(5);
         }

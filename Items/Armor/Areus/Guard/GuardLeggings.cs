@@ -36,8 +36,8 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
         {
             CreateRecipe()
                 .AddIngredient<AreusShard>(18)
-                .AddIngredient(ItemID.GoldBar, 6)
-                .AddIngredient<Jade>(6)
+                .AddIngredient(ItemID.GoldBar, 10)
+                .AddIngredient<Jade>(8)
                 .AddIngredient<SoulOfTwilight>(12)
                 .AddTile<AreusFabricator>()
                 .Register();

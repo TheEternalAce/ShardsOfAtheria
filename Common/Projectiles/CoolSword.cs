@@ -334,7 +334,7 @@ namespace ShardsOfAtheria.Common.Projectiles
                 float intensity = (float)Math.Sin((AnimProgress - 0.35f) / 0.4f * MathHelper.Pi);
                 Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor * intensity * 0.5f, Projectile.rotation, origin, Projectile.scale, effects, 0);
 
-                if (drawSwish) DrawSwish(lightColor);
+                if (drawSwish) BasicDrawSwish(lightColor);
             }
             return false;
         }
@@ -361,7 +361,7 @@ namespace ShardsOfAtheria.Common.Projectiles
                 float intensity = (float)Math.Sin((AnimProgress - 0.35f) / 0.4f * MathHelper.Pi);
                 Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor * intensity * 0.5f, Projectile.rotation, origin, Projectile.scale, effects, 0);
 
-                if (drawSwish) DrawSwish(lightColor);
+                if (drawSwish) BasicDrawSwish(lightColor);
             }
             return false;
         }
@@ -392,12 +392,12 @@ namespace ShardsOfAtheria.Common.Projectiles
                 float intensity = (float)Math.Sin((AnimProgress - 0.35f) / 0.4f * MathHelper.Pi);
                 Main.EntitySpriteDraw(texture, handPosition - Main.screenPosition, null, drawColor.UseA(0) * intensity * 0.5f, Projectile.rotation, origin, Projectile.scale, effects, 0);
 
-                if (drawSwish) DrawSwish(lightColor);
+                if (drawSwish) BasicDrawSwish(lightColor);
             }
             return false;
         }
 
-        public void DrawSwish(Color lightColor)
+        public void BasicDrawSwish(Color lightColor)
         {
             var texture = TextureAssets.Projectile[Type].Value;
             float size = texture.Size().Length();

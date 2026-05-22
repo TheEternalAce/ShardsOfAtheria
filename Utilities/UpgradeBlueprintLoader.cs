@@ -14,8 +14,11 @@ namespace ShardsOfAtheria.Utilities
 
         public static int Register(UpgradeBlueprint blueprint)
         {
+            int type = blueprint.BaseItemType;
             upgrades.Add(blueprint);
-            SoAGlobalItem.UpgradeableItem.Add(blueprint.BaseItemType);
+            if (!SoAGlobalItem.UpgradeableItem.Contains(type))
+                SoAGlobalItem.UpgradeableItem.Add(type);
+            SoAGlobalItem.Sets.UpgradeableItem[type] = true;
             return upgrades.Count - 1;
         }
 

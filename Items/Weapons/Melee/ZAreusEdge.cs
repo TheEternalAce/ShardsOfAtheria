@@ -17,11 +17,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void SetStaticDefaults()
         {
-            Item.AddAreus();
-            Item.AddDamageType(5, 9);
-            Item.AddElement(0);
-            Item.AddRedemptionElement(2);
-            Item.AddRedemptionElement(13);
+            Type.AddAreusItem(false);
+            Item.AddDamageType(4);
         }
 
         public override void SetDefaults()
@@ -43,7 +40,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             Item.shootSpeed = 28f;
             Item.rare = ItemRarityID.Purple;
             Item.value = 150000;
-            Item.shoot = ModContent.ProjectileType<FlameSlashExtention>();
+            Item.shoot = ModContent.ProjectileType<AreusJustitia_Slash>();
             PreviouslyHitNPC = -1;
         }
 
@@ -94,7 +91,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
-            float percent = ((float)player.itemAnimation / (float)player.itemAnimationMax);
+            float percent = (player.itemAnimation / (float)player.itemAnimationMax);
             if (percent > 0.8f)
             {
                 for (int i = 0; i < 6; i++)

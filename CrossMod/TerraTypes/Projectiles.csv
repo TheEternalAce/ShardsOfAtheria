@@ -133,9 +133,9 @@ ZEarthmoverBeam,Electric,Fire
 
 AreusDaggerCurrent,Electric,
 AreusDaggerProj,Electric,
-AreusJustitia,Electric,
-AreusJustitia_Slash,Electric,
-AreusJustitia_Stab,Electric,
+AreusJustitia,,
+AreusJustitia_Slash,,
+AreusJustitia_Stab,,
 AreusGlaive_Swing,Electric,
 AreusGlaive_Throw,Electric,
 AreusGlaive_Thrust,Electric,
@@ -231,6 +231,7 @@ VoidSlash,Dark,Electric
 Warframe,Electric,
 Warframe_Upgrade,Electric,
 WarframeSlash,Electric,
+ZAreusJustitia,,
 ZenovaProjectile,Dark,
 
 AmbassadorBeam,Electric,

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.PlayerBuff;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -31,7 +32,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
 
         public override void SetStaticDefaults()
         {
-            Projectile.MakeTrueMelee();
+            SoAGlobalProjectile.Sets.TrueMelee[Type] = true;
             Projectile.AddDamageType(3);
             Projectile.AddElement(0);
             Projectile.AddRedemptionElement(2);

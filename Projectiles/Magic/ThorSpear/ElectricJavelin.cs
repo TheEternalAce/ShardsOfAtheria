@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -15,6 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.ThorSpear
             Projectile.AddElement(2);
             Projectile.AddRedemptionElement(5);
             Projectile.AddRedemptionElement(7);
+            SoAGlobalProjectile.Sets.Metalic[Type] = 1f;
         }
 
         public override void SetDefaults()

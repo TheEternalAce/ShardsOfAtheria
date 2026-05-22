@@ -1,5 +1,4 @@
 Common: {
-	Eraser: Can erase projectiles
 	FiringMode1: Semi-auto
 	FiringMode2: Burst fire
 	FiringMode3: Full-auto
@@ -84,7 +83,8 @@ SinfulSouls: {
 		Increases damage by how much you take
 		4% chance to take a critical hit and gain 'Fury'
 		Fury significantly increases damage and movement speed
-		You die when Fury runs out, dealing damage prevents Fury from running out
+		You take significant damage when Fury runs out
+		Dealing damage prevents Fury from running out
 		'''
 }
 
@@ -356,7 +356,7 @@ Items: {
 		Tooltip:
 			'''
 			10% chance to dodge attacks
-			Attacks inflict confusion after taking damage
+			Create temporary hazards after taking damage
 			'''
 	}
 
@@ -365,7 +365,7 @@ Items: {
 		Tooltip:
 			'''
 			10% chance to dodge attacks
-			Attacks inflict confusion after taking damage
+			Create temporary hazards after taking damage
 			Release sapphire spikes when damaged
 			'''
 	}
@@ -375,7 +375,7 @@ Items: {
 		Tooltip:
 			'''
 			15% chance to dodge attacks
-			Attacks inflict confusion after taking damage
+			Create temporary hazards after taking damage
 			Release sapphire spikes when damaged
 			Sapphire Spirit will now fight beside you
 			Taking damage increases buff duration and reduces debuff duration
@@ -476,7 +476,7 @@ Items: {
 		ShiftTooltip5:
 			'''
 			[i:ShardsOfAtheria/SapphireCore_Super] Sapphire Effects
-			Attacks inflict confusion after taking damage
+			Create temporary hazards after taking damage
 			Release sapphire spikes when damaged
 			Gem Soul will now fight beside you
 			'''
@@ -2339,7 +2339,6 @@ Items: {
 
 	AreusSword: {
 		DisplayName: Areus Sword
-		Tooltip: "{$Common.Eraser}"
 	}
 
 	BloodScythe: {
@@ -2351,7 +2350,6 @@ Items: {
 			Hold use to charge a devastating slash
 			Full charge heals 10% max life once
 			Alt-use to throw a slightly faster, long-range blade
-			{$Common.Eraser}
 			'And thus, her family was torn apart'
 			'Goodbye'
 			'''
@@ -2443,14 +2441,12 @@ Items: {
 		'''
 		Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing
 		Able to swing shield with LMB before it returns
-		Sword can erase projectiles
 		Attacks inflict 'On Fire!'
 		'''
 	GenesisAndRagnarokUpgrade5:
 		'''
 		Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing
 		Able to swing shield with LMB before it returns
-		Sword can erase projectiles
 		Attacks inflict Frostburn and create extra ice projectiles
 		'''
 
@@ -2498,7 +2494,6 @@ Items: {
 			'''
 			Attacks with a 7-slash combo
 			Final slash sends you upward
-			{$Common.Eraser}
 			'I am the messiah!'
 			'''
 		Overdrive:
@@ -3068,6 +3063,19 @@ Items: {
 			{$CommonItemTooltip.Whips}
 			'''
 	}
+
+	Vendetta: {
+		DisplayName: Vendetta
+		Tooltip:
+			'''
+			'I love you...'
+			Strikes build Quarrel stacks
+			Quarrel increases damage dealt to the target
+			Striking a different target resets Quarrel
+			At 10 Quarrel stacks strikes create a burst of tendrils
+			Quarrel then resets
+			'''
+	}
 }
 
 Item.SkullSoulCrystal.Tooltip: Mods.ShardsOfAtheria.Item.SkullSoulCrystal.Tooltip
@@ -3217,7 +3225,7 @@ Projectiles: {
 	AreusGlaive_Swing.DisplayName: Areus Glaive
 	AreusGlaive_Throw.DisplayName: Areus Glaive
 	AreusGlaive_Thrust.DisplayName: Areus Glaive
-	AreusGlaive_Thrust2.DisplayName: Areus Glaive
+	AreusGlaive_ThrustBackwards.DisplayName: Areus Glaive
 	AreusLanceProj.DisplayName: Areus Lance
 	AreusLanceExtention.DisplayName: Areus Lance
 	LightningBolt_Lance.DisplayName: Lightning Bolt
@@ -3526,6 +3534,8 @@ Projectiles: {
 	MaliceSpear.DisplayName: Malice
 	MaliceJavelin.DisplayName: Malice
 	SapphireBlade.DisplayName: Sapphire Blade
+	VendettaBeam.DisplayName: Vendetta Beam
+	VendettaTendril.DisplayName: Vendetta Tendril
 }
 
 NPCs: {
@@ -4030,7 +4040,7 @@ Buffs: {
 
 	CunningSapphire: {
 		DisplayName: Cunning Sapphire
-		Description: Attacks confuze enemies
+		Description: Orbiting sapphire blades
 	}
 
 	FleetingEmerald: {

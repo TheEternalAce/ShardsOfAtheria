@@ -33,13 +33,12 @@ namespace ShardsOfAtheria.Buffs.AnyDebuff
         {
             if (npc.HasBuff<Magnetic>())
             {
-                if (SoAGlobalProjectile.Metalic.TryGetValue(projectile.type, out float value))
+                float magnetDamage = SoAGlobalProjectile.Sets.Metalic[projectile.type];
+                if (magnetDamage > 0f)
                 {
-                    magnetLife -= value;
+                    magnetLife -= magnetDamage;
                     if (magnetLife <= 0f)
-                    {
                         npc.ClearBuff<Magnetic>();
-                    }
                 }
             }
         }

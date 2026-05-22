@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -14,11 +15,10 @@ namespace ShardsOfAtheria.Projectiles.Melee.GomorrahProjectiles
 
         public override void SetStaticDefaults()
         {
+            SoAGlobalProjectile.Sets.Metalic[Type] = 1f;
             Projectile.AddDamageType(11);
             Projectile.AddElement(3);
             Projectile.AddRedemptionElement(12);
-
-            Projectile.MakeMetalic();
         }
 
         public override void SetDefaults()

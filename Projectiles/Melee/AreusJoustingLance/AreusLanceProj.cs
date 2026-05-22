@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Buffs.AnyDebuff;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using System;
 using Terraria;
@@ -24,7 +25,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusJoustingLance
             // velocity to always be the same even if the player has increased attack speed.
             ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
 
-            Projectile.MakeTrueMelee();
+            SoAGlobalProjectile.Sets.TrueMelee[Type] = true;
             Projectile.AddAreus();
             Projectile.AddDamageType(7);
         }

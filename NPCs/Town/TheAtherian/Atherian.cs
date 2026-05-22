@@ -4,6 +4,7 @@ using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.AreusChips;
 using ShardsOfAtheria.Items.BossSummons;
 using ShardsOfAtheria.Items.Materials;
+using ShardsOfAtheria.Items.Placeable.Crafting;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
@@ -275,6 +276,7 @@ namespace ShardsOfAtheria.NPCs.Town.TheAtherian
         public override void AddShops()
         {
             var npcShop = new NPCShop(Type, "Shop")
+                .Add<AreusFabricatorItem>()
                 .Add<AreusShard>()
                 .Add<AreusArmorChip>()
                 .Add<RushDrive>()

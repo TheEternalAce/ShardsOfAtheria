@@ -22,7 +22,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Gambit
             Projectile.AddAreus(true);
             Projectile.AddDamageType(1);
 
-            SoAGlobalProjectile.Metalic.Add(Type, 0.5f);
+            SoAGlobalProjectile.Sets.Metalic[Type] = 0.5f;
         }
 
         public override void SetDefaults()

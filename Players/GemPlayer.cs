@@ -445,7 +445,7 @@ namespace ShardsOfAtheria.Players
                 int type = ModContent.ProjectileType<SapphireBlade>();
                 int amount = 2;
                 int damage = 10;
-                if (Player.ownedProjectileCounts[type] <= amount)
+                if (Player.ownedProjectileCounts[type] < amount)
                 {
                     for (int i = 0; i < amount; i++)
                     {

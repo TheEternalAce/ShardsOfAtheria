@@ -1,0 +1,14 @@
+- Holding Auto-Select and pressing the Soul Ability key will bring up soul info.
+- Fixed Forest Harpies not spawning.
+- Fixed sapphire core tooltips.
+- Areus glaive thrusts and throw can no longer hit through walls.
+- Updated Areus Edge elements.
+- Atherian now sells the Areus Fabricator.
+- Acid Trip now only drops in Hardmode.
+- Added Vendetta.
+- Cavern Harpies can now drop extra Jade.
+- Fixed Silver Spear's ring projectiles damaging the player.
+- Reduced Silver Spear's ring projectile life time.
+- Adjusted Silver Spear visials.
+- Upgrading areus armor no longer requires additional areus shards, gold bars, or jade.
+	- In exchange, the gold bars and jade required to craft the first set is increased.

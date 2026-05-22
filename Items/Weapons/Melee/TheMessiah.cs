@@ -29,7 +29,6 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         {
             Item.AddDamageType(3);
             Item.AddElement(0);
-            Item.AddEraser();
             Item.AddRedemptionElement(2);
         }
 

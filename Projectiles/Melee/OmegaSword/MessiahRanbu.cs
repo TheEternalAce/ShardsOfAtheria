@@ -18,8 +18,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
         public override void SetStaticDefaults()
         {
             Main.projFrames[Type] = 20;
-            SoAGlobalProjectile.Eraser.Add(Type);
-            Projectile.MakeTrueMelee();
+            SoAGlobalProjectile.Sets.TrueMelee[Type] = true;
 
             Projectile.AddDamageType(3);
             Projectile.AddElement(0);

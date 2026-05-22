@@ -55,6 +55,12 @@ namespace ShardsOfAtheria.Projectiles.Melee
             }
         }
 
+        public override Vector2 GetOffsetVector(float progress)
+        {
+            float angleOffset = 1.5f;
+            return BaseAngleVector.RotatedBy((progress * (MathHelper.Pi * angleOffset) - MathHelper.PiOver2 * angleOffset) * -swingDirection * 1.1f);
+        }
+
         public override void UpdateSwing(float progress, float interpolatedSwingProgress)
         {
             if (progress == 0.5f && Main.myPlayer == Projectile.owner && Projectile.ai[1] == 1f)
@@ -64,11 +70,6 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override float GetVisualOuter(float progress, float swingProgress)
         {
             return -170f + ((float)Math.Sin(swingProgress * MathHelper.Pi) + 1f) * 80f;
-        }
-
-        public override float GetScale(float progress)
-        {
-            return base.GetScale(progress);
         }
 
         public override float SwingProgress(float progress)
@@ -85,7 +86,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         public override bool PreDraw(ref Color lightColor)
         {
             base.PreDraw(ref lightColor);
-            return SingleEdgeSwordDraw(lightColor);
+            return SingleEdgeSwordDraw(lightColor, false);
         }
     }
 }

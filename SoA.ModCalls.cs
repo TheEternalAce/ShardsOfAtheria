@@ -145,11 +145,8 @@ namespace ShardsOfAtheria
                         if (args[1] is Projectile magneticProjectile)
                         {
                             if (args[2] is float magnetDamage)
-                            {
-                                if (!SoAGlobalProjectile.Metalic.TryAdd(magneticProjectile.type, magnetDamage))
-                                    Logger.Info(magneticProjectile.Name + " is already magnetic.");
-                            }
-                            else SoAGlobalProjectile.Metalic.Add(magneticProjectile.type, 1f);
+                                SoAGlobalProjectile.Sets.Metalic[magneticProjectile.type] = magnetDamage;
+                            else SoAGlobalProjectile.Sets.Metalic[magneticProjectile.type] = 1f;
                             break;
                         }
                         else throw new ArgumentException(args[1].GetType().Name + INVALID_PROJECTILE);
@@ -173,9 +170,7 @@ namespace ShardsOfAtheria
                     case ADD_TRUE_MELEE_PROJECTILE:
                         if (args[1] is Projectile meleeProjectile)
                         {
-                            if (SoAGlobalProjectile.TrueMelee.Contains(meleeProjectile.type))
-                                Logger.Info(meleeProjectile.Name + " is already true melee.");
-                            else SoAGlobalProjectile.TrueMelee.Add(meleeProjectile.type);
+                            SoAGlobalProjectile.Sets.TrueMelee[meleeProjectile.type] = true;
                             break;
                         }
                         else throw new ArgumentException(args[1].GetType().Name + INVALID_PROJECTILE);

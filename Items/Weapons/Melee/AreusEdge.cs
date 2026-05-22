@@ -16,8 +16,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override void SetStaticDefaults()
         {
-            Item.AddAreus();
-            Item.AddDamageType(5, 9);
+            Type.AddAreusItem(false);
+            Item.AddDamageType(4);
         }
 
         public override void SetDefaults()

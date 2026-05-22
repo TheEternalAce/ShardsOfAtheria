@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Magic;
@@ -19,7 +20,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok
 
         public override void SetStaticDefaults()
         {
-            Projectile.MakeTrueMelee();
+            SoAGlobalProjectile.Sets.TrueMelee[Type] = true;
 
             Projectile.AddDamageType(2, 5);
             Projectile.AddElement(1);

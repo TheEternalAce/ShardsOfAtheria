@@ -13,7 +13,7 @@ namespace ShardsOfAtheria.Projectiles.Ammo
         public override void SetStaticDefaults()
         {
             Projectile.AddDamageType(7);
-            SoAGlobalProjectile.Metalic.Add(Type, 1f);
+            SoAGlobalProjectile.Sets.Metalic[Type] = 1f;
         }
 
         public override void SetDefaults()

@@ -114,7 +114,8 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         public override Vector2 GetOffsetVector(float progress)
         {
-            return BaseAngleVector.RotatedBy((progress * (MathHelper.Pi * 1.5f) - MathHelper.PiOver2 * 1.5f) * -swingDirection * 1.1f);
+            float angleOffset = 1.5f;
+            return BaseAngleVector.RotatedBy((progress * (MathHelper.Pi * angleOffset) - MathHelper.PiOver2 * angleOffset) * -swingDirection * 1.1f);
         }
 
         public override float SwingProgress(float progress)
@@ -132,7 +133,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
             }
             if (progress < 0.8f)
             {
-                float p = 1f - (1f - progress) / 0.15f;
+                float p = 1f - (1f - progress) / 0.1f;
                 Projectile.alpha = (int)(p * 255);
                 return 20f * p;
             }

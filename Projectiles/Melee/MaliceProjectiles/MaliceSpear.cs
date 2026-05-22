@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.NPCDebuff;
+using ShardsOfAtheria.Globals;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -15,7 +16,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.MaliceProjectiles
 
         public override void SetStaticDefaults()
         {
-            Projectile.MakeTrueMelee();
+            SoAGlobalProjectile.Sets.TrueMelee[Type] = true;
 
             Projectile.AddDamageType(2, 5);
             Projectile.AddElement(1);

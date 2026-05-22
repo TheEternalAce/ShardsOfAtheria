@@ -126,6 +126,7 @@ namespace ShardsOfAtheria.ShardsUI.SinfulSelection
     {
         public static SinfulUI Instance;
         internal HowSinful howSinfulState;
+        internal MySin mySinState;
         private UserInterface UI;
 
         public override void Load()
@@ -134,6 +135,8 @@ namespace ShardsOfAtheria.ShardsUI.SinfulSelection
             {
                 howSinfulState = new();
                 howSinfulState.Activate();
+                mySinState = new();
+                mySinState.Activate();
                 UI = new();
                 Instance = this;
             }
@@ -141,14 +144,14 @@ namespace ShardsOfAtheria.ShardsUI.SinfulSelection
 
         public void ToggleSelections()
         {
-            if (UI.CurrentState == null)
-            {
-                UI.SetState(howSinfulState);
-            }
-            else
-            {
-                UI.SetState(null);
-            }
+            if (UI.CurrentState == null) UI.SetState(howSinfulState);
+            else UI.SetState(null);
+        }
+
+        public void ToggleSelected()
+        {
+            if (UI.CurrentState == null) UI.SetState(mySinState);
+            else UI.SetState(null);
         }
 
         public override void UpdateUI(GameTime gameTime)
