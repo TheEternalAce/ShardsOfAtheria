@@ -3,7 +3,6 @@ using ShardsOfAtheria.Buffs.Summons;
 using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Items.Materials;
 using ShardsOfAtheria.Projectiles.Summon.Minions;
-using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -11,13 +10,13 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Summon
 {
-    public class NestlingStaff : ModItem
+    public class StellaNovalis : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Item.AddDamageType(7, 11);
-            Item.AddElement(2);
-            Item.AddRedemptionElement(7);
+            //Item.AddDamageType(7, 11);
+            //Item.AddElement(2);
+            //Item.AddRedemptionElement(7);
         }
 
         public override void SetDefaults()
