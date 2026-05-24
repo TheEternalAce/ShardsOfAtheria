@@ -2,6 +2,7 @@
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -32,19 +33,22 @@ namespace ShardsOfAtheria.Projectiles.Magic
             Projectile.velocity.Normalize();
             Projectile.velocity *= 4f;
 
-            if (Projectile.ai[0] == 0) Projectile.ai[0] = MathHelper.PiOver2;
-            Projectile.ai[0] += MathHelper.ToRadians(5f);
-            Projectile.SetVisualOffsets(52);
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
+            if (++Projectile.ai[0] >= 20)
+            {
+                if (Projectile.ai[1] == 0) Projectile.ai[1] = MathHelper.PiOver2;
+                Projectile.ai[1] += MathHelper.ToRadians(5f);
+                Projectile.SetVisualOffsets(52);
+                Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
 
-            Vector2 offset = Vector2.Normalize(Projectile.velocity).RotatedBy(MathHelper.PiOver2 + Projectile.ai[0]) * 4f;
-            Dust dust = Dust.NewDustPerfect(Projectile.Center + offset, DustID.ShadowbeamStaff);
-            dust.velocity *= 0f;
-            dust.noGravity = true;
+                Vector2 offset = Vector2.Normalize(Projectile.velocity).RotatedBy(MathHelper.PiOver2 + Projectile.ai[1]) * 4f;
+                Dust dust = Dust.NewDustPerfect(Projectile.Center + offset, DustID.ShadowbeamStaff);
+                dust.velocity *= 0f;
+                dust.noGravity = true;
 
-            dust = Dust.NewDustPerfect(Projectile.Center - offset, DustID.ShadowbeamStaff);
-            dust.velocity *= 0f;
-            dust.noGravity = true;
+                dust = Dust.NewDustPerfect(Projectile.Center - offset, DustID.ShadowbeamStaff);
+                dust.velocity *= 0f;
+                dust.noGravity = true;
+            }
         }
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
@@ -68,6 +72,8 @@ namespace ShardsOfAtheria.Projectiles.Magic
                 int type = ModContent.ProjectileType<VendettaTendril>();
                 int damage = Projectile.damage * 2;
                 float knockback = 0f;
+
+                SoundEngine.PlaySound(SoundID.Item103, Projectile.Center);
 
                 for (int i = 0; i < 10; i++)
                 {

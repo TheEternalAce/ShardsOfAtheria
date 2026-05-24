@@ -21,8 +21,8 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.width = 58;
-            Item.height = 56;
+            Item.width = 64;
+            Item.height = 62;
 
             Item.damage = 30;
             Item.DamageType = DamageClass.Magic;
