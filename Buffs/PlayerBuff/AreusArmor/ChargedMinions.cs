@@ -21,7 +21,7 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff.AreusArmor
     public class ChargedMinion : GlobalProjectile
     {
         int sparkTimer;
-        const int SPARK_TIMER_MAX = 60;
+        const int SparkTimerMax = 60;
 
         public override bool InstancePerEntity => true;
 
@@ -42,7 +42,7 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff.AreusArmor
                         {
                             if (areusPlayer.guardSet)
                             {
-                                if (++sparkTimer >= SPARK_TIMER_MAX)
+                                if (++sparkTimer >= SparkTimerMax)
                                 {
                                     int amount = 5;
                                     float rotation = MathHelper.ToRadians(360 / amount);

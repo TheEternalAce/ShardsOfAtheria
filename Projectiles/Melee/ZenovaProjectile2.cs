@@ -71,10 +71,10 @@ namespace ShardsOfAtheria.Projectiles.Melee
             // Declaring a constant in-line is fine as it will be optimized by the compiler
             // It is however recommended to define it outside method scope if used elswhere as well
             // They are useful to make numbers that don't change more descriptive
-            const int NUM_DUSTS = 20;
+            const int NumDusts = 20;
 
             // Spawn some dusts upon javelin death
-            for (int i = 0; i < NUM_DUSTS; i++)
+            for (int i = 0; i < NumDusts; i++)
             {
                 // Create a new dust
                 Dust dust = Dust.NewDustDirect(usePos, Projectile.width, Projectile.height, DustID.Tin);
@@ -138,7 +138,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
 
         private int spinTime = 40;
         private int gravityTime = 24;
-        private const int ALPHA_REDUCTION = 25;
+        private const int AlphaReduction = 25;
 
         public override void AI()
         {
@@ -158,7 +158,7 @@ namespace ShardsOfAtheria.Projectiles.Melee
         {
             if (Projectile.alpha > 0)
             {
-                Projectile.alpha -= ALPHA_REDUCTION;
+                Projectile.alpha -= AlphaReduction;
             }
 
             if (Projectile.alpha < 0)

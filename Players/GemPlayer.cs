@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.Players
         public bool amberCape;
         public int maxAmberBanners;
         public int amberBannerCooldown;
-        public const int BANNER_COOLDOWN_MAX = 600;
+        public const int AmberBannerCooldownMax = 600;
 
         public bool amethystCore;
         public bool greaterAmethystCore;
@@ -68,9 +68,9 @@ namespace ShardsOfAtheria.Players
         public bool sapphireSpirit;
         public bool sapphireSpiritUpgrade;
         public int sapphireSpikeCooldown;
-        public const int SAPPHIRE_SPIKE_COOLDOWN_MAX = 180;
+        public const int SapphireSpikeCooldownMax = 180;
         public int sapphireShellCooldown;
-        public const int SAPPHIRE_SHELL_COOLDOWN_MAX = 1800;
+        public const int SapphireShellCooldownMax = 1800;
 
         public bool topazCore;
         public bool greaterTopazCore;
@@ -400,7 +400,7 @@ namespace ShardsOfAtheria.Players
                 Player.SetImmuneTimeForAllTypes(Player.longInvince ? 100 : 60);
                 Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero,
                     ModContent.ProjectileType<SapphireShield>(), 0, 0, Player.whoAmI);
-                sapphireShellCooldown = SAPPHIRE_SHELL_COOLDOWN_MAX;
+                sapphireShellCooldown = SapphireShellCooldownMax;
             }
             return doDodge;
         }
@@ -467,7 +467,7 @@ namespace ShardsOfAtheria.Players
                     Projectile.NewProjectile(projectileSource, playerCenter, perturbedSpeed,
                         ModContent.ProjectileType<SapphireSpike>(), 60, 0f);
                 }
-                sapphireSpikeCooldown = SAPPHIRE_SPIKE_COOLDOWN_MAX;
+                sapphireSpikeCooldown = SapphireSpikeCooldownMax;
             }
             if (superSapphireCore)
             {
@@ -536,7 +536,7 @@ namespace ShardsOfAtheria.Players
                         }
                         AmberBanner.MakeOldestBannerFollowPlayer(Player);
                     }
-                    amberBannerCooldown = BANNER_COOLDOWN_MAX;
+                    amberBannerCooldown = AmberBannerCooldownMax;
                 }
                 if (superDiamondCore) Player.AddBuff<DiamondBarrierBuff>(60);
                 if (!Player.moonLeech && greaterTopazCore) Projectile.NewProjectile(target.GetSource_Death(), target.Center, Vector2.UnitY * -10f, ModContent.ProjectileType<TopazOrb>(), 0, 0f, Player.whoAmI);

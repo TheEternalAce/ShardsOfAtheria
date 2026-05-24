@@ -90,7 +90,7 @@ namespace ShardsOfAtheria.Items.Accessories
 
             shardsPlayer.Biometal = true;
             shardsPlayer.BiometalHideVanity = hideVisual;
-            if (cardActive) shardsPlayer.overdriveTimeCurrent = ShardsPlayer.OVERDRIVE_TIME_MAX;
+            if (cardActive) shardsPlayer.overdriveTimeCurrent = ShardsPlayer.OverdriveTimeMax;
 
             player.GetDamage(DamageClass.Generic) += 0.15f;
             player.statManaMax2 += 40;

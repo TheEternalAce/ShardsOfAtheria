@@ -49,7 +49,7 @@ namespace ShardsOfAtheria.ShardsUI
             float ticksToDraw = shards.overdriveTimeCurrent / 30f;
             ticksToDraw = (float)Math.Round(ticksToDraw);
 
-            bar.hoverText = $"{shards.overdriveTimeCurrent} / {ShardsPlayer.OVERDRIVE_TIME_MAX}";
+            bar.hoverText = $"{shards.overdriveTimeCurrent} / {ShardsPlayer.OverdriveTimeMax}";
             bar.RemoveAllChildren();
             for (int i = 0; i < ticksToDraw; i++)
             {

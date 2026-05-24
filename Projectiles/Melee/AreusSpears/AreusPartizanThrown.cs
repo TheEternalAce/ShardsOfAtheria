@@ -79,10 +79,10 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             // Declaring a constant in-line is fine as it will be optimized by the compiler
             // It is however recommended to define it outside method scope if used elswhere as well
             // They are useful to make numbers that don't change more descriptive
-            const int NUM_DUSTS = 46;
+            const int NumDusts = 46;
 
             // Spawn some dusts upon javelin death
-            for (int i = 0; i < NUM_DUSTS; i++)
+            for (int i = 0; i < NumDusts; i++)
             {
                 int dustType = ModContent.DustType<AreusDust_Dark>();
                 if (i > 40 || i < 16 && i > 8)
@@ -112,8 +112,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             set => Projectile.ai[1] = value;
         }
 
-        private const int MAX_STICKY_JAVELINS = 1; // This is the max. amount of javelins being able to attach
-        private readonly Point[] _stickingJavelins = new Point[MAX_STICKY_JAVELINS]; // The point array holding for sticking javelins
+        private const int MaxStickyJavelins = 1; // This is the max. amount of javelins being able to attach
+        private readonly Point[] _stickingJavelins = new Point[MaxStickyJavelins]; // The point array holding for sticking javelins
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -158,11 +158,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             }
 
             // Remove the oldest sticky javelin if we exceeded the maximum
-            if (currentJavelinIndex >= MAX_STICKY_JAVELINS)
+            if (currentJavelinIndex >= MaxStickyJavelins)
             {
                 int oldJavelinIndex = 0;
                 // Loop our point array
-                for (int i = 1; i < MAX_STICKY_JAVELINS; i++)
+                for (int i = 1; i < MaxStickyJavelins; i++)
                 {
                     // Remove the already existing javelin if it's timeLeft value (which is the Y value in our point array) is smaller than the new javelin's timeLeft
                     if (_stickingJavelins[i].Y < _stickingJavelins[oldJavelinIndex].Y)
@@ -176,7 +176,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
         }
 
         // Change this number if you want to alter how the alpha changes
-        private const int ALPHA_REDUCTION = 25;
+        private const int AlphaReduction = 25;
 
         public override void AI()
         {
@@ -192,7 +192,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             // Slowly remove alpha as it is present
             if (Projectile.alpha > 0)
             {
-                Projectile.alpha -= ALPHA_REDUCTION;
+                Projectile.alpha -= AlphaReduction;
             }
 
             // If alpha gets lower than 0, set it to 0
@@ -215,13 +215,13 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             // These 2 could probably be moved to the ModifyNPCHit hook, but in vanilla they are present in the AI
             Projectile.ignoreWater = true; // Make sure the projectile ignores water
             Projectile.tileCollide = false; // Make sure the projectile doesn't collide with tiles anymore
-            const int aiFactor = 15; // Change this factor to change the 'lifetime' of this sticking javelin
+            const int AIFactor = 15; // Change this factor to change the 'lifetime' of this sticking javelin
             Projectile.localAI[0] += 1f;
 
             // Every 30 ticks, the javelin will perform a hit effect
             bool hitEffect = Projectile.localAI[0] % 30f == 0f;
             int projTargetIndex = TargetWhoAmI;
-            if (Projectile.localAI[0] >= 60 * aiFactor || projTargetIndex < 0 || projTargetIndex >= 200)
+            if (Projectile.localAI[0] >= 60 * AIFactor || projTargetIndex < 0 || projTargetIndex >= 200)
             { // If the index is past its limits, kill it
                 Projectile.Kill();
             }

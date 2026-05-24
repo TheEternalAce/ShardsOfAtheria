@@ -12,8 +12,8 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 {
     public class SilverSpear : ModItem
     {
-        const int COMBO_THRESHOLD = 15;
-        const int COMBO_START = 65;
+        const int ComboThreshold = 15;
+        const int ComboStart = 65;
 
         int combo = 0;
         int comboTimer = 0;
@@ -55,18 +55,18 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void HoldItem(Player player)
         {
             comboTimer--;
-            if (comboTimer == COMBO_THRESHOLD) SoundEngine.PlaySound(SoA.SilverRingsSoft);
-            if (comboTimer <= 0) comboTimer = COMBO_START;
+            if (comboTimer == ComboThreshold) SoundEngine.PlaySound(SoA.SilverRingsSoft);
+            if (comboTimer <= 0) comboTimer = ComboStart;
         }
 
         public override void UpdateInventory(Player player)
         {
-            if (player.HeldItem.type != Type) comboTimer = COMBO_START;
+            if (player.HeldItem.type != Type) comboTimer = ComboStart;
         }
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (comboTimer <= COMBO_THRESHOLD && comboTimer > 0) damage = (int)(damage * 1.75f);
+            if (comboTimer <= ComboThreshold && comboTimer > 0) damage = (int)(damage * 1.75f);
             if (combo++ == 2)
             {
                 type = ModContent.ProjectileType<SilverSpearThrust>();
@@ -78,9 +78,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             float ai = 0f;
-            if (comboTimer <= COMBO_THRESHOLD && comboTimer > 0) ai = 1f;
+            if (comboTimer <= ComboThreshold && comboTimer > 0) ai = 1f;
             Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0, ai);
-            comboTimer = COMBO_START;
+            comboTimer = ComboStart;
             return false;
         }
 

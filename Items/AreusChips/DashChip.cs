@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Items.AreusChips
                 return;
 
             //If the dash has just started, apply the dash velocity in whatever direction we wanted to dash towards
-            if (mp.DashTimer == AreusDashPlayer.MAX_DASH_TIMER)
+            if (mp.DashTimer == AreusDashPlayer.MaxDashTimer)
             {
                 Vector2 newVelocity = player.velocity;
 
@@ -48,8 +48,8 @@ namespace ShardsOfAtheria.Items.AreusChips
             if (mp.DashDelay == 0)
             {
                 //The dash has ended.  Reset the fields
-                mp.DashDelay = AreusDashPlayer.MAX_DASH_DELAY;
-                mp.DashTimer = AreusDashPlayer.MAX_DASH_TIMER;
+                mp.DashDelay = AreusDashPlayer.MaxDashDelay;
+                mp.DashTimer = AreusDashPlayer.MaxDashTimer;
                 mp.DashActive = false;
             }
         }
@@ -76,14 +76,14 @@ namespace ShardsOfAtheria.Items.AreusChips
 
         //The fields related to the dash accessory
         public bool DashActive = false;
-        public int DashDelay = MAX_DASH_DELAY;
-        public int DashTimer = MAX_DASH_TIMER;
+        public int DashDelay = MaxDashDelay;
+        public int DashTimer = MaxDashTimer;
         //The initial velocity. 10 velocity is about 37.5 tiles/second or 50 mph
         public float DashVelocity = 12f;
         //These two fields are the max values for the delay between dashes and the length of the dash in that order
         //The time is measured in frames
-        public const int MAX_DASH_DELAY = 50;
-        public const int MAX_DASH_TIMER = 15;
+        public const int MaxDashDelay = 50;
+        public const int MaxDashTimer = 15;
 
         public override void ResetEffects()
         {

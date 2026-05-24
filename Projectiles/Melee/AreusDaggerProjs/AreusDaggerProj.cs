@@ -66,10 +66,10 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusDaggerProjs
             // Declaring a constant in-line is fine as it will be optimized by the compiler
             // It is however recommended to define it outside method scope if used elswhere as well
             // They are useful to make numbers that don't change more descriptive
-            const int NUM_DUSTS = 20;
+            const int NumDusts = 20;
 
             // Spawn some dusts upon javelin death
-            for (int i = 0; i < NUM_DUSTS; i++)
+            for (int i = 0; i < NumDusts; i++)
             {
                 // Create a new dust
                 Dust dust = Dust.NewDustDirect(usePos, Projectile.width, Projectile.height, ModContent.DustType<AreusDust>());
@@ -98,9 +98,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusDaggerProjs
         // Randomize projectile frame
         public bool frameSet = false;
 
-        private const int MAX_STICKY_JAVELINS = 8; // This is the max. amount of javelins being able to attach
-        private readonly Point[] _stickingJavelins = new Point[MAX_STICKY_JAVELINS]; // The point array holding for sticking javelins
-        private int initialDamage;
+        private const int MaxStickyJavelins = 8; // This is the max. amount of javelins being able to attach
+        private readonly Point[] _stickingJavelins = new Point[MaxStickyJavelins]; // The point array holding for sticking javelins
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -112,7 +111,6 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusDaggerProjs
             Projectile.netUpdate = true; // netUpdate this javelin
             Projectile.timeLeft = 3600;
 
-            initialDamage = damageDone;
             Projectile.damage = 0; // Makes sure the sticking javelins do not deal damage anymore
 
             // It is recommended to split your code into separate methods to keep code clean and clear
@@ -145,11 +143,11 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusDaggerProjs
             }
 
             // Remove the oldest sticky javelin if we exceeded the maximum
-            if (currentJavelinIndex >= MAX_STICKY_JAVELINS)
+            if (currentJavelinIndex >= MaxStickyJavelins)
             {
                 int oldJavelinIndex = 0;
                 // Loop our point array
-                for (int i = 1; i < MAX_STICKY_JAVELINS; i++)
+                for (int i = 1; i < MaxStickyJavelins; i++)
                 {
                     // Remove the already existing javelin if it's timeLeft value (which is the Y value in our point array) is smaller than the new javelin's timeLeft
                     if (_stickingJavelins[i].Y < _stickingJavelins[oldJavelinIndex].Y)
@@ -162,12 +160,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusDaggerProjs
             }
         }
 
-        // Added these 2 constant to showcase how you could make AI code cleaner by doing this
-        // Change this number if you want to alter how long the javelin can travel at a constant speed
-        private const int MAX_TICKS = 45;
-
         // Change this number if you want to alter how the alpha changes
-        private const int ALPHA_REDUCTION = 25;
+        private const int AlphaReduction = 25;
 
         public override void AI()
         {
@@ -184,7 +178,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusDaggerProjs
             // Slowly remove alpha as it is present
             if (Projectile.alpha > 0)
             {
-                Projectile.alpha -= ALPHA_REDUCTION;
+                Projectile.alpha -= AlphaReduction;
             }
 
             // If alpha gets lower than 0, set it to 0

@@ -135,7 +135,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
 
         public override bool CheckDead()
         {
-            animationState = STATE_IDLE;
+            animationState = StateIdle;
             KillProjectiles();
             attackType = 0;
             attackTimer = 0;
@@ -324,7 +324,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             }
             else
             {
-                animationState = STATE_IDLE;
+                animationState = StateIdle;
                 frameX = 0;
                 DefaultMovement(player);
                 attackCooldown--;
@@ -411,7 +411,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     {
                         attackTypeNext = BloodScepter;
                     }
-                    animationState = STATE_CROSSBOW_SHOOT;
+                    animationState = StateCrossbowShoot;
                     frameX = 2;
                     break;
                 case BloodJavelin:
@@ -422,7 +422,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     {
                         attackTypeNext = NeedleWave;
                     }
-                    animationState = STATE_SWING;
+                    animationState = StateSwing;
                     frameX = 1;
                     break;
                 case NeedleWave:
@@ -448,7 +448,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     {
                         attackTypeNext = BloodSword;
                     }
-                    animationState = STATE_SCEPTER_CAST;
+                    animationState = StateScepterCast;
                     frameX = 3;
                     break;
                 case BloodSickle:
@@ -462,7 +462,7 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                     attackCooldown = 95;
                     damage = 75;
                     blacklistedAttacks.Add(BloodSickle);
-                    animationState = STATE_SCYTHE_SWING;
+                    animationState = StateScytheSwing;
                     frameX = 1;
                     break;
                 case BloodSword:
@@ -591,9 +591,9 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), center, toTarget,
                     type, damage, 0f, Main.myPlayer);
             }
-            if (attackTimer == 32 && animationState != STATE_IDLE)
+            if (attackTimer == 32 && animationState != StateIdle)
             {
-                animationState = STATE_IDLE;
+                animationState = StateIdle;
                 frameY = 0;
             }
         }
@@ -818,13 +818,13 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             }
         }
 
-        private int animationState = STATE_IDLE;
-        private const int STATE_IDLE = 0;
-        private const int STATE_SWING = 1;
-        private const int STATE_SCYTHE_SWING = 2;
-        private const int STATE_SWORD_SWING = 3;
-        private const int STATE_CROSSBOW_SHOOT = 4;
-        private const int STATE_SCEPTER_CAST = 5;
+        private int animationState = StateIdle;
+        private const int StateIdle = 0;
+        private const int StateSwing = 1;
+        private const int StateScytheSwing = 2;
+        private const int StateSwordSwing = 3;
+        private const int StateCrossbowShoot = 4;
+        private const int StateScepterCast = 5;
         private int frameY = 0;
         private int frameX = 0;
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -838,26 +838,26 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             switch (animationState)
             {
                 default:
-                case STATE_IDLE:
+                case StateIdle:
                     frameX = 0;
                     frameYMax = 1;
                     break;
-                case STATE_SWING:
-                case STATE_SCYTHE_SWING:
-                case STATE_SWORD_SWING:
+                case StateSwing:
+                case StateScytheSwing:
+                case StateSwordSwing:
                     frameX = 1;
                     frameYMax = 2;
                     break;
-                case STATE_CROSSBOW_SHOOT:
+                case StateCrossbowShoot:
                     frameX = 2;
                     frameYMax = 1;
                     break;
-                case STATE_SCEPTER_CAST:
+                case StateScepterCast:
                     frameX = 3;
                     frameYMax = 1;
                     break;
             }
-            if (animationState == STATE_SCYTHE_SWING)
+            if (animationState == StateScytheSwing)
             {
                 if (attackTimer > 60)
                 {

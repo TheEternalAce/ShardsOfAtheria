@@ -16,8 +16,8 @@ namespace ShardsOfAtheria.Items.SoulCrystals
 {
     public abstract class SoulCrystal : ModItem
     {
-        const int ABSORB_SOUL_TIMER_MAX = 180;
-        public int absorbSoulTimer = ABSORB_SOUL_TIMER_MAX;
+        const int AbsorbSoulTimerMax = 180;
+        public int absorbSoulTimer = AbsorbSoulTimerMax;
 
         public override void SetStaticDefaults()
         {
@@ -57,7 +57,7 @@ namespace ShardsOfAtheria.Items.SoulCrystals
         public override void UpdateInventory(Player player)
         {
             if (!player.ItemAnimationActive)
-                absorbSoulTimer = ABSORB_SOUL_TIMER_MAX;
+                absorbSoulTimer = AbsorbSoulTimerMax;
         }
 
         public override bool CanUseItem(Player player)

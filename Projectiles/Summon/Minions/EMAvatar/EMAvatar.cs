@@ -23,12 +23,6 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
         //readonly string[] randomEmotes = [":3", ":D", "X3", "XD", ":)", ">:3", ">:)", ":o"];
 
         //int blinkTimer = 0;
-        //int animationState = ANIMATION_IDLE;
-        //const int ANIMATION_IDLE = 0;
-        //const int ANIMATION_SWING = 1;
-        //const int ANIMATION_SHOOT = 2;
-        //const int ANIMATION_CAST = 3;
-        //const int ANIMATION_COMMAND = 4;
 
         public override void Load()
         {
@@ -188,7 +182,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
                 int targetDirection = (targetCenter.X > Projectile.Center.X).ToDirectionInt();
                 int projectileTimerMax = 60;
                 var shootSound = SoundID.Item1;
-                int animState = ANIMATION_IDLE;
+                int animState = AnimationIdle;
 
                 if (areus.WarriorSetChip)
                 {
@@ -197,7 +191,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
                     projectileTimerMax = 30;
                     shootSound = SoundID.Item71;
                     vectorToIdlePosition = targetCenter + Vector2.UnitX * 100f * -targetDirection - Projectile.Center;
-                    animState = ANIMATION_SWING;
+                    animState = AnimationSwing;
                     Projectile.spriteDirection = targetDirection;
                 }
                 if (areus.RangerSetChip)
@@ -205,7 +199,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
                     projectileType = ModContent.ProjectileType<BusterShot>();
                     projectileSpeed = 10;
                     shootSound = SoA.MagnetShot;
-                    animState = ANIMATION_SHOOT;
+                    animState = AnimationShoot;
                 }
                 if (areus.MageSetChip)
                 {
@@ -213,11 +207,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
                     projectileSpeed = 0;
                     projectileTimerMax = 900;
                     shootSound = SoundID.Item8;
-                    animState = ANIMATION_CAST;
+                    animState = AnimationCast;
                 }
                 if (areus.CommanderSetChip)
                 {
-                    SetAnimation(ANIMATION_POINT, 2);
+                    SetAnimation(AnimationPoint, 2);
                     Projectile.spriteDirection = targetDirection;
                 }
                 if (areus.NinjaSetChip)
@@ -225,7 +219,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
                     projectileType = ModContent.ProjectileType<PsychicBlade>();
                     projectileSpeed = 12f;
                     shootSound = SoundID.Item1;
-                    animState = ANIMATION_SWING;
+                    animState = AnimationSwing;
                     Projectile.spriteDirection = targetDirection;
                 }
 
@@ -285,13 +279,13 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
             return true;
         }
 
-        const int ANIMATION_IDLE = 0;
-        const int ANIMATION_POINT = 2;
-        const int ANIMATION_SHOOT = 3;
-        const int ANIMATION_SWING = 4;
-        const int ANIMATION_CAST = 5;
+        const int AnimationIdle = 0;
+        const int AnimationPoint = 2;
+        const int AnimationShoot = 3;
+        const int AnimationSwing = 4;
+        const int AnimationCast = 5;
         int idleFrame = 0;
-        int animationState = ANIMATION_IDLE;
+        int animationState = AnimationIdle;
         bool animationIdle = true;
         int nonIdleFrameTime;
         int armFrame = -1;
@@ -308,8 +302,8 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
                 }
             }
             if (nonIdleFrameTime > 0) nonIdleFrameTime--;
-            else if (nonIdleFrameTime == 0) { animationIdle = true; animationState = ANIMATION_IDLE; }
-            if (animationState != ANIMATION_SWING && animationState != ANIMATION_SHOOT)
+            else if (nonIdleFrameTime == 0) { animationIdle = true; animationState = AnimationIdle; }
+            if (animationState != AnimationSwing && animationState != AnimationShoot)
             {
                 var owner = Projectile.GetPlayerOwner();
                 int direction = owner.direction;
@@ -321,7 +315,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.EMAvatar
             this.animationState = animationState;
             nonIdleFrameTime = animationTime;
             animationIdle = false;
-            if (animationState == ANIMATION_SWING) armFrame = 0;
+            if (animationState == AnimationSwing) armFrame = 0;
         }
 
         public override bool PreDraw(ref Color lightColor)

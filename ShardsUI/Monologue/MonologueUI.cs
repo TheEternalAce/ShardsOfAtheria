@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.ShardsUI.Monologue
 {
     class MonologueUI : UIState
     {
-        const int HEIGHT = 40;
+        const int Height = 40;
         UIPanel panel;
         UIText uiText;
         public string dialogue;
@@ -42,8 +42,8 @@ namespace ShardsOfAtheria.ShardsUI.Monologue
             int y = Main.screenHeight - 400;
 
             uiText = new(dialogue);
-            uiText.SetRectangle(0, 0, width, HEIGHT);
-            panel.SetRectangle(x, y, width, HEIGHT);
+            uiText.SetRectangle(0, 0, width, Height);
+            panel.SetRectangle(x, y, width, Height);
             panel.Append(uiText);
             Append(panel);
             if (!Main.gameInactive)

@@ -10,7 +10,7 @@ namespace ShardsOfAtheria.ShardsUI.InfoDisplays
     {
         public override string Texture => SoA.SinDataTexture;
 
-        public override bool Active() => Main.LocalPlayer.Sinner().sinID == SinnerPlayer.PRIDE;
+        public override bool Active() => Main.LocalPlayer.Sinner().sinID == SinnerPlayer.Pride;
 
         public override string DisplayValue(ref Color displayColor, ref Color displayShadowColor)
         {

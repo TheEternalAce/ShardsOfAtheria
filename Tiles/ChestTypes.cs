@@ -75,20 +75,20 @@ namespace ShardsOfAtheria.Tiles
         public const int LockedDesert = 13;
         public const int Containers2Count = 14;
 
-        public const int jeweled = 52;
-        public const int pirateGolden = 53;
-        public const int spider = 54;
-        public const int lesion = 55;
-        public const int deadMans = 56;
-        public const int solar = 57;
-        public const int vortex = 58;
-        public const int nebula = 59;
-        public const int stardust = 60;
-        public const int golf = 61;
-        public const int sandstone = 62;
-        public const int bamboo = 63;
-        public const int desert = 64;
-        public const int lockedDesert = 65;
+        public const int _Jeweled = 52;
+        public const int _PirateGolden = 53;
+        public const int _Spider = 54;
+        public const int _Lesion = 55;
+        public const int _DeadMans = 56;
+        public const int _Solar = 57;
+        public const int _Vortex = 58;
+        public const int _Nebula = 59;
+        public const int _Stardust = 60;
+        public const int _Golf = 61;
+        public const int _Sandstone = 62;
+        public const int _Bamboo = 63;
+        public const int _Desert = 64;
+        public const int _LockedDesert = 65;
         public const int VanillaCount = 66;
         public const int ThisIsNowContainers2Styles = Jeweled;
 

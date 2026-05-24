@@ -32,7 +32,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
         }
 
         // Change this number if you want to alter how the alpha changes
-        private const int ALPHA_REDUCTION = 25;
+        private const int AlphaReduction = 25;
 
         int gravityTimer = 8;
         public override void AI()
@@ -40,7 +40,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.AreusSpears
             // Slowly remove alpha as it is present
             if (Projectile.alpha > 0)
             {
-                Projectile.alpha -= ALPHA_REDUCTION;
+                Projectile.alpha -= AlphaReduction;
             }
 
             // If alpha gets lower than 0, set it to 0

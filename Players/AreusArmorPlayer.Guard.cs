@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Players
         public bool guardSetPrevious;
         public bool guardSet;
         public int areusEnergy;
-        public const int AREUS_ENERGY_MAX = 100;
+        public const int AreusEnergyMax = 100;
         public int energyTimer;
         public int thrownEnergyBurstCooldown;
 
@@ -53,12 +53,12 @@ namespace ShardsOfAtheria.Players
         }
         private void GuardActive_Summon()
         {
-            if (areusEnergy >= AREUS_ENERGY_MAX && !Player.HasBuff<ChargedMinions>())
+            if (areusEnergy >= AreusEnergyMax && !Player.HasBuff<ChargedMinions>())
                 Player.AddBuff<ChargedMinions>(600);
         }
         private void GuardActive_Throwing()
         {
-            if (areusEnergy >= AREUS_ENERGY_MAX && !Player.HasBuff<ElectricAssassin>())
+            if (areusEnergy >= AreusEnergyMax && !Player.HasBuff<ElectricAssassin>())
                 Player.AddBuff<ElectricAssassin>(600);
         }
     }

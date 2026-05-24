@@ -14,13 +14,13 @@ namespace ShardsOfAtheria.ShardsUI
     public class AreusEnergyUI : UIState
     {
         UIHoverImage bar;
-        const string BAR_PATH = "ShardsOfAtheria/ShardsUI/AreusEnergy/AreusEnergyBar";
+        const string BarPath = "ShardsOfAtheria/ShardsUI/AreusEnergy/AreusEnergyBar";
         private Color gradientA;
         private Color gradientB;
 
         public override void OnInitialize()
         {
-            bar = new(ModContent.Request<Texture2D>(BAR_PATH), "");
+            bar = new(ModContent.Request<Texture2D>(BarPath), "");
             bar.SetRectangle(0, 0, 66, 18);
             Append(bar);
 
@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.ShardsUI
 
             var areusPlayer = Main.LocalPlayer.Areus();
             // Calculate quotient
-            float quotient = (float)areusPlayer.areusEnergy / AreusArmorPlayer.AREUS_ENERGY_MAX; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
+            float quotient = (float)areusPlayer.areusEnergy / AreusArmorPlayer.AreusEnergyMax; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
             quotient = Utils.Clamp(quotient, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
 
             // Here we get the screen dimensions of the barFrame element, then tweak the resulting rectangle to arrive at a rectangle within the barFrame texture that we will draw the gradient. These values were measured in a drawing program.
@@ -69,7 +69,7 @@ namespace ShardsOfAtheria.ShardsUI
 
             var player = Main.LocalPlayer;
             var areusPlayer = player.Areus();
-            bar.hoverText = $"Areus Energy: {areusPlayer.areusEnergy} / {AreusArmorPlayer.AREUS_ENERGY_MAX}";
+            bar.hoverText = $"Areus Energy: {areusPlayer.areusEnergy} / {AreusArmorPlayer.AreusEnergyMax}";
 
             var barDimensions = bar.GetDimensions();
             float x = Main.screenWidth / 2 - barDimensions.Width / 2f;

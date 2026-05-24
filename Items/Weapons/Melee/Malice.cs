@@ -14,9 +14,9 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         int hateCounter = 0;
         int hateFallOffTimer = 0;
-        const int HATE_FALL_OFF_TIMER_MAX = 60;
+        const int HateFallOffTimerMax = 60;
 
-        public override int RequiredSin => SinnerPlayer.WRATH;
+        public override int RequiredSin => SinnerPlayer.Wrath;
 
         // Base damages: 50, 130, 230
         public override int[] DamageSpread => [0, 80, 100];
@@ -78,7 +78,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
             if (!player.ItemAnimationActive && hateCounter > 0 && !player.HasBuff<Hatred>())
             {
                 hateFallOffTimer++;
-                if (hateFallOffTimer >= HATE_FALL_OFF_TIMER_MAX)
+                if (hateFallOffTimer >= HateFallOffTimerMax)
                     hateCounter--;
             }
             else hateFallOffTimer = 0;

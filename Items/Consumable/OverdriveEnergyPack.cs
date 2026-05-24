@@ -42,7 +42,7 @@ namespace ShardsOfAtheria.Items.Consumable
 
         public override bool CanUseItem(Player player)
         {
-            return player.Shards().overdriveTimeCurrent != ShardsPlayer.OVERDRIVE_TIME_MAX;
+            return player.Shards().overdriveTimeCurrent != ShardsPlayer.OverdriveTimeMax;
         }
 
         public override bool? UseItem(Player player)

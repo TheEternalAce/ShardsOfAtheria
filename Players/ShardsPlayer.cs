@@ -91,7 +91,7 @@ namespace ShardsOfAtheria.Players
         public bool BiometalForceVanity;
         public int overdriveTimeCurrent;
         public int overdriveTimer;
-        public const int OVERDRIVE_TIME_MAX = 300;
+        public const int OverdriveTimeMax = 300;
         public bool Overdrive => Player.HasBuff<Overdrive>() && overdriveTimeCurrent > 0;
 
         public int riggedCoin;
@@ -169,7 +169,7 @@ namespace ShardsOfAtheria.Players
 
         public override void Initialize()
         {
-            overdriveTimeCurrent = OVERDRIVE_TIME_MAX;
+            overdriveTimeCurrent = OverdriveTimeMax;
             itemCombo = 0;
             phaseOffense = true;
         }

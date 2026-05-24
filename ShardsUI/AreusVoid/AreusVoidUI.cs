@@ -14,13 +14,13 @@ namespace ShardsOfAtheria.ShardsUI.AreusVoid
     public class AreusVoidUI : UIState
     {
         UIHoverImage orb;
-        const string ORB_PATH = "ShardsOfAtheria/ShardsUI/AreusVoid/AreusVoidOrb";
+        const string OrbPath = "ShardsOfAtheria/ShardsUI/AreusVoid/AreusVoidOrb";
         private Color gradientA;
         private Color gradientB;
 
         public override void OnInitialize()
         {
-            orb = new(ModContent.Request<Texture2D>(ORB_PATH), "");
+            orb = new(ModContent.Request<Texture2D>(OrbPath), "");
             orb.SetRectangle(0, 0, 66, 18);
             Append(orb);
 
@@ -34,7 +34,7 @@ namespace ShardsOfAtheria.ShardsUI.AreusVoid
 
             var areusPlayer = Main.LocalPlayer.Areus();
             // Calculate quotient
-            float quotient = (float)areusPlayer.imperialVoid / AreusArmorPlayer.VOID_MAX; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
+            float quotient = (float)areusPlayer.imperialVoid / AreusArmorPlayer.VoidMax; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
             quotient = Utils.Clamp(quotient, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
 
             // Here we get the screen dimensions of the barFrame element, then tweak the resulting rectangle to arrive at a rectangle within the barFrame texture that we will draw the gradient. These values were measured in a drawing program.
@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.ShardsUI.AreusVoid
 
             var player = Main.LocalPlayer;
             var areusPlayer = player.Areus();
-            orb.hoverText = $"Imperial Void: {areusPlayer.imperialVoid} / {AreusArmorPlayer.VOID_MAX}";
+            orb.hoverText = $"Imperial Void: {areusPlayer.imperialVoid} / {AreusArmorPlayer.VoidMax}";
 
             float x = Main.screenWidth - 480;
             float y = 10;

@@ -210,7 +210,7 @@ namespace ShardsOfAtheria.Globals
 
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
         {
-            if (player.Sinner().sinID == SinnerPlayer.SLOTH)
+            if (player.Sinner().sinID == SinnerPlayer.Sloth)
                 spawnRate = (int)(spawnRate * 0.5f);
         }
 

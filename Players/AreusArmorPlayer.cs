@@ -84,8 +84,8 @@ namespace ShardsOfAtheria.Players
             imperialSet = false;
             royalSet = false;
             areusDamage = 0f;
-            if (areusEnergy > AREUS_ENERGY_MAX)
-                areusEnergy = AREUS_ENERGY_MAX;
+            if (areusEnergy > AreusEnergyMax)
+                areusEnergy = AreusEnergyMax;
             bannerDamage = false;
             bannerDefense = false;
             bannerEndurance = false;

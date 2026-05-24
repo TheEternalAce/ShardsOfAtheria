@@ -22,9 +22,9 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
         readonly string[] randomEmotes = [":3", ":D", "X3", "XD", ":)", ">:3", ">:)", ":o"];
 
         int blinkTimer = 0;
-        int animationState = ANIMATION_IDLE;
-        const int ANIMATION_IDLE = 0;
-        const int ANIMATION_PLATFORM = 1;
+        int animationState = AnimationIdle;
+        const int AnimationIdle = 0;
+        const int AnimationPlatform = 1;
 
         public override void SetStaticDefaults()
         {
@@ -142,7 +142,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                     position.Y += 60;
                     if (Collision.CheckAABBvLineCollision(owner.Center, owner.Size, owner.Center, position))
                     {
-                        animationState = ANIMATION_PLATFORM;
+                        animationState = AnimationPlatform;
                         Projectile.frame = 5;
                         var velocity = position - Projectile.Center;
                         velocity.Normalize();
@@ -389,11 +389,11 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
 
             int frameTime = 5;
             int maxframe = 4;
-            if (animationState == ANIMATION_PLATFORM)
+            if (animationState == AnimationPlatform)
             {
                 maxframe = 7;
             }
-            if (animationState == ANIMATION_IDLE)
+            if (animationState == AnimationIdle)
             {
                 maxframe = 1;
             }
@@ -430,7 +430,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions.GemCore
                     break;
                 case 7:
                     frameTime = 20;
-                    animationState = ANIMATION_IDLE;
+                    animationState = AnimationIdle;
                     break;
             }
 

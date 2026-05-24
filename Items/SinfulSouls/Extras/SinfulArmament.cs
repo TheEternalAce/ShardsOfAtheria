@@ -65,44 +65,44 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
             text = "";
             color = Color.White;
 
-            if (player.Sinner().sinID == SinnerPlayer.ENVY)
+            if (player.Sinner().sinID == SinnerPlayer.Envy)
             {
                 armament = ModContent.ItemType<Vendetta>();
                 text = "";
                 color = Color.Orange;
             }
-            else if (player.Sinner().sinID == SinnerPlayer.GLUTTONY)
+            else if (player.Sinner().sinID == SinnerPlayer.Gluttony)
             {
                 armament = ModContent.ItemType<Gomorrah>();
                 text = "I'm Gomorrah, no prey can stand a chance against us!";
                 color = Color.Orange;
             }
-            else if (player.Sinner().sinID == SinnerPlayer.GREED)
+            else if (player.Sinner().sinID == SinnerPlayer.Greed)
             {
                 armament = ModContent.ItemType<Pantheon>();
                 text = "My name is Pantheon, together we'll become the richest in the world!";
                 color = Color.Gold;
             }
-            else if (player.Sinner().sinID == SinnerPlayer.LUST)
+            else if (player.Sinner().sinID == SinnerPlayer.Lust)
             {
                 armament = ModContent.ItemType<Lilith>();
                 text = "";
                 color = Color.Pink;
             }
-            else if (player.Sinner().sinID == SinnerPlayer.PRIDE)
+            else if (player.Sinner().sinID == SinnerPlayer.Pride)
             {
                 armament = ModContent.ItemType<Magnus>();
                 text = "I am Magnus, the only weapon you'll ever need.";
                 color = Color.White;
             }
-            else if (player.Sinner().sinID == SinnerPlayer.SLOTH)
+            else if (player.Sinner().sinID == SinnerPlayer.Sloth)
             {
                 // TODO: Create Morgana.
                 armament = ModContent.ItemType<SinfulArmament>();
                 text = "";
                 color = Color.Orange;
             }
-            else if (player.Sinner().sinID == SinnerPlayer.WRATH)
+            else if (player.Sinner().sinID == SinnerPlayer.Wrath)
             {
                 armament = ModContent.ItemType<Malice>();
                 text = "I am Malice, my edge is sharper than those pathetic blades.";

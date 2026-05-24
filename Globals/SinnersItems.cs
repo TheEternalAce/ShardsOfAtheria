@@ -33,12 +33,13 @@ namespace ShardsOfAtheria.Globals
 
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
-            damage -= uses * 0.02f;
+            if (player.Sinner().sinID == SinnerPlayer.Pride)
+                damage -= uses * 0.02f;
         }
 
         public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (player.Sinner().sinID == SinnerPlayer.LUST)
+            if (player.Sinner().sinID == SinnerPlayer.Lust)
             {
                 float rotation = MathHelper.PiOver4;
                 if (item.type == ModContent.ItemType<Lilith>()) rotation = MathHelper.Pi / 6f;
@@ -50,9 +51,9 @@ namespace ShardsOfAtheria.Globals
         {
             var sinner = player.Sinner();
             bool wellFedBuff = item.buffType == BuffID.WellFed || item.buffType == BuffID.WellFed2 || item.buffType == BuffID.WellFed3;
-            if (sinner.sinID == SinnerPlayer.GLUTTONY && ((item.buffType > 0 && !wellFedBuff) || item.healLife > 0 || item.healMana > 0) && !item.IsWeapon())
-                player.AddBuff<GluttonyAcid>(SinnerPlayer.GLUTTONY_ACID_DURATION);
-            if (sinner.sinID == SinnerPlayer.PRIDE && player.InCombat() && item.IsWeapon() && !item.DamageType.CountsAsClass(DamageClass.Summon))
+            if (sinner.sinID == SinnerPlayer.Gluttony && ((item.buffType > 0 && !wellFedBuff) || item.healLife > 0 || item.healMana > 0) && !item.IsWeapon())
+                player.AddBuff<GluttonyAcid>(SinnerPlayer.GluttonyAcidDuration);
+            if (sinner.sinID == SinnerPlayer.Pride && player.InCombat() && item.IsWeapon() && !item.DamageType.CountsAsClass(DamageClass.Summon))
             {
                 uses++;
                 sinner.prideAttacksMade++;
@@ -64,7 +65,7 @@ namespace ShardsOfAtheria.Globals
         public override bool ConsumeItem(Item item, Player player)
         {
             var sinner = player.Sinner();
-            if (sinner.sinID == SinnerPlayer.GLUTTONY)
+            if (sinner.sinID == SinnerPlayer.Gluttony)
             {
                 int gluttonyHealing = item.buffTime;
                 if (item.buffType == BuffID.WellFed) gluttonyHealing /= 180;

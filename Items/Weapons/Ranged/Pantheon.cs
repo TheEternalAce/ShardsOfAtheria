@@ -15,7 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class Pantheon : SinfulItem
     {
-        public override int RequiredSin => SinnerPlayer.GREED;
+        public override int RequiredSin => SinnerPlayer.Greed;
 
         public override int[] DamageSpread => [0, 35, 40];
 

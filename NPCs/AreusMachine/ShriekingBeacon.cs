@@ -90,18 +90,18 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
             shootTimer++;
             if (shootTimer == 1)
             {
-                state = OPEN;
+                state = Open;
                 shriek = !Main.rand.NextBool(3);
             }
-            else if (shriek && shootTimer == 15) state = SHRIEK;
+            else if (shriek && shootTimer == 15) state = Shriek;
             if (shriek)
             {
                 if (shootTimer == 20) SoundEngine.PlaySound(SoundID.ScaryScream, NPC.Center);
                 else if (shootTimer <= 120 && shootTimer >= 20 && shootTimer % 20 == 0)
                     Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero,
                         ModContent.ProjectileType<AreusLeadShriek>(), 12, 0f, Main.myPlayer);
-                else if (shootTimer == 121) state = END_SHRIEK;
-                else if (shootTimer == 150) state = CLOSE;
+                else if (shootTimer == 121) state = EndShriek;
+                else if (shootTimer == 150) state = Close;
             }
             else
             {
@@ -112,43 +112,43 @@ namespace ShardsOfAtheria.NPCs.AreusMachine
                         Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center).RotatedByRandom(MathHelper.ToRadians(15)) * 16f,
                         ModContent.ProjectileType<BeaconLaser>(), 9, 0f, Main.myPlayer);
                 }
-                if (shootTimer == 50) state = CLOSE;
+                if (shootTimer == 50) state = Close;
             }
             if (shootTimer >= 300 + Main.rand.Next(100)) shootTimer = 0;
         }
 
-        int state = IDLE;
-        const int IDLE = -1;
-        const int OPEN = 0;
-        const int SHRIEK = 1;
-        const int CLOSE = 2;
-        const int END_SHRIEK = 3;
+        int state = Idle;
+        const int Idle = -1;
+        const int Open = 0;
+        const int Shriek = 1;
+        const int Close = 2;
+        const int EndShriek = 3;
         private void UpdateVisuals()
         {
             int stopFrame = 0;
             int frameAdd = 1;
             switch (state)
             {
-                case OPEN:
+                case Open:
                     stopFrame = 2;
                     break;
-                case SHRIEK:
+                case Shriek:
                     stopFrame = 5;
                     break;
-                case CLOSE:
+                case Close:
                     frameAdd = -1;
                     stopFrame = 0;
                     break;
-                case END_SHRIEK:
+                case EndShriek:
                     frameAdd = -1;
                     stopFrame = 2;
                     break;
             }
-            if (state != IDLE && ++NPC.frameCounter == 3)
+            if (state != Idle && ++NPC.frameCounter == 3)
             {
                 NPC.frameCounter = 0;
                 frame += frameAdd;
-                if (frame == stopFrame) state = IDLE;
+                if (frame == stopFrame) state = Idle;
             }
         }
 

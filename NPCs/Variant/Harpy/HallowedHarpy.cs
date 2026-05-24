@@ -62,12 +62,12 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             proj.hostile = true;
         }
 
-        const int SMITING_RADIUS = 250;
+        const int SmitingRadius = 250;
         void SmiteAura()
         {
             for (var i = 0; i < 20; i++)
             {
-                Vector2 spawnPos = NPC.Center + Main.rand.NextVector2CircularEdge(SMITING_RADIUS, SMITING_RADIUS);
+                Vector2 spawnPos = NPC.Center + Main.rand.NextVector2CircularEdge(SmitingRadius, SmitingRadius);
                 Vector2 offset = spawnPos - Main.LocalPlayer.Center;
                 if (Math.Abs(offset.X) > Main.screenWidth * 0.6f || Math.Abs(offset.Y) > Main.screenHeight * 0.6f) //dont spawn dust if its pointless
                     continue;
@@ -90,7 +90,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                 if (player.active && !player.dead)
                 {
                     var distToPlayer = Vector2.Distance(player.Center, NPC.Center);
-                    if (distToPlayer <= SMITING_RADIUS)
+                    if (distToPlayer <= SmitingRadius)
                     {
                         player.AddBuff(ModContent.Find<ModBuff>("FargowiltasSouls", "SmiteBuff").Type, 600);
                     }

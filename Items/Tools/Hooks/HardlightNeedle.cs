@@ -40,7 +40,7 @@ namespace ShardsOfAtheria.Items.Tools.Hooks
     internal class HardlightNeedleHook : ModProjectile
     {
         private static Asset<Texture2D> chainTexture;
-        private const int hookAmount = 2;
+        private const int HookAmount = 2;
 
         public override void Load()
         {
@@ -78,7 +78,7 @@ namespace ShardsOfAtheria.Items.Tools.Hooks
                 }
             }
 
-            return hooksOut <= hookAmount;
+            return hooksOut <= HookAmount;
         }
 
         // Return true if it is like: Hook, CandyCaneHook, BatHook, GemHooks
@@ -120,7 +120,7 @@ namespace ShardsOfAtheria.Items.Tools.Hooks
 
         public override void NumGrappleHooks(Player player, ref int numHooks)
         {
-            numHooks = hookAmount; // The amount of hooks that can be shot out
+            numHooks = HookAmount; // The amount of hooks that can be shot out
         }
 
         // default is 11, Lunar is 24

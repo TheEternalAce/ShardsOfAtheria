@@ -17,9 +17,9 @@ namespace ShardsOfAtheria.Players
     {
         public bool imperialSet;
         public int imperialVoid;
-        public const int VOID_MAX = 99;
+        public const int VoidMax = 99;
         private int voidStarTimer;
-        private const int VOID_STAR_TIMER_MAX = 120;
+        private const int VoidStarTimerMax = 120;
 
         private void ImperialActive_Melee()
         {
@@ -93,7 +93,7 @@ namespace ShardsOfAtheria.Players
             {
                 if (imperialVoid >= 33)
                 {
-                    if (++voidStarTimer >= VOID_STAR_TIMER_MAX)
+                    if (++voidStarTimer >= VoidStarTimerMax)
                     {
                         int damage = (int)ClassDamage.ApplyTo(imperialVoid);
                         Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero,
@@ -112,7 +112,7 @@ namespace ShardsOfAtheria.Players
             if (!Player.HasBuff<ShadeState>() || CommanderSetChip)
             {
                 imperialVoid += 3;
-                if (imperialVoid > VOID_MAX) imperialVoid = VOID_MAX;
+                if (imperialVoid > VoidMax) imperialVoid = VoidMax;
             }
             if (Player.HasBuff<ShadeState>())
             {

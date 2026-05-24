@@ -64,12 +64,12 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             proj.tileCollide = true;
         }
 
-        const int CHILLING_RADIUS = 250;
+        const int ChillingRadius = 250;
         void ChillingAura()
         {
             for (var i = 0; i < 20; i++)
             {
-                Vector2 spawnPos = NPC.Center + Main.rand.NextVector2CircularEdge(CHILLING_RADIUS, CHILLING_RADIUS);
+                Vector2 spawnPos = NPC.Center + Main.rand.NextVector2CircularEdge(ChillingRadius, ChillingRadius);
                 Vector2 offset = spawnPos - Main.LocalPlayer.Center;
                 if (Math.Abs(offset.X) > Main.screenWidth * 0.6f || Math.Abs(offset.Y) > Main.screenHeight * 0.6f) //dont spawn dust if its pointless
                     continue;
@@ -92,7 +92,7 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
                 if (player.active && !player.dead)
                 {
                     var distToPlayer = Vector2.Distance(player.Center, NPC.Center);
-                    if (distToPlayer <= CHILLING_RADIUS)
+                    if (distToPlayer <= ChillingRadius)
                     {
                         player.AddBuff(BuffID.Chilled, 600);
                     }

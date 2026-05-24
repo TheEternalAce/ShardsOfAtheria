@@ -29,10 +29,10 @@ namespace ShardsOfAtheria.NPCs.Misc
         Vector2 targetPosition = Vector2.Zero;
         int hitboxWhoAmI;
 
-        const int ATTACK_BEHAVIOUR = 0;
-        const int RETURN_BEHAVIOUR = 1;
-        const int LINGER_BEHAVIOUR = 2;
-        const int LINGER_ATTACK_BEHAVIOUR = 3;
+        const int AttackBehavior = 0;
+        const int ReturnBehavior = 1;
+        const int LingerBehavior = 2;
+        const int LingerAttackBehavior = 3;
 
         public override void SetStaticDefaults()
         {
@@ -94,21 +94,21 @@ namespace ShardsOfAtheria.NPCs.Misc
 
                 player.AddBuff(ModContent.BuffType<CreeperShield>(), 5);
 
-                if (Behaviour == LINGER_ATTACK_BEHAVIOUR || Behaviour == LINGER_BEHAVIOUR)
+                if (Behaviour == LingerAttackBehavior || Behaviour == LingerBehavior)
                     lingerTimer++;
                 if (lingerTimer >= 120)
                 {
                     lingerTimer = 0;
-                    if (Behaviour == LINGER_BEHAVIOUR)
+                    if (Behaviour == LingerBehavior)
                     {
-                        Behaviour = ATTACK_BEHAVIOUR;
+                        Behaviour = AttackBehavior;
                         targetPosition = Main.MouseWorld;
                     }
-                    else if (Behaviour == LINGER_ATTACK_BEHAVIOUR)
-                        Behaviour = RETURN_BEHAVIOUR;
+                    else if (Behaviour == LingerAttackBehavior)
+                        Behaviour = ReturnBehavior;
                 }
 
-                if (Behaviour == LINGER_BEHAVIOUR || Behaviour == RETURN_BEHAVIOUR)
+                if (Behaviour == LingerBehavior || Behaviour == ReturnBehavior)
                     targetPosition = player.Center;
 
                 bool nearAttackPosition = NPC.Distance(player.Center) > 1000f ||
@@ -118,21 +118,21 @@ namespace ShardsOfAtheria.NPCs.Misc
 
                 if (wayTooFar) NPC.Center = player.Center;
                 else if (tooFar && ++speedUpTimer > 120) speed += 20f;
-                else if (nearAttackPosition && Behaviour == ATTACK_BEHAVIOUR)
+                else if (nearAttackPosition && Behaviour == AttackBehavior)
                 {
-                    if (Main.rand.NextBool(3)) Behaviour = LINGER_ATTACK_BEHAVIOUR;
+                    if (Main.rand.NextBool(3)) Behaviour = LingerAttackBehavior;
                     else
                     {
-                        Behaviour = RETURN_BEHAVIOUR;
+                        Behaviour = ReturnBehavior;
                         targetPosition = player.Center;
                     }
                 }
-                else if (NPC.Distance(targetPosition) < 50f && Behaviour == RETURN_BEHAVIOUR)
+                else if (NPC.Distance(targetPosition) < 50f && Behaviour == ReturnBehavior)
                 {
-                    if (Main.rand.NextBool(3)) Behaviour = LINGER_BEHAVIOUR;
+                    if (Main.rand.NextBool(3)) Behaviour = LingerBehavior;
                     else
                     {
-                        Behaviour = ATTACK_BEHAVIOUR;
+                        Behaviour = AttackBehavior;
                         targetPosition = Main.MouseWorld;
                     }
                 }

@@ -58,9 +58,9 @@ namespace ShardsOfAtheria.Projectiles.Ammo
             Vector2 rotVector = (Projectile.rotation - MathHelper.PiOver2).ToRotationVector2();
             usePos += rotVector * 16f;
 
-            const int NUM_DUSTS = 10;
+            const int NumDusts = 10;
 
-            for (int i = 0; i < NUM_DUSTS; i++)
+            for (int i = 0; i < NumDusts; i++)
             {
                 Dust dust = Dust.NewDustDirect(usePos, Projectile.width, Projectile.height, DustID.Tin);
                 dust.position = (dust.position + Projectile.Center) / 2f;
@@ -85,8 +85,8 @@ namespace ShardsOfAtheria.Projectiles.Ammo
 
         private NPC Target => Main.npc[TargetWhoAmI];
 
-        private const int MAX_STICKY_JAVELINS = 3;
-        private readonly Point[] _stickingJavelins = new Point[MAX_STICKY_JAVELINS];
+        private const int MaxStickyJavelins = 3;
+        private readonly Point[] _stickingJavelins = new Point[MaxStickyJavelins];
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -127,10 +127,10 @@ namespace ShardsOfAtheria.Projectiles.Ammo
                 }
             }
 
-            if (currentJavelinIndex >= MAX_STICKY_JAVELINS)
+            if (currentJavelinIndex >= MaxStickyJavelins)
             {
                 int oldJavelinIndex = 0;
-                for (int i = 1; i < MAX_STICKY_JAVELINS; i++)
+                for (int i = 1; i < MaxStickyJavelins; i++)
                 {
                     if (_stickingJavelins[i].Y < _stickingJavelins[oldJavelinIndex].Y)
                     {
@@ -142,7 +142,7 @@ namespace ShardsOfAtheria.Projectiles.Ammo
             }
         }
 
-        private const int ALPHA_REDUCTION = 25;
+        private const int AlphaReduction = 25;
 
         public override void AI()
         {
@@ -155,7 +155,7 @@ namespace ShardsOfAtheria.Projectiles.Ammo
         {
             if (Projectile.alpha > 0)
             {
-                Projectile.alpha -= ALPHA_REDUCTION;
+                Projectile.alpha -= AlphaReduction;
             }
 
             if (Projectile.alpha < 0)
@@ -182,11 +182,11 @@ namespace ShardsOfAtheria.Projectiles.Ammo
         {
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
-            const int aiFactor = 15;
+            const int AIFactor = 15;
             Projectile.localAI[0] += 1f;
 
             int projTargetIndex = TargetWhoAmI;
-            if (Projectile.localAI[0] >= 60 * aiFactor || projTargetIndex < 0 || projTargetIndex >= 200)
+            if (Projectile.localAI[0] >= 60 * AIFactor || projTargetIndex < 0 || projTargetIndex >= 200)
             {
                 Projectile.Kill();
             }

@@ -14,7 +14,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Sigil
             get => Projectile.ai[0];
             set => Projectile.ai[0] = value;
         }
-        const float SHOOT_TIMER_MAX = 60;
+        const float ShootTimerMax = 60;
 
         public bool BeingHeld => Main.player[Projectile.owner].channel && !Main.player[Projectile.owner].noItems && !Main.player[Projectile.owner].CCed;
 
@@ -57,7 +57,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.Sigil
                 player.heldProj = Projectile.whoAmI;
                 if (player.statMana >= 24)
                 {
-                    if (++ShootTimer >= SHOOT_TIMER_MAX)
+                    if (++ShootTimer >= ShootTimerMax)
                     {
                         ShootTimer = 0;
                         var source = Projectile.GetSource_FromThis();

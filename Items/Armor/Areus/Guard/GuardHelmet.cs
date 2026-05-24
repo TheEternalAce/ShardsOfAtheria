@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
         public override void MagicSet(Player player)
         {
             base.MagicSet(player);
-            if (ArmorPlayer.areusEnergy < AreusArmorPlayer.AREUS_ENERGY_MAX && ++ArmorPlayer.energyTimer >= 20)
+            if (ArmorPlayer.areusEnergy < AreusArmorPlayer.AreusEnergyMax && ++ArmorPlayer.energyTimer >= 20)
             {
                 ArmorPlayer.areusEnergy += 3;
                 ArmorPlayer.energyTimer = 0;
@@ -74,7 +74,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
         public override void SummonSet(Player player)
         {
             base.SummonSet(player);
-            if (ArmorPlayer.areusEnergy < AreusArmorPlayer.AREUS_ENERGY_MAX && player.InCombat() && ++ArmorPlayer.energyTimer >= 20)
+            if (ArmorPlayer.areusEnergy < AreusArmorPlayer.AreusEnergyMax && player.InCombat() && ++ArmorPlayer.energyTimer >= 20)
             {
                 ArmorPlayer.areusEnergy++;
                 ArmorPlayer.energyTimer = 0;
@@ -84,7 +84,7 @@ namespace ShardsOfAtheria.Items.Armor.Areus.Guard
         public override void ThrowingSet(Player player)
         {
             base.ThrowingSet(player);
-            if (ArmorPlayer.areusEnergy < AreusArmorPlayer.AREUS_ENERGY_MAX && player.HeldItem.IsWeapon() && !player.ItemAnimationActive && ++ArmorPlayer.energyTimer >= 8)
+            if (ArmorPlayer.areusEnergy < AreusArmorPlayer.AreusEnergyMax && player.HeldItem.IsWeapon() && !player.ItemAnimationActive && ++ArmorPlayer.energyTimer >= 8)
             {
                 ArmorPlayer.areusEnergy++;
                 ArmorPlayer.energyTimer = 0;

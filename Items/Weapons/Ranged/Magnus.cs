@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class Magnus : SinfulItem
     {
-        public override int RequiredSin => SinnerPlayer.PRIDE;
+        public override int RequiredSin => SinnerPlayer.Pride;
 
         // Base damages: 43, 74, 180
         public override int[] DamageSpread => [0, 31, 106];

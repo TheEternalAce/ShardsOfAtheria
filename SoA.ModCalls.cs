@@ -11,29 +11,29 @@ namespace ShardsOfAtheria
     partial class SoA
     {
         #region Commands
-        public const string FLAG_IS_SLAYER = "checkSlayer";
-        public const string FLAG_IS_BOSS_SLAIN = "checkSlainBoss";
-        public const string FLAG_IN_COMBAT = "checkCombat";
-        public const string FLAG_HAS_SOUL_CYSTAL_ABSORBED = "checkHasSoulCrystal";
-        public const string FLAG_SOUL_CRYSTAL_CONFIG = "checkSoulConfig";
+        public const string FlagIsSlayer = "checkSlayer";
+        public const string FlagIsBossSlain = "checkSlainBoss";
+        public const string FlagIsInCombat = "checkCombat";
+        public const string FlagHasSoulCrystalAbsorbed = "checkHasSoulCrystal";
+        public const string FlagInstantSoulCrystalAbsorbConfig = "checkSoulConfig";
 
-        public const string ADD_SOUL_CRYSTAL = "addSoulCrystal";
-        public const string GET_PLACEHOLDER_NECRO_ENTRY = "wipNecronomiconEntry";
-        public const string ADD_NECRO_ENTRY = "addNecronomiconEntry";
-        public const string ADD_COLORED_NECRO_ENTRY = "addColoredNecronomiconEntry";
-        public const string ADD_SLAIN_BOSS = "addSlainBoss";
-        public const string ADD_TRUE_MELEE_PROJECTILE = "addTrueMeleeProj";
-        public const string ADD_MAGNETIC_PROJECTILE = "addMagnetProj";
+        public const string AddSoulCrystal = "addSoulCrystal";
+        public const string GetNecronomiconPlaceholderEntry = "wipNecronomiconEntry";
+        public const string AddNecronomiconEntry = "addNecronomiconEntry";
+        public const string AddColoredNecronomiconEntry = "addColoredNecronomiconEntry";
+        public const string AddSlainBoss = "addSlainBoss";
+        public const string AddTrueMeleeProjectile = "addTrueMeleeProj";
+        public const string AddMagneticProjectile = "addMagnetProj";
 
-        public const string INVALID_PLAYER = " is not a valid Player type.";
-        public const string INVALID_BOOL = " is not a valid bool.";
-        public const string INVALID_INT = " is not a valid int.";
-        public const string INVALID_FLOAT = " is not a valid float.";
-        public const string INVALID_ITEM = " is not a valid Item type.";
-        public const string INVALID_PROJECTILE = " is not a valid Projectile type.";
-        public const string INVALID_STRING = " is not a valid string.";
-        public const string INVALID_MOD = " is not a valid mod.";
-        public const string INVALID_COLOR = " is not a valid color.";
+        public const string InvalidPlayer = " is not a valid Player type.";
+        public const string InvalidBool = " is not a valid bool.";
+        public const string InvalidInt = " is not a valid int.";
+        public const string InvalidFloat = " is not a valid float.";
+        public const string InvalidItem = " is not a valid Item type.";
+        public const string InvalidProjectile = " is not a valid Projectile type.";
+        public const string InvalidString = " is not a valid string.";
+        public const string InvalidMod = " is not a valid mod.";
+        public const string InvalidColor = " is not a valid color.";
         #endregion
 
         public override object Call(params object[] args)
@@ -54,59 +54,59 @@ namespace ShardsOfAtheria
                 {
                     default:
                         throw new ArgumentException("Unrecognized ModCall.");
-                    case FLAG_IS_SLAYER:
+                    case FlagIsSlayer:
                         if (args[1] is Player slayer)
                         {
                             return slayer.Slayer().slayerMode;
                         }
                         else
                         {
-                            throw new ArgumentException(args[1].GetType().Name + INVALID_PLAYER);
+                            throw new ArgumentException(args[1].GetType().Name + InvalidPlayer);
                         }
-                    case FLAG_IS_BOSS_SLAIN:
+                    case FlagIsBossSlain:
                         if (args[1] is int bossType)
                         {
                             return ShardsDownedSystem.slainBosses.Contains(bossType);
                         }
                         else
                         {
-                            throw new ArgumentException(args[1].GetType().Name + INVALID_INT);
+                            throw new ArgumentException(args[1].GetType().Name + InvalidInt);
                         }
-                    case FLAG_IN_COMBAT:
+                    case FlagIsInCombat:
                         if (args[1] is Player combatPlayer)
                         {
                             return combatPlayer.Shards().InCombat;
                         }
                         else
                         {
-                            throw new ArgumentException(args[1].GetType().Name + INVALID_PLAYER);
+                            throw new ArgumentException(args[1].GetType().Name + InvalidPlayer);
                         }
-                    case ADD_SLAIN_BOSS:
+                    case AddSlainBoss:
                         if (args[1] is int boss)
                         {
                             ShardsDownedSystem.slainBosses.Add(boss);
                         }
                         else
                         {
-                            throw new ArgumentException(args[1].GetType().Name + INVALID_INT);
+                            throw new ArgumentException(args[1].GetType().Name + InvalidInt);
                         }
                         break;
-                    case ADD_NECRO_ENTRY:
+                    case AddNecronomiconEntry:
                         if (args[1] is not Mod)
                         {
-                            throw new ArgumentException(args[1].GetType().Name + INVALID_MOD);
+                            throw new ArgumentException(args[1].GetType().Name + InvalidMod);
                         }
                         if (args[2] is not string)
                         {
-                            throw new ArgumentException(args[2].GetType().Name + INVALID_STRING);
+                            throw new ArgumentException(args[2].GetType().Name + InvalidString);
                         }
                         if (args[3] is not string)
                         {
-                            throw new ArgumentException(args[3].GetType().Name + INVALID_STRING);
+                            throw new ArgumentException(args[3].GetType().Name + InvalidString);
                         }
                         if (args[4] is not string)
                         {
-                            throw new ArgumentException(args[4].GetType().Name + INVALID_STRING);
+                            throw new ArgumentException(args[4].GetType().Name + InvalidString);
                         }
                         else
                         {
@@ -114,26 +114,26 @@ namespace ShardsOfAtheria
                             SlayerSystem.NewEntry(mod.Name, (string)args[2], (string)args[3], (string)args[4]);
                         }
                         break;
-                    case ADD_COLORED_NECRO_ENTRY:
+                    case AddColoredNecronomiconEntry:
                         if (args[1] is not Mod)
                         {
-                            throw new ArgumentException(args[1].GetType().Name + INVALID_MOD);
+                            throw new ArgumentException(args[1].GetType().Name + InvalidMod);
                         }
                         if (args[2] is not string)
                         {
-                            throw new ArgumentException(args[2].GetType().Name + INVALID_STRING);
+                            throw new ArgumentException(args[2].GetType().Name + InvalidString);
                         }
                         if (args[3] is not string)
                         {
-                            throw new ArgumentException(args[3].GetType().Name + INVALID_STRING);
+                            throw new ArgumentException(args[3].GetType().Name + InvalidString);
                         }
                         if (args[4] is not Color)
                         {
-                            throw new ArgumentException(args[4].GetType().Name + INVALID_COLOR);
+                            throw new ArgumentException(args[4].GetType().Name + InvalidColor);
                         }
                         if (args[5] is not string)
                         {
-                            throw new ArgumentException(args[5].GetType().Name + INVALID_STRING);
+                            throw new ArgumentException(args[5].GetType().Name + InvalidString);
                         }
                         else
                         {
@@ -141,7 +141,7 @@ namespace ShardsOfAtheria
                             SlayerSystem.NewEntry(mod.Name, (string)args[2], (string)args[3], (Color)args[4], (string)args[5]);
                         }
                         break;
-                    case ADD_MAGNETIC_PROJECTILE:
+                    case AddMagneticProjectile:
                         if (args[1] is Projectile magneticProjectile)
                         {
                             if (args[2] is float magnetDamage)
@@ -149,8 +149,8 @@ namespace ShardsOfAtheria
                             else SoAGlobalProjectile.Sets.Metalic[magneticProjectile.type] = 1f;
                             break;
                         }
-                        else throw new ArgumentException(args[1].GetType().Name + INVALID_PROJECTILE);
-                    case ADD_SOUL_CRYSTAL:
+                        else throw new ArgumentException(args[1].GetType().Name + InvalidProjectile);
+                    case AddSoulCrystal:
                         if (args[1] is Player soulsPlayer2)
                         {
                             if (args[2] is string item)
@@ -160,23 +160,23 @@ namespace ShardsOfAtheria
                             }
                             else
                             {
-                                throw new ArgumentException(args[2].GetType().Name + INVALID_STRING);
+                                throw new ArgumentException(args[2].GetType().Name + InvalidString);
                             }
                         }
                         else
                         {
-                            throw new ArgumentException(args[1].GetType().Name + INVALID_PLAYER);
+                            throw new ArgumentException(args[1].GetType().Name + InvalidPlayer);
                         }
-                    case ADD_TRUE_MELEE_PROJECTILE:
+                    case AddTrueMeleeProjectile:
                         if (args[1] is Projectile meleeProjectile)
                         {
                             SoAGlobalProjectile.Sets.TrueMelee[meleeProjectile.type] = true;
                             break;
                         }
-                        else throw new ArgumentException(args[1].GetType().Name + INVALID_PROJECTILE);
-                    case GET_PLACEHOLDER_NECRO_ENTRY:
+                        else throw new ArgumentException(args[1].GetType().Name + InvalidProjectile);
+                    case GetNecronomiconPlaceholderEntry:
                         return SlayerSystem.WipEntry();
-                    case FLAG_HAS_SOUL_CYSTAL_ABSORBED:
+                    case FlagHasSoulCrystalAbsorbed:
                         if (args[1] is Player soulsPlayer)
                         {
                             if (args[2] is string item)
@@ -185,14 +185,14 @@ namespace ShardsOfAtheria
                             }
                             else
                             {
-                                throw new ArgumentException(args[2].GetType().Name + INVALID_INT);
+                                throw new ArgumentException(args[2].GetType().Name + InvalidInt);
                             }
                         }
                         else
                         {
-                            throw new ArgumentException(args[1].GetType().Name + INVALID_PLAYER);
+                            throw new ArgumentException(args[1].GetType().Name + InvalidPlayer);
                         }
-                    case FLAG_SOUL_CRYSTAL_CONFIG:
+                    case FlagInstantSoulCrystalAbsorbConfig:
                         return ClientConfig.instantAbsorb;
                 }
             }
