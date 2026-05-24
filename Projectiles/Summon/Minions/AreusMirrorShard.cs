@@ -35,6 +35,7 @@ namespace ShardsOfAtheria.Projectiles.Summon.Minions
             Projectile.tileCollide = false;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 30;
+            Projectile.aiStyle = -1;
             Projectile.minion = true;
             Projectile.minionSlots = 0.33f;
 
