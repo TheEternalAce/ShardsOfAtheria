@@ -1255,7 +1255,7 @@ Items: {
 	}
 
 	TrainSpectrum: {
-		DisplayName: Train Spectrum
+		DisplayName: Steam Spectrum
 		Tooltip:
 			'''
 			Hold use to charge with mana
@@ -1620,10 +1620,10 @@ Items: {
 	}
 
 	VirtuousDagger: {
-		DisplayName: Virtuous Dagger
+		DisplayName: Pure Dagger
 		Tooltip:
 			'''
-			Clenses your soul of sin, painfully
+			Clenses your soul of sin and virtue, painfully
 			Shatters on use
 			'''
 	}
@@ -2339,6 +2339,7 @@ Items: {
 
 	AreusSword: {
 		DisplayName: Areus Sword
+		Tooltip: ""
 	}
 
 	BloodScythe: {
@@ -3075,6 +3076,16 @@ Items: {
 			At 10 Quarrel stacks strikes create a burst of tendrils
 			Quarrel then resets
 			'''
+	}
+
+	StellaNovalis: {
+		DisplayName: Stella Novalis
+		Tooltip: ""
+	}
+
+	SinnersMiasma: {
+		DisplayName: Sinner's Miasma
+		Tooltip: Dropped from enemies while you have a sin
 	}
 }
 

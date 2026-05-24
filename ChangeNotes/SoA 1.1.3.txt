@@ -10,5 +10,14 @@
 - Fixed Silver Spear's ring projectiles damaging the player.
 - Reduced Silver Spear's ring projectile life time.
 - Adjusted Silver Spear visials.
+- Fixed amber banner repelling other banners while following the player.
 - Upgrading areus armor no longer requires additional areus shards, gold bars, or jade.
 	- In exchange, the gold bars and jade required to craft the first set is increased.
+- Replaced War Table Banner with 3 Yellow Banners in the Greater Amber Core recipe.
+- Envy causes permanent blindness.
+- Renamed Virtuous Dagger to Pure Dagger and updated its tooltip.
+- Decreased Areus Railgun and Coilgun linger time after shooting depending on charge.
+- Areus Railgun and Coilgun now multiply damage based on charge instead of adding damage.
+- Areus Flame Cannon now flashes when charging.
+- Areus Flame Cannon level 2 charge shot's trail now uses ID static immunity and cooldown is longer.
+- Renamed Train Spectrum to Steam Spectrum.

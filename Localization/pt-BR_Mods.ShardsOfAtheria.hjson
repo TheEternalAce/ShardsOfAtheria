@@ -1,5 +1,4 @@
 Common: {
-	Eraser: Pode apagar projéteis
 	FiringMode1: Semiautomático
 	FiringMode2: Pré-determinado
 	FiringMode3: Automático
@@ -1249,7 +1248,7 @@ Items: {
 	}
 
 	TrainSpectrum: {
-		// DisplayName: Train Spectrum
+		// DisplayName: Steam Spectrum
 		/* Tooltip:
 			'''
 			Hold use to charge with mana
@@ -2339,7 +2338,6 @@ Items: {
 			Hold use to charge a devastating slash
 			Full charge heals 10% max life once
 			Alt-use to throw a slightly faster, long-range blade
-			{$Common.Eraser}
 			'And thus, her family was torn apart'
 			'Goodbye'
 			''' */
@@ -2430,14 +2428,12 @@ Items: {
 		'''
 		Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing
 		Able to swing shield with LMB before it returns
-		Sword can erase projectiles
 		Attacks inflict 'On Fire!'
 		''' */
 	/* GenesisAndRagnarokUpgrade5:
 		'''
 		Preforms a combo of a spear thrust, whip swing, spear throw, and sword swing
 		Able to swing shield with LMB before it returns
-		Sword can erase projectiles
 		Attacks inflict Frostburn and create extra ice projectiles
 		''' */
 
@@ -3073,6 +3069,16 @@ Items: {
 			At 10 Quarrel stacks strikes create a burst of tendrils
 			Quarrel then resets
 			''' */
+	}
+
+	StellaNovalis: {
+		// DisplayName: Stella Novalis
+		// Tooltip: ""
+	}
+
+	SinnersMiasma: {
+		// DisplayName: Sinner's Miasma
+		// Tooltip: Dropped from enemies while you have a sin
 	}
 }
 
