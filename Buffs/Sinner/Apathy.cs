@@ -1,5 +1,4 @@
-﻿using ShardsOfAtheria.Players;
-using ShardsOfAtheria.Utilities;
+﻿using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,7 +16,7 @@ namespace ShardsOfAtheria.Buffs.Sinner
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.Sinner().sinID != SinnerPlayer.Sloth) { player.DelBuff(buffIndex); buffIndex--; }
+            if (!player.Sinner().SlothfulSinner) { player.DelBuff(buffIndex); buffIndex--; }
             player.GetAttackSpeed(DamageClass.Generic) -= 0.1f;
             player.moveSpeed -= 0.1f;
             player.GetDamage(DamageClass.Generic) += 0.15f;

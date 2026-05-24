@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ModLoader;
@@ -10,7 +9,7 @@ namespace ShardsOfAtheria.ShardsUI.InfoDisplays
     {
         public override string Texture => SoA.SinDataTexture;
 
-        public override bool Active() => Main.LocalPlayer.Sinner().sinID == SinnerPlayer.Pride;
+        public override bool Active() => Main.LocalPlayer.Sinner().PridefulSinner;
 
         public override string DisplayValue(ref Color displayColor, ref Color displayShadowColor)
         {

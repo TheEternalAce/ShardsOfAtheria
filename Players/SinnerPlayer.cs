@@ -18,7 +18,7 @@ using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Players
 {
-    public class SinnerPlayer : ModPlayer
+    public static class SinID
     {
         public const int Envy = 1;
         public const int Gluttony = 2;
@@ -27,10 +27,21 @@ namespace ShardsOfAtheria.Players
         public const int Pride = 5;
         public const int Sloth = 6;
         public const int Wrath = 7;
-        public int sinID = -1;
-        private int storedDamage = 0;
+    }
 
-        public bool SinActive => sinID >= 0;
+    public class SinnerPlayer : ModPlayer
+    {
+        public bool EnviousSinner => sinID == SinID.Envy;
+        public bool GluttonousSinner => sinID == SinID.Gluttony;
+        public bool GreedySinner => sinID == SinID.Greed;
+        public bool LustfulSinner => sinID == SinID.Lust;
+        public bool PridefulSinner => sinID == SinID.Pride;
+        public bool SlothfulSinner => sinID == SinID.Sloth;
+        public bool WrathfulSinner => sinID == SinID.Wrath;
+        public bool SinActive => sinID > 0;
+
+        public int sinID;
+        private int storedDamage;
 
         #region Envy
         public int EnvyQuarrel
@@ -54,19 +65,19 @@ namespace ShardsOfAtheria.Players
                 if (envyQuarrelTimer >= 0) envyQuarrelTimer--;
                 else envyQuarrel--;
             }
-            if (sinID != Envy) return;
+            if (!EnviousSinner) return;
             Player.blind = true;
         }
         void EnvyModifyHit(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (sinID != Envy) return;
+            if (!EnviousSinner) return;
             if (envyTargetID > -1 && target.whoAmI != envyTargetID) modifiers.FinalDamage -= 0.5f;
             else modifiers.FlatBonusDamage += Player.statDefense / 10 + 3;
             envyTargetID = target.whoAmI;
         }
         void EnvyHit(NPC target)
         {
-            if (sinID != Envy) return;
+            if (!EnviousSinner) return;
             if (target.life <= 0 && target.whoAmI == envyTargetID)
                 envyTargetID = -1;
         }
@@ -86,7 +97,7 @@ namespace ShardsOfAtheria.Players
         }
         void GluttonyPreUpdate()
         {
-            if (sinID != Gluttony) return;
+            if (!GluttonousSinner) return;
             if (gluttonyHunger > 0)
             {
                 if (--gluttonyHungerTimer <= 0)
@@ -128,7 +139,7 @@ namespace ShardsOfAtheria.Players
         void GluttonyModifyHurt(ref Player.HurtModifiers modifiers)
         {
             modifiers.ModifyHurtInfo += StoreDamage;
-            if (sinID != Gluttony) return;
+            if (!GluttonousSinner) return;
             if (gluttonyHunger > 3 && storedDamage > Player.statLifeMax * 0.05f)
             {
                 const float multiplier = 0.0005f;
@@ -146,7 +157,7 @@ namespace ShardsOfAtheria.Players
         }
         void GluttonyPickUp(Item item)
         {
-            if (sinID != Gluttony) return;
+            if (!GluttonousSinner) return;
             if (item.type == ItemID.Heart || item.type == ItemID.CandyApple || item.type == ItemID.CandyCane ||
                 item.type == ItemID.ManaCloakStar || item.type == ItemID.Star || item.type == ItemID.SoulCake || item.type == ItemID.SugarPlum)
             {
@@ -156,14 +167,14 @@ namespace ShardsOfAtheria.Players
         private static void GluttonyHeal(On_Player.orig_Heal orig, Player self, int amount)
         {
             orig(self, amount);
-            if (self.Sinner().sinID != Gluttony) return;
+            if (!self.Sinner().GluttonousSinner) return;
             if (amount > self.statLifeMax2 * 0.1f)
                 self.AddBuff<GluttonyAcid>(GluttonyAcidDuration);
         }
 
         void GluttonyHit(NPC target, NPC.HitInfo hit)
         {
-            if (sinID != Gluttony) return;
+            if (!GluttonousSinner) return;
             float range = 200f;
             bool canBeChased = target.chaseable && target.lifeMax > 5 && !target.immortal;
             if (canBeChased && Vector2.Distance(Player.Center, target.Center) < range && Player.ItemAnimationActive)
@@ -197,7 +208,7 @@ namespace ShardsOfAtheria.Players
         #region Greed
         void GreedPickUp(Item item)
         {
-            if (sinID != Greed) return;
+            if (!GreedySinner) return;
             if (item.value > 10000) Player.AddBuff<GreedFire>(150);
         }
         void GreedFire()
@@ -206,7 +217,7 @@ namespace ShardsOfAtheria.Players
         }
         void GreedDeath()
         {
-            if (sinID != Greed) return;
+            if (!GreedySinner) return;
             int i = 0;
             foreach (var item in Player.inventory)
             {
@@ -227,25 +238,25 @@ namespace ShardsOfAtheria.Players
         #region Lust
         void LustPostUpdate()
         {
-            if (sinID != Lust) return;
+            if (!LustfulSinner) return;
             Player.GetDamage(DamageClass.Generic) -= 0.2f;
             Player.moveSpeed -= 0.1f;
         }
         void LustItemHit(NPC target, Item item)
         {
-            if (sinID != Lust) return;
+            if (!LustfulSinner) return;
             if (Main.rand.NextBool(50)) Item.NewItem(target.GetSource_OnHurt(item), target.getRect(), ItemID.Heart);
         }
         void LustProjectileHit(NPC target, Projectile projectile)
         {
-            if (sinID != Lust) return;
+            if (!LustfulSinner) return;
             int heartChance = 100;
             if (projectile.DamageType.CountsAsClass(DamageClass.Melee)) heartChance = 50;
             if (Main.rand.NextBool(heartChance)) Item.NewItem(target.GetSource_OnHurt(projectile), target.getRect(), ItemID.Heart);
         }
         void LustCrit(ref Player.HurtModifiers modifiers)
         {
-            if (sinID != Lust) return;
+            if (!LustfulSinner) return;
             float critChance = 0.25f;
             if (Main.expertMode) critChance += 0.06f;
             if (Main.masterMode) critChance += 0.12f;
@@ -271,7 +282,7 @@ namespace ShardsOfAtheria.Players
         public bool prideEgo = false;
         void PridePreUpdate()
         {
-            if (sinID != Pride)
+            if (!PridefulSinner)
             {
                 prideSuaveBuff = 0;
                 prideNoHitTimer = 0;
@@ -314,7 +325,7 @@ namespace ShardsOfAtheria.Players
         }
         void PridePostUpdate()
         {
-            if (sinID != Pride) return;
+            if (!PridefulSinner) return;
             if (Player.InCombat()) prideNoHitTimer++;
             if (prideNoHitTimer >= 600)
             {
@@ -326,7 +337,7 @@ namespace ShardsOfAtheria.Players
         }
         void PrideAddSuccessfulAttack(NPC target, bool otherCondition)
         {
-            if (sinID == Pride && target.lifeMax > 5 && Player.InCombat() && prideAttacksHit < prideAttacksMade && prideHitCooldown == 0 && otherCondition)
+            if (PridefulSinner && target.lifeMax > 5 && Player.InCombat() && prideAttacksHit < prideAttacksMade && prideHitCooldown == 0 && otherCondition)
             {
                 prideHitCooldown = Player.itemTime;
                 prideAttacksHit++;
@@ -334,7 +345,7 @@ namespace ShardsOfAtheria.Players
         }
         public void PrideCancelAttack()
         {
-            if (sinID == Pride && Player.InCombat())
+            if (PridefulSinner && Player.InCombat())
                 prideAttacksMade--;
         }
         void PrideRegen()
@@ -343,7 +354,7 @@ namespace ShardsOfAtheria.Players
         }
         void PrideCoin()
         {
-            if (sinID != Pride) return;
+            if (!PridefulSinner) return;
             int coin = ModContent.ProjectileType<PrideGold>();
             if (Player.IsLocal() && Player.BuyItem(Item.buyPrice(0, 1)) && Player.ownedProjectileCounts[coin] < 4)
             {
@@ -379,7 +390,7 @@ namespace ShardsOfAtheria.Players
         bool slothMotiveSet = false;
         void SlothPreUpdate()
         {
-            if (sinID != Sloth) return;
+            if (!SlothfulSinner) return;
             if (slothMotiveSet && Main.dayTime && Main.time == 0)
                 slothMotiveSet = false;
             if (!slothMotiveSet && Main.dayTime && Main.time == 1)
@@ -395,7 +406,7 @@ namespace ShardsOfAtheria.Players
         }
         void SlothPostUpdate()
         {
-            if (sinID != Sloth) return;
+            if (!SlothfulSinner) return;
             Player.lifeRegen += 16;
             if (Player.mount.Active) Player.statDefense += 5;
         }
@@ -404,14 +415,18 @@ namespace ShardsOfAtheria.Players
         #region Wrath
         int wrathLastDamageTaken;
         public int wrathRetainFuryTime;
+        public void WrathRage()
+        {
+            if (!WrathfulSinner) return;
+        }
         public void WrathHurt(Player.HurtInfo info)
         {
-            if (sinID != Wrath) return;
+            if (!WrathfulSinner) return;
             wrathLastDamageTaken = info.Damage;
         }
         public void WrathCrit(ref Player.HurtModifiers modifiers)
         {
-            if (sinID != Wrath) return;
+            if (!WrathfulSinner) return;
             modifiers.ModifyHurtInfo += StoreDamage;
             if (Main.rand.NextFloat() < 0.04f && storedDamage > 10)
             {
@@ -422,7 +437,7 @@ namespace ShardsOfAtheria.Players
         }
         public void WrathModifyHit(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (sinID != Wrath) return;
+            if (!WrathfulSinner) return;
             modifiers.FlatBonusDamage += wrathLastDamageTaken;
             wrathLastDamageTaken = 0;
             if (Player.HasBuff<Fury>() && target.CanBeChasedBy()) wrathRetainFuryTime = 60;
@@ -486,7 +501,7 @@ namespace ShardsOfAtheria.Players
         {
             GluttonySetHunger();
 
-            if (sinID == -1)
+            if (!SinActive)
             {
                 string key = SoA.SinAbility.GetAssignedKeys().FirstOrDefault();
                 string text = ShardsHelpers.LocalizeCommon("SinNotification", key);
@@ -505,34 +520,14 @@ namespace ShardsOfAtheria.Players
         {
             if (SoA.SinAbility.JustPressed)
             {
-                if (sinID > -1 && Player.controlTorch)
+                if (SinActive && Player.controlTorch)
                 {
                     SinfulUI.Instance.ToggleSelected();
                 }
-                else
-                {
-                    switch (sinID)
-                    {
-                        case -1:
-                            SinfulUI.Instance.ToggleSelections();
-                            break;
-                        case Envy:
-                            break;
-                        case Gluttony:
-                            break;
-                        case Greed:
-                            break;
-                        case Lust:
-                            break;
-                        case Pride:
-                            PrideCoin();
-                            break;
-                        case Sloth:
-                            break;
-                        case Wrath:
-                            break;
-                    }
-                }
+                else if (!SinActive)
+                    SinfulUI.Instance.ToggleSelections();
+                else if (PridefulSinner) PrideCoin();
+                else if (WrathfulSinner) WrathRage();
             }
         }
 

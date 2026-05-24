@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 {
     public class Vendetta : SinfulItem
     {
-        public override int RequiredSin => SinnerPlayer.Envy;
+        public override int RequiredSin => SinID.Envy;
 
         public override int[] DamageSpread => [0, 30, 40];
 

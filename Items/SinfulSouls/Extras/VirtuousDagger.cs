@@ -46,7 +46,7 @@ namespace ShardsOfAtheria.Items.SinfulSouls.Extras
                 Knockback = -player.direction
             };
             player.Hurt(info);
-            player.Sinner().sinID = -1;
+            player.Sinner().sinID = 0;
             for (int i = 0; i < 10; i++)
             {
                 Dust.NewDust(player.position, player.width, player.height, DustID.WhiteTorch, 0, 0, 0, Color.White, 2);

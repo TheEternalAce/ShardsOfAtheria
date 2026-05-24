@@ -17,7 +17,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         bool throwDefault = false;
 
-        public override int RequiredSin => SinnerPlayer.Gluttony;
+        public override int RequiredSin => SinID.Gluttony;
 
         // Base damages: 50, 130, 230
         public override int[] DamageSpread => [0, 80, 100];

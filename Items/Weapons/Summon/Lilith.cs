@@ -12,7 +12,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 {
     public class Lilith : SinfulItem
     {
-        public override int RequiredSin => SinnerPlayer.Lust;
+        public override int RequiredSin => SinID.Lust;
 
         // Base damages: 30, 100, 170
         public override int[] DamageSpread => [0, 70, 70];

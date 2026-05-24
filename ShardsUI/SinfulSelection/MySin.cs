@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.ShardsUI.SinfulSelection
             text.SetDimensions(text.MinWidth.Pixels, text.MinHeight.Pixels);
 
             var sinner = Main.LocalPlayer.Sinner();
-            if (sinner.sinID > 0)
+            if (sinner.SinActive)
             {
                 string label = Language.GetTextValue("Mods.ShardsOfAtheria.SinfulSouls." + sinNames[sinner.sinID - 1]);
                 text.SetText(label);
