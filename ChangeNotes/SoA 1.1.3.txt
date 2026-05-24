@@ -21,3 +21,4 @@
 - Areus Flame Cannon now flashes when charging.
 - Areus Flame Cannon level 2 charge shot's trail now uses ID static immunity and cooldown is longer.
 - Renamed Train Spectrum to Steam Spectrum.
+- Finished The Messiah main projectile sprite.

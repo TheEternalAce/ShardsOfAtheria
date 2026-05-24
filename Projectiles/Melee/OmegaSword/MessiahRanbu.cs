@@ -28,8 +28,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
 
         public override void SetDefaults()
         {
-            Projectile.width = 384;
-            Projectile.height = 384;
+            Projectile.width = 192;
+            Projectile.height = 192;
             Projectile.aiStyle = 75;
             Projectile.friendly = true;
             Projectile.penetrate = -1;
@@ -39,8 +39,8 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
             Projectile.localNPCHitCooldown = 12;
             Projectile.timeLeft = 30;
 
-            DrawOffsetX = -160;
-            DrawOriginOffsetX = 80;
+            DrawOffsetX = -80;
+            DrawOriginOffsetX = 40;
         }
 
         // Ranbu pattern: 1, 2, 3, 2, 4, 3, 5
@@ -52,7 +52,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
 
             Player player = Main.player[Projectile.owner];
             var anchorChip = ToggleableTool.GetInstance<AnchorChip>(player);
-            bool jump = anchorChip == null && !anchorChip.Active;
+            bool jump = anchorChip == null || !anchorChip.Active;
             if (jump && combo == 7 && !launchPlayer)
             {
                 launchPlayer = true;
@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
             {
                 vector = Main.MouseWorld - player.Center;
                 vector.Normalize();
-                vector *= 140f;
+                vector *= 70f;
                 Projectile.velocity = vector;
                 Projectile.direction = (Main.MouseWorld.X > player.Center.X).ToDirectionInt();
             }
@@ -73,13 +73,13 @@ namespace ShardsOfAtheria.Projectiles.Melee.OmegaSword
             Projectile.rotation = vector.ToRotation();
             if (Projectile.direction == 1)
             {
-                DrawOffsetX = -160;
-                DrawOriginOffsetX = 80;
+                DrawOffsetX = -80;
+                DrawOriginOffsetX = 40;
             }
             else
             {
                 DrawOffsetX = 0;
-                DrawOriginOffsetX = -80;
+                DrawOriginOffsetX = -40;
                 Projectile.rotation += MathHelper.Pi;
             }
             Projectile.netUpdate = true;
