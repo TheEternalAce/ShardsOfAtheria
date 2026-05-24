@@ -31,7 +31,7 @@ namespace ShardsOfAtheria.Items.Accessories.GemCores.Greater
             CreateRecipe()
                .AddIngredient(ModContent.ItemType<AmberCore>())
                 .AddIngredient(ItemID.HallowedBar, 10)
-                .AddIngredient(ItemID.WarTableBanner)
+                .AddIngredient(ItemID.YellowBanner, 3)
                .AddTile(TileID.MythrilAnvil)
                .Register();
         }
