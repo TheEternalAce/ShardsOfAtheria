@@ -54,13 +54,15 @@ namespace ShardsOfAtheria.Players
                 if (envyQuarrelTimer >= 0) envyQuarrelTimer--;
                 else envyQuarrel--;
             }
+            if (sinID != ENVY) return;
+            Player.blind = true;
         }
         void EnvyModifyHit(NPC target, ref NPC.HitModifiers modifiers)
         {
             if (sinID != ENVY) return;
-            if (envyTargetID == -1) envyTargetID = target.whoAmI;
-            else if (target.whoAmI != envyTargetID) modifiers.FinalDamage -= 0.5f;
+            if (envyTargetID > -1 && target.whoAmI != envyTargetID) modifiers.FinalDamage -= 0.5f;
             else modifiers.FlatBonusDamage += Player.statDefense / 10 + 3;
+            envyTargetID = target.whoAmI;
         }
         void EnvyHit(NPC target)
         {
@@ -389,6 +391,7 @@ namespace ShardsOfAtheria.Players
                 Player.AddBuff(motive, 2);
                 slothMotiveSet = true;
             }
+            Player.aggro += 400;
         }
         void SlothPostUpdate()
         {

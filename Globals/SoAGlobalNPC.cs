@@ -14,6 +14,7 @@ using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Melee.GenesisRagnarok;
 using ShardsOfAtheria.Projectiles.Melee.MaliceProjectiles;
 using ShardsOfAtheria.ShardsConditions;
@@ -205,6 +206,12 @@ namespace ShardsOfAtheria.Globals
                 }
             }
             base.AI(npc);
+        }
+
+        public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
+        {
+            if (player.Sinner().sinID == SinnerPlayer.SLOTH)
+                spawnRate = (int)(spawnRate * 0.5f);
         }
 
         public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
