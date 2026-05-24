@@ -97,7 +97,7 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
         }
 
         int timer = 0;
-        int TimerMax = 1;
+        const int TimerMax = 2;
         public override void AI()
         {
             base.AI();
@@ -107,6 +107,11 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
                     ModContent.ProjectileType<ChargedFireTrail>(), Projectile.damage / 2, 0, Projectile.owner);
                 timer = 0;
             }
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Projectile.damage = (int)(Projectile.damage * 0.75f);
         }
     }
     public class FireCannon_Fire3 : FireCannon_Fire1

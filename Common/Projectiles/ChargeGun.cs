@@ -13,13 +13,28 @@ namespace ShardsOfAtheria.Common.Projectiles
 {
     public abstract class ChargeGun : ModProjectile
     {
-        public override string Texture => "ShardsOfAtheria/Items/Weapons/Ranged/AreusRailgun";
+        /// <summary>
+        /// How long the projectile should last after stopping channel.
+        /// </summary>
+        public abstract int LingerDuration { get; }
+        /// <summary>
+        /// How long should it take to increase charge level.
+        /// </summary>
+        public abstract float ChargeLevelTime { get; }
+        public abstract float BaseShootSpeed { get; }
 
-        Player Owner => Main.player[Projectile.owner];
+        public virtual int MaxCharge => 3;
 
-        float ChargeTimer { get => Projectile.ai[0]; set => Projectile.ai[0] = value; }
+        public virtual SoundStyle ChargeLevelUpSound => SoundID.Unlock.WithPitchOffset(1).WithVolumeScale(2f);
+        public virtual SoundStyle ShootSound => SoundID.Item10;
 
-        int AimDir => aimNormal.X > 0 ? 1 : -1;
+        public virtual string FlashPath => Texture + "_Flash";
+
+        internal Player Owner => Main.player[Projectile.owner];
+
+        internal float ChargeTimer { get => Projectile.ai[0]; set => Projectile.ai[0] = value; }
+
+        internal int AimDir => aimNormal.X > 0 ? 1 : -1;
 
         public bool BeingHeld => Owner.channel && !Owner.noItems && !Owner.CCed;
 
@@ -29,10 +44,9 @@ namespace ShardsOfAtheria.Common.Projectiles
         public float recoilAmount = 0;
 
         public int chargeLevel = 0;
+        public int totalChargeTime;
 
         public bool charging = true;
-
-        public abstract string FlashPath { get; }
 
         public override void SetDefaults()
         {
@@ -48,7 +62,6 @@ namespace ShardsOfAtheria.Common.Projectiles
             Projectile.originalDamage = Projectile.damage;
             Projectile.damage = 0;
             Projectile.velocity = Vector2.Zero;
-            SoundEngine.PlaySound(SoA.MagnetChargeUp, Projectile.Center);
         }
 
         public override bool PreAI()
@@ -79,70 +92,77 @@ namespace ShardsOfAtheria.Common.Projectiles
                 (aimNormal * 10).RotatedBy(-(recoilAmount * 0.2f * AimDir));
             //set projectile rotation to point towards the aim normal, with adjustments for the recoil visual effect
             Projectile.rotation = aimNormal.ToRotation() - recoilAmount * 0.4f * AimDir;
+            UpdateVisual();
 
             //set fancy player arm rotation
             Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (aimNormal * 20).RotatedBy(-(recoilAmount * 0.2f * AimDir)).ToRotation() - MathHelper.PiOver2 + 0.3f * AimDir);
 
             if (BeingHeld)
             {
-                Projectile.timeLeft = Owner.ApplyAttackSpeed(60, DamageClass.Ranged, 2); //constantly set timeLeft to greater than zero to allow projectile to remain infinitely as long as player channels weapon
+                Projectile.timeLeft = LingerDuration; //constantly set timeLeft to greater than zero to allow projectile to remain infinitely as long as player channels weapon
 
-                if (charging && chargeLevel < 3)
+                if (charging && (chargeLevel < MaxCharge || MaxCharge == -1))
                 {
                     ChargeTimer++;
-                    float ChargeTimerMax = Owner.ApplyAttackSpeed(60, DamageClass.Ranged, 0, 0.5f) * (chargeLevel * 0.1f + 1);
-                    if (ChargeTimer >= ChargeTimerMax)
+                    if (CanCharge())
                     {
                         if (chargeLevel >= 0) //increment charge level and play charge increase visual effects (white flash + loading click sound)
                         {
                             chargeLevel++;
                             flashAlpha = 1;
-                            SoundEngine.PlaySound(SoundID.Unlock.WithPitchOffset(chargeLevel).WithVolumeScale(2f), Projectile.Center);
+                            SoundEngine.PlaySound(ChargeLevelUpSound, Projectile.Center);
                         }
+                        totalChargeTime += (int)ChargeTimer;
                         ChargeTimer = 0;
+                        OnChargeIncrement();
                     }
                 }
             }
-            else
-            {
-                if (charging) Fire(); //run for a single frame when player stops channeling weapon
-                charging = false;
-            }
+            else if (GetFireStats(BaseShootSpeed, out Vector2 position, out Vector2 velocity, out int type, out int damage, out float knockback, out float recoil))
+                Fire(position, velocity, type, damage, knockback, recoil); //run for a single frame when player stops channeling weapon
+
         }
 
-        private void Fire() //method to fire regular projectile
+        internal virtual bool CanCharge()
         {
-            var soundType = SoA.MagnetWeakShot;
+            return ChargeTimer >= ChargeLevelTime;
+        }
 
-            //where the projectile should spawn, modified so the projectile actually looks like it's coming out of the barrel
-            Vector2 shootOrigin = Projectile.Center;
-            if (Collision.CanHit(shootOrigin, 0, 0, Projectile.GetPlayerOwner().Center, 0, 0)) shootOrigin = Projectile.GetPlayerOwner().Center;
+        internal virtual void OnChargeIncrement()
+        {
 
-            bool shoot = Owner.PickAmmo(Owner.HeldItem, out int dart, out float _,
-                out int _, out float knockback, out int _);
-            float speed = 12f;
-            int damage = Projectile.originalDamage;
-            if (chargeLevel >= 1) speed += 4f;
-            if (chargeLevel > 1)
-            {
-                //increase recoil value, make gun appear like it's actually firing with some force
-                soundType = SoA.MagnetShot;
-                recoilAmount += 2f;
-                speed *= 1.5f;
-                damage += 50;
-                if (chargeLevel == 3)
-                {
-                    recoilAmount += 3f;
-                    damage += 50;
-                }
-            }
-            if (shoot)
-            {
-                SoundEngine.StopTrackedSounds();
-                SoundEngine.PlaySound(soundType, Projectile.Center);
-                Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), shootOrigin,
-                    aimNormal * speed, dart, damage, knockback, Projectile.owner);
-            }
+        }
+
+        internal virtual bool GetFireStats(float speed, out Vector2 position, out Vector2 velocity, out int type, out int damage, out float knockback, out float recoil)
+        {
+            position = Projectile.Center;
+            if (!Collision.CanHit(position, 0, 0, Owner.Center, 0, 0)) position = Owner.Center;
+            bool shoot = Owner.PickAmmo(Owner.HeldItem, out type, out float _,
+                out int _, out knockback, out int _);
+            velocity = aimNormal * speed;
+            damage = Projectile.originalDamage * (chargeLevel + 1);
+            recoil = 1f;
+            return shoot && charging;
+        }
+
+        internal virtual void Fire(Vector2 position, Vector2 velocity, int type, int damage, float knockback, float recoil)
+        {
+            recoilAmount += recoil;
+            SoundEngine.PlaySound(ShootSound, Projectile.Center);
+            charging = false;
+
+            Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), position,
+                velocity, type, damage, knockback, Projectile.owner);
+        }
+
+        internal virtual void UpdateVisual()
+        {
+
+        }
+
+        internal virtual Vector2 HoldOffset()
+        {
+            return Vector2.Zero;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -156,11 +176,11 @@ namespace ShardsOfAtheria.Common.Projectiles
             Texture2D flash = ModContent.Request<Texture2D>(FlashPath).Value;
 
             Vector2 position = Projectile.Center - Main.screenPosition;
-            Vector2 origin = new(18, Projectile.Size.Y / 2);
+            Vector2 origin = Projectile.Size / 2 + HoldOffset();
             SpriteEffects flip = AimDir == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically;
 
-            Main.EntitySpriteDraw(main, position, null, lightColor, Projectile.rotation, origin, 1, flip, 0);
-            Main.EntitySpriteDraw(flash, position, null, Color.White * flashAlpha, Projectile.rotation, origin, 1, flip, 0);
+            Main.EntitySpriteDraw(main, position, Projectile.Frame(), lightColor, Projectile.rotation, origin, 1, flip, 0);
+            Main.EntitySpriteDraw(flash, position, Projectile.Frame(), Color.White * flashAlpha, Projectile.rotation, origin, 1, flip, 0);
         }
 
         public override void SendExtraAI(BinaryWriter writer) //important because mouse cursor logic is really unstable in multiplayer if done wrong

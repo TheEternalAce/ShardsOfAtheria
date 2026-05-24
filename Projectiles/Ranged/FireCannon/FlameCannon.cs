@@ -1,37 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ShardsOfAtheria.Utilities;
+using ShardsOfAtheria.Common.Projectiles;
 using System;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WebCom.Effects.ScreenShaking;
-using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
 {
-    public class FlameCannon : ModProjectile
+    public class FlameCannon : ChargeGun
     {
-        Player Owner => Main.player[Projectile.owner];
+        public override int LingerDuration => 10;
+        public override float ChargeLevelTime => chargeLevel == 0 ? 20 : 60;
+        public override SoundStyle ChargeLevelUpSound => SoundID.DD2_BetsyFireballImpact;
 
-        float ChargeTimer { get => Projectile.ai[0]; set => Projectile.ai[0] = value; }
+        public override float BaseShootSpeed => 20f;
 
-        int AimDir => aimNormal.X > 0 ? 1 : -1;
-
-        public bool BeingHeld => Main.player[Projectile.owner].channel && !Main.player[Projectile.owner].noItems && !Main.player[Projectile.owner].CCed;
-
-        public Vector2 aimNormal;
-
-        public float flashAlpha = 0;
-        public float recoilAmount = 0;
-
-        public int chargeLevel = 0;
-
-        public bool charging = true;
+        public override SoundStyle ShootSound => SoundID.Item38;
 
         public override void SetStaticDefaults()
         {
@@ -41,153 +28,70 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
         public override void SetDefaults()
         {
             Projectile.width = 78;
-            Projectile.height = 20;
-            Projectile.aiStyle = -1;
-            Projectile.penetrate = -1;
-            Projectile.ignoreWater = true;
-            Projectile.tileCollide = false;
-            Projectile.timeLeft = 2;
+            Projectile.height = 56;
+            base.SetDefaults();
         }
 
-        public override void OnSpawn(IEntitySource source)
+        internal override bool GetFireStats(float speed, out Vector2 position, out Vector2 velocity, out int type, out int damage, out float knockback, out float recoil)
         {
-            Projectile.originalDamage = Projectile.damage;
-            Projectile.damage = 0;
-            ChargeTimer = 10;
-        }
-
-        public override bool PreAI()
-        {
-            Owner.heldProj = Projectile.whoAmI;
-            Owner.itemAnimation = 2;
-            Owner.itemTime = 2;
-
-            if (Main.myPlayer == Projectile.owner)
+            bool shoot = base.GetFireStats(speed, out position, out velocity, out type, out damage, out knockback, out recoil);
+            type = ModContent.ProjectileType<FireCannon_Fire1>();
+            if (chargeLevel >= 2)
             {
-                //aimNormal is a normal vector pointing from the player at the mouse cursor
-                aimNormal = Vector2.Normalize(Main.MouseWorld - Owner.MountedCenter + new Vector2(Owner.direction * -3, -1));
+                recoil += 2f;
+                type = ModContent.ProjectileType<FireCannon_Fire2>();
             }
-
-            Owner.ChangeDir(AimDir);
-            return true;
+            if (chargeLevel == 3)
+            {
+                recoil += 3;
+                damage *= 2;
+                velocity *= 0.5f;
+                type = ModContent.ProjectileType<FireCannon_Fire3>();
+            }
+            return shoot && chargeLevel > 0;
         }
 
-        public override void AI()
+        override internal void Fire(Vector2 position, Vector2 velocity, int type, int damage, float knockback, float recoil) //method to fire regular projectile
         {
-            Projectile.netUpdate = true;
-
-            flashAlpha *= 0.85f; //constantly decrease alpha of the charge increase visual effect
-            recoilAmount *= 0.85f; //constantly decrease the value of the variable that controls the recoil-esque visual effect of the gun's position
-
-            //set projectile center to be at the player, slightly offset towards the aim normal, with adjustments for the recoil visual effect
-            Projectile.Center = Owner.MountedCenter + new Vector2(Owner.direction * -3, -1) +
-                (aimNormal * 10).RotatedBy(-(recoilAmount * 0.2f * AimDir));
-            //set projectile rotation to point towards the aim normal, with adjustments for the recoil visual effect
-            Projectile.rotation = aimNormal.ToRotation() - recoilAmount * 0.4f * AimDir;
-            UpdateVisual();
-
-            //set fancy player arm rotation
-            Owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, (aimNormal * 20).RotatedBy(-(recoilAmount * 0.2f * AimDir)).ToRotation() - MathHelper.PiOver2 + 0.3f * AimDir);
-
-            if (BeingHeld)
+            recoilAmount = recoil;
+            SoundEngine.PlaySound(ShootSound, Projectile.Center);
+            charging = false;
+            var source = Projectile.GetSource_FromThis();
+            if (chargeLevel == 3)
             {
-                Projectile.timeLeft = 10; //constantly set timeLeft to greater than zero to allow projectile to remain infinitely as long as player channels weapon
-
-                if (charging)
-                {
-                    if (Owner.IsLocal())
-                    {
-                        if (!Main.mouseRight)
-                        {
-                            ChargeTimer--;
-                        }
-                    }
-                    if (ChargeTimer < 0)
-                    {
-                        if (chargeLevel < 3)
-                        {
-                            chargeLevel++;
-                            flashAlpha = 1;
-                            ChargeTimer = 60;
-                            SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, Projectile.Center);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if (charging) //run for a single frame when player stops channeling weapon
-                {
-                    Fire();
-                }
-                charging = false;
-            }
-        }
-
-        private void Fire() //method to fire regular projectile
-        {
-            if (chargeLevel == 0)
-            {
+                ScreenShake.ShakeScreen(12, 60);
+                Projectile.NewProjectile(source, position, velocity, type, damage, knockback, Owner.whoAmI);
                 return;
             }
-            SoundEngine.PlaySound(SoundID.Item38, Projectile.Center);
+            float numberProjectiles = 2; // 2 shots
 
-            //where the projectile should spawn, modified so the projectile actually looks like it's coming out of the barrel
-            Vector2 shootOrigin = Projectile.Center + aimNormal * 5;
-
-            if (Main.myPlayer == Projectile.owner)
+            float piOver10 = (float)Math.PI / 10f;
+            float offsetX = Main.mouseX + Main.screenPosition.X - position.X;
+            float offsetY = Main.mouseY + Main.screenPosition.Y - position.Y;
+            Vector2 baseShootOffset = new(offsetX, offsetY);
+            baseShootOffset.Normalize();
+            baseShootOffset *= 50f;
+            bool flag3 = Collision.CanHit(position, 0, 0, position + baseShootOffset, 0, 0);
+            for (int i = 0; i < numberProjectiles; i++)
             {
-                bool shoot = Owner.PickAmmo(Owner.HeldItem, out int _, out float _,
-                    out int _, out float knockback, out int _);
-                float speed = 20f;
-                int damage = Projectile.originalDamage;
-                int flame = ModContent.ProjectileType<FireCannon_Fire1>();
-                if (Owner.Shards().Overdrive) chargeLevel = 3;
-                if (chargeLevel >= 2)
+                float num120 = i - (numberProjectiles - 1f) / 2f;
+                Vector2 shootOffset = baseShootOffset.RotatedBy(piOver10 * num120);
+                if (!flag3)
                 {
-                    //increase recoil value, make gun appear like it's actually firing with some force
-                    recoilAmount += 2f;
-                    damage += 50;
-                    flame = ModContent.ProjectileType<FireCannon_Fire2>();
-                    if (chargeLevel == 3)
-                    {
-                        recoilAmount += 3f;
-                        speed /= 2;
-                        damage += 50;
-                        flame = ModContent.ProjectileType<FireCannon_Fire3>();
-                    }
+                    shootOffset -= baseShootOffset;
                 }
-                if (shoot)
-                {
-                    var source = Projectile.GetSource_FromThis();
-                    var velocity = aimNormal * speed;
-                    if (chargeLevel == 3)
-                    {
-                        ScreenShake.ShakeScreen(12, 60);
-                        Projectile.NewProjectile(source, shootOrigin, velocity, flame, damage, knockback, Owner.whoAmI);
-                        return;
-                    }
-                    float numberProjectiles = 2; // 2 shots
-
-                    float num117 = (float)Math.PI / 10f;
-                    float num90 = Main.mouseX + Main.screenPosition.X - shootOrigin.X;
-                    float num101 = Main.mouseY + Main.screenPosition.Y - shootOrigin.Y;
-                    Vector2 vector7 = new Vector2(num90, num101);
-                    vector7.Normalize();
-                    vector7 *= 50f;
-                    bool flag3 = Collision.CanHit(shootOrigin, 0, 0, shootOrigin + vector7, 0, 0);
-                    for (int i = 0; i < numberProjectiles; i++)
-                    {
-                        float num120 = i - (numberProjectiles - 1f) / 2f;
-                        Vector2 vector8 = vector7.RotatedBy(num117 * num120);
-                        if (!flag3)
-                        {
-                            vector8 -= vector7;
-                        }
-                        Projectile.NewProjectile(source, shootOrigin + vector8, velocity, flame, damage, knockback, Owner.whoAmI);
-                    }
-                }
+                Projectile.NewProjectile(source, position + shootOffset, velocity, type, damage, knockback, Owner.whoAmI);
             }
+        }
+
+        override internal void UpdateVisual()
+        {
+            Projectile.frame = chargeLevel;
+        }
+
+        internal override Vector2 HoldOffset()
+        {
+            return new(-25, 0);
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -195,30 +99,9 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
             return false;
         }
 
-        public override void PostDraw(Color lightColor)
-        {
-            Texture2D main = TextureAssets.Projectile[Type].Value;
-
-            Vector2 position = Projectile.Center - Main.screenPosition;
-            Vector2 origin = new(16, 56 / 2);
-            SpriteEffects flip = AimDir == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-
-            Main.EntitySpriteDraw(main, position, Projectile.Frame(), lightColor, Projectile.rotation, origin, 1, flip, 0);
-        }
-
         public override void SendExtraAI(BinaryWriter writer) //important because mouse cursor logic is really unstable in multiplayer if done wrong
         {
             writer.WriteVector2(aimNormal);
-        }
-
-        public override void ReceiveExtraAI(BinaryReader reader)
-        {
-            aimNormal = reader.ReadVector2();
-        }
-
-        void UpdateVisual()
-        {
-            Projectile.frame = chargeLevel;
         }
     }
 }

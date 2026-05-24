@@ -23,11 +23,11 @@ namespace ShardsOfAtheria.Projectiles.Ranged.FireCannon
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.aiStyle = -1;
             Projectile.tileCollide = false;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 30;
-            Projectile.timeLeft = 60;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 30;
+            Projectile.timeLeft = 30;
             Projectile.friendly = true;
-            Projectile.penetrate = 5;
+            Projectile.penetrate = 2;
         }
 
         public override void AI()
