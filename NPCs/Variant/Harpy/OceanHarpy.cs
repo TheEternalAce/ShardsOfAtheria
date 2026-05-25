@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Placeable.Banner;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.Utilities;
@@ -40,6 +41,8 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             projectileDamage = 10;
             projectileType = ModContent.ProjectileType<Sea>();
             debuffType = BuffID.Bleeding;
+
+            NPC.NPCSoul(CardinalSoulID.Greed);
         }
 
         public override void SpecialAttack(Vector2 normalizedVelocity)

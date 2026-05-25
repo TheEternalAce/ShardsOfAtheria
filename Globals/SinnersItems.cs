@@ -33,13 +33,13 @@ namespace ShardsOfAtheria.Globals
 
         public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
         {
-            if (player.Sinner().PridefulSinner)
+            if (player.CardinalSoul().PridefulSinner)
                 damage -= uses * 0.02f;
         }
 
         public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if (player.Sinner().LustfulSinner)
+            if (player.CardinalSoul().LustfulSinner)
             {
                 float rotation = MathHelper.PiOver4;
                 if (item.type == ModContent.ItemType<Lilith>()) rotation = MathHelper.Pi / 6f;
@@ -49,10 +49,10 @@ namespace ShardsOfAtheria.Globals
 
         public override bool? UseItem(Item item, Player player)
         {
-            var sinner = player.Sinner();
+            var sinner = player.CardinalSoul();
             bool wellFedBuff = item.buffType == BuffID.WellFed || item.buffType == BuffID.WellFed2 || item.buffType == BuffID.WellFed3;
             if (sinner.GluttonousSinner && ((item.buffType > 0 && !wellFedBuff) || item.healLife > 0 || item.healMana > 0) && !item.IsWeapon())
-                player.AddBuff<GluttonyAcid>(SinnerPlayer.GluttonyAcidDuration);
+                player.AddBuff<GluttonyAcid>(CardinalSoulPlayer.GluttonyAcidDuration);
             if (sinner.PridefulSinner && player.InCombat() && item.IsWeapon() && !item.DamageType.CountsAsClass(DamageClass.Summon))
             {
                 uses++;
@@ -64,7 +64,7 @@ namespace ShardsOfAtheria.Globals
 
         public override bool ConsumeItem(Item item, Player player)
         {
-            var sinner = player.Sinner();
+            var sinner = player.CardinalSoul();
             if (sinner.GluttonousSinner)
             {
                 int gluttonyHealing = item.buffTime;

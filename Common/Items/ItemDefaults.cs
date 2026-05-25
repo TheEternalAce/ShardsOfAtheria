@@ -7,6 +7,7 @@ namespace ShardsOfAtheria.Common.Items
     {
         public const int RarityDataDisc = ItemRarityID.Green;
         public const int RaritySinful = ItemRarityID.LightRed;
+        public const int RarityVirtuous = ItemRarityID.Yellow;
         public const int RaritySlayer = ItemRarityID.Red;
 
         public const int RarityShimmerPermanentUpgrade = ItemRarityID.LightPurple;

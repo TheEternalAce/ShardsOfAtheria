@@ -14,6 +14,7 @@ using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj.Nova;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Systems;
@@ -92,6 +93,10 @@ namespace ShardsOfAtheria.NPCs.Boss.NovaStellar.LightningValkyrie
             NPC.SetCalamityDebuffResistance("Electricity", false);
             NPC.SetCalamityDebuffResistance("Heat", true);
             NPC.SetCalamityDebuffResistance("Sickness", true);
+
+            NPC.NPCSoul(CardinalSoulID.Chassity);
+            NPC.NPCSoul(CardinalSoulID.Diligence);
+            NPC.NPCSoul(CardinalSoulID.Temperance);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

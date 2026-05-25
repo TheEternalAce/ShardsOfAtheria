@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Common.Items;
-using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;
@@ -12,7 +11,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class Magnus : SinfulItem
     {
-        public override int RequiredSin => SinID.Pride;
+        public override int RequiredSin => CardinalSoulID.Pride;
 
         // Base damages: 43, 74, 180
         public override int[] DamageSpread => [0, 31, 106];

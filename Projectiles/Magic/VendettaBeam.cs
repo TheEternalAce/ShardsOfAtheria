@@ -11,7 +11,7 @@ namespace ShardsOfAtheria.Projectiles.Magic
 {
     public class VendettaBeam : ModProjectile
     {
-        SinnerPlayer Sinner => Projectile.GetPlayerOwner().Sinner();
+        CardinalSoulPlayer Sinner => Projectile.GetPlayerOwner().CardinalSoul();
 
         public override string Texture => SoA.BlankTexture;
 

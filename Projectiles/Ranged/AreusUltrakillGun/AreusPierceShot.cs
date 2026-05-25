@@ -5,7 +5,6 @@ using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
 {
@@ -24,15 +23,9 @@ namespace ShardsOfAtheria.Projectiles.Ranged.AreusUltrakillGun
 
         public override void SetDefaults()
         {
-            Projectile.width = Projectile.height = 4;
-            Projectile.timeLeft = 600;
-            Projectile.extraUpdates = 20;
-            Projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Ranged;
-            Projectile.aiStyle = 0;
+            base.SetDefaults();
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 5;
-            Projectile.ignoreWater = true;
             Projectile.penetrate = 3;
         }
 

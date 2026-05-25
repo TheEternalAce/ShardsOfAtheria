@@ -48,7 +48,7 @@ namespace ShardsOfAtheria.Systems
             NewEntry("Terraria", "Brain of Cthulhu", Language.GetTextValue(KeyBase + "BrainSoulCrystal.Tooltip"), Color.LightPink, "BrainSoulCrystal");
             NewEntry("Terraria", "Eater of Worlds", Language.GetTextValue(KeyBase + "EaterSoulCrystal.Tooltip"), Color.Purple, "EaterSoulCrystal");
             NewEntry("Terraria", "Queen Bee", Language.GetTextValue(KeyBase + "BeeSoulCrystal.Tooltip"), Color.Yellow, "BeeSoulCrystal");
-            NewEntry("Terraria", "Skeletron", ShardsHelpers.Localize("Item.SkullSoulCrystal.Tooltip"), new Color(130, 130, 90), "SkullSoulCrystal");
+            NewEntry("Terraria", "Skeletron", Language.GetTextValue(KeyBase + "SkullSoulCrystal.Tooltip"), new Color(130, 130, 90), "SkullSoulCrystal");
             NewEntry("Shards of Atheria", "Lightning Valkyrie, Nova Stellar", Language.GetTextValue(KeyBase + "ValkyrieSoulCrystal.Tooltip"), Color.DeepSkyBlue, "ValkyrieSoulCrystal");
             NewEntry("Terraria", "Deerclops", Language.GetTextValue(KeyBase + "DeerclopsSoulCrystal.Tooltip"), Color.MediumPurple, "DeerclopsSoulCrystal");
             NewEntry("Terraria", "Wall of Flesh", Language.GetTextValue(KeyBase + "WallSoulCrystal.Tooltip"), Color.MediumPurple, "WallSoulCrystal");

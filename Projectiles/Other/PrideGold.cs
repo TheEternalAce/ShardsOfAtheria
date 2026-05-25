@@ -83,7 +83,7 @@ namespace ShardsOfAtheria.Projectiles.Other
         public void HitCoin()
         {
             var player = Projectile.GetPlayerOwner();
-            var sinner = player.Sinner();
+            var sinner = player.CardinalSoul();
             player.AddBuff<EgoBoost>(300);
             sinner.PrideCancelAttack();
             sinner.PrideCancelAttack();

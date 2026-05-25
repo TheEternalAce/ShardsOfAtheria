@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Common.Items;
-using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Melee.GomorrahProjectiles;
 using ShardsOfAtheria.Utilities;
@@ -17,7 +16,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
     {
         bool throwDefault = false;
 
-        public override int RequiredSin => SinID.Gluttony;
+        public override int RequiredSin => CardinalSoulID.Gluttony;
 
         // Base damages: 50, 130, 230
         public override int[] DamageSpread => [0, 80, 100];
@@ -76,7 +75,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool CanUseItem(Player player)
         {
-            var sinner = player.Sinner();
+            var sinner = player.CardinalSoul();
             bool cleaverThrow = throwDefault ? !player.controlUp : player.controlUp;
             if ((player.altFunctionUse == 2 && sinner.gluttonyHunger > 100) || cleaverThrow)
             {
@@ -103,7 +102,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             bool cleaverThrow = throwDefault ? !player.controlUp : player.controlUp;
-            if (player.altFunctionUse == 2 && player.Sinner().gluttonyHunger > 100)
+            if (player.altFunctionUse == 2 && player.CardinalSoul().gluttonyHunger > 100)
             {
                 WeightedRandom<int> goreProjectile = new();
                 goreProjectile.Add(whip);
@@ -138,7 +137,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            var sinner = player.Sinner();
+            var sinner = player.CardinalSoul();
             bool cleaverThrow = throwDefault ? !player.controlUp : player.controlUp;
             if (player.altFunctionUse == 2 && sinner.gluttonyHunger >= 100)
             {

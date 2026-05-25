@@ -52,6 +52,9 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             NPC.SetCalamityDebuffResistance("Electricity", true);
             NPC.SetCalamityDebuffResistance("Water", true);
             NPC.SetCalamityDebuffResistance("Sickness", false);
+
+            int sin = Main.rand.Next(8);
+            NPC.NPCSoul(sin);
         }
 
         public override void AI()

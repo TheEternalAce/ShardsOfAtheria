@@ -1,6 +1,5 @@
 using ShardsOfAtheria.Buffs.Sinner;
 using ShardsOfAtheria.Common.Items;
-using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Melee.MaliceProjectiles;
 using ShardsOfAtheria.Utilities;
@@ -16,7 +15,7 @@ namespace ShardsOfAtheria.Items.Weapons.Melee
         int hateFallOffTimer = 0;
         const int HateFallOffTimerMax = 60;
 
-        public override int RequiredSin => SinID.Wrath;
+        public override int RequiredSin => CardinalSoulID.Wrath;
 
         // Base damages: 50, 130, 230
         public override int[] DamageSpread => [0, 80, 100];

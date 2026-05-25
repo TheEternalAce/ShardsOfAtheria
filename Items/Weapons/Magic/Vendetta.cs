@@ -1,4 +1,4 @@
-using ShardsOfAtheria.Items.SinfulSouls;
+using ShardsOfAtheria.Common.Items;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Magic;
 using Terraria;
@@ -9,7 +9,7 @@ namespace ShardsOfAtheria.Items.Weapons.Magic
 {
     public class Vendetta : SinfulItem
     {
-        public override int RequiredSin => SinID.Envy;
+        public override int RequiredSin => CardinalSoulID.Envy;
 
         public override int[] DamageSpread => [0, 30, 40];
 

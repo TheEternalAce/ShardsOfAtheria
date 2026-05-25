@@ -12,6 +12,7 @@ using ShardsOfAtheria.Items.Weapons.Magic;
 using ShardsOfAtheria.Items.Weapons.Melee;
 using ShardsOfAtheria.Items.Weapons.Ranged;
 using ShardsOfAtheria.Items.Weapons.Summon;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj.Elizabeth;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Systems;
@@ -92,6 +93,10 @@ namespace ShardsOfAtheria.NPCs.Boss.Elizabeth
             NPC.SetCalamityDebuffResistance("Electricity", true);
             NPC.SetCalamityDebuffResistance("Heat", true);
             NPC.SetCalamityDebuffResistance("Sickness", false);
+
+            NPC.NPCSoul(CardinalSoulID.Patience);
+            NPC.NPCSoul(CardinalSoulID.Diligence);
+            NPC.NPCSoul(CardinalSoulID.Kindness);
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

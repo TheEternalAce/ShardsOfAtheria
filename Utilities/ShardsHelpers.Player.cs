@@ -17,9 +17,9 @@ namespace ShardsOfAtheria.Utilities
             return player.GetModPlayer<ShardsPlayer>();
         }
 
-        public static SinnerPlayer Sinner(this Player player)
+        public static CardinalSoulPlayer CardinalSoul(this Player player)
         {
-            return player.GetModPlayer<SinnerPlayer>();
+            return player.GetModPlayer<CardinalSoulPlayer>();
         }
 
         public static SlayerPlayer Slayer(this Player player)

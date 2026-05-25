@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ShardsOfAtheria.Common.Items;
-using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Ranged;
 using ShardsOfAtheria.Utilities;
@@ -15,7 +14,7 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
     public class Pantheon : SinfulItem
     {
-        public override int RequiredSin => SinID.Greed;
+        public override int RequiredSin => CardinalSoulID.Greed;
 
         public override int[] DamageSpread => [0, 35, 40];
 

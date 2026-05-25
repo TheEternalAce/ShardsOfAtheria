@@ -1,4 +1,5 @@
 using ShardsOfAtheria.Common.Items;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -6,8 +7,10 @@ using Terraria.ModLoader;
 
 namespace ShardsOfAtheria.Items.Weapons.Ranged
 {
-    public class Abaddon : ModItem
+    public class Abaddon : VirtuousItem
     {
+        public override int RequiredVirtue => CardinalSoulID.Temperance;
+
         public override void SetStaticDefaults()
         {
             ItemID.Sets.IsRangedSpecialistWeapon[Type] = true;
@@ -18,9 +21,9 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
 
         public override void SetDefaults()
         {
+            base.SetDefaults();
             Item.width = 44;
             Item.height = 26;
-            Item.master = true;
 
             Item.damage = 150;
             Item.DamageType = DamageClass.Ranged;
@@ -32,9 +35,9 @@ namespace ShardsOfAtheria.Items.Weapons.Ranged
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item61;
             Item.noMelee = true;
+            Item.autoReuse = true;
 
-            Item.shootSpeed = 10f;
-            Item.rare = ItemDefaults.RaritySinful;
+            Item.shootSpeed = 16f;
             Item.shoot = ProjectileID.PurificationPowder;
             Item.useAmmo = AmmoID.Dart;
         }

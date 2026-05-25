@@ -126,7 +126,7 @@ namespace ShardsOfAtheria.Common.Projectiles
             }
             Projectile.damage = (int)(Projectile.damage * 1.1f);
             coinsHit++;
-            Projectile.GetPlayerOwner().Sinner().PrideCancelAttack();
+            Projectile.GetPlayerOwner().CardinalSoul().PrideCancelAttack();
             Projectile.timeLeft += StopTime;
         }
 

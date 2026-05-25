@@ -25,6 +25,8 @@ namespace ShardsOfAtheria.Buffs.PlayerBuff.GemBlessings
             ModContent.BuffType<ChargedMinions>(),
             ModContent.BuffType<ChargingDrones>(),
             ModContent.BuffType<ShadeState>(),
+
+            ModContent.BuffType<MessiahRekkoha>(),
             ];
 
         public override void Update(Player player, ref int buffIndex)

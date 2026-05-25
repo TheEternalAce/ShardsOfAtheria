@@ -1,46 +1,30 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Buffs.Sinner;
 using ShardsOfAtheria.Projectiles.Other;
-using ShardsOfAtheria.ShardsUI.SinfulSelection;
 using ShardsOfAtheria.Utilities;
 using System;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
-using Terraria.DataStructures;
-using Terraria.GameInput;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 using WebCom.Extensions;
 
 namespace ShardsOfAtheria.Players
 {
-    public static class SinID
+    public partial class CardinalSoulPlayer
     {
-        public const int Envy = 1;
-        public const int Gluttony = 2;
-        public const int Greed = 3;
-        public const int Lust = 4;
-        public const int Pride = 5;
-        public const int Sloth = 6;
-        public const int Wrath = 7;
-    }
+        public bool EnviousSinner => cardinalSoul == CardinalSoulID.Envy;
+        public bool GluttonousSinner => cardinalSoul == CardinalSoulID.Gluttony;
+        public bool GreedySinner => cardinalSoul == CardinalSoulID.Greed;
+        public bool LustfulSinner => cardinalSoul == CardinalSoulID.Lust;
+        public bool PridefulSinner => cardinalSoul == CardinalSoulID.Pride;
+        public bool SlothfulSinner => cardinalSoul == CardinalSoulID.Sloth;
+        public bool WrathfulSinner => cardinalSoul == CardinalSoulID.Wrath;
+        public bool Sinner => cardinalSoul > 0 && cardinalSoul < 8;
 
-    public class SinnerPlayer : ModPlayer
-    {
-        public bool EnviousSinner => sinID == SinID.Envy;
-        public bool GluttonousSinner => sinID == SinID.Gluttony;
-        public bool GreedySinner => sinID == SinID.Greed;
-        public bool LustfulSinner => sinID == SinID.Lust;
-        public bool PridefulSinner => sinID == SinID.Pride;
-        public bool SlothfulSinner => sinID == SinID.Sloth;
-        public bool WrathfulSinner => sinID == SinID.Wrath;
-        public bool SinActive => sinID > 0;
+        public bool SoulActive => cardinalSoul > 0;
 
-        public int sinID;
+        public int cardinalSoul;
         private int storedDamage;
 
         #region Envy
@@ -167,11 +151,15 @@ namespace ShardsOfAtheria.Players
         private static void GluttonyHeal(On_Player.orig_Heal orig, Player self, int amount)
         {
             orig(self, amount);
-            if (!self.Sinner().GluttonousSinner) return;
+            if (!self.CardinalSoul().GluttonousSinner) return;
             if (amount > self.statLifeMax2 * 0.1f)
                 self.AddBuff<GluttonyAcid>(GluttonyAcidDuration);
         }
-
+        private void On_GluttonyAddBuff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)
+        {
+            orig(self, type, timeToAdd, quiet, foodHack);
+            if (Main.debuff[type]) self.AddBuff<GluttonyAcid>(GluttonyAcidDuration);
+        }
         void GluttonyHit(NPC target, NPC.HitInfo hit)
         {
             if (!GluttonousSinner) return;
@@ -419,10 +407,10 @@ namespace ShardsOfAtheria.Players
         {
             if (!WrathfulSinner) return;
         }
-        public void WrathHurt(Player.HurtInfo info)
+        public void WrathPostUpdate()
         {
             if (!WrathfulSinner) return;
-            wrathLastDamageTaken = info.Damage;
+            Player.endurance -= 0.1f;
         }
         public void WrathCrit(ref Player.HurtModifiers modifiers)
         {
@@ -434,6 +422,11 @@ namespace ShardsOfAtheria.Players
                 modifiers.FinalDamage *= 2f;
                 SoundEngine.PlaySound(SoundID.ScaryScream, Player.Center);
             }
+        }
+        public void WrathHurt(Player.HurtInfo info)
+        {
+            if (!WrathfulSinner) return;
+            wrathLastDamageTaken = info.Damage;
         }
         public void WrathModifyHit(NPC target, ref NPC.HitModifiers modifiers)
         {
@@ -452,138 +445,6 @@ namespace ShardsOfAtheria.Players
                 Player.lifeRegen = 0;
             Player.lifeRegenTime = 0;
             Player.lifeRegen -= rate;
-        }
-
-        public override void SaveData(TagCompound tag)
-        {
-            tag["selectedSin"] = sinID;
-        }
-
-        public override void LoadData(TagCompound tag)
-        {
-            if (tag.TryGet("selectedSin", out int sin)) sinID = sin;
-        }
-
-        public override void Load()
-        {
-            On_Player.Heal += GluttonyHeal;
-        }
-
-        public override void ResetEffects()
-        {
-            if (gluttonyFoodCoolDown < 0) gluttonyFoodCoolDown = 0;
-            else if (gluttonyFoodCoolDown > 0) gluttonyFoodCoolDown--;
-
-            if (wrathRetainFuryTime > 0) wrathRetainFuryTime--;
-        }
-
-        public override void PreUpdate()
-        {
-            GluttonyPreUpdate();
-            PridePreUpdate();
-            SlothPreUpdate();
-        }
-
-        public override void PostUpdate()
-        {
-            EnvyPostUpdate();
-            LustPostUpdate();
-            PridePostUpdate();
-            SlothPostUpdate();
-        }
-
-        public override void OnRespawn()
-        {
-            GluttonySetHunger();
-        }
-
-        public override void OnEnterWorld()
-        {
-            GluttonySetHunger();
-
-            if (!SinActive)
-            {
-                string key = SoA.SinAbility.GetAssignedKeys().FirstOrDefault();
-                string text = ShardsHelpers.LocalizeCommon("SinNotification", key);
-                NetworkText networkText = NetworkText.FromLiteral(text);
-                ChatHelper.SendChatMessageToClient(networkText, Color.Purple, Player.whoAmI);
-            }
-        }
-
-        public override void UpdateBadLifeRegen()
-        {
-            GluttonyRegenDebuff();
-            GreedFire();
-        }
-
-        public override void ProcessTriggers(TriggersSet triggersSet)
-        {
-            if (SoA.SinAbility.JustPressed)
-            {
-                if (SinActive && Player.controlTorch)
-                {
-                    SinfulUI.Instance.ToggleSelected();
-                }
-                else if (!SinActive)
-                    SinfulUI.Instance.ToggleSelections();
-                else if (PridefulSinner) PrideCoin();
-                else if (WrathfulSinner) WrathRage();
-            }
-        }
-
-        public override void UpdateLifeRegen()
-        {
-            PrideRegen();
-        }
-
-        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
-        {
-            EnvyModifyHit(target, ref modifiers);
-            WrathModifyHit(target, ref modifiers);
-        }
-
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            GluttonyHit(target, hit);
-            EnvyHit(target);
-        }
-
-        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            PrideAddSuccessfulAttack(target, !item.IsTool());
-            LustItemHit(target, item);
-        }
-
-        public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            PrideAddSuccessfulAttack(target, !proj.NonWhipSummon());
-            LustProjectileHit(target, proj);
-        }
-
-        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
-        {
-            GluttonyModifyHurt(ref modifiers);
-            LustCrit(ref modifiers);
-            WrathCrit(ref modifiers);
-        }
-
-        public override void PostHurt(Player.HurtInfo info)
-        {
-            PrideHurt();
-            WrathHurt(info);
-        }
-
-        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
-        {
-            GreedDeath();
-            PrideDeath();
-        }
-
-        public override bool OnPickup(Item item)
-        {
-            GluttonyPickUp(item);
-            GreedPickUp(item);
-            return base.OnPickup(item);
         }
     }
 }

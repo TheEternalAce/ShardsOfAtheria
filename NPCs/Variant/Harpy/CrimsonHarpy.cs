@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Placeable.Banner;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.Utilities;
 using Terraria;
@@ -40,6 +41,8 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             projectileDamage = 13;
             projectileType = ModContent.ProjectileType<Blood>();
             debuffType = BuffID.Ichor;
+
+            NPC.NPCSoul(CardinalSoulID.Wrath);
         }
 
         public override void SpecialAttack(Vector2 normalizedVelocity)

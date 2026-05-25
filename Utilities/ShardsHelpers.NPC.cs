@@ -104,6 +104,18 @@ namespace ShardsOfAtheria.Utilities
             }
         }
 
+        /// <summary>
+        /// Makes the input soul the NPCs edict and the counterpart its anathema
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <param name="soul"></param>
+        public static void NPCSoul(this NPC npc, int soul)
+        {
+            var cardinal = npc.GetGlobalNPC<CardinalSoulNPC>();
+            cardinal.soulEdict[soul] = true;
+            cardinal.soulAnathema[CardinalSoulID.ConvertToCounterpart(soul)] = true;
+        }
+
         public static void SlayNPC(this NPC npc, Player player)
         {
             SlayerPlayer slayer = player.Slayer();

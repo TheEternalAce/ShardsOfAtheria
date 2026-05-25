@@ -5,9 +5,8 @@ using ShardsOfAtheria.Buffs.AnyDebuff;
 using ShardsOfAtheria.Buffs.NPCDebuff;
 using ShardsOfAtheria.Items.Accessories;
 using ShardsOfAtheria.Items.BossSummons;
+using ShardsOfAtheria.Items.Consumable;
 using ShardsOfAtheria.Items.Materials;
-using ShardsOfAtheria.Items.Placeable;
-using ShardsOfAtheria.Items.SinfulSouls.Extras;
 using ShardsOfAtheria.Items.Tools.ToggleItems;
 using ShardsOfAtheria.Items.Weapons.Ammo;
 using ShardsOfAtheria.Items.Weapons.Magic;
@@ -49,13 +48,6 @@ namespace ShardsOfAtheria.Globals
                 shop.Add<WeightedDie>(SoAConditions.HasDie);
                 shop.Add<GoldNail>(Condition.Eclipse);
             }
-        }
-
-        public override void SetupTravelShop(int[] shop, ref int nextSlot)
-        {
-            shop[nextSlot] = ModContent.ItemType<Jade>();
-            nextSlot++;
-            base.SetupTravelShop(shop, ref nextSlot);
         }
 
         public override void OnKill(NPC npc)
@@ -205,12 +197,6 @@ namespace ShardsOfAtheria.Globals
                 }
             }
             base.AI(npc);
-        }
-
-        public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
-        {
-            if (player.Sinner().SlothfulSinner)
-                spawnRate = (int)(spawnRate * 0.5f);
         }
 
         public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)

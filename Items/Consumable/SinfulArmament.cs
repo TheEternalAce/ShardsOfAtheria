@@ -1,0 +1,111 @@
+﻿using Microsoft.Xna.Framework;
+using ShardsOfAtheria.Common.Items;
+using ShardsOfAtheria.Items.Weapons.Magic;
+using ShardsOfAtheria.Items.Weapons.Melee;
+using ShardsOfAtheria.Items.Weapons.Ranged;
+using ShardsOfAtheria.Items.Weapons.Summon;
+using ShardsOfAtheria.Utilities;
+using Terraria;
+using Terraria.Chat;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
+
+namespace ShardsOfAtheria.Items.Consumable
+{
+    public class SinfulArmament : SinfulItem
+    {
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Item.width = 46;
+            Item.height = 38;
+            Item.consumable = true;
+
+            Item.useTime = 20;
+            Item.useAnimation = 20;
+            Item.useStyle = ItemUseStyleID.HoldUp;
+            Item.UseSound = SoundID.Item82;
+
+            Item.value = 250000;
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            return player.CardinalSoul().Sinner;
+        }
+
+        public override bool? UseItem(Player player)
+        {
+            if (player.whoAmI == Main.myPlayer)
+            {
+                SwitchSoulType(player, out int weapon, out string text, out Color color);
+                int newItem = Item.NewItem(Item.GetSource_DropAsItem(), player.getRect(), weapon);
+                Main.item[newItem].noGrabDelay = 0; // Set the new item to be able to be picked up instantly
+                if (SoA.ClientConfig.dialogue)
+                {
+                    ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral(text), color, player.whoAmI);
+                }
+
+                // Here we need to make sure the item is synced in multiplayer games.
+                if (Main.netMode == NetmodeID.MultiplayerClient && newItem >= 0)
+                {
+                    NetMessage.SendData(MessageID.SyncItem, -1, -1, null, newItem, 1f);
+                }
+            }
+            return true;
+        }
+
+        static void SwitchSoulType(Player player, out int armament, out string text, out Color color)
+        {
+            var soul = player.CardinalSoul();
+            armament = 0;
+            text = "";
+            color = Color.White;
+
+            if (soul.EnviousSinner)
+            {
+                armament = ModContent.ItemType<Vendetta>();
+                text = "";
+                color = Color.Purple;
+            }
+            else if (soul.GluttonousSinner)
+            {
+                armament = ModContent.ItemType<Gomorrah>();
+                text = "I'm Gomorrah, no prey can stand a chance against us!";
+                color = Color.Orange;
+            }
+            else if (soul.GreedySinner)
+            {
+                armament = ModContent.ItemType<Pantheon>();
+                text = "My name is Pantheon, together we'll become the richest in the world!";
+                color = Color.Gold;
+            }
+            else if (soul.LustfulSinner)
+            {
+                armament = ModContent.ItemType<Lilith>();
+                text = "";
+                color = Color.Pink;
+            }
+            else if (soul.PridefulSinner)
+            {
+                armament = ModContent.ItemType<Magnus>();
+                text = "I am Magnus, the only weapon you'll ever need.";
+                color = Color.White;
+            }
+            else if (soul.SlothfulSinner)
+            {
+                // TODO: Create Morgana.
+                armament = ModContent.ItemType<SinfulArmament>();
+                text = "";
+                color = Color.Blue;
+            }
+            else if (soul.WrathfulSinner)
+            {
+                armament = ModContent.ItemType<Malice>();
+                text = "I am Malice, my edge is sharper than those pathetic blades.";
+                color = Color.Red;
+            }
+        }
+    }
+}

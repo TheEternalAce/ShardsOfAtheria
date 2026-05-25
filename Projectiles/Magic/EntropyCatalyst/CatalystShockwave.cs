@@ -65,7 +65,7 @@ namespace ShardsOfAtheria.Projectiles.Magic.EntropyCatalyst
                         player.ManaEffect(8);
                         proj.velocity *= 2f;
                     }
-                    player.Sinner().PrideCancelAttack();
+                    player.CardinalSoul().PrideCancelAttack();
                     proj.GetGlobalProjectile<SoAGlobalProjectile>().canHitCoin = true;
                 }
             }

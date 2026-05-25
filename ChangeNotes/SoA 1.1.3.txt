@@ -22,3 +22,9 @@
 - Areus Flame Cannon level 2 charge shot's trail now uses ID static immunity and cooldown is longer.
 - Renamed Train Spectrum to Steam Spectrum.
 - Finished The Messiah main projectile sprite.
+- Increased speed of Areus Magnum piercing shot and Gamma Plague Railgun shot.
+- Added Shard of Repentance and Righteous Armament.
+- Reduced research requirement for Hardlight Knife and Metal Blade to 99.
+- Wrath now causes the player to take extra damage.
+- Traveling Merchang no longer sells Jade.
+- Added a "Soul Anathema" and "Soul Edict" system that interacts with cardinal souls.

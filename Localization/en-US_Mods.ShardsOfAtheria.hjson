@@ -29,7 +29,7 @@ Common: {
 	NoSoul: You have no Soul Crystals to extract
 }
 
-SinfulSouls: {
+CardinalSouls: {
 	Envy:
 		'''
 		Envy
@@ -43,7 +43,12 @@ SinfulSouls: {
 		Defense reduced by 7
 		Lose life when not fed
 		Strikes in close range feed you
-		Burn in acid when picking up hearts and mana, and when gaining buffs
+		Burn in acid when picking up hearts and mana, healing, and when gaining buffs
+
+		Press <{0}> to enable Predator Instinct:
+		Shoot spikes at nearby enemies
+		Increased movement and attack speed and damage
+		Rapidly consumes Hunger
 		'''
 	Greed:
 		'''
@@ -66,6 +71,9 @@ SinfulSouls: {
 		Using the same weapon repeatedly reduces its damage
 		Missing more than 75% of your attacks weakens you severely
 		Landing most of your attacks instead grants extra movement speed
+
+		Press <{0}> to spend gold and toss a coin
+		Shoot the coin for increased damage
 		'''
 	Sloth:
 		'''
@@ -76,16 +84,31 @@ SinfulSouls: {
 		Most days you'll feel apathetic
 		Motivation increases movement and attack speed, but reduces damage
 		Apathy decreases movement and attack speed, but increases damage
+
+		Press <{0}> to consume mana and throw a flurry of shadow fists
 		'''
 	Wrath:
 		'''
 		Wrath
-		Increases damage by how much you take
+		Increases damage dealt by how much you take
+		Damage taken is increased by 10%
 		4% chance to take a critical hit and gain 'Fury'
 		Fury significantly increases damage and movement speed
 		You take significant damage when Fury runs out
 		Dealing damage prevents Fury from running out
+
+		Press <{0}> to activate Rage
+		Rage increases endurance and damage
+		When Rage runs out, get Exhaustion
+		Exhaustion reduces movement and attack speed and endurance.
 		'''
+	Charity: Charity
+	Chassity: Chassity
+	Diligence: Diligence
+	Humility: Humility
+	Kindness: Kindness
+	Patience: Patience
+	Temperance: Temperance
 }
 
 DiskFile: {
@@ -2698,8 +2721,7 @@ Items: {
 		DisplayName: Hand Cannon
 		Tooltip:
 			'''
-			Charges passively when not in use
-			After 5 seconds of charging damage is increased and fire a burst of 3 shots
+			Full charge increases damage and fires a burst of 3 shots
 			'Rock on!'
 			'''
 	}
@@ -3083,13 +3105,16 @@ Items: {
 		Tooltip: ""
 	}
 
-	SinnersMiasma: {
-		DisplayName: Sinner's Miasma
-		Tooltip: Dropped from enemies while you have a sin
+	RighteousArmament: {
+		DisplayName: Righteous Armament
+		Tooltip: ""
+	}
+
+	ShardOfRepentance: {
+		DisplayName: Shard Of Repentance
+		Tooltip: ""
 	}
 }
-
-Item.SkullSoulCrystal.Tooltip: Mods.ShardsOfAtheria.Item.SkullSoulCrystal.Tooltip
 
 Projectiles: {
 	# Hooks

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ShardsOfAtheria.Items.Placeable;
 using ShardsOfAtheria.Items.Placeable.Banner;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.ShardsConditions;
@@ -58,6 +59,8 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             projectileType = ModContent.ProjectileType<Stone>();
             projectileDamage = 9;
             debuffType = BuffID.Stoned;
+
+            NPC.NPCSoul(CardinalSoulID.Patience);
         }
 
         public override bool DebuffCondition => base.DebuffCondition && Main.rand.NextBool(10);

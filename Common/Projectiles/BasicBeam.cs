@@ -38,7 +38,7 @@ namespace ShardsOfAtheria.Common.Projectiles
             if (Projectile.velocity != Vector2.Zero)
             {
                 Projectile.velocity.Normalize();
-                Projectile.velocity *= 2;
+                Projectile.velocity *= 4;
             }
 
             Vector2 spawnPos = Projectile.Center;
@@ -93,7 +93,7 @@ namespace ShardsOfAtheria.Common.Projectiles
                 }
             }
             Projectile.damage = (int)(Projectile.damage * 1.1f);
-            Projectile.GetPlayerOwner().Sinner().PrideCancelAttack();
+            Projectile.GetPlayerOwner().CardinalSoul().PrideCancelAttack();
         }
 
         public bool ValidCoin(Projectile projectile)

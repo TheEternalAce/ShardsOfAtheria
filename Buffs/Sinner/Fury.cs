@@ -27,7 +27,7 @@ namespace ShardsOfAtheria.Buffs.Sinner
                 };
                 player.Hurt(info);
             }
-            if (player.Sinner().wrathRetainFuryTime > 0) player.buffTime[buffIndex]++;
+            if (player.CardinalSoul().wrathRetainFuryTime > 0) player.buffTime[buffIndex]++;
 
             player.GetDamage(DamageClass.Generic) += 0.5f;
             player.GetAttackSpeed(DamageClass.Generic) += 0.08f;

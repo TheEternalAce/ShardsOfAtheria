@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Placeable.Banner;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.ShardsConditions.ItemDrop;
 using ShardsOfAtheria.Utilities;
@@ -39,6 +40,8 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             projectileType = ModContent.ProjectileType<Poison>();
             projectileDamage = 5;
             debuffType = BuffID.Poisoned;
+
+            NPC.NPCSoul(CardinalSoulID.Kindness);
         }
 
         public override void SpecialAttack(Vector2 normalizedVelocity)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Items.Placeable.Banner;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.NPCProj.Variant.HarpyFeather;
 using ShardsOfAtheria.Utilities;
 using System;
@@ -42,6 +43,8 @@ namespace ShardsOfAtheria.NPCs.Variant.Harpy
             projectileDamage = 28;
             projectileType = ModContent.ProjectileType<Crystal>();
             debuffType = BuffID.Confused;
+
+            NPC.NPCSoul(CardinalSoulID.Humility);
         }
 
         public override void AI()

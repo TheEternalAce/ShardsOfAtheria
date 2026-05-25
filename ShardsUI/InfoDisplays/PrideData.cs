@@ -9,13 +9,13 @@ namespace ShardsOfAtheria.ShardsUI.InfoDisplays
     {
         public override string Texture => SoA.SinDataTexture;
 
-        public override bool Active() => Main.LocalPlayer.Sinner().PridefulSinner;
+        public override bool Active() => Main.LocalPlayer.CardinalSoul().PridefulSinner;
 
         public override string DisplayValue(ref Color displayColor, ref Color displayShadowColor)
         {
             var player = Main.LocalPlayer;
             if (!player.InCombat()) displayColor = Color.Gray;
-            var pride = player.Sinner();
+            var pride = player.CardinalSoul();
             return pride.prideAttacksHit + "/" + pride.prideAttacksMade;
         }
     }

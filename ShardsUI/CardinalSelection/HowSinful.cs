@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -9,7 +10,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.UI.Elements;
 using Terraria.UI;
 
-namespace ShardsOfAtheria.ShardsUI.SinfulSelection
+namespace ShardsOfAtheria.ShardsUI.CardinalSelection
 {
     internal class HowSinful : UIState
     {
@@ -32,25 +33,25 @@ namespace ShardsOfAtheria.ShardsUI.SinfulSelection
             panel.Append(text);
 
             MakeSelect(ref envySelect, "Envy");
-            envySelect.OnLeftClick += (a, b) => SelectEnvy();
+            envySelect.OnLeftClick += (a, b) => SelectSoul(CardinalSoulID.Envy);
 
             MakeSelect(ref gluttonySelect, "Gluttony");
-            gluttonySelect.OnLeftClick += (a, b) => SelectGluttony();
+            gluttonySelect.OnLeftClick += (a, b) => SelectSoul(CardinalSoulID.Gluttony);
 
             MakeSelect(ref greedSelect, "Greed");
-            greedSelect.OnLeftClick += (a, b) => SelectGreed();
+            greedSelect.OnLeftClick += (a, b) => SelectSoul(CardinalSoulID.Greed);
 
             MakeSelect(ref lustSelect, "Lust");
-            lustSelect.OnLeftClick += (a, b) => SelectLust();
+            lustSelect.OnLeftClick += (a, b) => SelectSoul(CardinalSoulID.Lust);
 
             MakeSelect(ref prideSelect, "Pride");
-            prideSelect.OnLeftClick += (a, b) => SelectPride();
+            prideSelect.OnLeftClick += (a, b) => SelectSoul(CardinalSoulID.Pride);
 
             MakeSelect(ref slothSelect, "Sloth");
-            slothSelect.OnLeftClick += (a, b) => SelectSloth();
+            slothSelect.OnLeftClick += (a, b) => SelectSoul(CardinalSoulID.Sloth);
 
             MakeSelect(ref wrathSelect, "Wrath");
-            wrathSelect.OnLeftClick += (a, b) => SelectWrath();
+            wrathSelect.OnLeftClick += (a, b) => SelectSoul(CardinalSoulID.Wrath);
 
             UIGrid grid = [envySelect, gluttonySelect, greedSelect, lustSelect, prideSelect, slothSelect, wrathSelect];
             grid.SetPosition(10, 30);
@@ -63,54 +64,17 @@ namespace ShardsOfAtheria.ShardsUI.SinfulSelection
 
         void MakeSelect(ref UIHoverImageButtonLocalized selection, string name)
         {
-            string pathBase = "ShardsOfAtheria/ShardsUI/SinfulSelection/";
-            string path = pathBase + name;
-            var text = Language.GetText("Mods.ShardsOfAtheria.SinfulSouls." + name);
-            selection = new(ModContent.Request<Texture2D>(path), text);
+            string filePathBase = "ShardsOfAtheria/ShardsUI/CardinalSelection/";
+            string filePath = filePathBase + name;
+            var text = Language.GetText("Mods.ShardsOfAtheria.CardinalSouls." + name).WithFormatArgs("Sin Ability Key");
+            selection = new(ModContent.Request<Texture2D>(filePath), text);
             Vector2 dimensions = new(80, 80);
             selection.SetDimensions(dimensions);
         }
 
-        private void SelectEnvy()
+        private void SelectSoul(int soul)
         {
-            Main.LocalPlayer.Sinner().sinID = 1;
-            SinfulUI.Instance.ToggleSelections();
-
-        }
-
-        private void SelectGluttony()
-        {
-            Main.LocalPlayer.Sinner().sinID = 2;
-            SinfulUI.Instance.ToggleSelections();
-        }
-
-        private void SelectGreed()
-        {
-            Main.LocalPlayer.Sinner().sinID = 3;
-            SinfulUI.Instance.ToggleSelections();
-        }
-
-        private void SelectLust()
-        {
-            Main.LocalPlayer.Sinner().sinID = 4;
-            SinfulUI.Instance.ToggleSelections();
-        }
-
-        private void SelectPride()
-        {
-            Main.LocalPlayer.Sinner().sinID = 5;
-            SinfulUI.Instance.ToggleSelections();
-        }
-
-        private void SelectSloth()
-        {
-            Main.LocalPlayer.Sinner().sinID = 6;
-            SinfulUI.Instance.ToggleSelections();
-        }
-
-        private void SelectWrath()
-        {
-            Main.LocalPlayer.Sinner().sinID = 7;
+            Main.LocalPlayer.CardinalSoul().cardinalSoul = soul;
             SinfulUI.Instance.ToggleSelections();
         }
 
@@ -126,7 +90,7 @@ namespace ShardsOfAtheria.ShardsUI.SinfulSelection
     {
         public static SinfulUI Instance;
         internal HowSinful howSinfulState;
-        internal MySin mySinState;
+        internal MySoul mySinState;
         private UserInterface UI;
 
         public override void Load()

@@ -9,12 +9,12 @@ namespace ShardsOfAtheria.ShardsUI.InfoDisplays
     {
         public override string Texture => SoA.SinDataTexture;
 
-        public override bool Active() => Main.LocalPlayer.Sinner().GluttonousSinner;
+        public override bool Active() => Main.LocalPlayer.CardinalSoul().GluttonousSinner;
 
         public override string DisplayValue(ref Color displayColor, ref Color displayShadowColor)
         {
             var player = Main.LocalPlayer;
-            var gluttony = player.Sinner();
+            var gluttony = player.CardinalSoul();
             return "" + gluttony.gluttonyHunger;
         }
     }

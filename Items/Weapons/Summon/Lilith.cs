@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using ShardsOfAtheria.Common.Items;
-using ShardsOfAtheria.Items.SinfulSouls;
 using ShardsOfAtheria.Players;
 using ShardsOfAtheria.Projectiles.Summon.Active;
 using ShardsOfAtheria.Utilities;
@@ -12,7 +11,7 @@ namespace ShardsOfAtheria.Items.Weapons.Summon
 {
     public class Lilith : SinfulItem
     {
-        public override int RequiredSin => SinID.Lust;
+        public override int RequiredSin => CardinalSoulID.Lust;
 
         // Base damages: 30, 100, 170
         public override int[] DamageSpread => [0, 70, 70];
